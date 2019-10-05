@@ -76,22 +76,26 @@ class IGGroupInfoMemberListTableViewCell: UITableViewCell {
                     self.btnMore.isHidden = false
 
                 }
-            } else if myRole == .moderator {
-                if member.role == .owner {
-                    self.btnMore.isHidden = true
-                }
-                if member.role == .admin {
-                    self.btnMore.isHidden = true
-                }
-                if member.role == .moderator {
-                    self.btnMore.isHidden = true
-                }
-                if member.role == .member {
-                    self.btnMore.isHidden = false
+                } else if myRole == .moderator {
+                    if member.role == .owner {
+                        self.btnMore.isHidden = true
+                    }
+                    if member.role == .admin {
+                        self.btnMore.isHidden = true
+                    }
+                    if member.role == .moderator {
+                        self.btnMore.isHidden = true
+                    }
+                    if member.role == .member {
+                        self.btnMore.isHidden = false
 
+                    }
                 }
-            } else {
-                self.btnMore.isHidden = true
+                else if myRole == .member {
+                    self.btnMore.isHidden = true
+                }
+            else {
+                self.btnMore.isHidden = false
 
             }
         

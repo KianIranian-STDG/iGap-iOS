@@ -776,6 +776,12 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
             let destination = segue.destination as! IGGroupInfoMemberListTableViewController
             destination.room = room
         }
+        if segue.identifier == "showContactToAddMember" {
+            let destinationTv = segue.destination as! IGChooseMemberFromContactsToCreateGroupViewController
+            destinationTv.mode = "Members"
+            destinationTv.room = room
+        }
+        
         if segue.identifier == "showGroupAdminsAnadModeratorsSetting" {
             let destination = segue.destination as! IGGroupInfoAdminsAndModeratorsListTableViewController
             destination.room = room
@@ -1961,6 +1967,8 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                     case 0 :
                         //gotToAddMEmberPage
+                        self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
+
                         break
                     case 1 :
                         //gotToMemberListPage
@@ -2012,6 +2020,8 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                     case 0 :
                         //gotToAddMEmberPage
+                        self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
+
                         break
                     case 1 :
                         //gotToMemberListPage
@@ -2062,6 +2072,8 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                     case 0 :
                         //gotToAddMEmberPage
+                        self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
+
                         break
                     case 1 :
                         //gotToMemberListPage
@@ -2117,6 +2129,8 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                     case 0 :
                         //gotToAddMEmberPage
+                        self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
+
                         break
                     case 1 :
                         //gotToMemberListPage
@@ -2177,6 +2191,8 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                     case 0 :
                         //gotToAddMEmberPage
+                        self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
+
                         break
                     case 1 :
                         //gotToMemberListPage
@@ -2229,6 +2245,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                     case 0 :
                         //gotToAddMEmberPage
+                        self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
                         break
                     case 1 :
                         //gotToMemberListPage
@@ -2281,6 +2298,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                     case 0 :
                         //gotToAddMEmberPage
+                        self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
                         break
                     case 1 :
                         //gotToMemberListPage
@@ -2338,6 +2356,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                     case 0 :
                         //gotToAddMEmberPage
+                        self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
                         break
                     case 1 :
                         //gotToMemberListPage

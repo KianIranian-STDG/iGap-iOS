@@ -83,9 +83,6 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController,cellWith
         
         let member = members[indexPath.row]
         cell.setUser(member,myRole: myRole)
-        cell.btnMore.titleLabel!.font = UIFont.iGapFonticon(ofSize: 28)
-        cell.btnMore.setTitle("", for: .normal)
-
         cell.delegate = self
         
         return cell
@@ -138,45 +135,23 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController,cellWith
         showAlertMoreOptions(member)
     }
     
+    
     private func showAlertMoreOptions(_ member: IGGroupMember) {
-        print("tapped on more for user" , member.user?.displayName)
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        var titleOne = ""
-        var titleTwo = ""
-        var titleThree = ""
         
-        
-        
-        let optionOne = UIAlertAction(title: "SET_AS_ADMIN".localizedNew, style: .default, handler: { (action) in
-            //            self.changedChannelTypeToPublic()
-            if self.room?.type == .channel {
-            } else {
-            }
-        })
-        let optionTwo = UIAlertAction(title: "SET_AS_MODERATOR".localizedNew, style: .default, handler: { (action) in
-            //            self.changedChannelTypeToPublic()
-            if self.room?.type == .channel {
-            } else {
-            }
-        })
-        let optionThree = UIAlertAction(title: "KICK_MEMBER".localizedNew, style: .default, handler: { (action) in
-            //            self.changedChannelTypeToPublic()
-            if self.room?.type == .channel {
-            } else {
-            }
-        })
+ 
         if myRole == .owner {
             if member.role == .admin {
                 let optionOne = UIAlertAction(title: "REMOVE_ADMIN".localizedNew, style: .default, handler: { (action) in
-                    //            self.changedChannelTypeToPublic()
                     if self.room?.type == .channel {
                     } else {
+                        self.kickAdmin(userId: member.user!.id)
                     }
                 })
                 let optionTwo = UIAlertAction(title: "KICK_MEMBER".localizedNew, style: .default, handler: { (action) in
-                    //            self.changedChannelTypeToPublic()
                     if self.room?.type == .channel {
                     } else {
+                        self.kickMember(userId: member.user!.id)
                     }
                 })
                 
@@ -193,15 +168,15 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController,cellWith
             }
             if member.role == .moderator {
                 let optionOne = UIAlertAction(title: "REMOVE_MODERATOR".localizedNew, style: .default, handler: { (action) in
-                    //            self.changedChannelTypeToPublic()
                     if self.room?.type == .channel {
                     } else {
+                        self.kickModerator(userId: member.userID)
                     }
                 })
                 let optionTwo = UIAlertAction(title: "KICK_MEMBER".localizedNew, style: .default, handler: { (action) in
-                    //            self.changedChannelTypeToPublic()
                     if self.room?.type == .channel {
                     } else {
+                        self.kickMember(userId: member.user!.id)
                     }
                 })
                 
@@ -218,21 +193,22 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController,cellWith
             }
             if member.role == .member {
                 let optionOne = UIAlertAction(title: "SET_AS_ADMIN".localizedNew, style: .default, handler: { (action) in
-                    //            self.changedChannelTypeToPublic()
                     if self.room?.type == .channel {
                     } else {
+                        self.requestToAddAdminInGroup(member)
                     }
                 })
                 let optionTwo = UIAlertAction(title: "SET_AS_MODERATOR".localizedNew, style: .default, handler: { (action) in
-                    //            self.changedChannelTypeToPublic()
                     if self.room?.type == .channel {
                     } else {
+                        self.requestToAddModeratorInGroup(member)
                     }
                 })
                 let optionThree = UIAlertAction(title: "KICK_MEMBER".localizedNew, style: .default, handler: { (action) in
                     //            self.changedChannelTypeToPublic()
                     if self.room?.type == .channel {
                     } else {
+                        self.kickMember(userId: member.user!.id)
                     }
                 })
                 
@@ -252,15 +228,16 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController,cellWith
             
             if member.role == .moderator {
                 let optionOne = UIAlertAction(title: "REMOVE_MODERATOR".localizedNew, style: .default, handler: { (action) in
-                    //            self.changedChannelTypeToPublic()
                     if self.room?.type == .channel {
                     } else {
+                        self.kickModerator(userId: member.user!.id)
                     }
                 })
                 let optionTwo = UIAlertAction(title: "KICK_MEMBER".localizedNew, style: .default, handler: { (action) in
                     //            self.changedChannelTypeToPublic()
                     if self.room?.type == .channel {
                     } else {
+                        self.kickMember(userId: member.user!.id)
                     }
                 })
                 
@@ -280,18 +257,21 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController,cellWith
                     //            self.changedChannelTypeToPublic()
                     if self.room?.type == .channel {
                     } else {
+                        self.requestToAddAdminInGroup(member)
                     }
                 })
                 let optionTwo = UIAlertAction(title: "SET_AS_MODERATOR".localizedNew, style: .default, handler: { (action) in
                     //            self.changedChannelTypeToPublic()
                     if self.room?.type == .channel {
                     } else {
+                        self.requestToAddModeratorInGroup(member)
                     }
                 })
                 let optionThree = UIAlertAction(title: "KICK_MEMBER".localizedNew, style: .default, handler: { (action) in
                     //            self.changedChannelTypeToPublic()
                     if self.room?.type == .channel {
                     } else {
+                        self.kickMember(userId: member.user!.id)
                     }
                 })
                 
@@ -448,6 +428,84 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController,cellWith
                 }
             })
         }
+    }
+    
+    
+    func requestToAddAdminInGroup(_ member: IGGroupMember) {
+            if let groupRoom = room {
+                IGGlobal.prgShow(self.view)
+                IGGroupAddAdminRequest.Generator.generate(roomID: groupRoom.id, memberID: member.user!.id).success({ (protoResponse) in
+                    IGGlobal.prgHide()
+                    DispatchQueue.main.async {
+                        if let channelAddAdminResponse = protoResponse as? IGPGroupAddAdminResponse {
+                            IGGroupAddAdminRequest.Handler.interpret(response: channelAddAdminResponse, memberRole: .admin)
+                        }
+                    }
+                }).error ({ (errorCode, waitTime) in
+                    IGGlobal.prgHide()
+                    switch errorCode {
+                    case .timeout:
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                            alert.addAction(okAction)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    case .canNotAddThisUserAsAdminToGroup:
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: "Error", message: "There is an error to adding this contact in group", preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            alert.addAction(okAction)
+                            self.present(alert, animated: true, completion: nil)
+                            
+                        }
+                    default:
+                        break
+                    }
+                    
+                }).send()
+            }
+    }
+    
+    func requestToAddModeratorInGroup(_ member: IGGroupMember) {
+
+            if let channelRoom = room {
+                IGGlobal.prgShow(self.view)
+                IGGroupAddModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: member.user!.id).success({ (protoResponse) in
+                    IGGlobal.prgHide()
+                    DispatchQueue.main.async {
+                        if let groupAddModeratorResponse = protoResponse as? IGPGroupAddModeratorResponse {
+                            IGGroupAddModeratorRequest.Handler.interpret(response: groupAddModeratorResponse, memberRole: .moderator)
+                        }
+                    }
+                    
+                }).error ({ (errorCode, waitTime) in
+                    IGGlobal.prgHide()
+                    switch errorCode {
+                    case .timeout:
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                            alert.addAction(okAction)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    case .canNotAddThisUserAsModeratorToGroup:
+                        DispatchQueue.main.async {
+                            let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
+                            
+                            let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                            alertC.addAction(cancel)
+                            self.present(alertC, animated: true, completion: nil)
+                        }
+                        
+                    default:
+                        break
+                    }
+                    
+                }).send()
+                
+            }
+
     }
     
     func fetchGroupMemberFromServer() {

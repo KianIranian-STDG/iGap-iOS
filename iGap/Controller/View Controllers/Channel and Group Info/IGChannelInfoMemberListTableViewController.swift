@@ -106,7 +106,8 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
     }
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        if myRole == .admin || myRole == .owner {
+        
+        if myRole == .admin || myRole == .owner && mode == "Members" {
             navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ALLMEMBER".localizedNew)
         } else {
             navigationItem.addNavigationViewItems(rightItemText: nil, title: "ALLMEMBER".localizedNew)
