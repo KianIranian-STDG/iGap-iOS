@@ -122,7 +122,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     var blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
     var blurEffectView = UIVisualEffectView()
-    
+    var dissmissViewBG = UIView()
+
     public var deepLinkMessageId: Int64?
     
     var dismissBtn : UIButton!
@@ -2404,6 +2405,15 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
 
         disableStickerView(delay: 0.0, openKeyboard: true)
     }
+    @objc func didTapOnDissmissView() {
+        if forwardModal != nil {
+            
+            hideMultiShareModal()
+            self.view.endEditing(true)
+            
+        }
+        
+    }
     
     @objc func didTapOnStickerButton() {
         if self.isStickerKeyboard {
@@ -3010,7 +3020,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.MultiShareModalIsActive = false
         
         if forwardModal != nil {
-            self.blurEffectView.removeFromSuperview()
+            self.dissmissViewBG.removeFromSuperview()
+//            self.blurEffectView.removeFromSuperview()
             UIView.animate(withDuration: 0.3, animations: {
                 self.forwardModal.frame.origin.y = self.view.frame.height
             }) { (true) in
@@ -5115,17 +5126,18 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         self.selectedMessages.append(cellMessage)
         self.showMultiSelectUI(state: State,isForward:isForward,isDelete:isDelete)
     }
-    
     func showMultiShareModal() {
         self.MultiShareModalIsActive = true
         
         if forwardModal == nil {
-            blurEffectView = UIVisualEffectView(effect: blurEffect)
-            blurEffectView.frame = view.bounds
-            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.addSubview(blurEffectView)
+//            blurEffectView = UIVisualEffectView(effect: blurEffect)
+//            blurEffectView.frame = view.bounds
+//            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//            view.addSubview(blurEffectView)
+            
             
             forwardModal = IGMultiForwardModal.loadFromNib()
+            
             forwardModal.btnSend.addTarget(self, action: #selector(sendMultiForwardRequest), for: .touchUpInside)
             
             forwardModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: forwardModal.frame.height)
@@ -5135,7 +5147,19 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             
             forwardModal.addGestureRecognizer(swipeDown)
             self.view.addSubview(forwardModal!)
+            //dismissView
+            dissmissViewBG.frame = view.bounds
+            dissmissViewBG.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            self.view.addSubview(dissmissViewBG)
+            dissmissViewBG.backgroundColor = UIColor.darkGray.withAlphaComponent(0.8)
+            let tapToDismiss = UITapGestureRecognizer(target: self, action: #selector(didTapOnDissmissView))
+            dissmissViewBG.addGestureRecognizer(tapToDismiss)
+            dissmissViewBG.isUserInteractionEnabled = true
+
+            self.view.bringSubviewToFront(dissmissViewBG)
+
             self.view.bringSubviewToFront(forwardModal!)
+            
         }
         
         if #available(iOS 11.0, *) {

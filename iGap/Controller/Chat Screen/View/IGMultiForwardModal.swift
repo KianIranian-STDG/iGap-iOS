@@ -21,6 +21,7 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
     var filteredForwardItem: [IGForwardStruct] = []
     var selectedItems : [IGForwardStruct] = []
     let cellIdentifier = "cellIdentifier"
+    var isInsearchMode : Bool! = false
 
     @IBOutlet weak var lblInfo : UILabel!
     @IBOutlet weak var lblCount : UILabel!
@@ -35,11 +36,21 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
     }
     
     @IBAction func btnSearchTap(_ sender: Any) {
-        UIView.transition(with: self.searchBar, duration: 0.2, options: .transitionFlipFromTop, animations: {
-            self.searchBar.isHidden = false
-            self.stackHeightConstraint.constant = 96
-            self.layoutIfNeeded()
-        }, completion: nil)
+        if isInsearchMode {
+            UIView.transition(with: self.searchBar, duration: 0.2, options: .transitionFlipFromTop, animations: {
+                self.searchBar.isHidden = true
+                self.stackHeightConstraint.constant = 56
+                self.layoutIfNeeded()
+            }, completion: nil)
+
+        } else {
+            UIView.transition(with: self.searchBar, duration: 0.2, options: .transitionFlipFromTop, animations: {
+                self.searchBar.isHidden = false
+                self.stackHeightConstraint.constant = 112
+                self.layoutIfNeeded()
+            }, completion: nil)
+        }
+        isInsearchMode = !isInsearchMode
     }
     
     override func awakeFromNib() {
@@ -71,13 +82,13 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
         
         self.usersCollectionView.register(UINib(nibName:"multiForwardShareUsers", bundle: nil), forCellWithReuseIdentifier: cellIdentifier)
     }
-    
+
     private func manageView(){
         self.frame.size.height = deviceSizeModel.getShareModalSize()
         self.lblCount.font = UIFont.igFont(ofSize: 14,weight: .bold)
         self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
         self.btnSend.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
-        self.stackHeightConstraint.constant = 39
+        self.stackHeightConstraint.constant = 56
         
         let shareToText  = "SHARE_TO".localizedNew
         let attrs = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 18 , weight: .bold)]

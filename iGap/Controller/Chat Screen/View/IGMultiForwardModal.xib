@@ -23,15 +23,52 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="537"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="نوع عملیات را انتخاب نمایید" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ry5-8L-AFt">
-                    <rect key="frame" x="15" y="19" width="345" height="75"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="EZM-ck-phT">
+                    <rect key="frame" x="0.0" y="17" width="375" height="112"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GUt-At-Kr8">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="نوع عملیات را انتخاب نمایید" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ry5-8L-AFt">
+                                    <rect key="frame" x="114.5" y="18" width="146" height="20.5"/>
+                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
+                                    <color key="textColor" name="IGLabelColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Nf-77-YpK">
+                                    <rect key="frame" x="10" y="0.0" width="30" height="56"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="56" id="5eQ-KT-agV"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="24"/>
+                                    <state key="normal" title="">
+                                        <color key="titleColor" name="IGLabelColor"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnSearchTap:" destination="v7B-Af-fTF" eventType="touchUpInside" id="kDa-bO-4rQ"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstItem="Ry5-8L-AFt" firstAttribute="centerY" secondItem="GUt-At-Kr8" secondAttribute="centerY" id="F7p-qI-ZGi"/>
+                                <constraint firstItem="2Nf-77-YpK" firstAttribute="leading" secondItem="GUt-At-Kr8" secondAttribute="leading" constant="10" id="HWx-Ps-ocE"/>
+                                <constraint firstItem="2Nf-77-YpK" firstAttribute="top" secondItem="GUt-At-Kr8" secondAttribute="top" id="Jq4-d5-djU"/>
+                                <constraint firstItem="2Nf-77-YpK" firstAttribute="centerY" secondItem="GUt-At-Kr8" secondAttribute="centerY" id="P53-lf-uRi"/>
+                                <constraint firstItem="Ry5-8L-AFt" firstAttribute="centerX" secondItem="GUt-At-Kr8" secondAttribute="centerX" id="gjT-PY-yVr"/>
+                                <constraint firstAttribute="bottom" secondItem="2Nf-77-YpK" secondAttribute="bottom" id="mEw-QB-1xE"/>
+                            </constraints>
+                        </view>
+                        <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="anU-DC-icf">
+                            <rect key="frame" x="0.0" y="56" width="375" height="56"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                    </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="75" id="Ya4-D0-VVf"/>
+                        <constraint firstAttribute="height" constant="112" id="KYj-1g-poV"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
-                    <color key="textColor" name="IGLabelColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4i3-ps-j9j">
                     <rect key="frame" x="137.5" y="6" width="100" height="3"/>
                     <color key="backgroundColor" name="IGLabelGrayColor"/>
@@ -46,7 +83,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="hzQ-NN-yUc">
-                    <rect key="frame" x="10" y="102" width="355" height="326"/>
+                    <rect key="frame" x="10" y="137" width="355" height="339"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="G3T-jQ-1UW">
                         <size key="itemSize" width="50" height="80"/>
@@ -60,15 +97,10 @@
                     </connections>
                 </collectionView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="dwk-IO-ils">
-                    <rect key="frame" x="0.0" y="441" width="375" height="96"/>
+                    <rect key="frame" x="0.0" y="489" width="375" height="48"/>
                     <subviews>
-                        <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="SMU-sc-fTK">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </searchBar>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDO-Wd-BeP" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="64" width="375" height="32"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                             <state key="normal" title="ارسال">
                                 <color key="titleColor" red="0.25882352939999997" green="0.69411764710000001" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -81,11 +113,11 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="96" id="FlB-eP-lPZ"/>
+                        <constraint firstAttribute="height" constant="48" id="FlB-eP-lPZ"/>
                     </constraints>
                 </stackView>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NmD-81-LyP">
-                    <rect key="frame" x="214" y="511" width="20.5" height="20.5"/>
+                    <rect key="frame" x="214" y="503" width="20.5" height="20.5"/>
                     <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="20.5" id="184-7u-ot1"/>
@@ -96,26 +128,12 @@
                     <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZPf-Zg-Fda">
-                    <rect key="frame" x="0.0" y="438" width="375" height="1"/>
+                    <rect key="frame" x="0.0" y="486" width="375" height="1"/>
                     <color key="backgroundColor" red="0.94890445470809937" green="0.94900590181350708" blue="0.95298844575881958" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="IUP-Tn-5Rg"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Nf-77-YpK">
-                    <rect key="frame" x="10" y="29" width="32" height="44"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="44" id="aI9-3f-NiV"/>
-                        <constraint firstAttribute="width" constant="32" id="zgO-6L-kQE"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="24"/>
-                    <state key="normal" title="">
-                        <color key="titleColor" name="IGLabelColor"/>
-                    </state>
-                    <connections>
-                        <action selector="btnSearchTap:" destination="v7B-Af-fTF" eventType="touchUpInside" id="kDa-bO-4rQ"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" name="IGModalViewBackgroundColor"/>
             <constraints>
@@ -125,19 +143,17 @@
                 <constraint firstItem="4i3-ps-j9j" firstAttribute="centerX" secondItem="v7B-Af-fTF" secondAttribute="centerX" id="OGr-cZ-LjX"/>
                 <constraint firstItem="dwk-IO-ils" firstAttribute="top" secondItem="ZPf-Zg-Fda" secondAttribute="bottom" constant="2" id="Q2Y-ZC-d55"/>
                 <constraint firstItem="NmD-81-LyP" firstAttribute="centerY" secondItem="ZDO-Wd-BeP" secondAttribute="centerY" id="QG4-oW-Tg8"/>
-                <constraint firstItem="2Nf-77-YpK" firstAttribute="top" secondItem="4i3-ps-j9j" secondAttribute="bottom" constant="20" id="TC2-fB-MSH"/>
                 <constraint firstItem="ZPf-Zg-Fda" firstAttribute="top" secondItem="hzQ-NN-yUc" secondAttribute="bottom" constant="10" id="U0d-EX-wJT"/>
-                <constraint firstAttribute="trailing" secondItem="Ry5-8L-AFt" secondAttribute="trailing" constant="15" id="UDr-zS-1Jk"/>
-                <constraint firstItem="Ry5-8L-AFt" firstAttribute="top" secondItem="4i3-ps-j9j" secondAttribute="bottom" constant="10" id="Z87-jk-ebJ"/>
+                <constraint firstAttribute="trailing" secondItem="EZM-ck-phT" secondAttribute="trailing" id="WcG-sO-9cO"/>
+                <constraint firstItem="hzQ-NN-yUc" firstAttribute="top" secondItem="EZM-ck-phT" secondAttribute="bottom" constant="8" id="b8a-FW-eKt"/>
+                <constraint firstItem="EZM-ck-phT" firstAttribute="top" secondItem="4i3-ps-j9j" secondAttribute="bottom" constant="8" id="eHe-hZ-aJq"/>
                 <constraint firstItem="NmD-81-LyP" firstAttribute="centerX" secondItem="ZDO-Wd-BeP" secondAttribute="centerX" constant="36.75" id="k7L-Tu-Mgc"/>
                 <constraint firstItem="dwk-IO-ils" firstAttribute="top" secondItem="ZPf-Zg-Fda" secondAttribute="bottom" constant="2" id="luE-Is-r8Y"/>
                 <constraint firstAttribute="bottom" secondItem="dwk-IO-ils" secondAttribute="bottom" id="q1z-OR-md7"/>
                 <constraint firstItem="rhb-MW-1Co" firstAttribute="trailing" secondItem="hzQ-NN-yUc" secondAttribute="trailing" constant="10" id="rIS-wj-sfZ"/>
                 <constraint firstAttribute="trailing" secondItem="ZPf-Zg-Fda" secondAttribute="trailing" id="rUm-cf-nr1"/>
                 <constraint firstItem="4i3-ps-j9j" firstAttribute="top" secondItem="v7B-Af-fTF" secondAttribute="top" constant="6" id="sUh-E2-4UZ"/>
-                <constraint firstItem="Ry5-8L-AFt" firstAttribute="leading" secondItem="v7B-Af-fTF" secondAttribute="leading" constant="15" id="tbY-VQ-2zm"/>
-                <constraint firstItem="hzQ-NN-yUc" firstAttribute="top" secondItem="Ry5-8L-AFt" secondAttribute="bottom" constant="8" id="v21-KK-bea"/>
-                <constraint firstItem="2Nf-77-YpK" firstAttribute="leading" secondItem="rhb-MW-1Co" secondAttribute="leading" constant="10" id="xWA-d3-OpE"/>
+                <constraint firstItem="EZM-ck-phT" firstAttribute="leading" secondItem="rhb-MW-1Co" secondAttribute="leading" id="z9y-1E-POe"/>
                 <constraint firstItem="rhb-MW-1Co" firstAttribute="trailing" secondItem="dwk-IO-ils" secondAttribute="trailing" id="zfP-rg-C4e"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -147,8 +163,8 @@
                 <outlet property="btnSend" destination="ZDO-Wd-BeP" id="Jod-Wl-1wW"/>
                 <outlet property="lblCount" destination="NmD-81-LyP" id="jZi-Ga-Zks"/>
                 <outlet property="lblInfo" destination="Ry5-8L-AFt" id="eqo-rz-7pz"/>
-                <outlet property="searchBar" destination="SMU-sc-fTK" id="9A6-jd-WNv"/>
-                <outlet property="stackHeightConstraint" destination="FlB-eP-lPZ" id="ydv-FN-2eA"/>
+                <outlet property="searchBar" destination="anU-DC-icf" id="vXM-5z-gYe"/>
+                <outlet property="stackHeightConstraint" destination="KYj-1g-poV" id="JkO-xT-PXn"/>
                 <outlet property="usersCollectionView" destination="hzQ-NN-yUc" id="wvN-YZ-tWC"/>
             </connections>
             <point key="canvasLocation" x="23.913043478260871" y="23.102678571428569"/>
