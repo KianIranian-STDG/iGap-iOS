@@ -34,7 +34,7 @@ class IGNavigationItem: UINavigationItem {
     var isUpdatingUserStatusForAction : Bool = false
     var isProccesing: Bool = true
     var hud = MBProgressHUD()
-    
+    var btnEdit = UIButton()
     private var tapOnRightView:  (()->())?
     private var tapOncenterView: (()->())?
     private var tapOnLeftView:   (()->())?
@@ -507,12 +507,32 @@ class IGNavigationItem: UINavigationItem {
     }
     
     
-    //MARK: - ProfilePage
-    func setProfilePageNavigationItem() -> UIButton {
+    //MARK: - Profile Page
+    func setProfilePageNavigationItem() {
+        deactivateTappbleArea()
         activeTappleArea()
         addiGapLogo()
-        let editButton = addProfileEditButton()
-        return editButton
+        addSettingButton()
+        addEditButton()
+    }
+    
+    private func addEditButton() {
+        
+        if rightViewContainer?.subviews.count != nil {
+            if rightViewContainer!.subviews.count > 0 {
+                rightViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+            }
+        }
+        let composeButtonFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        
+        btnEdit = UIButton(frame: composeButtonFrame)
+        btnEdit.setTitle("", for: .normal)
+        btnEdit.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+        btnEdit.isUserInteractionEnabled = false
+        rightViewContainer!.addSubview(btnEdit)
+    }
+    
+    func changeEditButtonState(hasChanged: Bool! = false) {
     }
     
     
@@ -531,6 +551,7 @@ class IGNavigationItem: UINavigationItem {
     
     //MARK: - Phone Book
     func setPhoneBookNavigationItems() {
+        deactivateTappbleArea()
         activeTappleArea()
         addiGapLogo()
         addSettingButton()
@@ -569,7 +590,7 @@ class IGNavigationItem: UINavigationItem {
 //        leftViewContainer!.addSubview(btnEdit)
     }
     
-    private func addProfileEditButton() -> UIButton {
+    private func addProfileEditButton() {
         if rightViewContainer?.subviews.count != nil {
             if rightViewContainer!.subviews.count > 0 {
                 rightViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
@@ -577,12 +598,11 @@ class IGNavigationItem: UINavigationItem {
         }
         let composeButtonFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
         
-        let btnAdd = UIButton(frame: composeButtonFrame)
-        btnAdd.setTitle("", for: .normal)
-        btnAdd.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
-        btnAdd.isUserInteractionEnabled = true
-        rightViewContainer!.addSubview(btnAdd)
-        return btnAdd
+        btnEdit = UIButton(frame: composeButtonFrame)
+        btnEdit.setTitle("", for: .normal)
+        btnEdit.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+        btnEdit.isUserInteractionEnabled = true
+        rightViewContainer!.addSubview(btnEdit)
     }
     
     private func addComopseButton() {
@@ -604,6 +624,7 @@ class IGNavigationItem: UINavigationItem {
     
     //MARK: - Call List
     func setCallListNavigationItems() {
+        deactivateTappbleArea()
         activeTappleArea()
         addiGapLogo()
         addComopseButton()
@@ -702,6 +723,7 @@ class IGNavigationItem: UINavigationItem {
     
     //MARK: - Chat List
     func setChatListsNavigationItems() {
+        deactivateTappbleArea()
         activeTappleArea()
         addSettingButton()
         addComopseButton()

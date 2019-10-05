@@ -138,7 +138,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     
     override func viewWillAppear(_ animated: Bool)  {
         super.viewWillAppear(animated)
-        
+        initNavBar()
 //        self.navigationController?.navigationBar.isHidden = true
 //        if let navigationBar = self.navigationController?.navigationBar as? IGNavigationBar {
 //            navigationBar.setTransparentNavigationBar()
@@ -147,7 +147,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
 //            navigationBar.backgroundColor = .clear
 //        }
         
-        self.initNavBar()
+//        self.initNavBar()
         
         IGRequestWalletGetAccessToken.sendRequest()
         //Hint:- Check if request was not successfull call services again
@@ -225,11 +225,17 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     
     private func initNavBar() {
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
-        self.editProfileNavBtn = navigationItem.setProfilePageNavigationItem()
-        
+//        self.editProfileNavBtn = navigationItem.setProfilePageNavigationItem()
+        navigationItem.setProfilePageNavigationItem()
         navigationItem.rightViewContainer?.addAction {
+            print("IN PROFILE PAGE")
             self.editProfileTapped()
+
         }
+
+//        navigationItem.rightViewContainer?.addAction {
+//            self.editProfileTapped()
+//        }
     }
     
     private func initServices() {
@@ -834,6 +840,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     private func editProfileTapped() {
         print(tapCount)
         tapCount += 1
+        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
 
         //end editMode
         if tapCount % 2 == 0 {
@@ -844,11 +851,14 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
             } else {
                 shouldSave = false
             }
-            UIView.transition(with: editProfileNavBtn, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                self.editProfileNavBtn.setTitle("", for: .normal)
+
+            
+
+            UIView.transition(with: navigationItem.btnEdit, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                navigationItem.btnEdit.setTitle("", for: .normal)
             })
             
-            editProfileNavBtn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+            navigationItem.btnEdit.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
             
             self.tableView.beginUpdates()
             self.btnCamera.isHidden = true
@@ -861,9 +871,9 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
             textManagment()
             isEditMode = true
             shouldSave = false
-            editProfileNavBtn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
-            UIView.transition(with: editProfileNavBtn, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                self.editProfileNavBtn.setTitle("", for: .normal)
+            navigationItem.btnEdit.titleLabel!.font = UIFont.iGapFonticon(ofSize: 20)
+            UIView.transition(with: navigationItem.btnEdit, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                navigationItem.btnEdit.setTitle("", for: .normal)
             })
             self.tableView.beginUpdates()
             self.btnCamera.isHidden = false
@@ -872,14 +882,16 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     }
     
     private func updateBtnEditStateView(hasChnagedValue: Bool! = false) {
+        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+
         if hasChnagedValue {
-            UIView.transition(with: editProfileNavBtn, duration: 0.5, options: .transitionCrossDissolve, animations: {
-            self.editProfileNavBtn.setTitle("", for: .normal)
+            UIView.transition(with: navigationItem.btnEdit, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            navigationItem.btnEdit.setTitle("", for: .normal)
             })
             shouldSave = true
         } else {
             UIView.transition(with: editProfileNavBtn, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                self.editProfileNavBtn.setTitle("", for: .normal)
+                navigationItem.btnEdit.setTitle("", for: .normal)
             })
             shouldSave = false
 

@@ -181,7 +181,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             let numberOfPages = navigationControllerr.viewControllers.count
             //Hint: - check if we are at the root of navigation or we are in Inner pages
             if numberOfPages == 1 {
-                navigationItem.addiGapLogo()
+                navigationItem.setProfilePageNavigationItem()
             }
 
         } else if currentTabIndex == TabBarTab.Recent.rawValue { // Recent Tab
