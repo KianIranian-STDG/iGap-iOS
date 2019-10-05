@@ -116,6 +116,7 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
                         let alertTitle = "New Device Login"
                         let alertMessage = "App Name: \(newDeviceResponse.appName)\nBuild Version: \(newDeviceResponse.buildVersion)\nApp Version: \(newDeviceResponse.appVersion)\nPlatform: \(newDeviceResponse.platform)\nPlatform Version: \(newDeviceResponse.platformVersion)\nDevice: \(newDeviceResponse.device)\nDevice Name: \(newDeviceResponse.devicename)"
                         self.showAlert(title: alertTitle, message: alertMessage, action: {
+                            self.navigationController?.popViewController(animated: true)
                             self.dismiss(animated: true, completion: nil)
                         }, completion: nil)
                     default:
