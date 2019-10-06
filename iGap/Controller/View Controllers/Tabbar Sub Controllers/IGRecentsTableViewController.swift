@@ -298,7 +298,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
             })
             let newChat = UIAlertAction(title: "NEW_C_C".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
-                let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
+                let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 self.navigationController!.pushViewController(createChat, animated: true)
             })
             let newGroup = UIAlertAction(title: "NEW_GROUP".RecentTableViewlocalizedNew, style: .default, handler: { (action) in

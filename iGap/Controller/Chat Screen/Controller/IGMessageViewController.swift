@@ -438,11 +438,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     override func viewDidLoad() {
         super.viewDidLoad()
 //        inputTextView.backgroundColor = .red
-//        let attributes = [
-//            NSAttributedString.Key.font : UIFont.igFont(ofSize: 13) // Note the !
-//        ]
-//
-//        inputTextView.attributedPlaceholder = NSAttributedString(string: "MESSAGE".MessageViewlocalizedNew, attributes:attributes)
+        let attributes = [
+            NSAttributedString.Key.foregroundColor : UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue) ?? #colorLiteral(red: 0.6784313725, green: 0.6784313725, blue: 0.6784313725, alpha: 1) ,
+            NSAttributedString.Key.font : UIFont.igFont(ofSize: 13) // Note the !
+        ]
+
+        inputTextView.attributedPlaceholder = NSAttributedString(string: "MESSAGE".MessageViewlocalizedNew, attributes:attributes)
 
 //        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
         inputBarMoneyTransferButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 19)
@@ -664,7 +665,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         inputTextView.delegate = self
         inputTextView.placeholder = "MESSAGE".MessageViewlocalizedNew
         
-        inputTextView.placeholderColor = UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue) ?? #colorLiteral(red: 0.6784313725, green: 0.6784313725, blue: 0.6784313725, alpha: 1)
+//        inputTextView.placeholderColor = UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue) ?? #colorLiteral(red: 0.6784313725, green: 0.6784313725, blue: 0.6784313725, alpha: 1)
 //        inputTextView.minHeight = 25.0 // almost 8 lines
         
         inputTextView.maxHeight = 166.0 // almost 8 lines
