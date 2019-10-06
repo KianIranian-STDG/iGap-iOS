@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QWV-7y-MRV">
-    <device id="retina6_5" orientation="portrait" appearance="dark"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
@@ -2959,6 +2959,55 @@
                                     <outlet property="userAvatarView" destination="q6O-qR-znU" id="3b5-3T-3xS"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="phoneBookCellTypeTwo" rowHeight="80" id="r2D-8b-Tb7" customClass="phoneBookCellTypeTwo" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="108" width="414" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="r2D-8b-Tb7" id="eG6-LG-vU8">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="P5b-aJ-zsS">
+                                            <rect key="frame" x="90" y="30" width="294" height="20.333333333333329"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJc-al-OFH" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="294" height="20.333333333333332"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="mJc-al-OFH" firstAttribute="leading" secondItem="P5b-aJ-zsS" secondAttribute="leading" id="Seh-hR-ins"/>
+                                                <constraint firstItem="mJc-al-OFH" firstAttribute="top" secondItem="P5b-aJ-zsS" secondAttribute="top" id="hJz-61-4fg"/>
+                                                <constraint firstAttribute="trailing" secondItem="mJc-al-OFH" secondAttribute="trailing" id="sVK-lZ-2Bs"/>
+                                            </constraints>
+                                        </stackView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E52-G7-ecc">
+                                            <rect key="frame" x="30" y="15" width="50" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="3w2-am-Jhj"/>
+                                                <constraint firstAttribute="height" constant="50" id="HHP-H9-tB5"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" name="IGRecentTVCellColor"/>
+                                    <constraints>
+                                        <constraint firstItem="E52-G7-ecc" firstAttribute="leading" secondItem="eG6-LG-vU8" secondAttribute="leadingMargin" constant="10" id="3et-ny-vXh"/>
+                                        <constraint firstItem="P5b-aJ-zsS" firstAttribute="leading" secondItem="E52-G7-ecc" secondAttribute="trailing" constant="10" id="K5W-6R-stM"/>
+                                        <constraint firstItem="P5b-aJ-zsS" firstAttribute="centerY" secondItem="eG6-LG-vU8" secondAttribute="centerY" id="X7a-uI-LV0"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="P5b-aJ-zsS" secondAttribute="trailing" constant="10" id="ppN-9t-faO"/>
+                                        <constraint firstItem="E52-G7-ecc" firstAttribute="centerY" secondItem="eG6-LG-vU8" secondAttribute="centerY" id="ugV-fu-mD4"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" name="IGRecentTVCellColor"/>
+                                <connections>
+                                    <outlet property="lblIcon" destination="E52-G7-ecc" id="LxH-50-U0u"/>
+                                    <outlet property="lblText" destination="mJc-al-OFH" id="Tb1-tu-7aF"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="853-O6-bd1" id="IUi-vG-OxD"/>
@@ -3167,7 +3216,7 @@
         <scene sceneID="byE-yu-lCk">
             <objects>
                 <tableViewController storyboardIdentifier="IGCreateNewChatTableViewController" id="Eii-V9-G3m" customClass="IGCreateNewChatTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="pYT-CR-ujX">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="pYT-CR-ujX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="759"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="IGBackGroundColor"/>
@@ -3219,18 +3268,28 @@
                                             <rect key="frame" x="75" y="19.666666666666668" width="219" height="40.666666666666657"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJ7-Cq-MzK" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="41.666666666666664" height="20.333333333333332"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="219" height="20.333333333333332"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTM-c7-0WX" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="20.333333333333336" width="41.666666666666664" height="20.333333333333336"/>
+                                                    <rect key="frame" x="0.0" y="20.333333333333336" width="219" height="20.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="bTM-c7-0WX" firstAttribute="top" secondItem="EJ7-Cq-MzK" secondAttribute="bottom" id="2he-O2-YMj"/>
+                                                <constraint firstAttribute="bottom" secondItem="bTM-c7-0WX" secondAttribute="bottom" id="56j-U9-Ow4"/>
+                                                <constraint firstItem="bTM-c7-0WX" firstAttribute="leading" secondItem="4Oy-J7-syH" secondAttribute="leading" id="9zv-4a-U8Q"/>
+                                                <constraint firstItem="EJ7-Cq-MzK" firstAttribute="top" secondItem="4Oy-J7-syH" secondAttribute="top" id="RlO-Fo-t6G"/>
+                                                <constraint firstItem="bTM-c7-0WX" firstAttribute="top" secondItem="EJ7-Cq-MzK" secondAttribute="bottom" id="Ucr-Gx-9hS"/>
+                                                <constraint firstItem="EJ7-Cq-MzK" firstAttribute="leading" secondItem="4Oy-J7-syH" secondAttribute="leading" id="UhQ-k5-MSr"/>
+                                                <constraint firstAttribute="trailing" secondItem="bTM-c7-0WX" secondAttribute="trailing" id="fqf-vc-213"/>
+                                                <constraint firstAttribute="trailing" secondItem="EJ7-Cq-MzK" secondAttribute="trailing" id="ow4-ZD-HS8"/>
+                                            </constraints>
                                         </stackView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Ev-JY-NNc" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
                                             <rect key="frame" x="15" y="15" width="50" height="50"/>

@@ -26,6 +26,28 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             self.name = registredUser.displayName
         }
     }
+        var searchController : UISearchController = {
+            
+            let searchController = UISearchController(searchResultsController: nil)
+            searchController.searchBar.placeholder = ""
+            searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
+            
+            let gradient = CAGradientLayer()
+            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
+
+            gradient.frame = defaultNavigationBarFrame
+            gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+            gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
+            gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
+    //        gradient.locations = orangeGradientLocation as [NSNumber]
+
+            
+            searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+            searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+            
+            return searchController
+
+        }()
     
     class Section  {
         var users = [User]()
@@ -53,9 +75,66 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
         self.tableView.tableHeaderView = makeHeaderView()
     }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        initialiseSearchBar()
 
+    }
+    
+    private func initialiseSearchBar() {
+        
+        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            textField.backgroundColor = .clear
+
+            let imageV = textField.leftView as! UIImageView
+            imageV.image = nil
+            if let backgroundview = textField.subviews.first {
+                backgroundview.backgroundColor = UIColor(named: themeColor.searchBarBackGroundColor.rawValue)
+                for view in backgroundview.subviews {
+                    if view is UIView {
+                        view.backgroundColor = .clear
+                    }
+                }
+                backgroundview.layer.cornerRadius = 10;
+                backgroundview.clipsToBounds = true;
+                
+            }
+
+            if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
+                searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+                searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
+                searchBarCancelButton.tintColor = UIColor.white
+            }
+
+            if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
+                placeHolderInsideSearchField.textColor = UIColor.white
+                placeHolderInsideSearchField.textAlignment = .center
+                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localizedNew
+                if let backgroundview = textField.subviews.first {
+                    placeHolderInsideSearchField.center = backgroundview.center
+                }
+                placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15,weight: .bold)
+                
+            }
+            
+        }
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tableView.scrollsToTop = false
+        self.tableView.bounces = false
+                
+        if #available(iOS 11.0, *) {
+            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
+
+            if navigationItem.searchController == nil {
+                tableView.tableHeaderView = searchController.searchBar
+            }
+        } else {
+            tableView.tableHeaderView = searchController.searchBar
+        }
+
+
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         navigationItem.setPhoneBookNavigationItems()
         navigationItem.rightViewContainer?.addAction {
@@ -139,14 +218,22 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return self.contacts.count
+            return self.contacts.count + 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let contactsCell = tableView.dequeueReusableCell(withIdentifier: "ContactsCell", for: indexPath) as! IGContactTableViewCell
-            contactsCell.setUser(contacts[indexPath.row])
-        
-        return contactsCell
+        if indexPath.row == 0 {
+            let phoneBookCellTypeTwo = tableView.dequeueReusableCell(withIdentifier: "phoneBookCellTypeTwo", for: indexPath) as! phoneBookCellTypeTwo
+            phoneBookCellTypeTwo.lblText.text = "SETTING_PAGE_INVITE_FRIENDS".localizedNew
+            return phoneBookCellTypeTwo
+
+        } else {
+            let contactsCell = tableView.dequeueReusableCell(withIdentifier: "ContactsCell", for: indexPath) as! IGContactTableViewCell
+                contactsCell.setUser(contacts[indexPath.row])
+            
+            return contactsCell
+
+        }
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -161,27 +248,34 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if resultSearchController.isActive == false {
-            IGGlobal.prgShow(self.view)
-            let user = self.contacts[indexPath.row]
-            IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
-                if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
+        if indexPath.row  == 0 {
+            self.inviteAContact()
+
+        } else {
+
+            if resultSearchController.isActive == false {
+                
+                IGGlobal.prgShow(self.view)
+                let user = self.contacts[indexPath.row]
+                IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
+                    if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
+                        DispatchQueue.main.async {
+                            IGGlobal.prgHide()
+                            let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                            self.navigationController?.popToRootViewController(animated: true)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
+                        }
+                    }
+                }).error({ (errorCode, waitTime) in
                     DispatchQueue.main.async {
                         IGGlobal.prgHide()
-                        let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                        self.navigationController?.popToRootViewController(animated: true)
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
+                        let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
+                        let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alertC.addAction(cancel)
+                        self.present(alertC, animated: true, completion: nil)
                     }
-                }
-            }).error({ (errorCode, waitTime) in
-                DispatchQueue.main.async {
-                    IGGlobal.prgHide()
-                    let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
-                    let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                    alertC.addAction(cancel)
-                    self.present(alertC, animated: true, completion: nil)
-                }
-            }).send()
+                }).send()
+            }
         }
     }
 }

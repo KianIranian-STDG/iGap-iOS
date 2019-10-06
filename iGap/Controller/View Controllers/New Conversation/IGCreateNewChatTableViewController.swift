@@ -18,7 +18,29 @@ import SnapKit
 
 class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResultsUpdating, IGCallFromContactListObserver {
     @IBOutlet weak var viewHeader: UIView!
-    fileprivate let searchController = UISearchController(searchResultsController: nil)
+    
+        var searchController : UISearchController = {
+            
+            let searchController = UISearchController(searchResultsController: nil)
+            searchController.searchBar.placeholder = ""
+            searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
+            
+            let gradient = CAGradientLayer()
+            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
+
+            gradient.frame = defaultNavigationBarFrame
+            gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+            gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
+            gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
+    //        gradient.locations = orangeGradientLocation as [NSNumber]
+
+            
+            searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+            searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+            
+            return searchController
+
+        }()
 
 //    @IBOutlet weak var searchBar: UISearchBar!
     
@@ -149,6 +171,21 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         self.navigationController!.pushViewController(createChannel, animated: true)
 
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.scrollsToTop = false
+        self.tableView.bounces = false
+
+        if #available(iOS 11.0, *) {
+            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
+
+            if navigationItem.searchController == nil {
+                tableView.tableHeaderView = searchController.searchBar
+            }
+        } else {
+            tableView.tableHeaderView = searchController.searchBar
+        }
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -168,37 +205,7 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         
         if navigationItem.searchController == nil {
             
-            if #available(iOS 11.0, *) {
-                self.searchController.searchBar.searchBarStyle = UISearchBar.Style.default
-                
-                if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
-                    if textField.responds(to: #selector(getter: UITextField.attributedPlaceholder)) {
-                        let centeredParagraphStyle = NSMutableParagraphStyle()
-                        centeredParagraphStyle.alignment = .center
-                        
-                        let attributeDict = [NSAttributedString.Key.foregroundColor: UIColor.white , NSAttributedString.Key.paragraphStyle: centeredParagraphStyle]
-                        textField.attributedPlaceholder = NSAttributedString(string: "SEARCH_PLACEHOLDER".localizedNew, attributes: attributeDict)
-                        textField.textAlignment = .center
-                    }
-                    
-                    let imageV = textField.leftView as! UIImageView
-                    imageV.image = imageV.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-                    imageV.tintColor = UIColor.white
-                    
-                    if let backgroundview = textField.subviews.first {
-                        backgroundview.backgroundColor = UIColor.white.withAlphaComponent(0.75)
-                        backgroundview.layer.cornerRadius = 10;
-                        backgroundview.clipsToBounds = true;
-                        
-                    }
-                }
-                if navigationItem.searchController == nil {
-                    navigationItem.searchController = searchController
-                    navigationItem.hidesSearchBarWhenScrolling = true
-                }
-            } else {
-                tableView.tableHeaderView = searchController.searchBar
-            }
+   
             
         }
         
@@ -219,6 +226,11 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
 //        }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        initialiseSearchBar()
+
+    }
     func image(fromLayer layer: CALayer) -> UIImage {
         UIGraphicsBeginImageContext(layer.frame.size)
         
@@ -352,5 +364,43 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
             }).send()
         }
     }
+    
+    private func initialiseSearchBar() {
+        
+        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            textField.backgroundColor = .clear
 
+            let imageV = textField.leftView as! UIImageView
+            imageV.image = nil
+            if let backgroundview = textField.subviews.first {
+                backgroundview.backgroundColor = UIColor(named: themeColor.searchBarBackGroundColor.rawValue)
+                for view in backgroundview.subviews {
+                    if view is UIView {
+                        view.backgroundColor = .clear
+                    }
+                }
+                backgroundview.layer.cornerRadius = 10;
+                backgroundview.clipsToBounds = true;
+                
+            }
+
+            if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
+                searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+                searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
+                searchBarCancelButton.tintColor = UIColor.white
+            }
+
+            if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
+                placeHolderInsideSearchField.textColor = UIColor.white
+                placeHolderInsideSearchField.textAlignment = .center
+                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localizedNew
+                if let backgroundview = textField.subviews.first {
+                    placeHolderInsideSearchField.center = backgroundview.center
+                }
+                placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15,weight: .bold)
+                
+            }
+            
+        }
+    }
 }
