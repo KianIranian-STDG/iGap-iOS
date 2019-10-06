@@ -5076,7 +5076,13 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         _ = UIAlertAction(title: "BTN_DELETE".MessageViewlocalizedNew, style: .destructive, handler: { (action) in
             self.deleteMessage(cellMessage)
         })
-        let deleteForMe = UIAlertAction(title: "DELETE_FOR_ME".MessageViewlocalizedNew, style: .destructive, handler: { (action) in
+        var deleteTitle = ""
+        if self.room!.type == .group || self.room!.type == .channel {
+           deleteTitle =  "BTN_DELETE".MessageViewlocalizedNew
+        } else {
+            deleteTitle =  "DELETE_FOR_ME".MessageViewlocalizedNew
+        }
+        let deleteForMe = UIAlertAction(title: deleteTitle, style: .destructive, handler: { (action) in
             self.isBoth = false
             self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : false,isDelete : true,isShare : false)
             
