@@ -573,7 +573,7 @@ class IGRoomListtCell: UITableViewCell {
     
     private func makeAvatar() {
         avatarImage.snp.makeConstraints { (make) in
-            make.leading.equalTo(self.contentView.snp.leading).offset(12)
+            make.leading.equalTo(self.contentView.snp.leading).offset(10)
             make.width.equalTo(54)
             make.height.equalTo(54)
             make.centerY.equalTo(self.contentView.snp.centerY)
@@ -588,7 +588,7 @@ class IGRoomListtCell: UITableViewCell {
     private func makeBGImage() {
         bgImage.snp.makeConstraints { (make) in
             make.leading.equalTo(avatarImage.snp.centerX).offset(0)
-            make.trailing.equalTo(self.contentView.snp.trailing).offset(-5)
+            make.trailing.equalTo(self.contentView.snp.trailing).offset(-10)
             make.top.equalTo(self.contentView.snp.top).offset(5)
             make.bottom.equalTo(self.contentView.snp.bottom).offset(-5)
         }
@@ -607,7 +607,7 @@ class IGRoomListtCell: UITableViewCell {
     }
     private func makeInitialLabel() {
         initialLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(self.contentView.snp.leading).offset(12)
+            make.leading.equalTo(self.contentView.snp.leading).offset(10)
             make.width.equalTo(54)
             make.height.equalTo(54)
             make.centerY.equalTo(self.contentView.snp.centerY)
@@ -633,7 +633,7 @@ class IGRoomListtCell: UITableViewCell {
     }
     private func makelastMessageStateImage() {
         lastMessageStateImage.snp.makeConstraints { (make) in
-            make.trailing.equalTo(self.contentView.snp.trailing).offset(-5)
+            make.trailing.equalTo(self.contentView.snp.trailing).offset(-12)
             make.width.equalTo(15)
             make.height.equalTo(15)
             make.bottom.equalTo(self.avatarImage.snp.bottom)
@@ -643,7 +643,7 @@ class IGRoomListtCell: UITableViewCell {
     
     private func makeTimeLabel() {
         timeLabel.snp.makeConstraints { (make) in
-            make.trailing.equalTo(self.contentView.snp.trailing).offset(-5)
+            make.trailing.equalTo(self.contentView.snp.trailing).offset(-15)
             make.width.equalTo(50)
             make.top.equalTo(self.avatarImage.snp.top).offset(10)
         }
@@ -679,7 +679,7 @@ class IGRoomListtCell: UITableViewCell {
         
         
         unreadCountLabel.snp.makeConstraints { (make) in
-            make.trailing.equalTo(self.contentView.snp.trailing).offset(-10)
+            make.trailing.equalTo(self.contentView.snp.trailing).offset(-15)
             make.bottom.equalTo(self.avatarImage.snp.bottom)
             make.width.equalTo(20)
             make.height.equalTo(15)
