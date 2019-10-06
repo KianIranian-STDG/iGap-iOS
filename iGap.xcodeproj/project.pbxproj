@@ -295,6 +295,13 @@
 		94E74DCE2323D137001AB47C /* FinancialHistoryLocalizationsFa.json in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DCD2323D137001AB47C /* FinancialHistoryLocalizationsFa.json */; };
 		D60FF283234091310012ECF2 /* IGPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60FF282234091310012ECF2 /* IGPlayer.swift */; };
 		D619A845232DF8AA007AD9F8 /* IGGroupProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D619A844232DF8AA007AD9F8 /* IGGroupProfile.swift */; };
+		D629462D2349DA0600FB5A08 /* IGHelperMediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D629462C2349DA0600FB5A08 /* IGHelperMediaPicker.swift */; };
+		D629462F2349E1B700FB5A08 /* YPImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D629462E2349E1B700FB5A08 /* YPImagePicker.framework */; };
+		D62946302349E1B800FB5A08 /* YPImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D629462E2349E1B700FB5A08 /* YPImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D62946322349E43400FB5A08 /* PryntTrimmerView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62946312349E43400FB5A08 /* PryntTrimmerView.framework */; };
+		D62946332349E43400FB5A08 /* PryntTrimmerView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D62946312349E43400FB5A08 /* PryntTrimmerView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D62946352349E4BD00FB5A08 /* Stevia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62946342349E4BD00FB5A08 /* Stevia.framework */; };
+		D62946362349E4BD00FB5A08 /* Stevia.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D62946342349E4BD00FB5A08 /* Stevia.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D66129D02330FF9700BFAE7E /* IGStructMessageIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */; };
 		DF3EDEF64399AA713B2D0C2F /* IGRequestSignaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */; };
 		FA03C19C2042945D008812E3 /* IGCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03C19B2042945D008812E3 /* IGCall.swift */; };
@@ -767,7 +774,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				D62946302349E1B800FB5A08 /* YPImagePicker.framework in Embed Frameworks */,
 				8E871888233CEE19004A5E56 /* RxRelay.framework in Embed Frameworks */,
+				D62946362349E4BD00FB5A08 /* Stevia.framework in Embed Frameworks */,
+				D62946332349E43400FB5A08 /* PryntTrimmerView.framework in Embed Frameworks */,
 				FAA6C5DB2222BA800035D777 /* PecPayment.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -1091,6 +1101,10 @@
 		94E74DCD2323D137001AB47C /* FinancialHistoryLocalizationsFa.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FinancialHistoryLocalizationsFa.json; sourceTree = "<group>"; };
 		D60FF282234091310012ECF2 /* IGPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPlayer.swift; sourceTree = "<group>"; };
 		D619A844232DF8AA007AD9F8 /* IGGroupProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGroupProfile.swift; sourceTree = "<group>"; };
+		D629462C2349DA0600FB5A08 /* IGHelperMediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperMediaPicker.swift; sourceTree = "<group>"; };
+		D629462E2349E1B700FB5A08 /* YPImagePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YPImagePicker.framework; path = Carthage/Build/iOS/YPImagePicker.framework; sourceTree = "<group>"; };
+		D62946312349E43400FB5A08 /* PryntTrimmerView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PryntTrimmerView.framework; path = Carthage/Build/iOS/PryntTrimmerView.framework; sourceTree = "<group>"; };
+		D62946342349E4BD00FB5A08 /* Stevia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Stevia.framework; path = Carthage/Build/iOS/Stevia.framework; sourceTree = "<group>"; };
 		D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructMessageIdentity.swift; sourceTree = "<group>"; };
 		DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRequestSignaling.swift; sourceTree = "<group>"; };
 		FA03C19B2042945D008812E3 /* IGCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCall.swift; sourceTree = "<group>"; };
@@ -1601,8 +1615,10 @@
 				8E94B7392237E4A1005F6868 /* UICKeyChainStore.framework in Frameworks */,
 				8E94B73A2237E4A1005F6868 /* Presentr.framework in Frameworks */,
 				8E94B73B2237E4A1005F6868 /* TTTAttributedLabel.framework in Frameworks */,
+				D62946352349E4BD00FB5A08 /* Stevia.framework in Frameworks */,
 				8E94B73D2237E4A1005F6868 /* FMDB.framework in Frameworks */,
 				8E94B73F2237E4A1005F6868 /* SocketRocket.framework in Frameworks */,
+				D62946322349E43400FB5A08 /* PryntTrimmerView.framework in Frameworks */,
 				8E94B7402237E4A1005F6868 /* models.framework in Frameworks */,
 				8E94B7412237E4A1005F6868 /* OLCOrm.framework in Frameworks */,
 				8E94B7432237E4A1005F6868 /* Motis.framework in Frameworks */,
@@ -1629,6 +1645,7 @@
 				931DC8C91E388418008F04A9 /* CoreLocation.framework in Frameworks */,
 				FAF985A21E2E10EC00B26940 /* CryptoSwift.framework in Frameworks */,
 				FAF985A41E2E10EC00B26940 /* GrowingTextView.framework in Frameworks */,
+				D629462F2349E1B700FB5A08 /* YPImagePicker.framework in Frameworks */,
 				FA3B1C871E302CD500F194C4 /* IGProtoBuff.framework in Frameworks */,
 				FAF985A61E2E10EC00B26940 /* MBProgressHUD.framework in Frameworks */,
 				FAF985A71E2E10EC00B26940 /* MGSwipeTableCell.framework in Frameworks */,
@@ -2359,6 +2376,7 @@
 				FA6F310E22B8A90500DB942E /* IGHelperTracker.swift */,
 				FA5B41A422EDD67D001203D0 /* IGHelperMessageStatus.swift */,
 				FA87B94B22BFB46100200650 /* IGHelperMessageResponse.swift */,
+				D629462C2349DA0600FB5A08 /* IGHelperMediaPicker.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -3171,6 +3189,9 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D62946342349E4BD00FB5A08 /* Stevia.framework */,
+				D62946312349E43400FB5A08 /* PryntTrimmerView.framework */,
+				D629462E2349E1B700FB5A08 /* YPImagePicker.framework */,
 				8E871886233CEE18004A5E56 /* RxRelay.framework */,
 				FA6F312422B8C3D200DB942E /* libsqlite3.tbd */,
 				FA6F312222B8C37600DB942E /* libz.tbd */,
@@ -3564,6 +3585,9 @@
 				"$(SRCROOT)/Carthage/Build/iOS/maincore.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxRelay.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/YPImagePicker.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PryntTrimmerView.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Stevia.framework",
 			);
 			name = "[RS] Copy Carthage Frameworks";
 			outputPaths = (
@@ -3866,6 +3890,7 @@
 				932D1AB31E740046000F0D97 /* IGGroupInfoShareMediaLinkTableViewCell.swift in Sources */,
 				FA8560AA1FFBA6FC00A25DC3 /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail.swift in Sources */,
 				8EE7FCA6225E0E4A00B6C2C3 /* cashoutModalStepOneViewController.swift in Sources */,
+				D629462D2349DA0600FB5A08 /* IGHelperMediaPicker.swift in Sources */,
 				FAAFD434208375AA003470B3 /* IGGeoRequest.swift in Sources */,
 				FA3D947C1E6AA9580087D368 /* IGRoomManager.swift in Sources */,
 				FA0953841E1B97E20043ED3F /* IGChooseMemberFromContactsToCreateGroupViewController.swift in Sources */,

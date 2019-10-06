@@ -30,4 +30,6 @@ github "evgenyneu/keychain-swift" "16.0.1"
 github "hkellaway/Gloss" "3.0.0"
 github "kaishin/Gifu" "v3.2.1"
 github "ivanbruel/MarkdownKit" "bdd03bb07179b23a741fb83f9b1bbe325604a690"
-
+github "HHK1/PryntTrimmerView" "4.0.0"
+github "Yummypets/YPImagePicker" "4.1.2"
+github "freshOS/Stevia" "4.6.0"

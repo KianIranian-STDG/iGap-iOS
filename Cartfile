@@ -31,6 +31,7 @@ github "evgenyneu/keychain-swift" ~> 15.0
 github "kaishin/Gifu"
 github "KianIranian-STDG/swift-protobuf" "1.6.0_iGap"
 github "KianIranian-STDG/IGProtoBuffLibrary" "proto125"
+github "Yummypets/YPImagePicker"
 
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAnalyticsBinary.json"
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseMessagingBinary.json"

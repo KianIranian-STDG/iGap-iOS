@@ -31,7 +31,7 @@ import KeychainSwift
 import webservice
 import SwiftyRSA
 import AVFoundation
-
+import YPImagePicker
 
 
 public var indexOfVideos = [Int]()
@@ -3155,11 +3155,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         })
         
         let camera = UIAlertAction(title: "CAMERA_DEVICE".MessageViewlocalizedNew, style: .default, handler: { (action) in
-            self.attachmentPicker(sourceType: .camera)
+            self.attachmentPicker(screens: [.photo, .video])
         })
         
         let galley = UIAlertAction(title: "PHOTO_GALLERY".MessageViewlocalizedNew, style: .default, handler: { (action) in
-            self.attachmentPicker()
+            self.attachmentPicker(screens: [.library])
         })
         
         let document = UIAlertAction(title: "FILE".MessageViewlocalizedNew, style: .default, handler: { (action) in
@@ -3201,7 +3201,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let photoOrVideo = UIAlertAction(title: "PHOTO_OR_VIDEO".MessageViewlocalizedNew, style: .default, handler: { (action) in
             self.sendAsFile = true
-            self.attachmentPicker()
+            self.attachmentPicker(sendAsFile: true)
         })
         let document = UIAlertAction(title: "DOCUMENT".MessageViewlocalizedNew, style: .default, handler: { (action) in
             self.sendAsFile = true
@@ -3216,17 +3216,40 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.present(alertC, animated: true, completion: nil)
     }
     
-    func attachmentPicker(sourceType: UIImagePickerController.SourceType = .photoLibrary){
-        let mediaPicker = UIImagePickerController()
-        mediaPicker.delegate = self
-        mediaPicker.sourceType = sourceType
-        if self.sendAsFile {
-            if #available(iOS 11.0, *) {
-                mediaPicker.videoExportPreset = AVAssetExportPresetPassthrough
+    func attachmentPicker(screens: [YPPickerScreen] = [.library, .photo, .video], sendAsFile: Bool = false){
+        
+        IGHelperMediaPicker.shared.setScreens(screens).setSendAsFile(sendAsFile).pick { mediaItems in
+            if let videoInfo = mediaItems.singleVideo {
+                if sendAsFile {
+                    if let data = try? Data(contentsOf: videoInfo.url) {
+                        self.manageFile(fileData: data, filename: "FILE_VIDEO_" + IGGlobal.randomString(length: 3))
+                    }
+                } else {
+                    self.manageVideo(videoInfo: videoInfo)
+                }
+            } else if let imageInfo = mediaItems.singlePhoto {
+                if sendAsFile {
+                    var image = imageInfo.modifiedImage
+                    if image == nil {
+                        image = imageInfo.originalImage
+                    }
+                    if let data = image!.pngData() {
+                        self.manageFile(fileData: data, filename: "FILE_IMAGE_" + IGGlobal.randomString(length: 3))
+                    }
+                } else {
+                    self.manageImage(imageInfo: imageInfo)
+                }
+            } else {
+                for media in mediaItems {
+                    switch media {
+                    case .photo(let photo):
+                        print(photo)
+                    case .video(let video):
+                        print(video)
+                    }
+                }
             }
         }
-        mediaPicker.mediaTypes = ["public.image", "public.movie"]
-        self.present(mediaPicker, animated: true, completion: nil)
     }
     
     func documentPicker(){
@@ -3237,122 +3260,56 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     /***** overrided method for pick media *****/
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        // Local variable inserted by Swift 4.2 migrator.
-        let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
-        
-        self.dismiss(animated: true, completion: nil);
-        
-        var mediaType : String! = ""
-        if let type = info["UIImagePickerControllerMediaType"] {
-            mediaType = String(describing: type)
-        }
-        switch mediaType! {
-        case "public.image": // image
-            manageImage(imageInfo: info)
-            break
-            
-        case "public.movie" : // video
-            manageVideo(mediaInfo: info)
-            break
-            
-        default: // manage file?
-            break
-        }
-    }
-    
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
         let myURL = url as URL
         if let data = try? Data(contentsOf: myURL) {
             let filename = myURL.lastPathComponent
             manageFile(fileData: data, filename: filename)
         }
-
-        
     }
     
-    func manageVideo(mediaInfo: [String : Any]){
-        guard let mediaUrl = mediaInfo["UIImagePickerControllerMediaURL"] as? URL else {
-            return
-        }
-        
-        if self.sendAsFile {
-            self.sendAsFile = false
-            let myURL = mediaUrl as URL
-            if let data = try? Data(contentsOf: myURL) {
-                let filename = myURL.lastPathComponent
-                manageFile(fileData: data, filename: filename)
-            }
-            return
-        }
-        
+    func manageVideo(videoInfo: YPMediaVideo){
+        let mediaUrl = videoInfo.url
         let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let filename = mediaUrl.lastPathComponent
         let fileSize = Int(IGGlobal.getFileSize(path: mediaUrl))
         let randomString = IGGlobal.randomString(length: 16) + "_"
-        
+
         /*** get thumbnail from video ***/
-        let asset = AVURLAsset(url: mediaUrl)
-        let imgGenerator = AVAssetImageGenerator(asset: asset)
-        let cgImage = try!imgGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
-        let uiImage = UIImage(cgImage: cgImage)
-        
         let attachment = IGFile(name: filename)
         attachment.size = fileSize
-        attachment.duration = asset.duration.seconds
+        attachment.duration = videoInfo.asset!.duration
         attachment.fileNameOnDisk = randomString + filename
         attachment.name = filename
-        attachment.attachedImage = uiImage
+        attachment.attachedImage = videoInfo.thumbnail
         attachment.type = .video
-        attachment.height = Double(cgImage.height)
-        attachment.width = Double(cgImage.width)
-        
+        attachment.height = Double(videoInfo.asset!.pixelHeight)
+        attachment.width = Double(videoInfo.asset!.pixelWidth)
+
         let pathOnDisk = documents + "/" + randomString + filename
         try! FileManager.default.copyItem(atPath: mediaUrl.path, toPath: pathOnDisk)
-        
-        self.inputBarAttachmentViewThumnailImageView.image = uiImage
+
+        self.inputBarAttachmentViewThumnailImageView.image = videoInfo.thumbnail
         self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
         self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
         self.didSelectAttachment(attachment)
     }
     
-    func manageImage(imageInfo: [String : Any]){
-        let imageUrl = imageInfo["UIImagePickerControllerImageURL"] as? URL
-        let originalImage = imageInfo["UIImagePickerControllerOriginalImage"] as! UIImage
+    func manageImage(imageInfo: YPMediaPhoto){
         
-        var filename : String!
-        
-        if imageUrl != nil {
-            filename = imageUrl?.lastPathComponent
-            
-            if self.sendAsFile {
-                self.sendAsFile = false
-                if let data = try? Data(contentsOf: imageUrl!) {
-                    let filename = imageUrl!.lastPathComponent
-                    manageFile(fileData: data, filename: filename)
-                }
-                return
-            }
-            
-        } else {
-            filename = "IMAGE_" + IGGlobal.randomString(length: 16)
-            let imageData = (originalImage).jpegData(compressionQuality: 1)!
-            
-            if self.sendAsFile {
-                self.sendAsFile = false
-                filename = imageUrl?.lastPathComponent ?? filename
-                manageFile(fileData: imageData, filename: filename)
-                return
-            }
+        var image = imageInfo.modifiedImage
+        if image == nil {
+            image = imageInfo.originalImage
         }
-        let randomString = IGGlobal.randomString(length: 16) + "_"
         
-        var scaledImage = originalImage
+        let filename = "IMAGE_" + IGGlobal.randomString(length: 16)
+        let randomString = "IMAGE_" + IGGlobal.randomString(length: 16)
+        var scaledImage = imageInfo.image
         let imgData = scaledImage.jpegData(compressionQuality: 0.7)
         let fileNameOnDisk = randomString + filename
         
-        if (originalImage.size.width) > CGFloat(2000.0) || (originalImage.size.height) >= CGFloat(2000) {
-            scaledImage = IGUploadManager.compress(image: originalImage)
+        if (image!.size.width) > CGFloat(2000.0) || (image!.size.height) >= CGFloat(2000) {
+            scaledImage = IGUploadManager.compress(image: image!)
         }
         
         let attachment = IGFile(name: filename)
@@ -3375,6 +3332,31 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.didSelectAttachment(attachment)
     }
     
+    func manageFile(fileData: Data, filename: String) {
+        
+        let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let pathOnDisk = documents + "/" + filename
+        let fileUrl : URL = NSURL(fileURLWithPath: pathOnDisk) as URL
+        let fileSize = Int(fileData.count)
+        
+        // write data to my fileUrl
+        try! fileData.write(to: fileUrl)
+        
+        let attachment = IGFile(name: filename)
+        attachment.size = fileSize
+        attachment.fileNameOnDisk = filename
+        attachment.name = filename
+        attachment.type = .file
+        
+        self.inputBarAttachmentViewThumnailImageView.image = UIImage(named: "IG_Message_Cell_File_Generic")
+        self.inputBarAttachmentViewThumnailImageView.frame = CGRect(x: 0, y: 0, width: 30, height: 34)
+        self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
+        self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
+        
+        self.didSelectAttachment(attachment)
+    }
+    
+    /*
     func manageFile(fileData: Data, filename: String) {
         
         let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
@@ -3404,6 +3386,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         self.didSelectAttachment(attachment)
     }
+    */
     
     private func openLocation(){
         let status = CLLocationManager.authorizationStatus()
