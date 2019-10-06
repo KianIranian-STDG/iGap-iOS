@@ -71,8 +71,15 @@ class IGMessageAttachmentLocation: UIViewController , UIGestureRecognizerDelegat
                 self.navigationController?.popViewController(animated: true)
             }
         }
+        initFonts()
     }
-    
+    private func initFonts() {
+        btnCurrentLocation.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
+        
+        btnCurrentLocation.setTitle("", for: .normal)
+        txtSendLocationIcon.font = UIFont.iGapFonticon(ofSize: 25)
+        txtSendLocationIcon.text = ""
+    }
     private func initNavigation(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         var title = "Received Location"

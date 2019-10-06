@@ -30,6 +30,33 @@ class IGChooseContactToAddNewGroupTableViewCell: UITableViewCell {
     func updateUI() {
         
         contactNameLabel.text = user.registredUser.displayName
+      
+        switch user!.registredUser.lastSeenStatus {
+        case .longTimeAgo:
+            self.lastSeenStatusLabel.text =  "A_LONG_TIME_AGO".localizedNew
+            break
+        case .lastMonth:
+            self.lastSeenStatusLabel.text = "LAST_MONTH".localizedNew
+            break
+        case .lastWeek:
+            self.lastSeenStatusLabel.text = "LAST_WEAK".localizedNew
+            break
+        case .online:
+            self.lastSeenStatusLabel.text  = "ONLINE".localizedNew
+            break
+        case .exactly:
+            self.lastSeenStatusLabel.text = "\(user!.registredUser.lastSeen!.humanReadableForLastSeen())".inLocalizedLanguage()
+            break
+        case .recently:
+            self.lastSeenStatusLabel.text = "A_FEW_SEC_AGO".localizedNew
+            break
+        case .support:
+            self.lastSeenStatusLabel.text = "IGAP_SUPPORT".localizedNew
+            break
+        case .serviceNotification:
+            self.lastSeenStatusLabel.text = "SERVICE_NOTIFI".localizedNew
+            break
+        }
         userAvatarView.setUser(user.registredUser)
     }
     
