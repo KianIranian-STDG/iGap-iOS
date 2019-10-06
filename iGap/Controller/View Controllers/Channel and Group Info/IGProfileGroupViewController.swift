@@ -580,23 +580,12 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 IGHelperPopular.shareText(message: IGHelperPopular.shareLinkPrefixGroup + "\n" + groupLink!, viewController: self)
             })
             
-            let changeAction = UIAlertAction(title: "CHNAGE".localizedNew, style: .default, handler: { (alert: UIAlertAction) -> Void in
-                if self.room?.groupRoom?.type == .publicRoom {
-                    self.performSegue(withIdentifier: "showGroupTypeSetting", sender: self)
-                }
-                else if self.room?.groupRoom?.type == .privateRoom {
-                    self.requestToRevolLink()
-                }
-            })
             
             let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
             
             alert.view.tintColor = UIColor.organizationalColor()
             alert.addAction(copyAction)
             alert.addAction(shareAction)
-            if myRole == .owner {
-                alert.addAction(changeAction)
-            }
             alert.addAction(cancelAction)
             self.present(alert, animated: true, completion: nil)
         }
@@ -1950,6 +1939,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 0:
                     break
                 case 1:
+                    showGroupLinkAlert()
                     break
                 case 2:
                     switch indexPath.row {
@@ -2003,6 +1993,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 0:
                     break
                 case 1:
+                    showGroupLinkAlert()
                     break
                 case 2:
                     switch indexPath.row {
@@ -2174,6 +2165,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 0:
                     break
                 case 1:
+                    showGroupLinkAlert()
                     break
                 case 2:
                     switch indexPath.row {
@@ -2228,6 +2220,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 0:
                     break
                 case 1:
+                    showGroupLinkAlert()
                     break
                 case 2:
                     switch indexPath.row {
@@ -2281,6 +2274,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 0:
                     break
                 case 1:
+                    showGroupLinkAlert()
                     break
                 case 2:
                     switch indexPath.row {
@@ -2339,6 +2333,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 0:
                     break
                 case 1:
+                    showGroupLinkAlert()
                     break
                 case 2:
                     switch indexPath.row {

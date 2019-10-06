@@ -536,24 +536,13 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
             let shareAction = UIAlertAction(title: "SHARE".localizedNew, style: .default, handler: { (alert: UIAlertAction) -> Void in
                 IGHelperPopular.shareText(message: IGHelperPopular.shareLinkPrefixChannel + "\n" + self.channelLink!, viewController: self)
             })
-            
-            let changeAction = UIAlertAction(title: "CHNAGE".localizedNew, style: .default, handler: { (alert: UIAlertAction) -> Void in
-                if self.room?.channelRoom?.type == .publicRoom {
-                    self.performSegue(withIdentifier: "showChannelInfoSetType", sender: self)
-                }
-                else if self.room?.channelRoom?.type == .privateRoom {
-                    self.requestToRevolLink()
-                }
-            })
+
             
             let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
             
             alert.view.tintColor = UIColor.organizationalColor()
             alert.addAction(copyAction)
             alert.addAction(shareAction)
-            if  myRole == .owner {
-                alert.addAction(changeAction)
-            }
             alert.addAction(cancelAction)
             self.present(alert, animated: true, completion: nil)
         }
@@ -2166,6 +2155,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 0:
                     break
                 case 1:
+                    showChannelLinkAlert()
                     break
                 case 2:
                     switch indexPath.row {
@@ -2225,6 +2215,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 0:
                     break
                 case 1:
+                    showChannelLinkAlert()
                     break
                 case 2:
                     switch indexPath.row {
@@ -2292,6 +2283,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 1:
                     switch indexPath.row {
                     case 0 :
+                        showChannelLinkAlert()
                         break
                     case 1 :
                         //gotToNotificationSettings
@@ -2329,6 +2321,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 1:
                     switch indexPath.row {
                     case 0 :
+                        showChannelLinkAlert()
                         break
                     case 1 :
                         //gotToNotificationSettings
@@ -2387,6 +2380,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 0:
                     break
                 case 1:
+                    showChannelLinkAlert()
                     break
                 case 2:
                         break
@@ -2419,6 +2413,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 0:
                     break
                 case 1:
+                    showChannelLinkAlert()
                     break
                 case 2:
                         break
@@ -2462,6 +2457,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 0:
                     break
                 case 1:
+                    showChannelLinkAlert()
                     break
                 case 2:
                         break

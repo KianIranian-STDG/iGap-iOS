@@ -1575,6 +1575,21 @@ extension UILabel {
         }
         
     }
+    
+    var localizedNewDirectionDescriptions: NSTextAlignment {
+        if lastLang == "en" {
+            guard let txt = self.text else {return NSTextAlignment.left}
+            if (txt.isRTLDesc()) {
+                return NSTextAlignment.right
+            } else {
+                return NSTextAlignment.left
+            }
+        }
+        else{
+            return NSTextAlignment.right
+        }
+        
+    }
 }
 
 extension EFAutoScrollLabel {
@@ -1806,7 +1821,18 @@ extension String {
     func isRTL() -> Bool {
         if self.count > 0 {
             if String(self.prefix(20)).containsEmoji,let first = String(self.prefix(20)).removeEmoji().trimmingCharacters(in: .whitespacesAndNewlines).first {
-                if IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: String(String(first).prefix(3))) {
+                if IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: String(String(first).prefix(10))) {
+                    return true
+                }
+            }
+        }
+        
+        return false
+    }
+    func isRTLDesc() -> Bool {
+        if self.count > 0 {
+            if String(self).containsEmoji,let first = String(self).removeEmoji().trimmingCharacters(in: .whitespacesAndNewlines).first {
+                if IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: String(String(first))) {
                     return true
                 }
             }

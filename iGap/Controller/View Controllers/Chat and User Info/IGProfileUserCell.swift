@@ -36,8 +36,8 @@ class IGProfileUserCell: UITableViewCell {
 
     }
     private func defaultInitLabels() {
-        lblActionName.textAlignment = lblActionName.localizedNewDirection
-        lblActionDetail.textAlignment = lblActionDetail.localizedNewDirection
+        lblActionName.textAlignment = lblActionName.localizedNewDirectionDescriptions
+        lblActionDetail.textAlignment = lblActionDetail.localizedNewDirectionDescriptions
         lblActionDetail.font = UIFont.igFont(ofSize: 15)
         lblActionName.font = UIFont.igFont(ofSize: 15)
 
@@ -52,7 +52,7 @@ class IGProfileUserCell: UITableViewCell {
         } else {
             
         }
-        lblActionName.textAlignment = lblActionName.localizedNewDirection
+        lblActionName.textAlignment = lblActionName.localizedNewDirectionDescriptions
         lblActionDetail.font = UIFont.igFont(ofSize: 15)
         lblActionName.font = UIFont.igFont(ofSize: 15)
 

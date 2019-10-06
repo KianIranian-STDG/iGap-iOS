@@ -21,6 +21,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     @IBOutlet weak var lblGroupsTitle: UILabel!
     @IBOutlet weak var lblChannelsTitle: UILabel!
     @IBOutlet weak var lblCallTitle: UILabel!
+    @IBOutlet weak var lblVideoCallTitle: UILabel!
     @IBOutlet weak var lblActiveSessionsTitle: UILabel!
     @IBOutlet weak var lblTwoStepTitle: UILabel!
     @IBOutlet weak var lblHint: UILabel!
@@ -32,6 +33,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     @IBOutlet weak var whoCanSeeLastSeenLabel: UILabel!
     @IBOutlet weak var whoCanAddingToGroupLabel: UILabel!
     @IBOutlet weak var whoCanCallMe: UILabel!
+    @IBOutlet weak var whoCanVideoCallMe: UILabel!
     @IBOutlet weak var lblIfAway : UILabel!
     @IBOutlet weak var lblDeleteAllCloud : UILabel!
     @IBOutlet weak var lblDeleteSyncedContacts : UILabel!
@@ -64,7 +66,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         
         showAccountDetail()
         
-//        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
+        //        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PS_TTL_PRIVACY".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
@@ -189,7 +191,8 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         lblLastSeenTitle.text = "SETTING_PS_LAST_SEEN".localizedNew
         lblGroupsTitle.text = "SETTING_PS_GROUPS".localizedNew
         lblChannelsTitle.text = "SETTING_PS_CHANNELS".localizedNew
-        lblCallTitle.text = "SETTING_PS_CALL".localizedNew
+        lblCallTitle.text = "VOICE_CALL".localizedNew
+        lblVideoCallTitle.text = "VIDEO_CALL".localizedNew
         lblGroupsTitle.text = "SETTING_PS_GROUPS".localizedNew
         lblGroupsTitle.text = "SETTING_PS_GROUPS".localizedNew
         lblGroupsTitle.text = "SETTING_PS_GROUPS".localizedNew
@@ -216,10 +219,12 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         setChannelInvitePrivacy()
         setGroupInvitePrivacy()
         setCallPrivacy()
+        setVideoCallPrivacy()
     }
     
     private func requestToGetUserPrivacy() {
         requestToGetCallPrivacy()
+        requestToGetVideoCallPrivacy()
         requestToGetGroupPrivacy()
         requestToGetStatusPrivacy()
         requestToGetAvatarPrivacy()
@@ -332,6 +337,26 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         }
     }
     
+    private func setVideoCallPrivacy(needUpdate: Bool = false){
+        if needUpdate {
+            getUserPrivacy()
+        }
+        if let callPrivacy = userPrivacy?.videoCalling {
+            self.callPrivacy = callPrivacy
+            switch callPrivacy {
+            case .allowAll:
+                whoCanVideoCallMe.text = "EVERYBODY".localizedNew
+                break
+            case .allowContacts:
+                whoCanVideoCallMe.text = "MY_CONTACTS".localizedNew
+                break
+            case .denyAll:
+                whoCanVideoCallMe.text = "NOBODY".localizedNew
+                break
+            }
+        }
+    }
+    
     private func requestToGetCallPrivacy() {
         IGUserPrivacyGetRuleRequest.Generator.generate(privacyType: .voiceCalling).success({ (protoResponse) in
             DispatchQueue.main.async {
@@ -349,6 +374,30 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
             switch errorCode {
             case .timeout:
                 self.requestToGetCallPrivacy()
+                break
+            default:
+                break
+            }
+        }).send()
+    }
+    
+    private func requestToGetVideoCallPrivacy() {
+        IGUserPrivacyGetRuleRequest.Generator.generate(privacyType: .videoCalling).success({ (protoResponse) in
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let userPrivacyGetRuleResponse as IGPUserPrivacyGetRuleResponse:
+                    let _ = IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse , privacyType: .videoCalling)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                        self.setVideoCallPrivacy(needUpdate: true)
+                    }
+                default:
+                    break
+                }
+            }
+        }).error({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                self.requestToGetVideoCallPrivacy()
                 break
             default:
                 break
@@ -486,7 +535,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 6
+            return 7
         case 1:
             return 2
         case 2:
@@ -529,6 +578,11 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
                 }
             } else if indexPath.row == 5 {
                 if userPrivacy?.voiceCalling == nil {
+                    alertWaiting()
+                    return
+                }
+            } else if indexPath.row == 6 {
+                if userPrivacy?.videoCalling == nil {
                     alertWaiting()
                     return
                 }
@@ -623,8 +677,8 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
             containerHeaderView.textLabel?.font = UIFont.igFont(ofSize: 15)
         case 3 :
             break
-//            containerHeaderView.textLabel!.text = "HEADER_SELF_ADVANCE".localizedNew
-//            containerHeaderView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            //            containerHeaderView.textLabel!.text = "HEADER_SELF_ADVANCE".localizedNew
+        //            containerHeaderView.textLabel?.font = UIFont.igFont(ofSize: 15)
         default :
             break
             
@@ -728,6 +782,12 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
                     whoCanSeeYourPrivacyAndSetting.headerText = "TTL_WHO_CAN_CALL".localizedNew
                     whoCanSeeYourPrivacyAndSetting.mode = "SETTING_PS_CALL".localizedNew
                     whoCanSeeYourPrivacyAndSetting.privacyType = .voiceCalling
+                    whoCanSeeYourPrivacyAndSetting.privacyLevel = callPrivacy
+                    break
+                case 6:
+                    whoCanSeeYourPrivacyAndSetting.headerText = "TTL_WHO_CAN_CALL".localizedNew
+                    whoCanSeeYourPrivacyAndSetting.mode = "SETTING_PS_CALL".localizedNew
+                    whoCanSeeYourPrivacyAndSetting.privacyType = .videoCalling
                     whoCanSeeYourPrivacyAndSetting.privacyLevel = callPrivacy
                     break
                     

@@ -2791,12 +2791,42 @@ Please wait 0:59</string>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="cFg-M9-A7l">
+                                        <rect key="frame" x="0.0" y="282" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cFg-M9-A7l" id="8HP-Lu-3Bn">
+                                            <rect key="frame" x="0.0" y="0.0" width="382.66666666666669" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Video Call" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EXm-om-Rlo" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="27" y="13" width="77" height="15.333333333333336"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vBJ-W0-73P" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="370.33333333333331" y="9.9999999999999982" width="12.333333333333314" height="21.333333333333329"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="EXm-om-Rlo" secondAttribute="bottom" constant="4.6699999999999999" id="0Lr-J6-AnB"/>
+                                                <constraint firstAttribute="trailing" secondItem="vBJ-W0-73P" secondAttribute="trailing" id="5VZ-R5-d99"/>
+                                                <constraint firstItem="vBJ-W0-73P" firstAttribute="top" secondItem="8HP-Lu-3Bn" secondAttribute="top" constant="10" id="Z6J-ip-cYE"/>
+                                                <constraint firstItem="EXm-om-Rlo" firstAttribute="leading" secondItem="8HP-Lu-3Bn" secondAttribute="leadingMargin" constant="7" id="dGM-ga-gux"/>
+                                                <constraint firstAttribute="bottom" secondItem="vBJ-W0-73P" secondAttribute="bottom" constant="12.67" id="gKz-XA-jJz"/>
+                                                <constraint firstItem="EXm-om-Rlo" firstAttribute="top" secondItem="8HP-Lu-3Bn" secondAttribute="topMargin" constant="2" id="k8H-Ri-Dvc"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="Te3-RG-Zae">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="Wvw-0t-Unz">
-                                        <rect key="frame" x="0.0" y="318" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="362" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wvw-0t-Unz" id="tGt-NE-LKI">
                                             <rect key="frame" x="0.0" y="0.0" width="382.66666666666669" height="44"/>
@@ -2817,7 +2847,7 @@ Please wait 0:59</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="jlf-y7-RuA">
-                                        <rect key="frame" x="0.0" y="362" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="406" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jlf-y7-RuA" id="vuj-Lw-50u">
                                             <rect key="frame" x="0.0" y="0.0" width="382.66666666666669" height="44"/>
@@ -2838,7 +2868,7 @@ Please wait 0:59</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="aLa-LB-Sji">
-                                        <rect key="frame" x="0.0" y="406" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="450" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aLa-LB-Sji" id="u2t-Ba-GCo">
                                             <rect key="frame" x="0.0" y="0.0" width="382.66666666666669" height="44"/>
@@ -2863,7 +2893,7 @@ Please wait 0:59</string>
                             <tableViewSection id="PET-wk-J7A">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="l0L-aN-Sma">
-                                        <rect key="frame" x="0.0" y="486" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="530" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l0L-aN-Sma" id="ejB-dM-pTY">
                                             <rect key="frame" x="0.0" y="0.0" width="382.66666666666669" height="44"/>
@@ -2896,7 +2926,7 @@ Please wait 0:59</string>
                             <tableViewSection headerTitle="" id="gwF-2k-c1g">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="rtk-on-mHu">
-                                        <rect key="frame" x="0.0" y="570.33333396911621" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="614.33333396911621" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rtk-on-mHu" id="C3k-Y5-zWS">
                                             <rect key="frame" x="0.0" y="0.0" width="382.66666666666669" height="44"/>
@@ -2917,7 +2947,7 @@ Please wait 0:59</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="CtV-fN-Ahc">
-                                        <rect key="frame" x="0.0" y="614.33333396911621" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="658.33333396911621" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CtV-fN-Ahc" id="LRr-Rw-ENj">
                                             <rect key="frame" x="0.0" y="0.0" width="382.66666666666669" height="44"/>
@@ -2938,10 +2968,10 @@ Please wait 0:59</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="tAk-Cp-lLr">
-                                        <rect key="frame" x="0.0" y="658.33333396911621" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="702.33333396911621" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tAk-Cp-lLr" id="JL9-hQ-HtX">
-                                            <rect key="frame" x="0.0" y="0.0" width="382.66666666666669" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="394.66666666666669" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear Payment And Shipping Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="urC-DE-PXX" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
@@ -2959,7 +2989,7 @@ Please wait 0:59</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="7Rl-lm-efu">
-                                        <rect key="frame" x="0.0" y="702.33333396911621" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="746.33333396911621" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Rl-lm-efu" id="kMj-Zd-wbK">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -2986,7 +3016,7 @@ Please wait 0:59</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="fo4-dt-fSB">
-                                        <rect key="frame" x="0.0" y="746.33333396911621" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="790.33333396911621" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fo4-dt-fSB" id="byE-wc-ifl">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -3037,6 +3067,7 @@ Please wait 0:59</string>
                         <outlet property="lblSecretChatLink" destination="7Rc-FV-WYP" id="QeY-Eb-iVI"/>
                         <outlet property="lblSyncContacts" destination="bLm-HI-4eq" id="HSw-cb-Pro"/>
                         <outlet property="lblTwoStepTitle" destination="bQF-Zu-ZHr" id="B7L-v7-ZEP"/>
+                        <outlet property="lblVideoCallTitle" destination="EXm-om-Rlo" id="5CE-ih-SxV"/>
                         <outlet property="numberOfBlockedContacts" destination="1Ap-21-hyb" id="dAR-aJ-bah"/>
                         <outlet property="selfDestructionLabel" destination="RHT-9r-lPn" id="dmf-yg-chu"/>
                         <outlet property="whoCanAddingMeToChannelLabel" destination="3Nh-IT-cDG" id="Nlb-CQ-7OX"/>
@@ -3044,6 +3075,7 @@ Please wait 0:59</string>
                         <outlet property="whoCanCallMe" destination="YbO-cT-ipi" id="GYZ-oj-uVl"/>
                         <outlet property="whoCanSeeLastSeenLabel" destination="way-Ld-R64" id="zAH-pc-Din"/>
                         <outlet property="whoCanSeeProfilePhotoLabel" destination="ubt-UJ-2tl" id="iff-gV-XXI"/>
+                        <outlet property="whoCanVideoCallMe" destination="vBJ-W0-73P" id="DP9-9a-lsS"/>
                         <segue destination="n3k-5y-AbQ" kind="show" identifier="GoToBlockListPageFromPrivacyAndSecurity" id="Xgh-zk-lrg"/>
                         <segue destination="MJO-BG-mPa" kind="show" identifier="GoToWhoCanSeeYourPrivacyAndPolicyPage" id="O4U-xx-ZLW"/>
                         <segue destination="g1O-yT-jBQ" kind="show" identifier="GoToPassCodeLockSettingsPage" id="zHb-IH-wIq"/>
