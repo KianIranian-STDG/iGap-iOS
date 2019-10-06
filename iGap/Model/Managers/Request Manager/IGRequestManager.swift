@@ -520,27 +520,27 @@ class IGRequestManager {
                     shouldSendRequest = true
                 }
                 
-                if let request = self.generateIGRequestObject() {
-                    self.pendingRequests[request.igpID] = requestWrapper
-                    requestWrapper.id = request.igpID
-                    requestWrapper.message.igpRequest = request
-                }
-                
-                if shouldSendRequest {
-                    self.syncroniseQueue.async(flags: .barrier) {
+                self.syncroniseQueue.async(flags: .barrier) {
+                    if let request = self.generateIGRequestObject() {
+                        self.pendingRequests[request.igpID] = requestWrapper
+                        requestWrapper.id = request.igpID
+                        requestWrapper.message.igpRequest = request
+                    }
+                    
+                    if shouldSendRequest {
                         IGWebSocketManager.sharedManager.send(requestW: requestWrapper)
+                    } else {
+                        /*
+                         self.syncroniseQueue.async(flags: .barrier) {
+                         let randomID = self.generateRandomRequestID()
+                         self.queuedRequests[randomID] = requestWrapper
+                         }
+                         */
                     }
-                } else {
-                    /*
-                    self.syncroniseQueue.async(flags: .barrier) {
-                        let randomID = self.generateRandomRequestID()
-                        self.queuedRequests[randomID] = requestWrapper
-                    }
-                    */
+                    DispatchQueue.main.asyncAfter(deadline: .now() + self.timeoutSeconds , execute: {
+                        self.internalTimeOut(for: requestWrapper)
+                    })
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + self.timeoutSeconds , execute: {
-                    self.internalTimeOut(for: requestWrapper)
-                })
             }
         }
     }
