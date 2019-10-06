@@ -78,21 +78,39 @@ class IGRoomListtCell: UITableViewCell {
         img.clipsToBounds = true
         return img
     }()
-    var bgImage: UIImageView = {
-        let img = UIImageView()
-        img.translatesAutoresizingMaskIntoConstraints = true // enable autolayout
-        if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
-            img.image = UIImage(named:"bgCellPin")
-        }
-        else{
-            let tmpImg = UIImage(named:"bgCellPin")
-            img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+        var bgImage: UIImageView = {
+            let img = UIImageView()
+            img.translatesAutoresizingMaskIntoConstraints = true // enable autolayout
+            if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
+                img.image = UIImage(named:"bgCellPin")
+            }
+            else{
+                img.image = UIImage(named:"bgCellPin")
 
-        }
+    //            img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
 
-        
-        return img
-    }()
+            }
+            
+
+            
+            return img
+        }()
+        var bgPinTagImage: UIImageView = {
+            let img = UIImageView()
+            img.translatesAutoresizingMaskIntoConstraints = true // enable autolayout
+            if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
+                img.image = UIImage(named:"bgCellPinTag")
+            }
+            else{
+                let tmpImg = UIImage(named:"bgCellPinTag")
+                img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+            }
+            
+
+            
+            return img
+        }()
     var muteLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.iGapFonticon(ofSize: 16)
@@ -145,10 +163,13 @@ class IGRoomListtCell: UITableViewCell {
             if item.pinId > 0 {
                 self.contentView.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
                 bgImage.isHidden = false
-                
+                bgPinTagImage.isHidden = false
+
             } else {
                 self.contentView.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
                 bgImage.isHidden = true
+                bgPinTagImage.isHidden = true
+
             }
             
             if item.pinId > 0 && !IGHelperPromote.isPromotedRoom(room: item) {
@@ -314,6 +335,7 @@ class IGRoomListtCell: UITableViewCell {
         checkImage.image = UIImage(named:"IG_Verify")
         
         self.contentView.addSubview(bgImage)
+        self.contentView.addSubview(bgPinTagImage)
         self.contentView.addSubview(nameLabel)
         self.contentView.addSubview(timeLabel)
         self.contentView.addSubview(lastMsgLabel)
@@ -337,6 +359,7 @@ class IGRoomListtCell: UITableViewCell {
         super.layoutSubviews()
         makeAvatar()
         makeBGImage()
+        makeBGPinTagImage()
         makeInitialLabel()
         makeTypeImage()
         makeTimeLabel()
@@ -570,6 +593,16 @@ class IGRoomListtCell: UITableViewCell {
             make.bottom.equalTo(self.contentView.snp.bottom).offset(-5)
         }
         bgImage.contentMode = .scaleToFill // image will never be strecthed vertially or horizontally
+
+    }
+    private func makeBGPinTagImage() {
+        bgPinTagImage.snp.makeConstraints { (make) in
+            make.trailing.equalTo(bgImage.snp.trailing).offset(0)
+            make.top.equalTo(self.bgImage.snp.top).offset(0)
+            make.width.equalTo(15)
+            make.height.equalTo(15)
+        }
+        bgPinTagImage.contentMode = .scaleToFill // image will never be strecthed vertially or horizontally
 
     }
     private func makeInitialLabel() {
