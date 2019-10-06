@@ -81,7 +81,7 @@ class IGMapNearbyDistanceCell: UITableViewCell {
             } else {
                 userComment.text = "NO_STATUS".localizedNew
             }
-            userDistance.text = "ABOUT".localizedNew + "\(nearbyDistance.distance)".inLocalizedLanguage() + " m"
+            userDistance.text = "AROUND".localizedNew + " " + "\(nearbyDistance.distance)".inLocalizedLanguage() + " " + "METER".localizedNew
         }
     }
 }

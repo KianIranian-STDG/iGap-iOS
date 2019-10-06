@@ -42,6 +42,8 @@
         "YOUR_STATUS" : "Your Status",
         "NO_STATUS" : "No Status",
         "ABOUT" : "About ",
+        "AROUND" : "About",
+        "METER" : "meter",
         "WALLET_SETTINGS" : "Wallet Settings",
         "GROUP_NO_MODERATOR" : "This Group has No Moderator",
         "GROUP_NO_ADMIN" : "This Group has No Admin",
