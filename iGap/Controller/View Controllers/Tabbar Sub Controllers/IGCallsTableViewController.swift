@@ -424,7 +424,7 @@ extension IGCallsTableViewController: UICollectionViewDataSource, UICollectionVi
         }
         
         let size: CGSize = typeStr.size(withAttributes: [NSAttributedString.Key.font: UIFont.igFont(ofSize: 13)])
-        return CGSize(width: size.width + 32.0, height: collectionView.bounds.size.height - 10)
+        return CGSize(width: size.width + 32.0, height: collectionView.bounds.size.height - 20)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -48,7 +48,7 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
         super.viewDidLoad()
         
         initNavigationBar()
-        tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
+        tableView.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.imagesSize = self.computeFileSize(fileType: IGFile.FileType.image.rawValue)

@@ -50,14 +50,21 @@ class IGRoomListtCell: BaseTableViewCell {
     }()
     var unreadCountLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.igFont(ofSize: 13,weight: .light)
+        label.font = UIFont.igFont(ofSize: 13, weight: .light)
         label.textColor = .white
-        label.textAlignment = NSTextAlignment.center
+        label.textAlignment = .center
         label.text = label.text?.inLocalizedLanguage()
-        label.layer.cornerRadius = 8
+        label.layer.cornerRadius = 10
         label.clipsToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    var unreadView: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 10
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     var initialLabel: UILabel = {
         let label = UILabel()
@@ -143,10 +150,10 @@ class IGRoomListtCell: BaseTableViewCell {
             
             let unread = String(item.unreadCount)
             if unread == "0" {
-                unreadCountLabel.isHidden = true
+                unreadView.isHidden = true
                 
             } else {
-                unreadCountLabel.isHidden = false
+                unreadView.isHidden = false
                 unreadCountLabel.text = unread.inLocalizedLanguage()
             }
             self.initialLabel.text = item.initilas
@@ -167,7 +174,7 @@ class IGRoomListtCell: BaseTableViewCell {
             }
             
             if item.pinId > 0 && !IGHelperPromote.isPromotedRoom(room: item) {
-                self.unreadCountLabel.isHidden = true
+                self.unreadView.isHidden = true
                 
 //                self.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Pin")
                 self.lastMessageStateImage.backgroundColor = UIColor.clear
@@ -238,11 +245,11 @@ class IGRoomListtCell: BaseTableViewCell {
                 
             case .unmute:
                 self.muteLabel.isHidden = true
-                unreadCountLabel.backgroundColor = UIColor.unreadLable()
+                unreadView.backgroundColor = UIColor.unreadLable()
                 
             case .mute:
                 self.muteLabel.isHidden = false
-                unreadCountLabel.backgroundColor = UIColor.darkGray
+                unreadView.backgroundColor = UIColor.darkGray
                 
             }
             
@@ -266,10 +273,10 @@ class IGRoomListtCell: BaseTableViewCell {
             
             if showStateImage {
                 self.lastMessageStateImage.isHidden = false
-                self.unreadCountLabel.isHidden = true
+                self.unreadView.isHidden = true
             } else {
                 self.lastMessageStateImage.isHidden = true
-                self.unreadCountLabel.isHidden = false
+                self.unreadView.isHidden = false
             }
             
 //            nameLabel.snp.removeConstraints()
@@ -321,7 +328,7 @@ class IGRoomListtCell: BaseTableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        unreadCountLabel.backgroundColor = UIColor.red
+        unreadView.backgroundColor = .red
         
         timeLabel.text = "..."
 //        nameLabel.text = "..."
@@ -349,7 +356,8 @@ class IGRoomListtCell: BaseTableViewCell {
         self.contentView.addSubview(nameAndTypeStackView)
         self.contentView.addSubview(chatDetailsStackView)
         self.contentView.addSubview(lastMsgLabel)
-        self.contentView.addSubview(unreadCountLabel)
+        self.contentView.addSubview(unreadView)
+        self.unreadView.addSubview(unreadCountLabel)
         self.contentView.addSubview(initialLabel)
         self.contentView.addSubview(avatarImage)
         self.contentView.addSubview(stateImage)
@@ -380,9 +388,11 @@ class IGRoomListtCell: BaseTableViewCell {
         makeNameAndTypeStackView()
         makeTypeImage()
         makeNameLabel()
-        makeUnreadCountLabel()
+        
         makeLastMessageLabel()
-
+        makeUnreadView()
+        makeUnreadCountLabel()
+        
         makelastMessageStateImage()
 
     }
@@ -411,16 +421,16 @@ class IGRoomListtCell: BaseTableViewCell {
                 if lastMessage.isDeleted {
                     self.lastMsgLabel.text = "DELETED_MESSAGE".MessageViewlocalizedNew
                     self.lastMessageStateImage.isHidden = true
-                    self.unreadCountLabel.isHidden = true
+                    self.unreadView.isHidden = true
                     
                     return
                 } else {
                     if self.showStateImage {
                         self.lastMessageStateImage.isHidden = true
-                        self.unreadCountLabel.isHidden = true
+                        self.unreadView.isHidden = true
                     } else {
                         self.lastMessageStateImage.isHidden = true
-                        self.unreadCountLabel.isHidden = false
+                        self.unreadView.isHidden = false
                     }
                     
                 }
@@ -524,10 +534,10 @@ class IGRoomListtCell: BaseTableViewCell {
                     if senderUser.id == IGAppManager.sharedManager.userID() {
                         if self.showStateImage {
                             self.lastMessageStateImage.isHidden = false
-                            self.unreadCountLabel.isHidden = true
+                            self.unreadView.isHidden = true
                         } else {
                             self.lastMessageStateImage.isHidden = true
-                            self.unreadCountLabel.isHidden = false
+                            self.unreadView.isHidden = false
                         }
                     } else {
                         switch room.type {
@@ -535,10 +545,10 @@ class IGRoomListtCell: BaseTableViewCell {
                         case .chat:
                             if self.showStateImage {
                                 self.lastMessageStateImage.isHidden = true
-                                self.unreadCountLabel.isHidden = true
+                                self.unreadView.isHidden = true
                             } else {
                                 self.lastMessageStateImage.isHidden = true
-                                self.unreadCountLabel.isHidden = false
+                                self.unreadView.isHidden = false
                                 
                             }
                             
@@ -547,10 +557,10 @@ class IGRoomListtCell: BaseTableViewCell {
                         case .group:
                             if self.showStateImage {
                                 self.lastMessageStateImage.isHidden = true
-                                self.unreadCountLabel.isHidden = true
+                                self.unreadView.isHidden = true
                             } else {
                                 self.lastMessageStateImage.isHidden = true
-                                self.unreadCountLabel.isHidden = false
+                                self.unreadView.isHidden = false
                                 
                             }
                             break
@@ -558,10 +568,10 @@ class IGRoomListtCell: BaseTableViewCell {
                         case .channel:
                             if self.showStateImage {
                                 self.lastMessageStateImage.isHidden = true
-                                self.unreadCountLabel.isHidden = true
+                                self.unreadView.isHidden = true
                             } else {
                                 self.lastMessageStateImage.isHidden = true
-                                self.unreadCountLabel.isHidden = false
+                                self.unreadView.isHidden = false
                                 
                             }
                             break
@@ -644,7 +654,7 @@ class IGRoomListtCell: BaseTableViewCell {
     private func makeTimeLabel() {
         timeLabel.snp.makeConstraints { (make) in
             make.trailing.equalTo(self.chatDetailsStackView.snp.trailing).offset(0)
-//            make.width.equalTo(50)
+            make.width.greaterThanOrEqualTo(30)
             make.top.equalTo(self.chatDetailsStackView.snp.top).offset(0)
             make.bottom.equalTo(self.chatDetailsStackView.snp.bottom).offset(0)
             make.leading.equalTo(self.checkImage.snp.trailing).offset(6)
@@ -695,23 +705,31 @@ class IGRoomListtCell: BaseTableViewCell {
         }
     }
     
-    private func makeUnreadCountLabel() {
-        unreadCountLabel.snp.makeConstraints { (make) in
-            make.trailing.equalTo(self.contentView.snp.trailing).offset(-15)
-            make.bottom.equalTo(self.avatarImage.snp.bottom)
-            make.width.equalTo(20)
-            make.height.equalTo(15)
-            
-        }
-        unreadCountLabel.text =  unreadCountLabel.text?.inLocalizedLanguage()
-    }
-    
     private func makeLastMessageLabel() {
         lastMsgLabel.snp.makeConstraints { (make) in
             make.leading.equalTo(self.avatarImage.snp.trailing).offset(8)
-            make.trailing.equalTo(self.unreadCountLabel.snp.leading).offset(-4)
+            make.trailing.lessThanOrEqualTo(self.unreadCountLabel.snp.leading).offset(-8)
             make.bottom.equalTo(self.avatarImage.snp.bottom).offset(-3)
         }
+    }
+    
+    private func makeUnreadView() {
+        unreadView.snp.makeConstraints { (maker) in
+            maker.trailing.equalTo(self.contentView.snp.trailing).offset(-15)
+            maker.bottom.equalTo(self.avatarImage.snp.bottom)
+            maker.width.equalTo(30)
+            maker.height.equalTo(20)
+        }
+    }
+    
+    private func makeUnreadCountLabel() {
+        unreadCountLabel.snp.makeConstraints { (make) in
+            make.trailing.equalTo(self.unreadView.snp.trailing).offset(-3)
+            make.bottom.equalTo(self.unreadView.snp.bottom)
+            make.leading.equalTo(self.unreadView.snp.leading).offset(3)
+            make.top.equalTo(self.unreadView.snp.top)
+        }
+        unreadCountLabel.text =  unreadCountLabel.text?.inLocalizedLanguage()
     }
     
 }

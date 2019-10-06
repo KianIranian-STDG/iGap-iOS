@@ -82,7 +82,7 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="45"/>
                                                     <state key="normal" title="">
-                                                        <color key="titleColor" red="0.14328086379999999" green="0.74297207590000003" blue="0.71633225680000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="didTapOnChangeImage" destination="vSZ-HE-b7i" eventType="touchUpInside" id="5WY-GE-Fl0"/>
@@ -171,7 +171,7 @@
                                     </constraints>
                                     <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="45"/>
                                     <state key="normal" title="">
-                                        <color key="titleColor" red="0.14328086379999999" green="0.74297207590000003" blue="0.71633225680000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
                                         <action selector="didTapOnChangeImage" destination="vSZ-HE-b7i" eventType="touchUpInside" id="kZt-y7-8DL"/>

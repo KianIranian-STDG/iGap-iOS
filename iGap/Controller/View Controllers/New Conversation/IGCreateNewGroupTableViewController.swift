@@ -24,7 +24,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     var getRoomResponseID : Int64?
     var imagePicker = UIImagePickerController()
     let width = CGFloat(0.5)
-    let greenColor = UIColor.iGapDarkGreenColor()
+    let borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)!
     var mode : String?
     var roomId : Int64?
     var selectedUsersToCreateGroup = [IGRegisteredUser]()
@@ -49,8 +49,8 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         changeImageBtn.layer.cornerRadius = changeImageBtn.frame.height / 2
         changeImageBtn.clipsToBounds = true
         
-        changeImageBtn.layer.borderColor = #colorLiteral(red: 0.1432808638, green: 0.7429720759, blue: 0.7163322568, alpha: 1)
-        changeImageBtn.layer.borderWidth = 0.3
+//        changeImageBtn.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//        changeImageBtn.layer.borderWidth = 0.3
         
         roundUserImage(groupAvatarImage)
     }
@@ -82,7 +82,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     func roundUserImage(_ roundView:UIView){
         roundView.layer.borderWidth = 0
         roundView.layer.masksToBounds = true
-        let borderUserImageColor = UIColor.iGapDarkGreenColor()
+        let borderUserImageColor = UIColor(named: themeColor.labelGrayColor.rawValue)!
         roundView.layer.borderColor = borderUserImageColor.cgColor
         roundView.layer.cornerRadius = roundView.frame.size.height/2
         roundView.clipsToBounds = true
@@ -90,7 +90,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
 
     func addBottomBorder(textField: UITextField){
         let borderName = CALayer()
-        borderName.borderColor = greenColor.cgColor
+        borderName.borderColor = borderColor.cgColor
         borderName.frame = CGRect(x: 0, y: textField.frame.size.height - width, width:textField.frame.size.width, height: textField.frame.size.height)
         borderName.borderWidth = width
         textField.layer.addSublayer(borderName)

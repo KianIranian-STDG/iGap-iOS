@@ -12,14 +12,17 @@ class IGUserContactsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLbl: IGLabel!
     @IBOutlet weak var phoneNumberLbl: IGLabel!
-    @IBOutlet weak var avatarView: IGAvatarView!
+    @IBOutlet weak var avatarIconLbl: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         nameLbl.textAlignment = nameLbl.localizedNewDirection
         phoneNumberLbl.textAlignment = phoneNumberLbl.localizedNewDirection
-        avatarView.setImage(UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")!)
-        avatarView.avatarImageView?.tintColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+//        avatarView.setImage(UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")!)
+//        avatarView.avatarImageView?.tintColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+        avatarIconLbl.text = ""
+        avatarIconLbl.layer.cornerRadius = self.avatarIconLbl.frame.height
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

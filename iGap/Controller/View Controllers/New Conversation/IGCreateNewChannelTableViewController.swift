@@ -28,7 +28,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
     let width = CGFloat(0.8)
     var invitedLink : String?
     var igpRoom : IGPRoom!
-    let greenColor = UIColor.organizationalColor()
+    let borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)!
     var hud = MBProgressHUD()
     var defaultImage = UIImage() //UIImage(named: "IG_New_Channel_Generic_Avatar")
 
@@ -44,8 +44,8 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         changeImageBtn.layer.cornerRadius = changeImageBtn.frame.height / 2
         changeImageBtn.clipsToBounds = true
         
-        changeImageBtn.layer.borderColor = #colorLiteral(red: 0.1432808638, green: 0.7429720759, blue: 0.7163322568, alpha: 1)
-        changeImageBtn.layer.borderWidth = 0.3
+//        changeImageBtn.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//        changeImageBtn.layer.borderWidth = 0.3
         
         self.tableView.semanticContentAttribute = self.semantic
         self.view.semanticContentAttribute = self.semantic
@@ -90,11 +90,11 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
     }
     
     func addBottomBorder(){
-        borderName.borderColor = greenColor.cgColor
+        borderName.borderColor = borderColor.cgColor
         borderName.frame = CGRect(x: 0, y: channelnameTextField.frame.size.height - width, width:  channelnameTextField.frame.size.width, height: channelnameTextField.frame.size.height)
         borderName.borderWidth = width
 
-        borderDesc.borderColor = greenColor.cgColor
+        borderDesc.borderColor = borderColor.cgColor
         borderDesc.frame = CGRect(x: 0, y: descriptionTextField.frame.size.height - width, width:  descriptionTextField.frame.size.width, height: descriptionTextField.frame.size.height)
         borderDesc.borderWidth = width
 
@@ -246,7 +246,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
     func roundUserImage(_ roundView:UIView){
         roundView.layer.borderWidth = 0
         roundView.layer.masksToBounds = true
-        let borderUserImageColor = UIColor.organizationalColor()
+        let borderUserImageColor = UIColor(named: themeColor.labelGrayColor.rawValue)!
         roundView.layer.borderColor = borderUserImageColor.cgColor
         roundView.layer.cornerRadius = roundView.frame.size.height/2
         roundView.clipsToBounds = true
@@ -321,7 +321,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
                 action.setValue(removeColor, forKey: "titleTextColor")
             }
         }
-        optionMenu.view.tintColor = UIColor.organizationalColor()
+        optionMenu.view.tintColor = UIColor(named: themeColor.labelGrayColor.rawValue)!
 
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
             optionMenu.addAction(cameraOption)} else {

@@ -3280,7 +3280,6 @@
                                         <constraint firstAttribute="trailing" secondItem="ygY-wt-IbE" secondAttribute="trailing" constant="10" id="tes-Qb-UCm"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" name="IGTableViewCellColor"/>
                                 <connections>
                                     <outlet property="btnCall" destination="ygY-wt-IbE" id="Sa4-uv-Gcw"/>
                                     <outlet property="btnVideoCall" destination="G3U-wx-GLL" id="g8r-Vt-HXc"/>

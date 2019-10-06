@@ -86,7 +86,7 @@ class IGUserContactsTableViewController: BaseTableViewController,MFMessageCompos
         let contact = userContacts[indexPath.row]
         
         cell.nameLbl.text = "\(contact.givenName) \(contact.familyName)"
-        cell.avatarView.backgroundColor = UIColor.lightGray
+//        cell.avatarView.backgroundColor = UIColor.clear
         cell.phoneNumberLbl.text = "\(contact.phoneNumbers.first?.value.stringValue ?? "")".inLocalizedLanguage()
 
         return cell

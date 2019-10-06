@@ -8,6 +8,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="iGap_fontico.ttf">
+            <string>iGap_fontico</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="zhe-2t-YwN">
@@ -203,26 +208,36 @@
                                                 <constraint firstItem="ci1-Xy-4Y7" firstAttribute="leading" secondItem="VCt-76-G74" secondAttribute="leading" id="qzx-bh-7w4"/>
                                             </constraints>
                                         </stackView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W6q-KM-JrK" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W6q-KM-JrK" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
                                             <rect key="frame" x="15" y="15" width="50" height="50"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="PL8-Ke-bv8"/>
-                                                <constraint firstAttribute="height" constant="50" id="yEZ-xd-Zpm"/>
                                             </constraints>
                                         </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOB-iI-K4M">
+                                            <rect key="frame" x="15" y="15" width="50" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="6YU-mv-0hU"/>
+                                                <constraint firstAttribute="height" constant="50" id="tcM-Ek-oQt"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="45"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
-                                    <color key="backgroundColor" name="IGTableViewCellColor"/>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="VCt-76-G74" secondAttribute="trailing" constant="55" id="CRt-Lm-7mb"/>
                                         <constraint firstItem="VCt-76-G74" firstAttribute="centerY" secondItem="1KS-nW-ZXd" secondAttribute="centerY" id="GPU-Km-WyI"/>
                                         <constraint firstItem="W6q-KM-JrK" firstAttribute="centerY" secondItem="1KS-nW-ZXd" secondAttribute="centerY" id="JJp-D1-DKy"/>
+                                        <constraint firstItem="VCt-76-G74" firstAttribute="leading" secondItem="iOB-iI-K4M" secondAttribute="trailing" constant="10" id="VA8-LJ-jBU"/>
                                         <constraint firstItem="W6q-KM-JrK" firstAttribute="leading" secondItem="1KS-nW-ZXd" secondAttribute="leading" constant="15" id="XK9-ia-50V"/>
-                                        <constraint firstItem="VCt-76-G74" firstAttribute="leading" secondItem="W6q-KM-JrK" secondAttribute="trailing" constant="10" id="idY-fs-rc3"/>
+                                        <constraint firstItem="iOB-iI-K4M" firstAttribute="centerY" secondItem="1KS-nW-ZXd" secondAttribute="centerY" id="fNJ-a8-npA"/>
+                                        <constraint firstItem="iOB-iI-K4M" firstAttribute="leading" secondItem="1KS-nW-ZXd" secondAttribute="leading" constant="15" id="h6Y-Dj-iqd"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="avatarView" destination="W6q-KM-JrK" id="cUq-jc-tFD"/>
+                                    <outlet property="avatarIconLbl" destination="iOB-iI-K4M" id="bDK-NI-Gsg"/>
                                     <outlet property="nameLbl" destination="ci1-Xy-4Y7" id="TBQ-7O-pUr"/>
                                     <outlet property="phoneNumberLbl" destination="LPd-Ao-O6k" id="oev-by-IYf"/>
                                 </connections>
@@ -264,9 +279,6 @@
         </namedColor>
         <namedColor name="IGTableViewBackgroundColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="IGTableViewCellColor">
-            <color red="0.10999999940395355" green="0.10999999940395355" blue="0.11800000071525574" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGTextFieldBackGround">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
