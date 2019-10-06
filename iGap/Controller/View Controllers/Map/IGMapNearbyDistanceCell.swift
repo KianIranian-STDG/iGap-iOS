@@ -31,7 +31,7 @@ class IGMapNearbyDistanceCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        contentView.backgroundColor = UIColor(named: themeColor.tableViewCell.rawValue)
+//        contentView.backgroundColor = UIColor(named: themeColor.tableViewCell.rawValue)
         self.initialConfiguration()
         
     }

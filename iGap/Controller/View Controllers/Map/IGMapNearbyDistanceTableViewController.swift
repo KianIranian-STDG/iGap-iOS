@@ -143,7 +143,7 @@ class IGMapNearbyDistanceTableViewController: BaseTableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell: IGMapNearbyDistanceCell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifer) as! IGMapNearbyDistanceCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifer) as! IGMapNearbyDistanceCell
         cell.setUserInfo(nearbyDistance : nearbyDistanceList![indexPath.row])
         
         cell.separatorInset = UIEdgeInsets(top: 0, left: 82.0, bottom: 0, right: 0)

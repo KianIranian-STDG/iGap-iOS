@@ -515,6 +515,7 @@ extension IGChooseMemberFromContactsToCreateGroupViewController : UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
         let contactsCell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath) as! IGChooseContactToAddNewGroupTableViewCell
+        contactsCell.lastSeenStatusLabel.textAlignment = self.TextAlignment
         let user = self.sections[indexPath.section].users[indexPath.row]
         contactsCell.user = user
         cell = contactsCell

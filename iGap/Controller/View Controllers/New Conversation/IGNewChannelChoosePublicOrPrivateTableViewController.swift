@@ -13,7 +13,7 @@ import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
 
-class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewController ,UITextFieldDelegate,SSRadioButtonControllerDelegate {
+class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewController, UITextFieldDelegate, SSRadioButtonControllerDelegate {
     fileprivate let searchController = UISearchController(searchResultsController: nil)
 
     @IBOutlet weak var publicChannelButton: SSRadioButton!
@@ -48,12 +48,14 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
         radioButtonController!.delegate = self
         radioButtonController!.shouldLetDeSelect = true
         
+        radioButtonController?.pressed(privateChannel)
+        
         channelLinkTextField.delegate = self
         channelLinkTextField.text = invitedLink
         channelLinkTextField.isUserInteractionEnabled = false
         
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        tableView.sectionIndexBackgroundColor = UIColor.white
+        tableView.sectionIndexBackgroundColor = UIColor(named: themeColor.labelColor.rawValue)
         tableView.contentInset = UIEdgeInsets.init(top: -1.0, left: 0, bottom: 0, right: 0)
         
         privateChannelCell.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -205,7 +207,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
                 switch protoResponse {
                 case let usernameResponse as IGPChannelCheckUsernameResponse :
                     if usernameResponse.igpStatus == IGPChannelCheckUsernameResponse.IGPStatus.available {
-                        self.channelLinkTextField.textColor = UIColor.black
+                        self.channelLinkTextField.textColor = UIColor(named: themeColor.labelColor.rawValue)
                     } else {
                         self.channelLinkTextField.textColor = UIColor.red
                     }
@@ -231,7 +233,6 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
     
     func didSelectButton(_ aButton: UIButton?) {
         if radioButtonController?.selectedButton() == publicChannelButton {
-            tableView.reloadData()
             channelLinkTextField.isUserInteractionEnabled = true
             channelLinkTextField.text = nil
             let channelDefualtName = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 44))
@@ -243,11 +244,12 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
             lblFooter.text = "MSG_CHANNEL_SHARE_FOOTER".localizedNew
 
             channelLinkTextField.delegate = self
-        }
-        if radioButtonController?.selectedButton() == privateChannel {
+            tableView.reloadData()
+            
+        } else if radioButtonController?.selectedButton() == privateChannel {
             channelLinkTextField.leftView = nil
             channelLinkTextField.text = invitedLink
-            channelLinkTextField.textColor = UIColor.black
+            channelLinkTextField.textColor = UIColor(named: themeColor.labelColor.rawValue)
             channelLinkTextField.isUserInteractionEnabled = false
             lblFooter.text = "MSG_CHANNEL_SHARE_JOIN".localizedNew
 
@@ -278,9 +280,15 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        didSelectButton(radioButtonController?.selectedButton())
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                radioButtonController?.pressed(publicChannelButton)
+            } else {
+                radioButtonController?.pressed(privateChannel)
+            }
+            didSelectButton(radioButtonController?.selectedButton())
+        }
     }
-
     
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

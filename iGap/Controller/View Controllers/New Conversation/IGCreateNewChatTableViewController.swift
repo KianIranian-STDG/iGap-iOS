@@ -72,13 +72,13 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
             make.top.equalTo(viewHeader.snp.top).offset(20)
             make.leading.equalTo(viewHeader.snp.leading).offset(20)
             make.trailing.equalTo(viewHeader.snp.trailing).offset(-20)
-            make.height.equalTo(30)
+            make.height.equalTo(40)
         }
         viewGroup.snp.makeConstraints { (make) in
-            make.top.equalTo(viewChannel.snp.bottom)
+            make.top.equalTo(viewChannel.snp.bottom).offset(4)
             make.leading.equalTo(viewHeader.snp.leading).offset(20)
             make.trailing.equalTo(viewHeader.snp.trailing).offset(-20)
-            make.height.equalTo(30)
+            make.height.equalTo(40)
         }
         let lblChannel = UILabel()
         let lblGroup = UILabel()
@@ -90,16 +90,16 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         viewGroup.addSubview(btnGroup)
         btnChannel.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
         btnGroup.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
-        btnChannel.setTitleColor(.black, for: .normal)
-        btnGroup.setTitleColor(.black, for: .normal)
+        btnChannel.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        btnGroup.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
         btnChannel.setTitle("", for: .normal)
         btnGroup.setTitle("", for: .normal)
         
         lblChannel.font = UIFont.igFont(ofSize: 15)
         lblGroup.font = UIFont.igFont(ofSize: 15)
 
-        lblChannel.textColor = .black
-        lblGroup.textColor = .black
+        lblChannel.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+        lblGroup.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
         
         lblChannel.text = "NEW_CHANNEL".localizedNew
         lblGroup.text = "NEW_GROUP".localizedNew
@@ -286,7 +286,7 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         let contactsCell = tableView.dequeueReusableCell(withIdentifier: "ContactsCell", for: indexPath) as! IGContactTableViewCell
         if (self.resultSearchController.isActive) {
             contactsCell.setUser(contacts[indexPath.row])
-        }else{
+        } else{
             let user = self.sections[indexPath.section].users[indexPath.row]
             contactsCell.setUser(user.registredUser)
         }

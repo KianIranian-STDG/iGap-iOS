@@ -625,9 +625,7 @@ extension UIColor {
     
     //MARK: General Colors
     class func organizationalColor() -> UIColor { // iGap Color
-        return iGapMainColor()
-        // iGap Old Color
-        //return UIColor(red:0/255.0, green:176.0/255.0, blue:191.0/255.0, alpha:1.0)
+        return iGapDarkGreenColor()
     }
     
     class func customKeyboardButton() -> UIColor {
@@ -1563,14 +1561,14 @@ extension UITextField {
 extension UILabel {
     var localizedNewDirection: NSTextAlignment {
         if lastLang == "en" {
-            guard let txt = self.text else {return NSTextAlignment.left}
+            guard let txt = self.text else { return NSTextAlignment.left }
             if (txt.isRTL()) {
                 return NSTextAlignment.right
             } else {
                 return NSTextAlignment.left
             }
         }
-        else{
+        else {
             return NSTextAlignment.right
         }
         

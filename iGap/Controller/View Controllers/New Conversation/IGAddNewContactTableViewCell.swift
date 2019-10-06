@@ -12,7 +12,7 @@ import UIKit
 
 class IGAddNewContactTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var addContactImageView: UIImageView!
+    @IBOutlet weak var addContactIconLbl: UILabel!
     @IBOutlet weak var addContactLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

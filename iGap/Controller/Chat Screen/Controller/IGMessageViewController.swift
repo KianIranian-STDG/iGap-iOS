@@ -608,7 +608,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 if messagesCount == 0 {
                     inputBarContainerView.isHidden = true
                     joinButton.isHidden = false
-                    joinButton.setTitle("Start", for: UIControl.State.normal)
+                    joinButton.setTitle("START".MessageViewlocalizedNew, for: UIControl.State.normal)
                     joinButton.layer.cornerRadius = 5
                     joinButton.layer.masksToBounds = false
                     joinButton.layer.shadowColor = UIColor.black.cgColor
@@ -715,7 +715,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         scrollToBottomContainerView.layer.shadowOffset = CGSize(width: 0, height: 0)
         scrollToBottomContainerView.layer.shadowRadius = 4.0
         scrollToBottomContainerView.layer.shadowOpacity = 0.15
-        scrollToBottomContainerView.backgroundColor = UIColor.white
+        scrollToBottomContainerView.backgroundColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
+        scrollToBottomContainerView.layer.borderWidth = 0.2
+        scrollToBottomContainerView.layer.borderColor = #colorLiteral(red: 0.4477736669, green: 0.4477736669, blue: 0.4477736669, alpha: 1)
         scrollToBottomContainerView.isHidden = true
         
         floatingDateView.layer.cornerRadius = 12.0

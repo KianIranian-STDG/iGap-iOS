@@ -18,17 +18,18 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var groupAvatarImage: UIImageView!
     @IBOutlet weak var groupNameTextField: UITextField!
+    @IBOutlet weak var changeImageBtn: UIButton!
     
     var groupAvatarAttachment: IGFile!
     var getRoomResponseID : Int64?
     var imagePicker = UIImagePickerController()
     let width = CGFloat(0.5)
-    let greenColor = UIColor.organizationalColor()
+    let greenColor = UIColor.iGapDarkGreenColor()
     var mode : String?
     var roomId : Int64?
     var selectedUsersToCreateGroup = [IGRegisteredUser]()
     var hud = MBProgressHUD()
-    var defualtImage = UIImage(named: "IG_Camera_Image")
+    var defualtImage = UIImage() //UIImage(named: "IG_Camera_Image")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,9 +41,10 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         groupNameTextField.placeholder = "GROUPNAME".localizedNew
         descriptionTextField.placeholder = "DESCRIPTION".localizedNew
         
-        let tap = UITapGestureRecognizer.init(target: self, action: #selector(didTapOnChangeImage))
-        groupAvatarImage.addGestureRecognizer(tap)
-        groupAvatarImage.isUserInteractionEnabled = true
+        groupNameTextField.textAlignment = self.TextAlignment
+        descriptionTextField.textAlignment = self.TextAlignment
+        
+        groupAvatarImage.isUserInteractionEnabled = false
         
         roundUserImage(groupAvatarImage)
     }
@@ -67,14 +69,14 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         }
     }
     
-    @objc func didTapOnChangeImage() {
+    @IBAction func didTapOnChangeImage(sender: UIButton) {
         choosePhotoActionSheet(sender : groupAvatarImage)
     }
     
     func roundUserImage(_ roundView:UIView){
         roundView.layer.borderWidth = 0
         roundView.layer.masksToBounds = true
-        let borderUserImageColor = UIColor.organizationalColor()
+        let borderUserImageColor = UIColor.iGapDarkGreenColor()
         roundView.layer.borderColor = borderUserImageColor.cgColor
         roundView.layer.cornerRadius = roundView.frame.size.height/2
         roundView.clipsToBounds = true
@@ -131,7 +133,6 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         
         let removeAction = UIAlertAction(title: "DELETE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            self.defualtImage = UIImage(named: "IG_Camera_Image")
             self.groupAvatarImage.image = self.defualtImage
         })
 
@@ -142,7 +143,6 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         }
         
         optionMenu.addAction(cancelAction)
-        self.defualtImage = UIImage(named: "IG_Camera_Image")
         if groupAvatarImage.image != self.defualtImage {
             optionMenu.addAction(removeAction)
         }

@@ -19,28 +19,41 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var channelnameTextField: UITextField!
     @IBOutlet weak var lblFooter: UILabel!
+    @IBOutlet weak var changeImageBtn: UIButton!
 
     var channelAvatarAttachment: IGFile!
     var imagePicker = UIImagePickerController()
     let borderName = CALayer()
     let borderDesc = CALayer()
-    let width = CGFloat(0.5)
+    let width = CGFloat(0.8)
     var invitedLink : String?
     var igpRoom : IGPRoom!
     let greenColor = UIColor.organizationalColor()
     var hud = MBProgressHUD()
-    var defaultImage = UIImage(named: "IG_New_Channel_Generic_Avatar")
+    var defaultImage = UIImage() //UIImage(named: "IG_New_Channel_Generic_Avatar")
 
     override func viewDidLoad() {
         super.viewDidLoad()
         addBottomBorder()
-        let tap = UITapGestureRecognizer.init(target: self, action: #selector(didTapOnChangeImage))
-        channelAvatarImage.addGestureRecognizer(tap)
-        channelAvatarImage.isUserInteractionEnabled = true
+        channelAvatarImage.isUserInteractionEnabled = false
         initNavigationBar()
         lblFooter.text = "MSG_NEW_CHANNEL_FOOTER".localizedNew
         lblFooter.textAlignment = lblFooter.localizedNewDirection
         lblFooter.font = UIFont.igFont(ofSize: 13)
+        
+        changeImageBtn.layer.cornerRadius = changeImageBtn.frame.height / 2
+        changeImageBtn.clipsToBounds = true
+        
+        changeImageBtn.layer.borderColor = #colorLiteral(red: 0.1432808638, green: 0.7429720759, blue: 0.7163322568, alpha: 1)
+        changeImageBtn.layer.borderWidth = 0.3
+        
+        self.tableView.semanticContentAttribute = self.semantic
+        self.view.semanticContentAttribute = self.semantic
+        self.tableView.tableHeaderView?.semanticContentAttribute = self.semantic
+        
+        descriptionTextField.textAlignment = self.TextAlignment
+        channelnameTextField.textAlignment = self.TextAlignment
+        
 //        navigationItem.addModalViewItems(leftItemText: "CANCEL_BTN".localizedNew, rightItemText: "NEXT_BTN".localizedNew, title: "NEW_CHANNEL".localizedNew)
 //        navigationItem.leftViewContainer?.addAction {
 //            self.navigationController?.popToRootViewController(animated: true)
@@ -120,7 +133,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         }
     }
     
-    func createChannel(){
+    func createChannel() {
         self.view.endEditing(true)
         if let roomName = self.channelnameTextField.text {
             if roomName != "" {
@@ -226,7 +239,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         }
     }
     
-    @objc func didTapOnChangeImage() {
+    @IBAction func didTapOnChangeImage() {
         choosePhotoActionSheet(sender : channelAvatarImage)
     }
     
@@ -256,7 +269,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            if UIImagePickerController.availableCaptureModes(for: .rear) != nil{
+            if UIImagePickerController.availableCaptureModes(for: .rear) != nil {
                 self.imagePicker.delegate = self
                 self.imagePicker.allowsEditing = true
                 self.imagePicker.sourceType = .camera
@@ -293,14 +306,12 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         })
         let removeAction = UIAlertAction(title: "DELETE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            self.defaultImage = UIImage(named: "IG_New_Channel_Generic_Avatar")
             self.channelAvatarImage.image = self.defaultImage
         })
 
         optionMenu.addAction(ChoosePhoto)
         optionMenu.addAction(cancelAction)
-        self.defaultImage = UIImage(named: "IG_New_Channel_Generic_Avatar")
-        if self.channelAvatarImage.image != self.defaultImage {
+        if self.channelAvatarImage.image != self.defaultImage || self.channelAvatarImage.image != nil {
             optionMenu.addAction(removeAction)
         }
         let alertActions = optionMenu.actions

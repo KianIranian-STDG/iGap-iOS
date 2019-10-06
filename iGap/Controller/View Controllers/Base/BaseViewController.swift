@@ -30,6 +30,10 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    var TextAlignment: NSTextAlignment {
+        return isAppEnglish ? .left : .right
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
