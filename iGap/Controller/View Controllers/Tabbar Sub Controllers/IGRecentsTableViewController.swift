@@ -965,7 +965,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        scrollToFirstRow()
+        //uncomment this line if u want to scroll to first row after each row click
+//        scrollToFirstRow()
 
         if (segue.identifier == "showRoomMessages") {
             

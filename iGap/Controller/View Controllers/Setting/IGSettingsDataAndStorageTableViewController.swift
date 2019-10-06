@@ -64,7 +64,7 @@ class IGSettingsDataAndStorageTableViewController: BaseTableViewController {
         switch indexPath.section {
         case 0 :
             if indexPath.row == 0 {
-                self.tableView.isUserInteractionEnabled = false
+//                self.tableView.isUserInteractionEnabled = false
                 
                 performSegue(withIdentifier: "goToStorageUsage", sender: self)
                 

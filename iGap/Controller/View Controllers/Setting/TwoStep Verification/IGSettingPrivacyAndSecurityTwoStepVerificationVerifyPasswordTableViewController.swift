@@ -80,7 +80,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewContr
     
     func verifyPassword() {
         if let password = passwordTextField.text, password != "" {
-            self.tableView.isUserInteractionEnabled = false
+//            self.tableView.isUserInteractionEnabled = false
             self.tableView.isScrollEnabled = false
             let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
             hud.mode = .indeterminate
