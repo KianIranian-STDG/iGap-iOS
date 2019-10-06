@@ -2448,7 +2448,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     @IBAction func didTapOnPinView(_ sender: UIButton) {
         if let pinMessage = room?.pinMessage {
-            goToPosition(messageId: pinMessage.id)
+            goToPosition(message: pinMessage)
         }
     }
     
@@ -5229,10 +5229,23 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         self.present(alertC, animated: true, completion: nil)
     }
     
-    func goToPosition(messageId: Int64){
+    /**
+     * if don't set 'messageIdPosition' this value automatically will be fetched from message.
+     * sometimes messageId from message is not useful (for example at click of header reply state).
+     * finally for globalization usage of following method 'messageIdPosition' is optional
+     */
+    func goToPosition(message: IGRoomMessage?, messageIdPosition: Int64 = 0){
+        if message == nil {return}
+        
+        var messageId: Int64! = messageIdPosition
+        if messageId == 0 {
+            messageId = message?.id
+        }
+        
         self.highlightMessageId = messageId
-        if let indexOfMessge = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId) {
-            let indexPath = IndexPath(row: indexOfMessge, section: 0)
+        let indexOfMessage = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId)
+        if indexOfMessage != nil {
+            let indexPath = IndexPath(row: indexOfMessage!, section: 0)
             var previousIndexPath = indexPath
             previousIndexPath.row = indexPath.row + 1
             /* when 'previousIndexPath' is visible and user clicked on reply view 'indexPath' completely
@@ -5243,7 +5256,25 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             }
             notifyPosition(messageId: self.highlightMessageId)
         } else {
-            //TODO - load message from local or server if currently is not exist at view
+            self.highlightMessageId = messageId
+            var delay: Double = 0.0
+            if !IGRoomMessage.existMessage(messageId: messageId) {
+                delay = 1.0
+                let message = IGRoomMessage(value: message!)
+                message.id = messageId
+                message.primaryKeyId = message.primaryKeyId! + IGGlobal.randomString(length: 5)
+                try! IGDatabaseManager.shared.realm.write {
+                    IGDatabaseManager.shared.realm.add(message)
+                }
+            }
+            
+            self.clearCollectionView()
+            self.messageLoader.setSavedScrollMessageId(savedScrollMessageId: messageId)
+            IGGlobal.prgShow()
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                IGGlobal.prgHide()
+                self.startLoadMessage()
+            }
         }
     }
     
@@ -5397,36 +5428,11 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
     func didTapOnReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
         if let replyMessage = cellMessage.repliedTo {
-           
             var mainReplyId = replyMessage.id * -1
             if let forwardedMessage = IGRoomMessage.fetchForwardMessage(roomId: self.room!.id, messageId: replyMessage.id) {
                 mainReplyId = forwardedMessage.id
             }
-            let indexOfMessage = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: mainReplyId)
-            
-            if indexOfMessage != nil  {
-                goToPosition(messageId: mainReplyId)
-            } else {
-                self.highlightMessageId = mainReplyId
-                var delay: Double = 0.0
-                if !IGRoomMessage.existMessage(messageId: mainReplyId) {
-                    delay = 1.0
-                    let message = IGRoomMessage(value: replyMessage)
-                    message.id = mainReplyId
-                    message.primaryKeyId = message.primaryKeyId! + IGGlobal.randomString(length: 5)
-                    try! IGDatabaseManager.shared.realm.write {
-                        IGDatabaseManager.shared.realm.add(message)
-                    }
-                }
-                
-                self.clearCollectionView()
-                self.messageLoader.setSavedScrollMessageId(savedScrollMessageId: mainReplyId)
-                IGGlobal.prgShow()
-                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                    IGGlobal.prgHide()
-                    self.startLoadMessage()
-                }
-            }
+            goToPosition(message: replyMessage, messageIdPosition: mainReplyId)
         }
     }
     
