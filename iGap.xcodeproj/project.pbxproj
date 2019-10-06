@@ -211,6 +211,7 @@
 		8ECCA1F322B8F6DF00D3A734 /* ForwardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECCA1F122B8F6DF00D3A734 /* ForwardCell.swift */; };
 		8ECCA1F422B8F6DF00D3A734 /* multiForwardShareUsers.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ECCA1F222B8F6DF00D3A734 /* multiForwardShareUsers.xib */; };
 		8ECCA1F622BA3FED00D3A734 /* deviceSizeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECCA1F522BA3FEB00D3A734 /* deviceSizeModel.swift */; };
+		8ECFB53C234A118A001233E9 /* igap_send_message_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8ECFB53B234A1189001233E9 /* igap_send_message_sound.mp3 */; };
 		8ED97D7622E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED97D7522E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift */; };
 		8ED97D7822E2F7B300A0EB1F /* ServerDataInner.json in Resources */ = {isa = PBXBuildFile; fileRef = 8ED97D7722E2F7B300A0EB1F /* ServerDataInner.json */; };
 		8EE1BFC82281604D001A2867 /* IGSetUserNickNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */; };
@@ -1002,6 +1003,7 @@
 		8ECCA1F122B8F6DF00D3A734 /* ForwardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardCell.swift; sourceTree = "<group>"; };
 		8ECCA1F222B8F6DF00D3A734 /* multiForwardShareUsers.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = multiForwardShareUsers.xib; sourceTree = "<group>"; };
 		8ECCA1F522BA3FEB00D3A734 /* deviceSizeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = deviceSizeModel.swift; sourceTree = "<group>"; };
+		8ECFB53B234A1189001233E9 /* igap_send_message_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = igap_send_message_sound.mp3; sourceTree = "<group>"; };
 		8ED97D7522E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFavouriteChannelsDashboardInnerTableViewController.swift; sourceTree = "<group>"; };
 		8ED97D7722E2F7B300A0EB1F /* ServerDataInner.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ServerDataInner.json; sourceTree = "<group>"; };
 		8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSetUserNickNameTableViewController.swift; sourceTree = "<group>"; };
@@ -2385,6 +2387,7 @@
 			isa = PBXGroup;
 			children = (
 				FA80F59F204ABC5900F0EE74 /* tone.mp3 */,
+				8ECFB53B234A1189001233E9 /* igap_send_message_sound.mp3 */,
 				FA5656B2204AB18E00DB46F0 /* igap_busy.mp3 */,
 				FA5656A9204AB18D00DB46F0 /* igap_connect.mp3 */,
 				FA5656AE204AB18D00DB46F0 /* igap_disconnect.mp3 */,
@@ -3398,6 +3401,7 @@
 				8E7EE0C522E347D700133485 /* RecentTableViewlocalizationsFa.json in Resources */,
 				FAE6064321EB3A0C00F03FFC /* zh-Hans.lproj in Resources */,
 				FA927E0620284DC100DF7145 /* GifCell.xib in Resources */,
+				8ECFB53C234A118A001233E9 /* igap_send_message_sound.mp3 in Resources */,
 				94E74DCE2323D137001AB47C /* FinancialHistoryLocalizationsFa.json in Resources */,
 				8E96A32F225C96C3007D8A77 /* RecieptView.xib in Resources */,
 				8EBF551122DB582700834E6A /* localizationsEn.json in Resources */,

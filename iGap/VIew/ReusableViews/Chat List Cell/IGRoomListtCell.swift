@@ -147,7 +147,7 @@ class IGRoomListtCell: BaseTableViewCell {
                 
             } else {
                 unreadCountLabel.isHidden = false
-                unreadCountLabel.text = unread
+                unreadCountLabel.text = unread.inLocalizedLanguage()
             }
             self.initialLabel.text = item.initilas
             let color = UIColor.hexStringToUIColor(hex: item.colorString)
@@ -354,6 +354,7 @@ class IGRoomListtCell: BaseTableViewCell {
         self.contentView.addSubview(avatarImage)
         self.contentView.addSubview(stateImage)
         self.contentView.addSubview(lastMessageStateImage)
+        initView()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -362,6 +363,8 @@ class IGRoomListtCell: BaseTableViewCell {
         
     override func layoutSubviews() {
         super.layoutSubviews()
+    }
+    private func initView() {
         makeAvatar()
         makeBGImage()
         makeBGPinTagImage()
@@ -381,6 +384,7 @@ class IGRoomListtCell: BaseTableViewCell {
         makeLastMessageLabel()
 
         makelastMessageStateImage()
+
     }
     
     override func prepareForReuse() {
@@ -390,8 +394,8 @@ class IGRoomListtCell: BaseTableViewCell {
         self.stateImage.image = nil
         self.unreadCountLabel.text = nil
         self.lastMessageStateImage.image = nil
-        self.lastMsgLabel.text = nil
-//        self.avatarImage.image = UIImage()
+//        self.lastMsgLabel.text = nil
+        self.avatarImage.image = UIImage()
         showStateImage = nil
     }
     

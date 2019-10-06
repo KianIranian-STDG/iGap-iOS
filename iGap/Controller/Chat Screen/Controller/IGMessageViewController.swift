@@ -30,6 +30,8 @@ import Alamofire
 import KeychainSwift
 import webservice
 import SwiftyRSA
+import AVFoundation
+
 
 
 public var indexOfVideos = [Int]()
@@ -60,7 +62,8 @@ class IGHeader: UICollectionReusableView {
 class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener , UITextFieldDelegate,HandleReciept,HandleBackNavigation {
 
     var selectedMessages : [IGRoomMessage] = []
-    
+    var sendTone: AVAudioPlayer?
+
     func diselect() {
         IGGlobal.shouldMultiSelect = false
         self.showMultiSelectUI(state: false)
@@ -72,7 +75,35 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             self.callCallBackApi(token: SMUserManager.payToken!)
         })
     }
-    
+    func playSound(isSendMessage: Bool! = false) {
+       var url = Bundle.main.url(forResource: "igap_send_message_sound", withExtension: "mp3")
+
+        if isSendMessage {
+            url = Bundle.main.url(forResource: "igap_send_message_sound", withExtension: "mp3")
+        } else {
+            url = Bundle.main.url(forResource: "igap_send_message_sound", withExtension: "mp3")
+
+        }
+
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+
+            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
+            sendTone = try AVAudioPlayer(contentsOf: url!, fileTypeHint: AVFileType.mp3.rawValue)
+
+            /* iOS 10 and earlier require the following line:
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
+
+            guard let sendTone = sendTone else { return }
+
+            sendTone.play()
+
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+
     func callCallBackApi(token : String) {
         let url: String! = SMUserManager.callBackUrl
         guard let serviceUrl = URL(string: url) else { return }
@@ -2583,7 +2614,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             self.setInputBarHeight()
             
         } else {
-            
+            ///play send sound
+            playSound(isSendMessage: true)
             let messages = inputTextView.text.split(limit: MAX_TEXT_LENGHT)
             for i in 0..<messages.count {
                 DispatchQueue.main.asyncAfter(deadline: .now() + (Double(i) * 0.5)) {
