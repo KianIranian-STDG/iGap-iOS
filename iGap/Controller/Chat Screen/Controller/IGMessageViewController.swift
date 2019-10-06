@@ -2236,8 +2236,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         if groupPinMessage.hasIgpPinnedMessage {
                             self.txtPinnedMessage.text = IGRoomMessage.detectPinMessageProto(message: groupPinMessage.igpPinnedMessage)
                             self.pinnedMessageView.isHidden = false
+                            self.collectionView.contentInset.bottom = self.pinnedMessageView.frame.size.height
                         } else {
                             self.pinnedMessageView.isHidden = true
+                            self.collectionView.contentInset.bottom = 0
+
                         }
                         IGGroupPinMessageRequest.Handler.interpret(response: groupPinMessage)
                     }
@@ -2291,9 +2294,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         if channelPinMessage.hasIgpPinnedMessage {
                             self.txtPinnedMessage.text = IGRoomMessage.detectPinMessageProto(message: channelPinMessage.igpPinnedMessage)
                             self.pinnedMessageView.isHidden = false
-                        } else {
-                            self.pinnedMessageView.isHidden = true
-                        }
+                                self.collectionView.contentInset.bottom = self.pinnedMessageView.frame.size.height
+                            } else {
+                                self.pinnedMessageView.isHidden = true
+                                self.collectionView.contentInset.bottom = 0
+                            }
                         IGChannelPinMessageRequest.Handler.interpret(response: channelPinMessage)
                     }
                 }
@@ -2443,6 +2448,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         } else {
             self.pinnedMessageView.isHidden = true
             IGFactory.shared.roomPinMessage(roomId: (self.room?.id)!)
+            self.collectionView.contentInset.bottom = 0
+
         }
     }
     
