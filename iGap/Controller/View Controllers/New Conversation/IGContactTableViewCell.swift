@@ -22,6 +22,8 @@ class IGContactTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        contactNameLable.textAlignment = contactNameLable.localizedNewDirection
+        contactPhoneNumber.textAlignment = contactPhoneNumber.localizedNewDirection
 
     }
     
