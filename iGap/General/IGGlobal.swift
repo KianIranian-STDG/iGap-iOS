@@ -1170,6 +1170,14 @@ extension UIImageView {
     
     func setImage(avatar: IGAvatar, showMain: Bool = false) {
         
+        // remove imageview from download list on t on cell reuse
+        DispatchQueue.main.async {
+            let keys = (imagesMap as NSDictionary).allKeys(for: self) as! [String]
+            keys.forEach { (key) in
+                imagesMap.removeValue(forKey: key)
+            }
+        }
+        
         var file : IGFile!
         var previewType : IGFile.PreviewType!
         

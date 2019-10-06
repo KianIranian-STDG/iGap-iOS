@@ -46,6 +46,12 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         
         groupAvatarImage.isUserInteractionEnabled = false
         
+        changeImageBtn.layer.cornerRadius = changeImageBtn.frame.height / 2
+        changeImageBtn.clipsToBounds = true
+        
+        changeImageBtn.layer.borderColor = #colorLiteral(red: 0.1432808638, green: 0.7429720759, blue: 0.7163322568, alpha: 1)
+        changeImageBtn.layer.borderWidth = 0.3
+        
         roundUserImage(groupAvatarImage)
     }
     

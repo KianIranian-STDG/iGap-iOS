@@ -377,6 +377,7 @@
 		FA11E28A1DE8A8A900A2F87C /* IGAttachmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA11E2891DE8A8A900A2F87C /* IGAttachmentManager.swift */; };
 		FA11E28D1DE99BF400A2F87C /* IGFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA11E28C1DE99BF400A2F87C /* IGFactory.swift */; };
 		FA15F0B323488BCA001E8158 /* iGap_fontico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA15F0B223488BC9001E8158 /* iGap_fontico.ttf */; };
+		FA1A9828234A157C00170BD3 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1A9827234A157C00170BD3 /* BaseTableViewCell.swift */; };
 		FA1C449C1DC716A20016C346 /* IGCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C449B1DC716A20016C346 /* IGCountry.swift */; };
 		FA1DE8FC220ADD8300C465E5 /* StickerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1DE8FB220ADD8300C465E5 /* StickerObserver.swift */; };
 		FA248C98226AEBE800A72EA7 /* IGScoreHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA248C97226AEBE800A72EA7 /* IGScoreHistoryViewController.swift */; };
@@ -1174,6 +1175,7 @@
 		FA11E2891DE8A8A900A2F87C /* IGAttachmentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGAttachmentManager.swift; sourceTree = "<group>"; };
 		FA11E28C1DE99BF400A2F87C /* IGFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGFactory.swift; sourceTree = "<group>"; };
 		FA15F0B223488BC9001E8158 /* iGap_fontico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iGap_fontico.ttf; sourceTree = "<group>"; };
+		FA1A9827234A157C00170BD3 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		FA1C449B1DC716A20016C346 /* IGCountry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGCountry.swift; sourceTree = "<group>"; };
 		FA1DE8FB220ADD8300C465E5 /* StickerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerObserver.swift; sourceTree = "<group>"; };
 		FA248C97226AEBE800A72EA7 /* IGScoreHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGScoreHistoryViewController.swift; sourceTree = "<group>"; };
@@ -1799,6 +1801,7 @@
 				8E25A7C422674BB6004A5BC0 /* BaseTableViewController.swift */,
 				8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */,
 				8EBB455C2270202A00A52D88 /* BaseCollectionViewController.swift */,
+				FA1A9827234A157C00170BD3 /* BaseTableViewCell.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -4063,6 +4066,7 @@
 				949E835F231EA6A500B6799E /* slideImageCVCell.swift in Sources */,
 				FA63BA9B1DD6DF32000B60AD /* IGUploadManager.swift in Sources */,
 				FA0953531E1B97700043ED3F /* IGSettingChatStickerModalCollectionViewCell.swift in Sources */,
+				FA1A9828234A157C00170BD3 /* BaseTableViewCell.swift in Sources */,
 				FA7E9BD2226305CA00FB861D /* IGRepresentativeViewController.swift in Sources */,
 				8E62FFCB233F7B9C006DD56B /* T2ViewController.swift in Sources */,
 				FA8F224C1DD89910005A90D1 /* IGRoom.swift in Sources */,

@@ -15,14 +15,14 @@ import IGProtoBuff
 import MarkdownKit
 import MGSwipeTableCell
 
-class IGRoomListtCell: UITableViewCell {
+class IGRoomListtCell: BaseTableViewCell {
     
     var showStateImage : Bool!
     
     var width: Int = 0
     var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.igFont(ofSize: 13,weight: .bold)
+        label.font = UIFont.igFont(ofSize: 14,weight: .bold)
         label.textColor = UIColor(named: themeColor.TVCellTitleColor.rawValue)
         label.textAlignment = label.localizedNewDirection
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +30,7 @@ class IGRoomListtCell: UITableViewCell {
     }()
     var timeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.igFont(ofSize: 10,weight: .light)
+        label.font = UIFont.igFont(ofSize: 13,weight: .light)
         label.textColor = UIColor(named: themeColor.TVCellTitleColor.rawValue)
         label.textAlignment = NSTextAlignment.center
         label.text = label.text?.inLocalizedLanguage()
@@ -39,7 +39,7 @@ class IGRoomListtCell: UITableViewCell {
     }()
     var lastMsgLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.igFont(ofSize: 14,weight: .light)
+        label.font = UIFont.igFont(ofSize: 13, weight: .light)
         label.textColor = UIColor(named: themeColor.TVCellTitleColor.rawValue)
         label.textAlignment = label.localizedNewDirection
         label.text = label.text?.inLocalizedLanguage()
@@ -50,7 +50,7 @@ class IGRoomListtCell: UITableViewCell {
     }()
     var unreadCountLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.igFont(ofSize: 10,weight: .light)
+        label.font = UIFont.igFont(ofSize: 13,weight: .light)
         label.textColor = .white
         label.textAlignment = NSTextAlignment.center
         label.text = label.text?.inLocalizedLanguage()
@@ -78,39 +78,29 @@ class IGRoomListtCell: UITableViewCell {
         img.clipsToBounds = true
         return img
     }()
-        var bgImage: UIImageView = {
-            let img = UIImageView()
-            img.translatesAutoresizingMaskIntoConstraints = true // enable autolayout
-            if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
-                img.image = UIImage(named:"bgCellPin")
-            }
-            else{
-                img.image = UIImage(named:"bgCellPin")
-
-    //            img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
-
-            }
-            
-
-            
-            return img
-        }()
-        var bgPinTagImage: UIImageView = {
-            let img = UIImageView()
-            img.translatesAutoresizingMaskIntoConstraints = true // enable autolayout
-            if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
-                img.image = UIImage(named:"bgCellPinTag")
-            }
-            else{
-                let tmpImg = UIImage(named:"bgCellPinTag")
-                img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
-
-            }
-            
-
-            
-            return img
-        }()
+    var bgImage: UIImageView = {
+        let img = UIImageView()
+        img.translatesAutoresizingMaskIntoConstraints = true // enable autolayout
+        if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
+            img.image = UIImage(named:"bgCellPin")
+        }
+        else {
+            img.image = UIImage(named:"bgCellPin")
+        }
+        return img
+    }()
+    var bgPinTagImage: UIImageView = {
+        let img = UIImageView()
+        img.translatesAutoresizingMaskIntoConstraints = true // enable autolayout
+        if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
+            img.image = UIImage(named:"bgCellPinTag")
+        }
+        else {
+            let tmpImg = UIImage(named:"bgCellPinTag")
+            img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+        }
+        return img
+    }()
     var muteLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.iGapFonticon(ofSize: 16)
@@ -121,6 +111,10 @@ class IGRoomListtCell: UITableViewCell {
         return label
     }()
     var typeImage = UILabel()
+    
+    var nameAndTypeStackView = UIStackView()
+    var chatDetailsStackView = UIStackView()
+    
     var checkImage = UIImageView()
     var stateImage = UIImageView()
     var lastMessageStateImage :UIImageView = {
@@ -209,7 +203,6 @@ class IGRoomListtCell: UITableViewCell {
             switch item.type {
                 
             case .chat:
-                
                 self.typeImage.isHidden = true
                 
                 if (item.chatRoom?.peer!.isVerified)! {
@@ -331,68 +324,75 @@ class IGRoomListtCell: UITableViewCell {
         unreadCountLabel.backgroundColor = UIColor.red
         
         timeLabel.text = "..."
-        nameLabel.text = "..."
+//        nameLabel.text = "..."
         checkImage.image = UIImage(named:"IG_Verify")
+        
+        self.nameAndTypeStackView.axis = .horizontal
+        self.nameAndTypeStackView.distribution = .fill
+        self.nameAndTypeStackView.alignment = .center
+        self.nameAndTypeStackView.spacing = 6
+        self.nameAndTypeStackView.addArrangedSubview(typeImage)
+        self.nameAndTypeStackView.addArrangedSubview(nameLabel)
+        self.nameAndTypeStackView.semanticContentAttribute = self.semantic
+        
+        self.chatDetailsStackView.axis = .horizontal
+        self.chatDetailsStackView.distribution = .fill
+        self.chatDetailsStackView.alignment = .center
+        self.chatDetailsStackView.spacing = 6
+        self.chatDetailsStackView.addArrangedSubview(muteLabel)
+        self.chatDetailsStackView.addArrangedSubview(checkImage)
+        self.chatDetailsStackView.addArrangedSubview(timeLabel)
+        self.chatDetailsStackView.semanticContentAttribute = self.semantic
         
         self.contentView.addSubview(bgImage)
         self.contentView.addSubview(bgPinTagImage)
-        self.contentView.addSubview(nameLabel)
-        self.contentView.addSubview(timeLabel)
+        self.contentView.addSubview(nameAndTypeStackView)
+        self.contentView.addSubview(chatDetailsStackView)
         self.contentView.addSubview(lastMsgLabel)
         self.contentView.addSubview(unreadCountLabel)
         self.contentView.addSubview(initialLabel)
         self.contentView.addSubview(avatarImage)
-        self.contentView.addSubview(typeImage)
         self.contentView.addSubview(stateImage)
         self.contentView.addSubview(lastMessageStateImage)
-        self.contentView.addSubview(checkImage)
-        self.contentView.addSubview(muteLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    
-    
+        
     override func layoutSubviews() {
         super.layoutSubviews()
         makeAvatar()
         makeBGImage()
         makeBGPinTagImage()
         makeInitialLabel()
-        makeTypeImage()
-        makeTimeLabel()
-        makeCheckImage()
+        
+        // detail stackview
+        makeChatDetailsStackView()
         makeMuteLabel()
+        makeCheckImage()
+        makeTimeLabel()
+        
+        // name and type icon stackview
+        makeNameAndTypeStackView()
+        makeTypeImage()
         makeNameLabel()
         makeUnreadCountLabel()
         makeLastMessageLabel()
-        
+
         makelastMessageStateImage()
-        
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.avatarImage.cancelImageDownloadTask()
-        self.avatarImage.sd_cancelCurrentAnimationImagesLoad()
         self.avatarImage.image = nil
         self.nameLabel.text = nil
         self.stateImage.image = nil
         self.unreadCountLabel.text = nil
         self.lastMessageStateImage.image = nil
         self.lastMsgLabel.text = nil
-        self.avatarImage.image = UIImage()
+//        self.avatarImage.image = UIImage()
         showStateImage = nil
-        
-        // remove imageview from download list on t on cell reuse
-        DispatchQueue.main.async {
-            let keys = (imagesMap as NSDictionary).allKeys(for: self.avatarImage) as! [String]
-            keys.forEach { (key) in
-                imagesMap.removeValue(forKey: key)
-            }
-        }
     }
     
     
@@ -573,7 +573,7 @@ class IGRoomListtCell: UITableViewCell {
     
     private func makeAvatar() {
         avatarImage.snp.makeConstraints { (make) in
-            make.leading.equalTo(self.contentView.snp.leading).offset(10)
+            make.leading.equalTo(self.contentView.snp.leading).offset(8)
             make.width.equalTo(54)
             make.height.equalTo(54)
             make.centerY.equalTo(self.contentView.snp.centerY)
@@ -582,19 +582,18 @@ class IGRoomListtCell: UITableViewCell {
             avatarImage.image = nil
             avatarImage.backgroundColor = .clear
         }
-        
-        
     }
+    
     private func makeBGImage() {
         bgImage.snp.makeConstraints { (make) in
             make.leading.equalTo(avatarImage.snp.centerX).offset(0)
-            make.trailing.equalTo(self.contentView.snp.trailing).offset(-10)
+            make.trailing.equalTo(self.contentView.snp.trailing).offset(-8)
             make.top.equalTo(self.contentView.snp.top).offset(5)
             make.bottom.equalTo(self.contentView.snp.bottom).offset(-5)
         }
         bgImage.contentMode = .scaleToFill // image will never be strecthed vertially or horizontally
-
     }
+    
     private func makeBGPinTagImage() {
         bgPinTagImage.snp.makeConstraints { (make) in
             make.trailing.equalTo(bgImage.snp.trailing).offset(0)
@@ -603,26 +602,77 @@ class IGRoomListtCell: UITableViewCell {
             make.height.equalTo(15)
         }
         bgPinTagImage.contentMode = .scaleToFill // image will never be strecthed vertially or horizontally
-
     }
+    
     private func makeInitialLabel() {
         initialLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(self.contentView.snp.leading).offset(10)
+            make.leading.equalTo(self.contentView.snp.leading).offset(8)
             make.width.equalTo(54)
             make.height.equalTo(54)
             make.centerY.equalTo(self.contentView.snp.centerY)
         }
     }
     
-    private func makeTypeImage() {
-        typeImage.snp.makeConstraints { (make) in
-            make.leading.equalTo(self.avatarImage.snp.trailing).offset(2)
+    private func makeChatDetailsStackView() {
+        chatDetailsStackView.snp.makeConstraints { (maker) in
+            maker.trailing.equalTo(self.contentView.snp.trailing).offset(-15)
+            maker.top.equalTo(self.avatarImage.snp.top).offset(3)
+            maker.height.equalTo(22)
+        }
+    }
+    
+    private func makeMuteLabel() {
+        muteLabel.snp.makeConstraints { (make) in
+            make.leading.equalTo(self.chatDetailsStackView.snp.leading)
             make.width.equalTo(15)
             make.height.equalTo(15)
-            make.top.equalTo(self.avatarImage.snp.top)
         }
-        
     }
+    
+    private func makeCheckImage() {
+        checkImage.snp.makeConstraints { (make) in
+            make.leading.equalTo(self.muteLabel.snp.trailing).offset(6)
+            make.width.equalTo(15)
+            make.height.equalTo(15)
+        }
+    }
+    
+    private func makeTimeLabel() {
+        timeLabel.snp.makeConstraints { (make) in
+            make.trailing.equalTo(self.chatDetailsStackView.snp.trailing).offset(0)
+//            make.width.equalTo(50)
+            make.top.equalTo(self.chatDetailsStackView.snp.top).offset(0)
+            make.bottom.equalTo(self.chatDetailsStackView.snp.bottom).offset(0)
+            make.leading.equalTo(self.checkImage.snp.trailing).offset(6)
+        }
+    }
+    
+    private func makeNameAndTypeStackView() {
+        nameAndTypeStackView.snp.makeConstraints { (maker) in
+            maker.leading.equalTo(self.avatarImage.snp.trailing).offset(8)
+            maker.trailing.lessThanOrEqualTo(self.chatDetailsStackView.snp.leading).offset(-4)
+            maker.centerY.equalTo(self.chatDetailsStackView.snp.centerY)
+            maker.height.equalTo(22)
+        }
+    }
+    
+    private func makeTypeImage() {
+        typeImage.snp.makeConstraints { (make) in
+            make.leading.equalTo(self.nameAndTypeStackView.snp.leading)
+            make.height.equalTo(15)
+            make.width.equalTo(15)
+        }
+    }
+    
+    private func makeNameLabel() {
+        nameLabel.snp.makeConstraints { (make) in
+            make.trailing.equalTo(self.nameAndTypeStackView.snp.trailing)
+            make.leading.equalTo(self.typeImage.snp.trailing).offset(6)
+            make.top.equalTo(self.nameAndTypeStackView.snp.top)
+            make.bottom.equalTo(self.nameAndTypeStackView.snp.bottom)
+        }
+    }
+    
     private func makestateImage() {
         stateImage.snp.makeConstraints { (make) in
             make.leading.equalTo(self.avatarImage.snp.trailing).offset(2)
@@ -631,6 +681,7 @@ class IGRoomListtCell: UITableViewCell {
             make.top.equalTo(self.avatarImage.snp.top)
         }
     }
+    
     private func makelastMessageStateImage() {
         lastMessageStateImage.snp.makeConstraints { (make) in
             make.trailing.equalTo(self.contentView.snp.trailing).offset(-12)
@@ -639,45 +690,8 @@ class IGRoomListtCell: UITableViewCell {
             make.bottom.equalTo(self.avatarImage.snp.bottom)
         }
     }
-    //hide
     
-    private func makeTimeLabel() {
-        timeLabel.snp.makeConstraints { (make) in
-            make.trailing.equalTo(self.contentView.snp.trailing).offset(-15)
-            make.width.equalTo(50)
-            make.top.equalTo(self.avatarImage.snp.top).offset(10)
-        }
-        
-    }
-    private func makeCheckImage() {
-        checkImage.snp.makeConstraints { (make) in
-            make.trailing.equalTo(self.muteLabel.snp.leading).offset(-5)
-            make.width.equalTo(15)
-            make.height.equalTo(15)
-            make.top.equalTo(self.avatarImage.snp.top).offset(10)
-        }
-        
-    }
-    private func makeMuteLabel() {
-        muteLabel.snp.makeConstraints { (make) in
-            make.trailing.equalTo(self.timeLabel.snp.leading).offset(-5)
-            make.width.equalTo(15)
-            make.height.equalTo(15)
-            make.top.equalTo(self.avatarImage.snp.top).offset(10)
-        }
-        
-    }
-    private func makeNameLabel() {
-        nameLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(self.typeImage.snp.trailing).offset(10)
-            make.trailing.equalTo(self.checkImage.snp.leading).offset(-10)
-            make.top.equalTo(self.avatarImage.snp.top)
-        }
-        
-    }
     private func makeUnreadCountLabel() {
-        
-        
         unreadCountLabel.snp.makeConstraints { (make) in
             make.trailing.equalTo(self.contentView.snp.trailing).offset(-15)
             make.bottom.equalTo(self.avatarImage.snp.bottom)
@@ -686,18 +700,14 @@ class IGRoomListtCell: UITableViewCell {
             
         }
         unreadCountLabel.text =  unreadCountLabel.text?.inLocalizedLanguage()
-        
     }
     
     private func makeLastMessageLabel() {
         lastMsgLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(self.avatarImage.snp.trailing).offset(5)
-            make.trailing.equalTo(self.unreadCountLabel.snp.leading).offset(0)
-            make.bottom.equalTo(self.avatarImage.snp.bottom)
+            make.leading.equalTo(self.avatarImage.snp.trailing).offset(8)
+            make.trailing.equalTo(self.unreadCountLabel.snp.leading).offset(-4)
+            make.bottom.equalTo(self.avatarImage.snp.bottom).offset(-3)
         }
-        
-        
     }
-    
     
 }
