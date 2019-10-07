@@ -11,44 +11,108 @@
 import UIKit
 import MGSwipeTableCell
 
-class IGChannelInfoMemberListTableViewCell: MGSwipeTableCell {
-    
+class IGChannelInfoMemberListTableViewCell: UITableViewCell {
+    weak var delegate : cellWithMoreChannel?
+
     @IBOutlet weak var memberUserNameLabel: UILabel!
     @IBOutlet weak var memberAvatarView: IGAvatarView!
     @IBOutlet weak var adminOrModeratorLabel: UILabel!
     @IBOutlet weak var memberRecentlyStatusLabel: UILabel!
+    @IBOutlet weak var btnMore: UIButton!
+    var user : IGChannelMember!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         adminOrModeratorLabel.isHidden = true
         memberRecentlyStatusLabel.textColor = UIColor.organizationalColor()
+        memberUserNameLabel.textAlignment = memberUserNameLabel.localizedNewDirection
+        initiconFonts()
+
     }
-    
+    private func initiconFonts() {
+        adminOrModeratorLabel.font = UIFont.iGapFonticon(ofSize: 20)
+        self.btnMore.titleLabel!.font = UIFont.iGapFonticon(ofSize: 28)
+        self.btnMore.setTitle("", for: .normal)
+    }
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
     }
     
-    func setUser(_ member: IGChannelMember) {
+    func setUser(_ member: IGChannelMember,myRole: IGChannelMember.IGRole? = nil) {
         if member.isInvalidated {
             return
         }
         
+        user = member
+            if myRole == .owner {
+                if member.role == .owner {
+                    self.btnMore.isHidden = true
+                }
+                if member.role == .admin {
+                    self.btnMore.isHidden = false
+                }
+                if member.role == .moderator {
+                    self.btnMore.isHidden = false
+                }
+                if member.role == .member {
+                    self.btnMore.isHidden = false
+
+                }
+            } else if myRole == .admin {
+                if member.role == .owner {
+                    self.btnMore.isHidden = true
+                }
+                if member.role == .admin {
+                    self.btnMore.isHidden = true
+                }
+                if member.role == .moderator {
+                    self.btnMore.isHidden = false
+                }
+                if member.role == .member {
+                    self.btnMore.isHidden = false
+
+                }
+                } else if myRole == .moderator {
+                    if member.role == .owner {
+                        self.btnMore.isHidden = true
+                    }
+                    if member.role == .admin {
+                        self.btnMore.isHidden = true
+                    }
+                    if member.role == .moderator {
+                        self.btnMore.isHidden = true
+                    }
+                    if member.role == .member {
+                        self.btnMore.isHidden = false
+
+                    }
+                }
+                else if myRole == .member {
+                    self.btnMore.isHidden = true
+                }
+            else {
+                self.btnMore.isHidden = false
+
+            }
         if let memberUserDetail = member.user {
             memberUserNameLabel.text = memberUserDetail.displayName
             memberAvatarView.setUser(memberUserDetail)
             if member.role == .admin {
                 adminOrModeratorLabel.isHidden = false
-                adminOrModeratorLabel.text = "(Admin)"
+                adminOrModeratorLabel.text = ""
             }
             if member.role == .moderator {
                 adminOrModeratorLabel.isHidden = false
-                adminOrModeratorLabel.text = "(Moderator)"
+                adminOrModeratorLabel.text = ""
             }
             if member.role == .owner {
                 adminOrModeratorLabel.isHidden = false
-                adminOrModeratorLabel.text = "(Owner)"
+                adminOrModeratorLabel.text = ""
+                self.btnMore.isHidden = true
             }
             if member.role == .member {
                 adminOrModeratorLabel.isHidden = true
@@ -88,5 +152,12 @@ class IGChannelInfoMemberListTableViewCell: MGSwipeTableCell {
             
         }
     }
+        @IBAction func btnMoreTaped(_ sender: UIButton) {
+            delegate?.didPressMoreButton(member: user)
+        }
+        
+    }
 
-}
+    protocol cellWithMoreChannel : class {
+        func didPressMoreButton(member: IGChannelMember)
+    }

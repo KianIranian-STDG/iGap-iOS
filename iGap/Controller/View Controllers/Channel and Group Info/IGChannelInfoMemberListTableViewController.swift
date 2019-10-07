@@ -144,26 +144,6 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
             cell.setUser(member)
             let swipeOption = detectSwipeOption(memberRole: member.role)
             
-            if swipeOption.showOption {
-                let btnKick = MGSwipeButton(title: swipeOption.kickTitle, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
-                    self.detectSwipeAction(member: self.members[indexPath.row])
-                    return true
-                })
-                
-                let buttons = [btnKick]
-                cell.rightButtons = buttons
-                removeButtonsUnderline(buttons: buttons)
-                
-                cell.rightSwipeSettings.transition = MGSwipeTransition.border
-                cell.rightExpansion.buttonIndex = 0
-                cell.rightExpansion.fillOnTrigger = true
-                cell.rightExpansion.threshold = 1.5
-                cell.clipsToBounds = true
-                cell.swipeBackgroundColor = UIColor.clear
-                
-                cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-                cell.layoutMargins = UIEdgeInsets.zero
-            }
             
             cell.layer.cornerRadius = 10
             
@@ -174,26 +154,7 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
             cell.setUser(member)
             let swipeOption = detectSwipeOption(memberRole: member.role)
             
-            if swipeOption.showOption {
-                let btnKick = MGSwipeButton(title: swipeOption.kickTitle, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
-                    self.detectSwipeAction(member: self.admins[indexPath.row])
-                    return true
-                })
-                
-                let buttons = [btnKick]
-                cell.rightButtons = buttons
-                removeButtonsUnderline(buttons: buttons)
-                
-                cell.rightSwipeSettings.transition = MGSwipeTransition.border
-                cell.rightExpansion.buttonIndex = 0
-                cell.rightExpansion.fillOnTrigger = true
-                cell.rightExpansion.threshold = 1.5
-                cell.clipsToBounds = true
-                cell.swipeBackgroundColor = UIColor.clear
-                
-                cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-                cell.layoutMargins = UIEdgeInsets.zero
-            }
+            
             
             cell.layer.cornerRadius = 10
             
@@ -205,26 +166,6 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
             cell.setUser(member)
             let swipeOption = detectSwipeOption(memberRole: member.role)
             
-            if swipeOption.showOption {
-                let btnKick = MGSwipeButton(title: swipeOption.kickTitle, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
-                    self.detectSwipeAction(member: self.moderators[indexPath.row])
-                    return true
-                })
-                
-                let buttons = [btnKick]
-                cell.rightButtons = buttons
-                removeButtonsUnderline(buttons: buttons)
-                
-                cell.rightSwipeSettings.transition = MGSwipeTransition.border
-                cell.rightExpansion.buttonIndex = 0
-                cell.rightExpansion.fillOnTrigger = true
-                cell.rightExpansion.threshold = 1.5
-                cell.clipsToBounds = true
-                cell.swipeBackgroundColor = UIColor.clear
-                
-                cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-                cell.layoutMargins = UIEdgeInsets.zero
-            }
             
             cell.layer.cornerRadius = 10
             

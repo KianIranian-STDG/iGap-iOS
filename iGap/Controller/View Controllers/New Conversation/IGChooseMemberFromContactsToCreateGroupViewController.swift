@@ -145,6 +145,11 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
                 navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER_TO".localizedNew, iGapFont: true)
             }
 
+            if mode == "addMemberToChannel" {
+                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER_TO".localizedNew, iGapFont: true)
+            }
+
+
         case "en" :
             if mode == "Admin" {
                 navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_ADMIN".localizedNew, iGapFont: true)
@@ -163,6 +168,9 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
             }
             
             if mode == "ConvertChatToGroup" {
+                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER_TO".localizedNew, iGapFont: true)
+            }
+            if mode == "addMemberToChannel" {
                 navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER_TO".localizedNew, iGapFont: true)
             }
 
@@ -213,11 +221,30 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
             switch current {
             case "fa" :
                 if self.mode == "Members" {
-                    self.requestToAddmember()
+                    if self.room?.type == .channel {
+                        self.requestToAddmemberToChannel()
+
+                    } else {
+                        self.requestToAddmember()
+
+                    }
                 } else if self.mode == "Moderator" {
-                    self.requestToAddModeratorInGroup()
+                    if self.room?.type == .channel {
+                        self.requestToAddModeratorInChannel()
+
+                    } else {
+                        self.requestToAddModeratorInGroup()
+
+                    }
                 } else if self.mode == "Admin"{
-                    self.requestToAddAdminInGroup()
+                    if self.room?.type == .channel {
+                        self.requestToAddAdminInChannel()
+
+                    } else {
+                        self.requestToAddAdminInGroup()
+
+                    }
+
                 } else {
                     let createGroup = IGCreateNewGroupTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
                     let selectedUsersToCreateGroup = self.selectedUsers.map({ (user) -> IGRegisteredUser in
@@ -235,11 +262,32 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
                 
             case "en" :
                 if self.mode == "Members" {
-                    self.requestToAddmember()
+                    if self.room?.type == .channel {
+                        self.requestToAddmemberToChannel()
+
+                    } else {
+                        self.requestToAddmember()
+
+                    }
+
                 } else if self.mode == "Moderator" {
-                    self.requestToAddModeratorInGroup()
+                    if self.room?.type == .channel {
+                        self.requestToAddModeratorInChannel()
+
+                    } else {
+                        self.requestToAddModeratorInGroup()
+
+                    }
+
                 } else if self.mode == "Admin"{
-                    self.requestToAddAdminInGroup()
+                    if self.room?.type == .channel {
+                        self.requestToAddAdminInChannel()
+
+                    } else {
+                        self.requestToAddAdminInGroup()
+
+                    }
+
                 } else {
                     let createGroup = IGCreateNewGroupTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
                     let selectedUsersToCreateGroup = self.selectedUsers.map({ (user) -> IGRegisteredUser in
@@ -268,14 +316,19 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "CreateGroupPage" {
-            let selectedUsersToCreateGroup = selectedUsers.map({ (user) -> IGRegisteredUser in
-                return user.registredUser
-            })
-            let destinationVC = segue.destination as! IGCreateNewGroupTableViewController
-            destinationVC.selectedUsersToCreateGroup = selectedUsersToCreateGroup
-            destinationVC.mode = mode
-            destinationVC.roomId = roomID
+        if room?.type == .channel {
+            
+        } else {
+            if segue.identifier == "CreateGroupPage" {
+                let selectedUsersToCreateGroup = selectedUsers.map({ (user) -> IGRegisteredUser in
+                    return user.registredUser
+                })
+                let destinationVC = segue.destination as! IGCreateNewGroupTableViewController
+                destinationVC.selectedUsersToCreateGroup = selectedUsersToCreateGroup
+                destinationVC.mode = mode
+                destinationVC.roomId = roomID
+            }
+
         }
     }
     
@@ -303,7 +356,127 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
             }).send()
         }
     }
+    //Channel
     
+    func requestToAddmemberToChannel() {
+        if selectedUsers.count == 0 {
+            self.showAlert(title: "SETTING_PS_TV_HINT".localizedNew, message: "Please choose member")
+            return
+        }
+        
+        for member in selectedUsers {
+            IGChannelAddMemberRequest.Generator.generate(userID:member.registredUser.id, channel: room!).success({ (protoResponse) in
+                DispatchQueue.main.async {
+                    switch protoResponse {
+                    case let channelAddMemberResponse as IGPChannelAddMemberResponse:
+                        let _ = IGChannelAddMemberRequest.Handler.interpret(response: channelAddMemberResponse)
+                        if self.navigationController is IGNavigationController {
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    default:
+                        break
+                    }
+                }
+            }).error({ (errorCode, waitTime) in
+                
+            }).send()
+        }
+    }
+    func requestToAddAdminInChannel() {
+        if selectedUsers.count == 0 {
+            self.showAlert(title: "SETTING_PS_TV_HINT".localizedNew, message: "Please choose member")
+            return
+        }
+        
+        for member in selectedUsers {
+            if let channelRoom = room {
+                IGGlobal.prgShow(self.view)
+                IGChannelAddAdminRequest.Generator.generate(roomID: channelRoom.id, memberID: member.registredUser.id).success({ (protoResponse) in
+                    IGGlobal.prgHide()
+                    DispatchQueue.main.async {
+                        self.manageClosePage()
+                        if let channelAddAdminResponse = protoResponse as? IGPChannelAddAdminResponse {
+                            IGChannelAddAdminRequest.Handler.interpret(response: channelAddAdminResponse, memberRole: .admin)
+                        }
+                    }
+                }).error ({ (errorCode, waitTime) in
+                    IGGlobal.prgHide()
+                    self.manageClosePage()
+                    switch errorCode {
+                    case .timeout:
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                            alert.addAction(okAction)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    case .canNotAddThisUserAsAdminToGroup:
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: "Error", message: "There is an error to adding this contact in channel", preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            alert.addAction(okAction)
+                            self.present(alert, animated: true, completion: nil)
+                            
+                        }
+                    default:
+                        break
+                    }
+                    
+                }).send()
+            }
+        }
+    }
+    
+    
+    func requestToAddModeratorInChannel() {
+        if selectedUsers.count == 0 {
+            self.showAlert(title: "SETTING_PS_TV_HINT".localizedNew, message: "Please choose member")
+            return
+        }
+        
+        for member in selectedUsers {
+            if let channelRoom = room {
+                IGGlobal.prgShow(self.view)
+                IGChannelAddModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: member.registredUser.id).success({ (protoResponse) in
+                    IGGlobal.prgHide()
+                    DispatchQueue.main.async {
+                        self.manageClosePage()
+                        if let channelAddModeratorResponse = protoResponse as? IGPChannelAddModeratorResponse {
+                            IGChannelAddModeratorRequest.Handler.interpret(response: channelAddModeratorResponse, memberRole: .moderator)
+                        }
+                    }
+                    
+                }).error ({ (errorCode, waitTime) in
+                    self.manageClosePage()
+                    IGGlobal.prgHide()
+                    switch errorCode {
+                    case .timeout:
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                            alert.addAction(okAction)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    case .canNotAddThisUserAsModeratorToGroup:
+                        DispatchQueue.main.async {
+                            let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
+                            
+                            let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                            alertC.addAction(cancel)
+                            self.present(alertC, animated: true, completion: nil)
+                        }
+                        
+                    default:
+                        break
+                    }
+                    
+                }).send()
+                
+            }
+        }
+    }
+    
+    //Group
     func requestToAddAdminInGroup() {
         if selectedUsers.count == 0 {
             self.showAlert(title: "SETTING_PS_TV_HINT".localizedNew, message: "Please choose member")

@@ -889,7 +889,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
             destination.room = room
         }
         if segue.identifier == "showChannelInfoSetMembers" {
-            let destination = segue.destination as! IGChannelInfoMemberListTableViewController
+            let destination = segue.destination as! IGGroupInfoMemberListTableViewController
             destination.mode = roleToShow
             destination.room = room
         }
@@ -2159,15 +2159,21 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     break
                 case 2:
                     switch indexPath.row {
-                    case 0 :
-                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
+                        case 0 :
+                            roleToShow = "Members"
+                            self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
+                        case 1 :
+                            roleToShow = "Admins"
+                            self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
+                        case 2 :
+                            roleToShow = "Moderators"
+                            self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
+                            
+                        default:
+                            roleToShow = "Members"
+                            self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
+                        
 
-                        break
-                    case 1 :
-                        //gotToNotificationSettings
-                        break
-                    default:
-                        break
                     }
                 case 3:
                     //goToSharedMedia
@@ -2248,7 +2254,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                         break
                     case 1 :
                         //gotToMemberListPage
-                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
+//                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
                         
                         break
                     default:
@@ -2342,7 +2348,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                         break
                     case 1 :
                         //gotToMemberListPage
-                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
+//                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
                         
                         break
                     default:
@@ -2427,16 +2433,18 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     
                     switch indexPath.row {
                     case 0 :
-                        //gotToMemberListPage
-                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
-                        break
+                        roleToShow = "Members"
+                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                     case 1 :
-                        break
+                        roleToShow = "Admins"
+                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                     case 2 :
-                        break
-                    default:
-                        break
+                        roleToShow = "Moderators"
+                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                         
+                    default:
+                        roleToShow = "Members"
+                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                     }
                 case 5:
                     switch indexPath.row {
@@ -2467,20 +2475,22 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     break
                     
                 case 4:
-                    //goToSharedMedia
+                    //goToMemberLists
                     
                     switch indexPath.row {
                     case 0 :
-                        //gotToMemberListPage
-                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
-                        break
+                        roleToShow = "Members"
+                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                     case 1 :
-                        break
+                        roleToShow = "Admins"
+                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                     case 2 :
-                        break
-                    default:
-                        break
+                        roleToShow = "Moderators"
+                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                         
+                    default:
+                        roleToShow = "Members"
+                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                     }
                 case 5:
                     switch indexPath.row {
