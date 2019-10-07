@@ -12,7 +12,7 @@ import SDWebImage
 
 class SliderTypeOneCell: UITableViewCell {
 
-    @IBOutlet var heightConstraintValue: NSLayoutConstraint!
+    @IBOutlet weak var heightConstraintValue: NSLayoutConstraint!
 //    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var sliderCollectionView: UICollectionView!
     @IBOutlet weak var pageView: UIPageControl!

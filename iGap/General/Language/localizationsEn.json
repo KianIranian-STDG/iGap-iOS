@@ -1065,6 +1065,18 @@
         
         
         "NO_CALL_HISTORY" : "Not exist call history!",
-        "UNREAD_MESSAGE" : "unread message"
+        "UNREAD_MESSAGE" : "unread message",
+        "CROP" : "crop",
+        "GALLERY" : "gallery",
+        "ALBUMS" : "albums",
+        "PHOTO" : "photo",
+        "CAMERA" : "camera",
+        "COVER" : "cover",
+        "TRIM" : "trim",
+        "VIDEO" : "video",
+        "WARNING_MAX_ITEMS_LIMIT" : "No more items can be selected!",
+        "CROP" : "crop",
+        "FILTER" : "filter",
+        "PROCESSING" : "processing"
     }
 }

@@ -3216,6 +3216,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.present(alertC, animated: true, completion: nil)
     }
     
+    /**********************************************************************************/
+    /*********************************** pick media ***********************************/
+    
     func attachmentPicker(screens: [YPPickerScreen] = [.library, .photo, .video], sendAsFile: Bool = false){
         
         IGHelperMediaPicker.shared.setScreens(screens).setSendAsFile(sendAsFile).pick { mediaItems in
@@ -3259,7 +3262,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.present(documentPicker, animated: true, completion: nil)
     }
     
-    /***** overrided method for pick media *****/
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
         let myURL = url as URL
         if let data = try? Data(contentsOf: myURL) {

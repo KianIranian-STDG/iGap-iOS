@@ -1053,6 +1053,18 @@
         
         
         "NO_CALL_HISTORY" : "تاریخچه تماس وجود ندارد!",
-        "UNREAD_MESSAGE" : "پیام خوانده نشده"
+        "UNREAD_MESSAGE" : "پیام خوانده نشده",
+        "CROP" : "برش",
+        "GALLERY" : "گالری",
+        "ALBUMS" : "آلبوم ها",
+        "PHOTO" : "تصویر",
+        "CAMERA" : "دوربین",
+        "COVER" : "انتخاب قاب",
+        "TRIM" : "برش ویدیو",
+        "VIDEO" : "ویدیو",
+        "WARNING_MAX_ITEMS_LIMIT" : "امکان انتخاب بیش از این تعداد وجود ندارد!",
+        "CROP" : "برش",
+        "FILTER" : "فیلتر",
+        "PROCESSING" : "در حال پردازش"
     }
 }
