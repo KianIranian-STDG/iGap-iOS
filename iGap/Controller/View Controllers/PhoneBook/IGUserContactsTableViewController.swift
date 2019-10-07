@@ -12,10 +12,56 @@ import MessageUI
 
 class IGUserContactsTableViewController: BaseTableViewController,MFMessageComposeViewControllerDelegate {
     var userContacts = [CNContact]()
+    
+        var searchController : UISearchController = {
+            
+            let searchController = UISearchController(searchResultsController: nil)
+            searchController.searchBar.placeholder = ""
+            searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
+            
+            let gradient = CAGradientLayer()
+            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
 
+            gradient.frame = defaultNavigationBarFrame
+            gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+            gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
+            gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
+    //        gradient.locations = orangeGradientLocation as [NSNumber]
+
+            
+            searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+            searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+            if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+                if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
+                    searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+                    searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
+                    searchBarCancelButton.tintColor = UIColor.white
+                }
+
+                
+                print("FOUND TEXTFIELD")
+                if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
+                    print("FOUND LABEL")
+                    placeHolderInsideSearchField.textColor = UIColor.white
+                    placeHolderInsideSearchField.textAlignment = .center
+                    placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localizedNew
+                    if let backgroundview = textField.subviews.first {
+                        placeHolderInsideSearchField.center = backgroundview.center
+                    }
+                    placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15,weight: .bold)
+                    
+
+
+                }
+            }
+            return searchController
+
+        }()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView()
+        self.tableView.scrollsToTop = false
+        self.tableView.bounces = false
 
         let store = CNContactStore()
         let authorizationStatus = CNContactStore.authorizationStatus(for: .contacts)
@@ -50,7 +96,92 @@ class IGUserContactsTableViewController: BaseTableViewController,MFMessageCompos
         }
 
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if #available(iOS 11.0, *) {
+            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
 
+            if navigationItem.searchController == nil {
+                tableView.tableHeaderView = searchController.searchBar
+            }
+        } else {
+            tableView.tableHeaderView = searchController.searchBar
+        }
+
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        initialiseSearchBar()
+
+    }
+    
+    private func initialiseSearchBar() {
+        
+        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            textField.backgroundColor = .clear
+
+            let imageV = textField.leftView as! UIImageView
+            imageV.image = nil
+            if let backgroundview = textField.subviews.first {
+                backgroundview.backgroundColor = UIColor(named: themeColor.searchBarBackGroundColor.rawValue)
+                for view in backgroundview.subviews {
+                    if view is UIView {
+                        view.backgroundColor = .clear
+                    }
+                }
+                backgroundview.layer.cornerRadius = 10;
+                backgroundview.clipsToBounds = true;
+                
+            }
+
+            if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
+                searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+                searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
+                searchBarCancelButton.tintColor = UIColor.white
+            }
+
+            if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
+                placeHolderInsideSearchField.textColor = UIColor.white
+                placeHolderInsideSearchField.textAlignment = .center
+                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localizedNew
+                if let backgroundview = textField.subviews.first {
+                    placeHolderInsideSearchField.center = backgroundview.center
+                }
+                placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15,weight: .bold)
+                
+            }
+            
+        }
+    }
+    
+        override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            super.traitCollectionDidChange(previousTraitCollection)
+            
+            if #available(iOS 13.0, *) {
+                if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true {
+                    // appearance has changed
+                    // Update your user interface based on the appearance
+                    self.setSearchBarGradient()
+                }
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+        
+        private func setSearchBarGradient() {
+            let gradient = CAGradientLayer()
+            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
+
+            gradient.frame = defaultNavigationBarFrame
+            gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+            gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
+            gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
+    //        gradient.locations = orangeGradientLocation as [NSNumber]
+            
+            searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+            searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+            
+        }
     private func sendText(number: String!) {
         if (MFMessageComposeViewController.canSendText()) {
             let controller = MFMessageComposeViewController()

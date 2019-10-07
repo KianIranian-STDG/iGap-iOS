@@ -36,7 +36,38 @@ class IGContactTableViewCell: UITableViewCell {
             self.btnCall.removeUnderline()
         }
         contactNameLable.text = user.displayName
-        contactPhoneNumber.text = String(user.phone)
+        if currentTabIndex == TabBarTab.Contact.rawValue {
+
+            switch user.lastSeenStatus {
+            case .longTimeAgo:
+                self.contactPhoneNumber.text =  "A_LONG_TIME_AGO".localizedNew
+                break
+            case .lastMonth:
+                self.contactPhoneNumber.text = "LAST_MONTH".localizedNew
+                break
+            case .lastWeek:
+                self.contactPhoneNumber.text = "LAST_WEAK".localizedNew
+                break
+            case .online:
+                self.contactPhoneNumber.text  = "ONLINE".localizedNew
+                break
+            case .exactly:
+                self.contactPhoneNumber.text = "\(user.lastSeen!.humanReadableForLastSeen())".inLocalizedLanguage()
+                break
+            case .recently:
+                self.contactPhoneNumber.text = "A_FEW_SEC_AGO".localizedNew
+                break
+            case .support:
+                self.contactPhoneNumber.text = "IGAP_SUPPORT".localizedNew
+                break
+            case .serviceNotification:
+                self.contactPhoneNumber.text = "SERVICE_NOTIFI".localizedNew
+                break
+            }
+
+        } else {
+            contactPhoneNumber.text = String(user.phone)
+        }
 
         userAvatarView.setUser(user)
         self.userRegister = user

@@ -6089,11 +6089,11 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     }
     
     private func makeTimeItem(date: Date) -> IGRoomMessage {
-        let dayTimePeriodFormatter = DateFormatter()
-        dayTimePeriodFormatter.dateFormat = "MMMM dd"
-        dayTimePeriodFormatter.calendar = Calendar.current
+//        let dayTimePeriodFormatter = DateFormatter()
+//        dayTimePeriodFormatter.dateFormat = "MMMM dd"
+//        dayTimePeriodFormatter.calendar = Calendar.current
         let dateString = date.localizedDate()
-        
+
         let message = IGRoomMessage(body: dateString.inLocalizedLanguage())
         message.type = .time
         return message
@@ -6142,4 +6142,11 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     }
     
     //TODO - make delete method for find deleted item position and then detect that deleted item is upper than user position or is lower that from user, and finally remove item without move view because of remove item
+}
+extension Date {
+    func string(format: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.string(from: self)
+    }
 }

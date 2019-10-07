@@ -596,7 +596,11 @@
         "SETTING_PAGE_ABOUT" : "About",
         "SETTING_PAGE_QRCODE_SCANNER" : "QR Code Scanner",
         "SETTING_PAGE_FOOTER_VERSION" : "iGap iOS Client V ",
-        
+        "CREAT_CHANNEL" : "Creat Channel",
+        "CREAT_GROUP" : "Create Group",
+        "TODAY" : "Today",
+        "YESTERDAY" : "Yesterday",
+
         
         "SETTING_PAGE_ACCOUNT_NIKNAME" : "Nikname",
         "SETTING_PAGE_ACCOUNT_IGAP_CLUB" : "iGap Club",

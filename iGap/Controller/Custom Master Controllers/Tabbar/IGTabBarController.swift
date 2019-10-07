@@ -88,7 +88,6 @@ class IGTabBarController: UITabBarController {
             navigationControllerr.navigationBar.isHidden = false
             //            navigationControllerr.addSearchBar(state: "True")
             let navigationItem = self.navigationItem as! IGNavigationItem
-            navigationItem.searchController = nil
             
             currentTabIndex = TabBarTab.Contact.rawValue
             break
@@ -96,14 +95,12 @@ class IGTabBarController: UITabBarController {
             navigationControllerr.navigationBar.isHidden = false
             //            navigationControllerr.addSearchBar(state: "False")
             let navigationItem = self.navigationItem as! IGNavigationItem
-            navigationItem.searchController = nil
             
             currentTabIndex = TabBarTab.Call.rawValue
             
             break
         case .Recent:
             navigationControllerr.navigationBar.isHidden = false
-            //            navigationControllerr.addSearchBar(state: "True")
             
             currentTabIndex = TabBarTab.Recent.rawValue
             
@@ -112,25 +109,12 @@ class IGTabBarController: UITabBarController {
             navigationControllerr.navigationBar.isHidden = false
             //            navigationControllerr.addSearchBar(state: "False")
             let navigationItem = self.navigationItem as! IGNavigationItem
-            navigationItem.searchController = nil
             
             currentTabIndex = TabBarTab.Dashboard.rawValue
             
             break
         case .Profile:
-//            navigationControllerr.navigationBar.isHidden = true
-//            navigationControllerr.addSearchBar(state: "False")
             let navigationItem = self.navigationItem as! IGNavigationItem
-            navigationItem.searchController = nil
-//            navigationControllerr.navigationBar.shadowImage = UIImage()
-//            navigationControllerr.navigationBar.isTranslucent = true
-//            self.navigationController?.navigationBar.shadowImage = UIImage()
-            
-//            navigationControllerr.navigationBar.barTintColor = UIColor.redColor()
-//            navigationControllerr.navigationBar.isTranslucent = false
-//            navigationBar.setBackgroundImage(UIImage(), for: .default)
-//            navigationBar.shadowImage = UIImage()
-            
             currentTabIndex = TabBarTab.Profile.rawValue
             
             break

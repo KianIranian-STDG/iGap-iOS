@@ -69,7 +69,35 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
             self.users.append(user)
         }
     }
-    
+        override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            super.traitCollectionDidChange(previousTraitCollection)
+            
+            if #available(iOS 13.0, *) {
+                if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true {
+                    // appearance has changed
+                    // Update your user interface based on the appearance
+                    self.setSearchBarGradient()
+                }
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+        
+        private func setSearchBarGradient() {
+            let gradient = CAGradientLayer()
+            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
+
+            gradient.frame = defaultNavigationBarFrame
+            gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+            gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
+            gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
+    //        gradient.locations = orangeGradientLocation as [NSNumber]
+            
+            searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+            searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+            
+        }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -78,7 +106,7 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         self.tableView.sectionIndexBackgroundColor = UIColor.clear
         setNavigationItem()
         sections = fillContacts()
-        creatHeader()
+//        creatHeader()
         
         self.initNavigationBar(title: "NEW".localizedNew) { }
     }

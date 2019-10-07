@@ -163,6 +163,8 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController,cellWith
 
         } else {
             let predicate = NSPredicate(format: "roomID = %lld", (room?.groupRoom?.id)!)
+            members =  try! Realm().objects(IGGroupMember.self).filter(predicate)
+
             self.notificationToken = members.observe { (changes: RealmCollectionChange) in
                 switch changes {
                 case .initial:

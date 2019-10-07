@@ -42,6 +42,7 @@ class IGRoomListtCell: BaseTableViewCell {
         label.font = UIFont.igFont(ofSize: 13, weight: .light)
         label.textColor = UIColor(named: themeColor.TVCellTitleColor.rawValue)
         label.textAlignment = label.localizedNewDirection
+        label.text = ""
         label.text = label.text?.inLocalizedLanguage()
         label.layer.cornerRadius = 8
         label.clipsToBounds = true
@@ -319,6 +320,8 @@ class IGRoomListtCell: BaseTableViewCell {
             
             if (item.lastMessage?.message) != nil {
                 setLastMessage(for: item)
+            } else {
+                self.lastMsgLabel.text = ""
             }
             
             //end
@@ -581,7 +584,10 @@ class IGRoomListtCell: BaseTableViewCell {
                         
                     }
                 }
+            } else {
+                self.lastMsgLabel.text  = ""
             }
+
         }
     }
     

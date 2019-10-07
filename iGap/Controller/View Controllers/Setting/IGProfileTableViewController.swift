@@ -826,7 +826,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     //Hint :- Go to Creat New chat/Group/Channel
     @IBAction func didTapOnGoToCreatNewCGC(_ sender: Any) {
         goToSettings = false
-        let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+        let createChat = IGPhoneBookTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
         self.navigationController!.pushViewController(createChat, animated: true)
     }
     

@@ -28,7 +28,11 @@
 
         
         "MCI_CHARGE" : "شارژ همراه اول",
-        
+        "CREAT_CHANNEL" : "ایجاد کانال",
+        "CREAT_GROUP" : "ایجاد گروه",
+        "TODAY" : "امروز",
+        "YESTERDAY" : "دیروز",
+
         
         "NEW_MESSAGES" : "پیام جدید",
         "WHICH_TYPE_OF" : "تمایل به ایجاد کدام یک از موارد زیر را دارید؟",

@@ -18,7 +18,6 @@ class phoneBookCellTypeTwo: UITableViewCell {
         super.awakeFromNib()
         lblText.textAlignment = lblText.localizedNewDirection
         lblIcon.textAlignment = .center
-        lblIcon.text = ""
         lblIcon.font = UIFont.iGapFonticon(ofSize: 25)
     }
 }

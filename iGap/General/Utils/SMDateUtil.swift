@@ -148,9 +148,46 @@ import Foundation
             let minute = (calendar as NSCalendar?)?.component(.minute, from: date)
             return String(year!) + "/" + String(m) + "/" + String(day!) + "  -  " + String(hour!) + ":" + String(minute!)
         }
-        return String(year!) + "/" + String(m) + "/" + String(day!);
+       return self.checkIfisTodayOrYesterdayPersian(year: year, month: month, day: day)
+    }
+    static func checkIfisTodayOrYesterdayPersian(year: Int!,month: Int!,day:Int!) -> String {
+            let date = Date()
+            let format = DateFormatter()
+            format.dateFormat = "yyyy-MM-dd"
+            let formattedDate = format.string(from: date)
+            let calendar = Calendar(identifier: Calendar.Identifier.persian)
+            let currentDay = (calendar as NSCalendar?)?.component(NSCalendar.Unit.day, from: date)
+            let currentMonth = (calendar as NSCalendar?)?.component(.month, from: date)
+            let currentYear = (calendar as NSCalendar?)?.component(.year, from: date)
+
+            if (currentYear) == year! && (currentMonth) == month && (currentDay) == day {
+                return "TODAY".localizedNew
+            } else if (currentYear) == year! && (currentMonth) == month && (currentDay) == day + 1 {
+                return "YESTERDAY".localizedNew
+
+            } else {
+                return String(year!) + "/" + String(month) + "/" + String(day!);
+            }
+            
     }
     
+    static func checkIfisTodayOrYesterdayEnglish(year: Int!,month: Int!,day:Int!) -> String {
+            let date = Date()
+            let format = DateFormatter()
+            format.dateFormat = "yyyy-MM-dd"
+            let formattedDate = format.string(from: date)
+            let calendar = Calendar.current
+
+            if (calendar.component(.year, from: date)) == year! && (calendar.component(.month, from: date)) == month && (calendar.component(.day, from: date)) == day {
+                return "TODAY".localizedNew
+            } else if (calendar.component(.year, from: date)) == year! && (calendar.component(.month, from: date)) == month && (calendar.component(.day, from: date)) == day + 1 {
+                return "YESTERDAY".localizedNew
+
+            } else {
+                return String(year!) + "/" + String(month) + "/" + String(day!);
+            }
+            
+    }
     static func toGregorianOnlyDate(_ date: Date, showHour: Bool = false) -> String {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         let day = (calendar as NSCalendar?)?.component(NSCalendar.Unit.day, from: date)
@@ -163,7 +200,8 @@ import Foundation
             let minute = (calendar as NSCalendar?)?.component(.minute, from: date)
             return String(year!) + "/" + String(m) + "/" + String(day!) + "  -  " + String(hour!) + ":" + String(minute!)
         }
-        return String(year!) + "/" + String(m) + "/" + String(day!);
+        
+        return self.checkIfisTodayOrYesterdayEnglish(year: year, month: month, day: day)
     }
     
     static func toPersianMonthAndDate(_ date: Date) -> String {
