@@ -4774,7 +4774,6 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
     
     private func setFloatingDate(){
         if messages == nil {return}
-        
         let arrayOfVisibleItems = collectionView.indexPathsForVisibleItems.sorted()
         if let lastIndexPath = arrayOfVisibleItems.last {
             if latestIndexPath != lastIndexPath {
@@ -4795,7 +4794,7 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
                     previousMessage = (messages?[latestIndexPath.row + 1])!
                 }
                 
-                if let message = messages?[latestIndexPath.row], !message.isInvalidated {
+                if let message = messages?[latestIndexPath.row], !message.isInvalidated , message.type != .time , message.type != .unread {
                     let dayTimePeriodFormatter = DateFormatter()
                     dayTimePeriodFormatter.dateFormat = "MMMM dd"
                     dayTimePeriodFormatter.calendar = Calendar.current
