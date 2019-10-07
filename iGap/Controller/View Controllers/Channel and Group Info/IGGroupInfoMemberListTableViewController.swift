@@ -17,10 +17,6 @@ import MGSwipeTableCell
 
 class IGGroupInfoMemberListTableViewController: BaseTableViewController,cellWithMore,cellWithMoreChannel  {
 
-    
-    
-    
-    
     var allMember = [IGGroupMember]()
     var allMemberChannel = [IGChannelMember]()
 

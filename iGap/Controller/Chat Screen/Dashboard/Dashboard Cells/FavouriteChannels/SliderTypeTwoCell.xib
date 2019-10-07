@@ -52,7 +52,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="22"/>
                                         <state key="normal" title="">
-                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="titleColor" name="IGLabelGrayColor"/>
                                         </state>
                                         <connections>
                                             <action selector="didTapOnBtnMore:" destination="3M9-EW-Hbp" eventType="touchUpInside" id="eIG-IW-upv"/>
@@ -120,10 +120,13 @@
     </objects>
     <resources>
         <namedColor name="IGChannelCellBGColor">
-            <color red="0.37682383863667512" green="0.38055476773208774" blue="0.38055476773208774" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+        <namedColor name="IGLabelGrayColor">
+            <color white="0.66699999570846558" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
         <namedColor name="IGSelectedChannelsCellBGColor">
-            <color white="0.23915875087613644" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.10980392156862745" green="0.10980392156862745" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

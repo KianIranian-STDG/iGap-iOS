@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QWV-7y-MRV">
-    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
@@ -171,13 +171,13 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Locating..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOW-He-PNQ">
                                         <rect key="frame" x="175.66666666666666" y="41.666666666666629" width="63" height="14.333333333333336"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
-                                        <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                        <color key="textColor" name="IGLabelGrayColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send this Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z4Q-eZ-Ji4">
                                         <rect key="frame" x="141" y="4" width="132" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                        <color key="textColor" red="0.25962049190000003" green="0.2621909918" blue="0.2621909918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" name="IGLabelColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ES-5L-MFG">
@@ -187,11 +187,11 @@
                                             <constraint firstAttribute="height" constant="44" id="hdF-aa-IgG"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
-                                        <color key="textColor" red="0.25962049190000003" green="0.2621909918" blue="0.2621909918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" name="IGLabelGrayColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" name="IGModalViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="9ES-5L-MFG" firstAttribute="leading" secondItem="qjF-99-u5b" secondAttribute="leading" constant="8" id="1CT-GY-yis"/>
                                     <constraint firstItem="z4Q-eZ-Ji4" firstAttribute="centerX" secondItem="qjF-99-u5b" secondAttribute="centerX" id="BPg-X9-MwS"/>
@@ -211,14 +211,14 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E0t-it-I0J">
                                 <rect key="frame" x="337" y="673" width="55" height="55"/>
-                                <color key="backgroundColor" red="0.98179232750000001" green="0.98184645459999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" name="IGModalViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="55" id="bY9-Ge-Gv1"/>
                                     <constraint firstAttribute="height" constant="55" id="iE8-cj-FTh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="26"/>
                                 <state key="normal">
-                                    <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" name="IGLabelColor"/>
                                 </state>
                                 <connections>
                                     <action selector="btnCurrentLocation:" destination="S3I-yk-3Ak" eventType="touchUpInside" id="QJt-Ts-1GQ"/>
@@ -241,7 +241,7 @@
                                 </connections>
                             </segmentedControl>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="IGModalViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="qjF-99-u5b" firstAttribute="top" secondItem="H4W-xY-YF8" secondAttribute="bottom" id="0Ya-s1-BmP"/>
                             <constraint firstItem="H4W-xY-YF8" firstAttribute="top" secondItem="HId-RA-OqG" secondAttribute="bottom" id="Gw0-SR-qob"/>
@@ -373,7 +373,7 @@
                     <view key="view" contentMode="scaleToFill" id="L0R-Gf-CIC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="IGBackGroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="qoc-q4-PhW" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
@@ -735,7 +735,7 @@
                                 <rect key="frame" x="0.0" y="786" width="414" height="110"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mBA-yq-vhb">
-                                        <rect key="frame" x="0.0" y="8" width="414" height="110"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="110"/>
                                         <color key="backgroundColor" name="IGModalViewBackgroundColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="msV-xi-WyQ">
                                             <size key="itemSize" width="67" height="67"/>
@@ -803,9 +803,10 @@
                                         </connections>
                                     </collectionView>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="110" id="14p-h8-Gf1"/>
-                                    <constraint firstItem="mBA-yq-vhb" firstAttribute="top" secondItem="wZc-pC-Edb" secondAttribute="top" constant="8" id="3ec-Of-KZb"/>
+                                    <constraint firstItem="mBA-yq-vhb" firstAttribute="top" secondItem="wZc-pC-Edb" secondAttribute="top" id="3ec-Of-KZb"/>
                                     <constraint firstItem="mBA-yq-vhb" firstAttribute="leading" secondItem="wZc-pC-Edb" secondAttribute="leading" id="WQp-mg-UFH"/>
                                     <constraint firstItem="mBA-yq-vhb" firstAttribute="width" secondItem="wZc-pC-Edb" secondAttribute="width" id="aUB-7H-zVy"/>
                                     <constraint firstItem="mBA-yq-vhb" firstAttribute="height" secondItem="wZc-pC-Edb" secondAttribute="height" id="qiz-sw-giN"/>
@@ -870,7 +871,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="IGTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="wZc-pC-Edb" firstAttribute="centerX" secondItem="Lqa-OD-Nci" secondAttribute="centerX" id="7ZS-Pb-LbX"/>
                             <constraint firstItem="0g2-g4-CGm" firstAttribute="top" secondItem="7ox-gI-E78" secondAttribute="bottom" id="FnU-wD-kTB"/>
@@ -902,7 +903,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="76" sectionHeaderHeight="18" sectionFooterHeight="18" id="fwj-lh-o51">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" name="IGTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ContactsCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="GroupMemberCell" rowHeight="76" id="riF-Ub-qTp" customClass="IGGroupInfoMemberListTableViewCell" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="414" height="76"/>
@@ -914,13 +915,13 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last seen recently" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3eU-N9-Aim" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                             <rect key="frame" x="106" y="52" width="86" height="12"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                            <color key="textColor" red="0.41804766409999999" green="0.41804766409999999" blue="0.41804766409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" name="IGLabelGrayColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kvz-sI-8gp" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                             <rect key="frame" x="106" y="5" width="189" height="45"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" name="IGLabelColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="ghF-y1-331">
@@ -934,7 +935,7 @@
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7XC-JO-cjJ" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
                                             <rect key="frame" x="28" y="5" width="60" height="60"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="TLE-tE-h1a"/>
                                                 <constraint firstAttribute="height" constant="60" id="hrU-0T-sLF"/>
@@ -954,6 +955,7 @@
                                             </connections>
                                         </button>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="a4O-rB-QT4" secondAttribute="bottom" constant="8" id="7M5-AF-PRB"/>
                                         <constraint firstItem="a4O-rB-QT4" firstAttribute="top" secondItem="qpw-4e-L9N" secondAttribute="top" constant="8" id="7mu-9c-ZVO"/>
@@ -2225,6 +2227,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="bUj-iK-YQS" firstAttribute="leading" secondItem="ebF-rb-sgS" secondAttribute="leading" constant="8" id="6kC-Z6-dik"/>
                                         <constraint firstAttribute="trailing" secondItem="O9u-oV-vG6" secondAttribute="trailing" constant="15" id="POJ-a5-hDw"/>
@@ -2233,7 +2236,7 @@
                                         <constraint firstItem="bUj-iK-YQS" firstAttribute="centerY" secondItem="ebF-rb-sgS" secondAttribute="centerY" id="k3g-Vc-8ax"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" name="IGTableViewCellColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="lblText" destination="O9u-oV-vG6" id="njE-0G-mi0"/>
                                 </connections>
@@ -2265,13 +2268,14 @@
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0yk-1T-LML" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
                                             <rect key="frame" x="28" y="7.5" width="55" height="55"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="55" id="ABY-bI-NSw"/>
                                                 <constraint firstAttribute="width" constant="55" id="YFs-yw-geq"/>
                                             </constraints>
                                         </view>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="ge8-ZQ-cE5" firstAttribute="leading" secondItem="0yk-1T-LML" secondAttribute="trailing" constant="18" id="2bx-hM-NIt"/>
                                         <constraint firstItem="QPb-RH-Vpy" firstAttribute="top" secondItem="LWo-dO-Qhh" secondAttribute="topMargin" constant="-6" id="3Iz-pC-BA3"/>
@@ -2285,7 +2289,7 @@
                                         <constraint firstItem="JEd-wW-LXa" firstAttribute="bottom" secondItem="QPb-RH-Vpy" secondAttribute="bottom" id="wq1-R1-cFt"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" name="IGTableViewCellColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="adminOrModeratorLabel" destination="JEd-wW-LXa" id="QZs-ZY-GXG"/>
                                     <outlet property="memberAvatarView" destination="0yk-1T-LML" id="Xua-lj-GaN"/>

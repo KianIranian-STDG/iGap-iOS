@@ -2975,7 +2975,7 @@ Please wait 0:59</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear Payment And Shipping Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="urC-DE-PXX" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="27" y="13" width="251" height="16"/>
+                                                    <rect key="frame" x="15" y="10" width="251" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3340,7 +3340,7 @@ Please wait 0:59</string>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dAN-g6-2av">
                                 <rect key="frame" x="0.0" y="44" width="414" height="692"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="IGTableViewBackgroundColor"/>
                                 <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" showsCancelButton="YES" id="riq-fR-Xms">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -3370,23 +3370,24 @@ Please wait 0:59</string>
                                                         <constraint firstAttribute="height" constant="25" id="GYx-AM-8PC"/>
                                                         <constraint firstAttribute="width" constant="25" id="HDg-E6-RWX"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="17"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZg-vk-MMp">
                                                     <rect key="frame" x="74" y="38" width="78.666666666666686" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" name="IGLabelGrayColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Result (user/room)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBW-o7-hkh">
                                                     <rect key="frame" x="108.99999999999999" y="13" width="199.66666666666663" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="fBW-o7-hkh" firstAttribute="centerY" secondItem="Qna-8k-SSM" secondAttribute="centerY" id="321-PV-DZN"/>
                                                 <constraint firstItem="9xa-o1-qHZ" firstAttribute="leading" secondItem="vnP-Jh-THT" secondAttribute="leading" constant="10" id="3ja-8L-Nxk"/>
@@ -3398,6 +3399,7 @@ Please wait 0:59</string>
                                                 <constraint firstItem="rZg-vk-MMp" firstAttribute="bottom" secondItem="9xa-o1-qHZ" secondAttribute="bottom" constant="-3" id="hrY-cY-rsM"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="avatarView" destination="9xa-o1-qHZ" id="GOp-QV-jT4"/>
                                             <outlet property="txtIcon" destination="Qna-8k-SSM" id="fes-1z-dEF"/>
@@ -3415,17 +3417,18 @@ Please wait 0:59</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Header" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EaM-oB-0BN">
                                                     <rect key="frame" x="20" y="7.333333333333333" width="374" height="15.666666666666668"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                                    <color key="textColor" name="IGLabelGrayColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="EaM-oB-0BN" secondAttribute="trailing" id="9pf-08-8CS"/>
                                                 <constraint firstItem="EaM-oB-0BN" firstAttribute="centerY" secondItem="SDH-pV-PgI" secondAttribute="centerY" id="I6M-97-kYQ"/>
                                                 <constraint firstItem="EaM-oB-0BN" firstAttribute="leading" secondItem="SDH-pV-PgI" secondAttribute="leadingMargin" id="RIp-0S-R32"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="txtHeader" destination="EaM-oB-0BN" id="o99-DH-RKM"/>
                                             <outlet property="txtResultName" destination="EaM-oB-0BN" id="rLj-H3-byl"/>
@@ -3438,7 +3441,7 @@ Please wait 0:59</string>
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="IGBackGroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="dAN-g6-2av" secondAttribute="trailing" constant="-20" id="6Xo-vD-UIn"/>
                             <constraint firstItem="dAN-g6-2av" firstAttribute="leading" secondItem="HHV-dy-tuY" secondAttribute="leadingMargin" constant="-20" id="c2y-dV-ksj"/>
@@ -20509,7 +20512,7 @@ Afg
             <color red="0.10999999940395355" green="0.10999999940395355" blue="0.11800000071525574" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGSelectedChannelsCellBGColor">
-            <color white="0.23899999260902405" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.10980392156862745" green="0.10980392156862745" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGSendMessageBubleBGColor">
             <color red="0.29411764705882354" green="0.29411764705882354" blue="0.29411764705882354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

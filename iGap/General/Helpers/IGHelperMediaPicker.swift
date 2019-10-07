@@ -84,6 +84,15 @@ class IGHelperMediaPicker {
             completion(items)
             picker.dismiss(animated: true, completion: nil)
         }
+        config.colors.tintColor = .white // Right bar buttons (actions)
+        if let navigationBar = picker.navigationController?.navigationBar {
+            var updatedFrame = navigationBar.bounds
+            updatedFrame.size.height += navigationBar.frame.origin.y
+            let gradientLayer = CAGradientLayer(frame: updatedFrame, colors: [UIColor(named: themeColor.navigationFirstColor.rawValue)!, UIColor(named: themeColor.navigationSecondColor.rawValue)!], startPoint: .centerLeft, endPoint: .centerRight)
+            navigationBar.isTranslucent = false
+            navigationBar.setBackgroundImage(gradientLayer.createGradientImage(), for: UIBarMetrics.default)
+        }
+        
         UIApplication.topViewController()!.present(picker, animated: true, completion: nil)
     }
 }

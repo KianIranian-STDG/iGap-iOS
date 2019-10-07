@@ -34,9 +34,10 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         super.viewDidLoad()
         if let searchBarCancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
             searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
-            searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
-            searchBarCancelButton.tintColor = UIColor.black
+            searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14, weight: .bold)
+            searchBarCancelButton.tintColor = UIColor(named: themeColor.labelColor.rawValue)
         }
+        searchBar.searchTextField.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
 
         
         searchBar.delegate = self
@@ -45,9 +46,9 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        tableView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-        tableView.tableHeaderView?.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-        self.view.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        tableView.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
+        tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
+        self.view.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
         
         IGHelperView.makeSearchView(searchBar: searchBar)
         
@@ -61,7 +62,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.hero.navigationAnimationType = .fade
         let attributes:[NSAttributedString.Key:Any] = [
-            NSAttributedString.Key.foregroundColor : UIColor.black,
+            NSAttributedString.Key.foregroundColor : UIColor(named: themeColor.labelColor.rawValue),
             NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)
         ]
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)

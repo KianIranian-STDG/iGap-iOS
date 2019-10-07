@@ -23,6 +23,8 @@ class IGNavigationBar: UINavigationBar, UINavigationBarDelegate {
 //        self.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
 //        self.layer.shadowRadius = 4.0
 //        self.layer.shadowOpacity = 0.35
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white ] // Title color
+        UINavigationBar.appearance().tintColor = .white // Left. bar buttons
     }
         
     override func layoutSubviews() {
@@ -52,6 +54,7 @@ class IGNavigationBar: UINavigationBar, UINavigationBarDelegate {
         let gradientLayer = CAGradientLayer(frame: updatedFrame, colors: colors, startPoint: startPoint, endPoint: endPoint)
         self.isTranslucent = false
         setBackgroundImage(gradientLayer.createGradientImage(), for: UIBarMetrics.default)
+        UINavigationBar.appearance().setBackgroundImage(gradientLayer.createGradientImage(), for: UIBarMetrics.default)
     }
     
     func setTransparentNavigationBar() {

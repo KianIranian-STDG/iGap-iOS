@@ -56,7 +56,6 @@ class IGHeader: UICollectionReusableView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener , UITextFieldDelegate,HandleReciept,HandleBackNavigation {
@@ -3215,12 +3214,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         self.present(alertC, animated: true, completion: nil)
     }
-    
-    /**********************************************************************************/
+        /**********************************************************************************/
     /*********************************** pick media ***********************************/
     
-    func attachmentPicker(screens: [YPPickerScreen] = [.library, .photo, .video], sendAsFile: Bool = false){
-        
+    func attachmentPicker(screens: [YPPickerScreen] = [.library, .photo, .video], sendAsFile: Bool = false) {
         IGHelperMediaPicker.shared.setScreens(screens).setSendAsFile(sendAsFile).pick { mediaItems in
             if let videoInfo = mediaItems.singleVideo {
                 if sendAsFile {

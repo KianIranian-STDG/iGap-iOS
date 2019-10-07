@@ -31,10 +31,11 @@ import MarkdownKit
 class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObserver, UNUserNotificationCenterDelegate, ForwardStartObserver {
     
     var searchController : UISearchController = {
-        
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
         searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
+        searchController.definesPresentationContext = true
+        searchController.searchBar.sizeToFit()
         
         let gradient = CAGradientLayer()
         let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
@@ -52,6 +53,30 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         return searchController
 
     }()
+    
+    //    private func configureSearchController() {
+    //        let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
+    //        searchController = UISearchController(searchResultsController: lookAndFind)
+    //        searchController.searchResultsUpdater = self
+    //        searchController.dimsBackgroundDuringPresentation = false
+    //        searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
+    //        initialiseSearchBar()
+    //        setSearchBarGradient()
+    //        searchController.searchBar.delegate = self
+    //        searchController.searchBar.sizeToFit()
+    //
+    //        // Place the search bar view to the tableview headerview.
+    //        if #available(iOS 11.0, *) {
+    //            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
+    //
+    //            if navigationItem.searchController == nil {
+    //
+    //                tableView.tableHeaderView = searchController.searchBar
+    //            }
+    //        } else {
+    //            tableView.tableHeaderView = searchController.searchBar
+    //        }
+    //    }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -368,6 +393,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         self.tableView.scrollsToTop = false
         self.tableView.bounces = false
         self.searchController.searchBar.delegate = self
+        self.searchController.searchResultsUpdater = self
         self.tableView.contentOffset = CGPoint(x: 0, y: 55)
 
 //        initialiseSearchBar()
@@ -1702,19 +1728,22 @@ extension IGRecentsTableViewController {
 }
 
 //MARK: SEARCH BAR DELEGATE
-extension IGRecentsTableViewController: UISearchBarDelegate
-{
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
-    {
+extension IGRecentsTableViewController: UISearchBarDelegate, UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         //Show Cancel
         searchBar.setShowsCancelButton(true, animated: true)
         searchBar.tintColor = .white
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
-    {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         //Filter function
     }
+    
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
         if let searchBarCancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {

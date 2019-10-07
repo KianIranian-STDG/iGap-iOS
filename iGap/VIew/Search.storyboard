@@ -23,13 +23,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="ZOS-wV-iSo" kind="relationship" relationship="rootViewController" id="hwJ-O1-8Pc"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YEr-LD-hZW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="-165"/>
+            <point key="canvasLocation" x="-112" y="-165"/>
         </scene>
         <!--Custome View Controller-->
         <scene sceneID="QwI-h5-C7b">
@@ -100,7 +97,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JXH-nf-qU5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="644.92753623188412" y="-356.25"/>
+            <point key="canvasLocation" x="-113" y="-897"/>
         </scene>
         <!--Search Table View Controller-->
         <scene sceneID="e4u-Dt-K9y">
