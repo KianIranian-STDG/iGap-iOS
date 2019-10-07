@@ -68,7 +68,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="backPageView" destination="sqz-FK-RoX" id="6zZ-jf-eQm"/>
-                <outlet property="heightConstraint" destination="DQ4-wo-3UF" id="MSm-ok-MqD"/>
+                <outlet property="heightConstraintValue" destination="DQ4-wo-3UF" id="HBv-2k-oi8"/>
                 <outlet property="pageView" destination="I1H-Xo-oKp" id="meY-i6-cPt"/>
                 <outlet property="sliderCollectionView" destination="9bs-KU-LKL" id="TBA-ce-MiL"/>
             </connections>

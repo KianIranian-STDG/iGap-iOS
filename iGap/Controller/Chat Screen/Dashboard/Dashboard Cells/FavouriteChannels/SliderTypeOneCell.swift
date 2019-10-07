@@ -12,7 +12,7 @@ import SDWebImage
 
 class SliderTypeOneCell: UITableViewCell {
 
-    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+    @IBOutlet var heightConstraintValue: NSLayoutConstraint!
 //    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var sliderCollectionView: UICollectionView!
     @IBOutlet weak var pageView: UIPageControl!
@@ -62,7 +62,7 @@ class SliderTypeOneCell: UITableViewCell {
     }
     
     public func initView(scale: String, loopTime: Int) {
-        heightConstraint.constant = computeHeight(scale: scale)
+        heightConstraintValue.constant = computeHeight(scale: scale)
         
         pageView.numberOfPages = slides.count
         pageView.currentPage = 0

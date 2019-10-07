@@ -48,7 +48,7 @@ open class DropdownMenu: UIView {
     open var isShow = false
     private var addedWindow: UIWindow?
     private var windowRootView: UIView?
-    private var topConstraint: NSLayoutConstraint?
+    private var topConstraintValue: NSLayoutConstraint?
     private var navigationBarCoverViewHeightConstraint: NSLayoutConstraint?
     private var tableViewHeightConstraint: NSLayoutConstraint?
     private let iPhoneXPortraitTopOffset: CGFloat = 88.0
@@ -183,7 +183,7 @@ open class DropdownMenu: UIView {
                 }
             }
             topOffset = topOffset + topOffsetY
-            topConstraint?.constant = topOffset
+            topConstraintValue?.constant = topOffset
             navigationBarCoverViewHeightConstraint?.constant = topOffset
             UIView.animate(withDuration: 0.1, animations: {
                 self.windowRootView?.layoutIfNeeded()
@@ -316,8 +316,8 @@ open class DropdownMenu: UIView {
         windowRootView?.addSubview(self)
         
         translatesAutoresizingMaskIntoConstraints = false
-        topConstraint = NSLayoutConstraint.init(item: self, attribute: .top, relatedBy: .equal, toItem: windowRootView, attribute: .top, multiplier: 1.0, constant: topLayoutConstraintConstant)
-        NSLayoutConstraint.activate([topConstraint!])
+        topConstraintValue = NSLayoutConstraint.init(item: self, attribute: .top, relatedBy: .equal, toItem: windowRootView, attribute: .top, multiplier: 1.0, constant: topLayoutConstraintConstant)
+        NSLayoutConstraint.activate([topConstraintValue!])
         NSLayoutConstraint.activate([NSLayoutConstraint.init(item: self, attribute: .bottom, relatedBy: .equal, toItem: windowRootView, attribute: .bottom, multiplier: 1.0, constant: 0)])
         NSLayoutConstraint.activate([NSLayoutConstraint.init(item: self, attribute: .left, relatedBy: .equal, toItem: windowRootView, attribute: .left, multiplier: 1.0, constant: 0)])
         NSLayoutConstraint.activate([NSLayoutConstraint.init(item: self, attribute: .right, relatedBy: .equal, toItem: windowRootView, attribute: .right, multiplier: 1.0, constant: 0)])
