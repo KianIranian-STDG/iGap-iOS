@@ -3188,7 +3188,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         self.present(alertC, animated: true, completion: nil)
     }
-        /**********************************************************************************/
+    
+    /**********************************************************************************/
     /*********************************** pick media ***********************************/
     
     func attachmentPicker(screens: [YPPickerScreen] = [.library, .photo, .video], sendAsFile: Bool = false) {

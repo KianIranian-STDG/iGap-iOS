@@ -74,7 +74,7 @@ class IGHelperMediaPicker {
             config.video.compression = AVAssetExportPresetHighestQuality
             config.library.maxNumberOfItems = 1
         } else {
-            config.video.compression = AVAssetExportPresetLowQuality
+            config.video.compression = AVAssetExportPresetMediumQuality
             config.library.maxNumberOfItems = maxNumberOfItems
         }
         config.library.mediaType = mediaType
