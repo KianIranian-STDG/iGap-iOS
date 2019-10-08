@@ -46,17 +46,14 @@ class IGSettingsNotificationsTableViewController: UITableViewController,UIGestur
     private func initSwitched() {
         //privateChat switch
             switchPrivateChats.isOn = IGGlobal.isSilent
-        
     }
     //MARK: - Actions
     @IBAction func privateChatSwitch(_ sender: UISwitch) {
         IGGlobal.isSilent = !(sender.isOn)
             userDefaults.set(sender.isOn, forKey: "silentPrivateChat")
-
     }
     
     // MARK: - initializing Navigation Bar with items in it
-
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: "MESSAGE_NOTIFICATIONS".localizedNew)

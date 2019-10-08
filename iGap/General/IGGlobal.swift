@@ -82,21 +82,27 @@ class IGGlobal {
 
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-            try AVAudioSession.sharedInstance().setActive(true)
+            if let soundURL = url {
+                  var soundID : SystemSoundID = 0
+                  AudioServicesCreateSystemSoundID(soundURL as CFURL, &soundID)
+                  AudioServicesPlayAlertSound(soundID)
+            }
 
-            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
-            sendTone = try AVAudioPlayer(contentsOf: url!, fileTypeHint: AVFileType.mp3.rawValue)
-
-            /* iOS 10 and earlier require the following line:
-            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
-
-            guard let sendTone = sendTone else { return }
-
-                if isInChat && !isSilent{
-                    sendTone.play()
-                }
-
+//            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+//            try AVAudioSession.sharedInstance().setActive(true)
+//
+//            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
+//            sendTone = try AVAudioPlayer(contentsOf: url!, fileTypeHint: AVFileType.mp3.rawValue)
+//
+//            /* iOS 10 and earlier require the following line:
+//            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
+//
+//            guard let sendTone = sendTone else { return }
+//
+//                if isInChat && !isSilent{
+//                    sendTone.play()
+//                }
+//
         } catch let error {
             print(error.localizedDescription)
         }
