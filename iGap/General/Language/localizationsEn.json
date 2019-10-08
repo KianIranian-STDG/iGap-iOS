@@ -594,7 +594,7 @@
         "SETTING_PAGE_CACHE_SETTINGS" : "Cache Settings",
         "SETTING_PAGE_INVITE_FRIENDS" : "Invite Friends",
         "SETTING_PAGE_ABOUT" : "About",
-        "SETTING_PAGE_QRCODE_SCANNER" : "QR Code Scanner",
+        "SETTING_PAGE_QRCODE_SCANNER" : "Login Using QR Scan",
         "SETTING_PAGE_FOOTER_VERSION" : "iGap iOS Client V ",
         "CREAT_CHANNEL" : "Creat Channel",
         "CREAT_GROUP" : "Create Group",
@@ -993,7 +993,7 @@
         "CREDITS" : "Credit",
         "FAQ" : "FAQ",
         "Token_Error" : "App needed to refresh your authentication detail, please try again.",
-        "HEY_JOIN_IGAP" : "Hey Join iGap and start new connection with friends and family for free, no matter what device they are on!\niGap Limitless Connection\nwww.iGap.net",
+        "HEY_JOIN_IGAP" : "Hey Join iGap : http://d.igap.net/invite I\'m waiting for you!\ \n Referred Number is :",
         "NEW" : "New",
         "SETTING_NEARBY" : "Nearby",
 

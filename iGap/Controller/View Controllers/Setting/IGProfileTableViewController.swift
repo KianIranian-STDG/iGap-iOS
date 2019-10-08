@@ -390,15 +390,28 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         lblTel.text = String(userInDb.phone).inLocalizedLanguage()
 
         tfEmail.text = (userInDb.email)
+        if let tmpEmail = tfEmail.text {
+            currentEmail = tmpEmail
+        }
         tfName.text = (userInDb.displayName)
+        currentName = (userInDb.displayName)
         tfUserName.text = (userInDb.username)
+        if let tmpName = tfUserName.text {
+             currentUserName = tmpName
+         }
+
         tfBio.text = (userInDb.bio)
-        
+        if let tmpBio = tfBio.text {
+            currentBio = tmpBio
+        }
         if let sessionInfo = IGDatabaseManager.shared.realm.objects(IGSessionInfo.self).first {
             tmpGender = sessionInfo.gender
             if let tmpReferralNumber = sessionInfo.representer {
                 self.tfReferral.isEnabled = false
                 tfReferral.text = tmpReferralNumber
+                if let tmpRef = tfReferral.text {
+                    currentReferral = tmpRef
+                }
                 self.btnCountryCodeWidthConstraints.constant = 0
                 self.tfRefferalWidthConstraints.constant = 200
             } else {
@@ -478,6 +491,9 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 
                 DispatchQueue.main.async {
                     self.tfReferral.text = response.igpPhoneNumber
+                    if let tmpRef = self.tfReferral.text {
+                        self.currentReferral = tmpRef
+                    }
                 }
             }
         }).error ({ (errorCode, waitTime) in
@@ -501,6 +517,9 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                         let userEmail = IGUserProfileGetEmailRequest.Handler.interpret(response: getUserEmailResponse)
                         DispatchQueue.main.async {
                             self.tfEmail.text = userEmail
+                            if let tmpEmail = self.tfEmail.text {
+                                self.currentEmail = tmpEmail
+                            }
                         }
                     default:
                         break
@@ -1165,19 +1184,67 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         }
 
     }
-    @IBAction func emailTextFieldChanged(_ sender: UITextField) {
+
+    @IBAction func nameTFdidEndEditing(_ sender: UITextField) {
+        if currentName != sender.text {
+            hasNameChanged = true
+        } else {
+            hasNameChanged = false
+        }
+        self.updateBtnEditStateView(hasChnagedValue: hasNameChanged)
+
+    }
+    @IBAction func userNameTFdidEndEditing(_ sender: UITextField) {
+        if currentUserName != sender.text {
+            currentUserName = sender.text!
+            hasUserNameChanged = true
+        } else {
+            hasUserNameChanged = false
+        }
+        self.updateBtnEditStateView(hasChnagedValue: hasUserNameChanged)
+
+    }
+    @IBAction func bioTFdidEndEditing(_ sender: UITextField) {
+        if currentBio != sender.text {
+            currentBio = sender.text!
+
+            hasBioChanged = true
+        } else {
+            hasBioChanged = false
+        }
+        self.updateBtnEditStateView(hasChnagedValue: hasBioChanged)
+
+    }
+    @IBAction func emailTFdidEndEditing(_ sender: UITextField) {
+        if currentEmail != sender.text {
+            currentEmail = sender.text!
+            hasEmailChanged = true
+        } else {
+            hasEmailChanged = false
+        }
+        self.updateBtnEditStateView(hasChnagedValue: hasEmailChanged)
+
+    }
+    @IBAction func referralTFdidEndEditing(_ sender: UITextField) {
+        if currentReferral != sender.text {
+            currentReferral = sender.text!
+            hasRefrralChanged = true
+        } else {
+            hasRefrralChanged = false
+        }
+        self.updateBtnEditStateView(hasChnagedValue: hasRefrralChanged)
     }
     
     private func saveChanges(nameChnaged: Bool! = false,userNameChnaged: Bool! = false, bioChnaged: Bool! = false, emailChanged : Bool! = false, referralChnaged : Bool! = false, genderChanged : Bool! = false) {
         SMLoading.showLoadingPage(viewcontroller: self)
-        if nameChnaged {
-            sendNameRequest(current: currentName)
-        }
         if userNameChnaged {
             sendUserNameRequest(current: currentUserName)
         }
+        if nameChnaged {
+            sendNameRequest(current: currentName)
+        }
         if bioChnaged {
-                sendBioRequest(current: currentEmail)
+                sendBioRequest(current: currentBio)
         }
         if emailChanged {
                 sendEmailRequest(current: currentEmail)
@@ -1193,7 +1260,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     //Mark : - Services Requests
 
     //Hint: - send UserName Change Request
-    private func sendNameRequest(current: String!) {
+    private func sendUserNameRequest(current: String!) {
         SMLoading.showLoadingPage(viewcontroller: self)
         IGUserProfileUpdateUsernameRequest.Generator.generate(username: current).success({ (protoResponse) in
             SMLoading.hideLoadingPage()
@@ -1249,7 +1316,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         }).send()
     }
     //Hint: - send Name Change Request
-    private func sendUserNameRequest(current: String!) {
+    private func sendNameRequest(current: String!) {
         SMLoading.showLoadingPage(viewcontroller: self)
         IGUserProfileSetNicknameRequest.Generator.generate(nickname: current).success({ (protoResponse) in
             SMLoading.hideLoadingPage()
@@ -1265,6 +1332,8 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
             }
         }).error ({ (errorCode, waitTime) in
             DispatchQueue.main.async {
+                SMLoading.hideLoadingPage()
+
                 switch errorCode {
                 case .timeout:
                     let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)

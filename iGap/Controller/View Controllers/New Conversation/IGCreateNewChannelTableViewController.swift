@@ -153,7 +153,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
                                     switch protoResponse {
                                     case let getRoomProtoResponse as IGPClientGetRoomResponse:
                                         
-                                        if self.channelAvatarImage.image != self.defaultImage {
+                                        if self.channelAvatarImage.image != nil, self.channelAvatarImage.image != self.defaultImage {
                                             IGUploadManager.sharedManager.upload(file: self.channelAvatarAttachment, start: {
                                             }, progress: { (progress) in
                                             }, completion: { (uploadTask) in

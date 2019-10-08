@@ -701,7 +701,7 @@
         "SETTING_PAGE_CACHE_SETTINGS" : "تنظیمات حافظه نهان",
         "SETTING_PAGE_INVITE_FRIENDS" : "دعوت از دوستان",
         "SETTING_PAGE_ABOUT" : "درباره ما",
-        "SETTING_PAGE_QRCODE_SCANNER" : "اسکنر بارکد",
+        "SETTING_PAGE_QRCODE_SCANNER" : "ورود با اسکن بارکد",
         "SETTING_PAGE_FOOTER_VERSION" : "آیگپ آی او اس نسخه ",
         
         "SETTING_PAGE_ACCOUNT_NIKNAME" : "لقب",
@@ -933,7 +933,7 @@
         "SEARCHING" : "در حال جستجو ...",
         "SEARCH_PLACEHOLDER" : "جست و جو نمایید",
         "NEW" : "جدید",
-        "HEY_JOIN_IGAP" : "\nwww.iGap.netسلام . از طریق لینک زیر میتونی تو آی‌گپ عضو بشی، منتظرتیم",
+        "HEY_JOIN_IGAP" : "سلام!از طریق لینک زیر میتونی تو آیگپ عضو بشی، منتظرتیم http://d.igap.net/invite \nشماره معرف :",
         "FAQ" : "پرسش های متداول",
         "SETTING_NEARBY" : "اطراف من",
         "CREDITS" : "اعتبار",

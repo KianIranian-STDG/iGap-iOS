@@ -325,7 +325,7 @@ class IGCallsTableViewController: BaseTableViewController {
 //
 //    }
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+        let deleteAction = UIContextualAction(style: .normal, title:  "test", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             // Call edit action
 
             // Reset state

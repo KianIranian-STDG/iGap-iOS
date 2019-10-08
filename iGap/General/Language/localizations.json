@@ -14,7 +14,7 @@
         "WALLET_PAY_LBL1" : "مبلغ تخفیف(ریال) :",
         "WALLET_PAY_LBL0" : "مبلغ کل(ریال) :",
         "NEW" : "جدید",
-        "HEY_JOIN_IGAP" : "\nwww.iGap.netسلام . از طریق لینک زیر میتونی تو آی‌گپ عضو بشی، منتظرتیم",
+        "HEY_JOIN_IGAP" : "سلام!از طریق لینک زیر میتونی تو آیگپ عضو بشی، منتظرتیم http://d.igap.net/invite \nشماره معرف :",
         "FAQ" : "پرسش های متداول",
         "SETTING_NEARBY" : "اطراف من",
         "CREDITS" : "اعتبار",
@@ -647,7 +647,7 @@
         "SETTING_PAGE_CACHE_SETTINGS" : "تنظیمات حافظه نهان",
         "SETTING_PAGE_INVITE_FRIENDS" : "دعوت از دوستان",
         "SETTING_PAGE_ABOUT" : "درباره ما",
-        "SETTING_PAGE_QRCODE_SCANNER" : "اسکنر بارکد",
+        "SETTING_PAGE_QRCODE_SCANNER" : "ورود با اسکن بارکد",
         "SETTING_PAGE_FOOTER_VERSION" : "آیگپ آی او اس نسخه ",
         
         "SETTING_PAGE_ACCOUNT_NIKNAME" : "لقب",
@@ -1137,7 +1137,7 @@
         "CREDITS" : "Credit",
         "FAQ" : "FAQ",
         "Token_Error" : "App needed to refresh your authentication detail, please try again.",
-        "HEY_JOIN_IGAP" : "Hey Join iGap and start new connection with friends and family for free, no matter what device they are on!\niGap Limitless Connection\nwww.iGap.net",
+        "HEY_JOIN_IGAP" : "Hey Join iGap : http://d.igap.net/invite I\'m waiting for you!\ \n Referred Number is :",
         "NEW" : "New",
 
         
@@ -1476,7 +1476,7 @@
         "SETTING_PAGE_CACHE_SETTINGS" : "Cache Settings",
         "SETTING_PAGE_INVITE_FRIENDS" : "Invite Friends",
         "SETTING_PAGE_ABOUT" : "About",
-        "SETTING_PAGE_QRCODE_SCANNER" : "QR Code Scanner",
+        "SETTING_PAGE_QRCODE_SCANNER" : "Login Using QR Scan",
         "SETTING_PAGE_FOOTER_VERSION" : "iGap iOS Client V ",
         
         
