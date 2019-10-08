@@ -127,6 +127,12 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        //checksetting defaults
+        if (UserDefaults.standard.object(forKey: "silentPrivateChat") != nil) {
+            IGGlobal.isSilent = UserDefaults.standard.bool(forKey: "silentPrivateChat")
+
+        }
+
         if IGGlobal.isKeyPresentInUserDefaults(key: "textMessagesFontSize")  {
             fontDefaultSize = CGFloat(UserDefaults.standard.float(forKey: "textMessagesFontSize"))
         } else {

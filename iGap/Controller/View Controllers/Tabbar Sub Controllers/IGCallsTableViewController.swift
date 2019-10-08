@@ -315,6 +315,27 @@ class IGCallsTableViewController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
+
+//    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//
+//        let deleteAction = UITableViewRowAction(style: .default, title: "") { action, indexPath in
+//            // Handle delete action
+//        }
+//        (UIButton.appearance(whenContainedInInstancesOf: [UIView.self])).setImage(UIImage(named: "ic_delete"), for: .normal)
+//        return [deleteAction]
+//
+//    }
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            // Call edit action
+
+            // Reset state
+            success(true)
+        })
+        deleteAction.image = UIImage(named: "ic_delete")
+        deleteAction.backgroundColor = .red
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
 }
 
 

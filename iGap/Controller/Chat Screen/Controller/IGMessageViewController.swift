@@ -74,34 +74,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             self.callCallBackApi(token: SMUserManager.payToken!)
         })
     }
-    func playSound(isSendMessage: Bool! = false) {
-       var url = Bundle.main.url(forResource: "igap_send_message_sound", withExtension: "mp3")
-
-        if isSendMessage {
-            url = Bundle.main.url(forResource: "igap_send_message_sound", withExtension: "mp3")
-        } else {
-            url = Bundle.main.url(forResource: "igap_send_message_sound", withExtension: "mp3")
-
-        }
-
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-            try AVAudioSession.sharedInstance().setActive(true)
-
-            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
-            sendTone = try AVAudioPlayer(contentsOf: url!, fileTypeHint: AVFileType.mp3.rawValue)
-
-            /* iOS 10 and earlier require the following line:
-            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
-
-            guard let sendTone = sendTone else { return }
-
-            sendTone.play()
-
-        } catch let error {
-            print(error.localizedDescription)
-        }
-    }
 
     func callCallBackApi(token : String) {
         let url: String! = SMUserManager.callBackUrl
@@ -138,7 +110,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             SMReciept.getInstance().screenReciept(viewcontroller: self)
         }
     }
-    
     
     var MoneyTransactionModal : SMMoneyTransactionOptions!
     var MoneyInputModal : SMSingleAmountInputView!
@@ -1639,6 +1610,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         super.viewWillAppear(true)
         let navigationControllerr = self.navigationController as! IGNavigationController
 //        navigationControllerr.addSearchBar(state: "False")
+        IGGlobal.isInChatPage = true
 
         self.currentRoomId = self.room?.id
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
@@ -1713,7 +1685,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        IGGlobal.isInChatPage = false
         let navigationControllerr = self.navigationController as! IGNavigationController
         let numberOfPages = self.navigationController!.viewControllers.count
         if numberOfPages == 1 {
@@ -2556,7 +2528,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
         
         if currentAttachment != nil {
-            
+            ///play send sound
+            IGGlobal.playSound(isInChat : IGGlobal.isInChatPage,isSilent : IGGlobal.isSilent,isSendMessage: true)
+
             let messageText = inputTextView.text.substring(offset: MAX_TEXT_ATTACHMENT_LENGHT)
             
             let message = IGRoomMessage(body: messageText)
@@ -2614,7 +2588,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             
         } else {
             ///play send sound
-            playSound(isSendMessage: true)
+            IGGlobal.playSound(isInChat : IGGlobal.isInChatPage,isSilent : IGGlobal.isSilent,isSendMessage: true)
             let messages = inputTextView.text.split(limit: MAX_TEXT_LENGHT)
             for i in 0..<messages.count {
                 DispatchQueue.main.asyncAfter(deadline: .now() + (Double(i) * 0.5)) {
@@ -5784,7 +5758,10 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     /******************************* Observers *******************************/
     
     func onMessageRecieveInChatPage(roomId: Int64, message: IGPRoomMessage, roomType: IGPRoom.IGPType) {
-        
+        if roomType == .chat && self.currentRoomId == roomId {
+            IGGlobal.playSound(isInChat : IGGlobal.isInChatPage,isSilent : IGGlobal.isSilent,isSendMessage: false)
+        }
+
         // if message is for another room shouldn't be add to current room
         if self.currentRoomId != roomId {return}
         

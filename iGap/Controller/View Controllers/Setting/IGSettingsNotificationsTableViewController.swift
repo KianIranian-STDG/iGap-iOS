@@ -32,14 +32,29 @@ class IGSettingsNotificationsTableViewController: UITableViewController,UIGestur
     @IBOutlet weak var switchInAppVibrate: UISwitch!
     @IBOutlet weak var switchInAppPreview: UISwitch!
     @IBOutlet weak var switchJoint: UISwitch!
+    var userDefaults = UserDefaults.standard
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         initNavigationBar()
         initChangeStrings()
+        initSwitched()
         
     }
+    private func initSwitched() {
+        //privateChat switch
+            switchPrivateChats.isOn = IGGlobal.isSilent
+        
+    }
+    //MARK: - Actions
+    @IBAction func privateChatSwitch(_ sender: UISwitch) {
+        IGGlobal.isSilent = !(sender.isOn)
+            userDefaults.set(sender.isOn, forKey: "silentPrivateChat")
+
+    }
+    
     // MARK: - initializing Navigation Bar with items in it
 
     func initNavigationBar(){
@@ -78,7 +93,7 @@ class IGSettingsNotificationsTableViewController: UITableViewController,UIGestur
         // #warning Incomplete implementation, return the number of rows
         switch section {
         case 0 :
-            return 3
+            return 1
         case 1 :
             return 3
         case 2 :

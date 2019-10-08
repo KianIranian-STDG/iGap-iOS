@@ -1621,6 +1621,9 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i3W-XJ-a0U">
                                                     <rect key="frame" x="339" y="6" width="51" height="32"/>
+                                                    <connections>
+                                                        <action selector="privateChatSwitch:" destination="wV1-C8-lGm" eventType="valueChanged" id="l9j-9V-cUp"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>

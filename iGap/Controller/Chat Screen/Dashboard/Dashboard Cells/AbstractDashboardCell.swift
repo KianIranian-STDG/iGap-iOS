@@ -338,7 +338,10 @@ class AbstractDashboardCell: UICollectionViewCell {
         switch actionType {
         case .none:
             return
-            
+        case .inviteFriend :
+            let vc = testVCViewController.instantiateFromAppStroryboard(appStoryboard: .PhoneBook)
+            UIApplication.topViewController()?.navigationController!.pushViewController(vc, animated: true)
+
         case .joinLink:
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
@@ -763,12 +766,24 @@ class AbstractDashboardCell: UICollectionViewCell {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
-                    IGUserIVandSetActivityRequest.sendRequest(plancode: discoveryInfo.igpValue)
-                    return
+                    IGHelperAlert.shared.showAlert(title: nil, message: "IVANDSCORE_MSG".localizedNew, done: {
+                        IGUserIVandSetActivityRequest.sendRequest(plancode: discoveryInfo.igpValue)
+                        return
+
+                    }, cancel: {
+                        return
+                    })
                 }
             } else {
-                IGUserIVandSetActivityRequest.sendRequest(plancode: discoveryInfo.igpValue)
-                return
+                
+                IGHelperAlert.shared.showAlert(title: nil, message: "IVANDSCORE_MSG".localizedNew, done: {
+                    IGUserIVandSetActivityRequest.sendRequest(plancode: discoveryInfo.igpValue)
+                    return
+
+                }, cancel: {
+                    return
+                })
+                
             }
             
         case .cardToCard:

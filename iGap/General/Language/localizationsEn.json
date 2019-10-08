@@ -600,6 +600,7 @@
         "CREAT_GROUP" : "Create Group",
         "TODAY" : "Today",
         "YESTERDAY" : "Yesterday",
+        "IVANDSCORE_MSG" : "Are you sure you want to submit your request?",
 
         
         "SETTING_PAGE_ACCOUNT_NIKNAME" : "Nikname",

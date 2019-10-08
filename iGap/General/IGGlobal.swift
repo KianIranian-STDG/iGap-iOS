@@ -47,6 +47,8 @@ class IGGlobal {
     static var imgDic : [String: IGImageView] = [:]
     static var heroTabIndex : Int = -1
     static var shouldMultiSelect : Bool = false
+    static var isInChatPage : Bool = true
+    static var isSilent : Bool = false
     static var dispoasDic: [Int64:Disposable] = [:]
     static var dispoasDicString: [String:Disposable] = [:]
     static var carpinoAgreement : Bool = false
@@ -60,12 +62,44 @@ class IGGlobal {
     static var shouldShowChart : Bool = false
     static var hideBarChart : Bool = true
     static var latestTime: Int64 = 0
-    
+    static var sendTone: AVAudioPlayer?
+
     static var timeDic: [Int:Time] = [:]
     struct Time {
         var lastMillis: Int64 = 0
         var total: Int = 0
         var count: Int = 0
+    }
+    internal static  func playSound(isInChat: Bool = false,isSilent: Bool = false,isSendMessage: Bool! = false) {
+       var url = Bundle.main.url(forResource: "igap_send_message_sound", withExtension: "mp3")
+
+        if isSendMessage {
+            url = Bundle.main.url(forResource: "igap_send_message_sound", withExtension: "mp3")
+        } else {
+            url = Bundle.main.url(forResource: "igap_receive_message_sound", withExtension: "mp3")
+
+        }
+
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+
+            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
+            sendTone = try AVAudioPlayer(contentsOf: url!, fileTypeHint: AVFileType.mp3.rawValue)
+
+            /* iOS 10 and earlier require the following line:
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
+
+            guard let sendTone = sendTone else { return }
+
+                if isInChat && !isSilent{
+                    sendTone.play()
+                }
+
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
     internal static func getTime(group: Int = 0, _ string: String = "", start: Bool = false) {
         
