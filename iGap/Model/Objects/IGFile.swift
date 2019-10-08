@@ -383,19 +383,19 @@ public class IGFile: Object {
     
     internal static func convertFileTypeToString(fileType: IGFile.FileType) -> String{
         if fileType == .image {
-            return "image"
+            return "IMAGES_MESSAGE".MessageViewlocalizedNew
         } else if fileType == .video {
-            return "video"
+            return "VIDEOS_MESSAGE".MessageViewlocalizedNew
         } else if fileType == .gif {
-            return "gif"
+            return "GIFS_MESSAGE".MessageViewlocalizedNew
         } else if fileType == .audio {
-            return "audio"
+            return "AUDIOS_MESSAGE".MessageViewlocalizedNew
         } else if fileType == .file {
-            return "file"
+            return "FILES_MESSAGE".MessageViewlocalizedNew
         } else if fileType == .voice {
-            return "voice"
+            return "VOICES_MESSAGE".MessageViewlocalizedNew
         } else if fileType == .sticker {
-            return "sticker"
+            return "STICKERS_MESSAGE".MessageViewlocalizedNew
         }
         return ""
     }
@@ -408,9 +408,9 @@ public class IGFile: Object {
         } else if let filePath = self.path() {
             try? self.data = Data(contentsOf: filePath)
         } else if self.attachedImage != nil {
-            self.data = self.attachedImage!.jpegData(compressionQuality: 0.7)
+            self.data = self.attachedImage!.pngData()
         } else {
-            //assert(self.data == nil, "file data did not load")
+            print("error: file data did not load")
         }
     }
     

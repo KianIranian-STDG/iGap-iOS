@@ -3193,7 +3193,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     func attachmentPicker(screens: [YPPickerScreen] = [.library, .photo, .video], sendAsFile: Bool = false) {
         IGHelperMediaPicker.shared.setScreens(screens).setSendAsFile(sendAsFile).pick { mediaItems in
-            if let videoInfo = mediaItems.singleVideo {
+            if let videoInfo = mediaItems.singleVideo, mediaItems.count == 1 {
                 if sendAsFile {
                     if let data = try? Data(contentsOf: videoInfo.url) {
                         self.manageFile(fileData: data, filename: "FILE_VIDEO_" + IGGlobal.randomString(length: 3))
@@ -3201,7 +3201,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 } else {
                     self.manageVideo(videoInfo: videoInfo)
                 }
-            } else if let imageInfo = mediaItems.singlePhoto {
+            } else if let imageInfo = mediaItems.singlePhoto, mediaItems.count == 1{
                 if sendAsFile {
                     var image = imageInfo.modifiedImage
                     if image == nil {
@@ -3214,15 +3214,27 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     self.manageImage(imageInfo: imageInfo)
                 }
             } else {
-                for media in mediaItems {
-                    switch media {
-                    case .photo(let photo):
-                        print(photo)
-                    case .video(let video):
-                        print(video)
-                    }
-                }
+                self.manageSendMultiMedia(mediaItems: mediaItems)
             }
+        }
+    }
+    
+    private func manageSendMultiMedia(mediaItems: [YPMediaItem], index: Int = 0){
+        if mediaItems.count <= index {
+            return
+        }
+        let media = mediaItems[index]
+        switch media {
+        case .photo(let photo):
+            self.manageImage(imageInfo: photo, single: false)
+            break
+            
+        case .video(let video):
+            self.manageVideo(videoInfo: video, single: false)
+            break
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.manageSendMultiMedia(mediaItems: mediaItems, index: index + 1)
         }
     }
     
@@ -3241,7 +3253,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
-    func manageVideo(videoInfo: YPMediaVideo){
+    func manageVideo(videoInfo: YPMediaVideo, single: Bool = true){
         let mediaUrl = videoInfo.url
         let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let filename = mediaUrl.lastPathComponent
@@ -3265,10 +3277,15 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.inputBarAttachmentViewThumnailImageView.image = videoInfo.thumbnail
         self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
         self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
-        self.didSelectAttachment(attachment)
+        if single {
+            self.didSelectAttachment(attachment)
+        } else {
+            self.currentAttachment = attachment
+            self.didTapOnSendButton(self.inputBarSendButton)
+        }
     }
     
-    func manageImage(imageInfo: YPMediaPhoto){
+    func manageImage(imageInfo: YPMediaPhoto, single: Bool = true){
         
         var image = imageInfo.modifiedImage
         if image == nil {
@@ -3276,10 +3293,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
         
         let filename = "IMAGE_" + IGGlobal.randomString(length: 16)
-        let randomString = "IMAGE_" + IGGlobal.randomString(length: 16)
-        var scaledImage = imageInfo.image
+        var scaledImage: UIImage! = image
         let imgData = scaledImage.jpegData(compressionQuality: 0.7)
-        let fileNameOnDisk = randomString + filename
         
         if (image!.size.width) > CGFloat(2000.0) || (image!.size.height) >= CGFloat(2000) {
             scaledImage = IGUploadManager.compress(image: image!)
@@ -3287,22 +3302,26 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         let attachment = IGFile(name: filename)
         attachment.attachedImage = scaledImage
-        attachment.fileNameOnDisk = fileNameOnDisk
+        attachment.fileNameOnDisk = filename
         attachment.height = Double((scaledImage.size.height))
         attachment.width = Double((scaledImage.size.width))
         attachment.size = (imgData?.count)!
         attachment.data = imgData
         attachment.type = .image
-        
-        DispatchQueue.main.async {
-            self.saveAttachmentToLocalStorage(data: imgData!, fileNameOnDisk: fileNameOnDisk)
-        }
-        
+        //TODO - don't use 'DispatchQueue.main.async' like this, use closure
+        //DispatchQueue.main.async {
+        self.saveAttachmentToLocalStorage(data: imgData!, fileNameOnDisk: filename)
+        //}
         self.inputBarAttachmentViewThumnailImageView.image = attachment.attachedImage
         self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
         self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
         
-        self.didSelectAttachment(attachment)
+        if single {
+            self.didSelectAttachment(attachment)
+        } else {
+            self.currentAttachment = attachment
+            self.didTapOnSendButton(self.inputBarSendButton)
+        }
     }
     
     func manageFile(fileData: Data, filename: String) {

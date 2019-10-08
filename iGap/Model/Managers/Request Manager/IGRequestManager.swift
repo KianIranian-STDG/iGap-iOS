@@ -511,7 +511,6 @@ class IGRequestManager {
         if requestWrappers.count > 0 {
             
             for requestWrapper in requestWrappers {
-                //TODO: handle batch requests
                 var shouldSendRequest = false
                 
                 if IGAppManager.sharedManager.isUserLoggedIn.value {
@@ -583,7 +582,9 @@ class IGRequestManager {
                 let responseProtoMessage = try protoClassName.init(serializedData: payload)
                 let requestHandlerClassName = lookupTableResult.reponseHandler
                 
-                print("\n______________________________\nRESPONSE ➤➤➤ Action ID: \(actionID)   || \(responseProtoMessage) \n------------------------------\n")
+                if actionID != 30702 { // ignore upload response print
+                    print("\n______________________________\nRESPONSE ➤➤➤ Action ID: \(actionID)   || \(responseProtoMessage) \n------------------------------\n")
+                }
                 
                 let response = responseProtoMessage.igpResponse
                 var correspondingRequestWrapper: IGRequestWrapper!

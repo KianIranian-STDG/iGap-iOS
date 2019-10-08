@@ -139,7 +139,10 @@ class IGMessageSender {
     
     private func addTaskToMessagesWithAttachmentQueue(_ task: IGMessageSenderTask) {
         messagesWithAttachmentArray.append(task)
-        uploadAttahcmentForNextRequest()
+        /** start upload when is first item otherwise just fill upload array and after than finish upload, next item automatically will be started!*/
+        if messagesWithAttachmentArray.count == 1 {
+            uploadAttahcmentForNextRequest()
+        }
     }
     
     private func moveMesageFromAttachmentedQueueToPlainQueue(_ task: IGMessageSenderTask) {
@@ -220,10 +223,12 @@ class IGMessageSender {
             }, progress: { (progress) in
                 
             }, completion: { (uploadTask) in
-                self.fileUploadEnded(nextMessageToUpload)
-                for task in self.messagesWithAttachmentArray {
-                    if task.uploadTask == uploadTask {
-                        self.moveMesageFromAttachmentedQueueToPlainQueue(task)
+                DispatchQueue.main.async {
+                    self.fileUploadEnded(nextMessageToUpload)
+                    for task in self.messagesWithAttachmentArray {
+                        if task.uploadTask == uploadTask {
+                            self.moveMesageFromAttachmentedQueueToPlainQueue(task)
+                        }
                     }
                 }
             }, failure: { 

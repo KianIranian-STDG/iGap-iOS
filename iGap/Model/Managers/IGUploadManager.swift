@@ -120,17 +120,23 @@ class IGUploadManager {
     
     //Step 1: Get Upload options (initil bytes limit, final bytes limit, max connection)
     private func getUploadOptions(for task: IGUploadTask) {
-        
+        print("BBB || 1")
         guard let fileData = task.file.data else {
+            print("AAA || getUploadOptions return")
             return
         }
-        
+        print("AAA || getUploadOptions start ** CacheId: \(task.file.cacheID)")
         DispatchQueue.main.async {
             if let startClousure = task.startCallBack {
                 startClousure()
             }
         }
+        print("BBB || 2")
         IGFileUploadOptionRequest.Generator.generate(size: Int64((fileData.count)), identity: task.file.cacheID!).successPowerful ({ (protoMessage, requestWrapper) in
+            print("BBB || 3")
+            if let cacheId = requestWrapper.identity as? String {
+                print("AAA || Upload Option Received ** CacheId: \(cacheId)")
+            }
             switch protoMessage {
             case let fileUploadOptionReponse as IGPFileUploadOptionResponse:
                 task.status = .uploading
@@ -141,7 +147,9 @@ class IGUploadManager {
             default:
                 break
             }
+            print("BBB || 4")
         }).error({ (errorCode, waitTime) in
+            print("AAA || Upload Option Received error: \(errorCode)")
             IGMessageSender.defaultSender.faileFileMessage(uploadTask: task)
             task.status = .failed
             self.removeFromQueueAndStartNext(task: task)
@@ -155,6 +163,8 @@ class IGUploadManager {
     
     //Step 2: Initilize Upload
     private func initializeUplaod(for task: IGUploadTask) {
+        print("AAA || initialize Uplaod start ** CacheId: \(task.file.cacheID)")
+        print("BBB || 5")
         let fileData = NSData(data: task.file.data!)
         var initialBytes = fileData.subdata(with: NSMakeRange(0, Int(task.finalBytesLimit!)))
         
@@ -164,6 +174,7 @@ class IGUploadManager {
         }
         
         let size = Int(task.file.data!.count)
+        print("BBB || 6")
         let finalBytes = fileData.subdata(with: NSMakeRange(size - Int(task.finalBytesLimit!), Int(task.finalBytesLimit!)))
         let request = IGFileUploadInitRequest.Generator.generate(initialBytes: initialBytes,
                                                               finalBytes: finalBytes ,
@@ -172,6 +183,10 @@ class IGUploadManager {
                                                               name: task.file.name!,
                                                               identity: task.file.cacheID!)
         request.successPowerful ({ (protoMessage, requestWrapper) in
+            print("BBB || 7")
+            if let cacheId = requestWrapper.identity as? String {
+                print("AAA || initialize Uplaod Recieved ** CacheId: \(cacheId)")
+            }
             switch protoMessage {
             case let fileUploadInitReponse as IGPFileUploadInitResponse:
                 let response = IGFileUploadInitRequest.Handler.interpret(response: fileUploadInitReponse)
@@ -188,7 +203,9 @@ class IGUploadManager {
             default:
                 break
             }
+            print("BBB || 8")
         }).error({ (errorCode, waitTime) in
+            print("AAA || initialize Uplaod Recieved error: \(errorCode)")
             IGMessageSender.defaultSender.faileFileMessage(uploadTask: task)
             task.status = .failed
             self.removeFromQueueAndStartNext(task: task)
@@ -202,6 +219,8 @@ class IGUploadManager {
     
     //Step 3: Upload a chunk of file (repeat this step until finish)
     private func uploadAChunk(task: IGUploadTask, offset: Int64, limit: Int32) {
+        print("BBB || 9")
+        print("AAA || upload Chunk: \(task.file.cacheID)")
         let fileData = NSData(data: task.file.data!)
         let bytes = fileData.subdata(with: NSMakeRange(Int(offset), Int(limit)))
         IGFileUploadRequest.Generator.generate(token: task.token!, offset: offset, data: bytes, identity: task.file.cacheID!).successPowerful ({ (protoMessage, requestWrapper) in
@@ -221,7 +240,9 @@ class IGUploadManager {
             default:
                 break
             }
+            print("BBB || 10")
         }).error({ (errorCode, waitTime) in
+            print("AAA || Upload Chunk error: \(errorCode)")
             IGMessageSender.defaultSender.faileFileMessage(uploadTask: task)
             task.status = .failed
             self.removeFromQueueAndStartNext(task: task)
@@ -235,7 +256,9 @@ class IGUploadManager {
     
     //Step 4: Check for file state
     private func checkStatus(for task: IGUploadTask) {
+        print("BBB || 11")
         IGFileUploadStatusRequest.Generator.generate(token: task.token!, identity: task).successPowerful ({ (protoMessage, requestWrapper) in
+            print("BBB || 12")
             switch protoMessage {
             case let fileUploadStatusResponse as IGPFileUploadStatusResponse:
                 let response = IGFileUploadStatusRequest.Handler.interpret(response: fileUploadStatusResponse)
@@ -244,10 +267,11 @@ class IGUploadManager {
                 let progress = response.progress
                 IGAttachmentManager.sharedManager.setProgress(response.progress / 100.0, for: task.file)
                 IGAttachmentManager.sharedManager.setStatus(.uploading, for: task.file)
-                
+                print("BBB || 13")
                 if let uploadInfo = requestWrapper.identity as? IGUploadTask {
                     IGFile.updateFileToken(fileNameOnDisk: uploadInfo.file.fileNameOnDisk!, token: uploadInfo.token!)
                 }
+                print("BBB || 14")
                 /*
                 DispatchQueue.main.async {
                     if let progress = task.progressCallBack {
@@ -272,6 +296,7 @@ class IGUploadManager {
                     })
                     break
                 case .processed:
+                    print("BBB || 15")
                     //get file info
                     self.getFileInfo(task: task)
                     break
@@ -282,6 +307,7 @@ class IGUploadManager {
                 break
             }
         }).error({ (errorCode, waitTime) in
+            print("AAA || Check status error: \(errorCode)")
             IGMessageSender.defaultSender.faileFileMessage(uploadTask: task)
             task.status = .failed
             self.removeFromQueueAndStartNext(task: task)
@@ -295,7 +321,9 @@ class IGUploadManager {
     
     //Step 5: get file info (to get cache id)
     private func getFileInfo(task: IGUploadTask) {
+        print("BBB || 16")
         IGFileInfoRequest.Generator.generate(token: task.token!).success { (protoMessage) in
+            print("BBB || 17")
             switch protoMessage {
             case let fileInfoReponse as IGPFileInfoResponse:
                 //update file in db
@@ -304,13 +332,14 @@ class IGUploadManager {
                 IGAttachmentManager.sharedManager.setStatus(.ready, for: task.file)
                 //finish task
                 task.status = .finished
+                print("BBB || 18")
                 self.removeFromQueueAndStartNext(task: task)
                 DispatchQueue.main.async {
                     if let completeClosure = task.successCallBack {
                         completeClosure(task)
                     }
                 }
-                
+                print("BBB || 19")
             default:
                 break
             }

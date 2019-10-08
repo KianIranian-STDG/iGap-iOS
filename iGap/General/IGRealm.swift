@@ -14,10 +14,6 @@ import Foundation
 class IGRealmString: Object {
     @objc dynamic var innerString: String = ""
     
-    override static func primaryKey() -> String {
-        return "innerString"
-    }
-    
     convenience init(string: String) {
         self.init()
         self.innerString = string

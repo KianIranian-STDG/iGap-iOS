@@ -17,7 +17,7 @@ class IGHelperMediaPicker {
     
     private var sendAsFile = false
     private var screens : [YPPickerScreen] = [.library, .video, .photo]
-    private var maxNumberOfItems : Int = 1
+    private var maxNumberOfItems : Int = 10
     private var mediaType : YPlibraryMediaType = .photoAndVideo
     
     func setSendAsFile(_ sendAsFile: Bool) -> IGHelperMediaPicker {
@@ -51,7 +51,7 @@ class IGHelperMediaPicker {
         config.wordings.cancel = "CANCEL_BTN".localizedNew
         config.wordings.cover = "COVER".localizedNew
         config.wordings.crop = "CROP".localizedNew
-        config.wordings.done = "DONE_BTN".localizedNew
+        config.wordings.done = "GLOBAL_OK".localizedNew
         config.wordings.filter = "FILTER".localizedNew
         config.wordings.ok = "GLOBAL_OK".localizedNew
         config.wordings.processing = "PROCESSING".localizedNew

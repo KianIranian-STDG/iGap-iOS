@@ -41,7 +41,10 @@ class IGWebSocketManager: NSObject {
     public func send(requestW: IGRequestWrapper) {
         websocketSendQueue.async {
             do {
-                print ("\n______________________________\nREQUEST ➤➤➤ Action ID : \(requestW.actionId)  ||  \(String(describing: requestW.message)) \n------------------------------\n")
+                // ignore upload response print
+                if requestW.actionId != 702 {
+                    print ("\n______________________________\nREQUEST ➤➤➤ Action ID : \(requestW.actionId)  ||  \(String(describing: requestW.message)) \n------------------------------\n")
+                }
                 var messageData = Data()
                 let payloadData = try requestW.message.serializedData()
                 let actionIdData = Data(bytes: &requestW.actionId, count: 2)

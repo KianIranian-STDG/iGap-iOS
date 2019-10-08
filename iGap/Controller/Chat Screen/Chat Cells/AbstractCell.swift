@@ -981,7 +981,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 }
                 
             } else if let media = repliedMessage.attachment {
-                txtReplyMessageAbs.text = "\(IGFile.convertFileTypeToString(fileType: media.type))" + "MESSAGE".MessageViewlocalizedNew
+                txtReplyMessageAbs.text = "\(IGFile.convertFileTypeToString(fileType: media.type))"
             } else {
                 txtReplyMessageAbs.text = ""
             }
@@ -1047,8 +1047,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             return
         }
         
-        if var attachment = finalRoomMessage.attachment , !(attachment.isInvalidated) {
-            
+        // TODO(Find Better Solution!!!) - fetch message from realm for avoid from get 'Cannot construct reference to unmanaged object, which can be passed across threads directly' error.
+        var attachment: IGFile! = IGRoomMessage.getMessageWithPrimaryKeyId(primaryKeyId: realmRoomMessage.primaryKeyId!)?.getFinalMessage().attachment
+        //if var attachment = finalRoomMessage.attachment , !(attachment.isInvalidated) {
+        if attachment != nil && !(attachment.isInvalidated) {
             if let attachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
                 self.attachment = attachmentVariableInCache.value
             } else {
