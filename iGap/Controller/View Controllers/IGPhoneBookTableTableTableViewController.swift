@@ -26,28 +26,29 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             self.name = registredUser.displayName
         }
     }
-        var searchController : UISearchController = {
-            
-            let searchController = UISearchController(searchResultsController: nil)
-            searchController.searchBar.placeholder = ""
-            searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
-            
-            let gradient = CAGradientLayer()
-            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
+    var searchController : UISearchController = {
+        
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = ""
+        searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
+        searchController.dimsBackgroundDuringPresentation = false
+        
+        let gradient = CAGradientLayer()
+        let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
 
-            gradient.frame = defaultNavigationBarFrame
-            gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
-            gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
-            gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
-    //        gradient.locations = orangeGradientLocation as [NSNumber]
+        gradient.frame = defaultNavigationBarFrame
+        gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+        gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
+        gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
+//        gradient.locations = orangeGradientLocation as [NSNumber]
 
-            
-            searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-            searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-            
-            return searchController
+        
+        searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+        searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+        
+        return searchController
 
-        }()
+    }()
     
     class Section  {
         var users = [User]()
@@ -56,7 +57,10 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         }
     }
     
-    private var contacts : Results<IGRegisteredUser>!
+    private var contacts: Results<IGRegisteredUser>!
+    private var filteredContacts: Results<IGRegisteredUser>!
+    private var shouldShowSearchResults = false
+    
     private var resultSearchController = UISearchController()
     private var forceCall: Bool = false
     private var pageName : String! = "NEW_CALL"
@@ -75,13 +79,17 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
         self.tableView.tableHeaderView = makeHeaderView()
         self.tableView.tableFooterView = makeFooterView()
+        
         if currentTabIndex == TabBarTab.Profile.rawValue {
             self.searchController.hidesNavigationBarDuringPresentation = false
         }
         else {
             self.searchController.hidesNavigationBarDuringPresentation = true
         }
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -99,9 +107,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             if let backgroundview = textField.subviews.first {
                 backgroundview.backgroundColor = UIColor(named: themeColor.searchBarBackGroundColor.rawValue)
                 for view in backgroundview.subviews {
-                    if view is UIView {
-                        view.backgroundColor = .clear
-                    }
+                    view.backgroundColor = .clear
                 }
                 backgroundview.layer.cornerRadius = 10;
                 backgroundview.clipsToBounds = true;
@@ -249,7 +255,12 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     private func makeFooterView() -> UIView {
         let label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 70.0))
-        label.text = "\(self.contacts.count)".inLocalizedLanguage() + "CONTACTS".localizedNew
+        if shouldShowSearchResults {
+            label.text = "\(self.filteredContacts.count)".inLocalizedLanguage() + "CONTACTS".localizedNew
+        } else {
+            label.text = "\(self.contacts.count)".inLocalizedLanguage() + "CONTACTS".localizedNew
+        }
+        
         label.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
         label.font = UIFont.igFont(ofSize: 16)
         label.textAlignment = .center
@@ -275,74 +286,107 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        //if is from profile page
         if currentTabIndex == TabBarTab.Profile.rawValue {
-            return self.contacts.count + 2 // the number 2 is for two items in header bellow search bar
+            if shouldShowSearchResults {
+                if self.filteredContacts != nil {
+                    return self.filteredContacts.count
+                } else {
+                    return 0
+                }
+                
+            } else {
+                return self.contacts.count + 2 // the number 2 is for two items in header bellow search bar
+            }
 
         } else {// if is from contactpage
-            return self.contacts.count + 1
+            if shouldShowSearchResults {
+                if self.filteredContacts != nil {
+                    return self.filteredContacts.count
+                } else {
+                    return 0
+                }
+            } else {
+                return self.contacts.count + 1
+            }
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //if is from profile page
         if currentTabIndex == TabBarTab.Profile.rawValue {
-            if indexPath.row == 0 {
-                let phoneBookCellTypeTwo = tableView.dequeueReusableCell(withIdentifier: "phoneBookCellTypeTwo", for: indexPath) as! phoneBookCellTypeTwo
-                phoneBookCellTypeTwo.lblIcon.text = ""
-                phoneBookCellTypeTwo.lblText.text = "CREAT_CHANNEL".localizedNew
-                phoneBookCellTypeTwo.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
-
-                return phoneBookCellTypeTwo
-
-            } else if indexPath.row == 1 {
-                let phoneBookCellTypeTwo = tableView.dequeueReusableCell(withIdentifier: "phoneBookCellTypeTwo", for: indexPath) as! phoneBookCellTypeTwo
-                phoneBookCellTypeTwo.lblIcon.text = ""
-                phoneBookCellTypeTwo.lblText.text = "CREAT_GROUP".localizedNew
-                return phoneBookCellTypeTwo
-
-            } else {
+            
+            if shouldShowSearchResults {
                 let contactsCell = tableView.dequeueReusableCell(withIdentifier: "ContactsCell", for: indexPath) as! IGContactTableViewCell
-                    contactsCell.setUser(contacts[indexPath.row-1])
+                contactsCell.setUser(self.filteredContacts[indexPath.row])
                 
                 return contactsCell
+            } else {
+                if indexPath.row == 0 {
+                    let phoneBookCellTypeTwo = tableView.dequeueReusableCell(withIdentifier: "phoneBookCellTypeTwo", for: indexPath) as! phoneBookCellTypeTwo
+                    phoneBookCellTypeTwo.lblIcon.text = ""
+                    phoneBookCellTypeTwo.lblText.text = "CREAT_CHANNEL".localizedNew
+                    phoneBookCellTypeTwo.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
 
+                    return phoneBookCellTypeTwo
+
+                } else if indexPath.row == 1 {
+                    let phoneBookCellTypeTwo = tableView.dequeueReusableCell(withIdentifier: "phoneBookCellTypeTwo", for: indexPath) as! phoneBookCellTypeTwo
+                    phoneBookCellTypeTwo.lblIcon.text = ""
+                    phoneBookCellTypeTwo.lblText.text = "CREAT_GROUP".localizedNew
+                    return phoneBookCellTypeTwo
+
+                } else {
+                    let contactsCell = tableView.dequeueReusableCell(withIdentifier: "ContactsCell", for: indexPath) as! IGContactTableViewCell
+                        contactsCell.setUser(contacts[indexPath.row-1])
+                    
+                    return contactsCell
+
+                }
             }
+            
         } else { // if is from contactpage
-            if indexPath.row == 0 {
-                let phoneBookCellTypeTwo = tableView.dequeueReusableCell(withIdentifier: "phoneBookCellTypeTwo", for: indexPath) as! phoneBookCellTypeTwo
-                phoneBookCellTypeTwo.lblIcon.text = ""
-
-                phoneBookCellTypeTwo.lblText.text = "SETTING_PAGE_INVITE_FRIENDS".localizedNew
-                return phoneBookCellTypeTwo
-
-            } else {
+            if shouldShowSearchResults {
                 let contactsCell = tableView.dequeueReusableCell(withIdentifier: "ContactsCell", for: indexPath) as! IGContactTableViewCell
-                    contactsCell.setUser(contacts[indexPath.row-1])
-                
+                contactsCell.setUser(self.filteredContacts[indexPath.row])
                 return contactsCell
+            } else {
+                if indexPath.row == 0 {
+                    let phoneBookCellTypeTwo = tableView.dequeueReusableCell(withIdentifier: "phoneBookCellTypeTwo", for: indexPath) as! phoneBookCellTypeTwo
+                    phoneBookCellTypeTwo.lblIcon.text = ""
 
+                    phoneBookCellTypeTwo.lblText.text = "SETTING_PAGE_INVITE_FRIENDS".localizedNew
+                    return phoneBookCellTypeTwo
+
+                } else {
+                    let contactsCell = tableView.dequeueReusableCell(withIdentifier: "ContactsCell", for: indexPath) as! IGContactTableViewCell
+                        contactsCell.setUser(contacts[indexPath.row-1])
+                    return contactsCell
+                }
             }
-
         }
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if currentTabIndex == TabBarTab.Profile.rawValue {
-            if indexPath.row == 0 {
-                return 50
-
-            } else if indexPath.row == 1 {
-                return 50
-
-            } else {
-                return 80
-
-            }
+        if shouldShowSearchResults {
+            return 80
         } else {
-            if indexPath.row == 0 {
-                return 50
+            if currentTabIndex == TabBarTab.Profile.rawValue {
+                if indexPath.row == 0 {
+                    return 50
 
+                } else if indexPath.row == 1 {
+                    return 50
+
+                } else {
+                    return 80
+
+                }
             } else {
-                return 80
+                if indexPath.row == 0 {
+                    return 50
+
+                } else {
+                    return 80
+                }
             }
         }
     }
@@ -365,20 +409,38 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
 
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if currentTabIndex == TabBarTab.Profile.rawValue {
+        if shouldShowSearchResults {
+            if currentTabIndex == TabBarTab.Profile.rawValue {
 
-            if indexPath.row  == 0 {
-                self.didTapOnNewChannel()
-
-            } else if indexPath.row  == 1 {
-                self.didTapOnNewGroup()
-
+                if resultSearchController.isActive == false {
+                    
+                    IGGlobal.prgShow(self.view)
+                    let user = self.filteredContacts[indexPath.row]
+                    IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
+                        if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
+                            DispatchQueue.main.async {
+                                IGGlobal.prgHide()
+                                let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                                self.navigationController?.popToRootViewController(animated: true)
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
+                            }
+                        }
+                    }).error({ (errorCode, waitTime) in
+                        DispatchQueue.main.async {
+                            IGGlobal.prgHide()
+                            let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
+                            let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                            alertC.addAction(cancel)
+                            self.present(alertC, animated: true, completion: nil)
+                        }
+                    }).send()
+                }
             } else {
 
                 if resultSearchController.isActive == false {
                     
                     IGGlobal.prgShow(self.view)
-                    let user = self.contacts[indexPath.row-2]
+                    let user = self.filteredContacts[indexPath.row]
                     IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
                         if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
                             DispatchQueue.main.async {
@@ -400,37 +462,119 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 }
             }
         } else {
+            if currentTabIndex == TabBarTab.Profile.rawValue {
 
-            if indexPath.row  == 0 {
-                self.inviteAContact()
+                if indexPath.row  == 0 {
+                    self.didTapOnNewChannel()
 
-            } else {
+                } else if indexPath.row  == 1 {
+                    self.didTapOnNewGroup()
 
-                if resultSearchController.isActive == false {
-                    
-                    IGGlobal.prgShow(self.view)
-                    let user = self.contacts[indexPath.row-1]
-                    IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
-                        if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
+                } else {
+
+                    if resultSearchController.isActive == false {
+                        
+                        IGGlobal.prgShow(self.view)
+                        let user = self.contacts[indexPath.row-2]
+                        IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
+                            if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
+                                DispatchQueue.main.async {
+                                    IGGlobal.prgHide()
+                                    let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                                    self.navigationController?.popToRootViewController(animated: true)
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
+                                }
+                            }
+                        }).error({ (errorCode, waitTime) in
                             DispatchQueue.main.async {
                                 IGGlobal.prgHide()
-                                let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                                self.navigationController?.popToRootViewController(animated: true)
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
+                                let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
+                                let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                                alertC.addAction(cancel)
+                                self.present(alertC, animated: true, completion: nil)
                             }
-                        }
-                    }).error({ (errorCode, waitTime) in
-                        DispatchQueue.main.async {
-                            IGGlobal.prgHide()
-                            let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
-                            let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                            alertC.addAction(cancel)
-                            self.present(alertC, animated: true, completion: nil)
-                        }
-                    }).send()
+                        }).send()
+                    }
+                }
+            } else {
+
+                if indexPath.row  == 0 {
+                    self.inviteAContact()
+
+                } else {
+
+                    if resultSearchController.isActive == false {
+                        
+                        IGGlobal.prgShow(self.view)
+                        let user = self.contacts[indexPath.row-1]
+                        IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
+                            if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
+                                DispatchQueue.main.async {
+                                    IGGlobal.prgHide()
+                                    let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                                    self.navigationController?.popToRootViewController(animated: true)
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
+                                }
+                            }
+                        }).error({ (errorCode, waitTime) in
+                            DispatchQueue.main.async {
+                                IGGlobal.prgHide()
+                                let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
+                                let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                                alertC.addAction(cancel)
+                                self.present(alertC, animated: true, completion: nil)
+                            }
+                        }).send()
+                    }
                 }
             }
         }
+        
+    }
+}
+
+// MARK: search controller extension
+extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchString = searchController.searchBar.text else { return }
+        
+        let predicate: NSPredicate!
+//        let searchNumber = searchString.onlyDigitChars().inEnglishNumbersNew()
+//        if searchNumber != "" {
+//            predicate = NSPredicate(format: "(displayName CONTAINS[c] %@) OR (phone.stringValue CONTAINS[c] %@)", searchString, searchNumber)
+//        } else {
+            predicate = NSPredicate(format: "displayName CONTAINS[c] %@", searchString)
+//        }
+        
+        // Filter the data array and get only those countries that match the search text.
+        
+        filteredContacts = contacts.filter(predicate)
+//        filteredContacts = contacts.filter({ (contact) -> Bool in
+//            let countryText: NSString = country
+//
+//            return (countryText.rangeOfString(searchString, options: NSStringCompareOptions.CaseInsensitiveSearch).location) != NSNotFound
+//        })
+     
+        // Reload the tableview.
+        self.tableView.reloadData()
+    }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        shouldShowSearchResults = true
+        self.tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        shouldShowSearchResults = false
+        self.tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if !shouldShowSearchResults {
+               shouldShowSearchResults = true
+               self.tableView.reloadData()
+           }
+        
+           searchController.searchBar.resignFirstResponder()
     }
 }
 
