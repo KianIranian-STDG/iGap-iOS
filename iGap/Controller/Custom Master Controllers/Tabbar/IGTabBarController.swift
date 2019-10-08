@@ -125,7 +125,7 @@ class IGTabBarController: UITabBarController {
         let myTabBarItem1 = (self.tabBar.items?[0])! as UITabBarItem
         myTabBarItem1.image = UIImage(named: "ig-Phone-Book-Off_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         myTabBarItem1.selectedImage = UIImage(named: "ig-Phone-Book-on_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        myTabBarItem1.title = ""
+        myTabBarItem1.title = "TAB_PHONEBOOK".localizedNew
         myTabBarItem1.tag = 0
         myTabBarItem1.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         
@@ -133,7 +133,7 @@ class IGTabBarController: UITabBarController {
         let myTabBarItem2 = (self.tabBar.items?[1])! as UITabBarItem
         myTabBarItem2.image = UIImage(named: "ig-Call-List_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         myTabBarItem2.selectedImage = UIImage(named: "ig-Call-List-on_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        myTabBarItem2.title = ""
+        myTabBarItem2.title = "TAB_CALL_LIST".localizedNew
         myTabBarItem2.tag = 1
         myTabBarItem2.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         
@@ -141,7 +141,7 @@ class IGTabBarController: UITabBarController {
         let myTabBarItem3 = (self.tabBar.items?[2])! as UITabBarItem
         myTabBarItem3.image = UIImage(named: "ig-Room-List-Off_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         myTabBarItem3.selectedImage = UIImage(named: "ig-Room-List-on_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        myTabBarItem3.title = ""
+        myTabBarItem3.title = "TAB_CHAT".localizedNew
         myTabBarItem3.tag = 2
         
         myTabBarItem3.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
@@ -149,7 +149,7 @@ class IGTabBarController: UITabBarController {
         let myTabBarItem4 = (self.tabBar.items?[3])! as UITabBarItem
         myTabBarItem4.image = UIImage(named: "ig-Dashboard-off_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         myTabBarItem4.selectedImage = UIImage(named: "ig-Discovery-on_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        myTabBarItem4.title = ""
+        myTabBarItem4.title = "TAB_DISCOVERY".localizedNew
         myTabBarItem4.tag = 3
         
         myTabBarItem4.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
@@ -157,7 +157,7 @@ class IGTabBarController: UITabBarController {
         let myTabBarItem5 = (self.tabBar.items?[4])! as UITabBarItem
         myTabBarItem5.image = UIImage(named: "ig-Settings-off_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         myTabBarItem5.selectedImage = UIImage(named: "ig-Settings-on_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        myTabBarItem5.title = ""
+        myTabBarItem5.title = "TAB_PROFILE".localizedNew
         myTabBarItem5.tag = 4
         
         myTabBarItem5.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)

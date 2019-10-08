@@ -87,11 +87,18 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     
     override func viewWillDisappear(_ animated: Bool) {
 //        UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
+//        if #available(iOS 10.0, *), callType == .voiceCalling{
+//            CallManager.sharedInstance.endCall()
+//        } else {
+//            dismmis()
+//        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         UIApplication.shared.isIdleTimerDisabled = false //enable sleep mode
         UIDevice.current.isProximityMonitoringEnabled = false
+//        IGHelperUIViewView.shared.show(mode: .ReturnCall)
+
     }
     
     override func viewDidAppear(_ animated: Bool) {

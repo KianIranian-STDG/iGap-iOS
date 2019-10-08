@@ -8,6 +8,13 @@
         "REMOVE_MODERATOR" : "Remove Moderator Role",
         "REMOVE_ADMIN" : "Remove Admin Role",
 
+        
+        "TAB_CHAT" : "Chats",
+        "TAB_PHONEBOOK" : "Contacts",
+        "TAB_DISCOVERY" : "Discovery",
+        "TAB_CALL_LIST" : "Call List",
+        "TAB_PROFILE" : "Setting",
+
         "store" : "Store",
         "other" : "Other",
         "driver" : "Driver",
@@ -327,7 +334,7 @@
         
         "CONNECTING" : "Connecting ...",
         "WAITING_NETWORK" : "Waiting for Network ...",
-        "RETURN_TO_CALL" : "Return to call screen",
+        "RETURN_TO_CALL" : "Return to call",
         "MEMBER" : "Member",
         "BOT" : "Bot",
         "IGAP_SUPPORT" : "iGap Support",

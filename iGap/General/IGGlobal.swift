@@ -63,6 +63,15 @@ class IGGlobal {
     static var hideBarChart : Bool = true
     static var latestTime: Int64 = 0
     static var sendTone: AVAudioPlayer?
+    static var topbarHeight: CGFloat {
+        if #available(iOS 13.0, *) {
+            return (UIApplication.shared.statusBarFrame.height ?? 0.0) +
+                (44)
+        } else {
+            return UIApplication.shared.statusBarFrame.size.height +
+                (44)
+        }
+    }
 
     static var timeDic: [Int:Time] = [:]
     struct Time {
@@ -495,6 +504,12 @@ extension UIColor {
     
     class func dialogueBoxOutgoing() -> UIColor {
         return UIColor(named: themeColor.sendMessageBubleBGColor.rawValue) ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    }
+    class func helperWindowViewColor() -> UIColor {
+        return UIColor(named: themeColor.modalViewBackgroundColor.rawValue) ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    }
+    class func helperWindowViewBorderColor() -> UIColor {
+        return UIColor(named: themeColor.labelGrayColor.rawValue) ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
     class func dialogueBoxIncomming() -> UIColor {

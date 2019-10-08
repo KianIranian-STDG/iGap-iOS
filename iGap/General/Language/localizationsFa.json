@@ -10,6 +10,13 @@
         "PAIED_TO_LBL" : "پرداخت به :",
         "SELECTED" : "انتخاب شده",
         
+        "TAB_CHAT" : "گفت و گو",
+        "TAB_PHONEBOOK" : "مخاطبین",
+        "TAB_DISCOVERY" : "ویترین",
+        "TAB_CALL_LIST" : "تماس ها",
+        "TAB_PROFILE" : "تنظیمات",
+
+        
         "WALLET_PAY_LBL3" : "مبلغ قابل پرداخت(ریال) :",
         "WALLET_PAY_LBL1" : "مبلغ تخفیف(ریال) :",
         "WALLET_PAY_LBL0" : "مبلغ کل(ریال) :",
@@ -338,7 +345,7 @@
         "STICKER_CATEGORY" : "دسته بندی های استیکر",
         "CONNECTING" : "در حال اتصال ...",
         "WAITING_NETWORK" : "در جست و جوی اینترنت ...",
-        "RETURN_TO_CALL" : "بازگشت به صفحه تماس",
+        "RETURN_TO_CALL" : "بازگشت به تماس",
         "MEMBER" : "عضو",
         "BOT" : "ربات",
         "IGAP_SUPPORT" : "پشتیبانی",
