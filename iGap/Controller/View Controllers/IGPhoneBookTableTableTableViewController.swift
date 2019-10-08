@@ -74,17 +74,17 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         
         self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
         self.tableView.tableHeaderView = makeHeaderView()
+        self.tableView.tableFooterView = makeFooterView()
         if currentTabIndex == TabBarTab.Profile.rawValue {
             self.searchController.hidesNavigationBarDuringPresentation = false
-
         }
         else {
             self.searchController.hidesNavigationBarDuringPresentation = true
-
         }
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
         initialiseSearchBar()
 
     }
@@ -158,19 +158,20 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
 
         }
     }
-        override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-            super.traitCollectionDidChange(previousTraitCollection)
-            
-            if #available(iOS 13.0, *) {
-                if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true {
-                    // appearance has changed
-                    // Update your user interface based on the appearance
-                    self.setSearchBarGradient()
-                }
-            } else {
-                // Fallback on earlier versions
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true {
+                // appearance has changed
+                // Update your user interface based on the appearance
+                self.setSearchBarGradient()
             }
+        } else {
+            // Fallback on earlier versions
         }
+    }
         
         private func setSearchBarGradient() {
             let gradient = CAGradientLayer()
@@ -245,6 +246,16 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         
         return headerView
     }
+    
+    private func makeFooterView() -> UIView {
+        let label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 70.0))
+        label.text = "\(self.contacts.count)".inLocalizedLanguage() + "CONTACTS".localizedNew
+        label.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+        label.font = UIFont.igFont(ofSize: 16)
+        label.textAlignment = .center
+        label.backgroundColor = .clear
+        return label
+    }
 
     @objc
     func didTapOnBtn(sender:UITapGestureRecognizer) {
@@ -255,7 +266,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         let vc = testVCViewController.instantiateFromAppStroryboard(appStoryboard: .PhoneBook)
         self.navigationController!.pushViewController(vc, animated: true)
     }
-
 
     //Mark:- TableView Delagates
     override func numberOfSections(in tableView: UITableView) -> Int {

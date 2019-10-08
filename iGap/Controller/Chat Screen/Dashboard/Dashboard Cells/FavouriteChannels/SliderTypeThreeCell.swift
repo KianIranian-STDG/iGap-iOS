@@ -38,6 +38,7 @@ class SliderTypeThreeCell: UITableViewCell,UICollectionViewDelegate, UICollectio
     override func prepareForReuse() {
         super.prepareForReuse()
     }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isInnenr {
             return channelsListObj?.count ?? 0
@@ -45,6 +46,7 @@ class SliderTypeThreeCell: UITableViewCell,UICollectionViewDelegate, UICollectio
             return categoryItem.categories?.count ?? 0
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "IGFavouriteChannelsDashboardCollectionViewCell", for: indexPath as IndexPath) as! IGFavouriteChannelsDashboardCollectionViewCell
         if isInnenr {
@@ -65,7 +67,7 @@ class SliderTypeThreeCell: UITableViewCell,UICollectionViewDelegate, UICollectio
             cell.imgBG.sd_setImage(with: url, completed: nil)
         }
         
-        cell.contentView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        cell.contentView.backgroundColor = UIColor(named: themeColor.backGroundGrayColor.rawValue)
         
         let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
         cell.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
@@ -98,7 +100,6 @@ class SliderTypeThreeCell: UITableViewCell,UICollectionViewDelegate, UICollectio
             dashboard.categoryId = categoryItem.categories?[indexPath.item].id
             UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
         }
-        
     }
     
     public func initView() {

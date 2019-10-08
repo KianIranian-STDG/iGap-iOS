@@ -24,6 +24,7 @@ enum themeColor: String {
     case textFieldBackGround = "IGTextFieldBackGround"
     case textFieldPlaceHolderColor = "IGTextFieldPlaceHolderColor"
     case splashBackgroundColor = "IGSplashBackgroundColor"
+    case backGroundGrayColor = "IGBackGroundGrayColor"
     
     // transactions colloctionView colors
     case transactionsCVColor = "IGTransactionsCVColor"

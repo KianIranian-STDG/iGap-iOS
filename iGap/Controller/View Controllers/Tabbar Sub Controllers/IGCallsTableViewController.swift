@@ -74,9 +74,8 @@ class IGCallsTableViewController: BaseTableViewController {
         navigationItem.setCallListNavigationItems()
         self.hideKeyboardWhenTappedAround()
         
-        navigationItem.rightViewContainer?.addAction
-            {
-                self.goToContactListPage()
+        navigationItem.rightViewContainer?.addAction {
+            self.goToContactListPage()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             navigationItem.leftViewContainer?.addAction {
@@ -258,8 +257,8 @@ class IGCallsTableViewController: BaseTableViewController {
         }
         present(deleteConfirmAlertView, animated: true, completion: nil)
     }
+    
     private func goToContactListPage() {
-        
         let storyboard : UIStoryboard = UIStoryboard(name: "CreateRoom", bundle: nil)
         let contactList : IGContactListTableViewController? = (storyboard.instantiateViewController(withIdentifier: "IGContactListTableViewController") as! IGContactListTableViewController)
         contactList!.forceCall = true

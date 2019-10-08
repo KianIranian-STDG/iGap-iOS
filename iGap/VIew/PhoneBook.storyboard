@@ -135,13 +135,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vjE-6Z-3m5">
-                                <rect key="frame" x="0.0" y="88" width="414" height="0.0"/>
-                                <color key="backgroundColor" white="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="0.20000000000000001" id="5S2-3B-rIe"/>
-                                </constraints>
-                            </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XXL-Dh-9BO">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <connections>
@@ -151,13 +144,10 @@
                         </subviews>
                         <color key="backgroundColor" name="IGBackGroundColor"/>
                         <constraints>
-                            <constraint firstItem="vjE-6Z-3m5" firstAttribute="top" secondItem="4So-xe-tIt" secondAttribute="top" id="2N3-Ix-MPK"/>
                             <constraint firstItem="4So-xe-tIt" firstAttribute="trailing" secondItem="XXL-Dh-9BO" secondAttribute="trailing" id="39k-yX-b6A"/>
-                            <constraint firstItem="vjE-6Z-3m5" firstAttribute="leading" secondItem="4So-xe-tIt" secondAttribute="leading" id="EhD-0B-Str"/>
                             <constraint firstAttribute="bottom" secondItem="XXL-Dh-9BO" secondAttribute="bottom" id="EvE-Ui-NPk"/>
-                            <constraint firstItem="4So-xe-tIt" firstAttribute="trailing" secondItem="vjE-6Z-3m5" secondAttribute="trailing" id="IxC-MU-k2S"/>
-                            <constraint firstItem="XXL-Dh-9BO" firstAttribute="top" secondItem="vjE-6Z-3m5" secondAttribute="bottom" id="aMl-Ux-uTU"/>
                             <constraint firstItem="XXL-Dh-9BO" firstAttribute="leading" secondItem="4So-xe-tIt" secondAttribute="leading" id="d0g-kx-Fiw"/>
+                            <constraint firstItem="XXL-Dh-9BO" firstAttribute="top" secondItem="4So-xe-tIt" secondAttribute="top" id="zyu-6e-H60"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4So-xe-tIt"/>
                     </view>
@@ -226,6 +216,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="VCt-76-G74" secondAttribute="trailing" constant="55" id="CRt-Lm-7mb"/>
                                         <constraint firstItem="VCt-76-G74" firstAttribute="centerY" secondItem="1KS-nW-ZXd" secondAttribute="centerY" id="GPU-Km-WyI"/>
@@ -236,6 +227,7 @@
                                         <constraint firstItem="iOB-iI-K4M" firstAttribute="leading" secondItem="1KS-nW-ZXd" secondAttribute="leading" constant="15" id="h6Y-Dj-iqd"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="avatarIconLbl" destination="iOB-iI-K4M" id="bDK-NI-Gsg"/>
                                     <outlet property="nameLbl" destination="ci1-Xy-4Y7" id="TBQ-7O-pUr"/>

@@ -15,7 +15,7 @@ import IGProtoBuff
 import MBProgressHUD
 
 
-class IGContactListTableViewController: UITableViewController, UISearchResultsUpdating , UIGestureRecognizerDelegate, IGCallFromContactListObserver {
+class IGContactListTableViewController: UITableViewController, UISearchResultsUpdating, UIGestureRecognizerDelegate, IGCallFromContactListObserver {
     
     var contacts = try! Realm().objects(IGRegisteredUser.self).filter("isInContacts == 1").sorted(byKeyPath: "displayName", ascending: true)
     var contactSections: [Section]?
@@ -43,29 +43,24 @@ class IGContactListTableViewController: UITableViewController, UISearchResultsUp
         }
     }
     
-    class Section  {
+    class Section {
         var users = [User]()
         func addUser(_ user:User){
             self.users.append(user)
         }
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        
-    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         IGContactListTableViewController.callDelegate = self
-        self.tableView.sectionIndexBackgroundColor = UIColor.clear
-        self.tableView.contentInset.top = 15.0
+        self.tableView.sectionIndexBackgroundColor = UIColor(named: themeColor.tableViewCell.rawValue)
+//        self.tableView.contentInset.top = 15.0
+        self.tableView.sectionIndexBackgroundColor = .clear
         
         initNavigationBar()
         sections = fillContacts()
     }
+    
     private func initNavigationBar() {
         let navigationItem = self.navigationItem as! IGNavigationItem
         var title = "NEW_CONVERSATION".localizedNew
@@ -122,7 +117,7 @@ class IGContactListTableViewController: UITableViewController, UISearchResultsUp
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (self.resultSearchController.isActive) {
+        if self.resultSearchController.isActive {
             return self.contacts.count
         } else {
             return self.sections[section].users.count
@@ -167,7 +162,6 @@ class IGContactListTableViewController: UITableViewController, UISearchResultsUp
     func updateSearchResults(for searchController: UISearchController) {
         self.tableView.reloadData()
     }
-    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if resultSearchController.isActive == false {

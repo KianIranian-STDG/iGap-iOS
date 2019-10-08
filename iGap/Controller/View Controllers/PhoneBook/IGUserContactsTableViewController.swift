@@ -13,52 +13,54 @@ import MessageUI
 class IGUserContactsTableViewController: BaseTableViewController,MFMessageComposeViewControllerDelegate {
     var userContacts = [CNContact]()
     
-        var searchController : UISearchController = {
-            
-            let searchController = UISearchController(searchResultsController: nil)
-            searchController.searchBar.placeholder = ""
-            searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
-            
-            let gradient = CAGradientLayer()
-            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
+    var searchController : UISearchController = {
+        
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = ""
+        searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
+        searchController.hidesNavigationBarDuringPresentation = false
+        
+        let gradient = CAGradientLayer()
+        let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
 
-            gradient.frame = defaultNavigationBarFrame
-            gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
-            gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
-            gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
-    //        gradient.locations = orangeGradientLocation as [NSNumber]
+        gradient.frame = defaultNavigationBarFrame
+        gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+        gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
+        gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
+//        gradient.locations = orangeGradientLocation as [NSNumber]
 
-            
-            searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-            searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-            if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
-                if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
-                    searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
-                    searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
-                    searchBarCancelButton.tintColor = UIColor.white
-                }
-
-                
-                print("FOUND TEXTFIELD")
-                if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
-                    print("FOUND LABEL")
-                    placeHolderInsideSearchField.textColor = UIColor.white
-                    placeHolderInsideSearchField.textAlignment = .center
-                    placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localizedNew
-                    if let backgroundview = textField.subviews.first {
-                        placeHolderInsideSearchField.center = backgroundview.center
-                    }
-                    placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15,weight: .bold)
-                    
-
-
-                }
+        
+        searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+        searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
+                searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+                searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
+                searchBarCancelButton.tintColor = UIColor.white
             }
-            return searchController
 
-        }()
+            
+            print("FOUND TEXTFIELD")
+            if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
+                print("FOUND LABEL")
+                placeHolderInsideSearchField.textColor = UIColor.white
+                placeHolderInsideSearchField.textAlignment = .center
+                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localizedNew
+                if let backgroundview = textField.subviews.first {
+                    placeHolderInsideSearchField.center = backgroundview.center
+                }
+                placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15,weight: .bold)
+                
+
+
+            }
+        }
+        return searchController
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.tableView.tableFooterView = UIView()
         self.tableView.scrollsToTop = false
         self.tableView.bounces = false
@@ -79,23 +81,34 @@ class IGUserContactsTableViewController: BaseTableViewController,MFMessageCompos
             retrieveContacts(from: store)
         }
     }
+    
+    
     //Mark:- retrive contacts
     func retrieveContacts(from store: CNContactStore) {
-        let containerId = store.defaultContainerIdentifier()
-        let predicate = CNContact.predicateForContactsInContainer(withIdentifier: containerId)
+//        let containerId = store.defaultContainerIdentifier()
+//        let predicate = CNContact.predicateForContactsInContainer(withIdentifier: containerId)
         // 4
         let keysToFetch = [CNContactGivenNameKey as CNKeyDescriptor,
                            CNContactFamilyNameKey as CNKeyDescriptor,
-                           CNContactPhoneNumbersKey as
-            CNKeyDescriptor]
+                           CNContactPhoneNumbersKey as CNKeyDescriptor]
         
-        let contacts = try! store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch)
-        userContacts = contacts
+        let fetchRequest = CNContactFetchRequest(keysToFetch: keysToFetch)
+        fetchRequest.sortOrder = CNContactSortOrder.givenName
+        do {
+            try store.enumerateContacts(with: fetchRequest, usingBlock: { (contact, stop) in
+                self.userContacts.append(contact)
+            })
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        
+//        let contacts = try! store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch)
+//        userContacts = contacts.sorted(by: { $0.givenName < $1.givenName })
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadWithAnimation()
         }
-
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if #available(iOS 11.0, *) {
@@ -125,9 +138,7 @@ class IGUserContactsTableViewController: BaseTableViewController,MFMessageCompos
             if let backgroundview = textField.subviews.first {
                 backgroundview.backgroundColor = UIColor(named: themeColor.searchBarBackGroundColor.rawValue)
                 for view in backgroundview.subviews {
-                    if view is UIView {
-                        view.backgroundColor = .clear
-                    }
+                    view.backgroundColor = .clear
                 }
                 backgroundview.layer.cornerRadius = 10;
                 backgroundview.clipsToBounds = true;
