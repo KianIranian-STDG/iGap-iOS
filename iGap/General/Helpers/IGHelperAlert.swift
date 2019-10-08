@@ -105,7 +105,7 @@ class IGHelperAlert {
                 alertView = UIApplication.topViewController()
             }
             
-            let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
+            let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
             
             let backView = alert.view.subviews.last?.subviews.last
             backView?.layer.cornerRadius = 12.0
@@ -115,7 +115,7 @@ class IGHelperAlert {
                 backView?.backgroundColor = UIColor.iGapGreen()
                 backView?.tintColor = UIColor.iGapGreen()
                 attributedString = NSAttributedString(
-                    string: "",
+                    string: "",
                     attributes: [
                         NSAttributedString.Key.font : UIFont.iGapFonticon(ofSize: iconFontSize), NSAttributedString.Key.foregroundColor : UIColor.iGapGreen()
                     ]
@@ -124,7 +124,7 @@ class IGHelperAlert {
                 backView?.backgroundColor = UIColor.iGapRed()
                 backView?.tintColor = UIColor.iGapRed()
                 attributedString = NSAttributedString(
-                    string: "",
+                    string: "",
                     attributes: [
                         NSAttributedString.Key.font : UIFont.iGapFonticon(ofSize: iconFontSize), NSAttributedString.Key.foregroundColor : UIColor.iGapRed()
                     ]

@@ -33,7 +33,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     var searchController : UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
-        searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
+        searchController.searchBar.setValue("CANCEL_BTN".RecentTableViewlocalizedNew, forKey: "cancelButtonText")
         searchController.definesPresentationContext = true
         searchController.searchBar.sizeToFit()
         
@@ -1685,7 +1685,7 @@ extension IGRecentsTableViewController {
             }
 
             if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
-                searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+                searchBarCancelButton.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
                 searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
                 searchBarCancelButton.tintColor = UIColor.white
             }
@@ -1747,7 +1747,7 @@ extension IGRecentsTableViewController: UISearchBarDelegate, UISearchResultsUpda
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
         if let searchBarCancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
-            searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+            searchBarCancelButton.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
             searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
             searchBarCancelButton.tintColor = UIColor.white
         }
