@@ -1081,24 +1081,27 @@ extension UIImageView {
             } else if attachment.type == .audio {
                 self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
             } else {
-                
-                /* for big images show largeThumbnail if exist, even main file was downloaded before.
-                 * currently check size for 1024 KB(1MB)
-                 */
-                let fileSizeKB = attachment.size/1024
+                let MAX_IMAGE_SIZE = 256 // max size for show main image at view
                 
                 /* when fileNameOnDisk is added into the attachment just check file existance without check file size
                  * because file size after upload is different with file size before upload
                  * Hint: mabye change this kind of check for file existance change later
                  */
-                var fileExist = false
-                if attachment.fileNameOnDisk != nil {
-                    fileExist = IGGlobal.isFileExist(path: attachment.path())
-                } else {
-                    fileExist = IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size)
+                let fileSizeKB = attachment.size/1024
+                var showBestPreview = true // show main image if has small size otherwise show large thumbnail, also for video show large thumnail always because video doesn't have original image
+                if attachment.type == .image {
+                    /* for big images show largeThumbnail if exist, even main file was downloaded before.
+                     * currently check size for 256 KB
+                     */
+                    
+                    if attachment.fileNameOnDisk != nil {
+                        showBestPreview = IGGlobal.isFileExist(path: attachment.path())
+                    } else {
+                        showBestPreview = IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size)
+                    }
                 }
                 
-                if fileSizeKB < 1024 && fileExist {
+                if fileSizeKB < MAX_IMAGE_SIZE && showBestPreview {
                     self.sd_setImage(with: attachment.path(), completed: nil)
                 } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
                     
@@ -1107,13 +1110,10 @@ extension UIImageView {
                     if showMain {
                         fileType = .originalFile
                         finalFile = attachment
+                    } else if showBestPreview { // show large thumbnail for downloaded file if has big size
+                        fileType = .largeThumbnail
+                        finalFile = attachment.largeThumbnail!
                     }
-                    /*
-                     if fileSizeKB > 1024 {
-                     previewType = .largeThumbnail
-                     thumbnail = attachment.largeThumbnail!
-                     }
-                     */
                     
                     do {
                         var path = URL(string: "")
