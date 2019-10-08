@@ -198,7 +198,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var collectionViewTopInsetOffset: CGFloat = 0.0
     var connectionStatus : IGAppManager.ConnectionStatus?
     var reportMessageId: Int64?
-    var sendAsFile: Bool = false
     var swipeGesture: UIPanGestureRecognizer!
     var originalPoint: CGPoint!
     
@@ -3173,11 +3172,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     private func sendAsFileAlert(){
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let photoOrVideo = UIAlertAction(title: "PHOTO_OR_VIDEO".MessageViewlocalizedNew, style: .default, handler: { (action) in
-            self.sendAsFile = true
             self.attachmentPicker(sendAsFile: true)
         })
         let document = UIAlertAction(title: "DOCUMENT".MessageViewlocalizedNew, style: .default, handler: { (action) in
-            self.sendAsFile = true
             self.documentPicker()
         })
         let cancel = UIAlertAction(title: "CANCEL_BTN".MessageViewlocalizedNew, style: .cancel, handler: nil)
@@ -3195,47 +3192,31 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     func attachmentPicker(screens: [YPPickerScreen] = [.library, .photo, .video], sendAsFile: Bool = false) {
         IGHelperMediaPicker.shared.setScreens(screens).setSendAsFile(sendAsFile).pick { mediaItems in
             if let videoInfo = mediaItems.singleVideo, mediaItems.count == 1 {
-                if sendAsFile {
-                    if let data = try? Data(contentsOf: videoInfo.url) {
-                        self.manageFile(fileData: data, filename: "FILE_VIDEO_" + IGGlobal.randomString(length: 3))
-                    }
-                } else {
-                    self.manageVideo(videoInfo: videoInfo)
-                }
-            } else if let imageInfo = mediaItems.singlePhoto, mediaItems.count == 1{
-                if sendAsFile {
-                    var image = imageInfo.modifiedImage
-                    if image == nil {
-                        image = imageInfo.originalImage
-                    }
-                    if let data = image!.pngData() {
-                        self.manageFile(fileData: data, filename: "FILE_IMAGE_" + IGGlobal.randomString(length: 3))
-                    }
-                } else {
-                    self.manageImage(imageInfo: imageInfo)
-                }
+                self.manageVideo(videoInfo: videoInfo, sendAsFile: sendAsFile)
+            } else if let imageInfo = mediaItems.singlePhoto, mediaItems.count == 1 {
+                self.manageImage(imageInfo: imageInfo, sendAsFile: sendAsFile)
             } else {
-                self.manageSendMultiMedia(mediaItems: mediaItems)
+                self.manageSendMultiMedia(mediaItems: mediaItems, sendAsFile: sendAsFile)
             }
         }
     }
     
-    private func manageSendMultiMedia(mediaItems: [YPMediaItem], index: Int = 0){
+    private func manageSendMultiMedia(mediaItems: [YPMediaItem], index: Int = 0, sendAsFile: Bool = false){
         if mediaItems.count <= index {
             return
         }
         let media = mediaItems[index]
         switch media {
         case .photo(let photo):
-            self.manageImage(imageInfo: photo, single: false)
+            self.manageImage(imageInfo: photo, single: false, sendAsFile: sendAsFile)
             break
             
         case .video(let video):
-            self.manageVideo(videoInfo: video, single: false)
+            self.manageVideo(videoInfo: video, single: false, sendAsFile: sendAsFile)
             break
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.manageSendMultiMedia(mediaItems: mediaItems, index: index + 1)
+            self.manageSendMultiMedia(mediaItems: mediaItems, index: index + 1, sendAsFile: sendAsFile)
         }
     }
     
@@ -3254,7 +3235,15 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
-    func manageVideo(videoInfo: YPMediaVideo, single: Bool = true){
+    func manageVideo(videoInfo: YPMediaVideo, single: Bool = true, sendAsFile: Bool = false){
+        
+        if sendAsFile {
+            if let data = try? Data(contentsOf: videoInfo.url) {
+                self.manageFile(fileData: data, filename: "FILE_VIDEO_" + IGGlobal.randomString(length: 3), single: single)
+            }
+            return
+        }
+        
         let mediaUrl = videoInfo.url
         let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let filename = mediaUrl.lastPathComponent
@@ -3275,10 +3264,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         let pathOnDisk = documents + "/" + randomString + filename
         try! FileManager.default.copyItem(atPath: mediaUrl.path, toPath: pathOnDisk)
 
-        self.inputBarAttachmentViewThumnailImageView.image = videoInfo.thumbnail
-        self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
-        self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
         if single {
+            self.inputBarAttachmentViewThumnailImageView.image = videoInfo.thumbnail
+            self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
+            self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
             self.didSelectAttachment(attachment)
         } else {
             self.currentAttachment = attachment
@@ -3286,11 +3275,18 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
-    func manageImage(imageInfo: YPMediaPhoto, single: Bool = true){
+    func manageImage(imageInfo: YPMediaPhoto, single: Bool = true, sendAsFile: Bool = false){
         
         var image = imageInfo.modifiedImage
         if image == nil {
             image = imageInfo.originalImage
+        }
+        
+        if sendAsFile {
+            if let data = image!.pngData() {
+                self.manageFile(fileData: data, filename: "FILE_IMAGE_" + IGGlobal.randomString(length: 3), single: single)
+            }
+            return
         }
         
         let filename = "IMAGE_" + IGGlobal.randomString(length: 16)
@@ -3313,11 +3309,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         //DispatchQueue.main.async {
         self.saveAttachmentToLocalStorage(data: imgData!, fileNameOnDisk: filename)
         //}
-        self.inputBarAttachmentViewThumnailImageView.image = attachment.attachedImage
-        self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
-        self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
         
         if single {
+            self.inputBarAttachmentViewThumnailImageView.image = attachment.attachedImage
+            self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
+            self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
             self.didSelectAttachment(attachment)
         } else {
             self.currentAttachment = attachment
@@ -3325,28 +3321,41 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
-    func manageFile(fileData: Data, filename: String) {
+    func manageFile(fileData: Data, filename: String, single: Bool = true) {
         
         let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let pathOnDisk = documents + "/" + filename
         let fileUrl : URL = NSURL(fileURLWithPath: pathOnDisk) as URL
         let fileSize = Int(fileData.count)
         
-        // write data to my fileUrl
-        try! fileData.write(to: fileUrl)
-        
-        let attachment = IGFile(name: filename)
-        attachment.size = fileSize
-        attachment.fileNameOnDisk = filename
-        attachment.name = filename
-        attachment.type = .file
-        
-        self.inputBarAttachmentViewThumnailImageView.image = UIImage(named: "IG_Message_Cell_File_Generic")
-        self.inputBarAttachmentViewThumnailImageView.frame = CGRect(x: 0, y: 0, width: 30, height: 34)
-        self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
-        self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
-        
-        self.didSelectAttachment(attachment)
+        writeFileToUrl(data: fileData, url: fileUrl) {
+            DispatchQueue.main.async {
+                let attachment = IGFile(name: filename)
+                attachment.size = fileSize
+                attachment.fileNameOnDisk = filename
+                attachment.name = filename
+                attachment.type = .file
+                
+                if single {
+                    self.inputBarAttachmentViewThumnailImageView.image = UIImage(named: "IG_Message_Cell_File_Generic")
+                    self.inputBarAttachmentViewThumnailImageView.frame = CGRect(x: 0, y: 0, width: 30, height: 34)
+                    self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
+                    self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
+                    self.didSelectAttachment(attachment)
+                } else {
+                    self.currentAttachment = attachment
+                    self.didTapOnSendButton(self.inputBarSendButton)
+                }
+            }
+        }
+    }
+    
+    private func writeFileToUrl(data: Data, url: URL, success: @escaping ()->()){
+        IGWriteFileManager.shared.perfrmOnWriteFileThread {
+            // write data to my fileUrl
+            try! data.write(to: url)
+            success()
+        }
     }
     
     /*

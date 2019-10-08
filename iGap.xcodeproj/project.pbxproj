@@ -296,6 +296,7 @@
 		94E74DCC2323CB88001AB47C /* FinancialHistoryLocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DCB2323CB88001AB47C /* FinancialHistoryLocalizationsEn.json */; };
 		94E74DCE2323D137001AB47C /* FinancialHistoryLocalizationsFa.json in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DCD2323D137001AB47C /* FinancialHistoryLocalizationsFa.json */; };
 		D60FF283234091310012ECF2 /* IGPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60FF282234091310012ECF2 /* IGPlayer.swift */; };
+		D617C711234CC69300A59EB3 /* IGWriteFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D617C710234CC69300A59EB3 /* IGWriteFileManager.swift */; };
 		D619A845232DF8AA007AD9F8 /* IGGroupProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D619A844232DF8AA007AD9F8 /* IGGroupProfile.swift */; };
 		D629462D2349DA0600FB5A08 /* IGHelperMediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D629462C2349DA0600FB5A08 /* IGHelperMediaPicker.swift */; };
 		D629462F2349E1B700FB5A08 /* YPImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D629462E2349E1B700FB5A08 /* YPImagePicker.framework */; };
@@ -1104,6 +1105,7 @@
 		94E74DCB2323CB88001AB47C /* FinancialHistoryLocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FinancialHistoryLocalizationsEn.json; sourceTree = "<group>"; };
 		94E74DCD2323D137001AB47C /* FinancialHistoryLocalizationsFa.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FinancialHistoryLocalizationsFa.json; sourceTree = "<group>"; };
 		D60FF282234091310012ECF2 /* IGPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPlayer.swift; sourceTree = "<group>"; };
+		D617C710234CC69300A59EB3 /* IGWriteFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGWriteFileManager.swift; sourceTree = "<group>"; };
 		D619A844232DF8AA007AD9F8 /* IGGroupProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGroupProfile.swift; sourceTree = "<group>"; };
 		D629462C2349DA0600FB5A08 /* IGHelperMediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperMediaPicker.swift; sourceTree = "<group>"; };
 		D629462E2349E1B700FB5A08 /* YPImagePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YPImagePicker.framework; path = Carthage/Build/iOS/YPImagePicker.framework; sourceTree = "<group>"; };
@@ -2813,6 +2815,7 @@
 				FA11E2891DE8A8A900A2F87C /* IGAttachmentManager.swift */,
 				FA11E2871DE8A86C00A2F87C /* IGCacheManager.swift */,
 				FA35DA161DE0245600F171EE /* IGDatabaseManager.swift */,
+				D617C710234CC69300A59EB3 /* IGWriteFileManager.swift */,
 				FAAC57D21DE2CE9F00A28058 /* IGDownloadManager.swift */,
 				FAB09D9A1DB76F81001A27C4 /* IGRequestManager.swift */,
 				FABB9B051DB25E5E00D794A4 /* IGSecurityManager.swift */,
@@ -3771,6 +3774,7 @@
 				FAD94C701E0136D0006D8D91 /* IGMedia.swift in Sources */,
 				FAD2BB0C1E0E993100761B11 /* IGDotActivityIndicator.swift in Sources */,
 				FA11E2881DE8A86C00A2F87C /* IGCacheManager.swift in Sources */,
+				D617C711234CC69300A59EB3 /* IGWriteFileManager.swift in Sources */,
 				8E1CD978232D06B0008D8758 /* IGUserContactsTableViewCell.swift in Sources */,
 				8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */,
 				8E4177F8233CDABD00CEB3AF /* AKMaskFieldPatternCharacter.swift in Sources */,
