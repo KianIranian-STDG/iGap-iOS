@@ -1161,12 +1161,24 @@ class IGFactory: NSObject {
         }
     }
 
-    func clearCallLog() {
+    func clearCallLogs() {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
                 let callLogs = try! Realm().objects(IGRealmCallLog.self)
                 if !callLogs.isEmpty {
                     IGDatabaseManager.shared.realm.delete(callLogs)
+                }
+            }
+        }
+    }
+    func clearCallLog(array:[Int64]) {
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                for elemnt in array {
+                    let predicate = NSPredicate(format: "id = %lld", elemnt)
+                    if let tmpLog = try! Realm().objects(IGRealmCallLog.self).filter(predicate).first {
+                        IGDatabaseManager.shared.realm.delete(tmpLog)
+                    }
                 }
             }
         }

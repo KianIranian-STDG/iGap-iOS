@@ -92,7 +92,7 @@ class IGCallsTableViewController: BaseTableViewController {
         
         initNavigationBar()
 
-        self.tableView.isUserInteractionEnabled = true
+//        self.tableView.isUserInteractionEnabled = true
     }
     override func viewDidLayoutSubviews() {
         let firstIndex = IndexPath(item: 0, section: 0)
@@ -183,7 +183,7 @@ class IGCallsTableViewController: BaseTableViewController {
         super.viewWillAppear(animated)
         //Hint :- restore call list to its first state on disapreance of viewcontroller
 
-        self.tableView.isUserInteractionEnabled = true
+//        self.tableView.isUserInteractionEnabled = true
     }
     
     
@@ -298,7 +298,7 @@ class IGCallsTableViewController: BaseTableViewController {
         }
         
         selectedRowUser = callLogList![indexPath.row].registeredUser
-        self.tableView.isUserInteractionEnabled = false
+//        self.tableView.isUserInteractionEnabled = false
         
         DispatchQueue.main.async {
             (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: self.selectedRowUser!.id, isIncommmingCall: false)
@@ -324,11 +324,39 @@ class IGCallsTableViewController: BaseTableViewController {
 //        return [deleteAction]
 //
 //    }
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .normal, title:  "test", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            // Call edit action
+    private func sendClearOneRowRequest(rowID: Int64!) {
 
-            // Reset state
+
+        SMLoading.showLoadingPage(viewcontroller: self)
+        IGSignalingClearLogRequest.Generator.generate(logIDArray: [rowID]).success({ (protoResponse) in
+            DispatchQueue.main.async {
+                SMLoading.hideLoadingPage()
+                if let clearLogResponse = protoResponse as? IGPSignalingClearLogResponse {
+                    IGSignalingClearLogRequest.Handler.interpretClearUsingArray(response: clearLogResponse,array: [rowID])
+                    
+                }
+            }
+        }).error({ (errorCode, waitTime) in
+            SMLoading.hideLoadingPage()
+
+            DispatchQueue.main.async {
+                switch errorCode {
+                case .timeout:
+                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                default:
+                    break
+                }
+            }
+        }).send()
+
+    }
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            self.sendClearOneRowRequest(rowID: self.callLogList[indexPath.row].id)
+
             success(true)
         })
         deleteAction.image = UIImage(named: "ic_delete")

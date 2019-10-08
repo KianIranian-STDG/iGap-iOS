@@ -288,16 +288,26 @@ class IGSignalingGetLogRequest : IGRequest {
 
 class IGSignalingClearLogRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate(clearId: Int64) -> IGRequestWrapper {
+        class func generate(clearId: Int64? = nil , logIDArray : [Int64]? = nil) -> IGRequestWrapper {
             var clearLogRequestMessage = IGPSignalingClearLog()
-            clearLogRequestMessage.igpClearID = clearId
+            if logIDArray!.count > 0 , logIDArray != nil {
+                for elemnt in logIDArray! {
+                    clearLogRequestMessage.igpLogID.append(elemnt)
+                }
+            } else {
+                clearLogRequestMessage.igpClearID = clearId!
+            }
             return IGRequestWrapper(message: clearLogRequestMessage, actionID: 908)
         }
     }
 
     class Handler : IGRequest.Handler{
         class func interpret(response reponseProtoMessage:IGPSignalingClearLogResponse)  {
-            IGFactory.shared.clearCallLog()
+            IGFactory.shared.clearCallLogs()
+        }
+        class func interpretClearUsingArray(response reponseProtoMessage:IGPSignalingClearLogResponse,array: [Int64])  {
+            IGFactory.shared.clearCallLog(array:array)
+            
         }
 
         override class func handlePush(responseProtoMessage: Message) {
