@@ -41,7 +41,7 @@ class IGRequestWrapper: NSObject {
         self.actionId = actionID
     }
     
-    init(message: RequestMessage!, actionID:Int, identity:Any) {
+    init(message: RequestMessage!, actionID:Int, identity:Any?) {
         self.message = message
         self.actionId = actionID
         self.identity = identity

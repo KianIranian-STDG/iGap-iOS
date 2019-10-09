@@ -17,7 +17,7 @@ class IGRoomMessage: Object {
     @objc dynamic var creationTime:       Date?
     @objc dynamic var updateTime:         Date?
     @objc dynamic var authorHash:         String?
-    @objc dynamic var authorUser:         IGRegisteredUser? // When sent in a chat/group
+    @objc dynamic var authorUser:         IGRealmAuthorUser? // When sent in a chat/group
     @objc dynamic var authorRoom:         IGRoom?           // When sent in a channel
     @objc dynamic var attachment:         IGFile?
     @objc dynamic var forwardedFrom:      IGRoomMessage?
@@ -146,17 +146,9 @@ class IGRoomMessage: Object {
             }
             
             if author.hasIgpUser {
-                let authorUser = author.igpUser
-                //read realm for existing user
-                let predicate = NSPredicate(format: "id = %lld", authorUser.igpUserID)
-                if let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first {
-                    self.authorUser = userInDb
-                    self.authorRoom = nil
-                } else {
-                    //if your code reaches here there is something wrong
-                    //you MUST fetch all dependecies befor performing any action
-                    //assertionFailure()
-                }
+                self.authorUser = IGRealmAuthorUser(author.igpUser)
+                self.authorRoom = nil
+                
             } else if author.hasIgpRoom {
                 let authorRoom = author.igpRoom
                 //read realm for existing room
@@ -244,10 +236,13 @@ class IGRoomMessage: Object {
         self.temporaryId = IGGlobal.randomString(length: 64)
         self.primaryKeyId = IGGlobal.randomString(length: 64)
         self.randomId = IGGlobal.randomId()
+        // Hint: following code has crash
+        //self.authorUser = IGRealmAuthorUser(IGAppManager.sharedManager.userID()!)
         let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
         let realm = try! Realm()
         if let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first {
-            self.authorUser = userInDb
+            self.authorUser?.userInfo = userInDb
+            self.authorUser?.userId = userInDb.id
         }
         self.authorHash = IGAppManager.sharedManager.authorHash()
     }
@@ -343,12 +338,9 @@ class IGRoomMessage: Object {
             }
 
             if author.hasIgpUser {
-                let authorUser = author.igpUser
-                let predicate = NSPredicate(format: "id = %lld", authorUser.igpUserID)
-                if let userInDb = realmFinal.objects(IGRegisteredUser.self).filter(predicate).first {
-                    message.authorUser = userInDb
-                    message.authorRoom = nil
-                }
+                message.authorUser = IGRealmAuthorUser(author.igpUser)
+                message.authorRoom = nil
+                
             } else if author.hasIgpRoom {
                 let authorRoom = author.igpRoom
                 let predicate = NSPredicate(format: "id = %lld", authorRoom.igpRoomID)

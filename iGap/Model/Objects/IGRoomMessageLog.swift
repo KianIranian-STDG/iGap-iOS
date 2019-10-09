@@ -122,8 +122,8 @@ class IGRoomMessageLog: Object {
     class func textForLogMessage(_ message: IGRoomMessage) -> String {
         var actorUsernameTitle = ""
         
-        if let actor = message.authorUser {
-            actorUsernameTitle = actor.displayName
+        if let user = message.authorUser?.user {
+            actorUsernameTitle = user.displayName
         } else {
             actorUsernameTitle = "MSG_SOMEONE".localizedNew
         }

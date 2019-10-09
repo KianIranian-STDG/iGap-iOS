@@ -18,4 +18,5 @@ protocol MessageOnChatReceiveObserver {
     func onLocalMessageUpdateStatus(localMessage: IGRoomMessage) /* identity is client message without receive any response from server */
     func onMessageEdit(messageId: Int64, roomId: Int64, message: String, messageType: IGPRoomMessageType, messageVersion: Int64)
     func onMessageDelete(roomId: Int64, messageId: Int64)
+    func onFetchUserInfo(userId: Int64)
 }

@@ -534,7 +534,7 @@ class IGRoomListtCell: BaseTableViewCell {
             }
             if let lastMessage = room.lastMessage {
                 if let senderUser = lastMessage.authorUser {
-                    if senderUser.id == IGAppManager.sharedManager.userID() {
+                    if senderUser.userId == IGAppManager.sharedManager.userID() {
                         if self.showStateImage {
                             self.lastMessageStateImage.isHidden = false
                             self.unreadView.isHidden = true

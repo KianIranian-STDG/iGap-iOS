@@ -350,7 +350,7 @@ class IGUserContactsGetListRequest : IGRequest {
     class Generator : IGRequest.Generator{
         class func generate() -> IGRequestWrapper {
             let contactsImportRequestMessage = IGPUserContactsGetList()
-            return IGRequestWrapper(message: contactsImportRequestMessage, actionID: 107)
+            return IGRequestWrapper(message: contactsImportRequestMessage, actionID: 10734234)
         }
     }
     
@@ -567,12 +567,12 @@ class IGUserInfoRequest : IGRequest {
     class func sendRequestAvoidDuplicate(userId: Int64){
         if IGAppManager.sharedManager.isUserLoggiedIn() && !userIdArrayList.contains(userId) {
             userIdArrayList.append(userId)
-            IGUserInfoRequest.Generator.generate(userID: userId).success({ (protoResponse) in
+            IGUserInfoRequest.Generator.generate(userID: userId).successPowerful({ (protoResponse, requestWrapper) in
                 if let userInfoResponse = protoResponse as? IGPUserInfoResponse {
                     IGUserInfoRequest.Handler.interpret(response: userInfoResponse)
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + IGUserInfoRequest.CLEAR_ARRAY_TIME) {
-                        if let indexOfUserId = userIdArrayList.index(of: userInfoResponse.igpUser.igpID) {
+                        if let indexOfUserId = userIdArrayList.firstIndex(of: userInfoResponse.igpUser.igpID) {
                             userIdArrayList.remove(at: indexOfUserId)
                         }
                     }
@@ -581,20 +581,23 @@ class IGUserInfoRequest : IGRequest {
         }
     }
     
-    class func sendRequest(userId: Int64){
+    class func sendRequest(userId: Int64, success: ((_ userId: Int64) -> Void)? = nil){
         if userId == 0 {return}
-        IGUserInfoRequest.Generator.generate(userID: userId).success({ (protoResponse) in
+        IGUserInfoRequest.Generator.generate(userID: userId, identity: success).successPowerful({ (protoResponse, requestWrapper) in
             if let userInfoResponse = protoResponse as? IGPUserInfoResponse {
                 IGUserInfoRequest.Handler.interpret(response: userInfoResponse)
+                if let identity = requestWrapper.identity, let success = identity as? ((_ userId: Int64) -> Void) {
+                    success(userInfoResponse.igpUser.igpID)
+                }
             }
         }).error({ (errorCode, waitTime) in }).send()
     }
     
     class Generator : IGRequest.Generator{
-        class func generate(userID: Int64) -> IGRequestWrapper {
+        class func generate(userID: Int64, identity: Any? = nil) -> IGRequestWrapper {
             var userInfoRequestMessage = IGPUserInfo()
             userInfoRequestMessage.igpUserID = userID
-            return IGRequestWrapper(message: userInfoRequestMessage, actionID: 117)
+            return IGRequestWrapper(message: userInfoRequestMessage, actionID: 117, identity: identity)
             
         }
     }

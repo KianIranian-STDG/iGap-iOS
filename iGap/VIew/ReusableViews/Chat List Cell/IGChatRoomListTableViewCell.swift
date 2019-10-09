@@ -254,7 +254,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
             lastMessageStatusContainerViewWidthConstraint.constant = lastMessageStatusContainerViewWidthConstraintDefault
             if let lastMessage = room.lastMessage {
                 if let senderUser = lastMessage.authorUser {
-                    if senderUser.id == currentLoggedInUserID {
+                    if senderUser.userId == currentLoggedInUserID {
                         isLastMessageIncomming = false
                     }
                 }
@@ -345,7 +345,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
             }
             self.timeLabel.text = lastMessage.creationTime?.convertToHumanReadable(onlyTimeIfToday: true)
             if let forwarded = lastMessage.forwardedFrom {
-                if let user = forwarded.authorUser {
+                if let user = forwarded.authorUser!.user {
                     self.lastMessageLabel.text = "FORWARDED_FROM".localizedNew + " \(user.displayName)"
                 } else if let title = forwarded.authorRoom?.title {
                     self.lastMessageLabel.text = "FORWARDED_FROM".localizedNew + " \(title)"

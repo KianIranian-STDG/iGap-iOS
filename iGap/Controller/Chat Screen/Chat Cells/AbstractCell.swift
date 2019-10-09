@@ -488,8 +488,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         if shouldShowAvatar && !isPreviousMessageFromSameSender {
             
             makeAvatar()
-            if let user = realmRoomMessage.authorUser {
+            
+            if let user = realmRoomMessage.authorUser?.user {
+                avatarViewAbs.avatarImageView?.backgroundColor = UIColor.clear
                 avatarViewAbs.setUser(user)
+            } else if let userId = realmRoomMessage.authorUser?.userId {
+                avatarViewAbs.avatarImageView?.backgroundColor = UIColor.white
+                avatarViewAbs.avatarImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
+                IGMessageViewController.messageOnChatReceiveObserver.onFetchUserInfo(userId: userId)
             }
             
         } else {
@@ -523,8 +529,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             } else if self.room.type != .chat {
                 makeSenderName()
 
-                if let sender = realmRoomMessage.authorUser {
-                    txtSenderNameAbs.text = sender.displayName
+                if let user = realmRoomMessage.authorUser?.user {
+                    txtSenderNameAbs.text = user.displayName
                 } else if let sender = realmRoomMessage.authorRoom {
                     txtSenderNameAbs.text = sender.title
                 } else {
@@ -956,7 +962,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             
             makeReply()
             
-            if let user = repliedMessage.authorUser {
+            if let user = repliedMessage.authorUser?.user {
                 txtReplyDisplayNameAbs.text = user.displayName
             } else if let room = repliedMessage.authorRoom {
                 txtReplyDisplayNameAbs.text = room.title
@@ -1003,8 +1009,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             
             makeForward()
             
-            if let user = originalMessage.authorUser {
-                txtForwardAbs.text = "FORWARDED_FROM".MessageViewlocalizedNew + " \(user.displayName)"
+            if let user = originalMessage.authorUser?.user {
+                txtForwardAbs.text = "FORWARDED_FROM".MessageViewlocalizedNew + " \(user)"
             } else if let room = originalMessage.authorRoom {
                 txtForwardAbs.text = "FORWARDED_FROM".MessageViewlocalizedNew + " \(room.title != nil ? room.title! : "")"
             } else {

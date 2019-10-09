@@ -1349,13 +1349,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     private func getAdditional(roomMessage: IGRoomMessage?) -> [[IGStructAdditionalButton]]? {
-        if roomMessage != nil && roomMessage!.authorUser?.id != IGAppManager.sharedManager.userID(),
+        if roomMessage != nil && roomMessage!.authorUser?.userId != IGAppManager.sharedManager.userID(),
             let data = roomMessage?.additional?.data,
             roomMessage?.additional?.dataType == AdditionalType.UNDER_KEYBOARD_BUTTON.rawValue,
             let additionalData = IGHelperJson.parseAdditionalButton(data: data) {
             return additionalData
         }
-        if roomMessage != nil && roomMessage!.authorUser?.id != IGAppManager.sharedManager.userID(),
+        if roomMessage != nil && roomMessage!.authorUser?.userId != IGAppManager.sharedManager.userID(),
             let data = roomMessage?.additional?.data,
             roomMessage?.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
             let additionalData = IGHelperJson.parseAdditionalButton(data: data) {
@@ -1607,10 +1607,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        let navigationControllerr = self.navigationController as! IGNavigationController
-//        navigationControllerr.addSearchBar(state: "False")
         IGGlobal.isInChatPage = true
-
+        IGMessageViewController.messageViewControllerObserver = self
+        IGMessageViewController.additionalObserver = self
+        IGMessageViewController.messageOnChatReceiveObserver = self
         self.currentRoomId = self.room?.id
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
         setupNotifications()
@@ -1654,9 +1654,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         inputTextView.setContentOffset(.zero, animated: true)
         inputTextView.scrollRangeToVisible(NSMakeRange(0, 0))
         
-        IGMessageViewController.messageViewControllerObserver = self
-        IGMessageViewController.additionalObserver = self
-        IGMessageViewController.messageOnChatReceiveObserver = self
         if #available(iOS 10.0, *) {
             IGStickerViewController.stickerTapListener = self
         }
@@ -3964,7 +3961,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             self.setSendAndRecordButtonStates()
         }
         
-        if let user = finalMessage.authorUser {
+        if let user = finalMessage.authorUser?.user {
             self.inputBarOriginalMessageViewSenderNameLabel.text = user.displayName
         } else if let room = finalMessage.authorRoom {
             self.inputBarOriginalMessageViewSenderNameLabel.text = room.title
@@ -5447,8 +5444,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     }
     
     func didTapOnSenderAvatar(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
-        if let sender = cellMessage.authorUser {
-            self.selectedUserToSeeTheirInfo = sender
+        if let user = cellMessage.authorUser?.user {
+            self.selectedUserToSeeTheirInfo = user
             openUserProfile()
         }
     }
@@ -5473,7 +5470,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             if forwardMessage.authorUser != nil {
                 usernameType = .user
             }
-            IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: usernameType, user: forwardMessage.authorUser, room: forwardMessage.authorRoom)
+            IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: usernameType, user: forwardMessage.authorUser?.user, room: forwardMessage.authorRoom)
         }
     }
     
@@ -5896,6 +5893,21 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }
     }
     
+    func onFetchUserInfo(userId: Int64){
+        /* fetch user info and notify collection item if exist in visible items into the collection */
+        IGUserInfoRequest.sendRequest(userId: userId) { (userId) in
+            DispatchQueue.main.async {
+                for indexPath in self.collectionView.indexPathsForVisibleItems {
+                    if let cell = self.collectionView.cellForItem(at: indexPath) as? AbstractCell {
+                        if let peerId = cell.realmRoomMessage.authorUser?.userId, userId == peerId {
+                            self.updateItem(cellPosition: indexPath.row)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     /*********************************************************************************/
     /******************* Collection Manager (Add , Remove , Update) ******************/
     
@@ -6094,12 +6106,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     }
     
     private func makeTimeItem(date: Date) -> IGRoomMessage {
-//        let dayTimePeriodFormatter = DateFormatter()
-//        dayTimePeriodFormatter.dateFormat = "MMMM dd"
-//        dayTimePeriodFormatter.calendar = Calendar.current
-        let dateString = date.localizedDate()
-
-        let message = IGRoomMessage(body: dateString.inLocalizedLanguage())
+        let message = IGRoomMessage(body: date.localizedDate().inLocalizedLanguage())
         message.type = .time
         return message
     }

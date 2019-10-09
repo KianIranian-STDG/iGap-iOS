@@ -20,7 +20,6 @@ class IGWebSocketManager: NSObject {
     
     private let reachability = Reachability()!
     private let socket = WebSocket(url: URL(string: "wss://secure.igap.net/hybrid/")!)
-//    private let socket = WebSocket(url: URL(string: "ws://192.168.10.75:8739/")!)
     fileprivate var isConnectionSecured : Bool = false
     fileprivate var websocketSendQueue = DispatchQueue(label: "im.igap.ios.queue.ws.send")
     fileprivate var websocketReceiveQueue = DispatchQueue(label: "im.igap.ios.queue.ws.receive")
@@ -41,10 +40,8 @@ class IGWebSocketManager: NSObject {
     public func send(requestW: IGRequestWrapper) {
         websocketSendQueue.async {
             do {
-                // ignore upload response print
-                if requestW.actionId != 702 {
-                    print ("\n______________________________\nREQUEST ➤➤➤ Action ID : \(requestW.actionId)  ||  \(String(describing: requestW.message)) \n------------------------------\n")
-                }
+                print ("\n______________________________\nREQUEST ➤➤➤ Action ID : \(requestW.actionId)  ||  \(String(describing: requestW.message)) \n------------------------------\n")
+                
                 var messageData = Data()
                 let payloadData = try requestW.message.serializedData()
                 let actionIdData = Data(bytes: &requestW.actionId, count: 2)
@@ -59,8 +56,8 @@ class IGWebSocketManager: NSObject {
                 }
 
                 self.socket.write(data: messageData)
-            } catch {
-                
+            } catch let error {
+                print(error)
             }
         }
         
