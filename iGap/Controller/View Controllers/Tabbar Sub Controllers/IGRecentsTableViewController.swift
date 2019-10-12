@@ -307,6 +307,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         self.present(alertController, animated: true, completion: nil)
         
     }
+    
     private func setDefaultNavigationItem() {
         let navigationItem = self.navigationItem as! IGNavigationItem
         navItemInit()
@@ -357,9 +358,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         self.tableView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         self.view.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        
-        
-        setDefaultNavigationItem()
         
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
             DispatchQueue.main.async {
@@ -425,19 +423,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        if #available(iOS 11.0, *) {
-//            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
-//
-//            if navigationItem.searchController == nil {
-//                tableView.tableHeaderView = searchController.searchBar
-//            }
-//        } else {
-//            tableView.tableHeaderView = searchController.searchBar
-//        }
-
-        
         isfromPacket = false
         
+        setDefaultNavigationItem()
 
         DispatchQueue.main.async {
             if let navigationItem = self.navigationItem as? IGNavigationItem {
@@ -445,8 +433,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 navigationItem.addiGapLogo()
             }
         }
-//        setDefaultNavigationItem()
-
         //self.addRoomChangeNotificationBlock()
     }
     

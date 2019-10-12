@@ -156,7 +156,7 @@ class IGHelperChatOpener {
      * open chat room if username is for room or bot otherwise open user profile
      * also if "isForwardEnable" is true directly open chat for send forward message
      **/
-    internal static func manageOpenChatOrProfile(viewController: UIViewController, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType, user: IGRegisteredUser?, room: IGRoom?,roomType: String? = "CHAT"){
+    internal static func manageOpenChatOrProfile(viewController: UIViewController, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType, user: IGRegisteredUser?, room: IGRoom?, roomType: String? = "CHAT") {
         switch usernameType {
         case .user:
             if user == nil || (user?.isInvalidated)! {return}

@@ -344,12 +344,11 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
                 tmpType = "CHANNEL"
             } else if  searchResult.type == .group {
                 tmpType = "GROUP"
-
             } else {
                 tmpType = "CHAT"
-
             }
-            IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!, user: searchResult.user, room: room,roomType: tmpType)
+            
+            IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!, user: searchResult.user, room: room, roomType: tmpType)
         }
     }
     

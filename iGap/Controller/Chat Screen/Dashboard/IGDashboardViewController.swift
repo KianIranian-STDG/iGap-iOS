@@ -64,12 +64,6 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
             getDiscoveryList()
         }
         
-        if isDashboardInner! {
-            self.initNavigationBar(title: nil, rightItemText: nil) { }
-        } else {
-            self.initDashboardNavigationBar()
-        }
-        
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_DISCOVERY_PAGE)
         initFont()
         
@@ -81,7 +75,13 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         let navigationControllerr = self.navigationController as! IGNavigationController
         navigationControllerr.navigationBar.isHidden = false
         
-        collectionView.reloadData()
+        if isDashboardInner! {
+            self.initNavigationBar(title: nil, rightItemText: nil) { }
+        } else {
+            self.initDashboardNavigationBar()
+        }
+        
+//        collectionView.reloadData()
         initFont()
     }
     private func initFont() {

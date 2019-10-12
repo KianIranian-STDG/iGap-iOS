@@ -102,7 +102,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         searchController.searchBar.delegate = self
               
 //        initialiseSearchBar()
-        setNavigationItems()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

@@ -129,8 +129,6 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         initView()
         initServices()
         
-        self.initNavBar()
-        
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         self.hidesBottomBarWhenPushed = false
@@ -145,6 +143,8 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
 //            navigationBar.isHidden = true
 //            navigationBar.backgroundColor = .clear
 //        }
+        
+        self.initNavBar()
                 
         IGRequestWalletGetAccessToken.sendRequest()
         //Hint:- Check if request was not successfull call services again

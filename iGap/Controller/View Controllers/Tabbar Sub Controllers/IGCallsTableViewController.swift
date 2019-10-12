@@ -69,7 +69,9 @@ class IGCallsTableViewController: BaseTableViewController {
                                                    object: nil)
         }
         callTypes = IGPSignalingGetLog.IGPFilter.allCases
-
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         initNavigationBar()
     }
     
