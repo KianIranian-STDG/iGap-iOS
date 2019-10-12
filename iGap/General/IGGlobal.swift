@@ -1255,9 +1255,7 @@ extension UIImageView {
             let path = file.path()
             
             if IGGlobal.isFileExist(path: path, fileSize: file.size) {
-                DispatchQueue.global(qos:.userInteractive).async {
-                    self.sd_setImage(with: path, completed: nil)
-                }
+                self.sd_setImage(with: path, completed: nil)
             } else {
                 
                 DispatchQueue.main.async {
@@ -1266,7 +1264,7 @@ extension UIImageView {
                         DispatchQueue.main.async {
                             if let imageMain = imagesMap[attachment.token!] {
                                 let path = attachment.path()
-                                //                            imageMain.sd_setImage(with: path)
+                                // imageMain.sd_setImage(with: path)
                                 DispatchQueue.global(qos:.userInteractive).async {
                                     if let data = try? Data(contentsOf: path!) {
                                         if let image = UIImage(data: data) {

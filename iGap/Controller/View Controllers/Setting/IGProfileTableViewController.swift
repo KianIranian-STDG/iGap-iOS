@@ -508,69 +508,61 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         }).send()
     }
     func getUserEmail() {
-        DispatchQueue.global(qos: .userInteractive).async {
-            
-            IGUserProfileGetEmailRequest.Generator.generate().success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let getUserEmailResponse as IGPUserProfileGetEmailResponse:
-                        let userEmail = IGUserProfileGetEmailRequest.Handler.interpret(response: getUserEmailResponse)
-                        DispatchQueue.main.async {
-                            self.tfEmail.text = userEmail
-                            if let tmpEmail = self.tfEmail.text {
-                                self.currentEmail = tmpEmail
-                            }
-                        }
-                    default:
-                        break
-                    }
-                }
-            }).error ({ (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
+        IGUserProfileGetEmailRequest.Generator.generate().success({ (protoResponse) in
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let getUserEmailResponse as IGPUserProfileGetEmailResponse:
+                    let userEmail = IGUserProfileGetEmailRequest.Handler.interpret(response: getUserEmailResponse)
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "TIME_OUT_MSG_EMAIL".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                        self.tfEmail.text = userEmail
+                        if let tmpEmail = self.tfEmail.text {
+                            self.currentEmail = tmpEmail
+                        }
                     }
                 default:
                     break
                 }
-                
-            }).send()
+            }
+        }).error ({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "TIME_OUT_MSG_EMAIL".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            default:
+                break
+            }
             
-        }
+        }).send()
     }
     
     func getUserGender() {
-        DispatchQueue.global(qos: .userInteractive).async {
-            
-            IGUserProfileGetGenderRequest.Generator.generate().success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let getUserGenderResponse as IGPUserProfileGetGenderResponse:
-                        let userGender = IGUserProfileGetGenderRequest.Handler.interpret(response: getUserGenderResponse)
-                    default:
-                        break
-                    }
-                }
-            }).error ({ (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "TIME_OUT_MSG_EMAIL".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+        IGUserProfileGetGenderRequest.Generator.generate().success({ (protoResponse) in
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let getUserGenderResponse as IGPUserProfileGetGenderResponse:
+                    _ = IGUserProfileGetGenderRequest.Handler.interpret(response: getUserGenderResponse)
                 default:
                     break
                 }
-                
-            }).send()
+            }
+        }).error ({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "TIME_OUT_MSG_EMAIL".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            default:
+                break
+            }
             
-        }
+        }).send()
     }
     func USERinDB() {
         let realm = try! Realm()
@@ -695,7 +687,6 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     }
     
     func requestToGetAvatarList() {
-        DispatchQueue.global(qos: .userInteractive).async {
         if let currentUserId = IGAppManager.sharedManager.userID() {
             
             IGUserAvatarGetListRequest.Generator.generate(userId: currentUserId).success({ (protoResponse) in
@@ -730,13 +721,8 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 
             }).send()
         }
-            
-        }
-
     }
     private func getScore(){
-        DispatchQueue.global(qos: .userInteractive).async {
-
         IGUserIVandGetScoreRequest.Generator.generate().success({ (protoResponse) in
             if let response = protoResponse as? IGPUserIVandGetScoreResponse {
                 DispatchQueue.main.async {
@@ -752,7 +738,6 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 break
             }
         }).send()
-        }
     }
     
     func manageOpenMap(){

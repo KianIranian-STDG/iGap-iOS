@@ -300,7 +300,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             return
         }
         
-        let alertController = UIAlertController(title: "NEW_MESSAGES".RecentTableViewlocalizedNew, message: "WHICH_TYPE_OF".RecentTableViewlocalizedNew, preferredStyle: IGGlobal.detectAlertStyle())
+        let alertController = UIAlertController(title: nil, message: "WHICH_TYPE_OF".RecentTableViewlocalizedNew, preferredStyle: IGGlobal.detectAlertStyle())
         let myCloud = UIAlertAction(title: "MY_CLOUD".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
             if let userId = IGAppManager.sharedManager.userID() {
                 let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -431,9 +431,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             if IGRecentsTableViewController.needGetInfo {
                 self.checkAppVersion()
                 self.deleteChannelMessages()
-                DispatchQueue.global(qos: .userInteractive).async {
-                    self.fetchRoomList()
-                }
+                self.fetchRoomList()
             }
         } else {
             NotificationCenter.default.addObserver(self,
@@ -540,10 +538,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         self.checkPermission()
         self.addRoomChangeNotificationBlock()
         self.deleteChannelMessages()
-        DispatchQueue.global(qos: .userInteractive).async {
-            
-            self.fetchRoomList()
-        }
+        self.fetchRoomList()
     }
     
     /* check app need update or is deprecated now and don't allow */
@@ -666,9 +661,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         if getRoomListResponse.igpRooms.count != 0 {
                             self.allRoomsFetched = false
                             self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse)
-                            DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 1) {
-                                self.fetchRoomList(offset: newOffset, limit: newLimit)
-                            }
+                            self.fetchRoomList(offset: newOffset, limit: newLimit)
                         } else {
                             self.allRoomsFetched = true
                             self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse, removeDeleted: true)
