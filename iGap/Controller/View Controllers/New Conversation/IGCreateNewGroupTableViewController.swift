@@ -274,7 +274,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
                                             }).send()
                                         }
                                         
-                                        if self.groupAvatarImage.image != self.defualtImage {
+                                        if self.groupAvatarImage.image != nil, self.groupAvatarImage.image != self.defualtImage {
                                             
                                             IGUploadManager.sharedManager.upload(file: self.groupAvatarAttachment, start: {
                                             }, progress: { (progress) in

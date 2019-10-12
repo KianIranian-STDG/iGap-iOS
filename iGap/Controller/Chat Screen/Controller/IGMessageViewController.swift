@@ -577,13 +577,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             }
             
         }
-        if customizeBackItem {
-            navigationItem.backViewContainer?.addAction {
-                // if call page is enable set "isFirstEnterToApp" true for open "IGRecentsTableViewController" automatically
-                AppDelegate.isFirstEnterToApp = true
-                self.performSegue(withIdentifier: "showRoomList", sender: self)
-            }
-        }
+//        if customizeBackItem {
+//            navigationItem.backViewContainer?.addAction {
+//                // if call page is enable set "isFirstEnterToApp" true for open "IGRecentsTableViewController" automatically
+//                AppDelegate.isFirstEnterToApp = true
+//                self.performSegue(withIdentifier: "showRoomList", sender: self)
+//            }
+//        }
         
         
         if room!.isReadOnly {

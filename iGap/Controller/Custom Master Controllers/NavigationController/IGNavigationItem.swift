@@ -551,18 +551,17 @@ class IGNavigationItem: UINavigationItem {
     
     //MARK: - Phone Book
     func setPhoneBookNavigationItems() {
-        deactivateTappbleArea()
-        activeTappleArea()
+//        activeTappleArea()
         addiGapLogo()
         addSettingButton()
         addComopseButton()
     }
-    
+
     private func activeTappleArea() {
         rightViewContainer?.isUserInteractionEnabled = true
         leftViewContainer?.isUserInteractionEnabled = true
     }
-    
+
     private func deactivateTappbleArea() {
         rightViewContainer?.isUserInteractionEnabled = false
         leftViewContainer?.isUserInteractionEnabled = false

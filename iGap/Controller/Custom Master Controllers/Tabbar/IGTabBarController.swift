@@ -61,7 +61,6 @@ class IGTabBarController: UITabBarController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-
         for item in tabBar.items! {
             if #available(iOS 10.0, *) {
                 item.badgeColor = UIColor.unreadLable()
@@ -80,29 +79,30 @@ class IGTabBarController: UITabBarController {
                 item.badgeColor = UIColor.unreadLable()
             }
         }
-        let navigationController = self.navigationController as! IGNavigationController
+//        let navigationController = self.navigationController as! IGNavigationController
         
         switch item {
         case .Contact:
-            navigationController.navigationBar.isHidden = false
+//            navigationController.navigationBar.isHidden = false
             currentTabIndex = TabBarTab.Contact.rawValue
             break
         case .Call:
-            navigationController.navigationBar.isHidden = false
+//            navigationController.navigationBar.isHidden = false
             currentTabIndex = TabBarTab.Call.rawValue
             
             break
         case .Recent:
-            navigationController.navigationBar.isHidden = false
+//            navigationController.navigationBar.isHidden = false
             currentTabIndex = TabBarTab.Recent.rawValue
             
             break
         case .Dashboard:
-            navigationController.navigationBar.isHidden = false
+//            navigationController.navigationBar.isHidden = false
             currentTabIndex = TabBarTab.Dashboard.rawValue
             
             break
         case .Profile:
+//            navigationController.navigationBar.isHidden = false
             currentTabIndex = TabBarTab.Profile.rawValue
             break
         }

@@ -56,6 +56,9 @@ class IGCallsTableViewController: BaseTableViewController {
         self.tableView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         self.view.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        
+        self.tableView.tableHeaderView = addCollectionFilterView()
+        
         updateObserver(mode : currentMode)
         if IGAppManager.sharedManager.isUserLoggiedIn() {
             self.fetchCallLogList()
@@ -105,7 +108,7 @@ class IGCallsTableViewController: BaseTableViewController {
     }
 
     private func addCollectionFilterView() -> UIView {
-        let headerView = UIView()
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
         headerView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         
         let layout = UICollectionViewFlowLayout()
@@ -308,12 +311,12 @@ class IGCallsTableViewController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 78.0
     }
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return addCollectionFilterView()
-    }
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
-    }
+//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        return addCollectionFilterView()
+//    }
+//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 50
+//    }
 
 //    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 //

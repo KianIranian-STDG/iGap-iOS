@@ -105,7 +105,7 @@ class IGUserContactsTableViewController: BaseTableViewController,MFMessageCompos
 //        let contacts = try! store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch)
 //        userContacts = contacts.sorted(by: { $0.givenName < $1.givenName })
         DispatchQueue.main.async { [weak self] in
-            self?.tableView.reloadWithAnimation()
+            self?.tableView.reloadData()
         }
     }
     

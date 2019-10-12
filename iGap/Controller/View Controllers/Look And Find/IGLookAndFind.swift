@@ -37,8 +37,6 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
             searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14, weight: .bold)
             searchBarCancelButton.tintColor = UIColor(named: themeColor.labelColor.rawValue)
         }
-        searchBar.searchTextField.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
-
         
         searchBar.delegate = self
         searchBar.hero.id = "searchBar"
@@ -259,10 +257,12 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         IGRecentsTableViewController.needGetInfo = false
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar")
+//        self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar")
         self.searchBar.hero.id = "searchBar"
-        self.hero.replaceViewController(with: mainView)
+//        self.hero.replaceViewController(with: mainView)
+//        self.hero.unwindToRootViewController()
+        self.navigationController?.popViewController(animated: false)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

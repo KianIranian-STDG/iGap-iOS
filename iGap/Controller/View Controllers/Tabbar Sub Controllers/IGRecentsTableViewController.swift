@@ -104,7 +104,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
         searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-        
     }
     
     var nameLabel :UILabel = {
@@ -236,8 +235,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
             }
         }
-
     }
+    
     private func showAlertOptions() {
         
         if IGTabBarController.currentTabStatic == .Call {
@@ -368,9 +367,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
 
             if navigationItem.searchController == nil {
-
                 tableView.tableHeaderView = searchController.searchBar
-
             }
         } else {
             tableView.tableHeaderView = searchController.searchBar
@@ -378,22 +375,20 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
         let _ : String = SMLangUtil.loadLanguage()
         self.hideKeyboardWhenTappedAround()
-        
     }
-    
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         initialiseSearchBar()
-
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         isfromPacket = false
-        self.tableView.scrollsToTop = false
+//        self.tableView.scrollsToTop = false
         self.tableView.bounces = false
         self.searchController.searchBar.delegate = self
-        self.searchController.searchResultsUpdater = self
+//        self.searchController.searchResultsUpdater = self
         self.tableView.contentOffset = CGPoint(x: 0, y: 55)
 
 //        initialiseSearchBar()
@@ -1728,11 +1723,11 @@ extension IGRecentsTableViewController {
 }
 
 //MARK: SEARCH BAR DELEGATE
-extension IGRecentsTableViewController: UISearchBarDelegate, UISearchResultsUpdating {
+extension IGRecentsTableViewController: UISearchBarDelegate/*, UISearchResultsUpdating*/ {
     
-    func updateSearchResults(for searchController: UISearchController) {
-        
-    }
+//    func updateSearchResults(for searchController: UISearchController) {
+//
+//    }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         //Show Cancel
@@ -1746,42 +1741,34 @@ extension IGRecentsTableViewController: UISearchBarDelegate, UISearchResultsUpda
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
-        if let searchBarCancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
-            searchBarCancelButton.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
-            searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
-            searchBarCancelButton.tintColor = UIColor.white
-        }
+//        if let searchBarCancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
+//            searchBarCancelButton.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
+//            searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
+//            searchBarCancelButton.tintColor = UIColor.white
+//        }
 
-        let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
-        lookAndFind.hero.isEnabled = true
-        //        self.searchBar.hero.id = "searchBar"
-        self.navigationController?.hero.isEnabled = true
-        self.navigationController?.hero.navigationAnimationType = .fade
-        self.hero.replaceViewController(with: lookAndFind)
-        return true
+        let lookAndFind = IGLookAndFind.instantiateFromAppStroryboard(appStoryboard: .Setting)
+//        lookAndFind.hero.isEnabled = true
+//        self.searchBar.hero.id = "searchBar"
+//        self.navigationController?.hero.isEnabled = true
+//        self.navigationController?.hero.navigationAnimationType = .fade
+//        self.hero.replaceViewController(with: lookAndFind)
+        self.navigationController?.pushViewController(lookAndFind, animated: false)
+
+        return false
     }
 
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
-    {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         //Hide Cancel
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.resignFirstResponder()
-        
-
-        
-        //Filter function
-//        self.filterFunction(searchText: term)
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
-    {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         //Hide Cancel
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.text = String()
         searchBar.resignFirstResponder()
-        
-        //Filter function
-//        self.filterFunction(searchText: searchBar.text)
     }
 }
 

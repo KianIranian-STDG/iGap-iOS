@@ -166,8 +166,8 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         UITabBar.appearance().tintColor = UIColor.white
         
         let tabBarItemApperance = UITabBarItem.appearance()
-        tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor):UIColor(named:themeColor.labelGrayColor.rawValue) , convertFromNSAttributedStringKey(NSAttributedString.Key.font):UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.normal)
-        tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor):UIColor(named: themeColor.tabbarLabelColor.rawValue), convertFromNSAttributedStringKey(NSAttributedString.Key.font):UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.selected)
+    tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor(named:themeColor.labelGrayColor.rawValue)!, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.normal)
+    tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor(named: themeColor.tabbarLabelColor.rawValue)!, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.selected)
 
         UserDefaults.standard.setValue(false, forKey:"_UIConstraintBasedLayoutLogUnsatisfiable")
 

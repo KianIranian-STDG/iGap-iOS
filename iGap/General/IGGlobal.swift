@@ -304,7 +304,7 @@ class IGGlobal {
         
         return Int64(FileManager.default.contents(atPath: (path)!)!.count)
     }
-   internal static func image(fromLayer layer: CALayer) -> UIImage {
+    internal static func image(fromLayer layer: CALayer) -> UIImage {
         UIGraphicsBeginImageContext(layer.frame.size)
         
         layer.render(in: UIGraphicsGetCurrentContext()!)

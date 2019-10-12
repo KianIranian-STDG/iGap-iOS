@@ -45,6 +45,7 @@ class BaseTableViewController: UITableViewController, UIGestureRecognizerDelegat
     public func setDirectionManually(direction: UISemanticContentAttribute)  {
         UIView.appearance().semanticContentAttribute = direction
     }
+    
     func initNavigationBar(title: String? = nil, rightItemText: String? = nil, iGapFont: Bool = false, rightAction: @escaping () -> ()) {
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: rightItemText, title: title, iGapFont: iGapFont)

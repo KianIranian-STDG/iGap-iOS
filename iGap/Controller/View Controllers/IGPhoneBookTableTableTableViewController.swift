@@ -27,11 +27,11 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         }
     }
     var searchController : UISearchController = {
-        
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
-        searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
-        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.setValue("CANCEL_BTN".RecentTableViewlocalizedNew, forKey: "cancelButtonText")
+        searchController.definesPresentationContext = true
+        searchController.searchBar.sizeToFit()
         
         let gradient = CAGradientLayer()
         let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
@@ -41,7 +41,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
 //        gradient.locations = orangeGradientLocation as [NSNumber]
-
         
         searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
         searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
@@ -68,33 +67,73 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     private var navigationControll : IGNavigationController!
     private let collation = UILocalizedIndexedCollation.current()
     internal static var callDelegate: IGCallFromContactListObserver!
+    private var footerLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         IGPhoneBookTableViewController.callDelegate = self
-        let predicate = NSPredicate(format: "isInContacts = 1")
-        contacts = try! Realm().objects(IGRegisteredUser.self).filter(predicate).sorted(byKeyPath: "displayName", ascending: true)
+//        let predicate = NSPredicate(format: "isInContacts = 1")
+        contacts = try! Realm().objects(IGRegisteredUser.self).sorted(byKeyPath: "displayName", ascending: true)
         
         self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
-        self.tableView.tableHeaderView = makeHeaderView()
+//        self.tableView.tableHeaderView = makeHeaderView()
         self.tableView.tableFooterView = makeFooterView()
+        if #available(iOS 11.0, *) {
+            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
+
+            if navigationItem.searchController == nil {
+                tableView.tableHeaderView = searchController.searchBar
+            }
+        } else {
+            tableView.tableHeaderView = searchController.searchBar
+        }
+        searchController.searchBar.delegate = self
         
-        if currentTabIndex == TabBarTab.Profile.rawValue {
+//        if currentTabIndex == TabBarTab.Profile.rawValue {
             self.searchController.hidesNavigationBarDuringPresentation = false
-        }
-        else {
-            self.searchController.hidesNavigationBarDuringPresentation = true
-        }
+//        } else {
+//            self.searchController.hidesNavigationBarDuringPresentation = true
+//        }
+        
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
+        
+//        self.navigationItem.searchController = UISearchController(searchResultsController: nil)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         initialiseSearchBar()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true {
+                // appearance has changed
+                // Update your user interface based on the appearance
+                self.setSearchBarGradient()
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
+    private func setSearchBarGradient() {
+        let gradient = CAGradientLayer()
+        let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
 
+        gradient.frame = defaultNavigationBarFrame
+        gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+        gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
+        gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
+//        gradient.locations = orangeGradientLocation as [NSNumber]
+        
+        searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+        searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
     }
     
     private func initialiseSearchBar() {
@@ -135,9 +174,35 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tableView.scrollsToTop = false
+        
+//        self.tableView.scrollsToTop = false
         self.tableView.bounces = false
+        
+//        initialiseSearchBar()
                 
+//        if #available(iOS 11.0, *) {
+//            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
+//
+//            if navigationItem.searchController == nil {
+//                tableView.tableHeaderView = searchController.searchBar
+//            }
+//        } else {
+//            tableView.tableHeaderView = searchController.searchBar
+//        }
+
+
+        if currentTabIndex == TabBarTab.Profile.rawValue {
+//            self.searchController.hidesNavigationBarDuringPresentation = false
+            self.initNavigationBar(title: "NEW".localizedNew) { }
+
+        } else {
+            let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+            navigationItem.setPhoneBookNavigationItems()
+            navigationItem.rightViewContainer?.addAction {
+                self.goToAddContactsPage()
+            }
+        }
+        
         if #available(iOS 11.0, *) {
             self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
 
@@ -147,52 +212,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         } else {
             tableView.tableHeaderView = searchController.searchBar
         }
-
-
-        if currentTabIndex == TabBarTab.Profile.rawValue {
-//            self.searchController.hidesNavigationBarDuringPresentation = false
-            self.initNavigationBar(title: "NEW".localizedNew) { }
-
-
-        } else {
-//            self.searchController.hidesNavigationBarDuringPresentation = true
-            let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
-            navigationItem.setPhoneBookNavigationItems()
-            navigationItem.rightViewContainer?.addAction {
-                self.goToAddContactsPage()
-            }
-
-        }
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        if #available(iOS 13.0, *) {
-            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true {
-                // appearance has changed
-                // Update your user interface based on the appearance
-                self.setSearchBarGradient()
-            }
-        } else {
-            // Fallback on earlier versions
-        }
-    }
-        
-        private func setSearchBarGradient() {
-            let gradient = CAGradientLayer()
-            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
-
-            gradient.frame = defaultNavigationBarFrame
-            gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
-            gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
-            gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
-    //        gradient.locations = orangeGradientLocation as [NSNumber]
-            
-            searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-            searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-            
-        }
 
     private func goToAddContactsPage() {
         let vc = IGSettingAddContactViewController.instantiateFromAppStroryboard(appStoryboard: .PhoneBook)
@@ -254,18 +274,24 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }
     
     private func makeFooterView() -> UIView {
-        let label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 70.0))
-        if shouldShowSearchResults {
-            label.text = "\(self.filteredContacts.count)".inLocalizedLanguage() + "CONTACTS".localizedNew
-        } else {
-            label.text = "\(self.contacts.count)".inLocalizedLanguage() + "CONTACTS".localizedNew
-        }
+        footerLabel = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 70.0))
         
-        label.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
-        label.font = UIFont.igFont(ofSize: 16)
-        label.textAlignment = .center
-        label.backgroundColor = .clear
-        return label
+        setFooterLabelText()
+        
+        footerLabel.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+        footerLabel.font = UIFont.igFont(ofSize: 16)
+        footerLabel.textAlignment = .center
+        footerLabel.backgroundColor = .clear
+        return footerLabel
+    }
+    
+    private func setFooterLabelText() {
+        guard footerLabel != nil else { return }
+        if shouldShowSearchResults {
+            footerLabel.text = "\(self.filteredContacts.count)".inLocalizedLanguage() + "CONTACTS".localizedNew
+        } else {
+            footerLabel.text = "\(self.contacts.count)".inLocalizedLanguage() + "CONTACTS".localizedNew
+        }
     }
 
     @objc
@@ -284,7 +310,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       //if is from profile page
+        
+        //if is from profile page
         if currentTabIndex == TabBarTab.Profile.rawValue {
             if shouldShowSearchResults {
                 if self.filteredContacts != nil {
@@ -482,7 +509,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                                     IGGlobal.prgHide()
                                     let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
                                     self.navigationController?.popToRootViewController(animated: true)
-                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom), object: nil, userInfo: ["room": roomId])
                                 }
                             }
                         }).error({ (errorCode, waitTime) in
@@ -541,28 +568,28 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
         let predicate: NSPredicate!
 //        let searchNumber = searchString.onlyDigitChars().inEnglishNumbersNew()
 //        if searchNumber != "" {
-//            predicate = NSPredicate(format: "(displayName CONTAINS[c] %@) OR (phone.stringValue CONTAINS[c] %@)", searchString, searchNumber)
+//            predicate = NSPredicate(format: "(displayName CONTAINS[c] %@) OR (phone CONTAINS %d)", searchString, searchNumber)
 //        } else {
             predicate = NSPredicate(format: "displayName CONTAINS[c] %@", searchString)
 //        }
         
-        // Filter the data array and get only those countries that match the search text.
-        
+        // Filter the data array and get only those users that match the search text.
         filteredContacts = contacts.filter(predicate)
-//        filteredContacts = contacts.filter({ (contact) -> Bool in
-//            let countryText: NSString = country
-//
-//            return (countryText.rangeOfString(searchString, options: NSStringCompareOptions.CaseInsensitiveSearch).location) != NSNotFound
-//        })
+        setFooterLabelText()
      
         // Reload the tableview.
         self.tableView.reloadData()
     }
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         shouldShowSearchResults = true
+//        let gradientLayer = CAGradientLayer()
+//        gradientLayer.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!, UIColor(named: themeColor.navigationSecondColor.rawValue)!]
+//        if let view = self.searchController.view.subviews.first {
+//            view.layer.insertSublayer(gradientLayer, at: 0)
+//        }
         self.tableView.reloadData()
     }
-    
+        
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         shouldShowSearchResults = false
         self.tableView.reloadData()
@@ -570,11 +597,11 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if !shouldShowSearchResults {
-               shouldShowSearchResults = true
-               self.tableView.reloadData()
-           }
+           shouldShowSearchResults = true
+           self.tableView.reloadData()
+        }
         
-           searchController.searchBar.resignFirstResponder()
+        searchController.searchBar.resignFirstResponder()
     }
 }
 

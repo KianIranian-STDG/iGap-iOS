@@ -33,8 +33,9 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
         self.passwordTextField.isSecureTextEntry = true
         initView()
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.addNavigationViewItems(rightItemText: "NEXT_BTN", title: "AUTH_VERIFYMOBILE".localizedNew)
+        navigaitonItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localizedNew, title: "AUTH_VERIFYMOBILE".localizedNew)
         navigaitonItem.rightViewContainer?.addAction {
+            self.view.endEditing(false)
             self.nextStep()
         }
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
