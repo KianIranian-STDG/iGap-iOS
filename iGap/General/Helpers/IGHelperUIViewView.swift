@@ -19,7 +19,7 @@ class IGHelperUIViewView {
     
     static let shared = IGHelperUIViewView()
     
-    func show(mode : helperWindowView) {
+    func show(mode : helperWindowView,userID:Int64!) {
         guard let window = UIApplication.shared.keyWindow else {
             //if this block runs we were unable to get a reference to the main window
             print("you have probably called this method in viewDidLoad or at some earlier point where the main window reference might be nil")
@@ -29,7 +29,7 @@ class IGHelperUIViewView {
         case .Music :
             break
         case .ReturnCall :
-            creatReturnToCallView(window: window)
+            creatReturnToCallView(window: window,userId:userID)
             break
         default :
             break
@@ -42,8 +42,15 @@ class IGHelperUIViewView {
             return
         }
         for everyView in window.subviews {
-            if everyView.tag == 101 {
-                everyView.removeFromSuperview()
+            if everyView.tag == 100 {
+                //popIn animate
+
+                    UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                        everyView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+                    }, completion: {
+                        (value: Bool) in
+                        everyView.removeFromSuperview()
+                    })
             }
         }
         //add some custom view, for simplicity I've added a black view
@@ -73,7 +80,7 @@ class IGHelperUIViewView {
 
         //popIn animate
             backView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-            UIView.animate(withDuration: 0.8, delay: 0.4, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+            UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
                 backView.transform = CGAffineTransform.identity
             }, completion: nil)
 
@@ -92,9 +99,26 @@ class IGHelperUIViewView {
         lblIcon.centerYAnchor.constraint(equalTo: backView.centerYAnchor, constant: 0).isActive = true
         lblIcon.centerXAnchor.constraint(equalTo: backView.centerXAnchor, constant: 0).isActive = true
 
+        //tapHandling on backView
+        let tappy = myBackViewGesture(target: self, action: #selector(self.openCallPage))
+        tappy.userID = userId!
+
+        backView.addGestureRecognizer(tappy)
+
 
         //End
 
+    }
+    @objc func openCallPage(sender: myBackViewGesture){
+        DispatchQueue.main.async {
+            if IGCall.staticReturnToCall != nil {
+                IGCall.staticReturnToCall.returnToCall()
+            }
+        }
+    }
+
+    class myBackViewGesture: UITapGestureRecognizer {
+        var userID = Int64()
     }
 }
 

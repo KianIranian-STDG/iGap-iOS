@@ -425,6 +425,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             if let presentedController = currentController!.presentedViewController {
                 currentController = presentedController
             }
+            callPage.modalPresentationStyle = .fullScreen
             currentController!.present(callPage, animated: true, completion: nil)
             
         } else {

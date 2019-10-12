@@ -127,6 +127,8 @@ class CallManager: NSObject, CXProviderDelegate {
         currentCall = nil
         delegate?.callDidEnd()
         action.fulfill()
+        
+        IGHelperUIViewView.shared.remove()
     }
     
     func provider(_ provider: CXProvider, perform action: CXSetHeldCallAction) {

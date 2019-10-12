@@ -97,7 +97,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     override func viewDidDisappear(_ animated: Bool) {
         UIApplication.shared.isIdleTimerDisabled = false //enable sleep mode
         UIDevice.current.isProximityMonitoringEnabled = false
-//        IGHelperUIViewView.shared.show(mode: .ReturnCall)
+        self.gotToChat()
+        IGHelperUIViewView.shared.show(mode: .ReturnCall, userID: self.userId)
 
     }
     
@@ -274,6 +275,10 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     @IBAction func btnChat(_ sender: UIButton) {
+        self.gotToChat()
+    }
+    
+   private func gotToChat() {
         IGRecentsTableViewController.needGetInfo = false
         
         let realm = try! Realm()
@@ -306,7 +311,6 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             }).send()
         }
     }
-    
     @IBAction func btnSpeaker(_ sender: UIButton) {
         IGCallAudioManager.sharedInstance.manageAudioState(viewController: self, btnAudioState: btnSpeaker)
     }
