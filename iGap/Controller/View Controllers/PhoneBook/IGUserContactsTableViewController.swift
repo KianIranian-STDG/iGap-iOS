@@ -9,6 +9,7 @@
 import UIKit
 import Contacts
 import MessageUI
+import RealmSwift
 
 class IGUserContactsTableViewController: BaseTableViewController,MFMessageComposeViewControllerDelegate {
     var userContacts = [CNContact]()
@@ -196,7 +197,16 @@ class IGUserContactsTableViewController: BaseTableViewController,MFMessageCompos
     private func sendText(number: String!) {
         if (MFMessageComposeViewController.canSendText()) {
             let controller = MFMessageComposeViewController()
-            controller.body = "HEY_JOIN_IGAP".localizedNew
+            let realm = try! Realm()
+            let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
+            let user = realm.objects(IGRegisteredUser.self).filter(predicate).first
+            if let phone = (user?.phone) {
+                controller.body = "HEY_JOIN_IGAP".localizedNew + " " + "\(phone)"
+
+            }
+
+            
+            
             controller.recipients = [number]
             controller.messageComposeDelegate = self
             self.present(controller, animated: true, completion: nil)

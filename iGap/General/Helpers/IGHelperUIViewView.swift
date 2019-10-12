@@ -16,10 +16,10 @@ enum helperWindowView : Int {
 
 // IMPORTANT TODO - convert current class to builder
 class IGHelperUIViewView {
-    
+    var tempTimer : Int = 0
     static let shared = IGHelperUIViewView()
     
-    func show(mode : helperWindowView,userID:Int64!) {
+    func show(mode : helperWindowView,userID:Int64!,isIncomming: Bool! = true,lastRecordedTime : Int? = nil) {
         guard let window = UIApplication.shared.keyWindow else {
             //if this block runs we were unable to get a reference to the main window
             print("you have probably called this method in viewDidLoad or at some earlier point where the main window reference might be nil")
@@ -29,7 +29,7 @@ class IGHelperUIViewView {
         case .Music :
             break
         case .ReturnCall :
-            creatReturnToCallView(window: window,userId:userID)
+            creatReturnToCallView(window: window,userId:userID,isIncommmingCall: isIncomming!,lastRecordedTime: lastRecordedTime)
             break
         default :
             break
@@ -58,7 +58,7 @@ class IGHelperUIViewView {
     private func creatMusicView() {
         
     }
-    private func creatReturnToCallView(window: UIWindow,userId: Int64? = nil ,userName: String? = nil, isIncommmingCall: Bool = true, sdp: String? = nil, type:IGPSignalingOffer.IGPType = .voiceCalling, mode:String? = nil, showAlert: Bool = true) {
+    private func creatReturnToCallView(window: UIWindow,userId: Int64? = nil ,userName: String? = nil, isIncommmingCall: Bool = true, sdp: String? = nil, type:IGPSignalingOffer.IGPType = .voiceCalling, mode:String? = nil, showAlert: Bool = true,lastRecordedTime: Int? = nil) {
 
         
         
@@ -102,23 +102,57 @@ class IGHelperUIViewView {
         //tapHandling on backView
         let tappy = myBackViewGesture(target: self, action: #selector(self.openCallPage))
         tappy.userID = userId!
-
+        tappy.isIncomming = isIncommmingCall
+        tappy.window = window
+        tappy.lastRecordedTime = lastRecordedTime!
         backView.addGestureRecognizer(tappy)
+
+        let timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.updateTimerLabel), userInfo: nil, repeats: true)
 
 
         //End
 
     }
-    @objc func openCallPage(sender: myBackViewGesture){
-        DispatchQueue.main.async {
-            if IGCall.staticReturnToCall != nil {
-                IGCall.staticReturnToCall.returnToCall()
-            }
-        }
+    
+    @objc func updateTimerLabel() {
+        
+        tempTimer += 1
     }
+    @objc func openCallPage(sender: myBackViewGesture){
+        self.showCallPage(userId: sender.userID, isIncommmingCall: sender.isIncomming, type: IGPSignalingOffer.IGPType.voiceCalling, showAlert: false, window: sender.window,lastRecordedTime: sender.lastRecordedTime)
+    }
+    private func showCallPage(userId: Int64 ,userName: String? = nil, isIncommmingCall: Bool = true, sdp: String? = nil, type:IGPSignalingOffer.IGPType = .voiceCalling, mode:String? = nil, showAlert: Bool = true,window : UIWindow,lastRecordedTime : Int? = nil){
+        
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let callPage = storyboard.instantiateViewController(withIdentifier: "IGCall") as! IGCall
+            //Mark:- show Display Name of caller User if Nil we are not in terminate State
+            callPage.callerName = userName ?? "UNKNOWN".localizedNew
+            //End
+            callPage.userId = userId
+            callPage.isIncommingReturnCall = isIncommmingCall
+            callPage.callType = type
+            callPage.callSdp = sdp
+            callPage.recordedTime = lastRecordedTime! + tempTimer
+//            callPage.txtCallState.text = "CONNECTED".localizedNew
+            callPage.isReturnCall = true
+            var currentController = window.rootViewController
+            if let presentedController = currentController!.presentedViewController {
+                currentController = presentedController
+            }
+            self.remove()
 
+            callPage.modalPresentationStyle = .fullScreen
+            currentController!.present(callPage, animated: true, completion: nil)
+        
+
+        
+    }
     class myBackViewGesture: UITapGestureRecognizer {
         var userID = Int64()
+        var lastRecordedTime = Int()
+        var isIncomming = Bool()
+        var window = UIWindow()
+        
     }
 }
 

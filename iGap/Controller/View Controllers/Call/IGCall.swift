@@ -48,6 +48,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     
     var userId: Int64!
     var isIncommingCall: Bool!
+    var isIncommingReturnCall: Bool!
     var callSdp: String?
     var callType: IGPSignalingOffer.IGPType = .voiceCalling
     var bottomViewsIsHidden = false
@@ -58,7 +59,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     private var isMuteEnable = false
     private var callIsConnected = false
     private var callTimer: Timer!
-    private var recordedTime: Int = 0
+    var recordedTime: Int = 0
     private var player: AVAudioPlayer?
     private var remoteTrackAdded: Bool = false
     private var latestSwitchCamera: Int64 = IGGlobal.getCurrentMillis()
@@ -66,7 +67,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     private var phoneNumber: String!
     private var latestRemoteVideoSize: CGSize!
     private var latestLocalVideoSize: CGSize!
-
+    var isReturnCall : Bool = false
     private static var allowEndCallKit = true
     internal static var callTypeStatic: IGPSignalingOffer.IGPType = .voiceCalling
     internal static var callUUID = UUID()
@@ -76,6 +77,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     internal static var staticReturnToCall: ReturnToCallObserver!
     internal static var callHold: CallHoldObserver!
     
+    var callMinute: Int! = 0
+    var callSec : Int! = 0
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showRoomMessages" {
             let navigationController = segue.destination as! IGNavigationController
@@ -97,8 +100,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     override func viewDidDisappear(_ animated: Bool) {
         UIApplication.shared.isIdleTimerDisabled = false //enable sleep mode
         UIDevice.current.isProximityMonitoringEnabled = false
-        self.gotToChat()
-        IGHelperUIViewView.shared.show(mode: .ReturnCall, userID: self.userId)
+
 
     }
     
@@ -123,77 +125,168 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             return
         }
 
-   
+        
         phoneNumber = String(describing: userRegisteredInfo.phone)
-        IGCall.callUUID = UUID()
-        if #available(iOS 10.0, *), self.callType == .voiceCalling, self.isIncommingCall {
+        if isReturnCall {
+            super.viewDidLoad()
 
-                if self.phoneNumber == "0" {
-                    CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: userRegisteredInfo.displayName)
+//                    IGCall.callUUID = UUID()
+//                    if #available(iOS 10.0, *), self.callType == .voiceCalling, self.isIncommingCall {
+//
+//                            if self.phoneNumber == "0" {
+//                                CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: userRegisteredInfo.displayName)
+//
+//                            }
+//                            else {
+//                                CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: userRegisteredInfo.displayName)
+//                            }
+//
+//
+//                    }
 
-                }
-                else {
-                    CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: userRegisteredInfo.displayName)
+                    if #available(iOS 10.0, *) {
+                        CallManager.sharedInstance.delegate = self
+                    }
+                    self.remoteCameraView.delegate = self
+                    self.localCameraView.delegate = self
+                    IGCall.staticReturnToCall = self
+                    IGCall.callHold = self
+                    IGCall.callPageIsEnable = true
+                    IGCall.allowEndCallKit = true
+                    
+                    localCameraViewCustomize()
+                    setCallMode(callType: callType, userInfo: userRegisteredInfo)
+                    let minute = String(format: "%02d", callMinute).inLocalizedLanguage()
+                    let seconds = String(format: "%02d", callSec).inLocalizedLanguage()
 
-                }
+                    txtCallTime.text = seconds + ":" + minute
+                    if self.callTimer == nil {
+                        self.callTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.updateTimerLabel), userInfo: nil, repeats: true)
+                        self.callTimer?.fire()
+                    }
+
+            
+                    if isIncommingReturnCall {
+                        btnMute.isHidden = true
+                        btnSpeaker.isHidden = true
+                        btnChat.isHidden = true
+            //            btnSwitchCamera.isHidden = true
+                        txtCallTime.isHidden = false
+
+                    } else {
+                        btnMute.isHidden = false
+                        btnSpeaker.isHidden = false
+                        btnChat.isHidden = false
+            //            btnSwitchCamera.isHidden = false
+                        txtCallTime.isHidden = false
+                        btnAnswer.isHidden = true
+                        
+                        btnCancel.snp.updateConstraints { (make) in
+                            make.bottom.equalTo(btnChat.snp.top).offset(-54)
+                            make.width.equalTo(70)
+                            make.height.equalTo(70)
+                            make.centerX.equalTo(self.view.snp.centerX)
+                        }
+                    }
+
+            
+            
+            
+                    txtCallerName.font = UIFont.igFont(ofSize: 23,weight: .bold)
+                    holdView.layer.cornerRadius = 10
+                    txtCallerName.text = userRegisteredInfo.displayName
+                    txtCallState.text = "CONNECTED".localizedNew
+                    
+                    let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapOnMainView))
+                    mainView.addGestureRecognizer(gesture)
+                    
+                    
+                    
+                    // for better tracking call state just send connecting state when user is login
+          
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        self.createPulse()
+                    }
+                    btnSpeaker.setTitle("", for: .normal)
+                    btnMute.setTitle("", for: .normal)
+                    btnChat.setTitle("", for: .normal)
+                    btnChat.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
+                    btnMute.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
+                    btnSpeaker.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
+
+
+        } else {
+                    IGCall.callUUID = UUID()
+                    if #available(iOS 10.0, *), self.callType == .voiceCalling, self.isIncommingCall {
+
+                            if self.phoneNumber == "0" {
+                                CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: userRegisteredInfo.displayName)
+
+                            }
+                            else {
+                                CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: userRegisteredInfo.displayName)
+
+                            }
+
+
+                    }
+                    super.viewDidLoad()
+
+                    if #available(iOS 10.0, *) {
+                        CallManager.sharedInstance.delegate = self
+                    }
+                    self.remoteCameraView.delegate = self
+                    self.localCameraView.delegate = self
+                    IGCall.staticReturnToCall = self
+                    IGCall.callHold = self
+                    IGCall.callPageIsEnable = true
+                    IGCall.allowEndCallKit = true
+                    
+                    localCameraViewCustomize()
+            //        buttonViewCustomize(button: btnAnswer, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 1.0), imgName: "IG_Tabbar_Call_On")
+                    setCallMode(callType: callType, userInfo: userRegisteredInfo)
+                    manageView(stateAnswer: isIncommingCall)
+                    txtCallerName.font = UIFont.igFont(ofSize: 23,weight: .bold)
+                    holdView.layer.cornerRadius = 10
+                    txtCallerName.text = userRegisteredInfo.displayName
+                    txtCallState.text = "Communicating..."
+                    
+                    let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapOnMainView))
+                    mainView.addGestureRecognizer(gesture)
+                    
+                    RTCClient.getInstance()?
+                        .initCallStateObserver(stateDelegate: self)
+                        .initVideoCallObserver(videoDelegate: self)
+                        .setCallType(callType: callType)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        if self.isIncommingCall {
+                            self.incommingCall()
+                        } else {
+                            self.outgoingCall(displayName: userRegisteredInfo.displayName)
+                        }
+                    }
+                    
+                    // for better tracking call state just send connecting state when user is login
+                    if IGAppManager.sharedManager.isUserLoggiedIn() {
+                        if self.callType == .voiceCalling {
+                            IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_VOICE_CALL_CONNECTING)
+                        } else if self.callType == .videoCalling {
+                            IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_VIDEO_CALL_CONNECTING)
+                        }
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        self.createPulse()
+                    }
+                    btnSpeaker.setTitle("", for: .normal)
+                    btnMute.setTitle("", for: .normal)
+                    btnChat.setTitle("", for: .normal)
+                    btnChat.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
+                    btnMute.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
+                    btnSpeaker.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
 
 
         }
-        super.viewDidLoad()
-
-        if #available(iOS 10.0, *) {
-            CallManager.sharedInstance.delegate = self
-        }
-        self.remoteCameraView.delegate = self
-        self.localCameraView.delegate = self
-        IGCall.staticReturnToCall = self
-        IGCall.callHold = self
-        IGCall.callPageIsEnable = true
-        IGCall.allowEndCallKit = true
-        
-        localCameraViewCustomize()
-//        buttonViewCustomize(button: btnAnswer, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 1.0), imgName: "IG_Tabbar_Call_On")
-        setCallMode(callType: callType, userInfo: userRegisteredInfo)
-        manageView(stateAnswer: isIncommingCall)
-        txtCallerName.font = UIFont.igFont(ofSize: 23,weight: .bold)
-        holdView.layer.cornerRadius = 10
-        txtCallerName.text = userRegisteredInfo.displayName
-        txtCallState.text = "Communicating..."
-        
-        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapOnMainView))
-        mainView.addGestureRecognizer(gesture)
-        
-        RTCClient.getInstance()?
-            .initCallStateObserver(stateDelegate: self)
-            .initVideoCallObserver(videoDelegate: self)
-            .setCallType(callType: callType)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            if self.isIncommingCall {
-                self.incommingCall()
-            } else {
-                self.outgoingCall(displayName: userRegisteredInfo.displayName)
-            }
-        }
-        
-        // for better tracking call state just send connecting state when user is login
-        if IGAppManager.sharedManager.isUserLoggiedIn() {
-            if self.callType == .voiceCalling {
-                IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_VOICE_CALL_CONNECTING)
-            } else if self.callType == .videoCalling {
-                IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_VIDEO_CALL_CONNECTING)
-            }
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.createPulse()
-        }
-        btnSpeaker.setTitle("", for: .normal)
-        btnMute.setTitle("", for: .normal)
-        btnChat.setTitle("", for: .normal)
-        btnChat.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
-        btnMute.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
-        btnSpeaker.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
-
 
     }
     //ANIMATIONS
@@ -275,7 +368,23 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     @IBAction func btnChat(_ sender: UIButton) {
-        self.gotToChat()
+//        self.gotToChat()
+        self.dismiss(animated: true, completion: {
+            if self.callTimer != nil {
+
+                IGHelperUIViewView.shared.show(mode: .ReturnCall, userID: self.userId, isIncomming: self.isIncommingCall ?? false, lastRecordedTime : self.recordedTime)
+
+        } else {
+
+                if #available(iOS 10.0, *), self.callType == .voiceCalling{
+                CallManager.sharedInstance.endCall()
+            } else {
+                    self.dismmis()
+            }
+
+
+        }
+        })
     }
     
    private func gotToChat() {
@@ -785,6 +894,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         recordedTime += 1
         let minute = String(format: "%02d", Int(recordedTime/60)).inLocalizedLanguage()
         let seconds = String(format: "%02d", Int(recordedTime%60)).inLocalizedLanguage()
+
         self.txtCallTime.text = minute + ":" + seconds
     }
     
