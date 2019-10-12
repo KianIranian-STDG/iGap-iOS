@@ -1010,7 +1010,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             makeForward()
             
             if let user = originalMessage.authorUser?.user {
-                txtForwardAbs.text = "FORWARDED_FROM".MessageViewlocalizedNew + " \(user)"
+                txtForwardAbs.text = "FORWARDED_FROM".MessageViewlocalizedNew + " \(user.displayName)"
             } else if let room = originalMessage.authorRoom {
                 txtForwardAbs.text = "FORWARDED_FROM".MessageViewlocalizedNew + " \(room.title != nil ? room.title! : "")"
             } else {

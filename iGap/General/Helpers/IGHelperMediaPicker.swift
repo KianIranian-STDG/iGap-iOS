@@ -78,6 +78,9 @@ class IGHelperMediaPicker {
             config.library.maxNumberOfItems = maxNumberOfItems
         }
         config.library.mediaType = mediaType
+        config.video.minimumTimeLimit = 1
+        config.video.recordingTimeLimit = Double.infinity
+        config.video.libraryTimeLimit = Double.infinity
 
         let picker = YPImagePicker(configuration: config)
         picker.didFinishPicking { [unowned picker] items, _ in
