@@ -350,7 +350,7 @@ class IGUserContactsGetListRequest : IGRequest {
     class Generator : IGRequest.Generator{
         class func generate() -> IGRequestWrapper {
             let contactsImportRequestMessage = IGPUserContactsGetList()
-            return IGRequestWrapper(message: contactsImportRequestMessage, actionID: 10734234)
+            return IGRequestWrapper(message: contactsImportRequestMessage, actionID: 107)
         }
     }
     

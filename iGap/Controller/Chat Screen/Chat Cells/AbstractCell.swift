@@ -1009,8 +1009,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             
             makeForward()
             
-            if let user = originalMessage.authorUser?.user {
-                txtForwardAbs.text = "FORWARDED_FROM".MessageViewlocalizedNew + " \(user.displayName)"
+            if let authorUser = originalMessage.authorUser {
+                if let user = authorUser.user {
+                    txtForwardAbs.text = "FORWARDED_FROM".MessageViewlocalizedNew + " \(user.displayName)"
+                } else {
+                    IGMessageViewController.messageOnChatReceiveObserver.onFetchUserInfo(userId: authorUser.userId)
+                }
             } else if let room = originalMessage.authorRoom {
                 txtForwardAbs.text = "FORWARDED_FROM".MessageViewlocalizedNew + " \(room.title != nil ? room.title! : "")"
             } else {
