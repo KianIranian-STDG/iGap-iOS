@@ -42,7 +42,6 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
     var avatars: [IGAvatar] = []
     var deleteView: IGTappableView?
     var userAvatar: IGAvatar?
-    //var downloadIndicatorMainView : IGDownloadUploadIndicatorView?
     var notificationToken: NotificationToken?
     
     

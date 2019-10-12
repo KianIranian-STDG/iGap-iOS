@@ -110,7 +110,6 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     var avatars: [IGAvatar] = []
     var deleteView: IGTappableView?
     var userAvatar: IGAvatar?
-    //var downloadIndicatorMainView : IGDownloadUploadIndicatorView?
     var notificationToken: NotificationToken?
     
     var isPoped = false

@@ -1716,7 +1716,7 @@
                                             <color key="textColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2h5-Tz-OXh" customClass="IGDownloadUploadIndicatorView" customModule="iGap" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2h5-Tz-OXh" customClass="IGProgress" customModule="iGap" customModuleProvider="target">
                                             <rect key="frame" x="13" y="13" width="89" height="89"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
@@ -1873,7 +1873,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fV0-4U-HV4" customClass="IGDownloadUploadIndicatorView" customModule="iGap" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fV0-4U-HV4" customClass="IGProgress" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="5" width="50" height="50"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
