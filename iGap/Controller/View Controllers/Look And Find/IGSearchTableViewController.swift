@@ -78,7 +78,7 @@ class IGSearchTableViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.scrollsToTop = false
+//        self.tableView.scrollsToTop = false
         self.tableView.bounces = false
         self.tableView.contentOffset = CGPoint(x: 0, y: 0)
 

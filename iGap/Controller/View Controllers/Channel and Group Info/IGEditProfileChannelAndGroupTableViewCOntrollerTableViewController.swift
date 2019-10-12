@@ -709,7 +709,7 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
                 switch protoResponse {
                 case let usernameResponse as IGPChannelCheckUsernameResponse :
                     if usernameResponse.igpStatus == IGPChannelCheckUsernameResponse.IGPStatus.available {
-                        self.tfChannelLink.textColor = UIColor.black
+                        self.tfChannelLink.textColor = UIColor(named: themeColor.labelColor.rawValue)
                         if self.room!.type == .channel {
                             if self.room?.channelRoom?.type == .publicRoom {
                                 self.convertToPublic = true
@@ -728,14 +728,14 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
                         
                     } else {
                         if self.room!.type == .channel {
-                            self.tfChannelLink.textColor = UIColor.red
+                            self.tfChannelLink.textColor = UIColor.iGapRed()
                             if self.room?.channelRoom?.type == .publicRoom {
                                 self.convertToPublic = true
                             } else {
                                 self.convertToPublic = true
                             }
                         } else {
-                            self.tfChannelLink.textColor = UIColor.red
+                            self.tfChannelLink.textColor = UIColor.iGapRed()
                             if self.room?.channelRoom?.type == .publicRoom {
                                 self.convertToPublic = true
                             } else {
@@ -943,7 +943,7 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
         let alertActions = optionMenu.actions
         for action in alertActions {
             if action.title == "DELETE_PHOTO".localizedNew{
-                let removeColor = UIColor.red
+                let removeColor = UIColor.iGapRed()
                 action.setValue(removeColor, forKey: "titleTextColor")
             }
         }

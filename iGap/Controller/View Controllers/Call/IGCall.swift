@@ -117,25 +117,25 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         gradient.locations = [NSNumber(value: 0.0),NSNumber(value: 0.2),NSNumber(value: 1.0)]
         gradient.frame = viewTransparent.bounds
         viewTransparent.layer.mask = gradient
+        
         let realm = try! Realm()
         let predicate = NSPredicate(format: "id = %lld", userId)
         guard let userRegisteredInfo = realm.objects(IGRegisteredUser.self).filter(predicate).first else {
             return
         }
-
    
         phoneNumber = String(describing: userRegisteredInfo.phone)
         IGCall.callUUID = UUID()
         if #available(iOS 10.0, *), self.callType == .voiceCalling, self.isIncommingCall {
 
-                if self.phoneNumber == "0" {
-                    CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: userRegisteredInfo.displayName)
+            if self.phoneNumber == "0" {
+                CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: userRegisteredInfo.displayName)
 
-                }
-                else {
-                    CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: userRegisteredInfo.displayName)
+            }
+            else {
+                CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: userRegisteredInfo.displayName)
 
-                }
+            }
 
 
         }
@@ -194,8 +194,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         btnMute.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
         btnSpeaker.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
 
-
     }
+    
     //ANIMATIONS
     func createPulse() {
         for _ in 0...2 {

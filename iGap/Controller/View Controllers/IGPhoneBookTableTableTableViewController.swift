@@ -26,12 +26,14 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             self.name = registredUser.displayName
         }
     }
+    
     var searchController : UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
         searchController.searchBar.setValue("CANCEL_BTN".RecentTableViewlocalizedNew, forKey: "cancelButtonText")
         searchController.definesPresentationContext = true
         searchController.searchBar.sizeToFit()
+        searchController.dimsBackgroundDuringPresentation = false
         
         let gradient = CAGradientLayer()
         let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
@@ -60,7 +62,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     private var filteredContacts: Results<IGRegisteredUser>!
     private var shouldShowSearchResults = false
     
-    private var resultSearchController = UISearchController()
+//    private var resultSearchController = UISearchController()
     private var forceCall: Bool = false
     private var pageName : String! = "NEW_CALL"
     private var lastContentOffset: CGFloat = 0
@@ -72,6 +74,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     override func viewDidLoad() {
         super.viewDidLoad()
                 
+        self.tableView.bounces = false
+        self.tableView.contentOffset = CGPoint(x: 0, y: 55)
         IGPhoneBookTableViewController.callDelegate = self
         let predicate = NSPredicate(format: "isInContacts = 1")
         contacts = try! Realm().objects(IGRegisteredUser.self).filter(predicate).sorted(byKeyPath: "displayName", ascending: true)
@@ -87,7 +91,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         } else {
             tableView.tableHeaderView = searchController.searchBar
         }
-        searchController.searchBar.delegate = self
         
 //        if currentTabIndex == TabBarTab.Profile.rawValue {
             self.searchController.hidesNavigationBarDuringPresentation = false
@@ -97,14 +100,9 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
-                
+              
+//        initialiseSearchBar()
         setNavigationItems()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        initialiseSearchBar()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -136,12 +134,12 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }
     
     private func initialiseSearchBar() {
-        
+            
         if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
             textField.backgroundColor = .clear
 
-            let imageV = textField.leftView as! UIImageView
-            imageV.image = nil
+//            let imageV = textField.leftView as! UIImageView
+//            imageV.image = nil
             if let backgroundview = textField.subviews.first {
                 backgroundview.backgroundColor = UIColor(named: themeColor.searchBarBackGroundColor.rawValue)
                 for view in backgroundview.subviews {
@@ -149,13 +147,13 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 }
                 backgroundview.layer.cornerRadius = 10;
                 backgroundview.clipsToBounds = true;
-                
             }
 
             if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
-                searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
-                searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
+                searchBarCancelButton.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
+                searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14, weight: .bold)
                 searchBarCancelButton.tintColor = UIColor.white
+                searchBarCancelButton.setTitleColor(UIColor.white, for: .normal)
             }
 
             if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
@@ -171,20 +169,17 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             
         }
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
-        self.tableView.bounces = false
+        initialiseSearchBar()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-//        if #available(iOS 11.0, *) {
-//            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
-//
-//            if navigationItem.searchController == nil {
-//                tableView.tableHeaderView = searchController.searchBar
-//            }
-//        } else {
-//            tableView.tableHeaderView = searchController.searchBar
-//        }
+        setNavigationItems()
     }
     
     private func setNavigationItems() {
@@ -411,6 +406,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: user.id, isIncommmingCall: false , mode:mode)
         }
     }
+    
     func didTapOnNewGroup() {
         let createGroup = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
         createGroup.mode = "CreateGroup"
@@ -418,64 +414,62 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         self.navigationController!.pushViewController(createGroup, animated: true)
 
     }
-     func didTapOnNewChannel() {
+    
+    func didTapOnNewChannel() {
         let createChannel = IGCreateNewChannelTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
         createChannel.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(createChannel, animated: true)
 
     }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if shouldShowSearchResults {
             if currentTabIndex == TabBarTab.Profile.rawValue {
 
-                if resultSearchController.isActive == false {
-                    
-                    IGGlobal.prgShow(self.view)
-                    let user = self.filteredContacts[indexPath.row]
-                    IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
-                        if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
-                            DispatchQueue.main.async {
-                                IGGlobal.prgHide()
-                                let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                                self.navigationController?.popToRootViewController(animated: true)
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
-                            }
-                        }
-                    }).error({ (errorCode, waitTime) in
+                self.searchController.isActive = false
+                IGGlobal.prgShow(self.view)
+                let user = self.filteredContacts[indexPath.row]
+                IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
+                    if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
                         DispatchQueue.main.async {
                             IGGlobal.prgHide()
-                            let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
-                            let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                            alertC.addAction(cancel)
-                            self.present(alertC, animated: true, completion: nil)
+                            let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                            self.navigationController?.popToRootViewController(animated: true)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
                         }
-                    }).send()
-                }
+                    }
+                }).error({ (errorCode, waitTime) in
+                    DispatchQueue.main.async {
+                        IGGlobal.prgHide()
+                        let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
+                        let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alertC.addAction(cancel)
+                        self.present(alertC, animated: true, completion: nil)
+                    }
+                }).send()
             } else {
 
-                if resultSearchController.isActive == false {
-                    
-                    IGGlobal.prgShow(self.view)
-                    let user = self.filteredContacts[indexPath.row]
-                    IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
-                        if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
-                            DispatchQueue.main.async {
-                                IGGlobal.prgHide()
-                                let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                                self.navigationController?.popToRootViewController(animated: true)
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
-                            }
-                        }
-                    }).error({ (errorCode, waitTime) in
+                self.searchController.isActive = false
+                IGGlobal.prgShow(self.view)
+                let user = self.filteredContacts[indexPath.row]
+                IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
+                    if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
                         DispatchQueue.main.async {
                             IGGlobal.prgHide()
-                            let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
-                            let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                            alertC.addAction(cancel)
-                            self.present(alertC, animated: true, completion: nil)
+                            let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                            self.navigationController?.popToRootViewController(animated: true)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
                         }
-                    }).send()
-                }
+                    }
+                }).error({ (errorCode, waitTime) in
+                    DispatchQueue.main.async {
+                        IGGlobal.prgHide()
+                        let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
+                        let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alertC.addAction(cancel)
+                        self.present(alertC, animated: true, completion: nil)
+                    }
+                }).send()
             }
         } else {
             if currentTabIndex == TabBarTab.Profile.rawValue {
@@ -488,29 +482,27 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
 
                 } else {
 
-                    if resultSearchController.isActive == false {
-                        
-                        IGGlobal.prgShow(self.view)
-                        let user = self.contacts[indexPath.row-2]
-                        IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
-                            if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
-                                DispatchQueue.main.async {
-                                    IGGlobal.prgHide()
-                                    let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                                    self.navigationController?.popToRootViewController(animated: true)
-                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom), object: nil, userInfo: ["room": roomId])
-                                }
-                            }
-                        }).error({ (errorCode, waitTime) in
+                    self.searchController.isActive = false
+                    IGGlobal.prgShow(self.view)
+                    let user = self.contacts[indexPath.row-2]
+                    IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
+                        if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
                             DispatchQueue.main.async {
                                 IGGlobal.prgHide()
-                                let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
-                                let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                                alertC.addAction(cancel)
-                                self.present(alertC, animated: true, completion: nil)
+                                let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                                self.navigationController?.popToRootViewController(animated: true)
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom), object: nil, userInfo: ["room": roomId])
                             }
-                        }).send()
-                    }
+                        }
+                    }).error({ (errorCode, waitTime) in
+                        DispatchQueue.main.async {
+                            IGGlobal.prgHide()
+                            let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
+                            let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                            alertC.addAction(cancel)
+                            self.present(alertC, animated: true, completion: nil)
+                        }
+                    }).send()
                 }
             } else {
 
@@ -519,29 +511,27 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
 
                 } else {
 
-                    if resultSearchController.isActive == false {
-                        
-                        IGGlobal.prgShow(self.view)
-                        let user = self.contacts[indexPath.row-1]
-                        IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
-                            if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
-                                DispatchQueue.main.async {
-                                    IGGlobal.prgHide()
-                                    let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                                    self.navigationController?.popToRootViewController(animated: true)
-                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
-                                }
-                            }
-                        }).error({ (errorCode, waitTime) in
+                    self.searchController.isActive = false
+                    IGGlobal.prgShow(self.view)
+                    let user = self.contacts[indexPath.row-1]
+                    IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
+                        if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
                             DispatchQueue.main.async {
                                 IGGlobal.prgHide()
-                                let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
-                                let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                                alertC.addAction(cancel)
-                                self.present(alertC, animated: true, completion: nil)
+                                let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                                self.navigationController?.popToRootViewController(animated: true)
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
                             }
-                        }).send()
-                    }
+                        }
+                    }).error({ (errorCode, waitTime) in
+                        DispatchQueue.main.async {
+                            IGGlobal.prgHide()
+                            let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
+                            let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                            alertC.addAction(cancel)
+                            self.present(alertC, animated: true, completion: nil)
+                        }
+                    }).send()
                 }
             }
         }
@@ -568,7 +558,12 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
 //        }
         
         // Filter the data array and get only those users that match the search text.
-        filteredContacts = contacts.filter(predicate)
+        if searchString.isEmpty {
+            filteredContacts = contacts
+        } else {
+            filteredContacts = contacts.filter(predicate)
+        }
+        
         setFooterLabelText()
      
         // Reload the tableview.

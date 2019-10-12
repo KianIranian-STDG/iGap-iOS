@@ -986,7 +986,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 //                performSegue(withIdentifier: "showRoomMessages", sender: self)
                 let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 chatPage.room = room
-                UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
+                UIApplication.topNavigationController()!.pushViewController(chatPage, animated: true)
             } else {
                 self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                 self.hud.mode = .indeterminate
@@ -1604,14 +1604,12 @@ extension IGRecentsTableViewController {
         if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
             textField.backgroundColor = .clear
 
-            let imageV = textField.leftView as! UIImageView
-            imageV.image = nil
+//            let imageV = textField.leftView as! UIImageView
+//            imageV.image = nil
             if let backgroundview = textField.subviews.first {
                 backgroundview.backgroundColor = UIColor(named: themeColor.searchBarBackGroundColor.rawValue)
                 for view in backgroundview.subviews {
-                    if view is UIView {
-                        view.backgroundColor = .clear
-                    }
+                    view.backgroundColor = .clear
                 }
                 backgroundview.layer.cornerRadius = 10;
                 backgroundview.clipsToBounds = true;                
@@ -1620,8 +1618,9 @@ extension IGRecentsTableViewController {
 
             if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
                 searchBarCancelButton.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
-                searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
+                searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14, weight: .bold)
                 searchBarCancelButton.tintColor = UIColor.white
+                searchBarCancelButton.setTitleColor(UIColor.white, for: .normal)
             }
 
             if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
@@ -1631,7 +1630,7 @@ extension IGRecentsTableViewController {
                 if let backgroundview = textField.subviews.first {
                     placeHolderInsideSearchField.center = backgroundview.center
                 }
-                placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15,weight: .bold)
+                placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15, weight: .bold)
                 
             }
             
