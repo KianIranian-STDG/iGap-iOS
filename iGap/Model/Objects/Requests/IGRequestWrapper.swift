@@ -21,7 +21,7 @@ class IGRequestWrapper: NSObject {
     var actionId = 0
     var message  : RequestMessage!
     var identity : Any?
-    var time     : Int?
+    var time     : Int64!
     var IV       = Data()
     
     //optional properties to handle inner objects

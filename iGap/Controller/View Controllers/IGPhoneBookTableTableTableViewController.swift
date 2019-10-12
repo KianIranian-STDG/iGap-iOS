@@ -73,8 +73,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         super.viewDidLoad()
                 
         IGPhoneBookTableViewController.callDelegate = self
-//        let predicate = NSPredicate(format: "isInContacts = 1")
-        contacts = try! Realm().objects(IGRegisteredUser.self).sorted(byKeyPath: "displayName", ascending: true)
+        let predicate = NSPredicate(format: "isInContacts = 1")
+        contacts = try! Realm().objects(IGRegisteredUser.self).filter(predicate).sorted(byKeyPath: "displayName", ascending: true)
         
         self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
         self.tableView.tableFooterView = makeFooterView()

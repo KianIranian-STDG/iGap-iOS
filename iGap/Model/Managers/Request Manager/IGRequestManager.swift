@@ -450,7 +450,7 @@ class IGRequestManager {
     static let sharedManager = IGRequestManager()
     
     let disposeBag = DisposeBag()
-    private let timeoutSeconds: Double  = 15.0
+    private let TIME_OUT: Int64  = 15 //milisecond
     private var queuedRequests   = [String : IGRequestWrapper]()
     private var pendingRequests  = [String : IGRequestWrapper]()
     private var resolvedRequests = [String : IGRequestWrapper]()
@@ -524,6 +524,7 @@ class IGRequestManager {
                         self.pendingRequests[request.igpID] = requestWrapper
                         requestWrapper.id = request.igpID
                         requestWrapper.message.igpRequest = request
+                        requestWrapper.time = IGGlobal.getCurrentMillis()
                     }
                     
                     if shouldSendRequest {
@@ -536,7 +537,7 @@ class IGRequestManager {
                          }
                          */
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + self.timeoutSeconds , execute: {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + Double(self.TIME_OUT) , execute: {
                         self.internalTimeOut(for: requestWrapper)
                     })
                 }
@@ -641,19 +642,29 @@ class IGRequestManager {
     }
     
     
-    func internalTimeOut(for requestWrapper: IGRequestWrapper) {
+    func internalTimeOut(for requestWrapper1: IGRequestWrapper) {
         //check if request is still pending
         self.syncroniseQueue.async(flags: .barrier) {
-            if self.pendingRequests[requestWrapper.id] != nil {
-                self.resolvedRequests[requestWrapper.id] = requestWrapper
-                self.pendingRequests[requestWrapper.id]  = nil
-                if let error = requestWrapper.error {
-                    error(.timeout, nil)
-                } else if let errorPowerful = requestWrapper.errorPowerful {
-                    errorPowerful(.timeout, nil, requestWrapper)
+            for requestWrapper in self.pendingRequests.values {
+                if let indexOfRequest = self.pendingRequests.index(forKey: requestWrapper.id), self.isTimedOut(requestTime: requestWrapper.time){
+                    self.resolvedRequests[requestWrapper.id] = requestWrapper
+                    self.pendingRequests.remove(at: indexOfRequest)
+                    if let error = requestWrapper.error {
+                        error(.timeout, nil)
+                    } else if let errorPowerful = requestWrapper.errorPowerful {
+                        errorPowerful(.timeout, nil, requestWrapper)
+                    }
                 }
             }
         }
+    }
+    
+    private func isTimedOut(requestTime: Int64) -> Bool {
+        let timeDifference = IGGlobal.getCurrentMillis() - requestTime
+        if timeDifference >= (self.TIME_OUT*1000) {
+            return true
+        }
+        return false
     }
     
     func cancelRequest(identity: String) {
