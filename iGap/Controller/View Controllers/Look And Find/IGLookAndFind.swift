@@ -21,7 +21,6 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         didSet {
             searchBar.change(textFont: UIFont.igFont(ofSize: 15))
 //            (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localizedNew, for: .normal)
-            
         }
     }
 
@@ -274,7 +273,6 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
         if(searchText.count >= 1){
             if let text = searchBar.text {
                 self.search(query: text)

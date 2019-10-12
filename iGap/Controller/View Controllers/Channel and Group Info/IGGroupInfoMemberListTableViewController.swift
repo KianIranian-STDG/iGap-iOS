@@ -38,53 +38,53 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController,cellWith
     var notificationTokenModerator: NotificationToken?
     var notificationTokenAdmin: NotificationToken?
 
-        var searchController : UISearchController = {
-            
-            let searchController = UISearchController(searchResultsController: nil)
-            searchController.searchBar.placeholder = ""
-            searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
-            
-            let gradient = CAGradientLayer()
-            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
+    var searchController : UISearchController = {
+        
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = ""
+        searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
+        
+        let gradient = CAGradientLayer()
+        let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
 
-            gradient.frame = defaultNavigationBarFrame
-            gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
-            gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
-            gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
-    //        gradient.locations = orangeGradientLocation as [NSNumber]
+        gradient.frame = defaultNavigationBarFrame
+        gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+        gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
+        gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
+//        gradient.locations = orangeGradientLocation as [NSNumber]
 
-            
-            searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-            searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-            if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
-                if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
-                    searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
-                    searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
-                    searchBarCancelButton.tintColor = UIColor.white
-                }
-
-                
-                print("FOUND TEXTFIELD")
-                if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
-                    print("FOUND LABEL")
-                    placeHolderInsideSearchField.textColor = UIColor.white
-                    placeHolderInsideSearchField.textAlignment = .center
-                    placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localizedNew
-                    if let backgroundview = textField.subviews.first {
-                        placeHolderInsideSearchField.center = backgroundview.center
-                    }
-                    placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15,weight: .bold)
-                    
-
-
-                }
+        
+        searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+        searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
+                searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+                searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
+                searchBarCancelButton.tintColor = UIColor.white
             }
-            return searchController
 
-        }()
+            
+            print("FOUND TEXTFIELD")
+            if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
+                print("FOUND LABEL")
+                placeHolderInsideSearchField.textColor = UIColor.white
+                placeHolderInsideSearchField.textAlignment = .center
+                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localizedNew
+                if let backgroundview = textField.subviews.first {
+                    placeHolderInsideSearchField.center = backgroundview.center
+                }
+                placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15,weight: .bold)
+                
+
+
+            }
+        }
+        return searchController
+
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.scrollsToTop = false
+//        self.tableView.scrollsToTop = false
         self.tableView.bounces = false
         definesPresentationContext = true
         if #available(iOS 11.0, *) {

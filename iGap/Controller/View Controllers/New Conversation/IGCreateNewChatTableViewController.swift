@@ -201,7 +201,7 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tableView.scrollsToTop = false
+//        self.tableView.scrollsToTop = false
         self.tableView.bounces = false
 
         if #available(iOS 11.0, *) {

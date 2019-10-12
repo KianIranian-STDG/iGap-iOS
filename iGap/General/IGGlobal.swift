@@ -2052,7 +2052,7 @@ extension UIApplication {
         return base
     }
     /// returns very first tab bar controller on view hirarchy
-    static func topTabBarController(base: UIViewController? = UIApplication.shared.delegate?.window??.rootViewController) -> UIViewController? {
+    static func topTabBarController(base: UIViewController? = UIApplication.shared.delegate?.window??.rootViewController) -> UITabBarController? {
         if let nav = base as? UINavigationController {
             return topTabBarController(base: nav.visibleViewController)
         }
@@ -2067,7 +2067,7 @@ extension UIApplication {
     }
     
     /// returns very first navigation controller on view hirarchy
-    static func topNavigationController(base: UIViewController? = UIApplication.shared.delegate?.window??.rootViewController) -> UIViewController? {
+    static func topNavigationController(base: UIViewController? = UIApplication.shared.delegate?.window??.rootViewController) -> UINavigationController? {
         if let nav = base as? UINavigationController {
             return nav
         }

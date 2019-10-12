@@ -119,13 +119,13 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         gradient.locations = [NSNumber(value: 0.0),NSNumber(value: 0.2),NSNumber(value: 1.0)]
         gradient.frame = viewTransparent.bounds
         viewTransparent.layer.mask = gradient
+        
         let realm = try! Realm()
         let predicate = NSPredicate(format: "id = %lld", userId)
         guard let userRegisteredInfo = realm.objects(IGRegisteredUser.self).filter(predicate).first else {
             return
         }
-
-        
+   
         phoneNumber = String(describing: userRegisteredInfo.phone)
         if isReturnCall {
             super.viewDidLoad()
@@ -287,8 +287,15 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
 
 
         }
+        btnSpeaker.setTitle("", for: .normal)
+        btnMute.setTitle("", for: .normal)
+        btnChat.setTitle("", for: .normal)
+        btnChat.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
+        btnMute.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
+        btnSpeaker.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
 
     }
+    
     //ANIMATIONS
     func createPulse() {
         for _ in 0...2 {
