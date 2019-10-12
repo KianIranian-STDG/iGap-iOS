@@ -1683,14 +1683,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         IGGlobal.isInChatPage = false
-        let navigationControllerr = self.navigationController as! IGNavigationController
-        let numberOfPages = self.navigationController!.viewControllers.count
-        if numberOfPages == 1 {
-//            navigationControllerr.addSearchBar(state: "True")
-        }
-        else {
-//            navigationControllerr.addSearchBar(state: "False")
-        }
+        
         currentRoomId = 0
         currentPageName = ""
         IGGlobal.shouldMultiSelect = false
@@ -2267,7 +2260,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             IGFactory.shared.roomPinMessage(roomId: (self.room?.id)!)
         })
         
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "GLOBAL_CANCEL".MessageViewlocalizedNew, style: .cancel, handler: nil)
         
         alertC.addAction(unpin)
         if messageId == 0 {
@@ -5401,7 +5394,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             indexOfThis = roomMessageLists.firstIndex(of: this)!
         }
         
-        var photos: [INSPhotoViewable] = Array(roomMessageLists.map { (message) -> IGMedia in
+        let photos: [INSPhotoViewable] = Array(roomMessageLists.map { (message) -> IGMedia in
             return IGMedia(message: message, forwardedMedia: false)
         })
         
@@ -5981,7 +5974,8 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
                     self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: scrollToBottom)
                     self.messageLoader.setWaitingHistoryDownLocal(isWaiting: false)
                     if scrollToBottom {
-                        if let authorHash = realmRoomMessages[0].authorHash, authorHash == IGAppManager.sharedManager.authorHash() {
+                        // check log type for avoid from always scroll to bottom after pin message
+                        if realmRoomMessages[0].type != .log, let authorHash = realmRoomMessages[0].authorHash, authorHash == IGAppManager.sharedManager.authorHash() {
                             self.scrollManager(force: true)
                         } else {
                             self.scrollManager()
