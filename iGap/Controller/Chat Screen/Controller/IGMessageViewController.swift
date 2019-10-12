@@ -1368,6 +1368,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     func onAdditionalSendMessage(structAdditional: IGStructAdditionalButton) {
         
         let message = IGRoomMessage(body: structAdditional.label)
+        message.type = .text
         message.additional = IGRealmAdditional(additionalData: structAdditional.json, additionalType: 3)
         let detachedMessage = message.detach()
         IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)

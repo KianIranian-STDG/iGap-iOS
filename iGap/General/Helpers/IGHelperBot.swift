@@ -43,7 +43,6 @@ class IGHelperBot {
     func makeBotView(additionalArrayMain: [[IGStructAdditionalButton]], isKeyboard: Bool = false) -> UIView {
         
         let rowCount = CGFloat(additionalArrayMain.count)
-        let rowWidth = computeWidth()
         let rowHeight = computeHeight(rowCount: rowCount)
         var customViewHeight = rowHeight
         if rowCount > 1 || isKeyboard {
@@ -328,13 +327,11 @@ class IGHelperBot {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.payDirect.rawValue :
-//                IGMessageViewController.additionalObserver.onAdditionalRequestPayDirect(structAdditional: structAdditional)
                 guard let jsonValue = structAdditional.valueJson as? String, let json = jsonValue.toJSON() as? [String:AnyObject], let token = json["token"] as? String else {
                     IGHelperAlert.shared.showErrorAlert()
                     break
                 }
                 IGGlobal.prgShow()
-                print("Success: " + token)
                 IGApiPayment.shared.orderCheck(token: token, completion: { (success, payment, errorMessage) in
                     IGGlobal.prgHide()
                     let paymentView = IGPaymentView.sharedInstance
@@ -365,24 +362,12 @@ class IGHelperBot {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue :
-                let t = structAdditional
-
                 if let valueJson = structAdditional.valueJson, let finalData = IGHelperJson.parseAdditionalCardToCardInChat(data: valueJson) {
-
                     let tmpAmount = finalData.amount
-                    
                     let tmpCardNumber = finalData.cardNumber
-                    
                     IGHelperFinancial.shared.sendCardToCardRequestWithAmount(toUserId: finalData.userId , amount: (tmpAmount), destinationCard: tmpCardNumber)
                 }
                 break
-                
-//            case IGPDiscoveryField.IGPButtonActionType.payDirect.rawValue:
-//                guard let jsonValue = structAdditional.toJSON() as? [String:AnyObject], let id = jsonValue["charityId"] as? String, let price = jsonValue["price"] as? Int else {
-//                    IGHelperAlert.shared.showErrorAlert()
-//                    break
-//                }
-                
                 
             default:
                 break
