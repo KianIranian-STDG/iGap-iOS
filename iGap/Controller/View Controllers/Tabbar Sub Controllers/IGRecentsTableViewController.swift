@@ -139,7 +139,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     
     private func updateNavigationBarBasedOnNetworkStatus(_ status: IGAppManager.ConnectionStatus) {
         
-        if let navigationItem = self.tabBarController?.navigationItem as? IGNavigationItem {
+        if let navigationItem = self.navigationItem as? IGNavigationItem {
             switch status {
             case .waitingForNetwork:
                 navigationItem.setNavigationItemForWaitingForNetwork()
@@ -165,75 +165,19 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 case TabBarTab.Recent.rawValue:
                     self.setDefaultNavigationItem()
                 default:
-                    self.setLastNavigationItem()
+                    self.navItemInit()
                 }
                 break
             }
         }
     }
     
-    private func setLastNavigationItem() {
-        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
-        self.hideKeyboardWhenTappedAround()
-
-        if currentTabIndex == TabBarTab.Dashboard.rawValue { // Discovery Tab
-            let navigationControllerr = self.navigationController as! IGNavigationController
-            let numberOfPages = navigationControllerr.viewControllers.count
-            //Hint: - check if we are at the root of navigation or we are in Inner pages
-            if numberOfPages == 1 {
-                navigationItem.setDiscoveriesNavigationItems()
-            }
-            
-        } else if currentTabIndex == TabBarTab.Contact.rawValue { // Phone Book Tab
-            let navigationControllerr = self.navigationController as! IGNavigationController
-            let numberOfPages = navigationControllerr.viewControllers.count
-            //Hint: - check if we are at the root of navigation or we are in Inner pages
-            if numberOfPages == 1 {
-                navigationItem.setPhoneBookNavigationItems()
-            }
-            
-        } else if currentTabIndex == TabBarTab.Call.rawValue { // Call List Tab
-            let navigationControllerr = self.navigationController as! IGNavigationController
-            let numberOfPages = navigationControllerr.viewControllers.count
-            //Hint: - check if we are at the root of navigation or we are in Inner pages
-            if numberOfPages == 1 {
-                navigationItem.addiGapLogo()
-            }
-
-        } else if currentTabIndex == TabBarTab.Profile.rawValue { // Profile Tab
-            let navigationControllerr = self.navigationController as! IGNavigationController
-            let numberOfPages = navigationControllerr.viewControllers.count
-            //Hint: - check if we are at the root of navigation or we are in Inner pages
-            if numberOfPages == 1 {
-                navigationItem.setProfilePageNavigationItem()
-            }
-
-        } else if currentTabIndex == TabBarTab.Recent.rawValue { // Recent Tab
-            let navigationControllerr = self.navigationController as! IGNavigationController
-            let numberOfPages = navigationControllerr.viewControllers.count
-            //Hint: - check if we are at the root of navigation or we are in Inner pages
-            if numberOfPages == 1 {
-                navigationItem.setChatListsNavigationItems()
-            }
-            
-        } else {
-            navigationItem.addiGapLogo()
-        }
-
-    }
-    
     private func navItemInit() {
-        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+        let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.setChatListsNavigationItems()
 
         navigationItem.rightViewContainer?.addAction {
-//            self.tableView.reloadData()
             self.showAlertOptions()
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            navigationItem.leftViewContainer?.addAction {
-
-            }
         }
     }
     
@@ -246,6 +190,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             let newChat = UIAlertAction(title: "NEW_CALL".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
                 let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
                 createChat.forceCall = true
+                createChat.hidesBottomBarWhenPushed = true
                 self.navigationController!.pushViewController(createChat, animated: true)
             })
             
@@ -334,15 +279,18 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         })
         let newChat = UIAlertAction(title: "NEW_C_C".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
             let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+            createChat.hidesBottomBarWhenPushed = true
             self.navigationController!.pushViewController(createChat, animated: true)
         })
         let newGroup = UIAlertAction(title: "NEW_GROUP".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
             let createGroup = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
             createGroup.mode = "CreateGroup"
+            createGroup.hidesBottomBarWhenPushed = true
             self.navigationController!.pushViewController(createGroup, animated: true)
         })
         let newChannel = UIAlertAction(title: "NEW_CHANNEL".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
             let createChannel = IGCreateNewChannelTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
+            createChannel.hidesBottomBarWhenPushed = true
             self.navigationController!.pushViewController(createChannel, animated: true)
         })
         
@@ -360,7 +308,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
     }
     private func setDefaultNavigationItem() {
-        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+        let navigationItem = self.navigationItem as! IGNavigationItem
         navItemInit()
         
         if #available(iOS 11.0, *) {
@@ -385,7 +333,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     override func viewDidLoad() {
         super.viewDidLoad()
         isfromPacket = false
-//        self.tableView.scrollsToTop = false
+
         self.tableView.bounces = false
         self.searchController.searchBar.delegate = self
 //        self.searchController.searchResultsUpdater = self
@@ -405,7 +353,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         } catch let error as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN VIEWDIDLOAD:",String(describing: self))
         }
-        //        self.tableView.register(IGChatRoomListTableViewCell.nib(), forCellReuseIdentifier: IGChatRoomListTableViewCell.cellReuseIdentifier())
         self.tableView.tableFooterView = UIView()
         self.tableView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         self.view.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
@@ -413,6 +360,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         
         setDefaultNavigationItem()
+        
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
             DispatchQueue.main.async {
                 self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
@@ -460,6 +408,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_ROOM_PAGE)
         
+        self.hidesBottomBarWhenPushed = false
     }
     
     @objc private func changeDirectionOfUI() {
@@ -475,33 +424,28 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
-        navigationItem.setChatListsNavigationItems()
         
-                
-        if #available(iOS 11.0, *) {
-            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
-
-            if navigationItem.searchController == nil {
-                tableView.tableHeaderView = searchController.searchBar
-            }
-        } else {
-            tableView.tableHeaderView = searchController.searchBar
-        }
+//        if #available(iOS 11.0, *) {
+//            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
+//
+//            if navigationItem.searchController == nil {
+//                tableView.tableHeaderView = searchController.searchBar
+//            }
+//        } else {
+//            tableView.tableHeaderView = searchController.searchBar
+//        }
 
         
         isfromPacket = false
         
 
         DispatchQueue.main.async {
-            if let navigationItem = self.tabBarController?.navigationItem as? IGNavigationItem {
+            if let navigationItem = self.navigationItem as? IGNavigationItem {
                 IGTabBarController.currentTabStatic = .Recent
                 navigationItem.addiGapLogo()
             }
         }
-        self.tableView.isUserInteractionEnabled = true
-        setDefaultNavigationItem()
+//        setDefaultNavigationItem()
 
         //self.addRoomChangeNotificationBlock()
     }
@@ -983,8 +927,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //uncomment this line if u want to scroll to first row after each row click
-//        scrollToFirstRow()
+        segue.destination.hidesBottomBarWhenPushed = true
 
         if (segue.identifier == "showRoomMessages") {
             
@@ -1039,8 +982,11 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         if let roomId = aNotification.userInfo?["room"] as? Int64 {
             let predicate = NSPredicate(format: "id = %lld", roomId)
             if let room = rooms!.filter(predicate).first {
-                selectedRoomForSegue = room
-                performSegue(withIdentifier: "showRoomMessages", sender: self)
+//                selectedRoomForSegue = room
+//                performSegue(withIdentifier: "showRoomMessages", sender: self)
+                let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                chatPage.room = room
+                UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
             } else {
                 self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                 self.hud.mode = .indeterminate
@@ -1050,7 +996,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         switch protoResponse {
                         case let clientGetRoomResponse as IGPClientGetRoomResponse:
                             IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom), object: nil, userInfo: ["room": roomId])
                         default:
                             break
                         }
@@ -1746,6 +1692,7 @@ extension IGRecentsTableViewController: UISearchBarDelegate/*, UISearchResultsUp
 //        self.navigationController?.hero.isEnabled = true
 //        self.navigationController?.hero.navigationAnimationType = .fade
 //        self.hero.replaceViewController(with: lookAndFind)
+        lookAndFind.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(lookAndFind, animated: false)
 
         return false

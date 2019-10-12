@@ -13,9 +13,10 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class BaseCollectionViewController: UICollectionViewController {
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         self.hideKeyboardWhenTappedAround()
         let _ : String = SMLangUtil.loadLanguage()
     }

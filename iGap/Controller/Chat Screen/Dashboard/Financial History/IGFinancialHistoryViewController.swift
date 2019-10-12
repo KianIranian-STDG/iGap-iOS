@@ -21,6 +21,8 @@ class IGFinancialHistoryViewController: BaseViewController {
     var selectedType = IGPMplTransaction.IGPType.none
     var selectedIndex: Int = 0
     var bottomSpinner = UIActivityIndicatorView()
+    
+    var isFirstLoad = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +35,10 @@ class IGFinancialHistoryViewController: BaseViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        let firstIndex = IndexPath(item: 0, section: 0)
-        self.transactionTypesCollectionView.scrollToItem(at: firstIndex, at: .centeredHorizontally, animated: false)
+        if isFirstLoad {
+            let firstIndex = IndexPath(item: 0, section: 0)
+            self.transactionTypesCollectionView.scrollToItem(at: firstIndex, at: .centeredHorizontally, animated: false)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

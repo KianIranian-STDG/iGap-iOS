@@ -79,30 +79,25 @@ class IGTabBarController: UITabBarController {
                 item.badgeColor = UIColor.unreadLable()
             }
         }
-//        let navigationController = self.navigationController as! IGNavigationController
         
         switch item {
         case .Contact:
-//            navigationController.navigationBar.isHidden = false
             currentTabIndex = TabBarTab.Contact.rawValue
             break
+            
         case .Call:
-//            navigationController.navigationBar.isHidden = false
             currentTabIndex = TabBarTab.Call.rawValue
-            
             break
+            
         case .Recent:
-//            navigationController.navigationBar.isHidden = false
             currentTabIndex = TabBarTab.Recent.rawValue
-            
             break
+            
         case .Dashboard:
-//            navigationController.navigationBar.isHidden = false
             currentTabIndex = TabBarTab.Dashboard.rawValue
-            
             break
+            
         case .Profile:
-//            navigationController.navigationBar.isHidden = false
             currentTabIndex = TabBarTab.Profile.rawValue
             break
         }

@@ -74,7 +74,7 @@
         <!--Title-->
         <scene sceneID="fe4-zV-nJ3">
             <objects>
-                <viewController storyboardIdentifier="IGDashboardViewController" id="m4t-Cf-aRg" customClass="IGDashboardViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IGDashboardViewController" automaticallyAdjustsScrollViewInsets="NO" id="m4t-Cf-aRg" customClass="IGDashboardViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="klE-Lx-V5m"/>
                         <viewControllerLayoutGuide type="bottom" id="YXy-vM-dcs"/>
@@ -133,9 +133,7 @@
                             <constraint firstItem="Vdk-oB-E9O" firstAttribute="centerX" secondItem="XQx-sQ-Oa1" secondAttribute="centerX" id="kFb-0j-oHz"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="AW9-xw-fuX" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target">
-                        <barButtonItem key="backBarButtonItem" title=" " id="XLY-Wt-B8G"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Title" id="AW9-xw-fuX" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="btnRefresh" destination="Vdk-oB-E9O" id="0cr-OH-cOG"/>
                         <outlet property="collectionView" destination="Wfm-GU-ejX" id="QwU-vu-hH9"/>
@@ -2768,8 +2766,7 @@
                             <outlet property="delegate" destination="z3s-7I-oQt" id="I0y-YN-cBG"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="I2F-Oq-3lv"/>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationItem key="navigationItem" id="I2F-Oq-3lv" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="btnCamera" destination="Bhw-T0-vqW" id="Crh-pS-5X4"/>
                         <outlet property="btnCountryCode" destination="DMQ-x6-ofX" id="rr8-On-S05"/>
@@ -3010,11 +3007,7 @@
                             <outlet property="delegate" destination="853-O6-bd1" id="rFO-gr-Tr8"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="New Chat" id="YRY-7s-qG0" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="MA8-ce-3Yr">
-                            <color key="tintColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="New Chat" id="YRY-7s-qG0" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dX2-wo-hDx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -202,6 +202,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                     iGapBrowser.itemID = itemID
                     iGapBrowser.url = url
                     iGapBrowser.htmlString = htmlString
+                    iGapBrowser.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
                     return
                     
@@ -340,6 +341,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             return
         case .inviteFriend :
             let vc = testVCViewController.instantiateFromAppStroryboard(appStoryboard: .PhoneBook)
+            vc.hidesBottomBarWhenPushed = true
             UIApplication.topViewController()?.navigationController!.pushViewController(vc, animated: true)
 
         case .joinLink:
@@ -398,6 +400,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                         let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
                         iGapBrowser.url = discoveryInfo.igpValue
                         iGapBrowser.htmlString = nil
+                        iGapBrowser.hidesBottomBarWhenPushed = true
                         UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
                         return
 
@@ -409,6 +412,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                         iGapBrowser.htmlString = nil
                         iGapBrowser.isPost = true
                         iGapBrowser.param = actionData
+                        iGapBrowser.hidesBottomBarWhenPushed = true
                         UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
                         return
 
@@ -420,6 +424,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                     let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
                     iGapBrowser.url = discoveryInfo.igpValue
                     iGapBrowser.htmlString = nil
+                    iGapBrowser.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
                     return
                     
@@ -431,16 +436,10 @@ class AbstractDashboardCell: UICollectionViewCell {
                     iGapBrowser.htmlString = nil
                     iGapBrowser.isPost = true
                     iGapBrowser.param = actionData
+                    iGapBrowser.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
                     return
-                    
-                    
                 }
-                let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
-                iGapBrowser.url = discoveryInfo.igpValue
-                iGapBrowser.htmlString = nil
-                UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
-                return
                 
             }
         case .showAlert:
@@ -455,6 +454,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                     
                 } else {
                     let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                    dashboard.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated: true)
                     return
                 }
@@ -474,6 +474,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                 
                 
                 let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                dashboard.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated: true)
                 return
             }
@@ -491,6 +492,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                     if deepLinkDiscoveryIds.count > 0 {
                         dashboard.deepLinkDiscoveryIds = deepLinkDiscoveryIds
                     }
+                    dashboard.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                     return
                 }
@@ -502,6 +504,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                 if deepLinkDiscoveryIds.count > 0 {
                     dashboard.deepLinkDiscoveryIds = deepLinkDiscoveryIds
                 }
+                dashboard.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                 return
             }
@@ -519,6 +522,7 @@ class AbstractDashboardCell: UICollectionViewCell {
 //                    if deepLinkDiscoveryIds.count > 0 {
 //                        dashboard.deepLinkDiscoveryIds = deepLinkDiscoveryIds
 //                    }
+                    dashboard.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                     return
                 }
@@ -529,6 +533,7 @@ class AbstractDashboardCell: UICollectionViewCell {
 //                if deepLinkDiscoveryIds.count > 0 {
 //                    dashboard.deepLinkDiscoveryIds = deepLinkDiscoveryIds
 //                }
+                dashboard.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                 return
             }
@@ -557,11 +562,13 @@ class AbstractDashboardCell: UICollectionViewCell {
                     
                 } else {
                     let messagesVc = IGFinancialServiceCharge.instantiateFromAppStroryboard(appStoryboard: .Setting)
+                    messagesVc.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated: true)
                     return
                 }
             } else {
                 let messagesVc = IGFinancialServiceCharge.instantiateFromAppStroryboard(appStoryboard: .Setting)
+                messagesVc.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 return
             }
@@ -577,6 +584,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                     let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                     let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
                     messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: discoveryInfo.igpValue)
+                    messagesVc.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                     return
                 }
@@ -586,6 +594,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                 let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                 let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
                 messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: discoveryInfo.igpValue)
+                messagesVc.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 return
             }
@@ -602,6 +611,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                     let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                     let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
                     messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: discoveryInfo.igpValue)
+                    messagesVc.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                     return
                 }
@@ -611,6 +621,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                 let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                 let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
                 messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: discoveryInfo.igpValue)
+                messagesVc.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 return
             }
@@ -625,6 +636,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                     IGFinancialServiceBillingInquiry.isMobile = true
                     let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                     let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
+                    messagesVc.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                     return
                 }
@@ -632,6 +644,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                 IGFinancialServiceBillingInquiry.isMobile = true
                 let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                 let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
+                messagesVc.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 return
             }
@@ -644,6 +657,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                     IGFinancialServiceBillingInquiry.isMobile = false
                     let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                     let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
+                    messagesVc.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                     return
                 }
@@ -651,6 +665,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                 IGFinancialServiceBillingInquiry.isMobile = false
                 let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                 let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
+                messagesVc.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 return
             }
@@ -715,11 +730,13 @@ class AbstractDashboardCell: UICollectionViewCell {
                     
                 } else {
                     let scanner = IGScoreViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                    scanner.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(scanner, animated:true)
                     return
                 }
             } else {
                 let scanner = IGScoreViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                scanner.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(scanner, animated:true)
                 return
             }
@@ -733,12 +750,14 @@ class AbstractDashboardCell: UICollectionViewCell {
                 } else {
                     let scanner = IGSettingQrScannerViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
                     scanner.scannerPageType = .IVandScore
+                    scanner.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(scanner, animated:true)
                     return
                 }
             } else {
                 let scanner = IGSettingQrScannerViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
                 scanner.scannerPageType = .IVandScore
+                scanner.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(scanner, animated:true)
                 return
             }
@@ -750,11 +769,13 @@ class AbstractDashboardCell: UICollectionViewCell {
                     
                 } else {
                     let scoreHistory = IGScoreHistoryViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                    scoreHistory.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(scoreHistory, animated:true)
                     return
                 }
             } else {
                 let scoreHistory = IGScoreHistoryViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                scoreHistory.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(scoreHistory, animated:true)
                 return
             }
@@ -823,16 +844,18 @@ class AbstractDashboardCell: UICollectionViewCell {
                     switch valueType {
                     case "QR_USER_WALLET" :
                         let storyboard : UIStoryboard = UIStoryboard(name: "wallet", bundle: nil)
-                        let qrVC: QRMainTabbarController? = (storyboard.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
-                        UIApplication.topViewController()!.navigationController!.pushViewController(qrVC!, animated: true)
+                        let qrVC: QRMainTabbarController = (storyboard.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
+                        qrVC.hidesBottomBarWhenPushed = true
+                        UIApplication.topViewController()!.navigationController!.pushViewController(qrVC, animated: true)
                         
                         break
                         
                     case "QR_MERCHANT_WALLET" :
                         break
                     default :
-                        let vc = UIStoryboard.init(name: "wallet", bundle: Bundle.main).instantiateViewController(withIdentifier: "packetTableViewController") as? packetTableViewController
-                        UIApplication.topViewController()!.navigationController!.pushViewController(vc!, animated: true)
+                        let vc = packetTableViewController.instantiateFromAppStroryboard(appStoryboard: .Wallet)
+                        vc.hidesBottomBarWhenPushed = true
+                        UIApplication.topViewController()!.navigationController!.pushViewController(vc, animated: true)
                         
                         break
                     }
@@ -843,16 +866,18 @@ class AbstractDashboardCell: UICollectionViewCell {
                 switch valueType {
                 case "QR_USER_WALLET" :
                     let storyboard : UIStoryboard = UIStoryboard(name: "wallet", bundle: nil)
-                    let qrVC: QRMainTabbarController? = (storyboard.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
-                    UIApplication.topViewController()!.navigationController!.pushViewController(qrVC!, animated: true)
+                    let qrVC: QRMainTabbarController = (storyboard.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
+                    qrVC.hidesBottomBarWhenPushed = true
+                    UIApplication.topViewController()!.navigationController!.pushViewController(qrVC, animated: true)
                     
                     break
                     
                 case "QR_MERCHANT_WALLET" :
                     break
                 default :
-                    let vc = UIStoryboard.init(name: "wallet", bundle: Bundle.main).instantiateViewController(withIdentifier: "packetTableViewController") as? packetTableViewController
-                    UIApplication.topViewController()!.navigationController!.pushViewController(vc!, animated: true)
+                    let vc = packetTableViewController.instantiateFromAppStroryboard(appStoryboard: .Wallet)
+                    vc.hidesBottomBarWhenPushed = true
+                    UIApplication.topViewController()!.navigationController!.pushViewController(vc, animated: true)
                     
                     break
                 }
@@ -860,11 +885,13 @@ class AbstractDashboardCell: UICollectionViewCell {
             
         case .financialHistory:
             let financialHistory = IGFinancialHistoryViewController.instantiateFromAppStroryboard(appStoryboard: .FinancialHistory)
+            financialHistory.hidesBottomBarWhenPushed = true
             UIApplication.topViewController()!.navigationController!.pushViewController(financialHistory, animated:true)
             break
             
         case .internetPackageMenu:
             let internetPackage = IGInternetPackageViewController.instantiateFromAppStroryboard(appStoryboard: .InternetPackage)
+            internetPackage.hidesBottomBarWhenPushed = true
             UIApplication.topViewController()!.navigationController!.pushViewController(internetPackage, animated:true)
             break
             

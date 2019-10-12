@@ -71,13 +71,12 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         IGPhoneBookTableViewController.callDelegate = self
 //        let predicate = NSPredicate(format: "isInContacts = 1")
         contacts = try! Realm().objects(IGRegisteredUser.self).sorted(byKeyPath: "displayName", ascending: true)
         
         self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
-//        self.tableView.tableHeaderView = makeHeaderView()
         self.tableView.tableFooterView = makeFooterView()
         if #available(iOS 11.0, *) {
             self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
@@ -98,8 +97,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
-        
-//        self.navigationItem.searchController = UISearchController(searchResultsController: nil)
+                
+        setNavigationItems()
     }
     
     override func viewDidLayoutSubviews() {
@@ -175,11 +174,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        self.tableView.scrollsToTop = false
         self.tableView.bounces = false
         
-//        initialiseSearchBar()
-                
 //        if #available(iOS 11.0, *) {
 //            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
 //
@@ -189,33 +185,23 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
 //        } else {
 //            tableView.tableHeaderView = searchController.searchBar
 //        }
-
-
+    }
+    
+    private func setNavigationItems() {
         if currentTabIndex == TabBarTab.Profile.rawValue {
-//            self.searchController.hidesNavigationBarDuringPresentation = false
             self.initNavigationBar(title: "NEW".localizedNew) { }
-
         } else {
-            let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+            let navigationItem = self.navigationItem as! IGNavigationItem
             navigationItem.setPhoneBookNavigationItems()
             navigationItem.rightViewContainer?.addAction {
                 self.goToAddContactsPage()
             }
         }
-        
-        if #available(iOS 11.0, *) {
-            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
-
-            if navigationItem.searchController == nil {
-                tableView.tableHeaderView = searchController.searchBar
-            }
-        } else {
-            tableView.tableHeaderView = searchController.searchBar
-        }
     }
 
     private func goToAddContactsPage() {
         let vc = IGSettingAddContactViewController.instantiateFromAppStroryboard(appStoryboard: .PhoneBook)
+        vc.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(vc, animated:true)
     }
     
@@ -301,6 +287,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     private func inviteAContact() {
         let vc = testVCViewController.instantiateFromAppStroryboard(appStoryboard: .PhoneBook)
+        vc.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(vc, animated: true)
     }
 
@@ -427,11 +414,13 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     func didTapOnNewGroup() {
         let createGroup = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
         createGroup.mode = "CreateGroup"
+        createGroup.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(createGroup, animated: true)
 
     }
      func didTapOnNewChannel() {
         let createChannel = IGCreateNewChannelTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
+        createChannel.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(createChannel, animated: true)
 
     }
@@ -557,6 +546,11 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             }
         }
         
+    }
+    
+    // MARK: - Prepare for segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        segue.destination.hidesBottomBarWhenPushed = true
     }
 }
 

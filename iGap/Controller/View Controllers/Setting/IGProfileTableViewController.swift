@@ -76,7 +76,6 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     @IBOutlet weak var lblVersion: UILabel!
     @IBOutlet weak var lblMoneyAmount: UILabel!
     @IBOutlet weak var lblScoreAmount: UILabel!
-//    @IBOutlet weak var btnEditProfile : UIButton!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var lblBioInner: UILabel!
@@ -131,14 +130,15 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         initView()
         initServices()
         
-//        self.initNavBar()
+        self.initNavBar()
         
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
+        self.hidesBottomBarWhenPushed = false
     }
     
     override func viewWillAppear(_ animated: Bool)  {
         super.viewWillAppear(animated)
-        initNavBar()
 //        self.navigationController?.navigationBar.isHidden = true
 //        if let navigationBar = self.navigationController?.navigationBar as? IGNavigationBar {
 //            navigationBar.setTransparentNavigationBar()
@@ -146,9 +146,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
 //            navigationBar.isHidden = true
 //            navigationBar.backgroundColor = .clear
 //        }
-        
-//        self.initNavBar()
-        
+                
         IGRequestWalletGetAccessToken.sendRequest()
         //Hint:- Check if request was not successfull call services again
         if lblMoneyAmount.text == "..." {
@@ -170,16 +168,6 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         textManagment()
         self.tableView.alwaysBounceVertical = false
         
-//        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
-        
-//        navigationItem.removeNavButtons()
-        
-        //  Converted to Swift 5 by Swiftify v5.0.30657 - https://objectivec2swift.com/
-        if #available(iOS 11.0, *) {
-//            tableView.contentInsetAdjustmentBehavior = .never
-        } else {
-//            automaticallyAdjustsScrollViewInsets = false
-        }
         if(IGProfileTableViewController.allowGetCountry){
             getUserCurrentLocation()
         }
@@ -224,7 +212,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     }
     
     private func initNavBar() {
-        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+        let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.setProfilePageNavigationItem()
         navigationItem.rightViewContainer?.addAction {
             self.editProfileTapped()
@@ -773,17 +761,15 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
             IGHelperNearby.shared.openMap()
         }
     }
+    
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        var offset = scrollView.contentOffset.y
+        let offset = scrollView.contentOffset.y
 
         if offset < 0 {
             scrollView.contentOffset.y = 0
-
-        } else {
-
         }
-
     }
+    
     //Hint: - Go To Setting Action Handler
     @IBAction func didTapOnPickCountryCode(_ sender: Any) {
         performSegue(withIdentifier: "showCountryCell", sender: self) //presentConutries
@@ -794,9 +780,10 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
 //        self.performSegue(withIdentifier: "showSettings", sender: self)
         goToSettings = false
         let settingVC = IGSettingTableViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
+        settingVC.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(settingVC, animated:true)
-
     }
+    
     //Hint: - Go To Cloud Action Handler
     @IBAction func didTapOnGoToCloud(_ sender: Any) {
         goToSettings = false
@@ -831,13 +818,14 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     @IBAction func didTapOnGoToCreatNewCGC(_ sender: Any) {
         goToSettings = false
         let createChat = IGPhoneBookTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+        createChat.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(createChat, animated: true)
     }
     
     private func editProfileTapped() {
         print(tapCount)
         tapCount += 1
-        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+        let navigationItem = self.navigationItem as! IGNavigationItem
 
         //end editMode
         if tapCount % 2 == 0 {
@@ -848,8 +836,6 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
             } else {
                 shouldSave = false
             }
-
-            
 
             UIView.transition(with: navigationItem.btnEdit, duration: 0.5, options: .transitionCrossDissolve, animations: {
                 navigationItem.btnEdit.setTitle("", for: .normal)
@@ -879,7 +865,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     }
     
     private func updateBtnEditStateView(hasChnagedValue: Bool! = false) {
-        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+        let navigationItem = self.navigationItem as! IGNavigationItem
 
         if hasChnagedValue {
             UIView.transition(with: navigationItem.btnEdit, duration: 0.5, options: .transitionCrossDissolve, animations: {
@@ -891,10 +877,11 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 navigationItem.btnEdit.setTitle("", for: .normal)
             })
             shouldSave = false
-
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        segue.destination.hidesBottomBarWhenPushed = true
+        
         if segue.identifier == "showCountryCell" {
             let nav = segue.destination as! UINavigationController
             let destination = nav.topViewController as! IGRegistrationStepSelectCountryTableViewController
@@ -914,15 +901,19 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
             tfReferral.setMask(codePatternMask, withMaskTemplate: codePatternTemplate)
         }
     }
+    
     @IBAction func btnCameraPickTapped(_ sender: Any) {
     }
+    
     @IBAction func btnScoreTapped(_ sender: Any) {
         let score = IGScoreViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+        score.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(score, animated: true)
     }
     @IBAction func btnCreditTapped(_ sender: Any) {
         goToSettings = false
         let walletVC = packetTableViewController.instantiateFromAppStroryboard(appStoryboard: .Wallet)
+        walletVC.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(walletVC, animated:true)
 
     }

@@ -52,11 +52,11 @@ class IGNavigationItem: UINavigationItem {
     }
     
     func configure() {
-        let rightViewFrame = CGRect(x:0, y:0, width: 40, height:40)
-        rightViewContainer = IGTappableView(frame: rightViewFrame)
-        rightViewContainer!.backgroundColor = UIColor.clear
-        let rightBarButton = UIBarButtonItem(customView: rightViewContainer!)
-        self.rightBarButtonItem = rightBarButton
+//        let rightViewFrame = CGRect(x:0, y:0, width: 40, height: 40)
+//        rightViewContainer = IGTappableView(frame: rightViewFrame)
+//        rightViewContainer!.backgroundColor = UIColor.clear
+//        let rightBarButton = UIBarButtonItem(customView: rightViewContainer!)
+//        self.rightBarButtonItem = rightBarButton
         returnToCallMethod()
     }
     
@@ -434,7 +434,7 @@ class IGNavigationItem: UINavigationItem {
         }
     }
     
-    func addCallViewContainer(){
+    func addCallViewContainer() {
         let rightViewFrame = CGRect(x:0, y:0, width: 50, height:40)
         callViewContainer = IGTappableView(frame: rightViewFrame)
         callViewContainer!.backgroundColor = UIColor.clear
@@ -504,25 +504,24 @@ class IGNavigationItem: UINavigationItem {
         label.textAlignment = .left
         label.textColor = UIColor.iGapBarsInfo()
         leftViewContainer!.addSubview(label)
+//        label.leadingAnchor.constraint(equalTo: leftViewContainer!.leadingAnchor, constant: 0).isActive = true
     }
     
     
     //MARK: - Profile Page
     func setProfilePageNavigationItem() {
-        deactivateTappbleArea()
-        activeTappleArea()
         addiGapLogo()
-        addSettingButton()
+//        addSettingButton()
         addEditButton()
     }
     
     private func addEditButton() {
+        let rightViewFrame = CGRect(x: 0, y: 0, width: 50, height: 40)
+        rightViewContainer = IGTappableView(frame: rightViewFrame)
+        rightViewContainer!.backgroundColor = UIColor.clear
+        let rightBarButton = UIBarButtonItem(customView: rightViewContainer!)
+        self.rightBarButtonItem = rightBarButton
         
-        if rightViewContainer?.subviews.count != nil {
-            if rightViewContainer!.subviews.count > 0 {
-                rightViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-            }
-        }
         let composeButtonFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
         
         btnEdit = UIButton(frame: composeButtonFrame)
@@ -530,87 +529,66 @@ class IGNavigationItem: UINavigationItem {
         btnEdit.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         btnEdit.isUserInteractionEnabled = false
         rightViewContainer!.addSubview(btnEdit)
+        btnEdit.trailingAnchor.constraint(equalTo: rightViewContainer!.trailingAnchor, constant: 0).isActive = true
     }
     
     func changeEditButtonState(hasChanged: Bool! = false) {
+        
     }
     
-    
-    func removeNavButtons() {
-        addiGapLogo()
-
-        if leftViewContainer!.subviews.count > 0 {
-            leftViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-        }
-        if rightViewContainer!.subviews.count > 0 {
-            rightViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-        }
-
-        deactivateTappbleArea()
-    }
+//    func removeNavButtons() {
+//        if leftViewContainer!.subviews.count > 0 {
+//            leftViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+//        }
+//        if rightViewContainer!.subviews.count > 0 {
+//            rightViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+//        }
+//    }
     
     //MARK: - Phone Book
     func setPhoneBookNavigationItems() {
-//        activeTappleArea()
         addiGapLogo()
-        addSettingButton()
+//        addSettingButton()
         addComopseButton()
-    }
-
-    private func activeTappleArea() {
-        rightViewContainer?.isUserInteractionEnabled = true
-        leftViewContainer?.isUserInteractionEnabled = true
-    }
-
-    private func deactivateTappbleArea() {
-        rightViewContainer?.isUserInteractionEnabled = false
-        leftViewContainer?.isUserInteractionEnabled = false
     }
     
     private func addSettingButton() {
-        if leftViewContainer?.subviews.count != nil {
-            if leftViewContainer!.subviews.count > 0 {
-                
-                leftViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-            }
-        }
-        let leftViewFrame = CGRect(x:0, y:0, width: 50, height:40)
+        let leftViewFrame = CGRect(x: 0, y: 0, width: 50, height: 40)
         leftViewContainer = IGTappableView(frame: leftViewFrame)
         leftViewContainer!.backgroundColor = UIColor.clear
         let leftBarButton = UIBarButtonItem(customView: leftViewContainer!)
         self.leftBarButtonItem = leftBarButton
         let _ : String = SMLangUtil.loadLanguage()
-        
-        
+
         let settingViewFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
         let btnEdit = UIButton(frame: settingViewFrame)
         btnEdit.setTitle("", for: .normal)
         btnEdit.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
-//        leftViewContainer!.addSubview(btnEdit)
+        leftViewContainer!.addSubview(btnEdit)
     }
     
     private func addProfileEditButton() {
-        if rightViewContainer?.subviews.count != nil {
-            if rightViewContainer!.subviews.count > 0 {
-                rightViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-            }
-        }
-        let composeButtonFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        let rightViewFrame = CGRect(x: 0, y: 0, width: 60, height:40)
+        rightViewContainer = IGTappableView(frame: rightViewFrame)
+        rightViewContainer!.backgroundColor = UIColor.clear
+        let rightBarButton = UIBarButtonItem(customView: rightViewContainer!)
+        self.rightBarButtonItem = rightBarButton
         
+        let composeButtonFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
         btnEdit = UIButton(frame: composeButtonFrame)
         btnEdit.setTitle("", for: .normal)
         btnEdit.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
-        btnEdit.isUserInteractionEnabled = true
         rightViewContainer!.addSubview(btnEdit)
+        btnEdit.trailingAnchor.constraint(equalTo: rightViewContainer!.trailingAnchor, constant: 0).isActive = true
     }
     
     private func addComopseButton() {
+        let rightViewFrame = CGRect(x: 0, y: 0, width: 60, height: 40)
+        rightViewContainer = IGTappableView(frame: rightViewFrame)
+        rightViewContainer!.backgroundColor = UIColor.clear
+        let rightBarButton = UIBarButtonItem(customView: rightViewContainer!)
+        self.rightBarButtonItem = rightBarButton
         
-        if rightViewContainer?.subviews.count != nil {
-            if rightViewContainer!.subviews.count > 0 {
-                rightViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-            }
-        }
         let composeButtonFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
         
         let btnAdd = UIButton(frame: composeButtonFrame)
@@ -618,23 +596,22 @@ class IGNavigationItem: UINavigationItem {
         btnAdd.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         btnAdd.isUserInteractionEnabled = false
         rightViewContainer!.addSubview(btnAdd)
+        btnAdd.trailingAnchor.constraint(equalTo: rightViewContainer!.trailingAnchor, constant: 0).isActive = true
     }
+    
     //MARK: - Search Page
     func setSearchPageNavigationItems() {
-        deactivateTappbleArea()
-        activeTappleArea()
         addiGapLogo()
         addDismissButton()
     }
     
     private func addDismissButton() {
-        if leftViewContainer?.subviews.count != nil {
-            
-            if leftViewContainer!.subviews.count > 0 {
-                
-                leftViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-            }
-        }
+        let leftViewFrame = CGRect(x:0, y:0, width: 50, height:40)
+        leftViewContainer = IGTappableView(frame: leftViewFrame)
+        leftViewContainer!.backgroundColor = UIColor.clear
+        let leftBarButton = UIBarButtonItem(customView: leftViewContainer!)
+        self.leftBarButtonItem = leftBarButton
+        
         let callListViewFrame =  CGRect(x: 0, y: 0, width: 40, height: 40)
         let btnDissmissButton = UIButton(frame: callListViewFrame)
 
@@ -643,23 +620,21 @@ class IGNavigationItem: UINavigationItem {
         btnDissmissButton.isUserInteractionEnabled = false
 
         leftViewContainer!.addSubview(btnDissmissButton)
+//        btnDissmissButton.leadingAnchor.constraint(equalTo: leftViewContainer!.leadingAnchor, constant: 0).isActive = true
     }
     //MARK: - Call List
     func setCallListNavigationItems() {
-        deactivateTappbleArea()
-        activeTappleArea()
         addiGapLogo()
         addComopseButton()
         addMoreSettingsButton()
     }
     private func addMoreSettingsButton() {
-        if leftViewContainer?.subviews.count != nil {
-            
-            if leftViewContainer!.subviews.count > 0 {
-                
-                leftViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-            }
-        }
+        let leftViewFrame = CGRect(x:0, y:0, width: 50, height:40)
+        leftViewContainer = IGTappableView(frame: leftViewFrame)
+        leftViewContainer!.backgroundColor = UIColor.clear
+        let leftBarButton = UIBarButtonItem(customView: leftViewContainer!)
+        self.leftBarButtonItem = leftBarButton
+        
         let callListViewFrame =  CGRect(x: 0, y: 0, width: 40, height: 40)
         let btnMoreSettings = UIButton(frame: callListViewFrame)
 
@@ -668,19 +643,16 @@ class IGNavigationItem: UINavigationItem {
         btnMoreSettings.isUserInteractionEnabled = false
 
         leftViewContainer!.addSubview(btnMoreSettings)
+//        btnMoreSettings.leadingAnchor.constraint(equalTo: leftViewContainer!.leadingAnchor, constant: 0).isActive = true
     }
     
     private func addPlusButton() {
+        let rightViewFrame = CGRect(x:0, y:0, width: 60, height:40)
+        rightViewContainer = IGTappableView(frame: rightViewFrame)
+        rightViewContainer!.backgroundColor = UIColor.clear
+        let rightBarButton = UIBarButtonItem(customView: rightViewContainer!)
+        self.rightBarButtonItem = rightBarButton
         
-        
-        if rightViewContainer?.subviews.count != nil {
-            if rightViewContainer!.subviews.count > 0 {
-                
-                rightViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-                
-            }
-            
-        }
         let callListViewFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
         let callListButtonImageView = UIImageView(frame: callListViewFrame)
         
@@ -688,7 +660,7 @@ class IGNavigationItem: UINavigationItem {
         callListButtonImageView.removeFromSuperview()
         
         rightViewContainer!.addSubview(callListButtonImageView)
-        
+        callListButtonImageView.trailingAnchor.constraint(equalTo: rightViewContainer!.trailingAnchor, constant: 0).isActive = true
     }
     
     //MARK: - Discovery
@@ -698,41 +670,34 @@ class IGNavigationItem: UINavigationItem {
 //        addFavoriteButton()
 //        addScoreButton()
         //Hint: - remove this line if u want to show navbar item in discovery
-        removeNavButtons()
+//        removeNavButtons()
         addiGapLogo()
     }
     
     
     private func addFavoriteButton() {
-        if leftViewContainer?.subviews.count != nil {
-            
-            if leftViewContainer!.subviews.count > 0 {
-                
-                leftViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-                
-            }
-            
-        }
+        let leftViewFrame = CGRect(x: 0, y: 0, width: 50, height: 40)
+        leftViewContainer = IGTappableView(frame: leftViewFrame)
+        leftViewContainer!.backgroundColor = UIColor.clear
+        let leftBarButton = UIBarButtonItem(customView: leftViewContainer!)
+        self.leftBarButtonItem = leftBarButton
+        
         let settingViewFrame =  CGRect(x: 0, y: 0, width: 40, height: 40)
         let settingButtonImageView = UIImageView(frame: settingViewFrame)
         
         settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Flag")
         settingButtonImageView.removeFromSuperview()
         leftViewContainer!.addSubview(settingButtonImageView)
-        
-        
+//        settingButtonImageView.leadingAnchor.constraint(equalTo: leftViewContainer!.leadingAnchor, constant: 0).isActive = true
     }
     
     private func addScoreButton() {
+        let rightViewFrame = CGRect(x:0, y:0, width: 60, height:40)
+        rightViewContainer = IGTappableView(frame: rightViewFrame)
+        rightViewContainer!.backgroundColor = UIColor.clear
+        let rightBarButton = UIBarButtonItem(customView: rightViewContainer!)
+        self.rightBarButtonItem = rightBarButton
         
-        if rightViewContainer?.subviews.count != nil {
-            if rightViewContainer!.subviews.count > 0 {
-                
-                rightViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-                
-            }
-            
-        }
         let composeButtonFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
         let composeButtonImageView = UIImageView(frame: composeButtonFrame)
         
@@ -740,19 +705,16 @@ class IGNavigationItem: UINavigationItem {
         composeButtonImageView.removeFromSuperview()
         
         rightViewContainer!.addSubview(composeButtonImageView)
-        
+        composeButtonImageView.trailingAnchor.constraint(equalTo: rightViewContainer!.trailingAnchor, constant: 0).isActive = true
     }
     
     //MARK: - Chat List
     func setChatListsNavigationItems() {
-        deactivateTappbleArea()
-        activeTappleArea()
-        addSettingButton()
+//        addSettingButton()
         addComopseButton()
         addiGapLogo()
-        activeTappleArea()
-
     }
+    
     private func removeSettingButton() {
         
     }
@@ -784,22 +746,6 @@ class IGNavigationItem: UINavigationItem {
             titleView.addSubview(btnLogo)
             
             self.titleView = titleView
-        }
-        else if IGTabBarController.currentTabStatic == .Contact  {
-            
-            let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 40))
-            let btnLogo = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
-            if lastLang == "fa" {
-                btnLogo.setTitle("", for: .normal)
-
-            } else if lastLang == "en" {
-                btnLogo.setTitle("", for: .normal)
-            }
-            btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 60)
-
-            titleView.addSubview(btnLogo)
-
-            self.titleView = titleView
             
         } else {
             //Hint: call top code block again, because we want show iGap logo for all tabs
@@ -815,44 +761,6 @@ class IGNavigationItem: UINavigationItem {
 
             titleView.addSubview(btnLogo)
             self.titleView = titleView
-            
-            /*
-             var title = ""
-             var width: Double!
-             
-             if IGTabBarController.currentTabStatic == .Dashboard {
-             title = "Dashboard"
-             width = 100
-             } else if IGTabBarController.currentTabStatic == .Call {
-             title = "Calls History"
-             width = 110
-             }
-             
-             /*
-             if IGTabBarController.currentTabStatic == .Chat {
-             title = "Chats"
-             width = 60
-             } else if IGTabBarController.currentTabStatic == .Group {
-             title = "Groups"
-             width = 65
-             } else if IGTabBarController.currentTabStatic == .Channel {
-             title = "Channels"
-             width = 80
-             } else if IGTabBarController.currentTabStatic == .Call {
-             title = "Calls History"
-             width = 110
-             }
-             */
-             
-             let titleView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 40))
-             let lableView = UILabel(frame: CGRect(x: 0, y: 8, width: width, height: 23))
-             lableView.text = title
-             lableView.textColor = UIColor.iGapBarsInfo()
-             lableView.font = UIFont.systemFont(ofSize: 17.0, weight: UIFont.Weight.bold)
-             
-             titleView.addSubview(lableView)
-             self.titleView = titleView
-             */
         }
     }
     //MARK: - Messages View
@@ -927,11 +835,18 @@ class IGNavigationItem: UINavigationItem {
     private func initilizeNavigationBarForRoom(_ room: IGRoom) {}
     
     private func setRoomAvatar(_ room: IGRoom) {
+        let rightViewFrame = CGRect(x: 0, y: 0, width: 60, height: 40)
+        rightViewContainer = IGTappableView(frame: rightViewFrame)
+        rightViewContainer!.backgroundColor = UIColor.clear
+        let rightBarButton = UIBarButtonItem(customView: rightViewContainer!)
+        self.rightBarButtonItem = rightBarButton
+        
         let avatarViewFrame = CGRect(x: 0, y: 0, width: 35, height:35)
         
         let avatarView = IGAvatarView(frame: avatarViewFrame)
         avatarView.setRoom(room)//removed show main avatar if u want it back put it in here
         rightViewContainer!.addSubview(avatarView)
+        avatarView.trailingAnchor.constraint(equalTo: rightViewContainer!.trailingAnchor, constant: 0).isActive = true
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
             self.setRoomAvatar(room)

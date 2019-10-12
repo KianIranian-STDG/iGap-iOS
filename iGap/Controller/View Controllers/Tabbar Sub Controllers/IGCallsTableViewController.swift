@@ -69,42 +69,30 @@ class IGCallsTableViewController: BaseTableViewController {
                                                    object: nil)
         }
         callTypes = IGPSignalingGetLog.IGPFilter.allCases
-//        addCollectionFilterView()
+
+        initNavigationBar()
     }
     
-    private func initNavigationBar(){
-        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+    override func viewDidAppear(_ animated: Bool) {
+        let firstIndex = IndexPath(item: 0, section: 0)
+        self.transactionTypesCollectionView.scrollToItem(at: firstIndex, at: .centeredHorizontally, animated: false)
+        let selectedIndex = IndexPath(item: self.selectedIndex, section: 0)
+        transactionTypesCollectionView.selectItem(at: selectedIndex, animated: false, scrollPosition: [])
+    }
+    
+    private func initNavigationBar() {
+        let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.setCallListNavigationItems()
         self.hideKeyboardWhenTappedAround()
         
         navigationItem.rightViewContainer?.addAction {
             self.goToContactListPage()
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            navigationItem.leftViewContainer?.addAction {
-                if !(self.callLogList!.count == 0) {
-                    
-                    self.showClearHistoryActionSheet()
-                }
+        navigationItem.leftViewContainer?.addAction {
+            if !(self.callLogList!.count == 0) {
+                self.showClearHistoryActionSheet()
             }
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        initNavigationBar()
-
-//        self.tableView.isUserInteractionEnabled = true
-    }
-    override func viewDidLayoutSubviews() {
-        let firstIndex = IndexPath(item: 0, section: 0)
-        self.transactionTypesCollectionView.scrollToItem(at: firstIndex, at: .centeredHorizontally, animated: false)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        let firstIndex = IndexPath(item: 0, section: 0)
-        transactionTypesCollectionView.selectItem(at: firstIndex, animated: false, scrollPosition: [])
     }
 
     private func addCollectionFilterView() -> UIView {
@@ -163,7 +151,7 @@ class IGCallsTableViewController: BaseTableViewController {
             switch changes {
                 
             case .initial:
-                self.tableView.reloadWithAnimation()
+                self.tableView.reloadData()
                 break
                 
             case .update(_, let deletions, let insertions, let modifications):
@@ -204,7 +192,6 @@ class IGCallsTableViewController: BaseTableViewController {
     
     private func showClearHistoryActionSheet() {
         var actionTitle: String!
-        title = ""
         actionTitle = "CLEAR_HISTORY".localizedNew
         let deleteConfirmAlertView = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let deleteAction = UIAlertAction(title: actionTitle , style:.default , handler: { (action) in
@@ -262,10 +249,10 @@ class IGCallsTableViewController: BaseTableViewController {
     }
     
     private func goToContactListPage() {
-        let storyboard : UIStoryboard = UIStoryboard(name: "CreateRoom", bundle: nil)
-        let contactList : IGContactListTableViewController? = (storyboard.instantiateViewController(withIdentifier: "IGContactListTableViewController") as! IGContactListTableViewController)
-        contactList!.forceCall = true
-        self.navigationController!.pushViewController(contactList!, animated: true)
+        let contactList = IGContactListTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
+        contactList.forceCall = true
+        contactList.hidesBottomBarWhenPushed = true
+        self.navigationController!.pushViewController(contactList, animated: true)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -288,7 +275,7 @@ class IGCallsTableViewController: BaseTableViewController {
         
         cell.setCallLog(callLog: callLogList![indexPath.row])
         
-        cell.separatorInset = UIEdgeInsets(top: 0, left: 82.0, bottom: 0, right: 0)
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
         cell.layoutMargins = UIEdgeInsets.zero
         
         return cell
@@ -329,7 +316,6 @@ class IGCallsTableViewController: BaseTableViewController {
 //    }
     private func sendClearOneRowRequest(rowID: Int64!) {
 
-
         SMLoading.showLoadingPage(viewcontroller: self)
         IGSignalingClearLogRequest.Generator.generate(logIDArray: [rowID]).success({ (protoResponse) in
             DispatchQueue.main.async {
@@ -366,6 +352,12 @@ class IGCallsTableViewController: BaseTableViewController {
         deleteAction.backgroundColor = .red
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
+    
+    // MARK: - Prepare for segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        segue.destination.hidesBottomBarWhenPushed = true
+    }
+    
 }
 
 
@@ -514,7 +506,7 @@ extension IGCallsTableViewController: UICollectionViewDataSource, UICollectionVi
         }
         
         updateObserver(mode: currentMode)
-        self.tableView.reloadData()
+//        self.tableView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

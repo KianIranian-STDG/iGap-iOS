@@ -34,13 +34,12 @@ class BaseTableViewController: UITableViewController, UIGestureRecognizerDelegat
     var TextAlignment: NSTextAlignment {
         return isAppEnglish ? .left : .right
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         self.hideKeyboardWhenTappedAround()
     }
-
     
     public func setDirectionManually(direction: UISemanticContentAttribute)  {
         UIView.appearance().semanticContentAttribute = direction

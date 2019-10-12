@@ -62,8 +62,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
 //        self.view.layer.insertSublayer(gradient, at: 0)
 //        self.view.clipsToBounds = true
     }
-    
-    
+
     override func popViewController(animated: Bool) -> UIViewController? {
         let numberOfPages = super.viewControllers.count
         if numberOfPages == 2  {

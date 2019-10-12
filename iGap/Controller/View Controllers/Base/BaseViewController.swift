@@ -34,8 +34,8 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         return isAppEnglish ? .left : .right
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         self.hideKeyboardWhenTappedAround()
     }

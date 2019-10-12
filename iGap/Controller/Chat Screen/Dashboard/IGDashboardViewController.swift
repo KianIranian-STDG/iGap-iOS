@@ -64,24 +64,23 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
             getDiscoveryList()
         }
         
+        if isDashboardInner! {
+            self.initNavigationBar(title: nil, rightItemText: nil) { }
+        } else {
+            self.initDashboardNavigationBar()
+        }
+        
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_DISCOVERY_PAGE)
         initFont()
+        
+        self.hidesBottomBarWhenPushed = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
         IGDashboardViewController.discoveryObserver = self
         let navigationControllerr = self.navigationController as! IGNavigationController
         navigationControllerr.navigationBar.isHidden = false
-
-        if isDashboardInner! {
-            self.initNavigationBar(title: nil, rightItemText: nil) {
-            }
-        } else {
-            let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
-            navigationItem.setDiscoveriesNavigationItems()
-            self.hideKeyboardWhenTappedAround()
-
-        }
+        
         collectionView.reloadData()
         initFont()
     }
@@ -97,10 +96,9 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
 //        }
 //    }
     
-    private func initNavigationBar() {
-        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+    private func initDashboardNavigationBar() {
+        let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.setDiscoveriesNavigationItems()
-        self.hideKeyboardWhenTappedAround()
     }
 
     
@@ -177,8 +175,11 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 
                 
                 DispatchQueue.main.async {
-                    let navigationItem = self.navigationItem as! IGNavigationItem
-                    navigationItem.addNavigationViewItems(rightItemText: nil, title: response.igpTitle)
+                    if isDashboardInner! {
+                        let navigationItem = self.navigationItem as! IGNavigationItem
+                        navigationItem.addNavigationViewItems(rightItemText: nil, title: response.igpTitle)
+                    }
+                    
                     self.collectionView.reloadData()
                 }
             }
@@ -232,8 +233,10 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 }
                 
                 DispatchQueue.main.async {
-                    let navigationItem = self.navigationItem as! IGNavigationItem
-                    navigationItem.addNavigationViewItems(rightItemText: nil, title: response.igpTitle)
+                    if isDashboardInner! {
+                        let navigationItem = self.navigationItem as! IGNavigationItem
+                        navigationItem.addNavigationViewItems(rightItemText: nil, title: response.igpTitle)
+                    }
                     
                     if self.deepLinkDiscoveryIds != nil, self.deepLinkDiscoveryIds!.count > 0 {
                         for discovery in self.discoveries {
@@ -494,5 +497,10 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
+    }
+    
+    // MARK: - Prepare for segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        segue.destination.hidesBottomBarWhenPushed = true
     }
 }

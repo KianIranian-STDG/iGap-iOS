@@ -13,7 +13,7 @@ import SwiftProtobuf
 import RealmSwift
 import IGProtoBuff
 
-class IGCallListTableViewCell: UITableViewCell {
+class IGCallListTableViewCell: BaseTableViewCell {
     
     @IBOutlet weak var avatarView: IGAvatarView!
     @IBOutlet weak var contactName: UILabel!
@@ -59,6 +59,7 @@ class IGCallListTableViewCell: UITableViewCell {
         }
         
         contactName.text = user?.displayName
+        contactName.textAlignment = self.appTextAlignment
         offerTime.text = callLog.offerTime.completeHumanReadableTime().inLocalizedLanguage()
         
         setState(callLog: callLog)
@@ -111,15 +112,8 @@ class IGCallListTableViewCell: UITableViewCell {
     private func convertDurationToHour(duration: Int32) -> String{
         let minute = String(format: "%02d", Int(duration / 60))
         let seconds = String(format: "%02d", Int(duration % 60))
-        return minute+":"+seconds
+        return minute + ":" + seconds
     }
 }
-
-
-
-
-
-
-
 
 

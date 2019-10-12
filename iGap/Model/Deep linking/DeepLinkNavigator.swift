@@ -179,7 +179,7 @@ class DeeplinkNavigator {
             chatPage.room = igRoom
             chatPage.deepLinkMessageId = messageId
             UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
-            UIApplication.topViewController()?.navigationController?.setNavigationBarHidden(false, animated: true)
+//            UIApplication.topViewController()?.navigationController?.setNavigationBarHidden(false, animated: true)
         } else {
             IGGlobal.prgShow()
             IGClientGetRoomHistoryRequest.Generator.generatePowerful(roomID: igRoom.id, firstMessageID: messageId, reachMessageId: 0, limit: 1, direction: .up, onMessageReceive: { (messages, direction) in
@@ -205,7 +205,7 @@ class DeeplinkNavigator {
                     chatPage.room = room
                     chatPage.deepLinkMessageId = messageId
                     UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
-                    UIApplication.topViewController()?.navigationController?.setNavigationBarHidden(false, animated: true)
+//                    UIApplication.topViewController()?.navigationController?.setNavigationBarHidden(false, animated: true)
                 }
             }).error({ (errorCode, waitTime) in
                 DispatchQueue.main.async {
