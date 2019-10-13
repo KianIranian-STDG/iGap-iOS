@@ -84,7 +84,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A7d-MR-4hA" customClass="AKMaskField" customModule="AKMaskField">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A7d-MR-4hA" customClass="AKMaskField" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="106" y="264" width="272" height="40"/>
                                 <color key="backgroundColor" name="IGTextFieldBackGround"/>
                                 <constraints>
@@ -119,7 +119,7 @@
                         <outlet property="btnChooseCountry" destination="Q5q-v6-ERB" id="L8d-sh-nIc"/>
                         <outlet property="edtFirstName" destination="K8x-3C-vuJ" id="ikX-yM-Mcu"/>
                         <outlet property="edtLastName" destination="sjQ-vH-qf2" id="t6t-T8-UVQ"/>
-                        <outlet property="edtPhoneNumber" destination="A7d-MR-4hA" id="IUx-l2-w4i"/>
+                        <outlet property="tfPhoneNUmber" destination="A7d-MR-4hA" id="dxi-d7-nfo"/>
                         <outlet property="txtCountryCode" destination="qkJ-ib-lGd" id="W3i-QV-jiy"/>
                     </connections>
                 </viewController>
