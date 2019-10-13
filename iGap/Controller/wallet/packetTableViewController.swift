@@ -487,6 +487,9 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
