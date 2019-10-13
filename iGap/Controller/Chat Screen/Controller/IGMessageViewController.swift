@@ -5258,16 +5258,21 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         if indexOfMessage != nil {
             let indexPath = IndexPath(row: indexOfMessage!, section: 0)
             var previousIndexPath = indexPath
+            var futureIndexPath = indexPath
             previousIndexPath.row = indexPath.row + 1
+            futureIndexPath.row = indexPath.row - 1
             /* when 'previousIndexPath' is visible and user clicked on reply view 'indexPath' completely
              * is showing so JUST notify Position and DON'T call scroll to item
              */
-            if !self.collectionView.indexPathsForVisibleItems.contains(previousIndexPath) {
-                self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
-            }
             if setHighlite {
+                if !self.collectionView.indexPathsForVisibleItems.contains(previousIndexPath) {
+                    self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
+                }
                 notifyPosition(messageId: IGMessageViewController.highlightMessageId)
             } else {
+                if !self.collectionView.indexPathsForVisibleItems.contains(futureIndexPath) {
+                    self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
+                }
                 notifyPosition(messageId: IGMessageViewController.highlightReturnToMessageId)
             }
         } else {
