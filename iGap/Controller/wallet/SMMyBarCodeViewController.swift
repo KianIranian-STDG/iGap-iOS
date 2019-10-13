@@ -153,7 +153,17 @@ class SMMyBarCodeViewController: UIViewController {
         let transform = CGAffineTransform(scaleX: 3, y: 3)
         
         if let qrcodeImage = filter?.outputImage?.transformed(by: transform) {
-            barcodeImageView.image = UIImage(ciImage: qrcodeImage)
+            if #available(iOS 13.0, *) {
+                if self.traitCollection.userInterfaceStyle == .dark {
+                    barcodeImageView.image = UIImage(ciImage: qrcodeImage)
+                    
+                } else {
+                    barcodeImageView.image = UIImage(ciImage: qrcodeImage)
+                    
+                }
+            } else {
+                barcodeImageView.image = UIImage(ciImage: qrcodeImage)
+            }
         }
     }
 }

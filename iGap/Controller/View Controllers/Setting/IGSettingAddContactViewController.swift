@@ -16,7 +16,7 @@ class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepS
     @IBOutlet weak var edtFirstName: UITextField!
     @IBOutlet weak var edtLastName: UITextField!
     @IBOutlet weak var txtCountryCode: UILabel!
-    @IBOutlet weak var edtPhoneNumber: AKMaskField!
+    @IBOutlet weak var tfPhoneNUmber : AKMaskField!
     @IBOutlet weak var btnChooseCountry: UIButton!
     static var reloadAfterAddContact: Bool = false
     
@@ -29,7 +29,7 @@ class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        edtPhoneNumber.setMask("{ddddddddddddddddddddddddd}", withMaskTemplate: "_________________________")
+        tfPhoneNUmber.setMask("{ddddddddddddddddddddddddd}", withMaskTemplate: "_________________________")
 
         makeView()
         btnChooseCountry.setTitle("CHOOSE_COUNTRY".localizedNew, for: .normal)
@@ -82,7 +82,7 @@ class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepS
     
     private func addContact(){
         
-        if edtPhoneNumber != nil && !(edtPhoneNumber.text?.isEmpty)! && edtFirstName != nil && !(edtFirstName.text?.isEmpty)!  {
+        if tfPhoneNUmber != nil && !(tfPhoneNUmber.text?.isEmpty)! && edtFirstName != nil && !(edtFirstName.text?.isEmpty)!  {
             // continue
         } else {
             return
@@ -93,7 +93,7 @@ class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepS
             lastName = edtLastName.text!
         }
         
-        let contact = IGContact(phoneNumber: "\(txtCountryCode.text!)\(edtPhoneNumber.text!)", firstName: edtFirstName.text, lastName: lastName)
+        let contact = IGContact(phoneNumber: "\(txtCountryCode.text!)\(tfPhoneNUmber.text!)", firstName: edtFirstName.text, lastName: lastName)
         IGUserContactsImportRequest.Generator.generate(contacts: [contact], force: true).success({ (protoResponse) in
             DispatchQueue.main.async {
                 if let contactImportResponse = protoResponse as? IGPUserContactsImportResponse {
@@ -150,7 +150,7 @@ class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepS
         } else {
             let codePatternMask = "{ddddddddddddddddddddddddd}"
             let codePatternTemplate = "_________________________"
-            edtPhoneNumber.setMask(codePatternMask, withMaskTemplate: codePatternTemplate)
+            tfPhoneNUmber.setMask(codePatternMask, withMaskTemplate: codePatternTemplate)
         }
     }
     

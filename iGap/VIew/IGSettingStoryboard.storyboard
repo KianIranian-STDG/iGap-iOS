@@ -4119,8 +4119,6 @@ Please wait 0:59</string>
                         <outlet property="btnChooseCountry" destination="HyI-1d-fPt" id="Qs1-0Z-jRa"/>
                         <outlet property="edtFirstName" destination="JbP-tu-Rxg" id="pel-45-Utz"/>
                         <outlet property="edtLastName" destination="dAf-nf-daQ" id="0ss-2M-fVZ"/>
-                        <outlet property="edtPhoneNumber" destination="IPk-aI-YDy" id="Q47-FQ-CMk"/>
-                        <outlet property="txtCountryCode" destination="bVc-JZ-nLF" id="waS-9y-eGj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xFF-G9-kLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4251,7 +4249,7 @@ Please wait 0:59</string>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ported Subscriber Disable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWZ-ks-WND">
-                                <rect key="frame" x="101" y="118.33333333333333" width="194" height="26.666666666666671"/>
+                                <rect key="frame" x="100.99999999999999" y="118.33333333333333" width="197.66666666666663" height="26.666666666666671"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
