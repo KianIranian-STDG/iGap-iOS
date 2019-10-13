@@ -54,8 +54,13 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
         var title : String = "CHANNEL_TITLE"
         if room!.type == .channel {
             title = "CHANNEL_TITLE"
+            self.tfDescriptionOfRoom.placeholder = "CHANNELDESC".localizedNew
+            self.tfNameOfRoom.placeholder = "CHANNEL_NAME".localizedNew
+
         } else {
             title = "GROUP_TITLE"
+            self.tfDescriptionOfRoom.placeholder = "GROUPDESC".localizedNew
+            self.tfNameOfRoom.placeholder = "GROUPNAME".localizedNew
         }
         self.initNavigationBar(title: title.localizedNew,rightItemText: "", iGapFont: true) {
             if self.room?.type == .channel {
