@@ -90,7 +90,6 @@ This is the option to choose a photo from your gallery and send it to someone el
 	<array>
 		<string>audio</string>
 		<string>fetch</string>
-		<string>remote-notification</string>
 		<string>voip</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

@@ -391,7 +391,11 @@ Please wait 0:59</string>
                                         <constraint firstAttribute="height" constant="1" id="dH5-5z-ePV"/>
                                     </constraints>
                                 </view>
+<<<<<<< Updated upstream
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your name and add a profile picture" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OvA-mP-2VM">
+=======
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your name and add a profile picture" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OvA-mP-2VM" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+>>>>>>> Stashed changes
                                     <rect key="frame" x="0.0" y="101" width="375" height="20.5"/>
                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                     <nil key="textColor"/>
@@ -409,8 +413,13 @@ Please wait 0:59</string>
                                     <color key="textColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+<<<<<<< Updated upstream
                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2n6-1W-S0j">
                                     <rect key="frame" x="107.5" y="622" width="160" height="30"/>
+=======
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2n6-1W-S0j">
+                                    <rect key="frame" x="107.5" y="331.5" width="160" height="30"/>
+>>>>>>> Stashed changes
                                     <color key="backgroundColor" red="0.3411764706" green="0.72941176470000002" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="2Br-Ye-qH5"/>
@@ -421,6 +430,7 @@ Please wait 0:59</string>
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                 </button>
+<<<<<<< Updated upstream
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Referral" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jaH-Kj-95i" customClass="AKMaskField" customModule="iGap" customModuleProvider="target">
                                     <rect key="frame" x="111" y="572" width="241" height="30"/>
                                     <color key="textColor" name="IGLabelColor"/>
@@ -436,6 +446,10 @@ Please wait 0:59</string>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XAv-F7-A4N">
                                     <rect key="frame" x="272" y="187" width="80" height="80"/>
+=======
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Reg_Select_Image" translatesAutoresizingMaskIntoConstraints="NO" id="XAv-F7-A4N">
+                                    <rect key="frame" x="262" y="187" width="80" height="80"/>
+>>>>>>> Stashed changes
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="XAv-F7-A4N" secondAttribute="height" multiplier="1:1" id="oxz-Q9-ZcC"/>
                                         <constraint firstAttribute="width" constant="80" id="srq-i7-JYU"/>
@@ -861,7 +875,7 @@ Please wait 0:59</string>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.54188939140000003" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="noy-pI-c1d" firstAttribute="top" secondItem="bvG-fS-UPf" secondAttribute="top" id="Cqf-Q0-1tC"/>
                                     <constraint firstItem="noy-pI-c1d" firstAttribute="leading" secondItem="bvG-fS-UPf" secondAttribute="leading" id="DQU-Ce-Dre"/>

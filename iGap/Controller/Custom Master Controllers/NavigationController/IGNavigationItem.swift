@@ -57,7 +57,7 @@ class IGNavigationItem: UINavigationItem {
 //        rightViewContainer!.backgroundColor = UIColor.clear
 //        let rightBarButton = UIBarButtonItem(customView: rightViewContainer!)
 //        self.rightBarButtonItem = rightBarButton
-        returnToCallMethod()
+//        returnToCallMethod()
     }
     
     //MARK: - Connecting
@@ -69,40 +69,40 @@ class IGNavigationItem: UINavigationItem {
         setNavigationItemWithCenterActivityIndicator(text: "WAITING_NETWORK".localizedNew)
     }
     
-    private func returnToCallMethod(){
-        
-        if !IGCall.callPageIsEnable {
-            return
-        }
-        
-        self.returnToCall = IGTappableView(frame: CGRect(x: 0, y: 0, width: 140, height: 35))
-        self.titleView = self.returnToCall
-        
-        self.returnToCall?.backgroundColor = UIColor.returnToCall()
-        self.returnToCall?.layer.cornerRadius = 15
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
-        label.textAlignment = .center
-        label.textColor = UIColor.iGapBarsInfo()
-        label.text = "RETURN_TO_CALL".localizedNew
-        self.titleView?.addSubview(label)
-        
-        self.titleView?.snp.makeConstraints { (make) in
-            make.width.equalTo(150)
-            make.height.equalTo(30)
-        }
-        
-        label.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.titleView!.snp.centerX)
-            make.centerY.equalTo(self.titleView!.snp.centerY)
-        }
-        
-        self.returnToCall?.addAction {
-            if IGCall.staticReturnToCall != nil {
-                IGCall.staticReturnToCall.returnToCall()
-            }
-        }
-    }
+//    private func returnToCallMethod(){
+//
+//        if !IGCall.callPageIsEnable {
+//            return
+//        }
+//
+//        self.returnToCall = IGTappableView(frame: CGRect(x: 0, y: 0, width: 140, height: 35))
+//        self.titleView = self.returnToCall
+//
+//        self.returnToCall?.backgroundColor = UIColor.returnToCall()
+//        self.returnToCall?.layer.cornerRadius = 15
+//        let label = UILabel()
+//        label.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
+//        label.textAlignment = .center
+//        label.textColor = UIColor.iGapBarsInfo()
+//        label.text = "RETURN_TO_CALL".localizedNew
+//        self.titleView?.addSubview(label)
+//
+//        self.titleView?.snp.makeConstraints { (make) in
+//            make.width.equalTo(150)
+//            make.height.equalTo(30)
+//        }
+//
+//        label.snp.makeConstraints { (make) in
+//            make.centerX.equalTo(self.titleView!.snp.centerX)
+//            make.centerY.equalTo(self.titleView!.snp.centerY)
+//        }
+//
+//        self.returnToCall?.addAction {
+//            if IGCall.staticReturnToCall != nil {
+//                IGCall.staticReturnToCall.returnToCall()
+//            }
+//        }
+//    }
     
     private func setNavigationItemWithCenterActivityIndicator(text: String) {
         
@@ -368,12 +368,12 @@ class IGNavigationItem: UINavigationItem {
         }
 
     }
+    
     func addNavigationBackItem() {
         //self.hidesBackButton = true
         let backViewFrame = CGRect(x:0, y:0, width: 50, height:50)
         backViewContainer = IGTappableView(frame: backViewFrame)
         backViewContainer!.backgroundColor = UIColor.clear
-        let backArrowImageView = UIImageView(frame: CGRect(x: 5, y: 10, width: 25, height: 25))
         let backArrowLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         
         backArrowLabel.font = UIFont.iGapFonticon(ofSize: 25)
@@ -381,8 +381,7 @@ class IGNavigationItem: UINavigationItem {
 
         if IGGlobal.shouldMultiSelect {
             backArrowLabel.text = ""
-        }
-        else {
+        } else {
             backArrowLabel.text = ""
         }
         backViewContainer?.addSubview(backArrowLabel)
@@ -391,7 +390,6 @@ class IGNavigationItem: UINavigationItem {
         self.title = ""
         
         backViewContainer?.addAction {
-
             IGGlobal.shouldShowChart = false
             self.backViewContainer?.isUserInteractionEnabled = false
             let numberOfPages = self.navigationController?.viewControllers.count
@@ -402,13 +400,6 @@ class IGNavigationItem: UINavigationItem {
                     IGGlobal.shouldMultiSelect = false
                     isDashboardInner = false
                     currentPageName = ""
-//                    if currentTabIndex == 4 {// means profile page
-//                        if let navigationBar = self.navigationController?.navigationBar as? IGNavigationBar {
-//                            navigationBar.setTransparentNavigationBar()
-//                            navigationBar.isHidden = true
-//                            navigationBar.backgroundColor = .clear
-//                        }
-//                    }
                     
                     _ = self.navigationController?.popViewController(animated: true)
 
@@ -784,9 +775,9 @@ class IGNavigationItem: UINavigationItem {
             setRoomAvatar(room)
             setRoomInfo(room)
             addNavigationBackItem()
-            
         }
     }
+    
     func setNavigationBarForProfileRoom(_ room: IGRoom.IGType,id:Int64? = nil , groupRole : IGGroupMember.IGRole? = nil , channelRole : IGChannelMember.IGRole? = nil,roomValue: IGRoom? = nil) {
         addNavigationLeftButtonsProfileItem(room, id: id ,groupRole: groupRole ,channelRole: channelRole,roomValue:roomValue)
     }
@@ -847,6 +838,7 @@ class IGNavigationItem: UINavigationItem {
     private func initilizeNavigationBarForRoom(_ room: IGRoom) {}
     
     private func setRoomAvatar(_ room: IGRoom) {
+        self.rightBarButtonItem = nil
         let rightViewFrame = CGRect(x: 0, y: 0, width: 60, height: 40)
         rightViewContainer = IGTappableView(frame: rightViewFrame)
         rightViewContainer!.backgroundColor = UIColor.clear
@@ -859,10 +851,6 @@ class IGNavigationItem: UINavigationItem {
         avatarView.setRoom(room)//removed show main avatar if u want it back put it in here
         rightViewContainer!.addSubview(avatarView)
         avatarView.trailingAnchor.constraint(equalTo: rightViewContainer!.trailingAnchor, constant: 0).isActive = true
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-            self.setRoomAvatar(room)
-        }
     }
     
     private func setRoomInfo(_ room: IGRoom) {

@@ -91,8 +91,8 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
                             
                             print(SMLangUtil.currentAppleLanguage())
 
-                            self.recoverTypeArray.append(IGStringsManager.GLOBAL_EMAIL)
-                            self.recoverTypeArray.append(IGStringsManager.GLOBAL_SECURITY_QUESTIONS)
+                            self.recoverTypeArray.append(IGStringsManager.GLOBAL_EMAIL.localized)
+                            self.recoverTypeArray.append(IGStringsManager.GLOBAL_SECURITY_QUESTIONS.localized)
                         } else {
                             print(SMLangUtil.currentAppleLanguage())
                             
@@ -103,7 +103,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
 
 //                            IGGlobal.setLanguage()
 
-                            self.recoverTypeArray.append(IGStringsManager.GLOBAL_SECURITY_QUESTIONS)
+                            self.recoverTypeArray.append(IGStringsManager.GLOBAL_SECURITY_QUESTIONS.localized)
                             print(self.recoverTypeArray)
 
                         }
@@ -257,11 +257,12 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
             preferredStyle: .actionSheet
         )
         
-        let cancel = UIAlertAction(title: IGStringsManager.GLOBAL_CANCEL, style: .default, handler: nil)
-        let email = UIAlertAction(title: IGStringsManager.GLOBAL_EMAIL, style: .default, handler: { _ in
+//        let cancel = UIAlertAction(title: IGStringsManager.GLOBAL_CANCEL.localized, style: .default, handler: nil)
+        let cancel = UIAlertAction(title: NSLocalizedString("GLOBAL_CANCEL", comment: ""), style: .default, handler: nil)
+        let email = UIAlertAction(title: IGStringsManager.GLOBAL_EMAIL.localized, style: .default, handler: { _ in
             
         })
-        let secQ = UIAlertAction(title: IGStringsManager.GLOBAL_SECURITY_QUESTIONS, style: .default, handler: { _ in
+        let secQ = UIAlertAction(title: IGStringsManager.GLOBAL_SECURITY_QUESTIONS.localized, style: .default, handler: { _ in
             let storyboard : UIStoryboard = UIStoryboard(name: "Register", bundle: nil)
             let secQVC = storyboard.instantiateViewController(withIdentifier: "IGRegistrationSecurityQuestions") as! IGRegisttrationStepSecurityQuestions
             secQVC.secQOne = self.secQOne

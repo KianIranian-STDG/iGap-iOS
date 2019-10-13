@@ -41,11 +41,11 @@ class IGRegisttrationStepSecurityQuestions: UIViewController,UIGestureRecognizer
     func initView() {
 //        IGGlobal.setLanguage()
         
-        lblHeader.text = IGStringsManager.RGP_MSG_SECURITYHEADER
-        lblSecQOne.text = IGStringsManager.RGP_SECURITYQUESTION_ONE + "\n" + secQOne
-        lblSecQTwo.text = IGStringsManager.RGP_SECURITYQUESTION_TWO + "\n" + secQTwo
+        lblHeader.text = IGStringsManager.RGP_MSG_SECURITYHEADER.localized
+        lblSecQOne.text = IGStringsManager.RGP_SECURITYQUESTION_ONE.localized + "\n" + secQOne
+        lblSecQTwo.text = IGStringsManager.RGP_SECURITYQUESTION_TWO.localized + "\n" + secQTwo
         
-        btnSubmit.setTitle(IGStringsManager.GLOBALOK, for: .normal)
+        btnSubmit.setTitle(IGStringsManager.GLOBALOK.localized, for: .normal)
         btnSubmit.titleLabel?.font = UIFont.igFont(ofSize: 15)
         btnSubmit.layer.cornerRadius = 10
         directionManager()
@@ -55,7 +55,7 @@ class IGRegisttrationStepSecurityQuestions: UIViewController,UIGestureRecognizer
     }
     func initNavigation() {
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.GLOBAL_SECURITY_QUESTIONS)
+        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.GLOBAL_SECURITY_QUESTIONS.localized)
         
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
@@ -81,7 +81,7 @@ class IGRegisttrationStepSecurityQuestions: UIViewController,UIGestureRecognizer
     //actions
     @IBAction func didTapOnSubmit(_ sender: Any) {
         if (tfSecQOne.text == "" || tfSecQOne.text!.isEmpty) || (tfSecQTwo.text == "" || tfSecQTwo.text!.isEmpty) {
-            IGHelperAlert.shared.showAlert(view: self,message: IGStringsManager.RGP_MSG_ANSWERS_WAS_EMPTY)
+            IGHelperAlert.shared.showAlert(view: self,message: IGStringsManager.RGP_MSG_ANSWERS_WAS_EMPTY.localized)
 //            IGHelperAlert.shared.showAlert(view: self,message: IGStringsManager.RGP_MSG_ANSWERS_WAS_WRONG)
 
         } else {

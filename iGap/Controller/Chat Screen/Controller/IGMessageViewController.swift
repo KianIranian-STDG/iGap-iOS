@@ -58,7 +58,7 @@ class IGHeader: UICollectionReusableView {
     }
 }
 
-class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener , UITextFieldDelegate,HandleReciept,HandleBackNavigation {
+class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener, UITextFieldDelegate, HandleReciept, HandleBackNavigation {
 
     var selectedMessages : [IGRoomMessage] = []
     var sendTone: AVAudioPlayer?
@@ -183,7 +183,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var webViewProgressbar: UIActivityIndicatorView!
     var btnChangeKeyboard : UIButton!
     var doctorBotScrollView : UIScrollView!
-    private let disposeBag = DisposeBag()
     var latestTypeTime : Int64 = IGGlobal.getCurrentMillis()
     var allowForGetHistory: Bool = true
     var recorder: AVAudioRecorder?
@@ -330,9 +329,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         
         if state {
-            
             if isForward! {
-                
                 UIView.transition(with: self.inputTextView, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {
                     self.inputTextView.isHidden = true
                     self.txtSticker.isHidden = true
@@ -434,12 +431,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             inputBarForwardButton.isEnabled = false
         }
     }
+    
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
 //        inputTextView.backgroundColor = .red
         let attributes = [
-            NSAttributedString.Key.foregroundColor : UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue) ?? #colorLiteral(red: 0.6784313725, green: 0.6784313725, blue: 0.6784313725, alpha: 1) ,
+            NSAttributedString.Key.foregroundColor : UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue) ?? #colorLiteral(red: 0.6784313725, green: 0.6784313725, blue: 0.6784313725, alpha: 1),
             NSAttributedString.Key.font : UIFont.igFont(ofSize: 13) // Note the !
         ]
 
@@ -533,13 +531,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
          */
         self.addNotificationObserverForTapOnStatusBar()
         var canBecomeFirstResponder: Bool { return true }
+        let navigationController = self.navigationController as! IGNavigationController
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.delegate = self
+        navigationItem.navigationController = navigationController
         navigationItem.setNavigationBarForRoom(room!)
-        navigationItem.navigationController = self.navigationController as? IGNavigationController
-        let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
-        //        self.navigationController?.interactivePopGestureRecognizer?.addTarget(self, action:#selector(self.handlePopGesture))
+//        self.navigationController?.interactivePopGestureRecognizer?.addTarget(self, action:#selector(self.handlePopGesture))
         navigationItem.rightViewContainer?.addAction {
             if self.room?.type == .chat {
                 self.selectedUserToSeeTheirInfo = (self.room?.chatRoom?.peer)!
@@ -575,7 +573,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             } else {
                 
             }
-            
         }
 //        if customizeBackItem {
 //            navigationItem.backViewContainer?.addAction {
@@ -1607,7 +1604,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         IGGlobal.isInChatPage = true
         IGMessageViewController.messageViewControllerObserver = self
         IGMessageViewController.additionalObserver = self

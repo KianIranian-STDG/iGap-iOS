@@ -25,6 +25,8 @@ class IGNavigationBar: UINavigationBar, UINavigationBarDelegate {
 //        self.layer.shadowOpacity = 0.35
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white ] // Title color
         UINavigationBar.appearance().tintColor = .white // Left. bar buttons
+        
+        
     }
         
     override func layoutSubviews() {

@@ -329,6 +329,10 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         initialiseSearchBar()
     }
     
+    override var shouldAutomaticallyForwardAppearanceMethods: Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         isfromPacket = false
@@ -434,11 +438,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         //self.addRoomChangeNotificationBlock()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.tableView.isUserInteractionEnabled = true
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.tableView.isUserInteractionEnabled = true
@@ -446,8 +445,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         if currentTabIndex == TabBarTab.Recent.rawValue {
             if let navigationBar = self.navigationController?.navigationBar {
                 navigationBar.backgroundColor = .clear
-
-
             }
 
         }
@@ -905,7 +902,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             })
         } else {
             performSegue(withIdentifier: "showRoomMessages", sender: self)
-            
         }
     }
     
@@ -915,14 +911,17 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         if (segue.identifier == "showRoomMessages") {
             
             let destination = segue.destination as! IGMessageViewController
+            destination.hidesBottomBarWhenPushed = true
             destination.room = selectedRoomForSegue
             
         } else if segue.identifier == "createANewGroup" {
             let destination = segue.destination as! IGNavigationController
+            destination.hidesBottomBarWhenPushed = true
             let chooseContactTv =  destination.topViewController as! IGChooseMemberFromContactsToCreateGroupViewController
             chooseContactTv.mode = "CreateGroup"
         } else if segue.identifier == "showReportPage" {
-            let report =  segue.destination as! IGReport
+            let report = segue.destination as! IGReport
+            report.hidesBottomBarWhenPushed = true
             report.room = selectedRoomForSegue
         }
     }

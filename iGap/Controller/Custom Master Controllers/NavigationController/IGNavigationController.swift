@@ -15,7 +15,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationBar.topItem?.backBarButtonItem?.setTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: 50), for: UIBarMetrics.default)
+//        self.navigationBar.topItem?.backBarButtonItem?.setTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: 50), for: UIBarMetrics.default)
         setNavigationGradient()
         configNavigationBar()
     }
@@ -34,17 +34,16 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
                         self.setNavigationGradient()
                     }
                 }
-                
             }
         } else {
             // Fallback on earlier versions
             if let navBar = self.navigationBar as? IGNavigationBar {
-                                if navBar.isTransparent {
-            //                        navBar.setTransparentNavigationBar()
-                                } else {
-                                    self.setNavigationGradient()
-                                }
-                            }
+                if navBar.isTransparent {
+//                    navBar.setTransparentNavigationBar()
+                } else {
+                    self.setNavigationGradient()
+                }
+            }
         }
     }
     
@@ -52,35 +51,19 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
         if let navigationBar = self.navigationBar as? IGNavigationBar {
             navigationBar.setGradientBackground(colors: [UIColor(named: themeColor.navigationFirstColor.rawValue)!, UIColor(named: themeColor.navigationSecondColor.rawValue)!], startPoint: .centerLeft, endPoint: .centerRight)
         }
-        
-//        let gradient: CAGradientLayer = CAGradientLayer()
-//        gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
-//        gradient.locations = [0.0 , 1.0]
-//        gradient.startPoint = CAGradientLayer.Point.centerLeft.point
-//        gradient.endPoint = CAGradientLayer.Point.centerRight.point
-//        gradient.frame = (self.view.layer.frame)
-//        self.view.layer.insertSublayer(gradient, at: 0)
-//        self.view.clipsToBounds = true
     }
 
     override func popViewController(animated: Bool) -> UIViewController? {
         let numberOfPages = super.viewControllers.count
         if numberOfPages == 2  {
             if currentTabIndex == TabBarTab.Profile.rawValue {
-//                if let navigationBar = self.navigationBar as? IGNavigationBar {
-//                    navigationBar.setTransparentNavigationBar()
-//                }
                 return super.popViewController(animated: animated)
             }
             else {
-//                self.navigationBar.isHidden = false
-
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName), object: nil)
                 return super.popViewController(animated: animated)
             }
-        }
-            
-        else {
+        } else {
             return super.popViewController(animated: animated)
         }
     }

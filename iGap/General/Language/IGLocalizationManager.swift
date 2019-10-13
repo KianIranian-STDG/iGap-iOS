@@ -87,7 +87,8 @@ enum Language: String {
 extension String {
     
     var localized: String {
-        return Bundle.localizedBundle.localizedString(forKey: self, value: nil, table: nil)
+//        return Bundle.localizedBundle.localizedString(forKey: self, value: nil, table: nil)
+        return NSLocalizedString(self, comment: "")
     }
     
     var localizedImage: UIImage? {
@@ -113,7 +114,7 @@ extension Bundle {
     //we take appropriate bundle according to language
     static var localizedBundle: Bundle {
         let languageCode = Language.language.rawValue
-        
+
         guard let path = Bundle.main.path(forResource: languageCode, ofType: "lproj") else {
             return Bundle.main
         }

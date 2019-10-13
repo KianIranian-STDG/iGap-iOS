@@ -855,9 +855,9 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
         tfDescriptionOfRoom.font = UIFont.igFont(ofSize: 15)
         tfChannelLink.font = UIFont.igFont(ofSize: 15)
         //Color
-        lblSignMessage.textColor = .black
-        lblChannelType.textColor = .black
-        lblChannelReaction.textColor = .black
+        lblSignMessage.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        lblChannelType.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        lblChannelReaction.textColor = UIColor(named: themeColor.labelColor.rawValue)
         //Direction Handler
         lblSignMessage.textAlignment = lblSignMessage.localizedNewDirection
         lblChannelType.textAlignment = lblSignMessage.localizedNewDirection

@@ -61,6 +61,8 @@ class IGTabBarController: UITabBarController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         for item in tabBar.items! {
             if #available(iOS 10.0, *) {
                 item.badgeColor = UIColor.unreadLable()
