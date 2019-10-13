@@ -220,7 +220,13 @@ class IGClinetCheckInviteLinkRequest: IGRequest {
         }
     }
     class Handler: IGRequest.Handler {
-        class func interpret( response responseProtoMessage : IGPClientCheckInviteLinkResponse) {}
+        class func interpret( response responseProtoMessage : IGPClientCheckInviteLinkResponse) {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    _ = IGRoom.putOrUpdate(responseProtoMessage.igpRoom)
+                }
+            }
+        }
         override class func handlePush(responseProtoMessage: Message) {}
     }
 }

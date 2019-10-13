@@ -5614,7 +5614,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             DispatchQueue.main.async {
                 self.hud.hide(animated: true)
                 if let clinetCheckInvitedlink = protoResponse as? IGPClientCheckInviteLinkResponse {
-                    let alert = UIAlertController(title: "iGap", message: "ARE_U_SURE_TO_JOIN".MessageViewlocalizedNew + " \(clinetCheckInvitedlink.igpRoom.igpTitle)?", preferredStyle: .alert)
+                    IGClinetCheckInviteLinkRequest.Handler.interpret(response: clinetCheckInvitedlink)
+                    let alert = UIAlertController(title: "iGap", message: "ARE_U_SURE_TO_JOIN".MessageViewlocalizedNew + "\n \(clinetCheckInvitedlink.igpRoom.igpTitle)", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: { (action) in
                         self.joinRoombyInvitedLink(room:clinetCheckInvitedlink.igpRoom, invitedToken: invitedLink)
                     })
