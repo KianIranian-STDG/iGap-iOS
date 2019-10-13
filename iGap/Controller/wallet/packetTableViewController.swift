@@ -57,7 +57,9 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     var defaultHeightSize : Int = 0
     var defaultCelltSize : Int = 0
     var defaultWidthSize : Int = 0
+    
     @IBOutlet weak var cardCollectionView: UICollectionView!
+    
     func valueChanged(value: Bool) {
         
     }
@@ -87,6 +89,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         isfromPacket = false
         btnCashout.backgroundColor = .iGapGreen()
         btnCharge.backgroundColor = .iGapGreen()
@@ -102,9 +105,15 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         }
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_WALLET_PAGE)
         self.initFont()
+        
+        barcodeQrwidth.constant = 0.0
+        
+        self.setupUI()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         shouldShowHisto = false
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
@@ -113,20 +122,19 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         initCollectionView()
         currentRole = "paygearuser"
 
-       self.setupUI()
         self.view.layoutIfNeeded()
         self.btnCharge.layoutIfNeeded()
-       SMCard.updateBaseInfoFromServer()
-
-        
+        SMCard.updateBaseInfoFromServer()
     }
+    
+    
     private func initFont() {
         btnHisto.titleLabel?.font = UIFont.iGapFonticon(ofSize: 27)
         btnQrCodeScan.titleLabel?.font = UIFont.iGapFonticon(ofSize: 27)
         btnHisto.setTitle("", for: .normal)
         btnQrCodeScan.setTitle("", for: .normal)
-
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         isfromPacket = true
@@ -141,8 +149,6 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         IGRequestWalletGetAccessToken.sendRequest()
         btnCashout.backgroundColor = .iGapGreen()
         btnCharge.backgroundColor = .iGapGreen()
-
-        
     }
     
     @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
