@@ -47,6 +47,8 @@ class IGGlobal {
     static var imgDic : [String: IGImageView] = [:]
     static var heroTabIndex : Int = -1
     static var shouldMultiSelect : Bool = false
+    static var hasTexted : Bool = false
+    static var isFromSearchPage : Bool = false
     static var isInChatPage : Bool = true
     static var isSilent : Bool = false
     static var dispoasDic: [Int64:Disposable] = [:]

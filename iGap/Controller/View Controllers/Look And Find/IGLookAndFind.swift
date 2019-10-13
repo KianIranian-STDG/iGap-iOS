@@ -77,6 +77,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     override func viewWillDisappear(_ animated: Bool) {
         self.view.endEditing(true)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+
     }
     
     private func setNavigationItem(){
@@ -255,6 +256,8 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {}
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        IGGlobal.isFromSearchPage = false
+
         IGRecentsTableViewController.needGetInfo = false
 //        self.navigationController?.setNavigationBarHidden(false, animated: true)
 //        let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar")
@@ -315,7 +318,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         self.navigationController?.hero.isEnabled = true
         self.navigationController?.hero.navigationAnimationType = .selectBy(presenting: .slide(direction: .left), dismissing: .slide(direction: .right))
-        
+        IGGlobal.isFromSearchPage = true
         let searchResult = self.findResult[indexPath.row]
         
         var room = searchResult.room

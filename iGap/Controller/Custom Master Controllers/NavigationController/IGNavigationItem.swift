@@ -413,7 +413,19 @@ class IGNavigationItem: UINavigationItem {
                     _ = self.navigationController?.popViewController(animated: true)
 
                 } else {
-                    _ = self.navigationController?.popViewController(animated: true)
+                    if IGGlobal.isFromSearchPage {
+                        if IGGlobal.hasTexted {
+                            IGGlobal.hasTexted = false
+                            IGGlobal.isFromSearchPage = false
+
+                            _ = self.navigationController?.popToRootViewController(animated: true)
+
+                        } else {
+                            _ = self.navigationController?.popViewController(animated: true)
+                        }
+                    } else {
+                        _ = self.navigationController?.popViewController(animated: true)
+                    }
                 }
                 
             }

@@ -2455,28 +2455,14 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     //MARK: IBActions
     @IBAction func didTapOnSendButton(_ sender: UIButton) {
+        if IGGlobal.isFromSearchPage {
+            IGGlobal.hasTexted = true
+        }
         if currentAttachment == nil && inputTextView.text == "" && IGMessageViewController.selectedMessageToForwardToThisRoom == nil && !isCardToCardRequestEnable {
             return
         }
         
         inputTextView.text = inputTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
-//
-//        if isCardToCardRequestEnable {
-//            let messageText = inputTextView.text.substring(offset: MAX_TEXT_LENGHT)
-//            let message = IGRoomMessage.makeCardToCardRequestWithAmount(message: messageText)
-//            let detachedMessage = message.detach()
-//            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-//            IGMessageSender.defaultSender.send(message: message, to: self.room!)
-//
-//            IGMessageViewController.selectedMessageToForwardToThisRoom = nil
-//            self.sendMessageState(enable: false)
-//            self.isCardToCardRequestEnable = false
-//            self.inputTextView.text = ""
-//            self.currentAttachment = nil
-//            self.selectedMessageToReply = nil
-//            self.setInputBarHeight()
-//            return
-//        }
         
         if selectedMessageToEdit != nil {
             switch room!.type {
