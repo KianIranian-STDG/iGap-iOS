@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fbd-Pp-gef">
-    <device id="retina5_5" orientation="portrait" appearance="dark"/>
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
@@ -15,11 +15,11 @@
         <array key="IRANSans_Bold.ttf">
             <string>IRANSans-Bold</string>
         </array>
+        <array key="IRANYekanMobileBold.ttf">
+            <string>IRANYekanMobile-Bold</string>
+        </array>
         <array key="IRANYekanMobileRegular.ttf">
             <string>IRANYekanMobile</string>
-        </array>
-        <array key="iGap-Fontico.ttf">
-            <string>iGap-Fontico</string>
         </array>
         <array key="iGap_fontico.ttf">
             <string>iGap_fontico</string>
@@ -91,7 +91,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" name="IGNavigationSecondColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="clP-Pw-Zvl" secondAttribute="trailing" constant="20" id="OVb-QJ-hCi"/>
                                                         <constraint firstItem="W1T-7L-ZGT" firstAttribute="centerX" secondItem="HEM-Ph-Tbw" secondAttribute="centerX" id="RcQ-Qy-5aW"/>
@@ -113,7 +113,7 @@
                                                     <subviews>
                                                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jRM-iJ-XVk" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="182" height="30"/>
-                                                            <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="backgroundColor" name="IGNavigationSecondColor"/>
                                                             <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
                                                             <state key="normal" title="Cashout">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -129,7 +129,7 @@
                                                         </button>
                                                         <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A45-HS-xdb" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
                                                             <rect key="frame" x="192" y="0.0" width="182" height="30"/>
-                                                            <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="backgroundColor" name="IGNavigationSecondColor"/>
                                                             <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
                                                             <state key="normal" title="Charge">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -593,7 +593,7 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHt-0s-69q" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="11" width="374" height="42"/>
-                                                    <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.25490196079999999" green="0.69411764710000001" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
                                                     <state key="normal" title="Save">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -983,7 +983,8 @@
                                             <subviews>
                                                 <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount(Rials)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QH7-FC-5J3" customClass="customUITextField" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="11" width="374" height="42"/>
-                                                    <color key="textColor" name="IGLabelColor"/>                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="cc-number"/>
                                                 </textField>
                                             </subviews>
@@ -1033,7 +1034,8 @@
                                                     <rect key="frame" x="20" y="11" width="46" height="42"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="46" id="1BQ-bQ-D4d"/>
-                                                    </constraints>                                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="21"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="21"/>
                                                     <state key="normal" title="">
                                                         <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
@@ -1298,7 +1300,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tZV-2f-g1h">
-                                <rect key="frame" x="20" y="357" width="374" height="60"/>
+                                <rect key="frame" x="20" y="381" width="374" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="UHs-Em-6Vl"/>
                                 </constraints>
@@ -1570,7 +1572,8 @@
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Rials" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZUQ-Ri-Wl2" customClass="customUITextField" customModule="iGap" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="62.666666666666686" width="374" height="34"/>
-                                                        <color key="textColor" name="IGLabelColor"/>                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     </textField>
                                                 </subviews>
@@ -1590,7 +1593,8 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="56X-R7-LP8"/>
                                                         </constraints>
-                                                        <color key="textColor" name="IGLabelColor"/>                                                        <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="17"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
+                                                        <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                     </textField>
                                                 </subviews>
@@ -2395,7 +2399,8 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="YIK-fE-xOa" secondAttribute="height" multiplier="89:10" id="q4h-fh-EmB"/>
                                         </constraints>
-                                        <color key="textColor" name="IGLabelColor"/>                                        <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="17"/>
+                                        <color key="textColor" name="IGLabelColor"/>
+                                        <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iAx-63-Axp">
@@ -2829,7 +2834,8 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="WZH-IO-ALr"/>
                                                 </constraints>
-                                                <color key="textColor" name="IGLabelColor"/>                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" name="IGLabelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Enter Your Wallet Pin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="WXt-Ba-SEf">
@@ -3314,6 +3320,9 @@
         </namedColor>
         <namedColor name="IGModalViewBackgroundColor">
             <color red="0.10980392156862745" green="0.10980392156862745" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="IGNavigationSecondColor">
+            <color red="0.10999999940395355" green="0.10999999940395355" blue="0.11800000071525574" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGTableViewBackgroundColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
