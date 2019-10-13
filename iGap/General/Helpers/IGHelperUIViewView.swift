@@ -17,6 +17,7 @@ enum helperWindowView : Int {
 // IMPORTANT TODO - convert current class to builder
 class IGHelperUIViewView {
     var tempTimer : Int = 0
+    var counter : Timer!
     static let shared = IGHelperUIViewView()
     
     func show(mode : helperWindowView,userID:Int64!,isIncomming: Bool! = true,lastRecordedTime : Int? = nil) {
@@ -44,8 +45,11 @@ class IGHelperUIViewView {
         for everyView in window.subviews {
             if everyView.tag == 100 {
                 //popIn animate
-
-                    UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                tempTimer = 0
+                if counter != nil {
+                    counter.invalidate()
+                }
+                UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
                         everyView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
                     }, completion: {
                         (value: Bool) in
@@ -107,7 +111,7 @@ class IGHelperUIViewView {
         tappy.lastRecordedTime = lastRecordedTime!
         backView.addGestureRecognizer(tappy)
 
-        let timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.updateTimerLabel), userInfo: nil, repeats: true)
+        counter = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.updateTimerLabel), userInfo: nil, repeats: true)
 
 
         //End
@@ -133,6 +137,10 @@ class IGHelperUIViewView {
             callPage.callType = type
             callPage.callSdp = sdp
             callPage.recordedTime = lastRecordedTime! + tempTimer
+        print("|||||||||TIMER||||||||||")
+        print(tempTimer)
+        print(lastRecordedTime)
+        print("|||||||||TIMER||||||||||")
 //            callPage.txtCallState.text = "CONNECTED".localizedNew
             callPage.isReturnCall = true
             var currentController = window.rootViewController

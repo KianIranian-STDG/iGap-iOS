@@ -49,6 +49,9 @@
         "REPORT" : "Report",
         "MORE" : "More",
         "BTN_DELETE" : "Delete",
+        "YESTERDAY" : "دیروز",
+        "TODAY" : "امروز",
+
         "DELETE_FOR_ME" : "Delete for me",
         "DELETE_FOR_ME_AND" : "Delete for me and ",
         "SEND_AGAIN" : "Send Again",
