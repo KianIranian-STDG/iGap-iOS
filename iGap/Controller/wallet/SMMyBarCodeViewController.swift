@@ -73,6 +73,7 @@ class SMMyBarCodeViewController: UIViewController {
         }
         
         getBarcode()
+        infoLbl.font = UIFont.igFont(ofSize: 15,weight: .bold)
         infoLbl.text = "SHOW_THIS_QR".localizedNew
         
     }

@@ -15,9 +15,6 @@
         <array key="IRANSans_Bold.ttf">
             <string>IRANSans-Bold</string>
         </array>
-        <array key="IRANYekanMobileBold.ttf">
-            <string>IRANYekanMobile-Bold</string>
-        </array>
         <array key="IRANYekanMobileRegular.ttf">
             <string>IRANYekanMobile</string>
         </array>
@@ -1304,7 +1301,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="UHs-Em-6Vl"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.1176470588" green="0.58823529409999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>

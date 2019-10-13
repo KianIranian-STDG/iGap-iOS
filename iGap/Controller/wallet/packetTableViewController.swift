@@ -101,14 +101,11 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
             SMLoading.hideLoadingPage()
         }
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_WALLET_PAGE)
+        self.initFont()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         shouldShowHisto = false
-        btnHisto.titleLabel?.font = UIFont.iGapFonticon(ofSize: 27)
-        btnQrCodeScan.titleLabel?.font = UIFont.iGapFonticon(ofSize: 27)
-        btnHisto.setTitle("", for: .normal)
-        btnQrCodeScan.setTitle("", for: .normal)
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
         callRefreshToken()
@@ -122,6 +119,13 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
        SMCard.updateBaseInfoFromServer()
 
         
+    }
+    private func initFont() {
+        btnHisto.titleLabel?.font = UIFont.iGapFonticon(ofSize: 27)
+        btnQrCodeScan.titleLabel?.font = UIFont.iGapFonticon(ofSize: 27)
+        btnHisto.setTitle("", for: .normal)
+        btnQrCodeScan.setTitle("", for: .normal)
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
