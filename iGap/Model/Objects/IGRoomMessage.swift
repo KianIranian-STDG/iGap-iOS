@@ -602,13 +602,21 @@ class IGRoomMessage: Object {
     }
     
     internal static func clearLocalMessage(roomId: Int64) {
-        let lastMessage = IGRoom.getLastMessage(roomId: roomId)
-        try! IGDatabaseManager.shared.realm.write {
-            if let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "id == %lld", roomId)).first {
-                room.savedScrollMessageId = 0
-                
-                let allMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "roomId == %lld AND id != %lld", roomId, lastMessage?.id ?? 0))
-                IGDatabaseManager.shared.realm.delete(allMessages)
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                if let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "id == %lld", roomId)).first {
+                    room.savedScrollMessageId = 0
+                    if let pinMessage = room.pinMessage {
+                        room.pinMessage?.futureMessageId = pinMessage.id
+                        room.pinMessage?.previousMessageId = pinMessage.id
+                    }
+                    if let lastMessage = room.lastMessage {
+                        room.lastMessage?.previousMessageId = lastMessage.id
+                    }
+                    // filter lastMessage & pinMessage for avoid from delete message
+                    let allMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "roomId == %lld AND id != %lld AND id != %lld", roomId, (room.lastMessage?.id ?? 0), (room.pinMessage?.id ?? 0)))
+                    IGDatabaseManager.shared.realm.delete(allMessages)
+                }
             }
         }
     }
