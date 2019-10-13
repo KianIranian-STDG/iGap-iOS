@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fbd-Pp-gef">
-    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <device id="retina5_5" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,14 +15,11 @@
         <array key="IRANSans_Bold.ttf">
             <string>IRANSans-Bold</string>
         </array>
-        <array key="IRANYekanMobileBold.ttf">
-            <string>IRANYekanMobile-Bold</string>
-        </array>
         <array key="IRANYekanMobileRegular.ttf">
             <string>IRANYekanMobile</string>
         </array>
-        <array key="SFUIText.ttf">
-            <string>.SFUIText</string>
+        <array key="iGap-Fontico.ttf">
+            <string>iGap-Fontico</string>
         </array>
         <array key="iGap_fontico.ttf">
             <string>iGap_fontico</string>
@@ -65,7 +63,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Gp0-Zq-9fq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="IGTableViewBackgroundColor"/>
                         <color key="sectionIndexBackgroundColor" red="0.80970454216003418" green="0.86907452344894409" blue="0.96472615003585815" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
                             <tableViewSection headerTitle=" " id="GcZ-Dw-Lk4">
@@ -157,7 +155,7 @@
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="28"/>
                                                             <state key="normal" title="">
-                                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="titleColor" name="IGLabelGrayColor"/>
                                                             </state>
                                                             <connections>
                                                                 <action selector="btnQRcodeScan:" destination="JbV-lJ-5dF" eventType="touchUpInside" id="Vkc-6M-pzz"/>
@@ -170,26 +168,26 @@
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="26"/>
                                                             <state key="normal" title="">
-                                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="titleColor" name="IGLabelGrayColor"/>
                                                             </state>
                                                             <connections>
                                                                 <action selector="btnGoToHistory:" destination="JbV-lJ-5dF" eventType="touchUpInside" id="baZ-az-6DP"/>
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="TOH-HG-8cz" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                            <rect key="frame" x="55" y="9.3333333333333339" width="262" height="28.333333333333329"/>
+                                                            <rect key="frame" x="55" y="9.3333333333333339" width="264" height="28.333333333333329"/>
                                                             <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="18"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                                            <color key="textColor" name="IGLabelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="OaC-m7-M05" secondAttribute="trailing" id="6qc-fg-xYh"/>
                                                         <constraint firstItem="kT3-Sj-NQE" firstAttribute="leading" secondItem="bGd-L3-Ydw" secondAttribute="leading" id="8Ii-3B-Kaj"/>
                                                         <constraint firstAttribute="bottom" secondItem="OaC-m7-M05" secondAttribute="bottom" id="Hfn-3F-0Ac"/>
                                                         <constraint firstItem="OaC-m7-M05" firstAttribute="top" secondItem="bGd-L3-Ydw" secondAttribute="top" id="IL8-uP-FsM"/>
-                                                        <constraint firstItem="OaC-m7-M05" firstAttribute="leading" secondItem="TOH-HG-8cz" secondAttribute="trailing" constant="10" id="O1T-SE-oSn"/>
+                                                        <constraint firstItem="OaC-m7-M05" firstAttribute="leading" secondItem="TOH-HG-8cz" secondAttribute="trailing" constant="8" id="O1T-SE-oSn"/>
                                                         <constraint firstAttribute="height" constant="47" id="OKa-3U-dUw"/>
                                                         <constraint firstItem="TOH-HG-8cz" firstAttribute="centerY" secondItem="bGd-L3-Ydw" secondAttribute="centerY" id="Wrm-Ma-Hti"/>
                                                         <constraint firstItem="TOH-HG-8cz" firstAttribute="leading" secondItem="kT3-Sj-NQE" secondAttribute="trailing" constant="8" id="abi-kA-fAZ"/>
@@ -213,7 +211,7 @@
                                                 <constraint firstItem="bGd-L3-Ydw" firstAttribute="trailing" secondItem="vdL-b9-nZn" secondAttribute="trailingMargin" id="xGY-q8-wy1"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" tag="1" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="57" id="pUI-Tj-1hG">
                                         <rect key="frame" x="0.0" y="359" width="414" height="57"/>
@@ -231,22 +229,22 @@
                                                                 <constraint firstAttribute="width" constant="47" id="Zi6-Nz-zHB"/>
                                                             </constraints>
                                                             <state key="normal" image="IG_Wallet_Plus">
-                                                                <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="titleColor" name="IGLabelColor"/>
                                                             </state>
                                                             <connections>
                                                                 <segue destination="0Ey-Hd-BzU" kind="show" id="d3g-PE-qld"/>
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Cards" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="yNS-qI-NDb" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="9.3333333333333339" width="317" height="28.333333333333329"/>
+                                                            <rect key="frame" x="8" y="9.3333333333333339" width="309" height="28.333333333333329"/>
                                                             <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="18"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                                            <color key="textColor" name="IGLabelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="yNS-qI-NDb" firstAttribute="leading" secondItem="f90-Zr-Hcs" secondAttribute="leading" id="CwE-PE-AxP"/>
+                                                        <constraint firstItem="yNS-qI-NDb" firstAttribute="leading" secondItem="f90-Zr-Hcs" secondAttribute="leading" constant="8" id="CwE-PE-AxP"/>
                                                         <constraint firstAttribute="bottom" secondItem="d8Y-Pc-CGG" secondAttribute="bottom" id="G7w-Q7-G6f"/>
                                                         <constraint firstItem="d8Y-Pc-CGG" firstAttribute="top" secondItem="f90-Zr-Hcs" secondAttribute="top" id="Hr8-Fx-EEP"/>
                                                         <constraint firstItem="yNS-qI-NDb" firstAttribute="centerY" secondItem="f90-Zr-Hcs" secondAttribute="centerY" id="LDH-rq-l9r"/>
@@ -263,7 +261,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="f90-Zr-Hcs" secondAttribute="trailing" constant="20" id="hNy-KG-cxy"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="267" id="X3u-7i-bWa">
                                         <rect key="frame" x="0.0" y="416" width="414" height="267"/>
@@ -348,7 +346,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="MUQ-Lc-vt9" secondAttribute="trailing" id="iL7-ir-2sP"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" tag="1" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="57" id="JkA-Tb-TEg">
                                         <rect key="frame" x="0.0" y="683" width="414" height="57"/>
@@ -366,17 +364,17 @@
                                                                 <constraint firstAttribute="width" constant="47" id="VKU-yG-wu7"/>
                                                             </constraints>
                                                             <state key="normal" image="baseline">
-                                                                <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="titleColor" name="IGLabelGrayColor"/>
                                                             </state>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Cards" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="V97-oL-uXd" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="9.3333333333333339" width="317" height="28.333333333333329"/>
                                                             <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="18"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                                            <color key="textColor" name="IGLabelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="Q3X-XI-gta" secondAttribute="trailing" id="3kq-fE-e08"/>
                                                         <constraint firstItem="V97-oL-uXd" firstAttribute="centerY" secondItem="rRq-bO-Udr" secondAttribute="centerY" id="61P-u2-Crr"/>
@@ -395,7 +393,7 @@
                                                 <constraint firstItem="rRq-bO-Udr" firstAttribute="leading" secondItem="sAA-l5-jK5" secondAttribute="leading" constant="20" id="QlJ-SB-PVe"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="267" id="DBA-Dz-cCj">
                                         <rect key="frame" x="0.0" y="740" width="414" height="267"/>
@@ -418,7 +416,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="spE-Vn-DHB" secondAttribute="trailing" constant="5" id="wh4-Xm-yBY"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -671,13 +669,13 @@
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Account Balance :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="cka-Ue-Nfr">
                                                                     <rect key="frame" x="0.0" y="0.0" width="187" height="31"/>
                                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
-                                                                    <color key="textColor" red="0.45882352939999999" green="0.45882352939999999" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="textColor" name="IGLabelGrayColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="VUt-gh-twI">
                                                                     <rect key="frame" x="187" y="0.0" width="187" height="31"/>
                                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
-                                                                    <color key="textColor" red="0.45882352939999999" green="0.45882352939999999" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="textColor" name="IGLabelGrayColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
@@ -908,13 +906,13 @@
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Account Balance :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="a0V-fB-szO">
                                                                     <rect key="frame" x="0.0" y="0.0" width="187" height="31"/>
                                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
-                                                                    <color key="textColor" red="0.45882352939999999" green="0.45882352939999999" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="textColor" name="IGLabelGrayColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ilZ-tO-YZk">
                                                                     <rect key="frame" x="187" y="0.0" width="187" height="31"/>
                                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
-                                                                    <color key="textColor" red="0.45882352939999999" green="0.45882352939999999" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="textColor" name="IGLabelGrayColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
@@ -985,7 +983,7 @@
                                             <subviews>
                                                 <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount(Rials)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QH7-FC-5J3" customClass="customUITextField" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="11" width="374" height="42"/>
-                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                    <color key="textColor" name="IGLabelColor"/>                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="cc-number"/>
                                                 </textField>
                                             </subviews>
@@ -1027,6 +1025,7 @@
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="16 digit Card Number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qrC-qI-x1I">
                                                     <rect key="frame" x="76" y="11" width="318" height="42"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="cc-number"/>
                                                 </textField>
@@ -1034,8 +1033,7 @@
                                                     <rect key="frame" x="20" y="11" width="46" height="42"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="46" id="1BQ-bQ-D4d"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="21"/>
+                                                    </constraints>                                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="21"/>
                                                     <state key="normal" title="">
                                                         <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
@@ -1160,8 +1158,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="Y3g-2P-Or6"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name=".SFUIText" family=".SF UI Text" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B6S-ND-1yv">
@@ -1218,7 +1216,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="BL2-pM-5Lu" firstAttribute="leading" secondItem="e6z-bc-kHY" secondAttribute="leading" constant="8" id="6AS-XS-PGQ"/>
                                     <constraint firstAttribute="trailing" secondItem="MS5-gE-5Da" secondAttribute="trailing" constant="8" id="CN4-5Q-GXi"/>
@@ -1230,7 +1228,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="IGBackGroundColor"/>
                         <constraints>
                             <constraint firstItem="e6z-bc-kHY" firstAttribute="top" secondItem="beI-k9-Xao" secondAttribute="bottom" id="1Kh-o4-tbb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="B6S-ND-1yv" secondAttribute="trailing" id="FyU-7p-qvu"/>
@@ -1272,7 +1270,7 @@
                                         <rect key="frame" x="20" y="20" width="270" height="270"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="310" id="PRy-dG-9vN"/>
                                     <constraint firstItem="SPx-k3-fjt" firstAttribute="leading" secondItem="dSu-hw-IPJ" secondAttribute="leading" constant="20" id="V3W-Wh-ymG"/>
@@ -1309,10 +1307,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="IGBackGroundColor"/>
                         <constraints>
                             <constraint firstItem="dSu-hw-IPJ" firstAttribute="centerX" secondItem="Vrq-5f-S6Q" secondAttribute="centerX" id="AyT-AT-org"/>
-                            <constraint firstItem="tZV-2f-g1h" firstAttribute="top" secondItem="dSu-hw-IPJ" secondAttribute="bottom" constant="8" id="U5H-oT-0n8"/>
+                            <constraint firstItem="tZV-2f-g1h" firstAttribute="top" secondItem="dSu-hw-IPJ" secondAttribute="bottom" constant="32" id="U5H-oT-0n8"/>
                             <constraint firstItem="dSu-hw-IPJ" firstAttribute="top" secondItem="Vrq-5f-S6Q" secondAttribute="top" constant="39" id="mDr-7b-qVv"/>
                             <constraint firstItem="Vrq-5f-S6Q" firstAttribute="trailing" secondItem="tZV-2f-g1h" secondAttribute="trailing" constant="20" id="oud-ie-F8V"/>
                             <constraint firstItem="tZV-2f-g1h" firstAttribute="leading" secondItem="Vrq-5f-S6Q" secondAttribute="leading" constant="20" id="woq-ke-WjE"/>
@@ -1379,13 +1377,13 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paid to :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="OaZ-14-IFp">
                                                 <rect key="frame" x="66" y="15.000000000000002" width="340" height="26.666666666666671"/>
                                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" name="IGLabelColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="......" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="SYe-44-iKH">
                                                 <rect key="frame" x="66" y="38.333333333333336" width="340" height="26.666666666666664"/>
                                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" name="IGLabelColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -1411,17 +1409,17 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="مبلغ کل (ریال) :" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6A-j2-udW">
                                                         <rect key="frame" x="310" y="-11.666666666666671" width="96" height="23.666666666666668"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="۰" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csG-xo-Smf">
                                                         <rect key="frame" x="10" y="-11.666666666666671" width="6.6666666666666679" height="23.666666666666668"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="B6A-j2-udW" secondAttribute="trailing" constant="8" id="1Tb-i9-H9H"/>
                                                     <constraint firstItem="csG-xo-Smf" firstAttribute="centerY" secondItem="ZJi-dd-fRk" secondAttribute="centerY" id="UxM-O5-Nya"/>
@@ -1435,17 +1433,17 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="مبلغ تخفیف ( ریال) :" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yye-X4-egC">
                                                         <rect key="frame" x="280" y="-11.666666666666671" width="126" height="23.666666666666668"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="۰" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XtZ-4s-AaO">
                                                         <rect key="frame" x="10" y="-11.666666666666671" width="6.6666666666666679" height="23.666666666666668"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="Yye-X4-egC" secondAttribute="trailing" constant="8" id="eGV-zb-8yk"/>
                                                     <constraint firstItem="XtZ-4s-AaO" firstAttribute="leading" secondItem="Hrg-W4-ynq" secondAttribute="leading" constant="10" id="or5-s5-Qs9"/>
@@ -1459,17 +1457,17 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="موجودی ( ریال) :" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IcF-C6-Zv5">
                                                         <rect key="frame" x="301.33333333333331" y="-11.666666666666671" width="104.66666666666669" height="23.666666666666668"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="۰" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vca-qR-WZx">
                                                         <rect key="frame" x="10" y="-11.666666666666671" width="6.6666666666666679" height="23.666666666666668"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="vca-qR-WZx" firstAttribute="centerY" secondItem="iLL-Xa-EY4" secondAttribute="centerY" id="6aa-wx-Xxc"/>
                                                     <constraint firstAttribute="trailing" secondItem="IcF-C6-Zv5" secondAttribute="trailing" constant="8" id="IW1-LA-YsV"/>
@@ -1495,7 +1493,7 @@
                                                         </connections>
                                                     </segmentedControl>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="MW4-8V-cbe" firstAttribute="centerY" secondItem="LhZ-gp-HnN" secondAttribute="centerY" id="IAy-RF-z0S"/>
                                                     <constraint firstItem="MW4-8V-cbe" firstAttribute="centerX" secondItem="LhZ-gp-HnN" secondAttribute="centerX" id="aRf-Lf-wsg"/>
@@ -1523,7 +1521,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="hDf-jC-l8v" firstAttribute="centerX" secondItem="Yfe-Rw-due" secondAttribute="centerX" id="6Wa-tZ-fU3"/>
                                                     <constraint firstItem="hDf-jC-l8v" firstAttribute="centerY" secondItem="Yfe-Rw-due" secondAttribute="centerY" id="HZc-iI-3YY"/>
@@ -1557,7 +1555,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="MFR-oA-g07" secondAttribute="trailing" constant="20" id="8BB-uA-Ev5"/>
                                                     <constraint firstAttribute="trailing" secondItem="MFR-oA-g07" secondAttribute="trailing" constant="20" id="8PR-6g-m8d"/>
@@ -1572,11 +1570,11 @@
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Rials" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZUQ-Ri-Wl2" customClass="customUITextField" customModule="iGap" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="62.666666666666686" width="374" height="34"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <color key="textColor" name="IGLabelColor"/>                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     </textField>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="ZUQ-Ri-Wl2" firstAttribute="centerY" secondItem="Vzb-zp-LdD" secondAttribute="centerY" id="6Wp-O8-ckB"/>
                                                     <constraint firstAttribute="trailing" secondItem="ZUQ-Ri-Wl2" secondAttribute="trailing" constant="20" id="XKC-iJ-yZR"/>
@@ -1592,11 +1590,11 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="56X-R7-LP8"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="17"/>
+                                                        <color key="textColor" name="IGLabelColor"/>                                                        <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                     </textField>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="con-cN-I8V" firstAttribute="leading" secondItem="AH6-Jd-N2u" secondAttribute="leading" constant="20" id="1eR-hn-io7"/>
                                                     <constraint firstItem="con-cN-I8V" firstAttribute="centerY" secondItem="AH6-Jd-N2u" secondAttribute="centerY" id="UPV-W9-HFK"/>
@@ -1609,8 +1607,11 @@
                                                 <rect key="frame" x="0.0" y="477" width="414" height="159"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d8K-XE-lAW">
-                                                        <rect key="frame" x="0.0" y="120" width="414" height="39"/>
+                                                        <rect key="frame" x="0.0" y="111" width="414" height="48"/>
                                                         <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="48" id="s2u-pI-2CM"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
                                                         <state key="normal" title="pay">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1625,7 +1626,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="d8K-XE-lAW" firstAttribute="leading" secondItem="7Z3-WS-Sb9" secondAttribute="leading" id="3ST-5O-4SC"/>
                                                     <constraint firstItem="d8K-XE-lAW" firstAttribute="centerX" secondItem="7Z3-WS-Sb9" secondAttribute="centerX" id="SOT-0I-EOG"/>
@@ -1656,7 +1657,7 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="IGBackGroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="cgw-8W-qkY" secondAttribute="trailing" id="7fl-ck-dSO"/>
                                     <constraint firstAttribute="height" constant="716" id="8UV-m9-c77"/>
@@ -1724,13 +1725,13 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="YaZ-PG-HU3">
                         <rect key="frame" x="0.0" y="0.0" width="388" height="235"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="IGBackGroundColor"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gzn-tl-j10">
                             <rect key="frame" x="0.0" y="0.0" width="388" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="17"/>
-                            <nil key="textColor"/>
+                            <color key="textColor" name="IGLabelColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <activityIndicatorView key="tableFooterView" hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="wxZ-7v-YaA">
@@ -1767,7 +1768,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="right" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="naZ-Ir-Jvc">
                                                             <rect key="frame" x="0.0" y="0.0" width="31.666666666666668" height="21.666666666666668"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" name="IGLabelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xE9-xR-4ke">
@@ -1785,13 +1786,13 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21i-Ho-miC">
                                                     <rect key="frame" x="0.0" y="21.666666666666664" width="41.666666666666664" height="21.666666666666664"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fpp-n6-VJK">
                                                     <rect key="frame" x="0.0" y="43.333333333333336" width="41.666666666666664" height="21.666666666666664"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="12"/>
-                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" name="IGLabelGrayColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1806,12 +1807,13 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99Y-62-iYI">
                                                     <rect key="frame" x="0.0" y="0.0" width="36.333333333333336" height="32.333333333333336"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ریال" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6s-LG-Wo0">
                                                     <rect key="frame" x="0.0" y="32.333333333333343" width="36.333333333333336" height="32.666666666666657"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1933,7 +1935,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvd-fA-Kve">
                                                     <rect key="frame" x="0.0" y="43.333333333333336" width="41.666666666666664" height="21.666666666666664"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="12"/>
-                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" name="IGLabelGrayColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -2092,7 +2094,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="IGModalViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="2bU-G0-qwF"/>
                                     <constraint firstItem="hg6-Ca-7Lo" firstAttribute="top" secondItem="0MC-Fm-JI9" secondAttribute="bottom" constant="10" id="8fa-mL-RN2"/>
@@ -2148,7 +2150,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="fgc-5b-equ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" name="IGBackGroundColor"/>
                         <sections>
                             <tableViewSection id="R5m-FK-NUS">
                                 <cells>
@@ -2175,11 +2177,11 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iq-pz-W5d">
                                                             <rect key="frame" x="156" y="78.666666666666671" width="42" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" name="IGLabelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="x1v-4h-1wB" firstAttribute="top" secondItem="6G3-Av-fHf" secondAttribute="top" constant="10" id="0N7-GK-wKM"/>
                                                         <constraint firstItem="5iq-pz-W5d" firstAttribute="centerY" secondItem="6G3-Av-fHf" secondAttribute="centerY" id="SoI-JF-Qg0"/>
@@ -2211,7 +2213,7 @@
                                                 <constraint firstItem="6G3-Av-fHf" firstAttribute="leading" secondItem="PqK-OO-THR" secondAttribute="leadingMargin" constant="10" id="ypR-1G-YsG"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="NNK-W0-syQ">
                                         <rect key="frame" x="0.0" y="238" width="414" height="44"/>
@@ -2223,7 +2225,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set as Default Card" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="M3n-Hw-l4Z">
                                                     <rect key="frame" x="30" y="8.6666666666666661" width="300" height="26.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LfF-Nf-NyJ">
@@ -2243,7 +2245,7 @@
                                                 <constraint firstItem="M3n-Hw-l4Z" firstAttribute="leading" secondItem="GYD-Lr-qY8" secondAttribute="leadingMargin" constant="10" id="tpG-d2-jV8"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="rYg-bb-b4f">
                                         <rect key="frame" x="0.0" y="282" width="414" height="44"/>
@@ -2277,7 +2279,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="7ck-eD-iF3" secondAttribute="bottom" id="nsU-bd-MjR"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Sh7-wP-hfw">
                                         <rect key="frame" x="0.0" y="326" width="414" height="44"/>
@@ -2302,7 +2304,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="JNz-w5-aAH" secondAttribute="trailing" id="nLq-M2-pG4"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -2393,7 +2395,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="YIK-fE-xOa" secondAttribute="height" multiplier="89:10" id="q4h-fh-EmB"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="17"/>
+                                        <color key="textColor" name="IGLabelColor"/>                                        <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iAx-63-Axp">
@@ -2414,7 +2416,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="IGModalViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="210" id="9YK-Aa-wDp"/>
                                     <constraint firstItem="BOZ-G6-faa" firstAttribute="leading" secondItem="UcF-x4-rCg" secondAttribute="leading" constant="20" id="EAT-Ir-1jY"/>
@@ -2531,7 +2533,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="IGModalViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="2sy-F4-D17" secondAttribute="trailing" constant="20" id="03W-NC-8wd"/>
                                     <constraint firstAttribute="trailing" secondItem="ON1-wP-Eby" secondAttribute="trailing" constant="20" id="9ps-14-bRB"/>
@@ -2716,37 +2718,37 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="N48-it-5ir">
                                                         <rect key="frame" x="0.0" y="0.0" width="36.333333333333336" height="30.333333333333332"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="jmJ-Wm-Apm">
                                                         <rect key="frame" x="0.0" y="35.333333333333314" width="36.333333333333336" height="30.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="4LS-qt-uHj">
                                                         <rect key="frame" x="0.0" y="70.666666666666686" width="36.333333333333336" height="30.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="5hb-bO-Low">
                                                         <rect key="frame" x="0.0" y="106" width="36.333333333333336" height="30.333333333333343"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="dvy-Yf-n1p">
                                                         <rect key="frame" x="0.0" y="141.33333333333331" width="36.333333333333336" height="30.333333333333343"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="yGh-G0-ftF">
                                                         <rect key="frame" x="0.0" y="176.66666666666669" width="36.333333333333336" height="30.333333333333343"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -2765,37 +2767,37 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="XXj-DH-aAB">
                                                         <rect key="frame" x="0.0" y="0.0" width="36.333333333333336" height="30.333333333333332"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="sQg-kz-7T4">
                                                         <rect key="frame" x="0.0" y="35.333333333333314" width="36.333333333333336" height="30.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8yL-rN-Q4k">
                                                         <rect key="frame" x="0.0" y="70.666666666666686" width="36.333333333333336" height="30.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Evf-Qv-XaK">
                                                         <rect key="frame" x="0.0" y="106" width="36.333333333333336" height="30.333333333333343"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="BCh-Rh-trR">
                                                         <rect key="frame" x="0.0" y="141.33333333333331" width="36.333333333333336" height="30.333333333333343"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8EE-MM-nHF">
                                                         <rect key="frame" x="0.0" y="176.66666666666669" width="36.333333333333336" height="30.333333333333343"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" name="IGLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -2809,7 +2811,7 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="2bn-sM-5hJ" secondAttribute="trailing" id="DOz-Ov-2qp"/>
                                             <constraint firstItem="2bn-sM-5hJ" firstAttribute="top" secondItem="dWp-pH-PJX" secondAttribute="top" id="DcR-bE-IPs"/>
@@ -2827,17 +2829,17 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="WZH-IO-ALr"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" name="IGLabelColor"/>                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Enter Your Wallet Pin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="WXt-Ba-SEf">
                                                 <rect key="frame" x="0.0" y="59.999999999999993" width="398" height="23.666666666666664"/>
                                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                <color key="textColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" name="IGLabelColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="dAR-Yg-DIX" firstAttribute="leading" secondItem="S0q-OF-Gbu" secondAttribute="leading" id="DHI-YU-79U"/>
                                             <constraint firstAttribute="trailing" secondItem="dAR-Yg-DIX" secondAttribute="trailing" id="DSN-Tt-QXJ"/>
@@ -2897,7 +2899,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="IGBackGroundColor"/>
                                 <constraints>
                                     <constraint firstItem="S0q-OF-Gbu" firstAttribute="leading" secondItem="pbz-wS-eRP" secondAttribute="leading" constant="8" id="1B3-va-2uI"/>
                                     <constraint firstAttribute="bottom" secondItem="0qM-YS-GuM" secondAttribute="bottom" constant="8" id="Arr-gc-OFe"/>
@@ -3202,11 +3204,11 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3pX-pD-b3A">
                                                 <rect key="frame" x="66" y="0.0" width="285" height="16.333333333333332"/>
                                                 <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="14"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" name="IGLabelColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="3OY-SO-KUa" firstAttribute="leading" secondItem="gY1-GY-9fp" secondAttribute="leading" constant="8" id="Kha-H1-JKM"/>
                                             <constraint firstItem="3OY-SO-KUa" firstAttribute="top" secondItem="gY1-GY-9fp" secondAttribute="top" constant="-5" id="X7y-BA-SHp"/>
@@ -3218,7 +3220,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="IGModalViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="hcm-VF-AI1" secondAttribute="trailing" constant="20" id="3Om-6H-ju6"/>
                                     <constraint firstItem="x5J-Cl-306" firstAttribute="top" secondItem="GYg-eN-yA3" secondAttribute="top" constant="20" id="9ph-kZ-lBi"/>
@@ -3301,5 +3303,20 @@
         <image name="qr-code_25" width="25" height="25"/>
         <image name="scan_Holder" width="512" height="512"/>
         <image name="scan_qr-code_25" width="25" height="25"/>
+        <namedColor name="IGBackGroundColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="IGLabelColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="IGLabelGrayColor">
+            <color white="0.66699999570846558" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+        <namedColor name="IGModalViewBackgroundColor">
+            <color red="0.10980392156862745" green="0.10980392156862745" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="IGTableViewBackgroundColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

@@ -163,6 +163,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     func initChangeLanguage() {
         //        UIView.appearance().semanticContentAttribute = .forceRightToLeft
         lblWalletBalance.text = SMLangUtil.changeLblText(tag: lblWalletBalance.tag, parentViewController: NSStringFromClass(self.classForCoder))
+        lblWalletBalance.textAlignment = self.TextAlignment
         lblMyCards.text = SMLangUtil.changeLblText(tag: lblMyCards.tag, parentViewController: NSStringFromClass(self.classForCoder))
         lblCurrencyFormat.text = SMLangUtil.changeLblText(tag: lblCurrencyFormat.tag, parentViewController: NSStringFromClass(self.classForCoder))
         btnCashout.setTitle(SMLangUtil.changeLblText(tag: btnCashout.tag, parentViewController: NSStringFromClass(self.classForCoder)), for: .normal)
