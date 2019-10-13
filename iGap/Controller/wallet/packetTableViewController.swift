@@ -173,12 +173,10 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         btnCashout.setTitle(SMLangUtil.changeLblText(tag: btnCashout.tag, parentViewController: NSStringFromClass(self.classForCoder)), for: .normal)
         btnCharge.setTitle(SMLangUtil.changeLblText(tag: btnCharge.tag, parentViewController: NSStringFromClass(self.classForCoder)), for: .normal)
         lblMyHistoryTitle.text = "MONEY_TRANSFER_HISTORY".localizedNew
-
-        
-        }
+    }
+    
     func initView() {
         
-
         hasShownQrCode = false
         let settingItem = UIBarButtonItem.init(image: UIImage(named: "settings"), style: .done, target: self, action: #selector(showSetting))
         let receiverItem = UIBarButtonItem.init(image: UIImage(named: "store"), style: .done, target: self, action: #selector(showReceivers))
@@ -189,13 +187,13 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                     self.navigationItem.rightBarButtonItems = [settingItem , receiverItem]
                     if currentRole == "paygearuser" {
                         barcodeQrwidth.constant = 47.0
-                        self.btnQrCodeScan.layoutIfNeeded()
+//                        self.btnQrCodeScan.layoutIfNeeded()
                         self.view.layoutIfNeeded()
 
                     }
                     if currentRole == "admin" {
                         barcodeQrwidth.constant = 0.0
-                        self.btnQrCodeScan.layoutIfNeeded()
+//                        self.btnQrCodeScan.layoutIfNeeded()
                         self.view.layoutIfNeeded()
 
                     }
@@ -203,7 +201,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                 else {
                     self.navigationItem.rightBarButtonItems = [receiverItem]
                     barcodeQrwidth.constant = 0.0
-                    self.btnQrCodeScan.layoutIfNeeded()
+//                    self.btnQrCodeScan.layoutIfNeeded()
                     self.view.layoutIfNeeded()
 
                 }
@@ -211,7 +209,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
             else {
                 self.navigationItem.rightBarButtonItems = [settingItem]
                 barcodeQrwidth.constant = 0.0
-                self.btnQrCodeScan.layoutIfNeeded()
+//                self.btnQrCodeScan.layoutIfNeeded()
                 self.view.layoutIfNeeded()
 
             }
