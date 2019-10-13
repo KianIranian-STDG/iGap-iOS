@@ -300,7 +300,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     var latestIndexPath: IndexPath!
     var isCardToCardRequestEnable = false
     var latestKeyboardAdditionalView: UIView!
-    var highlightMessageId: Int64 = 0
+    static var highlightMessageId: Int64 = 0 // highlight message and show fast return to message icon
+    static var highlightReturnToMessageId: Int64 = 0 // highlight message after click on fast return to message icon
+    static var returnToMessage: IGRoomMessage? // after click on reply header, save clicked message for fast return to message position again
     
     private var cellSizeLimit: CellSizeLimit!
     
@@ -2446,7 +2448,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     @IBAction func didTapOnPinView(_ sender: UIButton) {
         if let pinMessage = room?.pinMessage {
-            goToPosition(message: pinMessage)
+            goToPosition(message: pinMessage, setHighlite: true)
         }
     }
     
@@ -4630,12 +4632,13 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
     }
     
     private func manageHighlightMode(cell: UICollectionViewCell, messageId: Int64) {
-        if messageId == highlightMessageId {
-            highlightMessageId = 0
+        if messageId == IGMessageViewController.highlightMessageId || messageId == IGMessageViewController.highlightReturnToMessageId {
+            IGMessageViewController.highlightMessageId = 0
+            IGMessageViewController.highlightReturnToMessageId = 0
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 UIView.transition(with: cell, duration: 0.5, animations: {
-                    cell.backgroundColor = UIColor.iGapBlue().withAlphaComponent(0.3)
+                    cell.backgroundColor = UIColor.iGapGreen().withAlphaComponent(0.5)
                 }, completion: { (completed) in
                     UIView.animate(withDuration: 0.5, animations: {
                         cell.backgroundColor = UIColor.clear
@@ -5239,7 +5242,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
      * sometimes messageId from message is not useful (for example at click of header reply state).
      * finally for globalization usage of following method 'messageIdPosition' is optional
      */
-    func goToPosition(message: IGRoomMessage?, messageIdPosition: Int64 = 0){
+    func goToPosition(message: IGRoomMessage?, messageIdPosition: Int64 = 0, setHighlite: Bool = false){
         if message == nil {return}
         
         var messageId: Int64! = messageIdPosition
@@ -5247,7 +5250,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             messageId = message?.id
         }
         
-        self.highlightMessageId = messageId
+        if setHighlite {
+            IGMessageViewController.highlightMessageId = messageId
+        }
+        
         let indexOfMessage = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId)
         if indexOfMessage != nil {
             let indexPath = IndexPath(row: indexOfMessage!, section: 0)
@@ -5259,9 +5265,13 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             if !self.collectionView.indexPathsForVisibleItems.contains(previousIndexPath) {
                 self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
             }
-            notifyPosition(messageId: self.highlightMessageId)
+            if setHighlite {
+                notifyPosition(messageId: IGMessageViewController.highlightMessageId)
+            } else {
+                notifyPosition(messageId: IGMessageViewController.highlightReturnToMessageId)
+            }
         } else {
-            self.highlightMessageId = messageId
+            IGMessageViewController.highlightMessageId = messageId
             var delay: Double = 0.0
             if !IGRoomMessage.existMessage(messageId: messageId) {
                 delay = 1.0
@@ -5433,11 +5443,13 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
     func didTapOnReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
         if let replyMessage = cellMessage.repliedTo {
+            IGMessageViewController.returnToMessage = cellMessage
+            
             var mainReplyId = replyMessage.id * -1
             if let forwardedMessage = IGRoomMessage.fetchForwardMessage(roomId: self.room!.id, messageId: replyMessage.id) {
                 mainReplyId = forwardedMessage.id
             }
-            goToPosition(message: replyMessage, messageIdPosition: mainReplyId)
+            goToPosition(message: replyMessage, messageIdPosition: mainReplyId, setHighlite: true)
         }
     }
     
@@ -5448,6 +5460,13 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 usernameType = .user
             }
             IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: usernameType, user: forwardMessage.authorUser?.user, room: forwardMessage.authorRoom)
+        }
+    }
+    
+    func didTapOnReturnToMessage(){
+        if let message = IGMessageViewController.returnToMessage {
+            IGMessageViewController.highlightReturnToMessageId = message.id
+            goToPosition(message: message)
         }
     }
     

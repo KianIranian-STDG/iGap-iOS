@@ -46,6 +46,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     var imgFileAbs: UIImageView!
     var txtVideoPlayAbs: UILabel!
     var btnPlayAbs: UIButton!
+    var btnReturnToMessageAbs: UIButton!
     
     var txtMessageHeightConstraintAbs: NSLayoutConstraint!
     var mainBubbleViewWidthAbs: NSLayoutConstraint!
@@ -142,9 +143,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         manageViewPosition()
         manageLink()
         manageVoteActions()
-        manageGustureRecognizers()
         manageAttachment()
         manageAdditional()
+        manageReturnToMessage()
+        manageGustureRecognizers()
         showMultiSelect()
         if finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue {
             makeAvatarPay()
@@ -764,6 +766,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             }
         }
         
+        if btnReturnToMessageAbs != nil {
+            let tapReturnToMessage = UITapGestureRecognizer(target: self, action: #selector(didTapOnReturnToMessage(_:)))
+            btnReturnToMessageAbs?.addGestureRecognizer(tapReturnToMessage)
+        }
+        
         let tap5 = UITapGestureRecognizer(target: self, action: #selector(didTapOnSenderAvatar(_:)))
         avatarViewAbs?.addGestureRecognizer(tap5)
         
@@ -805,6 +812,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     
     @objc func didTapOnForward(_ gestureRecognizer: UITapGestureRecognizer) {
         self.delegate?.didTapOnForward(cellMessage: realmRoomMessage!, cell: self)
+    }
+    
+    @objc func didTapOnReturnToMessage(_ gestureRecognizer: UITapGestureRecognizer) {
+        self.delegate?.didTapOnReturnToMessage()
     }
     
     func didTapOnForwardedAttachment(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -1177,6 +1188,21 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             
         } else {
             removeAdditionalView()
+        }
+    }
+    
+    /*
+    ******************************************************************
+    ******************** Manage Return To Message ********************
+    ******************************************************************
+    */
+    
+    /** after click of reply header and show message add a view for return to selected message again */
+    private func manageReturnToMessage(){
+        if IGMessageViewController.highlightMessageId == realmRoomMessage.id {
+            makeReturnToMessageView()
+        } else {
+            removeReturnToMessageView()
         }
     }
     
@@ -1596,7 +1622,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     private func makeViewCount(){
         if txtSeenCountAbs == nil {
             txtSeenCountAbs = UILabel()
-            txtSeenCountAbs.font = UIFont.iGapFonticon(ofSize:11.0)
+            txtSeenCountAbs.font = UIFont.iGapFonticon(ofSize:14.0)
             txtSeenCountAbs.textColor = UIColor.messageText()
             mainBubbleViewAbs.addSubview(txtSeenCountAbs)
             
@@ -1614,12 +1640,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         
         if txtVoteUpAbs == nil {
             txtVoteUpAbs = UILabel()
-            txtVoteUpAbs.font = UIFont.iGapFonticon(ofSize: 13.0)
+            txtVoteUpAbs.font = UIFont.iGapFonticon(ofSize: 14.0)
             txtVoteUpAbs.textColor = UIColor.messageText()
             mainBubbleViewAbs.addSubview(txtVoteUpAbs)
             
             txtVoteDownAbs = UILabel()
-            txtVoteDownAbs.font = UIFont.iGapFonticon(ofSize: 13.0)
+            txtVoteDownAbs.font = UIFont.iGapFonticon(ofSize: 14.0)
             txtVoteDownAbs.textColor = UIColor.messageText()
             mainBubbleViewAbs.addSubview(txtVoteDownAbs)
         }
@@ -1812,6 +1838,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     
     
     
+    
     private func makeAdditionalView(additionalView: UIView, removeView: Bool = true, isBot: Bool = false){
         removeAdditionalView()
         
@@ -1847,6 +1874,58 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     private func removeAdditionalView(){
         additionalViewAbs?.removeFromSuperview()
         additionalViewAbs = nil
+    }
+    
+    
+    
+    
+    private func makeReturnToMessageView(){
+        if btnReturnToMessageAbs == nil {
+            btnReturnToMessageAbs = UIButton()
+            btnReturnToMessageAbs.setTitleColor(UIColor.iGapGreen(), for: .normal)
+            btnReturnToMessageAbs.titleLabel!.textAlignment = .center
+            btnReturnToMessageAbs.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25.0)
+            btnReturnToMessageAbs.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+            btnReturnToMessageAbs.setTitle("", for: .normal)
+            btnReturnToMessageAbs.isUserInteractionEnabled = true
+            self.contentView.addSubview(btnReturnToMessageAbs)
+            
+            btnReturnToMessageAbs.layer.cornerRadius = 17.5
+            btnReturnToMessageAbs.layer.masksToBounds = false
+            btnReturnToMessageAbs.layer.shadowColor = UIColor.black.cgColor
+            btnReturnToMessageAbs.layer.shadowOffset = CGSize(width: 0, height: 0)
+            btnReturnToMessageAbs.layer.shadowRadius = 4.0
+            btnReturnToMessageAbs.layer.shadowOpacity = 0.15
+            btnReturnToMessageAbs.layer.borderWidth = 0.2
+            btnReturnToMessageAbs.layer.borderColor = #colorLiteral(red: 0.4477736669, green: 0.4477736669, blue: 0.4477736669, alpha: 1)
+            btnReturnToMessageAbs.backgroundColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.btnReturnToMessageAbs?.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            }) { (finished) in
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.btnReturnToMessageAbs?.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+                })
+            }
+        }
+        
+        btnReturnToMessageAbs.snp.makeConstraints{ (make) in
+            if isIncommingMessage {
+                make.trailing.equalTo(self.contentView.snp.trailing).offset(-15)
+            } else {
+                make.leading.equalTo(self.contentView.snp.leading).offset(15)
+            }
+            make.top.equalTo(self.contentView.snp.top).offset(10)
+            make.height.equalTo(35)
+            make.width.equalTo(35)
+        }
+    }
+    
+    private func removeReturnToMessageView(){
+        btnReturnToMessageAbs?.removeFromSuperview()
+        btnReturnToMessageAbs = nil
     }
 }
 
