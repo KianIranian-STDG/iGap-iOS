@@ -20,6 +20,7 @@ class IGPlayer {
     var slider: UISlider!
     var timer: UILabel!
     var flag: Bool = false
+    var roomMessage: IGRoomMessage?
     var attachment: IGFile?
     var attachmentStringTime: String!
     var attachmentFloatTime: Float!
@@ -35,10 +36,9 @@ class IGPlayer {
      * @param attachment media info for make player session
      * @param justUpdate if set true player view will be update with current state otherwise will be started new player with attachment param
      */
-    func startPlayer(btnPlayPause: UIButton, slider: UISlider, timer: UILabel, attachment: IGFile, justUpdate: Bool = false){
-        
+    func startPlayer(btnPlayPause: UIButton, slider: UISlider, timer: UILabel, roomMessage: IGRoomMessage, justUpdate: Bool = false){
         if justUpdate {
-            if self.attachment?.cacheID == attachment.cacheID {
+            if self.roomMessage?.id == roomMessage.id {
                 btnPlayPause.setTitle(latestButtonValue, for: UIControl.State.normal)
                 slider.value = latestSliderValue ?? 0
                 timer.text = latestTimeValue
@@ -52,12 +52,13 @@ class IGPlayer {
             }
         } else {
             /* if is new file reset previous if exist reset otherwise manage play/pause for current player */
-            if self.attachment?.cacheID != attachment.cacheID {
+            if self.roomMessage?.id != roomMessage.id {
                 self.resetOldSession()
                 self.btnPlayPause = btnPlayPause
                 self.slider = slider
                 self.timer = timer
-                self.attachment = attachment
+                self.roomMessage = roomMessage
+                self.attachment = roomMessage.getFinalMessage().attachment
                 self.addGestureRecognizer()
                 self.fetchAttachmentTime()
                 self.slider.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .normal)

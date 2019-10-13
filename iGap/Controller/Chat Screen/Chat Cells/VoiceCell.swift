@@ -182,7 +182,7 @@ class VoiceCell: AbstractCell {
     
     /** check current voice state and if is playing update values to current state */
     private func checkPlayerState(){
-        IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderVoice, timer: txtVoiceTime, attachment: self.finalRoomMessage.attachment!, justUpdate: true)
+        IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderVoice, timer: txtVoiceTime, roomMessage: self.finalRoomMessage, justUpdate: true)
     }
     
     private func voiceGustureRecognizers() {
@@ -191,7 +191,7 @@ class VoiceCell: AbstractCell {
     }
     
     @objc func didTapOnPlay(_ gestureRecognizer: UITapGestureRecognizer) {
-        IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderVoice, timer: txtVoiceTime, attachment: self.finalRoomMessage.attachment!)
+        IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderVoice, timer: txtVoiceTime, roomMessage: self.finalRoomMessage)
     }
 }
 

@@ -44,6 +44,7 @@ class AudioCell: AbstractCell {
         manageAudioViewPosition()
         setAudio()
         voiceGustureRecognizers()
+        checkPlayerState()
     }
     
     private func initializeView(){
@@ -187,7 +188,7 @@ class AudioCell: AbstractCell {
     
     /** check current voice state and if is playing update values to current state */
     private func checkPlayerState(){
-        IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderAudio, timer: txtAudioTime, attachment: self.finalRoomMessage.attachment!, justUpdate: true)
+        IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderAudio, timer: txtAudioTime, roomMessage: self.finalRoomMessage, justUpdate: true)
     }
     
     private func voiceGustureRecognizers() {
@@ -196,7 +197,7 @@ class AudioCell: AbstractCell {
     }
     
     @objc func didTapOnPlay(_ gestureRecognizer: UITapGestureRecognizer) {
-        IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderAudio, timer: txtAudioTime, attachment: self.finalRoomMessage.attachment!)
+        IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderAudio, timer: txtAudioTime, roomMessage: self.finalRoomMessage)
     }
 }
 
