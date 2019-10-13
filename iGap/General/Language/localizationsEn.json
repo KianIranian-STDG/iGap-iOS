@@ -165,7 +165,7 @@
         "RESEND_CODE_VIA" : "Resend Code Via :",
         "YOUR_PROFILE" : "Your Profile",
         "ENTER_NAME_AND_CHOOSE_PHOTO" : "Please enter your name and choose your profile picture",
-        "ENTER_REFERRAL_NUMBER" : "Please Enter your Referral Mobile Number Here",
+        "ENTER_REFERRAL_NUMBER" : "Please Enter your Referral Mobile Number Here (Optional)",
         "SKIP" : "Skip",
         "SET_REFERRAL" : "Set Referral",
         "IS_PHONE_OK" : "Is the Mobile Number Correct : ? \n",

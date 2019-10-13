@@ -82,12 +82,18 @@ class IGRegistrationStepSelectCountryTableViewController: UIViewController, UITa
                     let countryInfo = IGCountryInfo(responseProtoMessage: countryInfoReponse)
                     countryInfo.countryISO = isoCode
                     self.delegate?.didSelectCountry(country: countryInfo)
-                    IGRepresentativeViewController.selectCountryObserver?.onSelectCountry(country: countryInfo)
+                    IGRegistrationStepProfileInfoViewController.selectCountryObserver?.onSelectCountry(country: countryInfo)
                     IGRegistrationStepPhoneViewController.allowGetCountry = false
                     if self.popView {
                         self.navigationController?.popViewController(animated: true)
                     } else {
-                        self.dismiss(animated: true, completion: nil)
+                        if IGGlobal.isPopView {
+                            self.navigationController?.popViewController(animated: true)
+
+                        } else {
+                            
+                            self.dismiss(animated: true, completion: nil)
+                        }
                     }
                 default:
                     break

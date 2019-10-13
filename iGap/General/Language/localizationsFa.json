@@ -176,7 +176,7 @@
         "RESEND_CODE_VIA" : "ارسال مجدد کد توسط :",
         "YOUR_PROFILE" : "صفحه شما",
         "ENTER_NAME_AND_CHOOSE_PHOTO" : "تصویر خود را انتخاب و نام خود را وارد نمایید",
-        "ENTER_REFERRAL_NUMBER" : "لطفا شماره تماس معرف خود را وارد نمایید",
+        "ENTER_REFERRAL_NUMBER" : "لطفا شماره تماس معرف خود را وارد نمایید(اختیاری)",
         "SKIP" : "پرش",
         "SET_REFERRAL" : "ثبت معرف",
         "IS_PHONE_OK" : "آیا این شماره تماس درست می باشد؟",

@@ -51,6 +51,7 @@ class IGGlobal {
     static var isFromSearchPage : Bool = false
     static var isInChatPage : Bool = true
     static var isSilent : Bool = false
+    static var isPopView : Bool = false
     static var dispoasDic: [Int64:Disposable] = [:]
     static var dispoasDicString: [String:Disposable] = [:]
     static var carpinoAgreement : Bool = false
