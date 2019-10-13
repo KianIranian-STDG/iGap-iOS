@@ -248,8 +248,8 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
                     case let userVerifyReponse as IGPUserVerifyResponse:
                         let interpretedResponse = IGUserVerifyRequest.Handler.intrepret(response: userVerifyReponse)
                         IGAppManager.sharedManager.save(token: interpretedResponse.token)
-                        self.isUserNew = true
-//                        self.isUserNew = interpretedResponse.newuser
+//                        self.isUserNew = true
+                        self.isUserNew = interpretedResponse.newuser
                         self.loginUser(token: interpretedResponse.token)
                         
                     default:
