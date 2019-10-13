@@ -6104,6 +6104,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         IGMessageViewController.messageIdsStatic.removeAll()
         self.collectionView.reloadData()
         self.collectionView.numberOfItems(inSection: 0) //<-- This code is no used, but it will let UICollectionView synchronize number of items, so it will not crash in following code.
+        self.collectionView.contentOffset = .zero
     }
     
     /**
