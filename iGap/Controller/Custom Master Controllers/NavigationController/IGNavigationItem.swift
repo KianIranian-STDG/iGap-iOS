@@ -110,9 +110,9 @@ class IGNavigationItem: UINavigationItem {
             return
         }
         
-        self.centerViewContainer?.subviews.forEach { $0.removeFromSuperview() }
-        self.centerViewContainer?.removeFromSuperview()
-        self.centerViewContainer = IGTappableView(frame: CGRect(x: 0, y: 0, width: 200, height: 45))
+//        self.centerViewContainer?.subviews.forEach { $0.removeFromSuperview() }
+//        self.centerViewContainer?.removeFromSuperview()
+        self.centerViewContainer = IGTappableView(frame: CGRect(x: 0, y: 0, width: 170, height: 45))
         
         self.titleView = centerViewContainer
         
@@ -124,7 +124,7 @@ class IGNavigationItem: UINavigationItem {
         self.titleView?.addSubview(label)
         label.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.centerViewContainer!.snp.centerX)
-            make.centerY.equalTo(self.centerViewContainer!.snp.centerY).offset(-5)
+            make.centerY.equalTo(self.centerViewContainer!.snp.centerY).offset(-2)
         }
         
         let activityIndicatorView = UIActivityIndicatorView(style: .white)

@@ -42,7 +42,6 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
     private var lastContentOffset: CGFloat = 0
     private var hasScaledDown: Bool = false
     var room : IGRoom?
-    private let disposeBag = DisposeBag()
     var hud = MBProgressHUD()
     var myRole : IGGroupMember.IGRole!
     var signMessageIndexPath : IndexPath?

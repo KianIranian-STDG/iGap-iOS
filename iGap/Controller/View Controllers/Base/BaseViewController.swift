@@ -9,8 +9,11 @@
  */
 
 import UIKit
+import RxSwift
 
 class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
+    
+    let disposeBag = DisposeBag()
     
     var isAppEnglish: Bool {
         get {

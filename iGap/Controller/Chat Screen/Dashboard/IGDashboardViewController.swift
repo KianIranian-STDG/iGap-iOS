@@ -32,6 +32,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     
     /// This variable is set only whene should perform deep link and holds discovery id's that should be opened
     var deepLinkDiscoveryIds: [String]?
+    var connectionStatus: IGAppManager.ConnectionStatus?
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var btnRefresh: UIButton!
@@ -66,8 +67,18 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_DISCOVERY_PAGE)
         initFont()
-        
-        self.hidesBottomBarWhenPushed = false
+                
+        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
+            DispatchQueue.main.async {
+                self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
+            }
+        }, onError: { (error) in
+            
+        }, onCompleted: {
+            
+        }, onDisposed: {
+            
+        }).disposed(by: disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,17 +95,50 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
 //        collectionView.reloadData()
         initFont()
     }
+    
     private func initFont() {
         btnRefresh.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
-        
         btnRefresh.setTitle("", for: .normal)
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        if deepLinkDiscoveryIds != nil, deepLinkDiscoveryIds!.count > 0 {
-//            self.collectionView.reloadData()
-//        }
-//    }
+    private func updateNavigationBarBasedOnNetworkStatus(_ status: IGAppManager.ConnectionStatus) {
+        if let navigationItem = self.navigationItem as? IGNavigationItem {
+            switch status {
+            case .waitingForNetwork:
+                navigationItem.setNavigationItemForWaitingForNetwork()
+                connectionStatus = .waitingForNetwork
+                IGAppManager.connectionStatusStatic = .waitingForNetwork
+                break
+                
+            case .connecting:
+                navigationItem.setNavigationItemForConnecting()
+                connectionStatus = .connecting
+                IGAppManager.connectionStatusStatic = .connecting
+                break
+                
+            case .connected:
+                connectionStatus = .connected
+                IGAppManager.connectionStatusStatic = .connected
+                break
+                
+            case .iGap:
+                connectionStatus = .iGap
+                IGAppManager.connectionStatusStatic = .iGap
+                switch  currentTabIndex {
+                case TabBarTab.Recent.rawValue:
+                    let navItem = self.navigationItem as! IGNavigationItem
+                    navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localizedNew)
+                default:
+                    if isDashboardInner! {
+                        self.initNavigationBar(title: nil, rightItemText: nil) { }
+                    } else {
+                        self.initDashboardNavigationBar()
+                    }
+                }
+                break
+            }
+        }
+    }
     
     private func initDashboardNavigationBar() {
         let navigationItem = self.navigationItem as! IGNavigationItem

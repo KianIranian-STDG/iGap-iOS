@@ -41,6 +41,7 @@ class IGCallsTableViewController: BaseTableViewController {
     var btnOutGoing : UIButton!
     var btnHolderView : UIView!
     var btnHolderScrollView : UIScrollView!
+    var connectionStatus: IGAppManager.ConnectionStatus?
     
     //-End
     
@@ -69,6 +70,18 @@ class IGCallsTableViewController: BaseTableViewController {
                                                    object: nil)
         }
         callTypes = IGPSignalingGetLog.IGPFilter.allCases
+        
+        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
+            DispatchQueue.main.async {
+                self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
+            }
+        }, onError: { (error) in
+            
+        }, onCompleted: {
+            
+        }, onDisposed: {
+            
+        }).disposed(by: disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,6 +106,41 @@ class IGCallsTableViewController: BaseTableViewController {
         navigationItem.leftViewContainer?.addAction {
             if !(self.callLogList!.count == 0) {
                 self.showClearHistoryActionSheet()
+            }
+        }
+    }
+    
+    private func updateNavigationBarBasedOnNetworkStatus(_ status: IGAppManager.ConnectionStatus) {
+        if let navigationItem = self.navigationItem as? IGNavigationItem {
+            switch status {
+            case .waitingForNetwork:
+                navigationItem.setNavigationItemForWaitingForNetwork()
+                connectionStatus = .waitingForNetwork
+                IGAppManager.connectionStatusStatic = .waitingForNetwork
+                break
+                
+            case .connecting:
+                navigationItem.setNavigationItemForConnecting()
+                connectionStatus = .connecting
+                IGAppManager.connectionStatusStatic = .connecting
+                break
+                
+            case .connected:
+                connectionStatus = .connected
+                IGAppManager.connectionStatusStatic = .connected
+                break
+                
+            case .iGap:
+                connectionStatus = .iGap
+                IGAppManager.connectionStatusStatic = .iGap
+                switch  currentTabIndex {
+                case TabBarTab.Recent.rawValue:
+                    let navItem = self.navigationItem as! IGNavigationItem
+                    navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localizedNew)
+                default:
+                    self.initNavigationBar()
+                }
+                break
             }
         }
     }

@@ -47,7 +47,6 @@ class IGGroupProfile: BaseTableViewController {
     // new end
     
     var room : IGRoom?
-    private let disposeBag = DisposeBag()
     var hud = MBProgressHUD()
     var myRole : IGGroupMember.IGRole!
     var signMessageIndexPath : IndexPath?

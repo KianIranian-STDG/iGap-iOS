@@ -135,8 +135,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     let iGapStoreLink = URL(string: "https://new.sibapp.com/applications/igap")
     var cellId = "cellId"
     
-    private let disposeBag = DisposeBag()
-    
     private func updateNavigationBarBasedOnNetworkStatus(_ status: IGAppManager.ConnectionStatus) {
         
         if let navigationItem = self.navigationItem as? IGNavigationItem {
@@ -678,7 +676,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 
             }
         }
-        
         
         
         btnMuteSwipeCell.backgroundColor = UIColor.swipeGray()

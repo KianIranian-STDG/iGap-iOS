@@ -48,7 +48,6 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
     private var hasScaledDown: Bool = false
 
     var selectedChannel : IGChannelRoom?
-    private let disposeBag = DisposeBag()
     var room : IGRoom?
     var hud = MBProgressHUD()
     var allMember = [IGChannelMember]()

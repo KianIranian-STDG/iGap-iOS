@@ -10,8 +10,11 @@
 
 import UIKit
 import maincore
+import RxSwift
 
 class BaseTableViewController: UITableViewController, UIGestureRecognizerDelegate {
+    
+    let disposeBag = DisposeBag()
     
     var isAppEnglish: Bool {
         get {

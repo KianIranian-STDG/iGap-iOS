@@ -62,7 +62,6 @@ class IGChannelInfoTableViewController: BaseTableViewController , NVActivityIndi
 
     
     var selectedChannel : IGChannelRoom?
-    private let disposeBag = DisposeBag()
     var room : IGRoom?
     var hud = MBProgressHUD()
     var allMember = [IGChannelMember]()

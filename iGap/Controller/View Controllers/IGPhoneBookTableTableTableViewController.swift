@@ -70,6 +70,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     private let collation = UILocalizedIndexedCollation.current()
     internal static var callDelegate: IGCallFromContactListObserver!
     private var footerLabel: UILabel!
+    var connectionStatus: IGAppManager.ConnectionStatus?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,8 +101,18 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
-              
-//        initialiseSearchBar()
+        
+        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
+            DispatchQueue.main.async {
+                self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
+            }
+        }, onError: { (error) in
+            
+        }, onCompleted: {
+            
+        }, onDisposed: {
+            
+        }).disposed(by: disposeBag)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -163,7 +174,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                     placeHolderInsideSearchField.center = backgroundview.center
                 }
                 placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15,weight: .bold)
-                
             }
             
         }
@@ -189,6 +199,41 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             navigationItem.setPhoneBookNavigationItems()
             navigationItem.rightViewContainer?.addAction {
                 self.goToAddContactsPage()
+            }
+        }
+    }
+    
+    private func updateNavigationBarBasedOnNetworkStatus(_ status: IGAppManager.ConnectionStatus) {
+        if let navigationItem = self.navigationItem as? IGNavigationItem {
+            switch status {
+            case .waitingForNetwork:
+                navigationItem.setNavigationItemForWaitingForNetwork()
+                connectionStatus = .waitingForNetwork
+                IGAppManager.connectionStatusStatic = .waitingForNetwork
+                break
+                
+            case .connecting:
+                navigationItem.setNavigationItemForConnecting()
+                connectionStatus = .connecting
+                IGAppManager.connectionStatusStatic = .connecting
+                break
+                
+            case .connected:
+                connectionStatus = .connected
+                IGAppManager.connectionStatusStatic = .connected
+                break
+                
+            case .iGap:
+                connectionStatus = .iGap
+                IGAppManager.connectionStatusStatic = .iGap
+                switch  currentTabIndex {
+                case TabBarTab.Recent.rawValue:
+                    let navItem = self.navigationItem as! IGNavigationItem
+                    navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localizedNew)
+                default:
+                    self.setNavigationItems()
+                }
+                break
             }
         }
     }

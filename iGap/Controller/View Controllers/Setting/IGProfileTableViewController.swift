@@ -117,6 +117,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     var userCards: [SMCard]?
     
     var editProfileNavBtn: UIButton!
+    var connectionStatus: IGAppManager.ConnectionStatus?
 
     @IBOutlet weak var userAvatarView: IGAvatarView!
     
@@ -131,7 +132,17 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
-        self.hidesBottomBarWhenPushed = false
+        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
+            DispatchQueue.main.async {
+                self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
+            }
+        }, onError: { (error) in
+            
+        }, onCompleted: {
+            
+        }, onDisposed: {
+            
+        }).disposed(by: disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool)  {
@@ -215,6 +226,41 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         navigationItem.setProfilePageNavigationItem()
         navigationItem.rightViewContainer?.addAction {
             self.editProfileTapped()
+        }
+    }
+    
+    private func updateNavigationBarBasedOnNetworkStatus(_ status: IGAppManager.ConnectionStatus) {
+        if let navigationItem = self.navigationItem as? IGNavigationItem {
+            switch status {
+            case .waitingForNetwork:
+                navigationItem.setNavigationItemForWaitingForNetwork()
+                connectionStatus = .waitingForNetwork
+                IGAppManager.connectionStatusStatic = .waitingForNetwork
+                break
+                
+            case .connecting:
+                navigationItem.setNavigationItemForConnecting()
+                connectionStatus = .connecting
+                IGAppManager.connectionStatusStatic = .connecting
+                break
+                
+            case .connected:
+                connectionStatus = .connected
+                IGAppManager.connectionStatusStatic = .connected
+                break
+                
+            case .iGap:
+                connectionStatus = .iGap
+                IGAppManager.connectionStatusStatic = .iGap
+                switch  currentTabIndex {
+                case TabBarTab.Recent.rawValue:
+                    let navItem = self.navigationItem as! IGNavigationItem
+                    navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localizedNew)
+                default:
+                    self.initNavBar()
+                }
+                break
+            }
         }
     }
     
