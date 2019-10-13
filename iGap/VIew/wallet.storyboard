@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fbd-Pp-gef">
-    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <device id="retina5_5" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
@@ -65,11 +65,11 @@
                         <sections>
                             <tableViewSection headerTitle=" " id="GcZ-Dw-Lk4">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="331" id="NRe-qC-Ovx">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="331"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="349" id="NRe-qC-Ovx">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="349"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NRe-qC-Ovx" id="vdL-b9-nZn">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="331"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="349"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HEM-Ph-Tbw" customClass="UIViewX" customModule="iGap" customModuleProvider="target">
@@ -106,10 +106,10 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oFA-SA-VQA">
-                                                    <rect key="frame" x="20" y="282" width="374" height="30"/>
+                                                    <rect key="frame" x="20" y="282" width="374" height="48"/>
                                                     <subviews>
                                                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jRM-iJ-XVk" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="182" height="30"/>
+                                                            <rect key="frame" x="0.0" y="4.6666666666666856" width="182" height="39"/>
                                                             <color key="backgroundColor" name="IGNavigationSecondColor"/>
                                                             <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
                                                             <state key="normal" title="Cashout">
@@ -125,7 +125,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A45-HS-xdb" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
-                                                            <rect key="frame" x="192" y="0.0" width="182" height="30"/>
+                                                            <rect key="frame" x="192" y="4.6666666666666856" width="182" height="39"/>
                                                             <color key="backgroundColor" name="IGNavigationSecondColor"/>
                                                             <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
                                                             <state key="normal" title="Charge">
@@ -141,6 +141,9 @@
                                                             </connections>
                                                         </button>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="48" id="f6H-TS-FWF"/>
+                                                    </constraints>
                                                 </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bGd-L3-Ydw" userLabel="titleView">
                                                     <rect key="frame" x="20" y="11" width="374" height="47"/>
@@ -211,7 +214,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" tag="1" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="57" id="pUI-Tj-1hG">
-                                        <rect key="frame" x="0.0" y="359" width="414" height="57"/>
+                                        <rect key="frame" x="0.0" y="377" width="414" height="57"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pUI-Tj-1hG" id="Z2E-Rx-agd">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="57"/>
@@ -261,7 +264,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="267" id="X3u-7i-bWa">
-                                        <rect key="frame" x="0.0" y="416" width="414" height="267"/>
+                                        <rect key="frame" x="0.0" y="434" width="414" height="267"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X3u-7i-bWa" id="0U1-Us-kCU">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="267"/>
@@ -346,7 +349,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" tag="1" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="57" id="JkA-Tb-TEg">
-                                        <rect key="frame" x="0.0" y="683" width="414" height="57"/>
+                                        <rect key="frame" x="0.0" y="701" width="414" height="57"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JkA-Tb-TEg" id="sAA-l5-jK5">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="57"/>
@@ -393,7 +396,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="267" id="DBA-Dz-cCj">
-                                        <rect key="frame" x="0.0" y="740" width="414" height="267"/>
+                                        <rect key="frame" x="0.0" y="758" width="414" height="267"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DBA-Dz-cCj" id="l1v-En-3cJ">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="267"/>
@@ -2609,7 +2612,7 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="18"/>
                                                     <state key="normal" title="">
-                                                        <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="titleColor" name="IGLabelGrayColor"/>
                                                     </state>
                                                 </button>
                                             </subviews>
@@ -2642,7 +2645,7 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="20"/>
                                                     <state key="normal" title="">
-                                                        <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="titleColor" name="IGLabelGrayColor"/>
                                                     </state>
                                                 </button>
                                             </subviews>
@@ -2995,6 +2998,7 @@
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="****" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i5q-UR-jBO" customClass="customUITextField" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="47.666666666666657" width="398" height="44.333333333333343"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES" textContentType="password"/>
                                                 </textField>
@@ -3024,6 +3028,7 @@
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="****" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NZI-BR-bnU" customClass="customUITextField" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="47.666666666666657" width="398" height="44.333333333333343"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES" textContentType="password"/>
                                                 </textField>
@@ -3053,6 +3058,7 @@
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="****" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eZO-2T-C02" customClass="customUITextField" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="47.666666666666657" width="398" height="44.333333333333343"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES" textContentType="password"/>
                                                 </textField>
