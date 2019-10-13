@@ -42,7 +42,11 @@ let IGNotificationPushTwoStepVerification = Notification(name: Notification.Name
 
 let orangeGradientLocation = [0.0, 1.0]
 
-
+enum themeMode : Int {
+    case dark = 0
+    case light = 1
+    case any = 2
+}
 class IGGlobal {
     static var imgDic : [String: IGImageView] = [:]
     static var heroTabIndex : Int = -1
@@ -51,6 +55,7 @@ class IGGlobal {
     static var isFromSearchPage : Bool = false
     static var isInChatPage : Bool = true
     static var isSilent : Bool = false
+    static var themeMode : themeMode.RawValue = 2
     static var isPopView : Bool = false
     static var dispoasDic: [Int64:Disposable] = [:]
     static var dispoasDicString: [String:Disposable] = [:]
@@ -1751,12 +1756,26 @@ extension String {
         return ext
     }
     
-
+    
     var localizedNew: String {
         if SMLangUtil.loadLanguage() == "fa" {
             IGGlobal.languageFileName = "localizationsFa"
         } else {
             IGGlobal.languageFileName = "localizationsEn"
+        }
+        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
+        
+        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
+        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
+        
+        return MCLocalization.string(forKey: self)
+    }
+    
+    var TabLocalizedNew: String {
+        if SMLangUtil.loadLanguage() == "fa" {
+            IGGlobal.languageFileName = "TabLocalizationFa"
+        } else {
+            IGGlobal.languageFileName = "TabLocalizationEn"
         }
         let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
         

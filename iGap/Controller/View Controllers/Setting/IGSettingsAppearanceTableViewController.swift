@@ -12,7 +12,7 @@ import SnapKit
 class IGSettingsAppearanceTableViewController: BaseTableViewController {
     
     @IBOutlet weak var lblInAppBrowser : UILabel!
-    @IBOutlet weak var lblEnableAnimation : UILabel!
+//    @IBOutlet weak var lblEnableAnimation : UILabel!
     @IBOutlet weak var lblStickers : UILabel!
     @IBOutlet weak var lblLightTheme : UILabel!
     @IBOutlet weak var lblDarkTheme : UILabel!
@@ -26,6 +26,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
     @IBOutlet weak var messageStatusPreview : UILabel!
     @IBOutlet weak var messageTimePreview : UILabel!
     @IBOutlet weak var viewMessagePreview : UIView!
+    var userDefaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +63,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         lblDarkTheme.text = "DARK_THEME".localizedNew
         lblLightTheme.text = "LIGHT_THEME".localizedNew
         // MARK: - Section 2
-        lblEnableAnimation.text = "ENABLE_ANIMATIONS".localizedNew
+//        lblEnableAnimation.text = "ENABLE_ANIMATIONS".localizedNew
         lblStickers.text = "STICKERS".localizedNew
         lblInAppBrowser.text = "SETTING_PAGE_IN_APP_BROWSER".localizedNew
 
@@ -108,25 +109,46 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
     //MARK: - TableView Delegates
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+        if #available(iOS 13.0, *) {
+            return 3
+        } else {
+            return 3
+            // Fallback on earlier versions
+        }
+
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 3
-        case 1:
-            return 2
-        case 2:
-            return 3
-        default:
-            return 0
+        if #available(iOS 13.0, *) {
+            switch section {
+              case 0:
+                  return 3
+              case 1:
+//                  return 2
+                  return 0
+              case 2:
+                  return 2
+              default:
+                  return 0
+              }
+        } else {
+            switch section {
+              case 0:
+                  return 3
+              case 1:
+                  return 0
+              case 2:
+                  return 2
+              default:
+                  return 0
+              }
         }
         
     }
 
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         switch indexPath.section {
         case 0:
             if indexPath.row == 1 {
@@ -136,10 +158,14 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
             }
         case 1:
             if indexPath.row == 1 {
-                
+                IGGlobal.themeMode = 0
+                userDefaults.set(0, forKey: "themeMode")
+
             }
             else {
-                
+                IGGlobal.themeMode = 1
+                userDefaults.set(1, forKey: "themeMode")
+
             }
         case 2:
             if indexPath.row == 2 {
@@ -173,6 +199,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
             return 0
         }
     }
+    
     //MARK:-HEADER CONFIGS
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let containerFooterView = view as! UITableViewHeaderFooterView
@@ -194,7 +221,14 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         case 0:
             return "TEXT_SIZE".localizedNew
         case 1:
-            return "COLOR_THEME".localizedNew
+            if #available(iOS 13.0, *) {
+               // return "COLOR_THEME".localizedNew
+                return ""
+
+            } else {
+                return ""
+
+            }
         case 2:
             return "OTHER".localizedNew
         default:
@@ -203,6 +237,15 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
+        case 1:
+            if #available(iOS 13.0, *) {
+
+            //return 50
+                return 0
+
+            } else {
+                return 0
+            }
         case 3:
             return 50
         default:

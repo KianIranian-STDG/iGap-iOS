@@ -64,7 +64,7 @@ class IGSettingsNotificationsTableViewController: UITableViewController,UIGestur
     }
     // MARK: - Change Strings Based on App Language
     func initChangeStrings(){
-        lblPrivateCHats.text = "PRIVATE_CHATS".localizedNew
+        lblPrivateCHats.text = "SETTING_SOUND_SEND_MESSAGE".localizedNew
         lblGroups.text = "NOTIFI_GROUPS".localizedNew
         lblChannels.text = "NOTIFI_CHANNELS".localizedNew
         lblEnabled.text = "NOTIFI_ENABLED".localizedNew
@@ -83,7 +83,9 @@ class IGSettingsNotificationsTableViewController: UITableViewController,UIGestur
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 5
+//      return 5
+        //Hint: uncomment above line if the settings were available
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

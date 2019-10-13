@@ -29,7 +29,8 @@ class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        edtPhoneNumber.setMask("{ddddddddddddddddddddddddd}", withMaskTemplate: "_________________________")
+
         makeView()
         btnChooseCountry.setTitle("CHOOSE_COUNTRY".localizedNew, for: .normal)
         btnChooseCountry.layer.borderColor = UIColor.darkGray.cgColor
@@ -138,9 +139,14 @@ class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepS
     fileprivate func setSelectedCountry(_ country:IGCountryInfo) {
         txtCountryCode.text = "+" + String(Int((country.countryCode))).inLocalizedLanguage()
         btnChooseCountry.setTitle(country.countryName , for: UIControl.State.normal)
-        
-        if country.codePattern != nil && country.codePattern != "" {
-            edtPhoneNumber.setMask((country.codePatternMask), withMaskTemplate: country.codePatternTemplate)
+        let codePattern = (country.codePattern)
+
+        if codePattern != nil && codePattern != "" {
+            let codePatternMask = (country.codePatternMask)
+            let codePatternTemplate = country.codePatternTemplate
+//            edtPhoneNumber.setMask("{ddddddddddddddddddddddddd}", withMaskTemplate: "_________________________")
+            
+//            edtPhoneNumber.setMask((codePatternMask), withMaskTemplate: codePatternTemplate)
         } else {
             let codePatternMask = "{ddddddddddddddddddddddddd}"
             let codePatternTemplate = "_________________________"

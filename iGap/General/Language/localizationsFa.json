@@ -985,6 +985,7 @@
         "GLOBAL_OK" : "تایید",
         "GLOBAL_DONE" : "تایید",
         "TRACE_NUMBER" : "شماره پیگیری",
+        "SETTING_SOUND_SEND_MESSAGE" : "صوت ارسال پیام",
         
         "GLOBAL_TO" : "به",
         "GLOBAL_BACK" : "بازگشت",

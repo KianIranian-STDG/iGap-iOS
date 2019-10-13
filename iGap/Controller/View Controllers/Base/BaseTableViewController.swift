@@ -40,7 +40,12 @@ class BaseTableViewController: UITableViewController, UIGestureRecognizerDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        if #available(iOS 13.0, *) {
+//            overrideUserInterfaceStyle = UIUserInterfaceStyle(rawValue: IGGlobal.themeMode)!
+//        } else {
+//            // Fallback on earlier versions
+//        }
+
         self.hideKeyboardWhenTappedAround()
     }
     

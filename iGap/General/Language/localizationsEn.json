@@ -1089,6 +1089,9 @@
         "WARNING_MAX_ITEMS_LIMIT" : "No more items can be selected!",
         "CROP" : "crop",
         "FILTER" : "filter",
-        "PROCESSING" : "processing"
+        "PROCESSING" : "processing",
+        
+        "SETTING_SOUND_SEND_MESSAGE" : "Send Message Sound",
+
     }
 }

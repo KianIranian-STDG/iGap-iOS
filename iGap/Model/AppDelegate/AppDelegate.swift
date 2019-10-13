@@ -125,19 +125,26 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             print("Could not clear document directory \(error)")
         }
     }
-    
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        //checksetting defaults
+    private func userdefaultsManagment() {
         if (UserDefaults.standard.object(forKey: "silentPrivateChat") != nil) {
             IGGlobal.isSilent = UserDefaults.standard.bool(forKey: "silentPrivateChat")
 
         }
+//        if (UserDefaults.standard.object(forKey: "themeMode") != nil) {
+//            IGGlobal.themeMode = UserDefaults.standard.integer(forKey: "themeMode")
+//
+//        }
 
         if IGGlobal.isKeyPresentInUserDefaults(key: "textMessagesFontSize")  {
             fontDefaultSize = CGFloat(UserDefaults.standard.float(forKey: "textMessagesFontSize"))
         } else {
             fontDefaultSize = 15.0
         }
+
+    }
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        //checksetting defaults
+        userdefaultsManagment()
         lastLang = SMLangUtil.loadLanguage()
         if SMLangUtil.loadLanguage() == "fa" {
             IGGlobal.languageFileName = "localizationsFa"
