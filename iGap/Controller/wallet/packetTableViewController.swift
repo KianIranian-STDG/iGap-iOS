@@ -761,7 +761,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                 else {
 //                    let tmpMin : Int! = ((self.userCards?.count)! - 1)  * (100)
 //                    return CGFloat((CGFloat((self.userCards?.count)!) * CGFloat(defaultHeightSize) - (CGFloat((self.userCards?.count)! - tmpMin))))
-                    return CGFloat(((self.userCards?.count)!) * (defaultCelltSize / 2))
+                    return CGFloat(((self.userCards?.count)!) * (defaultCelltSize / 2)) + 50
                     
                 }
             }
