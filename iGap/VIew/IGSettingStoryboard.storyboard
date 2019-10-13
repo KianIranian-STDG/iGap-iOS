@@ -2104,7 +2104,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JI2-75-gzb" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="29.999999999999993" y="12.666666666666666" width="109.33333333333331" height="18.666666666666671"/>
+                                                    <rect key="frame" x="29.999999999999993" y="9.3333333333333339" width="109.33333333333331" height="25.333333333333329"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -2130,7 +2130,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iGAP Officaial Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hg8-Sr-Wwa" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="30" y="12.666666666666666" width="146.33333333333334" height="18.666666666666671"/>
+                                                    <rect key="frame" x="30" y="9.3333333333333339" width="147.66666666666666" height="25.333333333333329"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -2149,7 +2149,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iGAP Officaial Blog" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZVL-zD-0rw" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="30" y="12.666666666666666" width="137" height="18.666666666666671"/>
+                                                    <rect key="frame" x="30" y="9.3333333333333339" width="137" height="25.333333333333329"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -2168,7 +2168,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Support Request" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4PW-1E-VEe" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="30" y="12.666666666666666" width="122" height="18.666666666666671"/>
+                                                    <rect key="frame" x="29.999999999999993" y="9.3333333333333339" width="119.33333333333331" height="25.333333333333329"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -4087,7 +4087,7 @@ Please wait 0:59</string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IPk-aI-YDy" customClass="AKMaskField" customModule="AKMaskField">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IPk-aI-YDy" customClass="AKMaskField" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="106" y="220" width="272" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="oVb-19-jlv"/>
@@ -4119,7 +4119,7 @@ Please wait 0:59</string>
                         <outlet property="btnChooseCountry" destination="HyI-1d-fPt" id="Qs1-0Z-jRa"/>
                         <outlet property="edtFirstName" destination="JbP-tu-Rxg" id="pel-45-Utz"/>
                         <outlet property="edtLastName" destination="dAf-nf-daQ" id="0ss-2M-fVZ"/>
-                        <outlet property="edtPhoneNumber" destination="IPk-aI-YDy" id="lqd-cd-QvJ"/>
+                        <outlet property="edtPhoneNumber" destination="IPk-aI-YDy" id="Q47-FQ-CMk"/>
                         <outlet property="txtCountryCode" destination="bVc-JZ-nLF" id="waS-9y-eGj"/>
                     </connections>
                 </viewController>
@@ -4251,7 +4251,7 @@ Please wait 0:59</string>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ported Subscriber Disable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWZ-ks-WND">
-                                <rect key="frame" x="101.00000000000001" y="121.66666666666669" width="199.33333333333337" height="20"/>
+                                <rect key="frame" x="101" y="118.33333333333333" width="194" height="26.666666666666671"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -5370,7 +5370,7 @@ Please wait 0:59</string>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bsT-s3-D95" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="16" y="8" width="235" height="32.666666666666664"/>
+                                    <rect key="frame" x="15.999999999999986" y="8" width="238.66666666666663" height="44"/>
                                     <string key="text">You have an unverifies email address:
 kay*****@gm**.com</string>
                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
@@ -5378,7 +5378,7 @@ kay*****@gm**.com</string>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJr-rG-Ulq">
-                                    <rect key="frame" x="16" y="48.666666666666664" width="81" height="29.999999999999993"/>
+                                    <rect key="frame" x="16" y="60" width="81" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="xDR-kd-mef"/>
                                     </constraints>
@@ -5427,7 +5427,7 @@ kay*****@gm**.com</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nkJ-yL-hax">
-                                                    <rect key="frame" x="16" y="0.0" width="139.33333333333334" height="44"/>
+                                                    <rect key="frame" x="16" y="0.0" width="138.33333333333334" height="44"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -5448,7 +5448,7 @@ kay*****@gm**.com</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Hint" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTy-F6-lXB">
-                                                    <rect key="frame" x="16" y="0.0" width="95" height="44"/>
+                                                    <rect key="frame" x="16" y="0.0" width="94" height="44"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -5469,7 +5469,7 @@ kay*****@gm**.com</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Security Questions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ytR-4B-bCD">
-                                                    <rect key="frame" x="16" y="0.0" width="207.66666666666666" height="44"/>
+                                                    <rect key="frame" x="16" y="0.0" width="205.33333333333334" height="44"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -5490,7 +5490,7 @@ kay*****@gm**.com</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set/Change Recovery Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J2r-4Q-y1y">
-                                                    <rect key="frame" x="16" y="0.0" width="213" height="44"/>
+                                                    <rect key="frame" x="16" y="0.0" width="211" height="44"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -5648,7 +5648,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="POf-UI-RLE">
-                                                    <rect key="frame" x="103.00000000000001" y="7" width="56.666666666666671" height="30"/>
+                                                    <rect key="frame" x="102.99999999999999" y="7" width="55.333333333333329" height="30"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -5677,7 +5677,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z7H-8I-CgB">
-                                                    <rect key="frame" x="93" y="7" width="56.666666666666657" height="30"/>
+                                                    <rect key="frame" x="93" y="7" width="55.333333333333343" height="30"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -5706,7 +5706,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8sD-P7-8no">
-                                                    <rect key="frame" x="103.00000000000001" y="7" width="56.666666666666671" height="30"/>
+                                                    <rect key="frame" x="102.99999999999999" y="7" width="55.333333333333329" height="30"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -5735,7 +5735,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="myc-Fg-qnY">
-                                                    <rect key="frame" x="93" y="7" width="56.666666666666657" height="30"/>
+                                                    <rect key="frame" x="93" y="7" width="55.333333333333343" height="30"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -5799,7 +5799,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Recommended" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gwm-3m-03g">
-                                                    <rect key="frame" x="59.666666666666664" y="7" width="116.66666666666669" height="30"/>
+                                                    <rect key="frame" x="59.666666666666664" y="7" width="114.66666666666669" height="30"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -5857,7 +5857,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Recommended" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9ou-fA-vvn">
-                                                    <rect key="frame" x="65" y="7" width="116.66666666666669" height="30"/>
+                                                    <rect key="frame" x="65" y="7" width="114.66666666666669" height="30"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -7246,7 +7246,7 @@ kay*****@gm**.com</string>
                                                     <rect key="frame" x="80" y="27.666666666666671" width="304" height="66"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="21:50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Py-y5-PED">
-                                                            <rect key="frame" x="236.33333333333331" y="43" width="27.666666666666686" height="13"/>
+                                                            <rect key="frame" x="236.33333333333331" y="38.666666666666657" width="27.666666666666686" height="17.333333333333329"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="11"/>
                                                             <color key="textColor" name="IGMessageTimeLabelColor"/>
                                                             <nil key="highlightedColor"/>
@@ -7262,7 +7262,7 @@ kay*****@gm**.com</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="it's morning in Tehran " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Io7-vU-V2r">
-                                                            <rect key="frame" x="15" y="4.9999999999999964" width="274" height="33"/>
+                                                            <rect key="frame" x="15" y="4.9999999999999947" width="274" height="28.666666666666671"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="12"/>
                                                             <color key="textColor" name="IGMessageTextColor"/>
                                                             <nil key="highlightedColor"/>
@@ -7372,35 +7372,8 @@ kay*****@gm**.com</string>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="1yS-Nb-3t3">
-                                        <rect key="frame" x="0.0" y="457.00000190734863" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1yS-Nb-3t3" id="Nds-c9-zTA">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Animations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2gw-uo-dDm" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="27" y="13" width="141" height="16"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YC2-kq-yE3">
-                                                    <rect key="frame" x="339" y="6" width="51" height="32"/>
-                                                </switch>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="2gw-uo-dDm" firstAttribute="leading" secondItem="Nds-c9-zTA" secondAttribute="leadingMargin" constant="7" id="4hn-87-DOQ"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="2gw-uo-dDm" secondAttribute="bottom" constant="4" id="GiJ-bZ-LZw"/>
-                                                <constraint firstItem="YC2-kq-yE3" firstAttribute="top" secondItem="Nds-c9-zTA" secondAttribute="top" constant="6" id="JRa-2P-912"/>
-                                                <constraint firstAttribute="trailing" secondItem="YC2-kq-yE3" secondAttribute="trailing" constant="26" id="nk1-72-cEy"/>
-                                                <constraint firstItem="2gw-uo-dDm" firstAttribute="top" secondItem="Nds-c9-zTA" secondAttribute="topMargin" constant="2" id="rgG-k1-FNb"/>
-                                                <constraint firstAttribute="bottom" secondItem="YC2-kq-yE3" secondAttribute="bottom" constant="6" id="zF9-Aa-N4u"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="jNR-Au-N27">
-                                        <rect key="frame" x="0.0" y="501.00000190734863" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="457.00000190734863" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jNR-Au-N27" id="vqz-7S-qQM">
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="44"/>
@@ -7431,7 +7404,6 @@ kay*****@gm**.com</string>
                     <connections>
                         <outlet property="lblChatBG" destination="BIn-A5-mw8" id="JNP-g3-mnh"/>
                         <outlet property="lblDarkTheme" destination="34r-gx-CK3" id="CY7-bk-abt"/>
-                        <outlet property="lblEnableAnimation" destination="2gw-uo-dDm" id="hcy-In-oBP"/>
                         <outlet property="lblInAppBrowser" destination="nHg-th-6Vl" id="TK4-Qc-P1z"/>
                         <outlet property="lblLightTheme" destination="zC5-TB-GSL" id="IBZ-yE-Sgp"/>
                         <outlet property="lblMaxA" destination="1zb-p9-10R" id="yrG-f4-nf6"/>

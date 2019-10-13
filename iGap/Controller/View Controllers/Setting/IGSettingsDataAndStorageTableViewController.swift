@@ -79,13 +79,16 @@ class IGSettingsDataAndStorageTableViewController: BaseTableViewController {
         }
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        //return 5
+        //Hint: uncomment above line if the settings were available
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 2
+            //return 2
+            return 1
         case 1:
             return 3
         case 2:
