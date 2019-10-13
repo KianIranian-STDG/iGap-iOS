@@ -29,7 +29,6 @@ class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tfPhoneNUmber.setMask("{ddddddddddddddddddddddddd}", withMaskTemplate: "_________________________")
 
         makeView()
         btnChooseCountry.setTitle("CHOOSE_COUNTRY".localizedNew, for: .normal)
@@ -146,7 +145,7 @@ class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepS
             let codePatternTemplate = country.codePatternTemplate
 //            edtPhoneNumber.setMask("{ddddddddddddddddddddddddd}", withMaskTemplate: "_________________________")
             
-//            edtPhoneNumber.setMask((codePatternMask), withMaskTemplate: codePatternTemplate)
+            tfPhoneNUmber.setMask((codePatternMask), withMaskTemplate: codePatternTemplate)
         } else {
             let codePatternMask = "{ddddddddddddddddddddddddd}"
             let codePatternTemplate = "_________________________"
