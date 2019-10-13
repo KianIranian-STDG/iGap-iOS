@@ -18,7 +18,6 @@ class VoiceCell: AbstractCell {
     @IBOutlet weak var mainBubbleViewHeight: NSLayoutConstraint!
     
     var txtVoiceTime: UILabel!
-    var btnPlay: UIButton!
     var sliderVoice: UISlider!
     
     var btnPlayPosition: Constraint!
@@ -72,11 +71,11 @@ class VoiceCell: AbstractCell {
             mainBubbleViewAbs.addSubview(txtVoiceTime)
         }
         
-        if btnPlay == nil {
-            btnPlay = UIButton()
-            btnPlay.titleLabel?.font = UIFont.iGapFonticon(ofSize: 50)
-            btnPlay.setTitleColor(UIColor.iGapBlue(), for: UIControl.State.normal)
-            mainBubbleViewAbs.addSubview(btnPlay)
+        if btnPlayAbs == nil {
+            btnPlayAbs = UIButton()
+            btnPlayAbs.titleLabel?.font = UIFont.iGapFonticon(ofSize: 50)
+            btnPlayAbs.setTitleColor(UIColor.iGapBlue(), for: UIControl.State.normal)
+            mainBubbleViewAbs.addSubview(btnPlayAbs)
         }
         
         if sliderVoice == nil {
@@ -95,9 +94,9 @@ class VoiceCell: AbstractCell {
             txtVoiceTime.removeFromSuperview()
             txtVoiceTime = nil
         }
-        if btnPlay != nil {
-            btnPlay.removeFromSuperview()
-            btnPlay = nil
+        if btnPlayAbs != nil {
+            btnPlayAbs.removeFromSuperview()
+            btnPlayAbs = nil
         }
         if sliderVoice != nil {
             sliderVoice.removeFromSuperview()
@@ -106,7 +105,7 @@ class VoiceCell: AbstractCell {
     }
     
     private func manageVoiceViewPosition(){
-        btnPlay.snp.makeConstraints { (make) in
+        btnPlayAbs.snp.makeConstraints { (make) in
             
             if btnPlayPosition != nil { btnPlayPosition.deactivate() }
             
@@ -126,10 +125,10 @@ class VoiceCell: AbstractCell {
         }
         
         indicatorViewAbs.snp.makeConstraints { (make) in
-            make.leading.equalTo(btnPlay.snp.leading)
-            make.trailing.equalTo(btnPlay.snp.trailing)
-            make.top.equalTo(btnPlay.snp.top)
-            make.bottom.equalTo(btnPlay.snp.bottom)
+            make.leading.equalTo(btnPlayAbs.snp.leading)
+            make.trailing.equalTo(btnPlayAbs.snp.trailing)
+            make.top.equalTo(btnPlayAbs.snp.top)
+            make.bottom.equalTo(btnPlayAbs.snp.bottom)
         }
         
         txtVoiceTime.snp.makeConstraints { (make) in
@@ -139,9 +138,9 @@ class VoiceCell: AbstractCell {
         }
         
         sliderVoice.snp.makeConstraints { (make) in
-            make.leading.equalTo(btnPlay.snp.trailing).offset(4.0)
+            make.leading.equalTo(btnPlayAbs.snp.trailing).offset(4.0)
             make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-8.0)
-            make.centerY.equalTo(btnPlay.snp.centerY)
+            make.centerY.equalTo(btnPlayAbs.snp.centerY)
         }
     }
     
@@ -156,7 +155,7 @@ class VoiceCell: AbstractCell {
             sliderVoice.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .highlighted)
             sliderVoice.minimumTrackTintColor = UIColor.organizationalColor()
             sliderVoice.maximumTrackTintColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
-            btnPlay.setTitle("", for: UIControl.State.normal)
+            btnPlayAbs.setTitle("", for: UIControl.State.normal)
         } else {
             sliderVoice.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .normal)
             sliderVoice.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .focused)
@@ -164,7 +163,7 @@ class VoiceCell: AbstractCell {
             sliderVoice.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .highlighted)
             sliderVoice.minimumTrackTintColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1.0)
             sliderVoice.maximumTrackTintColor = UIColor(red: 22.0/255.0, green: 91.0/255.0, blue: 88.0/255.0, alpha: 1.0)
-            btnPlay.setTitle("", for: UIControl.State.normal)
+            btnPlayAbs.setTitle("", for: UIControl.State.normal)
         }
         
         if self.attachment?.status != .ready {
@@ -183,16 +182,16 @@ class VoiceCell: AbstractCell {
     
     /** check current voice state and if is playing update values to current state */
     private func checkPlayerState(){
-        IGPlayer.shared.startPlayer(btnPlayPause: btnPlay, slider: sliderVoice, timer: txtVoiceTime, attachment: self.finalRoomMessage.attachment!, justUpdate: true)
+        IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderVoice, timer: txtVoiceTime, attachment: self.finalRoomMessage.attachment!, justUpdate: true)
     }
     
     private func voiceGustureRecognizers() {
         let play = UITapGestureRecognizer(target: self, action: #selector(didTapOnPlay(_:)))
-        btnPlay?.addGestureRecognizer(play)
+        btnPlayAbs?.addGestureRecognizer(play)
     }
     
     @objc func didTapOnPlay(_ gestureRecognizer: UITapGestureRecognizer) {
-        IGPlayer.shared.startPlayer(btnPlayPause: btnPlay, slider: sliderVoice, timer: txtVoiceTime, attachment: self.finalRoomMessage.attachment!)
+        IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderVoice, timer: txtVoiceTime, attachment: self.finalRoomMessage.attachment!)
     }
 }
 

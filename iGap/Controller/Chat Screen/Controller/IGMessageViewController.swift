@@ -2260,7 +2260,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             IGFactory.shared.roomPinMessage(roomId: (self.room?.id)!)
         })
         
-        let cancel = UIAlertAction(title: "GLOBAL_CANCEL".MessageViewlocalizedNew, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
         
         alertC.addAction(unpin)
         if messageId == 0 {

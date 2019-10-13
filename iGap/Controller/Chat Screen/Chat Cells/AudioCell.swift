@@ -22,10 +22,9 @@ class AudioCell: AbstractCell {
     
     @IBOutlet weak var txtMessage: ActiveLabel!
     
-    var imgAudioPosition: Constraint!
+    var btnPlayPosition: Constraint!
     
     var txtAudioName: UILabel!
-    var txtAudioArtist: UILabel!
     var txtAudioTime: UILabel!
     var sliderAudio: UISlider!
     
@@ -44,6 +43,7 @@ class AudioCell: AbstractCell {
         super.setMessage(message, room: room, isIncommingMessage: isIncommingMessage, shouldShowAvatar: shouldShowAvatar, messageSizes: messageSizes, isPreviousMessageFromSameSender: isPreviousMessageFromSameSender, isNextMessageFromSameSender: isNextMessageFromSameSender)
         manageAudioViewPosition()
         setAudio()
+        voiceGustureRecognizers()
     }
     
     private func initializeView(){
@@ -69,9 +69,11 @@ class AudioCell: AbstractCell {
      * forwardViewAbs/replyViewAbs in AbstractCell
      */
     private func makeAudioView(){
-        if imgFileAbs == nil {
-            imgFileAbs = UIImageView()
-            mainBubbleViewAbs.addSubview(imgFileAbs)
+        if btnPlayAbs == nil {
+            btnPlayAbs = UIButton()
+            btnPlayAbs.titleLabel?.font = UIFont.iGapFonticon(ofSize: 55)
+            btnPlayAbs.setTitleColor(UIColor.iGapBlue(), for: UIControl.State.normal)
+            mainBubbleViewAbs.addSubview(btnPlayAbs)
         }
         
         if indicatorViewAbs == nil {
@@ -88,14 +90,6 @@ class AudioCell: AbstractCell {
             mainBubbleViewAbs.addSubview(txtAudioName)
         }
         
-        if txtAudioArtist == nil {
-            txtAudioArtist = UILabel()
-            txtAudioArtist.textColor = UIColor.dialogueBoxInfo()
-            txtAudioArtist.font = UIFont.systemFont(ofSize: 11.0, weight: UIFont.Weight.medium)
-            txtAudioArtist.numberOfLines = 0
-            mainBubbleViewAbs.addSubview(txtAudioArtist)
-        }
-        
         if sliderAudio == nil {
             sliderAudio = UISlider()
             mainBubbleViewAbs.addSubview(sliderAudio)
@@ -110,54 +104,48 @@ class AudioCell: AbstractCell {
     }
     
     private func manageAudioViewPosition(){
-        imgFileAbs.snp.makeConstraints { (make) in
-            
-            if imgAudioPosition != nil { imgAudioPosition.deactivate() }
-            
-            if isForward {
-                imgAudioPosition = make.top.equalTo(forwardViewAbs.snp.bottom).offset(8.0).constraint
-            } else if isReply {
-                imgAudioPosition = make.top.equalTo(replyViewAbs.snp.bottom).offset(8.0).constraint
-            } else {
-                imgAudioPosition = make.top.equalTo(mainBubbleViewAbs.snp.top).offset(8.0).constraint
-            }
-            
-            if imgAudioPosition != nil { imgAudioPosition.activate() }
-            
-            make.leading.equalTo(mainBubbleView.snp.leading).offset(8.0)
-            make.width.equalTo(63.0)
-            make.height.equalTo(63.0)
-        }
+       btnPlayAbs.snp.makeConstraints { (make) in
+           
+           if btnPlayPosition != nil { btnPlayPosition.deactivate() }
+           
+           if isForward {
+               btnPlayPosition = make.top.equalTo(forwardViewAbs.snp.bottom).offset(5.0).constraint
+           } else if isReply {
+               btnPlayPosition = make.top.equalTo(replyViewAbs.snp.bottom).offset(5.0).constraint
+           } else {
+               btnPlayPosition = make.top.equalTo(mainBubbleViewAbs.snp.top).offset(5.0).constraint
+           }
+           
+           if btnPlayPosition != nil { btnPlayPosition.activate() }
+           
+           make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(8)
+           make.height.equalTo(56.0)
+           make.width.equalTo(56.0)
+       }
         
         indicatorViewAbs.snp.makeConstraints { (make) in
-            make.leading.equalTo(imgFileAbs.snp.leading)
-            make.trailing.equalTo(imgFileAbs.snp.trailing)
-            make.top.equalTo(imgFileAbs.snp.top)
-            make.bottom.equalTo(imgFileAbs.snp.bottom)
+            make.leading.equalTo(btnPlayAbs.snp.leading)
+            make.trailing.equalTo(btnPlayAbs.snp.trailing)
+            make.top.equalTo(btnPlayAbs.snp.top)
+            make.bottom.equalTo(btnPlayAbs.snp.bottom)
         }
         
         txtAudioName.snp.makeConstraints { (make) in
-            make.leading.equalTo(imgFileAbs.snp.trailing).offset(10.0)
+            make.leading.equalTo(btnPlayAbs.snp.trailing).offset(4.0)
             make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-10.0)
-            make.top.equalTo(imgFileAbs.snp.top)
-        }
-        
-        txtAudioArtist.snp.makeConstraints { (make) in
-            make.leading.equalTo(imgFileAbs.snp.trailing).offset(10.0)
-            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-10.0)
-            make.top.equalTo(txtAudioName.snp.bottom).offset(2.0)
+            make.top.equalTo(btnPlayAbs.snp.top)
         }
         
         sliderAudio.snp.makeConstraints { (make) in
-            make.leading.equalTo(imgFileAbs.snp.trailing).offset(10.0)
-            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-10.0)
-            make.bottom.equalTo(txtAudioTime.snp.top).offset(-2.0)
+            make.leading.equalTo(btnPlayAbs.snp.trailing).offset(4.0)
+            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-8.0)
+            make.centerY.equalTo(btnPlayAbs.snp.centerY)
         }
         
         txtAudioTime.snp.makeConstraints { (make) in
-            make.leading.equalTo(imgFileAbs.snp.trailing).offset(10.0)
-            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-10.0)
-            make.bottom.equalTo(imgFileAbs.snp.bottom)
+            make.leading.equalTo(btnPlayAbs.snp.trailing).offset(4.0)
+            make.bottom.equalTo(btnPlayAbs.snp.bottom)
+            make.height.equalTo(15.0)
         }
     }
     
@@ -169,11 +157,13 @@ class AudioCell: AbstractCell {
             sliderAudio.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .focused)
             sliderAudio.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .selected)
             sliderAudio.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .highlighted)
+            btnPlayAbs.setTitle("", for: UIControl.State.normal)
         } else {
             sliderAudio.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .normal)
             sliderAudio.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .focused)
             sliderAudio.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .selected)
             sliderAudio.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .highlighted)
+            btnPlayAbs.setTitle("", for: UIControl.State.normal)
         }
         
         if self.attachment?.status != .ready {
@@ -183,15 +173,30 @@ class AudioCell: AbstractCell {
         }
         
         txtAudioName.text = attachment.name
-        txtAudioArtist.text = "artist"
         sliderAudio.setValue(0.0, animated: false)
-        imgFileAbs.setThumbnail(for: attachment)
-        imgFileAbs.layer.cornerRadius = 16.0
-        imgFileAbs.layer.masksToBounds = true
+        btnPlayAbs.layer.cornerRadius = 16.0
+        btnPlayAbs.layer.masksToBounds = true
         
         let timeM = Int(attachment.duration / 60)
         let timeS = Int(attachment.duration.truncatingRemainder(dividingBy: 60.0))
         txtAudioTime.text = "0:00 / \(timeM):\(timeS)"
+    }
+    
+    /****************************************************************************/
+    /******************************* Audio Player *******************************/
+    
+    /** check current voice state and if is playing update values to current state */
+    private func checkPlayerState(){
+        IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderAudio, timer: txtAudioTime, attachment: self.finalRoomMessage.attachment!, justUpdate: true)
+    }
+    
+    private func voiceGustureRecognizers() {
+        let play = UITapGestureRecognizer(target: self, action: #selector(didTapOnPlay(_:)))
+        btnPlayAbs?.addGestureRecognizer(play)
+    }
+    
+    @objc func didTapOnPlay(_ gestureRecognizer: UITapGestureRecognizer) {
+        IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderAudio, timer: txtAudioTime, attachment: self.finalRoomMessage.attachment!)
     }
 }
 

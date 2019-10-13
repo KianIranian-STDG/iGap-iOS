@@ -45,6 +45,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     
     var imgFileAbs: UIImageView!
     var txtVideoPlayAbs: UILabel!
+    var btnPlayAbs: UIButton!
     
     var txtMessageHeightConstraintAbs: NSLayoutConstraint!
     var mainBubbleViewWidthAbs: NSLayoutConstraint!
@@ -380,9 +381,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             case .audioAndText:
                 txtMessageAbs.snp.remakeConstraints{ (make) in
                     if hasBottomOffset {
-                        make.top.equalTo(imgFileAbs.snp.bottom).offset(CellSizeCalculator.RTL_OFFSET)
+                        make.top.equalTo(btnPlayAbs.snp.bottom).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
-                        make.top.equalTo(imgFileAbs.snp.bottom)
+                        make.top.equalTo(btnPlayAbs.snp.bottom)
                     }
                 }
                 break

@@ -81,7 +81,7 @@ class CellSizeLimit: NSObject {
         
         struct Audio {
             static let Width: CGFloat = 250.0
-            static let Height: CGFloat = 100.0
+            static let Height: CGFloat = 92.0
         }
         
         struct Voice {
