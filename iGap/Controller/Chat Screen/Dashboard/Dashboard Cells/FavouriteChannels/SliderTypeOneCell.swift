@@ -112,7 +112,9 @@ class SliderTypeOneCell: UITableViewCell {
                         return
                     }
                 }
-                UIApplication.topViewController()!.navigationController?.pushViewController(SwiftWebVC(urlString: selectedSlide.actionLink), animated: true)
+                let swiftWebVC = SwiftWebVC(urlString: selectedSlide.actionLink)
+                swiftWebVC.hidesBottomBarWhenPushed = true
+                UIApplication.topNavigationController()?.pushViewController(swiftWebVC, animated: true)
             } else {
                 UIApplication.shared.open(URL(string: selectedSlide.actionLink)!, options: [:], completionHandler: nil)
             }
@@ -123,13 +125,15 @@ class SliderTypeOneCell: UITableViewCell {
             let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
             iGapBrowser.url = selectedSlide.actionLink
             iGapBrowser.htmlString = nil
-            UIApplication.topViewController()!.navigationController?.pushViewController(iGapBrowser, animated: true)
+            iGapBrowser.hidesBottomBarWhenPushed = true
+            UIApplication.topNavigationController()?.pushViewController(iGapBrowser, animated: true)
             break
             
         case 12:
             let dashboard = IGFavouriteChannelsDashboardInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
             dashboard.categoryId = selectedSlide.actionLink
-            UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated: true)
+            dashboard.hidesBottomBarWhenPushed = true
+            UIApplication.topNavigationController()?.pushViewController(dashboard, animated: true)
             break
             
         default:

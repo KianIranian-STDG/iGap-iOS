@@ -74,15 +74,16 @@ class IGSettingPrivacy_SecurityPasscodeLockTableViewController: UITableViewContr
             self.tableView.isUserInteractionEnabled = false
             self.performSegue(withIdentifier: "EnterPassCode", sender: self)
         }
-        if loadItForSecendTime == true{
+        if loadItForSecendTime == true {
             if indexPath.section == 1 {
                 let settingStoryBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                 let AutoLockedTableViewcontroller = settingStoryBoard.instantiateViewController(withIdentifier: "CheckmarkOntheLeftTable") as! IGSettingHaveCheckmarkOntheLeftTableViewController
                 AutoLockedTableViewcontroller.navBarTitle = "Auto-Lock"
 //                AutoLockedTableViewcontroller.items = ["Disable","If away for 1min","If away for 5 min","If away for 1 hour"]
-            navigationController?.pushViewController(AutoLockedTableViewcontroller, animated: true)
+                AutoLockedTableViewcontroller.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(AutoLockedTableViewcontroller, animated: true)
+            }
         }
-      }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination =

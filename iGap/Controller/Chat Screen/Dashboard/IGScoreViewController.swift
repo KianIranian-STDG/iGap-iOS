@@ -201,6 +201,7 @@ class IGScoreViewController: BaseViewController {
         navigationItem.rightViewContainer?.addAction {
             
             let scoreHistory = IGScoreHistoryViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+            scoreHistory.hidesBottomBarWhenPushed = true
             self.navigationController!.pushViewController(scoreHistory, animated:true)
         }
     }

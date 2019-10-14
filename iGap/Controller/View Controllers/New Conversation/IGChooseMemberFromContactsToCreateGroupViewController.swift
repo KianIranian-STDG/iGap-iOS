@@ -257,6 +257,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
                     createGroup.selectedUsersToCreateGroup = tmp
                     createGroup.mode = self.mode
                     createGroup.roomId = self.roomID
+                    createGroup.hidesBottomBarWhenPushed = true
                     self.navigationController!.pushViewController(createGroup, animated: true)
                 }
                 
@@ -301,6 +302,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
 
                     createGroup.mode = self.mode
                     createGroup.roomId = self.roomID
+                    createGroup.hidesBottomBarWhenPushed = true
                     self.navigationController!.pushViewController(createGroup, animated: true)
                 }
                 

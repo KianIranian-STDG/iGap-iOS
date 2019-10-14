@@ -500,11 +500,9 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController,cellWith
     }
     
     func openChat(room : IGRoom){
-        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
+        let roomVC = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
         roomVC.room = room
-        //        IGFactory.shared.updateRoomLastMessageIfPossible(roomID: room.id)
-        
+        roomVC.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(roomVC, animated: true)
     }
     

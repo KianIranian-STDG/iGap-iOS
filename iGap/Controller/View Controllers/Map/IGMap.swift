@@ -324,13 +324,14 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
         let mapNearbyDistanceList = IGMapNearbyDistanceTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
         mapNearbyDistanceList.latitude = currentLocation.coordinate.latitude
         mapNearbyDistanceList.longitude = currentLocation.coordinate.longitude
+        mapNearbyDistanceList.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(mapNearbyDistanceList, animated: true)
     }
     
     func openChat(){
-        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
+        let roomVC = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
         roomVC.room = room
+        roomVC.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(roomVC, animated: true)
     }
     

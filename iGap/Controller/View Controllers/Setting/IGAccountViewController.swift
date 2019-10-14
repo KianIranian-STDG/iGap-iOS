@@ -194,11 +194,13 @@ class IGAccountViewController: BaseTableViewController , UINavigationControllerD
             self.tableView.isUserInteractionEnabled = false
             let representative = IGRepresentativeViewController.instantiateFromAppStroryboard(appStoryboard: .Register)
             representative.popView = true
+            representative.hidesBottomBarWhenPushed = true
             self.navigationController!.pushViewController(representative, animated: true)
         }
         
         if indexPath.section == 1 && indexPath.row == 5 {
             let score = IGScoreViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+            score.hidesBottomBarWhenPushed = true
             self.navigationController!.pushViewController(score, animated: true)
         }
         

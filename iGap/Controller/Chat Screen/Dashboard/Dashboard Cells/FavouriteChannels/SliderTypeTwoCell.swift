@@ -99,6 +99,7 @@ class SliderTypeTwoCell: UITableViewCell, UICollectionViewDelegate, UICollection
     @IBAction func didTapOnBtnMore(_ sender: Any) {
         let dashboard = IGFavouriteChannelsDashboardInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
         dashboard.categoryId = channelItem.id
+        dashboard.hidesBottomBarWhenPushed = true
         UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
         
     }

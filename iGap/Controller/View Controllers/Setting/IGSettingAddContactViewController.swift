@@ -24,6 +24,7 @@ class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepS
         let chooseCountry = IGRegistrationStepSelectCountryTableViewController.instantiateFromAppStroryboard(appStoryboard: .Register)
         chooseCountry.popView = true
         chooseCountry.delegate = self
+        chooseCountry.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(chooseCountry, animated: true)
     }
     

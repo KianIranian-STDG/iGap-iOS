@@ -263,16 +263,14 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
             
         })
         let secQ = UIAlertAction(title: IGStringsManager.GLOBAL_SECURITY_QUESTIONS.localized, style: .default, handler: { _ in
-            let storyboard : UIStoryboard = UIStoryboard(name: "Register", bundle: nil)
-            let secQVC = storyboard.instantiateViewController(withIdentifier: "IGRegistrationSecurityQuestions") as! IGRegisttrationStepSecurityQuestions
+            let secQVC = IGRegisttrationStepSecurityQuestions.instantiateFromAppStroryboard(appStoryboard: .Register)
             secQVC.secQOne = self.secQOne
             secQVC.secQTwo = self.secQTwo
             secQVC.secQAnswerOne = self.secQAnswerOne
             secQVC.secQAnswerTwo = self.secQAnswerOne
+            secQVC.hidesBottomBarWhenPushed = true
             self.navigationController!.pushViewController(secQVC, animated: true)
-            
         })
-        
         
         
         switch recoverTypeArray.count {

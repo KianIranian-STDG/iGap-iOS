@@ -749,17 +749,18 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                     switch valueType {
                     case "QR_USER_WALLET" :
                         let storyboard : UIStoryboard = UIStoryboard(name: "wallet", bundle: nil)
-                        let qrVC: QRMainTabbarController? = (storyboard.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
-                        
-                        UIApplication.topViewController()!.navigationController!.pushViewController(qrVC!, animated: true)
+                        let qrVC: QRMainTabbarController = (storyboard.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
+                        qrVC.hidesBottomBarWhenPushed = true
+                        UIApplication.topNavigationController()!.pushViewController(qrVC, animated: true)
                         
                         break
                         
                     case "QR_MERCHANT_WALLET" :
                         break
                     default :
-                        let vc = UIStoryboard.init(name: "wallet", bundle: Bundle.main).instantiateViewController(withIdentifier: "packetTableViewController") as? packetTableViewController
-                        UIApplication.topViewController()!.navigationController!.pushViewController(vc!, animated: true)
+                        let vc = packetTableViewController.instantiateFromAppStroryboard(appStoryboard: .Wallet)
+                        vc.hidesBottomBarWhenPushed = true
+                        UIApplication.topNavigationController()!.pushViewController(vc, animated: true)
                         
                         break
                     }
@@ -770,16 +771,18 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                 switch valueType {
                 case "QR_USER_WALLET" :
                     let storyboard : UIStoryboard = UIStoryboard(name: "wallet", bundle: nil)
-                    let qrVC: QRMainTabbarController? = (storyboard.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
-                    UIApplication.topViewController()!.navigationController!.pushViewController(qrVC!, animated: true)
+                    let qrVC: QRMainTabbarController = (storyboard.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
+                    qrVC.hidesBottomBarWhenPushed = true
+                    UIApplication.topNavigationController()?.pushViewController(qrVC, animated: true)
                     
                     break
                     
                 case "QR_MERCHANT_WALLET" :
                     break
                 default :
-                    let vc = UIStoryboard.init(name: "wallet", bundle: Bundle.main).instantiateViewController(withIdentifier: "packetTableViewController") as? packetTableViewController
-                    UIApplication.topViewController()!.navigationController!.pushViewController(vc!, animated: true)
+                    let vc = packetTableViewController.instantiateFromAppStroryboard(appStoryboard: .Wallet)
+                    vc.hidesBottomBarWhenPushed = true
+                    UIApplication.topNavigationController()?.pushViewController(vc, animated: true)
                     
                     break
                 }

@@ -99,7 +99,8 @@ class IGTabBarStickerController: UITabBarController, UIGestureRecognizerDelegate
             IGGlobal.prgHide()
             let tabbarSticker = IGTabBarStickerController.instantiateFromAppStroryboard(appStoryboard: .Main)
             tabbarSticker.stickerCategories = categories
-            UIApplication.topViewController()?.navigationController!.pushViewController(tabbarSticker, animated: true)
+            tabbarSticker.hidesBottomBarWhenPushed = true
+            UIApplication.topNavigationController()!.pushViewController(tabbarSticker, animated: true)
         }
     }
 }

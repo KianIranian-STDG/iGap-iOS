@@ -98,6 +98,7 @@ class SliderTypeThreeCell: UITableViewCell,UICollectionViewDelegate, UICollectio
         } else {
             let dashboard = IGFavouriteChannelsDashboardInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
             dashboard.categoryId = categoryItem.categories?[indexPath.item].id
+            dashboard.hidesBottomBarWhenPushed = true
             UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
         }
     }

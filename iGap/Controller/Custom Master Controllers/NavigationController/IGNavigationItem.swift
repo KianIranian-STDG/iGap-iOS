@@ -284,6 +284,7 @@ class IGNavigationItem: UINavigationItem {
                 backViewContainer!.addAction {
                     let editVC = IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.instantiateFromAppStroryboard(appStoryboard: .EditProfile)
                     editVC.room = roomValue
+                    editVC.hidesBottomBarWhenPushed = true
                     self.navigationController!.pushViewController(editVC, animated: true)
 
                 }
@@ -357,6 +358,7 @@ class IGNavigationItem: UINavigationItem {
                 backViewContainer!.addAction {
                     let editVC = IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.instantiateFromAppStroryboard(appStoryboard: .EditProfile)
                     editVC.room = roomValue
+                    editVC.hidesBottomBarWhenPushed = true
                     self.navigationController!.pushViewController(editVC, animated: true)
 
                 }

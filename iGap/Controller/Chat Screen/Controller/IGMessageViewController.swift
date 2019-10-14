@@ -552,14 +552,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
                 profile.selectedChannel = self.selectedChannelToSeeTheirInfo
                 profile.room = self.room
+                profile.hidesBottomBarWhenPushed = true
                 self.navigationController!.pushViewController(profile, animated: true)
             }
             if self.room?.type == .group {
                 
-                 let profile = IGProfileGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                 profile.selectedGroup = self.room?.groupRoom
-                 profile.room = self.room
-                 self.navigationController!.pushViewController(profile, animated: true)
+                let profile = IGProfileGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                profile.selectedGroup = self.room?.groupRoom
+                profile.room = self.room
+                profile.hidesBottomBarWhenPushed = true
+                self.navigationController!.pushViewController(profile, animated: true)
                 /*
                 let profile = IGGroupProfile.instantiateFromAppStroryboard(appStoryboard: .Profile)
                 profile.room = self.room
@@ -1480,6 +1482,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         profile.user = self.selectedUserToSeeTheirInfo
         profile.previousRoomId = self.room?.id
         profile.room = self.room
+        profile.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(profile, animated: true)
     }
     
@@ -2718,6 +2721,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             let storyboard : UIStoryboard = UIStoryboard(name: "wallet", bundle: nil)
             
             let walletSettingPage : IGWalletSettingTableViewController? = (storyboard.instantiateViewController(withIdentifier: "walletSettingPage") as! IGWalletSettingTableViewController)
+            walletSettingPage.hidesBottomBarWhenPushed = true
             self.navigationController!.pushViewController(walletSettingPage!, animated: true)            })
         
     }
@@ -5548,9 +5552,9 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                             case let clientGetRoomResponse as IGPClientGetRoomResponse:
                                 IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
                                 let room = IGRoom(igpRoom: clientGetRoomResponse.igpRoom)
-                                let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                                let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
+                                let roomVC = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                                 roomVC.room = room
+                                roomVC.hidesBottomBarWhenPushed = true
                                 self.navigationController!.pushViewController(roomVC, animated: true)
                             default:
                                 break
@@ -5677,9 +5681,9 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             let alert = UIAlertController(title: "SUCCESS".MessageViewlocalizedNew, message: "U_JOINED".MessageViewlocalizedNew + " \(beforeString)" + "TO".MessageViewlocalizedNew + " \(room.title!)!", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
             let openNow = UIAlertAction(title: "OPEN_NOW".MessageViewlocalizedNew, style: .default, handler: { (action) in
-                let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let chatPage = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
+                let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 chatPage.room = room
+                chatPage.hidesBottomBarWhenPushed = true
                 self.navigationController!.pushViewController(chatPage, animated: true)
             })
             alert.addAction(okAction)

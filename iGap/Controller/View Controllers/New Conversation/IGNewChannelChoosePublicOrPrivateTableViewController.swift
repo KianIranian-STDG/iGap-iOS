@@ -102,6 +102,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
                 let profile = IGChooseMemberFromContactToCreateChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
                 profile.igpRoom = self.igpRoom
                 profile.mode = "CreateChannel"
+                profile.hidesBottomBarWhenPushed = true
                 self.navigationController!.pushViewController(profile, animated: true)
             }
         }
@@ -137,6 +138,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
                         let profile = IGChooseMemberFromContactToCreateChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
                         profile.igpRoom = self.igpRoom
                         profile.mode = "CreateChannel"
+                        profile.hidesBottomBarWhenPushed = true
                         self.navigationController!.pushViewController(profile, animated: true)
                         break
                     default:

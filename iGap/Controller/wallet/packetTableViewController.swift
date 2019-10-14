@@ -503,30 +503,34 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         let cashinVC : chargeWalletTableViewController? = (storyboard?.instantiateViewController(withIdentifier: "cashinVC") as! chargeWalletTableViewController)
         cashinVC!.balance = lblCurrency.text!
         cashinVC!.finishDelegate = self
+        cashinVC.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(cashinVC!, animated: true)
         
     }
+    
     @IBAction func btnGoToCashOutTap(_ sender: Any) {
-        let cashoutVC : chashoutCardTableViewController? = (storyboard?.instantiateViewController(withIdentifier: "cashoutVC") as! chashoutCardTableViewController)
-        cashoutVC!.balance = lblCurrency.text!
-        cashoutVC!.finishDelegate = self
-        self.navigationController!.pushViewController(cashoutVC!, animated: true)
-        
+        let cashoutVC : chashoutCardTableViewController = (storyboard?.instantiateViewController(withIdentifier: "cashoutVC") as! chashoutCardTableViewController)
+        cashoutVC.balance = lblCurrency.text!
+        cashoutVC.finishDelegate = self
+        cashoutVC.hidesBottomBarWhenPushed = true
+        self.navigationController!.pushViewController(cashoutVC, animated: true)
     }
+    
     @IBAction func btnQRcodeScan(_ sender: Any) {
-        let qrVC: QRMainTabbarController? = (storyboard?.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
+        let qrVC: QRMainTabbarController = (storyboard?.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
         merchantBalance = (lblCurrency.text!).inEnglishNumbersNew()
         
-        
-        self.navigationController!.pushViewController(qrVC!, animated: true)
-        
+        qrVC.hidesBottomBarWhenPushed = true
+        self.navigationController!.pushViewController(qrVC, animated: true)
     }
+    
     @IBAction func btnGoToHistory(_ sender: Any) {
         let historyVC: SMHistoryTableViewController? = (storyboard?.instantiateViewController(withIdentifier: "historytable") as! SMHistoryTableViewController)
         historyVC?.isInStandardHistoPage = true
+        historyVC?.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(historyVC!, animated: true)
-        
     }
+    
     func callRefreshToken() {
         SMUserManager.refreshToken(delegate: self, onSuccess: { (response) in
             
@@ -932,6 +936,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         cardDetailVC?.cardDefault = self.stringCardisDefaultArray[indexPath.item]
         cardDetailVC?.cardType = self.stringCardTypeArray[indexPath.item]
         cardDetailVC?.amount = String((self.stringClubAmountsArray[indexPath.item]))
+        cardDetailVC?.hidesBottomBarWhenPushed = true
 
         let tmp = (self.stringClubAmountsArray)
         let topIndex = IndexPath(row: 0, section: 0)

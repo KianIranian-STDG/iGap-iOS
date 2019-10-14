@@ -105,10 +105,9 @@ class IGWalletSettingTableViewController: BaseTableViewController {
         }
         if cell.tag == 1 {
             walletSettingInnerPage?.isOTP = true
-
         }
+        walletSettingInnerPage?.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(walletSettingInnerPage!, animated: true)
-
     }
 
     /*

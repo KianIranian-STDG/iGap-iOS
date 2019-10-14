@@ -315,9 +315,10 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
                                     case let clientGetRoomResponse as IGPClientGetRoomResponse:
                                         IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
                                         let room = IGRoom(igpRoom: clientGetRoomResponse.igpRoom)
-                                        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                                        let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
+                                        
+                                        let roomVC = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                                         roomVC.room = room
+                                        roomVC.hidesBottomBarWhenPushed = true
                                         self.navigationController!.pushViewController(roomVC, animated: true)
                                     default:
                                         break

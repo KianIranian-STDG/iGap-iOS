@@ -64,6 +64,7 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UI
                             if category.id == self.deepLinkToken {
                                 let dashboard = IGFavouriteChannelsDashboardInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                                 dashboard.categoryId = category.id
+                                dashboard.hidesBottomBarWhenPushed = true
                                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                             }
                         }

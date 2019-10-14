@@ -386,11 +386,11 @@ class SMHistoryTableViewController: BaseTableViewController {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let historyDetailsVC: SMHistoryDetailTableViewController? = (storyboard?.instantiateViewController(withIdentifier: "historydetail") as! SMHistoryDetailTableViewController)
-        historyDetailsVC!.rowData = rowData?[indexPath.row]
-        historyDetailsVC!.accountId = accountId
-        self.navigationController!.pushViewController(historyDetailsVC!, animated: true)
-        
+        let historyDetailsVC = (storyboard?.instantiateViewController(withIdentifier: "historydetail") as! SMHistoryDetailTableViewController)
+        historyDetailsVC.rowData = rowData?[indexPath.row]
+        historyDetailsVC.accountId = accountId
+        historyDetailsVC.hidesBottomBarWhenPushed = true
+        self.navigationController!.pushViewController(historyDetailsVC, animated: true)
     }
     
     
