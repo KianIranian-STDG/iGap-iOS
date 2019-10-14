@@ -2003,7 +2003,7 @@ extension Array {
 
 extension UIButton {
     
-    func removeUnderline(){
+    func removeUnderline() {
         if let text = self.titleLabel?.text {
             let attrs = [ convertFromNSAttributedStringKey(NSAttributedString.Key.font) : self.titleLabel?.font as Any,
                           convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor) : self.titleLabel?.textColor as Any,

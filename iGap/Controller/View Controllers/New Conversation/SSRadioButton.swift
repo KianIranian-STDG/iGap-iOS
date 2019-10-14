@@ -10,7 +10,7 @@
 
 import Foundation
 import UIKit
-@IBDesignable
+//@IBDesignable
 
 class SSRadioButton: UIButton {
     

@@ -10,7 +10,7 @@
 
 import UIKit
 
-@IBDesignable
+//@IBDesignable
 class IGDotActivityIndicator : UIView {
     private var dotLayers = [CAShapeLayer]()
     private var dotsScale = 1.4

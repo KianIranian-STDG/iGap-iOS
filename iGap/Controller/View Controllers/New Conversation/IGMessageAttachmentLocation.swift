@@ -82,19 +82,19 @@ class IGMessageAttachmentLocation: UIViewController , UIGestureRecognizerDelegat
     }
     private func initNavigation(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        var title = "Received Location"
-        if isSendLocation {
-            title = "Send Location"
-        }
-        navigationItem.addNavigationViewItems(rightItemText: "", title: title, iGapFont: true)
+//        var title = "Received Location"
+//        if isSendLocation {
+//            title = "Send Location"
+//        }
+//        navigationItem.addNavigationViewItems(rightItemText: "", title: title, iGapFont: true)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         if !isSendLocation {
 //            navigationItem.addModalViewRightItem(title: "", iGapFont: true)
-            navigationItem.rightViewContainer?.addAction {
-                self.shareLocation()
-            }
+//            navigationItem.rightViewContainer?.addAction {
+//                self.shareLocation()
+//            }
         }
     }
     
@@ -106,7 +106,7 @@ class IGMessageAttachmentLocation: UIViewController , UIGestureRecognizerDelegat
         }
     }
     
-    func buttonViewCustomize(){
+    func buttonViewCustomize() {
         btnCurrentLocation.removeUnderline()
         
         btnCurrentLocation.layer.shadowColor = UIColor.darkGray.cgColor

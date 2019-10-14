@@ -9,7 +9,7 @@ public class TGPCamelLabels_INTERFACE_BUILDER:UIControl {
 }
 #endif // TARGET_INTERFACE_BUILDER
 
-@IBDesignable
+//@IBDesignable
 public class TGPCamelLabels: TGPCamelLabels_INTERFACE_BUILDER {
 
     let validAttributes = [NSLayoutConstraint.Attribute.top.rawValue,      //  3

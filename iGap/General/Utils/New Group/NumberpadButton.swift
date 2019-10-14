@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-@IBDesignable
+//@IBDesignable
 class NumberpadButton: UIButton {
 	
 	@IBInspectable

@@ -20,6 +20,7 @@ class SMTwoInputView: UIView {
     @IBOutlet var inputTFTwo: customAmountTextField!
     @IBOutlet var inputTFThree: customCardNumberTextField!
     @IBOutlet var confirmBtn: UIButton!
+    @IBOutlet var closeBtn: UIButton!
     @IBOutlet var containerView: UIView!
     /*
      // Only override draw() if you perform custom drawing.
@@ -41,10 +42,10 @@ class SMTwoInputView: UIView {
 //        self.inputTFTwo.text = SMStringUtil.separateFormat(newStr, separators: [4, 4, 4, 4], delimiter: "-").inLocalizedLanguage()
 
 //        infoLblOne.text = "TTL_AMOUNT".localizedNew
+        closeBtn.setTitle("BTN_CANCEL".localizedNew, for: .normal)
         self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
-        
-        
     }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch? = touches.first
         //location is relative to the current view
@@ -57,11 +58,16 @@ class SMTwoInputView: UIView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         
-        
-        
 //        infoLblOne.textAlignment = SMDirection.TextAlignment()
         //        inputTF.textAlignment = inputTF.textAlignment
         
+    }
+    
+    @IBAction func closeModal(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.frame.origin.y = self.frame.height
+        }) { (true) in
+        }
     }
     
     

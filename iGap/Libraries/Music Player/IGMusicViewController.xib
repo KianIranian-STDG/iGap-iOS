@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -37,7 +36,7 @@
                                 <constraint firstAttribute="width" constant="39" id="Ojx-FG-y2V"/>
                             </constraints>
                             <state key="normal" title="Close">
-                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleColor" name="IGLabelColor"/>
                             </state>
                             <connections>
                                 <action selector="didTapOnCloseButton:" destination="-1" eventType="touchUpInside" id="TCM-LD-gAi"/>
@@ -58,13 +57,13 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="300.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oEz-HC-Bbd">
-                                    <rect key="frame" x="63" y="25.5" width="250" height="250"/>
+                                    <rect key="frame" x="62.5" y="25.5" width="250" height="250"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gYO-37-KVE">
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
                                         </imageView>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="width" priority="750" constant="250" id="2W4-0k-aKx"/>
                                         <constraint firstAttribute="bottom" secondItem="gYO-37-KVE" secondAttribute="bottom" id="65z-2P-ZRv"/>
@@ -87,11 +86,11 @@
                             <rect key="frame" x="0.0" y="300.5" width="375" height="300.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i8t-aD-dpt">
-                                    <rect key="frame" x="63" y="26" width="250" height="250"/>
+                                    <rect key="frame" x="62.5" y="25.5" width="250" height="250"/>
                                     <subviews>
                                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="aPC-Ub-Zbk">
                                             <rect key="frame" x="6" y="8" width="238" height="31"/>
-                                            <color key="minimumTrackTintColor" red="0.0" green="0.6901960784" blue="0.7490196078d+" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="minimumTrackTintColor" red="0.0" green="0.69019607839999997" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="didChangedSliderValue:" destination="-1" eventType="valueChanged" id="Ndk-55-Ck8"/>
                                                 <action selector="didTouchDownSlide:" destination="-1" eventType="touchDown" id="2Ly-nJ-xh6"/>
@@ -106,7 +105,7 @@
                                                 <constraint firstAttribute="height" constant="15" id="t7E-fd-W9d"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" name="IGLabelColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99:99:99" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YmJ-4w-Dda">
@@ -116,7 +115,7 @@
                                                 <constraint firstAttribute="width" constant="54" id="vqM-Ll-fvh"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" name="IGLabelColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ndo-En-jMS">
@@ -125,7 +124,7 @@
                                                 <constraint firstAttribute="height" constant="18" id="42a-aG-Tz0"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" name="IGLabelColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist - Album" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ras-cN-g33">
@@ -134,14 +133,14 @@
                                                 <constraint firstAttribute="height" constant="14" id="coV-9l-Jae"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" name="IGLabelColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AZD-hs-Ttk">
                                             <rect key="frame" x="8" y="110" width="234" height="84"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgc-86-LXJ">
-                                                    <rect key="frame" x="101" y="25.5" width="32" height="32"/>
+                                                    <rect key="frame" x="101" y="26" width="32" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="9GY-GF-7bX"/>
                                                         <constraint firstAttribute="height" constant="32" id="EFO-Al-0mN"/>
@@ -152,7 +151,7 @@
                                                     </connections>
                                                 </button>
                                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="USA-iR-osT">
-                                                    <rect key="frame" x="149" y="25.5" width="32" height="32"/>
+                                                    <rect key="frame" x="149" y="26" width="32" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="ZyE-BN-1Dt"/>
                                                         <constraint firstAttribute="height" constant="32" id="mtK-LI-Z7W"/>
@@ -163,7 +162,7 @@
                                                     </connections>
                                                 </button>
                                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tnx-a5-rn7">
-                                                    <rect key="frame" x="53" y="25.5" width="32" height="32"/>
+                                                    <rect key="frame" x="53" y="26" width="32" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="Svk-1i-5lt"/>
                                                         <constraint firstAttribute="width" constant="32" id="avW-yE-t2b"/>
@@ -190,7 +189,6 @@
                                             </constraints>
                                         </view>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="j0p-qe-Mys" secondAttribute="bottom" constant="8" id="2YG-pk-vcr"/>
                                         <constraint firstItem="AZD-hs-Ttk" firstAttribute="trailing" secondItem="aPC-Ub-Zbk" secondAttribute="trailing" id="3H5-sP-Geh"/>
@@ -233,7 +231,7 @@
                     <variation key="heightClass=compact" axis="horizontal"/>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" name="IGModalViewBackgroundColor"/>
             <constraints>
                 <constraint firstItem="hgG-BX-Yut" firstAttribute="top" secondItem="C9w-dT-hsr" secondAttribute="bottom" id="6qq-Sd-xlr"/>
                 <constraint firstItem="hgG-BX-Yut" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="MbI-FN-0Ik"/>
@@ -250,5 +248,11 @@
         <image name="IG_Music_Player_Next" width="48" height="48"/>
         <image name="IG_Music_Player_Pause" width="48" height="48"/>
         <image name="IG_Music_Player_Previous" width="48" height="48"/>
+        <namedColor name="IGLabelColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="IGModalViewBackgroundColor">
+            <color red="0.10588235294117647" green="0.10588235294117647" blue="0.11372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

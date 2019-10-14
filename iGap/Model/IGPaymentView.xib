@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -45,16 +45,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EkC-gx-pKa">
-                    <rect key="frame" x="0.0" y="40" width="422" height="380"/>
+                    <rect key="frame" x="0.0" y="85" width="422" height="335"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="شارژ همراه اول" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="so1-6m-SG9">
-                            <rect key="frame" x="167.5" y="35" width="87" height="23.5"/>
+                            <rect key="frame" x="170" y="35" width="82.5" height="17.5"/>
                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                             <color key="textColor" name="IGLabelGrayColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="WOo-ru-wH1">
-                            <rect key="frame" x="8" y="66.5" width="406" height="219.5"/>
+                            <rect key="frame" x="8" y="60.5" width="406" height="180.5"/>
                             <subviews>
                                 <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0eq-gS-PKS">
                                     <rect key="frame" x="0.0" y="0.0" width="406" height="1"/>
@@ -64,16 +64,16 @@
                                     </constraints>
                                 </view>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="efw-1h-UuH">
-                                    <rect key="frame" x="37.5" y="13" width="331.5" height="56.5"/>
+                                    <rect key="frame" x="45" y="13" width="316.5" height="43.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="شارژ همراه اول" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bea-9V-DbW">
-                                            <rect key="frame" x="116.5" y="0.0" width="98.5" height="27"/>
+                                            <rect key="frame" x="111.5" y="0.0" width="93.5" height="20"/>
                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                             <color key="textColor" name="IGLabelColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="شارژ ۱۰۰۰۰ ریالی همراه اول همراه با ۹ درصد ارزش افزوده" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CfL-kv-0jn">
-                                            <rect key="frame" x="0.0" y="33" width="331.5" height="23.5"/>
+                                            <rect key="frame" x="0.0" y="26" width="316.5" height="17.5"/>
                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                             <color key="textColor" name="IGLabelGrayColor"/>
                                             <nil key="highlightedColor"/>
@@ -81,16 +81,16 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="z6I-MB-kxc">
-                                    <rect key="frame" x="171" y="81.5" width="64.5" height="56.5"/>
+                                    <rect key="frame" x="170" y="68.5" width="66.5" height="43.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="قیمت" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a7r-lx-oKN">
-                                            <rect key="frame" x="12.5" y="0.0" width="39.5" height="27"/>
+                                            <rect key="frame" x="18" y="0.0" width="30" height="20"/>
                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                             <color key="textColor" name="IGLabelColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="۱۰،۹۰۰ ریال" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="scj-eq-K7e">
-                                            <rect key="frame" x="0.0" y="33" width="64.5" height="23.5"/>
+                                            <rect key="frame" x="0.0" y="26" width="66.5" height="17.5"/>
                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                             <color key="textColor" name="IGLabelGrayColor"/>
                                             <nil key="highlightedColor"/>
@@ -98,23 +98,23 @@
                                     </subviews>
                                 </stackView>
                                 <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ozo-to-K0l">
-                                    <rect key="frame" x="0.0" y="150" width="406" height="1"/>
+                                    <rect key="frame" x="0.0" y="124" width="406" height="1"/>
                                     <color key="backgroundColor" name="IGLabelGrayColor"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="Wih-xa-fbS"/>
                                     </constraints>
                                 </view>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="TRZ-hw-Ipg">
-                                    <rect key="frame" x="110" y="163" width="186.5" height="56.5"/>
+                                    <rect key="frame" x="121.5" y="137" width="163" height="43.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="پرداخت توسط شما لغو شد." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ujf-ge-0m2">
-                                            <rect key="frame" x="0.0" y="0.0" width="186.5" height="27"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="163" height="20"/>
                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                             <color key="textColor" name="IGLabelColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="شماره تراکنش: ۰" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZQ-b0-9hh">
-                                            <rect key="frame" x="44" y="33" width="98" height="23.5"/>
+                                            <rect key="frame" x="36.5" y="26" width="90" height="17.5"/>
                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                             <color key="textColor" name="IGLabelGrayColor"/>
                                             <nil key="highlightedColor"/>
@@ -130,7 +130,7 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MQU-TH-kvx">
-                            <rect key="frame" x="8" y="306" width="406" height="38"/>
+                            <rect key="frame" x="8" y="261" width="406" height="38"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNB-MW-ALp">
                                     <rect key="frame" x="0.0" y="0.0" width="199" height="38"/>
@@ -163,7 +163,7 @@
                             </constraints>
                         </stackView>
                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="توکن ارسالی نامعتبر است." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWq-Mg-wK8">
-                            <rect key="frame" x="123.5" y="243" width="175" height="27"/>
+                            <rect key="frame" x="131" y="205" width="160.5" height="20"/>
                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                             <color key="textColor" name="IGLabelColor"/>
                             <nil key="highlightedColor"/>
@@ -186,7 +186,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0q-4n-rQs">
-                    <rect key="frame" x="181" y="10" width="60" height="60"/>
+                    <rect key="frame" x="181" y="55" width="60" height="60"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwX-8f-cMK">
                             <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
@@ -226,7 +226,7 @@
             <color white="0.66699999570846558" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
         <namedColor name="IGModalViewBackgroundColor">
-            <color red="0.10999999940395355" green="0.10999999940395355" blue="0.11800000071525574" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.10980392156862745" green="0.10980392156862745" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

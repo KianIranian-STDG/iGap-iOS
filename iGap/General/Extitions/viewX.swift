@@ -10,7 +10,7 @@
 
 import UIKit
 
-@IBDesignable
+//@IBDesignable
 class UIViewX: UIView {
     
     // MARK: - Gradient

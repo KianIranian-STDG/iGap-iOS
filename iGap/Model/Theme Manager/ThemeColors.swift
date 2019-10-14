@@ -21,8 +21,6 @@ enum themeColor: String {
     case navigationSecondColor = "IGNavigationSecondColor"
     case searchBarBackGroundColor = "IGSearchBarBackGroundColor"
     case modalViewBackgroundColor = "IGModalViewBackgroundColor"
-    case textFieldBackGround = "IGTextFieldBackGround"
-    case textFieldPlaceHolderColor = "IGTextFieldPlaceHolderColor"
     case splashBackgroundColor = "IGSplashBackgroundColor"
     case backGroundGrayColor = "IGBackGroundGrayColor"
     case tabbarLabelColor = "IGTabbarColorLabel"
@@ -45,4 +43,8 @@ enum themeColor: String {
     
     // favourite Channel
     case selectedChannelsCellBGColor = "IGSelectedChannelsCellBGColor"
+    
+    // textfield
+    case textFieldBackGround = "IGTextFieldBackGround"
+    case textFieldPlaceHolderColor = "IGTextFieldPlaceHolderColor"
 }

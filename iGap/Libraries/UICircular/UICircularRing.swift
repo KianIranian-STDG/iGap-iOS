@@ -28,7 +28,8 @@ import UIKit
  Luis Padron
  
  */
-@IBDesignable open class UICircularRing: UIView {
+//@IBDesignable
+open class UICircularRing: UIView {
 
     // MARK: Circle Properties
 

@@ -101,6 +101,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
         
         //btnComment.removeUnderline()
         btnCurrentLocation.removeUnderline()
+        btnCurrentLocation.setTitle("", for: .normal)
         edtComment.delegate = self
         edtComment.font = UIFont.igFont(ofSize: 15)
         edtComment.textAlignment = edtComment.localizedNewDirection

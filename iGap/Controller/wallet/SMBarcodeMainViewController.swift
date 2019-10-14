@@ -21,7 +21,7 @@ var isUser : Bool! = false
 var isHyperMe : Bool! = false
 
 var toID = ""
-class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftView,HandlePassBalance,HandlePayModal,walletPayHandler{
+class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGiftView, HandlePassBalance, HandlePayModal, walletPayHandler{
     func payTaped() {
         print("TESTTING BENJI")
     }
@@ -350,12 +350,13 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
     }
     
     // MARK : - init View elements
-    func initNavigationBar(){
+    func initNavigationBar() {
        
-        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 16),NSAttributedString.Key.foregroundColor: UIColor.white]
-        self.navigationController!.navigationBar.topItem!.title = "SETTING_PAGE_QRCODE_SCANNER".localizedNew
-
+//        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 16),NSAttributedString.Key.foregroundColor: UIColor.white]
+//        self.navigationController!.navigationBar.topItem!.title = "SETTING_PAGE_QRCODE_SCANNER".localizedNew
+        self.initNavigationBar(title: "SETTING_PAGE_QRCODE_SCANNER".localizedNew) { }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("TAB0")

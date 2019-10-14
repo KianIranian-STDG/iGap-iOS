@@ -442,6 +442,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             NSAttributedString.Key.foregroundColor : UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue) ?? #colorLiteral(red: 0.6784313725, green: 0.6784313725, blue: 0.6784313725, alpha: 1),
             NSAttributedString.Key.font : UIFont.igFont(ofSize: 13) // Note the !
         ]
+        
+        self.hideKeyboardWhenTappedAround()
 
         inputTextView.attributedPlaceholder = NSAttributedString(string: "MESSAGE".MessageViewlocalizedNew, attributes:attributes)
 
@@ -2859,6 +2861,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
     }
+    
     @objc func confirmTapped() {
         
         if MoneyInputModal != nil {

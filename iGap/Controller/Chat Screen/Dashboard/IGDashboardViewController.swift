@@ -40,6 +40,8 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     override func viewDidLoad() {
         super.viewDidLoad()
         isfromPacket = false
+        
+        self.title = ""
 
         registerCellsNib()
         self.collectionView.dataSource = self

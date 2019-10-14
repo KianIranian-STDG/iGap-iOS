@@ -43,3 +43,13 @@ extension TimeInterval {
 extension CGFloat {
     var interval: TimeInterval { return TimeInterval(self) }
 }
+
+extension UITextField {
+   @IBInspectable var placeHolderColor: UIColor? {
+        get {
+            return self.placeHolderColor
+        } set {
+            self.attributedPlaceholder = NSAttributedString(string:self.placeholder != nil ? self.placeholder! : "", attributes:[NSAttributedString.Key.foregroundColor: newValue!])
+        }
+    }
+}

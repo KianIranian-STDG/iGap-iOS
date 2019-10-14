@@ -126,6 +126,12 @@ class SwiftWebVC: BaseViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.backBarButtonItem?.title = ""
+        
+//        let backButton = UIBarButtonItem(title: "", style: UIBarButtonItem.Style.plain, target: self, action: nil)
+//        backButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.iGapFonticon(ofSize: 25)], for: UIControl.State.normal)
+//        navigationItem.backBarButtonItem = backButton
     }
     
     override public func viewWillAppear(_ animated: Bool) {
@@ -136,10 +142,10 @@ class SwiftWebVC: BaseViewController {
         navBarTitle.backgroundColor = UIColor.clear
         if presentingViewController == nil {
             /*
-            if let titleAttributes = navigationController!.navigationBar.titleTextAttributes {
-                navBarTitle.textColor = titleAttributes[.foregroundColor] as? UIColor
-            }
-            */
+             if let titleAttributes = navigationController!.navigationBar.titleTextAttributes {
+                 navBarTitle.textColor = titleAttributes[.foregroundColor] as? UIColor
+             }
+             */
             navBarTitle.textColor = UIColor.white
         } else {
             navBarTitle.textColor = self.titleColor
@@ -148,12 +154,15 @@ class SwiftWebVC: BaseViewController {
         navBarTitle.font = UIFont.igFont(ofSize: 17.0)
         navBarTitle.textAlignment = .center
         navBarTitle.text = "Loading ...".localizedNew
-        
-//        let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.titleView = navBarTitle
-//        navigationItem.navigationController = self.navigationController as? IGNavigationController
-        let navigationController = self.navigationController
-        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
+        
+//        let backButton = UIBarButtonItem(title: "", style: UIBarButtonItem.Style.plain, target: self, action: nil)
+//        backButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.iGapFonticon(ofSize: 25)], for: UIControl.State.normal)
+//        navigationItem.backBarButtonItem = backButton
+//        navigationItem.backBarButtonItem?.title = ""
+        
+        navigationItem.backBarButtonItem?.title = ""
         
         super.viewWillAppear(true)
         

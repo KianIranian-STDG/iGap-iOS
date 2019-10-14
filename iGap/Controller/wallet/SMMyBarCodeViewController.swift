@@ -35,7 +35,7 @@ enum SMAmountPopupType: Int {
 }
 
 /// This class generate QR code of user by its id and shows it in a image view
-class SMMyBarCodeViewController: UIViewController {
+class SMMyBarCodeViewController: BaseViewController {
 
     
     var realm = try! Realm()
@@ -107,12 +107,11 @@ class SMMyBarCodeViewController: UIViewController {
     }
     
     // MARK : - init View elements
-    func initNavigationBar(){
-        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 16),NSAttributedString.Key.foregroundColor: UIColor.white]
-        self.navigationController!.navigationBar.topItem!.title = "MY_QR".localizedNew
-
-
+    func initNavigationBar() {
+//        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 16),NSAttributedString.Key.foregroundColor: UIColor.white]
+//        self.navigationController!.navigationBar.topItem!.title = "MY_QR".localizedNew
         
+        self.initNavigationBar(title: "MY_QR".localizedNew) { }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
