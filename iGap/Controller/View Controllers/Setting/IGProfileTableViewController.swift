@@ -934,6 +934,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
             destination.delegate = self
         }
     }
+    
     fileprivate func setSelectedCountry(_ country:IGCountryInfo) {
         selectedCountry = country
         btnCountryCode.setTitle("+"+String(Int((selectedCountry?.countryCode)!)), for: .normal)

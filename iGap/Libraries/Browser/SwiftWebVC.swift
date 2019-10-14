@@ -13,7 +13,7 @@ public protocol SwiftWebVCDelegate: class {
     func didFinishLoading(success: Bool)
 }
 
-public class SwiftWebVC: UIViewController {
+class SwiftWebVC: BaseViewController {
     
     public weak var delegate: SwiftWebVCDelegate?
     var storedStatusColor: UIBarStyle?
@@ -148,7 +148,12 @@ public class SwiftWebVC: UIViewController {
         navBarTitle.font = UIFont.igFont(ofSize: 17.0)
         navBarTitle.textAlignment = .center
         navBarTitle.text = "Loading ...".localizedNew
-        navigationItem.titleView = navBarTitle;
+        
+//        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.titleView = navBarTitle
+//        navigationItem.navigationController = self.navigationController as? IGNavigationController
+        let navigationController = self.navigationController
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
         
         super.viewWillAppear(true)
         

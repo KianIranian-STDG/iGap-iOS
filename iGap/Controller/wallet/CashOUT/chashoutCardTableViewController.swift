@@ -363,13 +363,11 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 
                 let storyboard : UIStoryboard = UIStoryboard(name: "wallet", bundle: nil)
                 
-                let walletSettingPage : IGWalletSettingTableViewController? = (storyboard.instantiateViewController(withIdentifier: "walletSettingPage") as! IGWalletSettingTableViewController)
+                let walletSettingPage = (storyboard.instantiateViewController(withIdentifier: "walletSettingPage") as! IGWalletSettingTableViewController)
                 walletSettingPage.hidesBottomBarWhenPushed = true
-                self.navigationController!.pushViewController(walletSettingPage!, animated: true)            })
+                self.navigationController!.pushViewController(walletSettingPage, animated: true)            })
         }
     }
-    
-    
 
     
     func gotoLoadingState(){

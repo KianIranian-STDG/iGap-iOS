@@ -2720,9 +2720,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
             let storyboard : UIStoryboard = UIStoryboard(name: "wallet", bundle: nil)
             
-            let walletSettingPage : IGWalletSettingTableViewController? = (storyboard.instantiateViewController(withIdentifier: "walletSettingPage") as! IGWalletSettingTableViewController)
+            let walletSettingPage = (storyboard.instantiateViewController(withIdentifier: "walletSettingPage") as! IGWalletSettingTableViewController)
             walletSettingPage.hidesBottomBarWhenPushed = true
-            self.navigationController!.pushViewController(walletSettingPage!, animated: true)            })
+            self.navigationController!.pushViewController(walletSettingPage, animated: true)
+        })
         
     }
     func preparePayGearCard(){
@@ -4146,6 +4147,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     //MARK: Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        segue.destination.hidesBottomBarWhenPushed = true
         
         if segue.identifier == "showSticker" {
             if #available(iOS 10.0, *) {

@@ -354,6 +354,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         let destinationVC = segue.destination as! IGNewChannelChoosePublicOrPrivateTableViewController
         destinationVC.invitedLink = invitedLink
         destinationVC.igpRoom = igpRoom
+        destinationVC.hidesBottomBarWhenPushed = true
     }
 }
 extension IGCreateNewChannelTableViewController: UIImagePickerControllerDelegate {

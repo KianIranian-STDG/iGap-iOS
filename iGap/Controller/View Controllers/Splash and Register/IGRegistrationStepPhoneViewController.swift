@@ -438,6 +438,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        segue.destination.hidesBottomBarWhenPushed = true
         if segue.identifier == "showCountryCell" {
             let nav = segue.destination as! UINavigationController
             let destination = nav.topViewController as! IGRegistrationStepSelectCountryTableViewController

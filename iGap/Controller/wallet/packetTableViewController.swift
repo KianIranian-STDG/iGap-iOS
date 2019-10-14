@@ -500,11 +500,11 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         return 5
     }
     @IBAction func btnGoToCashInTap(_ sender: Any) {
-        let cashinVC : chargeWalletTableViewController? = (storyboard?.instantiateViewController(withIdentifier: "cashinVC") as! chargeWalletTableViewController)
-        cashinVC!.balance = lblCurrency.text!
-        cashinVC!.finishDelegate = self
+        let cashinVC = (storyboard?.instantiateViewController(withIdentifier: "cashinVC") as! chargeWalletTableViewController)
+        cashinVC.balance = lblCurrency.text!
+        cashinVC.finishDelegate = self
         cashinVC.hidesBottomBarWhenPushed = true
-        self.navigationController!.pushViewController(cashinVC!, animated: true)
+        self.navigationController!.pushViewController(cashinVC, animated: true)
         
     }
     
