@@ -109,7 +109,7 @@ class IGChatSendMessageRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response:IGPChatSendMessageResponse, identity: IGStructMessageIdentity? = nil) {
-            IGHelperMessageResponse.shared.handleMessage(roomId: response.igpRoomID, roomMessage: response.igpRoomMessage, roomType: IGPRoom.IGPType.chat, sender: !response.igpResponse.igpID.isEmpty, structMessageIdentity: identity)
+            IGHelperMessage.shared.handleMessageResponse(roomId: response.igpRoomID, roomMessage: response.igpRoomMessage, roomType: IGPRoom.IGPType.chat, sender: !response.igpResponse.igpID.isEmpty, structMessageIdentity: identity)
         }
         
         override class func handlePush(responseProtoMessage: Message) {

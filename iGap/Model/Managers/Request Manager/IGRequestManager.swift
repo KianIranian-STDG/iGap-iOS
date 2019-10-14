@@ -293,6 +293,8 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
             IGClientGetRoomRequest.Handler.self             as IGRequest.Handler.Type),
     30603: (IGPClientGetRoomHistoryResponse.self            as ResponseMessage.Type,
             IGClientGetRoomHistoryRequest.Handler.self      as IGRequest.Handler.Type),
+    30604: (IGPClientGetRoomMessageResponse.self            as ResponseMessage.Type,
+            IGClientGetRoomMessageRequest.Handler.self      as IGRequest.Handler.Type),
     30605: (IGPClientSearchRoomHistoryResponse.self         as ResponseMessage.Type,
             IGClientSearchRoomHistoryRequest.Handler.self   as IGRequest.Handler.Type),
     30606: (IGPClientResolveUsernameResponse.self           as ResponseMessage.Type,

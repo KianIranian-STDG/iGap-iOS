@@ -553,7 +553,7 @@
 		FA865C752078A32000B9D585 /* IGMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA865C742078A32000B9D585 /* IGMap.swift */; };
 		FA86D44821A95CB0007B80D7 /* IGHelperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA86D44721A95CB0007B80D7 /* IGHelperView.swift */; };
 		FA86D44A21A96955007B80D7 /* IGHelperPopular.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA86D44921A96955007B80D7 /* IGHelperPopular.swift */; };
-		FA87B94C22BFB46100200650 /* IGHelperMessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87B94B22BFB46100200650 /* IGHelperMessageResponse.swift */; };
+		FA87B94C22BFB46100200650 /* IGHelperMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87B94B22BFB46100200650 /* IGHelperMessage.swift */; };
 		FA899B6F2046DFC8001A33CB /* CallStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA899B6E2046DFC8001A33CB /* CallStateObserver.swift */; };
 		FA8D056D20739C96007861E7 /* IGSettingAddContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D056C20739C96007861E7 /* IGSettingAddContactViewController.swift */; };
 		FA8DD02121A401F200BBB1B3 /* IGLookAndFindStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8DD02021A401F200BBB1B3 /* IGLookAndFindStruct.swift */; };
@@ -1382,7 +1382,7 @@
 		FA865C742078A32000B9D585 /* IGMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMap.swift; sourceTree = "<group>"; };
 		FA86D44721A95CB0007B80D7 /* IGHelperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperView.swift; sourceTree = "<group>"; };
 		FA86D44921A96955007B80D7 /* IGHelperPopular.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperPopular.swift; sourceTree = "<group>"; };
-		FA87B94B22BFB46100200650 /* IGHelperMessageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperMessageResponse.swift; sourceTree = "<group>"; };
+		FA87B94B22BFB46100200650 /* IGHelperMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperMessage.swift; sourceTree = "<group>"; };
 		FA899B6E2046DFC8001A33CB /* CallStateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallStateObserver.swift; sourceTree = "<group>"; };
 		FA8D056C20739C96007861E7 /* IGSettingAddContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSettingAddContactViewController.swift; sourceTree = "<group>"; };
 		FA8DD02021A401F200BBB1B3 /* IGLookAndFindStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGLookAndFindStruct.swift; sourceTree = "<group>"; };
@@ -2389,7 +2389,7 @@
 				FA6C2DE622673B21005654AC /* IGHelperAlert.swift */,
 				FA6F310E22B8A90500DB942E /* IGHelperTracker.swift */,
 				FA5B41A422EDD67D001203D0 /* IGHelperMessageStatus.swift */,
-				FA87B94B22BFB46100200650 /* IGHelperMessageResponse.swift */,
+				FA87B94B22BFB46100200650 /* IGHelperMessage.swift */,
 				D629462C2349DA0600FB5A08 /* IGHelperMediaPicker.swift */,
 				8E79295F234CB9DA00C9CA5C /* IGHelperUIViewView.swift */,
 			);
@@ -4094,7 +4094,7 @@
 				8EC217BC2259E1A100105B5A /* SMConstants.swift in Sources */,
 				8EE1BFC82281604D001A2867 /* IGSetUserNickNameTableViewController.swift in Sources */,
 				FA42EF0B1E5C224F00CF8A32 /* GIFAnimatable.swift in Sources */,
-				FA87B94C22BFB46100200650 /* IGHelperMessageResponse.swift in Sources */,
+				FA87B94C22BFB46100200650 /* IGHelperMessage.swift in Sources */,
 				FA075DE5232A47B0002E7AC7 /* IGInternetPackageViewController.swift in Sources */,
 				FA8FCBB3219C1DAD0028457F /* IGApiStruct.swift in Sources */,
 				93AA67CC1E4F40260053380C /* IGChannelInfoMemberListInviteLinkTableViewCell.swift in Sources */,

@@ -115,6 +115,27 @@ class IGClientGetRoomHistoryRequest : IGRequest {
         override class func handlePush(responseProtoMessage: Message) {}
     }
 }
+
+class IGClientGetRoomMessageRequest : IGRequest {
+    class Generator : IGRequest.Generator{
+        class func generate(roomId: Int64, messageId: Int64, completion: @escaping (_ message: IGRoomMessage?) -> ()) -> IGRequestWrapper {
+            var request = IGPClientGetRoomMessage()
+            request.igpRoomID = roomId
+            request.igpMessageID = messageId
+            return IGRequestWrapper(message: request, actionID: 604, identity: completion)
+        }
+    }
+    
+    class Handler : IGRequest.Handler{
+        class func interpret(response responseProtoMessage:IGPClientGetRoomMessageResponse, roomId: Int64, completion: @escaping (_ message: IGRoomMessage) -> ()) {
+            IGRoomMessage.putOrUpdate(igpMessage: responseProtoMessage.igpMessage, roomId: roomId, options: IGStructMessageOption(isGap: true)) { (message) in
+                completion(message)
+            }
+        }
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
+
 class IGClientSearchRoomHistoryRequest : IGRequest {
     class Generator : IGRequest.Generator {
         class func generate(roomId: Int64, offset : Int32 , filter : IGSharedMediaFilter ) -> IGRequestWrapper {

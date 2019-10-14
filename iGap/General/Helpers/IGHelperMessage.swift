@@ -11,11 +11,11 @@
 import IGProtoBuff
 import RealmSwift
 
-class IGHelperMessageResponse {
+class IGHelperMessage {
     
-    static let shared = IGHelperMessageResponse()
+    static let shared = IGHelperMessage()
     
-    public func handleMessage(roomId: Int64, roomMessage: IGPRoomMessage, roomType: IGPRoom.IGPType, sender: Bool, structMessageIdentity: IGStructMessageIdentity?) {
+    public func handleMessageResponse(roomId: Int64, roomMessage: IGPRoomMessage, roomType: IGPRoom.IGPType, sender: Bool, structMessageIdentity: IGStructMessageIdentity?) {
         let realm = try! Realm()
         try! realm.write {
             
@@ -105,5 +105,49 @@ class IGHelperMessageResponse {
             IGMessageViewController.messageOnChatReceiveObserver?.onMessageRecieveInChatPage(roomId: roomId, message: roomMessage, roomType: roomType)
         }
         IGRecentsTableViewController.messageReceiveDelegat?.onMessageRecieveInRoomList(roomId: roomId ,messages: [roomMessage])
+    }
+    
+    
+    /** first check message existance in local THEN if message is not exist in local fetch message from server */
+    public func getMessage(roomId: Int64, messageId: Int64, completion: @escaping (_ message: IGRoomMessage?) -> ()){
+        
+        if let message = IGRoomMessage.getMessageWithId(messageId: messageId) {
+            if message.isDeleted {
+                IGGlobal.prgHide()
+                showDeletedMessageAlert()
+            } else {
+                completion(message)
+            }
+            return
+        }
+        
+        IGClientGetRoomMessageRequest.Generator.generate(roomId: roomId, messageId: messageId, completion: completion).successPowerful({ (protoResponse, requestWrapper) in
+            if let clientGetRoomMesasgeResponse = protoResponse as? IGPClientGetRoomMessageResponse {
+                if let completion = requestWrapper.identity as? ((_ message: IGRoomMessage?) -> ()) {
+                    if let requestMessage = requestWrapper.message as? IGPClientGetRoomMessage {
+                        IGClientGetRoomMessageRequest.Handler.interpret(response: clientGetRoomMesasgeResponse, roomId: requestMessage.igpRoomID) { (message) in
+                            if clientGetRoomMesasgeResponse.igpMessage.igpDeleted {
+                                IGGlobal.prgHide()
+                                self.showDeletedMessageAlert()
+                            } else {
+                                completion(message)
+                            }
+                        }
+                    }
+                }
+            }
+        }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
+            if let completion = requestWrapper.identity as? ((_ messageId: IGRoomMessage?) -> ()) {
+                completion(nil)
+            }
+        }).send()
+    }
+    
+    private func showDeletedMessageAlert(){
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: nil, message: "DELETED_MESSAGE_2".localizedNew, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil))
+            UIApplication.topViewController()!.present(alert, animated: true, completion: nil)
+        }
     }
 }

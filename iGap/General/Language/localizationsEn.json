@@ -1090,8 +1090,7 @@
         "CROP" : "crop",
         "FILTER" : "filter",
         "PROCESSING" : "processing",
-        
         "SETTING_SOUND_SEND_MESSAGE" : "Send Message Sound",
-
+        "DELETED_MESSAGE_2" : "This message has been deleted"
     }
 }

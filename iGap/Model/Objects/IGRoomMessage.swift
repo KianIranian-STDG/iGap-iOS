@@ -274,6 +274,18 @@ class IGRoomMessage: Object {
         return message
     }
     
+    static func putOrUpdate(igpMessage: IGPRoomMessage, roomId: Int64, options: IGStructMessageOption = IGStructMessageOption(), completion: @escaping (_ message: IGRoomMessage) -> ()) {
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                if let message = IGRoomMessage.putOrUpdate(igpMessage: igpMessage, roomId: roomId, options: options) {
+                    IGDatabaseManager.shared.realm.add(message, update: .modified)
+                }
+                if let message = IGRoomMessage.getMessageWithId(messageId: igpMessage.igpMessageID) {
+                    completion(message)
+                }
+            }
+        }
+    }
     
     static func putOrUpdate(realm: Realm? = nil, igpMessage: IGPRoomMessage, roomId: Int64, options: IGStructMessageOption = IGStructMessageOption()) -> IGRoomMessage? {
         
@@ -568,12 +580,17 @@ class IGRoomMessage: Object {
         }
     }
     
+    /** return true if message exist and is not deleted */
     internal static func existMessage(messageId: Int64) -> Bool {
-        let predicate = NSPredicate(format: "id == %lld", messageId)
-        if messageId == 0 || IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first == nil {
+        if messageId == 0 {
             return false
         }
-        return true
+        
+        if let message = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "id == %lld", messageId)).first, message.isDeleted == false {
+            return true
+        }
+        
+        return false
     }
     
     internal static func fetchForwardMessage(roomId: Int64, messageId: Int64) -> IGRoomMessage? {

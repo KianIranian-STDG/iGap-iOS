@@ -301,7 +301,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     var isCardToCardRequestEnable = false
     var latestKeyboardAdditionalView: UIView!
     static var highlightMessageId: Int64 = 0 // highlight message and show fast return to message icon
-    static var highlightReturnToMessageId: Int64 = 0 // highlight message after click on fast return to message icon
+    static var highlightWithoutFastReturn: Int64 = 0 // highlight message after click on fast return to message icon
     static var returnToMessage: IGRoomMessage? // after click on reply header, save clicked message for fast return to message position again
     
     private var cellSizeLimit: CellSizeLimit!
@@ -2451,7 +2451,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     @IBAction func didTapOnPinView(_ sender: UIButton) {
         if let pinMessage = room?.pinMessage {
-            goToPosition(message: pinMessage, setHighlite: true)
+            goToPosition(message: pinMessage, enableFastReturn: false)
         }
     }
     
@@ -4639,9 +4639,9 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
     }
     
     private func manageHighlightMode(cell: UICollectionViewCell, messageId: Int64) {
-        if messageId == IGMessageViewController.highlightMessageId || messageId == IGMessageViewController.highlightReturnToMessageId {
+        if messageId == IGMessageViewController.highlightMessageId || messageId == IGMessageViewController.highlightWithoutFastReturn {
             IGMessageViewController.highlightMessageId = 0
-            IGMessageViewController.highlightReturnToMessageId = 0
+            IGMessageViewController.highlightWithoutFastReturn = 0
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 UIView.transition(with: cell, duration: 0.5, animations: {
@@ -5244,12 +5244,13 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         self.present(alertC, animated: true, completion: nil)
     }
     
+    // MARK: - Start - Go to Message Position
     /**
      * if don't set 'messageIdPosition' this value automatically will be fetched from message.
      * sometimes messageId from message is not useful (for example at click of header reply state).
      * finally for globalization usage of following method 'messageIdPosition' is optional
      */
-    func goToPosition(message: IGRoomMessage?, messageIdPosition: Int64 = 0, setHighlite: Bool = false){
+    func goToPosition(message: IGRoomMessage?, messageIdPosition: Int64 = 0, enableFastReturn: Bool = false){
         if message == nil {return}
         
         var messageId: Int64! = messageIdPosition
@@ -5257,8 +5258,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             messageId = message?.id
         }
         
-        if setHighlite {
+        if enableFastReturn {
             IGMessageViewController.highlightMessageId = messageId
+        } else {
+            IGMessageViewController.highlightWithoutFastReturn = messageId
         }
         
         let indexOfMessage = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId)
@@ -5271,38 +5274,39 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             /* when 'previousIndexPath' is visible and user clicked on reply view 'indexPath' completely
              * is showing so JUST notify Position and DON'T call scroll to item
              */
-            if setHighlite {
-                if !self.collectionView.indexPathsForVisibleItems.contains(previousIndexPath) {
-                    self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
-                }
-                notifyPosition(messageId: IGMessageViewController.highlightMessageId)
-            } else {
-                if !self.collectionView.indexPathsForVisibleItems.contains(futureIndexPath) {
-                    self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
-                }
-                notifyPosition(messageId: IGMessageViewController.highlightReturnToMessageId)
-            }
-        } else {
-            IGMessageViewController.highlightMessageId = messageId
-            var delay: Double = 0.0
-            if !IGRoomMessage.existMessage(messageId: messageId) {
-                delay = 1.0
-                let message = IGRoomMessage(value: message!)
-                message.id = messageId
-                message.primaryKeyId = message.primaryKeyId! + IGGlobal.randomString(length: 5)
-                try! IGDatabaseManager.shared.realm.write {
-                    IGDatabaseManager.shared.realm.add(message)
-                }
+            
+            if !self.collectionView.indexPathsForVisibleItems.contains(previousIndexPath) {
+                self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
+            } else if !self.collectionView.indexPathsForVisibleItems.contains(futureIndexPath) {
+                self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
             }
             
-            self.clearCollectionView()
-            self.messageLoader.setSavedScrollMessageId(savedScrollMessageId: messageId)
-            IGGlobal.prgShow()
-            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                IGGlobal.prgHide()
-                self.startLoadMessage()
+            if enableFastReturn {
+                notifyPosition(messageId: IGMessageViewController.highlightMessageId)
+            } else {
+                notifyPosition(messageId: IGMessageViewController.highlightWithoutFastReturn)
+            }
+        } else {
+            if IGRoomMessage.existMessage(messageId: messageId) {
+                loadMessageAfterFetch(messageId: messageId)
+            } else {
+                IGGlobal.prgShow()
+                IGHelperMessage.shared.getMessage(roomId: self.room!.id, messageId: messageId) { (roomMessage) in
+                    IGGlobal.prgHide()
+                    if let messageId = roomMessage?.id {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            self.loadMessageAfterFetch(messageId: messageId)
+                        }
+                    }
+                }
             }
         }
+    }
+    
+    private func loadMessageAfterFetch(messageId: Int64){
+        self.clearCollectionView()
+        self.messageLoader.setSavedScrollMessageId(savedScrollMessageId: messageId)
+        self.startLoadMessage()
     }
     
     func notifyPosition(messageId: Int64){
@@ -5311,6 +5315,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             self.collectionView.reloadItems(at: [indexPath])
         }
     }
+    // MARK: - End - Go to Message Position
     
     
     /******* overrided method for show file attachment (use from UIDocumentInteractionControllerDelegate) *******/
@@ -5461,7 +5466,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             if let forwardedMessage = IGRoomMessage.fetchForwardMessage(roomId: self.room!.id, messageId: replyMessage.id) {
                 mainReplyId = forwardedMessage.id
             }
-            goToPosition(message: replyMessage, messageIdPosition: mainReplyId, setHighlite: true)
+            goToPosition(message: replyMessage, messageIdPosition: mainReplyId, enableFastReturn: true)
         }
     }
     
@@ -5477,7 +5482,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
     func didTapOnReturnToMessage(){
         if let message = IGMessageViewController.returnToMessage {
-            IGMessageViewController.highlightReturnToMessageId = message.id
+            IGMessageViewController.highlightWithoutFastReturn = message.id
             goToPosition(message: message)
         }
     }

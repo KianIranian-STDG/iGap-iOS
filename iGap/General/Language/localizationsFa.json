@@ -10,7 +10,7 @@
         "PAIED_TO_LBL" : "پرداخت به :",
         "SELECTED" : "انتخاب شده",
         
-        "TAB_CHAT" : "گفت گو",
+        "TAB_CHAT" : "گفتگو",
         "TAB_PHONEBOOK" : "مخاطبین",
         "TAB_DISCOVERY" : "آیلند",
         "TAB_CALL_LIST" : "تماس ها",
@@ -985,7 +985,6 @@
         "GLOBAL_OK" : "تایید",
         "GLOBAL_DONE" : "تایید",
         "TRACE_NUMBER" : "شماره پیگیری",
-        "SETTING_SOUND_SEND_MESSAGE" : "صوت ارسال پیام",
         
         "GLOBAL_TO" : "به",
         "GLOBAL_BACK" : "بازگشت",
@@ -1078,6 +1077,8 @@
         "WARNING_MAX_ITEMS_LIMIT" : "امکان انتخاب بیش از این تعداد وجود ندارد!",
         "CROP" : "برش",
         "FILTER" : "فیلتر",
-        "PROCESSING" : "در حال پردازش"
+        "PROCESSING" : "در حال پردازش",
+        "SETTING_SOUND_SEND_MESSAGE" : "صوت ارسال پیام",
+        "DELETED_MESSAGE_2" : "این پیام حذف شده است"
     }
 }
