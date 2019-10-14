@@ -280,7 +280,7 @@ class IGRoomMessage: Object {
                 if let message = IGRoomMessage.putOrUpdate(igpMessage: igpMessage, roomId: roomId, options: options) {
                     IGDatabaseManager.shared.realm.add(message, update: .modified)
                 }
-                if let message = IGRoomMessage.getMessageWithId(messageId: igpMessage.igpMessageID) {
+                if let message = IGRoomMessage.getMessageWithId(roomId: roomId, messageId: igpMessage.igpMessageID) {
                     completion(message)
                 }
             }
@@ -581,12 +581,17 @@ class IGRoomMessage: Object {
     }
     
     /** return true if message exist and is not deleted */
-    internal static func existMessage(messageId: Int64) -> Bool {
+    internal static func existMessage(roomId: Int64 = 0, messageId: Int64) -> Bool {
         if messageId == 0 {
             return false
         }
         
-        if let message = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "id == %lld", messageId)).first, message.isDeleted == false {
+        var predicate = NSPredicate(format: "id == %lld", messageId)
+        if roomId != 0 {
+            predicate = NSPredicate(format: "id == %lld AND roomId == %lld", messageId, roomId)
+        }
+        
+        if let message = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first, message.isDeleted == false {
             return true
         }
         
@@ -598,8 +603,12 @@ class IGRoomMessage: Object {
         return IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first
     }
     
-    internal static func getMessageWithId(messageId: Int64) -> IGRoomMessage? {
-        return IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "id == %lld", messageId)).first
+    internal static func getMessageWithId(roomId: Int64 = 0, messageId: Int64) -> IGRoomMessage? {
+        var predicate = NSPredicate(format: "id == %lld", messageId)
+        if roomId != 0 {
+            predicate = NSPredicate(format: "id == %lld AND roomId == %lld", messageId, roomId)
+        }
+        return IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first
     }
     
     internal static func getMessageWithPrimaryKeyId(primaryKeyId: String) -> IGRoomMessage? {

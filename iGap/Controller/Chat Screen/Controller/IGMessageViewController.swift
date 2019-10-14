@@ -5287,14 +5287,14 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 notifyPosition(messageId: IGMessageViewController.highlightWithoutFastReturn)
             }
         } else {
-            if IGRoomMessage.existMessage(messageId: messageId) {
+            if IGRoomMessage.existMessage(roomId: self.room!.id, messageId: messageId) {
                 loadMessageAfterFetch(messageId: messageId)
             } else {
                 IGGlobal.prgShow()
                 IGHelperMessage.shared.getMessage(roomId: self.room!.id, messageId: messageId) { (roomMessage) in
                     IGGlobal.prgHide()
                     if let messageId = roomMessage?.id {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.loadMessageAfterFetch(messageId: messageId)
                         }
                     }
