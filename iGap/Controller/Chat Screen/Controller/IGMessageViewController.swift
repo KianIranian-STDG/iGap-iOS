@@ -443,7 +443,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             NSAttributedString.Key.font : UIFont.igFont(ofSize: 13) // Note the !
         ]
         
-        self.hideKeyboardWhenTappedAround()
+        self.removeHideKeyboardWhenTappedAround()
 
         inputTextView.attributedPlaceholder = NSAttributedString(string: "MESSAGE".MessageViewlocalizedNew, attributes:attributes)
 
