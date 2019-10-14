@@ -465,7 +465,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
         }
         tmpUserID  =  self.room?.chatRoom?.peer?.id
-        
+        print("AAA || 2")
         switch self.room!.type {
             
         case .chat:
@@ -588,7 +588,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 //            }
 //        }
         
-        
+        print("AAA || 5")
         if room!.isReadOnly {
             if room!.isParticipant == false {
                 inputBarContainerView.isHidden = true
@@ -746,8 +746,17 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let tapAndHoldOnRecord = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnRecord(_:)))
         tapAndHoldOnRecord.minimumPressDuration = 0.5
         inputBarRecordButton.addGestureRecognizer(tapAndHoldOnRecord)
-
-        startLoadMessage()
+        if let messageId = self.deepLinkMessageId {
+            // need to make 'IGMessageLoader' for first time
+            if messageLoader == nil {
+                messageLoader = IGMessageLoader(room: self.room!)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.goToPosition(messageId: messageId)
+            }
+        } else {
+            startLoadMessage()
+        }
         initiconFonts()
     }
     private func initiconFonts() {
@@ -777,9 +786,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if messageLoader == nil {
             messageLoader = IGMessageLoader(room: self.room!)
         }
-        if let messageId = deepLinkMessageId {
-            messageLoader.setDeepLinkMessageId(MessageId: messageId)
-        }
+
         let hasUnread = messageLoader.hasUnread()
         let hasSaveState = messageLoader.hasSavedState()
         if hasUnread || hasSaveState {
@@ -2453,7 +2460,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     @IBAction func didTapOnPinView(_ sender: UIButton) {
         if let pinMessage = room?.pinMessage {
-            goToPosition(message: pinMessage, enableFastReturn: false)
+            goToPosition(messageId: pinMessage.id)
         }
     }
     
@@ -5253,13 +5260,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
      * sometimes messageId from message is not useful (for example at click of header reply state).
      * finally for globalization usage of following method 'messageIdPosition' is optional
      */
-    func goToPosition(message: IGRoomMessage?, messageIdPosition: Int64 = 0, enableFastReturn: Bool = false){
-        if message == nil {return}
-        
-        var messageId: Int64! = messageIdPosition
-        if messageId == 0 {
-            messageId = message?.id
-        }
+    func goToPosition(messageId: Int64 = 0, enableFastReturn: Bool = false){
         
         if enableFastReturn {
             IGMessageViewController.highlightMessageId = messageId
@@ -5296,9 +5297,13 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 IGGlobal.prgShow()
                 IGHelperMessage.shared.getMessage(roomId: self.room!.id, messageId: messageId) { (roomMessage) in
                     IGGlobal.prgHide()
-                    if let messageId = roomMessage?.id {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            self.loadMessageAfterFetch(messageId: messageId)
+                    
+                    let messageId = roomMessage?.id
+                    DispatchQueue.main.async {
+                        if messageId != nil {
+                            self.loadMessageAfterFetch(messageId: messageId!)
+                        } else {
+                            self.startLoadMessage()
                         }
                     }
                 }
@@ -5469,7 +5474,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             if let forwardedMessage = IGRoomMessage.fetchForwardMessage(roomId: self.room!.id, messageId: replyMessage.id) {
                 mainReplyId = forwardedMessage.id
             }
-            goToPosition(message: replyMessage, messageIdPosition: mainReplyId, enableFastReturn: true)
+            goToPosition(messageId: mainReplyId, enableFastReturn: true)
         }
     }
     
@@ -5486,7 +5491,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     func didTapOnReturnToMessage(){
         if let message = IGMessageViewController.returnToMessage {
             IGMessageViewController.highlightWithoutFastReturn = message.id
-            goToPosition(message: message)
+            goToPosition(messageId: message.id)
         }
     }
     

@@ -226,7 +226,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                             }
                         }).send()
                         
-                    } catch let error as NSError {
+                    } catch _ as NSError {
                         print("RLM EXEPTION ERR HAPPENDED IN SET DEFAULT NAVIGATION ITEM :",String(describing: self))
                     }
                     
@@ -353,7 +353,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             let realm = try Realm()
             self.rooms = realm.objects(IGRoom.self).filter("isParticipant = 1").sorted(by: sortProperties)
             
-        } catch let error as NSError {
+        } catch _ as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN VIEWDIDLOAD:",String(describing: self))
         }
         self.tableView.tableFooterView = UIView()
@@ -641,8 +641,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     
     @available(iOS 11.0, *)
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        let cell: IGRoomListtCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! IGRoomListtCell
         
         let room = rooms![indexPath.row]
         var muteTitle = "UN_MUTE".RecentTableViewlocalizedNew
@@ -948,7 +946,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 ], for: .normal)
 
             
-        } catch let error as NSError {
+        } catch _ as NSError {
             // handle error
             print("RLM EXEPTION ERR HAPPENDED IN SET TABBAR BADGE:",String(describing: self))
             

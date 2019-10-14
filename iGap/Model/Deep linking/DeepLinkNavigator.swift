@@ -1,16 +1,21 @@
-//
-//  DeepLinkNavigator.swift
-//  iGap
-//
-//  Created by MacBook Pro on 6/25/1398 AP.
-//  Copyright © 1398 AP Kianiranian STDG -www.kianiranian.com. All rights reserved.
-//
+/*
+* This is the source code of iGap for iOS
+* It is licensed under GNU AGPL v3.0
+* You should have received a copy of the license in this archive (see LICENSE).
+* Copyright © 2017 , iGap - www.iGap.net
+* iGap Messenger | Free, Fast and Secure instant messaging application
+* The idea of the Kianiranian STDG - www.kianiranian.com
+* All rights reserved.
+*/
 
 import Foundation
 import IGProtoBuff
 
 class DeeplinkNavigator {
+    
     static let shared = DeeplinkNavigator()
+    private var alertController = UIAlertController()
+    
     private init() {}
     
     func proceedToDeeplink(_ type: DeeplinkType) {
@@ -22,8 +27,9 @@ class DeeplinkNavigator {
                 IGClientGetRoomRequest.Generator.generate(roomId: roomID).success({ (protoResponse) in
                     if let clientGetRoomResponse = protoResponse as? IGPClientGetRoomResponse {
                         IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
-                        
-                        self.openRoom(room: IGRoom(igpRoom: clientGetRoomResponse.igpRoom), messageId: messageID)
+                        DispatchQueue.main.async {
+                            self.openRoom(room: IGRoom(igpRoom: clientGetRoomResponse.igpRoom), messageId: messageID)
+                        }
                     }
                 }).error ({ (errorCode, waitTime) in
                     switch errorCode {
@@ -39,9 +45,6 @@ class DeeplinkNavigator {
         case .chatRoom(.userName(username: let username, messageId: let messageID)):
             self.redirectToChat(userName: username, messageID: messageID)
             break
-            
-//        case .chatRoom(username: let username, messageId: let messageID):
-//            self.redirectToChat(userName: username, messageID: messageID)
             
         case .payment(message: let message, status: let st, orderId: let id):
             self.showPaymentView(message: message, status: st, orderId: id)
@@ -119,7 +122,6 @@ class DeeplinkNavigator {
                 selectedVC.getDiscoveryList()
             }
         }
-//        tabBarController.selectTabBar(tabBar: tabBarController.tabBar, didSelect: TabBarTab.Dashboard)
     }
     
     private func redirectToFavouriteChannel(token: String?) {
@@ -142,7 +144,6 @@ class DeeplinkNavigator {
             
             switch usernameType {
             case .user:
-//                IGHelperChatOpener.manageOpenChatOrProfile(viewController: UIApplication.topViewController()!, usernameType: usernameType, user: user, room: room)
                 IGHelperChatOpener.createChat(viewController: UIApplication.topViewController()!, userId: (user?.id)!)
             case .room:
                 self.openRoom(room: room, messageId: messageID)
@@ -175,62 +176,13 @@ class DeeplinkNavigator {
             return
         }
         
-        if IGRoomMessage.existMessage(messageId: messageId) {
-            let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-            chatPage.room = igRoom
-            chatPage.deepLinkMessageId = messageId
-            chatPage.hidesBottomBarWhenPushed = true
-            UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
-//            UIApplication.topViewController()?.navigationController?.setNavigationBarHidden(false, animated: true)
-        } else {
-            IGGlobal.prgShow()
-            IGClientGetRoomHistoryRequest.Generator.generatePowerful(roomID: igRoom.id, firstMessageID: messageId, reachMessageId: 0, limit: 1, direction: .up, onMessageReceive: { (messages, direction) in
-                DispatchQueue.main.async {
-                    IGGlobal.prgHide()
-                }
-                
-            }).successPowerful({ (responseProto, requestWrapper) in
-                DispatchQueue.main.async {
-                    
-                    IGGlobal.prgHide()
-                    
-                    if let roomHistoryRequest = requestWrapper.message as? IGPClientGetRoomHistory {
-                        if let roomHistoryResponse = responseProto as? IGPClientGetRoomHistoryResponse {
-                            IGRoomMessage.managePutOrUpdate(roomId: roomHistoryRequest.igpRoomID, messages: roomHistoryResponse.igpMessage, options: IGStructMessageOption(isEnableCache: true))
-                        }
-                    }
-                    
-//                   IGHelperChatOpener.manageOpenChatOrProfile(viewController: UIApplication.topViewController()!, usernameType: usernameType, user: user, room: room)
-                    
-                    
-                    let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-                    chatPage.room = room
-                    chatPage.deepLinkMessageId = messageId
-                    chatPage.hidesBottomBarWhenPushed = true
-                    UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
-                }
-            }).error({ (errorCode, waitTime) in
-                DispatchQueue.main.async {
-                    IGGlobal.prgHide()
-                    IGHelperChatOpener.manageOpenChatOrProfile(viewController: UIApplication.topViewController()!, usernameType: .room, user: nil, room: room)
-                }
-                
-//            switch errorCode {
-//            case .timeout:
-//                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-//                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                alert.addAction(okAction)
-//                UIApplication.topViewController()!.present(alert, animated: true, completion: nil)
-//            default:
-//                break
-//            }
-                
-            }).send()
-        }
-        
+        let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+        chatPage.room = igRoom
+        chatPage.deepLinkMessageId = messageId
+        chatPage.hidesBottomBarWhenPushed = true
+        UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
     }
     
-    private var alertController = UIAlertController()
     private func displayAlert(title: String) {
         alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         let okButton = UIAlertAction(title: "Ok", style: .default, handler: nil)

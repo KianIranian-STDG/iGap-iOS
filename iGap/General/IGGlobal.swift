@@ -87,43 +87,23 @@ class IGGlobal {
         var total: Int = 0
         var count: Int = 0
     }
+    
     internal static  func playSound(isInChat: Bool = false,isSilent: Bool = false,isSendMessage: Bool! = false) {
-       var url = Bundle.main.url(forResource: "igap_send_message_sound", withExtension: "mp3")
-
+        var url = Bundle.main.url(forResource: "igap_send_message_sound", withExtension: "mp3")
+        
         if isSendMessage {
             url = Bundle.main.url(forResource: "igap_send_message_sound", withExtension: "mp3")
         } else {
             url = Bundle.main.url(forResource: "igap_receive_message_sound", withExtension: "mp3")
-
         }
-
         
-        do {
-            if let soundURL = url {
-                  var soundID : SystemSoundID = 0
-                  AudioServicesCreateSystemSoundID(soundURL as CFURL, &soundID)
-                  AudioServicesPlayAlertSound(soundID)
-            }
-
-//            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-//            try AVAudioSession.sharedInstance().setActive(true)
-//
-//            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
-//            sendTone = try AVAudioPlayer(contentsOf: url!, fileTypeHint: AVFileType.mp3.rawValue)
-//
-//            /* iOS 10 and earlier require the following line:
-//            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
-//
-//            guard let sendTone = sendTone else { return }
-//
-//                if isInChat && !isSilent{
-//                    sendTone.play()
-//                }
-//
-        } catch let error {
-            print(error.localizedDescription)
+        if let soundURL = url {
+            var soundID : SystemSoundID = 0
+            AudioServicesCreateSystemSoundID(soundURL as CFURL, &soundID)
+            AudioServicesPlaySystemSound(soundID)
         }
     }
+    
     internal static func getTime(group: Int = 0, _ string: String = "", start: Bool = false) {
         
         if start {

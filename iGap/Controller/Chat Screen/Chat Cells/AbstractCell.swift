@@ -1222,18 +1222,18 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             }
             
             makeViewCount()
-            let attributedString = NSMutableAttributedString(string: " \(messageVote.channelExtra?.viewsLabel ?? "1")", attributes: nil)
+            let attributedString = NSMutableAttributedString(string: "\(messageVote.channelExtra?.viewsLabel ?? "1")", attributes: nil)
             let icon = (attributedString.string as NSString).range(of: "")
-            attributedString.setAttributes([NSAttributedString.Key.baselineOffset: -2], range: icon)
+            attributedString.setAttributes([NSAttributedString.Key.baselineOffset: -1], range: icon)
             txtSeenCountAbs.attributedText = attributedString
             
             if let channel = messageVote.authorRoom?.channelRoom, channel.hasReaction {
                 makeVoteAction()
-                txtVoteUpAbs.text = " \(messageVote.channelExtra?.thumbsUpLabel ?? "0")"
+                txtVoteUpAbs.text = "\(messageVote.channelExtra?.thumbsUpLabel ?? "0")"
                 
-                let attributedVoteDown = NSMutableAttributedString(string: " \(messageVote.channelExtra?.thumbsDownLabel ?? "0")", attributes: nil)
+                let attributedVoteDown = NSMutableAttributedString(string: "\(messageVote.channelExtra?.thumbsDownLabel ?? "0")", attributes: nil)
                 let textVoteDown = (attributedVoteDown.string as NSString).range(of: "\(messageVote.channelExtra?.thumbsDownLabel ?? "0")")
-                attributedVoteDown.addAttributes([NSAttributedString.Key.baselineOffset: 3], range: textVoteDown)
+                attributedVoteDown.addAttributes([NSAttributedString.Key.baselineOffset: -1], range: textVoteDown)
                 txtVoteDownAbs.attributedText = attributedVoteDown
             } else {
                 removeVoteAction()
@@ -1651,14 +1651,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         }
         
         txtVoteUpAbs.snp.makeConstraints { (make) in
-            make.leading.equalTo(txtSeenCountAbs.snp.trailing).offset(5)
+            make.leading.equalTo(txtSeenCountAbs.snp.trailing).offset(8)
             make.centerY.equalTo(txtTimeAbs.snp.centerY)
             make.height.equalTo(35)
             make.width.greaterThanOrEqualTo(40)
         }
         
         txtVoteDownAbs.snp.makeConstraints { (make) in
-            make.leading.equalTo(txtVoteUpAbs.snp.trailing).offset(5)
+            make.leading.equalTo(txtVoteUpAbs.snp.trailing).offset(8)
             make.centerY.equalTo(txtTimeAbs.snp.centerY)
             make.height.equalTo(35)
             make.width.greaterThanOrEqualTo(40)
