@@ -22,6 +22,8 @@ class IGChannelAndGroupInfoSharedMediaImagesAndVideosCollectionViewCell: UIColle
     let disposeBag = DisposeBag()
     
     var attachment: IGFile?
+    var txtVideoPlay: UILabel!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -90,11 +92,16 @@ class IGChannelAndGroupInfoSharedMediaImagesAndVideosCollectionViewCell: UIColle
     
     func updateAttachmentDownloadUploadIndicatorView() {
         if let attachment = self.attachment {
+            removeVideoPlayView()
             if IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) {
                 self.mediaDownloadIndicator.setState(.ready)
-                if attachment.type == .image || attachment.type == .video {
+                if attachment.type == .image {
                     self.sharedMediaImageView.setThumbnail(for: attachment)
+                } else if attachment.type == .video {
+                    self.sharedMediaImageView.setThumbnail(for: attachment)
+                    makeVideoPlayView()
                 }
+                
                 return
             }
             
@@ -109,6 +116,32 @@ class IGChannelAndGroupInfoSharedMediaImagesAndVideosCollectionViewCell: UIColle
                 break
             }
         }
+    }
+    
+    private func makeVideoPlayView(){
+        if txtVideoPlay == nil {
+            txtVideoPlay = UILabel()
+            txtVideoPlay.font = UIFont.iGapFonticon(ofSize: 40)
+            txtVideoPlay.textAlignment = NSTextAlignment.center
+            txtVideoPlay.text = ""
+            txtVideoPlay.textColor = UIColor.white
+            txtVideoPlay.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+            txtVideoPlay.layer.masksToBounds = true
+            txtVideoPlay.layer.cornerRadius = 27.5
+            self.addSubview(txtVideoPlay)
+        }
+        
+        txtVideoPlay?.snp.makeConstraints { (make) in
+            make.width.equalTo(55)
+            make.height.equalTo(55)
+            make.centerX.equalTo(sharedMediaImageView.snp.centerX)
+            make.centerY.equalTo(sharedMediaImageView.snp.centerY)
+        }
+    }
+    
+    private func removeVideoPlayView(){
+        txtVideoPlay?.removeFromSuperview()
+        txtVideoPlay = nil
     }
 }
 extension IGChannelAndGroupInfoSharedMediaImagesAndVideosCollectionViewCell: IGProgressDelegate {
