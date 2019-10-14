@@ -34,7 +34,6 @@ class VoiceCell: AbstractCell {
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
         initializeView()
-        removeVoiceView()
         makeVoiceView(message)
         super.setMessage(message, room: room, isIncommingMessage: isIncommingMessage, shouldShowAvatar: shouldShowAvatar, messageSizes: messageSizes, isPreviousMessageFromSameSender: isPreviousMessageFromSameSender, isNextMessageFromSameSender: isNextMessageFromSameSender)
         manageVoiceViewPosition()
@@ -51,6 +50,7 @@ class VoiceCell: AbstractCell {
     }
     
     private func makeVoiceView(_ message: IGRoomMessage){
+        removeVoiceView() //remove views for avoid from reuse seekbar and time
         
         var finalMessage = message
         if let forward = message.forwardedFrom {
@@ -90,18 +90,14 @@ class VoiceCell: AbstractCell {
     }
     
     private func removeVoiceView(){
-        if txtVoiceTime != nil {
-            txtVoiceTime.removeFromSuperview()
-            txtVoiceTime = nil
-        }
-        if btnPlayAbs != nil {
-            btnPlayAbs.removeFromSuperview()
-            btnPlayAbs = nil
-        }
-        if sliderVoice != nil {
-            sliderVoice.removeFromSuperview()
-            sliderVoice = nil
-        }
+        txtVoiceTime?.removeFromSuperview()
+        txtVoiceTime = nil
+        
+        btnPlayAbs?.removeFromSuperview()
+        btnPlayAbs = nil
+        
+        sliderVoice?.removeFromSuperview()
+        sliderVoice = nil
     }
     
     private func manageVoiceViewPosition(){

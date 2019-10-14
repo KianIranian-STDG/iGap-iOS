@@ -70,6 +70,8 @@ class AudioCell: AbstractCell {
      * forwardViewAbs/replyViewAbs in AbstractCell
      */
     private func makeAudioView(){
+        removeAudioView() //remove views for avoid from reuse seekbar and time
+        
         if btnPlayAbs == nil {
             btnPlayAbs = UIButton()
             btnPlayAbs.titleLabel?.font = UIFont.iGapFonticon(ofSize: 55)
@@ -148,6 +150,17 @@ class AudioCell: AbstractCell {
             make.bottom.equalTo(btnPlayAbs.snp.bottom)
             make.height.equalTo(15.0)
         }
+    }
+    
+    private func removeAudioView(){
+        txtAudioTime?.removeFromSuperview()
+        txtAudioTime = nil
+        
+        btnPlayAbs?.removeFromSuperview()
+        btnPlayAbs = nil
+        
+        sliderAudio?.removeFromSuperview()
+        sliderAudio = nil
     }
     
     private func setAudio(){
