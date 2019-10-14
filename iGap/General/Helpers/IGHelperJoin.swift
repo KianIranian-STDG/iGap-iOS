@@ -117,6 +117,7 @@ class IGHelperJoin {
                 let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let chatPage = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
                 chatPage.room = room
+                chatPage.hidesBottomBarWhenPushed = true
                 self.viewController.navigationController!.pushViewController(chatPage, animated: true)
             })
             alert.addAction(okAction)

@@ -288,6 +288,7 @@ extension IGFinancialHistoryViewController: UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let financialHistoryDetail = IGFinancialHistoryDetailViewController.instantiateFromAppStroryboard(appStoryboard: .FinancialHistory)
         financialHistoryDetail.transactionToken = transactions[indexPath.row].igpToken
+        financialHistoryDetail.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(financialHistoryDetail, animated: true)
     }
     

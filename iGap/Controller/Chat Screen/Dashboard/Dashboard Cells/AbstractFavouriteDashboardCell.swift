@@ -206,6 +206,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                     iGapBrowser.itemID = itemID
                     iGapBrowser.url = url
                     iGapBrowser.htmlString = htmlString
+                    iGapBrowser.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
                     return
                     
@@ -398,6 +399,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                     let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
                     iGapBrowser.url = discoveryInfo.igpValue
                     iGapBrowser.htmlString = nil
+                    iGapBrowser.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
                     return
                     
@@ -406,6 +408,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                 let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
                 iGapBrowser.url = discoveryInfo.igpValue
                 iGapBrowser.htmlString = nil
+                iGapBrowser.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
                 return
                 
@@ -423,12 +426,14 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                 } else {
                     let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                     dashboard.pageId = Int32(discoveryInfo.igpValue)!
+                    dashboard.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                     return
                 }
             } else {
                 let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 dashboard.pageId = Int32(discoveryInfo.igpValue)!
+                dashboard.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                 return
             }
@@ -443,6 +448,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                     let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                     dashboard.pageId = Int32(discoveryInfo.igpValue)!
                     IGGlobal.shouldShowChart = true
+                    dashboard.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                     return
                 }
@@ -450,6 +456,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                 let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 dashboard.pageId = Int32(discoveryInfo.igpValue)!
                 IGGlobal.shouldShowChart = true
+                dashboard.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                 return
             }
@@ -479,15 +486,15 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                     AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
-                    let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-                    let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceCharge") as! IGFinancialServiceCharge
-                    UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+                    let messagesVc = IGFinancialServiceCharge.instantiateFromAppStroryboard(appStoryboard: .Setting)
+                    messagesVc.hidesBottomBarWhenPushed = true
+                    UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated: true)
                     return
                 }
             } else {
-                let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-                let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceCharge") as! IGFinancialServiceCharge
-                UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+                let messagesVc = IGFinancialServiceCharge.instantiateFromAppStroryboard(appStoryboard: .Setting)
+                messagesVc.hidesBottomBarWhenPushed = true
+                UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated: true)
                 return
             }
         case .billMenu:
@@ -499,18 +506,18 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                 } else {
                     IGFinancialServiceBill.BillInfo = nil
                     IGFinancialServiceBill.isTrafficOffenses = false
-                    let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-                    let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
+                    let messagesVc = IGFinancialServiceBill.instantiateFromAppStroryboard(appStoryboard: .Setting)
                     messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: discoveryInfo.igpValue)
+                    messagesVc.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                     return
                 }
             } else {
                 IGFinancialServiceBill.BillInfo = nil
                 IGFinancialServiceBill.isTrafficOffenses = false
-                let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-                let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
+                let messagesVc = IGFinancialServiceBill.instantiateFromAppStroryboard(appStoryboard: .Setting)
                 messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: discoveryInfo.igpValue)
+                messagesVc.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 return
             }
@@ -524,18 +531,18 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                 } else {
                     IGFinancialServiceBill.BillInfo = nil
                     IGFinancialServiceBill.isTrafficOffenses = true
-                    let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-                    let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
+                    let messagesVc = IGFinancialServiceBill.instantiateFromAppStroryboard(appStoryboard: .Setting)
                     messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: discoveryInfo.igpValue)
+                    messagesVc.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                     return
                 }
             } else {
                 IGFinancialServiceBill.BillInfo = nil
                 IGFinancialServiceBill.isTrafficOffenses = true
-                let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-                let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
+                let messagesVc = IGFinancialServiceBill.instantiateFromAppStroryboard(appStoryboard: .Setting)
                 messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: discoveryInfo.igpValue)
+                messagesVc.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 return
             }
@@ -548,15 +555,15 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                     
                 } else {
                     IGFinancialServiceBillingInquiry.isMobile = true
-                    let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-                    let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
+                    let messagesVc = IGFinancialServiceBillingInquiry.instantiateFromAppStroryboard(appStoryboard: .Setting)
+                    messagesVc.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                     return
                 }
             } else {
                 IGFinancialServiceBillingInquiry.isMobile = true
-                let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-                let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
+                let messagesVc = IGFinancialServiceBillingInquiry.instantiateFromAppStroryboard(appStoryboard: .Setting)
+                messagesVc.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 return
             }
@@ -567,15 +574,15 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                     
                 } else {
                     IGFinancialServiceBillingInquiry.isMobile = false
-                    let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-                    let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
+                    let messagesVc = IGFinancialServiceBillingInquiry.instantiateFromAppStroryboard(appStoryboard: .Setting)
+                    messagesVc.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                     return
                 }
             } else {
                 IGFinancialServiceBillingInquiry.isMobile = false
-                let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-                let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
+                let messagesVc = IGFinancialServiceBillingInquiry.instantiateFromAppStroryboard(appStoryboard: .Setting)
+                messagesVc.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 return
             }
@@ -640,11 +647,13 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                     
                 } else {
                     let scanner = IGScoreViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                    scanner.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(scanner, animated:true)
                     return
                 }
             } else {
                 let scanner = IGScoreViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                scanner.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(scanner, animated:true)
                 return
             }
@@ -658,12 +667,14 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                 } else {
                     let scanner = IGSettingQrScannerViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
                     scanner.scannerPageType = .IVandScore
+                    scanner.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(scanner, animated:true)
                     return
                 }
             } else {
                 let scanner = IGSettingQrScannerViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
                 scanner.scannerPageType = .IVandScore
+                scanner.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(scanner, animated:true)
                 return
             }
@@ -675,11 +686,13 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                     
                 } else {
                     let scoreHistory = IGScoreHistoryViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                    scoreHistory.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(scoreHistory, animated:true)
                     return
                 }
             } else {
                 let scoreHistory = IGScoreHistoryViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                scoreHistory.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(scoreHistory, animated:true)
                 return
             }
@@ -737,6 +750,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                     case "QR_USER_WALLET" :
                         let storyboard : UIStoryboard = UIStoryboard(name: "wallet", bundle: nil)
                         let qrVC: QRMainTabbarController? = (storyboard.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
+                        
                         UIApplication.topViewController()!.navigationController!.pushViewController(qrVC!, animated: true)
                         
                         break

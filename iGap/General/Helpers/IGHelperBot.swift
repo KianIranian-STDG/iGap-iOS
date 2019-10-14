@@ -308,6 +308,7 @@ class IGHelperBot {
                 let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                 let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
                 messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value)
+                messagesVc.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 break
                 
@@ -317,6 +318,7 @@ class IGHelperBot {
                 let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                 let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
                 messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value)
+                messagesVc.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 break
                 

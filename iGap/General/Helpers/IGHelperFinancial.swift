@@ -42,10 +42,9 @@ class IGHelperFinancial: NSObject{//, CardToCardResult,MerchantResultObserver {
         let option = UIAlertController(title: "SETTING_PAGE_FINANCIAL_SERVICES".localizedNew, message: "MSG_FINANCIAL_SERVICES".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
         
         let mobileCharge = UIAlertAction(title: "SETTING_FS_TOP_UP".localizedNew, style: .default, handler: { (action) in
-           
-            let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-            let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceCharge") as! IGFinancialServiceCharge
-            viewController.navigationController!.pushViewController(messagesVc, animated:true)
+            let messagesVc = IGFinancialServiceCharge.instantiateFromAppStroryboard(appStoryboard: .Setting)
+            messagesVc.hidesBottomBarWhenPushed = true
+            viewController.navigationController!.pushViewController(messagesVc, animated: true)
         })
         
         let cardToCard = UIAlertAction(title: "SETTING_FS_CARD_TO_CARD_BILLS".localizedNew, style: .default, handler: { (action) in
@@ -56,33 +55,33 @@ class IGHelperFinancial: NSObject{//, CardToCardResult,MerchantResultObserver {
             IGFinancialServiceBill.BillInfo = nil
             IGFinancialServiceBill.isTrafficOffenses = false
             
-            let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-            let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
-            viewController.navigationController!.pushViewController(messagesVc, animated:true)
+            let messagesVc =  IGFinancialServiceBill.instantiateFromAppStroryboard(appStoryboard: .Setting)
+            messagesVc.hidesBottomBarWhenPushed = true
+            viewController.navigationController!.pushViewController(messagesVc, animated: true)
         })
         
         let trafficOffenses = UIAlertAction(title: "SETTING_FS_PAY_TRAFFIC_TICKETS".localizedNew, style: .default, handler: { (action) in
             IGFinancialServiceBill.BillInfo = nil
             IGFinancialServiceBill.isTrafficOffenses = true
             
-            let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-            let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
-            viewController.navigationController!.pushViewController(messagesVc, animated:true)
+            let messagesVc =  IGFinancialServiceBill.instantiateFromAppStroryboard(appStoryboard: .Setting)
+            messagesVc.hidesBottomBarWhenPushed = true
+            viewController.navigationController!.pushViewController(messagesVc, animated: true)
         })
         
         let mobileBillingInquiry = UIAlertAction(title: "SETTING_FS_MBILL_INQUERY".localizedNew, style: .default, handler: { (action) in
             IGFinancialServiceBillingInquiry.isMobile = true
             
-            let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-            let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
+            let messagesVc =  IGFinancialServiceBillingInquiry.instantiateFromAppStroryboard(appStoryboard: .Setting)
+            messagesVc.hidesBottomBarWhenPushed = true
             viewController.navigationController!.pushViewController(messagesVc, animated:true)
         })
         
         let phoneBillingInquiry = UIAlertAction(title: "SETTING_FS_PHONE_INQUERY".localizedNew, style: .default, handler: { (action) in
             IGFinancialServiceBillingInquiry.isMobile = false
             
-            let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-            let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
+            let messagesVc =  IGFinancialServiceBillingInquiry.instantiateFromAppStroryboard(appStoryboard: .Setting)
+            messagesVc.hidesBottomBarWhenPushed = true
             viewController.navigationController!.pushViewController(messagesVc, animated:true)
         })
         

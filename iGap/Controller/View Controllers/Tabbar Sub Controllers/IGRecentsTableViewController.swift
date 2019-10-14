@@ -968,6 +968,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 //                performSegue(withIdentifier: "showRoomMessages", sender: self)
                 let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 chatPage.room = room
+                chatPage.hidesBottomBarWhenPushed = true
                 UIApplication.topNavigationController()!.pushViewController(chatPage, animated: true)
             } else {
                 self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)

@@ -26,6 +26,7 @@ class IGHelperChatOpener {
                 let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
                 roomVC.room = room
                 roomVC.openChatFromLink = false
+                roomVC.hidesBottomBarWhenPushed = true
                 viewController.navigationController!.pushViewController(roomVC, animated: true)
             }
         } else {
@@ -35,6 +36,7 @@ class IGHelperChatOpener {
                     let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
                     roomVC.room = room
                     roomVC.openChatFromLink = true
+                    roomVC.hidesBottomBarWhenPushed = true
                     viewController.navigationController!.pushViewController(roomVC, animated: true)
                 }
             }).error({ (errorCode, waitTime) in
@@ -60,6 +62,7 @@ class IGHelperChatOpener {
         destinationVC.previousRoomId = 0
         destinationVC.room = room
         destinationVC.roomType = roomType
+        destinationVC.hidesBottomBarWhenPushed = true
         viewController.navigationController!.pushViewController(destinationVC, animated: true)
         viewController.navigationController?.setNavigationBarHidden(false, animated: true)
     }
@@ -73,6 +76,7 @@ class IGHelperChatOpener {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
         messagesVc.room = room
+        messagesVc.hidesBottomBarWhenPushed = true
         UIApplication.topViewController()?.navigationController?.pushViewController(messagesVc, animated:false)
         UIApplication.topViewController()?.navigationController?.setNavigationBarHidden(false, animated: true)
     }

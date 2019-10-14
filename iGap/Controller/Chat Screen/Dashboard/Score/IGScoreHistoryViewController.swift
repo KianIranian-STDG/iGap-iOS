@@ -40,6 +40,7 @@ class IGScoreHistoryViewController: BaseViewController, UICollectionViewDelegate
     @IBAction func btnScan(_ sender: UIButton) {
         let scanner = IGSettingQrScannerViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
         scanner.scannerPageType = .IVandScore
+        scanner.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(scanner, animated:true)
     }
     

@@ -126,6 +126,7 @@ class DeeplinkNavigator {
         self.selectTabBarIndex(tab: TabBarTab.Dashboard) { (tabBar) in
             let favouriteChannelDashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
             favouriteChannelDashboard.deepLinkToken = token
+            favouriteChannelDashboard.hidesBottomBarWhenPushed = true
             UIApplication.topViewController()!.navigationController!.pushViewController(favouriteChannelDashboard, animated: true)
         }
     }
@@ -178,6 +179,7 @@ class DeeplinkNavigator {
             let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
             chatPage.room = igRoom
             chatPage.deepLinkMessageId = messageId
+            chatPage.hidesBottomBarWhenPushed = true
             UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
 //            UIApplication.topViewController()?.navigationController?.setNavigationBarHidden(false, animated: true)
         } else {
@@ -204,8 +206,8 @@ class DeeplinkNavigator {
                     let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                     chatPage.room = room
                     chatPage.deepLinkMessageId = messageId
+                    chatPage.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
-//                    UIApplication.topViewController()?.navigationController?.setNavigationBarHidden(false, animated: true)
                 }
             }).error({ (errorCode, waitTime) in
                 DispatchQueue.main.async {

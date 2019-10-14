@@ -17,8 +17,9 @@ class IGHelperNearby {
     
     func openMap(){
         if IGAppManager.sharedManager.mapEnable() {
-            let createGroup = IGMap.instantiateFromAppStroryboard(appStoryboard: .Main)
-            UIApplication.topViewController()?.navigationController!.pushViewController(createGroup, animated: true)
+            let mapVC = IGMap.instantiateFromAppStroryboard(appStoryboard: .Main)
+            mapVC.hidesBottomBarWhenPushed = true
+            UIApplication.topViewController()?.navigationController!.pushViewController(mapVC, animated: true)
         } else {
             
             let option = UIAlertController(title: "TTL_MAP_STATUS".localizedNew, message: "SETTING_NEARBY_MAP_STATUS".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
@@ -57,11 +58,12 @@ class IGHelperNearby {
         }
     }
     
-    func openMapAlert(){
+    func openMapAlert() {
         let option = UIAlertController(title: "TTL_ATTENTION".localizedNew, message: "MSG_MAP_DISTANCE".localizedNew, preferredStyle: .alert)
         let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
-            let createGroup = IGMap.instantiateFromAppStroryboard(appStoryboard: .Main)
-            UIApplication.topViewController()?.navigationController!.pushViewController(createGroup, animated: true)
+            let mapVC = IGMap.instantiateFromAppStroryboard(appStoryboard: .Main)
+            mapVC.hidesBottomBarWhenPushed = true
+            UIApplication.topViewController()?.navigationController!.pushViewController(mapVC, animated: true)
         })
         option.addAction(ok)
         UIApplication.topViewController()?.present(option, animated: true, completion: {})

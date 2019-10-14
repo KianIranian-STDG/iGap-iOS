@@ -163,6 +163,7 @@ class IGHelperForward {
         let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
         roomVC.room = room
         roomVC.forwardedMessageArray = messageArray
+        roomVC.hidesBottomBarWhenPushed = true
         viewController.navigationController!.pushViewController(roomVC, animated: true)
     }
 }

@@ -25,7 +25,9 @@ class IGHelperOpenLink {
                     return
                 }
             }
-            navigationController.pushViewController(SwiftWebVC(urlString: urlString), animated: true)
+            let webVCController = SwiftWebVC(urlString: urlString)
+            webVCController.hidesBottomBarWhenPushed = true
+            navigationController.pushViewController(webVCController, animated: true)
         }
     }
 }

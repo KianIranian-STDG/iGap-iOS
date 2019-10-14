@@ -381,11 +381,11 @@ class AbstractDashboardCell: UICollectionViewCell {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
-                    IGHelperOpenLink.openLink(urlString: discoveryInfo.igpValue, navigationController: UIApplication.topViewController()!.navigationController!, forceOpenInApp: true)
+                    IGHelperOpenLink.openLink(urlString: discoveryInfo.igpValue, navigationController: UIApplication.topNavigationController()!, forceOpenInApp: true)
                     return
                 }
             } else {
-                IGHelperOpenLink.openLink(urlString: discoveryInfo.igpValue, navigationController: UIApplication.topViewController()!.navigationController!, forceOpenInApp: true)
+                IGHelperOpenLink.openLink(urlString: discoveryInfo.igpValue, navigationController: UIApplication.topNavigationController()!, forceOpenInApp: true)
                 return
             }
             

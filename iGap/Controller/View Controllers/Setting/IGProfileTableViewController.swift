@@ -778,10 +778,11 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         if status == .notDetermined {
             locationManager.delegate = self
             locationManager.requestWhenInUseAuthorization()
+            
         } else if status == .authorizedWhenInUse || status == .authorizedAlways {
             IGHelperNearby.shared.openMap()
-        }
-        else {
+            
+        } else {
             locationManager.stopUpdatingLocation()
             let alert = UIAlertController(title: "LOCATION_SERVICE_DISABLE".localizedNew, message: "LOCATION_SERVICE_ENABLE_IT".localizedNew, preferredStyle: UIAlertController.Style.alert)
             self.present(alert, animated: true, completion: nil)
@@ -1118,12 +1119,14 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 let activityViewController = UIActivityViewController(activityItems: [shareContent as NSString], applicationActivities: nil)
                 self.tableView.deselectRow(at: indexPath, animated: true)
                 present(activityViewController, animated: true, completion: nil)
+                
             case 3 :
                 self.tableView.deselectRow(at: indexPath, animated: true)
                 performSegue(withIdentifier: "ShowQRScanner", sender: self)
-            case 4 :
                 
+            case 4 :
                 manageOpenMap()
+                
             case 5 :
 //                self.tableView.deselectRow(at: indexPath, animated: true)
 //                performSegue(withIdentifier: "showChangeLanguagePage", sender: self)

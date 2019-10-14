@@ -147,7 +147,7 @@
         <!--Message Attachment Location-->
         <scene sceneID="7xR-b8-gp0">
             <objects>
-                <viewController storyboardIdentifier="showLocationViewController" id="S3I-yk-3Ak" customClass="IGMessageAttachmentLocation" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="showLocationViewController" hidesBottomBarWhenPushed="YES" id="S3I-yk-3Ak" customClass="IGMessageAttachmentLocation" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HId-RA-OqG"/>
                         <viewControllerLayoutGuide type="bottom" id="AbL-Ho-MDk"/>
@@ -864,13 +864,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=". . ." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-iX-P27">
-                                <rect key="frame" x="195.33333333333334" y="690" width="23.666666666666657" height="20"/>
+                                <rect key="frame" x="194.66666666666666" y="683.33333333333337" width="25" height="26.666666666666629"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="...." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t1p-d4-xse">
-                                <rect key="frame" x="197.66666666666666" y="660" width="19" height="20"/>
+                                <rect key="frame" x="197.33333333333334" y="646.66666666666663" width="19.333333333333343" height="26.666666666666629"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1056,7 +1056,7 @@
         <!--Title-->
         <scene sceneID="i1D-ip-Yi3">
             <objects>
-                <viewController storyboardIdentifier="IGMessageViewController" id="KJT-Hl-jm5" customClass="IGMessageViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IGMessageViewController" hidesBottomBarWhenPushed="YES" id="KJT-Hl-jm5" customClass="IGMessageViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="v1Y-Qo-n3M"/>
                         <viewControllerLayoutGuide type="bottom" id="7LG-Y0-Ncx"/>
@@ -1755,7 +1755,7 @@
         <!--Map-->
         <scene sceneID="Xfd-ZL-7Jy">
             <objects>
-                <viewController storyboardIdentifier="IGMap" id="hsi-ex-lNf" customClass="IGMap" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IGMap" hidesBottomBarWhenPushed="YES" id="hsi-ex-lNf" customClass="IGMap" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MaP-La-5Ha"/>
                         <viewControllerLayoutGuide type="bottom" id="SWU-Vq-U8i"/>
@@ -1894,7 +1894,7 @@
             <objects>
                 <tableViewController id="u0S-Sh-Wik" customClass="IGReport" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Bys-n6-siz">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -3611,8 +3611,8 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="k9M-cr-cw2"/>
+        <segue reference="jRj-hY-oEr"/>
         <segue reference="hX0-rN-GMb"/>
-        <segue reference="QJB-pO-R8A"/>
+        <segue reference="ONr-pK-81u"/>
     </inferredMetricsTieBreakers>
 </document>
