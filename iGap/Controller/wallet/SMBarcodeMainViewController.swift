@@ -65,13 +65,13 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
     private var currentAmount: String = "Updating ...".localizedNew {
         didSet {
             
-            lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance.inLocalizedLanguage()) \(" ")" + "CURRENCY".localizedNew
+            lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + "CURRENCY".localizedNew
         }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         lblCurrency.backgroundColor = UIColor(named: themeColor.navigationSecondColor.rawValue)
-        lblCurrency.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        lblCurrency.textColor = .white
         if SMLangUtil.loadLanguage() == "fa" {
             QRHolder.image = UIImage(named: "scan_Holder_FA")
         }
@@ -91,15 +91,15 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
         if isfromPacket {
             switch currentBussinessType {
             case 0 :
-                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance.inLocalizedLanguage()) \(" ")" + "CURRENCY".localizedNew
+                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + "CURRENCY".localizedNew
                 
                 break
             case 2 :
-                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance.inLocalizedLanguage()) \(" ")" + "CURRENCY".localizedNew
+                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + "CURRENCY".localizedNew
                 
                 break
             case 3 :
-                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance.inLocalizedLanguage()) \(" ")" + "CURRENCY".localizedNew
+                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + "CURRENCY".localizedNew
                 self.updateAmountOfPayGear()
                 
                 break
@@ -381,16 +381,9 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
                 if (cards as? [SMCard]) != nil{
                     if (cards as! [SMCard]).count > 0
                     {
-                    print((cards as! [SMCard]))
-                        
-                    print((cards as! [SMCard])[0])
                         let amount = ((cards as! [SMCard])[0]).balance!
-
-                        let strAsNSString = String.init(describing: amount ?? 0).inRialFormat()
-                       
-
+                        let strAsNSString = String.init(describing: amount).inRialFormat()
                         self.lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(strAsNSString) \(" ")" + "CURRENCY".localizedNew
-
                     }
                 }
             }

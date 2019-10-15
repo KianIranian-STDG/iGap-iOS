@@ -21,13 +21,14 @@ var needToUpdate = false
 protocol HandlePassBalance {
     func sendBalanceToScannerVC(cardBalance: String)
 }
-class packetTableViewController: BaseTableViewController , HandleDefaultCard,UICollectionViewDelegate , UICollectionViewDataSource {
+class packetTableViewController: BaseTableViewController, HandleDefaultCard, UICollectionViewDelegate, UICollectionViewDataSource {
     var shouldShowHisto = false
     var merchant : SMMerchant!
     var layout =  UICollectionViewFlowLayout()
     var delegate: HandlePassBalance? = nil
-
-    @IBOutlet weak var barcodeQrwidth: NSLayoutConstraint!
+    
+    @IBOutlet weak var mainAmountView: UIViewX!
+    @IBOutlet weak var amountsView: UIViewX!
     @IBOutlet weak var lblWalletBalance : UILabel!
     @IBOutlet weak var lblCurrencyFormat : UILabel!
     @IBOutlet weak var lblMyHistoryTitle : UILabel!
@@ -36,6 +37,9 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     @IBOutlet weak var btnHisto: UIButton!
     @IBOutlet weak var btnQrCodeScan: UIButton!
     @IBOutlet weak var btnCharge: UIButtonX!
+    
+    @IBOutlet weak var giftAmountLbl: UILabel!
+    @IBOutlet weak var cashAmountLbl: UILabel!
     
     var bussinessArray : [Int]! = []
     var showSection: Bool = true
@@ -47,8 +51,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     var Taxyitems: [DropdownItem] = []
     var Merchantitems: [DropdownItem] = []
 
-    
-    
+        
     var cellHeight : Int = 270
     var StaticCellHeight : Int = 130
     var plusValue : Int = 0
@@ -63,7 +66,6 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     func valueChanged(value: Bool) {
         
     }
-    
     
     @IBOutlet weak var lblCurrency: UILabel!
     
@@ -106,7 +108,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_WALLET_PAGE)
         self.initFont()
         
-        barcodeQrwidth.constant = 0.0
+        btnQrCodeScan.isHidden = true
         
         self.setupUI()
     }
@@ -123,7 +125,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         currentRole = "paygearuser"
 
         self.view.layoutIfNeeded()
-        self.btnCharge.layoutIfNeeded()
+//        self.btnCharge.layoutIfNeeded()
         SMCard.updateBaseInfoFromServer()
     }
     
@@ -184,21 +186,30 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     func initView() {
         
         hasShownQrCode = false
-        let settingItem = UIBarButtonItem.init(image: UIImage(named: "settings"), style: .done, target: self, action: #selector(showSetting))
-        let receiverItem = UIBarButtonItem.init(image: UIImage(named: "store"), style: .done, target: self, action: #selector(showReceivers))
+        let settingItem = UIBarButtonItem(title: "", style: .done, target: self, action: #selector(showSetting))
+        settingItem.setTitleTextAttributes([
+            NSAttributedString.Key.font : UIFont.iGapFonticon(ofSize: 25),
+            NSAttributedString.Key.foregroundColor : UIColor.white,
+        ], for: .normal)
+        let receiverItem = UIBarButtonItem(title: "", style: .done, target: self, action: #selector(showReceivers))
+        receiverItem.setTitleTextAttributes([
+            NSAttributedString.Key.font : UIFont.iGapFonticon(ofSize: 25),
+            NSAttributedString.Key.foregroundColor : UIColor.white,
+        ], for: .normal)
+        
         if userMerchants?.count != nil {
             if (userMerchants?.count)! > 1  {
                 
                 if currentRole == "admin" || currentRole == "paygearuser" {
-                    self.navigationItem.rightBarButtonItems = [settingItem , receiverItem]
+                    self.navigationItem.rightBarButtonItems = [settingItem, receiverItem]
                     if currentRole == "paygearuser" {
-                        barcodeQrwidth.constant = 47.0
+                        btnQrCodeScan.isHidden = false
 //                        self.btnQrCodeScan.layoutIfNeeded()
                         self.view.layoutIfNeeded()
 
                     }
                     if currentRole == "admin" {
-                        barcodeQrwidth.constant = 0.0
+                        btnQrCodeScan.isHidden = true
 //                        self.btnQrCodeScan.layoutIfNeeded()
                         self.view.layoutIfNeeded()
 
@@ -206,7 +217,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                 }
                 else {
                     self.navigationItem.rightBarButtonItems = [receiverItem]
-                    barcodeQrwidth.constant = 0.0
+                    btnQrCodeScan.isHidden = true
 //                    self.btnQrCodeScan.layoutIfNeeded()
                     self.view.layoutIfNeeded()
 
@@ -214,7 +225,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
             }
             else {
                 self.navigationItem.rightBarButtonItems = [settingItem]
-                barcodeQrwidth.constant = 0.0
+                btnQrCodeScan.isHidden = true
 //                self.btnQrCodeScan.layoutIfNeeded()
                 self.view.layoutIfNeeded()
 
@@ -225,6 +236,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
 
 
     }
+    
     func setupUI() {
         switch currentRole {
         case "paygearuser" :
@@ -257,7 +269,6 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
             self.view.layoutIfNeeded()
             DispatchQueue.main.async {
                 SMLoading.hideLoadingPage()
-                
             }
             break
         case "finance" :
@@ -306,7 +317,6 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         
         let walletSettingPage : IGWalletSettingTableViewController? = (storyboard?.instantiateViewController(withIdentifier: "walletSettingPage") as! IGWalletSettingTableViewController)
         self.navigationController!.pushViewController(walletSettingPage!, animated: true)
-        
     }
     
     @objc func showReceivers(){
@@ -317,28 +327,26 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         var menuView: DropdownMenu?
         menuView?.layer.cornerRadius = 15.0
         menuView?.clipsToBounds = true
-
         
         for i in 0..<userMerchants!.count {
             bussinessArray.append(userMerchants![i].businessType ?? 3)
         }
-        let tt = userMerchants
         bussinessArray = uniq(source: bussinessArray)
-        for ii in userMerchants! {
-            if let tmpVal : Int = ii.businessType {
+        for userMerchant in userMerchants! {
+            if let tmpVal : Int = userMerchant.businessType {
                 switch tmpVal {
                 case 0 :
                     currentBussinessType = 0
-                    let tmpItem = DropdownItem(image: nil, title: "\((ii.name)!) - \((ii.role!).localizedNew)", id: (ii.id!), role: (ii.role!), bType: (ii.businessType!))
+                    let tmpItem = DropdownItem(image: nil, title: "\((userMerchant.name)!) - \((userMerchant.role!).localizedNew)", id: (userMerchant.id!), role: (userMerchant.role!), bType: (userMerchant.businessType!))
                     Merchantitems.append(tmpItem)
                     break
                 case 1 :
-                    let tmpItem = DropdownItem(image: nil, title: "\((ii.name)!) - \((ii.role!).localizedNew)", id: (ii.id!), role: (ii.role!), bType: (ii.businessType!))
+                    let tmpItem = DropdownItem(image: nil, title: "\((userMerchant.name)!) - \((userMerchant.role!).localizedNew)", id: (userMerchant.id!), role: (userMerchant.role!), bType: (userMerchant.businessType!))
                     otheritems.append(tmpItem)
 
                     break
                 case 2 :
-                    let tmpItem = DropdownItem(image: nil, title: "\((ii.name)!) - \((ii.role!).localizedNew)", id: (ii.id!), role: (ii.role!), bType: (ii.businessType!))
+                    let tmpItem = DropdownItem(image: nil, title: "\((userMerchant.name)!) - \((userMerchant.role!).localizedNew)", id: (userMerchant.id!), role: (userMerchant.role!), bType: (userMerchant.businessType!))
                     Taxyitems.append(tmpItem)
 
                     break
@@ -482,7 +490,6 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_WALLET".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
-        
     }
     
     // MARK: - Table view data source
@@ -491,6 +498,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
@@ -499,13 +507,20 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         // #warning Incomplete implementation, return the number of rows
         return 5
     }
+    
+    @IBAction func btnRefreshTap(_ sender: Any) {
+        merchantID = SMUserManager.accountId
+        getMerchantData()
+        initChangeLanguage()
+        IGRequestWalletGetAccessToken.sendRequest()
+    }
+    
     @IBAction func btnGoToCashInTap(_ sender: Any) {
         let cashinVC = (storyboard?.instantiateViewController(withIdentifier: "cashinVC") as! chargeWalletTableViewController)
         cashinVC.balance = lblCurrency.text!
         cashinVC.finishDelegate = self
         cashinVC.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(cashinVC, animated: true)
-        
     }
     
     @IBAction func btnGoToCashOutTap(_ sender: Any) {
@@ -518,7 +533,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     
     @IBAction func btnQRcodeScan(_ sender: Any) {
         let qrVC: QRMainTabbarController = (storyboard?.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
-        merchantBalance = (lblCurrency.text!).inEnglishNumbersNew()
+        merchantBalance = (lblCurrency.text!).onlyDigitChars().inEnglishNumbersNew()
         
         qrVC.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(qrVC, animated: true)
@@ -712,28 +727,34 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         })
     }
     
-    func preparePayGearCard(){
+    func preparePayGearCard() {
+        
+        var sumOfWalletAmounts: Int64 = 0
+        var sumOfGiftAmounts: Int64 = 0
 
         if let cards = userCards {
+            
+            amountsView.isHidden = false
+            mainAmountView.TOPcornerRadius = 10
+            
             for card in cards {
-                
-                if card.type == 1 && card.pan!.contains("پیگیر"){
+                if card.bankCode == 69 && card.clubID == nil {
+                    sumOfWalletAmounts += card.balance ?? 0
+                    cashAmountLbl.text = String.init(describing: card.balance ?? 0).inRialFormat()
+                    lblCurrency.text = String.init(describing: sumOfGiftAmounts + sumOfWalletAmounts).inRialFormat()
                     
-                    lblCurrency.text = String.init(describing: card.balance ?? 0).inRialFormat()
-                    merchantBalance = (lblCurrency.text!).inEnglishNumbersNew()
+                    merchantBalance = (lblCurrency.text!).onlyDigitChars().inEnglishNumbersNew()
 
                     if (lblCurrency.text)?.inEnglishNumbersNew() == "0" {
                         btnCashout.isEnabled = false
                         btnCashout.backgroundColor = .iGapGray()
                         btnCharge.backgroundColor = .iGapGreen()
                         btnCashout.isUserInteractionEnabled = false
-                    }
-                    else {
+                    } else {
                         btnCashout.isEnabled = true
                         btnCashout.backgroundColor = .iGapGreen()
                         btnCharge.backgroundColor = .iGapGreen()
                         btnCashout.isUserInteractionEnabled = true
-
                     }
 
                     SMUserManager.payGearToken = card.token
@@ -741,12 +762,16 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                     SMUserManager.userBalance = card.balance
 
                     if ((card.balance ?? 0) - (card.cashablebalance ?? 0)) == 0 {
-
                         
-                    }
-                    else{
+                    } else {
 
                     }
+                    
+                }  else if card.bankCode == 69 && card.clubID != nil {
+//                    sumOfWalletAndGift += card.balance ?? 0
+                    sumOfGiftAmounts += card.balance ?? 0
+                    giftAmountLbl.text = String.init(describing: sumOfGiftAmounts).inRialFormat()
+                    lblCurrency.text = String.init(describing: sumOfGiftAmounts + sumOfWalletAmounts).inRialFormat()
                 }
             }
         }
@@ -799,7 +824,6 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
             }
             else {
                 return 0
-
             }
             
         }
@@ -821,47 +845,44 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                 return 0
             }
         }
-     
     }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         SMLoading.showLoadingPage(viewcontroller: self)
+        
+        let card = self.userCards![indexPath.item]
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardsCollectionViewCell", for: indexPath) as! CardsCollectionViewCell
         if hasValue {
             if (self.stringImgArray[indexPath.item]) == "" {
-                
                 cell.imgBackground.image = UIImage(named:"default_card_pattern")
-                }
-                else {
                 
+            } else {
                 cell.imgBackground.downloadedFrom(link: self.stringImgArray[indexPath.item] , cashable: true, contentMode: .scaleToFill, completion: {_ in
                 })
-                }
-            cell.cellType = self.stringCardTypeArray[indexPath.item]
-            let tmpType = self.stringCardTypeArray[indexPath.item]
-            if cell.cellType == 1 {
-                cell.lblBankName.text = ""
-                cell.lblCardNum.text = self.stringCardNumArray[indexPath.item].inLocalizedLanguage()
-                let cardNum = (self.stringCardNumArray[indexPath.item])
             }
-            else {
+            cell.cellType = self.stringCardTypeArray[indexPath.item]
+//            let tmpType = self.stringCardTypeArray[indexPath.item]
+            if cell.cellType == 1 {
+                cell.lblBankName.text = String.init(describing: self.stringClubAmountsArray[indexPath.item]).inRialFormat() + " " + "CURRENCY".localizedNew
+                cell.lblCardNum.text = self.stringCardNumArray[indexPath.item].inLocalizedLanguage()
+//                let cardNum = (self.stringCardNumArray[indexPath.item])
+            } else {
                 cell.lblCardNum.text = self.stringCardNumArray[indexPath.item].addSepratorforCardNum().inLocalizedLanguage()
 
                 let cardNum = (self.stringCardNumArray[indexPath.item])
-                let trimmedString: String = (cardNum as NSString).substring(from: max(cardNum.length-4,0)).inLocalizedLanguage()
+                let trimmedString: String = (cardNum as NSString).substring(from: max(cardNum.length-4, 0)).inLocalizedLanguage()
                 if SMLangUtil.loadLanguage() == "fa" {
                     cell.lblBankName.text = self.stringBankNameArray[indexPath.item] + " - " + trimmedString + "****"
 
-                }
-                else {
+                } else {
                     cell.lblBankName.text = self.stringBankNameArray[indexPath.item] + " - " + "****" + trimmedString
-
                 }
-                
-                }
+            }
             
             cell.imgBankLogo.image = UIImage(named: self.stringBankLogoArray[indexPath.item])
             if (cell.lblBankName.text?.contains("پاس"))! {
@@ -887,9 +908,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
             bank.setBankInfo(code: element)
             stringBankLogoArray.append(bank.logoRes!)
             if element == 69 {
-                
                 stringBankNameArray.append(bank.nameFA!)
-
             }
             else {
                 stringBankNameArray.append(bank.nameFA!)
@@ -926,11 +945,11 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         cardDetailVC!.urlBack = self.stringImgArray[indexPath.item]
         if (self.stringCardTypeArray[indexPath.item]) == 1 {
             cardDetailVC?.cardNum = self.stringCardNumArray[indexPath.item]
-
+            cardDetailVC?.bankName = ""
         }
         else {
             cardDetailVC?.cardNum = self.stringCardNumArray[indexPath.item].addSepratorforCardNum()
-
+            cardDetailVC?.bankName = self.stringBankNameArray[indexPath.item]
         }
         cardDetailVC?.cardToken = self.stringCardTokenArray[indexPath.item]
         cardDetailVC?.cardDefault = self.stringCardisDefaultArray[indexPath.item]
@@ -938,7 +957,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         cardDetailVC?.amount = String((self.stringClubAmountsArray[indexPath.item]))
         cardDetailVC?.hidesBottomBarWhenPushed = true
 
-        let tmp = (self.stringClubAmountsArray)
+        merchantBalance = (lblCurrency.text!).inEnglishNumbersNew()
         let topIndex = IndexPath(row: 0, section: 0)
         self.tableView.scrollToRow(at: topIndex, at: .top, animated: true)
         self.navigationController!.pushViewController(cardDetailVC!, animated: true)
@@ -960,11 +979,11 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                 DispatchQueue.main.async {
                     SMLoading.hideLoadingPage()
                     
-                }            })
+                }
+            })
         }
         DispatchQueue.main.async {
             SMLoading.hideLoadingPage()
-            
         }
         
     }
@@ -972,6 +991,10 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     func prepareMerChantCard() {
         
         if let card = merchantCard {
+            
+            amountsView.isHidden = true
+            mainAmountView.cornerRadius = 10
+            
             if card.type == 1 {
 //                amountLbl.isHidden = false
                 lblCurrency.text = String.init(describing: card.balance ?? 0).inRialFormat()
@@ -1017,6 +1040,10 @@ extension packetTableViewController: DropdownMenuDelegate {
             setupUI()
             finishDefault(isPaygear: true, isCard: false)
             isMerchant = false
+            let navigationItem = self.navigationItem as! IGNavigationItem
+            navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_WALLET".localizedNew)
+            amountsView.isHidden = false
+            mainAmountView.TOPcornerRadius = 10
 
             self.tableView.endUpdates()
             break
@@ -1032,7 +1059,11 @@ extension packetTableViewController: DropdownMenuDelegate {
             setupUI()
             getMerChantCards()
             isMerchant = true
-
+            let navigationItem = self.navigationItem as! IGNavigationItem
+            navigationItem.addNavigationViewItems(rightItemText: nil, title: items[indexPath.section][indexPath.row].title)
+            amountsView.isHidden = true
+            mainAmountView.cornerRadius = 10
+            
             self.tableView.endUpdates()
 
             break
@@ -1045,6 +1076,10 @@ extension packetTableViewController: DropdownMenuDelegate {
             setupUI()
             getMerChantCards()
             isMerchant = true
+            let navigationItem = self.navigationItem as! IGNavigationItem
+            navigationItem.addNavigationViewItems(rightItemText: nil, title: items[indexPath.section][indexPath.row].title)
+            amountsView.isHidden = true
+            mainAmountView.cornerRadius = 10
             
             self.tableView.endUpdates()
             
@@ -1058,6 +1093,10 @@ extension packetTableViewController: DropdownMenuDelegate {
             setupUI()
             getMerChantCards()
             isMerchant = true
+            let navigationItem = self.navigationItem as! IGNavigationItem
+            navigationItem.addNavigationViewItems(rightItemText: nil, title: items[indexPath.section][indexPath.row].title)
+            amountsView.isHidden = true
+            mainAmountView.cornerRadius = 10
             
             self.tableView.endUpdates()
             
@@ -1067,8 +1106,6 @@ extension packetTableViewController: DropdownMenuDelegate {
         }
         print(merchantID)
         print("||||||||INDEX2")
-
-        
     }
     
 }

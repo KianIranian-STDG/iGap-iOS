@@ -410,7 +410,7 @@ extension DropdownMenu: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let shouldUpdateSelection = delegate?.dropdownMenu(self, shouldUpdateSelectionAt: indexPath) ?? true
         if displaySelected && shouldUpdateSelection {
-            let item = sections[indexPath.section].items[indexPath.row]
+//            let item = sections[indexPath.section].items[indexPath.row]
           
         }
         tableView.deselectRow(at: indexPath, animated: true)

@@ -460,7 +460,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                     }
                     self.payableAmount = tmppP!
                     self.payableAmountWithoutDisc = tmppP!
-                    self.lblVALUE3.text  = merchantBalance.inLocalizedLanguage()
+                    self.lblVALUE3.text  = merchantBalance.inRialFormat()
                     
                     self.holderPin.layoutIfNeeded()
                     
@@ -497,7 +497,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                     }
                     self.payableAmount = tmppP!
                     self.payableAmountWithoutDisc = tmppP!
-                    self.lblVALUE3.text  = merchantBalance.inLocalizedLanguage()
+                    self.lblVALUE3.text  = merchantBalance.inRialFormat()
                     
                     self.holderPin.layoutIfNeeded()
                     

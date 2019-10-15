@@ -19,6 +19,7 @@ class IGWalletCardDetailTableViewController: BaseTableViewController {
     @IBOutlet weak var lblCardDefaultTitle : UILabel!
     @IBOutlet weak var btnRemove : UIButton!
     @IBOutlet weak var btnAmount : UIButton!
+    @IBOutlet weak var lblBankName: UILabel!
     var cardType : Int64!
     var cardNum : String!
     var logoString : String!
@@ -26,6 +27,7 @@ class IGWalletCardDetailTableViewController: BaseTableViewController {
     var cardToken : String!
     var cardDefault : Bool!
     var amount : String!
+    var bankName: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,15 +41,33 @@ class IGWalletCardDetailTableViewController: BaseTableViewController {
         btnRemove.setTitle("DELETE_CARD".localizedNew, for: .normal)
     }
     func initView() {
-        self.btnAmount.setTitle(amount.inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localizedNew, for: .normal)
+        self.btnAmount.setTitle(amount.inRialFormat() + " " + "CURRENCY".localizedNew, for: .normal)
         
-       imgBankLogo.image = UIImage(named: logoString)
-       imgBackgroundCard.downloadedFrom(link: urlBack , cashable: true, contentMode: .scaleToFill, completion: {_ in
+        imgBankLogo.image = UIImage(named: logoString)
+        imgBackgroundCard.downloadedFrom(link: urlBack , cashable: true, contentMode: .scaleToFill, completion: {_ in
             print(link)
-            
         })
-       lblCardNum.text = cardNum
         lblCardNum.font = UIFont.igFont(ofSize: 20 , weight: .bold)
+        
+        if cardType == 1 {
+            self.initNavigationBar(title: cardNum, rightItemText: "", iGapFont: true) {
+                let qrVC: QRMainTabbarController = (self.storyboard?.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
+                
+                qrVC.hidesBottomBarWhenPushed = true
+                self.navigationController!.pushViewController(qrVC, animated: true)
+            }
+            self.lblBankName.text = amount.inRialFormat() + " " + "CURRENCY".localizedNew
+            lblCardNum.text = ""
+        } else {
+            self.initNavigationBar(title: bankName, rightItemText: "", iGapFont: true) {
+                let qrVC: QRMainTabbarController = (self.storyboard?.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
+                
+                qrVC.hidesBottomBarWhenPushed = true
+                self.navigationController!.pushViewController(qrVC, animated: true)
+            }
+            self.lblBankName.text = ""
+            lblCardNum.text = cardNum
+        }
         switchDefaultCard.setOn(cardDefault, animated: true)
     }
     // MARK: - Table view data source

@@ -41,7 +41,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         super.viewDidLoad()
         isfromPacket = false
         
-        self.title = ""
+//        self.title = ""
 
         registerCellsNib()
         self.collectionView.dataSource = self

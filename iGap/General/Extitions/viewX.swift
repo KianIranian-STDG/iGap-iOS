@@ -10,6 +10,8 @@
 
 import UIKit
 
+//extension UIView
+
 //@IBDesignable
 class UIViewX: UIView {
     
@@ -65,23 +67,38 @@ class UIViewX: UIView {
         }
     }
     
-    @IBInspectable public var cornerRadius: CGFloat = 0 {
-        didSet {
-            layer.cornerRadius = cornerRadius
+    @IBInspectable public var cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = abs(CGFloat(Int(newValue * 100)) / 100)
+            clipsToBounds = true
+            layer.maskedCorners =  [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         }
     }
-    @IBInspectable public var TOPcornerRadius: CGFloat = 0 {
-        
-        didSet {
-            layer.cornerRadius = cornerRadius
-            if #available(iOS 11.0, *) {
-                layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-            } else {
-                // Fallback on earlier versions
-            }
-            
+    @IBInspectable public var TOPcornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = abs(CGFloat(Int(newValue * 100)) / 100)
+            clipsToBounds = true
+            layer.maskedCorners =  [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         }
     }
+    
+    @IBInspectable public var BottomCornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = abs(CGFloat(Int(newValue * 100)) / 100)
+            clipsToBounds = true
+            layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        }
+    }
+    
     @IBInspectable var pulseDelay: Double = 0.0
     
     @IBInspectable var popIn: Bool = false
@@ -132,7 +149,7 @@ class UIViewX: UIView {
 }
 extension UIView {
     
-    func roundCorners(corners:CACornerMask, radius: CGFloat) {
+    func roundCorners(corners: CACornerMask, radius: CGFloat) {
         self.layer.cornerRadius = radius
         if #available(iOS 11.0, *) {
             self.layer.maskedCorners = corners

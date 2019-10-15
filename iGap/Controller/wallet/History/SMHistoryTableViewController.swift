@@ -32,7 +32,7 @@ class SMHistoryTableViewController: BaseTableViewController {
     
     @objc func updateHisto(_ aNotification: Notification) {
         self.rowData?.removeAll()
-        self.tableView.reloadWithAnimation()
+        self.tableView.reloadData()
         if let userId = aNotification.userInfo?["id"] as? String
         
         {
@@ -136,7 +136,7 @@ class SMHistoryTableViewController: BaseTableViewController {
 		else{
 			self.placeHolderLabel.frame.size = CGSize.init(width: self.placeHolderLabel.frame.width, height: 0 )
 		}
-		self.tableView.reloadWithAnimation()
+		self.tableView.reloadData()
 	}
 	
 	func doFail(_ err: Any) {
