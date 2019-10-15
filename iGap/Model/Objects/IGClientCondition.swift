@@ -38,7 +38,7 @@ class IGClientCondition {
         var deleteVersion: Int64 = 0  //The biggest delete version available in the room
         var offlineEdited = [IGOfflineEdited]() // TODO - not managed yet
         var offlineDeleted = [IGOfflineDeleted]() // TODO - not managed yet
-        var offlineSeen = [Int64]() // TODO - not managed yet
+        var offlineSeen = [Int64]()
         var offlineListen = [IGOfflineListen]() // TODO - not managed yet
         var clearId: Int64 = 0
         var cacheStartId: Int64 = 0

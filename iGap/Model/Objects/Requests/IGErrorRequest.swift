@@ -135,6 +135,7 @@ enum IGError: String {
     case channelUpdateUsernameLock = "457"
     case channelUpdateUsernameForbidden = "458"
     
+    case clientConditionOfflineSeenIsInvalid = "600.8"
     case clientGetRoomNotFound = "614.1"
     
     case clientRoomReportDescriptionIsInvalid = "657.4"

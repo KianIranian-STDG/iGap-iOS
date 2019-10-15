@@ -180,6 +180,9 @@ class IGUserLoginRequest : IGRequest {
             if #available(iOS 10.0, *) {
                 CallManager.nativeCallManager()
             }
+            
+            IGClientConditionRequest.allowSendClientCondition = true
+            IGClientConditionRequest.sendRequest(clientConditionRooms: IGClientCondition.computeClientCondition())
         }
         
         class func getToken(){

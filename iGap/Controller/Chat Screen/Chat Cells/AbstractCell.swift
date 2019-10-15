@@ -362,10 +362,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 makeImage(finalRoomMessage.type)
                 
                 txtMessageAbs.snp.remakeConstraints{ (make) in
-                    if (finalRoomMessage.message?.isRTL())! {
+                    if hasBottomOffset {
                         make.top.equalTo(imgMediaAbs.snp.bottom).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
-                        make.top.equalTo(imgMediaAbs.snp.bottom)
+                        make.top.equalTo(imgMediaAbs.snp.bottom).offset(CellSizeCalculator.RTL_OFFSET)
                     }
                 }
                 break
@@ -1229,7 +1229,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             
             if let channel = messageVote.authorRoom?.channelRoom, channel.hasReaction {
                 makeVoteAction()
-                let attributedVoteUp = NSMutableAttributedString(string: "\(messageVote.channelExtra?.thumbsUpLabel ?? "0")", attributes: nil)
+                let attributedVoteUp = NSMutableAttributedString(string: "\(messageVote.channelExtra?.thumbsUpLabel ?? "0")", attributes: nil)
                 let textVoteUp = (attributedVoteUp.string as NSString).range(of: "\(messageVote.channelExtra?.thumbsUpLabel ?? "0")")
                 attributedVoteUp.addAttributes([NSAttributedString.Key.baselineOffset: 1], range: textVoteUp)
                 txtVoteUpAbs.attributedText = attributedVoteUp

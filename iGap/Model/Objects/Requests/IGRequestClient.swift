@@ -13,6 +13,25 @@ import IGProtoBuff
 import SwiftProtobuf
 
 class IGClientConditionRequest : IGRequest {
+    
+    static var allowSendClientCondition = true // just once time allow to send client condition after each login
+    
+    class func sendRequest(clientConditionRooms: [IGPClientCondition.IGPRoom]){
+        
+        if !allowSendClientCondition {return}
+        allowSendClientCondition = false
+        
+        IGClientConditionRequest.Generator.generate(clientConditionRooms: clientConditionRooms).success ({ (responseProto) in
+            if let clientConditionResponse = responseProto as? IGPClientConditionResponse {
+                IGClientConditionRequest.Handler.interpret(response: clientConditionResponse)
+            }
+        }).error ({ (errorCode, waitTime) in
+            if errorCode == .clientConditionOfflineSeenIsInvalid {
+                IGRealmOfflineSeen.clearClientConditionData()
+            }
+        }).send()
+    }
+    
     class Generator : IGRequest.Generator{
         class func generate(clientConditionRooms: [IGPClientCondition.IGPRoom]) -> IGRequestWrapper {
             var clientConditionRequestMessage = IGPClientCondition()
@@ -23,7 +42,7 @@ class IGClientConditionRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage:IGPClientConditionResponse) {
-            
+            IGRealmOfflineSeen.clearClientConditionData()
         }
         override class func handlePush(responseProtoMessage: Message) {}
     }

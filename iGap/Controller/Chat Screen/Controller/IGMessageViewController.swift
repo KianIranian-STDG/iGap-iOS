@@ -1801,7 +1801,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     var finalRoomType: IGRoom.IGType!
     var finalRoomId: Int64!
-    //MARK - Send Seen Status
+    
+    //MARK: - Send Seen Status
     private func setMessagesRead() {
         //don't need send status for channel
         if self.room?.type == .channel {return}
@@ -1810,15 +1811,15 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             finalRoomId = roomId
             finalRoomType = self.room?.type
             DispatchQueue.global(qos: .background).async {
-                let predicate = NSPredicate(format: "statusRaw != %d AND statusRaw != %d", IGRoomMessageStatus.seen.rawValue, IGRoomMessageStatus.listened.rawValue)
-                let sortProperties = [SortDescriptor(keyPath: "creationTime", ascending: false)]
+                let predicate = NSPredicate(format: "roomId == %lld AND statusRaw != %d AND statusRaw != %d", self.finalRoomId, IGRoomMessageStatus.seen.rawValue, IGRoomMessageStatus.listened.rawValue)
+                let sortProperties = [SortDescriptor(keyPath: "id", ascending: false)]
                 let realmRoomMessages = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
                 IGFactory.shared.markAllMessagesAsRead(roomId: roomId)
                 
                 let finalMessages = realmRoomMessages.toArray()
                 
                 if finalMessages.count == 0 {return}
-                let seenMessages = finalMessages.chunks(10)[0]
+                let seenMessages = finalMessages//.chunks(100)[0]
                 
                 seenMessages.forEach{
                     if let authorHash = $0.authorHash {

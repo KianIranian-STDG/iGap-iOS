@@ -551,10 +551,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         }
     }
     
-    private func sendClientCondition(clientConditionRooms: [IGPClientCondition.IGPRoom]) {
-        IGClientConditionRequest.Generator.generate(clientConditionRooms: clientConditionRooms).success ({ (responseProto) in }).error ({ (errorCode, waitTime) in }).send()
-    }
-    
     @objc private func fetchRoomList(offset: Int32 = 0 , limit: Int32 = Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)) {
         
         var clientConditionRooms: [IGPClientCondition.IGPRoom]?
@@ -580,7 +576,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         if getRoomListRequest.igpPagination.igpOffset == 0 { // is first page
                             IGFactory.shared.markRoomsAsDeleted(igpRooms: getRoomListResponse.igpRooms)
                             IGClientGetPromoteRequest.fetchPromotedRooms()
-                            self.sendClientCondition(clientConditionRooms: clientConditionRooms!)
+                            IGClientConditionRequest.sendRequest(clientConditionRooms: clientConditionRooms!)
                         }
                         
                         if getRoomListResponse.igpRooms.count != 0 {

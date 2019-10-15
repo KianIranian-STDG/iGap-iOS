@@ -21,4 +21,13 @@ class IGRealmOfflineSeen: Object {
         self.roomId = roomId
         self.messageId = messageId
     }
+    
+    /** clear offline reserved data after send client condition and receive info from server */
+    public static func clearClientConditionData(){
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                IGDatabaseManager.shared.realm.delete(IGDatabaseManager.shared.realm.objects(IGRealmOfflineSeen.self))
+            }
+        }
+    }
 }

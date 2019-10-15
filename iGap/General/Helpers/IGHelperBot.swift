@@ -86,7 +86,7 @@ class IGHelperBot {
         }
 
         for (index, row) in additionalArrayMain.enumerated() {
-            var delay = (Double(index) * 0.25)
+            var delay = (Double(index) * 0.05)
             if isKeyboard {
                 delay = 0
             }

@@ -16,6 +16,7 @@ class IGHelperMessageStatus {
     static let shared = IGHelperMessageStatus()
     
     public func sendSeen(roomId: Int64, realmRoomMessages: [IGRoomMessage]) {
+        //TODO - don't do following actions in main thread
         DispatchQueue.main.async {
             if let roomType = IGRoom.getTypeWithId(roomId: roomId) {
                 IGFactory.shared.markAllMessagesAsRead(roomId: roomId)
@@ -36,44 +37,32 @@ class IGHelperMessageStatus {
         }
         switch roomType {
         case .chat:
-            //if IGRecentsTableViewController.visibleChat[roomId]! {
-                IGChatUpdateStatusRequest.Generator.generate(roomID: roomId, messageID: message.id, status: .seen).success({ (responseProto) in
-                    switch responseProto {
-                    case let response as IGPChatUpdateStatusResponse:
-                        IGChatUpdateStatusRequest.Handler.interpret(response: response)
-                    default:
-                        break
-                    }
-                }).error({ (errorCode, waitTime) in
-                    
-                }).send()
-            //}
-        case .group:
-            //if IGRecentsTableViewController.visibleChat[roomId]! {
-                IGGroupUpdateStatusRequest.Generator.generate(roomID: roomId, messageID: message.id, status: .seen).success({ (responseProto) in
-                    switch responseProto {
-                    case let response as IGPGroupUpdateStatusResponse:
-                        IGGroupUpdateStatusRequest.Handler.interpret(response: response)
-                    default:
-                        break
-                    }
-                }).error({ (errorCode, waitTime) in
-                    
-                }).send()
-            //}
+            IGChatUpdateStatusRequest.Generator.generate(roomID: roomId, messageID: message.id, status: .seen).success({ (responseProto) in
+                switch responseProto {
+                case let response as IGPChatUpdateStatusResponse:
+                    IGChatUpdateStatusRequest.Handler.interpret(response: response)
+                default:
+                    break
+                }
+            }).error({ (errorCode, waitTime) in
+                
+            }).send()
             break
+            
+        case .group:
+            IGGroupUpdateStatusRequest.Generator.generate(roomID: roomId, messageID: message.id, status: .seen).success({ (responseProto) in
+                switch responseProto {
+                case let response as IGPGroupUpdateStatusResponse:
+                    IGGroupUpdateStatusRequest.Handler.interpret(response: response)
+                default:
+                    break
+                }
+            }).error({ (errorCode, waitTime) in
+                
+            }).send()
+            break
+            
         case .channel:
-            /*
-             if IGRecentsTableViewController.visibleChat[(room?.id)!]! {
-             if let message = self.messages?.last {
-             IGChannelGetMessagesStatsRequest.Generator.generate(messages: [message], room: self.room!).success({ (responseProto) in
-             
-             }).error({ (errorCode, waitTime) in
-             
-             }).send()
-             }
-             }
-             */
             break
         }
     }

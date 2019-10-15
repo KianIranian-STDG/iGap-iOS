@@ -135,12 +135,12 @@ class IGChatUpdateStatusRequest : IGRequest {
                 updateMessageStatusMessage.igpStatus = .delivered
             case .seen:
                 updateMessageStatusMessage.igpStatus = .seen
+                IGFactory.shared.addOfflineSeen(roomId: roomID, messageId: messageID, status: updateMessageStatusMessage.igpStatus)
             case .sent:
                 updateMessageStatusMessage.igpStatus = .sent
             default:
                 break
             }
-            IGFactory.shared.addOfflineSeen(roomId: roomID, messageId: messageID, status: updateMessageStatusMessage.igpStatus)
             return IGRequestWrapper(message: updateMessageStatusMessage, actionID: 202)
         }
     }
