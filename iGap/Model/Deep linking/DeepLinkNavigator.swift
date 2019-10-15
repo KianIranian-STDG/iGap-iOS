@@ -32,11 +32,14 @@ class DeeplinkNavigator {
                         }
                     }
                 }).error ({ (errorCode, waitTime) in
-                    switch errorCode {
-                    case .timeout: break
-                        
-                    default:
-                        break
+                    DispatchQueue.main.async {
+                        if errorCode == .timeout {
+                            self.proceedToDeeplink(type)
+                        } else if errorCode == .clientGetRoomNotFound {
+                            let alert = UIAlertController(title: nil, message: "CHAT_ROOM_NOT_FOUND".localizedNew, preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil))
+                            UIApplication.topViewController()!.present(alert, animated: true, completion: nil)
+                        }
                     }
                 }).send()
             }

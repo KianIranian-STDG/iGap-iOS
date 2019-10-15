@@ -1091,6 +1091,7 @@
         "FILTER" : "filter",
         "PROCESSING" : "processing",
         "SETTING_SOUND_SEND_MESSAGE" : "Send Message Sound",
-        "DELETED_MESSAGE_2" : "This message has been deleted"
+        "DELETED_MESSAGE_2" : "This message has been deleted",
+        "CHAT_ROOM_NOT_FOUND" : "The desired chat could not be found"
     }
 }

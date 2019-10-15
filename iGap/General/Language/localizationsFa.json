@@ -1079,6 +1079,7 @@
         "FILTER" : "فیلتر",
         "PROCESSING" : "در حال پردازش",
         "SETTING_SOUND_SEND_MESSAGE" : "صوت ارسال پیام",
-        "DELETED_MESSAGE_2" : "این پیام حذف شده است"
+        "DELETED_MESSAGE_2" : "این پیام حذف شده است",
+        "CHAT_ROOM_NOT_FOUND" : "چت مورد نظر یافت نشد"
     }
 }

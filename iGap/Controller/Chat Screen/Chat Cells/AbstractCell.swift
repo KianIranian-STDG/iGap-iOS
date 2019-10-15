@@ -1224,17 +1224,22 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             makeViewCount()
             let attributedString = NSMutableAttributedString(string: "\(messageVote.channelExtra?.viewsLabel ?? "1")", attributes: nil)
             let icon = (attributedString.string as NSString).range(of: "")
-            attributedString.setAttributes([NSAttributedString.Key.baselineOffset: -1], range: icon)
+            attributedString.setAttributes([NSAttributedString.Key.baselineOffset: 1], range: icon)
             txtSeenCountAbs.attributedText = attributedString
             
             if let channel = messageVote.authorRoom?.channelRoom, channel.hasReaction {
                 makeVoteAction()
-                txtVoteUpAbs.text = "\(messageVote.channelExtra?.thumbsUpLabel ?? "0")"
+                let attributedVoteUp = NSMutableAttributedString(string: "\(messageVote.channelExtra?.thumbsUpLabel ?? "0")", attributes: nil)
+                let textVoteUp = (attributedVoteUp.string as NSString).range(of: "\(messageVote.channelExtra?.thumbsUpLabel ?? "0")")
+                attributedVoteUp.addAttributes([NSAttributedString.Key.baselineOffset: 1], range: textVoteUp)
+                txtVoteUpAbs.attributedText = attributedVoteUp
+                //txtVoteUpAbs.text = "\(messageVote.channelExtra?.thumbsUpLabel ?? "0")"
                 
                 let attributedVoteDown = NSMutableAttributedString(string: "\(messageVote.channelExtra?.thumbsDownLabel ?? "0")", attributes: nil)
                 let textVoteDown = (attributedVoteDown.string as NSString).range(of: "\(messageVote.channelExtra?.thumbsDownLabel ?? "0")")
-                attributedVoteDown.addAttributes([NSAttributedString.Key.baselineOffset: -1], range: textVoteDown)
+                attributedVoteDown.addAttributes([NSAttributedString.Key.baselineOffset: 1], range: textVoteDown)
                 txtVoteDownAbs.attributedText = attributedVoteDown
+                //txtVoteDownAbs.text = "\(messageVote.channelExtra?.thumbsDownLabel ?? "0")"
             } else {
                 removeVoteAction()
             }
