@@ -22,7 +22,7 @@ class IGHelperMessage {
             /**
              * put message to realm
              */
-            let realmRoomMessage = IGRoomMessage.putOrUpdate(igpMessage: roomMessage, roomId: roomId, options: IGStructMessageOption(isGap: true))
+            let realmRoomMessage = IGRoomMessage.putOrUpdate(igpMessage: roomMessage, roomId: roomId, options: IGStructMessageOption(previousGap: true))
             let room = realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", roomId)).first
             
             /**

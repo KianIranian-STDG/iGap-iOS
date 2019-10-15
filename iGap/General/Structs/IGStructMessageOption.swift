@@ -14,9 +14,11 @@ struct IGStructMessageOption {
     
     /**
      * if is gap we need set message id in {@link net.iGap.realm.RealmRoomMessage#previousMessageId}
-     * for detect all message not exist in local database and we have to fetch message from server
+     * or {@link net.iGap.realm.RealmRoomMessage#futureMessageId} for detect all messages that not
+     * exist in local database and we have to fetch messages from server
      */
-    public var isGap = false
+    public var previousGap = false
+    public var futureGap = false
     
     /**
      * if is forward or reply we need create new message with new fake id for avoid from interference
@@ -36,8 +38,9 @@ struct IGStructMessageOption {
     public var isEnableCache = false
     
     
-    init(isGap: Bool = false, isForward: Bool = false, isReply: Bool = false, isFromShareMedia: Bool = false, isEnableCache: Bool = false) {
-        self.isGap = isGap
+    init(previousGap: Bool = false, futureGap: Bool = false, isForward: Bool = false, isReply: Bool = false, isFromShareMedia: Bool = false, isEnableCache: Bool = false) {
+        self.previousGap = previousGap
+        self.futureGap = futureGap
         self.isForward = isForward
         self.isReply = isReply
         self.isFromShareMedia = isFromShareMedia

@@ -128,7 +128,7 @@ class IGClientGetRoomMessageRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage:IGPClientGetRoomMessageResponse, roomId: Int64, completion: @escaping (_ message: IGRoomMessage) -> ()) {
-            IGRoomMessage.putOrUpdate(igpMessage: responseProtoMessage.igpMessage, roomId: roomId, options: IGStructMessageOption(isGap: true)) { (message) in
+            IGRoomMessage.putOrUpdate(igpMessage: responseProtoMessage.igpMessage, roomId: roomId, options: IGStructMessageOption(previousGap: true, futureGap: true)) { (message) in
                 completion(message)
             }
         }

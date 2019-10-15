@@ -1576,8 +1576,6 @@ extension IGRecentsTableViewController {
         if lastContentOffset <= 0 {
 //            initialiseSearchBar()
         }
-        print(scrollView.contentOffset.y)
-        
     }
     
     private func initialiseSearchBar() {

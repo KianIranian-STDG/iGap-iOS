@@ -280,6 +280,9 @@ class IGRoomMessage: Object {
                 if let message = IGRoomMessage.putOrUpdate(igpMessage: igpMessage, roomId: roomId, options: options) {
                     IGDatabaseManager.shared.realm.add(message, update: .modified)
                 }
+            }
+            // TODO - find better solution instead delay, now need to delay for insure that data after get from realm really is exist 
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 if let message = IGRoomMessage.getMessageWithId(roomId: roomId, messageId: igpMessage.igpMessageID) {
                     completion(message)
                 }
@@ -397,8 +400,11 @@ class IGRoomMessage: Object {
          message.futureMessageId = message.id
          */
         
-        if options.isGap {
+        if options.previousGap {
             message.previousMessageId = igpMessage.igpPreviousMessageID
+        }
+        if options.futureGap {
+            message.futureMessageId = igpMessage.igpMessageID
         }
         
         if options.isEnableCache && (!options.isReply && !options.isForward) {
