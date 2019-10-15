@@ -482,7 +482,9 @@ class IGFactory: NSObject {
                 if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
                     switch status {
                     case .delivered:
-                        messageInDb.status = .delivered
+                        if status != .seen { // into the group or multi device can be happen
+                            messageInDb.status = .delivered
+                        }
                     case .sending:
                         messageInDb.status = .sending
                     case .sent:

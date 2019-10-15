@@ -19,7 +19,6 @@ class IGHelperMessageStatus {
         //TODO - don't do following actions in main thread
         DispatchQueue.main.async {
             if let roomType = IGRoom.getTypeWithId(roomId: roomId) {
-                IGFactory.shared.markAllMessagesAsRead(roomId: roomId)
                 realmRoomMessages.forEach {
                     if let authorHash = $0.authorHash {
                         if authorHash != IGAppManager.sharedManager.authorHash() {

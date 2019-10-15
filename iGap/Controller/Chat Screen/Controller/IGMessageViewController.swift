@@ -1811,22 +1811,18 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             finalRoomId = roomId
             finalRoomType = self.room?.type
             DispatchQueue.global(qos: .background).async {
-                let predicate = NSPredicate(format: "roomId == %lld AND statusRaw != %d AND statusRaw != %d", self.finalRoomId, IGRoomMessageStatus.seen.rawValue, IGRoomMessageStatus.listened.rawValue)
-                let sortProperties = [SortDescriptor(keyPath: "id", ascending: false)]
-                let realmRoomMessages = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
                 IGFactory.shared.markAllMessagesAsRead(roomId: roomId)
                 
+                let predicate = NSPredicate(format: "roomId == %lld AND statusRaw != %d AND statusRaw != %d", self.finalRoomId, IGRoomMessageStatus.seen.rawValue, IGRoomMessageStatus.listened.rawValue)
+                let sortProperties = [SortDescriptor(keyPath: "id", ascending: false)]
+                let realmRoomMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
                 let finalMessages = realmRoomMessages.toArray()
                 
                 if finalMessages.count == 0 {return}
                 let seenMessages = finalMessages//.chunks(100)[0]
                 
                 seenMessages.forEach{
-                    if let authorHash = $0.authorHash {
-                        if authorHash != self.currentLoggedInUserAuthorHash! {
-                            self.sendSeenForMessage($0)
-                        }
-                    }
+                    self.sendSeenForMessage($0)
                 }
             }
         }

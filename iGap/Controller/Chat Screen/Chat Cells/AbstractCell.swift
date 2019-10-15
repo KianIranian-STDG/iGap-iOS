@@ -1224,7 +1224,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             makeViewCount()
             let attributedString = NSMutableAttributedString(string: "\(messageVote.channelExtra?.viewsLabel ?? "1")", attributes: nil)
             let icon = (attributedString.string as NSString).range(of: "")
-            attributedString.setAttributes([NSAttributedString.Key.baselineOffset: 1], range: icon)
+            attributedString.setAttributes([NSAttributedString.Key.baselineOffset: 0], range: icon)
             txtSeenCountAbs.attributedText = attributedString
             
             if let channel = messageVote.authorRoom?.channelRoom, channel.hasReaction {
