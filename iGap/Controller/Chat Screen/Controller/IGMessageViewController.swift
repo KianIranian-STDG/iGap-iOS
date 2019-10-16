@@ -1010,13 +1010,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             NSAttributedString.Key.foregroundColor : UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue) ?? #colorLiteral(red: 0.6784313725, green: 0.6784313725, blue: 0.6784313725, alpha: 1),
             NSAttributedString.Key.font : UIFont.igFont(ofSize: 13) // Note the !
         ]
-        
-        //        inputTextView.attributedPlaceholder = NSAttributedString(string: "MESSAGE".MessageViewlocalizedNew, attributes:attributes)
+        self.removeHideKeyboardWhenTappedAround()
         initChangeLanguegeNewChatView()
         
-        //        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
-
-//        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
         inputBarMoneyTransferButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 19)
         
         self.removeHideKeyboardWhenTappedAround()
@@ -1227,18 +1223,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.view.superview?.superview?.superview?.backgroundColor = bgColor
         self.view.superview?.superview?.superview?.superview?.backgroundColor = bgColor
         
-        let inputTextViewInitialHeight: CGFloat = 22.0 //initial without reply || forward || attachment || text
-        self.inputTextViewHeight = inputTextViewInitialHeight
         
         self.setInputBarHeight()
         self.managePinnedMessage()
-        inputTextView.delegate = self
-        //        inputTextView.placeholder = "MESSAGE".MessageViewlocalizedNew
+
+        
         initChangeLanguegeNewChatView()
-        
-        
-        
-        
         scrollToBottomContainerView.layer.cornerRadius = 20.0
         scrollToBottomContainerView.layer.masksToBounds = false
         scrollToBottomContainerView.layer.shadowColor = UIColor.black.cgColor
@@ -1257,34 +1247,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         txtPinnedMessage.lineBreakMode = .byTruncatingTail
         txtPinnedMessage.numberOfLines = 1
         self.setCollectionViewInset()
-        let tapInputTextView = UITapGestureRecognizer(target: self, action: #selector(didTapOnInputTextView))
-        inputTextView.addGestureRecognizer(tapInputTextView)
-        inputTextView.isUserInteractionEnabled = true
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnStickerButton))
-        txtSticker.addGestureRecognizer(tap)
-        txtSticker.isUserInteractionEnabled = true
-        
-        let tapAndHoldOnRecord = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnRecord(_:)))
-        tapAndHoldOnRecord.minimumPressDuration = 0.5
-        inputBarRecordButton.addGestureRecognizer(tapAndHoldOnRecord)
-        if let messageId = self.deepLinkMessageId {
-            // need to make 'IGMessageLoader' for first time
-            if messageLoader == nil {
-                messageLoader = IGMessageLoader(room: self.room!)
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.goToPosition(messageId: messageId)
-            }
-        } else {
-            startLoadMessage()
-        }
-                self.goToPosition(messageId: messageId)
-            }
-        } else {
-            startLoadMessage()
-        }
+        notification(register: true)
+        let tapOnMessageTextView = UITapGestureRecognizer(target: self, action: #selector(didTapOnInputTextView))
+        messageTextView.addGestureRecognizer(tapOnMessageTextView)
+        messageTextView.isUserInteractionEnabled = true
+        startLoadMessage()
         initiconFonts()
+
     }
     private func initiconFonts() {
         txtSticker.font = UIFont.iGapFonticon(ofSize: 25)
