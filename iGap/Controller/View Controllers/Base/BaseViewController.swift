@@ -45,7 +45,7 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
 //            // Fallback on earlier versions
 //        }
 
-        self.hideKeyboardWhenTappedAround()
+//        self.hideKeyboardWhenTappedAround()
     }
     
     func initNavigationBar(title: String? = nil, rightItemText: String? = nil, iGapFont: Bool = false, rightAction: @escaping () -> ()) {

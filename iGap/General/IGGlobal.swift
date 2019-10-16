@@ -1606,7 +1606,23 @@ extension UITextField {
     
     func getClearButton() -> UIButton? { return value(forKey: "clearButton") as? UIButton }
 }
+extension UITextView {
+    var localizedNewDirection: NSTextAlignment {
+        if lastLang == "en" {
+            guard let txt = self.text else { return NSTextAlignment.left }
+            if (txt.isRTL()) {
+                return NSTextAlignment.right
+            } else {
+                return NSTextAlignment.left
+            }
+        }
+        else {
+            return NSTextAlignment.right
+        }
+        
+    }
 
+}
 extension UILabel {
     var localizedNewDirection: NSTextAlignment {
         if lastLang == "en" {

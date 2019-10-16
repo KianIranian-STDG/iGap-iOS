@@ -2,6 +2,9 @@
     "en": {
         
         "SELECTED" : "Selected",
+        "LONG_PRESS_TO_RECORD" : "Hold to record...",
+        "SLIDE_TO_CANCEL" : "Slide to Left to Cancel...",
+
         "MESSAGE" : "Message",
         "SEND_PHOTO" : "Send Photo",
         "CANCEL_BTN" : "Cancel",

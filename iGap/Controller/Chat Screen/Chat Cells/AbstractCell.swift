@@ -658,28 +658,31 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             lable.botColor = UIColor.iGapLink()
             lable.EmailColor = UIColor.iGapLink()
 
-            lable.handleURLTap { url in
-                self.delegate?.didTapOnURl(url: url)
-            }
-            
-            lable.handleDeepLinkTap({ (deepLink) in
-                 self.delegate?.didTapOnDeepLink(url: deepLink)
-            })
+            if !IGGlobal.shouldMultiSelect {
+                lable.handleURLTap { url in
+                    self.delegate?.didTapOnURl(url: url)
+                }
+                
+                lable.handleDeepLinkTap({ (deepLink) in
+                     self.delegate?.didTapOnDeepLink(url: deepLink)
+                })
 
-            lable.handleEmailTap { email in
-                self.delegate?.didTapOnEmail(email: email.absoluteString)
-            }
+                lable.handleEmailTap { email in
+                    self.delegate?.didTapOnEmail(email: email.absoluteString)
+                }
 
-            lable.handleBotTap {bot in
-                self.delegate?.didTapOnBotAction(action: bot)
-            }
+                lable.handleBotTap {bot in
+                    self.delegate?.didTapOnBotAction(action: bot)
+                }
 
-            lable.handleMentionTap { mention in
-                self.delegate?.didTapOnMention(mentionText: mention )
-            }
+                lable.handleMentionTap { mention in
+                    self.delegate?.didTapOnMention(mentionText: mention )
+                }
 
-            lable.handleHashtagTap { hashtag in
-                self.delegate?.didTapOnHashtag(hashtagText: hashtag)
+                lable.handleHashtagTap { hashtag in
+                    self.delegate?.didTapOnHashtag(hashtagText: hashtag)
+                }
+
             }
         }
     }
@@ -691,110 +694,116 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
      */
     
     func manageGustureRecognizers() {
-        
-        if mainBubbleViewAbs != nil {
-            let tapAndHold = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnCell(_:)))
-            tapAndHold.minimumPressDuration = 0.2
-            mainBubbleViewAbs.addGestureRecognizer(tapAndHold)
-            
-            /*
-            if self.attachment != nil {
-                let tapOnCell = UITapGestureRecognizer(target: self, action: #selector(didTapAttachmentOnCell(_:)))
-                mainBubbleViewAbs.addGestureRecognizer(tapOnCell)
+        if !IGGlobal.shouldMultiSelect  {
+            if mainBubbleViewAbs != nil {
+                let tapAndHold = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnCell(_:)))
+                tapAndHold.minimumPressDuration = 0.2
+                mainBubbleViewAbs.addGestureRecognizer(tapAndHold)
+                
+                /*
+                if self.attachment != nil {
+                    let tapOnCell = UITapGestureRecognizer(target: self, action: #selector(didTapAttachmentOnCell(_:)))
+                    mainBubbleViewAbs.addGestureRecognizer(tapOnCell)
+                }
+                */
+                
+                mainBubbleViewAbs.isUserInteractionEnabled = true
             }
-            */
             
-            mainBubbleViewAbs.isUserInteractionEnabled = true
-        }
-        
-        if replyViewAbs != nil {
-            let onReplyClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnReply(_:)))
-            replyViewAbs.addGestureRecognizer(onReplyClick)
-            replyViewAbs.isUserInteractionEnabled = true
-            if !(IGGlobal.shouldMultiSelect) {
+            if replyViewAbs != nil {
+                let onReplyClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnReply(_:)))
+                replyViewAbs.addGestureRecognizer(onReplyClick)
                 replyViewAbs.isUserInteractionEnabled = true
+                if !(IGGlobal.shouldMultiSelect) {
+                    replyViewAbs.isUserInteractionEnabled = true
 
-            }
-            else {
-                replyViewAbs.isUserInteractionEnabled = false
+                }
+                else {
+                    replyViewAbs.isUserInteractionEnabled = false
 
+                }
             }
-        }
-        
-        if forwardViewAbs != nil {
-            let onForwardClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnForward(_:)))
-            forwardViewAbs.addGestureRecognizer(onForwardClick)
-            if !(IGGlobal.shouldMultiSelect) {
-                forwardViewAbs.isUserInteractionEnabled = true
-            }
-            else {
-                forwardViewAbs.isUserInteractionEnabled = false
-            }
-        }
-        
-        if imgFileAbs != nil {
-            let onFileClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
-            imgFileAbs.addGestureRecognizer(onFileClick)
             
-            if !(IGGlobal.shouldMultiSelect) {
-                imgFileAbs.isUserInteractionEnabled = true
+            if forwardViewAbs != nil {
+                let onForwardClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnForward(_:)))
+                forwardViewAbs.addGestureRecognizer(onForwardClick)
+                if !(IGGlobal.shouldMultiSelect) {
+                    forwardViewAbs.isUserInteractionEnabled = true
+                }
+                else {
+                    forwardViewAbs.isUserInteractionEnabled = false
+                }
             }
-            else {
-                imgFileAbs.isUserInteractionEnabled = false
+            
+            if imgFileAbs != nil {
+                let onFileClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
+                imgFileAbs.addGestureRecognizer(onFileClick)
+                
+                if !(IGGlobal.shouldMultiSelect) {
+                    imgFileAbs.isUserInteractionEnabled = true
+                }
+                else {
+                    imgFileAbs.isUserInteractionEnabled = false
+                }
             }
-        }
-        
-        if mediaContainerViewAbs != nil {
-            let tap1 = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
-            mediaContainerViewAbs?.addGestureRecognizer(tap1)
-            if !(IGGlobal.shouldMultiSelect) {
-                mediaContainerViewAbs?.isUserInteractionEnabled = true
+            
+            if mediaContainerViewAbs != nil {
+                let tap1 = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
+                mediaContainerViewAbs?.addGestureRecognizer(tap1)
+                if !(IGGlobal.shouldMultiSelect) {
+                    mediaContainerViewAbs?.isUserInteractionEnabled = true
+                }
+                else {
+                    mediaContainerViewAbs?.isUserInteractionEnabled = false
+                }
             }
-            else {
-                mediaContainerViewAbs?.isUserInteractionEnabled = false
-            }
-        }
 
-        if imgMediaAbs != nil {
-            let tap2 = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
-            imgMediaAbs?.addGestureRecognizer(tap2)
-            if !(IGGlobal.shouldMultiSelect) {
-                imgMediaAbs?.isUserInteractionEnabled = true
+            if imgMediaAbs != nil {
+                let tap2 = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
+                imgMediaAbs?.addGestureRecognizer(tap2)
+                if !(IGGlobal.shouldMultiSelect) {
+                    imgMediaAbs?.isUserInteractionEnabled = true
+                }
+                else {
+                    imgMediaAbs?.isUserInteractionEnabled = false
+                }
             }
-            else {
-                imgMediaAbs?.isUserInteractionEnabled = false
+            
+            if btnReturnToMessageAbs != nil {
+                let tapReturnToMessage = UITapGestureRecognizer(target: self, action: #selector(didTapOnReturnToMessage(_:)))
+                btnReturnToMessageAbs?.addGestureRecognizer(tapReturnToMessage)
             }
+            
+            let tap5 = UITapGestureRecognizer(target: self, action: #selector(didTapOnSenderAvatar(_:)))
+            avatarViewAbs?.addGestureRecognizer(tap5)
+            
+            let tapVoteUp = UITapGestureRecognizer(target: self, action: #selector(didTapOnVoteUp(_:)))
+            txtVoteUpAbs?.addGestureRecognizer(tapVoteUp)
+            txtVoteUpAbs?.isUserInteractionEnabled = true
+            
+            let tapVoteDown = UITapGestureRecognizer(target: self, action: #selector(didTapOnVoteDown(_:)))
+            txtVoteDownAbs?.addGestureRecognizer(tapVoteDown)
+            txtVoteDownAbs?.isUserInteractionEnabled = true
+
         }
-        
-        if btnReturnToMessageAbs != nil {
-            let tapReturnToMessage = UITapGestureRecognizer(target: self, action: #selector(didTapOnReturnToMessage(_:)))
-            btnReturnToMessageAbs?.addGestureRecognizer(tapReturnToMessage)
-        }
-        
-        let tap5 = UITapGestureRecognizer(target: self, action: #selector(didTapOnSenderAvatar(_:)))
-        avatarViewAbs?.addGestureRecognizer(tap5)
-        
-        let tapVoteUp = UITapGestureRecognizer(target: self, action: #selector(didTapOnVoteUp(_:)))
-        txtVoteUpAbs?.addGestureRecognizer(tapVoteUp)
-        txtVoteUpAbs?.isUserInteractionEnabled = true
-        
-        let tapVoteDown = UITapGestureRecognizer(target: self, action: #selector(didTapOnVoteDown(_:)))
-        txtVoteDownAbs?.addGestureRecognizer(tapVoteDown)
-        txtVoteDownAbs?.isUserInteractionEnabled = true
     }
     
     @objc func didTapAndHoldOnCell(_ gestureRecognizer: UILongPressGestureRecognizer) {
         switch gestureRecognizer.state {
         case .began:
-            self.delegate?.didTapAndHoldOnMessage(cellMessage: realmRoomMessage!, cell: self)
+            if !(IGGlobal.shouldMultiSelect) {
+                self.delegate?.didTapAndHoldOnMessage(cellMessage: realmRoomMessage!, cell: self)
+            }
         default:
             break
         }
     }
     
     func didTapAttachmentOnCell(_ gestureRecognizer: UITapGestureRecognizer) {
-        if finalRoomMessage.attachment != nil {
-            didTapOnAttachment(gestureRecognizer)
+        if !(IGGlobal.shouldMultiSelect) {
+            if finalRoomMessage.attachment != nil {
+                didTapOnAttachment(gestureRecognizer)
+            }
         }
     }
     
@@ -803,11 +812,15 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     }
 
     @objc func didTapOnAttachment(_ gestureRecognizer: UITapGestureRecognizer) {
-        self.delegate?.didTapOnAttachment(cellMessage: realmRoomMessage!, cell: self, imageView: imgMediaAbs)
+        if !(IGGlobal.shouldMultiSelect) {
+            self.delegate?.didTapOnAttachment(cellMessage: realmRoomMessage!, cell: self, imageView: imgMediaAbs)
+        }
     }
     
     @objc func didTapOnReply(_ gestureRecognizer: UITapGestureRecognizer) {
-        self.delegate?.didTapOnReply(cellMessage: realmRoomMessage!, cell: self)
+        if !(IGGlobal.shouldMultiSelect) {
+            self.delegate?.didTapOnReply(cellMessage: realmRoomMessage!, cell: self)
+        }
     }
     
     @objc func didTapOnForward(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -824,7 +837,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     }
     
     @objc func didTapOnSenderAvatar(_ gestureRecognizer: UITapGestureRecognizer) {
-        self.delegate?.didTapOnSenderAvatar(cellMessage: realmRoomMessage!, cell: self)
+        if !(IGGlobal.shouldMultiSelect) {
+            self.delegate?.didTapOnSenderAvatar(cellMessage: realmRoomMessage!, cell: self)
+        }
     }
     
     @objc func didTapOnVoteUp(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -873,11 +888,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         imgReply.contentMode = .scaleAspectFit
         imgReply.image = UIImage(named: "ig_message_reply")
         imgReply.alpha = 0.5
-
-        pan = UIPanGestureRecognizer(target: self, action: #selector(onSwipe(_:)))
-            
-        pan.delegate = self
-        self.addGestureRecognizer(pan)
+        if !(IGGlobal.shouldMultiSelect) {
+            pan = UIPanGestureRecognizer(target: self, action: #selector(onSwipe(_:)))
+            pan.delegate = self
+            self.addGestureRecognizer(pan)
+        }
     }
     
     private func swipePositionManager(){
@@ -1942,18 +1957,21 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
 
 extension AbstractCell: IGProgressDelegate {
     func downloadUploadIndicatorDidTap(_ indicator: IGProgress) {
-        
-        if let attachment = self.attachment {
-            if attachment.status == .uploading {
-                IGMessageViewController.messageOnChatReceiveObserver.onMessageDelete(roomId: self.room.id, messageId: self.finalRoomMessage.id)
-                IGUploadManager.sharedManager.cancelUpload(attachment: attachment)
-            } else if attachment.status == .uploadFailed {
-                if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", self.realmRoomMessage.roomId)).first {
-                    IGMessageSender.defaultSender.resend(message: self.finalRoomMessage, to: room)
+        if !IGGlobal.shouldMultiSelect {///if not in multiSelectMode
+
+            if let attachment = self.attachment {
+                if attachment.status == .uploading {
+                    IGMessageViewController.messageOnChatReceiveObserver.onMessageDelete(roomId: self.room.id, messageId: self.finalRoomMessage.id)
+                    IGUploadManager.sharedManager.cancelUpload(attachment: attachment)
+                } else if attachment.status == .uploadFailed {
+                    if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", self.realmRoomMessage.roomId)).first {
+                        IGMessageSender.defaultSender.resend(message: self.finalRoomMessage, to: room)
+                    }
+                } else {
+                    IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in }, failure: {})
                 }
-            } else {
-                IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in }, failure: {})
             }
+            
         }
     }
 }

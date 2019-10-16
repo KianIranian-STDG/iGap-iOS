@@ -59,10 +59,538 @@ class IGHeader: UICollectionReusableView {
 }
 
 class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener, UITextFieldDelegate, HandleReciept, HandleBackNavigation {
+    
+    //newUITextMessage
+    // MARK: - Outlets
+    
+    @IBOutlet weak var stackMessageView: UIStackView!
+    @IBOutlet weak var mainHolder: UIStackView!
+    @IBOutlet weak var holderRecordView: UIView!
+    @IBOutlet weak var holderAttachmentBar: UIView!
+    @IBOutlet weak var holderReplyBar: UIView!
+    @IBOutlet weak var holderTextBox: UIView!
+    @IBOutlet weak var holderMultiSelect: UIView!
 
+    @IBOutlet weak var lblFileType: UILabel!
+    @IBOutlet weak var lblActionType: UILabel!
+    @IBOutlet weak var lblFirstInStack: UILabel!
+    @IBOutlet weak var lblSecondInStack: UILabel!
+    @IBOutlet weak var lblThirdInStack: UILabel!
+    @IBOutlet weak var lblFileSize: UILabel!
+    
+    @IBOutlet weak var lblReplyName : UILabel!
+    @IBOutlet weak var lblReplyBody : UILabel!
+    
+    @IBOutlet weak var imgAttachmentImage: UIImageView!
+    @IBOutlet weak var btnCloseTopBar: UIButton!
+    @IBOutlet weak var btnCloseReplyBar: UIButton!
+    
+    @IBOutlet weak var messageTextView: UITextView!
+    @IBOutlet weak var lblPlaceHolder: UILabel!
+    @IBOutlet weak var lblCenterText: UILabel!
+    @IBOutlet weak var lblCenterIcon: UILabel!
+    @IBOutlet weak var btnSticker: UIButton!
+    @IBOutlet weak var btnMicInner: UIButton!
+    @IBOutlet weak var btnMic: UIButton!
+    @IBOutlet weak var btnSend: UIButton!
+    @IBOutlet weak var btnMoney: UIButton!
+    @IBOutlet weak var btnShare: UIButton!
+    @IBOutlet weak var btnAttachmentNew: UIButton!
+    @IBOutlet weak var btnForward: UIButton!
+    @IBOutlet weak var btnTrash: UIButton!
+    @IBOutlet weak var holderMessageTextView: UIView!
+    @IBOutlet weak var btnStickerWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var messageTextViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var messageTextViewHeightConstraint: NSLayoutConstraint!
+    // MARK: - Variables
+    var alreadyInSendMode : Bool = false
+    
+    // MARK: - view initialisers
+    ///Delegates
+    private func initDelegatesNewChatView() {
+        messageTextView.delegate = self
+    }
+    ///view initialisers
+    private func initViewNewChatView() {
+        addLongPressGestureToMicButton()///handle long press on mic button
+        
+        ///rounding corner of mic and send button
+        self.btnSend.roundCorners(corners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMinXMinYCorner], radius: 20.0)
+        self.btnMic.roundCorners(corners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMinXMinYCorner], radius: 20.0)
+        self.btnMicInner.roundCorners(corners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMinXMinYCorner], radius: 30.0)
+        creatRedDotBlinkingView()
+        initColorSetNewChatView()
+        self.btnMic.isHidden = false
+        self.btnMoney.isHidden = false
+        self.btnAttachment.isHidden = false
+        
+        self.btnSend.isHidden = true
+        self.btnShare.isHidden = true
+        self.btnTrash.isHidden = true
+        self.btnForward.isHidden = true
+        
+        
+        
+        
+        ///topbar on message view initialisers
+        self.imgAttachmentImage.layer.cornerRadius = 6.0
+        self.imgAttachmentImage.layer.masksToBounds = true
+        
+        
+        
+        
+    }
+    ///create red dot blinking for recording
+    private func creatRedDotBlinkingView() {
+        inputBarRecodingBlinkingView.layer.cornerRadius = 8.0
+        inputBarRecodingBlinkingView.layer.masksToBounds = false
+    }
+    private func setupMessageTextHeightChnage() {
+        lblPlaceHolder.isHidden = false
+        showHideStickerButton(shouldShow: true)
+        ///hides send button and show Mic and Money button if textview is empty
+        handleShowHideMicButton(shouldShow: true)
+        handleShowHideShareButton(shouldShow: false)
+        handleShowHideSendButton(shouldShow: false)
+        handleShowHideMoneyButton(shouldShow: true)
+        self.messageTextViewHeightConstraint.constant = 50
+    }
+    
+    private func initColorSetNewChatView() {
+        self.holderMessageTextView.backgroundColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
+        self.btnAttachmentNew.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        self.btnSend.setTitleColor(UIColor(named: themeColor.backgroundColor.rawValue), for: .normal)
+        self.btnSend.backgroundColor = UIColor(named: themeColor.labelColor.rawValue)
+        self.btnMoney.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        self.btnTrash.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        self.btnAttachmentNew.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        self.btnShare.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        self.btnMic.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        self.btnSticker.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
+        self.lblPlaceHolder.textColor = UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue)
+        
+    }
+    ///setting fonts in here
+    private func initFontsNewChatView() {
+        lblCenterText.font = UIFont.igFont(ofSize: 10,weight: .light)
+        lblCenterIcon.font = UIFont.iGapFonticon(ofSize: 15)
+        messageTextView.font = UIFont.igFont(ofSize: 15)
+        lblPlaceHolder.font = UIFont.igFont(ofSize: 13,weight: .light)
+        btnMicInner.titleLabel!.font = UIFont.iGapFonticon(ofSize: 30)
+        
+    }
+    ///setting alignments based on language of app
+    private func initAlignmentsNewChatView() {
+        lblPlaceHolder.textAlignment = lblPlaceHolder.localizedNewDirection
+        //        messageTextView.textAlignment = messageTextView.localizedNewDirection
+    }
+    ///setting Strings based on language of App
+    private func initChangeLanguegeNewChatView() {
+        lblPlaceHolder.isHidden = false
+        lblPlaceHolder.text = "MESSAGE".MessageViewlocalizedNew
+        lblCenterText.text = "SLIDE_TO_CANCEL".MessageViewlocalizedNew
+        lblCenterIcon.text = ""
+        self.btnCloseTopBar.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
+        self.btnCloseTopBar.setTitle("", for: .normal)
+        
+        self.btnCloseReplyBar.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
+        self.btnCloseReplyBar.setTitle("", for: .normal)
+        
+    }
+    ///Notifications initialisers
+    private func initNotificationsNewChatView() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(IGMessageViewController.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(IGMessageViewController.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @IBAction func didTapOnCloseTopBar(_ sender: UIButton) {
+        self.holderAttachmentBar.isHidden = true
+        ///Handle Show hide of send button with animation and prevent animation to be played if already the button is visible
+        
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        let userInfo = notification.userInfo!
+        let keyboardSize = (notification.userInfo?  [UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        let keyboardHeight = keyboardSize?.height
+        let window = UIApplication.shared.keyWindow!
+        
+        if #available(iOS 11.0, *){
+            self.messageTextViewBottomConstraint.constant = keyboardHeight!
+        }
+        else {
+            self.messageTextViewBottomConstraint.constant = view.safeAreaInsets.bottom
+        }
+        UIView.animate(withDuration: 0.5){
+            
+            self.view.layoutIfNeeded()
+            
+        }
+        
+        if MoneyInputModalIsActive {
+            if let MoneyInput = MoneyInputModal {
+                window.addSubview(MoneyInput)
+                UIView.animate(withDuration: 0.3) {
+                    
+                    var frame = MoneyInput.frame
+                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
+                    MoneyInput.frame = frame
+                    
+                }
+            }
+        }
+        else if CardToCardModalIsActive {
+            if let CardInput = CardToCardModal {
+                window.addSubview(CardInput)
+                UIView.animate(withDuration: 0.3) {
+                    
+                    var frame = CardInput.frame
+                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
+                    CardInput.frame = frame
+                    
+                }
+            }
+        }
+        else if MultiShareModalIsActive {
+            if let MultiShare = forwardModal {
+                window.addSubview(MultiShare)
+                UIView.animate(withDuration: 0.3) {
+                    
+                    var frame = MultiShare.frame
+                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height  + (200))
+                    MultiShare.frame = frame
+                    MultiShare.frame.size.height =  MultiShare.frame.size.height - (200)
+                    
+                }
+            }
+        }
+        else {
+            if MoneyInputModal != nil {
+                self.hideMoneyInputModal()
+            }
+            
+            if CardToCardModal != nil {
+                self.hideCardToCardModal()
+            }
+            
+            if forwardModal != nil {
+                self.hideMultiShareModal()
+            }
+        }
+        self.view.layoutIfNeeded()
+    }
+    private func showHideStickerButton(shouldShow : Bool!) {
+        if shouldShow {
+            
+            UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                self.btnSticker.isHidden = false
+                self.btnStickerWidthConstraint.constant = 25.0
+                
+            }, completion: {
+                (value: Bool) in
+                self.view.layoutIfNeeded()
+            })
+            
+        } else {
+            
+            UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                self.btnSticker.isHidden = true
+                
+                self.btnStickerWidthConstraint.constant = 0.0
+                
+            }, completion: {
+                (value: Bool) in
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    ///Handle Show hide of trash button
+    func handleShowHideTrashButton(shouldShow : Bool!) {
+        if shouldShow {
+            btnTrash.isHidden = false
+        } else {
+            btnTrash.isHidden = true
+            
+        }
+    }
+    ///Handle Show hide of forward button
+    func handleShowHideForwardButton(shouldShow : Bool!) {
+        if shouldShow {
+            btnForward.isHidden = false
+        } else {
+            btnForward.isHidden = true
+        }
+    }
+    ///Handle Show hide of attachment button
+    func handleShowHideAttachmentButton(shouldShow : Bool!) {
+        if shouldShow {
+            btnAttachment.isHidden = false
+        } else {
+            btnAttachment.isHidden = true
+        }
+    }
+    ///Handle Show hide of Send button
+    func handleShowHideSendButton(shouldShow : Bool!) {
+        
+        if shouldShow {
+            btnSend.isHidden = false
+            
+            if !alreadyInSendMode {
+                ///Handle Show hide of send button with animation
+                btnSend.isHidden = false
+                btnSend.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+                UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                    self.btnSend.transform = CGAffineTransform.identity
+                    self.btnSend.layoutIfNeeded()
+                }, completion: nil)
+                ///Handle Show hide of send button with animation and prevent animation to be played if already the button is visible
+                if !alreadyInSendMode {
+                    self.alreadyInSendMode = true
+                }
+            }
+        } else {
+            btnSend.isHidden = true
+        }
+    }
+    ///Handle Show hide of Money button
+    func handleShowHideMoneyButton(shouldShow : Bool!) {
+        if shouldShow {
+            btnMoney.isHidden = false
+        } else {
+            btnMoney.isHidden = true
+        }
+    }
+    ///Handle Show hide of Mic button
+    func handleShowHideMicButton(shouldShow : Bool!) {
+        if shouldShow {
+            btnMic.isHidden = false
+            
+        } else {
+            btnMic.isHidden = true
+            
+        }
+    }
+    ///Handle Show hide of share button
+    func handleShowHideShareButton(shouldShow : Bool!) {
+        if shouldShow {
+            btnShare.isHidden = false
+        } else {
+            btnShare.isHidden = true
+        }
+    }
+    ///Handle single tap on Long tap on record Button to show an alert(pop alert) above message text view and inform the user to long press on record button in order to record a voice
+    @IBAction func didTapOnMicButton(_ sender: UIButton) {
+        print("BUTTON MIC STATE :","Single Tap On MIC BUTTON")
+        sender.backgroundColor = UIColor(named: themeColor.labelColor.rawValue)
+        
+        sender.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        IGHelperShowToastAlertView.shared.showPopAlert(view: self,innerView: holderMessageTextView, message: "LONG_PRESS_TO_RECORD".MessageViewlocalizedNew, time: 2.0, type: .alert)
+        
+        UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+            sender.transform = CGAffineTransform.identity
+            sender.backgroundColor = UIColor.clear
+            sender.setTitleColor(.red, for: .normal)
+            sender.layoutIfNeeded()
+        }, completion: { (completed) in
+            sender.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+            
+        })
+        
+    }
+    
+    @objc func didLongTapOnMicButton(gesture: UILongPressGestureRecognizer) {
+        switch gesture.state {
+            
+        case .began :
+            
+            startRecording()
+            initialLongTapOnRecordButtonPosition = gesture.location(in: self.view)
+            
+            print("BUTTON MIC STATE :","Long Press STARTED")
+            
+            break
+        case .cancelled :
+            print("BUTTON MIC STATE :","Long Press CANCELED")
+            
+            break
+        case .changed :
+            print("BUTTON MIC STATE :","Long Press CHANGED STATE")
+            let point = gesture.location(in: self.view)
+            let difX = (initialLongTapOnRecordButtonPosition?.x)! - point.x
+            
+            var newConstant:CGFloat = 0.0
+            
+            if difX > 10 {
+                newConstant = 74 - difX
+            } else {
+                newConstant = 74
+            }
+            print(newConstant)
+            
+            if newConstant > 0{
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.view.layoutIfNeeded()
+                })
+            } else {
+                cancelRecording()
+            }
+            break
+        case .ended :
+            finishRecording()
+            print("BUTTON MIC STATE :","Long Press HAS ENDED")
+            
+            break
+        case .possible:
+            print("BUTTON MIC STATE :","Long Press IS POSSIBLE")
+            
+            break
+        case .failed:
+            print("BUTTON MIC STATE :","Long Press HAS FAILED")
+            
+            break
+        default:
+            break
+        }
+        
+    }
+    
+    func addLongPressGestureToMicButton(){
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(didLongTapOnMicButton(gesture:)))
+        longPress.minimumPressDuration = 0.5
+        self.btnMic.addGestureRecognizer(longPress)
+    }
+    
+    // MARK: - TextView Development Delegate funcs
+    
+    
+    func textViewDidChange(_ textView: UITextView) {
+        
+        if textView.text == "" || textView.text.isEmpty {
+            alreadyInSendMode = false
+            
+            lblPlaceHolder.isHidden = false///handle send button animation
+            showHideStickerButton(shouldShow: true)
+            ///hides send button and show Mic and Money button if textview is empty
+            handleShowHideMicButton(shouldShow: true)
+            handleShowHideShareButton(shouldShow: false)
+            handleShowHideSendButton(shouldShow: false)
+            handleShowHideMoneyButton(shouldShow: true)
+            self.messageTextViewHeightConstraint.constant = 50
+            
+        } else {
+            lblPlaceHolder.isHidden = true
+            showHideStickerButton(shouldShow: false)
+            ///hides Mic and Money button and show Send button if textview is empty
+            handleShowHideMicButton(shouldShow: false)
+            handleShowHideShareButton(shouldShow: false)
+            handleShowHideSendButton(shouldShow: true)
+            handleShowHideMoneyButton(shouldShow: false)
+            
+            let numLines = (textView.contentSize.height / textView.font!.lineHeight).rounded(.down)
+            textView.scrollRangeToVisible(textView.selectedRange)
+            switch numLines {
+            case 0,1 :
+                self.messageTextViewHeightConstraint.constant = 50
+                break
+            case 2 :
+                self.messageTextViewHeightConstraint.constant = 60
+                break
+            case 3 :
+                self.messageTextViewHeightConstraint.constant = 100
+                break
+            case 4 :
+                self.messageTextViewHeightConstraint.constant = 125
+                break
+            case 5 :
+                self.messageTextViewHeightConstraint.constant = 150
+                break
+            case 6 :
+                self.messageTextViewHeightConstraint.constant = 175
+                break
+            case 7 :
+                self.messageTextViewHeightConstraint.constant = 200
+                break
+            case 8 :
+                self.messageTextViewHeightConstraint.constant = 225
+                break
+            default :
+                self.messageTextViewHeightConstraint.constant = 225
+                
+                break
+                
+                self.view.layoutIfNeeded()
+                
+            }
+            
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     var selectedMessages : [IGRoomMessage] = []
     var sendTone: AVAudioPlayer?
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     func diselect() {
         IGGlobal.shouldMultiSelect = false
         self.showMultiSelectUI(state: false)
@@ -74,7 +602,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.callCallBackApi(token: SMUserManager.payToken!)
         })
     }
-
+    
     func callCallBackApi(token : String) {
         let url: String! = SMUserManager.callBackUrl
         guard let serviceUrl = URL(string: url) else { return }
@@ -124,7 +652,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     var blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
     var blurEffectView = UIVisualEffectView()
     var dissmissViewBG = UIView()
-
+    
     public var deepLinkMessageId: Int64?
     
     var dismissBtn : UIButton!
@@ -332,84 +860,101 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if state {
             if isForward! {
-                UIView.transition(with: self.inputTextView, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {
-                    self.inputTextView.isHidden = true
-                    self.txtSticker.isHidden = true
-                    self.inputBarMoneyTransferButton.isHidden = true
-                    self.inputBarRecordButton.isHidden = true
-                    self.lblSelectedMessages.isHidden = false
-                    self.RightBarConstraints.constant = 38
+                UIView.transition(with: self.holderTextBox, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {
+                    self.holderMultiSelect.isHidden = !isForward!
+                    self.holderTextBox.isHidden = isForward!
+                    
+                    self.btnMoney.isHidden = true
+                    self.btnMic.isHidden = true
+                    self.btnSend.isHidden = true
+                    self.btnShare.isHidden = true
+
                     //rightbar btns
-                    self.inputBarShareButton.isHidden = true
-                    self.inputBarDeleteButton.isHidden = true
-                    self.inputBarForwardButton.isHidden = !isForward!
-                    self.btnAttachment.isHidden = true
+                    self.btnShare.isHidden = true
+                    self.btnTrash.isHidden = true
+                    self.btnAttachmentNew.isHidden = true
+                    
                     
                     self.collectionView.reloadData()
-                    self.inputBarShareButton.isHidden = true
-                    self.inputBarForwardButton.isHidden = !isForward!
-                    
+                    self.btnForward.isHidden = !isForward!
+
                     
                 }, completion: { (completed) in
-                    self.inputBarShareButton.isHidden = true
-                    self.inputBarForwardButton.isHidden = !isForward!
+                    self.btnShare.isHidden = true
+                    self.btnForward.isHidden = !isForward!
                 })
-
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    self.inputBarShareButton.isHidden = true
-                    self.inputBarForwardButton.isHidden = !isForward!
+                    self.btnShare.isHidden = true
+                    self.btnForward.isHidden = !isForward!
                 }
                 
             }
             else if isDelete! {
                 
                 UIView.transition(with: self.inputTextView, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {
-                    self.inputTextView.isHidden = true
-                    self.txtSticker.isHidden = true
-                    self.inputBarMoneyTransferButton.isHidden = true
-                    self.inputBarRecordButton.isHidden = true
-                    self.lblSelectedMessages.isHidden = false
-                    self.RightBarConstraints.constant = 38
+                    self.holderMultiSelect.isHidden = !isDelete!
+                    self.holderTextBox.isHidden = isDelete!
+                    
+                    self.btnMoney.isHidden = true
+                    self.btnMic.isHidden = true
+                    self.btnSend.isHidden = true
+                    self.btnShare.isHidden = true
+
                     //rightbar btns
-                    self.inputBarShareButton.isHidden = true
-                    self.inputBarDeleteButton.isHidden = !isDelete!
-                    self.inputBarForwardButton.isHidden = true
-                    self.btnAttachment.isHidden = true
+                    self.btnShare.isHidden = true
+                    self.btnForward.isHidden = true
+                    self.btnAttachmentNew.isHidden = true
                     
                     
-                    //                    self.view.layoutIfNeeded()
                     self.collectionView.reloadData()
-                    self.inputBarDeleteButton.isHidden = !isDelete!
-                    
+                    self.btnTrash.isHidden = !isDelete!
+
                     
                 }, completion: { (completed) in
                     //                self.view.layoutIfNeeded()
-                    self.inputBarDeleteButton.isHidden = !isDelete!
-                    
+                    self.holderMultiSelect.isHidden = !isDelete!
+                    self.holderTextBox.isHidden = isDelete!
+                    self.btnTrash.isHidden = !isDelete!
+
                 })
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    self.inputBarDeleteButton.isHidden = !isDelete!
+                    self.holderMultiSelect.isHidden = !isDelete!
+                    self.holderTextBox.isHidden = isDelete!
+                    self.btnTrash.isHidden = !isDelete!
                 }
             }
         }
         else {
             UIView.transition(with: self.inputTextView, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {
-                self.inputTextView.isHidden = false
-                self.txtSticker.isHidden = false
-                self.inputBarMoneyTransferButton.isHidden = true
-                self.inputBarRecordButton.isHidden = false
-                self.inputBarShareButton.isHidden = true
-                self.lblSelectedMessages.isHidden = true
+                self.holderMultiSelect.isHidden = true
+                self.holderTextBox.isHidden = false
                 
-                self.RightBarConstraints.constant = 38
+                if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
+                    self.btnMoney.isHidden = true
+                } else {
+                    if self.isBotRoom(){
+                        self.btnMoney.isHidden = true
+                        
+                    }
+                    else {
+                        self.btnMoney.isHidden = false
+                    }
+                }
+            
+                self.btnMic.isHidden = false
+
+                self.btnShare.isHidden = true
+
+                //rightbar btns
+                self.btnShare.isHidden = true
+                self.btnForward.isHidden = true
+                self.btnAttachmentNew.isHidden = false
                 
-                self.inputBarDeleteButton.isHidden = true
-                self.inputBarForwardButton.isHidden = true
-                self.btnAttachment.isHidden = false
                 
-                //                self.view.layoutIfNeeded()
                 self.collectionView.reloadData()
-                
+                self.btnTrash.isHidden = true
+
                 
                 
             }, completion: { (completed) in
@@ -426,42 +971,68 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         else {
             lblSelectedMessages.text = ""
-            inputBarDeleteButton.setTitleColor(UIColor.iGapGray(), for: .normal)
-            inputBarDeleteButton.isEnabled = false
+            btnTrash.setTitleColor(UIColor.iGapGray(), for: .normal)
+            btnTrash.isEnabled = false
             
-            inputBarForwardButton.setTitleColor(UIColor.iGapGray(), for: .normal)
-            inputBarForwardButton.isEnabled = false
+            btnForward.setTitleColor(UIColor.iGapGray(), for: .normal)
+            btnForward.isEnabled = false
         }
     }
     
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
-//        inputTextView.backgroundColor = .red
+        
+        
+        
+        
+        
+        ///newUITextMessage
+        initViewNewChatView()
+        initNotificationsNewChatView()
+        initFontsNewChatView()
+        initAlignmentsNewChatView()
+        initChangeLanguegeNewChatView()
+        initDelegatesNewChatView()
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         let attributes = [
             NSAttributedString.Key.foregroundColor : UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue) ?? #colorLiteral(red: 0.6784313725, green: 0.6784313725, blue: 0.6784313725, alpha: 1),
             NSAttributedString.Key.font : UIFont.igFont(ofSize: 13) // Note the !
         ]
         
-        self.removeHideKeyboardWhenTappedAround()
-
-        inputTextView.attributedPlaceholder = NSAttributedString(string: "MESSAGE".MessageViewlocalizedNew, attributes:attributes)
+        //        inputTextView.attributedPlaceholder = NSAttributedString(string: "MESSAGE".MessageViewlocalizedNew, attributes:attributes)
+        initChangeLanguegeNewChatView()
+        
+        //        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
 
 //        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
         inputBarMoneyTransferButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 19)
-        lblSelectedMessages.font = UIFont.igFont(ofSize: 17,weight: .bold)
+        
+        self.removeHideKeyboardWhenTappedAround()
+
         if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
             RightBarConstraints.constant = 38
-            inputBarMoneyTransferButton.isHidden = true
+            btnMoney.isHidden = true
         } else {
             if isBotRoom(){
                 RightBarConstraints.constant = 38
-                inputBarMoneyTransferButton.isHidden = true
+                btnMoney.isHidden = true
                 
             }
             else {
                 RightBarConstraints.constant = 70
-                inputBarMoneyTransferButton.isHidden = false
+                btnMoney.isHidden = false
             }
         }
         tmpUserID  =  self.room?.chatRoom?.peer?.id
@@ -470,11 +1041,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
         case .chat:
             if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
-                
-                UIView.transition(with: self.inputBarSendButton, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
-                    self.inputBarMoneyTransferButton.isHidden = true
-                    self.RightBarConstraints.constant = 38
-                }, completion: nil)
+                self.btnMoney.isHidden = true
             }
             else {
                 if !(IGAppManager.sharedManager.mplActive()) && (IGAppManager.sharedManager.walletActive()) {
@@ -482,12 +1049,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 }
                 else if (IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
                     if isBotRoom(){
-                        self.inputBarMoneyTransferButton.isHidden = true
+                        self.btnMoney.isHidden = true
                         self.RightBarConstraints.constant = 38
                         self.isCardToCardRequestEnable = false
                     }
                     else {
-                        self.inputBarMoneyTransferButton.isHidden = false
+                        self.btnMoney.isHidden = false
                         self.RightBarConstraints.constant = 70
                         self.isCardToCardRequestEnable = true
                         self.manageCardToCardInputBar()
@@ -495,11 +1062,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 }
                 else {
                     if isBotRoom(){
-                        self.inputBarMoneyTransferButton.isHidden = true
+                        self.btnMoney.isHidden = true
                         self.RightBarConstraints.constant = 38
                     }
                     else {
-                        self.inputBarMoneyTransferButton.isHidden = false
+                        self.btnMoney.isHidden = false
                         self.RightBarConstraints.constant = 70
                     }
                 }
@@ -507,14 +1074,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
             
         default:
-            self.inputBarMoneyTransferButton.isHidden = true
+            self.btnMoney.isHidden = true
             self.RightBarConstraints.constant = 38
             
         }
         IGMessageViewController.messageIdsStatic[(self.room?.id)!] = []
         txtFloatingDate.font = UIFont.igFont(ofSize: 15)
         
-        removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom, inputBarSendButton, inputBarMoneyTransferButton, btnCancelReplyOrForward, btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
+        removeButtonsUnderline(buttons: [btnMic, btnScrollToBottom, inputBarSendButton, btnMoney, btnCancelReplyOrForward, btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
         
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
             DispatchQueue.main.async {
@@ -541,7 +1108,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         navigationItem.navigationController = navigationController
         navigationItem.setNavigationBarForRoom(room!)
         navigationController.interactivePopGestureRecognizer?.delegate = self
-//        self.navigationController?.interactivePopGestureRecognizer?.addTarget(self, action:#selector(self.handlePopGesture))
+        //        self.navigationController?.interactivePopGestureRecognizer?.addTarget(self, action:#selector(self.handlePopGesture))
         navigationItem.rightViewContainer?.addAction {
             if self.room?.type == .chat {
                 self.selectedUserToSeeTheirInfo = (self.room?.chatRoom?.peer)!
@@ -565,10 +1132,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 profile.hidesBottomBarWhenPushed = true
                 self.navigationController!.pushViewController(profile, animated: true)
                 /*
-                let profile = IGGroupProfile.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                profile.room = self.room
-                self.navigationController!.pushViewController(profile, animated: true)
-                */
+                 let profile = IGGroupProfile.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                 profile.room = self.room
+                 self.navigationController!.pushViewController(profile, animated: true)
+                 */
             }
             
         }
@@ -580,13 +1147,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 
             }
         }
-//        if customizeBackItem {
-//            navigationItem.backViewContainer?.addAction {
-//                // if call page is enable set "isFirstEnterToApp" true for open "IGRecentsTableViewController" automatically
-//                AppDelegate.isFirstEnterToApp = true
-//                self.performSegue(withIdentifier: "showRoomList", sender: self)
-//            }
-//        }
+        //        if customizeBackItem {
+        //            navigationItem.backViewContainer?.addAction {
+        //                // if call page is enable set "isFirstEnterToApp" true for open "IGRecentsTableViewController" automatically
+        //                AppDelegate.isFirstEnterToApp = true
+        //                self.performSegue(withIdentifier: "showRoomList", sender: self)
+        //            }
+        //        }
         
         print("AAA || 5")
         if room!.isReadOnly {
@@ -600,7 +1167,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         if isBotRoom() {
-            txtSticker.isHidden = true
+            btnSticker.isHidden = true
             if IGHelperDoctoriGap.isDoctoriGapRoom(room: room!) {
                 self.getFavoriteMenu()
             }
@@ -632,7 +1199,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         do {
             let realm = try Realm()
             messagesWithMedia = realm.objects(IGRoomMessage.self).filter(messagesWithMediaPredicate).sorted(by: sortPropertiesForMedia)
-
+            
         } catch _ as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN VIEW DID LOAD FOR MESSAGE WITH MEDIA:",String(describing: self))
         }
@@ -641,17 +1208,17 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         do {
             let realm = try Realm()
             messagesWithForwardedMedia = realm.objects(IGRoomMessage.self).filter(messagesWithForwardedMediaPredicate).sorted(by: sortPropertiesForMedia)
-
+            
         } catch _ as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN VIEW DID LOAD FOR MESSAGE WITH FORWARD MEDIA:",String(describing: self))
         }
-
+        
         self.collectionView.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
         self.collectionView.delaysContentTouches = false
         self.collectionView.keyboardDismissMode = .none
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
-
+        
         let bgColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
         
         self.view.backgroundColor = bgColor
@@ -666,50 +1233,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.setInputBarHeight()
         self.managePinnedMessage()
         inputTextView.delegate = self
-        inputTextView.placeholder = "MESSAGE".MessageViewlocalizedNew
-        
-//        inputTextView.placeholderColor = UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue) ?? #colorLiteral(red: 0.6784313725, green: 0.6784313725, blue: 0.6784313725, alpha: 1)
-//        inputTextView.minHeight = 25.0 // almost 8 lines
-        
-        inputTextView.maxHeight = 166.0 // almost 8 lines
-        inputTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 30)
-        inputTextView.layer.borderColor = UIColor.gray.cgColor
-        inputTextView.layer.borderWidth = 0.4
-        inputTextView.layer.cornerRadius = 17.0
-        inputTextView.layer.masksToBounds = true
-        
-        inputBarLeftView.layer.cornerRadius = 6.0//19.0
-        inputBarLeftView.layer.masksToBounds = true
-        inputBarRightiew.layer.cornerRadius = 6.0//19.0
-        inputBarRightiew.layer.masksToBounds = true
+        //        inputTextView.placeholder = "MESSAGE".MessageViewlocalizedNew
+        initChangeLanguegeNewChatView()
         
         
-        inputBarBackgroundView.layer.cornerRadius = 6.0//19.0
-        inputBarBackgroundView.layer.masksToBounds = false
-        inputBarBackgroundView.layer.shadowColor = UIColor.black.cgColor
-        inputBarBackgroundView.layer.shadowOffset = CGSize(width: 0, height: -4)
-        inputBarBackgroundView.layer.shadowRadius = 3.0
-        inputBarBackgroundView.layer.shadowOpacity = 0.15
-        inputBarBackgroundView.layer.borderColor = UIColor(red: 209.0/255.0, green: 209.0/255.0, blue: 209.0/255.0, alpha: 0.4).cgColor
-        inputBarBackgroundView.layer.borderWidth = 1.0
-        
-        inputBarView.layer.cornerRadius = 0.0//19.0
-        inputBarView.layer.masksToBounds = true
-        inputBarView.layer.backgroundColor = inputBarLeftView.backgroundColor?.cgColor
-        
-        inputBarRecordView.layer.cornerRadius = 6.0//19.0
-        inputBarRecordView.layer.masksToBounds = false
-        inputBarRecodingBlinkingView.layer.cornerRadius = 8.0
-        inputBarRecodingBlinkingView.layer.masksToBounds = false
-        inputBarRecordRightView.layer.cornerRadius = 6.0//19.0
-        inputBarRecordRightView.layer.masksToBounds = false
-        
-        inputBarRecordView.isHidden = true
-        inputBarRecodingBlinkingView.isHidden = true
-        inputBarRecordRightView.isHidden = true
-        inputBarRecordTimeLabel.isHidden = true
-        inputBarRecordTimeLabel.alpha = 0.0
-        inputBarRecordViewLeftConstraint.constant = 200
         
         
         scrollToBottomContainerView.layer.cornerRadius = 20.0
@@ -730,11 +1257,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         txtPinnedMessage.lineBreakMode = .byTruncatingTail
         txtPinnedMessage.numberOfLines = 1
         self.setCollectionViewInset()
-        //Keyboard Notification
-        
-        notification(register: true)
-        //sendMessageState(enable: false)
-        
         let tapInputTextView = UITapGestureRecognizer(target: self, action: #selector(didTapOnInputTextView))
         inputTextView.addGestureRecognizer(tapInputTextView)
         inputTextView.isUserInteractionEnabled = true
@@ -757,6 +1279,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         } else {
             startLoadMessage()
         }
+                self.goToPosition(messageId: messageId)
+            }
+        } else {
+            startLoadMessage()
+        }
         initiconFonts()
     }
     private func initiconFonts() {
@@ -768,7 +1295,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         inputBarRecordButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
         inputBarSendButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
         inputBarShareButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
-
+        
         txtSticker.text = ""
         inputBarShareButton.setTitle("", for: .normal)
         inputBarSendButton.setTitle("", for: .normal)
@@ -853,25 +1380,25 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         viewController.view.frame = view.bounds
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
-        self.inputTextView.inputView = viewController.view
+        self.messageTextView.inputView = viewController.view
         
         let viewCustom = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
         viewCustom.backgroundColor = UIColor.dialogueBoxOutgoing()
         
         let stickerToolbar = IGStickerToolbar()
         let scrollView = stickerToolbar.toolbarMaker()//view
-        self.inputTextView.inputAccessoryView = scrollView
+        self.messageTextView.inputAccessoryView = scrollView
         
-        self.inputTextView.reloadInputViews()
-        if !self.inputTextView.isFirstResponder {
-            self.inputTextView.becomeFirstResponder()
+        self.messageTextView.reloadInputViews()
+        if !self.messageTextView.isFirstResponder {
+            self.messageTextView.becomeFirstResponder()
         }
         
         viewController.view.snp.makeConstraints { (make) in
-            make.left.equalTo((self.inputTextView.inputView?.snp.left)!)
-            make.right.equalTo((self.inputTextView.inputView?.snp.right)!)
-            make.bottom.equalTo((self.inputTextView.inputView?.snp.bottom)!)
-            make.top.equalTo((self.inputTextView.inputView?.snp.top)!)
+            make.left.equalTo((self.messageTextView.inputView?.snp.left)!)
+            make.right.equalTo((self.messageTextView.inputView?.snp.right)!)
+            make.bottom.equalTo((self.messageTextView.inputView?.snp.bottom)!)
+            make.top.equalTo((self.messageTextView.inputView?.snp.top)!)
         }
         viewController.didMove(toParent: self)
         
@@ -903,9 +1430,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     func setupNotifications() {
         unsetNotifications()
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(IGMessageViewController.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(IGMessageViewController.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func unsetNotifications() {
@@ -915,73 +1439,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     
-    @objc func keyboardWillShow(notification: NSNotification) {
-        
-        let userInfo = notification.userInfo!
-        let keyboardHeight = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
-        let window = UIApplication.shared.keyWindow!
-        inputTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 30)
-
-        if MoneyInputModalIsActive {
-            if let MoneyInput = MoneyInputModal {
-                window.addSubview(MoneyInput)
-                UIView.animate(withDuration: 0.3) {
-                    
-                    var frame = MoneyInput.frame
-                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight - frame.size.height)
-                    MoneyInput.frame = frame
-                    
-                }
-            }
-        }
-        else if CardToCardModalIsActive {
-            if let CardInput = CardToCardModal {
-                window.addSubview(CardInput)
-                UIView.animate(withDuration: 0.3) {
-                    
-                    var frame = CardInput.frame
-                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight - frame.size.height)
-                    CardInput.frame = frame
-                    
-                }
-            }
-        }
-        else if MultiShareModalIsActive {
-            if let MultiShare = forwardModal {
-                window.addSubview(MultiShare)
-                UIView.animate(withDuration: 0.3) {
-                    
-                    var frame = MultiShare.frame
-                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight - frame.size.height  + (200))
-                    MultiShare.frame = frame
-                    MultiShare.frame.size.height =  MultiShare.frame.size.height - (200)
-                    
-                }
-            }
-        }
-        else {
-            if MoneyInputModal != nil {
-                self.hideMoneyInputModal()
-            }
-            
-            if CardToCardModal != nil {
-                self.hideCardToCardModal()
-            }
-            
-            if forwardModal != nil {
-                self.hideMultiShareModal()
-            }
-        }
-        self.view.layoutIfNeeded()
-    }
     
     @objc func keyboardWillHide(notification: NSNotification) {
         if MoneyInputModalIsActive {
             if let MoneyInput = MoneyInputModal {
                 self.view.addSubview(MoneyInput)
                 UIView.animate(withDuration: 0.3) {
-                    self.inputTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-
+                    //                    self.messageTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+                    
                     if MoneyInput.frame.origin.y < self.view.frame.size.height {
                         MoneyInput.frame = CGRect(x: 0, y: self.view.frame.height - MoneyInput.frame.height - 45, width: self.view.frame.width, height: MoneyInput.frame.height)
                     }
@@ -1014,6 +1479,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
             
         }
+        self.messageTextViewBottomConstraint.constant =  0
+        UIView.animate(withDuration: 0.5){
+            self.view.layoutIfNeeded()
+        }
         
         self.view.layoutIfNeeded()
     }
@@ -1037,7 +1506,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
             
             self.sendMessageState(enable: false)
-            self.inputTextView.text = ""
+            self.messageTextView.text = ""
             self.currentAttachment = nil
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
             self.selectedMessageToReply = nil
@@ -1239,8 +1708,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
             IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: self, username: value)
         } else {
-            inputTextView.text = value
-            self.didTapOnSendButton(self.inputBarSendButton)
+            messageTextView.text = value
+            self.didTapOnSendButton(self.btnSend)
         }
     }
     
@@ -1286,7 +1755,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             make.height.equalTo(33)
         }
         
-        inputTextView.snp.makeConstraints { (make) in
+        messageTextView.snp.makeConstraints { (make) in
             make.right.equalTo(btnChangeKeyboard.snp.left)
             make.left.equalTo(inputBarLeftView.snp.right)
         }
@@ -1301,7 +1770,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         btnChangeKeyboard.removeFromSuperview()
         btnChangeKeyboard.isHidden = true
         btnChangeKeyboard = nil
-        inputTextView.snp.makeConstraints { (make) in
+        messageTextView.snp.makeConstraints { (make) in
             make.right.equalTo(inputBarRightiew.snp.left)
             make.left.equalTo(inputBarLeftView.snp.right)
         }
@@ -1323,7 +1792,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     let latestMessage = realm.objects(IGRoomMessage.self).filter(predicate).last
                     let additionalData = getAdditional(roomMessage: latestMessage)
                     
-                    if !self.inputTextView.isFirstResponder {
+                    if !self.messageTextView.isFirstResponder {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             self.collectionView.reloadData()
                         }
@@ -1334,10 +1803,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                         isCustomKeyboard = true
                         btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControl.State.normal)
                         latestKeyboardAdditionalView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalData!, isKeyboard: true)
-                        self.inputTextView.inputView = latestKeyboardAdditionalView
-                        self.inputTextView.reloadInputViews()
-                        if !self.inputTextView.isFirstResponder {
-                            self.inputTextView.becomeFirstResponder()
+                        self.messageTextView.inputView = latestKeyboardAdditionalView
+                        self.messageTextView.reloadInputViews()
+                        if !self.messageTextView.isFirstResponder {
+                            self.messageTextView.becomeFirstResponder()
                         }
                     } else {
                         if additionalData == nil {
@@ -1347,10 +1816,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                         if btnChangeKeyboard != nil {
                             btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControl.State.normal)
                         }
-                        inputTextView.inputView = nil
-                        inputTextView.reloadInputViews()
+                        messageTextView.inputView = nil
+                        messageTextView.reloadInputViews()
                     }
-
+                    
                 } catch _ as NSError {
                     print("RLM EXEPTION ERR HAPPENDED IN MANAGE KEYBOARD:",String(describing: self))
                 }
@@ -1416,8 +1885,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
             let sendPhone = UIAlertAction(title: "SEND_PHOTO".MessageViewlocalizedNew, style: .default, handler: { (action) in
                 if let userId = IGAppManager.sharedManager.userID(), let userInfo = IGRegisteredUser.getUserInfo(id: userId) {
-                    self.inputTextView.text = String(describing: userInfo.phone)
-                    self.didTapOnSendButton(self.inputBarSendButton)
+                    self.messageTextView.text = String(describing: userInfo.phone)
+                    self.didTapOnSendButton(self.btnSend)
                 }
             })
             
@@ -1437,16 +1906,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if !isCustomKeyboard {
             isCustomKeyboard = true
             btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControl.State.normal)
-            self.inputTextView.inputView = additionalView
+            self.messageTextView.inputView = additionalView
         } else {
             isCustomKeyboard = false
             btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControl.State.normal)
-            inputTextView.inputView = nil
+            messageTextView.inputView = nil
         }
         
-        self.inputTextView.reloadInputViews()
-        if !self.inputTextView.isFirstResponder {
-            self.inputTextView.becomeFirstResponder()
+        self.messageTextView.reloadInputViews()
+        if !self.messageTextView.isFirstResponder {
+            self.messageTextView.becomeFirstResponder()
         }
     }
     
@@ -1456,7 +1925,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             do {
                 let realm = try Realm()
                 return realm.objects(IGRoomMessage.self).filter(predicate).last
-
+                
             } catch _ as NSError {
                 print("RLM EXEPTION ERR HAPPENDED IN MY LAST MESSAGE:",String(describing: self))
             }
@@ -1528,7 +1997,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             } catch _ as NSError {
                 print("RLM EXEPTION ERR HAPPENDED IN findAllMessages:",String(describing: self))
             }
-
+            
         } else {
             page += 1
             
@@ -1550,11 +2019,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         let predicate = NSPredicate(format: "roomId = %lld AND (id >= %lld OR statusRaw == %d OR statusRaw == %d) AND isDeleted == false AND id != %lld" , self.room!.id, lastId ,0 ,1 ,0)
         var tmpMessages:Results<IGRoomMessage>!
-
+        
         do {
             let realm = try Realm()
             tmpMessages = realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
-
+            
         } catch _ as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN findAllMessagesII:",String(describing: self))
         }
@@ -1638,8 +2107,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if let draft = self.room!.draft {
             if draft.message != "" || draft.replyTo != -1 {
-                inputTextView.text = draft.message
-                inputTextView.placeholder = "MESSAGE".MessageViewlocalizedNew
+                messageTextView.text = draft.message
+                //                messageTextView.placeholder = "MESSAGE".MessageViewlocalizedNew
+                initChangeLanguegeNewChatView()
+                lblPlaceHolder.isHidden = true
                 if draft.replyTo != -1 {
                     let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", draft.replyTo, self.room!.id)
                     if let replyToMessage = try! Realm().objects(IGRoomMessage.self).filter(predicate).first {
@@ -1655,7 +2126,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
+        //        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
         inputBarMoneyTransferButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 19)
         
         if self.room!.isInvalidated {
@@ -1663,8 +2134,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             return
         }
         
-        inputTextView.setContentOffset(.zero, animated: true)
-        inputTextView.scrollRangeToVisible(NSMakeRange(0, 0))
+        messageTextView.setContentOffset(.zero, animated: true)
+        messageTextView.scrollRangeToVisible(NSMakeRange(0, 0))
         
         if #available(iOS 10.0, *) {
             IGStickerViewController.stickerTapListener = self
@@ -1701,7 +2172,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         unsetNotifications()
         saveMessagePosition()
         
-        if !inputBarOriginalMessageView.isHidden { // maybe has forward
+        if !holderReplyBar.isHidden { // maybe has forward
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
         }
         notificationToken?.invalidate()
@@ -1711,7 +2182,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.sendCancelTyping()
         self.sendCancelRecoringVoice()
         if let room = self.room, !room.isInvalidated {
-            room.saveDraft(inputTextView.text, replyToMessage: selectedMessageToReply)
+            room.saveDraft(messageTextView.text, replyToMessage: selectedMessageToReply)
             IGFactory.shared.markAllMessagesAsRead(roomId: room.id)
             if openChatFromLink { // TODO - also check if user before joined to this room don't send this request
                 sendUnsubscribForRoom(roomId: room.id)
@@ -1738,14 +2209,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private func sendUnsubscribForRoom(roomId: Int64){
         IGClientUnsubscribeFromRoomRequest.Generator.generate(roomId: roomId).success { (responseProtoMessage) in
-            }.error({ (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
-                    self.sendUnsubscribForRoom(roomId: roomId)
-                default:
-                    break
-                }
-            }).send()
+        }.error({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                self.sendUnsubscribForRoom(roomId: roomId)
+            default:
+                break
+            }
+        }).send()
     }
     
     private func saveMessagePosition() {
@@ -1835,29 +2306,29 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         switch finalRoomType! {
         case .chat:
             //if IGRecentsTableViewController.visibleChat[(room?.id)!]! {
-                IGChatUpdateStatusRequest.Generator.generate(roomID: finalRoomId, messageID: message.id, status: .seen).success({ (responseProto) in
-                    switch responseProto {
-                    case let response as IGPChatUpdateStatusResponse:
-                        IGChatUpdateStatusRequest.Handler.interpret(response: response)
-                    default:
-                        break
-                    }
-                }).error({ (errorCode, waitTime) in
-                    
-                }).send()
-            //}
+            IGChatUpdateStatusRequest.Generator.generate(roomID: finalRoomId, messageID: message.id, status: .seen).success({ (responseProto) in
+                switch responseProto {
+                case let response as IGPChatUpdateStatusResponse:
+                    IGChatUpdateStatusRequest.Handler.interpret(response: response)
+                default:
+                    break
+                }
+            }).error({ (errorCode, waitTime) in
+                
+            }).send()
+        //}
         case .group:
             //if IGRecentsTableViewController.visibleChat[(room?.id)!]! {
-                IGGroupUpdateStatusRequest.Generator.generate(roomID: finalRoomId, messageID: message.id, status: .seen).success({ (responseProto) in
-                    switch responseProto {
-                    case let response as IGPGroupUpdateStatusResponse:
-                        IGGroupUpdateStatusRequest.Handler.interpret(response: response)
-                    default:
-                        break
-                    }
-                }).error({ (errorCode, waitTime) in
-                    
-                }).send()
+            IGGroupUpdateStatusRequest.Generator.generate(roomID: finalRoomId, messageID: message.id, status: .seen).success({ (responseProto) in
+                switch responseProto {
+                case let response as IGPGroupUpdateStatusResponse:
+                    IGGroupUpdateStatusRequest.Handler.interpret(response: response)
+                default:
+                    break
+                }
+            }).error({ (errorCode, waitTime) in
+                
+            }).send()
             //}
             break
         case .channel:
@@ -1881,14 +2352,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         switch self.room!.type {
         case .chat:
             
-            self.inputBarMoneyTransferButton.isHidden = true
-            self.RightBarConstraints.constant = 38
+            self.btnMoney.isHidden = true
             self.view.layoutIfNeeded()
             
             break
         default :
-            self.inputBarMoneyTransferButton.isHidden = true
-            self.RightBarConstraints.constant = 38
+            self.btnMoney.isHidden = true
             self.view.layoutIfNeeded()
             
         }
@@ -1896,132 +2365,115 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.hideMoneyTransactionModal()
             self.hideMoneyInputModal()
             self.hideCardToCardModal()
-            if inputBarRecordButton.isHidden {
+            if btnMic.isHidden {
                 return
             }
             
-            UIView.transition(with: self.inputBarRecordButton, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
-                self.inputBarRecordButton.isHidden = true
-                switch self.room!.type {
-                case .chat:
-                    if self.isBotRoom() {
-                        self.inputBarMoneyTransferButton.isHidden = true
-                        self.RightBarConstraints.constant = 38
-                        
-                    }
-                    else {
-                        self.inputBarMoneyTransferButton.isHidden = true
-                        self.RightBarConstraints.constant = 38
-                        
-                    }
-                    self.view.layoutIfNeeded()
-                    
-                    break
-                default :
-                    self.inputBarMoneyTransferButton.isHidden = true
+            self.btnMic.isHidden = true
+            switch self.room!.type {
+            case .chat:
+                if self.isBotRoom() {
+                    self.btnMoney.isHidden = true
                     self.RightBarConstraints.constant = 38
-                    self.view.layoutIfNeeded()
+                    
+                }
+                else {
+                    self.btnMoney.isHidden = true
+                    self.RightBarConstraints.constant = 38
                     
                 }
                 self.view.layoutIfNeeded()
                 
+                break
+            default :
+                self.btnMoney.isHidden = true
+                self.RightBarConstraints.constant = 38
+                self.view.layoutIfNeeded()
                 
-            }, completion: { (completed) in
+            }
+            self.view.layoutIfNeeded()
+            self.btnSend.isHidden = false
+            self.btnMoney.isHidden = true
+            switch self.room!.type {
+            case .chat:
+                self.btnMoney.isHidden = true
+                self.RightBarConstraints.constant = 38
+                self.view.layoutIfNeeded()
                 
-                UIView.transition(with: self.inputBarSendButton, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
-                    self.inputBarSendButton.isHidden = false
-                    self.inputBarMoneyTransferButton.isHidden = true
-                    switch self.room!.type {
-                    case .chat:
-                        self.inputBarMoneyTransferButton.isHidden = true
-                        self.RightBarConstraints.constant = 38
-                        self.view.layoutIfNeeded()
-                        
-                        break
-                    default :
-                        self.inputBarMoneyTransferButton.isHidden = true
-                        self.RightBarConstraints.constant = 38
-                        self.view.layoutIfNeeded()
-                        
-                    }
-                    self.view.layoutIfNeeded()
-                }, completion: nil)
-            })
+                break
+            default :
+                self.btnMoney.isHidden = true
+                self.RightBarConstraints.constant = 38
+                self.view.layoutIfNeeded()
+                
+            }
             
             
-            UIView.transition(with: self.txtSticker, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
-                self.txtSticker.isHidden = true
-                self.inputTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-
+            
+            UIView.transition(with: self.btnSticker, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
+                self.btnSticker.isHidden = true
+                
             }, completion: nil)
             
         } else {
             self.hideMoneyTransactionModal()
             self.hideMoneyInputModal()
             self.hideCardToCardModal()
-
-            UIView.transition(with: self.inputBarSendButton, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
-                self.inputBarSendButton.isHidden = true
-                self.inputBarMoneyTransferButton.isHidden = true
-                switch self.room!.type {
-                case .chat:
-                    self.inputBarMoneyTransferButton.isHidden = true
+            
+            self.btnSend.isHidden = true
+            self.btnMoney.isHidden = true
+            switch self.room!.type {
+            case .chat:
+                self.btnMoney.isHidden = true
+                self.RightBarConstraints.constant = 38
+                self.view.layoutIfNeeded()
+                
+                break
+            default :
+                self.btnMoney.isHidden = true
+                self.RightBarConstraints.constant = 38
+                self.view.layoutIfNeeded()
+                
+            }
+            self.view.layoutIfNeeded()
+            
+            
+            self.btnMic.isHidden = false
+            self.btnMoney.isHidden = false
+            switch self.room!.type {
+            case .chat:
+                if self.isBotRoom(){
+                    self.btnMoney.isHidden = true
                     self.RightBarConstraints.constant = 38
-                    self.view.layoutIfNeeded()
                     
-                    break
-                default :
-                    self.inputBarMoneyTransferButton.isHidden = true
-                    self.RightBarConstraints.constant = 38
-                    self.view.layoutIfNeeded()
+                }
+                else {
+                    self.btnMoney.isHidden = false
+                    self.RightBarConstraints.constant = 70
                     
                 }
                 self.view.layoutIfNeeded()
                 
+                break
+            default :
+                self.btnMoney.isHidden = true
+                self.RightBarConstraints.constant = 38
+                self.view.layoutIfNeeded()
                 
-            }, completion: { (completed) in
+            }
+            self.view.layoutIfNeeded()
+            
+            
+            
+            if self.isBotRoom() {
+                self.btnSticker.isHidden = true
+            } else {
+                self.btnSticker.isHidden = false
+                self.inputTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
                 
-                UIView.transition(with: self.inputBarRecordButton, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
-                    self.inputBarRecordButton.isHidden = false
-                    self.inputBarMoneyTransferButton.isHidden = false
-                    switch self.room!.type {
-                    case .chat:
-                        if self.isBotRoom(){
-                            self.inputBarMoneyTransferButton.isHidden = true
-                            self.RightBarConstraints.constant = 38
-                            
-                        }
-                        else {
-                            self.inputBarMoneyTransferButton.isHidden = false
-                            self.RightBarConstraints.constant = 70
-                            
-                        }
-                        self.view.layoutIfNeeded()
-                        
-                        break
-                    default :
-                        self.inputBarMoneyTransferButton.isHidden = true
-                        self.RightBarConstraints.constant = 38
-                        self.view.layoutIfNeeded()
-                        
-                    }
-                    self.view.layoutIfNeeded()
-                    
-                    
-                }, completion: nil)
                 
-                UIView.transition(with: self.txtSticker, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
-                    if self.isBotRoom() {
-                        self.txtSticker.isHidden = true
-                    } else {
-                        self.txtSticker.isHidden = false
-                        self.inputTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
-
-                        
-                    }
-                }, completion: nil)
-                
-            })
+            }
+            
         }
     }
     
@@ -2029,33 +2481,33 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func stickerViewState(enable: Bool) {
         
         isStickerKeyboard = enable
-//        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
-        UIView.transition(with: self.txtSticker, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
-            self.txtSticker.isHidden = true
+        //        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
+        UIView.transition(with: self.btnSticker, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
             
+            //            self.showHideStickerButton(shouldShow: false)
             if self.isStickerKeyboard {
-                self.txtSticker.text = ""
+                self.btnSticker.setTitle("", for: .normal)
                 if #available(iOS 10.0, *) {
                     DispatchQueue.main.async {
                         self.openStickerView()
                     }
                 }
             } else {
-                self.txtSticker.text = ""
-                if self.inputTextView.inputAccessoryView != nil {
-                    UIView.transition(with: self.inputTextView.inputAccessoryView!, duration: 0.5, options: .transitionFlipFromBottom, animations: {
-                        self.inputTextView.inputAccessoryView!.isHidden = true
-                        self.inputTextView.inputAccessoryView = nil
+                self.btnSticker.setTitle("", for: .normal)
+                if self.messageTextView.inputAccessoryView != nil {
+                    UIView.transition(with: self.messageTextView.inputAccessoryView!, duration: 0.5, options: .transitionFlipFromBottom, animations: {
+                        self.messageTextView.inputAccessoryView!.isHidden = true
+                        self.messageTextView.inputAccessoryView = nil
                     }, completion: nil)
                 }
-                self.inputTextView.inputView = nil
-                self.inputTextView.reloadInputViews()
+                self.messageTextView.inputView = nil
+                self.messageTextView.reloadInputViews()
             }
             
         }, completion: { (completed) in
             
-            UIView.transition(with: self.txtSticker, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
-                self.txtSticker.isHidden = false
+            UIView.transition(with: self.btnSticker, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
+                //                self.showHideStickerButton(shouldShow: true)
             }, completion: nil)
         })
     }
@@ -2072,12 +2524,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func disableStickerView(delay: Double, openKeyboard: Bool = false){
         isStickerKeyboard = false
         DispatchQueue.main.asyncAfter(deadline: .now() + delay){
-            self.txtSticker.text = ""
-            self.inputTextView.inputAccessoryView = nil
-            self.inputTextView.inputView = nil
-            self.inputTextView.reloadInputViews()
-            if openKeyboard && !self.inputTextView.isFirstResponder {
-                self.inputTextView.becomeFirstResponder()
+            self.btnSticker.setTitle("", for: .normal)
+            self.messageTextView.inputAccessoryView = nil
+            self.messageTextView.inputView = nil
+            self.messageTextView.reloadInputViews()
+            if openKeyboard && !self.messageTextView.isFirstResponder {
+                self.messageTextView.becomeFirstResponder()
             }
         }
     }
@@ -2102,7 +2554,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.sendMessageState(enable: false)
-            self.inputTextView.text = ""
+            self.messageTextView.text = ""
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
             self.selectedMessageToReply = nil
             self.currentAttachment = nil
@@ -2185,7 +2637,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
             
             UIView.animate(withDuration: animationDuration, delay: 0.0, options: UIView.AnimationOptions(rawValue: UInt(animationCurveOption)), animations: {
-                self.inputBarViewBottomConstraint.constant = bottomConstraint
+                self.messageTextViewBottomConstraint.constant = bottomConstraint
                 self.view.layoutIfNeeded()
             }, completion: { (completed) in
                 
@@ -2194,7 +2646,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     func setCollectionViewInset(withDuration: TimeInterval = 0.2) {
-        let value = inputBarHeightContainerConstraint.constant + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
+        let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
         UIView.animate(withDuration: withDuration, animations: {
             self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: 20, right: 0)
         }, completion: { (completed) in
@@ -2242,7 +2694,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                         } else {
                             self.pinnedMessageView.isHidden = true
                             self.collectionView.contentInset.bottom = 0
-
+                            
                         }
                         IGGroupPinMessageRequest.Handler.interpret(response: groupPinMessage)
                     }
@@ -2296,11 +2748,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                         if channelPinMessage.hasIgpPinnedMessage {
                             self.txtPinnedMessage.text = IGRoomMessage.detectPinMessageProto(message: channelPinMessage.igpPinnedMessage)
                             self.pinnedMessageView.isHidden = false
-                                self.collectionView.contentInset.bottom = self.pinnedMessageView.frame.size.height
-                            } else {
-                                self.pinnedMessageView.isHidden = true
-                                self.collectionView.contentInset.bottom = 0
-                            }
+                            self.collectionView.contentInset.bottom = self.pinnedMessageView.frame.size.height
+                        } else {
+                            self.pinnedMessageView.isHidden = true
+                            self.collectionView.contentInset.bottom = 0
+                        }
                         IGChannelPinMessageRequest.Handler.interpret(response: channelPinMessage)
                     }
                 }
@@ -2416,8 +2868,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     @objc func didTapOnInputTextView() {
-        inputTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-
+        //        messageTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+        
         disableStickerView(delay: 0.0, openKeyboard: true)
     }
     @objc func didTapOnDissmissView() {
@@ -2430,7 +2882,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
     }
     
-    @objc func didTapOnStickerButton() {
+    
+    @IBAction func didTapOnPickSticker(_ sender: UIButton) {
+        print("clicked")
         if self.isStickerKeyboard {
             self.isStickerKeyboard = false
         } else {
@@ -2438,6 +2892,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         self.stickerViewState(enable: self.isStickerKeyboard)
+        
     }
     
     @IBAction func didTapOnPinClose(_ sender: UIButton) {
@@ -2451,7 +2906,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.pinnedMessageView.isHidden = true
             IGFactory.shared.roomPinMessage(roomId: (self.room?.id)!)
             self.collectionView.contentInset.bottom = 0
-
+            
         }
     }
     
@@ -2466,22 +2921,22 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if IGGlobal.isFromSearchPage {
             IGGlobal.hasTexted = true
         }
-        if currentAttachment == nil && inputTextView.text == "" && IGMessageViewController.selectedMessageToForwardToThisRoom == nil && !isCardToCardRequestEnable {
+        if currentAttachment == nil && messageTextView.text == "" && IGMessageViewController.selectedMessageToForwardToThisRoom == nil && !isCardToCardRequestEnable {
             return
         }
         
-        inputTextView.text = inputTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        messageTextView.text = messageTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if selectedMessageToEdit != nil {
             switch room!.type {
             case .chat:
-                IGChatEditMessageRequest.Generator.generate(message: selectedMessageToEdit!, newText: inputTextView.text,  room: room!).success({ (protoResponse) in
+                IGChatEditMessageRequest.Generator.generate(message: selectedMessageToEdit!, newText: messageTextView.text,  room: room!).success({ (protoResponse) in
                     IGChatEditMessageRequest.Handler.interpret(response: protoResponse)
                 }).error({ (errorCode, waitTime) in
                     
                 }).send()
             case .group:
-                IGGroupEditMessageRequest.Generator.generate(message: selectedMessageToEdit!, newText: inputTextView.text, room: room!).success({ (protoResponse) in
+                IGGroupEditMessageRequest.Generator.generate(message: selectedMessageToEdit!, newText: messageTextView.text, room: room!).success({ (protoResponse) in
                     switch protoResponse {
                     case let response as IGPGroupEditMessageResponse:
                         IGGroupEditMessageRequest.Handler.interpret(response: response)
@@ -2492,7 +2947,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     
                 }).send()
             case .channel:
-                IGChannelEditMessageRequest.Generator.generate(message: selectedMessageToEdit!, newText: inputTextView.text, room: room!).success({ (protoResponse) in
+                IGChannelEditMessageRequest.Generator.generate(message: selectedMessageToEdit!, newText: messageTextView.text, room: room!).success({ (protoResponse) in
                     switch protoResponse {
                     case let response as IGPChannelEditMessageResponse:
                         IGChannelEditMessageRequest.Handler.interpret(response: response)
@@ -2505,8 +2960,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
             
             selectedMessageToEdit = nil
-            self.inputTextView.text = ""
+            self.messageTextView.text = ""
             self.setInputBarHeight()
+            self.setupMessageTextHeightChnage()
             self.sendCancelTyping()
             return
         }
@@ -2514,8 +2970,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if currentAttachment != nil {
             ///play send sound
             IGGlobal.playSound(isInChat : IGGlobal.isInChatPage,isSilent : IGGlobal.isSilent,isSendMessage: true)
-
-            let messageText = inputTextView.text.substring(offset: MAX_TEXT_ATTACHMENT_LENGHT)
+            
+            let messageText = messageTextView.text.substring(offset: MAX_TEXT_ATTACHMENT_LENGHT)
             
             let message = IGRoomMessage(body: messageText)
             currentAttachment?.status = .uploading
@@ -2564,21 +3020,22 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
             
             self.sendMessageState(enable: false)
-            self.inputTextView.text = ""
+            self.messageTextView.text = ""
             self.currentAttachment = nil
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
             self.selectedMessageToReply = nil
             self.setInputBarHeight()
+            self.setupMessageTextHeightChnage()
             
         } else {
             ///play send sound
             IGGlobal.playSound(isInChat : IGGlobal.isInChatPage,isSilent : IGGlobal.isSilent,isSendMessage: true)
-            let messages = inputTextView.text.split(limit: MAX_TEXT_LENGHT)
+            let messages = messageTextView.text.split(limit: MAX_TEXT_LENGHT)
             for i in 0..<messages.count {
                 DispatchQueue.main.asyncAfter(deadline: .now() + (Double(i) * 0.5)) {
                     let message = IGRoomMessage(body: messages[i])
                     if (self.selectedMessageToReply == nil && IGMessageViewController.selectedMessageToForwardToThisRoom == nil && messages[i].isEmpty) {
-                        self.inputTextView.text = ""
+                        self.messageTextView.text = ""
                         return
                     }
                     
@@ -2595,11 +3052,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
                     
                     self.sendMessageState(enable: false)
-                    self.inputTextView.text = ""
+                    self.messageTextView.text = ""
                     self.currentAttachment = nil
                     IGMessageViewController.selectedMessageToForwardToThisRoom = nil
                     self.selectedMessageToReply = nil
                     self.setInputBarHeight()
+                    self.setupMessageTextHeightChnage()
+                    
                 }
             }
         }
@@ -2609,10 +3068,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     /*********************** MONEY TRANSACTIONS ***********************/
     /************************************************************************/
     @IBAction func didTapOnMoneyTransactionsButton(_ sender: UIButton) {
-        self.inputTextView.resignFirstResponder()
+        self.messageTextView.resignFirstResponder()
         self.hideMoneyInputModal()
         self.hideCardToCardModal()
-
+        
         if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
             
         }
@@ -2632,7 +3091,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 
                 if MoneyTransactionModal == nil {
                     dismissBtn = UIButton()
-
+                    
                     dismissBtn.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
                     self.view.insertSubview(dismissBtn, at: 2)
                     dismissBtn.addTarget(self, action: #selector(didtapOutSide), for: .touchUpInside)
@@ -2778,7 +3237,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.hideMoneyTransactionModal()
         self.hideMoneyInputModal()
         self.hideCardToCardModal()
-
+        
         self.MoneyInputModalIsActive = true
         self.finishDefault(isPaygear: true, isCard: false)
         
@@ -2914,7 +3373,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 IGMessageViewController.selectedMessageToForwardToThisRoom = nil
                 self.sendMessageState(enable: false)
                 self.isCardToCardRequestEnable = false
-                self.inputTextView.text = ""
+                self.messageTextView.text = ""
                 self.currentAttachment = nil
                 self.selectedMessageToReply = nil
                 self.setInputBarHeight()
@@ -2947,7 +3406,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             hideMoneyTransactionModal()
             self.hideMoneyInputModal()
             self.hideCardToCardModal()
-
+            
             self.isCardToCardRequestEnable = true
             self.manageCardToCardInputBar()
         }
@@ -3014,11 +3473,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     self.CardToCardModal.inputTFOne.endEditing(true)
                     self.CardToCardModal.inputTFTwo.endEditing(true)
                     self.CardToCardModal = nil
-
+                    
                     if self.dismissBtn != nil {
                         self.dismissBtn.removeFromSuperview()
                     }
-
+                    
                 }
             }
         }
@@ -3030,7 +3489,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if forwardModal != nil {
             self.dissmissViewBG.removeFromSuperview()
-//            self.blurEffectView.removeFromSuperview()
+            //            self.blurEffectView.removeFromSuperview()
             UIView.animate(withDuration: 0.3, animations: {
                 self.forwardModal.frame.origin.y = self.view.frame.height
             }) { (true) in
@@ -3105,7 +3564,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     /*********************** Attachment Manager Start ***********************/
     /************************************************************************/
     @IBAction func didTapOnAddAttachmentButton(_ sender: UIButton) {
-        self.inputTextView.resignFirstResponder()
+        self.messageTextView.resignFirstResponder()
         
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
@@ -3237,7 +3696,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let filename = mediaUrl.lastPathComponent
         let fileSize = Int(IGGlobal.getFileSize(path: mediaUrl))
         let randomString = IGGlobal.randomString(length: 16) + "_"
-
+        
         /*** get thumbnail from video ***/
         let attachment = IGFile(name: filename)
         attachment.size = fileSize
@@ -3248,18 +3707,18 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         attachment.type = .video
         attachment.height = Double(videoInfo.asset!.pixelHeight)
         attachment.width = Double(videoInfo.asset!.pixelWidth)
-
+        
         let pathOnDisk = documents + "/" + randomString + filename
         try! FileManager.default.copyItem(atPath: mediaUrl.path, toPath: pathOnDisk)
-
+        
         if single {
-            self.inputBarAttachmentViewThumnailImageView.image = videoInfo.thumbnail
-            self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
-            self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
+            self.imgAttachmentImage.image = videoInfo.thumbnail
+            self.imgAttachmentImage.layer.cornerRadius = 6.0
+            self.imgAttachmentImage.layer.masksToBounds = true
             self.didSelectAttachment(attachment)
         } else {
             self.currentAttachment = attachment
-            self.didTapOnSendButton(self.inputBarSendButton)
+            self.didTapOnSendButton(self.btnSend)
         }
     }
     
@@ -3299,13 +3758,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         //}
         
         if single {
-            self.inputBarAttachmentViewThumnailImageView.image = attachment.attachedImage
-            self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
-            self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
+            self.imgAttachmentImage.image = attachment.attachedImage
+            self.imgAttachmentImage.layer.cornerRadius = 6.0
+            self.imgAttachmentImage.layer.masksToBounds = true
             self.didSelectAttachment(attachment)
         } else {
             self.currentAttachment = attachment
-            self.didTapOnSendButton(self.inputBarSendButton)
+            self.didTapOnSendButton(self.btnSend)
         }
     }
     
@@ -3325,14 +3784,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 attachment.type = .file
                 
                 if single {
-                    self.inputBarAttachmentViewThumnailImageView.image = UIImage(named: "IG_Message_Cell_File_Generic")
-                    self.inputBarAttachmentViewThumnailImageView.frame = CGRect(x: 0, y: 0, width: 30, height: 34)
-                    self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
-                    self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
+                    self.imgAttachmentImage.image = UIImage(named: "IG_Message_Cell_File_Generic")
+                    //                    self.imgAttachmentImage.frame = CGRect(x: 0, y: 0, width: 30, height: 34)
+                    self.imgAttachmentImage.layer.cornerRadius = 6.0
+                    self.imgAttachmentImage.layer.masksToBounds = true
                     self.didSelectAttachment(attachment)
                 } else {
                     self.currentAttachment = attachment
-                    self.didTapOnSendButton(self.inputBarSendButton)
+                    self.didTapOnSendButton(self.btnSend)
                 }
             }
         }
@@ -3347,36 +3806,36 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     /*
-    func manageFile(fileData: Data, filename: String) {
-        
-        let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let randomString = IGGlobal.randomString(length: 16) + "_"
-        let pathOnDisk = documents + "/" + randomString + filename
-        
-        let fileUrl : URL = NSURL(fileURLWithPath: pathOnDisk) as URL
-        let fileSize = Int(fileData.count)
-        
-        // write data to my fileUrl
-        try! fileData.write(to: fileUrl)
-        
-        let attachment = IGFile(name: filename)
-        attachment.size = fileSize
-        attachment.fileNameOnDisk = randomString + filename
-        attachment.name = filename
-        attachment.type = .file
-        
-        let randomStringFinal = IGGlobal.randomString(length: 16) + "_"
-        let pathOnDiskFinal = documents + "/" + randomStringFinal + filename
-        try! FileManager.default.copyItem(atPath: fileUrl.path, toPath: pathOnDiskFinal)
-        
-        self.inputBarAttachmentViewThumnailImageView.image = UIImage(named: "IG_Message_Cell_File_Generic")
-        self.inputBarAttachmentViewThumnailImageView.frame = CGRect(x: 0, y: 0, width: 30, height: 34)
-        self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
-        self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
-        
-        self.didSelectAttachment(attachment)
-    }
-    */
+     func manageFile(fileData: Data, filename: String) {
+     
+     let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+     let randomString = IGGlobal.randomString(length: 16) + "_"
+     let pathOnDisk = documents + "/" + randomString + filename
+     
+     let fileUrl : URL = NSURL(fileURLWithPath: pathOnDisk) as URL
+     let fileSize = Int(fileData.count)
+     
+     // write data to my fileUrl
+     try! fileData.write(to: fileUrl)
+     
+     let attachment = IGFile(name: filename)
+     attachment.size = fileSize
+     attachment.fileNameOnDisk = randomString + filename
+     attachment.name = filename
+     attachment.type = .file
+     
+     let randomStringFinal = IGGlobal.randomString(length: 16) + "_"
+     let pathOnDiskFinal = documents + "/" + randomStringFinal + filename
+     try! FileManager.default.copyItem(atPath: fileUrl.path, toPath: pathOnDiskFinal)
+     
+     self.inputBarAttachmentViewThumnailImageView.image = UIImage(named: "IG_Message_Cell_File_Generic")
+     self.inputBarAttachmentViewThumnailImageView.frame = CGRect(x: 0, y: 0, width: 30, height: 34)
+     self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
+     self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
+     
+     self.didSelectAttachment(attachment)
+     }
+     */
     
     private func openLocation(){
         let status = CLLocationManager.authorizationStatus()
@@ -3577,7 +4036,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.sendMessageState(enable: false)
-            self.inputTextView.text = ""
+            self.messageTextView.text = ""
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
             self.selectedMessageToReply = nil
             self.currentAttachment = nil
@@ -3592,7 +4051,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBAction func didTapOnDeleteSelectedAttachment(_ sender: UIButton) {
         self.currentAttachment = nil
         self.setInputBarHeight()
-        let text = inputTextView.text as NSString
+        let text = messageTextView.text as NSString
         if text.length > 0 {
             self.sendMessageState(enable: true)
         } else {
@@ -3606,7 +4065,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.selectedMessageToReply = nil
         if self.selectedMessageToEdit != nil {
             self.selectedMessageToEdit = nil
-            self.inputTextView.text = ""
+            self.messageTextView.text = ""
         }
         self.setInputBarHeight()
         self.setSendAndRecordButtonStates()
@@ -3627,8 +4086,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBAction func didTapOnJoinButton(_ sender: UIButton) {
         
         if isBotRoom() {
-            inputTextView.text = "/Start"
-            self.didTapOnSendButton(self.inputBarSendButton)
+            messageTextView.text = "/Start"
+            self.didTapOnSendButton(self.btnSend)
             
             self.joinButton.isHidden = true
             
@@ -3710,6 +4169,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             let difX = (initialLongTapOnRecordButtonPosition?.x)! - point.x
             
             var newConstant:CGFloat = 0.0
+            print(newConstant)
             if difX > 10 {
                 newConstant = 74 - difX
             } else {
@@ -3717,7 +4177,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
             
             if newConstant > 0{
-                inputBarRecordViewLeftConstraint.constant = newConstant
+                //                inputBarRecordViewLeftConstraint.constant = newConstant
                 UIView.animate(withDuration: 0.1, animations: {
                     self.view.layoutIfNeeded()
                 })
@@ -3759,37 +4219,31 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     func prepareViewForRecord() {
         //disable rotation
         self.isRecordingVoice = true
+        UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .transitionFlipFromBottom, animations: {
+            self.holderRecordView.isHidden = false
+            self.holderRecordView.layoutIfNeeded()
+        },completion: nil)
         
-        inputBarRecordView.isHidden = false
-        inputBarRecodingBlinkingView.isHidden = false
-        inputBarRecordRightView.isHidden = false
-        inputBarRecordTimeLabel.isHidden = false
-        
-        inputTextView.isHidden = true
-        inputBarLeftView.isHidden = true
-        
-        inputBarRecordViewLeftConstraint.constant = 74
-        UIView.animate(withDuration: 0.5) {
-            self.inputBarRecordTimeLabel.alpha = 1.0
-            self.view.layoutIfNeeded()
-        }
         
         if bouncingViewWhileRecord != nil {
             bouncingViewWhileRecord?.removeFromSuperview()
         }
+        creatBounceViewForRecord()///create bounce view that represent record effect
         
-        let frame = self.inputBarView.convert(inputBarRecordRightView.frame, from: inputBarRecordRightView)
-        let width = frame.size.width
+        voiceRecorderTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimerLabel), userInfo: nil, repeats: true)
+        voiceRecorderTimer?.fire()
+    }
+    func creatBounceViewForRecord() {
         //let bouncingViewFrame = CGRect(x: frame.origin.x - 2*width, y: frame.origin.y - 2*width, width: 3*width, height: 3*width)
-        let bouncingViewFrame = CGRect(x: 0, y: 0, width: 3*width, height: 3*width)
+        let bouncingViewFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
         bouncingViewWhileRecord = UIView(frame: bouncingViewFrame)
-        bouncingViewWhileRecord?.layer.cornerRadius = width * 3/2
-        bouncingViewWhileRecord?.backgroundColor = UIColor.organizationalColor()
+        bouncingViewWhileRecord?.layer.cornerRadius = CGFloat(50)
+        bouncingViewWhileRecord?.backgroundColor = UIColor(named: themeColor.navigationSecondColor.rawValue)
         bouncingViewWhileRecord?.alpha = 0.2
         self.view.addSubview(bouncingViewWhileRecord!)
         bouncingViewWhileRecord?.snp.makeConstraints { (make) -> Void in
-            make.width.height.equalTo(3*width)
-            make.center.equalTo(self.inputBarRecordRightView)
+            make.width.height.equalTo(100)
+            make.center.equalTo(self.btnMicInner)
         }
         
         
@@ -3808,43 +4262,30 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         size?.autoreverses = true
         bouncingViewWhileRecord?.pop_add(size, forKey: "size")
         
-        
-        voiceRecorderTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimerLabel), userInfo: nil, repeats: true)
-        voiceRecorderTimer?.fire()
     }
     
     func cleanViewAfterRecord() {
-        inputBarRecordViewLeftConstraint.constant = 200
+        //        inputBarRecordViewLeftConstraint.constant = 200
         UIView.animate(withDuration: 0.5) {
             self.inputBarRecordTimeLabel.text = "00:00"
-            self.inputBarRecordTimeLabel.alpha = 0.0
             self.view.layoutIfNeeded()
         }
         
         
         UIView.animate(withDuration: 0.3, animations: {
-            self.inputBarRecordView.alpha = 0.0
-            self.inputBarRecodingBlinkingView.alpha = 0.0
-            self.inputBarRecordRightView.alpha = 0.0
-            self.inputBarRecordTimeLabel.alpha = 0.0
         }, completion: { (success) -> Void in
             //TODO: enable rotation
-            self.inputBarRecordView.isHidden = true
-            self.inputBarRecodingBlinkingView.isHidden = true
-            self.inputBarRecordRightView.isHidden = true
-            self.inputBarRecordTimeLabel.isHidden = true
+            UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .transitionFlipFromBottom, animations: {
+                self.holderRecordView.isHidden = true
+                self.holderRecordView.layoutIfNeeded()
+            },completion: nil)
             
-            self.inputBarRecordView.alpha = 1.0
-            self.inputBarRecodingBlinkingView.alpha = 1.0
-            self.inputBarRecordRightView.alpha = 1.0
-            self.inputBarRecordTimeLabel.alpha = 1.0
             
             self.inputTextView.isHidden = false
             self.inputBarLeftView.isHidden = false
             
             //animation
             self.inputBarRecodingBlinkingView.pop_removeAllAnimations()
-            self.inputBarRecodingBlinkingView.alpha = 1.0
             self.bouncingViewWhileRecord?.removeFromSuperview()
             self.bouncingViewWhileRecord = nil
         })
@@ -3901,9 +4342,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.currentAttachment = attachment
         self.setInputBarHeight()
         self.sendMessageState(enable: true)
-        self.inputBarAttachmentViewFileNameLabel.text  = currentAttachment?.name
-        self.inputBarAttachmentViewFileNameLabel.lineBreakMode = .byTruncatingMiddle
-        self.inputBarAttachmentViewFileSizeLabel.text = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: currentAttachment!.size)
+        lblFirstInStack.isHidden = false
+        lblFileSize.isHidden = false
+        self.lblFirstInStack.text  = currentAttachment?.name
+        self.lblFirstInStack.lineBreakMode = .byTruncatingMiddle
+        self.lblFileSize.text = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: currentAttachment!.size)
     }
     
     func saveAttachmentToLocalStorage(data: Data, fileNameOnDisk: String) {
@@ -3923,11 +4366,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.selectedMessageToReply = nil
         IGMessageViewController.selectedMessageToForwardToThisRoom = nil
         
-        self.inputTextView.text = message.message
-        inputTextView.placeholder = "MESSAGE".MessageViewlocalizedNew
-        self.inputTextView.becomeFirstResponder()
-        self.inputBarOriginalMessageViewSenderNameLabel.text = "EDITE_MESSAGE".MessageViewlocalizedNew
-        self.inputBarOriginalMessageViewBodyTextLabel.text = message.message
+        self.messageTextView.text = message.message
+        //        messageTextView.placeholder = "MESSAGE".MessageViewlocalizedNew
+        initChangeLanguegeNewChatView()
+        self.messageTextView.becomeFirstResponder()
+        self.lblReplyName.text = "EDITE_MESSAGE".MessageViewlocalizedNew
+        self.lblReplyBody.text = message.message
         self.setInputBarHeight()
     }
     
@@ -3953,40 +4397,40 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         if let user = finalMessage.authorUser?.user {
-            self.inputBarOriginalMessageViewSenderNameLabel.text = user.displayName
+            self.lblReplyName.text = user.displayName
         } else if let room = finalMessage.authorRoom {
-            self.inputBarOriginalMessageViewSenderNameLabel.text = room.title
+            self.lblReplyName.text = room.title
         }
         
         let textMessage = finalMessage.message
         if textMessage != nil && !(textMessage?.isEmpty)! {
             
             if message.type == .sticker {
-                self.inputBarOriginalMessageViewBodyTextLabel.text = textMessage! + "LBL_STICKER".MessageViewlocalizedNew
+                self.lblReplyBody.text = textMessage! + "LBL_STICKER".MessageViewlocalizedNew
             } else {
-                self.inputBarOriginalMessageViewBodyTextLabel.text = textMessage
+                self.lblReplyBody.text = textMessage
                 
                 let markdown = MarkdownParser()
                 markdown.enabledElements = MarkdownParser.EnabledElements.bold
-                self.inputBarOriginalMessageViewBodyTextLabel.attributedText = markdown.parse(textMessage!)
-                self.inputBarOriginalMessageViewBodyTextLabel.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
-                self.inputBarOriginalMessageViewBodyTextLabel.font = UIFont.igFont(ofSize: 11.0)
+                self.lblReplyBody.attributedText = markdown.parse(textMessage!)
+                self.lblReplyBody.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+                self.lblReplyBody.font = UIFont.igFont(ofSize: 11.0)
             }
             
         } else if finalMessage.contact != nil {
-            self.inputBarOriginalMessageViewBodyTextLabel.text = "\(prefix)" + "CONTACT_MESSAGE".MessageViewlocalizedNew
+            self.lblReplyBody.text = "\(prefix)" + "CONTACT_MESSAGE".MessageViewlocalizedNew
         } else if finalMessage.location != nil {
-            self.inputBarOriginalMessageViewBodyTextLabel.text = "\(prefix)" + "LOCATION_MESSAGE".MessageViewlocalizedNew
+            self.lblReplyBody.text = "\(prefix)" + "LOCATION_MESSAGE".MessageViewlocalizedNew
         } else if let file = finalMessage.attachment {
-            self.inputBarOriginalMessageViewBodyTextLabel.text = "\(prefix) '\(IGFile.convertFileTypeToString(fileType: file.type))'" + "MESSAGE".MessageViewlocalizedNew
+            self.lblReplyBody.text = "\(prefix) '\(IGFile.convertFileTypeToString(fileType: file.type))'" + "MESSAGE".MessageViewlocalizedNew
         }
         
         self.setInputBarHeight()
     }
     
     private func manageCardToCardInputBar(){
-        self.inputBarOriginalMessageViewSenderNameLabel.text = "CARD_TO_CARD_REQUEST".MessageViewlocalizedNew
-        self.inputBarOriginalMessageViewBodyTextLabel.text = "CARD_TO_CARD_FILL_INFO".MessageViewlocalizedNew
+        self.lblReplyName.text = "CARD_TO_CARD_REQUEST".MessageViewlocalizedNew
+        self.lblReplyBody.text = "CARD_TO_CARD_FILL_INFO".MessageViewlocalizedNew
         self.setInputBarHeight()
     }
     
@@ -4100,9 +4544,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 default:
                     break
                 }
-                }.error({ (errorCode, waitTime) in
-                    
-                }).send()
+            }.error({ (errorCode, waitTime) in
+                
+            }).send()
         case .group:
             IGGroupDeleteMessageRequest.Generator.generate(message: message, room: room!).success({ (responseProto) in
                 switch responseProto {
@@ -4141,7 +4585,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if IGMessageViewController.selectedMessageToForwardToThisRoom != nil {
             self.sendMessageState(enable: true)
         } else {
-            let text = self.inputTextView.text as NSString
+            let text = self.messageTextView.text as NSString
             if text.length == 0 && currentAttachment == nil {
                 //empty -> show recored
                 self.sendMessageState(enable: false)
@@ -4160,7 +4604,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if segue.identifier == "showSticker" {
             if #available(iOS 10.0, *) {
                 let stickerViewController = segue.destination as! IGStickerViewController
-//                stickerViewController.backGroundColor = UIColor(named: themeColor.tableViewCell.rawValue)
+                //                stickerViewController.backGroundColor = UIColor(named: themeColor.tableViewCell.rawValue)
                 stickerViewController.stickerPageType = self.stickerPageType
                 stickerViewController.stickerGroupId = self.stickerGroupId
             }
@@ -4205,7 +4649,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-       return 1
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -4261,13 +4705,13 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                     
                     //Hint: comment following code because corrently we don't use from 'isNextMessageFromSameSender' variable
                     /*
-                    if messages!.indices.contains(indexPath.row - 1){
-                        let nextMessage = messages![(indexPath.row - 1)]
-                        if message.authorHash == nextMessage.authorHash {
-                            isNextMessageFromSameSender = true
-                        }
-                    }
-                    */
+                     if messages!.indices.contains(indexPath.row - 1){
+                     let nextMessage = messages![(indexPath.row - 1)]
+                     if message.authorHash == nextMessage.authorHash {
+                     isNextMessageFromSameSender = true
+                     }
+                     }
+                     */
                 }
             } else {
                 shouldShowAvatar = false
@@ -4338,7 +4782,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             let cell: VideoCell = collectionView.dequeueReusableCell(withReuseIdentifier: VideoCell.cellReuseIdentifier(), for: indexPath) as! VideoCell
             let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
-           
+            
             if IGGlobal.shouldMultiSelect {
                 if selectedMessages.count > 0 {
                     let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
@@ -4357,7 +4801,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                     }
                 }
             }
-           
+            
             manageHighlightMode(cell: cell, messageId: message.id)
             
             cell.delegate = self
@@ -4606,12 +5050,12 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             cell.setUnknownMessage()
             return cell
         }
-
+        
         
         let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
         cell.setUnknownMessage()
         return cell
-
+        
     }
     
     
@@ -4706,7 +5150,7 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
             self.collectionView.reloadItems(at: [indexPath])
             
         } else {
-            self.inputTextView.resignFirstResponder()
+            self.messageTextView.resignFirstResponder()
         }
     }
     
@@ -4837,29 +5281,29 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
 //MARK: - GrowingTextViewDelegate
 extension IGMessageViewController: GrowingTextViewDelegate {
     
-    func textViewDidChange(_ textView: UITextView) {
-        
-        let pos = textView.endOfDocument
-        let currentRect = inputTextView.caretRect(for: pos)
-        if(currentRect.origin.y > (previousRect.origin.y)){
-            if inputTextView.frame.height < 150.0 {
-                inputTextView.scrollRangeToVisible(NSMakeRange(0, 0))
-            }
-        }
-        previousRect = currentRect
-        
-        self.setSendAndRecordButtonStates()
-        if allowSendTyping() {
-            self.sendTyping()
-            typingStatusExpiryTimer.invalidate()
-            typingStatusExpiryTimer = Timer.scheduledTimer(timeInterval: 1.0,
-                                                           target:   self,
-                                                           selector: #selector(sendCancelTyping),
-                                                           userInfo: nil,
-                                                           repeats:  false)
-        }
-        
-    }
+    //    func textViewDidChange(_ textView: UITextView) {
+    //
+    //        let pos = textView.endOfDocument
+    //        let currentRect = inputTextView.caretRect(for: pos)
+    //        if(currentRect.origin.y > (previousRect.origin.y)){
+    //            if inputTextView.frame.height < 150.0 {
+    //                inputTextView.scrollRangeToVisible(NSMakeRange(0, 0))
+    //            }
+    //        }
+    //        previousRect = currentRect
+    //
+    //        self.setSendAndRecordButtonStates()
+    //        if allowSendTyping() {
+    //            self.sendTyping()
+    //            typingStatusExpiryTimer.invalidate()
+    //            typingStatusExpiryTimer = Timer.scheduledTimer(timeInterval: 1.0,
+    //                                                           target:   self,
+    //                                                           selector: #selector(sendCancelTyping),
+    //                                                           userInfo: nil,
+    //                                                           repeats:  false)
+    //        }
+    //
+    //    }
     
     func allowSendTyping() -> Bool {
         let currentTime = IGGlobal.getCurrentMillis()
@@ -4883,49 +5327,53 @@ extension IGMessageViewController: GrowingTextViewDelegate {
     }
     
     func setInputBarHeight() {
-        let height = max(self.inputTextViewHeight - 16, 30)
-        var inputBarHeight = height + 16.0
         
-        inputTextViewHeightConstraint.constant = inputBarHeight - 12
-        
+        //        {
+        //                let height = max(self.inputTextViewHeight - 16, 30)
+        //                var inputBarHeight = height + 16.0
+        //
+        //                inputTextViewHeightConstraint.constant = inputBarHeight - 12
+        //
         if currentAttachment != nil {
-            inputBarAttachmentViewBottomConstraint.constant = inputBarHeight
-            inputBarHeight += 36
-            inputBarAttachmentView.isHidden = false
+            //        //            inputBarAttachmentViewBottomConstraint.constant = inputBarHeight
+            //        //            inputBarHeight += 36
+            holderAttachmentBar.isHidden = false
         } else {
-            inputBarAttachmentViewBottomConstraint.constant = 0.0
-            inputBarAttachmentView.isHidden = true
+            //        //            inputBarAttachmentViewBottomConstraint.constant = 0.0
+            holderAttachmentBar.isHidden = true
         }
-        
+        //
         if selectedMessageToEdit != nil {
-            inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
-            inputBarHeight += 36.0
-            inputBarOriginalMessageView.isHidden = false
+            //                    inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
+            //                    inputBarHeight += 36.0
+            holderReplyBar.isHidden = false
         } else if selectedMessageToReply != nil {
-            inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
-            inputBarHeight += 36.0
-            inputBarOriginalMessageView.isHidden = false
+            //                    inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
+            //                    inputBarHeight += 36.0
+            holderReplyBar.isHidden = false
         } else if IGMessageViewController.selectedMessageToForwardToThisRoom != nil {
-            inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
-            inputBarHeight += 36.0
-            inputBarOriginalMessageView.isHidden = false
-        } else if isCardToCardRequestEnable {
-            inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
-            inputBarHeight += 36.0
-            inputBarOriginalMessageView.isHidden = false
+            //                    inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
+            //                    inputBarHeight += 36.0
+            holderReplyBar.isHidden = false
+            
+            //                } else if isCardToCardRequestEnable {
+            //                    inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
+            //                    inputBarHeight += 36.0
         } else {
-            inputBarOriginalMessageViewBottomConstraint.constant = 0.0
-            inputBarOriginalMessageView.isHidden = true
+            //                    inputBarOriginalMessageViewBottomConstraint.constant = 0.0
+            holderReplyBar.isHidden = true
         }
-        
-        
-        inputBarHeightConstraint.constant = inputBarHeight
-        inputBarHeightContainerConstraint.constant = inputBarHeight + 16
-
-        UIView.animate(withDuration: 0.2, animations: {
-        }, completion: { (completed) in
-            self.setCollectionViewInset()
-        })
+        //
+        //
+        //                inputBarHeightConstraint.constant = inputBarHeight
+        //                inputBarHeightContainerConstraint.constant = inputBarHeight + 16
+        //
+        //                UIView.animate(withDuration: 0.2, animations: {
+        //                }, completion: { (completed) in
+        //                    self.setCollectionViewInset()
+        //                })
+        //            }
+        //
     }
     
     func managePinnedMessage(){
@@ -4964,7 +5412,7 @@ extension IGMessageViewController: AVAudioRecorderDelegate {
                 attachment.size = data.count
                 attachment.type = .voice
                 self.currentAttachment = attachment
-                self.didTapOnSendButton(self.inputBarSendButton)
+                self.didTapOnSendButton(self.btnSend)
             } catch {
                 //there was an error recording voice
             }
@@ -5085,7 +5533,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         })
         var deleteTitle = ""
         if self.room!.type == .group || self.room!.type == .channel {
-           deleteTitle =  "BTN_DELETE".MessageViewlocalizedNew
+            deleteTitle =  "BTN_DELETE".MessageViewlocalizedNew
         } else {
             deleteTitle =  "DELETE_FOR_ME".MessageViewlocalizedNew
         }
@@ -5161,10 +5609,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         self.MultiShareModalIsActive = true
         
         if forwardModal == nil {
-//            blurEffectView = UIVisualEffectView(effect: blurEffect)
-//            blurEffectView.frame = view.bounds
-//            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//            view.addSubview(blurEffectView)
+            //            blurEffectView = UIVisualEffectView(effect: blurEffect)
+            //            blurEffectView.frame = view.bounds
+            //            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            //            view.addSubview(blurEffectView)
             
             
             forwardModal = IGMultiForwardModal.loadFromNib()
@@ -5186,9 +5634,9 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             let tapToDismiss = UITapGestureRecognizer(target: self, action: #selector(didTapOnDissmissView))
             dissmissViewBG.addGestureRecognizer(tapToDismiss)
             dissmissViewBG.isUserInteractionEnabled = true
-
+            
             self.view.bringSubviewToFront(dissmissViewBG)
-
+            
             self.view.bringSubviewToFront(forwardModal!)
             
         }
@@ -5198,16 +5646,16 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 if UIDevice.current.hasNotch {
                     let tmpY = ((self.view.frame.height) - (self.forwardModal.frame.height))
                     self.forwardModal!.frame = CGRect(x: 0, y: tmpY - 44, width: self.view.frame.width, height: self.forwardModal.frame.height)
-
+                    
                 } else {
                     let tmpY = ((self.view.frame.height) - (self.forwardModal.frame.height))
                     self.forwardModal!.frame = CGRect(x: 0, y: tmpY , width: self.view.frame.width, height: self.forwardModal.frame.height)
-
+                    
                 }
             }
         } else {
             UIView.animate(withDuration: 0.3) {
-
+                
                 if UIDevice.current.hasNotch {
                     let tmpY = ((self.view.frame.height) - (self.forwardModal.frame.height))
                     self.forwardModal!.frame = CGRect(x: 0, y: tmpY - 44, width: self.view.frame.width, height: self.forwardModal.frame.height)
@@ -5546,8 +5994,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         if !(myaction.contains("/")) {
             myaction = "/"+myaction
         }
-        inputTextView.text = myaction
-        self.didTapOnSendButton(self.inputBarSendButton)
+        messageTextView.text = myaction
+        self.didTapOnSendButton(self.btnSend)
     }
     
     func createChat(selectedUser: IGRegisteredUser) {
@@ -5806,7 +6254,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         if roomType == .chat && self.currentRoomId == roomId {
             IGGlobal.playSound(isInChat : IGGlobal.isInChatPage,isSilent : IGGlobal.isSilent,isSendMessage: false)
         }
-
+        
         // if message is for another room shouldn't be add to current room
         if self.currentRoomId != roomId {return}
         
@@ -6048,7 +6496,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             self.collectionView?.insertItems(at: arrayIndex)
         }, completion: nil)
     }
-
+    
     private func removeItem(cellPosition: Int?){
         if cellPosition == nil {return}
         DispatchQueue.main.async {

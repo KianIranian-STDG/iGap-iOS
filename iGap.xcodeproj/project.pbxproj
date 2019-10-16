@@ -87,6 +87,8 @@
 		8E7EE0CB22E354ED00133485 /* MessageViewlocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0CA22E354ED00133485 /* MessageViewlocalizationsEn.json */; };
 		8E7F18F422F5679300A7A7DD /* TextCellCardToCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F18F322F5679300A7A7DD /* TextCellCardToCard.swift */; };
 		8E7F18F622F567B500A7A7DD /* TextCellCardToCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E7F18F522F567B500A7A7DD /* TextCellCardToCard.xib */; };
+		8E82B24D23545DBD0055F9F8 /* testMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E82B24C23545DBD0055F9F8 /* testMessage.swift */; };
+		8E82B24F2355AFE50055F9F8 /* IGHelperShowToastAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E82B24E2355AFE50055F9F8 /* IGHelperShowToastAlertView.swift */; };
 		8E83CAA223408E8600A8CF65 /* ThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E83CAA123408E8600A8CF65 /* ThemeColors.swift */; };
 		8E83CAA42340B81700A8CF65 /* IGTransparentTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E83CAA32340B81700A8CF65 /* IGTransparentTabBar.swift */; };
 		8E871887233CEE19004A5E56 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E871886233CEE18004A5E56 /* RxRelay.framework */; };
@@ -130,6 +132,7 @@
 		8E96A32F225C96C3007D8A77 /* RecieptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E96A32D225C96C3007D8A77 /* RecieptView.xib */; };
 		8E9B6FBB2337458D002C6431 /* IGProfileChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9B6FBA2337458D002C6431 /* IGProfileChannelViewController.swift */; };
 		8E9F076922659E1400E4CD17 /* SMSavedCardsAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9F076822659E1400E4CD17 /* SMSavedCardsAlertViewController.swift */; };
+		8EA59EDA235444C9004A604E /* Message.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EA59ED9235444C9004A604E /* Message.storyboard */; };
 		8EA8F3DE231F9E1D0099C4EF /* MBCircularProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3DD231F9E1D0099C4EF /* MBCircularProgressBarView.m */; };
 		8EA8F3DF231F9E1D0099C4EF /* MBCircularProgressBarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3DC231F9E1D0099C4EF /* MBCircularProgressBarLayer.m */; };
 		8EA8F3E9231F9E450099C4EF /* UICircularProgressRingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3E6231F9E440099C4EF /* UICircularProgressRingDelegate.swift */; };
@@ -890,6 +893,8 @@
 		8E7EE0CA22E354ED00133485 /* MessageViewlocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MessageViewlocalizationsEn.json; sourceTree = "<group>"; };
 		8E7F18F322F5679300A7A7DD /* TextCellCardToCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCellCardToCard.swift; sourceTree = "<group>"; };
 		8E7F18F522F567B500A7A7DD /* TextCellCardToCard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextCellCardToCard.xib; sourceTree = "<group>"; };
+		8E82B24C23545DBD0055F9F8 /* testMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testMessage.swift; sourceTree = "<group>"; };
+		8E82B24E2355AFE50055F9F8 /* IGHelperShowToastAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperShowToastAlertView.swift; sourceTree = "<group>"; };
 		8E83CAA123408E8600A8CF65 /* ThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColors.swift; sourceTree = "<group>"; };
 		8E83CAA32340B81700A8CF65 /* IGTransparentTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGTransparentTabBar.swift; sourceTree = "<group>"; };
 		8E871886233CEE18004A5E56 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
@@ -934,6 +939,7 @@
 		8E96A32D225C96C3007D8A77 /* RecieptView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecieptView.xib; sourceTree = "<group>"; };
 		8E9B6FBA2337458D002C6431 /* IGProfileChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileChannelViewController.swift; sourceTree = "<group>"; };
 		8E9F076822659E1400E4CD17 /* SMSavedCardsAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSavedCardsAlertViewController.swift; sourceTree = "<group>"; };
+		8EA59ED9235444C9004A604E /* Message.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Message.storyboard; sourceTree = "<group>"; };
 		8EA8F3DA231F9E1C0099C4EF /* MBCircularProgressBarLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBCircularProgressBarLayer.h; sourceTree = "<group>"; };
 		8EA8F3DB231F9E1C0099C4EF /* MBCircularProgressBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBCircularProgressBarView.h; sourceTree = "<group>"; };
 		8EA8F3DC231F9E1D0099C4EF /* MBCircularProgressBarLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBCircularProgressBarLayer.m; sourceTree = "<group>"; };
@@ -2392,6 +2398,7 @@
 				FA87B94B22BFB46100200650 /* IGHelperMessage.swift */,
 				D629462C2349DA0600FB5A08 /* IGHelperMediaPicker.swift */,
 				8E79295F234CB9DA00C9CA5C /* IGHelperUIViewView.swift */,
+				8E82B24E2355AFE50055F9F8 /* IGHelperShowToastAlertView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2958,6 +2965,7 @@
 			isa = PBXGroup;
 			children = (
 				FAD580851DDC49A200A242DE /* IGMessageViewController.swift */,
+				8E82B24C23545DBD0055F9F8 /* testMessage.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -3147,6 +3155,7 @@
 				8E1865382323A10400D8BCA9 /* ChannelAndSettings.storyboard */,
 				8ECC1827222F991F006E43E8 /* wallet.storyboard */,
 				FA786D59206A746700608A2D /* CreateRoom.storyboard */,
+				8EA59ED9235444C9004A604E /* Message.storyboard */,
 				FA936905207364E100A0D86A /* Register.storyboard */,
 				FA075DE0232A3EEF002E7AC7 /* Dashboard StoryBoards */,
 			);
@@ -3458,6 +3467,7 @@
 				940F9E74231B92DF00C26D50 /* IGFavouriteChannelCVCell.xib in Resources */,
 				8E5495CF22F02BB1001D30E1 /* SMTwoInputView.xib in Resources */,
 				FA99FF6122352109009035DF /* DashboardCell1.xib in Resources */,
+				8EA59EDA235444C9004A604E /* Message.storyboard in Resources */,
 				8E098A7B2348B0B1008A40A9 /* Search.storyboard in Resources */,
 				FA5EC5DB1E06728C006E2850 /* IGChatRoomListTableViewCell.xib in Resources */,
 				8E7F18F622F567B500A7A7DD /* TextCellCardToCard.xib in Resources */,
@@ -3645,6 +3655,7 @@
 				FA712AE5225DCCCC00FD78AA /* IGRealmDiscovery.swift in Sources */,
 				FA85066522670703002EEBF7 /* IGWalletCardDetailTableViewController.swift in Sources */,
 				FA0953881E1B97E20043ED3F /* IGCreateNewChatTableViewController.swift in Sources */,
+				8E82B24D23545DBD0055F9F8 /* testMessage.swift in Sources */,
 				FA58ADF022815BE5002A650E /* IGMessageLoader.swift in Sources */,
 				8ECC1839222FEB59006E43E8 /* CardUtils.swift in Sources */,
 				FA401FA41E10F80500A50C5A /* IGLabel.swift in Sources */,
@@ -3923,6 +3934,7 @@
 				FA3D947C1E6AA9580087D368 /* IGRoomManager.swift in Sources */,
 				FA0953841E1B97E20043ED3F /* IGChooseMemberFromContactsToCreateGroupViewController.swift in Sources */,
 				8EBF54FE22D9B60D00834E6A /* CustomSegments.swift in Sources */,
+				8E82B24F2355AFE50055F9F8 /* IGHelperShowToastAlertView.swift in Sources */,
 				8ECCA1EC22B7CF7A00D3A734 /* customAmountTextField.swift in Sources */,
 				FAB9064222B63F2600E81287 /* MessageOnChatReceiveObserver.swift in Sources */,
 				FA6C2DE92267413A005654AC /* IGScoreViewController.swift in Sources */,

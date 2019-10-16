@@ -272,53 +272,57 @@ class ContactCell: AbstractCell {
     
     @objc func didTapOnCall(_ gestureRecognizer: UITapGestureRecognizer) {
         
-        if finalRoomMessage.contact!.phones.count == 1 {
-            startCall(number: finalRoomMessage.contact!.phones.toArray().first!.innerString)
-            return
+        if !(IGGlobal.shouldMultiSelect) {
+            if finalRoomMessage.contact!.phones.count == 1 {
+                startCall(number: finalRoomMessage.contact!.phones.toArray().first!.innerString)
+                return
+            }
+            
+            let option = UIAlertController(title: "CALL_QUESTION".MessageViewlocalizedNew, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+            
+            for phone in finalRoomMessage.contact!.phones {
+                let action = UIAlertAction(title: phone.innerString, style: .default, handler: { (action) in
+                    self.startCall(number: action.title!)
+                })
+                option.addAction(action)
+            }
+            
+            let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+            option.addAction(cancel)
+            UIApplication.topViewController()!.present(option, animated: true, completion: {})
         }
-        
-        let option = UIAlertController(title: "CALL_QUESTION".MessageViewlocalizedNew, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        
-        for phone in finalRoomMessage.contact!.phones {
-            let action = UIAlertAction(title: phone.innerString, style: .default, handler: { (action) in
-                self.startCall(number: action.title!)
-            })
-            option.addAction(action)
-        }
-        
-        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
-        option.addAction(cancel)
-        UIApplication.topViewController()!.present(option, animated: true, completion: {})
     }
     
     @objc func didTapOnAddContact(_ gestureRecognizer: UITapGestureRecognizer) {
-        
-        let option = UIAlertController(title: nil, message: "ADD_CONTACT_QUESATION".MessageViewlocalizedNew, preferredStyle: .alert)
-        
-        let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
-            var phones: [String] = []
-            for phone in self.finalRoomMessage.contact!.phones {
-                phones.append(phone.innerString)
-            }
+        if !(IGGlobal.shouldMultiSelect) {
+
+            let option = UIAlertController(title: nil, message: "ADD_CONTACT_QUESATION".MessageViewlocalizedNew, preferredStyle: .alert)
             
-            var emails: [String] = []
-            for email in self.finalRoomMessage.contact!.emails {
-                emails.append(email.innerString)
-            }
+            let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
+                var phones: [String] = []
+                for phone in self.finalRoomMessage.contact!.phones {
+                    phones.append(phone.innerString)
+                }
+                
+                var emails: [String] = []
+                for email in self.finalRoomMessage.contact!.emails {
+                    emails.append(email.innerString)
+                }
+                
+                var displayName = self.finalRoomMessage.contact!.firstName
+                if let lastName = self.finalRoomMessage.contact!.lastName {
+                    displayName = " " + lastName
+                }
+                
+                IGContactManager.sharedManager.saveContactToDevicePhoneBook(name: displayName!, phoneNumber: phones, emailAddress: emails as [NSString])
+            })
+            option.addAction(ok)
             
-            var displayName = self.finalRoomMessage.contact!.firstName
-            if let lastName = self.finalRoomMessage.contact!.lastName {
-                displayName = " " + lastName
-            }
+            let cancel = UIAlertAction(title: "GLOBAL_NO".localizedNew, style: .cancel, handler: nil)
+            option.addAction(cancel)
             
-            IGContactManager.sharedManager.saveContactToDevicePhoneBook(name: displayName!, phoneNumber: phones, emailAddress: emails as [NSString])
-        })
-        option.addAction(ok)
-        
-        let cancel = UIAlertAction(title: "GLOBAL_NO".localizedNew, style: .cancel, handler: nil)
-        option.addAction(cancel)
-        
-        UIApplication.topViewController()!.present(option, animated: true, completion: {})
+            UIApplication.topViewController()!.present(option, animated: true, completion: {})
+        }
     }
 }
 

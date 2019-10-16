@@ -2,7 +2,9 @@
     "fa": {
         
         "SELECTED" : "انتخاب شده",
-        "MESSAGE" : "پیغام",
+        "LONG_PRESS_TO_RECORD" : "برای ضبط صدا نگه دارید...",
+        "SLIDE_TO_CANCEL" : "برای لغو شدن به چپ بکشید..",
+        "MESSAGE" : "پیام",
         "SEND_PHOTO" : "ارسال تصویر",
         "CANCEL_BTN" : "بستن",
         "UNPIN_ARE_U_SURE" : "آیا از برداشته شدن پین این پیام مطمئن هستید؟",
