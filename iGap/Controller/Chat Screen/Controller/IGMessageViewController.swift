@@ -875,7 +875,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     self.btnAttachmentNew.isHidden = true
                     
                     
-                    self.collectionView.reloadData()
+                    self.reloadCollection()
                     self.btnForward.isHidden = !isForward!
 
                     
@@ -907,7 +907,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     self.btnAttachmentNew.isHidden = true
                     
                     
-                    self.collectionView.reloadData()
+                    self.reloadCollection()
                     self.btnTrash.isHidden = !isDelete!
 
                     
@@ -952,7 +952,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.btnAttachmentNew.isHidden = false
                 
                 
-                self.collectionView.reloadData()
+                self.reloadCollection()
                 self.btnTrash.isHidden = true
 
                 
@@ -1504,7 +1504,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @objc func keyboardWillDisappear() {
         disableStickerView(delay: 0.4)
         if isBotRoom() {
-            self.collectionView.reloadData()
+            self.reloadCollection()
         }
     }
     
@@ -1775,7 +1775,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     
                     if !self.messageTextView.isFirstResponder {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            self.collectionView.reloadData()
+                            self.reloadCollection()
                         }
                     }
                     
@@ -2009,7 +2009,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             print("RLM EXEPTION ERR HAPPENDED IN findAllMessagesII:",String(describing: self))
         }
         DispatchQueue.main.async {
-            self.collectionView.reloadData()
+            self.reloadCollection()
         }
         
         return tmpMessages
@@ -4495,7 +4495,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         diselect()
-        self.collectionView.reloadData()
+        self.reloadCollection()
     }
     
     
@@ -6225,7 +6225,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     func onChannelGetMessageState(roomId: Int64){
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             if self.room!.id == roomId {
-                self.collectionView.reloadData()
+                self.reloadCollection()
             }
         }
     }
@@ -6281,7 +6281,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     
     func onFetchUserInfo(userId: Int64){
         /* fetch user info and notify collection item if exist in visible items into the collection */
-        IGUserInfoRequest.sendRequest(userId: userId) { (userId) in
+        IGUserInfoRequest.sendRequestAvoidDuplicate(userId: userId) { (userId) in
             DispatchQueue.main.async {
                 for indexPath in self.collectionView.indexPathsForVisibleItems {
                     if let cell = self.collectionView.cellForItem(at: indexPath) as? AbstractCell {
@@ -6508,9 +6508,13 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         self.messageLoader.resetMessagingValue()
         self.messages?.removeAll()
         IGMessageViewController.messageIdsStatic.removeAll()
+        reloadCollection()
+        self.collectionView.contentOffset = .zero
+    }
+    
+    private func reloadCollection(){
         self.collectionView.reloadData()
         self.collectionView.numberOfItems(inSection: 0) //<-- This code is no used, but it will let UICollectionView synchronize number of items, so it will not crash in following code.
-        self.collectionView.contentOffset = .zero
     }
     
     /**

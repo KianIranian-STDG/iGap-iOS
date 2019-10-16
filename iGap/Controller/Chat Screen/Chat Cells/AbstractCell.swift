@@ -590,6 +590,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                         } else {
                             mainBubbleViewAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
                         }
+                    } else if room.type == .channel, let signature = self.finalRoomMessage.channelExtra?.signature, !signature.isEmpty {
+                        mainBubbleViewAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
                     } else {
                         mainBubbleViewAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
                     }

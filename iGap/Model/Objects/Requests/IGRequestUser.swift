@@ -566,13 +566,15 @@ class IGUserInfoRequest : IGRequest {
     /**
      * for avoid from duplicate send request, after send each request for each user shouldn't be send as mush as 'CLEAR_ARRAY_TIME' second
      */
-    class func sendRequestAvoidDuplicate(userId: Int64){
+    class func sendRequestAvoidDuplicate(userId: Int64, success: ((_ userId: Int64) -> Void)? = nil){
         if IGAppManager.sharedManager.isUserLoggiedIn() && !userIdArrayList.contains(userId) {
             userIdArrayList.append(userId)
             IGUserInfoRequest.Generator.generate(userID: userId).successPowerful({ (protoResponse, requestWrapper) in
                 if let userInfoResponse = protoResponse as? IGPUserInfoResponse {
                     IGUserInfoRequest.Handler.interpret(response: userInfoResponse)
-                    
+                    if let identity = requestWrapper.identity, let success = identity as? ((_ userId: Int64) -> Void) {
+                        success(userInfoResponse.igpUser.igpID)
+                    }
                     DispatchQueue.main.asyncAfter(deadline: .now() + IGUserInfoRequest.CLEAR_ARRAY_TIME) {
                         if let indexOfUserId = userIdArrayList.firstIndex(of: userInfoResponse.igpUser.igpID) {
                             userIdArrayList.remove(at: indexOfUserId)
