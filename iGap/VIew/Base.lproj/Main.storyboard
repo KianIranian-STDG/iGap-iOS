@@ -1391,7 +1391,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9G6-WI-YVj" customClass="IGMessageCollectionView" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="724"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TTu-g1-jEU">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1422,7 +1422,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5mR-SM-BTR">
-                                <rect key="frame" x="362" y="784" width="40" height="40"/>
+                                <rect key="frame" x="362" y="750" width="40" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Em7-Bg-41q">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -1446,7 +1446,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="LOj-Lj-q1z">
-                                <rect key="frame" x="0.0" y="846" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wlI-ch-mHJ">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -2019,8 +2019,8 @@
                             <constraint firstAttribute="trailing" secondItem="4eQ-gi-PNj" secondAttribute="trailing" id="STr-jl-Csu"/>
                             <constraint firstItem="dyh-H7-OPt" firstAttribute="top" secondItem="v1Y-Qo-n3M" secondAttribute="bottom" constant="10" id="WTm-s5-eRf"/>
                             <constraint firstItem="lfs-sg-eWx" firstAttribute="centerY" secondItem="dyh-H7-OPt" secondAttribute="centerY" id="Z2e-DA-J0s"/>
-                            <constraint firstAttribute="bottom" secondItem="LOj-Lj-q1z" secondAttribute="bottom" id="Zb2-P8-LSb"/>
-                            <constraint firstItem="9G6-WI-YVj" firstAttribute="bottom" secondItem="LOj-Lj-q1z" secondAttribute="bottom" constant="-34" id="bg0-rO-guD"/>
+                            <constraint firstItem="9G6-WI-YVj" firstAttribute="bottom" secondItem="LOj-Lj-q1z" secondAttribute="top" id="bg0-rO-guD"/>
+                            <constraint firstItem="7LG-Y0-Ncx" firstAttribute="top" secondItem="LOj-Lj-q1z" secondAttribute="bottom" id="dnY-6v-WBy"/>
                             <constraint firstAttribute="bottomMargin" secondItem="PLh-MM-IK9" secondAttribute="bottom" id="h0k-48-e8Z"/>
                             <constraint firstItem="dyh-H7-OPt" firstAttribute="centerX" secondItem="ziz-lj-PYe" secondAttribute="centerX" id="hQG-ND-Uui"/>
                             <constraint firstItem="gI9-RR-rF9" firstAttribute="top" secondItem="9G6-WI-YVj" secondAttribute="top" id="isL-XI-z64"/>
@@ -2109,8 +2109,9 @@
                         <outlet property="lblThirdInStack" destination="lLs-2z-FQH" id="293-zx-byq"/>
                         <outlet property="mainHolder" destination="LOj-Lj-q1z" id="d3b-dP-JH6"/>
                         <outlet property="mainView" destination="ziz-lj-PYe" id="dTw-Uu-Ri1"/>
+                        <outlet property="messageCollectionBottomCollectionConstrains" destination="bg0-rO-guD" id="EGq-vb-Qtg"/>
                         <outlet property="messageTextView" destination="Jn5-uz-PAc" id="XDo-Ak-q1n"/>
-                        <outlet property="messageTextViewBottomConstraint" destination="Zb2-P8-LSb" id="jLH-iL-6CE"/>
+                        <outlet property="messageTextViewBottomConstraint" destination="dnY-6v-WBy" id="S4d-E1-mxO"/>
                         <outlet property="messageTextViewHeightConstraint" destination="nOg-ey-wtq" id="VM5-is-SUg"/>
                         <outlet property="pinnedMessageView" destination="gI9-RR-rF9" id="bFj-zu-R1g"/>
                         <outlet property="scrollToBottomContainerView" destination="5mR-SM-BTR" id="Xvj-fw-UgO"/>
@@ -4050,9 +4051,6 @@
         </namedColor>
         <namedColor name="IGNavigationSecondColor">
             <color red="0.10588235294117647" green="0.10588235294117647" blue="0.11372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="IGNavigationSecondColor">
-            <color red="0.10999999940395355" green="0.10999999940395355" blue="0.11800000071525574" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGRecentTVCellColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

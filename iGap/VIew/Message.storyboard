@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
@@ -87,7 +87,7 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="50"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rnw-XR-Iun">
-                                                                                <rect key="frame" x="-18" y="13.5" width="36.5" height="23.5"/>
+                                                                                <rect key="frame" x="-18.333333333333329" y="16.333333333333371" width="37" height="17.666666666666671"/>
                                                                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -113,7 +113,7 @@
                                                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                                                     </textView>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wmX-l6-SLm">
-                                                                                        <rect key="frame" x="20" y="10" width="120" height="20.5"/>
+                                                                                        <rect key="frame" x="20" y="9.9999999999999982" width="120" height="20.333333333333329"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                         <color key="textColor" name="IGBackGroundGrayColor"/>
                                                                                         <nil key="highlightedColor"/>
@@ -245,7 +245,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt; Slide to cancel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9y8-Jx-Kmv" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                                <rect key="frame" x="157" y="18" width="100" height="14.5"/>
+                                                                <rect key="frame" x="157" y="18" width="100" height="14.333333333333336"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="100" id="81f-rO-GmA"/>
                                                                 </constraints>
@@ -279,9 +279,26 @@
                                     </view>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E3x-bf-guF">
+                                <rect key="frame" x="82" y="373" width="250" height="150"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FuS-g7-SOr">
+                                        <rect key="frame" x="0.0" y="120" width="250" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="77O-HV-p9H"/>
+                                    <constraint firstAttribute="height" constant="150" id="ycb-aK-wvA"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="E3x-bf-guF" firstAttribute="centerY" secondItem="G2L-R0-Qwj" secondAttribute="centerY" id="3Eu-2U-hbA"/>
+                            <constraint firstItem="E3x-bf-guF" firstAttribute="centerX" secondItem="G2L-R0-Qwj" secondAttribute="centerX" id="9hs-5Y-veg"/>
                             <constraint firstItem="7Zg-BR-5hx" firstAttribute="trailing" secondItem="EqJ-kM-Ppb" secondAttribute="trailing" id="LCH-7H-Ohh"/>
                             <constraint firstItem="7Zg-BR-5hx" firstAttribute="leading" secondItem="EqJ-kM-Ppb" secondAttribute="leading" id="MeJ-kM-wpl"/>
                             <constraint firstItem="7Zg-BR-5hx" firstAttribute="leading" secondItem="EqJ-kM-Ppb" secondAttribute="leading" id="o1W-sg-Gz4"/>
@@ -316,7 +333,7 @@
             <color white="0.33300000429153442" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
         <namedColor name="IGModalViewBackgroundColor">
-            <color red="0.10980392156862745" green="0.10980392156862745" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.10588235294117647" green="0.10588235294117647" blue="0.11372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

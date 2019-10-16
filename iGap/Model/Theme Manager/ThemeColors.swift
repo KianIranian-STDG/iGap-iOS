@@ -47,4 +47,11 @@ enum themeColor: String {
     // textfield
     case textFieldBackGround = "IGTextFieldBackGround"
     case textFieldPlaceHolderColor = "IGTextFieldPlaceHolderColor"
+
+    // customAlert
+    case customAlertBorderColor = "IGCustomAlertBorderColor"
+    case customAlertBGColor = "IGCustomAlertBGColor"
+    case customAlertBorderSuccessColor = "IGCustomAlertBorderSuccessColor"
+    case customAlertBorderWarningColor = "IGCustomAlertBorderWarningColor"
+    case customAlertBorderErrorColor = "IGCustomAlertBorderErrorColor"
 }

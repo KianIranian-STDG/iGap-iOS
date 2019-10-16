@@ -99,6 +99,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var btnForward: UIButton!
     @IBOutlet weak var btnTrash: UIButton!
     @IBOutlet weak var holderMessageTextView: UIView!
+    @IBOutlet weak var messageCollectionBottomCollectionConstrains: NSLayoutConstraint!
+
     @IBOutlet weak var btnStickerWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageTextViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageTextViewHeightConstraint: NSLayoutConstraint!
@@ -384,16 +386,20 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBAction func didTapOnMicButton(_ sender: UIButton) {
         print("BUTTON MIC STATE :","Single Tap On MIC BUTTON")
         sender.backgroundColor = UIColor(named: themeColor.labelColor.rawValue)
-        
+        sender.titleLabel!.textColor = UIColor.red
+
         sender.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         IGHelperShowToastAlertView.shared.showPopAlert(view: self,innerView: holderMessageTextView, message: "LONG_PRESS_TO_RECORD".MessageViewlocalizedNew, time: 2.0, type: .alert)
         
         UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
             sender.transform = CGAffineTransform.identity
             sender.backgroundColor = UIColor.clear
-            sender.setTitleColor(.red, for: .normal)
+            sender.titleLabel!.textColor = UIColor.red
             sender.layoutIfNeeded()
         }, completion: { (completed) in
+            sender.titleLabel!.textColor = UIColor.red
+            sender.titleLabel!.textColor = UIColor(named:themeColor.labelColor.rawValue)
+
             sender.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
             
         })
@@ -986,6 +992,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         
         
+    
         
         ///newUITextMessage
         initViewNewChatView()
@@ -1058,17 +1065,24 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 }
                 else {
                     if isBotRoom(){
+                        messageCollectionBottomCollectionConstrains.constant = 50
+
                         self.btnMoney.isHidden = true
                         self.RightBarConstraints.constant = 38
                     }
                     else {
+                        messageCollectionBottomCollectionConstrains.constant = 0.0
                         self.btnMoney.isHidden = false
                         self.RightBarConstraints.constant = 70
                     }
                 }
             }
             
-            
+        case .channel:
+            messageCollectionBottomCollectionConstrains.constant = 50
+            self.btnMoney.isHidden = true
+            self.RightBarConstraints.constant = 38
+
         default:
             self.btnMoney.isHidden = true
             self.RightBarConstraints.constant = 38
@@ -1154,10 +1168,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         print("AAA || 5")
         if room!.isReadOnly {
             if room!.isParticipant == false {
-                inputBarContainerView.isHidden = true
+                mainHolder.isHidden = true
                 joinButton.isHidden = false
             } else {
-                inputBarContainerView.isHidden = true
+                mainHolder.isHidden = true
                 collectionViewTopInsetOffset = -54.0 + 8.0
             }
         }
@@ -1172,7 +1186,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             do {
                 let messagesCount = try! Realm().objects(IGRoomMessage.self).filter(predicate).count
                 if messagesCount == 0 {
-                    inputBarContainerView.isHidden = true
+                    mainHolder.isHidden = true
                     joinButton.isHidden = false
                     joinButton.setTitle("START".MessageViewlocalizedNew, for: UIControl.State.normal)
                     joinButton.layer.cornerRadius = 5
@@ -1567,7 +1581,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             if (room?.isReadOnly)! {
                 make.bottom.equalTo(self.view.snp.bottom).offset(-5)
             } else {
-                make.bottom.equalTo(inputBarContainerView.snp.top)
+                make.bottom.equalTo(mainHolder.snp.top)
             }
             make.height.equalTo(DOCTOR_BOT_HEIGHT)
         }
@@ -1762,7 +1776,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if !self.joinButton.isHidden {
             self.joinButton.isHidden = true
-            self.inputBarContainerView.isHidden = false
+            self.mainHolder.isHidden = false
         }
         
         if let chatRoom = self.room?.chatRoom {
@@ -3782,7 +3796,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         scrollToBottomContainerView.isHidden = true
         collectionView.isHidden = true
         chatBackground.isHidden = true
-        self.inputBarContainerView.isHidden = true
+        self.mainHolder.isHidden = true
         self.webView.isHidden = false
         self.view.endEditing(true)
         
@@ -3815,7 +3829,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     func closeWebView()  {
         collectionView.isHidden = false
         chatBackground.isHidden = false
-        self.inputBarContainerView.isHidden = false
+        self.mainHolder.isHidden = false
         self.webView.stopLoading()
         self.webView.isHidden = true
         
@@ -4010,7 +4024,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
             self.joinButton.isHidden = true
             
-            self.inputBarContainerView.isHidden = false
+            self.mainHolder.isHidden = false
             return
         }
         
@@ -5106,6 +5120,7 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         }
         
         //100 is an arbitrary number. can be anything
+        print(scrollView.contentOffset.y)
         if scrollView.contentOffset.y > 100 {
             self.scrollToBottomContainerView.isHidden = false
         } else {

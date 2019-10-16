@@ -22,7 +22,7 @@ class IGHelperShowToastAlertView {
     let window = UIApplication.shared.keyWindow
     
     static let shared = IGHelperShowToastAlertView()
-    
+    //inner view is for adding coonstraint to it
     func showPopAlert(view: UIViewController? = nil,innerView: UIView? = nil,  message: String? = nil, time: CGFloat! = 2.0 , type: helperToastType! = helperToastType.alert ) {
         DispatchQueue.main.async {
             var alertView = view
