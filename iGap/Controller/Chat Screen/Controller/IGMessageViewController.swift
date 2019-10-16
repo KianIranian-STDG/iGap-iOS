@@ -2274,54 +2274,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
     }
     
-    private func sendSeenForMessage(_ message: IGRoomMessage) {
-        if message.authorHash == IGAppManager.sharedManager.authorHash() || message.status == .seen {
-            return
-        }
-        switch finalRoomType! {
-        case .chat:
-            //if IGRecentsTableViewController.visibleChat[(room?.id)!]! {
-            IGChatUpdateStatusRequest.Generator.generate(roomID: finalRoomId, messageID: message.id, status: .seen).success({ (responseProto) in
-                switch responseProto {
-                case let response as IGPChatUpdateStatusResponse:
-                    IGChatUpdateStatusRequest.Handler.interpret(response: response)
-                default:
-                    break
-                }
-            }).error({ (errorCode, waitTime) in
-                
-            }).send()
-        //}
-        case .group:
-            //if IGRecentsTableViewController.visibleChat[(room?.id)!]! {
-            IGGroupUpdateStatusRequest.Generator.generate(roomID: finalRoomId, messageID: message.id, status: .seen).success({ (responseProto) in
-                switch responseProto {
-                case let response as IGPGroupUpdateStatusResponse:
-                    IGGroupUpdateStatusRequest.Handler.interpret(response: response)
-                default:
-                    break
-                }
-            }).error({ (errorCode, waitTime) in
-                
-            }).send()
-            //}
-            break
-        case .channel:
-            /*
-             if IGRecentsTableViewController.visibleChat[(room?.id)!]! {
-             if let message = self.messages?.last {
-             IGChannelGetMessagesStatsRequest.Generator.generate(messages: [message], room: self.room!).success({ (responseProto) in
-             
-             }).error({ (errorCode, waitTime) in
-             
-             }).send()
-             }
-             }
-             */
-            break
-        }
-    }
-    
     /* if send message state is enable show send button and hide sticker & record button */
     private func sendMessageState(enable: Bool){
         switch self.room!.type {

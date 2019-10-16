@@ -1465,58 +1465,6 @@ extension IGRecentsTableViewController {
             }
         }
     }
-    
-    private func sendSeenForReceivedMessage(roomId: Int64, roomType: IGRoom.IGType, message: IGPRoomMessage, status: IGPRoomMessageStatus) {
-        if message.igpAuthor.igpHash == IGAppManager.sharedManager.authorHash() || message.igpStatus == status || (message.igpStatus == .seen && status == .delivered) {
-            return
-        }
-        
-        var messageStatus: IGRoomMessageStatus = .seen
-        if status == .delivered {
-            messageStatus = .delivered
-        }
-        
-        switch roomType {
-        case .chat:
-            IGChatUpdateStatusRequest.Generator.generate(roomID: roomId, messageID: message.igpMessageID, status: messageStatus).success({ (responseProto) in
-                switch responseProto {
-                case let response as IGPChatUpdateStatusResponse:
-                    IGChatUpdateStatusRequest.Handler.interpret(response: response)
-                default:
-                    break
-                }
-            }).error({ (errorCode, waitTime) in
-                
-            }).send()
-        case .group:
-            IGGroupUpdateStatusRequest.Generator.generate(roomID: roomId, messageID: message.igpMessageID, status: messageStatus).success({ (responseProto) in
-                switch responseProto {
-                case let response as IGPGroupUpdateStatusResponse:
-                    IGGroupUpdateStatusRequest.Handler.interpret(response: response)
-                default:
-                    break
-                }
-            }).error({ (errorCode, waitTime) in
-                
-            }).send()
-            break
-        case .channel:
-            /*
-             if let message = self.messages?.last {
-             IGChannelGetMessagesStatsRequest.Generator.generate(messages: [message], room: self.room!).success({ (responseProto) in
-             
-             }).error({ (errorCode, waitTime) in
-             
-             }).send()
-             }
-             */
-            break
-        }
-    }
-    @objc
-    func didTapOnSearchBar(sender:UITapGestureRecognizer) {
-        print("taped")
-    }
 }
 
 
