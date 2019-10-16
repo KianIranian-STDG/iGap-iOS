@@ -50,6 +50,7 @@ class IGMessageLoader {
     private var forceFirstLoadUp = false // if exist 'unread' or 'savedScrollMessageId' set this param true for allow scroll top to load up message from local or server
     
     private var roomId: Int64 = 0
+    private var roomType: IGRoom.IGType!
     private var savedScrollMessageId: Int64 = 0 // should be load chat from a specific message if value is not zero
     private var biggestMessageId: Int64 = 0
     private var messageId: Int64 = 0 // if set messageId this value will be overrided on savedScrollMessageId
@@ -67,6 +68,7 @@ class IGMessageLoader {
     
     init(room: IGRoom) {
         self.roomId = room.id
+        self.roomType = room.type
         setUnreadCount(unreadCount: room.unreadCount)
         setFirstUnreadMessage(firstUnreadMessage: room.firstUnreadMessage)
         setSavedScrollMessageId(savedScrollMessageId: room.savedScrollMessageId)
@@ -371,7 +373,7 @@ class IGMessageLoader {
                 bottomMore = methodResult.hasMore
             }
             
-            var realmRoomMessages = methodResult.realmRoomMessages
+            let realmRoomMessages = methodResult.realmRoomMessages
             if (realmRoomMessages.count > 0) {
                 if (direction == .up) {
                     startFutureMessageIdUp = Int64(realmRoomMessages[realmRoomMessages.count - 1].id)
@@ -491,7 +493,7 @@ class IGMessageLoader {
                 
                 let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id >= %lld AND id <= %lld", roomId, startMessageId, endMessageId)
                 realmRoomMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sort)
-                IGHelperMessageStatus.shared.sendSeen(roomId: roomId, realmRoomMessages: realmRoomMessages.toArray())
+                IGHelperMessageStatus.shared.sendStatus(roomId: roomId, roomType: self.roomType, status: .seen, realmRoomMessages: realmRoomMessages.toArray())
                 
                 /**
                  * I do this for set addToView true

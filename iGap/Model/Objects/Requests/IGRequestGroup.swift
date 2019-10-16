@@ -408,7 +408,6 @@ class IGGroupUpdateStatusRequest : IGRequest {
                 updateMessageStatusMessage.igpStatus = .delivered
             case .seen:
                 updateMessageStatusMessage.igpStatus = .seen
-                IGFactory.shared.addOfflineSeen(roomId: roomID, messageId: messageID, status: updateMessageStatusMessage.igpStatus)
             default:
                 break
             }

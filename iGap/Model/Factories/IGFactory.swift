@@ -471,7 +471,7 @@ class IGFactory: NSObject {
     func updateMessageStatus(_ messageID: Int64, roomID: Int64, status: IGPRoomMessageStatus, statusVersion: Int64, updaterAuthorHash: String, response: IGPResponse) {
         
         if response.igpID.isEmpty { // update status isn't from current device
-            if IGAppManager.sharedManager.authorHash() == updaterAuthorHash && status == .seen {
+            if IGAppManager.sharedManager.authorHash() == updaterAuthorHash && status == .seen { // remove unread count if another account
                 markAllMessagesAsRead(roomId: roomID, clearId: messageID)
             }
         }
@@ -480,11 +480,14 @@ class IGFactory: NSObject {
             try! IGDatabaseManager.shared.realm.write {
                 let predicate = NSPredicate(format: "id = %lld AND roomId = %lld",messageID, roomID)
                 if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
+                    
+                    if status.hashValue <= messageInDb.hashValue { // don't send a status with lower level. e.g. when status is 'seen' don't send 'delivered'
+                        return
+                    }
+                    
                     switch status {
                     case .delivered:
-                        if status != .seen { // into the group or multi device can be happen
-                            messageInDb.status = .delivered
-                        }
+                        messageInDb.status = .delivered
                     case .sending:
                         messageInDb.status = .sending
                     case .sent:
@@ -1873,9 +1876,7 @@ class IGFactory: NSObject {
         }
     }
 
-    func addOfflineSeen(roomId: Int64, messageId: Int64, status: IGPRoomMessageStatus) {
-        if status != .seen {return}
-
+    func addOfflineSeen(roomId: Int64, messageId: Int64) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
                 IGDatabaseManager.shared.realm.add(IGRealmOfflineSeen(roomId: roomId, messageId: messageId))
