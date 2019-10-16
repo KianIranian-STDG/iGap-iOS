@@ -103,6 +103,46 @@ enum IGRoomMessageStatus: Int {
             return .unknown
         }
     }
+    
+    //TODO - find value from enum and don't use from switch case if is possible
+    static func fetchIGPValue(_ status: IGPRoomMessageStatus) -> Int {
+        switch status {
+        case .failed:
+            return 0
+        case .sending:
+            return 1
+        case .sent:
+            return 2
+        case .delivered:
+            return 3
+        case .seen:
+            return 4
+        case .listened:
+            return 5
+        default:
+            return -1
+        }
+    }
+    
+    //TODO - find value from enum and don't use from switch case if is possible
+    static func fetchIGValue(_ status: IGRoomMessageStatus) -> Int {
+        switch status {
+        case .failed:
+            return 0
+        case .sending:
+            return 1
+        case .sent:
+            return 2
+        case .delivered:
+            return 3
+        case .seen:
+            return 4
+        case .listened:
+            return 5
+        default:
+            return -1
+        }
+    }
 }
 
 public enum IGRoomMessageType: Int {

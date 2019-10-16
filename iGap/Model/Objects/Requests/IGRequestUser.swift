@@ -150,6 +150,7 @@ class IGUserLoginRequest : IGRequest {
     class Handler : IGRequest.Handler {
         
         class func intrepret(response responseProtoMessage: IGPUserLoginResponse) {
+            IGAppManager.sharedManager.setUserLoginSuccessful()
             IGAppManager.sharedManager.setAccessToken(accessToken: responseProtoMessage.igpAccessToken)
             AppDelegate.isUpdateAvailable = responseProtoMessage.igpUpdateAvailable
             AppDelegate.isDeprecatedClient = responseProtoMessage.igpDeprecatedClient
@@ -181,8 +182,6 @@ class IGUserLoginRequest : IGRequest {
                 CallManager.nativeCallManager()
             }
             
-            IGClientConditionRequest.allowSendClientCondition = true
-            IGClientConditionRequest.sendRequest(clientConditionRooms: IGClientCondition.computeClientCondition())
         }
         
         class func getToken(){

@@ -44,8 +44,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
         gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
-//        gradient.locations = orangeGradientLocation as [NSNumber]
-
         
         searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
         searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
@@ -54,41 +52,13 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
     }()
     
-    //    private func configureSearchController() {
-    //        let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
-    //        searchController = UISearchController(searchResultsController: lookAndFind)
-    //        searchController.searchResultsUpdater = self
-    //        searchController.dimsBackgroundDuringPresentation = false
-    //        searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
-    //        initialiseSearchBar()
-    //        setSearchBarGradient()
-    //        searchController.searchBar.delegate = self
-    //        searchController.searchBar.sizeToFit()
-    //
-    //        // Place the search bar view to the tableview headerview.
-    //        if #available(iOS 11.0, *) {
-    //            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
-    //
-    //            if navigationItem.searchController == nil {
-    //
-    //                tableView.tableHeaderView = searchController.searchBar
-    //            }
-    //        } else {
-    //            tableView.tableHeaderView = searchController.searchBar
-    //        }
-    //    }
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
         if #available(iOS 13.0, *) {
             if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true {
-                // appearance has changed
-                // Update your user interface based on the appearance
                 self.setSearchBarGradient()
             }
-        } else {
-            // Fallback on earlier versions
         }
     }
     
@@ -100,7 +70,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
         gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
-//        gradient.locations = orangeGradientLocation as [NSNumber]
         
         searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
         searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
@@ -339,10 +308,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
         self.tableView.bounces = false
         self.searchController.searchBar.delegate = self
-//        self.searchController.searchResultsUpdater = self
         self.tableView.contentOffset = CGPoint(x: 0, y: 55)
 
-//        initialiseSearchBar()
         IGRecentsTableViewController.forwardStartObserver = self
         IGRecentsTableViewController.messageReceiveDelegat = self
         self.tableView.register(IGRoomListtCell.self, forCellReuseIdentifier: cellId)
@@ -559,41 +526,35 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         }
         
         isLoadingMoreRooms = true
-        IGClientGetRoomListRequest.Generator.generate(offset: offset, limit: limit, identity: "identity").successPowerful ({ (responseProtoMessage, requestWrapper) in
+        IGClientGetRoomListRequest.Generator.generate(offset: offset, limit: limit).successPowerful ({ (responseProtoMessage, requestWrapper) in
             self.isLoadingMoreRooms = false
-            DispatchQueue.main.async {
-                
-                var newOffset: Int32!
-                var newLimit: Int32!
-                
-                if let getRoomListResponse = responseProtoMessage as? IGPClientGetRoomListResponse {
-                    if let getRoomListRequest = requestWrapper.message as? IGPClientGetRoomList {
-                        
-                        newOffset = Int32(getRoomListRequest.igpPagination.igpLimit)
-                        //                        newOffset = Int32(getRoomListRequest.igpPagination.igpLimit)
-                        newLimit = newOffset + Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)
-                        
-                        if getRoomListRequest.igpPagination.igpOffset == 0 { // is first page
-                            IGFactory.shared.markRoomsAsDeleted(igpRooms: getRoomListResponse.igpRooms)
-                            IGClientGetPromoteRequest.fetchPromotedRooms()
+            var newOffset: Int32!
+            var newLimit: Int32!
+            
+            if let getRoomListResponse = responseProtoMessage as? IGPClientGetRoomListResponse {
+                if let getRoomListRequest = requestWrapper.message as? IGPClientGetRoomList {
+                    
+                    newOffset = Int32(getRoomListRequest.igpPagination.igpLimit)
+                    newLimit = newOffset + Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)
+                    
+                    if getRoomListRequest.igpPagination.igpOffset == 0 { // is first page
+                        IGFactory.shared.markRoomsAsDeleted(igpRooms: getRoomListResponse.igpRooms)
+                        IGClientGetPromoteRequest.fetchPromotedRooms()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             IGClientConditionRequest.sendRequest(clientConditionRooms: clientConditionRooms!)
                         }
-                        
-                        if getRoomListResponse.igpRooms.count != 0 {
-                            self.allRoomsFetched = false
-                            self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse)
-                            self.fetchRoomList(offset: newOffset, limit: newLimit)
-                        } else {
-                            self.allRoomsFetched = true
-                            self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse, removeDeleted: true)
-                            self.saveAndSendContacts()
-                            /*
-                             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                             IGFactory.shared.removeDeletedRooms()
-                             IGFactory.shared.deleteShareInfo()
-                             }
-                             */
-                        }
+                    }
+                    
+                    if getRoomListResponse.igpRooms.count != 0 {
+                        self.allRoomsFetched = false
+                        self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse)
+                        self.fetchRoomList(offset: newOffset, limit: newLimit)
+                    } else {
+                        self.allRoomsFetched = true
+                        self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse, removeDeleted: true)
+                        self.saveAndSendContacts()
+                        IGFactory.shared.removeDeletedRooms()
+                        //IGFactory.shared.deleteShareInfo()
                     }
                 }
             }
@@ -1461,14 +1422,12 @@ extension IGRecentsTableViewController {
     
     func onMessageRecieveInRoomList(roomId: Int64, messages: [IGPRoomMessage]) {
         
-        let realm = try! Realm()
-        
         for message in messages {
             var roomType: IGRoom.IGType = .chat
-            var roomMessageStatus: IGPRoomMessageStatus = .delivered
+            var roomMessageStatus: IGRoomMessageStatus = .delivered
             
             let predicate = NSPredicate(format: "id = %lld", roomId)
-            if let roomInfo = realm.objects(IGRoom.self).filter(predicate).first {
+            if let roomInfo = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
                 if roomInfo.chatRoom != nil {
                     roomType = .chat
                 } else if roomInfo.groupRoom != nil {
@@ -1485,7 +1444,7 @@ extension IGRecentsTableViewController {
             }
             
             manageUnreadMessage(roomId: roomId, roomType: roomType, message: message)
-            sendSeenForReceivedMessage(roomId: roomId, roomType: roomType, message: message, status: roomMessageStatus)
+            IGHelperMessageStatus.shared.sendStatus(roomId: roomId, roomType: roomType, status: roomMessageStatus, roomMessages: [message])
         }
     }
     
@@ -1562,25 +1521,11 @@ extension IGRecentsTableViewController {
 
 
 extension IGRecentsTableViewController {
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let remaining = scrollView.contentSize.height - (scrollView.frame.size.height + scrollView.contentOffset.y)
-        let lastContentOffset = scrollView.contentOffset.y
-
-        if remaining < 100 {
-            //self.loadMoreRooms()
-        }
-        if lastContentOffset <= 0 {
-//            initialiseSearchBar()
-        }
-    }
     
     private func initialiseSearchBar() {
-        
         if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
             textField.backgroundColor = .clear
 
-//            let imageV = textField.leftView as! UIImageView
-//            imageV.image = nil
             if let backgroundview = textField.subviews.first {
                 backgroundview.backgroundColor = UIColor(named: themeColor.searchBarBackGroundColor.rawValue)
                 for view in backgroundview.subviews {
@@ -1588,7 +1533,6 @@ extension IGRecentsTableViewController {
                 }
                 backgroundview.layer.cornerRadius = 10;
                 backgroundview.clipsToBounds = true;                
-                
             }
 
             if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
@@ -1606,9 +1550,7 @@ extension IGRecentsTableViewController {
                     placeHolderInsideSearchField.center = backgroundview.center
                 }
                 placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15, weight: .bold)
-                
             }
-            
         }
     }
 }

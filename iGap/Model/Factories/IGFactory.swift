@@ -469,11 +469,8 @@ class IGFactory: NSObject {
     
     //for an already sent message (sent -> delivered -> seen)
     func updateMessageStatus(_ messageID: Int64, roomID: Int64, status: IGPRoomMessageStatus, statusVersion: Int64, updaterAuthorHash: String, response: IGPResponse) {
-        
-        if response.igpID.isEmpty { // update status isn't from current device
-            if IGAppManager.sharedManager.authorHash() == updaterAuthorHash && status == .seen { // remove unread count if another account
-                markAllMessagesAsRead(roomId: roomID, clearId: messageID)
-            }
+        if IGAppManager.sharedManager.authorHash() == updaterAuthorHash && status == .seen {
+            markAllMessagesAsRead(roomId: roomID, clearId: messageID)
         }
         
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
@@ -481,7 +478,7 @@ class IGFactory: NSObject {
                 let predicate = NSPredicate(format: "id = %lld AND roomId = %lld",messageID, roomID)
                 if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
                     
-                    if status.hashValue <= messageInDb.hashValue { // don't send a status with lower level. e.g. when status is 'seen' don't send 'delivered'
+                    if IGRoomMessageStatus.fetchIGPValue(status) > IGRoomMessageStatus.fetchIGValue(messageInDb.status) { // don't write a status with lower level. e.g. when status is 'seen' don't write 'delivered'
                         return
                     }
                     

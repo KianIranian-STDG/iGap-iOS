@@ -1252,7 +1252,18 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let tapOnMessageTextView = UITapGestureRecognizer(target: self, action: #selector(didTapOnInputTextView))
         messageTextView.addGestureRecognizer(tapOnMessageTextView)
         messageTextView.isUserInteractionEnabled = true
-        startLoadMessage()
+        
+        if let messageId = self.deepLinkMessageId {
+            // need to make 'IGMessageLoader' for first time
+            if messageLoader == nil {
+                messageLoader = IGMessageLoader(room: self.room!)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.goToPosition(messageId: messageId)
+            }
+        } else {
+            startLoadMessage()
+        }
         initiconFonts()
 
     }
@@ -2258,13 +2269,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 let sortProperties = [SortDescriptor(keyPath: "id", ascending: false)]
                 let realmRoomMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
                 let finalMessages = realmRoomMessages.toArray()
-                
-                if finalMessages.count == 0 {return}
-                let seenMessages = finalMessages//.chunks(100)[0]
-                
-                seenMessages.forEach{
-                    self.sendSeenForMessage($0)
-                }
+                IGHelperMessageStatus.shared.sendStatus(roomId: roomId, status: .seen, realmRoomMessages: finalMessages)
             }
         }
     }
