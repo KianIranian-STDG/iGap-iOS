@@ -1039,7 +1039,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
         }
         tmpUserID  =  self.room?.chatRoom?.peer?.id
-        print("AAA || 2")
         switch self.room!.type {
             
         case .chat:
@@ -1165,7 +1164,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         //            }
         //        }
         
-        print("AAA || 5")
         if room!.isReadOnly {
             if room!.isParticipant == false {
                 mainHolder.isHidden = true
