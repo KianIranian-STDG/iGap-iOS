@@ -380,19 +380,19 @@ class IGHelperAlert {
     }
     
     //MARK: - constraints funcs
-    private func setConstraintsToCustomAlert(customView: UIView!,customAlertView: UIView!) {
+    private func setConstraintsToCustomAlert(customView: UIView!,view: UIViewController? = nil) {
         customView.translatesAutoresizingMaskIntoConstraints = false
         customView.heightAnchor.constraint(equalToConstant: 150).isActive = true
         customView.widthAnchor.constraint(equalToConstant: 250).isActive = true
-        customView.centerXAnchor.constraint(equalTo: customAlertView.centerXAnchor, constant: 0).isActive = true
+        customView.centerYAnchor.constraint(equalTo: view!.view!.centerYAnchor, constant: 0).isActive = true
+        customView.centerXAnchor.constraint(equalTo: view!.view!.centerXAnchor, constant: 0).isActive = true
     }
 
-    private func setConstraintsToIconView(customView: UIView!,view: UIViewController? = nil) {
+    private func setConstraintsToIconView(customView: UIView!,customAlertView: UIView!) {
         customView.translatesAutoresizingMaskIntoConstraints = false
         customView.heightAnchor.constraint(equalToConstant: 80).isActive = true
         customView.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        customView.centerYAnchor.constraint(equalTo: view!.view!.centerYAnchor, constant: 0).isActive = true
-        customView.centerXAnchor.constraint(equalTo: view!.view!.centerXAnchor, constant: 0).isActive = true
+        customView.centerXAnchor.constraint(equalTo: customAlertView.centerXAnchor, constant: 0).isActive = true
     }
 
     private func setConstraintsToButtonsStackView(customStack: UIStackView!,customAlertView: UIView!) {
