@@ -3495,11 +3495,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
-        let cardToCardRequest = UIAlertAction(title: "CARD_TO_CARD_REQUEST".MessageViewlocalizedNew, style: .default, handler: { (action) in
-            self.isCardToCardRequestEnable = true
-            self.manageCardToCardInputBar()
-        })
-        
         let camera = UIAlertAction(title: "CAMERA_DEVICE".MessageViewlocalizedNew, style: .default, handler: { (action) in
             self.attachmentPicker(screens: [.photo, .video])
         })
@@ -3523,9 +3518,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         let cancel = UIAlertAction(title: "CANCEL_BTN".MessageViewlocalizedNew, style: .cancel, handler: nil)
         
-        if allowCardToCard() {
-            alertC.addAction(cardToCardRequest)
-        }
         alertC.addAction(camera)
         alertC.addAction(galley)
         alertC.addAction(document)
