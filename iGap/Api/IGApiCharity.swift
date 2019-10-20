@@ -41,11 +41,11 @@ class IGApiCharity: IGApiBase {
                 let json = JSON(value)
                 guard let token = json["token"].string else {
                     guard let message = json["message"].string else {
-                        IGHelperAlert.shared.showErrorAlert()
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                         completion(false, nil)
                         return
                     }
-                    IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: message)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
                     completion(false, nil)
                     return
                 }
@@ -53,7 +53,7 @@ class IGApiCharity: IGApiBase {
                 
             case .failure(let error):
                 print(error.localizedDescription)
-                IGHelperAlert.shared.showErrorAlert()
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                 completion(false, nil)
             }
         }

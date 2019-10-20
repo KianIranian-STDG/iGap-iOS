@@ -132,9 +132,21 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
     private func setActivity(plancode: String){
         IGUserIVandSetActivityRequest.Generator.generate(plancode: plancode).success({ (protoResponse) in
             if let response = protoResponse as? IGPUserIVandSetActivityResponse {
-                IGHelperAlert.shared.showSuccessAlert(message: response.igpMessage, success: response.igpState, done: { () -> Void in
-                    self.navigationController!.popViewController(animated: true)
-                })
+                
+                switch response.igpState {
+                case true :
+                    
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: true ,showCancelButton: false, message: response.igpMessage, doneText: "GLOBAL_OK".localizedNew,done: {
+                        self.navigationController!.popViewController(animated: true)
+                        })
+                    break
+                default :
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: true ,showCancelButton: false, message: response.igpMessage, doneText: "GLOBAL_OK".localizedNew,done: {
+                        self.navigationController!.popViewController(animated: true)
+                        })
+
+                    
+                }
             }
         }).error({ (errorCode, waitTime) in
             switch errorCode {
@@ -142,11 +154,19 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
                 IGHelperAlert.shared.showAlert(view: self, message: "The entered code is invalid!", done: { () -> Void in
                     self.navigationController!.popViewController(animated: true)
                 })
+
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: true ,showCancelButton: false, message: "MSG_THE_CODE_INVALID".localizedNew, doneText: "GLOBAL_OK".localizedNew,done: {
+                    self.navigationController!.popViewController(animated: true)
+                })
                 break
             default:
                 IGHelperAlert.shared.showSuccessAlert(message: "an error occurred for set new activity!\n please try again later!", success: false, done: { () -> Void in
                     self.navigationController!.popViewController(animated: true)
                 })
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: false, message: "UNSSUCCESS_OTP".localizedNew, doneText: "GLOBAL_OK".localizedNew,done: {
+                    self.navigationController!.popViewController(animated: true)
+                })
+
                 break
             }
         }).send()

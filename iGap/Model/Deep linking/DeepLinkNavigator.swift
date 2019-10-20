@@ -98,7 +98,7 @@ class DeeplinkNavigator {
             IGGlobal.prgHide()
             if isSuccess {
                 guard let paymentStatus = paymentStatus else {
-                    IGHelperAlert.shared.showErrorAlert()
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                     return
                 }
                 if paymentView.payToken != nil {
@@ -110,7 +110,7 @@ class DeeplinkNavigator {
                 
             } else {
                 paymentView.hideView()
-                IGHelperAlert.shared.showErrorAlert()
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
             }
         }
     }

@@ -278,12 +278,14 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
         }
         
         if (phoneNumber.count) < 11 || !phoneNumber.isNumber ||  (operatorDictionary[(phoneNumber.substring(offset: 4))] == nil) {
-            IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "PHONE_NUMBER_WRONG".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "PHONE_NUMBER_WRONG".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
             return
         }
         
         if selectedCategory == nil || selectedPackage == nil {
-            IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "CHECK_ALL_FIELDS".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
             return
         }
         
@@ -301,10 +303,11 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
                         let paymentView = IGPaymentView.sharedInstance
                         if success {
                             guard let paymentData = payment else {
-                                IGHelperAlert.shared.showErrorAlert()
+                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                                 return
                             }
                             paymentView.show(on: UIApplication.shared.keyWindow!, title: "BUY_INTERNET_PACKAGE".InternetPackageLocalization, payToken: token, payment: paymentData)
+                            
                         } else {
                             
                             paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: "BUY_INTERNET_PACKAGE".InternetPackageLocalization, message: errorMessage ?? "", payToken: token)
@@ -336,7 +339,8 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
                 
                 if operatorType != .mci {
                     self.view.endEditing(true)
-                    IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "BUY_INTERNET_PACKAGE_IS_ONLY_POSSIBLE_FOR_MCI_USERS".InternetPackageLocalization)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "BUY_INTERNET_PACKAGE_IS_ONLY_POSSIBLE_FOR_MCI_USERS".InternetPackageLocalization, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                     return true
                 }
                 

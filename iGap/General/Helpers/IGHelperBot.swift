@@ -330,7 +330,7 @@ class IGHelperBot {
                 
             case IGPDiscoveryField.IGPButtonActionType.payDirect.rawValue :
                 guard let jsonValue = structAdditional.valueJson as? String, let json = jsonValue.toJSON() as? [String:AnyObject], let token = json["token"] as? String else {
-                    IGHelperAlert.shared.showErrorAlert()
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                     break
                 }
                 IGGlobal.prgShow()
@@ -340,7 +340,7 @@ class IGHelperBot {
                     
                     if success {
                         guard let paymentData = payment else {
-                            IGHelperAlert.shared.showErrorAlert()
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                             return
                         }
                         

@@ -360,7 +360,7 @@ extension IGiGapBrowser: WKScriptMessageHandler {
                 let paymentView = IGPaymentView.sharedInstance
                 if success {
                     guard let paymentData = payment else {
-                        IGHelperAlert.shared.showErrorAlert()
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                         return
                     }
                     paymentView.show(on: UIApplication.shared.keyWindow!, title: self.pageTitle, payToken: message.body as! String, payment: paymentData)

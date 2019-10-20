@@ -52,25 +52,24 @@ class IGApiInternetPackage: IGApiBase {
                     let classData = try JSONDecoder().decode([FailableDecodable<IGStructInternetCategory>].self, from: value).compactMap { $0.base }
                     completion(true, classData)
                 } catch let error {
-                    print(error.localizedDescription)
-                    IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "unable to decode data")
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                     completion(false, nil)
                 }
                 
             case .failure(let error):
                 guard let data = response.data else {
-                    IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "unable to get data")
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                     completion(false, nil)
                     return
                 }
                 let json = try? JSON(data: data)
                 guard let message = json?["message"].string else {
                     print(error.localizedDescription)
-                    IGHelperAlert.shared.showErrorAlert()
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                     completion(false, nil)
                     return
                 }
-                IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: message)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
                 completion(false, nil)
             }
         }
@@ -88,13 +87,13 @@ class IGApiInternetPackage: IGApiBase {
                     let classData = try JSONDecoder().decode(IGStructInternetPackageCategorized.self, from: value)
                     completion(true, classData)
                 } catch {
-                    IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "unable to decode data")
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                     completion(false, nil)
                 }
                 
             case .failure(let error):
                 guard let data = response.data else {
-                    IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "unable to get data")
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                     completion(false, nil)
                     return
                 }
@@ -105,7 +104,7 @@ class IGApiInternetPackage: IGApiBase {
                     completion(false, nil)
                     return
                 }
-                IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: message)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
                 completion(false, nil)
             }
         }
@@ -123,11 +122,11 @@ class IGApiInternetPackage: IGApiBase {
                 let json = JSON(value)
                 guard let token = json["token"].string else {
                     guard let message = json["message"].string else {
-                        IGHelperAlert.shared.showErrorAlert()
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                         completion(false, nil)
                         return
                     }
-                    IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: message)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                     completion(false, nil)
                     return
                 }
@@ -135,7 +134,7 @@ class IGApiInternetPackage: IGApiBase {
                 
             case .failure(let error):
                 print(error.localizedDescription)
-                IGHelperAlert.shared.showErrorAlert()
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                 completion(false, nil)
             }
         }

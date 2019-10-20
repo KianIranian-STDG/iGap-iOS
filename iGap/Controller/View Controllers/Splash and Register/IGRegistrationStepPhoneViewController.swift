@@ -183,8 +183,8 @@ class IGRegistrationStepPhoneViewController: UIViewController {
             didTapOnSubmit()
         }
         else {
-            let message = "MSG_PRIVACY_AGREEMENT".localizedNew
-            IGHelperAlert.shared.showAlert(message: message)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PRIVACY_AGREEMENT".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
         }
     }
     

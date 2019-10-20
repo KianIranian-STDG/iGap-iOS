@@ -3268,7 +3268,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if MoneyInputModal != nil {
             if MoneyInputModal.inputTF.text == "" ||  MoneyInputModal.inputTF.text == nil {
-                IGHelperAlert.shared.showAlert(message: "FILL_AMOUNT".MessageViewlocalizedNew)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: "FILL_AMOUNT".MessageViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
             }
             else {
                 self.hideMoneyTransactionModal()
@@ -3299,7 +3300,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if CardToCardModal != nil {
             if CardToCardModal.inputTFOne.text == "" ||  CardToCardModal.inputTFOne.text == nil || CardToCardModal.inputTFTwo.text == "" ||  CardToCardModal.inputTFTwo.text == nil || CardToCardModal.inputTFThree.text == "" ||  CardToCardModal.inputTFThree.text == nil {
-                IGHelperAlert.shared.showAlert(message: "FILL_AMOUNT".MessageViewlocalizedNew)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "FILL_AMOUNT".MessageViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
             } else {
                 
                 let messageText = CardToCardModal.inputTFOne.text!.substring(offset: MAX_TEXT_LENGHT)

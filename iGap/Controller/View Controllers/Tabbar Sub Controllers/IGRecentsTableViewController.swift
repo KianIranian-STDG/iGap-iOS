@@ -145,9 +145,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
         navigationItem.rightViewContainer?.addAction {
             self.showAlertOptions()
-//            IGHelperAlert.shared.showCustomAlert(view: self, title: "",doneText:"GLOBAL_DONE".localizedNew,cancelText:"GLOBAL_CLOSE".localizedNew,done: {
-//                print("CLICKED ON DONE")
-//            })
         }
     }
     

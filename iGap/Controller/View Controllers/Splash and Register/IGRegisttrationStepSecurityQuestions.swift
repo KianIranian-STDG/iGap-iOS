@@ -82,6 +82,7 @@ class IGRegisttrationStepSecurityQuestions: UIViewController,UIGestureRecognizer
     @IBAction func didTapOnSubmit(_ sender: Any) {
         if (tfSecQOne.text == "" || tfSecQOne.text!.isEmpty) || (tfSecQTwo.text == "" || tfSecQTwo.text!.isEmpty) {
             IGHelperAlert.shared.showAlert(view: self,message: IGStringsManager.RGP_MSG_ANSWERS_WAS_EMPTY.localized)
+            
 //            IGHelperAlert.shared.showAlert(view: self,message: IGStringsManager.RGP_MSG_ANSWERS_WAS_WRONG)
 
         } else {

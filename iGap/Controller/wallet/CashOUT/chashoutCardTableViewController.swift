@@ -404,7 +404,8 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
     @IBAction func btnPayTap(_ sender: Any) {
         if currentRole != "admin" {
             if tfAmount.text == nil || tfCardNumber.text == nil || tfAmount.text == "" || tfCardNumber.text == "" {
-                IGHelperAlert.shared.showAlert(message: "CHECK_ALL_FIELDS".localizedNew)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                 
             }
             else {
@@ -430,8 +431,8 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         }else {
 
             if tfAmount.text == nil || tfAmount.text == ""  {
-                IGHelperAlert.shared.showAlert(message: "CHECK_ALL_FIELDS".localizedNew)
-                
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
             }
             else {
                 let amount : Int! =  Int((tfAmount.text!.onlyDigitChars()).inEnglishNumbersNew())

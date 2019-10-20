@@ -250,7 +250,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
         
         
         if pollInfo.igpClicked {
-            IGHelperAlert.shared.showAlert(message: "MSG_U_HAVE_ALREADY_VOTED".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_U_HAVE_ALREADY_VOTED".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
         }
         else {
             if pollInfo.igpClickable {
@@ -308,8 +308,8 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                         IGPClientSetPollItemClickRequest.sendRequest(itemId: pollInfo.igpID)
                         break
                     case .selectIsBiggerThanMax:
-                        IGHelperAlert.shared.showAlert(message: "MSG_U_HAVE_REACHED_VOTE_LIMIT".localizedNew)
-                        
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_U_HAVE_REACHED_VOTE_LIMIT".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                         break
                     default:
                         break
@@ -414,7 +414,8 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                 
             }
         case .showAlert:
-            IGHelperAlert.shared.showAlert(message: discoveryInfo.igpValue)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: discoveryInfo.igpValue, cancelText: "GLOBAL_CLOSE".localizedNew)
+
             return
             
         case .page:

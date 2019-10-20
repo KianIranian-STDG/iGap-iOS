@@ -336,7 +336,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate{//, Merc
                         let paymentView = IGPaymentView.sharedInstance
                         if success {
                             guard let paymentData = payment else {
-                                IGHelperAlert.shared.showErrorAlert()
+                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                                 return
                             }
                             paymentView.show(on: UIApplication.shared.keyWindow!, title: "MCI_CHARGE".localizedNew, payToken: token, payment: paymentData)

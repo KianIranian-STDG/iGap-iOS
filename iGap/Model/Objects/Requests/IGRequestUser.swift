@@ -1470,7 +1470,17 @@ class IGUserIVandSetActivityRequest: IGRequest {
         IGUserIVandSetActivityRequest.Generator.generate(plancode: plancode).success({ (protoResponse) in
             IGGlobal.prgHide()
             if let response = protoResponse as? IGPUserIVandSetActivityResponse {
-                IGHelperAlert.shared.showSuccessAlert(message: response.igpMessage, success: response.igpState, done: nil)
+                switch response.igpState {
+                case true :
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: response.igpMessage, cancelText: "GLOBAL_CLOSE".localizedNew)
+
+                    break
+                default :
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: response.igpMessage, cancelText: "GLOBAL_CLOSE".localizedNew)
+
+                    
+                }
+
             }
         }).error({ (errorCode, waitTime) in
             IGGlobal.prgHide()

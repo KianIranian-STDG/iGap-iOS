@@ -83,7 +83,7 @@ class addNewCardTableViewController: BaseTableViewController , UITextFieldDelega
             
         }
         else {
-            IGHelperAlert.shared.showAlert(message: "CHECK_ALL_FIELDS".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
         }
         
        
