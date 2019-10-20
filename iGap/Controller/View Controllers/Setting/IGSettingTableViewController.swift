@@ -269,12 +269,7 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         present(DeleteAccountAlertView, animated: true, completion: nil)
     }
     private func deleteAccountProcess() {
-        IGHelperAlert.shared.showDeleteAccountAlert(title: "TTL_ATTENTION".localizedNew, cancel: {
-            self.dismiss(animated: true, completion: nil)
-        }, done: {
-            self.dismiss(animated: true, completion: nil)
-            
-        })
+
         IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "TTL_ATTENTION".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "SURE_DELETE".localizedNew,doneText: "GLOBAL_OK".localizedNew ,cancelText: "GLOBAL_CLOSE".localizedNew,cancel: {
             self.dismiss(animated: true, completion: nil)
         }, done: {

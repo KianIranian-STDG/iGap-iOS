@@ -734,10 +734,10 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                     AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
-                    IGHelperAlert.shared.showAlert(data: discoveryInfo.igpValue)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: discoveryInfo.igpValue, cancelText: "GLOBAL_CLOSE".localizedNew)
                 }
             } else {
-                IGHelperAlert.shared.showAlert(data: discoveryInfo.igpValue)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: discoveryInfo.igpValue, cancelText: "GLOBAL_CLOSE".localizedNew)
             }
         case .walletMenu:
             

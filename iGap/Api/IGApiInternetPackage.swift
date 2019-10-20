@@ -99,8 +99,8 @@ class IGApiInternetPackage: IGApiBase {
                 }
                 let json = try? JSON(data: data)
                 guard let message = json?["message"].string else {
-                    print(error.localizedDescription)
-                    IGHelperAlert.shared.showErrorAlert()
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                     completion(false, nil)
                     return
                 }
