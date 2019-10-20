@@ -579,6 +579,12 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         return 1
     }
     
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let vw = UIView()
+        vw.backgroundColor = UIColor.red
+
+        return vw
+    }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.rooms!.count
     }

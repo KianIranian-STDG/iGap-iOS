@@ -34,6 +34,7 @@
 		8E25A7C522674BB6004A5BC0 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25A7C422674BB6004A5BC0 /* BaseTableViewController.swift */; };
 		8E25A7C722674BC8004A5BC0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */; };
 		8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */; };
+		8E3C6D23235C5FC300723E4A /* IGHelperMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C6D22235C5FC300723E4A /* IGHelperMusicPlayer.swift */; };
 		8E3FA9EF2333A10C0053816A /* IGProfileGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3FA9EE2333A10C0053816A /* IGProfileGroupViewController.swift */; };
 		8E4177F3233CDABD00CEB3AF /* AKMaskFieldBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4177EB233CDABC00CEB3AF /* AKMaskFieldBlock.swift */; };
 		8E4177F4233CDABD00CEB3AF /* AKMaskFieldEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4177EC233CDABC00CEB3AF /* AKMaskFieldEvent.swift */; };
@@ -835,6 +836,7 @@
 		8E25A7C422674BB6004A5BC0 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customYearTextfield.swift; sourceTree = "<group>"; };
+		8E3C6D22235C5FC300723E4A /* IGHelperMusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperMusicPlayer.swift; sourceTree = "<group>"; };
 		8E3FA9EE2333A10C0053816A /* IGProfileGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileGroupViewController.swift; sourceTree = "<group>"; };
 		8E4177EB233CDABC00CEB3AF /* AKMaskFieldBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMaskFieldBlock.swift; sourceTree = "<group>"; };
 		8E4177EC233CDABC00CEB3AF /* AKMaskFieldEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMaskFieldEvent.swift; sourceTree = "<group>"; };
@@ -2393,6 +2395,7 @@
 				8ECC183C222FEF9B006E43E8 /* IGHelperBankModel.swift */,
 				FA77E0FC2261E9D4008D6D25 /* IGHelperNearby.swift */,
 				FA6C2DE622673B21005654AC /* IGHelperAlert.swift */,
+				8E3C6D22235C5FC300723E4A /* IGHelperMusicPlayer.swift */,
 				FA6F310E22B8A90500DB942E /* IGHelperTracker.swift */,
 				FA5B41A422EDD67D001203D0 /* IGHelperMessageStatus.swift */,
 				FA87B94B22BFB46100200650 /* IGHelperMessage.swift */,
@@ -4056,6 +4059,7 @@
 				8E62FFC9233F7B8E006DD56B /* T1ViewController.swift in Sources */,
 				8EBF550222D9B60D00834E6A /* ArrayExtension.swift in Sources */,
 				8E96A31E225C902B007D8A77 /* SMRecieptView.swift in Sources */,
+				8E3C6D23235C5FC300723E4A /* IGHelperMusicPlayer.swift in Sources */,
 				FA6B602E201E0483008460CF /* CellSizeCalculator.swift in Sources */,
 				FA0953651E1B97700043ED3F /* IGSettingNotificationTableViewController.swift in Sources */,
 				8EEE895622A3CF360072383C /* DropUpMenu.swift in Sources */,

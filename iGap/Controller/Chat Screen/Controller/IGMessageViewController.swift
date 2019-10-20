@@ -287,9 +287,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if shouldShow {
             
             UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
-                self.btnSticker.isHidden = false
-                self.btnStickerWidthConstraint.constant = 25.0
-                
+                if !self.isBotRoom() {
+                    self.btnSticker.isHidden = false
+                    self.btnStickerWidthConstraint.constant = 25.0
+                }
+
             }, completion: {
                 (value: Bool) in
                 self.view.layoutIfNeeded()
@@ -299,7 +301,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
             UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
                 self.btnSticker.isHidden = true
-                
                 self.btnStickerWidthConstraint.constant = 0.0
                 
             }, completion: {
@@ -311,7 +312,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     ///Handle Show hide of trash button
     func handleShowHideTrashButton(shouldShow : Bool!) {
         if shouldShow {
-            btnTrash.isHidden = false
+            if !isBotRoom() {
+                btnTrash.isHidden = false
+            }
         } else {
             btnTrash.isHidden = true
             
@@ -320,7 +323,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     ///Handle Show hide of forward button
     func handleShowHideForwardButton(shouldShow : Bool!) {
         if shouldShow {
-            btnForward.isHidden = false
+            if !isBotRoom() {
+                btnForward.isHidden = false
+            }
         } else {
             btnForward.isHidden = true
         }
@@ -328,6 +333,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     ///Handle Show hide of attachment button
     func handleShowHideAttachmentButton(shouldShow : Bool!) {
         if shouldShow {
+
             btnAttachment.isHidden = false
         } else {
             btnAttachment.isHidden = true
@@ -359,7 +365,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     ///Handle Show hide of Money button
     func handleShowHideMoneyButton(shouldShow : Bool!) {
         if shouldShow {
-            btnMoney.isHidden = false
+            if !isBotRoom() {
+                btnMoney.isHidden = false
+            }
         } else {
             btnMoney.isHidden = true
         }
@@ -377,7 +385,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     ///Handle Show hide of share button
     func handleShowHideShareButton(shouldShow : Bool!) {
         if shouldShow {
-            btnShare.isHidden = false
+            if !isBotRoom() {
+                btnShare.isHidden = false
+            }
         } else {
             btnShare.isHidden = true
         }
@@ -1029,13 +1039,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             btnMoney.isHidden = true
         } else {
             if isBotRoom(){
-                RightBarConstraints.constant = 38
                 btnMoney.isHidden = true
-                
+                btnSticker.isHidden = true
+                self.btnStickerWidthConstraint.constant = 0.0
+
             }
             else {
-                RightBarConstraints.constant = 70
                 btnMoney.isHidden = false
+                btnSticker.isHidden = false
+                self.btnStickerWidthConstraint.constant = 25.0
+
             }
         }
         tmpUserID  =  self.room?.chatRoom?.peer?.id

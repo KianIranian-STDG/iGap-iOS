@@ -10,10 +10,10 @@
 
 import IGProtoBuff
 import RealmSwift
-//import PecPayment
+import PecPayment
 var cardToCardTapCount : Int!
 
-class IGHelperFinancial: NSObject{//, CardToCardResult,MerchantResultObserver {
+class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
     
     static let shared = IGHelperFinancial()
     
@@ -111,9 +111,9 @@ class IGHelperFinancial: NSObject{//, CardToCardResult,MerchantResultObserver {
             
             if let mplGetCardToCardToken = protoResponse as? IGPMplGetCardToCardTokenResponse {
                 DispatchQueue.main.async {
-//                    InitCardToCard().initCardToCard(Token: mplGetCardToCardToken.igpToken,
-//                                                    MerchantVCArg: UIApplication.topViewController()!,
-//                                                    callback: self)
+                    InitCardToCard().initCardToCard(Token: mplGetCardToCardToken.igpToken,
+                                                    MerchantVCArg: UIApplication.topViewController()!,
+                                                    callback: self)
                 }
             }
         }).error ({ (errorCode, waitTime) in
@@ -130,9 +130,9 @@ class IGHelperFinancial: NSObject{//, CardToCardResult,MerchantResultObserver {
             
             if let mplGetCardToCardToken = protoResponse as? IGPMplGetCardToCardTokenResponse {
                 DispatchQueue.main.async {
-//                    InitCardToCard().initCardToCard(Token: mplGetCardToCardToken.igpToken,
-//                                                    MerchantVCArg: UIApplication.topViewController()!,
-//                                                    callback: self, amount:(((amount))!) , destinationCard: destinationCard!)
+                    InitCardToCard().initCardToCard(Token: mplGetCardToCardToken.igpToken,
+                                                    MerchantVCArg: UIApplication.topViewController()!,
+                                                    callback: self, amount:(((amount))!) , destinationCard: destinationCard!)
                 }
             }
         }).error ({ (errorCode, waitTime) in
@@ -145,11 +145,11 @@ class IGHelperFinancial: NSObject{//, CardToCardResult,MerchantResultObserver {
         IGMplGetSalesToken.Generator.generate(inquery: inquery, amount: amount , toUserId: toUserId , invoiceNUmber: invoiceNUmber , description: description).success({ (protoResponse) in
             IGGlobal.prgHide()
             if let response = protoResponse as? IGPMplGetSalesTokenResponse {
-//                let initpayment = InitPayment()
-//                initpayment.registerPay(merchant: self)
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//                    initpayment.initPay(Token: response.igpToken, MerchantVCArg: UIApplication.topViewController()!, TSPEnabled: 0)
-//                }
+                let initpayment = InitPayment()
+                initpayment.registerPay(merchant: self)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    initpayment.initPay(Token: response.igpToken, MerchantVCArg: UIApplication.topViewController()!, TSPEnabled: 0)
+                }
             }
         }).error ({ (errorCode, waitTime) in
             IGGlobal.prgHide()
