@@ -108,6 +108,7 @@
         "PAYMENT_MESSAGE" : "Payment Message",
         "CARD_TO_CARD_MESSAGE" : "Card to Card Message",
         "UNKNOWN_MESSAGE" : "Unknown Message",
+        "UNKNOWN_ARTIST" : "Unknown Artist",
         "CONTACT_MESSAGE" : "Contact Message",
         "LOCATION_MESSAGE" : "Location Message",
         "NO_NETWORK" : "No network Connection",

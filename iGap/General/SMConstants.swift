@@ -25,6 +25,9 @@ struct SMConstants {
 }
 struct EventBusManager {
     
+    static let stopMusicPlayer = "stopMusicPlayer"
+    static let playMusicPlayer = "playMusicPlayer"
+    static let updateMediaTimer = "updateMediaTimer"
     static let hideTopMusicPlayer = "showMusicTopPlayer"
     static let showTopMusicPlayer = "hideMusicTopPlayer"
 }

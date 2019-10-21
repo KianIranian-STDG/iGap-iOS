@@ -1912,6 +1912,13 @@
                                     </view>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jME-kX-MJ0">
+                                <rect key="frame" x="0.0" y="88" width="414" height="0.0"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="oAh-4r-ww2"/>
+                                </constraints>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="TPG-e4-S3m">
                                 <rect key="frame" x="0.0" y="88" width="414" height="0.0"/>
                                 <subviews>
@@ -2015,7 +2022,7 @@
                         <constraints>
                             <constraint firstItem="lfs-sg-eWx" firstAttribute="width" secondItem="dyh-H7-OPt" secondAttribute="width" constant="-14" id="1Dg-2x-ein"/>
                             <constraint firstItem="uLc-FX-WjP" firstAttribute="leading" secondItem="ziz-lj-PYe" secondAttribute="leading" constant="5" id="62H-fk-IXR"/>
-                            <constraint firstItem="TPG-e4-S3m" firstAttribute="top" secondItem="v1Y-Qo-n3M" secondAttribute="bottom" id="6GG-IO-WAj"/>
+                            <constraint firstItem="jME-kX-MJ0" firstAttribute="leading" secondItem="ziz-lj-PYe" secondAttribute="leading" id="6Q1-GP-pt9"/>
                             <constraint firstItem="4eQ-gi-PNj" firstAttribute="trailing" secondItem="9G6-WI-YVj" secondAttribute="trailing" id="74i-Qd-PtK"/>
                             <constraint firstItem="LOj-Lj-q1z" firstAttribute="leading" secondItem="ziz-lj-PYe" secondAttribute="leading" id="82S-Ev-hoj"/>
                             <constraint firstItem="4eQ-gi-PNj" firstAttribute="leading" secondItem="ziz-lj-PYe" secondAttribute="leading" id="9rZ-uo-M4r"/>
@@ -2026,6 +2033,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="5mR-SM-BTR" secondAttribute="trailing" constant="-8" id="RBW-9Z-t7u"/>
                             <constraint firstItem="9G6-WI-YVj" firstAttribute="top" secondItem="v1Y-Qo-n3M" secondAttribute="bottom" id="Ry3-td-qgA"/>
                             <constraint firstAttribute="trailing" secondItem="4eQ-gi-PNj" secondAttribute="trailing" id="STr-jl-Csu"/>
+                            <constraint firstAttribute="trailing" secondItem="jME-kX-MJ0" secondAttribute="trailing" id="VpV-HU-LiW"/>
                             <constraint firstItem="dyh-H7-OPt" firstAttribute="top" secondItem="v1Y-Qo-n3M" secondAttribute="bottom" constant="10" id="WTm-s5-eRf"/>
                             <constraint firstItem="lfs-sg-eWx" firstAttribute="centerY" secondItem="dyh-H7-OPt" secondAttribute="centerY" id="Z2e-DA-J0s"/>
                             <constraint firstItem="9G6-WI-YVj" firstAttribute="bottom" secondItem="LOj-Lj-q1z" secondAttribute="top" id="bg0-rO-guD"/>
@@ -2039,6 +2047,8 @@
                             <constraint firstItem="TPG-e4-S3m" firstAttribute="leading" secondItem="ziz-lj-PYe" secondAttribute="leading" id="q8M-aK-7so"/>
                             <constraint firstItem="lfs-sg-eWx" firstAttribute="centerX" secondItem="dyh-H7-OPt" secondAttribute="centerX" id="qlc-gw-i9Y"/>
                             <constraint firstAttribute="trailing" secondItem="LOj-Lj-q1z" secondAttribute="trailing" id="tgL-2g-9DM"/>
+                            <constraint firstItem="TPG-e4-S3m" firstAttribute="top" secondItem="jME-kX-MJ0" secondAttribute="bottom" id="wNM-vQ-7kf"/>
+                            <constraint firstItem="jME-kX-MJ0" firstAttribute="top" secondItem="v1Y-Qo-n3M" secondAttribute="bottom" id="yF8-gr-m1Q"/>
                             <constraint firstItem="PLh-MM-IK9" firstAttribute="leading" secondItem="ziz-lj-PYe" secondAttribute="leadingMargin" constant="-16" id="yGl-yK-T7P"/>
                         </constraints>
                     </view>

@@ -32,7 +32,11 @@ class IGPlayer {
     private var latestTimeValue: String?
     private var latestSliderValue: Float?
     private var latestButtonValue: String!
-    
+    private var singerName : String! = "UNKNOWN_ARTIST".MessageViewlocalizedNew
+    private var songName : String! = "VOICES_MESSAGE".MessageViewlocalizedNew
+    private var songTime : Float! = 0
+    var currentTimeOfSong : Float! = 0
+
     /**
      * @param attachment media info for make player session
      * @param justUpdate if set true player view will be update with current state otherwise will be started new player with attachment param
@@ -99,9 +103,47 @@ class IGPlayer {
         let timeScale = playerItem.asset.duration.timescale
         let time = (CMTimeGetSeconds(asset.duration))
         let timeInt = Int(time)
+        songTime = Float(time)
         let remainingSeconds = timeInt%60
         let remainingMiuntes = timeInt/60
-        
+        //fetching song metadata
+        let metadataList = playerItem.asset.commonMetadata as! [AVMetadataItem]
+        var hasSingerName : Bool = false
+        var hasSongName : Bool = false
+        if IGGlobal.isVoice {
+            
+                songName = "VOICES_MESSAGE".MessageViewlocalizedNew
+            if roomMessage?.authorUser != nil {
+                singerName = roomMessage?.authorUser?.user?.displayName
+            }
+            
+
+        } else {
+            for item in metadataList {
+                if item.commonKey!.rawValue == "title" {
+                    songName = item.stringValue!
+                    hasSongName = true
+                    print("SONG NAME:",songName)
+                }
+                if item.commonKey!.rawValue == "artist" {
+                    singerName = item.stringValue!
+                    hasSingerName = true
+                    print("SINGER NAME:",singerName)
+
+                }
+            }
+            if !hasSingerName {
+                singerName = "UNKNOWN_ARTIST".MessageViewlocalizedNew
+            }
+            if !hasSongName {
+                songName = "VOICES_MESSAGE".MessageViewlocalizedNew
+            }
+            print("BEFORE BEFORE FINAL SONG SINGER NAME",singerName)
+            print("BEFORE BEFORE FINAL SONG SONG NAME",songName)
+
+        }
+
+        //end
         attachmentStringTime = "\(remainingMiuntes):\(remainingSeconds)"
         attachmentFloatTime = Float(time)
         attachmentTimeScale = timeScale
@@ -122,6 +164,8 @@ class IGPlayer {
             let currentTime = player.getCurrentTime()
             let currentTimeFloat = (CMTimeGetSeconds(currentTime))
             let currentValue = Float(currentTimeFloat)
+            SwiftEventBus.post(EventBusManager.updateMediaTimer,sender: currentValue)
+
             if currentValue <=  slider.maximumValue {
                 slider.setValue(Float(currentTimeFloat),animated: true)
                 updateTimer(currentTime: Float((CMTimeGetSeconds(currentTime))))
@@ -155,8 +199,11 @@ class IGPlayer {
             player.play(index: 0, from: files)
             flag = false
             updateSliderValue()
-            SwiftEventBus.post(EventBusManager.showTopMusicPlayer)
-
+            IGHelperMusicPlayer.shared.removeTopPlayer()
+            SwiftEventBus.post(EventBusManager.showTopMusicPlayer,sender: MusicFile(songName: songName, singerName: singerName, songTime: songTime, currentTime: 0.0))
+            IGGlobal.isPaused = false
+                print("TIMER RESUMED")
+                IGHelperMusicPlayer.shared.resumeTimer()
         }
     }
     
@@ -165,6 +212,11 @@ class IGPlayer {
         btnPlayPause.setTitle("", for: UIControl.State.normal) // play icon
         player.pause()
         flag = true
+
+        IGHelperMusicPlayer.shared.stopTimer()///stop timer in music player helper
+
+        
+
     }
     func stopMedia(){
         self.latestButtonValue = ""
@@ -172,7 +224,26 @@ class IGPlayer {
         player.removeItemsFromList()
         flag = false
     }
-    
+    func pauseMusic(){
+        self.latestButtonValue = ""
+        btnPlayPause.setTitle("", for: UIControl.State.normal) // play icon
+        player.pause()
+        flag = true
+
+    }
+    func playMusic(){
+        if let file = attachment {
+            let files = [file]
+            self.latestButtonValue = ""
+            btnPlayPause.setTitle("", for: UIControl.State.normal) // pause icon
+            player.play(index: 0, from: files)
+            flag = false
+            updateSliderValue()
+
+
+        }
+    }
+
     private func addGestureRecognizer(){
         slider.addTarget(self, action: #selector(sliderTouchUpInside(_:)), for: .touchUpInside)
         slider.addTarget(self, action: #selector(sliderTouchUpOutside(_:)), for: .touchUpOutside)

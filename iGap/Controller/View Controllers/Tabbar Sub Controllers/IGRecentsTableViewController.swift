@@ -104,7 +104,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     static var needGetInfo: Bool = true
     let iGapStoreLink = URL(string: "https://new.sibapp.com/applications/igap")
     var cellId = "cellId"
-    
+    var singerName : String! = ""
+    var songName : String! = ""
+    var songTimer : Float! = 0.0
     private func updateNavigationBarBasedOnNetworkStatus(_ status: IGAppManager.ConnectionStatus) {
         
         if let navigationItem = self.navigationItem as? IGNavigationItem {
@@ -382,10 +384,21 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     
     private func eventBusInitialiser() {
         SwiftEventBus.onMainThread(self, name: EventBusManager.showTopMusicPlayer) { result in
+            print(result?.object)
+            let musicFile : MusicFile = result?.object as! MusicFile
+            self.songTimer = musicFile.songTime
+            self.songName = musicFile.songName
+            self.singerName = musicFile.singerName
             self.showMusicTopPlayerWithAnimation()
         }
         SwiftEventBus.onMainThread(self, name: EventBusManager.hideTopMusicPlayer) { result in
             self.hideMusicTopPlayerWithAnimation()
+        }
+        SwiftEventBus.onMainThread(self, name: EventBusManager.stopMusicPlayer) { result in
+            self.playMusic()
+        }
+        SwiftEventBus.onMainThread(self, name: EventBusManager.playMusicPlayer) { result in
+            self.stopMusic()
         }
 
     }
@@ -401,7 +414,15 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     private func showMusicTopPlayerWithAnimation() {
         self.tableView.beginUpdates()
         self.headerHeight = 40
+        
         self.tableView.endUpdates()
+
+    }
+    private func stopMusic() {
+        IGPlayer.shared.pauseMusic()
+    }
+    private func playMusic() {
+        IGPlayer.shared.playMusic()
 
     }
     @objc private func changeDirectionOfUI() {
@@ -606,7 +627,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return IGHelperMusicPlayer.shared.showTopMusicPlayer(view: self)
+        return IGHelperMusicPlayer.shared.showTopMusicPlayer(view: self, songTime: songTimer, singerName: singerName, songName: songName)
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return headerHeight

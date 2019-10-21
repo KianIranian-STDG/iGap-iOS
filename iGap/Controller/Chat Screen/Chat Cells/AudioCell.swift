@@ -211,7 +211,7 @@ class AudioCell: AbstractCell {
     }
     
     @objc func didTapOnPlay(_ gestureRecognizer: UITapGestureRecognizer) {
-
+        IGGlobal.isVoice = false // determine the file is not voice and is music
         IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderAudio, timer: txtAudioTime, roomMessage: self.finalRoomMessage)
     }
 }
