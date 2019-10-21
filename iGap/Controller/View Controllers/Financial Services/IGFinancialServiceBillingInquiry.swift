@@ -49,6 +49,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate{
                 make.leading.equalTo(self.view.snp.leading).offset(12)
             }
             edtProvisionCode.isHidden = true
+            edtPhoneNumber.placeholder = "PLACE_HOLDER_MOBILE_NUMBER".localizedNew
         } else {
             edtPhoneNumber.placeholder = "PLACE_HOLDER_PHONE_NUM".localizedNew
         }
@@ -67,7 +68,11 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate{
         initChangeLang()
     }
     func initChangeLang() {
-        edtPhoneNumber.placeholder = "PLACE_HOLDER_PHONE_NUM".localizedNew
+        if IGFinancialServiceBillingInquiry.isMobile {
+            edtPhoneNumber.placeholder = "PLACE_HOLDER_MOBILE_NUMBER".localizedNew
+        } else {
+            edtPhoneNumber.placeholder = "PLACE_HOLDER_PHONE_NUM".localizedNew
+        }
         edtProvisionCode.placeholder = "PLACE_HOLDER_P_CODE".localizedNew
         btnInquiry.setTitle("BTN_INQUERY".localizedNew, for: .normal)
         btnPayment.setTitle("BTN_PAY".localizedNew, for: .normal)

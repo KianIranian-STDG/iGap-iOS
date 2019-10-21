@@ -503,6 +503,7 @@
         "PLACE_HOLDER_AMOUNT" : "مبلغ(ریال)",
         "PLACE_HOLDER_MOBILE_NUM" : "۰۹*********",
         "PLACE_HOLDER_PHONE_NUM" : "شماره ثابت",
+        "PLACE_HOLDER_MOBILE_NUMBER" : "شماره تلفن همراه",
         "PLACE_HOLDER_P_CODE" : "کد شهر",
         
         "BTN_EDITE_CONTACT" : "ویرایش مخاطب",
