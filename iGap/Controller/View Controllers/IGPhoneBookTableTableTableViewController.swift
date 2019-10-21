@@ -193,7 +193,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }
     
     private func setNavigationItems() {
-        if currentTabIndex == TabBarTab.Profile.rawValue {
+        if currentTabIndex == TabBarTab.Profile.rawValue || currentTabIndex == TabBarTab.Recent.rawValue {
             self.initNavigationBar(title: "NEW".localizedNew) { }
         } else {
             let navigationItem = self.navigationItem as! IGNavigationItem
@@ -337,9 +337,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         //if is from profile page
-        if currentTabIndex == TabBarTab.Profile.rawValue {
+        if currentTabIndex == TabBarTab.Profile.rawValue || currentTabIndex == TabBarTab.Recent.rawValue {
             if shouldShowSearchResults {
                 if self.filteredContacts != nil {
                     return self.filteredContacts.count
@@ -366,7 +365,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //if is from profile page
-        if currentTabIndex == TabBarTab.Profile.rawValue {
+        if currentTabIndex == TabBarTab.Profile.rawValue || currentTabIndex == TabBarTab.Recent.rawValue {
             
             if shouldShowSearchResults {
                 let contactsCell = tableView.dequeueReusableCell(withIdentifier: "ContactsCell", for: indexPath) as! IGContactTableViewCell
@@ -390,7 +389,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
 
                 } else {
                     let contactsCell = tableView.dequeueReusableCell(withIdentifier: "ContactsCell", for: indexPath) as! IGContactTableViewCell
-                        contactsCell.setUser(contacts[indexPath.row-1])
+                        contactsCell.setUser(contacts[indexPath.row-2])
                     
                     return contactsCell
 
@@ -423,7 +422,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         if shouldShowSearchResults {
             return 80
         } else {
-            if currentTabIndex == TabBarTab.Profile.rawValue {
+            if currentTabIndex == TabBarTab.Profile.rawValue || currentTabIndex == TabBarTab.Recent.rawValue {
                 if indexPath.row == 0 {
                     return 50
 
@@ -469,7 +468,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if shouldShowSearchResults {
-            if currentTabIndex == TabBarTab.Profile.rawValue {
+            if currentTabIndex == TabBarTab.Profile.rawValue || currentTabIndex == TabBarTab.Recent.rawValue {
 
                 self.searchController.isActive = false
                 IGGlobal.prgShow(self.view)
@@ -518,7 +517,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 }).send()
             }
         } else {
-            if currentTabIndex == TabBarTab.Profile.rawValue {
+            if currentTabIndex == TabBarTab.Profile.rawValue || currentTabIndex == TabBarTab.Recent.rawValue {
 
                 if indexPath.row  == 0 {
                     self.didTapOnNewChannel()

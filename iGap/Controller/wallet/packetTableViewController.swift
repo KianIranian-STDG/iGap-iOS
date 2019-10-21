@@ -1017,8 +1017,7 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                     recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
 
                     btnCashout.isUserInteractionEnabled = false
-                }
-                else {
+                } else {
                     btnCashout.isEnabled = true
                     btnCashout.backgroundColor = .iGapDarkGreenColor()
                     btnCharge.backgroundColor = .iGapDarkGreenColor()

@@ -111,14 +111,15 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     
     override func viewDidLoad() {
         
+        viewTransparent.backgroundColor = .clear
         let gradient = CAGradientLayer()
         gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
         gradient.endPoint = CGPoint(x: 0.5, y: 3.0)
-        let whiteColor = UIColor.white
-        gradient.colors = [whiteColor.withAlphaComponent(0.3).cgColor, whiteColor.withAlphaComponent(1.0).cgColor, whiteColor.withAlphaComponent(1.0).cgColor]
-        gradient.locations = [NSNumber(value: 0.0),NSNumber(value: 0.2),NSNumber(value: 1.0)]
-        gradient.frame = viewTransparent.bounds
-        viewTransparent.layer.mask = gradient
+        let whiteColor = UIColor(named: themeColor.backgroundColor.rawValue)!
+        gradient.colors = [UIColor.clear.cgColor, whiteColor.cgColor, whiteColor.cgColor]
+        gradient.locations = [NSNumber(value: 0.0), NSNumber(value: 0.2), NSNumber(value: 1.0)]
+        gradient.frame = viewTransparent.frame
+        viewTransparent.layer.addSublayer(gradient)
         
         let realm = try! Realm()
         let predicate = NSPredicate(format: "id = %lld", userId)
@@ -483,7 +484,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         }
     }
     
-    private func localCameraViewCustomize(){
+    private func localCameraViewCustomize() {
         localCameraView.layer.cornerRadius = 10
         localCameraView.layer.borderWidth = 0.3
         localCameraView.layer.borderColor = UIColor.white.cgColor
@@ -496,13 +497,13 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         //button.removeUnderline()
         button.backgroundColor = color
         
-        button.layer.shadowColor = UIColor.darkGray.cgColor
+        button.layer.shadowColor = UIColor(named: themeColor.labelGrayColor.rawValue)!.cgColor
         button.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         button.layer.shadowRadius = 0.1
         button.layer.shadowOpacity = 0.1
         
         button.layer.borderWidth = 0.5
-        button.layer.borderColor = UIColor.darkGray.cgColor
+        button.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)!.cgColor
         button.layer.masksToBounds = false
         button.layer.cornerRadius = button.frame.width / 2
     }
