@@ -213,7 +213,7 @@ class IGRoomListtCell: BaseTableViewCell {
             case .chat:
                 self.typeImage.isHidden = true
                 
-                if (item.chatRoom?.peer!.isVerified)! {
+                if (item.chatRoom?.peer?.isVerified)! {
                     self.checkImage.isHidden = false
                     
                 } else {

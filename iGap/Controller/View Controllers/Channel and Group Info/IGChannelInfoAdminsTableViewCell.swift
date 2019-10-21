@@ -27,7 +27,7 @@ class IGChannelInfoAdminsTableViewCell: MGSwipeTableCell {
 
         // Configure the view for the selected state
     }
-    func setUser(_ member: IGChannelMember) {
+    func setUser(_ member: IGRealmMember) {
         if let memberUserDetail = member.user {
             adminUserNameLabel.text = memberUserDetail.displayName
             adminAvatarView.setUser(memberUserDetail)

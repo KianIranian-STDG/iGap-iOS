@@ -702,6 +702,8 @@ class IGFactory: NSObject {
         }
     }
 
+    // DEPRECATED - not need to save member list
+    /*
     func saveGroupMemberListToDatabase(_ igpMembers: [IGPGroupGetMemberListResponse.IGPMember], roomId: Int64) {
         var memberUserIDs = Set<Int64>()
         for igpMember in igpMembers {
@@ -723,9 +725,9 @@ class IGFactory: NSObject {
             for igpMember in igpMembers {
                 let predicate = NSPredicate(format: "id = %lld", igpMember.igpUserID )
                 if let userInDb = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(predicate).first {
-                    let groupMember = IGGroupMember(igpMember: igpMember, roomId: roomId)
+                    let groupMember = IGRealmMember(igpMember: igpMember, roomId: roomId)
                     groupMember.user = userInDb
-                    var role: IGGroupMember.IGRole = .member
+                    var role: IGRealmMember.IGRole = .member
                     switch igpMember.igpRole {
                     case .admin:
                         role = .admin
@@ -746,8 +748,10 @@ class IGFactory: NSObject {
         }
         self.doFactoryTaskList(tasks: tasks)
     }
+    */
 
-
+    // DEPRECATED - not need to save member list
+    /*
     func saveChannelMemberListToDatabase(_ igpMembers: [IGPChannelGetMemberListResponse.IGPMember], roomId: Int64) {
         var memberUserIDs = Set<Int64>()
         for igpMember in igpMembers {
@@ -767,36 +771,24 @@ class IGFactory: NSObject {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             IGDatabaseManager.shared.realm.beginWrite()
             for (_, igpMember) in igpMembers.enumerated() {
-                let predicate = NSPredicate(format: "id = %lld", igpMember.igpUserID )
+                let predicate = NSPredicate(format: "id = %lld", igpMember.igpUserID)
                 if let userInDb = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(predicate).first {
-                    let channelMember = IGChannelMember(igpMember: igpMember, roomId: roomId)
-                    channelMember.user = userInDb
-                    var role: IGChannelMember.IGRole = .member
-                    switch igpMember.igpRole {
-                    case .admin:
-                        role = .admin
-                    case .member:
-                        role = .member
-                    case .moderator:
-                        role = .moderator
-                    case .owner:
-                        role = .owner
-                    default:
-                        break
-                    }
-                    channelMember.role = role
-                    IGDatabaseManager.shared.realm.add(channelMember, update: true)
+                    let member = IGRealmMember(roomId: roomId, userId: userInDb.id, role: igpMember.igpRole.rawValue)
+                    member.user = userInDb
+                    member.role = igpMember.igpRole.rawValue
+                    IGDatabaseManager.shared.realm.add(member, update: true)
                 }
             }
             try! IGDatabaseManager.shared.realm.commitWrite()
         }
         self.doFactoryTaskList(tasks: tasks)
     }
-
+    */
+    
     func kickChannelMemberFromDatabase(roomId: Int64 , memberId: Int64) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             let predicate = NSPredicate(format: "userID = %lld AND roomID = %lld", memberId, roomId)
-            if let memberInDb = try! Realm().objects(IGChannelMember.self).filter(predicate).first {
+            if let memberInDb = try! Realm().objects(IGRealmMember.self).filter(predicate).first {
                 try! IGDatabaseManager.shared.realm.write {
                     IGDatabaseManager.shared.realm.delete(memberInDb)
                 }
@@ -808,12 +800,12 @@ class IGFactory: NSObject {
     func demoteRoleInChannel(roomId: Int64 , memberId: Int64) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             let predicate = NSPredicate(format: "userID = %lld AND roomID = %lld", memberId, roomId)
-            if let memberInDb = try! Realm().objects(IGChannelMember.self).filter(predicate).first {
+            if let memberInDb = try! Realm().objects(IGRealmMember.self).filter(predicate).first {
                 try! IGDatabaseManager.shared.realm.write {
-                    memberInDb.role = .member
+                    memberInDb.role = IGPChannelRoom.IGPRole.member.rawValue
                 }
             }
-            self.updateRoomReadOnly(roomId: roomId, memberId: memberId, readOnly: true)
+            IGRoom.updateRoomReadOnly(roomId: roomId, memberId: memberId, readOnly: true)
         }
     }
 
@@ -832,44 +824,6 @@ class IGFactory: NSObject {
             }
         }
     }
-
-    func kickGroupMembersFromDatabase(roomId: Int64 , memberId: Int64) {
-        IGDatabaseManager.shared.perfrmOnDatabaseThread {
-            let predicate = NSPredicate(format: "userID = %lld AND roomID = %lld", memberId, roomId)
-            if let memberInDb = try! Realm().objects(IGGroupMember.self).filter(predicate).first {
-                try! IGDatabaseManager.shared.realm.write {
-                    IGDatabaseManager.shared.realm.delete(memberInDb)
-                }
-            }
-            self.updateRoomReadOnly(roomId: roomId, memberId: memberId, readOnly: true)
-        }
-    }
-
-    func updateRoomReadOnly(roomId: Int64 , memberId: Int64, readOnly: Bool) {
-        IGDatabaseManager.shared.perfrmOnDatabaseThread {
-            if memberId == IGAppManager.sharedManager.userID() {
-                try! IGDatabaseManager.shared.realm.write {
-                    let predicate = NSPredicate(format: "id = %lld", roomId)
-                    let room = try! Realm().objects(IGRoom.self).filter(predicate).first
-                    room?.isReadOnly = readOnly
-                }
-            }
-        }
-    }
-
-
-    //TODO: Merge with demoteRoleInChannel
-    func demoteRoleInGroup(roomId: Int64 , memberId : Int64) {
-        IGDatabaseManager.shared.perfrmOnDatabaseThread {
-            let predicate = NSPredicate(format: "userID = %lld AND roomID = %lld", memberId, roomId)
-            if let memberInDb = try! Realm().objects(IGGroupMember.self).filter(predicate).first {
-                try! IGDatabaseManager.shared.realm.write {
-                    memberInDb.role = .member
-                }
-            }
-        }
-    }
-
 
     func addRegistredContacts(_ igpContacts: [IGPUserContactsImportResponse.IGPContact]) {
         for igpContact in igpContacts {
@@ -1629,13 +1583,15 @@ class IGFactory: NSObject {
         }
     }
 
-    func addGroupMemberToDatabase(_ userID: Int64 , roomID: Int64 , memberRole : IGGroupMember.IGRole) {
+    //DEPRECATED
+    /*
+    func addGroupMemberToDatabase(_ userID: Int64 , roomID: Int64 , memberRole : IGRealmMember.IGRole) {
         IGFactoryTask.init(dependencyUserTask: userID, cacheID: nil).success ({
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 let predicate = NSPredicate(format: "id = %lld", userID)
                 if let userInDb = try! Realm().objects(IGRegisteredUser.self).filter(predicate).first {
                     let memberPredicate = NSPredicate(format: "userID = %lld", userID)
-                    if let memberIndb = try! Realm().objects(IGGroupMember.self).filter(memberPredicate).first {
+                    if let memberIndb = try! Realm().objects(IGRealmMember.self).filter(memberPredicate).first {
                         try! IGDatabaseManager.shared.realm.write {
                             memberIndb.user = userInDb
                             memberIndb.role = memberRole
@@ -1648,25 +1604,26 @@ class IGFactory: NSObject {
             //self.setFactoryTaskError(task: task)
         }).execute()
     }
+    */
 
-    func addChannelMemberToDatabase(memberId: Int64 , memberRole : IGChannelMember.IGRole , roomId: Int64) {
+    func addChannelMemberToDatabase(memberId: Int64 , memberRole : IGPChannelRoom.IGPRole , roomId: Int64) {
         IGFactoryTask(dependencyRoomTask: roomId, isParticipane: true).success ({
             IGFactoryTask.init(dependencyUserTask: memberId, cacheID: nil).success ({
                 IGDatabaseManager.shared.perfrmOnDatabaseThread {
                     let predicate = NSPredicate(format: "id = %lld", memberId)
                     if let userInDb = try! Realm().objects(IGRegisteredUser.self).filter(predicate).first {
                         let channelMemberPredicate = NSPredicate(format: "userID = %lld", memberId)
-                        if let memberInDb = try! Realm().objects(IGChannelMember.self).filter(channelMemberPredicate).first {
+                        if let memberInDb = try! Realm().objects(IGRealmMember.self).filter(channelMemberPredicate).first {
                             try! IGDatabaseManager.shared.realm.write {
                                 memberInDb.user = userInDb
-                                memberInDb.role = memberRole
-                                memberInDb.roomID = roomId
+                                memberInDb.role = memberRole.rawValue
+                                memberInDb.roomId = roomId
                             }
                         }
                     }
 
                     if memberRole == .admin || memberRole == .moderator {
-                        self.updateRoomReadOnly(roomId: roomId, memberId: memberId, readOnly: false)
+                        IGRoom.updateRoomReadOnly(roomId: roomId, memberId: memberId, readOnly: false)
                     }
                 }
             }).error ({
@@ -1800,7 +1757,7 @@ class IGFactory: NSObject {
         }
     }
 
-    func convertChatToGroup(roomId: Int64, roomName: String , roomRole : IGGroupMember.IGRole , roomDescription: String ) {
+    func convertChatToGroup(roomId: Int64, roomName: String , roomRole: IGPGroupRoom.IGPRole, roomDescription: String ) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             let roomPredicate = NSPredicate(format: "id = %lld", roomId)
             if let roomInDb = try! Realm().objects(IGRoom.self).filter(roomPredicate).first {

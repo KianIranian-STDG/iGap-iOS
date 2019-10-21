@@ -227,7 +227,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController
                         switch protoResponse {
                         case let channelAddAdminResponse as IGPChannelAddAdminResponse :
                             self.manageClosePage()
-                            let _ = IGChannelAddAdminRequest.Handler.interpret(response: channelAddAdminResponse, memberRole: .admin)
+                            IGChannelAddAdminRequest.Handler.interpret(response: channelAddAdminResponse)
                         default:
                             break
                         }
@@ -275,7 +275,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController
                         switch protoResponse {
                         case let channelAddModeratorResponse as IGPChannelAddModeratorResponse:
                             self.manageClosePage()
-                            let _ = IGChannelAddModeratorRequest.Handler.interpret(response: channelAddModeratorResponse, memberRole: .moderator)
+                            IGChannelAddModeratorRequest.Handler.interpret(response: channelAddModeratorResponse)
                         default:
                             break
                         }

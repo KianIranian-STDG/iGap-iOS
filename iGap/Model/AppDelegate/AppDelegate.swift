@@ -200,7 +200,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             // Share
             // fileURL: fileURL,
             
-            schemaVersion: 42,//HINT: change schemaVersion in 'ShareConfig'
+            schemaVersion: 43,//HINT: change schemaVersion in 'ShareConfig'
             
             /**
              * Set the block which will be called automatically when opening a Realm with a schema version lower than the one set above

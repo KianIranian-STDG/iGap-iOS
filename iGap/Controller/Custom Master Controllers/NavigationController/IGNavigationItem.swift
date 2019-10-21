@@ -11,6 +11,8 @@
 import UIKit
 import SnapKit
 import MBProgressHUD
+import IGProtoBuff
+
 protocol HandleBackNavigation {
     func diselect()
 }
@@ -150,7 +152,7 @@ class IGNavigationItem: UINavigationItem {
         addNavigationBackItem()
     }
     
-    func addNavigationLeftButtonsProfileItem(_ room: IGRoom.IGType,id : Int64? = nil, groupRole : IGGroupMember.IGRole? = nil , channelRole : IGChannelMember.IGRole? = nil,roomValue: IGRoom? = nil) {
+    func addNavigationLeftButtonsProfileItem(_ room: IGRoom.IGType,id : Int64? = nil, groupRole : IGPGroupRoom.IGPRole? = nil , channelRole : IGPChannelRoom.IGPRole? = nil,roomValue: IGRoom? = nil) {
         switch room {
         case .chat :
             if IGCall.callPageIsEnable {
@@ -217,21 +219,11 @@ class IGNavigationItem: UINavigationItem {
                 return
             }
             
-            var groupId: Int64 = 0
-            var currentRole: IGGroupMember.IGRole = .member
+            var currentRole: IGPGroupRoom.IGPRole = .member
             if let myRole = groupRole {
                 currentRole = myRole
             }
             
-            if let id = id{
-                groupId = id
-            }
-            
-            
-            
-            
-            //////
-            //self.hidesBackButton = true
             let backViewFrame = CGRect(x:0, y:50, width: 50, height:50)
             backViewContainer = IGTappableView(frame: backViewFrame)
             let backViewFrame1 = CGRect(x:0, y:0, width: 50, height:50)
@@ -291,21 +283,11 @@ class IGNavigationItem: UINavigationItem {
                 
             }
         case .channel :
-            var channelId: Int64 = 0
-            var currentRole: IGChannelMember.IGRole = .member
+            var currentRole: IGPChannelRoom.IGPRole = .member
             if let myRole = channelRole {
                 currentRole = myRole
             }
             
-            if let id = id{
-                channelId = id
-            }
-            
-            
-            
-            
-            //////
-            //self.hidesBackButton = true
             let backViewFrame = CGRect(x:0, y:50, width: 50, height:50)
             backViewContainer = IGTappableView(frame: backViewFrame)
             let backViewFrame1 = CGRect(x:0, y:0, width: 50, height:50)
@@ -362,13 +344,8 @@ class IGNavigationItem: UINavigationItem {
                     self.navigationController!.pushViewController(editVC, animated: true)
 
                 }
-                
             }
-
-        default:
-            break
         }
-
     }
     
     func addNavigationBackItem() {
@@ -780,7 +757,7 @@ class IGNavigationItem: UINavigationItem {
         }
     }
     
-    func setNavigationBarForProfileRoom(_ room: IGRoom.IGType,id:Int64? = nil , groupRole : IGGroupMember.IGRole? = nil , channelRole : IGChannelMember.IGRole? = nil,roomValue: IGRoom? = nil) {
+    func setNavigationBarForProfileRoom(_ room:IGRoom.IGType, id:Int64? = nil, groupRole:IGPGroupRoom.IGPRole? = nil, channelRole:IGPChannelRoom.IGPRole? = nil, roomValue:IGRoom? = nil) {
         addNavigationLeftButtonsProfileItem(room, id: id ,groupRole: groupRole ,channelRole: channelRole,roomValue:roomValue)
     }
     
@@ -1077,16 +1054,7 @@ class IGNavigationItem: UINavigationItem {
                 }
             }
         }
-        
-        if let peer = room.chatRoom?.peer {
-            if room.currenctActionsByUsers.first?.value.1 != .typing {
-            }
-        } else if let groupRoom = room.groupRoom {
-        } else if let channelRoom = room.channelRoom {
-        }
     }
-    
-    
     
     private func isVerified(room: IGRoom) -> Bool {
         var verified = false

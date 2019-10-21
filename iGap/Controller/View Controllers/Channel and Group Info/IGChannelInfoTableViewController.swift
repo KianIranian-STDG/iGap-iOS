@@ -64,8 +64,8 @@ class IGChannelInfoTableViewController: BaseTableViewController , NVActivityIndi
     var selectedChannel : IGChannelRoom?
     var room : IGRoom?
     var hud = MBProgressHUD()
-    var allMember = [IGChannelMember]()
-    var myRole : IGChannelMember.IGRole!
+    var allMember = [IGRealmMember]()
+    var myRole : IGPChannelRoom.IGPRole!
     var signMessageIndexPath : IndexPath?
     var channelLinkIndexPath : IndexPath?
     var imagePicker = UIImagePickerController()
@@ -126,7 +126,11 @@ class IGChannelInfoTableViewController: BaseTableViewController , NVActivityIndi
             channelSignMessageCell.isHidden = true
             cameraButton.isHidden = false
             break
+            
+        default:
+            break
         }
+        
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         tableView.tableFooterView = UIView()
         let navigationItem = self.navigationItem as! IGNavigationItem
@@ -995,15 +999,12 @@ class IGChannelInfoTableViewController: BaseTableViewController , NVActivityIndi
             destination.room = room
         }
         if segue.identifier == "showChannelInfoSetMembers" {
-            let destination = segue.destination as! IGChannelInfoMemberListTableViewController
-            destination.room = room
+            // TODO - AAA
+//            let destination = segue.destination as! IGChannelInfoMemberListTableViewController
+//            destination.room = room
         }
         if segue.identifier == "showSharedMadiaPage" {
             let destination = segue.destination as! IGGroupSharedMediaListTableViewController
-            destination.room = room
-        }
-        if segue.identifier == "showAdminAndModarators" {
-            let destination = segue.destination as! IGChannelInfoAdminsAndModeratorsTableViewController
             destination.room = room
         }
     }

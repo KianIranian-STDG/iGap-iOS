@@ -10,7 +10,7 @@
 
 import UIKit
 
-class IGGroupMemberListInvitedLinkTableViewCell: UITableViewCell {
+class IGRealmMemberListInvitedLinkTableViewCell: UITableViewCell {
 
     @IBOutlet weak var groupInvitedLinkLabel: UILabel!
     override func awakeFromNib() {

@@ -1154,11 +1154,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 profile.room = self.room
                 profile.hidesBottomBarWhenPushed = true
                 self.navigationController!.pushViewController(profile, animated: true)
-                /*
-                 let profile = IGGroupProfile.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                 profile.room = self.room
-                 self.navigationController!.pushViewController(profile, animated: true)
-                 */
             }
             
         }
@@ -6330,11 +6325,11 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     
     func onFetchUserInfo(userId: Int64){
         /* fetch user info and notify collection item if exist in visible items into the collection */
-        IGUserInfoRequest.sendRequestAvoidDuplicate(userId: userId) { (userId) in
+        IGUserInfoRequest.sendRequestAvoidDuplicate(userId: userId) { (userInfo) in
             DispatchQueue.main.async {
                 for indexPath in self.collectionView.indexPathsForVisibleItems {
                     if let cell = self.collectionView.cellForItem(at: indexPath) as? AbstractCell {
-                        if let peerId = cell.realmRoomMessage.authorUser?.userId, userId == peerId {
+                        if let peerId = cell.realmRoomMessage.authorUser?.userId, userInfo.igpID == peerId {
                             self.updateItem(cellPosition: indexPath.row)
                         }
                     }

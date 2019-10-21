@@ -1080,6 +1080,8 @@
         "PROCESSING" : "در حال پردازش",
         "SETTING_SOUND_SEND_MESSAGE" : "صوت ارسال پیام",
         "DELETED_MESSAGE_2" : "این پیام حذف شده است",
-        "CHAT_ROOM_NOT_FOUND" : "چت مورد نظر یافت نشد"
+        "CHAT_ROOM_NOT_FOUND" : "چت مورد نظر یافت نشد",
+        "CHANGED_ROLE_HINT" : "نقش شما تغییر کرد بنابراین در حال حاضر نمی توانید لیست اعضا را مشاهده کنید!",
+        "HINT" : "توجه"
     }
 }

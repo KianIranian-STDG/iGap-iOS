@@ -10,32 +10,38 @@
 
 import UIKit
 import MGSwipeTableCell
+import IGProtoBuff
 
-class IGGroupInfoMemberListTableViewCell: UITableViewCell {
+class IGMemberCell: UITableViewCell {
+    
     weak var delegate : cellWithMore?
-
+    var user : IGRealmMember!
+    
     @IBOutlet weak var btnMore: UIButton!
     @IBOutlet weak var groupMemberRecentlyStatus: UILabel!
     @IBOutlet weak var groupMemberAvatarView: IGAvatarView!
     @IBOutlet weak var groupMemberRoleInGroupLabel: UILabel!
     @IBOutlet weak var groupMemberNameLabel: UILabel!
-    var user : IGGroupMember!
+    
+    @IBAction func btnMoreTaped(_ sender: UIButton) {
+        delegate?.didPressMoreButton(member: user)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         groupMemberNameLabel.textAlignment = groupMemberNameLabel.localizedNewDirection
         initiconFonts()
     }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.groupMemberAvatarView.avatarImageView?.image = nil
         groupMemberNameLabel.text = nil
         groupMemberRecentlyStatus.text = nil
     }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     private func initiconFonts() {
@@ -43,84 +49,53 @@ class IGGroupInfoMemberListTableViewCell: UITableViewCell {
         self.btnMore.titleLabel!.font = UIFont.iGapFonticon(ofSize: 28)
         self.btnMore.setTitle("", for: .normal)
     }
-    func setUser(_ member: IGGroupMember,myRole: IGGroupMember.IGRole? = nil) {
+    
+    func setUser(_ member: IGRealmMember, myRole: Int) {
         if member.isInvalidated {
             return
         }
         user = member
-            if myRole == .owner {
-                if member.role == .owner {
-                    self.btnMore.isHidden = true
-                }
-                if member.role == .admin {
-                    self.btnMore.isHidden = false
-                }
-                if member.role == .moderator {
-                    self.btnMore.isHidden = false
-                }
-                if member.role == .member {
-                    self.btnMore.isHidden = false
-
-                }
-            } else if myRole == .admin {
-                if member.role == .owner {
-                    self.btnMore.isHidden = true
-                }
-                if member.role == .admin {
-                    self.btnMore.isHidden = true
-                }
-                if member.role == .moderator {
-                    self.btnMore.isHidden = false
-                }
-                if member.role == .member {
-                    self.btnMore.isHidden = false
-
-                }
-                } else if myRole == .moderator {
-                    if member.role == .owner {
-                        self.btnMore.isHidden = true
-                    }
-                    if member.role == .admin {
-                        self.btnMore.isHidden = true
-                    }
-                    if member.role == .moderator {
-                        self.btnMore.isHidden = true
-                    }
-                    if member.role == .member {
-                        self.btnMore.isHidden = false
-
-                    }
-                }
-                else if myRole == .member {
-                    self.btnMore.isHidden = true
-                }
-            else {
+        
+        self.btnMore.isHidden = true
+        if myRole == IGPChannelRoom.IGPRole.owner.rawValue {
+            if member.role == IGPChannelRoom.IGPRole.admin.rawValue || member.role == IGPChannelRoom.IGPRole.moderator.rawValue || member.role == IGPChannelRoom.IGPRole.member.rawValue {
                 self.btnMore.isHidden = false
-
             }
+        } else if myRole == IGPChannelRoom.IGPRole.admin.rawValue {
+            if member.role == IGPChannelRoom.IGPRole.moderator.rawValue || member.role == IGPChannelRoom.IGPRole.member.rawValue {
+                self.btnMore.isHidden = false
+            }
+        } else if myRole == IGPChannelRoom.IGPRole.moderator.rawValue {
+            if member.role == IGPChannelRoom.IGPRole.member.rawValue {
+                self.btnMore.isHidden = false // TODO - for public group set isHidden to true
+            }
+        }
         
         if let memberUserDetail = member.user {
             groupMemberNameLabel.text = memberUserDetail.displayName
+            groupMemberAvatarView.avatarImageView?.backgroundColor = UIColor.clear
             groupMemberAvatarView.setUser(memberUserDetail)
-            if member.role == .admin {
+            
+            if member.role == IGPChannelRoom.IGPRole.admin.rawValue {
                 groupMemberRoleInGroupLabel.isHidden = false
                 groupMemberRoleInGroupLabel.text = ""
 
             }
-            if member.role == .moderator {
+            if member.role == IGPChannelRoom.IGPRole.moderator.rawValue {
                 groupMemberRoleInGroupLabel.isHidden = false
                 groupMemberRoleInGroupLabel.text = ""
 
             }
-            if member.role == .owner {
+            if member.role == IGPChannelRoom.IGPRole.owner.rawValue {
                 groupMemberRoleInGroupLabel.isHidden = false
                 groupMemberRoleInGroupLabel.text = ""
                 self.btnMore.isHidden = true
             }
-            if member.role == .member {
+            if member.role == IGPChannelRoom.IGPRole.member.rawValue {
                 groupMemberRoleInGroupLabel.isHidden = true
-
             }
+            
+            
             switch memberUserDetail.lastSeenStatus {
             case .exactly:
                 if let lastSeenTime = memberUserDetail.lastSeen {
@@ -147,24 +122,17 @@ class IGGroupInfoMemberListTableViewCell: UITableViewCell {
                 break
             case .serviceNotification:
                 groupMemberRecentlyStatus.text = "SERVICE_NOTIFI".localizedNew
-                
                 break
-                
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 60.0) {
-                self.setUser(member)
-            }
-
+        } else { // when user info not exist yet!
+            groupMemberAvatarView.avatarImageView?.backgroundColor = UIColor.white
+            groupMemberAvatarView.avatarImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
+            groupMemberNameLabel.text = "fetching info..."
+            groupMemberRecentlyStatus.text = ""
         }
     }
-
-  
-    @IBAction func btnMoreTaped(_ sender: UIButton) {
-        delegate?.didPressMoreButton(member: user)
-    }
-    
 }
 
 protocol cellWithMore : class {
-    func didPressMoreButton(member: IGGroupMember)
+    func didPressMoreButton(member: IGRealmMember)
 }

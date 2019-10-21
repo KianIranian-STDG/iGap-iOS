@@ -1,10 +1,12 @@
-//
-//  IGProfileChannelViewController.swift
-//  iGap
-//
-//  Created by BenyaminMokhtarpour on 9/22/19.
-//  Copyright © 2019 Kianiranian STDG -www.kianiranian.com. All rights reserved.
-//
+/*
+* This is the source code of iGap for iOS
+* It is licensed under GNU AGPL v3.0
+* You should have received a copy of the license in this archive (see LICENSE).
+* Copyright © 2017 , iGap - www.iGap.net
+* iGap Messenger | Free, Fast and Secure instant messaging application
+* The idea of the Kianiranian STDG - www.kianiranian.com
+* All rights reserved.
+*/
 
 import UIKit
 import SwiftProtobuf
@@ -17,16 +19,16 @@ import MGSwipeTableCell
 import MBProgressHUD
 import NVActivityIndicatorView
 
-class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorViewable,UITableViewDelegate,UITableViewDataSource ,cellTypeTwoDelegate{
+class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorViewable, UITableViewDelegate, UITableViewDataSource ,cellTypeTwoDelegate{
 
     //MARK: -Variables
-    var roleToShow : String = "Members"
+    var memberRole: IGMemberRole = .member
     var adminsCount : String = "0"
     var moderatprsCount : String = "0"
-    var adminsMembersCount : Results<IGChannelMember>!
-    var moderatorsMembersCount : Results<IGChannelMember>!
-    var adminsRole = IGChannelMember.IGRole.admin.rawValue
-    var moderatorRole = IGChannelMember.IGRole.moderator.rawValue
+    var adminsMembersCount : Results<IGRealmMember>!
+    var moderatorsMembersCount : Results<IGRealmMember>!
+    var adminsRole = IGPChannelRoom.IGPRole.admin.rawValue
+    var moderatorRole = IGPChannelRoom.IGPRole.moderator.rawValue
     var predicateAdmins : NSPredicate!
     var predicateModerators : NSPredicate!
     var notificationTokenModerator: NotificationToken?
@@ -50,11 +52,11 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
     var selectedChannel : IGChannelRoom?
     var room : IGRoom?
     var hud = MBProgressHUD()
-    var allMember = [IGChannelMember]()
-    var adminMember = [IGChannelMember]()
-    var moderatorMember = [IGChannelMember]()
+    var allMember = [IGRealmMember]()
+    var adminMember = [IGRealmMember]()
+    var moderatorMember = [IGRealmMember]()
 
-    var myRole : IGChannelMember.IGRole!
+    var myRole : IGPChannelRoom.IGPRole!
     var signMessageIndexPath : IndexPath?
     var channelLinkIndexPath : IndexPath?
     var imagePicker = UIImagePickerController()
@@ -192,9 +194,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         }
         alertC.addAction(cancel)
         
-        self.present(alertC, animated: true, completion: {
-            
-        })
+        self.present(alertC, animated: true, completion: nil)
     }
     
     func reportRoom(roomId: Int64, reason: IGPClientRoomReport.IGPReason) {
@@ -246,7 +246,6 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
     }
     
     func didPressMuteSwitch() {
-         print("I have pressed a button")
         self.muteRoom(room: self.room!)
 
     }
@@ -268,7 +267,6 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 default:
                     break
                 }
-//                self.tableView.reloadData()
                 self.hud.hide(animated: true)
             }
         }).error({ (errorCode , waitTime) in
@@ -304,7 +302,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         }
     }
     func showAvatar(avatar: IGAvatar) {
-        var photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMedia in
+        let photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMedia in
             return IGMedia(avatar: avatar)
         }
         if photos.count == 0 {
@@ -361,19 +359,15 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
     }
     
     func scheduledTimerWithTimeInterval(){
-        // Scheduling timer to Call the function **Countdown** with the interval of 1 seconds
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
     }
-    
-    @objc func updateCounting(){
-    }
+    @objc func updateCounting(){}
     
     
     @IBAction func didTapOnCameraBtn(_ sender: UIButton) {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Take a Photo")
             if UIImagePickerController.availableCaptureModes(for: .rear) != nil{
                 self.imagePicker.delegate = self
                 self.imagePicker.allowsEditing = true
@@ -398,24 +392,19 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         
         let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Choose Photo")
             self.imagePicker.delegate = self
             self.imagePicker.allowsEditing = true
             self.imagePicker.sourceType = .photoLibrary
             if UIDevice.current.userInterfaceIdiom == .phone {
                 self.present(self.imagePicker, animated: true, completion: nil)
-            }
-            else {
+            } else {
                 self.present(self.imagePicker, animated: true, completion: nil)//4
                 self.imagePicker.popoverPresentationController?.sourceView = (sender)
                 self.imagePicker.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
                 self.imagePicker.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
             }
         })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: {
-            (alert: UIAlertAction!) -> Void in
-            print("Cancelled")
-        })
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
         
         if self.avatars.count > 0  && (myRole == .owner || myRole == .admin) {
             optionMenu.addAction(deleteAction)
@@ -424,10 +413,6 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         optionMenu.addAction(cancelAction)
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
             optionMenu.addAction(cameraOption)} else {
-            print ("I don't have a camera.")
-        }
-        if let popoverController = optionMenu.popoverPresentationController {
-//            popoverController.sourceView = cameraButton
         }
         self.present(optionMenu, animated: true, completion: nil)
     }
@@ -463,6 +448,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
             
         }).send()
     }
+    
     func showDeleteChannelActionSheet() {
         var title : String!
         var actionTitle: String!
@@ -558,30 +544,19 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         } else {
             isVerified = false
         }
-        switch myRole {
-        case .admin , .owner :
-            requestToGetAdminsAndModerators()
-            
-        default :
-            break
-        }
 
         channelNameLabelTitle.text = room?.title
         channelNameLabelTitle.textAlignment = channelNameLabelTitle.localizedNewDirection
-//        channelNameLabel.text = room?.title
-//        ChannelDescriptionLabel.text = room?.channelRoom?.roomDescription
         if let channelRoom = room {
             channelImage.setRoom(channelRoom)
         }
         if let channelType = room?.channelRoom?.type {
             switch channelType {
             case .privateRoom:
-//                channelTypeLabel.text = "PRIVATE".localizedNew
                 if let link = room?.channelRoom?.privateExtra?.inviteLink  {
                     channelLink =  link
                 }
             case .publicRoom:
-//                channelTypeLabel.text = "PUBLIC".localizedNew
                 if let username = room?.channelRoom?.publicExtra?.username {
                     channelLink = username
 
@@ -595,56 +570,9 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         if let memberCount = room?.channelRoom?.participantCount {
             channelUserCountLabel.text = "\(memberCount)".inLocalizedLanguage() + " " + "MEMBER".localizedNew
             channelUserCountLabel.textAlignment = channelUserCountLabel.localizedNewDirection
-            
-        }
-        
-        if room?.channelRoom?.isSignature == true {
-//            signMessageSwtich.isOn = true
-        } else {
-//            signMessageSwtich.isOn = false
-        }
-        
-        if room?.channelRoom?.hasReaction == true {
-//            channelReactionSwitch.isOn = true
-        } else {
-//            channelReactionSwitch.isOn = false
         }
     }
 
-    private func requestToGetAdminsAndModerators() {
-        predicateModerators = NSPredicate(format: "roleRaw = %d AND roomID = %lld", moderatorRole , (room?.id)!)
-        moderatorsMembersCount =  try! Realm().objects(IGChannelMember.self).filter(predicateModerators!)
-        predicateAdmins = NSPredicate(format: "roleRaw = %d AND roomID = %lld", adminsRole , (room?.id)!)
-        adminsMembersCount =  try! Realm().objects(IGChannelMember.self).filter(predicateAdmins!)
-        self.notificationTokenModerator = moderatorsMembersCount.observe { (changes: RealmCollectionChange) in
-            switch changes {
-            case .initial:
-                self.moderatprsCount = "\(Set(self.moderatorsMembersCount).count)"
-                break
-            case .update(_, _, _, _):
-                self.moderatprsCount = "\(Set(self.moderatorsMembersCount).count)"
-                break
-            case .error(let err):
-                fatalError("\(err)")
-                break
-            }
-        }
-        self.notificationAdmin = adminsMembersCount.observe { (changes: RealmCollectionChange) in
-            switch changes {
-            case .initial:
-                self.adminsCount = "\(Set(self.adminsMembersCount).count)"
-                
-                break
-            case .update(_, _, _, _):
-                self.adminsCount = "\(Set(self.adminsMembersCount).count)"
-                break
-            case .error(let err):
-                fatalError("\(err)")
-                break
-            }
-        }
-        requestToFetchAdminChannelMemberFromServer()
-    }
     
     func requestToGetRoom() {
         if let channelRoom = room {
@@ -653,13 +581,10 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     switch protoResponse {
                     case let clientGetRoomResponse as IGPClientGetRoomResponse:
                         IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
-                        
-                        
                     default:
                         break
                     }
                     self.showChannelInfo()
-
                 }
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
@@ -687,17 +612,15 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 switch protoResponse {
                 case let getChannelMemberList as IGPChannelGetMemberListResponse:
                     let igpMembers = IGChannelGetMemberListRequest.Handler.interpret(response: getChannelMemberList, roomId: (self.room?.id)!)
-                    for member in igpMembers {
-                        let igmember = IGChannelMember(igpMember: member, roomId: (self.room?.id)!)
-                        if member.igpRole == .admin {
-                            self.adminMember.append(igmember)
-                        }
-                        if member.igpRole == .moderator {
-                           self.moderatorMember.append(igmember)
-                        }
-                    }
-//                    self.adminsCount = "\(self.adminMember.count)"
-//                    self.moderatprsCount = "\(self.moderatorMember.count)"
+//                    for member in igpMembers {
+//                        let igmember = IGRealmMember(roomId: self.room!.id, userId: member.igpUserID, role: member.igpRole.rawValue)
+//                        if member.igpRole == .admin {
+//                            self.adminMember.append(igmember)
+//                        }
+//                        if member.igpRole == .moderator {
+//                           self.moderatorMember.append(igmember)
+//                        }
+//                    }
                     self.tableView.reloadData()
                     
                 default:
@@ -767,8 +690,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let channelRevokeLinkRequest as IGPChannelRevokeLinkResponse:
-                    let revokeResponse = IGChannelRevokeLinkRequest.Handler.interpret(response: channelRevokeLinkRequest)
-//                    self.channelLinkLabel.text = revokeResponse.invitedLink
+                    let _ = IGChannelRevokeLinkRequest.Handler.interpret(response: channelRevokeLinkRequest)
                 default:
                     break
                 }
@@ -888,16 +810,12 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
             destination.room = room
         }
         if segue.identifier == "showChannelInfoSetMembers" {
-            let destination = segue.destination as! IGGroupInfoMemberListTableViewController
-            destination.mode = roleToShow
+            let destination = segue.destination as! IGMemberTableViewController
+            destination.filterRole = .all
             destination.room = room
         }
         if segue.identifier == "showGroupSharedMediaSetting" {
             let destination = segue.destination as! IGGroupSharedMediaListTableViewController
-            destination.room = room
-        }
-        if segue.identifier == "showAdminAndModarators" {
-            let destination = segue.destination as! IGChannelInfoAdminsAndModeratorsTableViewController
             destination.room = room
         }
     }
@@ -962,57 +880,51 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 return UITableView.automaticDimension
 
 
-        case .none:
+        default:
             return UITableView.automaticDimension
-
         }
-
-        
-        
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         let channelType = room?.channelRoom?.type
-
+        
         switch myRole {
-            case .admin?:
-
-                switch channelType {
-                case .privateRoom?:
-                    switch indexPath.section {
-                    case 1 :
-                        switch indexPath.row {
-                        case 0 :
-                            return 0
-                        default :
-                            return 100
-
-                        }
-
+        case .admin?:
+            
+            switch channelType {
+            case .privateRoom?:
+                switch indexPath.section {
+                case 1 :
+                    switch indexPath.row {
+                    case 0 :
+                        return 0
                     default :
                         return 100
-
+                        
                     }
-                case .none:
+                    
+                default :
                     return 100
-
-                case .some(.publicRoom):
-                    return 100
+                    
+                }
+            case .none:
+                return 100
+                
+            case .some(.publicRoom):
+                return 100
             }
-
-            case .owner?:
-                return 100
-
-            case .member?:
-                return 100
-
-            case .moderator?:
-                return 100
-
-
-        case .none:
+            
+        case .owner?:
             return 100
-
+            
+        case .member?:
+            return 100
+            
+        case .moderator?:
+            return 100
+            
+        default:
+            return 100
         }
         
     }
@@ -1124,21 +1036,6 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
                     return cell
                     
-//                case 3:
-//                    switch indexPath.row {
-//                    case 0 :
-//                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
-//                        return cell
-//
-//                    case 1 :
-//                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
-//                        return cell
-//
-//                    default:
-//                        return cell
-//
-//                    }
-//
                 case 3:
                     switch indexPath.row {
                     case 0 :
@@ -1190,21 +1087,6 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                                     cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
                                     return cell
                                     
-                //                case 3:
-                //                    switch indexPath.row {
-                //                    case 0 :
-                //                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
-                //                        return cell
-                //
-                //                    case 1 :
-                //                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
-                //                        return cell
-                //
-                //                    default:
-                //                        return cell
-                //
-                //                    }
-                //
                                 case 3:
                                     switch indexPath.row {
                                     case 0 :
@@ -1284,9 +1166,9 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 default:
                     return cell
                 }
-                case .none:
-                    return cell
-
+                
+            default:
+                return cell
             }
         case .publicRoom?:
             
@@ -1326,18 +1208,12 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     switch indexPath.row {
                         
                     case 0:
-                        if let memberCount = room?.channelRoom?.participantCount {
-                            
-//                            cell.initLabels(nameLblString: "ALLMEMBER".localizedNew,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
-                        }
                         return cell
                         
                     case 1:
-//                        cell.initLabels(nameLblString: "ADMIN".localizedNew,detailLblString: "\(Set(self.adminsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                         return cell
                         
                     case 2:
-//                        cell.initLabels(nameLblString: "MODERATOR".localizedNew,detailLblString: "\(Set(self.moderatorsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                         return cell
                         
                     default:
@@ -1537,7 +1413,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 default:
                     return cell
                 }
-            case .none:
+            default:
                 cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
                 return cellTypeRed
             }
@@ -1625,8 +1501,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 switch myRole {
                 case .admin?:
                     return 5
-                    
-                    
+
                 case .member?:
                     return 4
                     
@@ -1636,9 +1511,8 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case .owner?:
                     return 6
                     
-                case .none:
+                default:
                     return 4
-
                 }
             case .publicRoom:
 
@@ -1656,16 +1530,13 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case .owner?:
                     return 6
                     
-                case .none:
+                default:
                     return 5
-
                 }
-                
             }
         } else {
             return 5
         }
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -1675,7 +1546,6 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
             
             switch myRole {
             case .admin?:
-                
                 switch section {
                 case 0:
                     return 1
@@ -1737,10 +1607,13 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 
             case .none:
                 return 5
+                
+            default:
+                return 0
             }
+            
         case .publicRoom?:
             
-
             switch myRole {
             case .admin?:
                 
@@ -1826,12 +1699,12 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 default:
                     return 0
                 }
-                
+            default:
+                return 0
             }
                 
         case .none:
             return 0
-
         }
 
     }
@@ -1906,7 +1779,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     return ""
                 }
                 
-            case .none:
+            default:
                 return ""
             }
         case .publicRoom?:
@@ -1970,10 +1843,9 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 default:
                     return ""
                 }
-            case .none :
-                return ""
-
                 
+            default:
+                return ""
             }
 
         case .none:
@@ -1988,9 +1860,10 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 return "SHAREDMEDIA".localizedNew
             default:
                 return ""
-            }        }
-        
+            }
+        }
     }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let channelType = room?.channelRoom?.type
         switch channelType {
@@ -2057,10 +1930,8 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 default:
                     return 50
                 }
-            case .none:
-                    return 5
-
-                
+            default:
+                return 5
             }
         case .publicRoom?:
             
@@ -2122,7 +1993,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     return 50
                 }
                 
-            case .none:
+            default:
                 return 50
             }
         case .none:
@@ -2159,43 +2030,36 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 2:
                     switch indexPath.row {
                         case 0 :
-                            roleToShow = "Members"
+                            memberRole = .member
                             self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                         case 1 :
-                            roleToShow = "Admins"
+                            memberRole = .admin
                             self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                         case 2 :
-                            roleToShow = "Moderators"
+                            memberRole = .moderator
                             self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                            
                         default:
-                            roleToShow = "Members"
+                            memberRole = .member
                             self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-                        
-
                     }
                 case 3:
-                    //goToSharedMedia
                     self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
-                    
                     break
                     
                 case 4:
                     switch indexPath.row {
                     case 0 :
-                        //gotToAddMEmberPage
                         break
-                    case 1 :
-                        //gotToMemberListPage
-                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
                         
+                    case 1 :
+                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
                         break
+                        
                     default:
                         break
-                        
                     }
-                case 5:
                     
+                case 5:
                     switch indexPath.row {
                     case 0 :
                         //ShowReportAlert
@@ -2225,17 +2089,17 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 2:
                     switch indexPath.row {
                     case 0 :
-                        roleToShow = "Members"
+                        memberRole = .member
                         self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                     case 1 :
-                        roleToShow = "Admins"
+                        memberRole = .admin
                         self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                     case 2 :
-                        roleToShow = "Moderators"
+                        memberRole = .moderator
                         self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                         
                     default:
-                        roleToShow = "Members"
+                        memberRole = .member
                         self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                     }
                 case 3:
@@ -2373,9 +2237,8 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     break
                 }
                 
-            case .none:
+            default:
                 break
-
             }
         case .publicRoom?:
             switch myRole {
@@ -2432,17 +2295,17 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     
                     switch indexPath.row {
                     case 0 :
-                        roleToShow = "Members"
+                        memberRole = .member
                         self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                     case 1 :
-                        roleToShow = "Admins"
+                        memberRole = .admin
                         self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                     case 2 :
-                        roleToShow = "Moderators"
+                        memberRole = .moderator
                         self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                         
                     default:
-                        roleToShow = "Members"
+                        memberRole = .member
                         self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                     }
                 case 5:
@@ -2478,17 +2341,17 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     
                     switch indexPath.row {
                     case 0 :
-                        roleToShow = "Members"
+                        memberRole = .member
                         self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                     case 1 :
-                        roleToShow = "Admins"
+                        memberRole = .admin
                         self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                     case 2 :
-                        roleToShow = "Moderators"
+                        memberRole = .moderator
                         self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                         
                     default:
-                        roleToShow = "Members"
+                        memberRole = .member
                         self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                     }
                 case 5:
@@ -2504,19 +2367,16 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     break
                 }
 
-            case .none:
+            default:
                 break
 
             }
-        case .none:
-            
+        default:
             break
-            
         }
     }
-
-
 }
+
 extension IGProfileChannelViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // Local variable inserted by Swift 4.2 migrator.

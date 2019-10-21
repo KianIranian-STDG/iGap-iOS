@@ -19,7 +19,7 @@ class IGChannelInfoEditDescriptionTableViewController: UITableViewController , U
     var room: IGRoom?
     var hud = MBProgressHUD()
     var placeholderLabel : UILabel!
-    var myRole : IGChannelMember.IGRole!
+    var myRole : IGPChannelRoom.IGPRole!
     var descriptionSize: CGFloat!
     override func viewDidLoad() {
         super.viewDidLoad()

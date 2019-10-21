@@ -1240,15 +1240,12 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
             destination.room = room
         }
         if segue.identifier == "showChannelInfoSetMembers" {
-            let destination = segue.destination as! IGChannelInfoMemberListTableViewController
-            destination.room = room
+            // TODO - AAA
+//            let destination = segue.destination as! IGChannelInfoMemberListTableViewController
+//            destination.room = room
         }
         if segue.identifier == "showSharedMadiaPage" {
             let destination = segue.destination as! IGGroupSharedMediaListTableViewController
-            destination.room = room
-        }
-        if segue.identifier == "showAdminAndModarators" {
-            let destination = segue.destination as! IGChannelInfoAdminsAndModeratorsTableViewController
             destination.room = room
         }
     }

@@ -398,7 +398,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
                     DispatchQueue.main.async {
                         self.manageClosePage()
                         if let channelAddAdminResponse = protoResponse as? IGPChannelAddAdminResponse {
-                            IGChannelAddAdminRequest.Handler.interpret(response: channelAddAdminResponse, memberRole: .admin)
+                            IGChannelAddAdminRequest.Handler.interpret(response: channelAddAdminResponse)
                         }
                     }
                 }).error ({ (errorCode, waitTime) in
@@ -444,7 +444,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
                     DispatchQueue.main.async {
                         self.manageClosePage()
                         if let channelAddModeratorResponse = protoResponse as? IGPChannelAddModeratorResponse {
-                            IGChannelAddModeratorRequest.Handler.interpret(response: channelAddModeratorResponse, memberRole: .moderator)
+                            IGChannelAddModeratorRequest.Handler.interpret(response: channelAddModeratorResponse)
                         }
                     }
                     
@@ -493,7 +493,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
                     DispatchQueue.main.async {
                         self.manageClosePage()
                         if let channelAddAdminResponse = protoResponse as? IGPGroupAddAdminResponse {
-                            IGGroupAddAdminRequest.Handler.interpret(response: channelAddAdminResponse, memberRole: .admin)
+                            IGGroupAddAdminRequest.Handler.interpret(response: channelAddAdminResponse)
                         }
                     }
                 }).error ({ (errorCode, waitTime) in
@@ -538,7 +538,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
                     DispatchQueue.main.async {
                         self.manageClosePage()
                         if let groupAddModeratorResponse = protoResponse as? IGPGroupAddModeratorResponse {
-                            IGGroupAddModeratorRequest.Handler.interpret(response: groupAddModeratorResponse, memberRole: .moderator)
+                            IGGroupAddModeratorRequest.Handler.interpret(response: groupAddModeratorResponse)
                         }
                     }
                     

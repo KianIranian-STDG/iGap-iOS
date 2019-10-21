@@ -27,7 +27,7 @@ class IGGroupAdminListTableViewCell: MGSwipeTableCell {
         // Configure the view for the selected state
     }
 
-    func setUser(_ member: IGGroupMember) {
+    func setUser(_ member: IGRealmMember) {
         if let memberUserDetail = member.user {
             groupAdminNameLabel.text = memberUserDetail.displayName
             groupAdminAvatarView.setUser(memberUserDetail)

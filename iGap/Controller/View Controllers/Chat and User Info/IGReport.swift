@@ -20,7 +20,7 @@ class IGReport: UITableViewController , UIGestureRecognizerDelegate {
     var messageId: Int64 = 0
     var hud = MBProgressHUD()
     var placeholderLabel : UILabel!
-    var myRole : IGChannelMember.IGRole!
+    var myRole : IGPChannelRoom.IGPRole!
     override func viewDidLoad() {
         super.viewDidLoad()
         

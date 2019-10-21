@@ -24,10 +24,10 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
     //MARK: -Variables
     var adminsCount : String = "0"
     var moderatprsCount : String = "0"
-    var adminsMembersCount : Results<IGChannelMember>!
-    var moderatorsMembersCount : Results<IGChannelMember>!
-    var adminsRole = IGChannelMember.IGRole.admin.rawValue
-    var moderatorRole = IGChannelMember.IGRole.moderator.rawValue
+    var adminsMembersCount : Results<IGRealmMember>!
+    var moderatorsMembersCount : Results<IGRealmMember>!
+    var adminsRole = IGPChannelRoom.IGPRole.admin.rawValue
+    var moderatorRole = IGPChannelRoom.IGPRole.moderator.rawValue
     var predicateAdmins : NSPredicate!
     var predicateModerators : NSPredicate!
     var notificationTokenModerator: NotificationToken?
@@ -43,7 +43,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
     private var hasScaledDown: Bool = false
     var room : IGRoom?
     var hud = MBProgressHUD()
-    var myRole : IGGroupMember.IGRole!
+    var myRole : IGPGroupRoom.IGPRole!
     var signMessageIndexPath : IndexPath?
     var imagePicker = UIImagePickerController()
     var selectedGroup: IGGroupRoom?
@@ -216,52 +216,46 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
     }
     
     func didPressMuteSwitch() {
-         print("I have pressed a button")
         self.muteRoom(room: self.room!)
-
     }
 
-        func muteRoom(room: IGRoom) {
-            
-            let roomId = room.id
-            var roomMute = IGRoom.IGRoomMute.mute
-            if room.mute == IGRoom.IGRoomMute.mute {
-                roomMute = .unmute
-            }
-            
-            self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
-            self.hud.mode = .indeterminate
-            IGClientMuteRoomRequest.Generator.generate(roomId: roomId, roomMute: roomMute).success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let muteRoomResponse as IGPClientMuteRoomResponse:
-                        IGClientMuteRoomRequest.Handler.interpret(response: muteRoomResponse)
-                    default:
-                        break
-                    }
-    //                self.tableView.reloadData()
-                    self.hud.hide(animated: true)
-                }
-            }).error({ (errorCode , waitTime) in
-                DispatchQueue.main.async {
-                    switch errorCode {
-                    case .timeout:
-                        let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    default:
-                        break
-                    }
-                    self.hud.hide(animated: true)
-                }
-            }).send()
+    func muteRoom(room: IGRoom) {
+        
+        let roomId = room.id
+        var roomMute = IGRoom.IGRoomMute.mute
+        if room.mute == IGRoom.IGRoomMute.mute {
+            roomMute = .unmute
         }
+        
+        self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
+        self.hud.mode = .indeterminate
+        IGClientMuteRoomRequest.Generator.generate(roomId: roomId, roomMute: roomMute).success({ (protoResponse) in
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let muteRoomResponse as IGPClientMuteRoomResponse:
+                    IGClientMuteRoomRequest.Handler.interpret(response: muteRoomResponse)
+                default:
+                    break
+                }
+                self.hud.hide(animated: true)
+            }
+        }).error({ (errorCode , waitTime) in
+            DispatchQueue.main.async {
+                switch errorCode {
+                case .timeout:
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                default:
+                    break
+                }
+                self.hud.hide(animated: true)
+            }
+        }).send()
+    }
     
     private func initView() {
-        //Hint: -Avatar View Initialiser
-        initAvatarView()
-        //Hint: -GradientView Initialiser
         initGradientView()
     }
     
@@ -286,81 +280,25 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(recognizer:)))
         avatarView.avatarImageView?.addGestureRecognizer(tap)
         
-        //            cameraButton.removeUnderline()
-        switch myRole! {
-        case .admin:
-            //                cameraButton.isHidden = false
-            //                groupTypeCell.accessoryType = .none
-            //                groupTypeLabelTrailingConstraint.constant = 10
-            break
-        case .owner:
-            //                leaveGroupLabel.text = "DELETE_GROUP".localizedNew
-            //                cameraButton.isHidden = false
-            break
-        case .member:
-            //                if room?.groupRoom?.type == .publicRoom {
-            //                    groupAllMemberCell.isHidden = true
-            //
-            //                } else {
-            //                    groupAllMemberCell.isHidden = false
-            //                }
-            //                adminsAndModeratorCell.isHidden = true
-            //                groupLinkCell.isHidden = true
-            //                groupNameCell.accessoryType = .none
-            //                groupNameLabelTrailingConstraint.constant = 10
-            //                groupTypeCell.accessoryType = .none
-            //                groupTypeLabelTrailingConstraint.constant = 10
-            //                cameraButton.isHidden = true
-            break
-        case .moderator:
-            //                if room?.groupRoom?.type == .publicRoom {
-            //                    groupAllMemberCell.isHidden = true
-            //                    groupLinkCell.isHidden = true
-            //                } else {
-            //                    groupAllMemberCell.isHidden = false
-            //                }
-            //                adminsAndModeratorCell.isHidden = true
-            //                groupNameCell.accessoryType = .none
-            //                groupNameLabelTrailingConstraint.constant = 10
-            //                groupTypeCell.accessoryType = .none
-            //                groupTypeLabelTrailingConstraint.constant = 10
-            //                cameraButton.isHidden = true
-            break
-        }
-        
         let predicate = NSPredicate(format: "id = %lld", (room?.id)!)
         groupRoom =  try! Realm().objects(IGRoom.self).filter(predicate)
         
         self.notificationToken = groupRoom.observe { (changes: RealmCollectionChange) in
-            
             if self.room == nil || self.room!.isInvalidated {return}
-            
             let predicatea = NSPredicate(format: "id = %lld", (self.room?.id)!)
             self.room =  try! Realm().objects(IGRoom.self).filter(predicatea).first!
-            
             self.showGroupInfo()
         }
         
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
-            DispatchQueue.main.async {
-                //                self.updateConnectionStatus(connectionStatus)
-            }
         }, onError: { (error) in
-            
         }, onCompleted: {
-            
         }, onDisposed: {
-            
         }).disposed(by: disposeBag)
-        
-    }
-    func initAvatarView() {
         
     }
     
     //MARK: -Actions
-    
-    
     
     @objc func handleTap(recognizer:UITapGestureRecognizer) {
         if recognizer.state == .ended {
@@ -376,7 +314,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
     var currentAvatarId: Int64?
     var timer = Timer()
     func showAvatar(avatar : IGAvatar) {
-        var photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMedia in
+        let photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMedia in
             return IGMedia(avatar: avatar)
         }
         
@@ -620,9 +558,9 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
     }
     private func requestToGetAdminsAndModerators() {
         predicateModerators = NSPredicate(format: "roleRaw = %d AND roomID = %lld", moderatorRole , (room?.id)!)
-        moderatorsMembersCount =  try! Realm().objects(IGChannelMember.self).filter(predicateModerators!)
+        moderatorsMembersCount =  try! Realm().objects(IGRealmMember.self).filter(predicateModerators!)
         predicateAdmins = NSPredicate(format: "roleRaw = %d AND roomID = %lld", adminsRole , (room?.id)!)
-        adminsMembersCount =  try! Realm().objects(IGChannelMember.self).filter(predicateAdmins!)
+        adminsMembersCount =  try! Realm().objects(IGRealmMember.self).filter(predicateAdmins!)
         self.notificationTokenModerator = moderatorsMembersCount.observe { (changes: RealmCollectionChange) in
             switch changes {
             case .initial:
@@ -765,7 +703,8 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
             destination.room = room
         }
         if segue.identifier == "showGroupMemberSetting" {
-            let destination = segue.destination as! IGGroupInfoMemberListTableViewController
+            let destination = segue.destination as! IGMemberTableViewController
+            destination.filterRole = .all
             destination.room = room
         }
         if segue.identifier == "showContactToAddMember" {
@@ -774,10 +713,6 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
             destinationTv.room = room
         }
         
-        if segue.identifier == "showGroupAdminsAnadModeratorsSetting" {
-            let destination = segue.destination as! IGGroupInfoAdminsAndModeratorsListTableViewController
-            destination.room = room
-        }
         if segue.identifier == "showGroupSharedMediaSetting" {
             let destination = segue.destination as! IGGroupSharedMediaListTableViewController
             destination.room = room
@@ -1082,6 +1017,8 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 default:
                     return cell
                 }
+            default:
+                return cell
             }
         case .publicRoom?:
             switch myRole {
@@ -1453,7 +1390,6 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case .admin:
                     return 5
                     
-                    
                 case .member:
                     return 5
                     
@@ -1463,13 +1399,15 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case .owner:
                     return 6
                     
+                default:
+                    return 0
                 }
+                
             case .publicRoom:
                 switch myRole! {
                 case .admin:
                     return 6
                     
-                    
                 case .member:
                     return 6
                     
@@ -1479,12 +1417,13 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case .owner:
                     return 6
                     
+                default:
+                    return 0
                 }
             }
         } else {
             return 5
         }
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -1559,7 +1498,9 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 default:
                     return 0
                 }
-                
+             
+            default:
+                return 0
             }
         case .publicRoom?:
             
@@ -1655,7 +1596,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     return 0
                 }
             }
-        case .none:
+        default:
             return 0
         }
     }
@@ -1893,23 +1834,11 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 default:
                     return 50
                 }
-                
+            default:
+                return 0
             }
+            
         case .publicRoom?:
-            
-            switch section {
-            case 0:
-                return 80
-            case 4:
-                return 10
-                
-            case 5:
-                return 10
-                
-            default:
-                return 50
-            }
-        case .none:
             switch section {
             case 0:
                 return 80
@@ -1923,9 +1852,23 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 return 50
             }
             
+        default:
+            switch section {
+            case 0:
+                return 80
+                
+            case 4:
+                return 10
+                
+            case 5:
+                return 10
+                
+            default:
+                return 50
+            }
         }
-        
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let groupType = room?.groupRoom?.type
         switch groupType {
@@ -1938,7 +1881,8 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 0:
                     break
                 case 1:
-                    showGroupLinkAlert()
+                    self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
+                    //showGroupLinkAlert()
                     break
                 case 2:
                     switch indexPath.row {
@@ -2155,7 +2099,10 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     break
                 }
                 
+            default:
+                break
             }
+            
         case .publicRoom?:
             switch myRole {
             case .admin? :

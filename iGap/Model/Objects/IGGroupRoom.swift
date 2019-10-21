@@ -12,88 +12,6 @@ import RealmSwift
 import Foundation
 import IGProtoBuff
 
-class IGGroupMember: Object {
-    
-    enum IGRole: Int {
-        case member = 0
-        case moderator
-        case admin
-        case owner
-        
-        static func fromIGP(type: IGPGroupRoom.IGPRole) -> IGGroupMember.IGRole {
-            switch type {
-            case .member:
-                return .member
-            case .moderator:
-                return .moderator
-            case .admin:
-                return .admin
-            case .owner:
-                return .owner
-            default:
-                return .member
-            }
-        }
-    }
-    
-    @objc dynamic var primaryKeyId: String         = ""    // user_id + _ + room_id
-    @objc dynamic var roomID: Int64                        = -1
-    @objc dynamic var userID: Int64                        = -1
-    @objc dynamic var roleRaw: IGRole.RawValue  = IGRole.member.rawValue
-    @objc dynamic var user: IGRegisteredUser?
-    
-    var role: IGRole {
-        get {
-            if let s = IGRole(rawValue: roleRaw) {
-                return s
-            }
-            return .member
-        }
-        set {
-            roleRaw = newValue.rawValue
-        }
-    }
-
-    override static func indexedProperties() -> [String] {
-        return ["roomID"]
-    }
-    
-    override static func primaryKey() -> String {
-        return "primaryKeyId"
-    }
-    override static func ignoredProperties() -> [String] {
-        return ["role"]
-    }
-    
-        
-    convenience init(igpMember: IGPGroupGetMemberListResponse.IGPMember, roomId: Int64) {
-        self.init()
-        self.userID = igpMember.igpUserID
-        self.roomID = roomId
-        self.primaryKeyId = "\(Int(igpMember.igpUserID))" + "_" + "\(Int(roomId))"
-        
-        switch igpMember.igpRole {
-        case .admin:
-            self.role = .admin
-        case .member:
-            self.role = .member
-        case .moderator:
-            self.role = .moderator
-        case .owner:
-            self.role = .owner
-        default:
-            break
-        }
-    }
-    convenience init(userID : Int64 , role : IGRole) {
-        self.init()
-        self.userID = userID
-        self.role = role
-        
-    }
-}
-
-
 class IGGroupRoom: Object {
     enum IGType: Int {
         case privateRoom = 0
@@ -121,7 +39,7 @@ class IGGroupRoom: Object {
     //MARK: properties
     @objc dynamic var id:                         Int64                           = -1
     @objc dynamic var typeRaw:                    IGType.RawValue                 = IGType.privateRoom.rawValue
-    @objc dynamic var roleRaw:                    IGGroupMember.IGRole.RawValue     = IGRole.member.rawValue
+    @objc dynamic var roleRaw:                    IGPGroupRoom.IGPRole.RawValue   = IGPGroupRoom.IGPRole.member.rawValue
     @objc dynamic var participantCount:           Int32                           = 0
     @objc dynamic var participantCountText:       String                          = ""
     @objc dynamic var participantCountLimit:      Int32                           = 0
@@ -144,9 +62,9 @@ class IGGroupRoom: Object {
             typeRaw = newValue.rawValue
         }
     }
-    var role: IGGroupMember.IGRole {
+    var role: IGPGroupRoom.IGPRole {
         get {
-            if let s = IGGroupMember.IGRole(rawValue: roleRaw) {
+            if let s = IGPGroupRoom.IGPRole(rawValue: roleRaw) {
                 return s
             }
             return .member
@@ -217,7 +135,7 @@ class IGGroupRoom: Object {
         }
         
         groupRoom.type = IGGroupRoom.IGType.fromIGP(type: igpGroupRoom.igpType)
-        groupRoom.role = IGGroupMember.IGRole.fromIGP(type: igpGroupRoom.igpRole)
+        groupRoom.role = igpGroupRoom.igpRole
         
         groupRoom.participantCount = igpGroupRoom.igpParticipantsCount
         groupRoom.participantCountText = igpGroupRoom.igpParticipantsCountLabel

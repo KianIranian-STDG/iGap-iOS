@@ -1092,6 +1092,8 @@
         "PROCESSING" : "processing",
         "SETTING_SOUND_SEND_MESSAGE" : "Send Message Sound",
         "DELETED_MESSAGE_2" : "This message has been deleted",
-        "CHAT_ROOM_NOT_FOUND" : "The desired chat could not be found"
+        "CHAT_ROOM_NOT_FOUND" : "The desired chat could not be found",
+        "CHANGED_ROLE_HINT" : "Your role has changed so you cannot view the members list at this time!",
+        "HINT" : "Hint"
     }
 }

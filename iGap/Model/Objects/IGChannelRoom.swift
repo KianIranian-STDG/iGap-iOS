@@ -12,92 +12,6 @@ import RealmSwift
 import Foundation
 import IGProtoBuff
 
-class IGChannelMember: Object {
-    
-    enum IGRole: Int {
-        case member = 0
-        case moderator
-        case admin
-        case owner
-        
-        static func fromIGP(role: IGPChannelRoom.IGPRole) -> IGChannelMember.IGRole {
-            switch role {
-            case .member:
-                return .member
-            case .moderator:
-                return .moderator
-            case .admin:
-                return .admin
-            case .owner:
-                return .owner
-            default:
-                return .member
-            }
-        }
-    }
-
-    @objc dynamic  var primaryKeyId: String         = ""    // user_id + _ + room_id
-    @objc dynamic  var roomID: Int64                        = -1
-    @objc dynamic  var userID: Int64                        = -1
-    @objc dynamic  var roleRaw: IGRole.RawValue  = IGRole.member.rawValue
-    @objc dynamic  var user: IGRegisteredUser?
-    
-    var role: IGRole {
-        get {
-            if let s = IGRole(rawValue: roleRaw) {
-                return s
-            }
-            return .member
-        }
-        set {
-            roleRaw = newValue.rawValue
-        }
-    }
-
-    override static func indexedProperties() -> [String] {
-        return ["roomID"]
-    }
-
-    override static func primaryKey() -> String {
-        return "primaryKeyId"
-    }
-    override static func ignoredProperties() -> [String] {
-        return ["role"]
-    }
-
-    
-    
-    
-    convenience init(igpMember: IGPChannelGetMemberListResponse.IGPMember, roomId: Int64) {
-        self.init()
-        self.userID = igpMember.igpUserID
-        self.roomID = roomId
-        self.primaryKeyId = "\(Int(igpMember.igpUserID))" + "_" + "\(Int(roomId))"
-        
-        switch igpMember.igpRole {
-        case .admin:
-            self.role = .admin
-        case .member:
-            self.role = .member
-        case .moderator:
-            self.role = .moderator
-        case .owner:
-            self.role = .owner
-        default:
-            break
-        }
-            
-
-        
-    }
-    convenience init(userID : Int64 , role : IGRole) {
-        self.init()
-        self.userID = userID
-        self.role = role
-        
-    }
-}
-
 class IGChannelRoom: Object {
     enum IGType: Int {
         case privateRoom = 0
@@ -118,8 +32,7 @@ class IGChannelRoom: Object {
     //MARK: properties
     @objc dynamic  var id:                         Int64                           = -1
     @objc dynamic  var typeRaw:                    IGType.RawValue                 = IGType.privateRoom.rawValue
-    @objc dynamic  var roleRaw:                    IGChannelMember.IGRole.RawValue = IGChannelMember.IGRole.member.rawValue
-    @objc dynamic  var filterRole:                 IGRoomFilterRole.RawValue       = IGRoomFilterRole.all.rawValue
+    @objc dynamic  var roleRaw:                    IGPChannelRoom.IGPRole.RawValue = IGPChannelRoom.IGPRole.member.rawValue
     @objc dynamic  var participantCount:           Int32                           = 0
     @objc dynamic  var participantCountText:       String                          = ""
     @objc dynamic  var roomDescription:            String                          = ""
@@ -143,9 +56,9 @@ class IGChannelRoom: Object {
         }
     }
     
-    var role: IGChannelMember.IGRole {
+    var role: IGPChannelRoom.IGPRole {
         get {
-            if let s = IGChannelMember.IGRole(rawValue: roleRaw) {
+            if let s = IGPChannelRoom.IGPRole(rawValue: roleRaw) {
                 return s
             }
             return .member
@@ -217,7 +130,7 @@ class IGChannelRoom: Object {
             channelRoom.id = id
         }
         channelRoom.type = IGChannelRoom.IGType.fromIGP(type: igpChannelRoom.igpType)
-        channelRoom.role = IGChannelMember.IGRole.fromIGP(role: igpChannelRoom.igpRole)
+        channelRoom.role = igpChannelRoom.igpRole
         
         channelRoom.participantCount = igpChannelRoom.igpParticipantsCount
         channelRoom.participantCountText = igpChannelRoom.igpParticipantsCountLabel

@@ -697,6 +697,47 @@ extension IGRoom {
         }
     }
     
+    static func updateRoomReadOnly(roomId: Int64 , memberId: Int64, readOnly: Bool) {
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            if memberId == IGAppManager.sharedManager.userID() {
+                try! IGDatabaseManager.shared.realm.write {
+                    let predicate = NSPredicate(format: "id = %lld", roomId)
+                    let room = try! Realm().objects(IGRoom.self).filter(predicate).first
+                    room?.isReadOnly = readOnly
+                }
+            }
+        }
+    }
+    
+    static func updateRoomReadOnly(roomId: Int64 , memberId: Int64, role: Int) {
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            if memberId == IGAppManager.sharedManager.userID() {
+                try! IGDatabaseManager.shared.realm.write {
+                    let predicate = NSPredicate(format: "id = %lld", roomId)
+                    if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
+                        
+                        switch role {
+                        case IGPChannelRoom.IGPRole.admin.rawValue, IGPChannelRoom.IGPRole.moderator.rawValue:
+                            room.isReadOnly = false
+                            break
+                            
+                        case IGPChannelRoom.IGPRole.member.rawValue:
+                            if room.type == .channel {
+                                room.isReadOnly = true
+                            } else {
+                                room.isReadOnly = false
+                            }
+                            break
+                            
+                        default:
+                            break
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     /* check that room exist in local and user is participant in this room */
     static func existRoomInLocal(roomId: Int64 = 0, userId: Int64 = 0) -> IGRoom? {
         if roomId != 0 {

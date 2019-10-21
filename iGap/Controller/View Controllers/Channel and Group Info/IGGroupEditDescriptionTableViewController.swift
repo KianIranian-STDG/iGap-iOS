@@ -21,7 +21,7 @@ class IGGroupEditDescriptionTableViewController: BaseTableViewController  {
     var room: IGRoom?
     var hud = MBProgressHUD()
     var placeholderLabel : UILabel!
-    var myRole : IGGroupMember.IGRole?
+    var myRole : IGPGroupRoom.IGPRole?
     var descriptionSize: CGFloat!
     override func viewDidLoad() {
         super.viewDidLoad()

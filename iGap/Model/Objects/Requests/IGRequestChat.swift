@@ -329,26 +329,13 @@ class IGChatConvertToGroupRequest : IGRequest {
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response responseProtoMessage:IGPChatConvertToGroupResponse) ->(roomId: Int64 , groupName: String , groupDescription: String , groupRole: IGGroupMember.IGRole) {
-            var IGRole: IGGroupMember.IGRole
+        class func interpret(response responseProtoMessage:IGPChatConvertToGroupResponse) ->(roomId: Int64 , groupName: String , groupDescription: String , groupRole: IGPGroupRoom.IGPRole) {
             let igpRoomId = responseProtoMessage.igpRoomID
             let igpGroupName = responseProtoMessage.igpName
             let igpGroupDescription = responseProtoMessage.igpDescription
             let igpGroupRole = responseProtoMessage.igpRole
-            switch igpGroupRole {
-            case .admin:
-                IGRole = .admin
-            case .member:
-                IGRole = .member
-            case .moderator:
-                IGRole = .moderator
-            case .owner:
-                IGRole = .owner           
-            case .UNRECOGNIZED(_):
-                IGRole = .member
-            }
-            IGFactory.shared.convertChatToGroup(roomId: igpRoomId, roomName: igpGroupName , roomRole : IGRole , roomDescription: igpGroupDescription )
-            return (roomId: igpRoomId , groupName: igpGroupName , groupDescription: igpGroupDescription , groupRole:IGRole)
+            IGFactory.shared.convertChatToGroup(roomId: igpRoomId, roomName: igpGroupName , roomRole: responseProtoMessage.igpRole , roomDescription: igpGroupDescription)
+            return (roomId: igpRoomId , groupName: igpGroupName , groupDescription: igpGroupDescription , groupRole:igpGroupRole)
         }
     
         override class func handlePush(responseProtoMessage: Message) {}

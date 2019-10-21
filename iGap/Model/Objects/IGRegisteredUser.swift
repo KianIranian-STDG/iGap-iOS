@@ -155,10 +155,15 @@ class IGRegisteredUser: Object {
         self.isBlocked = oldInfo.isBlocked
     }
     
-    static func putOrUpdate(realm: Realm, igpUser: IGPRegisteredUser) -> IGRegisteredUser {
+    static func putOrUpdate(realm: Realm? = nil, igpUser: IGPRegisteredUser) -> IGRegisteredUser {
+        
+        var realmFinal: Realm! = realm
+        if realmFinal == nil {
+            realmFinal = IGDatabaseManager.shared.realm
+        }
         
         let predicate = NSPredicate(format: "id = %lld", igpUser.igpID)
-        var user: IGRegisteredUser! = realm.objects(IGRegisteredUser.self).filter(predicate).first
+        var user: IGRegisteredUser! = realmFinal.objects(IGRegisteredUser.self).filter(predicate).first
         
         if user == nil {
             user = IGRegisteredUser()
@@ -183,7 +188,7 @@ class IGRegisteredUser: Object {
         user.bio = igpUser.igpBio
 
         if igpUser.hasIgpAvatar {
-            user.avatar = IGAvatar.putOrUpdate(realm: realm, igpAvatar: igpUser.igpAvatar)
+            user.avatar = IGAvatar.putOrUpdate(realm: realmFinal, igpAvatar: igpUser.igpAvatar)
         }
         return user
     }

@@ -373,7 +373,7 @@ enum IGPassCodeViewMode: Int {
     case changePassCode
 }
 
-enum IGRoomFilterRole: Int {
+enum IGMemberRole: Int {
     case all
     case member
     case admin
