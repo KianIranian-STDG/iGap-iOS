@@ -26,10 +26,11 @@ import webservice
 import KeychainSwift
 import SDWebImage
 import MarkdownKit
+import SwiftEventBus
 
 
 class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObserver, UNUserNotificationCenterDelegate, ForwardStartObserver {
-    
+    var headerHeight : CGFloat = 0
     var searchController : UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
@@ -376,8 +377,33 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_ROOM_PAGE)
         
         self.hidesBottomBarWhenPushed = false
+        self.eventBusInitialiser()
     }
     
+    private func eventBusInitialiser() {
+        SwiftEventBus.onMainThread(self, name: EventBusManager.showTopMusicPlayer) { result in
+            self.showMusicTopPlayerWithAnimation()
+        }
+        SwiftEventBus.onMainThread(self, name: EventBusManager.hideTopMusicPlayer) { result in
+            self.hideMusicTopPlayerWithAnimation()
+        }
+
+    }
+    private func hideMusicTopPlayerWithAnimation() {
+        UIView.animate(withDuration: 0.3, animations: {
+                self.tableView.beginUpdates()
+                self.headerHeight = 0
+                self.tableView.endUpdates()
+            IGPlayer.shared.stopMedia()
+        })
+
+    }
+    private func showMusicTopPlayerWithAnimation() {
+        self.tableView.beginUpdates()
+        self.headerHeight = 40
+        self.tableView.endUpdates()
+
+    }
     @objc private func changeDirectionOfUI() {
         let _ : String = SMLangUtil.loadLanguage()
     }
@@ -580,10 +606,10 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let vw = UIView()
-        vw.backgroundColor = UIColor.red
-
-        return vw
+        return IGHelperMusicPlayer.shared.showTopMusicPlayer(view: self)
+    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return headerHeight
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.rooms!.count
@@ -599,6 +625,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             cell.showStateImage =  false
         }
         cell.roomII = self.rooms![indexPath.row]
+
         return cell
     }
     

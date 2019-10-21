@@ -75,6 +75,7 @@ class IGMusicPlayer {
         player.pause()
     }
     
+    
     func next() {
     }
     

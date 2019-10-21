@@ -3625,6 +3625,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/YPImagePicker.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/PryntTrimmerView.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Stevia.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftEventBus.framework",
 			);
 			name = "[RS] Copy Carthage Frameworks";
 			outputPaths = (

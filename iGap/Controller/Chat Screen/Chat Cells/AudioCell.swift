@@ -10,6 +10,7 @@
 
 import UIKit
 import SnapKit
+import SwiftEventBus
 
 class AudioCell: AbstractCell {
     
@@ -210,6 +211,7 @@ class AudioCell: AbstractCell {
     }
     
     @objc func didTapOnPlay(_ gestureRecognizer: UITapGestureRecognizer) {
+
         IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderAudio, timer: txtAudioTime, roomMessage: self.finalRoomMessage)
     }
 }

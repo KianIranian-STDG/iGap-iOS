@@ -10,7 +10,7 @@ import UIKit
 import maincore
 
 struct SMConstants {
-	
+    
     static let notificationMerchant = "merchant.info.updated"
     static let refreshTableView = "refreshTableview"
     static let notificationBarchart = "merchant.barCHart.updated"
@@ -18,10 +18,15 @@ struct SMConstants {
     static let notificationRefresh = "Notification.Refresh"
     static let isBackToMain = "isBackToMain"
 
-	
-	static let version : String	= Bundle.main.infoDictionary!["CFBundleShortVersionString"]! as! String
-	static let build : String 	= Bundle.main.infoDictionary!["CFBundleVersion"]! as! String
-	
+    
+    static let version : String    = Bundle.main.infoDictionary!["CFBundleShortVersionString"]! as! String
+    static let build : String     = Bundle.main.infoDictionary!["CFBundleVersion"]! as! String
+    
+}
+struct EventBusManager {
+    
+    static let hideTopMusicPlayer = "showMusicTopPlayer"
+    static let showTopMusicPlayer = "hideMusicTopPlayer"
 }
 
 struct SMMessage {

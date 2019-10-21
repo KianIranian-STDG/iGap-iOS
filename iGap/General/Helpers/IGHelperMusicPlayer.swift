@@ -11,6 +11,7 @@
 import IGProtoBuff
 import RealmSwift
 import UIKit
+import SwiftEventBus
 
 // IMPORTANT TODO - convert current class to builder
 class IGHelperMusicPlayer {
@@ -45,33 +46,38 @@ class IGHelperMusicPlayer {
         }
 
         if self.bgView == nil {
-            if constraintView != nil {//if is in chatPage page cause it has constraint to its super stackView
-                self.bgView = self.createMainView(view: alertView,constraintView: constraintView)
-            }
-            else if constraintStackView != nil {
-                self.bgView = self.createMainView(view: alertView,constraintStackView: constraintStackView!)
-            } else {
-                self.bgView = self.createMainView(view: alertView)
+ 
+                self.bgView = self.createMainView()
 
-            }
             
             ///add play pause button to it's superView
-            let PlayPauseButton = self.createPausePlayButton(view: self.bgView)
+            let PlayPauseButton = UIButton()
             self.bgView.addSubview(PlayPauseButton)
+            self.createPausePlayButton(btn: PlayPauseButton, view: self.bgView)
             ///add clsoe button to it's superView
-            let CloseButton = self.createPausePlayButton(view: self.bgView)
+            let CloseButton = UIButton()
+            self.bgView.addSubview(CloseButton)
+            self.createCloseButton(btn: CloseButton, view: self.bgView)
             let tapGestureRecognizerClose = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnClose))
             tapGestureRecognizerClose.numberOfTapsRequired = 1
             tapGestureRecognizerClose.numberOfTouchesRequired = 1
             CloseButton.addGestureRecognizer(tapGestureRecognizerClose)
             self.actionClose = close
-
-            self.bgView.addSubview(CloseButton)
             
+            
+            
+            
+            ////borders
+            let borderTop = UIView()///border Top
+            let borderBottom = UIView()///border Bottom
+            self.bgView.addSubview(borderTop)
+            self.bgView.addSubview(borderBottom)
+
+            self.creatBorders(topBorder: borderTop, bottomBorder: borderBottom, view: self.bgView)
+            return self.bgView
         } else {
             return self.bgView
         }
-        return UIView()
     }
     
     //MARK: - Development funcs
@@ -88,49 +94,65 @@ class IGHelperMusicPlayer {
     ///TopMusicPlayer funcs
     ///MainView creation
     private func removeMainViewFromSuperView() {
+        SwiftEventBus.post(EventBusManager.hideTopMusicPlayer)
         self.bgView.removeFromSuperview()
+        
     }
-    private func createMainView(view: UIViewController!,constraintView: UIView? = nil , constraintStackView : UIStackView? = nil) -> UIView {
+    private func createMainView() -> UIView {
         let view = UIView()
-        view.backgroundColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
-        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(named: themeColor.messageLogCellBGColor.rawValue)
         view.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//        view.widthAnchor.constraint(equalToConstant: view.frame.size.width).isActive = true
-//        view.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
-//        view.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
-//        if constraintView != nil {
-//            view.topAnchor.constraint(equalTo: constraintView!.topAnchor, constant: 0).isActive = true
-//        } else {
-//            view.topAnchor.constraint(equalTo: constraintStackView!.topAnchor, constant: 0).isActive = true
-//        }
 
+        view.tag = 404
         return view
     }
     ///Pause-Play Button
-    private func createPausePlayButton(view: UIView!) -> UIButton {
-        let button = UIButton()
-        button.setTitle("", for: .normal)
-        button.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
-        button.titleLabel?.font = UIFont.iGapFonticon(ofSize: 15)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.heightAnchor.constraint(equalToConstant: 35).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 35).isActive = true
-        button.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
-        button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
-        return button
+    private func createPausePlayButton(btn: UIButton!,view:UIView!)  {
+        btn.setTitle("", for: .normal)
+        btn.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
+        btn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        btn.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        btn.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
+        btn.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
     }
     
-    private func createCloseButton(view: UIView!) -> UIButton {
-        let button = UIButton()
-        button.setTitle("🌩", for: .normal)
-        button.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
-        button.titleLabel?.font = UIFont.iGapFonticon(ofSize: 15)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.heightAnchor.constraint(equalToConstant: 35).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 35).isActive = true
-        button.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
-        button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
-        return button
+    private func createCloseButton(btn: UIButton!,view:UIView!)  {
+        btn.setTitle("🌩", for: .normal)
+        btn.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
+        btn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        btn.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        btn.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
+        btn.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
+    }
+    private func creatBorders(topBorder:UIView!,bottomBorder:UIView!,view: UIView!) {
+        topBorder.translatesAutoresizingMaskIntoConstraints = false
+        topBorder.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        topBorder.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
+        topBorder.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        topBorder.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+        topBorder.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+        topBorder.backgroundColor = .darkGray
+        bottomBorder.backgroundColor = .darkGray
+        bottomBorder.translatesAutoresizingMaskIntoConstraints = false
+        bottomBorder.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        bottomBorder.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
+        bottomBorder.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        bottomBorder.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+        bottomBorder.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+
+    }
+    private func createProgressView(pv:UIProgressView!,view: UIView!) {
+        pv.translatesAutoresizingMaskIntoConstraints = false
+        pv.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        pv.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
+        pv.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 1).isActive = true
+        pv.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+        pv.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+
     }
 
     

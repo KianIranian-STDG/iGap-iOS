@@ -32,7 +32,7 @@ import webservice
 import SwiftyRSA
 import AVFoundation
 import YPImagePicker
-
+import SwiftEventBus
 
 public var indexOfVideos = [Int]()
 class IGHeader: UICollectionReusableView {
@@ -63,6 +63,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     //newUITextMessage
     // MARK: - Outlets
     
+    @IBOutlet weak var stackTopViews: UIStackView!
     @IBOutlet weak var stackMessageView: UIStackView!
     @IBOutlet weak var mainHolder: UIStackView!
     @IBOutlet weak var holderRecordView: UIView!
@@ -1290,7 +1291,28 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             startLoadMessage()
         }
         initiconFonts()
+//        eventBusInitialiser()
 
+    }
+    private func eventBusInitialiser() {
+        SwiftEventBus.onMainThread(self, name: EventBusManager.showTopMusicPlayer) { result in
+            self.showMusicTopPlayerWithAnimation()
+            
+        }
+        SwiftEventBus.onMainThread(self, name: EventBusManager.hideTopMusicPlayer) { result in
+            self.hideMusicTopPlayerWithAnimation()
+            
+        }
+
+    }
+    private func hideMusicTopPlayerWithAnimation() {
+      
+//        IGPlayer.shared.stopMedia()
+    }
+    private func showMusicTopPlayerWithAnimation() {
+        stackTopViews.addArrangedSubview(IGHelperMusicPlayer.shared.showTopMusicPlayer(view: self))
+        stackTopViews.removeArrangedSubview(self.pinnedMessageView)
+        stackTopViews.addArrangedSubview(self.pinnedMessageView)
     }
     private func initiconFonts() {
         txtSticker.font = UIFont.iGapFonticon(ofSize: 25)

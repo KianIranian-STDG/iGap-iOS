@@ -32,6 +32,7 @@ github "kaishin/Gifu"
 github "KianIranian-STDG/swift-protobuf" "1.6.0_iGap"
 github "KianIranian-STDG/IGProtoBuffLibrary" "proto125"
 github "Yummypets/YPImagePicker"
+github "cesarferreira/SwiftEventBus" == 5.0.0
 
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAnalyticsBinary.json"
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseMessagingBinary.json"

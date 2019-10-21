@@ -11,7 +11,7 @@
 import UIKit
 import AVFoundation
 import MediaPlayer
-
+import SwiftEventBus
 class IGPlayer {
     
     static let shared = IGPlayer()
@@ -37,6 +37,7 @@ class IGPlayer {
      * @param justUpdate if set true player view will be update with current state otherwise will be started new player with attachment param
      */
     func startPlayer(btnPlayPause: UIButton, slider: UISlider, timer: UILabel, roomMessage: IGRoomMessage, justUpdate: Bool = false){
+
         if justUpdate {
             if self.roomMessage?.id == roomMessage.id {
                 btnPlayPause.setTitle(latestButtonValue, for: UIControl.State.normal)
@@ -71,6 +72,7 @@ class IGPlayer {
                 self.didTapOnbtnPlayPause(btnPlayPause)
             }
         }
+
     }
     
     /** if another voice or audio is playing remove old valus and reset slider and timer */
@@ -152,6 +154,8 @@ class IGPlayer {
             player.play(index: 0, from: files)
             flag = false
             updateSliderValue()
+            SwiftEventBus.post(EventBusManager.showTopMusicPlayer)
+
         }
     }
     
@@ -160,6 +164,12 @@ class IGPlayer {
         btnPlayPause.setTitle("", for: UIControl.State.normal) // play icon
         player.pause()
         flag = true
+    }
+    func stopMedia(){
+        self.latestButtonValue = ""
+        btnPlayPause.setTitle("", for: UIControl.State.normal) // play icon
+        player.removeItemsFromList()
+        flag = false
     }
     
     private func addGestureRecognizer(){
