@@ -13,7 +13,7 @@ import models
 
 /// Merchant Model; This class provide method to create model by data fetched from server or db
 /// Model insert to, delete from or select from db, Also fetch data from server
-class SMMerchant: SMEntity {
+public class SMMerchant: SMEntity {
 
 	// MARK:- Properties
 	/// Core Data model name
@@ -30,7 +30,7 @@ class SMMerchant: SMEntity {
 	
 	
 	///Merchant name
-	var name:String?
+	var name: String?
 	
 	///Type of account
 	var accountType:Int64?
@@ -104,7 +104,7 @@ class SMMerchant: SMEntity {
 		let req = NSFetchRequest<NSManagedObject>(entityName: SMMerchant.ENTITY_NAME)
 		
 		
-		do{
+		do {
 			let results = try SMEntity.context.fetch(req)
 			
 			for r in results{
@@ -113,7 +113,7 @@ class SMMerchant: SMEntity {
 				
 			}
 			
-		}catch{
+		} catch {
 			SMLog.SMPrint(error)
 		}
 		
@@ -139,7 +139,7 @@ class SMMerchant: SMEntity {
 		
 		conditions?(req)
 		
-		do{
+		do {
 			let results = try SMEntity.context.fetch(req)
 			
 			var resultsArr:[SMMerchant] = []
@@ -150,7 +150,7 @@ class SMMerchant: SMEntity {
 			}
 			
 			return resultsArr
-		}catch{
+		} catch {
 			SMLog.SMPrint(error)
 			return []
 		}

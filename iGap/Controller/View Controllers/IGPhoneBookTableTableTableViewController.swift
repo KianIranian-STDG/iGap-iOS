@@ -80,6 +80,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         IGPhoneBookTableViewController.callDelegate = self
         let predicate = NSPredicate(format: "isInContacts = 1")
         contacts = try! Realm().objects(IGRegisteredUser.self).filter(predicate).sorted(byKeyPath: "displayName", ascending: true)
+        self.filteredContacts = self.contacts
         
         self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
         self.tableView.tableFooterView = makeFooterView()
@@ -480,6 +481,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                             let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
                             self.navigationController?.popToRootViewController(animated: true)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
+                            
                         }
                     }
                 }).error({ (errorCode, waitTime) in
@@ -602,11 +604,15 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
 //        }
         
         // Filter the data array and get only those users that match the search text.
-        if searchString.isEmpty {
-            filteredContacts = contacts
-        } else {
+        if !searchString.isEmpty {
             filteredContacts = contacts.filter(predicate)
         }
+        
+//        if searchString.isEmpty {
+//            filteredContacts = contacts
+//        } else {
+//            filteredContacts = contacts.filter(predicate)
+//        }
         
         setFooterLabelText()
      

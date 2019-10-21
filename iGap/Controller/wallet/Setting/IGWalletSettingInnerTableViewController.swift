@@ -130,7 +130,6 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
 ////
             })
 //            SMLoading.showToast(viewcontroller: self, text: "SUCCESS_OTP".localizedNew)
-
         }
         
         request.addFailedHandler { (response) in

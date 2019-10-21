@@ -9,26 +9,26 @@
 import UIKit
 import CoreData
 
-class SMEntity: NSObject {
+public class SMEntity: NSObject {
     
     static var context:NSManagedObjectContext{
-        get{
+        get {
             return (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
         }
     }
     
     
     static func commit(){
-        do{
+        do {
             try SMEntity.context.save()
-        }catch{
+        } catch {
 //            SMLog.SMPrint(error)
         }
     }
     
     
-    override var description: String{
-        get{
+    override public var description: String {
+        get {
             var desc = super.description
             
             for ch in Mirror(reflecting: self).children{

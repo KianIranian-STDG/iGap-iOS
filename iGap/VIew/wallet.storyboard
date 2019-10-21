@@ -195,13 +195,13 @@
                                                         </view>
                                                     </subviews>
                                                 </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oFA-SA-VQA">
-                                                    <rect key="frame" x="20" y="282" width="374" height="48"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oFA-SA-VQA">
+                                                    <rect key="frame" x="20" y="286" width="374" height="40"/>
                                                     <subviews>
                                                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jRM-iJ-XVk" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="4" width="182" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="118" height="40"/>
                                                             <color key="backgroundColor" name="IGNavigationSecondColor"/>
-                                                            <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="16"/>
+                                                            <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="15"/>
                                                             <state key="normal" title="Cashout">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
@@ -215,9 +215,9 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A45-HS-xdb" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
-                                                            <rect key="frame" x="192" y="4" width="182" height="40"/>
+                                                            <rect key="frame" x="128" y="0.0" width="118" height="40"/>
                                                             <color key="backgroundColor" name="IGNavigationSecondColor"/>
-                                                            <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="16"/>
+                                                            <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="15"/>
                                                             <state key="normal" title="Charge">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
@@ -230,16 +230,28 @@
                                                                 <action selector="btnGoToCashInTap:" destination="JbV-lJ-5dF" eventType="touchUpInside" id="WvW-kM-H1O"/>
                                                             </connections>
                                                         </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0mA-0I-Zay" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                            <rect key="frame" x="256" y="0.0" width="118" height="40"/>
+                                                            <color key="backgroundColor" name="IGNavigationSecondColor"/>
+                                                            <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="15"/>
+                                                            <state key="normal" title="Recover Password">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="recoverPassTap:" destination="JbV-lJ-5dF" eventType="touchUpInside" id="Z9e-G7-xHu"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="jRM-iJ-XVk" firstAttribute="leading" secondItem="oFA-SA-VQA" secondAttribute="leading" id="77c-e2-eGq"/>
-                                                        <constraint firstAttribute="trailing" secondItem="A45-HS-xdb" secondAttribute="trailing" id="88W-IS-4IG"/>
-                                                        <constraint firstAttribute="bottom" secondItem="jRM-iJ-XVk" secondAttribute="bottom" constant="4" id="DFR-86-11A"/>
-                                                        <constraint firstItem="A45-HS-xdb" firstAttribute="top" secondItem="oFA-SA-VQA" secondAttribute="top" constant="4" id="U5E-qP-mFd"/>
+                                                        <constraint firstItem="jRM-iJ-XVk" firstAttribute="height" secondItem="A45-HS-xdb" secondAttribute="height" id="InR-4U-5iU"/>
                                                         <constraint firstItem="jRM-iJ-XVk" firstAttribute="leading" secondItem="oFA-SA-VQA" secondAttribute="leading" id="XAI-mT-hpc"/>
-                                                        <constraint firstAttribute="height" constant="48" id="f6H-TS-FWF"/>
-                                                        <constraint firstItem="jRM-iJ-XVk" firstAttribute="top" secondItem="oFA-SA-VQA" secondAttribute="top" constant="4" id="fet-5V-2Om"/>
-                                                        <constraint firstAttribute="bottom" secondItem="A45-HS-xdb" secondAttribute="bottom" constant="4" id="mA2-y7-KF6"/>
+                                                        <constraint firstAttribute="height" constant="40" id="f6H-TS-FWF"/>
                                                     </constraints>
                                                 </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bGd-L3-Ydw" userLabel="titleView">
@@ -308,13 +320,13 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="yzw-Gn-vvZ" firstAttribute="top" secondItem="bGd-L3-Ydw" secondAttribute="bottom" constant="8" id="AZ8-gl-MkN"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="oFA-SA-VQA" secondAttribute="bottom" constant="8" id="CWP-Ei-F8j"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="oFA-SA-VQA" secondAttribute="bottom" constant="12" id="CWP-Ei-F8j"/>
                                                 <constraint firstItem="bGd-L3-Ydw" firstAttribute="leading" secondItem="vdL-b9-nZn" secondAttribute="leadingMargin" id="QDD-is-9ov"/>
                                                 <constraint firstItem="yzw-Gn-vvZ" firstAttribute="leading" secondItem="vdL-b9-nZn" secondAttribute="leadingMargin" id="UrX-MG-4lX"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="oFA-SA-VQA" secondAttribute="trailing" id="W6c-bm-aD3"/>
                                                 <constraint firstItem="oFA-SA-VQA" firstAttribute="leading" secondItem="vdL-b9-nZn" secondAttribute="leadingMargin" id="fyI-Zc-FMV"/>
                                                 <constraint firstItem="bGd-L3-Ydw" firstAttribute="top" secondItem="vdL-b9-nZn" secondAttribute="topMargin" id="jnV-m1-VLf"/>
-                                                <constraint firstItem="oFA-SA-VQA" firstAttribute="top" secondItem="yzw-Gn-vvZ" secondAttribute="bottom" constant="8" id="ml9-Td-VN0"/>
+                                                <constraint firstItem="oFA-SA-VQA" firstAttribute="top" secondItem="yzw-Gn-vvZ" secondAttribute="bottom" constant="12" id="ml9-Td-VN0"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="yzw-Gn-vvZ" secondAttribute="trailing" id="oun-jP-XYe"/>
                                                 <constraint firstItem="bGd-L3-Ydw" firstAttribute="trailing" secondItem="vdL-b9-nZn" secondAttribute="trailingMargin" id="xGY-q8-wy1"/>
                                             </constraints>
@@ -551,6 +563,7 @@
                         <outlet property="lblMyHistoryTitle" destination="V97-oL-uXd" id="VYY-LA-kdq"/>
                         <outlet property="lblWalletBalance" destination="TOH-HG-8cz" id="giA-uv-HLt"/>
                         <outlet property="mainAmountView" destination="HEM-Ph-Tbw" id="zg2-Jq-u4g"/>
+                        <outlet property="recoverPassBtn" destination="0mA-0I-Zay" id="LHI-la-kyR"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tM4-tn-ceb" userLabel="First Responder" sceneMemberID="firstResponder"/>

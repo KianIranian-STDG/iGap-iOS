@@ -12,6 +12,7 @@ import UIKit
 import AVFoundation
 import MediaPlayer
 import SwiftEventBus
+
 class IGPlayer {
     
     static let shared = IGPlayer()

@@ -21,6 +21,7 @@ var needToUpdate = false
 protocol HandlePassBalance {
     func sendBalanceToScannerVC(cardBalance: String)
 }
+
 class packetTableViewController: BaseTableViewController, HandleDefaultCard, UICollectionViewDelegate, UICollectionViewDataSource {
     var shouldShowHisto = false
     var merchant : SMMerchant!
@@ -37,11 +38,12 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
     @IBOutlet weak var btnHisto: UIButton!
     @IBOutlet weak var btnQrCodeScan: UIButton!
     @IBOutlet weak var btnCharge: UIButtonX!
+    @IBOutlet weak var recoverPassBtn: UIButtonX!
     
     @IBOutlet weak var giftAmountLbl: UILabel!
     @IBOutlet weak var cashAmountLbl: UILabel!
     
-    var bussinessArray : [Int]! = []
+    var bussinessArray: [Int]! = []
     var showSection: Bool = true
     var selectedRow: Int = 0
 
@@ -93,8 +95,9 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
         super.viewDidLoad()
         
         isfromPacket = false
-        btnCashout.backgroundColor = .iGapGreen()
-        btnCharge.backgroundColor = .iGapGreen()
+        btnCashout.backgroundColor = .iGapDarkGreenColor()
+        btnCharge.backgroundColor = .iGapDarkGreenColor()
+        recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
         btnCashout.isUserInteractionEnabled = true
 
         initNavigationBar()
@@ -125,7 +128,6 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
         currentRole = "paygearuser"
 
         self.view.layoutIfNeeded()
-//        self.btnCharge.layoutIfNeeded()
         SMCard.updateBaseInfoFromServer()
     }
     
@@ -140,17 +142,16 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         isfromPacket = true
-
-        btnCashout.backgroundColor = .iGapGreen()
-        btnCharge.backgroundColor = .iGapGreen()
+        
         btnCashout.isUserInteractionEnabled = true
 
         merchantID = SMUserManager.accountId
         getMerchantData()
         initChangeLanguage()
         IGRequestWalletGetAccessToken.sendRequest()
-        btnCashout.backgroundColor = .iGapGreen()
-        btnCharge.backgroundColor = .iGapGreen()
+        btnCashout.backgroundColor = .iGapDarkGreenColor()
+        btnCharge.backgroundColor = .iGapDarkGreenColor()
+        recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
     }
     
     @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
@@ -180,6 +181,7 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
         lblCurrencyFormat.text = SMLangUtil.changeLblText(tag: lblCurrencyFormat.tag, parentViewController: NSStringFromClass(self.classForCoder))
         btnCashout.setTitle(SMLangUtil.changeLblText(tag: btnCashout.tag, parentViewController: NSStringFromClass(self.classForCoder)), for: .normal)
         btnCharge.setTitle(SMLangUtil.changeLblText(tag: btnCharge.tag, parentViewController: NSStringFromClass(self.classForCoder)), for: .normal)
+        recoverPassBtn.setTitle(SMLangUtil.changeLblText(tag: recoverPassBtn.tag, parentViewController: NSStringFromClass(self.classForCoder)), for: .normal)
         lblMyHistoryTitle.text = "MONEY_TRANSFER_HISTORY".localizedNew
     }
     
@@ -230,11 +232,7 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                 self.view.layoutIfNeeded()
 
             }
-            
         }
-
-
-
     }
     
     func setupUI() {
@@ -243,19 +241,23 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
             self.btnCharge.isHidden = false
             self.btnCashout.isHidden = false
             self.btnHisto.isHidden = false
+            self.recoverPassBtn.isHidden = true
+            self.recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
             self.lblWalletBalance.text = "TTL_WALLET_BALANCE_USER".localizedNew
             self.btnCashout.setTitle("BTN_CASHOUT_WALLET".localizedNew, for: .normal)
             initView()
             self.view.layoutIfNeeded()
             DispatchQueue.main.async {
                 SMLoading.hideLoadingPage()
-                
             }
             break
+            
         case "admin" :
             self.btnCharge.isHidden = true
             self.btnCashout.isHidden = false
             self.btnHisto.isHidden = true
+            self.recoverPassBtn.isHidden = false
+            self.recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
             if currentBussinessType == 0 {
                 self.lblWalletBalance.text = "TTL_WALLET_BALANCE_STORE".localizedNew
                 self.btnCashout.setTitle("BTN_CASHOUT_WALLET_STORE".localizedNew, for: .normal)
@@ -263,7 +265,6 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
             if currentBussinessType == 2 {
                 self.btnCashout.setTitle("BTN_CASHOUT_WALLET_DRIVER".localizedNew, for: .normal)
                 self.lblWalletBalance.text = "TTL_WALLET_BALANCE_DRIVER".localizedNew
-
             }
             initView()
             self.view.layoutIfNeeded()
@@ -271,10 +272,13 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                 SMLoading.hideLoadingPage()
             }
             break
+            
         case "finance" :
             self.btnCharge.isHidden = true
             self.btnCashout.isHidden = true
             self.btnHisto.isHidden = true
+            self.recoverPassBtn.isHidden = true
+            self.recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
             if currentBussinessType == 0 {
                 self.lblWalletBalance.text = "TTL_WALLET_BALANCE_STORE".localizedNew
                 self.btnCashout.setTitle("BTN_CASHOUT_WALLET_STORE".localizedNew, for: .normal)
@@ -282,16 +286,14 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
             if currentBussinessType == 2 {
                 self.btnCashout.setTitle("BTN_CASHOUT_WALLET_DRIVER".localizedNew, for: .normal)
                 self.lblWalletBalance.text = "TTL_WALLET_BALANCE_DRIVER".localizedNew
-                
             }
             initView()
             self.view.layoutIfNeeded()
             DispatchQueue.main.async {
                 SMLoading.hideLoadingPage()
-                
             }
-
             break
+            
         default :
             break
         }
@@ -319,7 +321,7 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
         self.navigationController!.pushViewController(walletSettingPage!, animated: true)
     }
     
-    @objc func showReceivers(){
+    @objc func showReceivers() {
         bussinessArray.removeAll()
         Merchantitems.removeAll()
         Taxyitems.removeAll()
@@ -333,20 +335,20 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
         }
         bussinessArray = uniq(source: bussinessArray)
         for userMerchant in userMerchants! {
-            if let tmpVal : Int = userMerchant.businessType {
+            if let tmpVal: Int = userMerchant.businessType {
                 switch tmpVal {
                 case 0 :
                     currentBussinessType = 0
-                    let tmpItem = DropdownItem(image: nil, title: "\((userMerchant.name)!) - \((userMerchant.role!).localizedNew)", id: (userMerchant.id!), role: (userMerchant.role!), bType: (userMerchant.businessType!))
+                    let tmpItem = DropdownItem(image: nil, title: "\((userMerchant.name)!) - \((userMerchant.role!).localizedNew)", id: (userMerchant.id!), role: (userMerchant.role!), bType: (userMerchant.businessType!), merchant: userMerchant)
                     Merchantitems.append(tmpItem)
                     break
                 case 1 :
-                    let tmpItem = DropdownItem(image: nil, title: "\((userMerchant.name)!) - \((userMerchant.role!).localizedNew)", id: (userMerchant.id!), role: (userMerchant.role!), bType: (userMerchant.businessType!))
+                    let tmpItem = DropdownItem(image: nil, title: "\((userMerchant.name)!) - \((userMerchant.role!).localizedNew)", id: (userMerchant.id!), role: (userMerchant.role!), bType: (userMerchant.businessType!), merchant: userMerchant)
                     otheritems.append(tmpItem)
 
                     break
                 case 2 :
-                    let tmpItem = DropdownItem(image: nil, title: "\((userMerchant.name)!) - \((userMerchant.role!).localizedNew)", id: (userMerchant.id!), role: (userMerchant.role!), bType: (userMerchant.businessType!))
+                    let tmpItem = DropdownItem(image: nil, title: "\((userMerchant.name)!) - \((userMerchant.role!).localizedNew)", id: (userMerchant.id!), role: (userMerchant.role!), bType: (userMerchant.businessType!), merchant: userMerchant)
                     Taxyitems.append(tmpItem)
 
                     break
@@ -354,14 +356,12 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                     break
                 }
             }
-
         }
+        
         if showSection {
-            let test = bussinessArray.count
-            let testT = bussinessArray
             switch bussinessArray.count {
             case 1 :
-                let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3)
+                let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
                 let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
                 items = [[item0]]
                 menuView = DropdownMenu(navigationController: navigationController!, sections: [section0], selectedIndexPath: selectedIndexPath)
@@ -369,38 +369,38 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
             case 2 :
 
                 if bussinessArray.contains(0) {
-                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3)
+                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
                     let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
                     
                     let section1 = DropdownSection(sectionIdentifier:  "store".localizedNew, items: Merchantitems)
                     
                     
                     
-                    items = [[item0],Merchantitems]
+                    items = [[item0], Merchantitems]
                     menuView = DropdownMenu(navigationController: navigationController!, sections: [section0,section1], selectedIndexPath: selectedIndexPath)
                     
                 }
                 else if bussinessArray.contains(1) {
-                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3)
+                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
                     let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
                     
                     let section1 = DropdownSection(sectionIdentifier:  "other".localizedNew, items: otheritems)
                     
                     
                     
-                    items = [[item0],otheritems]
+                    items = [[item0], otheritems]
                     menuView = DropdownMenu(navigationController: navigationController!, sections: [section0,section1], selectedIndexPath: selectedIndexPath)
                     
                 }
                 else if bussinessArray.contains(2) {
-                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3)
+                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
                     let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
                     
                     let section1 = DropdownSection(sectionIdentifier:  "driver".localizedNew, items: Taxyitems)
                     
                     
                     
-                    items = [[item0],Taxyitems]
+                    items = [[item0], Taxyitems]
                     menuView = DropdownMenu(navigationController: navigationController!, sections: [section0,section1], selectedIndexPath: selectedIndexPath)
                     
                 }
@@ -410,7 +410,7 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                 break
             case 3 :
                 if (bussinessArray.contains(0)) && (bussinessArray.contains(1)) {
-                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3)
+                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
                     let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
                     
                     let section1 = DropdownSection(sectionIdentifier:  "store".localizedNew, items: Merchantitems)
@@ -418,13 +418,13 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                     
                     
                     
-                    items = [[item0],Merchantitems ,otheritems]
+                    items = [[item0], Merchantitems, otheritems]
                     menuView = DropdownMenu(navigationController: navigationController!, sections: [section0,section1 ,section2], selectedIndexPath: selectedIndexPath)
                     
                 }
                 
                 else if (bussinessArray.contains(0)) && (bussinessArray.contains(2)) {
-                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3)
+                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
                     let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
                     
                     let section1 = DropdownSection(sectionIdentifier:  "store".localizedNew, items: Merchantitems)
@@ -432,13 +432,13 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                     
                     
                     
-                    items = [[item0],Merchantitems ,Taxyitems]
+                    items = [[item0], Merchantitems, Taxyitems]
                     menuView = DropdownMenu(navigationController: navigationController!, sections: [section0,section1 ,section2], selectedIndexPath: selectedIndexPath)
                     
                 }
                 
                 else if (bussinessArray.contains(1)) && (bussinessArray.contains(2)) {
-                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3)
+                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
                     let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
                     
                     let section1 = DropdownSection(sectionIdentifier:  "other".localizedNew, items: otheritems)
@@ -446,7 +446,7 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                     
                     
                     
-                    items = [[item0],otheritems ,Taxyitems]
+                    items = [[item0], otheritems, Taxyitems]
                     menuView = DropdownMenu(navigationController: navigationController!, sections: [section0,section1 ,section2], selectedIndexPath: selectedIndexPath)
                     
                 }
@@ -454,7 +454,7 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
             case 4 :
                 
                 if (bussinessArray.contains(0)) && (bussinessArray.contains(1))  && (bussinessArray.contains(2)) {
-                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3)
+                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
                     let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
                     
                     let section1 = DropdownSection(sectionIdentifier:  "store".localizedNew, items: Merchantitems)
@@ -463,8 +463,8 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
 
                     
                     
-                    items = [[item0],Merchantitems ,otheritems,Taxyitems]
-                    menuView = DropdownMenu(navigationController: navigationController!, sections: [section0,section1 ,section2,section3], selectedIndexPath: selectedIndexPath)
+                    items = [[item0], Merchantitems, otheritems, Taxyitems]
+                    menuView = DropdownMenu(navigationController: navigationController!, sections: [section0, section1 ,section2,section3], selectedIndexPath: selectedIndexPath)
                     
                 }
                 break
@@ -529,6 +529,16 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
         cashoutVC.finishDelegate = self
         cashoutVC.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(cashoutVC, animated: true)
+    }
+    
+    @IBAction func recoverPassTap(_ sender: Any) {
+        let walletSettingInnerPage: IGWalletSettingInnerTableViewController? = (storyboard?.instantiateViewController(withIdentifier: "walletSettingInnerPage") as! IGWalletSettingInnerTableViewController)
+        walletSettingInnerPage?.merchant = self.merchant
+        walletSettingInnerPage?.merchantCard = self.merchantCard
+        walletSettingInnerPage?.isOTP = true
+
+        walletSettingInnerPage?.hidesBottomBarWhenPushed = true
+        self.navigationController!.pushViewController(walletSettingInnerPage!, animated: true)
     }
     
     @IBAction func btnQRcodeScan(_ sender: Any) {
@@ -748,12 +758,14 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                     if (lblCurrency.text)?.inEnglishNumbersNew() == "0" {
                         btnCashout.isEnabled = false
                         btnCashout.backgroundColor = .iGapGray()
-                        btnCharge.backgroundColor = .iGapGreen()
+                        btnCharge.backgroundColor = .iGapDarkGreenColor()
+                        recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
                         btnCashout.isUserInteractionEnabled = false
                     } else {
                         btnCashout.isEnabled = true
-                        btnCashout.backgroundColor = .iGapGreen()
-                        btnCharge.backgroundColor = .iGapGreen()
+                        btnCashout.backgroundColor = .iGapDarkGreenColor()
+                        btnCharge.backgroundColor = .iGapDarkGreenColor()
+                        recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
                         btnCashout.isUserInteractionEnabled = true
                     }
 
@@ -964,7 +976,7 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
     }
     
     //MARK:- MERCHANTS SERVICES
-    func getMerChantCards(){
+    func getMerChantCards() {
         SMLoading.showLoadingPage(viewcontroller: self)
         lblCurrency.text = "Updating ...".localizedNew
 
@@ -991,7 +1003,6 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
     func prepareMerChantCard() {
         
         if let card = merchantCard {
-            
             amountsView.isHidden = true
             mainAmountView.cornerRadius = 10
             
@@ -1002,17 +1013,17 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                 if tmp?.inEnglishNumbersNew() == "0" {
                     btnCashout.isEnabled = false
                     btnCashout.backgroundColor = .iGapGray()
-                    btnCharge.backgroundColor = .iGapGreen()
+                    btnCharge.backgroundColor = .iGapDarkGreenColor()
+                    recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
 
                     btnCashout.isUserInteractionEnabled = false
                 }
                 else {
                     btnCashout.isEnabled = true
-                    btnCashout.backgroundColor = .iGapGreen()
-                    btnCharge.backgroundColor = .iGapGreen()
+                    btnCashout.backgroundColor = .iGapDarkGreenColor()
+                    btnCharge.backgroundColor = .iGapDarkGreenColor()
+                    recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
                     btnCashout.isUserInteractionEnabled = true
-
-
                 }
                 NotificationCenter.default.post(name: Notification.Name(SMConstants.notificationHistoryMerchantUpdate), object: nil,
                                                 userInfo: ["id": merchantID])
@@ -1032,6 +1043,7 @@ extension packetTableViewController: DropdownMenuDelegate {
 
         switch indexPath.section {
         case 0 :
+            self.merchant = nil
             shouldShowHisto = false
             currentBussinessType = 3
             merchantID = SMUserManager.accountId
@@ -1047,9 +1059,9 @@ extension packetTableViewController: DropdownMenuDelegate {
 
             self.tableView.endUpdates()
             break
+            
         case 1 :
-            
-            
+            self.merchant = items[indexPath.section][indexPath.row].merchant
             shouldShowHisto = true
             self.tableView.beginUpdates()
             currentBussinessType = items[indexPath.section][indexPath.row].bType ?? 0
@@ -1067,7 +1079,9 @@ extension packetTableViewController: DropdownMenuDelegate {
             self.tableView.endUpdates()
 
             break
+            
         case 2 :
+            self.merchant = items[indexPath.section][indexPath.row].merchant
             shouldShowHisto = true
             self.tableView.beginUpdates()
             merchantID = items[indexPath.section][indexPath.row].id
@@ -1084,7 +1098,9 @@ extension packetTableViewController: DropdownMenuDelegate {
             self.tableView.endUpdates()
             
             break
+            
         case 3 :
+            self.merchant = items[indexPath.section][indexPath.row].merchant
             shouldShowHisto = true
             self.tableView.beginUpdates()
             merchantID = items[indexPath.section][indexPath.row].id
@@ -1101,6 +1117,7 @@ extension packetTableViewController: DropdownMenuDelegate {
             self.tableView.endUpdates()
             
             break
+            
         default :
             break
         }

@@ -110,7 +110,6 @@ class SMLangUtil: NSObject {
                 
             else {
                 return "SETTING_PAGE_ACCOUNT_NIKNAME".localizedNew
-                
             }
             
         case "iGap.IGSettingChnageLanguageTableViewController":
@@ -135,18 +134,18 @@ class SMLangUtil: NSObject {
             else if tag == 2 {
                 return "CURRENCY".localizedNew
             }
-                
             else if tag == 3 {
                 return "BTN_CASHOUT_WALLET".localizedNew
             }
             else if tag == 4 {
                 return "BTN_CHARGE_WALLET".localizedNew
             }
+            else if tag == 5 {
+                return "RECOVER_PASS".localizedNew
+            }
             else {
                 return "TTL_MY_CARDS".localizedNew
-                
             }
-            
             
         default:
             return "".localizedNew
