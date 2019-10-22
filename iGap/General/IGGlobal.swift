@@ -53,6 +53,13 @@ enum songMainState : Int {
     case paused = 2
 
 }
+enum messageMainTopViewState : Int {
+    case withPin = 0
+    case withTopPlayer = 1
+    case withBoth = 2
+    case none = 3
+}
+
 class IGGlobal {
     static var imgDic : [String: IGImageView] = [:]
     static var heroTabIndex : Int = -1
@@ -60,6 +67,7 @@ class IGGlobal {
     static var isPaused : Bool = false
     static var isVoice : Bool = false
     static var songState : songMainState = songMainState(rawValue: 0)!
+    static var messageViewState : messageMainTopViewState = messageMainTopViewState(rawValue: 3)!
     static var shouldShowTopBarPlayer : Bool = false
     static var isAlreadyOpen : Bool = false
     static var hasTexted : Bool = false

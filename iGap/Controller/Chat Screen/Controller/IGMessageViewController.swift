@@ -73,6 +73,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var holderMultiSelect: UIView!
     @IBOutlet weak var holderMusicPlayer: UIView!
     @IBOutlet weak var holderMusicPlayerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var floatingDateTopConstraints: NSLayoutConstraint!
 
     //musicplayer variables
     var singerName : String! = ""
@@ -1318,19 +1319,43 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func hideMusicTopPlayerWithAnimation() {
         IGGlobal.shouldShowTopBarPlayer = false
         holderMusicPlayerHeightConstraint.constant = 0
-//        UIView.animate(withDuration: 0.3) {
-//            self.view.layoutIfNeeded()
-//        }
         IGPlayer.shared.stopMedia()
+        let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
+        var defaultValue : CGFloat = 20
+
+        if !(pinnedMessageView.isHidden) {
+            defaultValue = 70
+            self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+        } else {
+            defaultValue = 20
+            self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+        }
+        floatingDateTopConstraints.constant = defaultValue
+
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
 
     }
     private func showMusicTopPlayerWithAnimation() {
         IGGlobal.shouldShowTopBarPlayer = true
         self.createTopMusicPlayer()
         holderMusicPlayerHeightConstraint.constant = 40.0
-//        UIView.animate(withDuration: 0.3) {
-//            self.view.layoutIfNeeded()
-//        }
+        let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
+        var defaultValue : CGFloat = 20
+
+        if !(pinnedMessageView.isHidden) {
+            defaultValue = 112
+            self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+        } else {
+            defaultValue = 60
+            self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+        }
+
+        floatingDateTopConstraints.constant = defaultValue
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
 
     }
     private func createTopMusicPlayer() {
@@ -2521,6 +2546,57 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 //                self.showHideStickerButton(shouldShow: true)
             }, completion: nil)
         })
+    }
+    /// this manager is responsible for managing top bottom  offset of  collection ( becoz the collection is fliped verticall ( top is bottom and bottom is Top :D )
+    ///default mode is .none which means nore pin view and top player for music are not visible
+    ///case withPin means only the pin view is visible
+    //case withBoth means both Pin View and topMusic player are visible to the user
+    //case withTopPlayer means only topMusic player is visible to the user
+    ///the top offset is managed based on height of pin and topPlayer
+
+    private func collectionViewOffsetManager(mode : messageMainTopViewState!) {
+        let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
+        var defaultValue : CGFloat = 20
+        switch mode {
+        case .withBoth :
+            defaultValue = 112
+            UIView.animate(withDuration: 0.3, animations: {
+                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+            }, completion: { (completed) in
+                
+            })
+
+            break
+        case .withTopPlayer :
+            defaultValue = 60
+            UIView.animate(withDuration: 0.3, animations: {
+                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+            }, completion: { (completed) in
+                
+            })
+
+            break
+        case .withPin :
+            defaultValue = 70
+            UIView.animate(withDuration: 0.3, animations: {
+                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+            }, completion: { (completed) in
+                
+            })
+
+            break
+        case .none :
+            defaultValue = 20
+            UIView.animate(withDuration: 0.3, animations: {
+                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+            }, completion: { (completed) in
+                
+            })
+
+            break
+        default:
+            break
+        }
     }
     
     /* open sticker view in chat and go to saved position */
@@ -5385,6 +5461,7 @@ extension IGMessageViewController: GrowingTextViewDelegate {
         if room?.pinMessage != nil && room?.pinMessage?.id != room?.deletedPinMessageId {
             txtPinnedMessage.text = IGRoomMessage.detectPinMessage(message: (room?.pinMessage)!)
             pinnedMessageView.isHidden = false
+            
         } else {
             pinnedMessageView.isHidden = true
         }
