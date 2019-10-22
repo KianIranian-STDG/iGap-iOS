@@ -72,12 +72,6 @@ class AbstractDashboardCell: UICollectionViewCell {
                     self.showCheckMark(imageView: self.img1Abs)
                 }
             }
-            //            if dashboard.count > 0,  (dashboard[0].igpClicked) {
-            //                showCheckMark()
-            //            }
-            
-            
-            
         }
         
         if img2Abs != nil {
@@ -91,9 +85,6 @@ class AbstractDashboardCell: UICollectionViewCell {
                     self.showCheckMark(imageView: self.img2Abs)
                 }
             }
-            //            if dashboard.count > 1,  (dashboard[1].igpClicked) {
-            //                showCheckMark()
-            //            }
         }
         
         if img3Abs != nil {
@@ -107,11 +98,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                     self.showCheckMark(imageView: self.img3Abs)
                 }
             }
-            //            if dashboard.count > 2,  (dashboard[2].igpClicked) {
-            //                showCheckMark()
-            //            }
         }
-        
         
         manageGesture()
     }
@@ -123,9 +110,11 @@ class AbstractDashboardCell: UICollectionViewCell {
         view?.layer.shadowRadius = 1
         view?.layer.shadowColor = UIColor.gray.cgColor
         view?.layer.shadowOpacity = 0.4
+        view?.backgroundColor = UIColor(named: themeColor.dashboardCellBackgroundColor.rawValue)
         
         img.layer.cornerRadius = IGDashboardViewController.itemCorner
         img.layer.masksToBounds = true
+        img.backgroundColor = UIColor.clear
     }
     
     /**********************************************************************/
@@ -213,15 +202,12 @@ class AbstractDashboardCell: UICollectionViewCell {
             }.error { (errorCode, waitTime) in
             }.send()
     }
+    
     func update(itemID: Int32) {
         let imageDataDict:[String: Int32] = ["id": itemID]
-        
-        // post a notification
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateChart"), object: nil, userInfo: imageDataDict)
-        // `default` is now a property, not a method call
-
     }
-    //
+    
     func showCheckMark(imageView: IGImageView?) {
         btnCheckMark = UIButton()
         btnCheckMark.setTitle("", for: .normal)
@@ -246,19 +232,10 @@ class AbstractDashboardCell: UICollectionViewCell {
         
         if pollInfo.igpClicked {
             IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_U_HAVE_ALREADY_VOTED".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
-
-        }
-        else {
+        } else {
             if pollInfo.igpClickable {
-//                IGPClientSetPollItemClickRequest.sendRequest(itemId: pollInfo.igpID)
                 IGPClientSetPollItemClickRequest.Generator.generate(itemId: pollInfo.igpID).success({ (protoResponse) in
                     DispatchQueue.main.async {
-                         let setPollResponse = protoResponse as! IGPClientSetPollItemClickResponse
-                        print("========================")
-                        print(setPollResponse.igpResponse)
-                        print("========================")
-
-                        
                         self.isUserInteractionEnabled = false
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             self.isUserInteractionEnabled = true
@@ -268,33 +245,26 @@ class AbstractDashboardCell: UICollectionViewCell {
                             self.showCheckMark(imageView: self.img1Abs)
                             self.numberOfChecked += 1
                             self.update(itemID: IGGlobal.pageIDChartUpdate)
-//                            self.updateBarCHartData(Name: pollInfo.igpLabel)
                             IGGlobal.hideBarChart = false
-                            
                             break
+                            
                         case 1:
                             self.showCheckMark(imageView: self.img2Abs)
                             self.numberOfChecked += 1
                             IGGlobal.hideBarChart = false
-//                            self.updateBarCHartData(Name: pollInfo.igpLabel)
                             self.update(itemID: IGGlobal.pageIDChartUpdate)
-
-                            
                             break
+                            
                         case 2 :
                             self.showCheckMark(imageView: self.img3Abs)
                             self.numberOfChecked += 1
                             IGGlobal.hideBarChart = false
-//                            self.updateBarCHartData(Name: pollInfo.igpLabel)
                             self.update(itemID: IGGlobal.pageIDChartUpdate)
-
-
                             break
+                            
                         default :
                             break
                         }
-                        
-                        
                     }
                 }).error ({ (errorCode, waitTime) in
                     print(errorCode)
@@ -463,18 +433,6 @@ class AbstractDashboardCell: UICollectionViewCell {
                 
             } else {
                 
-//                let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
-//                iGapBrowser.url = ""
-//                iGapBrowser.htmlString = "<!DOCTYPE html><html>  <head><script>function hideText() {document.getElementById(\"demo\").style.display = \"none\";}function showText() {document.getElementById(\"demo\").style.display = \"block\";window.webkit.messageHandlers.iosJsHandler.postMessage(\"c53aa79e-c4eb-4755-a4f1-8653dc8eaaa0\");}</script></head><body><p id=\"demo\">Hello World.</p><input type=\"button\" onclick=\"showText()\" value=\"call payment trigger\"><input type=\"button\" onclick=\"hideText()\" value=\"Hide Text\"></body></html>"
-//                UIApplication.topViewController()!.navigationController?.pushViewController(iGapBrowser, animated: true)
-                
-                
-                
-//                UIApplication.topViewController()!.navigationController?.pushViewController(SwiftWebVC(urlString: "https://file.igap.net/try.html"), animated: true)
-//                break
-                
-                
-                
                 let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 dashboard.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated: true)
@@ -521,9 +479,6 @@ class AbstractDashboardCell: UICollectionViewCell {
                     let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                     dashboard.pageId = Int32(discoveryInfo.igpValue)!
                     IGGlobal.shouldShowChart = true
-//                    if deepLinkDiscoveryIds.count > 0 {
-//                        dashboard.deepLinkDiscoveryIds = deepLinkDiscoveryIds
-//                    }
                     dashboard.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                     return
@@ -532,9 +487,6 @@ class AbstractDashboardCell: UICollectionViewCell {
                 let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 dashboard.pageId = Int32(discoveryInfo.igpValue)!
                 IGGlobal.shouldShowChart = true
-//                if deepLinkDiscoveryIds.count > 0 {
-//                    dashboard.deepLinkDiscoveryIds = deepLinkDiscoveryIds
-//                }
                 dashboard.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                 return
@@ -898,7 +850,6 @@ class AbstractDashboardCell: UICollectionViewCell {
             break
             
         case .charity:
-//            valueType
             guard let jsonValue = valueType.toJSON() as? [String:AnyObject], let id = jsonValue["charityId"] as? String, let price = jsonValue["price"] as? Int else {
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                 break
@@ -918,11 +869,9 @@ class AbstractDashboardCell: UICollectionViewCell {
                             }
                             paymentView.show(on: UIApplication.shared.keyWindow!, title: "CHARITY".localizedNew, payToken: token, payment: paymentData)
                         } else {
-                            
                             paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: "CHARITY".localizedNew, message: errorMessage ?? "", payToken: token)
                         }
                     })
-                    
                 } else {
                     IGGlobal.prgHide()
                 }
