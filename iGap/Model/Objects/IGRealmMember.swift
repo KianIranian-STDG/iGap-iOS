@@ -78,6 +78,7 @@ class IGRealmMember: Object {
                 }
             }
         }
+        IGRoom.updateRoomReadOnly(roomId: roomId, memberId: memberId)
     }
     
     public static func updateMemberInfo(roomId: Int64, user: IGPRegisteredUser){
@@ -102,6 +103,7 @@ class IGRealmMember: Object {
                 }
             }
         }
+        IGRoom.updateRoomReadOnly(roomId: roomId, memberId: memberId, role: role)
     }
     
     public static func clearMembers(completion: @escaping () -> ()){

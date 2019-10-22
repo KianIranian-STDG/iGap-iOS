@@ -697,42 +697,31 @@ extension IGRoom {
         }
     }
     
-    static func updateRoomReadOnly(roomId: Int64 , memberId: Int64, readOnly: Bool) {
-        IGDatabaseManager.shared.perfrmOnDatabaseThread {
-            if memberId == IGAppManager.sharedManager.userID() {
-                try! IGDatabaseManager.shared.realm.write {
-                    let predicate = NSPredicate(format: "id = %lld", roomId)
-                    let room = try! Realm().objects(IGRoom.self).filter(predicate).first
-                    room?.isReadOnly = readOnly
-                }
-            }
+    /**
+     * change user permission for send message to room.
+     * if don't set role means removing the user
+     */
+    static func updateRoomReadOnly(roomId: Int64 , memberId: Int64, role: Int = -1) {
+        if memberId != IGAppManager.sharedManager.userID() {
+            return
         }
-    }
-    
-    static func updateRoomReadOnly(roomId: Int64 , memberId: Int64, role: Int) {
+            
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
-            if memberId == IGAppManager.sharedManager.userID() {
-                try! IGDatabaseManager.shared.realm.write {
-                    let predicate = NSPredicate(format: "id = %lld", roomId)
-                    if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
-                        
-                        switch role {
-                        case IGPChannelRoom.IGPRole.admin.rawValue, IGPChannelRoom.IGPRole.moderator.rawValue:
+            try! IGDatabaseManager.shared.realm.write {
+                
+                if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", roomId)).first {
+                    if role == IGPChannelRoom.IGPRole.admin.rawValue || role == IGPChannelRoom.IGPRole.moderator.rawValue {
+                        room.isReadOnly = false
+                    } else if role == IGPChannelRoom.IGPRole.member.rawValue {
+                        if room.type == .channel {
+                            room.isReadOnly = true
+                        } else if room.type == .group {
                             room.isReadOnly = false
-                            break
-                            
-                        case IGPChannelRoom.IGPRole.member.rawValue:
-                            if room.type == .channel {
-                                room.isReadOnly = true
-                            } else {
-                                room.isReadOnly = false
-                            }
-                            break
-                            
-                        default:
-                            break
                         }
+                    } else if role == -1 { // user removed from room so just can read old messages
+                        room.isReadOnly = true
                     }
+                    IGDatabaseManager.shared.realm.add(room, update: .modified)
                 }
             }
         }

@@ -191,6 +191,9 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (realmMembers?.count ?? 0) != 0 {
+            self.tableView.restore()
+        }
         return realmMembers?.count ?? 0
     }
     
@@ -305,11 +308,19 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             IGGlobal.prgShow(self.view)
             IGChannelGetMemberListRequest.Generator.generate(roomId: roomId, offset: Int32(realmMembers.count), limit: FETCH_MEMBER_LIMIT, filterRole: filterRole).success({ (protoResponse) in
                 IGGlobal.prgHide()
-                if let getChannelMemberList = protoResponse as? IGPChannelGetMemberListResponse {
-                    if getChannelMemberList.igpMember.count != 0 {
-                        self.allowFetchMore = true
+                DispatchQueue.main.async {
+                    if let getChannelMemberList = protoResponse as? IGPChannelGetMemberListResponse {
+                        if getChannelMemberList.igpMember.count != 0 {
+                            self.allowFetchMore = true
+                        } else if self.realmMembers.count == 0 {
+                            if self.filterRole == .admin {
+                                self.tableView.setEmptyMessage("NOT_EXIST_ADMIN".localizedNew)
+                            } else if self.filterRole == .moderator {
+                                self.tableView.setEmptyMessage("NOT_EXIST_MODERATOR".localizedNew)
+                            }
+                        }
+                        IGChannelGetMemberListRequest.Handler.interpret(response: getChannelMemberList, roomId: self.roomId)
                     }
-                    IGChannelGetMemberListRequest.Handler.interpret(response: getChannelMemberList, roomId: self.roomId)
                 }
             }).error ({ (errorCode, waitTime) in
                 IGGlobal.prgHide()
