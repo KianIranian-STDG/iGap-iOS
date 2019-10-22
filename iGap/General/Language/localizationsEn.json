@@ -1096,6 +1096,8 @@
         "CHANGED_ROLE_HINT" : "Your role has changed so you cannot view the members list at this time!",
         "HINT" : "Hint",
         "NOT_EXIST_MODERATOR" : "No moderator registered!",
-        "NOT_EXIST_ADMIN" : "No admin registered!"
+        "NOT_EXIST_ADMIN" : "No admin registered!",
+        "EXIST_MEMBER" : "is already in your members!",
+        "EXIST_MEMBERS" : "are now your members!"
     }
 }

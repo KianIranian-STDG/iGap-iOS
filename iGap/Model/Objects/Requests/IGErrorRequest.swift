@@ -123,12 +123,14 @@ enum IGError: String {
     case userProfileUpdateUsernameHasAlreadyBeenTaken = "164.3"
     case userProfileUpdateLock                  = "175.2"
 
+    case groupMemberIsExist = "304"
     case groupUpdateUsernameIsInvalid = "366.2"
     case groupUpdateUsernameHasAlreadyBeenTakenByAnotherUser = "366.3"
     case groupUpdateUsernameMoreThanTheAllowedUsernmaeHaveBeenSelectedByYou = "366.4"
     case groupUpdateUsernameLock = "368"
     case groupUpdateUsernameForbidden = "369"
     
+    case channelMemberIsExist = "404"
     case channelUpdateUsernameIsInvalid = "455.2"
     case channelUpdateUsernameHasAlreadyBeenTakenByAnotherUser = "455.3"
     case channelUpdateUsernameMoreThanTheAllowedUsernmaeHaveBeenSelectedByYou = "455.4"
