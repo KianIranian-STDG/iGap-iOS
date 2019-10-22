@@ -3717,6 +3717,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     /*********************************** pick media ***********************************/
     
     func attachmentPicker(screens: [YPPickerScreen] = [.library, .photo, .video], sendAsFile: Bool = false) {
+        
+        if screens == [.photo, .video] {
+            let mediaPicker = UIImagePickerController()
+            mediaPicker.delegate = self
+            mediaPicker.sourceType = .camera
+            mediaPicker.mediaTypes = ["public.image", "public.movie"]
+            self.present(mediaPicker, animated: true, completion: nil)
+            return
+        }
+        
         IGHelperMediaPicker.shared.setScreens(screens).setSendAsFile(sendAsFile).pick { mediaItems in
             if let videoInfo = mediaItems.singleVideo, mediaItems.count == 1 {
                 self.manageVideo(videoInfo: videoInfo, sendAsFile: sendAsFile)
@@ -3726,6 +3736,109 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.manageSendMultiMedia(mediaItems: mediaItems, sendAsFile: sendAsFile)
             }
         }
+    }
+    
+    //DEPRECATED
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        // Local variable inserted by Swift 4.2 migrator.
+        let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+        
+        self.dismiss(animated: true, completion: nil);
+        
+        var mediaType : String! = ""
+        if let type = info["UIImagePickerControllerMediaType"] {
+            mediaType = String(describing: type)
+        }
+        switch mediaType! {
+        case "public.image": // image
+            manageImage(imageInfo: info)
+            break
+            
+        case "public.movie" : // video
+            manageVideo(mediaInfo: info)
+            break
+            
+        default: // manage file?
+            break
+        }
+    }
+    
+    //DEPRECATED
+    func manageVideo(mediaInfo: [String : Any]){
+        guard let mediaUrl = mediaInfo["UIImagePickerControllerMediaURL"] as? URL else {
+            return
+        }
+        
+        let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let filename = mediaUrl.lastPathComponent
+        let fileSize = Int(IGGlobal.getFileSize(path: mediaUrl))
+        let randomString = IGGlobal.randomString(length: 16) + "_"
+        
+        /*** get thumbnail from video ***/
+        let asset = AVURLAsset(url: mediaUrl)
+        let imgGenerator = AVAssetImageGenerator(asset: asset)
+        let cgImage = try!imgGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
+        let uiImage = UIImage(cgImage: cgImage)
+        
+        let attachment = IGFile(name: filename)
+        attachment.size = fileSize
+        attachment.duration = asset.duration.seconds
+        attachment.fileNameOnDisk = randomString + filename
+        attachment.name = filename
+        attachment.attachedImage = uiImage
+        attachment.type = .video
+        attachment.height = Double(cgImage.height)
+        attachment.width = Double(cgImage.width)
+        
+        let pathOnDisk = documents + "/" + randomString + filename
+        try! FileManager.default.copyItem(atPath: mediaUrl.path, toPath: pathOnDisk)
+        
+        self.inputBarAttachmentViewThumnailImageView.image = uiImage
+        self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
+        self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
+        self.didSelectAttachment(attachment)
+    }
+    
+    //DEPRECATED
+    func manageImage(imageInfo: [String : Any]){
+        let imageUrl = imageInfo["UIImagePickerControllerImageURL"] as? URL
+        let originalImage = imageInfo["UIImagePickerControllerOriginalImage"] as! UIImage
+        
+        var filename : String!
+        
+        if imageUrl != nil {
+            filename = imageUrl?.lastPathComponent
+        } else {
+            filename = "IMAGE_" + IGGlobal.randomString(length: 16)
+        }
+        let randomString = IGGlobal.randomString(length: 16) + "_"
+        
+        var scaledImage = originalImage
+        let imgData = scaledImage.jpegData(compressionQuality: 0.7)
+        let fileNameOnDisk = randomString + filename
+        
+        if (originalImage.size.width) > CGFloat(2000.0) || (originalImage.size.height) >= CGFloat(2000) {
+            scaledImage = IGUploadManager.compress(image: originalImage)
+        }
+        
+        let attachment = IGFile(name: filename)
+        attachment.attachedImage = scaledImage
+        attachment.fileNameOnDisk = fileNameOnDisk
+        attachment.height = Double((scaledImage.size.height))
+        attachment.width = Double((scaledImage.size.width))
+        attachment.size = (imgData?.count)!
+        attachment.data = imgData
+        attachment.type = .image
+        
+        DispatchQueue.main.async {
+            self.saveAttachmentToLocalStorage(data: imgData!, fileNameOnDisk: fileNameOnDisk)
+        }
+        
+        self.inputBarAttachmentViewThumnailImageView.image = attachment.attachedImage
+        self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
+        self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
+        
+        self.didSelectAttachment(attachment)
     }
     
     private func manageSendMultiMedia(mediaItems: [YPMediaItem], index: Int = 0, sendAsFile: Bool = false){

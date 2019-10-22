@@ -109,29 +109,24 @@ class IGPlayer {
         let remainingSeconds = timeInt%60
         let remainingMiuntes = timeInt/60
         //fetching song metadata
-        let metadataList = playerItem.asset.commonMetadata as! [AVMetadataItem]
+        let metadataList = playerItem.asset.commonMetadata
         var hasSingerName : Bool = false
         var hasSongName : Bool = false
         if IGGlobal.isVoice {
-            
-                songName = "VOICES_MESSAGE".MessageViewlocalizedNew
+            songName = "VOICES_MESSAGE".MessageViewlocalizedNew
             if roomMessage?.authorUser != nil {
                 singerName = roomMessage?.authorUser?.user?.displayName
             }
             
-
         } else {
             for item in metadataList {
                 if item.commonKey!.rawValue == "title" {
                     songName = item.stringValue!
                     hasSongName = true
-                    print("SONG NAME:",songName)
                 }
                 if item.commonKey!.rawValue == "artist" {
                     singerName = item.stringValue!
                     hasSingerName = true
-                    print("SINGER NAME:",singerName)
-
                 }
             }
             if !hasSingerName {
@@ -140,9 +135,6 @@ class IGPlayer {
             if !hasSongName {
                 songName = "VOICES_MESSAGE".MessageViewlocalizedNew
             }
-            print("BEFORE BEFORE FINAL SONG SINGER NAME",singerName)
-            print("BEFORE BEFORE FINAL SONG SONG NAME",songName)
-
         }
 
         //end
