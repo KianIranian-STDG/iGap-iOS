@@ -46,7 +46,7 @@ open class ActiveLabel: UILabel {
     @IBInspectable open var botSelectedColor: UIColor? {
         didSet { updateTextStorage(parseText: false) }
     }
-    @IBInspectable open var boldColor: UIColor = UIColor.yellow {
+    @IBInspectable open var boldColor: UIColor = UIColor.messageText() {
         didSet { updateTextStorage(parseText: false) }
     }
     @IBInspectable open var boldSelectedColor: UIColor? {
