@@ -26,6 +26,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     private var realmNotificationToken: NotificationToken?
     private var realmMembers: Results<IGRealmMember>!
     private var allowFetchMore = false
+    private var fetchedMember = false // if one time or more than fetched member from server and received response
     public static var updateMyRoleObserver: UpdateMyRoleObserver!
 
     var searchController : UISearchController = {
@@ -196,9 +197,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (realmMembers?.count ?? 0) != 0 {
-            self.tableView.restore()
-        }
+        self.manageEmptyMessage()
         return realmMembers?.count ?? 0
     }
     
@@ -315,16 +314,13 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             IGGlobal.prgShow(self.view)
             IGChannelGetMemberListRequest.Generator.generate(roomId: roomId, offset: Int32(realmMembers.count), limit: FETCH_MEMBER_LIMIT, filterRole: showMembersFilter).success({ (protoResponse) in
                 IGGlobal.prgHide()
+                self.fetchedMember = true
                 DispatchQueue.main.async {
                     if let getChannelMemberList = protoResponse as? IGPChannelGetMemberListResponse {
                         if getChannelMemberList.igpMember.count != 0 {
                             self.allowFetchMore = true
                         } else if self.realmMembers.count == 0 {
-                            if self.showMembersFilter == .admin {
-                                self.tableView.setEmptyMessage("NOT_EXIST_ADMIN".localizedNew)
-                            } else if self.showMembersFilter == .moderator {
-                                self.tableView.setEmptyMessage("NOT_EXIST_MODERATOR".localizedNew)
-                            }
+                            self.manageEmptyMessage()
                         }
                         IGChannelGetMemberListRequest.Handler.interpret(response: getChannelMemberList, roomId: self.roomId)
                     }
@@ -339,6 +335,23 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         }
     }
     
+    /**
+     * currently this method just usful for channel admin & moderator list, because in
+     * group profile we don't show admin & moderator list separatly
+     */
+    private func manageEmptyMessage(){
+        if fetchedMember {
+            if (self.realmMembers?.count ?? 0) == 0 {
+                if self.showMembersFilter == .admin {
+                    self.tableView.setEmptyMessage("NOT_EXIST_ADMIN".localizedNew)
+                } else if self.showMembersFilter == .moderator {
+                    self.tableView.setEmptyMessage("NOT_EXIST_MODERATOR".localizedNew)
+                }
+            } else {
+                self.tableView.restore()
+            }
+        }
+    }
     
     private func fetchUserInfo(userId: Int64){
         IGUserInfoRequest.sendRequestAvoidDuplicate(userId: userId) { (userInfo) in
