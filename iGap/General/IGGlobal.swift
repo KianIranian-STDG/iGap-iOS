@@ -47,16 +47,28 @@ enum themeMode : Int {
     case light = 1
     case any = 2
 }
+enum songMainState : Int {
+    case ended = 0
+    case playing = 1
+    case paused = 2
+
+}
 class IGGlobal {
     static var imgDic : [String: IGImageView] = [:]
     static var heroTabIndex : Int = -1
     static var shouldMultiSelect : Bool = false
     static var isPaused : Bool = false
     static var isVoice : Bool = false
+    static var songState : songMainState = songMainState(rawValue: 0)!
+    static var shouldShowTopBarPlayer : Bool = false
+    static var isAlreadyOpen : Bool = false
     static var hasTexted : Bool = false
     static var isFromSearchPage : Bool = false
     static var isInChatPage : Bool = true
     static var isSilent : Bool = false
+    static var topBarSongTime : Float = 0
+    static var topBarSongName : String = ""
+    static var topBarSongSinger : String = ""
     static var themeMode : themeMode.RawValue = 2
     static var isPopView : Bool = false
     static var dispoasDic: [Int64:Disposable] = [:]

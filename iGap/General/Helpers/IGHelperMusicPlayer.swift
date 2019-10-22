@@ -52,7 +52,7 @@ class IGHelperMusicPlayer {
     private var actionChangeTime: (() -> Void)?
 
     static let shared = IGHelperMusicPlayer()
-    var progressView : UIProgressView!
+//    var progressView : UIProgressView!
     var btnPlay : UIButton!
     var topView : UIView!
     var bgView : UIView!
@@ -63,34 +63,30 @@ class IGHelperMusicPlayer {
     
     ///Top Music Player tobe shown  in Room List and Message page
     ///
+    func showTestVIew() -> UIView {
+        let v = UIView()
+        v.backgroundColor = .blue
+        return v
+    }
     func showTopMusicPlayer(view: UIViewController? = nil,constraintView: UIView? = nil,constraintStackView: UIStackView? = nil, close: (() -> Void)? = nil, btnPlayPause: (() -> Void)? = nil,songTime : Float! = 0.0,singerName: String? = nil,songName: String? = nil) -> UIView {
         var alertView = view
         if alertView == nil {
             alertView = UIApplication.topViewController()
         }
 
-        if self.bgView == nil {
-            print("CHECK BGVIEW: isNIL")
-        } else {
-            print("CHECK BGVIEW: isNotNIL")
-
-        }
-        if self.bgView == nil {
+//        if self.bgView == nil {
  
-                self.bgView = self.createMainView()
+        self.bgView = self.createMainView()
 
             
             ///add play pause button to it's superView
             let btn = UIButton()
-            btnPlay = btn
-            self.bgView.addSubview(btnPlay)
-            self.createPausePlayButton(btn: btnPlay, view: self.bgView)
-            let tapGestureRecognizerPlay = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnPlayPause))
-            tapGestureRecognizerPlay.numberOfTapsRequired = 1
-            tapGestureRecognizerPlay.numberOfTouchesRequired = 1
-            btnPlay.addGestureRecognizer(tapGestureRecognizerPlay)
+            self.bgView.addSubview(btn)
+            self.createPausePlayButton(btn: btn, view: self.bgView)
+            btn.addTarget(self, action: #selector(self.buttonAction(_:)), for: .touchUpInside)
+  
 
-            ///add clsoe button to it's superView
+            ///add close button to it's superView
             let CloseButton = UIButton()
             self.bgView.addSubview(CloseButton)
             self.createCloseButton(btn: CloseButton, view: self.bgView)
@@ -128,34 +124,36 @@ class IGHelperMusicPlayer {
             
             //progressView
             let pv = UIProgressView()
-            progressView = pv
-            self.bgView.addSubview(progressView)
+            self.bgView.addSubview(pv)
 
-            self.createProgressView(pv: progressView, view: self.bgView)
+            self.createProgressView(pv: pv, view: self.bgView)
 //            self.progressBarTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.updateProgressView), userInfo: nil, repeats: true)
 
             
             SwiftEventBus.onMainThread(self, name: EventBusManager.updateMediaTimer) { result in
                 print(result?.object as! Float)
-                self.updateProgressView(currentTime: result?.object as! Float)
+                self.updateProgressView(currentTime: result?.object as! Float, progressView: pv)
+            }
+
+            SwiftEventBus.onMainThread(self, name: EventBusManager.changePlayState) { result in
+                print(result?.object as! Bool)
+                self.updateButtonState(state: result?.object as! Bool,btn: btn)
             }
 
             return self.bgView
-        } else {
-            return self.bgView
-        }
+//        } else {
+//            return self.bgView
+//        }
     }
     
     func removeTopPlayer() {
         SwiftEventBus.post(EventBusManager.hideTopMusicPlayer)
         self.isRunning = false
         if btnPlay != nil {
-            btnPlay.setTitle("", for: .normal)
-        }
-        if progressView != nil {
-            progressView.progress = 0.0
+//            btnPlay.setTitle("", for: .normal)
         }
 
+        
         currentMusicTime = 0
         if self.bgView != nil {
             self.bgView.removeFromSuperview()
@@ -175,74 +173,89 @@ class IGHelperMusicPlayer {
            if self.actionClose != nil {
            actionClose!()
            } else {
+            IGGlobal.isAlreadyOpen = false
                self.removeMainViewFromSuperView()
            }
        }
+    private func updateButtonState(state : Bool! , btn :UIButton!) {
+        switch IGGlobal.songState {
+        case .ended :
+            btn.setTitle("", for: .normal)
+            break
+        case .playing :
+            btn.setTitle("", for: .normal)
+            break
+        case .paused :
+            btn.setTitle("", for: .normal)
+            break
+        default:
+            break
+        }
+    }
+    @objc func buttonAction(_ sender:UIButton!)
+      {
+          print("BUTTON STATE:",IGGlobal.isPaused)
+
+          if  !(IGGlobal.isPaused){
+            sender.setTitle("", for: .normal)
+              IGPlayer.shared.pauseMusic()
+
+          }  else {
+            sender.setTitle("", for: .normal)
+            IGPlayer.shared.playMusic()
+          }
+        print(IGGlobal.isPaused)
+        IGGlobal.isPaused = !IGGlobal.isPaused
+        print(IGGlobal.isPaused)
+
+
+      }
     @objc func didTapOnPlayPause() {
         if self.actionPlay != nil {
-            UIView.transition(with: btnPlay,
-                              duration: 0.3,
-            options: .transitionFlipFromTop,
-            animations: {
-                if  !(IGGlobal.isPaused){
-//                    SwiftEventBus.post(EventBusManager.stopMusicPlayer)
-                    self.stopTimer()
+            if  !(IGGlobal.isPaused){
+                self.stopTimer()
 
-                }  else {
-//                    SwiftEventBus.post(EventBusManager.playMusicPlayer)
-                    self.resumeTimer()
+            }  else {
+                self.resumeTimer()
+            }
 
-                }
-
-            },
-            completion: nil)
             IGGlobal.isPaused = !IGGlobal.isPaused
-
-//        actionPlay!()
         } else {
-//            actionPlay!()
-            UIView.transition(with: btnPlay,
-                              duration: 0.3,
-            options: .transitionFlipFromTop,
-            animations: {
-                print(IGGlobal.isPaused)
-                if  (IGGlobal.isPaused){
-//                    SwiftEventBus.post(EventBusManager.stopMusicPlayer)
-                    self.resumeTimer()
+            if  !(IGGlobal.isPaused){
+                self.stopTimer()
 
-                }  else {
-//                    SwiftEventBus.post(EventBusManager.playMusicPlayer)
-                    self.stopTimer()
-                    
+            }  else {
+                self.resumeTimer()
+            }
 
-
-                }
-            },
-            completion: nil)
-            print(IGGlobal.isPaused)
-            IGGlobal.isPaused = !IGGlobal.isPaused
-            print(IGGlobal.isPaused)
 
         }
     }
-    func updateProgressView(currentTime : Float!){
+    func updateProgressView(currentTime : Float!,progressView: UIProgressView!){
         IGGlobal.isPaused = false
 
         currentMusicTime = currentTime
         print("CURRENT TIME:",currentMusicTime!,(musicTotalTime))
-        let percent = ((currentMusicTime * 100) / (musicTotalTime)) / 100
+        let percent = ((currentMusicTime * 100) / (IGGlobal.topBarSongTime)) / 100
         progressView.progress = percent
         progressView.setProgress(progressView.progress, animated: true)
 
-        if currentMusicTime! >= (musicTotalTime) {
-            progressView.progress = 0.0
-            print("REACHED END OF MUSIC:",currentMusicTime, (musicTotalTime))
-            self.btnPlay.setTitle("", for: .normal)
-            self.removeMainViewFromSuperView()
-            
+//        if musicTotalTime != 0 {
+//            (IGGlobal.isAlreadyOpen) = false
+//        } else {
+//            (IGGlobal.isAlreadyOpen) = true
+//
+//        }
+        
+        if IGGlobal.topBarSongTime != 0 {
+            if currentMusicTime! >= (IGGlobal.topBarSongTime) {
+                progressView.progress = 0.0
+//                self.btnPlay.setTitle("", for: .normal)
+                self.removeMainViewFromSuperView()
+                
 
-        } else {
-            
+            }
+
         }
         
 
@@ -251,17 +264,19 @@ class IGHelperMusicPlayer {
     
     
     func stopTimer() {
-        
-        self.btnPlay.setTitle("", for: .normal)
-        IGPlayer.shared.pauseMusic()
-
-        
+        if self.btnPlay != nil {
+//            self.btnPlay.setTitle("", for: .normal)
+            IGPlayer.shared.pauseMusic()
+        }
     }
     func resumeTimer() {
-        self.btnPlay.setTitle("", for: .normal)
-        IGPlayer.shared.playMusic()
-
+        
+        if self.btnPlay != nil {
+//            self.btnPlay.setTitle("", for: .normal)
+            IGPlayer.shared.playMusic()
+        }
     }
+    
 
     //MARK: - Create / Remove funcs
     ///TopMusicPlayer funcs
@@ -269,25 +284,26 @@ class IGHelperMusicPlayer {
     private func removeMainViewFromSuperView() {
         SwiftEventBus.post(EventBusManager.hideTopMusicPlayer)
         self.isRunning = false
-        btnPlay.setTitle("", for: .normal)
+//        btnPlay.setTitle("", for: .normal)
         currentMusicTime = 0
 
-        if progressView != nil {
-            progressView.progress = 0.0
-        }
+       
+        
         if self.bgView != nil {
             self.bgView.removeFromSuperview()
-        }
-        for subview in self.bgView.subviews {
-            subview.removeFromSuperview()
+            for subview in self.bgView.subviews {
+                subview.removeFromSuperview()
+            }
+            IGGlobal.topBarSongTime = 0
+            self.bgView = nil
         }
         let musicFile = MusicFile(songName: "VOICES_MESSAGE".MessageViewlocalizedNew , singerName: "UNKNOWN_ARTIST".MessageViewlocalizedNew, songTime: 0.0, currentTime: 0.0)
-        self.bgView = nil
         
     }
     private func createMainView() -> UIView {
         let view = UIView()
         view.backgroundColor = UIColor(named: themeColor.receiveMessageBubleBGColor.rawValue)
+//        view.backgroundColor = .red
         view.heightAnchor.constraint(equalToConstant: 40).isActive = true
 
         view.tag = 404
@@ -295,7 +311,20 @@ class IGHelperMusicPlayer {
     }
     ///Pause-Play Button
     private func createPausePlayButton(btn: UIButton!,view:UIView!)  {
-        btn.setTitle("", for: .normal)
+        print("CHECK SONG STATE:",IGGlobal.songState)
+        switch IGGlobal.songState {
+        case .ended :
+            btn.setTitle("", for: .normal)
+            break
+        case .playing :
+            btn.setTitle("", for: .normal)
+            break
+        case .paused :
+            btn.setTitle("", for: .normal)
+            break
+        default:
+            break
+        }
         btn.setTitleColor(UIColor.black, for: .normal)
         btn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         btn.translatesAutoresizingMaskIntoConstraints = false

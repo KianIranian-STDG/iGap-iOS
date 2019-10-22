@@ -71,7 +71,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var holderReplyBar: UIView!
     @IBOutlet weak var holderTextBox: UIView!
     @IBOutlet weak var holderMultiSelect: UIView!
+    @IBOutlet weak var holderMusicPlayer: UIView!
+    @IBOutlet weak var holderMusicPlayerHeightConstraint: NSLayoutConstraint!
 
+    //musicplayer variables
+    var singerName : String! = ""
+    var songName : String! = ""
+    var songTimer : Float! = 0.0
+    ///
     @IBOutlet weak var lblFileType: UILabel!
     @IBOutlet weak var lblActionType: UILabel!
     @IBOutlet weak var lblFirstInStack: UILabel!
@@ -107,7 +114,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var messageTextViewHeightConstraint: NSLayoutConstraint!
     // MARK: - Variables
     var alreadyInSendMode : Bool = false
-    
+    var musicFile : MusicFile!
+
     // MARK: - view initialisers
     ///Delegates
     private func initDelegatesNewChatView() {
@@ -1286,28 +1294,62 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             startLoadMessage()
         }
         initiconFonts()
-//        eventBusInitialiser()
+        eventBusInitialiser()
+        if IGGlobal.shouldShowTopBarPlayer {
+            self.createTopMusicPlayer()
+        }
 
     }
+    
     private func eventBusInitialiser() {
-        SwiftEventBus.onMainThread(self, name: EventBusManager.showTopMusicPlayer) { result in
-            self.showMusicTopPlayerWithAnimation()
-            
-        }
         SwiftEventBus.onMainThread(self, name: EventBusManager.hideTopMusicPlayer) { result in
             self.hideMusicTopPlayerWithAnimation()
-            
+        }
+        SwiftEventBus.onMainThread(self, name: EventBusManager.showTopMusicPlayer) { result in
+            self.musicFile = result?.object as! MusicFile
+            IGGlobal.topBarSongTime = self.musicFile.songTime
+            IGGlobal.topBarSongName = self.musicFile.songName
+            IGGlobal.topBarSongSinger = self.musicFile.singerName
+            IGGlobal.isAlreadyOpen = true
+            self.showMusicTopPlayerWithAnimation()
         }
 
     }
     private func hideMusicTopPlayerWithAnimation() {
-      
-//        IGPlayer.shared.stopMedia()
+        IGGlobal.shouldShowTopBarPlayer = false
+        holderMusicPlayerHeightConstraint.constant = 0
+//        UIView.animate(withDuration: 0.3) {
+//            self.view.layoutIfNeeded()
+//        }
+        IGPlayer.shared.stopMedia()
+
     }
     private func showMusicTopPlayerWithAnimation() {
-        stackTopViews.addArrangedSubview(IGHelperMusicPlayer.shared.showTopMusicPlayer(view: self))
-        stackTopViews.removeArrangedSubview(self.pinnedMessageView)
-        stackTopViews.addArrangedSubview(self.pinnedMessageView)
+        IGGlobal.shouldShowTopBarPlayer = true
+        self.createTopMusicPlayer()
+        holderMusicPlayerHeightConstraint.constant = 40.0
+//        UIView.animate(withDuration: 0.3) {
+//            self.view.layoutIfNeeded()
+//        }
+
+    }
+    private func createTopMusicPlayer() {
+//        if !(IGGlobal.shouldShowTopBarPlayer) {
+     
+        if IGGlobal.topBarSongTime != 0 {
+            holderMusicPlayerHeightConstraint.constant = 40.0
+            let view = (IGHelperMusicPlayer.shared.showTopMusicPlayer(view: self, songTime: IGGlobal.topBarSongTime, singerName: IGGlobal.topBarSongSinger, songName: IGGlobal.topBarSongName))
+            holderMusicPlayer.addSubview(view)
+            view.translatesAutoresizingMaskIntoConstraints = false
+
+            view.heightAnchor.constraint(equalToConstant: 40).isActive = true
+            view.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
+            view.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+            view.leftAnchor.constraint(equalTo: holderMusicPlayer.leftAnchor, constant: 0).isActive = true
+            view.rightAnchor.constraint(equalTo: holderMusicPlayer.rightAnchor, constant: 0).isActive = true
+
+        }
+//        }
     }
     private func initiconFonts() {
         txtSticker.font = UIFont.iGapFonticon(ofSize: 25)

@@ -919,7 +919,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
             })
             shouldSave = true
         } else {
-            UIView.transition(with: editProfileNavBtn, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            UIView.transition(with: navigationItem.btnEdit, duration: 0.5, options: .transitionCrossDissolve, animations: {
                 navigationItem.btnEdit.setTitle("", for: .normal)
             })
             shouldSave = false

@@ -28,6 +28,7 @@ struct EventBusManager {
     static let stopMusicPlayer = "stopMusicPlayer"
     static let playMusicPlayer = "playMusicPlayer"
     static let updateMediaTimer = "updateMediaTimer"
+    static let changePlayState = "changePlayState"
     static let hideTopMusicPlayer = "showMusicTopPlayer"
     static let showTopMusicPlayer = "hideMusicTopPlayer"
 }

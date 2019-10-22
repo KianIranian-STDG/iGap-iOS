@@ -390,7 +390,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         SwiftEventBus.onMainThread(self, name: EventBusManager.showTopMusicPlayer) { result in
             print(result?.object)
             let musicFile : MusicFile = result?.object as! MusicFile
-            self.songTimer = musicFile.songTime
+            IGGlobal.topBarSongTime = musicFile.songTime
             self.songName = musicFile.songName
             self.singerName = musicFile.singerName
             self.showMusicTopPlayerWithAnimation()
@@ -407,12 +407,17 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
     }
     private func hideMusicTopPlayerWithAnimation() {
-        UIView.animate(withDuration: 0.3, animations: {
+//        UIView.animate(withDuration: 0.3, animations: {
                 self.tableView.beginUpdates()
                 self.headerHeight = 0
                 self.tableView.endUpdates()
-            IGPlayer.shared.stopMedia()
-        })
+                IGPlayer.shared.stopMedia()
+//        })
+
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+            self.tableView.layoutIfNeeded()
+        }
 
     }
     private func showMusicTopPlayerWithAnimation() {
@@ -420,6 +425,11 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         self.headerHeight = 40
         
         self.tableView.endUpdates()
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+            self.tableView.layoutIfNeeded()
+        }
+
 
     }
     private func stopMusic() {
@@ -631,7 +641,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return IGHelperMusicPlayer.shared.showTopMusicPlayer(view: self, songTime: songTimer, singerName: singerName, songName: songName)
+        return IGHelperMusicPlayer.shared.showTopMusicPlayer(view: self, songTime: IGGlobal.topBarSongTime, singerName: singerName, songName: songName)
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return headerHeight

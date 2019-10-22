@@ -90,8 +90,10 @@ class IGPlayer {
             updateTimer(currentTime: Float(0))
             if player.checkPlayerControlStatus() { // is playing
                 self.pauseMedia()
+
             }
             self.player.removeItemsFromList()
+            
             removeGestureRecognizer()
         }
     }
@@ -178,6 +180,7 @@ class IGPlayer {
             if currentValue >= slider.maximumValue || currentValue.isNaN {
                 self.slider.value = 0.0
                 latestSliderValue = 0.0
+                IGGlobal.songState = .ended
                 self.didTapOnbtnPlayPause(btnPlayPause)
                 self.player.removeItemsFromList()
             }
@@ -193,38 +196,36 @@ class IGPlayer {
     
     private func playMedia(){
         if let file = attachment {
+            IGGlobal.songState = .playing
             let files = [file]
             self.latestButtonValue = ""
             btnPlayPause.setTitle("", for: UIControl.State.normal) // pause icon
             player.play(index: 0, from: files)
             flag = false
             updateSliderValue()
-            IGHelperMusicPlayer.shared.removeTopPlayer()
-            SwiftEventBus.post(EventBusManager.showTopMusicPlayer,sender: MusicFile(songName: songName, singerName: singerName, songTime: songTime, currentTime: 0.0))
-            IGGlobal.isPaused = false
-                print("TIMER RESUMED")
-                IGHelperMusicPlayer.shared.resumeTimer()
+            if !(IGGlobal.isAlreadyOpen) {
+                SwiftEventBus.post(EventBusManager.showTopMusicPlayer,sender: MusicFile(songName: songName, singerName: singerName, songTime: songTime, currentTime: 0.0))
+                IGGlobal.isAlreadyOpen = !IGGlobal.isAlreadyOpen
+            }
         }
     }
     
     private func pauseMedia(){
+        IGGlobal.songState = .paused
         self.latestButtonValue = ""
         btnPlayPause.setTitle("", for: UIControl.State.normal) // play icon
         player.pause()
         flag = true
-
-        IGHelperMusicPlayer.shared.stopTimer()///stop timer in music player helper
-
-        
-
     }
     func stopMedia(){
+        IGGlobal.songState = .ended
         self.latestButtonValue = ""
         btnPlayPause.setTitle("", for: UIControl.State.normal) // play icon
         player.removeItemsFromList()
         flag = false
     }
     func pauseMusic(){
+        IGGlobal.songState = .paused
         self.latestButtonValue = ""
         btnPlayPause.setTitle("", for: UIControl.State.normal) // play icon
         player.pause()
@@ -233,6 +234,7 @@ class IGPlayer {
     }
     func playMusic(){
         if let file = attachment {
+            IGGlobal.songState = .playing
             let files = [file]
             self.latestButtonValue = ""
             btnPlayPause.setTitle("", for: UIControl.State.normal) // pause icon
@@ -282,8 +284,11 @@ class IGPlayer {
         let isPlaying = player.checkPlayerControlStatus()
         if isPlaying {
             self.pauseMedia()
+            SwiftEventBus.post(EventBusManager.changePlayState,sender: false)
+
         } else {
             self.playMedia()
+            SwiftEventBus.post(EventBusManager.changePlayState,sender: true)
         }
     }
 }
