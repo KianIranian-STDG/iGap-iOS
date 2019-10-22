@@ -181,7 +181,7 @@ class IGSearchTableViewController: BaseTableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { // IGRegistredUserInfoTableViewController
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         self.navigationController?.hero.isEnabled = true
         self.navigationController?.hero.navigationAnimationType = .selectBy(presenting: .slide(direction: .left), dismissing: .slide(direction: .right))

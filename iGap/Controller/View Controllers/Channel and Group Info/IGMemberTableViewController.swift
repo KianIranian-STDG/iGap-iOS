@@ -18,7 +18,7 @@ import MGSwipeTableCell
 class IGMemberTableViewController: BaseTableViewController, cellWithMore, UpdateMyRoleObserver {
 
     var room : IGRoom?
-    var filterRole : IGMemberRole = .all
+    var showMembersFilter : IGMemberRole = .all
     private var roomId: Int64!
     private var roomType: IGRoom.IGType!
     private var myRole: Int!
@@ -126,12 +126,17 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ALLMEMBER".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
-        navigationItem.rightViewContainer?.addAction {
-            self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
+        
+        if self.showMembersFilter == .all {
+            navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ALLMEMBER".localizedNew)
+            navigationItem.rightViewContainer?.addAction {
+                self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
+            }
+        } else {
+            navigationItem.addNavigationViewItems(rightItemText: "", title: "ALLMEMBER".localizedNew)
         }
     }
     
@@ -257,25 +262,27 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         myRole = role
         
         DispatchQueue.main.async {
-            let navigationItem = self.navigationItem as! IGNavigationItem
-            if self.roomType == .channel {
-                if role == IGPChannelRoom.IGPRole.admin.rawValue {
+            if self.showMembersFilter == .all {
+                let navigationItem = self.navigationItem as! IGNavigationItem
+                if self.roomType == .channel {
+                    if role == IGPChannelRoom.IGPRole.admin.rawValue {
+                        navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ALLMEMBER".localizedNew)
+                        navigationItem.rightViewContainer?.addAction {
+                            self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
+                        }
+                    } else if role == IGPChannelRoom.IGPRole.moderator.rawValue || role == IGPChannelRoom.IGPRole.member.rawValue {
+                        let alertC = UIAlertController(title: "HINT".localizedNew, message: "CHANGED_ROLE_HINT".localizedNew, preferredStyle: .alert)
+                        let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler:  {  action in
+                            self.navigationController?.popViewController(animated: true)
+                        })
+                        alertC.addAction(cancel)
+                        UIApplication.topViewController()!.present(alertC, animated: true, completion: nil)
+                    }
+                } else if self.roomType == .group {
                     navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ALLMEMBER".localizedNew)
                     navigationItem.rightViewContainer?.addAction {
                         self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
                     }
-                } else if role == IGPChannelRoom.IGPRole.moderator.rawValue || role == IGPChannelRoom.IGPRole.member.rawValue {
-                    let alertC = UIAlertController(title: "HINT".localizedNew, message: "CHANGED_ROLE_HINT".localizedNew, preferredStyle: .alert)
-                    let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler:  {  action in
-                        self.navigationController?.popViewController(animated: true)
-                    })
-                    alertC.addAction(cancel)
-                    UIApplication.topViewController()!.present(alertC, animated: true, completion: nil)
-                }
-            } else if self.roomType == .group {
-                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ALLMEMBER".localizedNew)
-                navigationItem.rightViewContainer?.addAction {
-                    self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
                 }
             }
             self.tableView.reloadData()
@@ -289,7 +296,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         allowFetchMore = false
         if self.roomType == .group {
             IGGlobal.prgShow(self.view)
-            IGGroupGetMemberListRequest.Generator.generate(roomId: roomId, offset: Int32(realmMembers.count), limit: FETCH_MEMBER_LIMIT, filterRole: filterRole).success({ (protoResponse) in
+            IGGroupGetMemberListRequest.Generator.generate(roomId: roomId, offset: Int32(realmMembers.count), limit: FETCH_MEMBER_LIMIT, filterRole: showMembersFilter).success({ (protoResponse) in
                 IGGlobal.prgHide()
                 if let getGroupMemberList = protoResponse as? IGPGroupGetMemberListResponse {
                     if getGroupMemberList.igpMember.count != 0 {
@@ -306,16 +313,16 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             }).send()
         } else if self.roomType == .channel {
             IGGlobal.prgShow(self.view)
-            IGChannelGetMemberListRequest.Generator.generate(roomId: roomId, offset: Int32(realmMembers.count), limit: FETCH_MEMBER_LIMIT, filterRole: filterRole).success({ (protoResponse) in
+            IGChannelGetMemberListRequest.Generator.generate(roomId: roomId, offset: Int32(realmMembers.count), limit: FETCH_MEMBER_LIMIT, filterRole: showMembersFilter).success({ (protoResponse) in
                 IGGlobal.prgHide()
                 DispatchQueue.main.async {
                     if let getChannelMemberList = protoResponse as? IGPChannelGetMemberListResponse {
                         if getChannelMemberList.igpMember.count != 0 {
                             self.allowFetchMore = true
                         } else if self.realmMembers.count == 0 {
-                            if self.filterRole == .admin {
+                            if self.showMembersFilter == .admin {
                                 self.tableView.setEmptyMessage("NOT_EXIST_ADMIN".localizedNew)
-                            } else if self.filterRole == .moderator {
+                            } else if self.showMembersFilter == .moderator {
                                 self.tableView.setEmptyMessage("NOT_EXIST_MODERATOR".localizedNew)
                             }
                         }
@@ -821,22 +828,16 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     //MARK:- Prepare Change Page
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if roomType == .group {
-            if segue.identifier == "showContactToAddMember" {
-                let destinationTv = segue.destination as! IGChooseMemberFromContactsToCreateGroupViewController
-                destinationTv.mode = "Members"
-                destinationTv.room = room
-            }
             if segue.identifier == "GoToChangeGroupPublicLink" {
                 let destination = segue.destination as! IGGroupInfoEditTypeTableViewController
                 destination.room = room
             }
-
-        } else {
-            if segue.identifier == "showContactToAddMember" {
-                let destinationTv = segue.destination as! IGChooseMemberFromContactsToCreateGroupViewController
-                destinationTv.mode = "Members"
-                destinationTv.room = room
-            }
+        }
+        
+        if segue.identifier == "showContactToAddMember" {
+            let destinationTv = segue.destination as! IGChooseMemberFromContactsToCreateGroupViewController
+            destinationTv.mode = "Members"
+            destinationTv.room = room
         }
     }
 }

@@ -506,7 +506,6 @@
 		FA76598822902ACE006322A3 /* UIVIew+INSPhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76597C22902ACE006322A3 /* UIVIew+INSPhotoViewer.swift */; };
 		FA76598922902ACE006322A3 /* INSPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76597D22902ACE006322A3 /* INSPhotosViewController.swift */; };
 		FA76598A22902ACE006322A3 /* INSPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76597F22902ACE006322A3 /* INSPhoto.swift */; };
-		FA77C2A71E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA77C2A61E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift */; };
 		FA77E0FD2261E9D4008D6D25 /* IGHelperNearby.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA77E0FC2261E9D4008D6D25 /* IGHelperNearby.swift */; };
 		FA77E0FF2261EBCB008D6D25 /* DiscoveryObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA77E0FE2261EBCB008D6D25 /* DiscoveryObserver.swift */; };
 		FA786D58206A575300608A2D /* profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAA51753206A254200471EA0 /* profile.storyboard */; };
@@ -1333,7 +1332,6 @@
 		FA76597D22902ACE006322A3 /* INSPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = INSPhotosViewController.swift; sourceTree = "<group>"; };
 		FA76597E22902ACE006322A3 /* INSPhotoGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INSPhotoGallery.h; sourceTree = "<group>"; };
 		FA76597F22902ACE006322A3 /* INSPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = INSPhoto.swift; sourceTree = "<group>"; };
-		FA77C2A61E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRegistredUserInfoTableViewController.swift; sourceTree = "<group>"; };
 		FA77E0FC2261E9D4008D6D25 /* IGHelperNearby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperNearby.swift; sourceTree = "<group>"; };
 		FA77E0FE2261EBCB008D6D25 /* DiscoveryObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryObserver.swift; sourceTree = "<group>"; };
 		FA786D59206A746700608A2D /* CreateRoom.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateRoom.storyboard; sourceTree = "<group>"; };
@@ -2601,7 +2599,6 @@
 		FA77C2A51E2B85D2001B2152 /* Chat and User Info */ = {
 			isa = PBXGroup;
 			children = (
-				FA77C2A61E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift */,
 				8E4472A32331FE5100900244 /* IGProfileUserViewController.swift */,
 				8E4472A523320D6000900244 /* IGProfileUserCell.swift */,
 				8E06F0582344A6CF00CE0536 /* IGProfileUsercellTypeRed.swift */,
@@ -3986,7 +3983,6 @@
 				FAD5305E1E0BD7BA00FE6C54 /* IGTabBarController.swift in Sources */,
 				FAD530651E0BDE2A00FE6C54 /* IGNavigationItem.swift in Sources */,
 				FA63BA9D1DD6E030000B60AD /* IGFile.swift in Sources */,
-				FA77C2A71E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift in Sources */,
 				FA98F838204D37670070424E /* IGCallQuality.swift in Sources */,
 				FA0CC80C1E5D7D4400556283 /* StringTrimExtension.swift in Sources */,
 				FA0953711E1B97700043ED3F /* IGSettingTableViewController.swift in Sources */,

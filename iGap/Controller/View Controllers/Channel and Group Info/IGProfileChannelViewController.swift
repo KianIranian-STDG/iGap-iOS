@@ -752,7 +752,7 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
         }
         if segue.identifier == "showChannelInfoSetMembers" {
             let destination = segue.destination as! IGMemberTableViewController
-            destination.filterRole = self.memberRole
+            destination.showMembersFilter = self.memberRole
             destination.room = room
         }
         if segue.identifier == "showGroupSharedMediaSetting" {

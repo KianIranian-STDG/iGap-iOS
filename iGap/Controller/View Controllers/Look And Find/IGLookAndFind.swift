@@ -314,7 +314,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { // IGRegistredUserInfoTableViewController
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         self.navigationController?.hero.isEnabled = true
         self.navigationController?.hero.navigationAnimationType = .selectBy(presenting: .slide(direction: .left), dismissing: .slide(direction: .right))

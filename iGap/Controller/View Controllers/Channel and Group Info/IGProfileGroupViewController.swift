@@ -704,7 +704,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         }
         if segue.identifier == "showGroupMemberSetting" {
             let destination = segue.destination as! IGMemberTableViewController
-            destination.filterRole = .all
+            destination.showMembersFilter = .all
             destination.room = room
         }
         if segue.identifier == "showContactToAddMember" {

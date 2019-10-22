@@ -122,205 +122,84 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
 
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
-        let current : String = SMLangUtil.loadLanguage()
-        switch current {
-        case "fa" :
-            if mode == "Admin" {
-                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_ADMIN".localizedNew, iGapFont: true)
-            }
-            
-            if mode == "Moderator" {
-                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MODERATOR".localizedNew, iGapFont: true)
-            }
-            
-            if mode == "CreateGroup" {
-                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "NEW_GROUP".localizedNew, iGapFont: true)
-            }
-            
-            if mode == "Members" {
-                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER".localizedNew, iGapFont: true)
-            }
-            
-            if mode == "ConvertChatToGroup" {
-                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER_TO".localizedNew, iGapFont: true)
-            }
-
-            if mode == "addMemberToChannel" {
-                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER_TO".localizedNew, iGapFont: true)
-            }
-
-
-        case "en" :
-            if mode == "Admin" {
-                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_ADMIN".localizedNew, iGapFont: true)
-            }
-            
-            if mode == "Moderator" {
-                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MODERATOR".localizedNew, iGapFont: true)
-            }
-            
-            if mode == "CreateGroup" {
-                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "NEW_GROUP".localizedNew, iGapFont: true)
-            }
-            
-            if mode == "Members" {
-                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER".localizedNew, iGapFont: true)
-            }
-            
-            if mode == "ConvertChatToGroup" {
-                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER_TO".localizedNew, iGapFont: true)
-            }
-            if mode == "addMemberToChannel" {
-                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER_TO".localizedNew, iGapFont: true)
-            }
-
-        case "ar" :
-            break
-        default :
-            break
+        if mode == "Admin" {
+            navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_ADMIN".localizedNew, iGapFont: true)
+        }
+        
+        if mode == "Moderator" {
+            navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MODERATOR".localizedNew, iGapFont: true)
+        }
+        
+        if mode == "CreateGroup" {
+            navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "NEW_GROUP".localizedNew, iGapFont: true)
+        }
+        
+        if mode == "Members" {
+            navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER".localizedNew, iGapFont: true)
+        }
+        
+        if mode == "ConvertChatToGroup" {
+            navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER_TO".localizedNew, iGapFont: true)
+        }
+        
+        if mode == "addMemberToChannel" {
+            navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER_TO".localizedNew, iGapFont: true)
         }
 
-        
         navigationItem.leftViewContainer?.addAction {
-            let current : String = SMLangUtil.loadLanguage()
-            switch current {
-            case "fa" :
-                if self.mode == "Admin"  || self.mode == "Moderator" || self.mode == "Members" {
-                    if self.navigationController is IGNavigationController {
-                        self.navigationController?.popViewController(animated: true)
-                    }
-                    
-                }else{
-                    if self.navigationController is IGNavigationController {
-                        self.navigationController?.popViewController(animated: true)
-                    }
+            if self.mode == "Admin" || self.mode == "Moderator" || self.mode == "Members" {
+                if self.navigationController is IGNavigationController {
+                    self.navigationController?.popViewController(animated: true)
                 }
-
-            case "en" :
-                if self.mode == "Admin"  || self.mode == "Moderator" || self.mode == "Members" {
-                    if self.navigationController is IGNavigationController {
-                        self.navigationController?.popViewController(animated: true)
-                    }
-                    
-                }else{
-                    if self.navigationController is IGNavigationController {
-                        self.navigationController?.popViewController(animated: true)
-                    }
+            } else {
+                if self.navigationController is IGNavigationController {
+                    self.navigationController?.popViewController(animated: true)
                 }
-            case "ar" :
-                break
-            default :
-                break
             }
-
-
         }
         
         navigationItem.rightViewContainer?.addAction {
-            let current : String = SMLangUtil.loadLanguage()
-            switch current {
-            case "fa" :
-                if self.mode == "Members" {
-                    if self.room?.type == .channel {
-                        self.requestToAddmemberToChannel()
-
-                    } else {
-                        self.requestToAddmember()
-
-                    }
-                } else if self.mode == "Moderator" {
-                    if self.room?.type == .channel {
-                        self.requestToAddModeratorInChannel()
-
-                    } else {
-                        self.requestToAddModeratorInGroup()
-
-                    }
-                } else if self.mode == "Admin"{
-                    if self.room?.type == .channel {
-                        self.requestToAddAdminInChannel()
-
-                    } else {
-                        self.requestToAddAdminInGroup()
-
-                    }
-
+            if self.mode == "Members" {
+                if self.room?.type == .channel {
+                    self.requestToAddmemberToChannel()
                 } else {
-                    let createGroup = IGCreateNewGroupTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                    let selectedUsersToCreateGroup = self.selectedUsers.map({ (user) -> IGRegisteredUser in
-                        return user.registredUser
-                    })
-                    var tmp = selectedUsersToCreateGroup
-                    if !(self.baseUser == nil) {
-                        tmp.append(self.baseUser!)
-                    }
-                    createGroup.selectedUsersToCreateGroup = tmp
-                    createGroup.mode = self.mode
-                    createGroup.roomId = self.roomID
-                    createGroup.hidesBottomBarWhenPushed = true
-                    self.navigationController!.pushViewController(createGroup, animated: true)
+                    self.requestToAddmember()
                 }
                 
-            case "en" :
-                if self.mode == "Members" {
-                    if self.room?.type == .channel {
-                        self.requestToAddmemberToChannel()
-
-                    } else {
-                        self.requestToAddmember()
-
-                    }
-
-                } else if self.mode == "Moderator" {
-                    if self.room?.type == .channel {
-                        self.requestToAddModeratorInChannel()
-
-                    } else {
-                        self.requestToAddModeratorInGroup()
-
-                    }
-
-                } else if self.mode == "Admin"{
-                    if self.room?.type == .channel {
-                        self.requestToAddAdminInChannel()
-
-                    } else {
-                        self.requestToAddAdminInGroup()
-
-                    }
-
+            } else if self.mode == "Moderator" {
+                if self.room?.type == .channel {
+                    self.requestToAddModeratorInChannel()
                 } else {
-                    let createGroup = IGCreateNewGroupTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                    let selectedUsersToCreateGroup = self.selectedUsers.map({ (user) -> IGRegisteredUser in
-                        return user.registredUser
-                    })
-                    var tmp = selectedUsersToCreateGroup
-                    if self.baseUser != nil {
-                        tmp.append(self.baseUser!)
-                    }
-                    createGroup.selectedUsersToCreateGroup = tmp
-
-                    createGroup.mode = self.mode
-                    createGroup.roomId = self.roomID
-                    createGroup.hidesBottomBarWhenPushed = true
-                    self.navigationController!.pushViewController(createGroup, animated: true)
+                    self.requestToAddModeratorInGroup()
                 }
                 
+            } else if self.mode == "Admin"{
+                if self.room?.type == .channel {
+                    self.requestToAddAdminInChannel()
+                } else {
+                    self.requestToAddAdminInGroup()
+                }
                 
-            case "ar" :
-                break
-            default :
-                break
+            } else {
+                let createGroup = IGCreateNewGroupTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
+                let selectedUsersToCreateGroup = self.selectedUsers.map({ (user) -> IGRegisteredUser in
+                    return user.registredUser
+                })
+                var tmp = selectedUsersToCreateGroup
+                if !(self.baseUser == nil) {
+                    tmp.append(self.baseUser!)
+                }
+                createGroup.selectedUsersToCreateGroup = tmp
+                createGroup.mode = self.mode
+                createGroup.roomId = self.roomID
+                createGroup.hidesBottomBarWhenPushed = true
+                self.navigationController!.pushViewController(createGroup, animated: true)
             }
-            
-            
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if room?.type == .channel {
-            
-        } else {
+        if room?.type != .channel {
             if segue.identifier == "CreateGroupPage" {
                 let selectedUsersToCreateGroup = selectedUsers.map({ (user) -> IGRegisteredUser in
                     return user.registredUser
@@ -330,7 +209,6 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
                 destinationVC.mode = mode
                 destinationVC.roomId = roomID
             }
-
         }
     }
     
