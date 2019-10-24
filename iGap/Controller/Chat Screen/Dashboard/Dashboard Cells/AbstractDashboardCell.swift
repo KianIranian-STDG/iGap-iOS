@@ -743,7 +743,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                 } else {
         
                     
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: true, showCancelButton: false, message: "IVANDSCORE_MSG".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,done: {
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .question, title: nil, showIconView: true, showDoneButton: true, showCancelButton: false, message: "IVANDSCORE_MSG".localizedNew,doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,done: {
                         IGUserIVandSetActivityRequest.sendRequest(plancode: discoveryInfo.igpValue)
                         return
 
@@ -752,12 +752,12 @@ class AbstractDashboardCell: UICollectionViewCell {
                 }
             } else {
                 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: true, showCancelButton: false, message: "IVANDSCORE_MSG".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,done: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .question, title: nil, showIconView: true, showDoneButton: true, showCancelButton: false, message: "IVANDSCORE_MSG".localizedNew,doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,done: {
                     IGUserIVandSetActivityRequest.sendRequest(plancode: discoveryInfo.igpValue)
                     return
 
                 })
-                
+
             }
             
         case .cardToCard:

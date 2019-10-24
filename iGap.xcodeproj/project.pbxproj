@@ -34,6 +34,24 @@
 		8E25A7C522674BB6004A5BC0 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25A7C422674BB6004A5BC0 /* BaseTableViewController.swift */; };
 		8E25A7C722674BC8004A5BC0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */; };
 		8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */; };
+		8E3C696A23602DDE001575BE /* MusicPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E3C696923602DDE001575BE /* MusicPlayer.storyboard */; };
+		8E3C696C23602E4D001575BE /* IGMusicPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */; };
+		8E3C696E23602EB2001575BE /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696D23602EB2001575BE /* Music.swift */; };
+		8E3C697023603096001575BE /* MusicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696F23603096001575BE /* MusicCell.swift */; };
+		8E3C697B236036A8001575BE /* DimmedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C6979236036A8001575BE /* DimmedView.swift */; };
+		8E3C697C236036A8001575BE /* PanContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C697A236036A8001575BE /* PanContainerView.swift */; };
+		8E3C697F236036C1001575BE /* PanModalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C697D236036C0001575BE /* PanModalPresenter.swift */; };
+		8E3C6980236036C1001575BE /* UIViewController+PanModalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C697E236036C1001575BE /* UIViewController+PanModalPresenter.swift */; };
+		8E3C6986236036E8001575BE /* PanModalHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C6981236036E5001575BE /* PanModalHeight.swift */; };
+		8E3C6987236036E8001575BE /* PanModalPresentable+LayoutHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C6982236036E6001575BE /* PanModalPresentable+LayoutHelpers.swift */; };
+		8E3C6988236036E8001575BE /* PanModalPresentable+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C6983236036E7001575BE /* PanModalPresentable+UIViewController.swift */; };
+		8E3C6989236036E8001575BE /* PanModalPresentable+Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C6984236036E7001575BE /* PanModalPresentable+Defaults.swift */; };
+		8E3C698A236036E8001575BE /* PanModalPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C6985236036E8001575BE /* PanModalPresentable.swift */; };
+		8E3C698C23603701001575BE /* PanModalPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C698B23603701001575BE /* PanModalPresentationDelegate.swift */; };
+		8E3C698E23603715001575BE /* PanModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C698D23603715001575BE /* PanModalPresentationController.swift */; };
+		8E3C699123603724001575BE /* PanModalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C698F23603723001575BE /* PanModalAnimator.swift */; };
+		8E3C699223603724001575BE /* PanModalPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C699023603724001575BE /* PanModalPresentationAnimator.swift */; };
+		8E3C69942360785E001575BE /* IGTagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C69932360785E001575BE /* IGTagManager.swift */; };
 		8E3C6D23235C5FC300723E4A /* IGHelperMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C6D22235C5FC300723E4A /* IGHelperMusicPlayer.swift */; };
 		8E3FA9EF2333A10C0053816A /* IGProfileGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3FA9EE2333A10C0053816A /* IGProfileGroupViewController.swift */; };
 		8E4177F3233CDABD00CEB3AF /* AKMaskFieldBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4177EB233CDABC00CEB3AF /* AKMaskFieldBlock.swift */; };
@@ -829,6 +847,25 @@
 		8E25A7C422674BB6004A5BC0 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customYearTextfield.swift; sourceTree = "<group>"; };
+		8E3C696923602DDE001575BE /* MusicPlayer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MusicPlayer.storyboard; sourceTree = "<group>"; };
+		8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMusicPlayerTableViewController.swift; sourceTree = "<group>"; };
+		8E3C696D23602EB2001575BE /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
+		8E3C696F23603096001575BE /* MusicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicCell.swift; sourceTree = "<group>"; };
+		8E3C697823603670001575BE /* PanModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanModal.h; sourceTree = "<group>"; };
+		8E3C6979236036A8001575BE /* DimmedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmedView.swift; sourceTree = "<group>"; };
+		8E3C697A236036A8001575BE /* PanContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanContainerView.swift; sourceTree = "<group>"; };
+		8E3C697D236036C0001575BE /* PanModalPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresenter.swift; sourceTree = "<group>"; };
+		8E3C697E236036C1001575BE /* UIViewController+PanModalPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+PanModalPresenter.swift"; sourceTree = "<group>"; };
+		8E3C6981236036E5001575BE /* PanModalHeight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalHeight.swift; sourceTree = "<group>"; };
+		8E3C6982236036E6001575BE /* PanModalPresentable+LayoutHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PanModalPresentable+LayoutHelpers.swift"; sourceTree = "<group>"; };
+		8E3C6983236036E7001575BE /* PanModalPresentable+UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PanModalPresentable+UIViewController.swift"; sourceTree = "<group>"; };
+		8E3C6984236036E7001575BE /* PanModalPresentable+Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PanModalPresentable+Defaults.swift"; sourceTree = "<group>"; };
+		8E3C6985236036E8001575BE /* PanModalPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresentable.swift; sourceTree = "<group>"; };
+		8E3C698B23603701001575BE /* PanModalPresentationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresentationDelegate.swift; sourceTree = "<group>"; };
+		8E3C698D23603715001575BE /* PanModalPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresentationController.swift; sourceTree = "<group>"; };
+		8E3C698F23603723001575BE /* PanModalAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalAnimator.swift; sourceTree = "<group>"; };
+		8E3C699023603724001575BE /* PanModalPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresentationAnimator.swift; sourceTree = "<group>"; };
+		8E3C69932360785E001575BE /* IGTagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTagManager.swift; sourceTree = "<group>"; };
 		8E3C6D22235C5FC300723E4A /* IGHelperMusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperMusicPlayer.swift; sourceTree = "<group>"; };
 		8E3FA9EE2333A10C0053816A /* IGProfileGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileGroupViewController.swift; sourceTree = "<group>"; };
 		8E4177EB233CDABC00CEB3AF /* AKMaskFieldBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMaskFieldBlock.swift; sourceTree = "<group>"; };
@@ -1700,6 +1737,75 @@
 			path = Vendor;
 			sourceTree = "<group>";
 		};
+		8E3C6971236035FF001575BE /* PanModal */ = {
+			isa = PBXGroup;
+			children = (
+				8E3C697823603670001575BE /* PanModal.h */,
+				8E3C697723603645001575BE /* View */,
+				8E3C697623603639001575BE /* Presenter */,
+				8E3C697523603628001575BE /* Presentable */,
+				8E3C69742360361C001575BE /* Delegate */,
+				8E3C697323603613001575BE /* Controller */,
+				8E3C697223603609001575BE /* Animator */,
+			);
+			path = PanModal;
+			sourceTree = "<group>";
+		};
+		8E3C697223603609001575BE /* Animator */ = {
+			isa = PBXGroup;
+			children = (
+				8E3C698F23603723001575BE /* PanModalAnimator.swift */,
+				8E3C699023603724001575BE /* PanModalPresentationAnimator.swift */,
+			);
+			path = Animator;
+			sourceTree = "<group>";
+		};
+		8E3C697323603613001575BE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8E3C698D23603715001575BE /* PanModalPresentationController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8E3C69742360361C001575BE /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				8E3C698B23603701001575BE /* PanModalPresentationDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		8E3C697523603628001575BE /* Presentable */ = {
+			isa = PBXGroup;
+			children = (
+				8E3C6981236036E5001575BE /* PanModalHeight.swift */,
+				8E3C6985236036E8001575BE /* PanModalPresentable.swift */,
+				8E3C6984236036E7001575BE /* PanModalPresentable+Defaults.swift */,
+				8E3C6982236036E6001575BE /* PanModalPresentable+LayoutHelpers.swift */,
+				8E3C6983236036E7001575BE /* PanModalPresentable+UIViewController.swift */,
+			);
+			path = Presentable;
+			sourceTree = "<group>";
+		};
+		8E3C697623603639001575BE /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8E3C697D236036C0001575BE /* PanModalPresenter.swift */,
+				8E3C697E236036C1001575BE /* UIViewController+PanModalPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8E3C697723603645001575BE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8E3C6979236036A8001575BE /* DimmedView.swift */,
+				8E3C697A236036A8001575BE /* PanContainerView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		8E4177EA233CDA7F00CEB3AF /* AKMaskField */ = {
 			isa = PBXGroup;
 			children = (
@@ -2292,6 +2398,7 @@
 				FAA932F41DF45748002CC631 /* IGEnums.swift */,
 				8EC217BB2259E1A100105B5A /* SMConstants.swift */,
 				8E1F413822391CEE00910E30 /* CheckInternet.swift */,
+				8E3C69932360785E001575BE /* IGTagManager.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -2916,6 +3023,7 @@
 		FAD5807E1DDC402600A242DE /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8E3C6971236035FF001575BE /* PanModal */,
 				8E4177EA233CDA7F00CEB3AF /* AKMaskField */,
 				8E599D7D2325332300D75376 /* TGPSlider */,
 				8EA8F3F0231F9E4F0099C4EF /* UICircular */,
@@ -3131,6 +3239,7 @@
 				FAF796031DAA392F0030509B /* Main.storyboard */,
 				FA0953061E1B87E40043ED3F /* IGSettingStoryboard.storyboard */,
 				FAA51753206A254200471EA0 /* profile.storyboard */,
+				8E3C696923602DDE001575BE /* MusicPlayer.storyboard */,
 				8E6E83A22342617400392F27 /* EditProfileChannelAndGroup.storyboard */,
 				8E098A7A2348B0B1008A40A9 /* Search.storyboard */,
 				8E1CD972232CF79A008D8758 /* PhoneBook.storyboard */,
@@ -3169,6 +3278,9 @@
 				FAD5807F1DDC403200A242DE /* Chat Screen */,
 				FAD530561E0BD6C300FE6C54 /* Custom Master Controllers */,
 				FA087B2C1DC4A27200E139FA /* View Controllers */,
+				8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */,
+				8E3C696D23602EB2001575BE /* Music.swift */,
+				8E3C696F23603096001575BE /* MusicCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -3436,6 +3548,7 @@
 				FAE6064321EB3A0C00F03FFC /* zh-Hans.lproj in Resources */,
 				FA927E0620284DC100DF7145 /* GifCell.xib in Resources */,
 				8ECFB53C234A118A001233E9 /* igap_send_message_sound.mp3 in Resources */,
+				8E3C696A23602DDE001575BE /* MusicPlayer.storyboard in Resources */,
 				94E74DCE2323D137001AB47C /* FinancialHistoryLocalizationsFa.json in Resources */,
 				8E96A32F225C96C3007D8A77 /* RecieptView.xib in Resources */,
 				8EBF551122DB582700834E6A /* localizationsEn.json in Resources */,
@@ -3647,6 +3760,7 @@
 				FA3C8E041E6D785800D94FBB /* IGClientActionManager.swift in Sources */,
 				FA8DD02121A401F200BBB1B3 /* IGLookAndFindStruct.swift in Sources */,
 				D62214A0235871E5000E48B1 /* IGRealmMember.swift in Sources */,
+				8E3C696C23602E4D001575BE /* IGMusicPlayerTableViewController.swift in Sources */,
 				8E5FBCB3231E43400069D4F2 /* EFAutoScrollLabel.swift in Sources */,
 				D60FF283234091310012ECF2 /* IGPlayer.swift in Sources */,
 				FAE6BAB2207B537B00E54ECE /* MKHipsterTileOverlay.swift in Sources */,
@@ -3679,6 +3793,7 @@
 				940F9E78231BBED700C26D50 /* IGApiFavouriteChannels.swift in Sources */,
 				FA6F310F22B8A90500DB942E /* IGHelperTracker.swift in Sources */,
 				8E4177F3233CDABD00CEB3AF /* AKMaskFieldBlock.swift in Sources */,
+				8E3C6987236036E8001575BE /* PanModalPresentable+LayoutHelpers.swift in Sources */,
 				8ECC1837222FEAEA006E43E8 /* extitionGeneral.swift in Sources */,
 				FAC34DB41E1A3F7E00BB9823 /* IGRealm.swift in Sources */,
 				FA42EF0A1E5C224F00CF8A32 /* FrameStore.swift in Sources */,
@@ -3726,6 +3841,7 @@
 				FA0BA2A522FC001F0051DFEA /* IGHelperFabric.swift in Sources */,
 				FA03C1A52042AD44008812E3 /* IGSignaling.swift in Sources */,
 				8E599D8A2329262500D75376 /* IGCallPageViewController.swift in Sources */,
+				8E3C697C236036A8001575BE /* PanContainerView.swift in Sources */,
 				8E4177F9233CDABD00CEB3AF /* AKMaskFieldStatus.swift in Sources */,
 				4F9386F81EAE335200397C3B /* IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift in Sources */,
 				FAB91BBB22393F6000459595 /* IGRealmChannelExtra.swift in Sources */,
@@ -3737,6 +3853,7 @@
 				8E01BC812293F00E0001C757 /* IGCustomAlertView.swift in Sources */,
 				8EC217992258BDF400105B5A /* SMSingleInputView.swift in Sources */,
 				FAEC476621F33149006C07A4 /* IGHelperJoin.swift in Sources */,
+				8E3C699223603724001575BE /* PanModalPresentationAnimator.swift in Sources */,
 				FA417E50212179C900B5FBCD /* LocationCell.swift in Sources */,
 				8EBF553422DCC9F700834E6A /* SliderTypeThreeCell.swift in Sources */,
 				93193F2A1E5811FF0039AC0C /* IGGroupInfoEditNameTableViewController.swift in Sources */,
@@ -3787,6 +3904,7 @@
 				8E1CD978232D06B0008D8758 /* IGUserContactsTableViewCell.swift in Sources */,
 				8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */,
 				8E4177F8233CDABD00CEB3AF /* AKMaskFieldPatternCharacter.swift in Sources */,
+				8E3C697023603096001575BE /* MusicCell.swift in Sources */,
 				8EBB455D2270202A00A52D88 /* BaseCollectionViewController.swift in Sources */,
 				8E599D842328D13900D75376 /* CallTypesCVCell.swift in Sources */,
 				FA09536E1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionTerminateAllSessionsTableViewCell.swift in Sources */,
@@ -3816,6 +3934,7 @@
 				8E91C64C2274887D00C36DAB /* SplashScreenPageOneViewController.swift in Sources */,
 				FA0953821E1B97E20043ED3F /* IGChooseContactToAddNewGroupTableViewCell.swift in Sources */,
 				FAE6062621EB39DB00F03FFC /* SwiftWebVC.swift in Sources */,
+				8E3C69942360785E001575BE /* IGTagManager.swift in Sources */,
 				FA76598422902ACE006322A3 /* INSPhotosDataSource.swift in Sources */,
 				FAC0F08920F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift in Sources */,
 				FAEC476421F31B1B006C07A4 /* AdditionalObserver.swift in Sources */,
@@ -3823,6 +3942,7 @@
 				8EEE895822A3CF360072383C /* SectionHeader.swift in Sources */,
 				FA09534D1E1B97700043ED3F /* IGSettingAddContactTableViewController.swift in Sources */,
 				FAF7960F1DAA39660030509B /* AppDelegate.swift in Sources */,
+				8E3C697B236036A8001575BE /* DimmedView.swift in Sources */,
 				8E62FFCD233F7BA4006DD56B /* T3ViewController.swift in Sources */,
 				FA0953851E1B97E20043ED3F /* IGChooseMemberToCreateGroupBottomViewCollectionViewCell.swift in Sources */,
 				FA93EE282029A39000DD1521 /* VoiceCell.swift in Sources */,
@@ -3833,6 +3953,7 @@
 				8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */,
 				8E599D732325322000D75376 /* IGSettingsDataAndStorageTableViewController.swift in Sources */,
 				FAE6062921EB39DB00F03FFC /* SwiftModalWebVC.swift in Sources */,
+				8E3C6986236036E8001575BE /* PanModalHeight.swift in Sources */,
 				93AA67C01E4F35CF0053380C /* IGChannelInfoEditTypeTableViewController.swift in Sources */,
 				FA96A81A2053FC4F004369C7 /* IGLookAndFind.swift in Sources */,
 				FA63BAA71DD70E1A000B60AD /* IGRequestUser.swift in Sources */,
@@ -3864,6 +3985,7 @@
 				93193F2C1E5812420039AC0C /* IGGroupEditDescriptionTableViewController.swift in Sources */,
 				FA09535D1E1B97700043ED3F /* IGSettingChooseContactToAddToBlockListTableViewController.swift in Sources */,
 				FA248C9C226AEC6100A72EA7 /* IGScoreHistoryCell.swift in Sources */,
+				8E3C698A236036E8001575BE /* PanModalPresentable.swift in Sources */,
 				FAC7555021D0CF7E001AB608 /* IGCallEventListener.swift in Sources */,
 				FAD7451721B9447B00801D2E /* IGShareInfo.swift in Sources */,
 				FA09538D1E1B97E20043ED3F /* IGAddNewContactTableViewCell.swift in Sources */,
@@ -3930,6 +4052,7 @@
 				FA7E9BD422631D7900FB861D /* SelectCountryObserver.swift in Sources */,
 				8EA8F3EA231F9E450099C4EF /* UICircularRingStyle.swift in Sources */,
 				FAD959051F48AD8600FBD306 /* MTBBarcodeScanner.m in Sources */,
+				8E3C696E23602EB2001575BE /* Music.swift in Sources */,
 				8EC217A92259B90F00105B5A /* walletModalViewController.swift in Sources */,
 				FA42EF081E5C224F00CF8A32 /* AnimatedFrame.swift in Sources */,
 				FA712AE0225DC5AE00FD78AA /* DashboardCell7.swift in Sources */,
@@ -3953,6 +4076,7 @@
 				8EBF552822DCA9B000834E6A /* SliderTypeOneCell.swift in Sources */,
 				FA0953621E1B97700043ED3F /* IGSettingContactTableViewCell.swift in Sources */,
 				FA50A8C41DD35E8500C6D2EA /* IGAppManager.swift in Sources */,
+				8E3C699123603724001575BE /* PanModalAnimator.swift in Sources */,
 				8ECCA1EE22B8B99100D3A734 /* IGMultiForwardModal.swift in Sources */,
 				FA8F22501DD89C31005A90D1 /* IGRoomDraft.swift in Sources */,
 				FA9EE5BC221ECD2300BA7735 /* MoneyTransferCell.swift in Sources */,
@@ -4013,6 +4137,7 @@
 				FA0953561E1B97700043ED3F /* IGSettingChatTableViewController.swift in Sources */,
 				943495BC231FB217009854FE /* IGFinancialHistoryViewController.swift in Sources */,
 				FAD5808F1DDC5C1900A242DE /* IGMessageGeneralCollectionViewCell.swift in Sources */,
+				8E3C698C23603701001575BE /* PanModalPresentationDelegate.swift in Sources */,
 				FAE07EFE220599F500BE3593 /* IGStickerViewController.swift in Sources */,
 				FA9EE5B9221EC05500BA7735 /* IGRoomMessageWallet.swift in Sources */,
 				FA2A506920ECAC02002C5322 /* IGFinancialServiceBill.swift in Sources */,
@@ -4047,6 +4172,7 @@
 				8E8D8E17225CCE6800039191 /* SMValidation.swift in Sources */,
 				FAD2B5821DFBF1ED007D6F87 /* IGProgress.swift in Sources */,
 				FA03C1A020429D46008812E3 /* RTCClient.swift in Sources */,
+				8E3C698E23603715001575BE /* PanModalPresentationController.swift in Sources */,
 				FA7CD4A322958431002918AD /* PaymentCell.swift in Sources */,
 				FA82524021DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift in Sources */,
 				FA0CC80B1E5D7D4400556283 /* RegexParser.swift in Sources */,
@@ -4074,6 +4200,7 @@
 				8EC217A02258C0ED00105B5A /* NSBundle+Language.m in Sources */,
 				FAEEB0C11E1BC04E00B6775F /* IGContactManager.swift in Sources */,
 				93AA67C61E4F38620053380C /* IGChannelInfoSharedMediaDetailTableViewController.swift in Sources */,
+				8E3C697F236036C1001575BE /* PanModalPresenter.swift in Sources */,
 				8ECCA1E822B7B1E200D3A734 /* SMSingleAmountInputView.swift in Sources */,
 				8E96A318225B757E007D8A77 /* SMLangUtil.swift in Sources */,
 				8E098A7D2348BDCD008A40A9 /* IGSearchTableViewController.swift in Sources */,
@@ -4084,6 +4211,7 @@
 				8E96A301225A2318007D8A77 /* IGRequestWallet.swift in Sources */,
 				8EC217BC2259E1A100105B5A /* SMConstants.swift in Sources */,
 				8EE1BFC82281604D001A2867 /* IGSetUserNickNameTableViewController.swift in Sources */,
+				8E3C6980236036C1001575BE /* UIViewController+PanModalPresenter.swift in Sources */,
 				FA42EF0B1E5C224F00CF8A32 /* GIFAnimatable.swift in Sources */,
 				FA87B94C22BFB46100200650 /* IGHelperMessage.swift in Sources */,
 				FA075DE5232A47B0002E7AC7 /* IGInternetPackageViewController.swift in Sources */,
@@ -4125,6 +4253,7 @@
 				FA0953671E1B97700043ED3F /* IGSettingPrivacy&SecurityPasscodeLockTableViewController.swift in Sources */,
 				FAA2A85A200A31CB00CAA7C7 /* IGSettingAccountBioTableViewController.swift in Sources */,
 				93AA67BE1E4F35770053380C /* IGChannelInfoEditDescriptionTableViewController.swift in Sources */,
+				8E3C6989236036E8001575BE /* PanModalPresentable+Defaults.swift in Sources */,
 				8E25A7C322674601004A5BC0 /* IGSettingChnageLanguageTableViewController.swift in Sources */,
 				FA85066C22670703002EEBF7 /* QRMainTabbarController.swift in Sources */,
 				FA63BAAD1DD70F09000B60AD /* IGRequestGroup.swift in Sources */,
@@ -4148,6 +4277,7 @@
 				8E6E83A12341F75500392F27 /* IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.swift in Sources */,
 				FA0953501E1B97700043ED3F /* IGSettingChatCatchTableViewController.swift in Sources */,
 				93193F3A1E5814E60039AC0C /* IGGroupAdminListTableViewCell.swift in Sources */,
+				8E3C6988236036E8001575BE /* PanModalPresentable+UIViewController.swift in Sources */,
 				8EBF553122DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.swift in Sources */,
 				8E599D872329014100D75376 /* IGDialNumberPadViewController.swift in Sources */,
 				93321E7E1E5C12B7004D4454 /* IGForwardChatsTableViewCell.swift in Sources */,

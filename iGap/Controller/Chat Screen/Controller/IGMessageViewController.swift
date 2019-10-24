@@ -1298,6 +1298,19 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         eventBusInitialiser()
         if IGGlobal.shouldShowTopBarPlayer {
             self.createTopMusicPlayer()
+            let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
+            var defaultValue : CGFloat = 20
+
+            if !(pinnedMessageView.isHidden) {
+                defaultValue = 112
+                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+            } else {
+                defaultValue = 60
+                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+            }
+
+            floatingDateTopConstraints.constant = defaultValue
+
         }
 
     }
@@ -1311,7 +1324,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             IGGlobal.topBarSongTime = self.musicFile.songTime
             IGGlobal.topBarSongName = self.musicFile.songName
             IGGlobal.topBarSongSinger = self.musicFile.singerName
-            IGGlobal.isAlreadyOpen = true
             self.showMusicTopPlayerWithAnimation()
         }
 
@@ -1353,7 +1365,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
 
         floatingDateTopConstraints.constant = defaultValue
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.0) {
             self.view.layoutIfNeeded()
         }
 
@@ -1362,9 +1374,23 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 //        if !(IGGlobal.shouldShowTopBarPlayer) {
      
         if IGGlobal.topBarSongTime != 0 {
+
+            if IGGlobal.isAlreadyOpen == false {
+
             holderMusicPlayerHeightConstraint.constant = 40.0
             let view = (IGHelperMusicPlayer.shared.showTopMusicPlayer(view: self, songTime: IGGlobal.topBarSongTime, singerName: IGGlobal.topBarSongSinger, songName: IGGlobal.topBarSongName))
-            holderMusicPlayer.addSubview(view)
+                
+                print("CHECK HOLDER SUBVIEWS1:",holderMusicPlayer.subviews.count)
+
+                if holderMusicPlayer.subviews.count > 0 {
+                    holderMusicPlayer.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+                    print("CHECK HOLDER SUBVIEWS2:",holderMusicPlayer.subviews.count)
+
+
+                }
+                holderMusicPlayer.addSubview(view)
+                    print("CHECK HOLDER SUBVIEWS3:",holderMusicPlayer.subviews.count)
+
             view.translatesAutoresizingMaskIntoConstraints = false
 
             view.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -1372,7 +1398,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             view.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
             view.leftAnchor.constraint(equalTo: holderMusicPlayer.leftAnchor, constant: 0).isActive = true
             view.rightAnchor.constraint(equalTo: holderMusicPlayer.rightAnchor, constant: 0).isActive = true
+                IGGlobal.isAlreadyOpen = !IGGlobal.isAlreadyOpen
 
+            }
         }
 //        }
     }

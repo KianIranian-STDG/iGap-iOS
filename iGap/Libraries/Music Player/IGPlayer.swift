@@ -12,6 +12,8 @@ import UIKit
 import AVFoundation
 import MediaPlayer
 import SwiftEventBus
+import SwiftProtobuf
+import RealmSwift
 
 class IGPlayer {
     
@@ -27,7 +29,7 @@ class IGPlayer {
     var attachmentFloatTime: Float!
     var attachmentTimeScale: CMTimeScale!
     
-    private var player = IGMusicPlayer.sharedPlayer
+    var player = IGMusicPlayer.sharedPlayer
     private var playerWatcherIndex = 0
     private var latestTimeValue: String?
     private var latestSliderValue: Float?
@@ -36,13 +38,21 @@ class IGPlayer {
     private var songName : String! = "VOICES_MESSAGE".MessageViewlocalizedNew
     private var songTime : Float! = 0
     var currentTimeOfSong : Float! = 0
+    ////audio player custom vars
+    var room : IGRoom!
+    var sharedMediaFilter : IGSharedMediaFilter? = .audio
+    var shareMediaMessage : Results<IGRoomMessage>!
+    var notificationToken: NotificationToken?
+    var isFetchingFiles: Bool = false
 
     /**
      * @param attachment media info for make player session
      * @param justUpdate if set true player view will be update with current state otherwise will be started new player with attachment param
      */
-    func startPlayer(btnPlayPause: UIButton, slider: UISlider, timer: UILabel, roomMessage: IGRoomMessage, justUpdate: Bool = false){
+    func startPlayer(btnPlayPause: UIButton, slider: UISlider, timer: UILabel, roomMessage: IGRoomMessage, justUpdate: Bool = false,room: IGRoom? = nil){
+        self.room = room
 
+        fetchMusicList(room : self.room)
         if justUpdate {
             if self.roomMessage?.id == roomMessage.id {
                 btnPlayPause.setTitle(latestButtonValue, for: UIControl.State.normal)
@@ -97,8 +107,31 @@ class IGPlayer {
             removeGestureRecognizer()
         }
     }
+    
+    private func fetchMusicList(room : IGRoom!) {
+        
+        if let thisRoom = room {
+            let messagePredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND isFromSharedMedia == true AND typeRaw == 5 OR typeRaw == 6", thisRoom.id)
+            shareMediaMessage =  try! Realm().objects(IGRoomMessage.self).filter(messagePredicate)
+            self.notificationToken = shareMediaMessage.observe { (changes: RealmCollectionChange) in
+                switch changes {
+                case .initial:
 
+                    break
+                case .update(_, _, _, _):
+                    // Query messages have changed, so apply them to the TableView
+
+                    break
+                case .error(let err):
+                    // An error occurred while opening the Realm file on the background worker thread
+                    fatalError("\(err)")
+                    break
+                }
+            }
+        }
+    }
     private func fetchAttachmentTime(){
+        
         let path = attachment!.path()
         let asset = AVURLAsset(url: path!)
         let playerItem = AVPlayerItem(asset: asset)
@@ -152,7 +185,7 @@ class IGPlayer {
         latestTimeValue = finalValue
     }
     
-    private func updateSliderValue() {
+    func updateSliderValue() {
         if flag == false {
             slider.isContinuous = true
             let currentTime = player.getCurrentTime()
@@ -181,17 +214,68 @@ class IGPlayer {
     
     private func sliderValueChanged() {
         latestSliderValue = slider.value
+        let currentTime = player.getCurrentTime()
+        let currentTimeFloat = (CMTimeGetSeconds(currentTime))
+        let currentValue = Float(currentTimeFloat)
+
+
         player.seekToTime(value: CMTimeMakeWithSeconds(Float64(slider.value), preferredTimescale: attachmentTimeScale))
         flag = false
         updateSliderValue()
     }
+    func updateSLider(value: Float,sliderBottom: UISlider) {
+        latestSliderValue = value
+        player.seekToTime(value: CMTimeMakeWithSeconds(Float64(value), preferredTimescale: attachmentTimeScale))
+        flag = false
+        updateSliderValueToTime(slideerBottom : sliderBottom)
+
+    }
+    
+    private func updateSliderValueToTime(slideerBottom : UISlider) {
+        if flag == false {
+            slider.isContinuous = true
+            slideerBottom.isContinuous = true
+            let currentTime = player.getCurrentTime()
+            let currentTimeFloat = (CMTimeGetSeconds(currentTime))
+            let currentValue = Float(currentTimeFloat)
+            SwiftEventBus.post(EventBusManager.updateMediaTimer,sender: currentValue)
+
+            if currentValue <=  slider.maximumValue {
+                slider.setValue(Float(currentTimeFloat),animated: true)
+                slideerBottom.setValue(Float(currentTimeFloat),animated: true)
+                updateTimer(currentTime: Float((CMTimeGetSeconds(currentTime))))
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    self.updateSliderValueToTime(slideerBottom: slideerBottom)
+                }
+            }
+            
+            //Hint: sometimes value of 'currentValue' is nan after reach to end of media
+            if currentValue >= slider.maximumValue || currentValue.isNaN {
+                self.slider.value = 0.0
+                latestSliderValue = 0.0
+                IGGlobal.songState = .ended
+                self.didTapOnbtnPlayPause(btnPlayPause)
+                self.player.removeItemsFromList()
+            }
+        }
+    }
     
     private func playMedia(){
         if let file = attachment {
+            
+            
+            
+            
+
+            
+            
+            
             IGGlobal.songState = .playing
             let files = [file]
-            self.latestButtonValue = ""
-            btnPlayPause.setTitle("", for: UIControl.State.normal) // pause icon
+            UIView.transition(with: btnPlayPause,duration: 0.3, options: .transitionFlipFromTop, animations: {
+                self.latestButtonValue = ""
+                self.btnPlayPause.setTitle("", for: UIControl.State.normal) // pause icon
+            },completion: nil)
             player.play(index: 0, from: files)
             flag = false
             updateSliderValue()
@@ -204,22 +288,31 @@ class IGPlayer {
     
     private func pauseMedia(){
         IGGlobal.songState = .paused
-        self.latestButtonValue = ""
-        btnPlayPause.setTitle("", for: UIControl.State.normal) // play icon
+        UIView.transition(with: btnPlayPause,duration: 0.3, options: .transitionFlipFromTop, animations: {
+            self.latestButtonValue = ""
+            self.btnPlayPause.setTitle("", for: UIControl.State.normal) // play icon
+        },completion: nil)
+
         player.pause()
         flag = true
     }
     func stopMedia(){
-        IGGlobal.songState = .ended
-        self.latestButtonValue = ""
-        btnPlayPause.setTitle("", for: UIControl.State.normal) // play icon
+        UIView.transition(with: btnPlayPause,duration: 0.3, options: .transitionFlipFromTop, animations: {
+            self.latestButtonValue = ""
+            self.btnPlayPause.setTitle("", for: UIControl.State.normal) // play icon
+        },completion: nil)
+
         player.removeItemsFromList()
         flag = false
     }
     func pauseMusic(){
         IGGlobal.songState = .paused
-        self.latestButtonValue = ""
-        btnPlayPause.setTitle("", for: UIControl.State.normal) // play icon
+        UIView.transition(with: btnPlayPause,duration: 0.3, options: .transitionFlipFromTop, animations: {
+            self.latestButtonValue = ""
+            self.btnPlayPause.setTitle("", for: UIControl.State.normal) // play icon
+        },completion: nil)
+        SwiftEventBus.post(EventBusManager.changePlayState,sender: false)
+
         player.pause()
         flag = true
 
@@ -228,8 +321,13 @@ class IGPlayer {
         if let file = attachment {
             IGGlobal.songState = .playing
             let files = [file]
-            self.latestButtonValue = ""
-            btnPlayPause.setTitle("", for: UIControl.State.normal) // pause icon
+            SwiftEventBus.post(EventBusManager.changePlayState,sender: true)
+
+            UIView.transition(with: btnPlayPause,duration: 0.3, options: .transitionFlipFromTop, animations: {
+                self.latestButtonValue = ""
+                self.btnPlayPause.setTitle("", for: UIControl.State.normal) // pause icon
+            },completion: nil)
+
             player.play(index: 0, from: files)
             flag = false
             updateSliderValue()

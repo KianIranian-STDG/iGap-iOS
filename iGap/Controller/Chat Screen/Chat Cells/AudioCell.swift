@@ -202,7 +202,7 @@ class AudioCell: AbstractCell {
     
     /** check current voice state and if is playing update values to current state */
     private func checkPlayerState(){
-        IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderAudio, timer: txtAudioTime, roomMessage: self.finalRoomMessage, justUpdate: true)
+        IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderAudio, timer: txtAudioTime, roomMessage: self.finalRoomMessage, justUpdate: true,room: self.room)
     }
     
     private func voiceGustureRecognizers() {
@@ -212,7 +212,8 @@ class AudioCell: AbstractCell {
     
     @objc func didTapOnPlay(_ gestureRecognizer: UITapGestureRecognizer) {
         IGGlobal.isVoice = false // determine the file is not voice and is music
-        IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderAudio, timer: txtAudioTime, roomMessage: self.finalRoomMessage)
+
+        IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderAudio, timer: txtAudioTime, roomMessage: self.finalRoomMessage,room: self.room)
     }
 }
 

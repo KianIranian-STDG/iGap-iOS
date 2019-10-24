@@ -111,6 +111,7 @@ class IGMusicPlayer {
     }
     
     func removeItemsFromList() {
+        IGGlobal.songState = .ended
         player.removeAllItems()
     }
     

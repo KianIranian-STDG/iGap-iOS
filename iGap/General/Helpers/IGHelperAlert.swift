@@ -18,10 +18,11 @@ class IGHelperAlert {
         case alert = 0
         case warning = 1
         case success = 2
+        case question = 3
     }
     private var actionDone: (() -> Void)?
     private var actionCancel: (() -> Void)?
-
+    
     static let shared = IGHelperAlert()
     var customAlert : UIView!
     var iconView : UIView!
@@ -41,7 +42,7 @@ class IGHelperAlert {
         }
     }
     
-
+    
     func showForwardAlert(title: String, isForbidden: Bool = false, cancelForward: (() -> Void)? = nil, done: (() -> Void)? = nil){
         DispatchQueue.main.async {
             
@@ -123,7 +124,7 @@ class IGHelperAlert {
                         self.window!.addSubview(self.iconView)
                     }
                     let heightOfAlert = self.detectHeightOfMessage(widthOfAlert: 230, message: message, font: UIFont.igFont(ofSize: 15)) + 100
-
+                    
                     let height = min(heightOfAlert,self.maxHeightOfCustomAlert)//return min value between message height and maximum allowed height of alert
                     self.setConstraintsToCustomAlert(customView: self.customAlert, view: alertView,height:height)///setConstraintsTo CustomeAlert
                     ///create StackView for holding Buttons
@@ -168,6 +169,14 @@ class IGHelperAlert {
                             self.iconView.layer.borderColor = UIColor.iGapGold().cgColor
                         }
                         break
+                    case .question :
+                        lblIcon.text = "🌪"
+                        borderTopView.backgroundColor = UIColor.iGapSkyBlue()
+                        lblIcon.textColor = UIColor.iGapSkyBlue()
+                        if showIconView! {
+                            self.iconView.layer.borderColor = UIColor.iGapSkyBlue().cgColor
+                        }
+                        break
                     default :
                         borderTopView.backgroundColor = UIColor.iGapRed()
                         lblIcon.textColor = UIColor.iGapRed()
@@ -208,7 +217,7 @@ class IGHelperAlert {
                     } else if showDoneButton! && !showCancelButton! {
                         btnCancel.isHidden = false
                         btnDone.isHidden = false
-
+                        
                     } else {
                         btnCancel.isHidden = false
                         btnDone.isHidden = true
@@ -230,13 +239,13 @@ class IGHelperAlert {
                     stackTitleAndMessage.alignment = .fill
                     stackTitleAndMessage.distribution = .fill
                     self.customAlert.addSubview(stackTitleAndMessage)
-
+                    
                     let titleLabel = UILabel()
                     let messageLabel = UILabel()
                     titleLabel.font = UIFont.igFont(ofSize: 13,weight: .bold)
                     titleLabel.numberOfLines = 1
                     messageLabel.numberOfLines = 0
-//                    messageLabel.adjustsFontSizeToFitWidth = true
+                    messageLabel.adjustsFontSizeToFitWidth = true
                     messageLabel.font = UIFont.igFont(ofSize: 14)
                     titleLabel.textColor = UIColor(named: themeColor.labelColor.rawValue)
                     messageLabel.textColor = UIColor(named: themeColor.labelColor.rawValue)
@@ -246,26 +255,26 @@ class IGHelperAlert {
                     titleLabel.textAlignment = .center
                     stackTitleAndMessage.addArrangedSubview(titleLabel)
                     stackTitleAndMessage.addArrangedSubview(messageLabel)
-
+                    
                     if title != nil {
                         titleLabel.text = title
                         self.setConstraintsToTitleAndMessage(titleAndMessageStack: stackTitleAndMessage, titleLabel: titleLabel, messageLabel: messageLabel, customAlertView: self.customAlert, iconViewIsVisible: showIconView)
                     } else {
                         self.customAlert.addSubview(messageLabel)
                         self.setConstraintsToTitleAndMessage(titleAndMessageStack: stackTitleAndMessage, titleLabel: nil, messageLabel: messageLabel, customAlertView: self.customAlert, iconViewIsVisible: showIconView)
-
+                        
                     }
                     self.actionDone = done
                     self.actionCancel = cancel
-
+                    
                     
                     self.customAlert.layoutIfNeeded()
                     if showIconView! {
                         self.iconView.layoutIfNeeded()
                     }
-
+                    
                     alertView!.view?.superview?.layoutIfNeeded()
-
+                    
                 },completion: {(value: Bool) in
                     
                 })
@@ -274,23 +283,27 @@ class IGHelperAlert {
         }
     }
     //MARK: - Development funcs
-
+    
     @objc func didDoneGotTap() {
         if self.actionDone != nil {
-        actionDone!()
+            actionDone!()
+            self.removeCustomAlertView()
+            
         } else {
             self.removeCustomAlertView()
         }
     }
     @objc func didCancelGotTap() {
         if self.actionCancel != nil {
-        actionCancel!()
+            actionCancel!()
+            self.removeCustomAlertView()
+            
         } else {
             self.removeCustomAlertView()
         }
     }
     //MARK: - Create / Remove funcs
-
+    
     private func creatBlackBackgroundView()  {
         bgView = UIView()
         bgView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
@@ -321,8 +334,8 @@ class IGHelperAlert {
         view.layer.borderWidth = 5.0
         return view
     }
-
-
+    
+    
     //MARK: - constraints funcs
     private func setConstraintsToCustomAlert(customView: UIView!,view: UIViewController? = UIApplication.topViewController(),height : CGFloat? = 150) {
         customView.translatesAutoresizingMaskIntoConstraints = false
@@ -331,7 +344,7 @@ class IGHelperAlert {
         customView.centerYAnchor.constraint(equalTo: view!.view!.centerYAnchor, constant: 0).isActive = true
         customView.centerXAnchor.constraint(equalTo: view!.view!.centerXAnchor, constant: 0).isActive = true
     }
-
+    
     private func setConstraintsToIconView(customView: UIView!,customAlertView: UIView!) {
         customView.translatesAutoresizingMaskIntoConstraints = false
         customView.heightAnchor.constraint(equalToConstant: 60).isActive = true
@@ -346,45 +359,55 @@ class IGHelperAlert {
         label.centerYAnchor.constraint(equalTo: iconView.centerYAnchor, constant: 0).isActive = true
         label.centerXAnchor.constraint(equalTo: iconView.centerXAnchor, constant: 0).isActive = true
     }
-
+    
     private func setConstraintsToTitleAndMessage(titleAndMessageStack: UIStackView!,titleLabel: UILabel? = nil , messageLabel: UILabel? = nil,customAlertView: UIView!,iconViewIsVisible: Bool? = true) {
         var hasTitle: Bool = true
         
         if titleLabel != nil {
-//            titleLabel!.translatesAutoresizingMaskIntoConstraints = false
+            //            titleLabel!.translatesAutoresizingMaskIntoConstraints = false
             titleLabel!.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            titleLabel!.topAnchor.constraint(equalTo: titleAndMessageStack!.topAnchor, constant: 5).isActive = true
+            titleLabel!.leftAnchor.constraint(equalTo: titleAndMessageStack!.leftAnchor, constant: 5).isActive = true
+            titleLabel!.rightAnchor.constraint(equalTo: titleAndMessageStack!.rightAnchor, constant: -5).isActive = true
+
             messageLabel!.topAnchor.constraint(equalTo: titleAndMessageStack!.topAnchor, constant: 25).isActive = true
             messageLabel!.bottomAnchor.constraint(equalTo: titleAndMessageStack.bottomAnchor, constant: -5).isActive = true
+            messageLabel!.leftAnchor.constraint(equalTo: titleAndMessageStack!.leftAnchor, constant: 5).isActive = true
+            messageLabel!.rightAnchor.constraint(equalTo: titleAndMessageStack!.rightAnchor, constant: -5).isActive = true
+
         } else {
             hasTitle = false
             titleLabel?.isHidden = true
             messageLabel!.topAnchor.constraint(equalTo: titleAndMessageStack!.topAnchor, constant: 5).isActive = true
+            messageLabel!.leftAnchor.constraint(equalTo: titleAndMessageStack!.leftAnchor, constant: 5).isActive = true
+            messageLabel!.rightAnchor.constraint(equalTo: titleAndMessageStack!.rightAnchor, constant: -5).isActive = true
+            messageLabel!.bottomAnchor.constraint(equalTo: titleAndMessageStack!.bottomAnchor, constant: -5).isActive = true
 
         }
-
-
-            titleAndMessageStack.translatesAutoresizingMaskIntoConstraints = false
-            titleAndMessageStack.leftAnchor.constraint(equalTo: customAlertView.leftAnchor, constant: 10).isActive = true
-            titleAndMessageStack.rightAnchor.constraint(equalTo: customAlertView.rightAnchor, constant: -10).isActive = true
-            titleAndMessageStack.bottomAnchor.constraint(equalTo: customAlertView.bottomAnchor, constant: -58).isActive = true
-            ///if has Icon at top of Alert
-            if iconViewIsVisible! {
-                titleAndMessageStack.topAnchor.constraint(equalTo: customAlertView.topAnchor, constant: 35).isActive = true
-
-            } else {
-                titleAndMessageStack.topAnchor.constraint(equalTo: customAlertView.topAnchor, constant: 10).isActive = true
-            }
-
-
-
+        
+        
+        titleAndMessageStack.translatesAutoresizingMaskIntoConstraints = false
+        titleAndMessageStack.leftAnchor.constraint(equalTo: customAlertView.leftAnchor, constant: 10).isActive = true
+        titleAndMessageStack.rightAnchor.constraint(equalTo: customAlertView.rightAnchor, constant: -10).isActive = true
+        titleAndMessageStack.bottomAnchor.constraint(equalTo: customAlertView.bottomAnchor, constant: -58).isActive = true
+        ///if has Icon at top of Alert
+        if iconViewIsVisible! {
+            titleAndMessageStack.topAnchor.constraint(equalTo: customAlertView.topAnchor, constant: 35).isActive = true
+            
+        } else {
+            titleAndMessageStack.topAnchor.constraint(equalTo: customAlertView.topAnchor, constant: 10).isActive = true
+        }
+        
+        
+        
     }
-
+    
     private func detectHeightOfMessage(widthOfAlert: CGFloat,message: String,font : UIFont) -> CGFloat {
         let constraintRect = CGSize(width: widthOfAlert, height: .greatestFiniteMagnitude)
         let boundingBox = message.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
-
+        
         return (ceil(boundingBox.height))
-
+        
     }
     private func setConstraintsToButtonsStackView(customStack: UIStackView!,customAlertView: UIView!) {
         customStack.translatesAutoresizingMaskIntoConstraints = false
@@ -400,7 +423,7 @@ class IGHelperAlert {
         borderView.rightAnchor.constraint(equalTo: customStack.rightAnchor, constant: 0).isActive = true
         borderView.bottomAnchor.constraint(equalTo: customStack.topAnchor, constant: 0).isActive = true
     }
-
+    
     private func setConstraintsToBorderInStackView(borderView: UIView!,customAlertView: UIView!) {
         borderView.translatesAutoresizingMaskIntoConstraints = false
         borderView.heightAnchor.constraint(equalToConstant: 45).isActive = true
@@ -408,7 +431,7 @@ class IGHelperAlert {
         borderView.bottomAnchor.constraint(equalTo: customAlertView.bottomAnchor, constant: 0).isActive = true
         borderView.centerXAnchor.constraint(equalTo: customAlertView.centerXAnchor, constant: 0).isActive = true
     }
-
+    
     private func setConstraintsToTopBorder(borderView: UIView!,customAlertView: UIView!) {
         borderView.translatesAutoresizingMaskIntoConstraints = false
         borderView.heightAnchor.constraint(equalToConstant: 5).isActive = true
@@ -416,7 +439,7 @@ class IGHelperAlert {
         borderView.rightAnchor.constraint(equalTo: customAlertView.rightAnchor, constant: 0).isActive = true
         borderView.topAnchor.constraint(equalTo: customAlertView.topAnchor, constant: 0).isActive = true
     }
-
+    
     
     
 }

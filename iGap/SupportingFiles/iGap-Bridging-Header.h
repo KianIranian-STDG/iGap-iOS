@@ -24,6 +24,7 @@
 #import "TGPControls.h"
 #import "MBCircularProgressBarLayer.h"
 #import "MBCircularProgressBarView.h"
+#import "PanModal.h"
 
 
 #endif /* iGap_Bridging_Header_h */

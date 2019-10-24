@@ -1272,6 +1272,7 @@
                         <outlet property="viewBG" destination="g0e-bi-dMH" id="4H0-pu-AhE"/>
                         <segue destination="grv-rH-Zr3" kind="show" identifier="showGroupSharedMediaSetting" id="q09-lR-4pS"/>
                         <segue destination="ucf-sx-4wP" kind="show" identifier="showGroupMemberSetting" id="TNb-0G-evg"/>
+                        <segue destination="eZI-bz-A5f" kind="show" identifier="showContactToAddMember" id="dNm-aC-Qqb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NwU-MT-9pl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1546,7 +1547,8 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="k5K-AS-4bs"/>
+        <segue reference="q09-lR-4pS"/>
         <segue reference="TNb-0G-evg"/>
+        <segue reference="SwS-lA-ucj"/>
     </inferredMetricsTieBreakers>
 </document>

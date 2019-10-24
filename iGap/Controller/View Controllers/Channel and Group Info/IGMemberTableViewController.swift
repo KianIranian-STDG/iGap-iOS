@@ -509,44 +509,47 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     
     func kickAdminChannel(userId: Int64) {
         if let channelRoom = room {
-            kickAlert(title: "REMOVE_ADMIN".localizedNew, message: "ARE_U_SURE_REMOVE_ADMIN".localizedNew, alertClouser: { (state) -> Void in
-                if state == AlertState.Ok {
-                    IGGlobal.prgShow(self.view)
-                    IGChannelKickAdminRequest.Generator.generate(roomId: channelRoom.id , memberId: userId).success({ (protoResponse) in
-                        IGGlobal.prgHide()
-                        DispatchQueue.main.async {
-                            switch protoResponse {
-                            case let channelKickAdminResponse as IGPChannelKickAdminResponse:
-                                let _ = IGChannelKickAdminRequest.Handler.interpret( response : channelKickAdminResponse)
-                                self.tableView.reloadData()
-                            default:
-                                break
-                            }
-                        }
-                    }).error ({ (errorCode, waitTime) in
-                        IGGlobal.prgHide()
-                        switch errorCode {
-                        case .timeout:
-                            DispatchQueue.main.async {
-                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                alert.addAction(okAction)
-                                self.present(alert, animated: true, completion: nil)
-                            }
+            
+            
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "REMOVE_ADMIN".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_ADMIN".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
+                IGGlobal.prgShow(self.view)
+                IGChannelKickAdminRequest.Generator.generate(roomId: channelRoom.id , memberId: userId).success({ (protoResponse) in
+                    IGGlobal.prgHide()
+                    DispatchQueue.main.async {
+                        switch protoResponse {
+                        case let channelKickAdminResponse as IGPChannelKickAdminResponse:
+                            let _ = IGChannelKickAdminRequest.Handler.interpret( response : channelKickAdminResponse)
+                            self.tableView.reloadData()
                         default:
                             break
                         }
-                        
-                    }).send()
-                }
+                    }
+                }).error ({ (errorCode, waitTime) in
+                    IGGlobal.prgHide()
+                    switch errorCode {
+                    case .timeout:
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            alert.addAction(okAction)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    default:
+                        break
+                    }
+                    
+                }).send()
             })
+            
         }
     }
     
     func kickModeratorChannel(userId: Int64) {
         if let channelRoom = room {
-            kickAlert(title: "REMOVE_MODERATOR".localizedNew, message: "ARE_U_SURE_REMOVE_MODERATOR".localizedNew, alertClouser: { (state) -> Void in
-                if state == AlertState.Ok {
+            
+            
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "REMOVE_MODERATOR".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_MODERATOR".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
+                
                     IGGlobal.prgShow(self.view)
                     IGChannelKickModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: userId).success({ (protoResponse) in
                         IGGlobal.prgHide()
@@ -557,18 +560,13 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                         IGGlobal.prgHide()
                         switch errorCode {
                         case .timeout:
-                            DispatchQueue.main.async {
-                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                alert.addAction(okAction)
-                                self.present(alert, animated: true, completion: nil)
-                            }
+                            break
                         default:
                             break
                         }
                         
                     }).send()
-                }
+                
             })
         }
     }
@@ -576,31 +574,26 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     
     func kickMemberChannel(userId: Int64) {
         if let _ = room {
-            kickAlert(title: "KICK_MEMBER".localizedNew, message: "ARE_U_SURE_KICK_USER".localizedNew, alertClouser: { (state) -> Void in
-                if state == AlertState.Ok {
-                    IGGlobal.prgShow(self.view)
-                    IGChannelKickMemberRequest.Generator.generate(roomID: (self.room?.id)!, memberID: userId).success({ (protoResponse) in
-                        IGGlobal.prgHide()
-                        if let kickMemberResponse = protoResponse as? IGPChannelKickMemberResponse {
-                            IGChannelKickMemberRequest.Handler.interpret(response: kickMemberResponse)
-                        }
-                    }).error ({ (errorCode, waitTime) in
-                        IGGlobal.prgHide()
-                        switch errorCode {
-                        case .timeout:
-                            DispatchQueue.main.async {
-                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                alert.addAction(okAction)
-                                self.present(alert, animated: true, completion: nil)
-                            }
-                        default:
-                            break
-                        }
-                        
-                    }).send()
-                }
+            
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "KICK_MEMBER".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_KICK_USER".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
+                IGGlobal.prgShow(self.view)
+                IGChannelKickMemberRequest.Generator.generate(roomID: (self.room?.id)!, memberID: userId).success({ (protoResponse) in
+                    IGGlobal.prgHide()
+                    if let kickMemberResponse = protoResponse as? IGPChannelKickMemberResponse {
+                        IGChannelKickMemberRequest.Handler.interpret(response: kickMemberResponse)
+                    }
+                }).error ({ (errorCode, waitTime) in
+                    IGGlobal.prgHide()
+                    switch errorCode {
+                    case .timeout:
+                        break
+                    default:
+                        break
+                    }
+                    
+                }).send()
             })
+            
         }
     }
     
@@ -616,19 +609,11 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 IGGlobal.prgHide()
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 case .canNotAddThisUserAsAdminToGroup:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Error", message: "There is an error to adding this contact in channel", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                        
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                     }
                 default:
                     break
@@ -651,19 +636,10 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 IGGlobal.prgHide()
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 case .canNotAddThisUserAsModeratorToGroup:
                     DispatchQueue.main.async {
-                        let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
-                        
-                        let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alertC.addAction(cancel)
-                        self.present(alertC, animated: true, completion: nil)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                     }
                     
                 default:
@@ -677,88 +653,79 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     //MARK: - Group Actions
     func kickAdmin(userId: Int64) {
         if let groupRoom = room {
-            kickAlert(title: "REMOVE_ADMIN".localizedNew, message: "ARE_U_SURE_REMOVE_ADMIN".localizedNew, alertClouser: { (state) -> Void in
-                if state == AlertState.Ok {
-                    IGGlobal.prgShow(self.view)
-                    IGGroupKickAdminRequest.Generator.generate(roomID: groupRoom.id , memberID: userId).success({ (protoResponse) in
-                        IGGlobal.prgHide()
-                        if let groupKickAdminResponse = protoResponse as? IGPGroupKickAdminResponse {
-                            IGGroupKickAdminRequest.Handler.interpret( response : groupKickAdminResponse)
-                        }
-                    }).error ({ (errorCode, waitTime) in
-                        IGGlobal.prgHide()
-                        switch errorCode {
-                        case .timeout:
-                            DispatchQueue.main.async {
-                                let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                                alert.addAction(okAction)
-                                self.present(alert, animated: true, completion: nil)
-                            }
-                        default:
-                            break
-                        }
-                    }).send()
-                }
+            
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "REMOVE_ADMIN".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_ADMIN".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
+                IGGlobal.prgShow(self.view)
+                IGGroupKickAdminRequest.Generator.generate(roomID: groupRoom.id , memberID: userId).success({ (protoResponse) in
+                    IGGlobal.prgHide()
+                    if let groupKickAdminResponse = protoResponse as? IGPGroupKickAdminResponse {
+                        IGGroupKickAdminRequest.Handler.interpret( response : groupKickAdminResponse)
+                    }
+                }).error ({ (errorCode, waitTime) in
+                    IGGlobal.prgHide()
+                    switch errorCode {
+                    case .timeout:
+                        break
+                    default:
+                        break
+                    }
+                }).send()
             })
+        
         }
     }
     
     func kickModerator(userId: Int64) {
         if let groupRoom = room {
-            kickAlert(title: "REMOVE_MODERATOR".localizedNew, message: "ARE_U_SURE_REMOVE_MODERATOR", alertClouser: { (state) -> Void in
-                if state == AlertState.Ok {
-                    IGGlobal.prgShow(self.view)
-                    IGGroupKickModeratorRequest.Generator.generate(memberId: userId, roomId: groupRoom.id).success({ (protoResponse) in
-                        IGGlobal.prgHide()
-                        if let groupKickModeratorResponse = protoResponse as? IGPGroupKickModeratorResponse {
-                            IGGroupKickModeratorRequest.Handler.interpret( response : groupKickModeratorResponse)
+            
+            
+            
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "REMOVE_MODERATOR".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_MODERATOR".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
+                IGGlobal.prgShow(self.view)
+                IGGroupKickModeratorRequest.Generator.generate(memberId: userId, roomId: groupRoom.id).success({ (protoResponse) in
+                    IGGlobal.prgHide()
+                    if let groupKickModeratorResponse = protoResponse as? IGPGroupKickModeratorResponse {
+                        IGGroupKickModeratorRequest.Handler.interpret( response : groupKickModeratorResponse)
+                    }
+                }).error ({ (errorCode, waitTime) in
+                    IGGlobal.prgHide()
+                    switch errorCode {
+                    case .timeout:
+                        DispatchQueue.main.async {
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                         }
-                    }).error ({ (errorCode, waitTime) in
-                        IGGlobal.prgHide()
-                        switch errorCode {
-                        case .timeout:
-                            DispatchQueue.main.async {
-                                let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                                alert.addAction(okAction)
-                                self.present(alert, animated: true, completion: nil)
-                            }
-                        default:
-                            break
-                        }
-                    }).send()
-                }
+                    default:
+                        break
+                    }
+                }).send()
             })
+            
         }
     }
     
     func kickMember(userId: Int64) {
         if room != nil {
-            kickAlert(title: "KICK_MEMBER".localizedNew, message: "ARE_U_SURE_KICK_USER".localizedNew, alertClouser: { (state) -> Void in
-                if state == AlertState.Ok {
-                    IGGlobal.prgShow(self.view)
-                    IGGroupKickMemberRequest.Generator.generate(memberId: userId, roomId: (self.room?.id)!).success({ (protoResponse) in
-                        IGGlobal.prgHide()
-                        if let kickMemberResponse = protoResponse as? IGPGroupKickMemberResponse {
-                            IGGroupKickMemberRequest.Handler.interpret(response: kickMemberResponse)
+            
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "KICK_MEMBER".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_KICK_USER".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
+                IGGlobal.prgShow(self.view)
+                IGGroupKickMemberRequest.Generator.generate(memberId: userId, roomId: (self.room?.id)!).success({ (protoResponse) in
+                    IGGlobal.prgHide()
+                    if let kickMemberResponse = protoResponse as? IGPGroupKickMemberResponse {
+                        IGGroupKickMemberRequest.Handler.interpret(response: kickMemberResponse)
+                    }
+                }).error ({ (errorCode, waitTime) in
+                    IGGlobal.prgHide()
+                    switch errorCode {
+                    case .timeout:
+                        DispatchQueue.main.async {
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                         }
-                    }).error ({ (errorCode, waitTime) in
-                        IGGlobal.prgHide()
-                        switch errorCode {
-                        case .timeout:
-                            DispatchQueue.main.async {
-                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                alert.addAction(okAction)
-                                self.present(alert, animated: true, completion: nil)
-                            }
-                        default:
-                            break
-                        }
-                    }).send()
-                }
+                    default:
+                        break
+                    }
+                }).send()
             })
+            
         }
     }
     
@@ -776,18 +743,12 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                     }
                 case .canNotAddThisUserAsAdminToGroup:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Error", message: "There is an error to adding this contact in group", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                        
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                     }
                 default:
                     break
@@ -811,18 +772,11 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                     }
                 case .canNotAddThisUserAsModeratorToGroup:
                     DispatchQueue.main.async {
-                        let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
-                        
-                        let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alertC.addAction(cancel)
-                        self.present(alertC, animated: true, completion: nil)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                     }
                     
                 default:

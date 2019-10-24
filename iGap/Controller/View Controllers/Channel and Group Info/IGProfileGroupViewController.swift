@@ -1624,10 +1624,8 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 0:
                     return "PRODUCTS_DETAILS".localizedNew
                 case 1:
-                    return "GROUP_LINK".localizedNew
-                case 2:
                     return "NOTIFICATION_SOUNDS".localizedNew
-                case 3:
+                case 2:
                     return "SHAREDMEDIA".localizedNew
                 default:
                     return ""
@@ -1881,26 +1879,15 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 0:
                     break
                 case 1:
-                    self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
-                    //showGroupLinkAlert()
+//                    self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
+//                    showGroupLinkAlert()
                     break
                 case 2:
-                    switch indexPath.row {
-                    case 0 :
+                        self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
                         break
-                    case 1 :
-                        //gotToNotificationSettings
-                        break
-                    default:
-                        break
-                    }
+                    
+                    
                 case 3:
-                    //goToSharedMedia
-                    self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
-                    
-                    break
-                    
-                case 4:
                     switch indexPath.row {
                     case 0 :
                         //gotToAddMEmberPage
@@ -1916,7 +1903,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                         break
                         
                     }
-                case 5:
+                case 4:
                     
                     switch indexPath.row {
                     case 0 :
