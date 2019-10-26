@@ -51,7 +51,8 @@ class IGPlayer {
      */
     func startPlayer(btnPlayPause: UIButton, slider: UISlider, timer: UILabel, roomMessage: IGRoomMessage, justUpdate: Bool = false,room: IGRoom? = nil){
         self.room = room
-
+        setupRemoteTransportControls()
+//        setupNowPlaying()
         fetchMusicList(room : self.room)
         if justUpdate {
             if self.roomMessage?.id == roomMessage.id {
@@ -107,7 +108,26 @@ class IGPlayer {
             removeGestureRecognizer()
         }
     }
-    
+    func setupRemoteTransportControls() {
+        // Get the shared MPRemoteCommandCenter
+        let commandCenter = MPRemoteCommandCenter.shared()
+
+        // Add handler for Play Command
+        commandCenter.playCommand.addTarget { [unowned self] event in
+            self.playMedia()
+            SwiftEventBus.post(EventBusManager.changePlayState,sender: true)
+
+                return .success
+        }
+
+        // Add handler for Pause Command
+        commandCenter.pauseCommand.addTarget { [unowned self] event in
+                self.pauseMedia()
+            SwiftEventBus.post(EventBusManager.changePlayState,sender: false)
+
+                return .success
+        }
+    }
     private func fetchMusicList(room : IGRoom!) {
         
         if let thisRoom = room {
@@ -142,6 +162,20 @@ class IGPlayer {
         let remainingSeconds = timeInt%60
         let remainingMiuntes = timeInt/60
         //fetching song metadata
+        setupNowPlaying(asset: asset,file : attachment!)
+
+        //end
+        attachmentStringTime = "\(remainingMiuntes):\(remainingSeconds)"
+        attachmentFloatTime = Float(time)
+        attachmentTimeScale = timeScale
+        SwiftEventBus.post(EventBusManager.updateLabelsData)
+
+    }
+    func setupNowPlaying(asset: AVURLAsset,file : IGFile!) {
+        // Define Now Playing Info
+        var nowPlayingInfo = [String : Any]()
+        let playerItem = AVPlayerItem(asset: asset)
+        //metaData
         let metadataList = playerItem.asset.commonMetadata
         var hasSingerName : Bool = false
         var hasSongName : Bool = false
@@ -149,33 +183,77 @@ class IGPlayer {
             songName = "VOICES_MESSAGE".MessageViewlocalizedNew
             if roomMessage?.authorUser != nil {
                 singerName = roomMessage?.authorUser?.user?.displayName
+                IGGlobal.topBarSongSinger = singerName
+                nowPlayingInfo[MPMediaItemPropertyTitle] = "VOICE_MESSAGE".MessageViewlocalizedNew + " " + singerName
+
             }
             
         } else {
             for item in metadataList {
                 if item.commonKey!.rawValue == "title" {
                     songName = item.stringValue!
+                    IGGlobal.topBarSongName = songName
                     hasSongName = true
+                    nowPlayingInfo[MPMediaItemPropertyTitle] = songName
                 }
                 if item.commonKey!.rawValue == "artist" {
                     singerName = item.stringValue!
+                    IGGlobal.topBarSongSinger = singerName
                     hasSingerName = true
+                    nowPlayingInfo[MPMediaItemPropertyArtist] = singerName
+
                 }
             }
             if !hasSingerName {
                 singerName = "UNKNOWN_ARTIST".MessageViewlocalizedNew
+                IGGlobal.topBarSongSinger = singerName
+                nowPlayingInfo[MPMediaItemPropertyArtist] = singerName
+
+
             }
             if !hasSongName {
-                songName = "VOICES_MESSAGE".MessageViewlocalizedNew
+                if let sn =  attachment?.name {
+                    songName = sn
+                    IGGlobal.topBarSongName = songName
+                    nowPlayingInfo[MPMediaItemPropertyTitle] = songName
+
+                    
+                } else {
+                    songName = "UNKNOWN_AUDIO".MessageViewlocalizedNew
+                    IGGlobal.topBarSongName = songName
+                    nowPlayingInfo[MPMediaItemPropertyTitle] = songName
+
+                }
             }
         }
 
-        //end
-        attachmentStringTime = "\(remainingMiuntes):\(remainingSeconds)"
-        attachmentFloatTime = Float(time)
-        attachmentTimeScale = timeScale
+        //
+
+        
+        
+        
+        
+        
+        
+        
+
+        let avatarView : UIImageView = UIImageView()
+        avatarView.setThumbnail(for: file)
+        
+
+        if let image = avatarView.image {
+            nowPlayingInfo[MPMediaItemPropertyArtwork] =
+                MPMediaItemArtwork(boundsSize: image.size) { size in
+                    return image
+            }
+        }
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = playerItem.currentTime().seconds
+        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = playerItem.asset.duration.seconds
+
+        // Set the metadata
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
     }
-    
+
     private func updateTimer(currentTime: Float){
         let valueInt = Int(currentTime)
         let remainingSeconds = valueInt%60

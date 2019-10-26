@@ -108,7 +108,7 @@ class IGHelperMusicPlayer {
         self.bgView.addSubview(lblSong)
         self.bgView.addSubview(lblSinger)
         lblSinger.text = singerName ?? "UNKNOWN_ARTIST".MessageViewlocalizedNew
-        lblSong.text = songName ?? "VOICES_MESSAGE".MessageViewlocalizedNew
+        lblSong.text = songName ?? "UNKNOWN_AUDIO".MessageViewlocalizedNew
         
         musicTotalTime = songTime
         
@@ -145,10 +145,26 @@ class IGHelperMusicPlayer {
 //            print(result?.object as! Bool)
             self.updateButtonState(state: result?.object as! Bool,btn: btn)
         }
-        
+        SwiftEventBus.onMainThread(self, name: EventBusManager.updateLabelsData) { result in
+            //            print(result?.object as! Bool)
+            self.updateLabelsData(singerName: IGGlobal.topBarSongSinger,songName: IGGlobal.topBarSongName)
+        }
         return self.bgView
     }
     
+    @objc func updateLabelsData(singerName: String!,songName: String!) {
+        let labels = self.bgView.subviews.flatMap { $0 as? UILabel }
+        for label in labels {
+            if label.tag == 707 { //songName
+                label.text = songName ?? "UNKNOWN_ARTIST".MessageViewlocalizedNew
+            }
+            if label.tag == 708 { //singerName
+                label.text = singerName ?? "UNKNOWN_AUDIO".MessageViewlocalizedNew
+
+            }
+        }
+
+    }
     func showBottomPanPlayer(view: UIViewController? = nil,songList:[MusicFile]? = nil) {//}-> UIView {
         var alertView = view
         if alertView == nil {
@@ -307,13 +323,13 @@ class IGHelperMusicPlayer {
         self.isRunning = false
         currentMusicTime = 0
         
-        //        if self.bgView != nil {
+    if bgView != nil {
         bgView.removeFromSuperview()
         for subview in bgView.subviews {
             subview.removeFromSuperview()
         }
         IGGlobal.topBarSongTime = 0
-        //}
+        }
         let musicFile = MusicFile(songName: "VOICES_MESSAGE".MessageViewlocalizedNew , singerName: "UNKNOWN_ARTIST".MessageViewlocalizedNew, songTime: 0.0, currentTime: 0.0)
         
     }
@@ -393,6 +409,7 @@ class IGHelperMusicPlayer {
     }
     private func createLabelsInPlayer(songName: UILabel!,singerName: UILabel!,view:UIView!) {
         songName.numberOfLines = 1
+        songName.tag = 707
         songName.textAlignment = .center
         songName.font = UIFont.igFont(ofSize: 10 , weight: .bold)
         songName.textColor = UIColor(named: themeColor.labelColor.rawValue)
@@ -402,6 +419,7 @@ class IGHelperMusicPlayer {
         songName.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -45).isActive = true
         
         singerName.numberOfLines = 1
+        singerName.tag = 708
         singerName.textAlignment = .center
         singerName.font = UIFont.igFont(ofSize: 10,weight : .light)
         singerName.textColor = UIColor(named: themeColor.labelColor.rawValue)

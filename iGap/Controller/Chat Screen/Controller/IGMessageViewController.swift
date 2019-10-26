@@ -1296,8 +1296,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         initiconFonts()
         eventBusInitialiser()
+        holderMusicPlayer.backgroundColor = .clear
+        print("CHECK TOPBAR PLAYER :",IGGlobal.shouldShowTopBarPlayer)
         if IGGlobal.shouldShowTopBarPlayer {
-            self.createTopMusicPlayer()
             let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
             var defaultValue : CGFloat = 20
 
@@ -1310,8 +1311,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
 
             floatingDateTopConstraints.constant = defaultValue
+            self.createTopMusicPlayer()
 
         }
+        print("CHECK TOPBAR PLAYER STATE5:",self.holderMusicPlayer.subviews)
 
     }
     
@@ -1321,12 +1324,39 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         SwiftEventBus.onMainThread(self, name: EventBusManager.showTopMusicPlayer) { result in
             self.musicFile = result?.object as! MusicFile
+            print("CHECK TOPBAR PLAYER CONTENTS:",self.musicFile.songTime,self.musicFile.songName,self.musicFile.singerName)
+
             IGGlobal.topBarSongTime = self.musicFile.songTime
             IGGlobal.topBarSongName = self.musicFile.songName
             IGGlobal.topBarSongSinger = self.musicFile.singerName
             self.showMusicTopPlayerWithAnimation()
+//            SwiftEventBus.post(EventBusManager.updateLabelsData,sender: self.musicFile)
+
+        }
+        SwiftEventBus.onMainThread(self, name: EventBusManager.updateLabelsData) { result in
+            //            print(result?.object as! Bool)
+            self.updateLabelsData(singerName: IGGlobal.topBarSongSinger,songName: IGGlobal.topBarSongName)
         }
 
+
+    }
+    @objc func updateLabelsData(singerName: String!,songName: String!) {
+        if IGGlobal.shouldShowTopBarPlayer {
+            let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
+            var defaultValue : CGFloat = 20
+
+            if !(pinnedMessageView.isHidden) {
+                defaultValue = 112
+                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+            } else {
+                defaultValue = 60
+                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+            }
+
+            floatingDateTopConstraints.constant = defaultValue
+            self.createTopMusicPlayer()
+
+        }
     }
     private func hideMusicTopPlayerWithAnimation() {
         IGGlobal.shouldShowTopBarPlayer = false
@@ -1351,7 +1381,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     private func showMusicTopPlayerWithAnimation() {
         IGGlobal.shouldShowTopBarPlayer = true
-        self.createTopMusicPlayer()
         holderMusicPlayerHeightConstraint.constant = 40.0
         let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
         var defaultValue : CGFloat = 20
@@ -1368,41 +1397,59 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         UIView.animate(withDuration: 0.0) {
             self.view.layoutIfNeeded()
         }
+        self.createTopMusicPlayer()
+        print("CHECK TOPBAR PLAYER STATE6:",self.holderMusicPlayer.subviews)
+
 
     }
+    
     private func createTopMusicPlayer() {
 //        if !(IGGlobal.shouldShowTopBarPlayer) {
      
-        if IGGlobal.topBarSongTime != 0 {
+        if IGGlobal.topBarSongTime != 0 { // check if could be able to fetch time of song
 
             if IGGlobal.isAlreadyOpen == false {
 
             holderMusicPlayerHeightConstraint.constant = 40.0
+            print("CHECK HOLDER SUBVIEWS1:",holderMusicPlayer.subviews.count)
+            
+            if holderMusicPlayer.subviews.count > 0 {
+                holderMusicPlayer.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+                print("CHECK HOLDER SUBVIEWS2:",holderMusicPlayer.subviews.count)
+            }
+                addMusicPlayerToHolder() // add musicPlayer to holder
+            }
+        } else {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ERROR IN FETCHING SONG TIME", doneText: "Done", cancelText: "Cancel")
+        }
+        print("CHECK TOPBAR PLAYER STATE4.6:",self.holderMusicPlayer.subviews)
+        if self.holderMusicPlayer.subviews.count == 0 {
+            addMusicPlayerToHolder()
+        } else {
+            addMusicPlayerToHolder()
+        }
+        print("CHECK TOPBAR PLAYER STATE4.7:",self.holderMusicPlayer.subviews)
+
+    }
+    private func addMusicPlayerToHolder() {
+        if holderMusicPlayer.subviews.count > 0 {
+            holderMusicPlayer.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+            print("CHECK HOLDER SUBVIEWS2:",holderMusicPlayer.subviews.count)
+        }
+
             let view = (IGHelperMusicPlayer.shared.showTopMusicPlayer(view: self, songTime: IGGlobal.topBarSongTime, singerName: IGGlobal.topBarSongSinger, songName: IGGlobal.topBarSongName))
-                
-                print("CHECK HOLDER SUBVIEWS1:",holderMusicPlayer.subviews.count)
-
-                if holderMusicPlayer.subviews.count > 0 {
-                    holderMusicPlayer.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-                    print("CHECK HOLDER SUBVIEWS2:",holderMusicPlayer.subviews.count)
-
-
-                }
-                holderMusicPlayer.addSubview(view)
-                    print("CHECK HOLDER SUBVIEWS3:",holderMusicPlayer.subviews.count)
-
+            holderMusicPlayer.addSubview(view)
+            print("CHECK HOLDER CONTENT2:",IGGlobal.topBarSongName)
+            print("CHECK HOLDER CONTENT2:",IGGlobal.topBarSongSinger)
             view.translatesAutoresizingMaskIntoConstraints = false
-
-            view.heightAnchor.constraint(equalToConstant: 40).isActive = true
-            view.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
-            view.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+            
+            view.topAnchor.constraint(equalTo: holderMusicPlayer.topAnchor, constant: 0).isActive = true
+            view.bottomAnchor.constraint(equalTo: holderMusicPlayer.bottomAnchor, constant: 0).isActive = true
             view.leftAnchor.constraint(equalTo: holderMusicPlayer.leftAnchor, constant: 0).isActive = true
             view.rightAnchor.constraint(equalTo: holderMusicPlayer.rightAnchor, constant: 0).isActive = true
-                IGGlobal.isAlreadyOpen = !IGGlobal.isAlreadyOpen
+            IGGlobal.isAlreadyOpen = !IGGlobal.isAlreadyOpen
 
-            }
-        }
-//        }
+
     }
     private func initiconFonts() {
         txtSticker.font = UIFont.iGapFonticon(ofSize: 25)
@@ -2240,6 +2287,24 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         notification(register: true)
         inputTextViewHeightConstraint.constant = 34.0
+        if IGGlobal.shouldShowTopBarPlayer {
+            let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
+            var defaultValue : CGFloat = 20
+
+            if !(pinnedMessageView.isHidden) {
+                defaultValue = 112
+                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+            } else {
+                defaultValue = 60
+                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+            }
+
+            floatingDateTopConstraints.constant = defaultValue
+            self.createTopMusicPlayer()
+
+        }
+        print("CHECK TOPBAR PLAYER STATE5:",self.holderMusicPlayer.subviews)
+
     }
     
     override func viewDidAppear(_ animated: Bool) {

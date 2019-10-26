@@ -11,7 +11,6 @@ import UIKit
 import SwiftProtobuf
 import RealmSwift
 import SwiftEventBus
-import IGProtoBuff
 
 
 class IGMusicPlayerTableViewController: UITableViewController {
@@ -107,17 +106,25 @@ class IGMusicPlayerTableViewController: UITableViewController {
     
     private func fetchData() {
         
-        if let thisRoom = IGPlayer.shared.room {
-            let messagePredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND isFromSharedMedia == true AND typeRaw == 5", thisRoom.id)
+        if let thisRoom = room {
+            let messagePredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND isFromSharedMedia == true AND typeRaw == audio OR typeRaw == audioAndText", thisRoom.id)
             shareMediaMessage =  try! Realm().objects(IGRoomMessage.self).filter(messagePredicate)
-            print("BENJI CHECK POINT1",shareMediaMessage.count,thisRoom.title)
-//            self.tableView.reloadWithAnimation()
+            self.notificationToken = shareMediaMessage.observe { (changes: RealmCollectionChange) in
+                switch changes {
+                case .initial:
+                    self.tableView.reloadWithAnimation()
+                    break
+                case .update(_, _, _, _):
+                    // Query messages have changed, so apply them to the TableView
+                    self.tableView.reloadWithAnimation()
+                    break
+                case .error(let err):
+                    // An error occurred while opening the Realm file on the background worker thread
+                    fatalError("\(err)")
+                    break
+                }
+            }
         }
-        if isFetchingFiles == false {
-            loadMoreDataFromServer()
-            self.tableView?.reloadWithAnimation()
-        }
-
     }
     
     // MARK: - Development Funcs
@@ -138,8 +145,8 @@ class IGMusicPlayerTableViewController: UITableViewController {
         
         for stack in stacks {
             if stack.tag == IGTagManager.srackBottonsHolderTag {
-//                print(stack.arrangedSubviews)
-//                print(stack.subviews)
+                print(stack.arrangedSubviews)
+                print(stack.subviews)
                 let btns = stack.arrangedSubviews.flatMap { $0 as? UIButton }
                 for btn  in btns {
                     if btn.tag == IGTagManager.btnPlayTag {
@@ -222,7 +229,7 @@ class IGMusicPlayerTableViewController: UITableViewController {
                  }
             }
         }
-//        print(currentTime)
+        print(currentTime)
         if IGGlobal.songState == .ended {
 
             let stacks = self.headerView.subviews.flatMap { $0 as? UIStackView }
@@ -295,13 +302,13 @@ class IGMusicPlayerTableViewController: UITableViewController {
         btnPlay.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
 //        btnNext.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
 //        btnPrevius.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-//        btnShuffle.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
-//        btnOrder.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
         btnNext.setTitleColor(UIColor.lightGray, for: .normal)
         btnPrevius.setTitleColor(UIColor.lightGray, for: .normal)
-        btnNext.setTitleColor(UIColor.lightGray, for: .normal)
-        btnPrevius.setTitleColor(UIColor.lightGray, for: .normal)
+        btnOrder.setTitleColor(UIColor.lightGray, for: .normal)
+        btnShuffle.setTitleColor(UIColor.lightGray, for: .normal)
 
+        btnShuffle.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
+        btnOrder.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
         //play
         btnPlay.setTitle("🎗", for: .normal)
         btnNext.setTitle("🎘", for: .normal)
@@ -371,21 +378,7 @@ class IGMusicPlayerTableViewController: UITableViewController {
     }
 
     @objc func didTapOnMusicCover(_ sender:UIButton!) {
-//        sender.transform = CGAffineTransform.identity
-//        UIView.animate(withDuration: 0.8, delay: 0.4, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
-//            sender.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
-//        }, completion: nil)
-
-//        sender.translatesAutoresizingMaskIntoConstraints = false
-//        sender.bottomAnchor.constraint(equalTo: sender.superview.topAnchor, constant: -5).isActive = true
-//        sender.leftAnchor.constraint(equalTo: musicSlider.leftAnchor, constant: 0).isActive = true
-//        sender.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//        sender.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        headerView.heightAnchor.constraint(equalToConstant: CGFloat(500)).isActive = true
-        UIView.animate(withDuration: 0.5){
-            self.view.layoutIfNeeded()
-            self.headerView.layoutIfNeeded()
-        }
+        
 
     }
     
@@ -570,73 +563,26 @@ class IGMusicPlayerTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-//        if sharedMedia != nil {
-//            return sharedMedia.count
-//
-//        } else {
+        if shareMediaMessage != nil {
+            return shareMediaMessage.count
+            
+        } else {
             return 0
-//
-//        }
+            
+        }
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60.0
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: cellID) as! MusicCell
-        let currentLastItem = sharedMedia[indexPath.row]
-//        let currentLastItem = musics[indexPath.row]
-        let tmppMusic : Music = Music(MusicName: currentLastItem.attachment!.name!, MusicArtist: "music artist name goes here",MusicTotalTime: 200.0)
+        let currentLastItem = shareMediaMessage[indexPath.row]
+        let tmppMusic : Music = Music(MusicName: currentLastItem.attachment!.name!, MusicArtist: "",MusicTotalTime: 200.0)
         cell.music = tmppMusic
-//        cell.music = currentLastItem
-
+        
         return cell
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        if offsetY > contentHeight - scrollView.frame.size.height {
-            if isFetchingFiles == false {
-                loadMoreDataFromServer()
-                self.tableView?.reloadWithAnimation()
-            }
-        }
-    }
-    
-    func loadMoreDataFromServer() {
-        if let selectedRoom = room {
-            isFetchingFiles = true
-            IGClientSearchRoomHistoryRequest.Generator.generate(roomId: selectedRoom.id, offset: Int32(sharedMedia.count), filter: sharedMediaFilter!).success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
-                        let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
-                        for message in response.messages.reversed() {
-                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
-                            self.sharedMedia.append(msg)
-                        }
-                        self.isFetchingFiles = false
-                    default:
-                        break
-                    }
-                }
-            }).error ({ (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.isFetchingFiles = false
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                default:
-                    break
-                }
-                
-            }).send()
-        }
-    }
     
 }
 extension IGMusicPlayerTableViewController: PanModalPresentable {

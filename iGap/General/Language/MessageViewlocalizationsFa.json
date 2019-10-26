@@ -107,6 +107,7 @@
         "CARD_TO_CARD_MESSAGE" : "پیام کارت به کارت",
         "UNKNOWN_MESSAGE" : "پیام ناشناس",
         "UNKNOWN_ARTIST" : "خواننده نامشخص",
+        "UNKNOWN_AUDIO" : "موسیقی فاقد نام",
         "CONTACT_MESSAGE" : "پیام مخاطب",
         "LOCATION_MESSAGE" : "پیام موقعیت مکانی",
         "NO_NETWORK" : "خطا در برقراری اتصال به اینترنت",

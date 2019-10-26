@@ -35,6 +35,7 @@ struct EventBusManager {
     static let sendRoomId = "sendRoomId"
     static let updateMusicPlayerList = "updateMusicPlayerList"
     static let updateBottomPlayerButtonsState = "updateBottomPlayerButtonsState"
+    static let updateLabelsData = "updateLabelsData"
 }
 
 struct SMMessage {

@@ -404,7 +404,21 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         SwiftEventBus.onMainThread(self, name: EventBusManager.playMusicPlayer) { result in
             self.stopMusic()
         }
+        SwiftEventBus.onMainThread(self, name: EventBusManager.updateLabelsData) { result in
+            //            print(result?.object as! Bool)
+            self.updateLabelsData(singerName: IGGlobal.topBarSongSinger,songName: IGGlobal.topBarSongName)
+        }
 
+    }
+    @objc func updateLabelsData(singerName: String!,songName: String!) {
+        self.tableView.beginUpdates()
+        print("TOPBAR GOT REMOVED")
+        let sectionToReload = 0
+        let indexSet: IndexSet = [sectionToReload]
+
+        self.tableView.reloadSections(indexSet, with: .automatic)
+
+        self.tableView.endUpdates()
     }
     private func hideMusicTopPlayerWithAnimation() {
 //        UIView.animate(withDuration: 0.3, animations: {
@@ -641,7 +655,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return IGHelperMusicPlayer.shared.showTopMusicPlayer(view: self, songTime: IGGlobal.topBarSongTime, singerName: singerName, songName: songName)
+        return IGHelperMusicPlayer.shared.showTopMusicPlayer(view: self, songTime: IGGlobal.topBarSongTime, singerName: IGGlobal.topBarSongSinger, songName: IGGlobal.topBarSongName)
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return headerHeight
