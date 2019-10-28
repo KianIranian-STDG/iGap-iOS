@@ -137,7 +137,7 @@ class IGDashboardViewControllerInner: BaseViewController, UICollectionViewDelega
                 tmpPollList.igpScale = "8:4"
                 tmpPollList.igpPollfields[0].igpImageurl = ""
                 tmpPollList.igpPollfields[0].igpID = 99999999
-                tmpPollList.igpPollfields[0].igpLabel = "نمودار"
+                tmpPollList.igpPollfields[0].igpLabel = "CHART".localizedNew
                 
                 for elemnt in self.pollList {
                     for elemnt in elemnt.igpPollfields {
@@ -227,30 +227,27 @@ class IGDashboardViewControllerInner: BaseViewController, UICollectionViewDelega
     
     /* if user is login show collectionView, otherwise show btnRefresh */
     private func manageShowDiscovery() {
-        if IGAppManager.sharedManager.isUserLoggiedIn() || pageId == 0 {
-            DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            if IGAppManager.sharedManager.isUserLoggiedIn() || self.pageId == 0 {
                 self.collectionView!.isHidden = false
-                
-            }
-            self.btnRefresh!.isHidden = true
-            if IGGlobal.shouldShowChart {
-                if pollList.count == 0 {
-                    self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
+                self.btnRefresh!.isHidden = true
+                if IGGlobal.shouldShowChart {
+                    if self.pollList.count == 0 {
+                        self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
+                    } else {
+                        self.collectionView!.restore()
+                    }
                 } else {
-                    self.collectionView!.restore()
+                    if self.discovery.count == 0 {
+                        self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
+                    } else {
+                        self.collectionView!.restore()
+                    }
                 }
+            } else {
+                self.collectionView!.isHidden = true
+                self.btnRefresh!.isHidden = false
             }
-            else {
-                if discovery.count == 0 {
-                    self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
-                } else {
-                    self.collectionView!.restore()
-                }
-            }
-            
-        } else {
-            self.collectionView!.isHidden = true
-            self.btnRefresh!.isHidden = false
         }
     }
     

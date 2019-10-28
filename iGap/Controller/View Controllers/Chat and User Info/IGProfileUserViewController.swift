@@ -579,7 +579,7 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
             destination.room = room
             
         } else {
-            let destination = segue.destination as! IGChooseMemberFromContactsToCreateGroupViewController
+            let destination = segue.destination as! IGMemberAddOrUpdateState
             destination.mode = "ConvertChatToGroup"
             destination.roomID = previousRoomId
             destination.baseUser = user

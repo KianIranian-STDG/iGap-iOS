@@ -10,13 +10,13 @@
 
 import UIKit
 
-class IGChooseContactToAddNewGroupTableViewCell: UITableViewCell {
+class IGMemberChoose: UITableViewCell {
     
     
     @IBOutlet weak var userAvatarView: IGAvatarView!
     @IBOutlet weak var lastSeenStatusLabel: UILabel!
     @IBOutlet weak var contactNameLabel: UILabel!
-    var user : IGChooseMemberFromContactsToCreateGroupViewController.User!{
+    var user : IGMemberAddOrUpdateState.User!{
         didSet{
             updateUI()
         }

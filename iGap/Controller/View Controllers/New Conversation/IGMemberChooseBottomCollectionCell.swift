@@ -12,18 +12,18 @@ import UIKit
 import Foundation
 
 protocol IGDeleteSelectedCellDelegate{
-    func contactViewWasSelected(cell: IGNewGroupBottomViewCollectionCell)
+    func contactViewWasSelected(cell: IGMemberChooseBottomCollectionCell)
 }
 
 
-class IGNewGroupBottomViewCollectionCell: UICollectionViewCell {
+class IGMemberChooseBottomCollectionCell: UICollectionViewCell {
     
     @IBOutlet weak var contactAvatarView: IGAvatarView!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var contactNameLabel: UILabel!
     var cellDelegate: IGDeleteSelectedCellDelegate?
     var selectedRowIndexPathForTableView : IndexPath?
-    var user : IGChooseMemberFromContactsToCreateGroupViewController.User!{
+    var user : IGMemberAddOrUpdateState.User!{
         didSet{
             updateUI()
         }

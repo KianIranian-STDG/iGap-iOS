@@ -708,7 +708,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
             destination.room = room
         }
         if segue.identifier == "showContactToAddMember" {
-            let destinationTv = segue.destination as! IGChooseMemberFromContactsToCreateGroupViewController
+            let destinationTv = segue.destination as! IGMemberAddOrUpdateState
             destinationTv.mode = "Members"
             destinationTv.room = room
         }

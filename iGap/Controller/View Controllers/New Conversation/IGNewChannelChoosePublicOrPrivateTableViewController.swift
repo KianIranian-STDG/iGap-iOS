@@ -98,7 +98,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
             if self.radioButtonController?.selectedButton() == self.publicChannelButton {
                 self.convertChannelToPublic()
             } else {
-                let profile = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                let profile = IGMemberAddOrUpdateState.instantiateFromAppStroryboard(appStoryboard: .Profile)
                 profile.room = IGRoom(igpRoom: self.igpRoom!)
                 profile.mode = "CreateChannel"
                 profile.hidesBottomBarWhenPushed = true
@@ -133,7 +133,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case is IGPChannelUpdateUsernameResponse :
-                        let profile = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                        let profile = IGMemberAddOrUpdateState.instantiateFromAppStroryboard(appStoryboard: .Profile)
                         profile.room = IGRoom(igpRoom: self.igpRoom!)
                         profile.mode = "CreateChannel"
                         profile.hidesBottomBarWhenPushed = true
@@ -313,7 +313,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
         return headerHieght
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! IGChooseMemberFromContactsToCreateGroupViewController
+        let destinationVC = segue.destination as! IGMemberAddOrUpdateState
         destinationVC.room = IGRoom(igpRoom: self.igpRoom!)
         destinationVC.mode = "CreateChannel"
     }

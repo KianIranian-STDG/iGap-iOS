@@ -14,7 +14,7 @@ import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
 
-class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController {
+class IGMemberAddOrUpdateState: BaseViewController {
     
     @IBOutlet weak var selectedContactsView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -144,10 +144,6 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
             navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER_TO".localizedNew, iGapFont: true)
         }
         
-        if mode == "addMemberToChannel" {
-            navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER_TO".localizedNew, iGapFont: true)
-        }
-
         navigationItem.leftViewContainer?.addAction {
             if self.mode == "Admin" || self.mode == "Moderator" || self.mode == "Members" {
                 if self.navigationController is IGNavigationController {
@@ -499,10 +495,10 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
     }
 }
 
-extension IGChooseMemberFromContactsToCreateGroupViewController : UITableViewDelegate {
+extension IGMemberAddOrUpdateState : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.isEditing == true{
-            let currentCell = tableView.cellForRow(at: indexPath) as! IGChooseContactToAddNewGroupTableViewCell?
+            let currentCell = tableView.cellForRow(at: indexPath) as! IGMemberChoose?
             contactTableSelectedIndexPath = indexPath
             selectUser = currentCell?.user
             selectedUsers.append((currentCell?.user)!)
@@ -524,7 +520,7 @@ extension IGChooseMemberFromContactsToCreateGroupViewController : UITableViewDel
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         if tableView.isEditing == true{
             if selectedUsers.count > 0 {
-                let tableviewcell = tableView.cellForRow(at: indexPath) as! IGChooseContactToAddNewGroupTableViewCell
+                let tableviewcell = tableView.cellForRow(at: indexPath) as! IGMemberChoose
                 let deselectedUser = tableviewcell.user
                 
                 for  (index, user) in selectedUsers.enumerated() {
@@ -552,7 +548,7 @@ extension IGChooseMemberFromContactsToCreateGroupViewController : UITableViewDel
 }
 
 //MARK:- UITableViewDataSource
-extension IGChooseMemberFromContactsToCreateGroupViewController : UITableViewDataSource {
+extension IGMemberAddOrUpdateState : UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80.0
     }
@@ -567,7 +563,7 @@ extension IGChooseMemberFromContactsToCreateGroupViewController : UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
-        let contactsCell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath) as! IGChooseContactToAddNewGroupTableViewCell
+        let contactsCell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath) as! IGMemberChoose
         contactsCell.lastSeenStatusLabel.textAlignment = self.TextAlignment
         let user = self.sections[indexPath.section].users[indexPath.row]
         contactsCell.user = user
@@ -579,7 +575,7 @@ extension IGChooseMemberFromContactsToCreateGroupViewController : UITableViewDat
 }
 
 //MARK: - UICollectionViewDataSource
-extension IGChooseMemberFromContactsToCreateGroupViewController : UICollectionViewDataSource {
+extension IGMemberAddOrUpdateState : UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -589,7 +585,7 @@ extension IGChooseMemberFromContactsToCreateGroupViewController : UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! IGNewGroupBottomViewCollectionCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! IGMemberChooseBottomCollectionCell
         cell.selectedRowIndexPathForTableView = contactTableSelectedIndexPath
         cell.user = selectedUsers[indexPath.row]
         cell.cellDelegate = self
@@ -599,8 +595,8 @@ extension IGChooseMemberFromContactsToCreateGroupViewController : UICollectionVi
 }
 
 //MARK: - IGDeleteSelectedCellDelegate
-extension IGChooseMemberFromContactsToCreateGroupViewController: IGDeleteSelectedCellDelegate {
-    func contactViewWasSelected(cell: IGNewGroupBottomViewCollectionCell) {
+extension IGMemberAddOrUpdateState: IGDeleteSelectedCellDelegate {
+    func contactViewWasSelected(cell: IGMemberChooseBottomCollectionCell) {
         let indexPath = self.collectionView.indexPath(for: cell)
         let tableIndexPath = cell.selectedRowIndexPathForTableView
         contactsTableView.deselectRow(at: tableIndexPath!, animated: true)

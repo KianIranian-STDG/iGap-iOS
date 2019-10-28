@@ -257,7 +257,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 //            self.navigationController!.pushViewController(createChat, animated: true)
         })
         let newGroup = UIAlertAction(title: "NEW_GROUP".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
-            let createGroup = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+            let createGroup = IGMemberAddOrUpdateState.instantiateFromAppStroryboard(appStoryboard: .Profile)
             createGroup.mode = "CreateGroup"
             createGroup.hidesBottomBarWhenPushed = true
             self.navigationController!.pushViewController(createGroup, animated: true)
@@ -954,7 +954,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         } else if segue.identifier == "createANewGroup" {
             let destination = segue.destination as! IGNavigationController
             destination.hidesBottomBarWhenPushed = true
-            let chooseContactTv =  destination.topViewController as! IGChooseMemberFromContactsToCreateGroupViewController
+            let chooseContactTv =  destination.topViewController as! IGMemberAddOrUpdateState
             chooseContactTv.mode = "CreateGroup"
         } else if segue.identifier == "showReportPage" {
             let report = segue.destination as! IGReport

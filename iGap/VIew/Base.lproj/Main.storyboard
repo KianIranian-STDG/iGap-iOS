@@ -393,25 +393,6 @@
             </objects>
             <point key="canvasLocation" x="2661" y="75"/>
         </scene>
-        <!--Item 1-->
-        <scene sceneID="shP-WI-agg">
-            <objects>
-                <viewController id="Fi4-8K-z0s" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="wmJ-R7-peN"/>
-                        <viewControllerLayoutGuide type="bottom" id="MZC-b4-lu7"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="PIy-aE-Fl9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="IGBackGroundColor"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="VkN-mO-htE"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="z91-oZ-rTS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-946" y="155"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="MjA-oA-qgy">
             <objects>
@@ -3272,7 +3253,6 @@
                         <outlet property="userAvatarView" destination="bZo-xK-ego" id="mPA-KD-iDQ"/>
                         <outlet property="viewBackgroundImage" destination="xXc-X5-txr" id="r48-3u-9Cb"/>
                         <segue destination="g6w-HL-WeX" kind="show" identifier="showSettings" id="cY3-sJ-crS"/>
-                        <segue destination="Eii-V9-G3m" kind="show" id="Btb-8e-Jj7"/>
                         <segue destination="R4Q-it-JyU" kind="show" identifier="ShowQRScanner" id="IhQ-Gl-QUp"/>
                         <segue destination="Kpa-cB-TTl" kind="show" identifier="showCountryCell" id="duE-Fv-e5e"/>
                     </connections>
@@ -3663,160 +3643,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wam-Fr-8EX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3254" y="-216"/>
-        </scene>
-        <!--New Chat-->
-        <scene sceneID="byE-yu-lCk">
-            <objects>
-                <tableViewController storyboardIdentifier="IGCreateNewChatTableViewController" id="Eii-V9-G3m" customClass="IGCreateNewChatTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="pYT-CR-ujX">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="IGBackGroundColor"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="WN9-pc-EA2">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="110"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </view>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddContactCell" id="y34-5h-CfL" customClass="IGAddNewContactTableViewCell" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="138" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y34-5h-CfL" id="Il9-Vg-OUN">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Contact" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4SZ-dM-UNa" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="56" y="11.999999999999998" width="96" height="20.333333333333329"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" name="IGLabelGrayColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gp-Ai-VUU">
-                                            <rect key="frame" x="15" y="7.3333333333333339" width="29" height="29.333333333333329"/>
-                                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
-                                            <color key="textColor" name="IGLabelColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="7gp-Ai-VUU" firstAttribute="centerY" secondItem="Il9-Vg-OUN" secondAttribute="centerY" id="XdX-jo-TwV"/>
-                                        <constraint firstItem="4SZ-dM-UNa" firstAttribute="leading" secondItem="7gp-Ai-VUU" secondAttribute="trailing" constant="12" id="g2D-ko-JhQ"/>
-                                        <constraint firstItem="4SZ-dM-UNa" firstAttribute="centerY" secondItem="Il9-Vg-OUN" secondAttribute="centerY" id="ms8-D6-IVE"/>
-                                        <constraint firstItem="7gp-Ai-VUU" firstAttribute="leading" secondItem="Il9-Vg-OUN" secondAttribute="leading" constant="15" id="teu-FS-GJr"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="addContactIconLbl" destination="7gp-Ai-VUU" id="Gg6-dl-zQ5"/>
-                                    <outlet property="addContactLabel" destination="4SZ-dM-UNa" id="QrQ-IO-VRE"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactsCell" rowHeight="80" id="esR-cG-WXc" customClass="IGContactTableViewCell" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="182" width="414" height="80"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="esR-cG-WXc" id="2HW-R7-pzk">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="4Oy-J7-syH">
-                                            <rect key="frame" x="75" y="19.666666666666668" width="219" height="40.666666666666657"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJ7-Cq-MzK" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="219" height="20.333333333333332"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" name="IGLabelColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTM-c7-0WX" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="20.333333333333336" width="219" height="20.333333333333336"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" name="IGLabelColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="bTM-c7-0WX" firstAttribute="top" secondItem="EJ7-Cq-MzK" secondAttribute="bottom" id="2he-O2-YMj"/>
-                                                <constraint firstAttribute="bottom" secondItem="bTM-c7-0WX" secondAttribute="bottom" id="56j-U9-Ow4"/>
-                                                <constraint firstItem="bTM-c7-0WX" firstAttribute="leading" secondItem="4Oy-J7-syH" secondAttribute="leading" id="9zv-4a-U8Q"/>
-                                                <constraint firstItem="EJ7-Cq-MzK" firstAttribute="top" secondItem="4Oy-J7-syH" secondAttribute="top" id="RlO-Fo-t6G"/>
-                                                <constraint firstItem="bTM-c7-0WX" firstAttribute="top" secondItem="EJ7-Cq-MzK" secondAttribute="bottom" id="Ucr-Gx-9hS"/>
-                                                <constraint firstItem="EJ7-Cq-MzK" firstAttribute="leading" secondItem="4Oy-J7-syH" secondAttribute="leading" id="UhQ-k5-MSr"/>
-                                                <constraint firstAttribute="trailing" secondItem="bTM-c7-0WX" secondAttribute="trailing" id="fqf-vc-213"/>
-                                                <constraint firstAttribute="trailing" secondItem="EJ7-Cq-MzK" secondAttribute="trailing" id="ow4-ZD-HS8"/>
-                                            </constraints>
-                                        </stackView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Ev-JY-NNc" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="15" y="15" width="50" height="50"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="50" id="rw7-Zh-cfh"/>
-                                                <constraint firstAttribute="width" constant="50" id="xnQ-cj-ERo"/>
-                                            </constraints>
-                                        </view>
-                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ygY-wt-IbE">
-                                            <rect key="frame" x="354" y="20" width="50" height="40"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="0aJ-TU-8eb"/>
-                                                <constraint firstAttribute="width" constant="50" id="Vvs-s3-xfg"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
-                                            <state key="normal" title="">
-                                                <color key="titleColor" name="IGLabelGrayColor"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="btnCall:" destination="esR-cG-WXc" eventType="touchUpInside" id="T2G-PN-v8w"/>
-                                            </connections>
-                                        </button>
-                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3U-wx-GLL">
-                                            <rect key="frame" x="304" y="20" width="50" height="40"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="SJA-2i-hv4"/>
-                                                <constraint firstAttribute="width" constant="50" id="m0h-Uc-yef"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
-                                            <state key="normal" title="">
-                                                <color key="titleColor" name="IGLabelGrayColor"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="btnVideoCall:" destination="esR-cG-WXc" eventType="touchUpInside" id="crm-Ud-uDg"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="4Oy-J7-syH" firstAttribute="leading" secondItem="0Ev-JY-NNc" secondAttribute="trailing" constant="10" id="1M1-fe-5Ta"/>
-                                        <constraint firstItem="0Ev-JY-NNc" firstAttribute="centerY" secondItem="2HW-R7-pzk" secondAttribute="centerY" id="3lW-2F-3es"/>
-                                        <constraint firstItem="ygY-wt-IbE" firstAttribute="centerY" secondItem="2HW-R7-pzk" secondAttribute="centerY" id="9s3-uE-bQC"/>
-                                        <constraint firstItem="0Ev-JY-NNc" firstAttribute="leading" secondItem="2HW-R7-pzk" secondAttribute="leading" constant="15" id="GFp-Tz-TkU"/>
-                                        <constraint firstItem="G3U-wx-GLL" firstAttribute="leading" secondItem="4Oy-J7-syH" secondAttribute="trailing" constant="10" id="HcX-gb-QAo"/>
-                                        <constraint firstItem="4Oy-J7-syH" firstAttribute="centerY" secondItem="2HW-R7-pzk" secondAttribute="centerY" id="Lwy-50-tPM"/>
-                                        <constraint firstItem="ygY-wt-IbE" firstAttribute="leading" secondItem="G3U-wx-GLL" secondAttribute="trailing" id="SKp-01-J2h"/>
-                                        <constraint firstItem="G3U-wx-GLL" firstAttribute="centerY" secondItem="2HW-R7-pzk" secondAttribute="centerY" id="VvS-F4-sdB"/>
-                                        <constraint firstAttribute="trailing" secondItem="ygY-wt-IbE" secondAttribute="trailing" constant="10" id="tes-Qb-UCm"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="btnCall" destination="ygY-wt-IbE" id="Sa4-uv-Gcw"/>
-                                    <outlet property="btnVideoCall" destination="G3U-wx-GLL" id="g8r-Vt-HXc"/>
-                                    <outlet property="contactNameLable" destination="EJ7-Cq-MzK" id="gW3-5e-q78"/>
-                                    <outlet property="contactPhoneNumber" destination="bTM-c7-0WX" id="rHZ-B5-vFS"/>
-                                    <outlet property="userAvatarView" destination="0Ev-JY-NNc" id="nT2-Sz-Nkw"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Eii-V9-G3m" id="hhP-tv-9IK"/>
-                            <outlet property="delegate" destination="Eii-V9-G3m" id="srF-D8-XUd"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="New Chat" id="koQ-r4-TIE" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="hNB-iK-2E5">
-                            <color key="tintColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="viewHeader" destination="WN9-pc-EA2" id="Xgc-Xx-8gW"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cEJ-9E-Dp4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2804" y="155"/>
         </scene>
         <!--QR Reader-->
         <scene sceneID="7Mw-Af-Ita">

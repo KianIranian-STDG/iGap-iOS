@@ -1098,6 +1098,7 @@
         "NOT_EXIST_MODERATOR" : "No moderator registered!",
         "NOT_EXIST_ADMIN" : "No admin registered!",
         "EXIST_MEMBER" : "is already in your members!",
-        "EXIST_MEMBERS" : "are now your members!"
+        "EXIST_MEMBERS" : "are now your members!",
+        "CHART" : "chart"
     }
 }

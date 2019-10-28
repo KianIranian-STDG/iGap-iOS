@@ -189,7 +189,7 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
     }
     
     @objc func didTapOnNewGroup() {
-        let createGroup = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+        let createGroup = IGMemberAddOrUpdateState.instantiateFromAppStroryboard(appStoryboard: .Profile)
         createGroup.mode = "CreateGroup"
         createGroup.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(createGroup, animated: true)
