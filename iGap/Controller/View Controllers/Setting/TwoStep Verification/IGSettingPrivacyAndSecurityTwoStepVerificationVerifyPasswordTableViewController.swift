@@ -109,17 +109,21 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewContr
                     case .userTwoStepVerificationCheckPasswordBadPayload:
                         self.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "Bad Payload")
                     case .userTwoStepVerificationCheckPasswordInternalServerError:
-                        self.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "MSG_INTERNAL_SERVER_ERROR".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INTERNAL_SERVER_ERROR".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                     case .userTwoStepVerificationCheckPasswordInvalidPassword:
-                        self.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "MSG_INVALID_PASS".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INVALID_PASS".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                     case .userTwoStepVerificationCheckPasswordMaxTryLock:
-                        self.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "Maximum try reached. Please try after \(waitTime!) seconds")
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Maximum try reached. Please try after \(waitTime!) seconds", cancelText: "GLOBAL_CLOSE".localizedNew)
+
                     case .userTwoStepVerificationCheckPasswordNoPassword:
-                        self.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "MSG_PASSWORD_IS_NOT_SET".localizedNew)
-                    case.timeout:
-                        self.showAlert(title: "GLOBAL_WARNING".localizedNew, message:  "TIME_OUT".localizedNew)
-                    default:
-                        self.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "Unknown Error")
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PASSWORD_IS_NOT_SET".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
+                    case.timeout: break
+//                        self.showAlert(title: "GLOBAL_WARNING".localizedNew, message:  "TIME_OUT".localizedNew)
+                    default: break
+//                        self.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "Unknown Error")
                     }
                 }
             }).send()

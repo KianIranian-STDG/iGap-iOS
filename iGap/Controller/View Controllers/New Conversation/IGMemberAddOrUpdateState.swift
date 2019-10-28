@@ -216,7 +216,9 @@ class IGMemberAddOrUpdateState: BaseViewController {
     
     func requestToAddmember() {
         if selectedUsers.count == 0 {
-            self.showAlert(title: "SETTING_PS_TV_HINT".localizedNew, message: "MSG_PLEASE_CHOOSE_MEMBER".localizedNew)
+
+            
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "SETTING_PS_TV_HINT".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PLEASE_CHOOSE_MEMBER".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
             return
         }
         
@@ -240,7 +242,8 @@ class IGMemberAddOrUpdateState: BaseViewController {
     
     func requestToAddmemberToChannel() {
         if selectedUsers.count == 0 {
-            self.showAlert(title: "SETTING_PS_TV_HINT".localizedNew, message: "MSG_PLEASE_CHOOSE_MEMBER".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "SETTING_PS_TV_HINT".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PLEASE_CHOOSE_MEMBER".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
             return
         }
         
@@ -263,7 +266,8 @@ class IGMemberAddOrUpdateState: BaseViewController {
     
     func requestToAddAdminInChannel() {
         if selectedUsers.count == 0 {
-            self.showAlert(title: "SETTING_PS_TV_HINT".localizedNew, message: "MSG_PLEASE_CHOOSE_MEMBER".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "SETTING_PS_TV_HINT".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PLEASE_CHOOSE_MEMBER".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
             return
         }
         
@@ -309,7 +313,8 @@ class IGMemberAddOrUpdateState: BaseViewController {
     
     func requestToAddModeratorInChannel() {
         if selectedUsers.count == 0 {
-            self.showAlert(title: "SETTING_PS_TV_HINT".localizedNew, message: "MSG_PLEASE_CHOOSE_MEMBER".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "SETTING_PS_TV_HINT".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PLEASE_CHOOSE_MEMBER".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
             return
         }
         
@@ -358,7 +363,8 @@ class IGMemberAddOrUpdateState: BaseViewController {
     //Group
     func requestToAddAdminInGroup() {
         if selectedUsers.count == 0 {
-            self.showAlert(title: "SETTING_PS_TV_HINT".localizedNew, message: "MSG_PLEASE_CHOOSE_MEMBER".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "SETTING_PS_TV_HINT".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PLEASE_CHOOSE_MEMBER".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
             return
         }
         
@@ -403,7 +409,8 @@ class IGMemberAddOrUpdateState: BaseViewController {
     
     func requestToAddModeratorInGroup() {
         if selectedUsers.count == 0 {
-            self.showAlert(title: "SETTING_PS_TV_HINT".localizedNew, message: "MSG_PLEASE_CHOOSE_MEMBER".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "SETTING_PS_TV_HINT".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PLEASE_CHOOSE_MEMBER".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
             return
         }
         

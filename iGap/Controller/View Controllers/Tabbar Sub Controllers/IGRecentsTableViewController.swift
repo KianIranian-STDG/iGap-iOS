@@ -187,10 +187,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                             DispatchQueue.main.async {
                                 switch errorCode {
                                 case .timeout:
-                                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                    alert.addAction(okAction)
-                                    self.present(alert, animated: true, completion: nil)
+
+                                        break
                                 default:
                                     break
                                 }
@@ -238,11 +236,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }).error({ (errorCode, waitTime) in
                     DispatchQueue.main.async {
                         hud.hide(animated: true)
-                        let alertC = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "UNSSUCCESS_OTP".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+
                         
-                        let cancel = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                        alertC.addAction(cancel)
-                        self.present(alertC, animated: true, completion: nil)
                     }
                 }).send()
             }
@@ -700,11 +696,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             boolValue(true) // pass true if you want the handler to allow the action
             
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
-                
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+
             } else {
                 self.muteRoom(room: room)
                 
@@ -719,11 +712,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             boolValue(true) // pass true if you want the handler to allow the action
 
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
-                
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
             } else {
                 self.pinRoom(room: room)
             }
@@ -742,21 +731,14 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 switch room.type{
                 case .chat:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                        
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+
                     } else {
                         self.clearChatMessageHistory(room: room)
                     }
                 case .group:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                        
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
                     } else {
                         self.clearGroupMessageHistory(room: room)
                     }
@@ -771,11 +753,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             
             let mute = UIAlertAction(title: muteTitle, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                    
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+
                 } else {
                     self.muteRoom(room: room)
                 }
@@ -783,11 +762,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             
             let pin = UIAlertAction(title: pinTitle, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                    
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+
                 } else {
                     self.pinRoom(room: room)
                 }
@@ -795,11 +771,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             
             let report = UIAlertAction(title: "REPORT".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                    
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+
                 } else {
                     self.report(room: room)
                 }
@@ -809,32 +782,22 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 switch room.type {
                 case .chat:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                        
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
                     } else {
                         self.deleteChat(room: room)
                     }
                     break
                 case .group:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                        
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+
                     } else {
                         self.deleteGroup(room: room)
                     }
                     break
                 case .channel:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
                     } else {
                         self.deleteChannel(room: room)
                     }
@@ -848,23 +811,18 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     break
                 case .group:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                        
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+
                         
                     } else {
                         self.leaveGroup(room: room)
                     }
                 case .channel:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+
                         
-                        
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+
                     } else {
                         self.leaveChannel(room: room)
                     }
@@ -1025,10 +983,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     DispatchQueue.main.async {
                         switch errorCode {
                         case .timeout:
-                            let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true, completion: nil)
+                            break
                         default:
                             break
                         }
@@ -1062,13 +1017,7 @@ extension IGRecentsTableViewController {
         }).error({ (errorCode , waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
             default:
                 DispatchQueue.main.async {
                     self.hud.hide(animated: true)
@@ -1096,10 +1045,7 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    break
                 default:
                     break
                 }
@@ -1170,11 +1116,7 @@ extension IGRecentsTableViewController {
         }).error({ (errorCode , waitTime) in
             DispatchQueue.main.async {
                 switch errorCode {
-                case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                case .timeout: break
                 default:
                     break
                 }
@@ -1190,10 +1132,8 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
-                    let alert = UIAlertController(title: "SUCCESS", message: "REPORT_SUBMITED".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORT_SUBMITED".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+
                 default:
                     break
                 }
@@ -1203,24 +1143,18 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .clientRoomReportReportedBefore:
-                    let alert = UIAlertController(title: "GLLOBAL_WARNING".RecentTableViewlocalizedNew, message: "ROOM_REPORTED_BEFOR".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    
+                    
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ROOM_REPORTED_BEFOR".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+
                     break
                     
                 case .clientRoomReportForbidden:
-                    let alert = UIAlertController(title: "Error", message: "Room Report Fobidden", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Room Report Fobidden", cancelText: "GLOBAL_CLOSE".localizedNew )
+
                     break
                     
                 default:
@@ -1238,10 +1172,8 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPUserReportResponse:
-                    let alert = UIAlertController(title: "SUCCESS".RecentTableViewlocalizedNew, message: "REPORT_SUBMITED".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORT_SUBMITED".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+
                 default:
                     break
                 }
@@ -1251,24 +1183,16 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .userReportReportedBefore:
-                    let alert = UIAlertController(title: "GLLOBAL_WARNING".RecentTableViewlocalizedNew, message: "USER_REPORTED_BEFOR".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_REPORTED_BEFOR".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+
                     break
                     
                 case .userReportForbidden:
-                    let alert = UIAlertController(title: "Error", message: "User Report Forbidden", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "User Report Forbidden.", cancelText: "GLOBAL_CLOSE".localizedNew )
+
                     break
                     
                 default:
@@ -1363,12 +1287,7 @@ extension IGRecentsTableViewController {
         }).error({ (errorCode , waitTime) in
             DispatchQueue.main.async {
                 switch errorCode {
-                case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
+                case .timeout: break
                 default:
                     break
                 }
@@ -1394,11 +1313,7 @@ extension IGRecentsTableViewController {
         }).error({ (errorCode , waitTime) in
             DispatchQueue.main.async {
                 switch errorCode {
-                case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                case .timeout: break
                 default:
                     break
                 }
@@ -1424,15 +1339,11 @@ extension IGRecentsTableViewController {
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
-                        let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                        break
                     default:
-                        let alert = UIAlertController(title: "Error", message: "There was an error leaving this group.", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "There was an error leaving this group.", cancelText: "GLOBAL_CLOSE".localizedNew )
+
+
                     }
                     self.hud.hide(animated: true)
                 }
@@ -1452,24 +1363,18 @@ extension IGRecentsTableViewController {
                 }
                 self.hud.hide(animated: true)
             }
-            }.error { (errorCode, waitTime) in
-                DispatchQueue.main.async {
-                    switch errorCode {
-                    case .timeout:
-                        let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    default:
-                        let alert = UIAlertController(title: "Error", message: "There was an error leaving this channel.", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+            }.error({ (errorCode , waitTime) in
+                    DispatchQueue.main.async {
+                        switch errorCode {
+                        case .timeout:
+                            break
+                        default:
+                            break
+                        }
+                        self.hud.hide(animated: true)
                     }
-                    self.hud.hide(animated: true)
-                }
-            }.send()
-    }
+                }).send()
+            }
     
     func deleteChannel(room: IGRoom) {
         self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
@@ -1488,10 +1393,7 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    break
                 default:
                     break
                 }

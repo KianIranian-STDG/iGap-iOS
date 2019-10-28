@@ -70,10 +70,7 @@ class IGRepresentativeViewController: BaseViewController, SelectCountryObserver 
     
     private func didTapOnDone() {
         if !IGAppManager.sharedManager.isUserLoggiedIn() {
-            let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-            alert.addAction(okAction)
-            self.present(alert, animated: true, completion: nil)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
         } else {
             
             var phoneSpaceLess: String?
@@ -87,22 +84,18 @@ class IGRepresentativeViewController: BaseViewController, SelectCountryObserver 
                 if IGGlobal.matches(for: (selectedCountry?.codeRegex)!, in: phoneSpaceLess!) {
                     let countryCode = String(Int((self.selectedCountry?.countryCode)!))
                     let fullPhone = countryCode + " " + (phone?.replacingOccurrences(of: "_", with: ""))!
-                    let alertVC = UIAlertController(title: "IS_IT_CORRECT".localizedNew,message: "IS_PHONE_OK".localizedNew + fullPhone,preferredStyle: .alert)
-                    let yes = UIAlertAction(title: "GLOBAL_YES".localizedNew, style: .cancel, handler: { (action) in
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "IS_IT_CORRECT".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "IS_PHONE_OK".localizedNew + fullPhone, doneText: "GLOBAL_YES".localizedNew  ,cancelText: "BTN_EDITE".localizedNew,done: {
                         IGGlobal.prgShow(self.view)
                         self.setRepresentative(phone: fullPhone)
+
                     })
-                    let no = UIAlertAction(title: "BTN_EDITE".localizedNew, style: .default, handler: nil)
-                    
-                    alertVC.addAction(yes)
-                    alertVC.addAction(no)
-                    self.present(alertVC, animated: true, completion: nil)
+
                     return
                 }
             }
-            let alertVC = UIAlertController(title: "INVALID_PHONE".localizedNew, message: "ENTER_VALID_P_NUMBER".localizedNew, preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil))
-            self.present(alertVC, animated: true, completion: nil)
+            
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "INVALID_PHONE".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ENTER_VALID_P_NUMBER".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+
         }
     }
     
@@ -129,12 +122,8 @@ class IGRepresentativeViewController: BaseViewController, SelectCountryObserver 
         }).error ({ (errorCode, waitTime) in
             IGGlobal.prgHide()
             DispatchQueue.main.async {
-                let alert = UIAlertController(title: "BTN_HINT".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
-                    self.finish()
-                })
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+
             }
         }).send()
     }

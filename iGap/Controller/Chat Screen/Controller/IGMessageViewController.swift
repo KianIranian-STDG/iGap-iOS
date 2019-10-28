@@ -515,11 +515,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             let numLines = (textView.contentSize.height / textView.font!.lineHeight).rounded(.down)
             textView.scrollRangeToVisible(textView.selectedRange)
             switch numLines {
-            case 0,1 :
+            case 0 :
+                self.messageTextViewHeightConstraint.constant = 50
+                break
+            case 1 :
                 self.messageTextViewHeightConstraint.constant = 50
                 break
             case 2 :
-                self.messageTextViewHeightConstraint.constant = 60
+                self.messageTextViewHeightConstraint.constant = 80
                 break
             case 3 :
                 self.messageTextViewHeightConstraint.constant = 100
@@ -544,9 +547,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 
                 break
                 
-                self.view.layoutIfNeeded()
                 
             }
+            self.view.layoutIfNeeded()
+            self.messageTextView.isScrollEnabled = false
+            self.messageTextView.isScrollEnabled = true
+
             
         }
     }
@@ -1020,7 +1026,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         initChangeLanguegeNewChatView()
         initDelegatesNewChatView()
         
-        
+//        messageTextView.backgroundColor = .red
         
         
         
@@ -4661,6 +4667,56 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         self.messageTextView.text = message.message
         //        messageTextView.placeholder = "MESSAGE".MessageViewlocalizedNew
+
+
+        let numLines = (messageTextView.contentSize.height / messageTextView.font!.lineHeight).rounded(.down)
+        messageTextView.scrollRangeToVisible(messageTextView.selectedRange)
+        switch numLines {
+        case 0 :
+            self.messageTextViewHeightConstraint.constant = 50
+            break
+        case 1 :
+            self.messageTextViewHeightConstraint.constant = 50
+            break
+        case 2 :
+            self.messageTextViewHeightConstraint.constant = 100
+            break
+        case 3 :
+            self.messageTextViewHeightConstraint.constant = 100
+            break
+        case 4 :
+            self.messageTextViewHeightConstraint.constant = 125
+            break
+        case 5 :
+            self.messageTextViewHeightConstraint.constant = 150
+            break
+        case 6 :
+            self.messageTextViewHeightConstraint.constant = 175
+            break
+        case 7 :
+            self.messageTextViewHeightConstraint.constant = 200
+            break
+        case 8 :
+            self.messageTextViewHeightConstraint.constant = 225
+            break
+        default :
+            self.messageTextViewHeightConstraint.constant = 225
+            
+            break
+            
+            
+        }
+        self.view.layoutIfNeeded()
+        self.messageTextView.isScrollEnabled = false
+        self.messageTextView.isScrollEnabled = true
+        lblPlaceHolder.isHidden = true
+        
+        
+        
+        
+        
+        
+        
         initChangeLanguegeNewChatView()
         self.messageTextView.becomeFirstResponder()
         self.lblReplyName.text = "EDITE_MESSAGE".MessageViewlocalizedNew

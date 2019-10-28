@@ -124,19 +124,25 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    self.showAlert(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew)
+//                    self.showAlert(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew)
+//                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "SETTING_PS_TV_HINT".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PASSWORD_IS_NOT_SET".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                     break
                     
                 case .userTwoStepVerificationRecoverPasswordByAnswersMaxTryLock:
-                    self.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "SETTING_PS_TV_MAX_TRY_LOCK".localizedNew)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SETTING_PS_TV_MAX_TRY_LOCK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                     break
                
                 case .userTwoStepVerificationRecoverPasswordByAnswersInvalidAnswers:
-                    self.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "INVALID_ANSWER".localizedNew)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "INVALID_ANSWER".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                     break
                     
                 case .userTwoStepVerificationRecoverPasswordByAnswersForbidden:
-                    self.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "RECOVER_BY_ANSWER_IS_FORBIDDEN".localizedNew)
+                  
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "RECOVER_BY_ANSWER_IS_FORBIDDEN".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                     break
                     
                 default:
@@ -149,10 +155,8 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
     
     private func isComplete() -> Bool {
         if question1TextField.text == "" || question2TextField.text == "" || answer1TextField.text == "" || answer2TextField.text == "" {
-            let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "CHECK_ALL_FIELDS".localizedNew, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-            alert.addAction(okAction)
-            self.present(alert, animated: true, completion: nil)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
             return false
         }
         return true

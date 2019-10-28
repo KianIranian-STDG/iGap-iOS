@@ -77,7 +77,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail: UITa
                 hud.hide(animated: true)
                 if ((protoResponse as? IGPUserTwoStepVerificationResendVerifyEmailResponse) != nil) {
                     if self.manuallyResendCode {
-                        self.showAlert(title: "Success", message: "Please check your email")
+//                        self.showAlert(title: "Success", message: "Please check your email")
                     }
                 }
             }
@@ -85,11 +85,11 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail: UITa
             
             DispatchQueue.main.async {
                 switch errorCode {
-                case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                case .timeout: break
+//                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+//                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                    alert.addAction(okAction)
+//                    self.present(alert, animated: true, completion: nil)
                 default:
                     break
                 }

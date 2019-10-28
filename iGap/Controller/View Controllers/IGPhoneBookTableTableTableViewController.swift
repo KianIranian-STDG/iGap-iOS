@@ -486,10 +486,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 }).error({ (errorCode, waitTime) in
                     DispatchQueue.main.async {
                         IGGlobal.prgHide()
-                        let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
-                        let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alertC.addAction(cancel)
-                        self.present(alertC, animated: true, completion: nil)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_RETRY".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
                     }
                 }).send()
             } else {
@@ -509,10 +506,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 }).error({ (errorCode, waitTime) in
                     DispatchQueue.main.async {
                         IGGlobal.prgHide()
-                        let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
-                        let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alertC.addAction(cancel)
-                        self.present(alertC, animated: true, completion: nil)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_RETRY".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
                     }
                 }).send()
             }
@@ -542,10 +536,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                     }).error({ (errorCode, waitTime) in
                         DispatchQueue.main.async {
                             IGGlobal.prgHide()
-                            let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
-                            let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                            alertC.addAction(cancel)
-                            self.present(alertC, animated: true, completion: nil)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_RETRY".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
                         }
                     }).send()
                 }
@@ -571,10 +562,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                     }).error({ (errorCode, waitTime) in
                         DispatchQueue.main.async {
                             IGGlobal.prgHide()
-                            let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
-                            let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                            alertC.addAction(cancel)
-                            self.present(alertC, animated: true, completion: nil)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_RETRY".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
                         }
                     }).send()
                 }

@@ -101,11 +101,11 @@ class IGSettingAccountBioTableViewController: UITableViewController , UIGestureR
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
-                        self.showAlert(title: "Timeout", message: "Please try later!")
+//                        self.showAlert(title: "Timeout", message: "Please try later!")
                         break
                         
                     case .userProfileSetBioBadPayload:
-                        self.showAlert(title: "Error", message: "Your bio is invalid")
+//                        self.showAlert(title: "Error", message: "Your bio is invalid")
                         break
                         
                     default:

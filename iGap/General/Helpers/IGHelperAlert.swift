@@ -123,7 +123,7 @@ class IGHelperAlert {
                     if showIconView! {
                         self.window!.addSubview(self.iconView)
                     }
-                    let heightOfAlert = self.detectHeightOfMessage(widthOfAlert: 230, message: message, font: UIFont.igFont(ofSize: 15)) + 100
+                    let heightOfAlert = self.detectHeightOfMessage(widthOfAlert: 230, message: message, font: UIFont.igFont(ofSize: 15)) + 150
                     
                     let height = min(heightOfAlert,self.maxHeightOfCustomAlert)//return min value between message height and maximum allowed height of alert
                     self.setConstraintsToCustomAlert(customView: self.customAlert, view: alertView,height:height)///setConstraintsTo CustomeAlert
@@ -245,7 +245,7 @@ class IGHelperAlert {
                     titleLabel.font = UIFont.igFont(ofSize: 13,weight: .bold)
                     titleLabel.numberOfLines = 1
                     messageLabel.numberOfLines = 0
-                    messageLabel.adjustsFontSizeToFitWidth = true
+//                    messageLabel.adjustsFontSizeToFitWidth = true
                     messageLabel.font = UIFont.igFont(ofSize: 14)
                     titleLabel.textColor = UIColor(named: themeColor.labelColor.rawValue)
                     messageLabel.textColor = UIColor(named: themeColor.labelColor.rawValue)

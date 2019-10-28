@@ -265,11 +265,9 @@ class IGCallsTableViewController: BaseTableViewController {
                     DispatchQueue.main.async {
                         switch errorCode {
                         case .timeout:
-                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true, completion: nil)
-                        default:
+
+                            break
+                            default:
                             break
                         }
                         self.hud.hide(animated: true)
@@ -381,11 +379,8 @@ class IGCallsTableViewController: BaseTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                default:
+                    break
+                    default:
                     break
                 }
             }
