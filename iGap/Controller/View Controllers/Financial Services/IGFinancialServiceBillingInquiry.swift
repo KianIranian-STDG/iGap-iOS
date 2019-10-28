@@ -75,8 +75,8 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
         }
         edtProvisionCode.placeholder = "PLACE_HOLDER_P_CODE".localizedNew
         btnInquiry.setTitle("BTN_INQUERY".localizedNew, for: .normal)
-        btnPayment.setTitle("BTN_PAY".localizedNew, for: .normal)
-        btnPaymentMid.setTitle("BTN_PAY".localizedNew, for: .normal)
+        btnPayment.setTitle("PU_PAYMENT".localizedNew, for: .normal)
+        btnPaymentMid.setTitle("PU_PAYMENT".localizedNew, for: .normal)
         txtAmount.text = "TXT_AMOUNT".localizedNew
         txtMidTerm.text = "MID_TERM_BILL".localizedNew
         txtLastTerm.text = "END_TERM_BILL".localizedNew
@@ -215,11 +215,11 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
             if lastTerm.igpAmount != 0 {
                 self.manageButtonsView(buttons: [self.btnPayment])
                 self.manageViews(views: [self.viewOne])
-                self.btnPayment.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
+                self.btnPayment.setTitle("PU_PAYMENT".localizedNew, for: UIControl.State.normal)
             } else {
                 self.manageButtonsView(buttons: [self.btnPayment],enable: false)
                 self.manageViews(views: [self.viewOne], enable: false)
-                self.btnPayment.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
+                self.btnPayment.setTitle("PU_PAYMENT".localizedNew, for: UIControl.State.normal)
             }
             
             self.billingIdMid = "\(midTerm.igpBillID)"
@@ -231,11 +231,11 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
             if midTerm.igpAmount != 0 {
                 self.manageButtonsView(buttons: [self.btnPaymentMid])
                 self.manageViews(views: [self.viewTwo])
-                self.btnPaymentMid.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
+                self.btnPaymentMid.setTitle("PU_PAYMENT".localizedNew, for: UIControl.State.normal)
             } else {
                 self.manageButtonsView(buttons: [self.btnPaymentMid],enable: false)
                 self.manageViews(views: [self.viewTwo], enable: false)
-                self.btnPaymentMid.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
+                self.btnPaymentMid.setTitle("PU_PAYMENT".localizedNew, for: UIControl.State.normal)
             }
         }
     }
@@ -251,11 +251,11 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
             if lastTerm.igpAmount != 0 {
                 self.manageButtonsView(buttons: [self.btnPayment])
                 self.manageViews(views: [self.viewOne])
-                self.btnPayment.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
+                self.btnPayment.setTitle("PU_PAYMENT".localizedNew, for: UIControl.State.normal)
             } else {
                 self.manageButtonsView(buttons: [self.btnPayment],enable: false)
                 self.manageViews(views: [self.viewOne], enable: false)
-                self.btnPayment.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
+                self.btnPayment.setTitle("PU_PAYMENT".localizedNew, for: UIControl.State.normal)
             }
             
             self.billingIdMid = "\(midTerm.igpBillID)"
@@ -267,11 +267,11 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
             if midTerm.igpAmount != 0 {
                 self.manageButtonsView(buttons: [self.btnPaymentMid])
                 self.manageViews(views: [self.viewTwo])
-                self.btnPaymentMid.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
+                self.btnPaymentMid.setTitle("PU_PAYMENT".localizedNew, for: UIControl.State.normal)
             } else {
                 self.manageButtonsView(buttons: [self.btnPaymentMid],enable: false)
                 self.manageViews(views: [self.viewTwo], enable: false)
-                self.btnPaymentMid.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
+                self.btnPaymentMid.setTitle("PU_PAYMENT".localizedNew, for: UIControl.State.normal)
             }
         }
     }
