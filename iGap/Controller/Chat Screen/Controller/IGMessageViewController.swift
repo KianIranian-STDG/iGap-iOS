@@ -2414,6 +2414,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     private func saveMessagePosition() {
+        if self.room!.isInvalidated {
+            return
+        }
+        
         let visibleCells = self.collectionView.indexPathsForVisibleItems.sorted(by:{
             $0.section < $1.section || $0.row < $1.row
         }).compactMap({
@@ -2431,18 +2435,19 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let numberOfItems = collectionView.numberOfItems(inSection: 0)
         
         if self.collectionView.indexPath(for: visibleCells[0])!.row > IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT {
-            for index in 1...IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT {
-                var cell: IGRoomMessage!
-                if let collectionCell = self.collectionView.cellForItem(at: IndexPath(row: numberOfItems - index, section: 0)) as? AbstractCell {
-                    cell = collectionCell.realmRoomMessage
-                } else if let collectionCell = self.collectionView.cellForItem(at: IndexPath(row: numberOfItems - index, section: 0)) as? IGMessageGeneralCollectionViewCell {
-                    cell = collectionCell.cellMessage
-                }
-                
-                if cell != nil && cell.id == firstVisibleItem.id {
-                    saveState = false
-                    break
-                }
+            var finalMessage: IGRoomMessage!
+            if let collectionCell = self.collectionView.cellForItem(at: IndexPath(row: numberOfItems - IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT, section: 0)) as? AbstractCell {
+                finalMessage = collectionCell.realmRoomMessage
+            } else if let collectionCell = self.collectionView.cellForItem(at: IndexPath(row: numberOfItems - IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT, section: 0)) as? IGMessageGeneralCollectionViewCell {
+                finalMessage = collectionCell.cellMessage
+            }
+            
+            if finalMessage.isInvalidated {
+                return
+            }
+            
+            if finalMessage != nil && finalMessage.id == firstVisibleItem.id {
+                saveState = false
             }
             if saveState {
                 IGRoom.saveMessagePosition(roomId: self.room!.id, saveScrollMessageId: lastVisibleItem.id)
