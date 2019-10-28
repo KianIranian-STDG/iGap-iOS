@@ -1317,8 +1317,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         print("CHECK TOPBAR PLAYER STATE5:",self.holderMusicPlayer.subviews)
 
     }
-    
+        private func stopButtonPlayForRow() {
+                self.collectionView.reloadData()
+        }
+
     private func eventBusInitialiser() {
+        SwiftEventBus.onMainThread(self, name: EventBusManager.stopLastButtonState) { result in
+              self.stopButtonPlayForRow()
+              
+          }
+
         SwiftEventBus.onMainThread(self, name: EventBusManager.hideTopMusicPlayer) { result in
             self.hideMusicTopPlayerWithAnimation()
         }
@@ -1337,9 +1345,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             //            print(result?.object as! Bool)
             self.updateLabelsData(singerName: IGGlobal.topBarSongSinger,songName: IGGlobal.topBarSongName)
         }
+  
 
 
     }
+
     @objc func updateLabelsData(singerName: String!,songName: String!) {
         if IGGlobal.shouldShowTopBarPlayer {
             let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
@@ -1355,6 +1365,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 
             floatingDateTopConstraints.constant = defaultValue
             self.createTopMusicPlayer()
+            
 
         }
     }
@@ -1420,7 +1431,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 addMusicPlayerToHolder() // add musicPlayer to holder
             }
         } else {
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ERROR IN FETCHING SONG TIME", doneText: "Done", cancelText: "Cancel")
+//            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ERROR IN FETCHING SONG TIME", doneText: "Done", cancelText: "Cancel")
         }
         print("CHECK TOPBAR PLAYER STATE4.6:",self.holderMusicPlayer.subviews)
         if self.holderMusicPlayer.subviews.count == 0 {
@@ -1429,7 +1440,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             addMusicPlayerToHolder()
         }
         print("CHECK TOPBAR PLAYER STATE4.7:",self.holderMusicPlayer.subviews)
-
+        IGHelperMusicPlayer.shared.room = self.room // pass room obj to helper music layer in order to be used in showing audio list of room at the bottom music player
     }
     private func addMusicPlayerToHolder() {
         if holderMusicPlayer.subviews.count > 0 {
@@ -5211,6 +5222,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
         } else if messageType == .audio || messageType == .audioAndText {
             let cell: AudioCell = collectionView.dequeueReusableCell(withReuseIdentifier: AudioCell.cellReuseIdentifier(), for: indexPath) as! AudioCell
             let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+            cell.clickedAudioCellIndexPath = indexPath
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
             
             if IGGlobal.shouldMultiSelect {

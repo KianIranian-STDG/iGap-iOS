@@ -14,7 +14,7 @@ struct Music {
     
     var MusicName : String
 //    var MusicCover : UIImage??UIImage(named: "AppIcon")
-    var MusicArtist : String
-    var MusicTotalTime : Float
+    var MusicArtist : String?
+    var MusicTotalTime : Float?
     
 }

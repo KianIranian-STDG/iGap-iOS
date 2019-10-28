@@ -49,43 +49,67 @@ class IGPlayer {
      * @param attachment media info for make player session
      * @param justUpdate if set true player view will be update with current state otherwise will be started new player with attachment param
      */
-    func startPlayer(btnPlayPause: UIButton, slider: UISlider, timer: UILabel, roomMessage: IGRoomMessage, justUpdate: Bool = false,room: IGRoom? = nil){
+    func startPlayer(btnPlayPause: UIButton? = nil, slider: UISlider? = nil, timer: UILabel? = nil, roomMessage: IGRoomMessage, justUpdate: Bool = false,room: IGRoom? = nil,isfromBottomPlayer: Bool? = nil){
         self.room = room
         setupRemoteTransportControls()
 //        setupNowPlaying()
         fetchMusicList(room : self.room)
-        if justUpdate {
-            if self.roomMessage?.id == roomMessage.id {
-                btnPlayPause.setTitle(latestButtonValue, for: UIControl.State.normal)
-                slider.value = latestSliderValue ?? 0
-                timer.text = latestTimeValue
-                
-                self.btnPlayPause = btnPlayPause
-                self.slider = slider
-                self.slider.maximumValue = attachmentFloatTime
-                self.timer = timer
-                self.removeGestureRecognizer()
-                self.addGestureRecognizer()
+        if isfromBottomPlayer != nil {
+            if isfromBottomPlayer! {
+                if justUpdate {
+                    if self.roomMessage?.id == roomMessage.id {
+                    }
+                } else {
+                    /* if is new file reset previous if exist reset otherwise manage play/pause for current player */
+                    if self.roomMessage?.id != roomMessage.id {
+                        self.resetOldSession()
+                        self.roomMessage = roomMessage
+                        self.attachment = roomMessage.getFinalMessage().attachment
+                        self.fetchAttachmentTime()
+                        latestSliderValue = 0.0
+                        playerWatcherIndex = player.addWatcher(self)
+                        self.playMedia()
+                    } else {
+//                        resetOldSession()
+                        updatePlayPauseState()
+                    }
+                }
             }
-        } else {
-            /* if is new file reset previous if exist reset otherwise manage play/pause for current player */
-            if self.roomMessage?.id != roomMessage.id {
-                self.resetOldSession()
-                self.btnPlayPause = btnPlayPause
-                self.slider = slider
-                self.timer = timer
-                self.roomMessage = roomMessage
-                self.attachment = roomMessage.getFinalMessage().attachment
-                self.addGestureRecognizer()
-                self.fetchAttachmentTime()
-                self.slider.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .normal)
-                slider.value = 0.0
-                latestSliderValue = 0.0
-                slider.maximumValue = attachmentFloatTime
-                playerWatcherIndex = player.addWatcher(self)
-                self.playMedia()
+        }
+        else {
+            if justUpdate {
+                if self.roomMessage?.id == roomMessage.id {
+                    btnPlayPause!.setTitle(latestButtonValue, for: UIControl.State.normal)
+                    slider!.value = latestSliderValue ?? 0
+                    timer!.text = latestTimeValue
+                    
+                    self.btnPlayPause = btnPlayPause
+                    self.slider = slider
+                    self.slider.maximumValue = attachmentFloatTime
+                    self.timer = timer
+                    self.removeGestureRecognizer()
+                    self.addGestureRecognizer()
+                }
             } else {
-                self.didTapOnbtnPlayPause(btnPlayPause)
+                /* if is new file reset previous if exist reset otherwise manage play/pause for current player */
+                if self.roomMessage?.id != roomMessage.id {
+                    self.resetOldSession()
+                    self.btnPlayPause = btnPlayPause
+                    self.slider = slider
+                    self.timer = timer
+                    self.roomMessage = roomMessage
+                    self.attachment = roomMessage.getFinalMessage().attachment
+                    self.addGestureRecognizer()
+                    self.fetchAttachmentTime()
+                    self.slider.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .normal)
+                    slider!.value = 0.0
+                    latestSliderValue = 0.0
+                    slider!.maximumValue = attachmentFloatTime
+                    playerWatcherIndex = player.addWatcher(self)
+                    self.playMedia()
+                } else {
+                    self.updatePlayPauseState()
+                }
             }
         }
 
@@ -130,25 +154,27 @@ class IGPlayer {
     }
     private func fetchMusicList(room : IGRoom!) {
         
-        if let thisRoom = room {
-            let messagePredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND isFromSharedMedia == true AND typeRaw == 5 OR typeRaw == 6", thisRoom.id)
-            shareMediaMessage =  try! Realm().objects(IGRoomMessage.self).filter(messagePredicate)
-            self.notificationToken = shareMediaMessage.observe { (changes: RealmCollectionChange) in
-                switch changes {
-                case .initial:
-
-                    break
-                case .update(_, _, _, _):
-                    // Query messages have changed, so apply them to the TableView
-
-                    break
-                case .error(let err):
-                    // An error occurred while opening the Realm file on the background worker thread
-                    fatalError("\(err)")
-                    break
-                }
-            }
-        }
+//        if let thisRoom = room {
+//            let messagePredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND isFromSharedMedia == true AND typeRaw == 5 OR typeRaw == 6", thisRoom.id)
+//            shareMediaMessage =  try! Realm().objects(IGRoomMessage.self).filter(messagePredicate)
+//            self.notificationToken = shareMediaMessage.observe { (changes: RealmCollectionChange) in
+//                switch changes {
+//                case .initial:
+//
+//                    break
+//                case .update(_, _, _, _):
+//                    // Query messages have changed, so apply them to the TableView
+//
+//                    break
+//                case .error(let err):
+//                    // An error occurred while opening the Realm file on the background worker thread
+//                    fatalError("\(err)")
+//                    break
+//                }
+//            }
+//        }
+        
+        
     }
     private func fetchAttachmentTime(){
         
@@ -163,7 +189,7 @@ class IGPlayer {
         let remainingMiuntes = timeInt/60
         //fetching song metadata
         setupNowPlaying(asset: asset,file : attachment!)
-
+        IGGlobal.currentMusic = attachment
         //end
         attachmentStringTime = "\(remainingMiuntes):\(remainingSeconds)"
         attachmentFloatTime = Float(time)
@@ -228,25 +254,33 @@ class IGPlayer {
         }
 
         //
+        let artworkItems = AVMetadataItem.metadataItems(from: metadataList, filteredByIdentifier: AVMetadataIdentifier.commonIdentifierArtwork)
 
-        
-        
-        
-        
-        
-        
-        
+        if let artworkItem = artworkItems.first {
+            // Coerce the value to an NSData using its dataValue property
+            if let imageData = artworkItem.dataValue {
+                let image = UIImage(data: imageData)
+                nowPlayingInfo[MPMediaItemPropertyArtwork] =
+                    MPMediaItemArtwork(boundsSize: image!.size) { size in
+                        return image!
+                }
 
-        let avatarView : UIImageView = UIImageView()
-        avatarView.setThumbnail(for: file)
-        
+                // process image
+            } else {
+                let avatarView : UIImageView = UIImageView()
+                avatarView.setThumbnail(for: file)
+                
 
-        if let image = avatarView.image {
-            nowPlayingInfo[MPMediaItemPropertyArtwork] =
-                MPMediaItemArtwork(boundsSize: image.size) { size in
-                    return image
+                if let image = avatarView.image {
+                    nowPlayingInfo[MPMediaItemPropertyArtwork] =
+                        MPMediaItemArtwork(boundsSize: image.size) { size in
+                            return image
+                    }
+                }
             }
         }
+        
+        
         nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = playerItem.currentTime().seconds
         nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = playerItem.asset.duration.seconds
 
@@ -449,6 +483,17 @@ class IGPlayer {
 
     
     @objc func didTapOnbtnPlayPause(_ sender: UIButton) {
+        let isPlaying = player.checkPlayerControlStatus()
+        if isPlaying {
+            self.pauseMedia()
+            SwiftEventBus.post(EventBusManager.changePlayState,sender: false)
+
+        } else {
+            self.playMedia()
+            SwiftEventBus.post(EventBusManager.changePlayState,sender: true)
+        }
+    }
+    func updatePlayPauseState() {
         let isPlaying = player.checkPlayerControlStatus()
         if isPlaying {
             self.pauseMedia()

@@ -11,11 +11,16 @@ import UIKit
 import SwiftProtobuf
 import RealmSwift
 import SwiftEventBus
+import IGProtoBuff
 
 
 class IGMusicPlayerTableViewController: UITableViewController {
     let cellID = "musicCell"
     var sliderValueIsChanging : Bool = false
+    var sharedMediaAudioFile: [IGRoomMessage] = []
+    var sharedMediaAudioFileCover: [UIImage] = []
+    var sharedMediaAudioFileArtist: [String] = []
+    var currentPlatingIndexPath : IndexPath! = [0,0]
     var musics : [Music] = [
         Music(MusicName: "MUSIC1", MusicArtist: "ARTIST1", MusicTotalTime: 0.0),
         Music(MusicName: "MUSIC2", MusicArtist: "ARTIST2", MusicTotalTime: 0.0),
@@ -56,7 +61,7 @@ class IGMusicPlayerTableViewController: UITableViewController {
     private var latestTimeValue: String?
     private var latestSliderValue: Float?
     private var player = IGMusicPlayer.sharedPlayer
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initTableViewCell()
@@ -68,10 +73,10 @@ class IGMusicPlayerTableViewController: UITableViewController {
         headerView.widthAnchor.constraint(equalToConstant: self.tableView.frame.size.width).isActive = true
         panModalSetNeedsLayoutUpdate()
         initPlayerHeaderItems()
-        fetchData()
+        fetchData(room : self.room)
         initEventBus()
         fetchFirstData()
- 
+        findFirstTimePlayingItem()
         
         
         
@@ -91,32 +96,36 @@ class IGMusicPlayerTableViewController: UITableViewController {
     }
     private func initEventBus() {
         SwiftEventBus.onMainThread(self, name: EventBusManager.updateMediaTimer) { result in
-//            print(result?.object as! Float)
-                        self.updateProgressView(currentTime: result?.object as! Float)
+            //            print(result?.object as! Float)
+            self.updateProgressView(currentTime: result?.object as! Float)
         }
         SwiftEventBus.onMainThread(self, name: EventBusManager.updateBottomPlayerButtonsState) { result in
-//            print(result?.object as! Bool)
+            //            print(result?.object as! Bool)
             self.updateButtonState(state: result?.object as! Bool)
             
             
+        }
+        SwiftEventBus.onMainThread(self, name: EventBusManager.updateMediaTimer) { result in
+            //            print(result?.object as! Float)
+            self.updateProgressView(currentTime: result?.object as! Float)
         }
         
     }
     
     
-    private func fetchData() {
-        
+    private func fetchData(room: IGRoom!) {
+        //        print("ACTION ID :",room.title,room.id)
         if let thisRoom = room {
-            let messagePredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND isFromSharedMedia == true AND typeRaw == audio OR typeRaw == audioAndText", thisRoom.id)
+            let messagePredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND isFromSharedMedia == true AND typeRaw == %d OR typeRaw == %d", thisRoom.id,IGRoomMessageType.audio.rawValue,IGRoomMessageType.audioAndText.rawValue)
             shareMediaMessage =  try! Realm().objects(IGRoomMessage.self).filter(messagePredicate)
             self.notificationToken = shareMediaMessage.observe { (changes: RealmCollectionChange) in
                 switch changes {
                 case .initial:
-                    self.tableView.reloadWithAnimation()
+                    //                    self.tableView.reloadWithAnimation()
                     break
                 case .update(_, _, _, _):
                     // Query messages have changed, so apply them to the TableView
-                    self.tableView.reloadWithAnimation()
+                    //                    self.tableView.reloadWithAnimation()
                     break
                 case .error(let err):
                     // An error occurred while opening the Realm file on the background worker thread
@@ -124,9 +133,50 @@ class IGMusicPlayerTableViewController: UITableViewController {
                     break
                 }
             }
+            
+            getAudioList(room : thisRoom)
         }
+        
     }
     
+    func getAudioList(room : IGRoom!) {
+        if let selectedRoom = room {
+            IGClientSearchRoomHistoryRequest.Generator.generate(roomId: selectedRoom.id, offset: 0, filter: .audio).success({ (protoResponse) in
+                DispatchQueue.main.async {
+                    switch protoResponse {
+                    case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
+                        let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
+                        for message in response.messages.reversed() {
+                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
+                            self.sharedMediaAudioFile.append(msg)
+                            
+                        }
+                        let indexPath = self.sharedMediaAudioFile.firstIndex(where: {
+                            $0.attachment?.cacheID == IGGlobal.currentMusic.cacheID }).flatMap({ IndexPath(row: $0, section: 0)
+                            })
+                        self.currentPlatingIndexPath = indexPath
+                        
+                        self.tableView.reloadData()
+                    //                        print("CHECK SHARED MEDIA AUDIO COUNT1",self.sharedMediaAudioFile.count)
+                    default:
+                        break
+                    }
+                }
+            }).error ({ (errorCode, waitTime) in
+                print("ERROR ROOM HISTORY")
+                print(errorCode)
+                switch errorCode {
+                case .timeout:
+                    break
+                case .clientSearchRoomHistoryNotFound:
+                    break
+                default:
+                    break
+                }
+                
+            }).send()
+        }
+    }
     // MARK: - Development Funcs
     private func initTableViewCell() {
         tableView.register(MusicCell.self, forCellReuseIdentifier: cellID)
@@ -140,13 +190,13 @@ class IGMusicPlayerTableViewController: UITableViewController {
         self.updateSLiderState(currentTime: 0, finalTime: 0, sliderValue: 0)
     }
     private func updateButtonState(state : Bool!) {
-
+        
         let stacks = self.headerView.subviews.flatMap { $0 as? UIStackView }
         
         for stack in stacks {
             if stack.tag == IGTagManager.srackBottonsHolderTag {
-                print(stack.arrangedSubviews)
-                print(stack.subviews)
+                //                print(stack.arrangedSubviews)
+                //                print(stack.subviews)
                 let btns = stack.arrangedSubviews.flatMap { $0 as? UIButton }
                 for btn  in btns {
                     if btn.tag == IGTagManager.btnPlayTag {
@@ -163,24 +213,24 @@ class IGMusicPlayerTableViewController: UITableViewController {
                         default:
                             break
                         }
-
+                        
                     }
-
+                    
                 }
-
+                
             }
-
+            
         }
     }
     func updateProgressView(currentTime : Float!){
         if !currentTime.isNaN  {
-        IGGlobal.isPaused = false
+            IGGlobal.isPaused = false
             
-        let timeM = Int(currentTime / 60)
-        let timeS = Int(currentTime.truncatingRemainder(dividingBy: 60.0))
-        let percent = ((currentTime * 100) / (IGGlobal.topBarSongTime)) / 100
-        self.currentTime = currentTime
-        updateSLiderState(currentTime: currentTime, finalTime: (IGGlobal.topBarSongTime), sliderValue: percent)
+            let timeM = Int(currentTime / 60)
+            let timeS = Int(currentTime.truncatingRemainder(dividingBy: 60.0))
+            let percent = ((currentTime * 100) / (IGGlobal.topBarSongTime)) / 100
+            self.currentTime = currentTime
+            updateSLiderState(currentTime: currentTime, finalTime: (IGGlobal.topBarSongTime), sliderValue: percent)
         }
     }
     
@@ -199,15 +249,74 @@ class IGMusicPlayerTableViewController: UITableViewController {
             
             
         }
-//        for imageView in imageViews {
-//            if imageView.tag == IGTagManager.imgMusicCover {
-//                imageView.image = UIImage(named: "AppIcon")
-//            }
-//        }
+        //        for imageView in imageViews {
+        //            if imageView.tag == IGTagManager.imgMusicCover {
+        //                imageView.image = UIImage(named: "AppIcon")
+        //            }
+        //        }
         
         
         
     }
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        //        print("=========+CHECKNUUMBEROFROWS==========")
+        //        print(offsetY)
+        //        print(contentHeight)
+        //        print(scrollView.frame.size.height)
+        //        print(contentHeight - scrollView.frame.size.height)
+        if offsetY >= contentHeight - scrollView.frame.size.height {
+            if isFetchingFiles == false {
+                loadMoreDataFromServer(offset: Int32(sharedMediaAudioFile.count))
+            }
+        }
+        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
+            //            print("=========REACHED BOTTOM==========")
+        }
+        
+    }
+    
+    func loadMoreDataFromServer(offset: Int32!) {
+        if let selectedRoom = self.room {
+            isFetchingFiles = true
+            SMLoading.showLoadingPage(viewcontroller: self)
+            IGClientSearchRoomHistoryRequest.Generator.generate(roomId: selectedRoom.id, offset: offset, filter: sharedMediaFilter!).success({ (protoResponse) in
+                DispatchQueue.main.async {
+                    switch protoResponse {
+                    case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
+                        let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
+                        for message in response.messages {
+                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
+                            self.sharedMediaAudioFile.append(msg)
+                        }
+                        self.isFetchingFiles = false
+                        self.tableView?.reloadData()
+                    default:
+                        break
+                    }
+                }
+                SMLoading.hideLoadingPage()
+            }).error ({ (errorCode, waitTime) in
+                SMLoading.hideLoadingPage()
+                
+                switch errorCode {
+                case .timeout:
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.isFetchingFiles = false
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                default:
+                    break
+                }
+                
+            }).send()
+        }
+    }
+    
     private func updateSLiderState(currentTime : Float!,finalTime : Float!,sliderValue: Float) {
         let labels = self.headerView.subviews.flatMap { $0 as? UILabel }
         let sliders = self.headerView.subviews.flatMap { $0 as? UISlider }
@@ -217,21 +326,21 @@ class IGMusicPlayerTableViewController: UITableViewController {
         for label in labels {
             if label.tag == IGTagManager.lblCurrentTime {
                 if !(sliderValueIsChanging) {
-
-                label.text = String(timeM).inLocalizedLanguage() + ":" + String(timeS).inLocalizedLanguage()
+                    
+                    label.text = String(timeM).inLocalizedLanguage() + ":" + String(timeS).inLocalizedLanguage()
                 }
             }
         }
         for slider in sliders {
             if slider.tag == IGTagManager.sliderMusic {
                 if !(sliderValueIsChanging) {
-                slider.setValue(sliderValue, animated: true)
-                 }
+                    slider.setValue(sliderValue, animated: true)
+                }
             }
         }
-        print(currentTime)
+        //        print(currentTime)
         if IGGlobal.songState == .ended {
-
+            
             let stacks = self.headerView.subviews.flatMap { $0 as? UIStackView }
             
             for stack in stacks {
@@ -252,16 +361,16 @@ class IGMusicPlayerTableViewController: UITableViewController {
                             default:
                                 break
                             }
-
+                            
                         }
-
+                        
                     }
-
+                    
                 }
-
+                
             }
         }
-
+        
     }
     private func createButtonHolderStack(headerView: UIView!) -> UIStackView {
         let stackButtonHolder = UIStackView()
@@ -282,11 +391,11 @@ class IGMusicPlayerTableViewController: UITableViewController {
         let btnPlay = UIButton()
         btnPlay.tag = IGTagManager.btnPlayTag
         let btnNext = UIButton()
-        btnNext.isEnabled = false
+        btnNext.isEnabled = true
         btnNext.tag = IGTagManager.btnNextTag
         let btnPrevius = UIButton()
         btnPrevius.isEnabled = false
-
+        
         btnPrevius.tag = IGTagManager.btnPreviusTag
         let btnOrder = UIButton()
         btnOrder.tag = IGTagManager.btnOrderTag
@@ -300,13 +409,13 @@ class IGMusicPlayerTableViewController: UITableViewController {
         btnOrder.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         //color
         btnPlay.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-//        btnNext.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-//        btnPrevius.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        //        btnNext.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        //        btnPrevius.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
         btnNext.setTitleColor(UIColor.lightGray, for: .normal)
         btnPrevius.setTitleColor(UIColor.lightGray, for: .normal)
         btnOrder.setTitleColor(UIColor.lightGray, for: .normal)
         btnShuffle.setTitleColor(UIColor.lightGray, for: .normal)
-
+        
         btnShuffle.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
         btnOrder.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
         //play
@@ -338,6 +447,8 @@ class IGMusicPlayerTableViewController: UITableViewController {
         //***********ACTIONS******************//
         ///Play/Pause Button action
         btnPlay.addTarget(self, action: #selector(self.buttonPlayAction(_:)), for: .touchUpInside)
+        btnNext.addTarget(self, action: #selector(self.buttonNextAction(_:)), for: .touchUpInside)
+        btnPrevius.addTarget(self, action: #selector(self.buttonPreviusAction(_:)), for: .touchUpInside)
         //        ///Next Button action
         //        btnNext.addTarget(self, action: #selector(self.buttonNextAction(_:)), for: .touchUpInside)
         //        ///Previus Button action
@@ -365,7 +476,26 @@ class IGMusicPlayerTableViewController: UITableViewController {
                           completion: nil)
         IGGlobal.isPaused = !IGGlobal.isPaused
     }
-///SLIDER
+    @objc func buttonNextAction(_ sender:UIButton!) {
+        currentPlatingIndexPath.row += 1
+        print("CHECK POINT BENJI3",currentPlatingIndexPath)
+        let currentPlayingItem = sharedMediaAudioFile[currentPlatingIndexPath.row]
+        let fileExist = IGGlobal.isFileExist(path: currentPlayingItem.attachment!.path(), fileSize: currentPlayingItem.attachment!.size)
+        
+        if fileExist {
+            SwiftEventBus.post(EventBusManager.stopLastButtonState)
+            IGPlayer.shared.startPlayer(roomMessage: currentPlayingItem,room: self.room,isfromBottomPlayer: true)
+            updateTopLabels(file: currentPlayingItem.attachment)
+            //            cell.musicState.isHidden = false
+        }
+        
+    }
+    @objc func buttonPreviusAction(_ sender:UIButton!) {
+        
+    }
+    
+    
+    ///SLIDER
     private func addGestureRecognizer(slider: UISlider!,musicCover: UIButton!){
         slider.addTarget(self, action: #selector(sliderTouchUpInside(_:)), for: .touchUpInside)
         slider.addTarget(self, action: #selector(sliderTouchUpOutside(_:)), for: .touchUpOutside)
@@ -374,22 +504,22 @@ class IGMusicPlayerTableViewController: UITableViewController {
         
         
         musicCover.addTarget(self, action: #selector(self.didTapOnMusicCover(_:)), for: .touchUpInside)
-
+        
     }
-
+    
     @objc func didTapOnMusicCover(_ sender:UIButton!) {
         
-
+        
     }
     
     /*************************************************************************/
     /**************************** Gesture Manager ****************************/
     
     @objc func sliderTouchUpInside(_ sender: UISlider) {
-//        sliderValueChanged(slider : sender)
+        //        sliderValueChanged(slider : sender)
     }
     @objc func sliderTouchUpOutside(_ sender: UISlider) {
-//        sliderValueChanged(slider : sender)
+        //        sliderValueChanged(slider : sender)
     }
     @objc func sliderTouchDown(_ sender: UISlider) {
     }
@@ -398,60 +528,60 @@ class IGMusicPlayerTableViewController: UITableViewController {
             switch touchEvent.phase {
             case .began:
                 sliderValueIsChanging = true
-
+                
                 break
-                // handle drag began
+            // handle drag began
             case .moved:
                 // handle drag moved
                 sliderValueIsChanging = true
-
+                
                 latestSliderValue = slider.value
                 updateTimer(currentPercent: slider.value)
-//                IGPlayer.shared.updateSLider(value: slider.value,sliderBottom: slider)
+                //                IGPlayer.shared.updateSLider(value: slider.value,sliderBottom: slider)
                 player.seekToTime(value: CMTimeMakeWithSeconds(Float64(((slider.value) * (IGGlobal.topBarSongTime / 100)) * 100), preferredTimescale: IGPlayer.shared.attachmentTimeScale))
-//                IGPlayer.shared.flag = false
-//                IGPlayer.shared.updateSliderValue()
+                //                IGPlayer.shared.flag = false
+                //                IGPlayer.shared.updateSliderValue()
                 
                 
                 break
-
+                
             case .ended:
                 sliderValueIsChanging = false
                 let t = slider.value
                 slider.value = t
-
+                
                 break
-                // handle drag ended
+            // handle drag ended
             default:
                 break
             }
         }
-
+        
     }
-//    private func sliderValueChanged(slider : UISlider!) {
-//        latestSliderValue = slider.value
-////        player.seekToTime(value: CMTimeMakeWithSeconds(Float64(slider.value), preferredTimescale: attachmentTimeScale))
-////        updateSliderValue(slider: slider)
-//    }
+    //    private func sliderValueChanged(slider : UISlider!) {
+    //        latestSliderValue = slider.value
+    ////        player.seekToTime(value: CMTimeMakeWithSeconds(Float64(slider.value), preferredTimescale: attachmentTimeScale))
+    ////        updateSliderValue(slider: slider)
+    //    }
     private func updateTimer(currentPercent: Float) {
         let valueInt = Int(currentPercent)
         var tmpCurrentTime = currentPercent * ((IGGlobal.topBarSongTime) / 100)
         tmpCurrentTime = tmpCurrentTime * 100
         let timeM = Int(tmpCurrentTime / 60)
         let timeS = Int(tmpCurrentTime.truncatingRemainder(dividingBy: 60.0))
-//        print("TMER CHANGED:",IGGlobal.topBarSongTime,tmpCurrentTime * 100)
+        //        print("TMER CHANGED:",IGGlobal.topBarSongTime,tmpCurrentTime * 100)
         let labels = self.headerView.subviews.flatMap { $0 as? UILabel }
         for label in labels {
             if label.tag == IGTagManager.lblCurrentTime {
                 label.text = String(timeM).inLocalizedLanguage() + ":" + String(timeS).inLocalizedLanguage()
             }
         }
-//        latestTimeValue = finalValue
-
+        //        latestTimeValue = finalValue
+        
     }
     
     
-
+    
     
     /////END
     private func createMusicDataAboveStack(buttonStack : UIStackView!,headerView : UIView!,musicCover: UIImage? = nil,currentTime : Float!,finalTime : Float!,sliderValue: Float!) {
@@ -461,7 +591,7 @@ class IGMusicPlayerTableViewController: UITableViewController {
         let lblMusicTotalTime : UILabel = UILabel()
         let lblMusicName : UILabel = UILabel()
         let lblMusicArtist : UILabel = UILabel()
-//        let tmpMusicCover : UIImageView = UIImageView()
+        //        let tmpMusicCover : UIImageView = UIImageView()
         let tmpMusicCover : UIButton = UIButton()
         musicSlider.tag = IGTagManager.sliderMusic
         lblCurrentTime.tag = IGTagManager.lblCurrentTime
@@ -488,13 +618,11 @@ class IGMusicPlayerTableViewController: UITableViewController {
         lblMusicName.textAlignment = .left
         lblMusicArtist.textAlignment = .left
         lblMusicTotalTime.textAlignment = .right
-        tmpMusicCover.setTitle("", for: .normal)
-        tmpMusicCover.setTitleColor(UIColor(named: themeColor.backgroundColor.rawValue), for: .normal)
+        //        tmpMusicCover.setTitle("", for: .normal)
+        //        tmpMusicCover.setTitleColor(UIColor(named: themeColor.backgroundColor.rawValue), for: .normal)
         tmpMusicCover.backgroundColor = UIColor(named: themeColor.labelGrayColor.rawValue)
-        let circleImage = makeCircleWith(size: CGSize(width: 15, height: 15),
-                                         backgroundColor: UIColor(named: themeColor.navigationSecondColor.rawValue)!)
-        musicSlider.setThumbImage(circleImage, for: .normal)
-        musicSlider.setThumbImage(circleImage, for: .highlighted)
+        musicSlider.setThumbImage(UIImage(named: "sliderThumb"), for: .normal)
+        musicSlider.setThumbImage(UIImage(named: "sliderThumb"), for: .highlighted)
         musicSlider.tintColor = UIColor(named: themeColor.navigationSecondColor.rawValue)!
         lblCurrentTime.adjustsFontSizeToFitWidth = true
         lblMusicTotalTime.adjustsFontSizeToFitWidth = true
@@ -526,6 +654,9 @@ class IGMusicPlayerTableViewController: UITableViewController {
         musicSlider.bottomAnchor.constraint(equalTo: lblCurrentTime.topAnchor, constant: -10).isActive = true
         musicSlider.leftAnchor.constraint(equalTo: lblCurrentTime.leftAnchor, constant: 0).isActive = true
         musicSlider.rightAnchor.constraint(equalTo: lblMusicTotalTime.rightAnchor, constant: 0).isActive = true
+        musicSlider.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        //        musicSlider.backgroundColor = .red
+        
         //musicCover constraints
         tmpMusicCover.translatesAutoresizingMaskIntoConstraints = false
         tmpMusicCover.bottomAnchor.constraint(equalTo: musicSlider.topAnchor, constant: -5).isActive = true
@@ -538,7 +669,7 @@ class IGMusicPlayerTableViewController: UITableViewController {
         let percent = ((self.currentTime * 100) / (IGGlobal.topBarSongTime)) / 100
         lblCurrentTime.text = String(timeM).inLocalizedLanguage() + ":" + String(timeS).inLocalizedLanguage()
         musicSlider.value = percent
-
+        
         addGestureRecognizer(slider: musicSlider,musicCover: tmpMusicCover)
         
     }
@@ -563,8 +694,8 @@ class IGMusicPlayerTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if shareMediaMessage != nil {
-            return shareMediaMessage.count
+        if sharedMediaAudioFile != nil {
+            return sharedMediaAudioFile.count
             
         } else {
             return 0
@@ -575,13 +706,103 @@ class IGMusicPlayerTableViewController: UITableViewController {
         return 60.0
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: cellID) as! MusicCell
-        let currentLastItem = shareMediaMessage[indexPath.row]
-        let tmppMusic : Music = Music(MusicName: currentLastItem.attachment!.name!, MusicArtist: "",MusicTotalTime: 200.0)
-        cell.music = tmppMusic
         
+        
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: cellID) as! MusicCell
+        cell.selectionStyle = .none
+        
+        let currentLastItem = sharedMediaAudioFile[indexPath.row]
+        //        cell.room = self.room
+        cell.setMusic(roomMessage: currentLastItem)
         return cell
+        
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: cellID) as! MusicCell
+        //        cell.initGif()
+        let currentLastItem = sharedMediaAudioFile[indexPath.row]
+        
+        let fileExist = IGGlobal.isFileExist(path: currentLastItem.attachment!.path(), fileSize: currentLastItem.attachment!.size)
+        
+        if fileExist {
+            SwiftEventBus.post(EventBusManager.stopLastButtonState)
+            IGPlayer.shared.startPlayer(roomMessage: currentLastItem,room: self.room,isfromBottomPlayer: true)
+            updateTopLabels(file: currentLastItem.attachment)
+            //            cell.musicState.isHidden = false
+        }
+        //        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+        
+        
+    }
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+    private func findFirstTimePlayingItem() {
+        if IGGlobal.currentMusic != nil {
+            
+            let btns = self.headerView.subviews.flatMap { $0 as? UIButton }
+            for btn in btns {
+                if btn.tag == IGTagManager.imgMusicCover {
+                    self.getMetadata(file: IGGlobal.currentMusic,button: btn)
+                }
+            }
+        }
+    }
+    private func updateTopLabels(file: IGFile? = nil) {
+        let labels = self.headerView.subviews.flatMap { $0 as? UILabel }
+        let btns = self.headerView.subviews.flatMap { $0 as? UIButton }
+        
+        for label in labels {
+            if label.tag == IGTagManager.lblMusicName {
+                label.text = IGGlobal.topBarSongName
+            }
+            if label.tag == IGTagManager.lblMusicArtist {
+                label.text = IGGlobal.topBarSongSinger
+            }
+        }
+        for btn in btns {
+            if btn.tag == IGTagManager.imgMusicCover {
+                self.getMetadata(file: file,button: btn)
+            }
+        }
+        
+    }
+    
+    func getMetadata(file : IGFile!,button : UIButton!) {
+        
+        let path = file!.path()
+        let asset = AVURLAsset(url: path!)
+        let playerItem = AVPlayerItem(asset: asset)
+        let metadataList = playerItem.asset.commonMetadata
+        var nowPlayingInfo = [String : Any]()
+        
+        let artworkItems = AVMetadataItem.metadataItems(from: metadataList, filteredByIdentifier: AVMetadataIdentifier.commonIdentifierArtwork)
+        
+        if let artworkItem = artworkItems.first {
+            // Coerce the value to an NSData using its dataValue property
+            if let imageData = artworkItem.dataValue {
+                DispatchQueue.global(qos: .userInteractive).async {
+                    let image = UIImage(data: imageData)
+                    DispatchQueue.main.async {
+                        button.setImage(image, for: .normal)
+                    }
+                }
+            }
+            
+            // process image
+        } else {
+            let avatarView : UIImageView = UIImageView()
+            avatarView.setThumbnail(for: file)
+            
+            
+            if let image = avatarView.image {
+                button.setImage(image, for: .normal)
+                
+            }
+        }
+    }
+    
     
     
 }

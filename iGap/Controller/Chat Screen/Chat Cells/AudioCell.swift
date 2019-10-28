@@ -24,11 +24,12 @@ class AudioCell: AbstractCell {
     @IBOutlet weak var txtMessage: ActiveLabel!
     
     var btnPlayPosition: Constraint!
-    
+    var clickedAudioCellIndexPath: IndexPath!
+
     var txtAudioName: UILabel!
     var txtAudioTime: UILabel!
     var sliderAudio: UISlider!
-    
+    var messageAudio : IGRoomMessage!
     class func nib() -> UINib {
         return UINib(nibName: "AudioCell", bundle: Bundle(for: self))
     }
@@ -41,13 +42,27 @@ class AudioCell: AbstractCell {
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
         initializeView()
         makeAudioView()
+        
         super.setMessage(message, room: room, isIncommingMessage: isIncommingMessage, shouldShowAvatar: shouldShowAvatar, messageSizes: messageSizes, isPreviousMessageFromSameSender: isPreviousMessageFromSameSender, isNextMessageFromSameSender: isNextMessageFromSameSender)
         manageAudioViewPosition()
         setAudio()
         voiceGustureRecognizers()
         checkPlayerState()
+        SwiftEventBus.onMainThread(self, name: EventBusManager.stopLastButtonState) { result in
+              self.stopButtonPlayForRow()
+              
+          }
     }
-    
+    private func stopButtonPlayForRow() {
+        let btns = self.mainBubbleViewAbs.subviews.flatMap { $0 as? UIButton }
+        for btn in btns {
+            if btn.tag == 808 {
+//                btn.setTitle("", for: UIControl.State.normal) // play icon
+//                self.reloadInputViews()
+            }
+        }
+
+    }
     private func initializeView(){
         
         /********** view **********/
@@ -75,6 +90,7 @@ class AudioCell: AbstractCell {
         
         if btnPlayAbs == nil {
             btnPlayAbs = UIButton()
+            btnPlayAbs.tag = 808
             btnPlayAbs.titleLabel?.font = UIFont.iGapFonticon(ofSize: 55)
             btnPlayAbs.setTitleColor(UIColor.iGapBlue(), for: UIControl.State.normal)
             mainBubbleViewAbs.addSubview(btnPlayAbs)
@@ -213,6 +229,8 @@ class AudioCell: AbstractCell {
     @objc func didTapOnPlay(_ gestureRecognizer: UITapGestureRecognizer) {
         IGGlobal.isVoice = false // determine the file is not voice and is music
 
+        print("ACTION ID :",self.room.title,self.room.id)
+        IGGlobal.clickedAudioCellIndexPath = clickedAudioCellIndexPath
         IGPlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderAudio, timer: txtAudioTime, roomMessage: self.finalRoomMessage,room: self.room)
     }
 }

@@ -56,7 +56,7 @@ class IGProgress: UIView {
     func setFileType(_ type: IGProgressType) {
         makeActionButton()
         if type == .download {
-            actionButton?.setTitle("", for: UIControl.State.normal)
+            actionButton?.setTitle("🎚", for: UIControl.State.normal)
         } else { // upload
             actionButton?.setTitle("", for: UIControl.State.normal)
         }
@@ -146,7 +146,7 @@ class IGProgress: UIView {
             
             /** make action button view **/
             self.actionButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-            self.actionButton?.setTitle("", for: UIControl.State.normal)
+            self.actionButton?.setTitle("🎚", for: UIControl.State.normal)
             self.actionButton?.titleLabel?.font = UIFont.iGapFonticon(ofSize: 40)
             self.actionButton?.addTarget(self, action: #selector(didTapOnView), for: .touchUpInside)
             self.addSubview(self.actionButton!)

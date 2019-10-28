@@ -36,7 +36,7 @@ class IGHelperMusicPlayer {
         case Playing = 0
         case Stoped = 1
     }
-    
+    var room : IGRoom!
     var progressBarTimer: Timer!
     private var isRunning = true
     var valueToAdd: Float! = 0.0
@@ -147,6 +147,7 @@ class IGHelperMusicPlayer {
         }
         SwiftEventBus.onMainThread(self, name: EventBusManager.updateLabelsData) { result in
             //            print(result?.object as! Bool)
+            self.room = result?.object as! IGRoom?
             self.updateLabelsData(singerName: IGGlobal.topBarSongSinger,songName: IGGlobal.topBarSongName)
         }
         return self.bgView
@@ -163,7 +164,6 @@ class IGHelperMusicPlayer {
 
             }
         }
-
     }
     func showBottomPanPlayer(view: UIViewController? = nil,songList:[MusicFile]? = nil) {//}-> UIView {
         var alertView = view
@@ -172,7 +172,7 @@ class IGHelperMusicPlayer {
         }
         let storyboard : UIStoryboard = UIStoryboard(name: "MusicPlayer", bundle: nil)
         let MP = storyboard.instantiateViewController(withIdentifier: "IGMusicPlayerTableViewController") as! IGMusicPlayerTableViewController
-        
+        MP.room = self.room
         alertView!.presentPanModal(MP)
 //        return UIView()
     }
