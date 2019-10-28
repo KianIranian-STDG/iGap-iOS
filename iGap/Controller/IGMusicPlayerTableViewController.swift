@@ -409,10 +409,10 @@ class IGMusicPlayerTableViewController: UITableViewController {
         btnOrder.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         //color
         btnPlay.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-        //        btnNext.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-        //        btnPrevius.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-        btnNext.setTitleColor(UIColor.lightGray, for: .normal)
-        btnPrevius.setTitleColor(UIColor.lightGray, for: .normal)
+        btnNext.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        btnPrevius.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        //btnNext.setTitleColor(UIColor.lightGray, for: .normal)
+        //btnPrevius.setTitleColor(UIColor.lightGray, for: .normal)
         btnOrder.setTitleColor(UIColor.lightGray, for: .normal)
         btnShuffle.setTitleColor(UIColor.lightGray, for: .normal)
         
@@ -422,8 +422,8 @@ class IGMusicPlayerTableViewController: UITableViewController {
         btnPlay.setTitle("🎗", for: .normal)
         btnNext.setTitle("🎘", for: .normal)
         btnPrevius.setTitle("🎕", for: .normal)
-        btnShuffle.setTitle("🎜", for: .normal)
-        btnOrder.setTitle("🎛", for: .normal)
+//        btnShuffle.setTitle("🎜", for: .normal)
+//        btnOrder.setTitle("🎛", for: .normal)
         //*****ADD TO STACK*******//
         buttonStack.addArrangedSubview(btnOrder)
         buttonStack.addArrangedSubview(btnPrevius)
@@ -491,7 +491,18 @@ class IGMusicPlayerTableViewController: UITableViewController {
         
     }
     @objc func buttonPreviusAction(_ sender:UIButton!) {
+        currentPlatingIndexPath.row -= 1
+        print("CHECK POINT BENJI3",currentPlatingIndexPath)
+        let currentPlayingItem = sharedMediaAudioFile[currentPlatingIndexPath.row]
+        let fileExist = IGGlobal.isFileExist(path: currentPlayingItem.attachment!.path(), fileSize: currentPlayingItem.attachment!.size)
         
+        if fileExist {
+            SwiftEventBus.post(EventBusManager.stopLastButtonState)
+            IGPlayer.shared.startPlayer(roomMessage: currentPlayingItem,room: self.room,isfromBottomPlayer: true)
+            updateTopLabels(file: currentPlayingItem.attachment)
+            //            cell.musicState.isHidden = false
+        }
+
     }
     
     
