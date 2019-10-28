@@ -133,9 +133,8 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case is IGPChannelUpdateUsernameResponse :
-                        //self.performSegue(withIdentifier: "GoToChooseMemberFromContactPage", sender: self)
-                        let profile = IGChooseMemberFromContactToCreateChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                        profile.igpRoom = self.igpRoom
+                        let profile = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                        profile.room = IGRoom(igpRoom: self.igpRoom!)
                         profile.mode = "CreateChannel"
                         profile.hidesBottomBarWhenPushed = true
                         self.navigationController!.pushViewController(profile, animated: true)
@@ -314,8 +313,8 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
         return headerHieght
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! IGChooseMemberFromContactToCreateChannelViewController
-        destinationVC.igpRoom = igpRoom
+        let destinationVC = segue.destination as! IGChooseMemberFromContactsToCreateGroupViewController
+        destinationVC.room = IGRoom(igpRoom: self.igpRoom!)
         destinationVC.mode = "CreateChannel"
     }
 
