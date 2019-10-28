@@ -210,7 +210,7 @@ class IGPlayer {
             if roomMessage?.authorUser != nil {
                 singerName = roomMessage?.authorUser?.user?.displayName
                 IGGlobal.topBarSongSinger = singerName
-                nowPlayingInfo[MPMediaItemPropertyTitle] = "VOICE_MESSAGE".MessageViewlocalizedNew + " " + singerName
+                nowPlayingInfo[MPMediaItemPropertyTitle] = "VOICES_MESSAGE".MessageViewlocalizedNew + " " + singerName
 
             }
             
