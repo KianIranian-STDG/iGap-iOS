@@ -320,29 +320,30 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     
     /* if user is login show collectionView, otherwise show btnRefresh */
     private func manageShowDiscovery() {
-        if IGAppManager.sharedManager.isUserLoggiedIn() || pageId == 0 {
-            DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            if IGAppManager.sharedManager.isUserLoggiedIn() || self.pageId == 0 {
+                
                 self.collectionView!.isHidden = false
-            }
-            self.btnRefresh!.isHidden = true
-            if IGGlobal.shouldShowChart {
-                if pollList.count == 0 {
-                    self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
-                } else {
-                    self.collectionView!.restore()
+                self.btnRefresh!.isHidden = true
+                if IGGlobal.shouldShowChart {
+                    if self.pollList.count == 0 {
+                        self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
+                    } else {
+                        self.collectionView!.restore()
+                    }
                 }
-            }
-            else {
-                if discoveries.count == 0 {
-                    self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
-                } else {
-                    self.collectionView!.restore()
+                else {
+                    if self.discoveries.count == 0 {
+                        self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
+                    } else {
+                        self.collectionView!.restore()
+                    }
                 }
+                
+            } else {
+                self.collectionView!.isHidden = true
+                self.btnRefresh!.isHidden = false
             }
-            
-        } else {
-            self.collectionView!.isHidden = true
-            self.btnRefresh!.isHidden = false
         }
     }
     
