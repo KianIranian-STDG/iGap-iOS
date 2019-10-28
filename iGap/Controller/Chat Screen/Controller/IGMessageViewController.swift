@@ -404,7 +404,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     ///Handle single tap on Long tap on record Button to show an alert(pop alert) above message text view and inform the user to long press on record button in order to record a voice
     @IBAction func didTapOnMicButton(_ sender: UIButton) {
-        print("BUTTON MIC STATE :","Single Tap On MIC BUTTON")
         sender.backgroundColor = UIColor(named: themeColor.labelColor.rawValue)
         sender.titleLabel!.textColor = UIColor.red
 
@@ -453,7 +452,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             } else {
                 newConstant = 74
             }
-            print(newConstant)
             
             if newConstant > 0{
                 UIView.animate(withDuration: 0.1, animations: {
@@ -2441,12 +2439,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             } else if let collectionCell = self.collectionView.cellForItem(at: IndexPath(row: numberOfItems - IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT, section: 0)) as? IGMessageGeneralCollectionViewCell {
                 finalMessage = collectionCell.cellMessage
             }
-            
-            if finalMessage.isInvalidated {
-                return
-            }
-            
-            if finalMessage != nil && finalMessage.id == firstVisibleItem.id {
+            if finalMessage != nil && (finalMessage.isInvalidated || finalMessage.id == firstVisibleItem.id) {
                 saveState = false
             }
             if saveState {
@@ -3080,7 +3073,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     
     @IBAction func didTapOnPickSticker(_ sender: UIButton) {
-        print("clicked")
         if self.isStickerKeyboard {
             self.isStickerKeyboard = false
         } else {
@@ -4471,7 +4463,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             let difX = (initialLongTapOnRecordButtonPosition?.x)! - point.x
             
             var newConstant:CGFloat = 0.0
-            print(newConstant)
             if difX > 10 {
                 newConstant = 74 - difX
             } else {
@@ -5490,7 +5481,6 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         }
         
         //100 is an arbitrary number. can be anything
-        print(scrollView.contentOffset.y)
         if scrollView.contentOffset.y > 100 {
             self.scrollToBottomContainerView.isHidden = false
         } else {
