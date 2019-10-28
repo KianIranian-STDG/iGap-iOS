@@ -4366,6 +4366,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if self.selectedMessageToEdit != nil {
             self.selectedMessageToEdit = nil
             self.messageTextView.text = ""
+            self.messageTextViewHeightConstraint.constant = 50
+            self.view.layoutIfNeeded()
+
         }
         self.setInputBarHeight()
         self.setSendAndRecordButtonStates()
@@ -4709,7 +4712,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.view.layoutIfNeeded()
         self.messageTextView.isScrollEnabled = false
         self.messageTextView.isScrollEnabled = true
-        lblPlaceHolder.isHidden = true
         
         
         
@@ -4719,6 +4721,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         initChangeLanguegeNewChatView()
         self.messageTextView.becomeFirstResponder()
+        self.lblPlaceHolder.isHidden = true
+
         self.lblReplyName.text = "EDITE_MESSAGE".MessageViewlocalizedNew
         self.lblReplyBody.text = message.message
         self.setInputBarHeight()
@@ -5697,14 +5701,18 @@ extension IGMessageViewController: GrowingTextViewDelegate {
             //                    inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
             //                    inputBarHeight += 36.0
             holderReplyBar.isHidden = false
+            lblPlaceHolder.isHidden = true
         } else if selectedMessageToReply != nil {
             //                    inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
             //                    inputBarHeight += 36.0
             holderReplyBar.isHidden = false
+            lblPlaceHolder.isHidden = true
+
         } else if IGMessageViewController.selectedMessageToForwardToThisRoom != nil {
             //                    inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
             //                    inputBarHeight += 36.0
             holderReplyBar.isHidden = false
+            
             
             //                } else if isCardToCardRequestEnable {
             //                    inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
