@@ -15,7 +15,6 @@
 		8E06F0592344A6CF00CE0536 /* IGProfileUsercellTypeRed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E06F0582344A6CF00CE0536 /* IGProfileUsercellTypeRed.swift */; };
 		8E098A7B2348B0B1008A40A9 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E098A7A2348B0B1008A40A9 /* Search.storyboard */; };
 		8E098A7D2348BDCD008A40A9 /* IGSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E098A7C2348BDCD008A40A9 /* IGSearchTableViewController.swift */; };
-		8E098A7F234998C3008A40A9 /* customeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E098A7E234998C2008A40A9 /* customeViewController.swift */; };
 		8E0BAEC022EC047200479682 /* IGRoomListtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BAEBF22EC047200479682 /* IGRoomListtCell.swift */; };
 		8E0BAEC222EC11C500479682 /* roomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BAEC122EC11C500479682 /* roomItem.swift */; };
 		8E1865392323A10400D8BCA9 /* ChannelAndSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E1865382323A10400D8BCA9 /* ChannelAndSettings.storyboard */; };
@@ -822,7 +821,6 @@
 		8E06F0582344A6CF00CE0536 /* IGProfileUsercellTypeRed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileUsercellTypeRed.swift; sourceTree = "<group>"; };
 		8E098A7A2348B0B1008A40A9 /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		8E098A7C2348BDCD008A40A9 /* IGSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSearchTableViewController.swift; sourceTree = "<group>"; };
-		8E098A7E234998C2008A40A9 /* customeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customeViewController.swift; sourceTree = "<group>"; };
 		8E0BAEBF22EC047200479682 /* IGRoomListtCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRoomListtCell.swift; sourceTree = "<group>"; };
 		8E0BAEC122EC11C500479682 /* roomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = roomItem.swift; sourceTree = "<group>"; };
 		8E1865382323A10400D8BCA9 /* ChannelAndSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChannelAndSettings.storyboard; sourceTree = "<group>"; };
@@ -2361,6 +2359,7 @@
 		FA2EBB921E2F44BD00BD8E9F /* Gif */ = {
 			isa = PBXGroup;
 			children = (
+				8EE552D52364B2C6003A21FE /* musicBarGif.gif */,
 				FAB0F9451FE956D1008F23EB /* Splash.gif */,
 			);
 			path = Gif;
@@ -2613,6 +2612,7 @@
 		FA6C2DE222670AFE005654AC /* Language */ = {
 			isa = PBXGroup;
 			children = (
+				8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */,
 				8E8D8E18225CE39A00039191 /* strings.json */,
 				8EACC7B322621ACA00F32DC3 /* localizations.json */,
 				8EBF550E22DB581300834E6A /* localizationsFa.json */,
@@ -3198,8 +3198,6 @@
 		FAF795EC1DAA330C0030509B /* iGap */ = {
 			isa = PBXGroup;
 			children = (
-				8EE552D52364B2C6003A21FE /* musicBarGif.gif */,
-				8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */,
 				8EC217B82259DCFA00105B5A /* Entity */,
 				FA8FCBAD219C02C80028457F /* Api */,
 				FAD5807E1DDC402600A242DE /* Libraries */,
@@ -3207,8 +3205,8 @@
 				FAF7960C1DAA39660030509B /* Model */,
 				FAF795FF1DAA392F0030509B /* VIew */,
 				FAF7960B1DAA39660030509B /* Controller */,
+				FA2EBB911E2F44BD00BD8E9F /* Assets */,
 				FAF796081DAA39460030509B /* SupportingFiles */,
-				8E098A7E234998C2008A40A9 /* customeViewController.swift */,
 				8ECFB53D234A471E001233E9 /* phoneBookCellTypeTwo.swift */,
 			);
 			path = iGap;
@@ -3217,7 +3215,6 @@
 		FAF795FF1DAA392F0030509B /* VIew */ = {
 			isa = PBXGroup;
 			children = (
-				FA2EBB911E2F44BD00BD8E9F /* Assets */,
 				FA96AF141DDB1E72005AC571 /* ReusableViews */,
 				FAF796001DAA392F0030509B /* Assets.xcassets */,
 				FAF796011DAA392F0030509B /* LaunchScreen.storyboard */,
@@ -3961,7 +3958,6 @@
 				945B127223251E9200DBF2DA /* IGPaymentView.swift in Sources */,
 				FAB2C2DF1DF7F6E8001F30B5 /* IGSessionInfo.swift in Sources */,
 				931585151E6D567000F4C04B /* IGUserPrivacy.swift in Sources */,
-				8E098A7F234998C3008A40A9 /* customeViewController.swift in Sources */,
 				FAA9DFB41F4B1C200076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationOptionsTableViewController.swift in Sources */,
 				8EBF550522D9B65000834E6A /* DynamicTextLayer.swift in Sources */,
 				FAE6064621EB4B7200F03FFC /* IGHelperOpenLink.swift in Sources */,
@@ -4543,7 +4539,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 505;
+				CURRENT_PROJECT_VERSION = 506;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = MBL7BDXS99;
 				ENABLE_BITCODE = NO;
@@ -4589,7 +4585,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 505;
+				CURRENT_PROJECT_VERSION = 506;
 				DEVELOPMENT_TEAM = MBL7BDXS99;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
