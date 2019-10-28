@@ -511,7 +511,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         if let channelRoom = room {
             
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "REMOVE_ADMIN".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_ADMIN".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "REMOVE_ADMIN".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_ADMIN".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
                 IGGlobal.prgShow(self.view)
                 IGChannelKickAdminRequest.Generator.generate(roomId: channelRoom.id , memberId: userId).success({ (protoResponse) in
                     IGGlobal.prgHide()
@@ -548,7 +548,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         if let channelRoom = room {
             
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "REMOVE_MODERATOR".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_MODERATOR".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "REMOVE_MODERATOR".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_MODERATOR".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
                 
                     IGGlobal.prgShow(self.view)
                     IGChannelKickModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: userId).success({ (protoResponse) in
@@ -575,7 +575,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     func kickMemberChannel(userId: Int64) {
         if let _ = room {
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "KICK_MEMBER".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_KICK_USER".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "KICK_MEMBER".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_KICK_USER".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
                 IGGlobal.prgShow(self.view)
                 IGChannelKickMemberRequest.Generator.generate(roomID: (self.room?.id)!, memberID: userId).success({ (protoResponse) in
                     IGGlobal.prgHide()
@@ -706,7 +706,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     func kickMember(userId: Int64) {
         if room != nil {
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "KICK_MEMBER".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_KICK_USER".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "KICK_MEMBER".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_KICK_USER".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
                 IGGlobal.prgShow(self.view)
                 IGGroupKickMemberRequest.Generator.generate(memberId: userId, roomId: (self.room?.id)!).success({ (protoResponse) in
                     IGGlobal.prgHide()

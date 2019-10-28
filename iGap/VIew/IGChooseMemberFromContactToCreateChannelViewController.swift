@@ -209,7 +209,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController
             self.navigationController?.popToRootViewController(animated: true)
 //            self.navigationController?.navigationBar.isHidden = true
         }
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoomAtProfile),object: nil,userInfo: ["room": self.igpRoom.igpID])
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": self.igpRoom.igpID])
     }
     
     func requestToAddAdminInChannel() {

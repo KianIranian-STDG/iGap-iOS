@@ -44,21 +44,14 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         changeImageBtn.layer.cornerRadius = changeImageBtn.frame.height / 2
         changeImageBtn.clipsToBounds = true
         
-//        changeImageBtn.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//        changeImageBtn.layer.borderWidth = 0.3
-        
         self.tableView.semanticContentAttribute = self.semantic
         self.view.semanticContentAttribute = self.semantic
         self.tableView.tableHeaderView?.semanticContentAttribute = self.semantic
         
         descriptionTextField.textAlignment = self.TextAlignment
         channelnameTextField.textAlignment = self.TextAlignment
-        
-//        navigationItem.addModalViewItems(leftItemText: "CANCEL_BTN".localizedNew, rightItemText: "NEXT_BTN".localizedNew, title: "NEW_CHANNEL".localizedNew)
-//        navigationItem.leftViewContainer?.addAction {
-//            self.navigationController?.popToRootViewController(animated: true)
-//        }
     }
+    
     private func initNavigationBar() {
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localizedNew, title: "NEW_CHANNEL".localizedNew)
@@ -70,7 +63,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
                 alert.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: UIAlertAction.Style.default, handler: nil))
                 alert.view.tintColor = UIColor.organizationalColor()
                 self.present(alert, animated: true, completion: nil)
-            }else{
+            } else {
                 self.createChannel()
             }
         }
@@ -81,9 +74,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let navigationControllerr = self.navigationController as! IGNavigationController
-        
         navigationControllerr.navigationBar.isHidden = false
-//        navigationItem.searchController = nil
 
         descriptionTextField.placeholder = "PRODUCTS_DETAILS".localizedNew
         channelnameTextField.placeholder = "CHANNEL_NAME".localizedNew
@@ -227,8 +218,6 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
                     }
 
                 }).send()
-                
-                
             }
         }
     }
@@ -255,7 +244,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         let containerView = view as! UITableViewHeaderFooterView
         if section == 0 {
-                containerView.textLabel!.text = "MSG_CHANNEL_DESC".localizedNew
+            containerView.textLabel!.text = "MSG_CHANNEL_DESC".localizedNew
         }
         containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
         containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!

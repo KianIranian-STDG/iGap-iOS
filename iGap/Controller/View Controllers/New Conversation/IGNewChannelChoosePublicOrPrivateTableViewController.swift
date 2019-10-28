@@ -98,9 +98,8 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
             if self.radioButtonController?.selectedButton() == self.publicChannelButton {
                 self.convertChannelToPublic()
             } else {
-                //self.performSegue(withIdentifier: "GoToChooseMemberFromContactPage", sender: self)
-                let profile = IGChooseMemberFromContactToCreateChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                profile.igpRoom = self.igpRoom
+                let profile = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                profile.room = IGRoom(igpRoom: self.igpRoom!)
                 profile.mode = "CreateChannel"
                 profile.hidesBottomBarWhenPushed = true
                 self.navigationController!.pushViewController(profile, animated: true)

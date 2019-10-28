@@ -36,10 +36,8 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
     
     class Section  {
         var users = [User]()
-        func addUser(_ user:User){
-            
+        func addUser(_ user:User) {
             self.users.append(user)
-            
         }
     }
     
@@ -57,7 +55,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
     var contacts = try! Realm().objects(IGRegisteredUser.self).filter("isInContacts == 1")
     var contactSections: [Section]?
     let collation = UILocalizedIndexedCollation.current()
-    var addAdminOrModeratorCount: Int = 0
+    var doneActionsCount: Int = 0
     private var existErrorUserIds : [Int64] = []
     
     var sections: [Section] {
@@ -78,9 +76,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
         for user in users {
             if !(user.registredUser.id == baseUser?.id) {
                 sections[user.section!].addUser(user)
-
             }
-          
         }
         
         for section in sections {
@@ -97,6 +93,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.roomID = self.room?.id
         contactsTableView.delegate = self
         contactsTableView.dataSource = self
         collectionView.dataSource = self
@@ -133,6 +130,10 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
         
         if mode == "CreateGroup" {
             navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "NEW_GROUP".localizedNew, iGapFont: true)
+        }
+        
+        if mode == "CreateChannel" {
+            navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "NEW_CHANNEL".localizedNew, iGapFont: true)
         }
         
         if mode == "Members" {
@@ -182,19 +183,23 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
                 }
                 
             } else {
-                let createGroup = IGCreateNewGroupTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                let selectedUsersToCreateGroup = self.selectedUsers.map({ (user) -> IGRegisteredUser in
-                    return user.registredUser
-                })
-                var tmp = selectedUsersToCreateGroup
-                if !(self.baseUser == nil) {
-                    tmp.append(self.baseUser!)
+                if self.mode == "CreateGroup" {
+                    let createGroup = IGCreateNewGroupTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
+                    let selectedUsersToCreateGroup = self.selectedUsers.map({ (user) -> IGRegisteredUser in
+                        return user.registredUser
+                    })
+                    var tmp = selectedUsersToCreateGroup
+                    if !(self.baseUser == nil) {
+                        tmp.append(self.baseUser!)
+                    }
+                    createGroup.selectedUsersToCreateGroup = tmp
+                    createGroup.mode = self.mode
+                    createGroup.roomId = self.roomID
+                    createGroup.hidesBottomBarWhenPushed = true
+                    self.navigationController!.pushViewController(createGroup, animated: true)
+                } else if self.mode == "CreateChannel" {
+                    self.requestToAddmemberToChannel()
                 }
-                createGroup.selectedUsersToCreateGroup = tmp
-                createGroup.mode = self.mode
-                createGroup.roomId = self.roomID
-                createGroup.hidesBottomBarWhenPushed = true
-                self.navigationController!.pushViewController(createGroup, animated: true)
             }
         }
     }
@@ -450,39 +455,44 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
     
     private func manageClosePage(){
         DispatchQueue.main.async {
-            self.addAdminOrModeratorCount += 1
-            if self.selectedUsers.count == self.addAdminOrModeratorCount {
-                if self.existErrorUserIds.count == 0 {
-                    if self.navigationController is IGNavigationController {
-                        self.navigationController?.popViewController(animated: true)
-                    }
+            self.doneActionsCount += 1
+            if self.selectedUsers.count == self.doneActionsCount {
+                if self.mode == "CreateChannel" {
+                    self.navigationController?.popToRootViewController(animated: true)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom), object: nil, userInfo: ["room": self.roomID!])
                 } else {
-                    var names = ""
-                    for userId in self.existErrorUserIds {
-                        if let userInfo = IGRegisteredUser.getUserInfo(id: userId) {
-                            if names.isEmpty {
-                                names = userInfo.displayName
-                            } else {
-                                names = names + " , " + userInfo.displayName
-                            }
-                        }
-                    }
-                    
-                    var message: String!
-                    if self.existErrorUserIds.count == 1 {
-                        message = names + "\n" + "EXIST_MEMBER".localizedNew
-                    } else {
-                        message = names + "\n" + "EXIST_MEMBERS".localizedNew
-                    }
-                    
-                    let alertC = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-                    let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { action in
+                    if self.existErrorUserIds.count == 0 {
                         if self.navigationController is IGNavigationController {
                             self.navigationController?.popViewController(animated: true)
                         }
-                    })
-                    alertC.addAction(ok)
-                    self.present(alertC, animated: true, completion: nil)
+                    } else {
+                        var names = ""
+                        for userId in self.existErrorUserIds {
+                            if let userInfo = IGRegisteredUser.getUserInfo(id: userId) {
+                                if names.isEmpty {
+                                    names = userInfo.displayName
+                                } else {
+                                    names = names + " , " + userInfo.displayName
+                                }
+                            }
+                        }
+                        
+                        var message: String!
+                        if self.existErrorUserIds.count == 1 {
+                            message = names + "\n" + "EXIST_MEMBER".localizedNew
+                        } else {
+                            message = names + "\n" + "EXIST_MEMBERS".localizedNew
+                        }
+                        
+                        let alertC = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                        let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { action in
+                            if self.navigationController is IGNavigationController {
+                                self.navigationController?.popViewController(animated: true)
+                            }
+                        })
+                        alertC.addAction(ok)
+                        self.present(alertC, animated: true, completion: nil)
+                    }
                 }
             }
         }
@@ -495,35 +505,13 @@ extension IGChooseMemberFromContactsToCreateGroupViewController : UITableViewDel
             let currentCell = tableView.cellForRow(at: indexPath) as! IGChooseContactToAddNewGroupTableViewCell?
             contactTableSelectedIndexPath = indexPath
             selectUser = currentCell?.user
-            if self.mode == "Admin" {
-                selectedUsers.append((currentCell?.user)!)
-            }
-            if self.mode == "Moderator" {
-                selectedUsers.append((currentCell?.user)!)
-            }
-            if self.mode == "Members" {
-                selectedUsers.append((currentCell?.user)!)
-            }
-            if self.mode == "CreateGroup" {
-                selectedUsers.append((currentCell?.user)!)
-                selectedIndexPath = indexPath
-                self.contactViewBottomConstraizt.constant = 0
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.selectedContactsView.alpha = 1
-                    self.view.layoutIfNeeded()
-                })
-                
-            }
-            if self.mode == "ConvertChatToGroup" {
-                selectedUsers.append((currentCell?.user)!)
-                selectedIndexPath = indexPath
-                self.contactViewBottomConstraizt.constant = 0
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.selectedContactsView.alpha = 1
-                    self.view.layoutIfNeeded()
-                })
-                
-            }
+            selectedUsers.append((currentCell?.user)!)
+            selectedIndexPath = indexPath
+            self.contactViewBottomConstraizt.constant = 0
+            UIView.animate(withDuration: 0.2, animations: {
+                self.selectedContactsView.alpha = 1
+                self.view.layoutIfNeeded()
+            })
             collectionView.performBatchUpdates({
                 let a = IndexPath(row: self.selectedUsers.count - 1, section: 0)
                 self.collectionView.insertItems(at: [a])
