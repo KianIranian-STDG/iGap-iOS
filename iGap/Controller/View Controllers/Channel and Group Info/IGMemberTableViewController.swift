@@ -305,9 +305,11 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 }
             }).error ({ (errorCode, waitTime) in
                 IGGlobal.prgHide()
-                if errorCode == .timeout {
-                    self.allowFetchMore = true
-                    self.fetchMemberFromServer()
+                DispatchQueue.main.async {
+                    if errorCode == .timeout {
+                        self.allowFetchMore = true
+                        self.fetchMemberFromServer()
+                    }
                 }
             }).send()
         } else if self.roomType == .channel {
@@ -327,9 +329,11 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 }
             }).error ({ (errorCode, waitTime) in
                 IGGlobal.prgHide()
-                if errorCode == .timeout {
-                    self.allowFetchMore = true
-                    self.fetchMemberFromServer()
+                DispatchQueue.main.async {
+                    if errorCode == .timeout {
+                        self.allowFetchMore = true
+                        self.fetchMemberFromServer()
+                    }
                 }
             }).send()
         }
