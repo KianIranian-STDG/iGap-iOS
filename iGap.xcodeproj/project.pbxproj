@@ -1708,6 +1708,7 @@
 		8E1CD974232D063D008D8758 /* PhoneBook */ = {
 			isa = PBXGroup;
 			children = (
+				8ECFB53D234A471E001233E9 /* phoneBookCellTypeTwo.swift */,
 				8E1CD975232D0665008D8758 /* IGUserContactsTableViewController.swift */,
 				8E1CD977232D06B0008D8758 /* IGUserContactsTableViewCell.swift */,
 			);
@@ -3207,7 +3208,6 @@
 				FAF7960B1DAA39660030509B /* Controller */,
 				FA2EBB911E2F44BD00BD8E9F /* Assets */,
 				FAF796081DAA39460030509B /* SupportingFiles */,
-				8ECFB53D234A471E001233E9 /* phoneBookCellTypeTwo.swift */,
 			);
 			path = iGap;
 			sourceTree = "<group>";
