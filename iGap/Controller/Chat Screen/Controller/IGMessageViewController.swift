@@ -3000,6 +3000,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     //MARK: IBActions
     @IBAction func didTapOnSendButton(_ sender: UIButton) {
+        
+        textViewOldState = .EMPTY
+        
         if IGGlobal.isFromSearchPage {
             IGGlobal.hasTexted = true
         }
