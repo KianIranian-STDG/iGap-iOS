@@ -6099,23 +6099,19 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 IGGlobal.prgShow()
                 IGHelperMessage.shared.getMessage(roomId: self.room!.id, messageId: messageId) { (roomMessage) in
                     IGGlobal.prgHide()
-                    
-                    let messageId = roomMessage?.id
                     DispatchQueue.main.async {
-                        if messageId != nil {
-                            self.loadMessageAfterFetch(messageId: messageId!)
-                        } else {
-                            self.startLoadMessage()
-                        }
+                        self.loadMessageAfterFetch(messageId: roomMessage?.id)
                     }
                 }
             }
         }
     }
     
-    private func loadMessageAfterFetch(messageId: Int64){
+    private func loadMessageAfterFetch(messageId: Int64?){
         self.clearCollectionView()
-        self.messageLoader.setSavedScrollMessageId(savedScrollMessageId: messageId)
+        if messageId != nil {
+            self.messageLoader.setSavedScrollMessageId(savedScrollMessageId: messageId!)
+        }
         self.startLoadMessage()
     }
     
