@@ -116,558 +116,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     // MARK: - Variables
     var alreadyInSendMode : Bool = false
     var musicFile : MusicFile!
+    private var textViewOldState: TextViewOldState = .EMPTY
+    private var beforeMessageLineCount: CGFloat = -1
 
-    // MARK: - view initialisers
-    ///Delegates
-    private func initDelegatesNewChatView() {
-        messageTextView.delegate = self
-    }
-    ///view initialisers
-    private func initViewNewChatView() {
-        addLongPressGestureToMicButton()///handle long press on mic button
-        
-        ///rounding corner of mic and send button
-        self.btnSend.roundCorners(corners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMinXMinYCorner], radius: 20.0)
-        self.btnMic.roundCorners(corners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMinXMinYCorner], radius: 20.0)
-        self.btnMicInner.roundCorners(corners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMinXMinYCorner], radius: 30.0)
-        creatRedDotBlinkingView()
-        initColorSetNewChatView()
-        self.btnMic.isHidden = false
-        self.btnMoney.isHidden = false
-        self.btnAttachment.isHidden = false
-        
-        self.btnSend.isHidden = true
-        self.btnShare.isHidden = true
-        self.btnTrash.isHidden = true
-        self.btnForward.isHidden = true
-        
-        
-        
-        
-        ///topbar on message view initialisers
-        self.imgAttachmentImage.layer.cornerRadius = 6.0
-        self.imgAttachmentImage.layer.masksToBounds = true
-        
-        
-        
-        
-    }
-    ///create red dot blinking for recording
-    private func creatRedDotBlinkingView() {
-        inputBarRecodingBlinkingView.layer.cornerRadius = 8.0
-        inputBarRecodingBlinkingView.layer.masksToBounds = false
-    }
-    private func setupMessageTextHeightChnage() {
-        lblPlaceHolder.isHidden = false
-        showHideStickerButton(shouldShow: true)
-        ///hides send button and show Mic and Money button if textview is empty
-        handleShowHideMicButton(shouldShow: true)
-        handleShowHideShareButton(shouldShow: false)
-        handleShowHideSendButton(shouldShow: false)
-        handleShowHideMoneyButton(shouldShow: true)
-        self.messageTextViewHeightConstraint.constant = 50
-    }
-    
-    private func initColorSetNewChatView() {
-        self.holderMessageTextView.backgroundColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
-        self.btnAttachmentNew.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-        self.btnSend.setTitleColor(UIColor(named: themeColor.backgroundColor.rawValue), for: .normal)
-        self.btnSend.backgroundColor = UIColor(named: themeColor.labelColor.rawValue)
-        self.btnMoney.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-        self.btnTrash.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-        self.btnAttachmentNew.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-        self.btnShare.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-        self.btnMic.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-        self.btnSticker.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
-        self.lblPlaceHolder.textColor = UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue)
-        
-    }
-    ///setting fonts in here
-    private func initFontsNewChatView() {
-        lblCenterText.font = UIFont.igFont(ofSize: 10,weight: .light)
-        lblCenterIcon.font = UIFont.iGapFonticon(ofSize: 15)
-        messageTextView.font = UIFont.igFont(ofSize: 15)
-        lblPlaceHolder.font = UIFont.igFont(ofSize: 13,weight: .light)
-        btnMicInner.titleLabel!.font = UIFont.iGapFonticon(ofSize: 30)
-        
-    }
-    ///setting alignments based on language of app
-    private func initAlignmentsNewChatView() {
-        lblPlaceHolder.textAlignment = lblPlaceHolder.localizedNewDirection
-        //        messageTextView.textAlignment = messageTextView.localizedNewDirection
-    }
-    ///setting Strings based on language of App
-    private func initChangeLanguegeNewChatView() {
-        lblPlaceHolder.isHidden = false
-        lblPlaceHolder.text = "MESSAGE".MessageViewlocalizedNew
-        lblCenterText.text = "SLIDE_TO_CANCEL".MessageViewlocalizedNew
-        lblCenterIcon.text = ""
-        self.btnCloseTopBar.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
-        self.btnCloseTopBar.setTitle("", for: .normal)
-        
-        self.btnCloseReplyBar.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
-        self.btnCloseReplyBar.setTitle("", for: .normal)
-        
-    }
-    ///Notifications initialisers
-    private func initNotificationsNewChatView() {
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(IGMessageViewController.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(IGMessageViewController.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @IBAction func didTapOnCloseTopBar(_ sender: UIButton) {
-        self.holderAttachmentBar.isHidden = true
-        ///Handle Show hide of send button with animation and prevent animation to be played if already the button is visible
-        
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        
-        let userInfo = notification.userInfo!
-        let keyboardSize = (notification.userInfo?  [UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-        let keyboardHeight = keyboardSize?.height
-        let window = UIApplication.shared.keyWindow!
-        
-        if #available(iOS 11.0, *){
-            self.messageTextViewBottomConstraint.constant = keyboardHeight!
-        }
-        else {
-            self.messageTextViewBottomConstraint.constant = view.safeAreaInsets.bottom
-        }
-        UIView.animate(withDuration: 0.5){
-            
-            self.view.layoutIfNeeded()
-            
-        }
-        
-        if MoneyInputModalIsActive {
-            if let MoneyInput = MoneyInputModal {
-                window.addSubview(MoneyInput)
-                UIView.animate(withDuration: 0.3) {
-                    
-                    var frame = MoneyInput.frame
-                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
-                    MoneyInput.frame = frame
-                    
-                }
-            }
-        }
-        else if CardToCardModalIsActive {
-            if let CardInput = CardToCardModal {
-                window.addSubview(CardInput)
-                UIView.animate(withDuration: 0.3) {
-                    
-                    var frame = CardInput.frame
-                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
-                    CardInput.frame = frame
-                    
-                }
-            }
-        }
-        else if MultiShareModalIsActive {
-            if let MultiShare = forwardModal {
-                window.addSubview(MultiShare)
-                UIView.animate(withDuration: 0.3) {
-                    
-                    var frame = MultiShare.frame
-                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height  + (200))
-                    MultiShare.frame = frame
-                    MultiShare.frame.size.height =  MultiShare.frame.size.height - (200)
-                    
-                }
-            }
-        }
-        else {
-            if MoneyInputModal != nil {
-                self.hideMoneyInputModal()
-            }
-            
-            if CardToCardModal != nil {
-                self.hideCardToCardModal()
-            }
-            
-            if forwardModal != nil {
-                self.hideMultiShareModal()
-            }
-        }
-        self.view.layoutIfNeeded()
-    }
-    private func showHideStickerButton(shouldShow : Bool!) {
-        if shouldShow {
-            
-            UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
-                if !self.isBotRoom() {
-                    self.btnSticker.isHidden = false
-                    self.btnStickerWidthConstraint.constant = 25.0
-                }
-
-            }, completion: {
-                (value: Bool) in
-                self.view.layoutIfNeeded()
-            })
-            
-        } else {
-            
-            UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
-                self.btnSticker.isHidden = true
-                self.btnStickerWidthConstraint.constant = 0.0
-                
-            }, completion: {
-                (value: Bool) in
-                self.view.layoutIfNeeded()
-            })
-        }
-    }
-    ///Handle Show hide of trash button
-    func handleShowHideTrashButton(shouldShow : Bool!) {
-        if shouldShow {
-            if !isBotRoom() {
-                btnTrash.isHidden = false
-            }
-        } else {
-            btnTrash.isHidden = true
-            
-        }
-    }
-    ///Handle Show hide of forward button
-    func handleShowHideForwardButton(shouldShow : Bool!) {
-        if shouldShow {
-            if !isBotRoom() {
-                btnForward.isHidden = false
-            }
-        } else {
-            btnForward.isHidden = true
-        }
-    }
-    ///Handle Show hide of attachment button
-    func handleShowHideAttachmentButton(shouldShow : Bool!) {
-        if shouldShow {
-
-            btnAttachment.isHidden = false
-        } else {
-            btnAttachment.isHidden = true
-        }
-    }
-    ///Handle Show hide of Send button
-    func handleShowHideSendButton(shouldShow : Bool!) {
-        
-        if shouldShow {
-            btnSend.isHidden = false
-            
-            if !alreadyInSendMode {
-                ///Handle Show hide of send button with animation
-                btnSend.isHidden = false
-                btnSend.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-                UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
-                    self.btnSend.transform = CGAffineTransform.identity
-                    self.btnSend.layoutIfNeeded()
-                }, completion: nil)
-                ///Handle Show hide of send button with animation and prevent animation to be played if already the button is visible
-                if !alreadyInSendMode {
-                    self.alreadyInSendMode = true
-                }
-            }
-        } else {
-            btnSend.isHidden = true
-        }
-    }
-    ///Handle Show hide of Money button
-    func handleShowHideMoneyButton(shouldShow : Bool!) {
-        if shouldShow {
-            if !isBotRoom() {
-                btnMoney.isHidden = false
-            }
-        } else {
-            btnMoney.isHidden = true
-        }
-    }
-    ///Handle Show hide of Mic button
-    func handleShowHideMicButton(shouldShow : Bool!) {
-        if shouldShow {
-            btnMic.isHidden = false
-            
-        } else {
-            btnMic.isHidden = true
-            
-        }
-    }
-    ///Handle Show hide of share button
-    func handleShowHideShareButton(shouldShow : Bool!) {
-        if shouldShow {
-            if !isBotRoom() {
-                btnShare.isHidden = false
-            }
-        } else {
-            btnShare.isHidden = true
-        }
-    }
-    ///Handle single tap on Long tap on record Button to show an alert(pop alert) above message text view and inform the user to long press on record button in order to record a voice
-    @IBAction func didTapOnMicButton(_ sender: UIButton) {
-        sender.backgroundColor = UIColor(named: themeColor.labelColor.rawValue)
-        sender.titleLabel!.textColor = UIColor.red
-
-        sender.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-        IGHelperShowToastAlertView.shared.showPopAlert(view: self,innerView: holderMessageTextView, message: "LONG_PRESS_TO_RECORD".MessageViewlocalizedNew, time: 2.0, type: .alert)
-        
-        UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
-            sender.transform = CGAffineTransform.identity
-            sender.backgroundColor = UIColor.clear
-            sender.titleLabel!.textColor = UIColor.red
-            sender.layoutIfNeeded()
-        }, completion: { (completed) in
-            sender.titleLabel!.textColor = UIColor.red
-            sender.titleLabel!.textColor = UIColor(named:themeColor.labelColor.rawValue)
-
-            sender.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-            
-        })
-        
-    }
-    
-    @objc func didLongTapOnMicButton(gesture: UILongPressGestureRecognizer) {
-        switch gesture.state {
-            
-        case .began :
-            
-            startRecording()
-            initialLongTapOnRecordButtonPosition = gesture.location(in: self.view)
-            
-            print("BUTTON MIC STATE :","Long Press STARTED")
-            
-            break
-        case .cancelled :
-            print("BUTTON MIC STATE :","Long Press CANCELED")
-            
-            break
-        case .changed :
-            print("BUTTON MIC STATE :","Long Press CHANGED STATE")
-            let point = gesture.location(in: self.view)
-            let difX = (initialLongTapOnRecordButtonPosition?.x)! - point.x
-            
-            var newConstant:CGFloat = 0.0
-            
-            if difX > 10 {
-                newConstant = 74 - difX
-            } else {
-                newConstant = 74
-            }
-            
-            if newConstant > 0{
-                UIView.animate(withDuration: 0.1, animations: {
-                    self.view.layoutIfNeeded()
-                })
-            } else {
-                cancelRecording()
-            }
-            break
-        case .ended :
-            finishRecording()
-            print("BUTTON MIC STATE :","Long Press HAS ENDED")
-            
-            break
-        case .possible:
-            print("BUTTON MIC STATE :","Long Press IS POSSIBLE")
-            
-            break
-        case .failed:
-            print("BUTTON MIC STATE :","Long Press HAS FAILED")
-            
-            break
-        default:
-            break
-        }
-        
-    }
-    
-    func addLongPressGestureToMicButton(){
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(didLongTapOnMicButton(gesture:)))
-        longPress.minimumPressDuration = 0.5
-        self.btnMic.addGestureRecognizer(longPress)
-    }
-    
-    // MARK: - TextView Development Delegate funcs
-    
-    
-    func textViewDidChange(_ textView: UITextView) {
-        
-        if textView.text == "" || textView.text.isEmpty {
-            alreadyInSendMode = false
-            
-            lblPlaceHolder.isHidden = false///handle send button animation
-            showHideStickerButton(shouldShow: true)
-            ///hides send button and show Mic and Money button if textview is empty
-            handleShowHideMicButton(shouldShow: true)
-            handleShowHideShareButton(shouldShow: false)
-            handleShowHideSendButton(shouldShow: false)
-            handleShowHideMoneyButton(shouldShow: true)
-            self.messageTextViewHeightConstraint.constant = 50
-            
-        } else {
-            lblPlaceHolder.isHidden = true
-            showHideStickerButton(shouldShow: false)
-            ///hides Mic and Money button and show Send button if textview is empty
-            handleShowHideMicButton(shouldShow: false)
-            handleShowHideShareButton(shouldShow: false)
-            handleShowHideSendButton(shouldShow: true)
-            handleShowHideMoneyButton(shouldShow: false)
-            
-            let numLines = (textView.contentSize.height / textView.font!.lineHeight).rounded(.down)
-            textView.scrollRangeToVisible(textView.selectedRange)
-            switch numLines {
-            case 0 :
-                self.messageTextViewHeightConstraint.constant = 50
-                break
-            case 1 :
-                self.messageTextViewHeightConstraint.constant = 50
-                break
-            case 2 :
-                self.messageTextViewHeightConstraint.constant = 80
-                break
-            case 3 :
-                self.messageTextViewHeightConstraint.constant = 100
-                break
-            case 4 :
-                self.messageTextViewHeightConstraint.constant = 125
-                break
-            case 5 :
-                self.messageTextViewHeightConstraint.constant = 150
-                break
-            case 6 :
-                self.messageTextViewHeightConstraint.constant = 175
-                break
-            case 7 :
-                self.messageTextViewHeightConstraint.constant = 200
-                break
-            case 8 :
-                self.messageTextViewHeightConstraint.constant = 225
-                break
-            default :
-                self.messageTextViewHeightConstraint.constant = 225
-                
-                break
-                
-                
-            }
-            self.view.layoutIfNeeded()
-            self.messageTextView.isScrollEnabled = false
-            self.messageTextView.isScrollEnabled = true
-
-            
-        }
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    var selectedMessages : [IGRoomMessage] = []
-    var sendTone: AVAudioPlayer?
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    func diselect() {
-        IGGlobal.shouldMultiSelect = false
-        self.showMultiSelectUI(state: false)
-    }
-    
-    func close() {
-        self.dismiss(animated: true, completion: {
-            self.tabBarController?.tabBar.isUserInteractionEnabled = true
-            self.callCallBackApi(token: SMUserManager.payToken!)
-        })
-    }
-    
-    func callCallBackApi(token : String) {
-        let url: String! = SMUserManager.callBackUrl
-        guard let serviceUrl = URL(string: url) else { return }
-        let parameters: Parameters = ["token" : token]
-        var request = URLRequest(url: serviceUrl)
-        request.httpMethod = "POST"
-        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
-            return
-        }
-        request.httpBody = httpBody
-        
-        let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
-            if let response = response {
-                print(response)
-            }
-            if let data = data {
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: [])
-                    print(json)
-                } catch {
-                    print(error)
-                }
-            }}.resume()
-    }
-    
-    
-    
-    func screenView() {
-        close()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            SMReciept.getInstance().screenReciept(viewcontroller: self)
-        }
-    }
     
     var MoneyTransactionModal : SMMoneyTransactionOptions!
     var MoneyInputModal : SMSingleAmountInputView!
@@ -757,6 +208,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     var reportMessageId: Int64?
     var swipeGesture: UIPanGestureRecognizer!
     var originalPoint: CGPoint!
+    var selectedMessages : [IGRoomMessage] = []
+    var sendTone: AVAudioPlayer?
     
     let documentPickerIdentifiers = [String(kUTTypeURL), String(kUTTypeFileURL), String(kUTTypePDF), // file start
         String(kUTTypeGNUZipArchive), String(kUTTypeBzip2Archive), String(kUTTypeZipArchive),
@@ -1012,12 +465,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
-        
-    
-        
         ///newUITextMessage
         initViewNewChatView()
         initNotificationsNewChatView()
@@ -1025,17 +472,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         initAlignmentsNewChatView()
         initChangeLanguegeNewChatView()
         initDelegatesNewChatView()
-        
-//        messageTextView.backgroundColor = .red
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         let attributes = [
             NSAttributedString.Key.foregroundColor : UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue) ?? #colorLiteral(red: 0.6784313725, green: 0.6784313725, blue: 0.6784313725, alpha: 1),
@@ -1321,10 +757,157 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         print("CHECK TOPBAR PLAYER STATE5:",self.holderMusicPlayer.subviews)
 
     }
-        private func stopButtonPlayForRow() {
-                self.collectionView.reloadData()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        IGGlobal.isInChatPage = true
+        IGMessageViewController.messageViewControllerObserver = self
+        IGMessageViewController.additionalObserver = self
+        IGMessageViewController.messageOnChatReceiveObserver = self
+        self.currentRoomId = self.room?.id
+        CellSizeLimit.updateValues(roomId: (self.room?.id)!)
+        setupNotifications()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        getUserInfo()
+        setBackground()
+        
+        if let forwardMsg = IGMessageViewController.selectedMessageToForwardToThisRoom {
+            self.forwardOrReplyMessage(forwardMsg, isReply: false)
         }
-
+        
+        manageDraft()
+        
+        notification(register: true)
+        inputTextViewHeightConstraint.constant = 34.0
+        if IGGlobal.shouldShowTopBarPlayer {
+            let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
+            var defaultValue : CGFloat = 20
+            
+            if !(pinnedMessageView.isHidden) {
+                defaultValue = 112
+                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+            } else {
+                defaultValue = 60
+                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+            }
+            
+            floatingDateTopConstraints.constant = defaultValue
+            self.createTopMusicPlayer()
+            
+        }
+        print("CHECK TOPBAR PLAYER STATE5:",self.holderMusicPlayer.subviews)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
+        inputBarMoneyTransferButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 19)
+        
+        if self.room!.isInvalidated {
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        
+        messageTextView.setContentOffset(.zero, animated: true)
+        messageTextView.scrollRangeToVisible(NSMakeRange(0, 0))
+        
+        if #available(iOS 10.0, *) {
+            IGStickerViewController.stickerTapListener = self
+        }
+        IGRecentsTableViewController.visibleChat[(room?.id)!] = true
+        IGAppManager.sharedManager.currentMessagesNotificationToekn = self.notificationToken
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        if let roomVariable = IGRoomManager.shared.varible(for: room!) {
+            roomVariable.asObservable().subscribe({ (event) in
+                if event.element == self.room! {
+                    DispatchQueue.main.async {
+                        navigationItem.updateNavigationBarForRoom(event.element!)
+                        
+                    }
+                }
+            }).disposed(by: disposeBag)
+        }
+        
+        AVAudioSession.sharedInstance().requestRecordPermission { (granted) in }
+        
+        setMessagesRead()
+        manageStickerPosition()
+        IGHelperGetMessageState.shared.clearMessageViews()
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        IGGlobal.isInChatPage = false
+        
+        currentRoomId = 0
+        currentPageName = ""
+        IGGlobal.shouldMultiSelect = false
+        unsetNotifications()
+        saveMessagePosition()
+        
+        if !holderReplyBar.isHidden { // maybe has forward
+            IGMessageViewController.selectedMessageToForwardToThisRoom = nil
+        }
+        notificationToken?.invalidate()
+        self.view.endEditing(true)
+        IGRecentsTableViewController.visibleChat[(room?.id)!] = false
+        IGAppManager.sharedManager.currentMessagesNotificationToekn = nil
+        self.sendCancelTyping()
+        self.sendCancelRecoringVoice()
+        if let room = self.room, !room.isInvalidated {
+            room.saveDraft(messageTextView.text, replyToMessage: selectedMessageToReply)
+            IGFactory.shared.markAllMessagesAsRead(roomId: room.id)
+            if openChatFromLink { // TODO - also check if user before joined to this room don't send this request
+                sendUnsubscribForRoom(roomId: room.id)
+                IGFactory.shared.updateRoomParticipant(roomId: room.id, isParticipant: false)
+            }
+        }
+        //        if self.selectedMessageToReply != nil {
+        //            self.selectedMessageToReply = nil
+        //        }
+        
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    deinit {
+        if notificationToken != nil {
+            notificationToken?.invalidate()
+        }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        self.collectionView!.collectionViewLayout.invalidateLayout()
+    }
+    
+    private func manageDraft(){
+        if let draft = self.room!.draft {
+            if draft.message != "" || draft.replyTo != -1 {
+                messageTextView.text = draft.message
+                textViewOldState = .FULL
+                self.btnStickerWidthConstraint.constant = 0.0
+                
+                initChangeLanguegeNewChatView()
+                lblPlaceHolder.isHidden = true
+                if draft.replyTo != -1 {
+                    let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", draft.replyTo, self.room!.id)
+                    if let replyToMessage = try! Realm().objects(IGRoomMessage.self).filter(predicate).first {
+                        forwardOrReplyMessage(replyToMessage)
+                    }
+                }
+                setSendAndRecordButtonStates()
+            }
+        }
+    }
+    
+    private func stopButtonPlayForRow() {
+        self.collectionView.reloadData()
+    }
+    
     private func eventBusInitialiser() {
         SwiftEventBus.onMainThread(self, name: EventBusManager.stopLastButtonState) { result in
               self.stopButtonPlayForRow()
@@ -1342,16 +925,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             IGGlobal.topBarSongName = self.musicFile.songName
             IGGlobal.topBarSongSinger = self.musicFile.singerName
             self.showMusicTopPlayerWithAnimation()
-//            SwiftEventBus.post(EventBusManager.updateLabelsData,sender: self.musicFile)
-
         }
         SwiftEventBus.onMainThread(self, name: EventBusManager.updateLabelsData) { result in
-            //            print(result?.object as! Bool)
             self.updateLabelsData(singerName: IGGlobal.topBarSongSinger,songName: IGGlobal.topBarSongName)
         }
-  
-
-
     }
 
     @objc func updateLabelsData(singerName: String!,songName: String!) {
@@ -1419,8 +996,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     private func createTopMusicPlayer() {
-//        if !(IGGlobal.shouldShowTopBarPlayer) {
-     
         if IGGlobal.topBarSongTime != 0 { // check if could be able to fetch time of song
 
             if IGGlobal.isAlreadyOpen == false {
@@ -1434,38 +1009,30 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
                 addMusicPlayerToHolder() // add musicPlayer to holder
             }
-        } else {
-//            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ERROR IN FETCHING SONG TIME", doneText: "Done", cancelText: "Cancel")
         }
-        print("CHECK TOPBAR PLAYER STATE4.6:",self.holderMusicPlayer.subviews)
         if self.holderMusicPlayer.subviews.count == 0 {
             addMusicPlayerToHolder()
         } else {
             addMusicPlayerToHolder()
         }
-        print("CHECK TOPBAR PLAYER STATE4.7:",self.holderMusicPlayer.subviews)
         IGHelperMusicPlayer.shared.room = self.room // pass room obj to helper music layer in order to be used in showing audio list of room at the bottom music player
     }
     private func addMusicPlayerToHolder() {
         if holderMusicPlayer.subviews.count > 0 {
             holderMusicPlayer.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-            print("CHECK HOLDER SUBVIEWS2:",holderMusicPlayer.subviews.count)
         }
-
-            let view = (IGHelperMusicPlayer.shared.showTopMusicPlayer(view: self, songTime: IGGlobal.topBarSongTime, singerName: IGGlobal.topBarSongSinger, songName: IGGlobal.topBarSongName))
-            holderMusicPlayer.addSubview(view)
-            print("CHECK HOLDER CONTENT2:",IGGlobal.topBarSongName)
-            print("CHECK HOLDER CONTENT2:",IGGlobal.topBarSongSinger)
-            view.translatesAutoresizingMaskIntoConstraints = false
-            
-            view.topAnchor.constraint(equalTo: holderMusicPlayer.topAnchor, constant: 0).isActive = true
-            view.bottomAnchor.constraint(equalTo: holderMusicPlayer.bottomAnchor, constant: 0).isActive = true
-            view.leftAnchor.constraint(equalTo: holderMusicPlayer.leftAnchor, constant: 0).isActive = true
-            view.rightAnchor.constraint(equalTo: holderMusicPlayer.rightAnchor, constant: 0).isActive = true
-            IGGlobal.isAlreadyOpen = !IGGlobal.isAlreadyOpen
-
-
+        
+        let view = (IGHelperMusicPlayer.shared.showTopMusicPlayer(view: self, songTime: IGGlobal.topBarSongTime, singerName: IGGlobal.topBarSongSinger, songName: IGGlobal.topBarSongName))
+        holderMusicPlayer.addSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.topAnchor.constraint(equalTo: holderMusicPlayer.topAnchor, constant: 0).isActive = true
+        view.bottomAnchor.constraint(equalTo: holderMusicPlayer.bottomAnchor, constant: 0).isActive = true
+        view.leftAnchor.constraint(equalTo: holderMusicPlayer.leftAnchor, constant: 0).isActive = true
+        view.rightAnchor.constraint(equalTo: holderMusicPlayer.rightAnchor, constant: 0).isActive = true
+        IGGlobal.isAlreadyOpen = !IGGlobal.isAlreadyOpen
     }
+    
     private func initiconFonts() {
         txtSticker.font = UIFont.iGapFonticon(ofSize: 25)
         btnAttachment.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
@@ -2266,143 +1833,464 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        IGGlobal.isInChatPage = true
-        IGMessageViewController.messageViewControllerObserver = self
-        IGMessageViewController.additionalObserver = self
-        IGMessageViewController.messageOnChatReceiveObserver = self
-        self.currentRoomId = self.room?.id
-        CellSizeLimit.updateValues(roomId: (self.room?.id)!)
-        setupNotifications()
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+    // MARK: - view initialisers
+    ///Delegates
+    private func initDelegatesNewChatView() {
+        messageTextView.delegate = self
+    }
+    ///view initialisers
+    private func initViewNewChatView() {
+        addLongPressGestureToMicButton()///handle long press on mic button
         
-        getUserInfo()
-        setBackground()
+        ///rounding corner of mic and send button
+        self.btnSend.roundCorners(corners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMinXMinYCorner], radius: 20.0)
+        self.btnMic.roundCorners(corners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMinXMinYCorner], radius: 20.0)
+        self.btnMicInner.roundCorners(corners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMinXMinYCorner], radius: 30.0)
+        creatRedDotBlinkingView()
+        initColorSetNewChatView()
+        self.btnMic.isHidden = false
+        self.btnMoney.isHidden = false
+        self.btnAttachment.isHidden = false
         
-        if let forwardMsg = IGMessageViewController.selectedMessageToForwardToThisRoom {
-            self.forwardOrReplyMessage(forwardMsg, isReply: false)
-        }
-        
-        if let draft = self.room!.draft {
-            if draft.message != "" || draft.replyTo != -1 {
-                messageTextView.text = draft.message
-                //                messageTextView.placeholder = "MESSAGE".MessageViewlocalizedNew
-                initChangeLanguegeNewChatView()
-                lblPlaceHolder.isHidden = true
-                if draft.replyTo != -1 {
-                    let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", draft.replyTo, self.room!.id)
-                    if let replyToMessage = try! Realm().objects(IGRoomMessage.self).filter(predicate).first {
-                        forwardOrReplyMessage(replyToMessage)
-                    }
-                }
-                setSendAndRecordButtonStates()
-            }
-        }
-        notification(register: true)
-        inputTextViewHeightConstraint.constant = 34.0
-        if IGGlobal.shouldShowTopBarPlayer {
-            let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
-            var defaultValue : CGFloat = 20
-
-            if !(pinnedMessageView.isHidden) {
-                defaultValue = 112
-                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
-            } else {
-                defaultValue = 60
-                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
-            }
-
-            floatingDateTopConstraints.constant = defaultValue
-            self.createTopMusicPlayer()
-
-        }
-        print("CHECK TOPBAR PLAYER STATE5:",self.holderMusicPlayer.subviews)
-
+        self.btnSend.isHidden = true
+        self.btnShare.isHidden = true
+        self.btnTrash.isHidden = true
+        self.btnForward.isHidden = true
+        ///topbar on message view initialisers
+        self.imgAttachmentImage.layer.cornerRadius = 6.0
+        self.imgAttachmentImage.layer.masksToBounds = true
+    }
+    ///create red dot blinking for recording
+    private func creatRedDotBlinkingView() {
+        inputBarRecodingBlinkingView.layer.cornerRadius = 8.0
+        inputBarRecodingBlinkingView.layer.masksToBounds = false
+    }
+    private func setupMessageTextHeightChnage() {
+        lblPlaceHolder.isHidden = false
+        showHideStickerButton(shouldShow: true)
+        ///hides send button and show Mic and Money button if textview is empty
+        handleShowHideMicButton(shouldShow: true)
+        handleShowHideShareButton(shouldShow: false)
+        handleShowHideSendButton(shouldShow: false)
+        handleShowHideMoneyButton(shouldShow: true)
+        self.messageTextViewHeightConstraint.constant = 50
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        //        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
-        inputBarMoneyTransferButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 19)
+    private func initColorSetNewChatView() {
+        self.holderMessageTextView.backgroundColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
+        self.btnAttachmentNew.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        self.btnSend.setTitleColor(UIColor(named: themeColor.backgroundColor.rawValue), for: .normal)
+        self.btnSend.backgroundColor = UIColor(named: themeColor.labelColor.rawValue)
+        self.btnMoney.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        self.btnTrash.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        self.btnAttachmentNew.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        self.btnShare.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        self.btnMic.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        self.btnSticker.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
+        self.lblPlaceHolder.textColor = UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue)
         
-        if self.room!.isInvalidated {
-            self.navigationController?.popViewController(animated: true)
+    }
+    ///setting fonts in here
+    private func initFontsNewChatView() {
+        lblCenterText.font = UIFont.igFont(ofSize: 10,weight: .light)
+        lblCenterIcon.font = UIFont.iGapFonticon(ofSize: 15)
+        messageTextView.font = UIFont.igFont(ofSize: 15)
+        lblPlaceHolder.font = UIFont.igFont(ofSize: 13,weight: .light)
+        btnMicInner.titleLabel!.font = UIFont.iGapFonticon(ofSize: 30)
+        
+    }
+    ///setting alignments based on language of app
+    private func initAlignmentsNewChatView() {
+        lblPlaceHolder.textAlignment = lblPlaceHolder.localizedNewDirection
+        //        messageTextView.textAlignment = messageTextView.localizedNewDirection
+    }
+    ///setting Strings based on language of App
+    private func initChangeLanguegeNewChatView() {
+        lblPlaceHolder.isHidden = false
+        lblPlaceHolder.text = "MESSAGE".MessageViewlocalizedNew
+        lblCenterText.text = "SLIDE_TO_CANCEL".MessageViewlocalizedNew
+        lblCenterIcon.text = ""
+        self.btnCloseTopBar.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
+        self.btnCloseTopBar.setTitle("", for: .normal)
+        
+        self.btnCloseReplyBar.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
+        self.btnCloseReplyBar.setTitle("", for: .normal)
+        
+    }
+    ///Notifications initialisers
+    private func initNotificationsNewChatView() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(IGMessageViewController.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(IGMessageViewController.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @IBAction func didTapOnCloseTopBar(_ sender: UIButton) {
+        self.holderAttachmentBar.isHidden = true
+        ///Handle Show hide of send button with animation and prevent animation to be played if already the button is visible
+        
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        let userInfo = notification.userInfo!
+        let keyboardSize = (notification.userInfo?  [UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        let keyboardHeight = keyboardSize?.height
+        let window = UIApplication.shared.keyWindow!
+        
+        if #available(iOS 11.0, *){
+            self.messageTextViewBottomConstraint.constant = keyboardHeight!
+        }
+        else {
+            self.messageTextViewBottomConstraint.constant = view.safeAreaInsets.bottom
+        }
+        UIView.animate(withDuration: 0.5){
+            
+            self.view.layoutIfNeeded()
+            
+        }
+        
+        if MoneyInputModalIsActive {
+            if let MoneyInput = MoneyInputModal {
+                window.addSubview(MoneyInput)
+                UIView.animate(withDuration: 0.3) {
+                    
+                    var frame = MoneyInput.frame
+                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
+                    MoneyInput.frame = frame
+                    
+                }
+            }
+        }
+        else if CardToCardModalIsActive {
+            if let CardInput = CardToCardModal {
+                window.addSubview(CardInput)
+                UIView.animate(withDuration: 0.3) {
+                    
+                    var frame = CardInput.frame
+                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
+                    CardInput.frame = frame
+                    
+                }
+            }
+        }
+        else if MultiShareModalIsActive {
+            if let MultiShare = forwardModal {
+                window.addSubview(MultiShare)
+                UIView.animate(withDuration: 0.3) {
+                    
+                    var frame = MultiShare.frame
+                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height  + (200))
+                    MultiShare.frame = frame
+                    MultiShare.frame.size.height =  MultiShare.frame.size.height - (200)
+                    
+                }
+            }
+        }
+        else {
+            if MoneyInputModal != nil {
+                self.hideMoneyInputModal()
+            }
+            
+            if CardToCardModal != nil {
+                self.hideCardToCardModal()
+            }
+            
+            if forwardModal != nil {
+                self.hideMultiShareModal()
+            }
+        }
+        self.view.layoutIfNeeded()
+    }
+    private func showHideStickerButton(shouldShow : Bool!) {
+        if shouldShow {
+            
+            if self.btnSticker.isHidden {
+                UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                    if !self.isBotRoom() {
+                        self.btnSticker.isHidden = false
+                        self.btnStickerWidthConstraint.constant = 25.0
+                    }
+                    
+                }, completion: {
+                    (value: Bool) in
+                    self.view.layoutIfNeeded()
+                })
+            }
+            
+        } else {
+            
+            if !self.btnSticker.isHidden {
+                UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                    self.btnSticker.isHidden = true
+                    self.btnStickerWidthConstraint.constant = 0.0
+                    
+                }, completion: {
+                    (value: Bool) in
+                    self.view.layoutIfNeeded()
+                })
+            }
+        }
+    }
+    ///Handle Show hide of trash button
+    func handleShowHideTrashButton(shouldShow : Bool!) {
+        if shouldShow {
+            if !isBotRoom() {
+                btnTrash.isHidden = false
+            }
+        } else {
+            btnTrash.isHidden = true
+            
+        }
+    }
+    ///Handle Show hide of forward button
+    func handleShowHideForwardButton(shouldShow : Bool!) {
+        if shouldShow {
+            if !isBotRoom() {
+                btnForward.isHidden = false
+            }
+        } else {
+            btnForward.isHidden = true
+        }
+    }
+    ///Handle Show hide of attachment button
+    func handleShowHideAttachmentButton(shouldShow : Bool!) {
+        if shouldShow {
+            
+            btnAttachment.isHidden = false
+        } else {
+            btnAttachment.isHidden = true
+        }
+    }
+    ///Handle Show hide of Send button
+    func handleShowHideSendButton(shouldShow : Bool!) {
+        
+        if shouldShow {
+            btnSend.isHidden = false
+            
+            if !alreadyInSendMode {
+                ///Handle Show hide of send button with animation
+                btnSend.isHidden = false
+                btnSend.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+                UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                    self.btnSend.transform = CGAffineTransform.identity
+                    self.btnSend.layoutIfNeeded()
+                }, completion: nil)
+                ///Handle Show hide of send button with animation and prevent animation to be played if already the button is visible
+                if !alreadyInSendMode {
+                    self.alreadyInSendMode = true
+                }
+            }
+        } else {
+            btnSend.isHidden = true
+        }
+    }
+    ///Handle Show hide of Money button
+    func handleShowHideMoneyButton(shouldShow : Bool!) {
+        if shouldShow {
+            if !isBotRoom() {
+                btnMoney.isHidden = false
+            }
+        } else {
+            btnMoney.isHidden = true
+        }
+    }
+    ///Handle Show hide of Mic button
+    func handleShowHideMicButton(shouldShow : Bool!) {
+        if shouldShow {
+            btnMic.isHidden = false
+            
+        } else {
+            btnMic.isHidden = true
+            
+        }
+    }
+    ///Handle Show hide of share button
+    func handleShowHideShareButton(shouldShow : Bool!) {
+        if shouldShow {
+            if !isBotRoom() {
+                btnShare.isHidden = false
+            }
+           } else {
+            btnShare.isHidden = true
+        }
+    }
+    ///Handle single tap on Long tap on record Button to show an alert(pop alert) above message text view and inform the user to long press on record button in order to record a voice
+    @IBAction func didTapOnMicButton(_ sender: UIButton) {
+        sender.backgroundColor = UIColor(named: themeColor.labelColor.rawValue)
+        sender.titleLabel!.textColor = UIColor.red
+        
+        sender.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        IGHelperShowToastAlertView.shared.showPopAlert(view: self,innerView: holderMessageTextView, message: "LONG_PRESS_TO_RECORD".MessageViewlocalizedNew, time: 2.0, type: .alert)
+        
+        UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+            sender.transform = CGAffineTransform.identity
+            sender.backgroundColor = UIColor.clear
+            sender.titleLabel!.textColor = UIColor.red
+            sender.layoutIfNeeded()
+        }, completion: { (completed) in
+            sender.titleLabel!.textColor = UIColor.red
+            sender.titleLabel!.textColor = UIColor(named:themeColor.labelColor.rawValue)
+            
+            sender.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+            
+        })
+        
+    }
+    
+    @objc func didLongTapOnMicButton(gesture: UILongPressGestureRecognizer) {
+        switch gesture.state {
+            
+        case .began :
+            
+            startRecording()
+            initialLongTapOnRecordButtonPosition = gesture.location(in: self.view)
+            
+            print("BUTTON MIC STATE :","Long Press STARTED")
+            
+            break
+        case .cancelled :
+            print("BUTTON MIC STATE :","Long Press CANCELED")
+            
+            break
+        case .changed :
+            print("BUTTON MIC STATE :","Long Press CHANGED STATE")
+            let point = gesture.location(in: self.view)
+            let difX = (initialLongTapOnRecordButtonPosition?.x)! - point.x
+            
+            var newConstant:CGFloat = 0.0
+            
+            if difX > 10 {
+                newConstant = 74 - difX
+            } else {
+                newConstant = 74
+            }
+            
+            if newConstant > 0{
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.view.layoutIfNeeded()
+                })
+            } else {
+                cancelRecording()
+            }
+            break
+        case .ended :
+            finishRecording()
+            print("BUTTON MIC STATE :","Long Press HAS ENDED")
+            
+            break
+        case .possible:
+            print("BUTTON MIC STATE :","Long Press IS POSSIBLE")
+            
+            break
+        case .failed:
+            print("BUTTON MIC STATE :","Long Press HAS FAILED")
+            
+            break
+        default:
+            break
+        }
+        
+    }
+    
+    func addLongPressGestureToMicButton(){
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(didLongTapOnMicButton(gesture:)))
+        longPress.minimumPressDuration = 0.5
+        self.btnMic.addGestureRecognizer(longPress)
+    }
+    
+    // MARK: - TextView Development Delegate funcs
+    
+    func textViewDidChange(_ textView: UITextView) {
+        
+        if (textView.text == "" || textView.text.isEmpty) && textViewOldState == .FULL {
+            textViewOldState = .EMPTY
+            alreadyInSendMode = false
+            lblPlaceHolder.isHidden = false///handle send button animation
+            showHideStickerButton(shouldShow: true)
+            handleShowHideMicButton(shouldShow: true)
+            handleShowHideShareButton(shouldShow: false)
+            handleShowHideSendButton(shouldShow: false)
+            handleShowHideMoneyButton(shouldShow: true)
+            self.messageTextViewHeightConstraint.constant = 50
+            
+        } else if textViewOldState == .EMPTY {
+            textViewOldState = .FULL
+            lblPlaceHolder.isHidden = true
+            showHideStickerButton(shouldShow: false)
+            handleShowHideMicButton(shouldShow: false)
+            handleShowHideShareButton(shouldShow: false)
+            handleShowHideSendButton(shouldShow: true)
+            handleShowHideMoneyButton(shouldShow: false)
+        }
+        manageTextViewHeight(textView: textView)
+    }
+    
+    private func manageTextViewHeight(textView: UITextView){
+        let LINE_HEIGHT: CGFloat = 25
+        let numLines = (textView.contentSize.height / textView.font!.lineHeight).rounded(.down)
+        
+        if beforeMessageLineCount != numLines {
+            beforeMessageLineCount = numLines
+            textView.scrollRangeToVisible(textView.selectedRange)
+            var textViewHeigt = LINE_HEIGHT
+            if numLines != 0 {
+                textViewHeigt = numLines * LINE_HEIGHT
+            }
+            self.messageTextViewHeightConstraint.constant = textViewHeigt + LINE_HEIGHT // add an extra 'LINE_HEIGHT'
+            
+            self.view.layoutIfNeeded()
+            self.messageTextView.isScrollEnabled = false
+            self.messageTextView.isScrollEnabled = true
+        }
+    }
+    
+    
+    func diselect() {
+        IGGlobal.shouldMultiSelect = false
+        self.showMultiSelectUI(state: false)
+    }
+    
+    func close() {
+        self.dismiss(animated: true, completion: {
+            self.tabBarController?.tabBar.isUserInteractionEnabled = true
+            self.callCallBackApi(token: SMUserManager.payToken!)
+        })
+    }
+    
+    func callCallBackApi(token : String) {
+        let url: String! = SMUserManager.callBackUrl
+        guard let serviceUrl = URL(string: url) else { return }
+        let parameters: Parameters = ["token" : token]
+        var request = URLRequest(url: serviceUrl)
+        request.httpMethod = "POST"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
             return
         }
+        request.httpBody = httpBody
         
-        messageTextView.setContentOffset(.zero, animated: true)
-        messageTextView.scrollRangeToVisible(NSMakeRange(0, 0))
-        
-        if #available(iOS 10.0, *) {
-            IGStickerViewController.stickerTapListener = self
-        }
-        IGRecentsTableViewController.visibleChat[(room?.id)!] = true
-        IGAppManager.sharedManager.currentMessagesNotificationToekn = self.notificationToken
-        let navigationItem = self.navigationItem as! IGNavigationItem
-        if let roomVariable = IGRoomManager.shared.varible(for: room!) {
-            roomVariable.asObservable().subscribe({ (event) in
-                if event.element == self.room! {
-                    DispatchQueue.main.async {
-                        navigationItem.updateNavigationBarForRoom(event.element!)
-                        
-                    }
-                }
-            }).disposed(by: disposeBag)
-        }
-        
-        AVAudioSession.sharedInstance().requestRecordPermission { (granted) in }
-        
-        setMessagesRead()
-        manageStickerPosition()
-        IGHelperGetMessageState.shared.clearMessageViews()
-    }
-    
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        IGGlobal.isInChatPage = false
-        
-        currentRoomId = 0
-        currentPageName = ""
-        IGGlobal.shouldMultiSelect = false
-        unsetNotifications()
-        saveMessagePosition()
-        
-        if !holderReplyBar.isHidden { // maybe has forward
-            IGMessageViewController.selectedMessageToForwardToThisRoom = nil
-        }
-        notificationToken?.invalidate()
-        self.view.endEditing(true)
-        IGRecentsTableViewController.visibleChat[(room?.id)!] = false
-        IGAppManager.sharedManager.currentMessagesNotificationToekn = nil
-        self.sendCancelTyping()
-        self.sendCancelRecoringVoice()
-        if let room = self.room, !room.isInvalidated {
-            room.saveDraft(messageTextView.text, replyToMessage: selectedMessageToReply)
-            IGFactory.shared.markAllMessagesAsRead(roomId: room.id)
-            if openChatFromLink { // TODO - also check if user before joined to this room don't send this request
-                sendUnsubscribForRoom(roomId: room.id)
-                IGFactory.shared.updateRoomParticipant(roomId: room.id, isParticipant: false)
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) in
+            if let response = response {
+                print(response)
             }
-        }
-        //        if self.selectedMessageToReply != nil {
-        //            self.selectedMessageToReply = nil
-        //        }
-        
-        NotificationCenter.default.removeObserver(self)
+            if let data = data {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    print(json)
+                } catch {
+                    print(error)
+                }
+            }}.resume()
     }
     
-    deinit {
-        if notificationToken != nil {
-            notificationToken?.invalidate()
-        }
-    }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        self.collectionView!.collectionViewLayout.invalidateLayout()
+    
+    func screenView() {
+        close()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            SMReciept.getInstance().screenReciept(viewcontroller: self)
+        }
     }
     
     private func sendUnsubscribForRoom(roomId: Int64){

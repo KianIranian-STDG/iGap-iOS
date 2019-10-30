@@ -492,3 +492,8 @@ enum CheckItem: Int {
     case CHECK = 0
     case UNCHECK = 1
 }
+
+enum TextViewOldState: Int {
+    case EMPTY = 0
+    case FULL = 1
+}
