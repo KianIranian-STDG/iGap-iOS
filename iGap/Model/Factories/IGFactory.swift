@@ -1640,9 +1640,12 @@ class IGFactory: NSObject {
         }
     }
 
-    func saveWallpaper(wallpapers: [IGPWallpaper],type : IGPInfoWallpaper.IGPType = .chatBackground) {
+    func saveWallpaper(wallpapers: [IGPWallpaper], type: IGPInfoWallpaper.IGPType = .chatBackground) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
+                /** delete old wallpapers */
+                IGDatabaseManager.shared.realm.delete(IGDatabaseManager.shared.realm.objects(IGRealmWallpaper.self).filter(NSPredicate(format: "type = %d", type.rawValue)))
+                /** add new wallpapers */
                 IGDatabaseManager.shared.realm.add(IGRealmWallpaper(wallpapers: wallpapers,typeOfWallpaper: type))
             }
         }

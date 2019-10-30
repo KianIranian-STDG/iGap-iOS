@@ -2398,7 +2398,7 @@
                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xXc-X5-txr">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="155"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x0z-Lg-qnh">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iGap-Chat-BG-V" translatesAutoresizingMaskIntoConstraints="NO" id="x0z-Lg-qnh">
                                             <rect key="frame" x="-5" y="-5" width="424" height="165"/>
                                         </imageView>
                                     </subviews>
@@ -3215,8 +3215,8 @@
                         <outlet property="btnCountryCode" destination="DMQ-x6-ofX" id="rr8-On-S05"/>
                         <outlet property="btnCountryCodeWidthConstraints" destination="eWb-xs-U2O" id="ToI-Se-xgX"/>
                         <outlet property="btnMenGender" destination="10Z-rH-bXe" id="7e0-4U-waT"/>
-                        <outlet property="btnName" destination="afm-P4-CN8" id="Ipl-Ib-gWy"/>
-                        <outlet property="btnUsername" destination="ido-Ud-F2t" id="ZDC-dN-Pgz"/>
+                        <outlet property="btnName" destination="ido-Ud-F2t" id="KQg-Hh-5KQ"/>
+                        <outlet property="btnUsername" destination="afm-P4-CN8" id="19k-wu-d78"/>
                         <outlet property="btnWomenGender" destination="Fmm-yA-W91" id="pjG-CN-sIi"/>
                         <outlet property="imgBackgroundImage" destination="x0z-Lg-qnh" id="ixB-3q-1fu"/>
                         <outlet property="lblBioInner" destination="XLo-ae-Apk" id="R0V-CJ-oj7"/>

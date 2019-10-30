@@ -6060,9 +6060,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
     // MARK: - Start - Go to Message Position
     /**
-     * if don't set 'messageIdPosition' this value automatically will be fetched from message.
-     * sometimes messageId from message is not useful (for example at click of header reply state).
-     * finally for globalization usage of following method 'messageIdPosition' is optional
+     * if set 'enableFastReturn' true, after find and show message position a button is will be exist for return to clicked message
      */
     func goToPosition(messageId: Int64 = 0, enableFastReturn: Bool = false){
         
@@ -6631,6 +6629,9 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     }
     
     func onMessageUpdate(roomId: Int64, message: IGPRoomMessage, identity: IGRoomMessage) {
+        if identity.isInvalidated {
+            return
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             if let roomMessage = self.messages {
                 var indexOfMessage = 0

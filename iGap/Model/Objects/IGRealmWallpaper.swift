@@ -40,4 +40,12 @@ class IGRealmWallpaper: Object {
         }
         self.type = typeOfWallpaper!.rawValue
     }
+    
+    public static func fetchProfileWallpaper() -> IGFile? {
+        let predicateWallpaper = NSPredicate(format: "type = %d", IGPInfoWallpaper.IGPType.profileWallpaper.rawValue)
+        if let profileWallpaperList = IGDatabaseManager.shared.realm.objects(IGRealmWallpaper.self).filter(predicateWallpaper).first, let profileWallpaper = profileWallpaperList.file.first {
+            return profileWallpaper
+        }
+        return nil
+    }
 }
