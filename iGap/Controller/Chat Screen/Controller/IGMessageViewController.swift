@@ -2003,32 +2003,26 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     private func showHideStickerButton(shouldShow : Bool!) {
         if shouldShow {
-            
-            if self.btnSticker.isHidden {
-                UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
-                    if !self.isBotRoom() {
-                        self.btnSticker.isHidden = false
-                        self.btnStickerWidthConstraint.constant = 25.0
-                    }
-                    
-                }, completion: {
-                    (value: Bool) in
-                    self.view.layoutIfNeeded()
-                })
-            }
+            UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                if !self.isBotRoom() {
+                    self.btnSticker.isHidden = false
+                    self.btnStickerWidthConstraint.constant = 25.0
+                }
+                
+            }, completion: {
+                (value: Bool) in
+                self.view.layoutIfNeeded()
+            })
             
         } else {
-            
-            if !self.btnSticker.isHidden {
-                UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
-                    self.btnSticker.isHidden = true
-                    self.btnStickerWidthConstraint.constant = 0.0
-                    
-                }, completion: {
-                    (value: Bool) in
-                    self.view.layoutIfNeeded()
-                })
-            }
+            UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                self.btnSticker.isHidden = true
+                self.btnStickerWidthConstraint.constant = 0.0
+                
+            }, completion: {
+                (value: Bool) in
+                self.view.layoutIfNeeded()
+            })
         }
     }
     ///Handle Show hide of trash button
