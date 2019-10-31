@@ -478,7 +478,7 @@ class IGFactory: NSObject {
                 let predicate = NSPredicate(format: "id = %lld AND roomId = %lld",messageID, roomID)
                 if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
                     
-                    if IGRoomMessageStatus.fetchIGPValue(status) > IGRoomMessageStatus.fetchIGValue(messageInDb.status) { // don't write a status with lower level. e.g. when status is 'seen' don't write 'delivered'
+                    if IGRoomMessageStatus.fetchIGValue(messageInDb.status) > IGRoomMessageStatus.fetchIGPValue(status) { // don't write a status with lower level. e.g. when status is 'seen' don't write 'delivered'
                         return
                     }
                     
