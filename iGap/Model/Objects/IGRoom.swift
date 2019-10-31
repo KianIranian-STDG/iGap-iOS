@@ -376,48 +376,42 @@ class IGRoom: Object {
     
     /* update unread count when app is in background */
     internal static func updateUnreadCount(roomId: Int64) -> Int {
-        let realm = try! Realm()
-        try! realm.write {
-            if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld" ,roomId)).first {
-                room.badgeUnreadCount = room.badgeUnreadCount + 1
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld" ,roomId)).first {
+                    room.badgeUnreadCount = room.badgeUnreadCount + 1
+                }
             }
         }
-        let count : Int = realm.objects(IGRoom.self).filter("isParticipant = 1 AND muteRoom = %d", IGRoom.IGRoomMute.unmute.rawValue).sum(ofProperty: "badgeUnreadCount")
+        let count : Int = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter("isParticipant = 1 AND muteRoom = %d", IGRoom.IGRoomMute.unmute.rawValue).sum(ofProperty: "badgeUnreadCount")
         return count
     }
     
     
     internal static func getRoomIdWithUsername(username: String) -> Int64? {
-        
         var roomId: Int64? = nil
-        let realm = try! Realm()
-        try! realm.write {
-            if let room = realm.objects(IGRoom.self).filter(NSPredicate(format: "(groupRoom.publicExtra.username = %@) OR (channelRoom.publicExtra.username = %@)" , username, username)).first {
-                roomId = room.id
-            }
+        if let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "(groupRoom.publicExtra.username = %@) OR (channelRoom.publicExtra.username = %@)" , username, username)).first {
+            roomId = room.id
         }
         return roomId
     }
     
     
     internal static func getRoomInfo(roomId: Int64) -> IGRoom? {
-        
         var roomInfo: IGRoom? = nil
-        let realm = try! Realm()
-        try! realm.write {
-            if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld" ,roomId)).first {
-                roomInfo = room
-            }
+        if let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld" ,roomId)).first {
+            roomInfo = room
         }
         return roomInfo
     }
     
     
     internal static func setParticipant(roomId: Int64, isParticipant: Bool) {
-        let realm = try! Realm()
-        try! realm.write {
-            if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld" ,roomId)).first {
-                room.isParticipant = isParticipant
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                if let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld" ,roomId)).first {
+                    room.isParticipant = isParticipant
+                }
             }
         }
     }

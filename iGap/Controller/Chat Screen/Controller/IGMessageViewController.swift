@@ -639,33 +639,28 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
             
             let predicate = NSPredicate(format: "roomId = %lld AND (id >= %lld OR statusRaw == %d OR statusRaw == %d) AND isDeleted == false AND id != %lld" , self.room!.id, lastId ,0 ,1 ,0)
-            do {
-                let messagesCount = try! Realm().objects(IGRoomMessage.self).filter(predicate).count
-                if messagesCount == 0 {
-                    mainHolder.isHidden = true
-                    joinButton.isHidden = false
-                    joinButton.setTitle("START".MessageViewlocalizedNew, for: UIControl.State.normal)
-                    joinButton.layer.cornerRadius = 5
-                    joinButton.layer.masksToBounds = false
-                    joinButton.layer.shadowColor = UIColor.black.cgColor
-                    joinButton.layer.shadowOffset = CGSize(width: 0, height: 0)
-                    joinButton.layer.shadowRadius = 4.0
-                    joinButton.layer.shadowOpacity = 0.15
-                } else {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                        self.manageKeyboard(firstEnter: true)
-                    }
+            let messagesCount = try! Realm().objects(IGRoomMessage.self).filter(predicate).count
+            if messagesCount == 0 {
+                mainHolder.isHidden = true
+                joinButton.isHidden = false
+                joinButton.setTitle("START".MessageViewlocalizedNew, for: UIControl.State.normal)
+                joinButton.layer.cornerRadius = 5
+                joinButton.layer.masksToBounds = false
+                joinButton.layer.shadowColor = UIColor.black.cgColor
+                joinButton.layer.shadowOffset = CGSize(width: 0, height: 0)
+                joinButton.layer.shadowRadius = 4.0
+                joinButton.layer.shadowOpacity = 0.15
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    self.manageKeyboard(firstEnter: true)
                 }
-                
-            } catch _ as NSError {
-                print("RLM EXEPTION ERR HAPPENDED IN VIEW DID LOAD FOR ISBOT ROOM:",String(describing: self))
             }
         }
+        
         let messagesWithMediaPredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND (typeRaw = %d OR typeRaw = %d OR typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d)", self.room!.id, IGRoomMessageType.video.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.video.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageType.imageAndText.rawValue)
         do {
             let realm = try Realm()
             messagesWithMedia = realm.objects(IGRoomMessage.self).filter(messagesWithMediaPredicate).sorted(by: sortPropertiesForMedia)
-            
         } catch _ as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN VIEW DID LOAD FOR MESSAGE WITH MEDIA:",String(describing: self))
         }
@@ -674,7 +669,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         do {
             let realm = try Realm()
             messagesWithForwardedMedia = realm.objects(IGRoomMessage.self).filter(messagesWithForwardedMediaPredicate).sorted(by: sortPropertiesForMedia)
-            
         } catch _ as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN VIEW DID LOAD FOR MESSAGE WITH FORWARD MEDIA:",String(describing: self))
         }
@@ -737,7 +731,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         initiconFonts()
         eventBusInitialiser()
         holderMusicPlayer.backgroundColor = .clear
-        print("CHECK TOPBAR PLAYER :",IGGlobal.shouldShowTopBarPlayer)
         if IGGlobal.shouldShowTopBarPlayer {
             let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
             var defaultValue : CGFloat = 20
@@ -754,8 +747,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.createTopMusicPlayer()
 
         }
-        print("CHECK TOPBAR PLAYER STATE5:",self.holderMusicPlayer.subviews)
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -797,8 +788,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.createTopMusicPlayer()
             
         }
-        print("CHECK TOPBAR PLAYER STATE5:",self.holderMusicPlayer.subviews)
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -918,9 +907,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.hideMusicTopPlayerWithAnimation()
         }
         SwiftEventBus.onMainThread(self, name: EventBusManager.showTopMusicPlayer) { result in
-            self.musicFile = result?.object as! MusicFile
-            print("CHECK TOPBAR PLAYER CONTENTS:",self.musicFile.songTime,self.musicFile.songName,self.musicFile.singerName)
-
+            self.musicFile = (result?.object as! MusicFile)
             IGGlobal.topBarSongTime = self.musicFile.songTime
             IGGlobal.topBarSongName = self.musicFile.songName
             IGGlobal.topBarSongSinger = self.musicFile.singerName
@@ -990,9 +977,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.view.layoutIfNeeded()
         }
         self.createTopMusicPlayer()
-        print("CHECK TOPBAR PLAYER STATE6:",self.holderMusicPlayer.subviews)
-
-
     }
     
     private func createTopMusicPlayer() {
@@ -1001,11 +985,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             if IGGlobal.isAlreadyOpen == false {
 
             holderMusicPlayerHeightConstraint.constant = 40.0
-            print("CHECK HOLDER SUBVIEWS1:",holderMusicPlayer.subviews.count)
             
             if holderMusicPlayer.subviews.count > 0 {
                 holderMusicPlayer.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-                print("CHECK HOLDER SUBVIEWS2:",holderMusicPlayer.subviews.count)
             }
                 addMusicPlayerToHolder() // add musicPlayer to holder
             }
@@ -1711,105 +1693,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.navigationController!.pushViewController(profile, animated: true)
     }
     
-    func findAllMessages(isHistory: Bool = false) -> Results<IGRoomMessage>!{
-        
-        if lastId == 0 {
-            
-            do {
-                
-                let realm = try Realm()
-                if !(realm.isInWriteTransaction) {
-                    try realm.write {
-                        let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld", self.room!.id, 0)
-                        allMessages = realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
-                        
-                    }
-                }
-                
-                let messageCount = allMessages.count
-                if messageCount == 0 {
-                    return allMessages
-                }
-                
-                firstId = allMessages.toArray()[0].id
-                
-                if messageCount <= getMessageLimit {
-                    hasLocal = false
-                    scrollToTopLimit = 500
-                    lastId = allMessages.toArray()[allMessages.count-1].id
-                } else {
-                    lastId = allMessages.toArray()[getMessageLimit].id
-                }
-                
-            } catch _ as NSError {
-                print("RLM EXEPTION ERR HAPPENDED IN findAllMessages:",String(describing: self))
-            }
-            
-        } else {
-            page += 1
-            
-            if page > 1 {
-                getMessageLimit = 100
-            }
-            
-            let messageLimit = page * getMessageLimit
-            let messageCount = allMessages.count
-            
-            if messageCount <= messageLimit {
-                hasLocal = false
-                scrollToTopLimit = 500
-                lastId = allMessages.toArray()[allMessages.count-1].id
-            } else {
-                lastId = allMessages.toArray()[messageLimit].id
-            }
-        }
-        
-        let predicate = NSPredicate(format: "roomId = %lld AND (id >= %lld OR statusRaw == %d OR statusRaw == %d) AND isDeleted == false AND id != %lld" , self.room!.id, lastId ,0 ,1 ,0)
-        var tmpMessages:Results<IGRoomMessage>!
-        
-        do {
-            let realm = try Realm()
-            tmpMessages = realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
-            
-        } catch _ as NSError {
-            print("RLM EXEPTION ERR HAPPENDED IN findAllMessagesII:",String(describing: self))
-        }
-        DispatchQueue.main.async {
-            self.reloadCollection()
-        }
-        
-        return tmpMessages
-    }
-    
-    /* reset values for get history from first */
-    func resetGetHistoryValues(){
-        lastId = 0
-        page = 0
-        getMessageLimit = 50
-        scrollToTopLimit = 20
-        hasLocal = true
-    }
-    
-    
-    /* delete all local messages before first message that have shouldFetchBefore==true */
-    func deleteUnusedLocalMessage(){
-        let predicate = NSPredicate(format: "roomId = %lld AND shouldFetchBefore == true", self.room!.id)
-        let message = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties).last
-        
-        var deleteId:Int64 = 0
-        if let id = message?.id {
-            deleteId = id
-        }
-        
-        let predicateDelete = NSPredicate(format: "roomId = %lld AND id <= %lld", self.room!.id , deleteId)
-        let messageDelete = try! Realm().objects(IGRoomMessage.self).filter(predicateDelete).sorted(by: sortProperties)
-        
-        let realm = try! Realm()
-        try! realm.write {
-            realm.delete(messageDelete)
-        }
-    }
-    
     private func getUserInfo(){
         guard !(room?.isInvalidated)!, let userId = self.room?.chatRoom?.peer?.id else {
             return
@@ -1932,7 +1815,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     @objc func keyboardWillShow(notification: NSNotification) {
         
-        let userInfo = notification.userInfo!
         let keyboardSize = (notification.userInfo?  [UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
         let keyboardHeight = keyboardSize?.height
         let window = UIApplication.shared.keyWindow!
@@ -2135,19 +2017,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         switch gesture.state {
             
         case .began :
-            
             startRecording()
             initialLongTapOnRecordButtonPosition = gesture.location(in: self.view)
-            
-            print("BUTTON MIC STATE :","Long Press STARTED")
-            
             break
         case .cancelled :
-            print("BUTTON MIC STATE :","Long Press CANCELED")
-            
             break
         case .changed :
-            print("BUTTON MIC STATE :","Long Press CHANGED STATE")
             let point = gesture.location(in: self.view)
             let difX = (initialLongTapOnRecordButtonPosition?.x)! - point.x
             
@@ -2169,21 +2044,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             break
         case .ended :
             finishRecording()
-            print("BUTTON MIC STATE :","Long Press HAS ENDED")
-            
             break
         case .possible:
-            print("BUTTON MIC STATE :","Long Press IS POSSIBLE")
-            
             break
         case .failed:
-            print("BUTTON MIC STATE :","Long Press HAS FAILED")
-            
             break
         default:
             break
         }
-        
     }
     
     func addLongPressGestureToMicButton(){
@@ -4364,7 +4232,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             startRecording()
             initialLongTapOnRecordButtonPosition = gestureRecognizer.location(in: self.view)
         case .cancelled:
-            print("cancelled")
+            break
         case .changed:
             let point = gestureRecognizer.location(in: self.view)
             let difX = (initialLongTapOnRecordButtonPosition?.x)! - point.x
@@ -4377,7 +4245,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
             
             if newConstant > 0{
-                //                inputBarRecordViewLeftConstraint.constant = newConstant
                 UIView.animate(withDuration: 0.1, animations: {
                     self.view.layoutIfNeeded()
                 })
@@ -4388,9 +4255,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         case .ended:
             finishRecording()
         case .failed:
-            print("failed")
+            break
         case .possible:
-            print("possible")
+            break
         @unknown default:
             fatalError()
         }
@@ -6400,15 +6267,6 @@ extension IGMessageViewController {
     //    Choosing Contact
     //    Painting
     
-}
-extension String {
-    func chopPrefix(_ count: Int = 1) -> String {
-        return substring(from: index(startIndex, offsetBy: count))
-    }
-    
-    func chopSuffix(_ count: Int = 1) -> String {
-        return substring(to: index(endIndex, offsetBy: -count))
-    }
 }
 
 // Helper function inserted by Swift 4.2 migrator.

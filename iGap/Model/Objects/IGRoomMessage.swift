@@ -626,9 +626,7 @@ class IGRoomMessage: Object {
             IGDatabaseManager.shared.realm.delete(message)
         } else if retry {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                try! IGDatabaseManager.shared.realm.write {
-                    IGRoomMessage.deleteMessage(primaryKeyId: primaryKeyId, retry: false)
-                }
+                IGRoomMessage.deleteMessage(primaryKeyId: primaryKeyId, retry: false)
             }
         }
     }
@@ -658,24 +656,26 @@ class IGRoomMessage: Object {
      * this method will be managed write same message into the realm, with make an array from duplicate message and
      * retry this method for write from duplicate array message, and do this action until finish all messages.
      */
-    internal static func managePutOrUpdate(roomId: Int64, messages: [IGPRoomMessage], options: IGStructMessageOption = IGStructMessageOption()){
+    internal static func managePutOrUpdate(roomId: Int64, messages: [IGPRoomMessage], options: IGStructMessageOption = IGStructMessageOption(), completion: @escaping () -> Void){
         
-        if messages.count == 0 {
-            return
-        }
-        
-        var duplicateMessageInfo: [IGPRoomMessage] = []
-        try! IGDatabaseManager.shared.realm.write {
-            for message in messages {
-                if let savedMessage = IGRoomMessage.putOrUpdate(igpMessage: message, roomId: roomId, options: options) {
-                    IGDatabaseManager.shared.realm.add(savedMessage)
-                } else {
-                    duplicateMessageInfo.append(message)
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            if messages.count == 0 {
+                return
+            }
+            
+            var duplicateMessageInfo: [IGPRoomMessage] = []
+            try! IGDatabaseManager.shared.realm.write {
+                for message in messages {
+                    if let savedMessage = IGRoomMessage.putOrUpdate(igpMessage: message, roomId: roomId, options: options) {
+                        IGDatabaseManager.shared.realm.add(savedMessage)
+                    } else {
+                        duplicateMessageInfo.append(message)
+                    }
                 }
             }
+            completion()
+            manageRewriteMessage(roomId: roomId, messages: duplicateMessageInfo, options: options)
         }
-        
-        manageRewriteMessage(roomId: roomId, messages: duplicateMessageInfo, options: options)
     }
     
     private static func manageRewriteMessage(roomId: Int64, messages: [IGPRoomMessage], options: IGStructMessageOption = IGStructMessageOption()){

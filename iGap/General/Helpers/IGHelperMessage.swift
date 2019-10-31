@@ -16,95 +16,96 @@ class IGHelperMessage {
     static let shared = IGHelperMessage()
     
     public func handleMessageResponse(roomId: Int64, roomMessage: IGPRoomMessage, roomType: IGPRoom.IGPType, sender: Bool, structMessageIdentity: IGStructMessageIdentity?) {
-        let realm = try! Realm()
-        try! realm.write {
-            
-            /**
-             * put message to realm
-             */
-            let realmRoomMessage = IGRoomMessage.putOrUpdate(igpMessage: roomMessage, roomId: roomId, options: IGStructMessageOption(previousGap: true))
-            let room = realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", roomId)).first
-            
-            /**
-             * because user may have more than one device, his another device should not
-             * be recipient but sender. so I check current userId with room message user id,
-             * and if not equals and response is null, so we sure recipient is another user
-             */
-            if roomMessage.igpAuthor.igpHash != IGAppManager.sharedManager.authorHash() {
-                /**
-                 * i'm recipient
-                 *
-                 * if author has user check that client have latest info for this user or no
-                 * if author don't have use this means that message is from channel so client
-                 * don't have user id for message sender for get info
-                 */
-                if (roomMessage.igpAuthor.hasIgpUser) {
-                    let _ = IGRegisteredUser.needUpdateUser(userId: roomMessage.igpAuthor.igpUser.igpUserID, cacheId: roomMessage.igpAuthor.igpUser.igpCacheID)
-                }
-            }
-            
-            if let primaryKeyId = structMessageIdentity?.primaryKeyId {
-                IGRoomMessage.deleteMessage(primaryKeyId: primaryKeyId)
-            }
-            
-            if (room == nil) {
-                /**
-                 * if first message received but the room doesn't exist, send request for create new room
-                 */
-                IGClientGetRoomRequest.sendRequest(roomId: roomId)
-            } else {
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
                 
                 /**
-                 * update unread count if new messageId that received is bigger than latest messageId that exist
+                 * put message to realm
                  */
+                let realmRoomMessage = IGRoomMessage.putOrUpdate(igpMessage: roomMessage, roomId: roomId, options: IGStructMessageOption(previousGap: true))
+                let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", roomId)).first
                 
-                if (roomMessage.igpAuthor.igpHash != IGAppManager.sharedManager.authorHash()) && (room?.lastMessage == nil || (room?.lastMessage!.id)! < roomMessage.igpMessageID) {
-                    room?.unreadCount = room!.unreadCount + 1
-                }
-                
-                /*
+                /**
+                 * because user may have more than one device, his another device should not
+                 * be recipient but sender. so I check current userId with room message user id,
+                 * and if not equals and response is null, so we sure recipient is another user
+                 */
                 if roomMessage.igpAuthor.igpHash != IGAppManager.sharedManager.authorHash() {
-                    if roomMessage.igpStatus != IGPRoomMessageStatus.seen {
-                        // manage show local notification
+                    /**
+                     * i'm recipient
+                     *
+                     * if author has user check that client have latest info for this user or no
+                     * if author don't have use this means that message is from channel so client
+                     * don't have user id for message sender for get info
+                     */
+                    if (roomMessage.igpAuthor.hasIgpUser) {
+                        let _ = IGRegisteredUser.needUpdateUser(userId: roomMessage.igpAuthor.igpUser.igpUserID, cacheId: roomMessage.igpAuthor.igpUser.igpCacheID)
                     }
                 }
-                */
                 
-                /**
-                 * update last message sent/received in room table
-                 */
-                if let lastMessage = room?.lastMessage {
-                    if lastMessage.id <= roomMessage.igpMessageID {
+                if let primaryKeyId = structMessageIdentity?.primaryKeyId {
+                    IGRoomMessage.deleteMessage(primaryKeyId: primaryKeyId)
+                }
+                
+                if (room == nil) {
+                    /**
+                     * if first message received but the room doesn't exist, send request for create new room
+                     */
+                    IGClientGetRoomRequest.sendRequest(roomId: roomId)
+                } else {
+                    
+                    /**
+                     * update unread count if new messageId that received is bigger than latest messageId that exist
+                     */
+                    
+                    if (roomMessage.igpAuthor.igpHash != IGAppManager.sharedManager.authorHash()) && (room?.lastMessage == nil || (room?.lastMessage!.id)! < roomMessage.igpMessageID) {
+                        room?.unreadCount = room!.unreadCount + 1
+                    }
+                    
+                    /*
+                     if roomMessage.igpAuthor.igpHash != IGAppManager.sharedManager.authorHash() {
+                     if roomMessage.igpStatus != IGPRoomMessageStatus.seen {
+                     // manage show local notification
+                     }
+                     }
+                     */
+                    
+                    /**
+                     * update last message sent/received in room table
+                     */
+                    if let lastMessage = room?.lastMessage {
+                        if lastMessage.id <= roomMessage.igpMessageID {
+                            room?.lastMessage = realmRoomMessage
+                            room?.isParticipant = true
+                            if let messageTime = realmRoomMessage?.creationTime?.timeIntervalSinceReferenceDate {
+                                room?.sortimgTimestamp = messageTime
+                            }
+                        }
+                    } else {
                         room?.lastMessage = realmRoomMessage
                         room?.isParticipant = true
                         if let messageTime = realmRoomMessage?.creationTime?.timeIntervalSinceReferenceDate {
                             room?.sortimgTimestamp = messageTime
                         }
                     }
-                } else {
-                    room?.lastMessage = realmRoomMessage
-                    room?.isParticipant = true
-                    if let messageTime = realmRoomMessage?.creationTime?.timeIntervalSinceReferenceDate {
-                        room?.sortimgTimestamp = messageTime
-                    }
                 }
             }
+            
+            if (sender) {
+                /**
+                 * invoke following callback when I'm the sender and the message has updated
+                 */
+                IGMessageViewController.messageOnChatReceiveObserver?.onMessageUpdate(roomId: roomId, message: roomMessage, identity: structMessageIdentity!.roomMessage)
+            } else {
+                ///play send sound
+                
+                /**
+                 * invoke following callback when i'm not the sender, because i already done everything after sending message
+                 */
+                IGMessageViewController.messageOnChatReceiveObserver?.onMessageRecieveInChatPage(roomId: roomId, message: roomMessage, roomType: roomType)
+            }
+            IGRecentsTableViewController.messageReceiveDelegat?.onMessageRecieveInRoomList(roomId: roomId ,messages: [roomMessage])
         }
-        
-        if (sender) {
-            /**
-             * invoke following callback when I'm the sender and the message has updated
-             */
-            IGMessageViewController.messageOnChatReceiveObserver?.onMessageUpdate(roomId: roomId, message: roomMessage, identity: structMessageIdentity!.roomMessage)
-        } else {
-            ///play send sound
-
-            /**
-             * invoke following callback when i'm not the sender, because i already done everything after sending message
-             */
-            IGMessageViewController.messageOnChatReceiveObserver?.onMessageRecieveInChatPage(roomId: roomId, message: roomMessage, roomType: roomType)
-        }
-        IGRecentsTableViewController.messageReceiveDelegat?.onMessageRecieveInRoomList(roomId: roomId ,messages: [roomMessage])
     }
     
     

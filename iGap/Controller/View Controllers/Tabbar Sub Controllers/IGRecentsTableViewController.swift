@@ -1433,18 +1433,19 @@ extension IGRecentsTableViewController {
     }
     
     private func manageUnreadMessage(roomId: Int64, roomType: IGRoom.IGType, message: IGPRoomMessage){
-        let realm = try! Realm()
-        try! realm.write {
-            let room = realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", roomId)).first
-            let message = realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "id = %lld", message.igpMessageID)).first
-            
-            if room != nil && message != nil {
-                /**
-                 * client checked (room.unreadCount <= 1) because in IGHelperMessage unreadCount++
-                 */
-                if (room!.unreadCount <= Int32(1)) {
-                    message?.futureMessageId = message!.id
-                    room?.firstUnreadMessage = message
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", roomId)).first
+                let message = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "id = %lld", message.igpMessageID)).first
+                
+                if room != nil && message != nil {
+                    /**
+                     * client checked (room.unreadCount <= 1) because in IGHelperMessage unreadCount++
+                     */
+                    if (room!.unreadCount <= Int32(1)) {
+                        message?.futureMessageId = message!.id
+                        room?.firstUnreadMessage = message
+                    }
                 }
             }
         }

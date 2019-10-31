@@ -34,8 +34,10 @@ class IGMapNearbyDistanceTableViewController: BaseTableViewController {
         let realm = try! Realm()
         let allNearbyUsers = try! Realm().objects(IGRealmMapNearbyDistance.self)
         if !allNearbyUsers.isEmpty {
-            try! realm.write {
-                realm.delete(allNearbyUsers)
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    realm.delete(allNearbyUsers)
+                }
             }
         }
         

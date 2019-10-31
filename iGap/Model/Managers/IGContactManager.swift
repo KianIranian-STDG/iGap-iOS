@@ -89,7 +89,6 @@ class IGContactManager: NSObject {
                 return
             }
             
-            var contactsStruct = [ContactsStruct]()
             var contactsPhoneStruct = [String]()
             let result = self.resultsChunk[self.contactIndex]
 
@@ -106,37 +105,39 @@ class IGContactManager: NSObject {
             let tmpString = (sortedPhonenumbers.joined(separator: ","))
             let md5Data = IGGlobal.MD5(string:tmpString)
             let md5Hex =  md5Data.map { String(format: "%02hhx", $0) }.joined()
-            
-            let realm = try! Realm()
-            try! realm.write {
-                for contact in result {
+
+            self.makeContactStruct(contacts: result) { (contactsStructList) in
+                if (IGAppManager.sharedManager.md5Hex() != md5Hex) {
+                    if (self.contactIndex ) == (self.resultsChunk.count - 1) {
+                        self.sendContact(phoneContacts: contactsStructList, md5Hex: md5Hex)
+                        self.contactIndex += 1
+
+                    } else {
+                        self.sendContact(phoneContacts: contactsStructList)
+                        self.contactIndex += 1
+                    }
+                }
+            }
+        }
+    }
+    
+    private func makeContactStruct(contacts: [CNContact], completion: @escaping ((_ contactsStructList: [IGContactManager.ContactsStruct]) -> Void)){
+        var contactsStruct: [IGContactManager.ContactsStruct] = []
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                for contact in contacts {
                     for phone in contact.phoneNumbers {
-                        realm.add(IGContact(phoneNumber: phone.value.stringValue, firstName: contact.givenName, lastName: contact.familyName), update: true)
+                        IGDatabaseManager.shared.realm.add(IGContact(phoneNumber: phone.value.stringValue, firstName: contact.givenName, lastName: contact.familyName), update: true)
                         
                         var structContact = ContactsStruct()
                         structContact.phoneNumber = phone.value.stringValue
                         structContact.firstName = contact.givenName
                         structContact.lastName = contact.familyName
                         contactsStruct.append(structContact)
-                        contactsPhoneStruct.append(phone.value.stringValue.trimmingCharacters(in: .whitespaces).inEnglishNumbersNew())
-                        
-                        
                     }
                 }
-                
             }
-
-            if (IGAppManager.sharedManager.md5Hex() == md5Hex) {
-            } else {
-                if (self.contactIndex ) == (self.resultsChunk.count - 1) {
-                    self.sendContact(phoneContacts: contactsStruct, md5Hex: md5Hex)
-                    self.contactIndex += 1
-
-                } else {
-                    self.sendContact(phoneContacts: contactsStruct)
-                    self.contactIndex += 1
-                }
-            }
+            completion(contactsStruct)
         }
     }
     

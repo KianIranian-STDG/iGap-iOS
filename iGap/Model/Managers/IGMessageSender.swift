@@ -85,9 +85,11 @@ class IGMessageSender {
     }
     
     func failSendingMessage(){
-        let predicate = NSPredicate(format: "statusRaw = %d", IGRoomMessageStatus.sending.rawValue)
-        try! IGDatabaseManager.shared.realm.write {
-            IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).setValue(IGRoomMessageStatus.failed.rawValue, forKey: "statusRaw")
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            let predicate = NSPredicate(format: "statusRaw = %d", IGRoomMessageStatus.sending.rawValue)
+            try! IGDatabaseManager.shared.realm.write {
+                IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).setValue(IGRoomMessageStatus.failed.rawValue, forKey: "statusRaw")
+            }
         }
     }
     

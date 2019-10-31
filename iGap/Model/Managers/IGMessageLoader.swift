@@ -914,87 +914,88 @@ class IGMessageLoader {
                                       error: @escaping ((_ error: IGError, _ requestWrapper: IGRequestWrapper) -> Void)) {
         
         IGClientGetRoomHistoryRequest.Generator.generatePowerful(roomID: roomId, firstMessageID: messageIdGetHistory, reachMessageId: reachMessageId, limit: limit, direction: direction, onMessageReceive: onMessageReceive).successPowerful({ (responseProto, requestWrapper) in
-            DispatchQueue.main.async {
-                let identity = requestWrapper.identity as! IGStructClientGetRoomHistoryIdentity
-                let reachMessageIdRequest: Int64! = identity.reachMessageId
-                
-                if let roomHistoryRequest = requestWrapper.message as? IGPClientGetRoomHistory {
-                    if let roomHistoryResponse = responseProto as? IGPClientGetRoomHistoryResponse {
-                        IGRoomMessage.managePutOrUpdate(roomId: roomHistoryRequest.igpRoomID, messages: roomHistoryResponse.igpMessage, options: IGStructMessageOption(isEnableCache: true))
-                        /*
-                        var rewriteMessageInfo: [IGPRoomMessage] = []
-                        try! IGDatabaseManager.shared.realm.write {
-                            for message in roomHistoryResponse.igpMessage {
+            let identity = requestWrapper.identity as! IGStructClientGetRoomHistoryIdentity
+            let reachMessageIdRequest: Int64! = identity.reachMessageId
+            
+            if let roomHistoryRequest = requestWrapper.message as? IGPClientGetRoomHistory {
+                if let roomHistoryResponse = responseProto as? IGPClientGetRoomHistoryResponse {
+                    IGRoomMessage.managePutOrUpdate(roomId: roomHistoryRequest.igpRoomID, messages: roomHistoryResponse.igpMessage, options: IGStructMessageOption(isEnableCache: true), completion: {
+                        DispatchQueue.main.async {
+                            /*
+                             var rewriteMessageInfo: [IGPRoomMessage] = []
+                             try! IGDatabaseManager.shared.realm.write {
+                              for message in roomHistoryResponse.igpMessage {
                                 if let savedMessage = IGRoomMessage.putOrUpdate(igpMessage: message, roomId: roomHistoryRequest.igpRoomID, options: IGStructMessageOption(isEnableCache: true)) {
                                     IGDatabaseManager.shared.realm.add(savedMessage)
                                 } else {
                                     rewriteMessageInfo.append(message)
                                 }
-                            }
-                        }
-                        self.manageRewriteMessage(roomId: roomId, messages: rewriteMessageInfo)
-                        */
-                        
-                        let startMessageId: Int64! = roomHistoryResponse.igpMessage.first?.igpMessageID
-                        let endMessageId: Int64! = roomHistoryResponse.igpMessage.last?.igpMessageID
-                        
-                        /**
-                         * convert message from RealmRoomMessage to StructMessageInfo for send to view
-                         */
-                        
-                        var gapReached: Bool = false
-                        var jumpOverLocal: Bool = false
-                        
-                        if (.up == roomHistoryRequest.igpDirection) {
-                            if (startMessageId <= reachMessageIdRequest) {
-                                gapReached = true;
-                                /**
-                                 * if gapReached now check that future gap is reached or no. if future gap reached this means
-                                 * with get this history , client jumped from local messages and now is in another gap
-                                 */
-                                
-                                if startMessageId <= self.gapExist(roomId: roomId, messageId: reachMessageId, direction: .up).gapMessageId {
-                                    jumpOverLocal = true
+                              }
+                             }
+                             self.manageRewriteMessage(roomId: roomId, messages: rewriteMessageInfo)
+                             */
+                            
+                            let startMessageId: Int64! = roomHistoryResponse.igpMessage.first?.igpMessageID
+                            let endMessageId: Int64! = roomHistoryResponse.igpMessage.last?.igpMessageID
+                            
+                            /**
+                             * convert message from RealmRoomMessage to StructMessageInfo for send to view
+                             */
+                            
+                            var gapReached: Bool = false
+                            var jumpOverLocal: Bool = false
+                            
+                            if (.up == roomHistoryRequest.igpDirection) {
+                                if (startMessageId <= reachMessageIdRequest) {
+                                    gapReached = true;
+                                    /**
+                                     * if gapReached now check that future gap is reached or no. if future gap reached this means
+                                     * with get this history , client jumped from local messages and now is in another gap
+                                     */
+                                    
+                                    if startMessageId <= self.gapExist(roomId: roomId, messageId: reachMessageId, direction: .up).gapMessageId {
+                                        jumpOverLocal = true
+                                    }
                                 }
-                            }
-                        } else {
-                            if (endMessageId >= reachMessageIdRequest) {
-                                gapReached = true
-                                /**
-                                 * if gapReached now check that future gap is reached or no. if future gap reached this means
-                                 * with get this history , client jumped from local messages and now is in another gap
-                                 */
-                                if endMessageId >= self.gapExist(roomId: roomId, messageId: reachMessageId, direction: .down).gapMessageId {
-                                    jumpOverLocal = true
-                                }
-                            }
-                        }
-                        
-                        // TODO - can do this write in another thread?
-                        try! IGDatabaseManager.shared.realm.write {
-                            var finalMessageId: Int64!
-                            if .up == roomHistoryRequest.igpDirection {
-                                finalMessageId = startMessageId
                             } else {
-                                finalMessageId = endMessageId
+                                if (endMessageId >= reachMessageIdRequest) {
+                                    gapReached = true
+                                    /**
+                                     * if gapReached now check that future gap is reached or no. if future gap reached this means
+                                     * with get this history , client jumped from local messages and now is in another gap
+                                     */
+                                    if endMessageId >= self.gapExist(roomId: roomId, messageId: reachMessageId, direction: .down).gapMessageId {
+                                        jumpOverLocal = true
+                                    }
+                                }
                             }
                             
-                            /**
-                             * clear before state gap for avoid compute this message for gap state again
-                             */
-                            self.clearGap(roomId: roomId, messageId: messageIdGetHistory, finalMessageId: finalMessageId, direction: direction)
-                            
-                            /**
-                             * if not reached to gap yet and exist reachMessageId
-                             * set new gap state for compute message for gap
-                             */
-                            if (jumpOverLocal || (!gapReached && reachMessageId > 0)) {
-                                self.setGap(messageId: finalMessageId, direction: roomHistoryRequest.igpDirection)
+                            // TODO - can do this write in another thread?
+                            try! IGDatabaseManager.shared.realm.write {
+                                var finalMessageId: Int64!
+                                if .up == roomHistoryRequest.igpDirection {
+                                    finalMessageId = startMessageId
+                                } else {
+                                    finalMessageId = endMessageId
+                                }
+                                
+                                /**
+                                 * clear before state gap for avoid compute this message for gap state again
+                                 */
+                                self.clearGap(roomId: roomId, messageId: messageIdGetHistory, finalMessageId: finalMessageId, direction: direction)
+                                
+                                /**
+                                 * if not reached to gap yet and exist reachMessageId
+                                 * set new gap state for compute message for gap
+                                 */
+                                if (jumpOverLocal || (!gapReached && reachMessageId > 0)) {
+                                    self.setGap(messageId: finalMessageId, direction: roomHistoryRequest.igpDirection)
+                                }
                             }
+                            
+                            success(roomHistoryRequest.igpRoomID, startMessageId, endMessageId, gapReached, jumpOverLocal, roomHistoryRequest.igpDirection, onMessageReceive)
                         }
-                        
-                        success(roomHistoryRequest.igpRoomID, startMessageId, endMessageId, gapReached, jumpOverLocal, roomHistoryRequest.igpDirection, onMessageReceive)
-                    }
+                    })
                 }
             }
         }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
