@@ -2196,6 +2196,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     func textViewDidChange(_ textView: UITextView) {
         
+        if allowSendTyping() {
+            self.sendTyping()
+            typingStatusExpiryTimer.invalidate()
+            typingStatusExpiryTimer = Timer.scheduledTimer(timeInterval: 1.0,
+                                                           target:   self,
+                                                           selector: #selector(sendCancelTyping),
+                                                           userInfo: nil,
+                                                           repeats:  false)
+        }
+        
         if (textView.text == "" || textView.text.isEmpty) && textViewOldState == .FULL {
             textViewOldState = .EMPTY
             alreadyInSendMode = false
@@ -2221,13 +2231,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private func manageTextViewHeight(textView: UITextView){
         let LINE_HEIGHT: CGFloat = 25
-        let numLines = (textView.contentSize.height / textView.font!.lineHeight).rounded(.down)
+        var numLines = (textView.contentSize.height / textView.font!.lineHeight).rounded(.down)
         
         if beforeMessageLineCount != numLines {
             beforeMessageLineCount = numLines
             textView.scrollRangeToVisible(textView.selectedRange)
             var textViewHeigt = LINE_HEIGHT
             if numLines != 0 {
+                if numLines > 8 {
+                    numLines = 8
+                }
                 textViewHeigt = numLines * LINE_HEIGHT
             }
             self.messageTextViewHeightConstraint.constant = textViewHeigt + LINE_HEIGHT // add an extra 'LINE_HEIGHT'
@@ -5520,30 +5533,6 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
 //MARK: - GrowingTextViewDelegate
 extension IGMessageViewController: GrowingTextViewDelegate {
     
-    //    func textViewDidChange(_ textView: UITextView) {
-    //
-    //        let pos = textView.endOfDocument
-    //        let currentRect = inputTextView.caretRect(for: pos)
-    //        if(currentRect.origin.y > (previousRect.origin.y)){
-    //            if inputTextView.frame.height < 150.0 {
-    //                inputTextView.scrollRangeToVisible(NSMakeRange(0, 0))
-    //            }
-    //        }
-    //        previousRect = currentRect
-    //
-    //        self.setSendAndRecordButtonStates()
-    //        if allowSendTyping() {
-    //            self.sendTyping()
-    //            typingStatusExpiryTimer.invalidate()
-    //            typingStatusExpiryTimer = Timer.scheduledTimer(timeInterval: 1.0,
-    //                                                           target:   self,
-    //                                                           selector: #selector(sendCancelTyping),
-    //                                                           userInfo: nil,
-    //                                                           repeats:  false)
-    //        }
-    //
-    //    }
-    
     func allowSendTyping() -> Bool {
         let currentTime = IGGlobal.getCurrentMillis()
         let difference = currentTime - self.latestTypeTime
@@ -5566,57 +5555,23 @@ extension IGMessageViewController: GrowingTextViewDelegate {
     }
     
     func setInputBarHeight() {
-        
-        //        {
-        //                let height = max(self.inputTextViewHeight - 16, 30)
-        //                var inputBarHeight = height + 16.0
-        //
-        //                inputTextViewHeightConstraint.constant = inputBarHeight - 12
-        //
         if currentAttachment != nil {
-            //        //            inputBarAttachmentViewBottomConstraint.constant = inputBarHeight
-            //        //            inputBarHeight += 36
             holderAttachmentBar.isHidden = false
         } else {
-            //        //            inputBarAttachmentViewBottomConstraint.constant = 0.0
             holderAttachmentBar.isHidden = true
         }
-        //
+
         if selectedMessageToEdit != nil {
-            //                    inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
-            //                    inputBarHeight += 36.0
             holderReplyBar.isHidden = false
             lblPlaceHolder.isHidden = true
         } else if selectedMessageToReply != nil {
-            //                    inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
-            //                    inputBarHeight += 36.0
             holderReplyBar.isHidden = false
             lblPlaceHolder.isHidden = true
-
         } else if IGMessageViewController.selectedMessageToForwardToThisRoom != nil {
-            //                    inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
-            //                    inputBarHeight += 36.0
             holderReplyBar.isHidden = false
-            
-            
-            //                } else if isCardToCardRequestEnable {
-            //                    inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
-            //                    inputBarHeight += 36.0
         } else {
-            //                    inputBarOriginalMessageViewBottomConstraint.constant = 0.0
             holderReplyBar.isHidden = true
         }
-        //
-        //
-        //                inputBarHeightConstraint.constant = inputBarHeight
-        //                inputBarHeightContainerConstraint.constant = inputBarHeight + 16
-        //
-        //                UIView.animate(withDuration: 0.2, animations: {
-        //                }, completion: { (completed) in
-        //                    self.setCollectionViewInset()
-        //                })
-        //            }
-        //
     }
     
     func managePinnedMessage(){
@@ -5735,9 +5690,9 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         let reply = UIAlertAction(title: "REPLY".MessageViewlocalizedNew, style: .default, handler: { (action) in
             self.forwardOrReplyMessage(cellMessage)
         })
+        
         let forward = UIAlertAction(title: "FORWARD".MessageViewlocalizedNew, style: .default, handler: { (action) in
             self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : true,isDelete : false,isShare : false)
-            
         })
         
         let edit = UIAlertAction(title: "BTN_EDITE".MessageViewlocalizedNew, style: .default, handler: { (action) in
@@ -5746,10 +5701,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)
-            }else {
-                //                self.shouldMultiSelect = true
-                //MARK:-DELETE CELL
-                
+            } else {
                 self.editMessage(cellMessage)
             }
         })
