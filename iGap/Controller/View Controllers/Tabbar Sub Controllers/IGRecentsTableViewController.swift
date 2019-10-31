@@ -107,6 +107,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     var singerName : String! = ""
     var songName : String! = ""
     var songTimer : Float! = 0.0
+    private var roomTypeCache: [Int64:IGRoom.IGType] = [:]
+    
     private func updateNavigationBarBasedOnNetworkStatus(_ status: IGAppManager.ConnectionStatus) {
         
         if let navigationItem = self.navigationItem as? IGNavigationItem {
@@ -1410,19 +1412,16 @@ extension IGRecentsTableViewController {
             var roomType: IGRoom.IGType = .chat
             var roomMessageStatus: IGRoomMessageStatus = .delivered
             
-            let predicate = NSPredicate(format: "id = %lld", roomId)
-            if let roomInfo = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
-                if roomInfo.chatRoom != nil {
-                    roomType = .chat
-                } else if roomInfo.groupRoom != nil {
-                    roomType = .group
-                } else {
-                    roomType = .channel
+            if let type = roomTypeCache[roomId] {
+                roomType = type
+            } else {
+                if let roomInfo = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", roomId)).first {
+                    roomType = roomInfo.type
+                    roomTypeCache[roomId] = roomType
                 }
             }
             
             let seenStatus = IGRecentsTableViewController.visibleChat[roomId]
-            
             if seenStatus != nil && seenStatus! {
                 roomMessageStatus = .seen
             }

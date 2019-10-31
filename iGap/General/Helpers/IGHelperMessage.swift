@@ -97,8 +97,6 @@ class IGHelperMessage {
                  */
                 IGMessageViewController.messageOnChatReceiveObserver?.onMessageUpdate(roomId: roomId, message: roomMessage, identity: structMessageIdentity!.roomMessage)
             } else {
-                ///play send sound
-                
                 /**
                  * invoke following callback when i'm not the sender, because i already done everything after sending message
                  */
