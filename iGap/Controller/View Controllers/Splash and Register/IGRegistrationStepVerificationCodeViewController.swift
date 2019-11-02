@@ -19,6 +19,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
     @IBOutlet weak var codeTextField: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var retrySendingCodeLabel: UILabel!
+    @IBOutlet weak var topMargin: NSLayoutConstraint!
     var canRequestNewCode = false
     var phone : String?
     var phoneNumber : String?
@@ -33,7 +34,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
     var verificationMethod : IGVerificationCodeSendMethod?
     var callMethodSupport: Bool = false
     var hud = MBProgressHUD()
-    var defaultYOrigin : CGFloat! = 0
+    var defaultYOrigin : CGFloat! = 63
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,12 +57,18 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
     }
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-                self.view.frame.origin.y -= keyboardSize.height
+            if UIDevice.current.hasNotch {
+
+            } else {
+                self.topMargin.constant -= keyboardSize.height
+            }
+//            self.topMargin.constant = 10
+
         }
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-            self.view.frame.origin.y = defaultYOrigin
+        self.topMargin.constant = 10
     }
 
     override func viewWillAppear(_ animated: Bool) {
