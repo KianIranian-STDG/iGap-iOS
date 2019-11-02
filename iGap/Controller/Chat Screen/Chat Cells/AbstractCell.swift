@@ -898,6 +898,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     }
     
     private func swipePositionManager(){
+        if room.isInvalidated {
+            return
+        }
         if room.type == .chat || self.room.type == .group {
             if pan != nil {
                 

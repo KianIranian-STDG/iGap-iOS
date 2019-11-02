@@ -1099,6 +1099,7 @@
         "NOT_EXIST_ADMIN" : "No admin registered!",
         "EXIST_MEMBER" : "is already in your members!",
         "EXIST_MEMBERS" : "are now your members!",
-        "CHART" : "chart"
+        "CHART" : "chart",
+        "QRCODE_SCANNER" : "QR scanner"
     }
 }

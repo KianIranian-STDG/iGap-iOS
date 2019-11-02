@@ -24,15 +24,15 @@ class IGFinancialServiceBillQrScanner: UIViewController, UIGestureRecognizerDele
         mainView.addSubview(previewView)
         previewView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
-            make.top.equalTo(mainView.snp.top).offset(16)
-            make.bottom.equalTo(mainView.snp.bottom).offset(-16)
-            make.left.equalTo(mainView.snp.left).offset(16)
-            make.right.equalTo(mainView.snp.right).offset(-16)
+            make.top.equalTo(mainView.snp.top)
+            make.bottom.equalTo(mainView.snp.bottom)
+            make.left.equalTo(mainView.snp.left)
+            make.right.equalTo(mainView.snp.right)
         }
         scanner = MTBBarcodeScanner(previewView: previewView)
         
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_QRCODE_SCANNER".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "QRCODE_SCANNER".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self

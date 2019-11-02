@@ -125,7 +125,6 @@ class IGChatSendMessageRequest : IGRequest {
 
 class IGChatUpdateStatusRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        //action id = 202
         class func generate(roomID: Int64, messageID: Int64, status: IGRoomMessageStatus) -> IGRequestWrapper {
             var updateMessageStatusMessage = IGPChatUpdateStatus()
             updateMessageStatusMessage.igpMessageID = messageID
