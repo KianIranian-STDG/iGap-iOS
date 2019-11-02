@@ -501,7 +501,7 @@ class IGMusicPlayerTableViewController: UITableViewController {
     
     
     ///SLIDER
-    private func addGestureRecognizer(slider: UISlider!,musicCover: UIButton!){
+    private func addGestureRecognizer(slider: UISlider!,musicCover: UIButton!,shareBtn: UIButton!){
         slider.addTarget(self, action: #selector(sliderTouchUpInside(_:)), for: .touchUpInside)
         slider.addTarget(self, action: #selector(sliderTouchUpOutside(_:)), for: .touchUpOutside)
         slider.addTarget(self, action: #selector(sliderTouchDown(_:)), for: .touchDown)
@@ -509,13 +509,20 @@ class IGMusicPlayerTableViewController: UITableViewController {
         
         
         musicCover.addTarget(self, action: #selector(self.didTapOnMusicCover(_:)), for: .touchUpInside)
-        
+        shareBtn.addTarget(self, action: #selector(self.didTapOnShareButton(_:)), for: .touchUpInside)
+
     }
     
     @objc func didTapOnMusicCover(_ sender:UIButton!) {
         print("DID TAP ON MUSIC COVER")
     }
-    
+
+    @objc func didTapOnShareButton(_ sender:UIButton!) {
+        print("DID TAP ON SHARE BUTTON")
+        var finalMessageFile = IGGlobal.currentMusic
+        IGHelperPopular.shareAttachment(url: IGGlobal.currentMusic.path(), viewController: self)
+    }
+
     /*************************************************************************/
     /**************************** Gesture Manager ****************************/
     
@@ -597,6 +604,7 @@ class IGMusicPlayerTableViewController: UITableViewController {
         let lblMusicArtist : UILabel = UILabel()
         //        let tmpMusicCover : UIImageView = UIImageView()
         let tmpMusicCover : UIButton = UIButton()
+        let btnShare : UIButton = UIButton()
         musicSlider.tag = IGTagManager.sliderMusic
         lblCurrentTime.tag = IGTagManager.lblCurrentTime
         lblMusicTotalTime.tag = IGTagManager.lblFinalTime
@@ -610,9 +618,11 @@ class IGMusicPlayerTableViewController: UITableViewController {
         headerView.addSubview(lblCurrentTime)
         headerView.addSubview(lblMusicTotalTime)
         headerView.addSubview(tmpMusicCover)
+        headerView.addSubview(btnShare)
         headerView.addSubview(lblMusicName)
         headerView.addSubview(lblMusicArtist)
-        
+//        btnShare.backgroundColor = .red
+        btnShare.setImage(UIImage(named: "igap_share_icon"), for: .normal)
         lblCurrentTime.font = UIFont.igFont(ofSize: 10)
         lblMusicTotalTime.font = UIFont.igFont(ofSize: 10)
         lblMusicArtist.font = UIFont.igFont(ofSize: 12, weight: .light)
@@ -667,6 +677,14 @@ class IGMusicPlayerTableViewController: UITableViewController {
         tmpMusicCover.leftAnchor.constraint(equalTo: musicSlider.leftAnchor, constant: 0).isActive = true
         tmpMusicCover.heightAnchor.constraint(equalToConstant: 80).isActive = true
         tmpMusicCover.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        //shareButton constraints
+
+        btnShare.translatesAutoresizingMaskIntoConstraints = false
+        btnShare.rightAnchor.constraint(equalTo: musicSlider.rightAnchor, constant: 0).isActive = true
+        btnShare.centerYAnchor.constraint(equalTo: tmpMusicCover.centerYAnchor, constant: 0).isActive = true
+        btnShare.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        btnShare.widthAnchor.constraint(equalToConstant: 30).isActive = true
+
         //slider default Value
         let timeM = Int(self.currentTime / 60)
         let timeS = Int(self.currentTime.truncatingRemainder(dividingBy: 60.0))
@@ -674,7 +692,7 @@ class IGMusicPlayerTableViewController: UITableViewController {
         lblCurrentTime.text = String(timeM).inLocalizedLanguage() + ":" + String(timeS).inLocalizedLanguage()
         musicSlider.value = percent
         
-        addGestureRecognizer(slider: musicSlider,musicCover: tmpMusicCover)
+        addGestureRecognizer(slider: musicSlider,musicCover: tmpMusicCover,shareBtn : btnShare)
         
     }
     fileprivate func makeCircleWith(size: CGSize, backgroundColor: UIColor) -> UIImage? {
