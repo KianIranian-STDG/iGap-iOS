@@ -132,7 +132,7 @@ class IGHelperMusicPlayer {
         let pv = UIProgressView()
         self.bgView.addSubview(pv)
         
-        self.createProgressView(pv: pv, view: self.bgView)
+        self.createProgressView(pv: pv, view: self.bgView,bottomBorder: borderBottom)
         //            self.progressBarTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.updateProgressView), userInfo: nil, repeats: true)
         
         
@@ -394,15 +394,14 @@ class IGHelperMusicPlayer {
         bottomBorder.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         
     }
-    private func createProgressView(pv:UIProgressView!,view: UIView!) {
+    private func createProgressView(pv:UIProgressView!,view: UIView!,bottomBorder:UIView!) {
         pv.progress = 0.0
         pv.progressTintColor = UIColor.iGapGreen()
         pv.progressViewStyle = .bar
         
         pv.translatesAutoresizingMaskIntoConstraints = false
-        pv.heightAnchor.constraint(equalToConstant: 2).isActive = true
-        pv.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
-        pv.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 1).isActive = true
+        pv.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        pv.bottomAnchor.constraint(equalTo: bottomBorder.topAnchor, constant: -1).isActive = true
         pv.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
         pv.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         
