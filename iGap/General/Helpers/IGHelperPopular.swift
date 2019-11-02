@@ -49,10 +49,9 @@ class IGHelperPopular {
             
             viewController.present(activityVC, animated: true, completion: nil)
         } else {
-            let alert = UIAlertController(title: "Share Problem", message: "Unfortunately you can't share this file!", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .destructive, handler: nil)
-            alert.addAction(okAction)
-            viewController.present(alert, animated: true, completion: nil)
+            
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "Share Problem", showIconView: true, showDoneButton: false, showCancelButton: true, message: "Unfortunately you can't share this file!", cancelText: "GLOBAL_CLOSE".localizedNew)
+
         }
     }
 }

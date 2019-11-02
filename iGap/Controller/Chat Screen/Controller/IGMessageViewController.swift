@@ -6196,6 +6196,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
         
         DispatchQueue.main.async {
+            
             let alert = UIAlertController(title: "SUCCESS".MessageViewlocalizedNew, message: "U_JOINED".MessageViewlocalizedNew + " \(beforeString)" + "TO".MessageViewlocalizedNew + " \(room.title!)!", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
             let openNow = UIAlertAction(title: "OPEN_NOW".MessageViewlocalizedNew, style: .default, handler: { (action) in

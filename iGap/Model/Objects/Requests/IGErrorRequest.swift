@@ -284,5 +284,6 @@ class IGErrorRequest : IGRequest {
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
             UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
         }
+        
     }
 }

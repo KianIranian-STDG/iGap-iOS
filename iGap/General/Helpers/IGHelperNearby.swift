@@ -36,12 +36,7 @@ class IGHelperNearby {
                 }).error ({ (errorCode, waitTime) in
                     switch errorCode {
                     case .timeout:
-                        DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
-                        }
+                        break
                     default:
                         break
                     }

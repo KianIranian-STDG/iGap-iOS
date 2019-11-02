@@ -137,6 +137,7 @@ class IGRegisttrationStepSecurityQuestions: UIViewController,UIGestureRecognizer
                         alert.addAction(okAction)
                         self.hud.hide(animated: true)
                         self.present(alert, animated: true, completion: nil)
+                        
                     }
                     
                 }).send()

@@ -141,10 +141,7 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
                         }).error({ (errorCode, waitTime) in
                             DispatchQueue.main.async {
                                 IGGlobal.prgHide()
-                                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                                alert.addAction(okAction)
-                                self.present(alert, animated: true, completion: nil)
+                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                             }
                         }).send()
                         
@@ -156,10 +153,7 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
             }).error({ (errorCode, waitTime) in
                 DispatchQueue.main.async {
                     IGGlobal.prgHide()
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                 }
             }).send()
         }
@@ -284,11 +278,8 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
         }).error ({ (errorCode, waitTime) in
             IGGlobal.prgHide()
             DispatchQueue.main.async {
-                let alert = UIAlertController(title: "BTN_HINT".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
-                })
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
             }
         }).send()
     }

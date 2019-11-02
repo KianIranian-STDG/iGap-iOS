@@ -144,9 +144,8 @@ class IGHelperMessage {
     
     private func showDeletedMessageAlert(){
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: nil, message: "DELETED_MESSAGE_2".localizedNew, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil))
-            UIApplication.topViewController()!.present(alert, animated: true, completion: nil)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "DELETED_MESSAGE_2".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
         }
     }
 }

@@ -143,10 +143,7 @@ class IGHelperChatOpener {
                 IGGlobal.prgHide()
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    viewController.present(alert, animated: true, completion: nil)
+                    break
                 default:
                     break
                 }

@@ -510,23 +510,21 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     private func checkAppVersion() {
         DispatchQueue.main.async {
             if AppDelegate.isDeprecatedClient {
-                let alert = UIAlertController(title: "GAME_ALERT_TITLE".RecentTableViewlocalizedNew, message: "VERSION_DEPRICATED".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                let update = UIAlertAction(title: "UPDATE".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+
+                
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "VERSION_DEPRICATED".RecentTableViewlocalizedNew, doneText: "UPDATE".RecentTableViewlocalizedNew,cancelText: "GLOBAL_CLOSE".localizedNew ,done: {
                     UIApplication.shared.open(self.iGapStoreLink!, options: [:], completionHandler: nil)
-                    
+
                 })
-                alert.addAction(update)
-                self.present(alert, animated: true, completion: nil)
+
+
             } else if AppDelegate.isUpdateAvailable {
-                let alert = UIAlertController(title: "UPDATE".RecentTableViewlocalizedNew, message: "VERSION_NEW".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                let update = UIAlertAction(title: "UPDATE".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+                
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .question, title: "UPDATE".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "VERSION_NEW".RecentTableViewlocalizedNew, doneText: "UPDATE".RecentTableViewlocalizedNew,cancelText: "GLOBAL_CLOSE".localizedNew ,done: {
                     UIApplication.shared.open(self.iGapStoreLink!, options: [:], completionHandler: nil)
-                    
+
                 })
-                let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .destructive, handler: nil)
-                alert.addAction(update)
-                alert.addAction(cancel)
-                self.present(alert, animated: true, completion: nil)
+
             }
         }
     }
@@ -675,8 +673,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
         return cell
     }
-    
-    @available(iOS 11.0, *)
+
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let room = rooms![indexPath.row]
@@ -1080,10 +1077,7 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    break
                 default:
                     break
                 }

@@ -622,12 +622,14 @@ class IGMusicPlayerTableViewController: UITableViewController {
         headerView.addSubview(lblMusicName)
         headerView.addSubview(lblMusicArtist)
 //        btnShare.backgroundColor = .red
-        btnShare.setImage(UIImage(named: "igap_share_icon"), for: .normal)
         lblCurrentTime.font = UIFont.igFont(ofSize: 10)
         lblMusicTotalTime.font = UIFont.igFont(ofSize: 10)
         lblMusicArtist.font = UIFont.igFont(ofSize: 12, weight: .light)
         lblMusicName.font = UIFont.igFont(ofSize: 13)
         tmpMusicCover.titleLabel?.font = UIFont.iGapFonticon(ofSize: 30)
+        btnShare.titleLabel?.font = UIFont.iGapFonticon(ofSize: 30)
+        btnShare.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        btnShare.setTitle("🎞", for: .normal)
         lblCurrentTime.textAlignment = .left
         lblMusicName.textAlignment = .left
         lblMusicArtist.textAlignment = .left
@@ -637,7 +639,7 @@ class IGMusicPlayerTableViewController: UITableViewController {
         tmpMusicCover.backgroundColor = UIColor(named: themeColor.labelGrayColor.rawValue)
         musicSlider.setThumbImage(UIImage(named: "sliderThumb"), for: .normal)
         musicSlider.setThumbImage(UIImage(named: "sliderThumb"), for: .highlighted)
-        musicSlider.tintColor = UIColor(named: themeColor.navigationSecondColor.rawValue)!
+        musicSlider.tintColor = UIColor.iGapGreen()
         lblCurrentTime.adjustsFontSizeToFitWidth = true
         lblMusicTotalTime.adjustsFontSizeToFitWidth = true
         
@@ -841,7 +843,7 @@ extension IGMusicPlayerTableViewController: PanModalPresentable {
     }
     
     var shortFormHeight: PanModalHeight {
-        return isShortFormEnabled ? .contentHeight(300.0) : longFormHeight
+        return isShortFormEnabled ? .contentHeight(230) : longFormHeight
     }
     
     var scrollIndicatorInsets: UIEdgeInsets {

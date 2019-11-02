@@ -37,7 +37,8 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
         initNavigationBar()
         manageButtonsView(buttons: [btnPayment])
         manageEditTextsView(editTexts: [edtBillingID,edtPaymentCode])
-        manageTextsView(labels: [txtAmount])
+        manageTextsView(labels: [txtAmount], grayLine: true)
+
         //manageImageViews(images: [imgCompany])
         
         if IGFinancialServiceBill.isTrafficOffenses {
@@ -111,7 +112,8 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
             //btn.removeUnderline()
             btn.layer.cornerRadius = 5
             btn.layer.borderWidth = 1
-            btn.layer.borderColor = UIColor.iGapColor().cgColor
+            btn.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
+            btn.layer.backgroundColor = UIColor(named: themeColor.buttonBGColor.rawValue)?.cgColor
         }
     }
     
@@ -119,15 +121,19 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
         for edt in editTexts {
             edt.layer.cornerRadius = 5
             edt.layer.borderWidth = 1
-            edt.layer.borderColor = UIColor.iGapColor().cgColor
+            edt.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
         }
     }
     
-    private func manageTextsView(labels: [UILabel]){
+    private func manageTextsView(labels: [UILabel], grayLine: Bool = false){
         for txt in labels {
             txt.layer.cornerRadius = 5
             txt.layer.borderWidth = 1
-            txt.layer.borderColor = UIColor.iGapColor().cgColor
+            if grayLine {
+                txt.layer.borderColor = UIColor.gray.cgColor
+            } else {
+                txt.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
+            }
         }
     }
     
@@ -135,7 +141,6 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
         for img in images {
             img.layer.cornerRadius = 5
             img.layer.borderWidth = 1
-            img.layer.borderColor = UIColor.iGapColor().cgColor
         }
     }
     

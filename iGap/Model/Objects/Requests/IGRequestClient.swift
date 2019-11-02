@@ -83,9 +83,9 @@ class IGClientGetRoomRequest : IGRequest {
             if errorCode == .timeout {
                 IGClientGetRoomRequest.sendRequest(roomId: roomId)
             } else if errorCode == .clientGetRoomNotFound {
-                let alert = UIAlertController(title: nil, message: "CHAT_ROOM_NOT_FOUND".localizedNew, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil))
-                UIApplication.topViewController()!.present(alert, animated: true, completion: nil)
+                
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHAT_ROOM_NOT_FOUND".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
             }
         }).send()
     }

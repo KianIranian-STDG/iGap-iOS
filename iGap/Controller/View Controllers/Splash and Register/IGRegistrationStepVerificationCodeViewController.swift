@@ -33,7 +33,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
     var verificationMethod : IGVerificationCodeSendMethod?
     var callMethodSupport: Bool = false
     var hud = MBProgressHUD()
-    var defaultYOrigin : CGFloat! = 64
+    var defaultYOrigin : CGFloat! = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()

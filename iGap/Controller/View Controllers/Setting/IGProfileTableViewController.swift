@@ -199,13 +199,8 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
+
             default:
                 break
             }
@@ -537,12 +532,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "TIME_OUT_MSG_EMAIL".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
             default:
                 break
             }
@@ -563,12 +553,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "TIME_OUT_MSG_EMAIL".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
             default:
                 break
             }
@@ -673,12 +658,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
             default:
                 break
             }
@@ -720,12 +700,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -1191,6 +1166,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     @IBAction func nameTFdidEndEditing(_ sender: UITextField) {
         if currentName != sender.text {
             hasNameChanged = true
+            currentName = sender.text!
         } else {
             hasNameChanged = false
         }
@@ -1278,38 +1254,35 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 }
                 self.hud.hide(animated: true)
             }
+            self.btnUsername.setTitle((current), for: .normal)
+
+
         }).error ({ (errorCode, waitTime) in
             DispatchQueue.main.async {
                 SMLoading.hideLoadingPage()
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .userProfileUpdateUsernameIsInvaild:
-                    let alert = UIAlertController(title: "Timeout", message: "Username is invalid", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INVALID_USERNAME".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                     break
                     
                 case .userProfileUpdateUsernameHasAlreadyBeenTaken:
-                    let alert = UIAlertController(title: "Timeout", message: "Username has already been taken by another user", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_TAKEN_USERNAME".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                     break
                     
                 case .userProfileUpdateLock:
                     let time = waitTime
                     let remainingMiuntes = time!/60
-                    let alert = UIAlertController(title: "Error", message: "You can not change your username because you've recently changed it. waiting for \(remainingMiuntes) minutes", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true,completion: nil)
+                    let msg = "MSG_CHANGE_USERNAME_AFTER".localizedNew + " " + String(remainingMiuntes) + " " + "MINUTE".localizedNew
+                    
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                     break
                     
                 default:
@@ -1332,18 +1305,18 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 default:
                     break
                 }
+                self.btnName.setTitle((current), for: .normal)
+
             }
+
         }).error ({ (errorCode, waitTime) in
             DispatchQueue.main.async {
                 SMLoading.hideLoadingPage()
 
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     self.canCallNextRequest = false
+                    break
                 default:
                     break
                 }
@@ -1370,11 +1343,8 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     self.canCallNextRequest = false
+                    break
                 default:
                     break
                 }
@@ -1402,11 +1372,8 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 SMLoading.hideLoadingPage()
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     self.canCallNextRequest = false
+                    break
                 default:
                     break
                 }
@@ -1428,11 +1395,8 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 SMLoading.hideLoadingPage()
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     self.canCallNextRequest = false
+                    break
                 default:
                     break
                 }
@@ -1455,11 +1419,8 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 SMLoading.hideLoadingPage()
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     self.canCallNextRequest = false
+                    break
                 default:
                     break
                 }
@@ -1509,10 +1470,8 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
-                        let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+
+                        break
                     default:
                         break
                     }
