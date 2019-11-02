@@ -192,7 +192,10 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     @objc func didTapOnBackground() {
         self.phoneNumberField.resignFirstResponder()
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.hideKeyboardWhenTappedAround()
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIView.appearance().semanticContentAttribute = .forceLeftToRight

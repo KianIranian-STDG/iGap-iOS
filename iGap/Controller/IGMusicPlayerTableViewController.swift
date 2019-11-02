@@ -49,7 +49,7 @@ class IGMusicPlayerTableViewController: UITableViewController {
     ]
     var currentTime: Float = 0
     var isShortFormEnabled = true
-    var headerHeight = 200
+    var headerHeight = 250
     var defaultHeight = 300
     let headerView = UIView()
     var sharedMedia: [IGRoomMessage] = []
@@ -513,8 +513,7 @@ class IGMusicPlayerTableViewController: UITableViewController {
     }
     
     @objc func didTapOnMusicCover(_ sender:UIButton!) {
-        
-        
+        print("DID TAP ON MUSIC COVER")
     }
     
     /*************************************************************************/
@@ -666,8 +665,8 @@ class IGMusicPlayerTableViewController: UITableViewController {
         tmpMusicCover.translatesAutoresizingMaskIntoConstraints = false
         tmpMusicCover.bottomAnchor.constraint(equalTo: musicSlider.topAnchor, constant: -5).isActive = true
         tmpMusicCover.leftAnchor.constraint(equalTo: musicSlider.leftAnchor, constant: 0).isActive = true
-        tmpMusicCover.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        tmpMusicCover.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        tmpMusicCover.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        tmpMusicCover.widthAnchor.constraint(equalToConstant: 80).isActive = true
         //slider default Value
         let timeM = Int(self.currentTime / 60)
         let timeS = Int(self.currentTime.truncatingRemainder(dividingBy: 60.0))

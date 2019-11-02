@@ -248,6 +248,7 @@ class MusicCell : UITableViewCell {
             }
             
             //MARK: ▶︎ Rx End
+            if attachment != nil {
             switch (attachment.type) {
             case .audio:
                 self.indicatorViewAbs.isHidden = false
@@ -261,6 +262,7 @@ class MusicCell : UITableViewCell {
                 }
             default:
                 break
+            }
             }
         }
     }

@@ -33,12 +33,13 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
     var verificationMethod : IGVerificationCodeSendMethod?
     var callMethodSupport: Bool = false
     var hud = MBProgressHUD()
-    
+    var defaultYOrigin : CGFloat! = 64
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initTimer()
         codeTextField.delegate = self
-        
+        self.hideKeyboardWhenTappedAround()
         delayTime = delayBeforeSendingAgaing
         
         let navigaitonItem = self.navigationItem as! IGNavigationItem
@@ -49,8 +50,20 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
     }
-    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+                self.view.frame.origin.y -= keyboardSize.height
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+            self.view.frame.origin.y = defaultYOrigin
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        self.codeTextField.becomeFirstResponder()
@@ -241,7 +254,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
     fileprivate func verifyUser() {
         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         self.hud.mode = .indeterminate
-        if let code = Int32(codeTextField.text!){
+        if let code = Int32(codeTextField.text!.inEnglishNumbersNew()){
             IGUserVerifyRequest.Generator.generate(usename: self.username!, code: code).success({ (responseProto) in
                 DispatchQueue.main.async {
                     switch responseProto {

@@ -117,7 +117,7 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
                         let alertMessage = "App Name: \(newDeviceResponse.appName)\nBuild Version: \(newDeviceResponse.buildVersion)\nApp Version: \(newDeviceResponse.appVersion)\nPlatform: \(newDeviceResponse.platform)\nPlatform Version: \(newDeviceResponse.platformVersion)\nDevice: \(newDeviceResponse.device)\nDevice Name: \(newDeviceResponse.devicename)"
                         
                         
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: alertTitle, showIconView: true, showDoneButton: false, showCancelButton: true, message: alertMessage, cancelText: "GLOBAL_CLOSE".localizedNew , cancel:  {
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: alertTitle, showIconView: true, showDoneButton: false, showCancelButton: true, message: alertMessage, cancelText: "GLOBAL_CLOSE".localizedNew , cancel:  {
                             self.navigationController?.popViewController(animated: true)
                             self.dismiss(animated: true, completion: nil)
                         })
