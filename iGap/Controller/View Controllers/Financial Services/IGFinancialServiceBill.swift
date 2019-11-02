@@ -99,7 +99,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
             }
             
         } else {
-            navigationItem.addModalViewRightItem(title: "", iGapFont: true, fontSize: 25.0, xPosition: 5.0)
+            navigationItem.addModalViewRightItem(title: "", iGapFont: true, fontSize: 25.0, xPosition: 5.0)
             navigationItem.rightViewContainer?.addAction {
                 self.performSegue(withIdentifier: "showFinancialServiceBillQrScanner", sender: self)
             }
