@@ -2640,7 +2640,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     func setCollectionViewInset(withDuration: TimeInterval = 0.2) {
         let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
         UIView.animate(withDuration: withDuration, animations: {
-            self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: 20, right: 0)
+            self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
         }, completion: { (completed) in
             
         })

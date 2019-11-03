@@ -99,6 +99,8 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
         channelImage.avatarImageView?.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(recognizer:)))
         channelImage.avatarImageView?.addGestureRecognizer(tap)
+        requestToGetRoom()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -253,10 +255,7 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    break
                 default:
                     break
                 }
@@ -1352,7 +1351,7 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
                     return cell
                 }
             default:
-                cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                cellTypeRed.initLabels(nameLblString: "",changeColor: true)
                 return cellTypeRed
             }
         case .none:
