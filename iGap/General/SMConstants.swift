@@ -38,6 +38,7 @@ struct EventBusManager {
     static let updateLabelsData = "updateLabelsData"
     static let stopLastButtonState = "stopLastButtonState"
     static let updateBottomPlayerLabelsData = "updateBottomPlayerLabelsData"
+    static let updateTabbarLang = "updateTabbarLang"
 }
 
 struct SMMessage {

@@ -10,6 +10,7 @@
 
 import UIKit
 import SnapKit
+import SwiftEventBus
 var currentTabIndex: Int! = 2
 
 enum TabBarTab : Int {
@@ -26,8 +27,13 @@ class IGTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         initView()
+        SwiftEventBus.onMainThread(self, name: EventBusManager.updateTabbarLang) { result in
+            //            print(result?.object as! Float)
+            self.setTabBarItems()
+        }
+        
     }
     
     private func initView() {
@@ -48,7 +54,7 @@ class IGTabBarController: UITabBarController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-
+        
         if #available(iOS 13.0, *) {
             if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true {
                 // appearance has changed
@@ -70,7 +76,7 @@ class IGTabBarController: UITabBarController {
                 item.setBadgeTextAttributes([
                     NSAttributedString.Key.foregroundColor: UIColor.white,
                     NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)
-                    ], for: .normal)
+                ], for: .normal)
             }
         }
     }
@@ -146,7 +152,7 @@ class IGTabBarController: UITabBarController {
         myTabBarItem5.imageInsets = UIEdgeInsets(top: -8, left: 0, bottom: 0, right: 0)
         myTabBarItem5.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -10)
     }
-
+    
     
     private func setCurrent(tab: TabBarTab) {
         switch tab {
@@ -177,11 +183,11 @@ extension IGTabBarController: UITabBarControllerDelegate {
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
-	guard let input = input else { return nil }
-	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+    guard let input = input else { return nil }
+    return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
-	return input.rawValue
+    return input.rawValue
 }

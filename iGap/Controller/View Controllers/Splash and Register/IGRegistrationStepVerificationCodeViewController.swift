@@ -12,6 +12,7 @@ import UIKit
 import IGProtoBuff
 import SwiftProtobuf
 import MBProgressHUD
+import maincore
 
 class IGRegistrationStepVerificationCodeViewController: BaseViewController {
 
@@ -60,7 +61,12 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
             if UIDevice.current.hasNotch {
 
             } else {
-                self.topMargin.constant -= keyboardSize.height
+                switch UIDevice().type {
+                case .iPhone5,.iPhone5S,.iPhoneSE,.iPhone6,.iPhone6S :
+                    self.topMargin.constant -= keyboardSize.height
+                default:
+                    break
+                }
             }
 //            self.topMargin.constant = 10
 
@@ -111,7 +117,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
     
     
     func didTapOnNext() {
-        
+
         if let code = codeTextField.text?.inEnglishNumbersNew() {
             if IGGlobal.matches(for: self.codeRegex!, in: code) {
                 verifyUser()
@@ -120,7 +126,8 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
                 let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
                     
                 })
-                
+//                UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+
                 alertVC.addAction(ok)
                 self.present(alertVC, animated: true, completion: {
                     

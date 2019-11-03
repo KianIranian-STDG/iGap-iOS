@@ -9,7 +9,8 @@
  */
 
 import UIKit
-
+import maincore
+import SwiftEventBus
 class IGRegisterChooseLanguageTableViewController: UITableViewController {
 
     override func viewDidLoad() {
@@ -20,6 +21,28 @@ class IGRegisterChooseLanguageTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        checkAppLanguage()
+        
+    }
+    private func checkAppLanguage() {
+        print(SMLangUtil.loadLanguage())
+        lastLang = SMLangUtil.loadLanguage()
+        if SMLangUtil.loadLanguage() == "fa" {
+            IGGlobal.languageFileName = "localizationsFa"
+        } else {
+            IGGlobal.languageFileName = "localizationsEn"
+        }
+        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
+        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
+        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
+
+        if SMLangUtil.loadLanguage() == "fa" {
+            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+        } else {
+            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+        }
+        SwiftEventBus.post(EventBusManager.updateTabbarLang,sender: true)
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -72,6 +95,7 @@ class IGRegisterChooseLanguageTableViewController: UITableViewController {
 
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoDissmissLangFANotificationName), object: nil)
             
+            checkAppLanguage()
         case 1:
            
             SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.English)
@@ -80,12 +104,14 @@ class IGRegisterChooseLanguageTableViewController: UITableViewController {
 //                Language.language = Language.english
 
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoDissmissLangENNotificationName), object: nil)
-            
+            checkAppLanguage()
+
         case 2:
             
             SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoDissmissLangARNotificationName), object: nil)
-            
+            checkAppLanguage()
+
         default :
             break
         }
