@@ -467,7 +467,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         super.viewDidLoad()
         ///newUITextMessage
         initViewNewChatView()
-        initNotificationsNewChatView()
+//        initNotificationsNewChatView()
         initFontsNewChatView()
         initAlignmentsNewChatView()
         initChangeLanguegeNewChatView()
@@ -751,13 +751,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupNotifications()
+
         IGGlobal.isInChatPage = true
         IGMessageViewController.messageViewControllerObserver = self
         IGMessageViewController.additionalObserver = self
         IGMessageViewController.messageOnChatReceiveObserver = self
         self.currentRoomId = self.room?.id
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
-        setupNotifications()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
         
@@ -788,6 +789,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.createTopMusicPlayer()
             
         }
+        initNotificationsNewChatView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -1169,52 +1171,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     
     
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if MoneyInputModalIsActive {
-            if let MoneyInput = MoneyInputModal {
-                self.view.addSubview(MoneyInput)
-                UIView.animate(withDuration: 0.3) {
-                    //                    self.messageTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-                    
-                    if MoneyInput.frame.origin.y < self.view.frame.size.height {
-                        MoneyInput.frame = CGRect(x: 0, y: self.view.frame.height - MoneyInput.frame.height - 45, width: self.view.frame.width, height: MoneyInput.frame.height)
-                    }
-                }
-            }
-            
-            
-        }
-        else if CardToCardModalIsActive {
-            if let CardInput = CardToCardModal {
-                self.view.addSubview(CardInput)
-                UIView.animate(withDuration: 0.3) {
-                    if CardInput.frame.origin.y < self.view.frame.size.height {
-                        CardInput.frame = CGRect(x: 0, y: self.view.frame.height - CardInput.frame.height - 45, width: self.view.frame.width, height: CardInput.frame.height)
-                    }
-                }
-            }
-            
-            
-        }
-        else if MultiShareModalIsActive {
-            if let MultiShare = forwardModal {
-                self.view.addSubview(MultiShare)
-                UIView.animate(withDuration: 0.3) {
-                    if MultiShare.frame.origin.y < self.view.frame.size.height {
-                        let tmpY = ((self.view.frame.height) - (MultiShare.frame.height) - (200))
-                        MultiShare.frame = CGRect(x: 0, y: tmpY , width: self.view.frame.width, height: MultiShare.frame.height + (200))
-                    }
-                }
-            }
-            
-        }
-        self.messageTextViewBottomConstraint.constant =  0
-        UIView.animate(withDuration: 0.5){
-            self.view.layoutIfNeeded()
-        }
-        
-        self.view.layoutIfNeeded()
-    }
+    
     
     
     func onStickerTap(stickerItem: IGRealmStickerItem) {
@@ -1802,9 +1759,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     ///Notifications initialisers
     private func initNotificationsNewChatView() {
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(IGMessageViewController.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(IGMessageViewController.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @IBAction func didTapOnCloseTopBar(_ sender: UIButton) {
@@ -1813,76 +1769,154 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
     }
     
-    @objc func keyboardWillShow(notification: NSNotification) {
-        
-        let keyboardSize = (notification.userInfo?  [UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-        let keyboardHeight = keyboardSize?.height
-        let window = UIApplication.shared.keyWindow!
-        
-        if #available(iOS 11.0, *){
-            self.messageTextViewBottomConstraint.constant = keyboardHeight!
+        @objc func keyboardWillShow(notification: NSNotification) {
+            if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+
+                let keyboardHeight = keyboardSize.height
+                let window = UIApplication.shared.keyWindow!
+                
+                if #available(iOS 11.0, *){
+                    self.messageTextViewBottomConstraint.constant = keyboardHeight
+                }
+                else {
+                    self.messageTextViewBottomConstraint.constant = view.safeAreaInsets.bottom
+                }
+                UIView.animate(withDuration: 0.5){
+                    
+                    self.view.layoutIfNeeded()
+                    
+                }
+                if self.MoneyTransactionModalIsActive {
+                    if let moneyModal = MoneyTransactionModal {
+                        window.addSubview(moneyModal)
+                        UIView.animate(withDuration: 0.3) {
+                            
+                            var frame = moneyModal.frame
+                            frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight - frame.size.height)
+                            moneyModal.frame = frame
+                            
+
+                    }
+                }
+                }
+                else if MoneyInputModalIsActive {
+                    if let MoneyInput = MoneyInputModal {
+                        window.addSubview(MoneyInput)
+                        UIView.animate(withDuration: 0.3) {
+                            
+                            var frame = MoneyInput.frame
+                            frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight - frame.size.height)
+                            MoneyInput.frame = frame
+                            
+                        }
+                    }
+                }
+                else if CardToCardModalIsActive {
+                    if let CardInput = CardToCardModal {
+                        window.addSubview(CardInput)
+                        UIView.animate(withDuration: 0.3) {
+                            
+                            var frame = CardInput.frame
+                            frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight - frame.size.height)
+                            CardInput.frame = frame
+                            
+                        }
+                    }
+                }
+                else if MultiShareModalIsActive {
+                    if let MultiShare = forwardModal {
+                        window.addSubview(MultiShare)
+                        UIView.animate(withDuration: 0.3) {
+                            
+                            var frame = MultiShare.frame
+                            frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight - frame.size.height  + (200))
+                            MultiShare.frame = frame
+                            MultiShare.frame.size.height =  MultiShare.frame.size.height - (200)
+                            
+                        }
+                    }
+                }
+                else {
+                    if MoneyInputModal != nil {
+                        self.hideMoneyInputModal()
+                    }
+                    
+                    if CardToCardModal != nil {
+                        self.hideCardToCardModal()
+                    }
+                    
+                    if forwardModal != nil {
+                        self.hideMultiShareModal()
+                    }
+                }
+                self.view.layoutIfNeeded()
+
+                
+            }
         }
-        else {
-            self.messageTextViewBottomConstraint.constant = view.safeAreaInsets.bottom
-        }
-        UIView.animate(withDuration: 0.5){
+
+        @objc func keyboardWillHide(notification: NSNotification) {
+            if self.MoneyTransactionModalIsActive {
+                if let moneyModal = MoneyTransactionModal {
+                    self.view.addSubview(moneyModal)
+                    UIView.animate(withDuration: 0.3) {
+                        //                    self.messageTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+                        
+                        if moneyModal.frame.origin.y < self.view.frame.size.height {
+                            moneyModal.frame = CGRect(x: 0, y: self.view.frame.height - moneyModal.frame.height - 45, width: self.view.frame.width, height: moneyModal.frame.height)
+                        }
+                    }
+                }
+                
+            }
+            else if MoneyInputModalIsActive {
+                if let MoneyInput = MoneyInputModal {
+                    self.view.addSubview(MoneyInput)
+                    UIView.animate(withDuration: 0.3) {
+                        //                    self.messageTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+                        
+                        if MoneyInput.frame.origin.y < self.view.frame.size.height {
+                            MoneyInput.frame = CGRect(x: 0, y: self.view.frame.height - MoneyInput.frame.height - 45, width: self.view.frame.width, height: MoneyInput.frame.height)
+                        }
+                    }
+                }
+                
+                
+            }
+            else if CardToCardModalIsActive {
+                if let CardInput = CardToCardModal {
+                    self.view.addSubview(CardInput)
+                    UIView.animate(withDuration: 0.3) {
+                        if CardInput.frame.origin.y < self.view.frame.size.height {
+                            CardInput.frame = CGRect(x: 0, y: self.view.frame.height - CardInput.frame.height - 45, width: self.view.frame.width, height: CardInput.frame.height)
+                        }
+                    }
+                }
+                
+                
+            }
+            else if MultiShareModalIsActive {
+                if let MultiShare = forwardModal {
+                    self.view.addSubview(MultiShare)
+                    UIView.animate(withDuration: 0.3) {
+                        if MultiShare.frame.origin.y < self.view.frame.size.height {
+                            let tmpY = ((self.view.frame.height) - (MultiShare.frame.height) - (200))
+                            MultiShare.frame = CGRect(x: 0, y: tmpY , width: self.view.frame.width, height: MultiShare.frame.height + (200))
+                        }
+                    }
+                }
+                
+            }
+            self.messageTextViewBottomConstraint.constant =  0
+            UIView.animate(withDuration: 0.5){
+                self.view.layoutIfNeeded()
+            }
             
             self.view.layoutIfNeeded()
-            
         }
-        
-        if MoneyInputModalIsActive {
-            if let MoneyInput = MoneyInputModal {
-                window.addSubview(MoneyInput)
-                UIView.animate(withDuration: 0.3) {
-                    
-                    var frame = MoneyInput.frame
-                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
-                    MoneyInput.frame = frame
-                    
-                }
-            }
-        }
-        else if CardToCardModalIsActive {
-            if let CardInput = CardToCardModal {
-                window.addSubview(CardInput)
-                UIView.animate(withDuration: 0.3) {
-                    
-                    var frame = CardInput.frame
-                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
-                    CardInput.frame = frame
-                    
-                }
-            }
-        }
-        else if MultiShareModalIsActive {
-            if let MultiShare = forwardModal {
-                window.addSubview(MultiShare)
-                UIView.animate(withDuration: 0.3) {
-                    
-                    var frame = MultiShare.frame
-                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height  + (200))
-                    MultiShare.frame = frame
-                    MultiShare.frame.size.height =  MultiShare.frame.size.height - (200)
-                    
-                }
-            }
-        }
-        else {
-            if MoneyInputModal != nil {
-                self.hideMoneyInputModal()
-            }
-            
-            if CardToCardModal != nil {
-                self.hideCardToCardModal()
-            }
-            
-            if forwardModal != nil {
-                self.hideMultiShareModal()
-            }
-        }
-        self.view.layoutIfNeeded()
-    }
+
+    
+    
     private func showHideStickerButton(shouldShow : Bool!) {
         if shouldShow {
             UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
