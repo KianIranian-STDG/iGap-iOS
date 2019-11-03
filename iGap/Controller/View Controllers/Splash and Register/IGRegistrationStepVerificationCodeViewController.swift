@@ -62,8 +62,10 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
 
             } else {
                 switch UIDevice().type {
-                case .iPhone5,.iPhone5S,.iPhoneSE,.iPhone6,.iPhone6S :
+                case .iPhone5,.iPhone5S,.iPhoneSE:
                     self.topMargin.constant -= keyboardSize.height
+                case .iPhone6,.iPhone6S :
+                    self.topMargin.constant -= (keyboardSize.height)/2
                 default:
                     break
                 }
