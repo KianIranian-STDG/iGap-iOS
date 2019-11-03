@@ -32,15 +32,11 @@ class IGHelperJoin {
             DispatchQueue.main.async {
                 IGGlobal.prgHide()
                 if let clinetCheckInvitedlink = protoResponse as? IGPClientCheckInviteLinkResponse {
-                    let alert = UIAlertController(title: "iGap", message: "Are you sure want to join \(clinetCheckInvitedlink.igpRoom.igpTitle)?", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                    
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "iGap", showIconView: true, showDoneButton: false, showCancelButton: true, message: "Are you sure want to join \(clinetCheckInvitedlink.igpRoom.igpTitle)?",doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,done: {
                         self.joinRoombyInvitedLink(room:clinetCheckInvitedlink.igpRoom, invitedToken: token)
                     })
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                    
-                    alert.addAction(okAction)
-                    alert.addAction(cancelAction)
-                    self.viewController.present(alert, animated: true, completion: nil)
+
                 }
             }
         }).error ({ (errorCode, waitTime) in
@@ -48,11 +44,7 @@ class IGHelperJoin {
                 switch errorCode {
                 case .timeout:
                     
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    
-                    self.viewController.present(alert, animated: true, completion: nil)
+                    break
                 default:
                     break
                 }
@@ -81,16 +73,11 @@ class IGHelperJoin {
                 IGGlobal.prgHide()
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.viewController.present(alert, animated: true, completion: nil)
-                    
+
+                    break
                 case .clientJoinByInviteLinkForbidden:
-                    let alert = UIAlertController(title: "Error", message: "Sorry,this group does not seem to exist.", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.viewController.present(alert, animated: true, completion: nil)
+                    
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "GROUP_DOES_NOT_EXIST".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                     
                 case .clientJoinByInviteLinkAlreadyJoined:
                     self.openChatAfterJoin(room: IGRoom(igpRoom: room), before: true)
@@ -107,22 +94,22 @@ class IGHelperJoin {
         
         var beforeString = ""
         if before {
-            beforeString = "before "
+            beforeString = "BEFORE".localizedNew + " "
         }
         
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Success", message: "You joined \(beforeString)to \(room.title!)!", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            let openNow = UIAlertAction(title: "Open Now", style: .default, handler: { (action) in
+                        
+            let msg = "U_JOINED".localizedNew + " " + beforeString + "TO".localizedNew + room.title!
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg,doneText: "OPEN_NOW".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,done: {
+
                 let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let chatPage = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
                 chatPage.room = room
                 chatPage.hidesBottomBarWhenPushed = true
                 self.viewController.navigationController!.pushViewController(chatPage, animated: true)
+
+                
             })
-            alert.addAction(okAction)
-            alert.addAction(openNow)
-            self.viewController.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -156,15 +143,13 @@ class IGHelperJoin {
                 IGGlobal.prgHide()
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.viewController.present(alert, animated: true, completion: nil)
+                    break
                 case .clinetJoinByUsernameForbidden:
                     let alert = UIAlertController(title: "Error", message: "You don't have permission to join this room", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.viewController.present(alert, animated: true, completion: nil)
+                    
                 default:
                     break
                 }

@@ -57,6 +57,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.hero.navigationAnimationType = .fade
         let attributes:[NSAttributedString.Key:Any] = [
             NSAttributedString.Key.foregroundColor : UIColor(named: themeColor.labelColor.rawValue),
@@ -75,6 +76,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         self.view.endEditing(true)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
 
