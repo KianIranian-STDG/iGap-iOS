@@ -270,6 +270,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             if IGAppManager.sharedManager.isUserLoggiedIn() {
                 self.checkDeepLink()
             } else {
+                
                 NotificationCenter.default.addObserver(self,
                     selector: #selector(self.checkDeepLink),
                     name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
@@ -279,6 +280,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     }
     
     @objc private func checkDeepLink() {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName), object: nil)
         DeepLinkManager.shared.checkDeepLink()
     }
 
@@ -390,6 +392,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
 
         self.window?.rootViewController?.present(vc, animated: true, completion: nil)
     }
+    
     func goToSpash(mainRoot: Bool = false) {
         UIApplication.shared.unregisterForRemoteNotifications()
         

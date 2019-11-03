@@ -117,7 +117,10 @@ class DeeplinkNavigator {
     
     private func showDiscovery(pathes: [String]) {
         self.selectTabBarIndex(tab: TabBarTab.Dashboard) { (tabBar) in
-            guard let selectedVC = tabBar?.selectedViewController as? IGDashboardViewController else {
+            guard let navController = tabBar?.selectedViewController as? IGNavigationController else {
+                return
+            }
+            guard let selectedVC = navController.topViewController as? IGDashboardViewController else {
                 return
             }
             if pathes.count != 0 {
