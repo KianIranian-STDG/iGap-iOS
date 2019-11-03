@@ -16,6 +16,8 @@ import RealmSwift
 import RxSwift
 import WebRTC
 import FirebaseInstanceID
+import maincore
+import SwiftEventBus
 
 class IGAppManager: NSObject {
     static let sharedManager = IGAppManager()
@@ -178,8 +180,30 @@ class IGAppManager: NSObject {
     public func setUserLoginSuccessful() {
         isUserLoggedIn.value = true
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName), object: nil)
+        checkAppLanguage()
+        
     }
     
+    private func checkAppLanguage() {
+        print(SMLangUtil.loadLanguage())
+        lastLang = SMLangUtil.loadLanguage()
+        if SMLangUtil.loadLanguage() == "fa" {
+            IGGlobal.languageFileName = "localizationsFa"
+        } else {
+            IGGlobal.languageFileName = "localizationsEn"
+        }
+        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
+        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
+        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
+
+        if SMLangUtil.loadLanguage() == "fa" {
+            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+        } else {
+            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+        }
+        SwiftEventBus.post(EventBusManager.updateTabbarLang,sender: true)
+
+    }
     public func getSignalingConfiguration(force:Bool = false){
         let realm = try! Realm()
         let signalingConfig = realm.objects(IGSignaling.self).first

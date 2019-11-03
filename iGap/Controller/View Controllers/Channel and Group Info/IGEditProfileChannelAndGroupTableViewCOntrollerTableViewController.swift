@@ -543,12 +543,10 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
             }
             
             if groupUserName.count < 5 {
-                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_MINIMUM_LENGH".localizedNew, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                alert.addAction(okAction)
                 SMLoading.hideLoadingPage()
                 self.dispatchGroup.leave()
-                self.present(alert, animated: true, completion: nil)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_MINIMUM_LENGH".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                 return
             }
             
@@ -574,66 +572,53 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
-                        
-                        alert.addAction(okAction)
-                        
-                        self.present(alert, animated: true, completion: nil)
                         
                     case .groupUpdateUsernameIsInvalid:
-                        let alert = UIAlertController(title: "Error", message: "Username is invalid", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
-                        
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INVALID_USERNAME".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                         break
                         
                     case .groupUpdateUsernameHasAlreadyBeenTakenByAnotherUser:
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_TAKEN_USERNAME".localizedNew, preferredStyle: .alert)
-                        
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
-                        
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_TAKEN_USERNAME".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                         break
                         
                     case .groupUpdateUsernameMoreThanTheAllowedUsernmaeHaveBeenSelectedByYou:
-                        let alert = UIAlertController(title: "Error", message: "More than the allowed usernmae have been selected by you", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
                         
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "Error", showIconView: true, showDoneButton: false, showCancelButton: true, message: "More than the allowed usernmae have been selected by you", cancelText: "GLOBAL_CLOSE".localizedNew)
+
                         break
                         
                     case .groupUpdateUsernameForbidden:
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_UPDATE_USERNAME_FORBIDDEN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
                         
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_UPDATE_USERNAME_FORBIDDEN".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                         break
                         
                     case .groupUpdateUsernameLock:
                         let time = waitTime
                         let remainingMiuntes = time!/60
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_CHANGE_USERNAME_AFTER".localizedNew + " \(remainingMiuntes)" + "MINUTE".localizedNew, preferredStyle: .alert)
+                        let msg = "MSG_CHANGE_USERNAME_AFTER".localizedNew + " " + String(remainingMiuntes) + " " + "MINUTE".localizedNew
+                        
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
-                        
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true,completion: nil)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                         break
                         
                     default:
@@ -718,10 +703,7 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    break
                 default:
                     break
                 }
@@ -750,12 +732,8 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
                         SMLoading.hideLoadingPage()
                         self.dispatchGroup.leave()
-                        self.present(alert, animated: true, completion: nil)
                     }
                 default:
                     break
@@ -787,12 +765,8 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
                         SMLoading.hideLoadingPage()
                         self.dispatchGroup.leave()
-                        self.present(alert, animated: true, completion: nil)
                     }
                 default:
                     break
@@ -940,12 +914,7 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -965,12 +934,7 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }

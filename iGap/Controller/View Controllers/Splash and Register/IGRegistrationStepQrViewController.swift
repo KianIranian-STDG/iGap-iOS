@@ -12,6 +12,8 @@ import UIKit
 import IGProtoBuff
 import SwiftProtobuf
 import MBProgressHUD
+import maincore
+import SwiftEventBus
 
 class IGRegistrationStepQrViewController: BaseViewController {
     
@@ -137,6 +139,7 @@ class IGRegistrationStepQrViewController: BaseViewController {
                             }
                             hud.hide(animated: true)
                             IGAppManager.sharedManager.setUserLoginSuccessful()
+                            self.checkAppLanguage()
                             self.dismiss(animated: true, completion: nil)
                         }
                     }).error({ (errorCode, waitTime) in
@@ -155,5 +158,26 @@ class IGRegistrationStepQrViewController: BaseViewController {
         }).error({ (errorCode, waitTime) in
             
         }).send()
+    }
+    
+    private func checkAppLanguage() {
+        print(SMLangUtil.loadLanguage())
+        lastLang = SMLangUtil.loadLanguage()
+        if SMLangUtil.loadLanguage() == "fa" {
+            IGGlobal.languageFileName = "localizationsFa"
+        } else {
+            IGGlobal.languageFileName = "localizationsEn"
+        }
+        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
+        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
+        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
+
+        if SMLangUtil.loadLanguage() == "fa" {
+            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+        } else {
+            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+        }
+        SwiftEventBus.post(EventBusManager.updateTabbarLang,sender: true)
+
     }
 }

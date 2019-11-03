@@ -21,7 +21,7 @@ class IGRegisterChooseLanguageTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        checkAppLanguage()
+//        checkAppLanguage()
         
     }
     private func checkAppLanguage() {
@@ -95,7 +95,7 @@ class IGRegisterChooseLanguageTableViewController: UITableViewController {
 
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoDissmissLangFANotificationName), object: nil)
             
-            checkAppLanguage()
+//            checkAppLanguage()
         case 1:
            
             SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.English)
@@ -104,13 +104,13 @@ class IGRegisterChooseLanguageTableViewController: UITableViewController {
 //                Language.language = Language.english
 
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoDissmissLangENNotificationName), object: nil)
-            checkAppLanguage()
+//            checkAppLanguage()
 
         case 2:
             
             SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoDissmissLangARNotificationName), object: nil)
-            checkAppLanguage()
+//            checkAppLanguage()
 
         default :
             break
