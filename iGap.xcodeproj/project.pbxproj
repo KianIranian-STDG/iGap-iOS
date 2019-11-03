@@ -280,7 +280,6 @@
 		9366D98C1E363C2500998BA3 /* IGSettingAboutWebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9366D98B1E363C2400998BA3 /* IGSettingAboutWebViewViewController.swift */; };
 		937455F91E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937455F81E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib */; };
 		937455FB1E63F77F007694CE /* IGForwardMessageAudioAndVoiceAttachmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937455FA1E63F77F007694CE /* IGForwardMessageAudioAndVoiceAttachmentView.swift */; };
-		93AA67BA1E4F03290053380C /* IGChannelInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AA67B91E4F03290053380C /* IGChannelInfoTableViewController.swift */; };
 		93AA67BC1E4F35580053380C /* IGChannelInfoEditNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AA67BB1E4F35580053380C /* IGChannelInfoEditNameTableViewController.swift */; };
 		93AA67BE1E4F35770053380C /* IGChannelInfoEditDescriptionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AA67BD1E4F35770053380C /* IGChannelInfoEditDescriptionTableViewController.swift */; };
 		93AA67C01E4F35CF0053380C /* IGChannelInfoEditTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AA67BF1E4F35CF0053380C /* IGChannelInfoEditTypeTableViewController.swift */; };
@@ -1103,7 +1102,6 @@
 		9366D98B1E363C2400998BA3 /* IGSettingAboutWebViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingAboutWebViewViewController.swift; sourceTree = "<group>"; };
 		937455F81E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = IGForwardMessageAudioAndVoiceAttachment.xib; path = ../../../VIew/IGForwardMessageAudioAndVoiceAttachment.xib; sourceTree = "<group>"; };
 		937455FA1E63F77F007694CE /* IGForwardMessageAudioAndVoiceAttachmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IGForwardMessageAudioAndVoiceAttachmentView.swift; path = ../../../VIew/IGForwardMessageAudioAndVoiceAttachmentView.swift; sourceTree = "<group>"; };
-		93AA67B91E4F03290053380C /* IGChannelInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGChannelInfoTableViewController.swift; sourceTree = "<group>"; };
 		93AA67BB1E4F35580053380C /* IGChannelInfoEditNameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGChannelInfoEditNameTableViewController.swift; sourceTree = "<group>"; };
 		93AA67BD1E4F35770053380C /* IGChannelInfoEditDescriptionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGChannelInfoEditDescriptionTableViewController.swift; sourceTree = "<group>"; };
 		93AA67BF1E4F35CF0053380C /* IGChannelInfoEditTypeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGChannelInfoEditTypeTableViewController.swift; sourceTree = "<group>"; };
@@ -2103,7 +2101,6 @@
 		93AA67B81E4F03290053380C /* Channel and Group Info */ = {
 			isa = PBXGroup;
 			children = (
-				93AA67B91E4F03290053380C /* IGChannelInfoTableViewController.swift */,
 				8E9B6FBA2337458D002C6431 /* IGProfileChannelViewController.swift */,
 				8E6E83A02341F75500392F27 /* IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.swift */,
 				93AA67BB1E4F35580053380C /* IGChannelInfoEditNameTableViewController.swift */,
@@ -3762,7 +3759,6 @@
 				8E599D722325322000D75376 /* IGSettingsDataAndStorageUsageTableViewController.swift in Sources */,
 				FA09535A1E1B97700043ED3F /* IGSettingChatWallpaperTableViewController.swift in Sources */,
 				FA8F8A682086027100AF03CB /* IGMapNearbyDistanceCell.swift in Sources */,
-				93AA67BA1E4F03290053380C /* IGChannelInfoTableViewController.swift in Sources */,
 				FA50A8CF1DD35EFD00C6D2EA /* IGRegistrationStepSelectCountryTableViewController.swift in Sources */,
 				FAB0B87E232F5D59002E35AB /* DeepLinkNavigator.swift in Sources */,
 				8EE7FC9E225DF67200B6C2C3 /* NumberpadButton.swift in Sources */,

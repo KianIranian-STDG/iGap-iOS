@@ -95,6 +95,7 @@
         "OPEN_NOW" : "باز کن",
         "PLEASE_WRITE_UR_REPORT" : "لطفا توضیحات لازم برای علت گزارش خود را بنویسید",
         "REPORT_SUCCESS" : "گزارش شما با موفقیت ثبت شد",
+        "REPORTED_BEFORE" : "گزارش شما قبلا ثبت شده است",
         "FORWARDED_FROM" : "ارسال شده از",
         "FORWARDED_MESSAGE" : "پیام ارسال شده",
         "REOLY_TO" : "پاسخ به : ",
@@ -1091,6 +1092,15 @@
         "EXIST_MEMBER" : "در حال حاضر جزء اعضاء شما است!",
         "EXIST_MEMBERS" : "در حال حاضر جزء اعضاء شما هستند!",
         "CHART" : "نمودار",
-        "QRCODE_SCANNER" : "اسکن بارکد"
+        "QRCODE_SCANNER" : "اسکن بارکد",
+
+        "SIGNALING_FORBIDDEN" : "عدم برقراری تماس",
+        "TALKING_WITH_OTHER_DEVICE" : "در حال برقراری ارتباط با دستگاه دیگر خود می باشید",
+        "USER_IN_CONVERSATION" : "کاربر در گفت و گو می باشد",
+        "DILED_NUMBER_IS_INACTIVE" : "شماره تماس اشتباه می باشد",
+        "USER_IS_NOT_ALLOWED_TO_COMMINUCATE" : "کاربر مجاز به برقراری تماس نمی باشد",
+        "USER_IS_BLOCKED" : "کاربر مسدود شده است"
+
+        
     }
 }

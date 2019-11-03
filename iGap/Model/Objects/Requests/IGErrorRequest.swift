@@ -269,7 +269,6 @@ class IGErrorRequest : IGRequest {
                 break
                 
             case .chatSendMessageLimitReached:
-                showAlert(title: "Restriction in Chatting", message: "Please wait for the process to finish (You are not allowed to send messages to more than 10 Unknown Users regularly at the same time; after getting to number 10, you get stopped until the end of countdown timer)", preferredStyle: .alert)
                 break
                 
             default:

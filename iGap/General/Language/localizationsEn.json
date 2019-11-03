@@ -98,6 +98,7 @@
         "GROUP_DOES_NOT_EXIST" : "Sorry,this group does not seem to exist.",
         "PLEASE_WRITE_UR_REPORT" : "Please write your report description",
         "REPORT_SUCCESS" : "Your report has been successfully submitted",
+        "REPORTED_BEFORE" : "You have reported this room before",
         "FORWARDED_FROM" : "Forwarded from",
         "FORWARDED_MESSAGE" : "Forwarded Message",
         "REOLY_TO" : "Reply to : ",
@@ -1102,6 +1103,14 @@
         "EXIST_MEMBER" : "is already in your members!",
         "EXIST_MEMBERS" : "are now your members!",
         "CHART" : "chart",
-        "QRCODE_SCANNER" : "QR scanner"
+        "QRCODE_SCANNER" : "QR scanner",
+        
+        "SIGNALING_FORBIDDEN" : "Signaling Forbidden",
+        "TALKING_WITH_OTHER_DEVICE" : "You Are Talking With Your Other Devices",
+        "USER_IN_CONVERSATION" : "The User Is In Conversation",
+        "DILED_NUMBER_IS_INACTIVE" : "Dialed Number Is Not Active",
+        "USER_IS_NOT_ALLOWED_TO_COMMINUCATE" : "Is Not Allowed To Communicate",
+        "USER_IS_BLOCKED" : "User Is Blocked"
+
     }
 }

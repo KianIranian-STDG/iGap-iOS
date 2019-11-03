@@ -415,12 +415,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             }).error({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -841,49 +836,38 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 break
                 
             case .signalingOfferForbiddenYouAreTalkingWithYourOtherDevices:
-                let alert = UIAlertController(title: "Signaling Forbidden", message: "You Are Talking With Your Other Devices", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
-                    self.dismmis()
-                })
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
+                
+                
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "TALKING_WITH_OTHER_DEVICE".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
+                
                 break
                 
             case .signalingOfferForbiddenTheUserIsInConversation:
-                let alert = UIAlertController(title: "Signaling Forbidden", message: "The User Is In Conversation", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IN_CONVERSATION".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,cancel:  {
                     self.dismmis()
                 })
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
+
                 break
                 
             case .signalingOfferForbiddenDialedNumberIsNotActive:
-                let alert = UIAlertController(title: "Signaling Forbidden", message: "Dialed Number Is Not Active", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "DILED_NUMBER_IS_INACTIVE".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,cancel:  {
                     self.dismmis()
                 })
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
                 break
                 
             case .signalingOfferForbiddenUserIsBlocked:
-                let alert = UIAlertController(title: "Signaling Forbidden", message: "User Is Blocked", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IS_BLOCKED".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,cancel:  {
                     self.dismmis()
                 })
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
                 break
                 
             case .signalingOfferForbiddenIsNotAllowedToCommunicate:
                 self.playSound(sound: "igap_disconnect")
-                let alert = UIAlertController(title: "Signaling Forbidden", message: "Is Not Allowed To Communicate", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IS_NOT_ALLOWED_TO_COMMINUCATE".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,cancel:  {
                     self.dismmis()
                 })
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
                 break
                 
             default:

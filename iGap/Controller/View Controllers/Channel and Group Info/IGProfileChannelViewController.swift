@@ -186,10 +186,9 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
-                    let alert = UIAlertController(title: "SUCCESS", message: "REPORT_SUBMITED".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORT_SUBMITED".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                 default:
                     break
                 }
@@ -199,24 +198,13 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .clientRoomReportReportedBefore:
-                    let alert = UIAlertController(title: "GLLOBAL_WARNING".RecentTableViewlocalizedNew, message: "ROOM_REPORTED_BEFOR".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ROOM_REPORTED_BEFOR".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
                     break
                     
                 case .clientRoomReportForbidden:
-                    let alert = UIAlertController(title: "Error", message: "Room Report Fobidden", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     break
                     
                 default:
@@ -323,12 +311,7 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -415,12 +398,7 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
             default:
                 break
             }
@@ -443,19 +421,13 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
             (alert: UIAlertAction) -> Void in
             if self.myRole == .owner {
                 if self.connectionStatus == .connecting || self.connectionStatus == .waitingForNetwork {
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".MessageViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                 } else {
                     self.deleteChannelRequest()
                 }
             } else {
                 if self.connectionStatus == .connecting || self.connectionStatus == .waitingForNetwork {
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".MessageViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                 } else {
                     self.leftChannelRequest(room: self.room!)
                 }
@@ -509,6 +481,8 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
             alert.addAction(shareAction)
             alert.addAction(cancelAction)
             self.present(alert, animated: true, completion: nil)
+            
+            
         }
     }
     
@@ -568,13 +542,7 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.hud.hide(animated: true)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -601,10 +569,7 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                        break
                     default:
                         break
                     }
@@ -640,10 +605,7 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    break
                 default:
                     break
                 }
@@ -673,10 +635,7 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    break
                 default:
                     break
                 }
@@ -707,10 +666,7 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                        break
                     default:
                         break
                     }

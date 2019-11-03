@@ -1581,6 +1581,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             alert.addAction(sendPhone)
             alert.addAction(cancel)
             self.present(alert, animated: true, completion: nil)
+            
+            
+            
         }
     }
     
@@ -2640,7 +2643,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     func setCollectionViewInset(withDuration: TimeInterval = 0.2) {
         let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
         UIView.animate(withDuration: withDuration, animations: {
-            self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
+            if self.isBotRoom() {
+                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: 20, right: 0)
+            } else {
+                self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
+            }
         }, completion: { (completed) in
             
         })
@@ -2694,12 +2701,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }).error({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".MessageViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".MessageViewlocalizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -2751,12 +2753,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }).error({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".MessageViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".MessageViewlocalizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -4234,20 +4231,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.hud.hide(animated: true)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 case .clinetJoinByUsernameForbidden:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Error", message: "You don't have permission to join this room", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.hud.hide(animated: true)
-                        self.present(alert, animated: true, completion: nil)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "Error", showIconView: true, showDoneButton: false, showCancelButton: true, message: "You don't have permission to join this room", cancelText: "GLOBAL_CLOSE".localizedNew)
                     }
                     
                 default:
@@ -4593,10 +4580,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
-                    let alert = UIAlertController(title: "Success", message: "Your report has been successfully submitted", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORT_SUCCESS".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                 default:
                     break
                 }
@@ -4606,24 +4590,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     break
-                    
                 case .clientRoomReportReportedBefore:
-                    let alert = UIAlertController(title: "Error", message: "This Room Reported Before", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORTED_BEFORE".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                     break
                     
                 case .clientRoomReportForbidden:
-                    let alert = UIAlertController(title: "Error", message: "Room Report Fobidden", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     break
                     
                 default:
@@ -4680,10 +4653,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     fileprivate func deleteMessage(_ message: IGRoomMessage, both: Bool = false) {
         
         if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-            let alert = UIAlertController(title: "GLOBAL_WARNING".MessageViewlocalizedNew, message: "NO_NETWORK".MessageViewlocalizedNew, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
-            alert.addAction(okAction)
-            self.present(alert, animated: true, completion: nil)
+            
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".MessageViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
             return
         }
         
@@ -5598,10 +5570,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
         let edit = UIAlertAction(title: "BTN_EDITE".MessageViewlocalizedNew, style: .default, handler: { (action) in
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                let alert = UIAlertController(title: "GLOBAL_WARNING".MessageViewlocalizedNew, message: "NO_NETWORK".MessageViewlocalizedNew, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".MessageViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
             } else {
                 self.editMessage(cellMessage)
             }
@@ -6117,10 +6087,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                         DispatchQueue.main.async {
                             switch errorCode {
                             case .timeout:
-                                let alert = UIAlertController(title: "TIME_OUT".MessageViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".MessageViewlocalizedNew, preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
-                                alert.addAction(okAction)
-                                self.present(alert, animated: true, completion: nil)
+                                break
                             default:
                                 break
                             }
@@ -6137,10 +6104,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             
         }).error({ (errorCode, waitTime) in
             hud.hide(animated: true)
-            let alert = UIAlertController(title: "GLOBAL_WARNING".MessageViewlocalizedNew, message: "UNSSUCCESS_OTP".MessageViewlocalizedNew, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
-            alert.addAction(okAction)
-            self.present(alert, animated: true, completion: nil)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
         }).send()
     }
     
@@ -6162,18 +6126,11 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".MessageViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".MessageViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                    
+                    break
                 case .clientJoinByInviteLinkForbidden:
-                    let alert = UIAlertController(title: "GLOBAL_WARNING", message: "GROUP_DOES_NOT_EXIST".MessageViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
                     self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
-                    
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "GROUP_DOES_NOT_EXIST".MessageViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                 case .clientJoinByInviteLinkAlreadyJoined:
                     self.openChatAfterJoin(room: IGRoom(igpRoom: room), before: true)
                 default:
@@ -6192,27 +6149,17 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 self.hud.hide(animated: true)
                 if let clinetCheckInvitedlink = protoResponse as? IGPClientCheckInviteLinkResponse {
                     IGClinetCheckInviteLinkRequest.Handler.interpret(response: clinetCheckInvitedlink)
-                    let alert = UIAlertController(title: "iGap", message: "ARE_U_SURE_TO_JOIN".MessageViewlocalizedNew + "\n \(clinetCheckInvitedlink.igpRoom.igpTitle)", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: { (action) in
+                    
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "iGap", showIconView: true, showDoneButton: false, showCancelButton: true, message:"ARE_U_SURE_TO_JOIN".MessageViewlocalizedNew + "\n \(clinetCheckInvitedlink.igpRoom.igpTitle)",doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,done: {
                         self.joinRoombyInvitedLink(room:clinetCheckInvitedlink.igpRoom, invitedToken: invitedLink)
                     })
-                    let cancelAction = UIAlertAction(title: "CANCEL_BTN".MessageViewlocalizedNew, style: .cancel, handler: nil)
-                    
-                    alert.addAction(okAction)
-                    alert.addAction(cancelAction)
-                    self.present(alert, animated: true, completion: nil)
                 }
             }
         }).error ({ (errorCode, waitTime) in
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    
-                    let alert = UIAlertController(title: "TIME_OUT".MessageViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".MessageViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    
-                    self.present(alert, animated: true, completion: nil)
+                    break
                 default:
                     break
                 }
@@ -6231,17 +6178,18 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
         DispatchQueue.main.async {
             
-            let alert = UIAlertController(title: "SUCCESS".MessageViewlocalizedNew, message: "U_JOINED".MessageViewlocalizedNew + " \(beforeString)" + "TO".MessageViewlocalizedNew + " \(room.title!)!", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
-            let openNow = UIAlertAction(title: "OPEN_NOW".MessageViewlocalizedNew, style: .default, handler: { (action) in
-                let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-                chatPage.room = room
-                chatPage.hidesBottomBarWhenPushed = true
-                self.navigationController!.pushViewController(chatPage, animated: true)
-            })
-            alert.addAction(okAction)
-            alert.addAction(openNow)
-            self.present(alert, animated: true, completion: nil)
+            let msg = "U_JOINED".localizedNew + " " + beforeString + "TO".localizedNew + room.title!
+              IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg,doneText: "OPEN_NOW".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,done: {
+
+                  let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                  let chatPage = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
+                  chatPage.room = room
+                  chatPage.hidesBottomBarWhenPushed = true
+                  self.navigationController!.pushViewController(chatPage, animated: true)
+
+                  
+              })
+            
         }
     }
 }
