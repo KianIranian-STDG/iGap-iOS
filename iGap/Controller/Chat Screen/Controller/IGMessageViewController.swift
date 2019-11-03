@@ -593,6 +593,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
                 profile.selectedChannel = self.selectedChannelToSeeTheirInfo
                 profile.room = self.room
+                profile.myRole = self.room?.channelRoom?.role
                 profile.hidesBottomBarWhenPushed = true
                 self.navigationController!.pushViewController(profile, animated: true)
             }

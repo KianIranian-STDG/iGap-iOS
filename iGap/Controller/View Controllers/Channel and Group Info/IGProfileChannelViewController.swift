@@ -42,6 +42,7 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
     var originalTransform : CGAffineTransform!
     var selectedChannel : IGChannelRoom?
     var room : IGRoom?
+    var channelRoom : Results<IGRoom>!
     var hud = MBProgressHUD()
     var allMember = [IGRealmMember]()
     var myRole : IGPChannelRoom.IGPRole!
@@ -71,12 +72,7 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
         channelNameLabelTitle.textColor = .white
 
         initGradientView()
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
-
-        maxNavHeight = self.heightConstraints.constant
-        originalTransform = self.channelImage.transform
-        tableView.contentInset = UIEdgeInsets(top: maxNavHeight + 10, left: 0, bottom: 0, right: 0)
+        channelFirstInitialiser()
         let navigaitonItem = self.navigationItem as! IGNavigationItem
         navigaitonItem.setNavigationBarForProfileRoom(.channel, id: nil, groupRole: nil, channelRole: room?.channelRoom?.role,roomValue: self.room)
 
@@ -84,23 +80,49 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
-        requestToGetAvatarList()
         imagePicker.delegate = self
         signMessageIndexPath = IndexPath(row: 2, section: 1)
-     
-        tableView.tableFooterView = UIView()
+                     
+//        requestToGetRoom()
+
+    }
+    
+    func channelFirstInitialiser() {
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
+
+        maxNavHeight = self.heightConstraints.constant
+        originalTransform = self.channelImage.transform
+        tableView.contentInset = UIEdgeInsets(top: maxNavHeight + 10, left: 0, bottom: 0, right: 0)
+
         
-        let predicate = NSPredicate(format: "id = %lld", (room?.id)!)
-        room = try! Realm().objects(IGRoom.self).filter(predicate).first!
-        self.notificationToken = room?.observe({ (objectChange) in
-            self.showChannelInfo()
-        })
+        requestToGetRoom()
+        requestToGetAvatarList()
+        myRole = room?.channelRoom?.role
+        showChannelInfo()
+        
+        tableView.tableFooterView = UIView()
         
         channelImage.avatarImageView?.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(recognizer:)))
         channelImage.avatarImageView?.addGestureRecognizer(tap)
-        requestToGetRoom()
 
+        let predicate = NSPredicate(format: "id = %lld", (room?.id)!)
+        channelRoom =  try! Realm().objects(IGRoom.self).filter(predicate)
+        
+        self.notificationToken = channelRoom.observe { (changes: RealmCollectionChange) in
+            if self.room == nil || self.room!.isInvalidated {return}
+            let predicatea = NSPredicate(format: "id = %lld", (self.room?.id)!)
+            self.room =  try! Realm().objects(IGRoom.self).filter(predicatea).first!
+            self.showChannelInfo()
+        }
+        
+        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
+        }, onError: { (error) in
+        }, onCompleted: {
+        }, onDisposed: {
+        }).disposed(by: disposeBag)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -487,17 +509,14 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
     }
     
     func showChannelInfo(){
-        
         if (room?.isInvalidated)! {
             return
         }
-        
         if (room?.channelRoom?.isVerified)! {
             isVerified = true
         } else {
             isVerified = false
         }
-
         channelNameLabelTitle.text = room?.title
         channelNameLabelTitle.textAlignment = channelNameLabelTitle.localizedNewDirection
         if let channelRoom = room {
@@ -515,8 +534,6 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
 
                 }
             }
-            myRole = room?.channelRoom?.role
-
             self.tableView.reloadData()
         }
         
@@ -537,7 +554,8 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
                     default:
                         break
                     }
-                    self.showChannelInfo()
+//                    self.showChannelInfo()
+//                    self.tableView.reloadData()
                 }
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {

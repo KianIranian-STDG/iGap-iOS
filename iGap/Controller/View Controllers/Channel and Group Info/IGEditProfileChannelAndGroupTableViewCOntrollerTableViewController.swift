@@ -534,12 +534,11 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
         if let groupUserName = tfChannelLink.text {
             
             if groupUserName == "" {
-                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "GROUP_LINK_NOT_EMPTY".localizedNew, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                alert.addAction(okAction)
                 SMLoading.hideLoadingPage()
                 self.dispatchGroup.leave()
-                self.present(alert, animated: true, completion: nil)
+                
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "GROUP_LINK_NOT_EMPTY".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+
                 return
             }
             
