@@ -467,7 +467,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         super.viewDidLoad()
         ///newUITextMessage
         initViewNewChatView()
-//        initNotificationsNewChatView()
+        initNotificationsNewChatView()
         initFontsNewChatView()
         initAlignmentsNewChatView()
         initChangeLanguegeNewChatView()
@@ -752,14 +752,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNotifications()
-
         IGGlobal.isInChatPage = true
         IGMessageViewController.messageViewControllerObserver = self
         IGMessageViewController.additionalObserver = self
         IGMessageViewController.messageOnChatReceiveObserver = self
         self.currentRoomId = self.room?.id
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
+        setupNotifications()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
         
@@ -790,7 +789,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.createTopMusicPlayer()
             
         }
-        initNotificationsNewChatView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -1172,7 +1170,52 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     
     
-    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if MoneyInputModalIsActive {
+            if let MoneyInput = MoneyInputModal {
+                self.view.addSubview(MoneyInput)
+                UIView.animate(withDuration: 0.3) {
+                    //                    self.messageTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+                    
+                    if MoneyInput.frame.origin.y < self.view.frame.size.height {
+                        MoneyInput.frame = CGRect(x: 0, y: self.view.frame.height - MoneyInput.frame.height - 45, width: self.view.frame.width, height: MoneyInput.frame.height)
+                    }
+                }
+            }
+            
+            
+        }
+        else if CardToCardModalIsActive {
+            if let CardInput = CardToCardModal {
+                self.view.addSubview(CardInput)
+                UIView.animate(withDuration: 0.3) {
+                    if CardInput.frame.origin.y < self.view.frame.size.height {
+                        CardInput.frame = CGRect(x: 0, y: self.view.frame.height - CardInput.frame.height - 45, width: self.view.frame.width, height: CardInput.frame.height)
+                    }
+                }
+            }
+            
+            
+        }
+        else if MultiShareModalIsActive {
+            if let MultiShare = forwardModal {
+                self.view.addSubview(MultiShare)
+                UIView.animate(withDuration: 0.3) {
+                    if MultiShare.frame.origin.y < self.view.frame.size.height {
+                        let tmpY = ((self.view.frame.height) - (MultiShare.frame.height) - (200))
+                        MultiShare.frame = CGRect(x: 0, y: tmpY , width: self.view.frame.width, height: MultiShare.frame.height + (200))
+                    }
+                }
+            }
+            
+        }
+        self.messageTextViewBottomConstraint.constant =  0
+        UIView.animate(withDuration: 0.5){
+            self.view.layoutIfNeeded()
+        }
+        
+        self.view.layoutIfNeeded()
+    }
     
     
     func onStickerTap(stickerItem: IGRealmStickerItem) {
@@ -1582,9 +1625,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             alert.addAction(sendPhone)
             alert.addAction(cancel)
             self.present(alert, animated: true, completion: nil)
-            
-            
-            
         }
     }
     
@@ -1763,8 +1803,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     ///Notifications initialisers
     private func initNotificationsNewChatView() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(IGMessageViewController.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(IGMessageViewController.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @IBAction func didTapOnCloseTopBar(_ sender: UIButton) {
@@ -1773,154 +1814,76 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
     }
     
-        @objc func keyboardWillShow(notification: NSNotification) {
-            if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-
-                let keyboardHeight = keyboardSize.height
-                let window = UIApplication.shared.keyWindow!
-                
-                if #available(iOS 11.0, *){
-                    self.messageTextViewBottomConstraint.constant = keyboardHeight
-                }
-                else {
-                    self.messageTextViewBottomConstraint.constant = view.safeAreaInsets.bottom
-                }
-                UIView.animate(withDuration: 0.5){
-                    
-                    self.view.layoutIfNeeded()
-                    
-                }
-                if self.MoneyTransactionModalIsActive {
-                    if let moneyModal = MoneyTransactionModal {
-                        window.addSubview(moneyModal)
-                        UIView.animate(withDuration: 0.3) {
-                            
-                            var frame = moneyModal.frame
-                            frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight - frame.size.height)
-                            moneyModal.frame = frame
-                            
-
-                    }
-                }
-                }
-                else if MoneyInputModalIsActive {
-                    if let MoneyInput = MoneyInputModal {
-                        window.addSubview(MoneyInput)
-                        UIView.animate(withDuration: 0.3) {
-                            
-                            var frame = MoneyInput.frame
-                            frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight - frame.size.height)
-                            MoneyInput.frame = frame
-                            
-                        }
-                    }
-                }
-                else if CardToCardModalIsActive {
-                    if let CardInput = CardToCardModal {
-                        window.addSubview(CardInput)
-                        UIView.animate(withDuration: 0.3) {
-                            
-                            var frame = CardInput.frame
-                            frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight - frame.size.height)
-                            CardInput.frame = frame
-                            
-                        }
-                    }
-                }
-                else if MultiShareModalIsActive {
-                    if let MultiShare = forwardModal {
-                        window.addSubview(MultiShare)
-                        UIView.animate(withDuration: 0.3) {
-                            
-                            var frame = MultiShare.frame
-                            frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight - frame.size.height  + (200))
-                            MultiShare.frame = frame
-                            MultiShare.frame.size.height =  MultiShare.frame.size.height - (200)
-                            
-                        }
-                    }
-                }
-                else {
-                    if MoneyInputModal != nil {
-                        self.hideMoneyInputModal()
-                    }
-                    
-                    if CardToCardModal != nil {
-                        self.hideCardToCardModal()
-                    }
-                    
-                    if forwardModal != nil {
-                        self.hideMultiShareModal()
-                    }
-                }
-                self.view.layoutIfNeeded()
-
-                
-            }
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        let keyboardSize = (notification.userInfo?  [UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        let keyboardHeight = keyboardSize?.height
+        let window = UIApplication.shared.keyWindow!
+        
+        if #available(iOS 11.0, *){
+            self.messageTextViewBottomConstraint.constant = keyboardHeight!
         }
-
-        @objc func keyboardWillHide(notification: NSNotification) {
-            if self.MoneyTransactionModalIsActive {
-                if let moneyModal = MoneyTransactionModal {
-                    self.view.addSubview(moneyModal)
-                    UIView.animate(withDuration: 0.3) {
-                        //                    self.messageTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-                        
-                        if moneyModal.frame.origin.y < self.view.frame.size.height {
-                            moneyModal.frame = CGRect(x: 0, y: self.view.frame.height - moneyModal.frame.height - 45, width: self.view.frame.width, height: moneyModal.frame.height)
-                        }
-                    }
-                }
-                
-            }
-            else if MoneyInputModalIsActive {
-                if let MoneyInput = MoneyInputModal {
-                    self.view.addSubview(MoneyInput)
-                    UIView.animate(withDuration: 0.3) {
-                        //                    self.messageTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-                        
-                        if MoneyInput.frame.origin.y < self.view.frame.size.height {
-                            MoneyInput.frame = CGRect(x: 0, y: self.view.frame.height - MoneyInput.frame.height - 45, width: self.view.frame.width, height: MoneyInput.frame.height)
-                        }
-                    }
-                }
-                
-                
-            }
-            else if CardToCardModalIsActive {
-                if let CardInput = CardToCardModal {
-                    self.view.addSubview(CardInput)
-                    UIView.animate(withDuration: 0.3) {
-                        if CardInput.frame.origin.y < self.view.frame.size.height {
-                            CardInput.frame = CGRect(x: 0, y: self.view.frame.height - CardInput.frame.height - 45, width: self.view.frame.width, height: CardInput.frame.height)
-                        }
-                    }
-                }
-                
-                
-            }
-            else if MultiShareModalIsActive {
-                if let MultiShare = forwardModal {
-                    self.view.addSubview(MultiShare)
-                    UIView.animate(withDuration: 0.3) {
-                        if MultiShare.frame.origin.y < self.view.frame.size.height {
-                            let tmpY = ((self.view.frame.height) - (MultiShare.frame.height) - (200))
-                            MultiShare.frame = CGRect(x: 0, y: tmpY , width: self.view.frame.width, height: MultiShare.frame.height + (200))
-                        }
-                    }
-                }
-                
-            }
-            self.messageTextViewBottomConstraint.constant =  0
-            UIView.animate(withDuration: 0.5){
-                self.view.layoutIfNeeded()
-            }
+        else {
+            self.messageTextViewBottomConstraint.constant = view.safeAreaInsets.bottom
+        }
+        UIView.animate(withDuration: 0.5){
             
             self.view.layoutIfNeeded()
+            
         }
-
-    
-    
+        
+        if MoneyInputModalIsActive {
+            if let MoneyInput = MoneyInputModal {
+                window.addSubview(MoneyInput)
+                UIView.animate(withDuration: 0.3) {
+                    
+                    var frame = MoneyInput.frame
+                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
+                    MoneyInput.frame = frame
+                    
+                }
+            }
+        }
+        else if CardToCardModalIsActive {
+            if let CardInput = CardToCardModal {
+                window.addSubview(CardInput)
+                UIView.animate(withDuration: 0.3) {
+                    
+                    var frame = CardInput.frame
+                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
+                    CardInput.frame = frame
+                    
+                }
+            }
+        }
+        else if MultiShareModalIsActive {
+            if let MultiShare = forwardModal {
+                window.addSubview(MultiShare)
+                UIView.animate(withDuration: 0.3) {
+                    
+                    var frame = MultiShare.frame
+                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height  + (200))
+                    MultiShare.frame = frame
+                    MultiShare.frame.size.height =  MultiShare.frame.size.height - (200)
+                    
+                }
+            }
+        }
+        else {
+            if MoneyInputModal != nil {
+                self.hideMoneyInputModal()
+            }
+            
+            if CardToCardModal != nil {
+                self.hideCardToCardModal()
+            }
+            
+            if forwardModal != nil {
+                self.hideMultiShareModal()
+            }
+        }
+        self.view.layoutIfNeeded()
+    }
     private func showHideStickerButton(shouldShow : Bool!) {
         if shouldShow {
             UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
@@ -2608,7 +2571,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     @objc func didReceiveKeyboardWillChangeFrameNotification(_ notification:Notification) {
-        
+        let keyboardSize = (notification.userInfo?  [UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        let keyboardHeight = keyboardSize?.height
+        let window = UIApplication.shared.keyWindow!
         let userInfo = (notification.userInfo)!
         if let keyboardEndFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
             
@@ -2622,7 +2587,62 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 return
             } else if notification.name == UIResponder.keyboardWillHideNotification  {
                 //hidding keyboard
-                bottomConstraint = 0.0 
+                bottomConstraint = 0.0
+                if MoneyInputModalIsActive {
+                    if let MoneyInput = MoneyInputModal {
+                        self.view.addSubview(MoneyInput)
+                        UIView.animate(withDuration: 0.3) {
+                            //                    self.messageTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+                            
+                            if MoneyInput.frame.origin.y < self.view.frame.size.height {
+                                MoneyInput.frame = CGRect(x: 0, y: self.view.frame.height - MoneyInput.frame.height - 45, width: self.view.frame.width, height: MoneyInput.frame.height)
+                            }
+                        }
+                    }
+                    
+                    
+                }
+                else if CardToCardModalIsActive {
+                         if let CardInput = CardToCardModal {
+                             self.view.addSubview(CardInput)
+                             UIView.animate(withDuration: 0.3) {
+                                 if CardInput.frame.origin.y < self.view.frame.size.height {
+                                     CardInput.frame = CGRect(x: 0, y: self.view.frame.height - CardInput.frame.height - 45, width: self.view.frame.width, height: CardInput.frame.height)
+                                 }
+                             }
+                         }
+                         
+                         
+                     }
+                    else if MoneyTransactionModalIsActive {
+                             if let moneyTransactionModal = MoneyTransactionModal {
+                                 self.view.addSubview(moneyTransactionModal)
+                                 UIView.animate(withDuration: 0.3) {
+                                     if moneyTransactionModal.frame.origin.y < self.view.frame.size.height {
+                                         moneyTransactionModal.frame = CGRect(x: 0, y: self.view.frame.height - moneyTransactionModal.frame.height - 45, width: self.view.frame.width, height: moneyTransactionModal.frame.height)
+                                     }
+                                 }
+                             }
+                             
+                             
+                         }
+                else if MultiShareModalIsActive {
+                    if let MultiShare = forwardModal {
+                        self.view.addSubview(MultiShare)
+                        UIView.animate(withDuration: 0.3) {
+                            if MultiShare.frame.origin.y < self.view.frame.size.height {
+                                let tmpY = ((self.view.frame.height) - (MultiShare.frame.height) - (200))
+                                MultiShare.frame = CGRect(x: 0, y: tmpY , width: self.view.frame.width, height: MultiShare.frame.height + (200))
+                            }
+                        }
+                    }
+                    
+                }
+                self.messageTextViewBottomConstraint.constant =  0
+                UIView.animate(withDuration: 0.5){
+                    self.view.layoutIfNeeded()
+                }
+                
             } else {
                 //showing keyboard
                 if UIDevice.current.hasNotch {
@@ -2630,6 +2650,73 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 } else {
                     bottomConstraint = keyboardEndFrame.size.height
                 }
+                if MoneyInputModalIsActive {
+                    if let MoneyInput = MoneyInputModal {
+                        window.addSubview(MoneyInput)
+                        UIView.animate(withDuration: 0.3) {
+                            
+                            var frame = MoneyInput.frame
+                            frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
+                            MoneyInput.frame = frame
+                            
+                        }
+                    }
+                }
+                else if CardToCardModalIsActive {
+                        if let CardInput = CardToCardModal {
+                            window.addSubview(CardInput)
+                            UIView.animate(withDuration: 0.3) {
+                                
+                                var frame = CardInput.frame
+                                frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
+                                CardInput.frame = frame
+                                
+                            }
+                        }
+                    }
+                    else if MoneyTransactionModalIsActive {
+                            if let moneyTransactionModal = MoneyTransactionModal {
+                                window.addSubview(moneyTransactionModal)
+                                UIView.animate(withDuration: 0.3) {
+                                    
+                                    var frame = moneyTransactionModal.frame
+                                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
+                                    moneyTransactionModal.frame = frame
+                                    
+                                }
+                            }
+                        }
+                else if MultiShareModalIsActive {
+                    if let MultiShare = forwardModal {
+                        window.addSubview(MultiShare)
+                        UIView.animate(withDuration: 0.3) {
+                            
+                            var frame = MultiShare.frame
+                            frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height  + (200))
+                            MultiShare.frame = frame
+                            MultiShare.frame.size.height =  MultiShare.frame.size.height - (200)
+                            
+                        }
+                    }
+                }
+                else {
+                    if MoneyInputModal != nil {
+                        self.hideMoneyInputModal()
+                    }
+                    
+                    if CardToCardModal != nil {
+                        self.hideCardToCardModal()
+                    }
+                    
+                    if forwardModal != nil {
+                         self.hideMultiShareModal()
+                     }
+                    if MoneyTransactionModal != nil {
+                         self.hideMoneyTransactionModal()
+                     }
+                }
+                self.view.layoutIfNeeded()
+
             }
             
             UIView.animate(withDuration: animationDuration, delay: 0.0, options: UIView.AnimationOptions(rawValue: UInt(animationCurveOption)), animations: {
@@ -2644,11 +2731,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     func setCollectionViewInset(withDuration: TimeInterval = 0.2) {
         let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
         UIView.animate(withDuration: withDuration, animations: {
-            if self.isBotRoom() {
-                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: 20, right: 0)
-            } else {
-                self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
-            }
+          if self.isBotRoom() {
+                   self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: 20, right: 0)
+               } else {
+                   self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
+               }
         }, completion: { (completed) in
             
         })
@@ -2702,7 +2789,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }).error({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    break
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "TIME_OUT".MessageViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".MessageViewlocalizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                    }
                 default:
                     break
                 }
@@ -2754,7 +2846,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }).error({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    break
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "TIME_OUT".MessageViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".MessageViewlocalizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                    }
                 default:
                     break
                 }
@@ -4232,10 +4329,20 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    break
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.hud.hide(animated: true)
+                        self.present(alert, animated: true, completion: nil)
+                    }
                 case .clinetJoinByUsernameForbidden:
                     DispatchQueue.main.async {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "Error", showIconView: true, showDoneButton: false, showCancelButton: true, message: "You don't have permission to join this room", cancelText: "GLOBAL_CLOSE".localizedNew)
+                        let alert = UIAlertController(title: "Error", message: "You don't have permission to join this room", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.hud.hide(animated: true)
+                        self.present(alert, animated: true, completion: nil)
                     }
                     
                 default:
@@ -4581,7 +4688,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORT_SUCCESS".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                    let alert = UIAlertController(title: "Success", message: "Your report has been successfully submitted", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
                 default:
                     break
                 }
@@ -4591,13 +4701,24 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
+                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
                     break
+                    
                 case .clientRoomReportReportedBefore:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORTED_BEFORE".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
-
+                    let alert = UIAlertController(title: "Error", message: "This Room Reported Before", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .clientRoomReportForbidden:
+                    let alert = UIAlertController(title: "Error", message: "Room Report Fobidden", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
                     break
                     
                 default:
@@ -4654,9 +4775,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     fileprivate func deleteMessage(_ message: IGRoomMessage, both: Bool = false) {
         
         if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-            
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".MessageViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
-
+            let alert = UIAlertController(title: "GLOBAL_WARNING".MessageViewlocalizedNew, message: "NO_NETWORK".MessageViewlocalizedNew, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
             return
         }
         
@@ -5571,8 +5693,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
         let edit = UIAlertAction(title: "BTN_EDITE".MessageViewlocalizedNew, style: .default, handler: { (action) in
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".MessageViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
-
+                let alert = UIAlertController(title: "GLOBAL_WARNING".MessageViewlocalizedNew, message: "NO_NETWORK".MessageViewlocalizedNew, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: nil)
             } else {
                 self.editMessage(cellMessage)
             }
@@ -6088,7 +6212,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                         DispatchQueue.main.async {
                             switch errorCode {
                             case .timeout:
-                                break
+                                let alert = UIAlertController(title: "TIME_OUT".MessageViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".MessageViewlocalizedNew, preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
+                                alert.addAction(okAction)
+                                self.present(alert, animated: true, completion: nil)
                             default:
                                 break
                             }
@@ -6105,7 +6232,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             
         }).error({ (errorCode, waitTime) in
             hud.hide(animated: true)
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+            let alert = UIAlertController(title: "GLOBAL_WARNING".MessageViewlocalizedNew, message: "UNSSUCCESS_OTP".MessageViewlocalizedNew, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
         }).send()
     }
     
@@ -6127,11 +6257,18 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    break
+                    let alert = UIAlertController(title: "TIME_OUT".MessageViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".MessageViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    
                 case .clientJoinByInviteLinkForbidden:
+                    let alert = UIAlertController(title: "GLOBAL_WARNING", message: "GROUP_DOES_NOT_EXIST".MessageViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
                     self.hud.hide(animated: true)
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "GROUP_DOES_NOT_EXIST".MessageViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
-
+                    self.present(alert, animated: true, completion: nil)
+                    
                 case .clientJoinByInviteLinkAlreadyJoined:
                     self.openChatAfterJoin(room: IGRoom(igpRoom: room), before: true)
                 default:
@@ -6150,17 +6287,27 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 self.hud.hide(animated: true)
                 if let clinetCheckInvitedlink = protoResponse as? IGPClientCheckInviteLinkResponse {
                     IGClinetCheckInviteLinkRequest.Handler.interpret(response: clinetCheckInvitedlink)
-                    
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "iGap", showIconView: true, showDoneButton: false, showCancelButton: true, message:"ARE_U_SURE_TO_JOIN".MessageViewlocalizedNew + "\n \(clinetCheckInvitedlink.igpRoom.igpTitle)",doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,done: {
+                    let alert = UIAlertController(title: "iGap", message: "ARE_U_SURE_TO_JOIN".MessageViewlocalizedNew + "\n \(clinetCheckInvitedlink.igpRoom.igpTitle)", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: { (action) in
                         self.joinRoombyInvitedLink(room:clinetCheckInvitedlink.igpRoom, invitedToken: invitedLink)
                     })
+                    let cancelAction = UIAlertAction(title: "CANCEL_BTN".MessageViewlocalizedNew, style: .cancel, handler: nil)
+                    
+                    alert.addAction(okAction)
+                    alert.addAction(cancelAction)
+                    self.present(alert, animated: true, completion: nil)
                 }
             }
         }).error ({ (errorCode, waitTime) in
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    break
+                    
+                    let alert = UIAlertController(title: "TIME_OUT".MessageViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".MessageViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    
+                    self.present(alert, animated: true, completion: nil)
                 default:
                     break
                 }
@@ -6179,18 +6326,17 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
         DispatchQueue.main.async {
             
-            let msg = "U_JOINED".localizedNew + " " + beforeString + "TO".localizedNew + room.title!
-              IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg,doneText: "OPEN_NOW".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,done: {
-
-                  let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                  let chatPage = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
-                  chatPage.room = room
-                  chatPage.hidesBottomBarWhenPushed = true
-                  self.navigationController!.pushViewController(chatPage, animated: true)
-
-                  
-              })
-            
+            let alert = UIAlertController(title: "SUCCESS".MessageViewlocalizedNew, message: "U_JOINED".MessageViewlocalizedNew + " \(beforeString)" + "TO".MessageViewlocalizedNew + " \(room.title!)!", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
+            let openNow = UIAlertAction(title: "OPEN_NOW".MessageViewlocalizedNew, style: .default, handler: { (action) in
+                let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                chatPage.room = room
+                chatPage.hidesBottomBarWhenPushed = true
+                self.navigationController!.pushViewController(chatPage, animated: true)
+            })
+            alert.addAction(okAction)
+            alert.addAction(openNow)
+            self.present(alert, animated: true, completion: nil)
         }
     }
 }
