@@ -651,7 +651,7 @@ class IGUserDeleteRequest : IGRequest {
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage:IGPUserDeleteResponse)  {
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.logoutAndShowRegisterViewController()
+            appDelegate.logoutAndShowRegisterViewController(mainRoot: true)
         }
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
@@ -858,20 +858,34 @@ class IGUserSessionTerminateRequest : IGRequest {
 
 //MARK: -
 class IGUserSessionLogoutRequest : IGRequest {
+    
+    class func sendRequest() {
+        IGGlobal.prgShow()
+        IGUserSessionLogoutRequest.Generator.genarete().success({ (protoResponse) in
+            IGGlobal.prgHide()
+            if let logoutSessionProtoResponse = protoResponse as? IGPUserSessionLogoutResponse {
+                IGUserSessionLogoutRequest.Handler.interpret(response: logoutSessionProtoResponse)
+            }
+        }).error ({ (errorCode, waitTime) in
+            IGGlobal.prgHide()
+        }).send()
+    }
+    
     class Generator: IGRequest.Generator {
         class func genarete() -> IGRequestWrapper {
             let userSessionLogoutRequestMessage = IGPUserSessionLogout()
             return IGRequestWrapper(message: userSessionLogoutRequestMessage, actionID: 127)
         }
-        
     }
+    
     class Handler : IGRequest.Handler {
         class func interpret(response responseProtoMessage: IGPUserSessionLogoutResponse){
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.logoutAndShowRegisterViewController()
+            DispatchQueue.main.async {
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.logoutAndShowRegisterViewController()
+            }
         }
         override class func handlePush(responseProtoMessage:Message) {}
-        
     }
 }
 

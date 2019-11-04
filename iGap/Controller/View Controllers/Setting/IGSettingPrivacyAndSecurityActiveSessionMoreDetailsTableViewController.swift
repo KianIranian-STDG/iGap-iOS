@@ -25,11 +25,9 @@ class IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController: Ba
     @IBOutlet weak var SessionInfoCell: UITableViewCell!
     @IBOutlet weak var SelectedSessionDeviceModelLabel: UILabel!
     @IBOutlet weak var selectedSessionImageview: UIImageView!
-    var hud = MBProgressHUD()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         SessionInfoCell.selectionStyle = UITableViewCell.SelectionStyle.none
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PS_ACTIVE_SESSIONS".localizedNew)
@@ -133,8 +131,7 @@ class IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController: Ba
     }
     
     func terminateSession() {
-        self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        self.hud.mode = .indeterminate
+        IGGlobal.prgShow()
         if let thisSession = selectedSession {
             IGUserSessionTerminateRequest.Generator.generate(sessionId: thisSession.sessionId).success({
                 (protoResponse) in
@@ -145,7 +142,7 @@ class IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController: Ba
                         if self.navigationController is IGNavigationController {
                             _ = self.navigationController?.popViewController(animated: true)
                         }
-                        self.hud.hide(animated: true)
+                        IGGlobal.prgHide()
                     default:
                         break
                     }
@@ -154,10 +151,10 @@ class IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController: Ba
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
+                        IGGlobal.prgHide()
                         let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
                         let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
-                        self.hud.hide(animated: true)
                         self.present(alert, animated: true, completion: nil)
                     }
                 default:
@@ -170,33 +167,25 @@ class IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController: Ba
     }
     
     func logOutCurrentSession(){
-        self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        self.hud.mode = .indeterminate
-            IGUserSessionLogoutRequest.Generator.genarete().success({
-                (protoResponse) in
+        IGGlobal.prgShow()
+        IGUserSessionLogoutRequest.Generator.genarete().success({ (protoResponse) in
+            if let logoutSessionProtoResponse = protoResponse as? IGPUserSessionLogoutResponse {
+                IGUserSessionLogoutRequest.Handler.interpret(response: logoutSessionProtoResponse)
+            }
+        }).error ({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
                 DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let logoutSessionProtoResponse as IGPUserSessionLogoutResponse:
-                        IGUserSessionLogoutRequest.Handler.interpret(response: logoutSessionProtoResponse)
-                    default:
-                        break
-                    }
+                    IGGlobal.prgHide()
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
                 }
-            }).error ({ (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.hud.hide(animated: true)
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                default:
-                    break
-                }
-
-            }).send()
+            default:
+                break
+            }
+            
+        }).send()
     }
-
-}
+ }

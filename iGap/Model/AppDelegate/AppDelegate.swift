@@ -400,7 +400,6 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             self.window?.rootViewController = UIStoryboard(name: "Main", bundle:nil).instantiateInitialViewController()
         }
         
-//        IGAppManager.sharedManager.clearDataOnLogout()
         let storyboard : UIStoryboard = UIStoryboard(name: "Register", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "IGSplashNavigationController")
         vc.modalPresentationStyle = .fullScreen

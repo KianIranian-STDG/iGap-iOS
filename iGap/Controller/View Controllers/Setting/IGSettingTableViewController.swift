@@ -11,7 +11,6 @@
 import UIKit
 import RealmSwift
 import IGProtoBuff
-///import INSPhotoGallery
 import RxRealm
 import RxSwift
 import Gifu
@@ -212,15 +211,11 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
 
     private func showLogoutActionSheet(){
         let logoutConfirmAlertView = UIAlertController(title: "SURE_LOGOUT".localizedNew , message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let logoutAction = UIAlertAction(title: "SETTING_PAGE_ACCOUNT_LOGOUT".localizedNew , style:.default , handler: {
-            (alert: UIAlertAction) -> Void in
-            self.logoutProcess()//logout process
-//            self.dismiss(animated: true, completion: nil )
-            
+        let logoutAction = UIAlertAction(title: "SETTING_PAGE_ACCOUNT_LOGOUT".localizedNew , style:.default , handler: { (alert: UIAlertAction) -> Void in
+            IGUserSessionLogoutRequest.sendRequest()
         })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew , style:.cancel , handler: {
-            (alert: UIAlertAction) -> Void in
-        })
+        
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew , style:.cancel , handler: nil)
         logoutConfirmAlertView.addAction(logoutAction)
         logoutConfirmAlertView.addAction(cancelAction)
         let alertActions = logoutConfirmAlertView.actions
@@ -275,20 +270,6 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         }, done: {
             self.dismiss(animated: true, completion: nil)
             
-        })
-
-    }
-    private func logoutProcess() {
-        self.navigationController?.popToRootViewController(animated: false, completion: {
-            guard let tabBarController = UIApplication.topTabBarController() as? IGTabBarController else {
-                return
-            }
-            tabBarController.selectedIndex = TabBarTab.Recent.rawValue
-            tabBarController.tabBarController(tabBarController, didSelect: tabBarController.selectedViewController!)
-            
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.logoutAndShowRegisterViewController()
-            IGWebSocketManager.sharedManager.closeConnection()
         })
     }
 }
