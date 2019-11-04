@@ -1104,13 +1104,12 @@
         "EXIST_MEMBERS" : "are now your members!",
         "CHART" : "chart",
         "QRCODE_SCANNER" : "QR scanner",
-        
         "SIGNALING_FORBIDDEN" : "Signaling Forbidden",
         "TALKING_WITH_OTHER_DEVICE" : "You Are Talking With Your Other Devices",
         "USER_IN_CONVERSATION" : "The User Is In Conversation",
         "DILED_NUMBER_IS_INACTIVE" : "Dialed Number Is Not Active",
         "USER_IS_NOT_ALLOWED_TO_COMMINUCATE" : "Is Not Allowed To Communicate",
-        "USER_IS_BLOCKED" : "User Is Blocked"
-
+        "USER_IS_BLOCKED" : "User Is Blocked",
+        "RESTRICTED_CREATE_ROOM" : "You are restricted to create more rooms!"
     }
 }

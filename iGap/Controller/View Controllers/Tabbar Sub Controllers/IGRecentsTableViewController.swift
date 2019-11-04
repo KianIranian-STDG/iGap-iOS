@@ -577,7 +577,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         self.notificationToken = rooms!.observe { (changes: RealmCollectionChange) in
             switch changes {
             case .initial:
-//                self.tableView.reloadData()
                 self.setTabbarBadge()
                 break
             case .update(_, let deletions, let insertions, let modifications):
@@ -588,11 +587,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
                 
                 self.tableView.endUpdates()
-//                self.tableView.reloadData()
                 self.setTabbarBadge()
                 break
             case .error(let err):
-                // An error occurred while opening the Realm file on the background worker thread
                 fatalError("\(err)")
                 break
             }

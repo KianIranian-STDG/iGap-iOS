@@ -343,41 +343,6 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         
     }
     
-    
-    func didTapOnTrashButton() {
-        //        timer.invalidate()
-        //        let thisPhoto = galleryPhotos?.accessCurrentPhotoDetail()
-        //        if let index =  self.avatarPhotos?.index(where: {$0 === thisPhoto}) {
-        //            let thisAvatarId = self.avatars[index].id
-        //            IGGroupAvatarDeleteRequest.Generator.generate(avatarId: thisAvatarId, roomId: (room?.id)!).success({ (protoResponse) in
-        //                DispatchQueue.main.async {
-        //                    switch protoResponse {
-        //                    case let groupAvatarDeleteResponse as IGPGroupAvatarDeleteResponse :
-        //                        IGGroupAvatarDeleteRequest.Handler.interpret(response: groupAvatarDeleteResponse)
-        //                        self.avatarPhotos?.remove(at: index)
-        //                        self.avatars.remove(at: index)
-        //                    default:
-        //                        break
-        //                    }
-        //                }
-        //            }).error ({ (errorCode, waitTime) in
-        //                switch errorCode {
-        //                case .timeout:
-        //                    DispatchQueue.main.async {
-        //                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-        //                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        //                        alert.addAction(okAction)
-        //                        self.present(alert, animated: true, completion: nil)
-        //                    }
-        //                default:
-        //                    break
-        //                }
-        //
-        //            }).send()
-        //        }
-    }
-    
-    
     func requestToGetAvatarList() {
         if let currentRoomID = room?.id {
             IGGroupAvatarGetListRequest.Generator.generate(roomId: currentRoomID).success({ (protoResponse) in
@@ -689,19 +654,6 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showGroupNameSetting" {
-            let destination = segue.destination as! IGGroupInfoEditNameTableViewController
-            destination.room = room
-        }
-        if  segue.identifier == "showDescribeGroupSetting" {
-            let destination = segue.destination as! IGGroupEditDescriptionTableViewController
-            destination.room = room
-        }
-        
-        if segue.identifier ==  "showGroupTypeSetting" {
-            let destination = segue.destination as! IGGroupInfoEditTypeTableViewController
-            destination.room = room
-        }
         if segue.identifier == "showGroupMemberSetting" {
             let destination = segue.destination as! IGMemberTableViewController
             destination.showMembersFilter = .all
@@ -712,13 +664,10 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
             destinationTv.mode = "Members"
             destinationTv.room = room
         }
-        
         if segue.identifier == "showGroupSharedMediaSetting" {
             let destination = segue.destination as! IGGroupSharedMediaListTableViewController
             destination.room = room
         }
-        
-        
     }
     
     //MARK: -Scroll View Delegate and DataSource
@@ -2378,70 +2327,8 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 }
             }
         case .none:
-            
             break
             
         }
     }
-    
-}
-
-
-
-extension IGProfileGroupViewController: UIImagePickerControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        // Local variable inserted by Swift 4.2 migrator.
-        let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
-        
-        
-        if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage {
-            self.avatarView.setImage(pickedImage)
-            
-            let avatar = IGFile()
-            avatar.attachedImage = pickedImage
-            let randString = IGGlobal.randomString(length: 32)
-            avatar.cacheID = randString
-            avatar.name = randString
-            
-            IGUploadManager.sharedManager.upload(file: avatar, start: {
-                
-            }, progress: { (progress) in
-                
-            }, completion: { (uploadTask) in
-                if let token = uploadTask.token {
-                    IGGroupAvatarAddRequest.Generator.generate(attachment: token , roomID: (self.room?.id)!).success({ (protoResponse) in
-                        DispatchQueue.main.async {
-                            switch protoResponse {
-                            case let avatarAddResponse as IGPGroupAvatarAddResponse:
-                                _ = IGGroupAvatarAddRequest.Handler.interpret(response: avatarAddResponse)
-                            default:
-                                break
-                            }
-                        }
-                    }).error({ (error, waitTime) in
-                        
-                    }).send()
-                }
-            }, failure: {
-                
-            })
-        }
-        imagePicker.dismiss(animated: true, completion: {
-        })
-    }
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-}
-
-
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
-    return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
-    return input.rawValue
 }

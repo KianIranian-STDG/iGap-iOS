@@ -84,8 +84,9 @@ class IGHelperMediaPicker {
 
         let picker = YPImagePicker(configuration: config)
         picker.didFinishPicking { [unowned picker] items, _ in
-            completion(items)
-            picker.dismiss(animated: true, completion: nil)
+            picker.dismiss(animated: true, completion: {
+                completion(items)
+            })
         }
         config.colors.tintColor = .white // Right bar buttons (actions)
         if let navigationBar = picker.navigationController?.navigationBar {

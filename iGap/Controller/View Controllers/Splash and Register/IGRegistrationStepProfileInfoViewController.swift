@@ -11,6 +11,7 @@
 import UIKit
 import IGProtoBuff
 import SwiftProtobuf
+import YPImagePicker
 
 class IGRegistrationStepProfileInfoViewController: BaseTableViewController,SelectCountryObserver {
 
@@ -28,8 +29,6 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
     var selectedCountry: IGCountryInfo!
     static var selectCountryObserver: SelectCountryObserver!
     var popView = false
-
-    var imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +39,6 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
         self.imagePickLabel.layer.cornerRadius = self.imagePickLabel.frame.height / 2.0
         self.imagePickLabel.layer.masksToBounds = true
 
-        nicknameTextField.delegate = self
         initFonts()
         initLanguage()
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(didTapOnChangeImage))
@@ -52,22 +50,16 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
         navItem.rightViewContainer?.addAction {
             self.didTapOnDone()
         }
-        imagePicker.delegate = self
-        
-//        let tapOnCountry = UITapGestureRecognizer(target: self, action: #selector(showCountriesList))
-//        txtCode.addGestureRecognizer(tapOnCountry)
-
     }
     @IBAction func didTapOnBtnCountryCode(_ sender: UIButton) {
         IGGlobal.isPopView = true
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         titleLabel.text = "ENTER_NAME_AND_CHOOSE_PHOTO".localizedNew
-//        self.nicknameTextField.becomeFirstResponder()
     }
+    
     private func initFonts() {
         titleLabel.font = UIFont.igFont(ofSize: 13)
         pagetitleLabel.font = UIFont.igFont(ofSize: 30,weight: .bold)
@@ -82,9 +74,8 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
         FnameTextField.textAlignment = nicknameTextField.localizedNewDirection
         txtCode.textAlignment = .center
     }
-    @objc func showCountriesList() {
-//           performSegue(withIdentifier: "showCountrySelection", sender: self)
-       }
+    @objc func showCountriesList() {}
+    
     private func initLanguage() {
         txtCode.text = "CHOOSE_COUNTRY".localizedNew
         lblReferralHint.text = "ENTER_REFERRAL_NUMBER".localizedNew
@@ -95,10 +86,7 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
         titleLabel.text = "ENTER_NAME_AND_CHOOSE_PHOTO".localizedNew
 
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
-    }
+    
     @objc func keyboardWillShow(notification: NSNotification) {
         let info = notification.userInfo!
         let keyboardFrame: CGRect = (info[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
@@ -107,7 +95,6 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
             self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: keyboardFrame.size.height + 10, right: 0)
         })
     }
-
     
     func didTapOnOutside() {
         nicknameTextField.resignFirstResponder()
@@ -115,9 +102,6 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
     
     func didTapOnDone() {
         if let nickname = nicknameTextField.text {
-            
-            
-            
             IGGlobal.prgShow(self.view)
             IGUserProfileSetNicknameRequest.Generator.generate(nickname: nickname).success({ (responseProto) in
                 DispatchQueue.main.async {
@@ -157,13 +141,10 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
                 }
             }).send()
         }
-        
     }
     
     private func checkReferral() {
-        
         if tfReferralNumber.text != "" {
-            
             var phoneSpaceLess: String?
             let phone = tfReferralNumber.text
             if phone != nil && phone != "" {
@@ -190,69 +171,46 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
                     let alertVC = UIAlertController(title: "INVALID_PHONE".localizedNew, message: "ENTER_VALID_P_NUMBER".localizedNew, preferredStyle: .alert)
                     alertVC.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil))
                     self.present(alertVC, animated: true, completion: nil)
-
-                }            }
+                    
+                }
+            }
         } else {
             IGAppManager.sharedManager.setUserLoginSuccessful()
         }
     }
+    
     @objc func didTapOnChangeImage() {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            if UIImagePickerController.availableCaptureModes(for: .rear) != nil{
-                self.imagePicker.delegate = self
-                self.imagePicker.allowsEditing = true
-                self.imagePicker.sourceType = .camera
-                self.imagePicker.cameraCaptureMode = .photo
-                if UIDevice.current.userInterfaceIdiom == .phone {
-                    self.present(self.imagePicker, animated: true, completion: nil)
-                }
-                else {
-                    self.present(self.imagePicker, animated: true, completion: nil)//4
-                    self.imagePicker.popoverPresentationController?.sourceView = (self.profileImageView)
-                    self.imagePicker.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
-                    self.imagePicker.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
-                }
-            }
+        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.pickImage(screens: [.photo])
         })
-        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            self.imagePicker.delegate = self
-            self.imagePicker.allowsEditing = true
-            self.imagePicker.sourceType = .photoLibrary
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                self.present(self.imagePicker, animated: true, completion: nil)
-            }
-            else {
-                self.present(self.imagePicker, animated: true, completion: nil)//4
-                self.imagePicker.popoverPresentationController?.sourceView = (self.profileImageView)
-                self.imagePicker.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
-                self.imagePicker.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
-            }
+        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.pickImage(screens: [.library])
         })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: {
-            (alert: UIAlertAction!) -> Void in
-        })
+        
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
         optionMenu.addAction(ChoosePhoto)
-        optionMenu.addAction(cancelAction)
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
             optionMenu.addAction(cameraOption)} else {
         }
+        optionMenu.addAction(cancelAction)
         if let popoverController = optionMenu.popoverPresentationController {
             popoverController.sourceView = self.profileImageView
         }
         self.present(optionMenu, animated: true, completion: nil)
     }
     
-    
-    
-    
-    
-    
-
-    
-    
+    private func pickImage(screens: [YPPickerScreen]){
+        IGHelperAvatar.shared.pickAndUploadAvatar(type: .user, screens: screens) { (file) in
+            DispatchQueue.main.async {
+                if let image = file.attachedImage {
+                    self.profileImageView?.image = image
+                } else {
+                    self.profileImageView?.setImage(avatar: file)
+                }
+            }
+        }
+    }
     
     private func setCountryInfo(country: IGCountryInfo){
         txtCode.text = country.countryName
@@ -279,12 +237,9 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
             IGGlobal.prgHide()
             DispatchQueue.main.async {
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
-
             }
         }).send()
     }
-    
-
     
     /************************ Callback ************************/
     
@@ -292,74 +247,4 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
         selectedCountry = country
         setCountryInfo(country: country)
     }
-    }
-
-extension IGRegistrationStepProfileInfoViewController: UIImagePickerControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-// Local variable inserted by Swift 4.2 migrator.
-let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
-
-        if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage {
-            self.profileImageView.image = pickedImage
-            self.profileImageView.layer.cornerRadius = self.profileImageView.frame.height / 2.0
-            self.profileImageView.layer.masksToBounds = true
-
-            let avatar = IGFile()
-            avatar.attachedImage = pickedImage
-            let randString = IGGlobal.randomString(length: 32)
-            avatar.cacheID = randString
-            avatar.name = randString
-            
-            IGUploadManager.sharedManager.upload(file: avatar, start: {
-                
-            }, progress: { (progress) in
-                
-            }, completion: { (uploadTask) in
-                if let token = uploadTask.token {
-                    IGUserAvatarAddRequest.Generator.generate(token: token).success({ (protoResponse) in
-                        DispatchQueue.main.async {
-                            switch protoResponse {
-                            case let avatarAddResponse as IGPUserAvatarAddResponse:
-                                IGUserAvatarAddRequest.Handler.interpret(response: avatarAddResponse)
-                            default:
-                                break
-                            }
-                        }
-                    }).error({ (error, waitTime) in
-                        
-                    }).send()
-                }
-            }, failure: {
-                
-            })
-        }
-        imagePicker.dismiss(animated: true, completion: {
-        })
-    }
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-}
-
-extension IGRegistrationStepProfileInfoViewController: UINavigationControllerDelegate {
-    
-}
-
-extension IGRegistrationStepProfileInfoViewController: UITextFieldDelegate {
-    
-}
-
-
-
-
-
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
-	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
-	return input.rawValue
 }

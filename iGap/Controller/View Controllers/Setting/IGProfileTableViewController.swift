@@ -1,10 +1,12 @@
-//
-//  IGProfileTableViewController.swift
-//  iGap
-//
-//  Created by BenyaminMokhtarpour on 5/20/19.
-//  Copyright © 2019 Kianiranian STDG -www.kianiranian.com. All rights reserved.
-//
+/*
+* This is the source code of iGap for iOS
+* It is licensed under GNU AGPL v3.0
+* You should have received a copy of the license in this archive (see LICENSE).
+* Copyright © 2017 , iGap - www.iGap.net
+* iGap Messenger | Free, Fast and Secure instant messaging application
+* The idea of the Kianiranian STDG - www.kianiranian.com
+* All rights reserved.
+*/
 
 import UIKit
 import RealmSwift
@@ -14,8 +16,7 @@ import RxSwift
 import Gifu
 import NVActivityIndicatorView
 import MapKit
-import MBProgressHUD
-
+import YPImagePicker
 
 class IGProfileTableViewController: UITableViewController, CLLocationManagerDelegate, UITextFieldDelegate {
     lazy var colorView = { () -> UIView in
@@ -44,7 +45,6 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     var isEditMode = false
     var shouldSave = false
     var tapCount = 0
-    var hud = MBProgressHUD()
     var isMaleChecked : Bool! = false
     var isFMaleChecked : Bool! = false
 
@@ -101,7 +101,6 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     var hasRefrralChanged: Bool! = false
     
     var userInDb : IGRegisteredUser!
-    var imagePicker = UIImagePickerController()
     let locationManager = CLLocationManager()
     let borderName = CALayer()
     let width = CGFloat(0.5)
@@ -147,14 +146,6 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     
     override func viewWillAppear(_ animated: Bool)  {
         super.viewWillAppear(animated)
-//        self.navigationController?.navigationBar.isHidden = true
-//        if let navigationBar = self.navigationController?.navigationBar as? IGNavigationBar {
-//            navigationBar.setTransparentNavigationBar()
-//            self.view.layoutSubviews()
-//            navigationBar.isHidden = true
-//            navigationBar.backgroundColor = .clear
-//        }
-        
         self.initNavBar()
                 
         IGRequestWalletGetAccessToken.sendRequest()
@@ -166,7 +157,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
             getScore()
         }
         
-        USERinDB()
+        fetchUserInfo()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -207,10 +198,9 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
             
         }).send()
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-//        self.navigationController?.navigationBar.isHidden = false
         if let navigationBar = self.navigationController?.navigationBar as? IGNavigationBar {
             navigationBar.setGradientBackground(colors: [UIColor(named: themeColor.navigationFirstColor.rawValue)!, UIColor(named: themeColor.navigationSecondColor.rawValue)!], startPoint: .centerLeft, endPoint: .centerRight)
         }
@@ -305,8 +295,6 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
             if cards != nil{
                 if (cards as? [SMCard]) != nil{
                     if (cards as! [SMCard]).count > 0 {
-                        //                        self.walletView.dismissPresentedCardView(animated: true)
-                        //                        self.walletHeaderView.alpha = 1.0
                         self.userCards = SMCard.getAllCardsFromDB()
                         if let cards = self.userCards {
                             var tmpSum : Int64! = 0
@@ -324,9 +312,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 }
             }
             needToUpdate = true
-        }, onFailed: {err in
-            //            SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
-        })
+        }, onFailed: {error in })
     }
 
     func initView() {
@@ -335,9 +321,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         btnMenGender.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         btnWomenGender.setTitle("", for: .normal)
         btnWomenGender.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
-        
         btnCamera.setBackgroundImage(UIImage(named: "ig_add_image_icon"), for: .normal)
-        
         
         self.view.insertSubview(colorView, at: 1)
         
@@ -353,10 +337,9 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         
         let tapNew = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTapNew(recognizer:)))
         stack3.addGestureRecognizer(tapNew)
-        
     }
+    
     func initChangeLang() {
-        
         lblName.text = "NAME".localizedNew
         lblUserName.text = "SETTING_PAGE_ACCOUNT_USERNAME".localizedNew
         lblBioInner.text = "SETTING_PAGE_ACCOUNT_BIO".localizedNew
@@ -370,7 +353,6 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         lblNew.text = "NEW".localizedNew
         lblCredit.text = "CREDITS".localizedNew
         lblScore.text = "SETTING_PAGE_ACCOUNT_SCORE_PAGE".localizedNew
-//        lblMoneyAmount.text = "1254790".inRialFormat().inLocalizedLanguage() + "CURRENCY".localizedNew
         lblScoreAmount.text = "..."
         lblInviteF.text = "SETTING_PAGE_INVITE_FRIENDS".localizedNew
         lblQR.text = "SETTING_PAGE_QRCODE_SCANNER".localizedNew
@@ -560,7 +542,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
             
         }).send()
     }
-    func USERinDB() {
+    func fetchUserInfo() {
         let realm = try! Realm()
         let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
         userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
@@ -605,7 +587,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     
     func showAvatar(avatar : IGAvatar) {
         
-        var photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMediaUserAvatar in
+        let photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMediaUserAvatar in
             return IGMediaUserAvatar(avatar: avatar)
         }
         
@@ -615,56 +597,37 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
             return
         }
         let currentPhoto = photos[0]
-        let downloadViewFrame = self.view.bounds
         let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: userAvatarView)//, deleteView: deleteView, downloadView: downloadIndicatorMainView)
         
         galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
             let currentIndex : Int! = photos.firstIndex{$0 === photo}
             currentSize = self!.avatars[currentIndex].file?.size
-            
             return self?.userAvatarView
         }
-        
         
         galleryPhotos = galleryPreview
         galleryPreview.deletePhotoHandler = { [weak self] photo in
             let currentIndex : Int! = photos.firstIndex{$0 === photo}
-            
             self!.deleteAvatar(index: currentIndex)
-            
         }
         
         present(galleryPreview, animated: true, completion: nil)
     }
     
     func deleteAvatar(index: Int! = 0) {
-        let avatar = self.avatars[index]
-        IGUserAvatarDeleteRequest.Generator.generate(avatarID: avatar.id).success({ (protoResponse) in
+        IGHelperAvatar.shared.delete(avatarId: self.avatars[index].id, type: .user) {
             DispatchQueue.main.async {
-                switch protoResponse {
-                case let userAvatarDeleteResponse as IGPUserAvatarDeleteResponse :
-                    IGUserAvatarDeleteRequest.Handler.interpret(response: userAvatarDeleteResponse)
-                    self.avatarPhotos?.remove(at: index)
-                    self.avatars.remove(at: index)
-                    sizesArray.remove(at: index)
-                    self.getUserInfo() // TODO - now for update show avatars in room list and chat cloud i use from getUserInfo. HINT: remove this state and change avatar list for this user
-                    if self.avatars.count > 0 {
-                        self.userAvatarView.avatarImageView?.setImage(avatar: self.avatars[0], showMain: true)
-                    }
-                default:
-                    break
+                self.avatarPhotos?.remove(at: index)
+                self.avatars.remove(at: index)
+                sizesArray.remove(at: index)
+                self.getUserInfo() // TODO - now for update show avatars in room list and chat cloud i use from getUserInfo. HINT: remove this state and change avatar list for this user
+                if self.avatars.count > 0 {
+                    self.userAvatarView.avatarImageView?.setImage(avatar: self.avatars[0].file!, showMain: true)
+                } else {
+                    self.userAvatarView.avatarImageView = nil
                 }
             }
-        }).error ({ (errorCode, waitTime) in
-            switch errorCode {
-            case .timeout:
-                break
-            default:
-                break
-            }
-            
-        }).send()
-        
+        }
     }
     
     func getUserInfo(){
@@ -775,8 +738,6 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     }
     
     @IBAction func didTapOnGoToSettings(_ sender: Any) {
-//        goToSettings = true
-//        self.performSegue(withIdentifier: "showSettings", sender: self)
         goToSettings = false
         let settingVC = IGSettingTableViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
         settingVC.hidesBottomBarWhenPushed = true
@@ -822,7 +783,6 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     }
     
     private func editProfileTapped() {
-        print(tapCount)
         tapCount += 1
         let navigationItem = self.navigationItem as! IGNavigationItem
 
@@ -849,7 +809,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         }
             //gotTo EditMode
         else {
-            USERinDB()
+            fetchUserInfo()
             textManagment()
             isEditMode = true
             shouldSave = false
@@ -1060,31 +1020,30 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         
         if indexPath.section == 0 {
             
-            var rowIndex = indexPath.row
-            
             switch indexPath.row {
             case 0 :
                 break
+                
             case 1 :
                 break
-            case 2 :
                 
+            case 2 :
                 shareContent = "HEY_JOIN_IGAP".localizedNew
                 let activityViewController = UIActivityViewController(activityItems: [shareContent as NSString], applicationActivities: nil)
                 self.tableView.deselectRow(at: indexPath, animated: true)
                 present(activityViewController, animated: true, completion: nil)
+                break
                 
             case 3 :
                 self.tableView.deselectRow(at: indexPath, animated: true)
                 performSegue(withIdentifier: "ShowQRScanner", sender: self)
+                break
                 
             case 4 :
                 manageOpenMap()
+                break
                 
             case 5 :
-//                self.tableView.deselectRow(at: indexPath, animated: true)
-//                performSegue(withIdentifier: "showChangeLanguagePage", sender: self)
-//                break
                 self.tableView.deselectRow(at: indexPath, animated: true)
                 var stringUrl = ""
                 if SMLangUtil.loadLanguage() == "fa" {
@@ -1095,16 +1054,17 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 if let url = NSURL(string: stringUrl){
                     UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
                 }
-
                 break
+                
             case 6 :
                 break
 
             case 7 :
-
                 break
+                
             case 8 :
                 break
+                
             case 9 :
                 break
                 
@@ -1113,8 +1073,6 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 
             case 11 :
                 break
-                
-
                 
             default:
                 break
@@ -1245,17 +1203,11 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
             SMLoading.hideLoadingPage()
             self.canCallNextRequest = true
             DispatchQueue.main.async {
-                switch protoResponse {
-                case let setUsernameProtoResponse as IGPUserProfileUpdateUsernameResponse:
+                if let setUsernameProtoResponse = protoResponse as? IGPUserProfileUpdateUsernameResponse {
                     IGUserProfileUpdateUsernameRequest.Handler.interpret(response: setUsernameProtoResponse)
-         
-                default:
-                    break
                 }
-                self.hud.hide(animated: true)
             }
             self.btnUsername.setTitle((current), for: .normal)
-
 
         }).error ({ (errorCode, waitTime) in
             DispatchQueue.main.async {
@@ -1265,24 +1217,18 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                     break
                     
                 case .userProfileUpdateUsernameIsInvaild:
-                    
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INVALID_USERNAME".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
-
                     break
                     
                 case .userProfileUpdateUsernameHasAlreadyBeenTaken:
-                    
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_TAKEN_USERNAME".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
-
                     break
                     
                 case .userProfileUpdateLock:
                     let time = waitTime
                     let remainingMiuntes = time!/60
                     let msg = "MSG_CHANGE_USERNAME_AFTER".localizedNew + " " + String(remainingMiuntes) + " " + "MINUTE".localizedNew
-                    
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: "GLOBAL_CLOSE".localizedNew)
-
                     break
                     
                 default:
@@ -1306,7 +1252,6 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                     break
                 }
                 self.btnName.setTitle((current), for: .normal)
-
             }
 
         }).error ({ (errorCode, waitTime) in
@@ -1336,7 +1281,6 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 default:
                     break
                 }
-                self.hud.hide(animated: true)
             }
         }).error ({ (errorCode, waitTime) in
             SMLoading.hideLoadingPage()
@@ -1447,234 +1391,103 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     }
     
     @objc func segueToChatNotificationReceived(_ aNotification: Notification) {
-//        let navigationControllerr = self.navigationController as! IGNavigationController
-//        navigationControllerr.navigationBar.isHidden = true
-
         if let roomId = aNotification.userInfo?["room"] as? Int64 {
-            let predicate = NSPredicate(format: "id = %lld", roomId)
-            
-            self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            self.hud.mode = .indeterminate
+            IGGlobal.prgShow()
             IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ (protoResponse) in
                 DispatchQueue.main.async {
-                    self.hud.hide(animated: true)
-                    switch protoResponse {
-                    case let clientGetRoomResponse as IGPClientGetRoomResponse:
+                    IGGlobal.prgHide()
+                    if let clientGetRoomResponse = protoResponse as? IGPClientGetRoomResponse {
                         IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
-                    default:
-                        break
                     }
                 }
             }).error ({ (errorCode, waitTime) in
-                DispatchQueue.main.async {
-                    switch errorCode {
-                    case .timeout:
-
-                        break
-                    default:
-                        break
-                    }
-                    self.hud.hide(animated: true)
-                }
+                IGGlobal.prgHide()
             }).send()
-            
         }
     }
-        @IBAction func cameraButtonClick(_ sender: UIButton) {
-            choosePhotoActionSheet(sender: btnCamera)
-        }
-        func choosePhotoActionSheet(sender : UIButton){
-            let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-            let cameraOption = UIAlertAction(title: "Take a Photo", style: .default, handler: {
-                (alert: UIAlertAction!) -> Void in
-                if UIImagePickerController.availableCaptureModes(for: .rear) != nil{
-                    self.imagePicker.delegate = self
-                    self.imagePicker.allowsEditing = true
-                    self.imagePicker.sourceType = .camera
-                    self.imagePicker.cameraCaptureMode = .photo
-                    if UIDevice.current.userInterfaceIdiom == .phone {
-                        self.present(self.imagePicker, animated: true, completion: nil)
-                    }
-                    else {
-                        self.present(self.imagePicker, animated: true, completion: nil)//4
-                        self.imagePicker.popoverPresentationController?.sourceView = (sender )
-                        self.imagePicker.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
-                        self.imagePicker.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
-                    }
-                }
-            })
-            
-            let deleteAction = UIAlertAction(title: "Delete Main Avatar", style: .destructive, handler: {
-                (alert: UIAlertAction!) -> Void in
-                self.deleteAvatar()
-            })
-            
-            let ChoosePhoto = UIAlertAction(title: "Choose Photo", style: .default, handler: {
-                (alert: UIAlertAction!) -> Void in
-                self.imagePicker.delegate = self
-                self.imagePicker.allowsEditing = true
-                self.imagePicker.sourceType = .photoLibrary
-                if UIDevice.current.userInterfaceIdiom == .phone {
-                    self.present(self.imagePicker, animated: true, completion: nil)
-                }
-                else {
-                    self.present(self.imagePicker, animated: true, completion: nil)//4
-                    self.imagePicker.popoverPresentationController?.sourceView = (sender)
-                    self.imagePicker.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
-                    self.imagePicker.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
-                }
-            })
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
-                (alert: UIAlertAction!) -> Void in
-            })
-            
-            if self.avatars.count > 0 {
-                optionMenu.addAction(deleteAction)
-            }
-            optionMenu.addAction(ChoosePhoto)
-            optionMenu.addAction(cancelAction)
-            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
-                optionMenu.addAction(cameraOption)} else {
-                print ("I don't have a camera.")
-            }
-            if let popoverController = optionMenu.popoverPresentationController {
-//                popoverController.sourceView = cameraButton
-            }
-            self.present(optionMenu, animated: true, completion: nil)
-        }
     
-    private func manageImage(imageInfo: [String : Any]){
-        let originalImage = imageInfo["UIImagePickerControllerOriginalImage"] as! UIImage
-        let filename = "IMAGE_" + IGGlobal.randomString(length: 16)
-        let randomString = IGGlobal.randomString(length: 16) + "_"
-        var scaledImage = originalImage
-        let imgData = scaledImage.jpegData(compressionQuality: 0.7)
-        let fileNameOnDisk = randomString + filename
-        
-        if (originalImage.size.width) > CGFloat(2000.0) || (originalImage.size.height) >= CGFloat(2000) {
-            scaledImage = IGUploadManager.compress(image: originalImage)
-        }
-        
-        self.userAvatarAttachment = IGFile(name: filename)
-        self.userAvatarAttachment.attachedImage = scaledImage
-        self.userAvatarAttachment.fileNameOnDisk = fileNameOnDisk
-        self.userAvatarAttachment.height = Double((scaledImage.size.height))
-        self.userAvatarAttachment.width = Double((scaledImage.size.width))
-        self.userAvatarAttachment.size = (imgData?.count)!
-        self.userAvatarAttachment.data = imgData
-        self.userAvatarAttachment.type = .image
-        
-        let path = IGFile.path(fileNameOnDisk: fileNameOnDisk)
-        FileManager.default.createFile(atPath: path.path, contents: imgData!, attributes: nil)
-        
-        DispatchQueue.main.async {
-            self.userAvatarView.avatarImageView?.image = originalImage
-            self.uploadImage()
-        }
+    @IBAction func cameraButtonClick(_ sender: UIButton) {
+        choosePhotoActionSheet(sender: btnCamera)
     }
-    private func uploadImage() {
-        SMLoading.showLoadingPage(viewcontroller: self)
-        
-        IGUploadManager.sharedManager.upload(file: self.userAvatarAttachment, start: {
-        }, progress: { (progress) in
-        }, completion: { (uploadTask) in
-            if let token = uploadTask.token {
-                SMLoading.hideLoadingPage()
-
-                IGUserAvatarAddRequest.Generator.generate(token: token).success({ (protoResponse) in
-                      
-                        DispatchQueue.main.async {
-                            switch protoResponse {
-                            case let avatarAddResponse as IGPUserAvatarAddResponse:
-                                IGUserAvatarAddRequest.Handler.interpret(response: avatarAddResponse)
-                            default:
-                                break
-                            }
-                        }
-                    
-                    }).error({ (error, waitTime) in
-                        SMLoading.hideLoadingPage()
-                    }).send()
-                    
-            }
-        }, failure: {
-            SMLoading.hideLoadingPage()
+    
+    func choosePhotoActionSheet(sender : UIButton){
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.pickImage(screens: [.photo])
         })
+        
+        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.pickImage(screens: [.library])
+        })
+        
+        let deleteAction = UIAlertAction(title: "DELETE_MAIN_AVATAR".localizedNew, style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
+            self.deleteAvatar()
+        })
+        
+        let cancelAction = UIAlertAction(title: "BTN_CANCEL".localizedNew, style: .cancel, handler: nil)
+        
+        if self.avatars.count > 0 {
+            optionMenu.addAction(deleteAction)
+        }
+        optionMenu.addAction(ChoosePhoto)
+        optionMenu.addAction(cancelAction)
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
+            optionMenu.addAction(cameraOption)
+        }
+        self.present(optionMenu, animated: true, completion: nil)
     }
+    
+    private func pickImage(screens: [YPPickerScreen]){
+        IGHelperAvatar.shared.pickAndUploadAvatar(roomId: userInDb.id, type: .user, screens: screens) { (file) in
+            DispatchQueue.main.async {
+                if let image = file.attachedImage {
+                    self.userAvatarView?.avatarImageView?.image = image
+                } else {
+                    self.userAvatarView?.avatarImageView!.setImage(avatar: file)
+                }
+            }
+        }
     }
-
+}
 
 
 //MARK: SEARCH BAR DELEGATE
 extension IGProfileTableViewController: UISearchBarDelegate {
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
-    {
-        //Show Cancel
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
         searchBar.tintColor = .white
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
-    {
-        //Filter function
-    }
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
         (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
-        
         let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
         lookAndFind.hero.isEnabled = true
-        //        self.searchBar.hero.id = "searchBar"
         self.navigationController?.hero.isEnabled = true
         self.navigationController?.hero.navigationAnimationType = .fade
         self.hero.replaceViewController(with: lookAndFind)
         return true
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
-    {
-        //Hide Cancel
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.resignFirstResponder()
-        
-        
-        
-        //Filter function
-        //        self.filterFunction(searchText: term)
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
-    {
-        //Hide Cancel
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.text = String()
         searchBar.resignFirstResponder()
-        
-        //Filter function
-//        self.filterFunction(searchText: searchBar.text)
     }
-    
 }
-
-
 
 extension IGProfileTableViewController : IGRegistrationStepSelectCountryTableViewControllerDelegate {
     func didSelectCountry(country: IGCountryInfo) {
         self.setSelectedCountry(country)
     }
 }
-extension IGProfileTableViewController: UIImagePickerControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        imagePicker.dismiss(animated: true, completion: {
-            self.manageImage(imageInfo: convertFromUIImagePickerControllerInfoKeyDictionary(info))
-        })
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-}
+
 extension IGProfileTableViewController: IGProgressDelegate {
     func downloadUploadIndicatorDidTap(_ indicator: IGProgress) {
         if let attachment = self.userAvatar?.file {
@@ -1683,15 +1496,3 @@ extension IGProfileTableViewController: IGProgressDelegate {
     }
 }
 
-extension IGProfileTableViewController: UINavigationControllerDelegate {}
-
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
-    return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
-    return input.rawValue
-}

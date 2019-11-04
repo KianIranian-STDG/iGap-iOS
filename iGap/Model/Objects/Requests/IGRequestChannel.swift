@@ -339,11 +339,11 @@ class IGChannelSendMessageRequest: IGRequest {
 
 class IGChannelAddAvatarRequest: IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate (attachment: String , roomID: Int64) -> IGRequestWrapper {
+        class func generate (attachment: IGFile , roomId: Int64) -> IGRequestWrapper {
             var channelAddAvatarMessage = IGPChannelAvatarAdd()
-            channelAddAvatarMessage.igpRoomID = roomID
-            channelAddAvatarMessage.igpAttachment = attachment
-            return IGRequestWrapper(message: channelAddAvatarMessage, actionID: 412)
+            channelAddAvatarMessage.igpRoomID = roomId
+            channelAddAvatarMessage.igpAttachment = attachment.token!
+            return IGRequestWrapper(message: channelAddAvatarMessage, actionID: 412, identity: attachment)
         }
     }
     
@@ -352,11 +352,8 @@ class IGChannelAddAvatarRequest: IGRequest {
             IGFactory.shared.updateChannelAvatar(responseProtoMessage.igpRoomID, igpAvatar: responseProtoMessage.igpAvatar)
         }
         override class func handlePush(responseProtoMessage: Message) {
-            switch responseProtoMessage {
-            case let channelAvatarResponse as IGPChannelAvatarAddResponse:
+            if let channelAvatarResponse = responseProtoMessage as? IGPChannelAvatarAddResponse {
                 self.interpret(response: channelAvatarResponse)
-            default:
-                break
             }
         }
     }
@@ -364,8 +361,7 @@ class IGChannelAddAvatarRequest: IGRequest {
 
 class IGChannelAvatarDeleteRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        //313
-        class func generate(avatarId: Int64, roomId: Int64) -> IGRequestWrapper {
+        class func generate(roomId: Int64, avatarId: Int64) -> IGRequestWrapper {
             var channelAvatarDeleteRequestMessage = IGPChannelAvatarDelete()
             channelAvatarDeleteRequestMessage.igpID = avatarId
             channelAvatarDeleteRequestMessage.igpRoomID = roomId
@@ -377,11 +373,8 @@ class IGChannelAvatarDeleteRequest : IGRequest {
         class func interpret(response: IGPChannelAvatarDeleteResponse) {}
         
         override class func handlePush(responseProtoMessage: Message) {
-            switch responseProtoMessage {
-            case let response as IGPChannelAvatarDeleteResponse:
+            if let response = responseProtoMessage as? IGPChannelAvatarDeleteResponse {
                 self.interpret(response: response)
-            default:
-                break
             }
         }
     }
@@ -390,7 +383,6 @@ class IGChannelAvatarDeleteRequest : IGRequest {
 
 class IGChannelAvatarGetListRequest : IGRequest {
     class Generator : IGRequest.Generator {
-        //414
         class func generate(roomId: Int64) -> IGRequestWrapper {
             var channelAvatarGetListRequestMessage = IGPChannelAvatarGetList()
             channelAvatarGetListRequestMessage.igpRoomID = roomId

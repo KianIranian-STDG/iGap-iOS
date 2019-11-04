@@ -10,7 +10,7 @@
 
 import UIKit
 import IGProtoBuff
-import MBProgressHUD
+import YPImagePicker
 
 class IGCreateNewGroupTableViewController: BaseTableViewController {
 
@@ -22,35 +22,27 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     
     var groupAvatarAttachment: IGFile!
     var getRoomResponseID : Int64?
-    var imagePicker = UIImagePickerController()
     let width = CGFloat(0.5)
     let borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)!
     var mode : String?
     var roomId : Int64?
     var selectedUsersToCreateGroup = [IGRegisteredUser]()
-    var hud = MBProgressHUD()
-    var defualtImage = UIImage() //UIImage(named: "IG_Camera_Image")
+    var defualtImage = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initNavigationItem()
-        
         addBottomBorder(textField: groupNameTextField)
         addBottomBorder(textField: descriptionTextField)
+        
         groupNameCell.selectionStyle = UITableViewCell.SelectionStyle.none
         groupNameTextField.placeholder = "GROUPNAME".localizedNew
         descriptionTextField.placeholder = "DESCRIPTION".localizedNew
-        
         groupNameTextField.textAlignment = self.TextAlignment
         descriptionTextField.textAlignment = self.TextAlignment
-        
         groupAvatarImage.isUserInteractionEnabled = false
-        
         changeImageBtn.layer.cornerRadius = changeImageBtn.frame.height / 2
         changeImageBtn.clipsToBounds = true
-        
-//        changeImageBtn.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//        changeImageBtn.layer.borderWidth = 0.3
         
         roundUserImage(groupAvatarImage)
     }
@@ -99,38 +91,12 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     
     func choosePhotoActionSheet(sender : UIImageView){
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            if UIImagePickerController.availableCaptureModes(for: .rear) != nil{
-                self.imagePicker.delegate = self
-                self.imagePicker.allowsEditing = true
-                self.imagePicker.sourceType = .camera
-                self.imagePicker.cameraCaptureMode = .photo
-                if UIDevice.current.userInterfaceIdiom == .phone {
-                    self.present(self.imagePicker, animated: true, completion: nil)
-                }
-                else {
-                    self.present(self.imagePicker, animated: true, completion: nil)//4
-                    self.imagePicker.popoverPresentationController?.sourceView = (sender )
-                    self.imagePicker.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
-                    self.imagePicker.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
-                }
-            }
+        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.pickImage(screens: [.photo])
         })
-        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            self.imagePicker.delegate = self
-            self.imagePicker.allowsEditing = true
-            self.imagePicker.sourceType = .photoLibrary
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                self.present(self.imagePicker, animated: true, completion: nil)
-            }
-            else {
-                self.present(self.imagePicker, animated: true, completion: nil)//4
-                self.imagePicker.popoverPresentationController?.sourceView = (sender)
-                self.imagePicker.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
-                self.imagePicker.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
-            }
+        
+        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+           self.pickImage(screens: [.library])
         })
         
         let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: {
@@ -165,6 +131,22 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
             popoverController.sourceView = sender
         }
         self.present(optionMenu, animated: true, completion: nil)
+    }
+    
+    private func pickImage(screens: [YPPickerScreen]){
+        IGHelperMediaPicker.shared.setScreens(screens).pick { mediaItems in
+            if let imageInfo = mediaItems.singlePhoto, mediaItems.count == 1 {
+                DispatchQueue.main.async {
+                    self.groupAvatarAttachment = IGHelperAvatar.shared.makeAvatarFile(photo: imageInfo)
+                    var image = imageInfo.originalImage
+                    if let modifiedImage = imageInfo.modifiedImage {
+                        image = modifiedImage
+                    }
+                    self.groupAvatarImage.image = image
+                    self.roundUserImage(self.groupAvatarImage)
+                }
+            }
+        }
     }
 
     
@@ -208,133 +190,44 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         return headerHieght
     }
     
-    private func manageImage(imageInfo: [String : Any]){
-        let originalImage = imageInfo["UIImagePickerControllerOriginalImage"] as! UIImage
-        let filename = "IMAGE_" + IGGlobal.randomString(length: 16)
-        let randomString = IGGlobal.randomString(length: 16) + "_"
-        var scaledImage = originalImage
-        let imgData = scaledImage.jpegData(compressionQuality: 0.7)
-        let fileNameOnDisk = randomString + filename
-        
-        if (originalImage.size.width) > CGFloat(2000.0) || (originalImage.size.height) >= CGFloat(2000) {
-            scaledImage = IGUploadManager.compress(image: originalImage)
-        }
-        
-        self.groupAvatarAttachment = IGFile(name: filename)
-        self.groupAvatarAttachment.attachedImage = scaledImage
-        self.groupAvatarAttachment.fileNameOnDisk = fileNameOnDisk
-        self.groupAvatarAttachment.height = Double((scaledImage.size.height))
-        self.groupAvatarAttachment.width = Double((scaledImage.size.width))
-        self.groupAvatarAttachment.size = (imgData?.count)!
-        self.groupAvatarAttachment.data = imgData
-        self.groupAvatarAttachment.type = .image
-
-        let path = IGFile.path(fileNameOnDisk: fileNameOnDisk)
-        FileManager.default.createFile(atPath: path.path, contents: imgData!, attributes: nil)
-        
-        DispatchQueue.main.async {
-            self.groupAvatarImage.image = scaledImage
-        }
-    }
-    
     func requestToCreateGroup() {
         self.view.endEditing(true)
         if let roomName = self.groupNameTextField.text {
             if roomName != "" {
-                
-                self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                self.hud.mode = .indeterminate
-                
-                let roomDescription = self.descriptionTextField.text
-                IGGroupCreateRequest.Generator.generate(name: roomName, description: roomDescription).success({ (protoResponse) in
-                    DispatchQueue.main.async {
-                        
-                        switch protoResponse {
-                        case let groupCreateRespone as IGPGroupCreateResponse:
-                            IGClientGetRoomRequest.Generator.generate(roomId: groupCreateRespone.igpRoomID).success({ (protoResponse) in
-                                DispatchQueue.main.async {
-                                    switch protoResponse {
-                                    case let getRoomProtoResponse as IGPClientGetRoomResponse:
-                                        
-                                        IGClientGetRoomRequest.Handler.interpret(response: getRoomProtoResponse)
-                                        
-                                        for member in self.selectedUsersToCreateGroup {
-                                            let groupRoom = IGRoom(igpRoom:getRoomProtoResponse.igpRoom)
-                                            IGGroupAddMemberRequest.Generator.generate(userID: member.id , group: groupRoom ).success({ (protoResponse) in
-                                                DispatchQueue.main.async {
-                                                    switch protoResponse {
-                                                    case let groupAddMemberResponse as IGPGroupAddMemberResponse :
-                                                        let _ = IGGroupAddMemberRequest.Handler.interpret(response: groupAddMemberResponse)
-                                                    default:
-                                                        break
-                                                    }
-                                                }
-                                            }).error({ (errorCode, waitTime) in
-                                                
-                                            }).send()
+                IGGlobal.prgShow()
+                IGGroupCreateRequest.Generator.generate(name: roomName, description: self.descriptionTextField.text).success({ (protoResponse) in
+                    if let groupCreateRespone = protoResponse as? IGPGroupCreateResponse {
+                        IGClientGetRoomRequest.Generator.generate(roomId: groupCreateRespone.igpRoomID).success({ (protoResponse) in
+                            if let getRoomProtoResponse = protoResponse as? IGPClientGetRoomResponse {
+                                IGClientGetRoomRequest.Handler.interpret(response: getRoomProtoResponse)
+                                for member in self.selectedUsersToCreateGroup {
+                                    IGGroupAddMemberRequest.Generator.generate(userID: member.id, group: IGRoom(igpRoom:getRoomProtoResponse.igpRoom)).success({ (protoResponse) in
+                                        if let groupAddMemberResponse = protoResponse as? IGPGroupAddMemberResponse {
+                                            let _ = IGGroupAddMemberRequest.Handler.interpret(response: groupAddMemberResponse)
                                         }
-                                        
-                                        if self.groupAvatarImage.image != nil, self.groupAvatarImage.image != self.defualtImage {
-                                            
-                                            IGUploadManager.sharedManager.upload(file: self.groupAvatarAttachment, start: {
-                                            }, progress: { (progress) in
-                                                
-                                            }, completion: { (uploadTask) in
-                                                if let token = uploadTask.token {
-                                                    IGGroupAvatarAddRequest.Generator.generate(attachment: token , roomID: getRoomProtoResponse.igpRoom.igpID).success({ (protoResponse) in
-                                                        DispatchQueue.main.async {
-                                                            switch protoResponse {
-                                                            case let groupAvatarAddResponse as IGPGroupAvatarAddResponse:
-                                                                IGGroupAvatarAddRequest.Handler.interpret(response: groupAvatarAddResponse)
-                                                                self.hideProgress()
-                                                                self.dismissView(roomId: getRoomProtoResponse.igpRoom.igpID)
-                                                            default:
-                                                                break
-                                                            }
-                                                        }
-                                                    }).error({ (error, waitTime) in
-                                                        self.hideProgress()
-                                                    }).send()
-                                                }
-                                            }, failure: {
-                                                self.hideProgress()
-                                            })
-                                        } else {
-                                            self.hideProgress()
+                                    }).error({ (errorCode, waitTime) in
+                                    }).send()
+                                }
+                                
+                                if self.groupAvatarImage.image != nil, self.groupAvatarImage.image != self.defualtImage {
+                                    IGHelperAvatar.shared.upload(roomId: getRoomProtoResponse.igpRoom.igpID, type: .channel, file: self.groupAvatarAttachment) { (file) in
+                                        DispatchQueue.main.async {
                                             self.dismissView(roomId: getRoomProtoResponse.igpRoom.igpID)
                                         }
-
-                                    default:
-                                        break
                                     }
+                                } else {
+                                    IGGlobal.prgHide()
+                                    self.dismissView(roomId: getRoomProtoResponse.igpRoom.igpID)
                                 }
-                            }).error({ (errorCode, waitTime) in
-                                self.hideProgress()
-                            }).send()
-                            break
-                        default:
-                            break
-                        }
+                            }
+                        }).error({ (errorCode, waitTime) in
+                            IGGlobal.prgHide()
+                        }).send()
                     }
                 }).error({ (errorCode, waitTime) in
-                    self.hideProgress()
+                    IGGlobal.prgHide()
                 }).send()
             }
-        }
-    }
-    
-    func hideProgress(){
-        DispatchQueue.main.async {
-            self.hud.hide(animated: true)
-        }
-    }
-    
-    func dismissView(roomId: Int64){
-        self.navigationController?.popToRootViewController(animated: true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
-                                            object: nil,
-                                            userInfo: ["room": roomId])
         }
     }
     
@@ -342,8 +235,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         self.view.endEditing(true)
         if let roomName = self.groupNameTextField.text {
             if roomName != "" {
-                let roomDescription = self.descriptionTextField.text
-                IGChatConvertToGroupRequest.Generator.generate(roomId: roomId!, name: roomName, description: roomDescription!).success({ (protoResponse) in
+                IGChatConvertToGroupRequest.Generator.generate(roomId: roomId!, name: roomName, description: self.descriptionTextField.text!).success({ (protoResponse) in
                     DispatchQueue.main.async {
                         switch protoResponse {
                         case let chatConvertToGroupResponse as IGPChatConvertToGroupResponse:
@@ -365,10 +257,10 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
                                 switch errorCode {
                                 case .timeout:
                                     DispatchQueue.main.async {
+                                        IGGlobal.prgHide()
                                         let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
                                         let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                                         alert.addAction(okAction)
-                                        self.hud.hide(animated: true)
                                         self.present(alert, animated: true, completion: nil)
                                     }
                                 default:
@@ -386,31 +278,11 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
             }
         }
     }
-
-}
-extension IGCreateNewGroupTableViewController: UIImagePickerControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        imagePicker.dismiss(animated: true, completion: {
-            self.roundUserImage(self.groupAvatarImage)
-            self.manageImage(imageInfo: convertFromUIImagePickerControllerInfoKeyDictionary(info))
-        })
+    func dismissView(roomId: Int64){
+        self.navigationController?.popToRootViewController(animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom), object: nil, userInfo: ["room": roomId])
+        }
     }
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-}
-
-extension IGCreateNewGroupTableViewController: UINavigationControllerDelegate {
-    
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
-	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
-	return input.rawValue
 }

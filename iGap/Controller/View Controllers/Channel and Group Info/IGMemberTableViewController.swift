@@ -11,7 +11,6 @@
 import UIKit
 import SwiftProtobuf
 import RealmSwift
-import MBProgressHUD
 import IGProtoBuff
 import MGSwipeTableCell
 
@@ -681,9 +680,6 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     
     func kickModerator(userId: Int64) {
         if let groupRoom = room {
-            
-            
-            
             IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "REMOVE_MODERATOR".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_MODERATOR".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
                 IGGlobal.prgShow(self.view)
                 IGGroupKickModeratorRequest.Generator.generate(memberId: userId, roomId: groupRoom.id).success({ (protoResponse) in
@@ -798,13 +794,6 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     
     //MARK:- Prepare Change Page
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if roomType == .group {
-            if segue.identifier == "GoToChangeGroupPublicLink" {
-                let destination = segue.destination as! IGGroupInfoEditTypeTableViewController
-                destination.room = room
-            }
-        }
-        
         if segue.identifier == "showContactToAddMember" {
             let destinationTv = segue.destination as! IGMemberAddOrUpdateState
             destinationTv.mode = "Members"

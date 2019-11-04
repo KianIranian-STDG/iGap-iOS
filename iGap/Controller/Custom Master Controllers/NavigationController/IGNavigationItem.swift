@@ -274,7 +274,7 @@ class IGNavigationItem: UINavigationItem {
             if currentRole == .admin || currentRole == .owner {
                 //Hint: - Edit Group Action Handler
                 backViewContainer!.addAction {
-                    let editVC = IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.instantiateFromAppStroryboard(appStoryboard: .EditProfile)
+                    let editVC = IGEditProfileChannelAndGroupTableViewController.instantiateFromAppStroryboard(appStoryboard: .EditProfile)
                     editVC.room = roomValue
                     editVC.hidesBottomBarWhenPushed = true
                     self.navigationController!.pushViewController(editVC, animated: true)
@@ -338,7 +338,7 @@ class IGNavigationItem: UINavigationItem {
             if currentRole == .admin || currentRole == .owner {
                 //Hint: - Edit Group Action Handler
                 backViewContainer!.addAction {
-                    let editVC = IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.instantiateFromAppStroryboard(appStoryboard: .EditProfile)
+                    let editVC = IGEditProfileChannelAndGroupTableViewController.instantiateFromAppStroryboard(appStoryboard: .EditProfile)
                     editVC.room = roomValue
                     editVC.hidesBottomBarWhenPushed = true
                     self.navigationController!.pushViewController(editVC, animated: true)

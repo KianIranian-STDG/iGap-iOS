@@ -77,7 +77,7 @@ class IGAvatarView: UIView {
         let color = UIColor.hexStringToUIColor(hex: user.color)
         self.initialLettersView!.backgroundColor = color
         if let avatar = user.avatar {
-            self.avatarImageView!.setImage(avatar: avatar, showMain: showMainAvatar)
+            self.avatarImageView!.setImage(avatar: avatar.file!, showMain: showMainAvatar)
         }
         if self.frame.size.width < 40 {
             self.initialLettersLabel!.font = UIFont.igFont(ofSize: 10.0)
@@ -103,16 +103,16 @@ class IGAvatarView: UIView {
         switch room.type {
         case .chat:
             if let avatar = room.chatRoom?.peer?.avatar {
-                self.avatarImageView!.setImage(avatar: avatar, showMain: showMainAvatar)
+                self.avatarImageView!.setImage(avatar: avatar.file!, showMain: showMainAvatar)
                 
             }
         case .group:
             if let avatar = room.groupRoom?.avatar {
-                self.avatarImageView!.setImage(avatar: avatar, showMain: showMainAvatar)
+                self.avatarImageView!.setImage(avatar: avatar.file!, showMain: showMainAvatar)
             }
         case .channel:
             if let avatar = room.channelRoom?.avatar {
-                self.avatarImageView!.setImage(avatar: avatar, showMain: showMainAvatar)
+                self.avatarImageView!.setImage(avatar: avatar.file!, showMain: showMainAvatar)
             }
         }
 
@@ -125,7 +125,7 @@ class IGAvatarView: UIView {
         }
     }
     
-    func setImage(_ image: UIImage) {
+    func setDefaultImage(_ image: UIImage) {
         self.avatarImageView!.image = UIImage(named: "AppIcon")
     }
 }

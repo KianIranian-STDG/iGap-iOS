@@ -1,10 +1,12 @@
-//
-//  IGSettingsAppearanceTableViewController.swift
-//  iGap
-//
-//  Created by BenyaminMokhtarpour on 5/28/19.
-//  Copyright © 2019 Kianiranian STDG -www.kianiranian.com. All rights reserved.
-//
+/*
+* This is the source code of iGap for iOS
+* It is licensed under GNU AGPL v3.0
+* You should have received a copy of the license in this archive (see LICENSE).
+* Copyright © 2017 , iGap - www.iGap.net
+* iGap Messenger | Free, Fast and Secure instant messaging application
+* The idea of the Kianiranian STDG - www.kianiranian.com
+* All rights reserved.
+*/
 
 import UIKit
 import SnapKit
@@ -12,7 +14,6 @@ import SnapKit
 class IGSettingsAppearanceTableViewController: BaseTableViewController {
     
     @IBOutlet weak var lblInAppBrowser : UILabel!
-//    @IBOutlet weak var lblEnableAnimation : UILabel!
     @IBOutlet weak var lblStickers : UILabel!
     @IBOutlet weak var lblLightTheme : UILabel!
     @IBOutlet weak var lblDarkTheme : UILabel!

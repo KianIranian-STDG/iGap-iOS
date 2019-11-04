@@ -1,21 +1,23 @@
-//
-//  IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.swift
-//  iGap
-//
-//  Created by BenyaminMokhtarpour on 9/30/19.
-//  Copyright © 2019 Kianiranian STDG -www.kianiranian.com. All rights reserved.
-//
+/*
+* This is the source code of iGap for iOS
+* It is licensed under GNU AGPL v3.0
+* You should have received a copy of the license in this archive (see LICENSE).
+* Copyright © 2017 , iGap - www.iGap.net
+* iGap Messenger | Free, Fast and Secure instant messaging application
+* The idea of the Kianiranian STDG - www.kianiranian.com
+* All rights reserved.
+*/
 
 import UIKit
 import IGProtoBuff
+import YPImagePicker
 
-class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTableViewController,UITextFieldDelegate {
+class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, UITextFieldDelegate {
     
     // MARK: - Variables
     var dispatchGroup: DispatchGroup!
     
     var room : IGRoom?
-    var imagePicker = UIImagePickerController()
     var avatars: [IGAvatar] = []
     var defaultImage = UIImage(named: "IG_New_Channel_Generic_Avatar")
     var channelAvatarAttachment: IGFile!
@@ -48,8 +50,6 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
         tfNameOfRoom.delegate = self
         tfChannelLink.delegate = self
         getData()
-        //nav init
-        imagePicker.delegate = self
         
         var title : String = "CHANNEL_TITLE"
         if room!.type == .channel {
@@ -69,10 +69,9 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
                 
             }
         }
-        
         initView()
-        
     }
+    
     // MARK: - Development Funcs
     func RequestSequenceChannel(){
         
@@ -359,12 +358,7 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
                             }
                             
                         }).send()
-                        
                         _ = IGChannelRemoveUsernameRequest.Handler.interpret(response: channelRemoveUsernameResponse)
-                        
-                        if self.navigationController is IGNavigationController {
-                            //                            _ = self.navigationController?.popViewController(animated: true)
-                        }
                         
                     default:
                         break
@@ -525,9 +519,7 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
     func changedGroupTypeToPublic(){
         
         if room!.groupRoom!.type == .publicRoom && room?.groupRoom?.publicExtra?.username == tfChannelLink.text {
-            //            _ = self.navigationController?.popViewController(animated: true)
             dispatchGroup.leave()
-            
             return
         }
         
@@ -556,10 +548,6 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
                     switch protoResponse {
                     case let groupUpdateUserName as IGPGroupUpdateUsernameResponse :
                         let _ = IGGroupUpdateUsernameRequest.Handler.interpret(response: groupUpdateUserName)
-                        
-                        if self.navigationController is IGNavigationController {
-                            //                            self.navigationController?.popViewController(animated: true)
-                        }
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
                         
@@ -643,16 +631,14 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
         } else if switchSignMessage.isOn == false {
             signMessageSwitchStatus = false
         }
-        //        requestToUpdateChannelSignature(signMessageSwitchStatus!)
-        
     }
     
     @IBAction func switchChannelReaction(_ sender: UISwitch) {
         if switchChannelReaction.isOn {
             reactionSwitchStatus = true
         }
-        //        requestToUpdateChannelReaction(reactionSwitchStatus)
     }
+    
     func checkUsername(username: String){
         IGChannelCheckUsernameRequest.Generator.generate(roomId:room!.id ,username: username).success({ (protoResponse) in
             DispatchQueue.main.async {
@@ -776,9 +762,7 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
             
         }
     }
-    private func initServices() {
-        uploadImage()
-    }
+
     private func initView() {
         self.tableView.tableFooterView = UIView()
         //Font
@@ -833,52 +817,18 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
     }
     @IBAction func btnChangeImageTapped(_ sender: UIButton) {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            if UIImagePickerController.availableCaptureModes(for: .rear) != nil{
-                self.imagePicker.delegate = self
-                self.imagePicker.allowsEditing = true
-                self.imagePicker.sourceType = .camera
-                self.imagePicker.cameraCaptureMode = .photo
-                if UIDevice.current.userInterfaceIdiom == .phone {
-                    self.present(self.imagePicker, animated: true, completion: nil)
-                }
-                else {
-                    self.present(self.imagePicker, animated: true, completion: nil)//4
-                    self.imagePicker.popoverPresentationController?.sourceView = (sender )
-                    self.imagePicker.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
-                    self.imagePicker.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
-                }
-            }
+        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.pickImage(screens: [.photo])
         })
-        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            self.imagePicker.delegate = self
-            self.imagePicker.allowsEditing = true
-            self.imagePicker.sourceType = .photoLibrary
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                self.present(self.imagePicker, animated: true, completion: nil)
-            }
-            else {
-                self.present(self.imagePicker, animated: true, completion: nil)//4
-            }
+        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.pickImage(screens: [.library])
         })
-        
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: {
-            (alert: UIAlertAction!) -> Void in
-        })
-        let removeAction = UIAlertAction(title: "DELETE_PHOTO".localizedNew, style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            self.avatarRoom.avatarImageView!.image = nil
+        let removeAction = UIAlertAction(title: "DELETE_PHOTO".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.deleteAvatar()
         })
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
         
         optionMenu.addAction(ChoosePhoto)
-        optionMenu.addAction(cancelAction)
-        //        self.defaultImage = UIImage(named: "IG_New_Channel_Generic_Avatar")
-        if self.avatarRoom.avatarImageView!.image != nil {
-            optionMenu.addAction(removeAction)
-        }
         let alertActions = optionMenu.actions
         for action in alertActions {
             if action.title == "DELETE_PHOTO".localizedNew{
@@ -887,156 +837,67 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
             }
         }
         optionMenu.view.tintColor = UIColor.organizationalColor()
-        
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
             optionMenu.addAction(cameraOption)} else {
         }
+        if self.avatarRoom.avatarImageView!.image != nil {
+            optionMenu.addAction(removeAction)
+        }
+        optionMenu.addAction(cancelAction)
         if let popoverController = optionMenu.popoverPresentationController {
             popoverController.sourceView = sender
         }
         self.present(optionMenu, animated: true, completion: nil)
     }
     
-    /*
-     * this method will be deleted main(latest) avatar
-     */
-    func deleteAvatar(){
-        if self.room?.type == .channel {
-            IGChannelAvatarDeleteRequest.Generator.generate(avatarId: (self.room?.channelRoom?.avatar?.id)!, roomId: (room?.channelRoom?.id)!).success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let channelAvatarDeleteResponse as IGPChannelAvatarDeleteResponse :
-                        IGChannelAvatarDeleteRequest.Handler.interpret(response: channelAvatarDeleteResponse)
-                    default:
-                        break
-                    }
+    private func pickImage(screens: [YPPickerScreen]){
+        IGHelperAvatar.shared.pickAndUploadAvatar(roomId: self.room!.id, type: AvatarAddRequestType.fromIG(self.room!.type), screens: screens) { (file) in
+            DispatchQueue.main.async {
+                if let image = file.attachedImage {
+                    self.avatarRoom.avatarImageView?.image = image
+                } else {
+                    self.avatarRoom.avatarImageView?.setImage(avatar: file)
                 }
-            }).error ({ (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
-                    break
-                default:
-                    break
-                }
-                
-            }).send()
-            
-        } else {
-            IGGroupAvatarDeleteRequest.Generator.generate(avatarId: (self.room?.groupRoom?.avatar?.id)!, roomId: (room?.groupRoom?.id)!).success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let groupAvatarDeleteResponse as IGPGroupAvatarDeleteResponse :
-                        IGGroupAvatarDeleteRequest.Handler.interpret(response: groupAvatarDeleteResponse)
-                    default:
-                        break
-                    }
-                }
-            }).error ({ (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
-                    break
-                default:
-                    break
-                }
-                
-            }).send()
-            
+            }
         }
     }
     
-    private func manageImage(imageInfo: [String : Any]){
-        let originalImage = imageInfo["UIImagePickerControllerOriginalImage"] as! UIImage
-        let filename = "IMAGE_" + IGGlobal.randomString(length: 16)
-        let randomString = IGGlobal.randomString(length: 16) + "_"
-        var scaledImage = originalImage
-        let imgData = scaledImage.jpegData(compressionQuality: 0.7)
-        let fileNameOnDisk = randomString + filename
-        
-        if (originalImage.size.width) > CGFloat(2000.0) || (originalImage.size.height) >= CGFloat(2000) {
-            scaledImage = IGUploadManager.compress(image: originalImage)
+    /**
+     * this method will be deleted main(latest) avatar
+     */
+    func deleteAvatar(){
+        var avatarId: Int64!
+        if let channelAvatarId = self.room?.channelRoom?.avatar?.id {
+            avatarId = channelAvatarId
+        } else if let groupAvatarId = self.room?.groupRoom?.avatar?.id {
+            avatarId = groupAvatarId
         }
         
-        self.channelAvatarAttachment = IGFile(name: filename)
-        self.channelAvatarAttachment.attachedImage = scaledImage
-        self.channelAvatarAttachment.fileNameOnDisk = fileNameOnDisk
-        self.channelAvatarAttachment.height = Double((scaledImage.size.height))
-        self.channelAvatarAttachment.width = Double((scaledImage.size.width))
-        self.channelAvatarAttachment.size = (imgData?.count)!
-        self.channelAvatarAttachment.data = imgData
-        self.channelAvatarAttachment.type = .image
-        
-        let path = IGFile.path(fileNameOnDisk: fileNameOnDisk)
-        FileManager.default.createFile(atPath: path.path, contents: imgData!, attributes: nil)
-        
-        DispatchQueue.main.async {
-            self.avatarRoom.avatarImageView!.image = scaledImage
-            self.uploadImage()
-        }
-    }
-    private func uploadImage() {
-        SMLoading.showLoadingPage(viewcontroller: self)
-        
-        IGUploadManager.sharedManager.upload(file: self.channelAvatarAttachment, start: {
-        }, progress: { (progress) in
-        }, completion: { (uploadTask) in
-            if let token = uploadTask.token {
-                if self.room?.type == .channel {
-                    IGChannelAddAvatarRequest.Generator.generate(attachment: token , roomID: (self.room?.channelRoom!.id)!).success({ (protoResponse) in
-                        DispatchQueue.main.async {
-                            switch protoResponse {
-                            case let channelAvatarAddResponse as IGPChannelAvatarAddResponse:
-                                IGChannelAddAvatarRequest.Handler.interpret(response: channelAvatarAddResponse)
-                                SMLoading.hideLoadingPage()
-                            default:
-                                break
-                            }
-                        }
-                    }).error({ (error, waitTime) in
-                        SMLoading.hideLoadingPage()
-                    }).send()
-                } else {
-                    IGGroupAvatarAddRequest.Generator.generate(attachment: token , roomID: (self.room?.groupRoom!.id)!).success({ (protoResponse) in
-                        DispatchQueue.main.async {
-                            switch protoResponse {
-                            case let groupAvatarAddResponse as IGPGroupAvatarAddResponse:
-                                IGGroupAvatarAddRequest.Handler.interpret(response: groupAvatarAddResponse)
-                                SMLoading.hideLoadingPage()
-                            default:
-                                break
-                            }
-                        }
-                    }).error({ (error, waitTime) in
-                        SMLoading.hideLoadingPage()
-                    }).send()
-                    
-                }
+        IGHelperAvatar.shared.delete(avatarId: avatarId, type: AvatarAddRequestType.fromIG(self.room!.type)) {
+            DispatchQueue.main.async {
+                self.avatarRoom.avatarImageView!.image = nil
             }
-        }, failure: {
-            SMLoading.hideLoadingPage()
-        })
+        }
     }
+    
     private func showAlertChangeChannelType() {
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
         let publicChannel = UIAlertAction(title: "PUBLIC".localizedNew, style: .default, handler: { (action) in
-            //            self.changedChannelTypeToPublic()
             if self.room?.type == .channel {
                 self.tableView.beginUpdates()
                 self.lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PUBLIC".localizedNew
                 self.tfChannelLink.text = nil
                 self.tfChannelLink.isEnabled = true
                 self.convertToPublic = true
-                
                 self.tableView.endUpdates()
-                
             } else {
                 self.tableView.beginUpdates()
                 self.lblChannelType.text = "GROUPTYPE".localizedNew + "  " + "PUBLIC".localizedNew
                 self.tfChannelLink.text = nil
                 self.tfChannelLink.isEnabled = true
                 self.convertToPublic = true
-                
             }
         })
         
@@ -1150,24 +1011,6 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showChannelInfoSetName" {
-            let destination = segue.destination as! IGChannelInfoEditNameTableViewController
-            destination.room = room
-        }
-        if  segue.identifier == "showChannelInfoSetDescription" {
-            let destination = segue.destination as! IGChannelInfoEditDescriptionTableViewController
-            destination.room = room
-        }
-        
-        if segue.identifier ==  "showChannelInfoSetType" {
-            let destination = segue.destination as! IGChannelInfoEditTypeTableViewController
-            destination.room = room
-        }
-        if segue.identifier == "showChannelInfoSetMembers" {
-            // TODO - AAA
-//            let destination = segue.destination as! IGChannelInfoMemberListTableViewController
-//            destination.room = room
-        }
         if segue.identifier == "showSharedMadiaPage" {
             let destination = segue.destination as! IGGroupSharedMediaListTableViewController
             destination.room = room
@@ -1308,60 +1151,5 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
                 return 10
             }
         }
-        
-        
     }
-    
-    // MARK: - Textfield Delegate
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        //check value of textfield name for changes
-        if textField == tfNameOfRoom {
-            if textField.text != tmpOldName {
-                //                self.changeChanellName()
-            }
-        }
-        //check value of textfield description for changes
-        if textField == tfDescriptionOfRoom {
-            if textField.text != tmpOldDesc {
-                //                changeChannelDescription()
-            }
-        }
-        if textField == tfChannelLink {
-            if room?.channelRoom?.type == .publicRoom || self.convertToPublic == true {
-                if textField.text != tmpOldUserName {
-                    //                    if textField.text!.count >= 5 {
-                    //                        self.checkUsername(username: textField.text!)
-                    //                    }
-                    
-                }
-            } else {
-                
-            }
-        }
-        
-    }
-    
-}
-
-extension IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: UIImagePickerControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        imagePicker.dismiss(animated: true, completion: {
-            self.manageImage(imageInfo: convertFromUIImagePickerControllerInfoKeyDictionary(info))
-        })
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-}
-extension IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: UINavigationControllerDelegate {}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
-    return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
-    return input.rawValue
 }

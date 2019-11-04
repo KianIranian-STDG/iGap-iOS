@@ -259,16 +259,16 @@ class IGRoomListtCell: BaseTableViewCell {
             switch item.type {
             case .chat:
                 if let avatar = item.chatRoom?.peer?.avatar {
-                    self.avatarImage.setImage(avatar: avatar, showMain: false)
+                    self.avatarImage.setImage(avatar: avatar.file!, showMain: false)
                 }
             case .group:
                 if let avatar = item.groupRoom?.avatar {
-                    self.avatarImage.setImage(avatar: avatar, showMain: false)
+                    self.avatarImage.setImage(avatar: avatar.file!, showMain: false)
                 }
                 
             case .channel:
                 if let avatar = item.channelRoom?.avatar {
-                    self.avatarImage.setImage(avatar: avatar, showMain: false)
+                    self.avatarImage.setImage(avatar: avatar.file!, showMain: false)
                 }
             }
             

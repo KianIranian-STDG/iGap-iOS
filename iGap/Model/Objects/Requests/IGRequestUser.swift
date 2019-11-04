@@ -486,11 +486,10 @@ class IGUserUsernameToIdRequest : IGRequest {
 //MARK: -
 class IGUserAvatarAddRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        //114
-        class func generate(token: String) -> IGRequestWrapper {
+        class func generate(attachment: IGFile) -> IGRequestWrapper {
             var userAvatarAddRequestMessage = IGPUserAvatarAdd()
-            userAvatarAddRequestMessage.igpAttachment = token
-            return IGRequestWrapper(message: userAvatarAddRequestMessage, actionID: 114)
+            userAvatarAddRequestMessage.igpAttachment = attachment.token!
+            return IGRequestWrapper(message: userAvatarAddRequestMessage, actionID: 114, identity: attachment)
         }
     }
     
@@ -500,11 +499,8 @@ class IGUserAvatarAddRequest : IGRequest {
             IGFactory.shared.updateUserAvatar(currentUserId!, igpAvatar: responseProtoMessage.igpAvatar)
         }
         override class func handlePush(responseProtoMessage: Message) {
-            switch responseProtoMessage {
-            case let response as IGPUserAvatarAddResponse:
+            if let response = responseProtoMessage as? IGPUserAvatarAddResponse {
                 self.interpret(response: response)
-            default:
-                break
             }
         }
     }
@@ -514,9 +510,9 @@ class IGUserAvatarAddRequest : IGRequest {
 //MARK: -
 class IGUserAvatarDeleteRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate(avatarID: Int64) ->IGRequestWrapper {
+        class func generate(avatarId: Int64) ->IGRequestWrapper {
             var userAvatarDeleteRequestMessage = IGPUserAvatarDelete()
-            userAvatarDeleteRequestMessage.igpID = avatarID
+            userAvatarDeleteRequestMessage.igpID = avatarId
             return IGRequestWrapper(message: userAvatarDeleteRequestMessage, actionID: 115)
         }
         

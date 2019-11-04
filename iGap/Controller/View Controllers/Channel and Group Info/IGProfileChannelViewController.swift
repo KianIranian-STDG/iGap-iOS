@@ -48,7 +48,6 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
     var myRole : IGPChannelRoom.IGPRole!
     var signMessageIndexPath : IndexPath?
     var channelLinkIndexPath : IndexPath?
-    var imagePicker = UIImagePickerController()
     var notificationToken: NotificationToken?
     var connectionStatus: IGAppManager.ConnectionStatus?
     var avatars: [IGAvatar] = []
@@ -80,7 +79,7 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
-        imagePicker.delegate = self
+        requestToGetAvatarList()
         signMessageIndexPath = IndexPath(row: 2, section: 1)
                      
 //        requestToGetRoom()
@@ -347,86 +346,6 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
     }
     @objc func updateCounting(){}
     
-    
-    @IBAction func didTapOnCameraBtn(_ sender: UIButton) {
-        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            if UIImagePickerController.availableCaptureModes(for: .rear) != nil{
-                self.imagePicker.delegate = self
-                self.imagePicker.allowsEditing = true
-                self.imagePicker.sourceType = .camera
-                self.imagePicker.cameraCaptureMode = .photo
-                if UIDevice.current.userInterfaceIdiom == .phone {
-                    self.present(self.imagePicker, animated: true, completion: nil)
-                }
-                else {
-                    self.present(self.imagePicker, animated: true, completion: nil)//4
-                    self.imagePicker.popoverPresentationController?.sourceView = (sender )
-                    self.imagePicker.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
-                    self.imagePicker.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
-                }
-            }
-        })
-        
-        let deleteAction = UIAlertAction(title: "DELETE_MAIN_AVATAR".localizedNew, style: .destructive, handler: {
-            (alert: UIAlertAction!) -> Void in
-            self.deleteAvatar()
-        })
-        
-        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            self.imagePicker.delegate = self
-            self.imagePicker.allowsEditing = true
-            self.imagePicker.sourceType = .photoLibrary
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                self.present(self.imagePicker, animated: true, completion: nil)
-            } else {
-                self.present(self.imagePicker, animated: true, completion: nil)//4
-                self.imagePicker.popoverPresentationController?.sourceView = (sender)
-                self.imagePicker.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
-                self.imagePicker.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
-            }
-        })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
-        
-        if self.avatars.count > 0  && (myRole == .owner || myRole == .admin) {
-            optionMenu.addAction(deleteAction)
-        }
-        optionMenu.addAction(ChoosePhoto)
-        optionMenu.addAction(cancelAction)
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
-            optionMenu.addAction(cameraOption)} else {
-        }
-        self.present(optionMenu, animated: true, completion: nil)
-    }
-    
-    /*
-     * this method will be deleted main(latest) avatar
-     */
-    func deleteAvatar(){
-        let avatar = self.avatars[0]
-        IGChannelAvatarDeleteRequest.Generator.generate(avatarId: avatar.id, roomId: (room?.id)!).success({ (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case let channelAvatarDeleteResponse as IGPChannelAvatarDeleteResponse :
-                    IGChannelAvatarDeleteRequest.Handler.interpret(response: channelAvatarDeleteResponse)
-                    self.avatarPhotos?.remove(at: 0)
-                    self.avatars.remove(at: 0)
-                default:
-                    break
-                }
-            }
-        }).error ({ (errorCode, waitTime) in
-            switch errorCode {
-            case .timeout:
-                break
-            default:
-                break
-            }
-            
-        }).send()
-    }
     
     func showDeleteChannelActionSheet() {
         var title : String!
@@ -710,19 +629,6 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showChannelInfoSetName" {
-            let destination = segue.destination as! IGChannelInfoEditNameTableViewController
-            destination.room = room
-        }
-        if  segue.identifier == "showChannelInfoSetDescription" {
-            let destination = segue.destination as! IGChannelInfoEditDescriptionTableViewController
-            destination.room = room
-        }
-        
-        if segue.identifier ==  "showChannelInfoSetType" {
-            let destination = segue.destination as! IGChannelInfoEditTypeTableViewController
-            destination.room = room
-        }
         if segue.identifier == "showChannelInfoSetMembers" {
             let destination = segue.destination as! IGMemberTableViewController
             destination.showMembersFilter = self.memberRole
@@ -2286,66 +2192,4 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
             break
         }
     }
-}
-
-extension IGProfileChannelViewController: UIImagePickerControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        // Local variable inserted by Swift 4.2 migrator.
-        let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
-        
-        
-        if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage {
-            self.channelImage.setImage(pickedImage)
-            
-            let avatar = IGFile()
-            avatar.attachedImage = pickedImage
-            let randString = IGGlobal.randomString(length: 32)
-            avatar.cacheID = randString
-            avatar.name = randString
-            
-            IGUploadManager.sharedManager.upload(file: avatar, start: {
-                
-            }, progress: { (progress) in
-                
-            }, completion: { (uploadTask) in
-                if let token = uploadTask.token {
-                    IGChannelAddAvatarRequest.Generator.generate(attachment: token , roomID: (self.room?.id)!).success({ (protoResponse) in
-                        DispatchQueue.main.async {
-                            switch protoResponse {
-                            case let avatarAddResponse as IGPChannelAvatarAddResponse:
-                                _ = IGChannelAddAvatarRequest.Handler.interpret(response: avatarAddResponse)
-                            default:
-                                break
-                            }
-                        }
-                    }).error({ (error, waitTime) in
-                        
-                    }).send()
-                }
-            }, failure: {
-                
-            })
-        }
-        imagePicker.dismiss(animated: true, completion: {
-        })
-    }
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-}
-
-
-extension IGProfileChannelViewController: UINavigationControllerDelegate {
-    
-}
-
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
-    return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
-    return input.rawValue
 }

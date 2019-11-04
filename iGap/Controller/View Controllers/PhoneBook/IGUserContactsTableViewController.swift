@@ -1,10 +1,12 @@
-//
-//  IGUserContactsTableViewController.swift
-//  iGap
-//
-//  Created by BenyaminMokhtarpour on 9/14/19.
-//  Copyright © 2019 Kianiranian STDG -www.kianiranian.com. All rights reserved.
-//
+/*
+* This is the source code of iGap for iOS
+* It is licensed under GNU AGPL v3.0
+* You should have received a copy of the license in this archive (see LICENSE).
+* Copyright © 2017 , iGap - www.iGap.net
+* iGap Messenger | Free, Fast and Secure instant messaging application
+* The idea of the Kianiranian STDG - www.kianiranian.com
+* All rights reserved.
+*/
 
 import UIKit
 import Contacts
@@ -33,7 +35,6 @@ class IGUserContactsTableViewController: BaseTableViewController, MFMessageCompo
         gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
         gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
-//        gradient.locations = orangeGradientLocation as [NSNumber]
         
         searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
         searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))

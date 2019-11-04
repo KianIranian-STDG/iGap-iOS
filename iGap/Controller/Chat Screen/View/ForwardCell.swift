@@ -32,7 +32,7 @@ class ForwardCell: UICollectionViewCell {
         self.viewHolder!.backgroundColor = color
         
         if let avatar = avatar {
-            self.imgUser!.setImage(avatar: avatar)
+            self.imgUser!.setImage(avatar: avatar.file!)
         }
     }
 }

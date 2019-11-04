@@ -1235,7 +1235,7 @@ extension UIImageView {
         }
     }
     
-    func setImage(avatar: IGAvatar, showMain: Bool = false) {
+    func setImage(avatar: IGFile, showMain: Bool = false) {
         
         // remove imageview from download list on t on cell reuse
         DispatchQueue.main.async {
@@ -1249,16 +1249,16 @@ extension UIImageView {
         var previewType : IGFile.PreviewType!
         
         if showMain {
-            file = avatar.file
+            file = avatar
             previewType = IGFile.PreviewType.originalFile
             
         } else {
             
-            if let largeThumbnail = avatar.file?.largeThumbnail {
+            if let largeThumbnail = avatar.largeThumbnail {
                 file = largeThumbnail
                 previewType = IGFile.PreviewType.largeThumbnail
             } else {
-                file = avatar.file?.smallThumbnail
+                file = avatar.smallThumbnail
                 previewType = IGFile.PreviewType.smallThumbnail
             }
         }

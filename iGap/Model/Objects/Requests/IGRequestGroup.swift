@@ -378,11 +378,11 @@ class IGGroupUpdateStatusRequest : IGRequest {
 
 class IGGroupAvatarAddRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate (attachment: String , roomID: Int64) -> IGRequestWrapper {
+        class func generate (attachment: IGFile , roomId: Int64) -> IGRequestWrapper {
             var groupAddAvatarMessage = IGPGroupAvatarAdd()
-            groupAddAvatarMessage.igpRoomID = roomID
-            groupAddAvatarMessage.igpAttachment = attachment
-            return IGRequestWrapper(message: groupAddAvatarMessage, actionID: 312)
+            groupAddAvatarMessage.igpRoomID = roomId
+            groupAddAvatarMessage.igpAttachment = attachment.token!
+            return IGRequestWrapper(message: groupAddAvatarMessage, actionID: 312, identity: attachment)
         }
     }
     
@@ -391,11 +391,8 @@ class IGGroupAvatarAddRequest : IGRequest {
             IGFactory.shared.updateGroupAvatar(responseProtoMessage.igpRoomID, igpAvatar: responseProtoMessage.igpAvatar)
         }
         override class func handlePush(responseProtoMessage: Message) {
-            switch responseProtoMessage {
-            case let groupAvatarResponse as IGPGroupAvatarAddResponse:
+            if let groupAvatarResponse = responseProtoMessage as? IGPGroupAvatarAddResponse {
                 self.interpret(response: groupAvatarResponse)
-            default:
-                break
             }
         }
     }
@@ -403,11 +400,10 @@ class IGGroupAvatarAddRequest : IGRequest {
 
 class IGGroupAvatarDeleteRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        //313
-        class func generate(avatarId: Int64, roomId: Int64) -> IGRequestWrapper {
+        class func generate(roomId: Int64, avatarId: Int64) -> IGRequestWrapper {
             var groupAvatarDeleteRequestMessage = IGPGroupAvatarDelete()
-            groupAvatarDeleteRequestMessage.igpID = avatarId
             groupAvatarDeleteRequestMessage.igpRoomID = roomId
+            groupAvatarDeleteRequestMessage.igpID = avatarId
             return IGRequestWrapper(message: groupAvatarDeleteRequestMessage, actionID: 313)
         }
     }
@@ -416,11 +412,8 @@ class IGGroupAvatarDeleteRequest : IGRequest {
         class func interpret(response: IGPGroupAvatarDeleteResponse) {}
         
         override class func handlePush(responseProtoMessage: Message) {
-            switch responseProtoMessage {
-            case let response as IGPGroupAvatarDeleteResponse:
+            if let response = responseProtoMessage as? IGPGroupAvatarDeleteResponse {
                 self.interpret(response: response)
-            default:
-                break
             }
         }
     }
