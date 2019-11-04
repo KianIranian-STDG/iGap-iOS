@@ -647,12 +647,16 @@
         "BTN_CANCEL" : "انصراف",
         "BTN_CLOSE" : "بستن",
         "BTN_INQUERY" : "استعلام",
+        "BTN_MY_BILLS" : "قبض های من",
+        "BTN_SEARCH_BILLS" : "جست و جوی قبض",
         "BILLING_ID" : "کد قبض",
+        "BILL_ID" : "شناسه قبض",
         "PAYMENT_CODE" : "کد پرداخت",
         "TAKE_A_PHOTO" : "گرفتن عکس",
         "DELETE_MAIN_AVATAR" : "حذف آواتار",
         "CHOOSE_PHOTO" : "انتخاب تصویر",
-        
+        "LBL_ELECTRICITYBILL_PAY" : "استعلام و پرداخت قبض برق",
+
         
         "CHARITY" : "خیریه",
         

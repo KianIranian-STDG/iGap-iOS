@@ -1674,7 +1674,7 @@ extension String {
         MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
         MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
         
-        return MCLocalization.string(forKey: self)
+        return MCLocalization.string(forKey: self) ?? "" //prevent crash if string coud not be fount
     }
     
     var TabLocalizedNew: String {
@@ -1716,7 +1716,7 @@ extension String {
         MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
         MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
         
-        return MCLocalization.string(forKey: self)
+        return MCLocalization.string(forKey: self)  ?? "" //prevent crash if string coud not be fount
     }
     
     var FinancialHistoryLocalization: String {

@@ -21,6 +21,7 @@ enum AppStoryboard : String {
     case Search = "Search"
     case Register = "Register"
     case Setting = "IGSettingStoryboard"
+    case ElectroBill = "ElectroBill"
     case PhoneBook = "PhoneBook"
     case FinancialHistory = "FinancialHistory"
     case Wallet = "wallet"

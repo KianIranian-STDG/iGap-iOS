@@ -742,9 +742,13 @@
         "BTN_CANCEL" : "Cancel",
         "BTN_CLOSE" : "Close",
         "BTN_INQUERY" : "Inquiry",
+        "BTN_MY_BILLS" : "My Bill",
+        "BILL_ID" : "Bill Number",
+        "BTN_SEARCH_BILLS" : "Search Bills",
         "BILLING_ID" : "Billing ID",
         "PAYMENT_CODE" : "Payment Code",
-        
+        "LBL_ELECTRICITYBILL_PAY" : "Electricity Bill Inquiry and Quick Payment",
+
         
         "CHARITY" : "Charity",
         

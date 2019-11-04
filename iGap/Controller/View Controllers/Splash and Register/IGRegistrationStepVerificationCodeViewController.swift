@@ -37,6 +37,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
     var hud = MBProgressHUD()
     var defaultYOrigin : CGFloat! = 63
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initTimer()
