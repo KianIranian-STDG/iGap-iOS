@@ -603,27 +603,43 @@ class AbstractDashboardCell: UICollectionViewCell {
                 return
             }
         case .phoneBillMenu:
+//            if !(agreementSlug == "") {
+//                if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
+//                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+//
+//                } else {
+//                    IGFinancialServiceBillingInquiry.isMobile = false
+//                    let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
+//                    let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
+//                    messagesVc.hidesBottomBarWhenPushed = true
+//                    UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+//                    return
+//                }
+//            } else {
+//                IGFinancialServiceBillingInquiry.isMobile = false
+//                let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
+//                let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
+//                messagesVc.hidesBottomBarWhenPushed = true
+//                UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+//                return
+//            }
+            
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
-                    IGFinancialServiceBillingInquiry.isMobile = false
-                    let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-                    let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
-                    messagesVc.hidesBottomBarWhenPushed = true
-                    UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+                    let vc = IGElecBillMainPageTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
+                    vc.hidesBottomBarWhenPushed = true
+                    UIApplication.topViewController()!.navigationController!.pushViewController(vc, animated:true)
                     return
                 }
             } else {
-                IGFinancialServiceBillingInquiry.isMobile = false
-                let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-                let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
-                messagesVc.hidesBottomBarWhenPushed = true
-                UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+                let vc = IGElecBillMainPageTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
+                vc.hidesBottomBarWhenPushed = true
+                UIApplication.topViewController()!.navigationController!.pushViewController(vc, animated:true)
                 return
             }
-            
         case .nearbyMenu:
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {

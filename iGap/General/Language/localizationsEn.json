@@ -748,6 +748,8 @@
         "BILLING_ID" : "Billing ID",
         "PAYMENT_CODE" : "Payment Code",
         "LBL_ELECTRICITYBILL_PAY" : "Electricity Bill Inquiry and Quick Payment",
+        "TTL_BILL_OPERATIONS" : "Electricity Bill Operations",
+        "MSG_CHARACTER_COUNT_ELECTRICITY_BILL" : "Bill number should be equal to 13",
 
         
         "CHARITY" : "Charity",

@@ -457,6 +457,7 @@ enum ButtonState {
 enum BarcodeScanner {
     case Verify
     case IVandScore
+    case BillBarcode
 }
 
 enum AdditionalType: Int32 {

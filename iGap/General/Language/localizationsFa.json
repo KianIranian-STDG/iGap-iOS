@@ -656,6 +656,8 @@
         "DELETE_MAIN_AVATAR" : "حذف آواتار",
         "CHOOSE_PHOTO" : "انتخاب تصویر",
         "LBL_ELECTRICITYBILL_PAY" : "استعلام و پرداخت قبض برق",
+        "TTL_BILL_OPERATIONS" : "خدمات قبض برق",
+        "MSG_CHARACTER_COUNT_ELECTRICITY_BILL" : "شناسه قبض می بایست ۱۳ کاراکتر باشد",
 
         
         "CHARITY" : "خیریه",

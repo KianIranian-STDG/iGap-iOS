@@ -9,9 +9,11 @@
  */
 
 import UIKit
+import RealmSwift
 
 class IGElecBillMainPageTableViewController: BaseTableViewController {
-    
+    // MARK: - Outlets
+
     @IBOutlet weak var topViewHolder : UIViewX!
     @IBOutlet weak var lblTopHolder : UILabel!
     @IBOutlet weak var btnQueryTopHolder : UIButton!
@@ -20,13 +22,18 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
     @IBOutlet weak var btnSearchBills : UIButton!
     @IBOutlet weak var tfBillIdNumber : UITextField!
     
-    
+    // MARK: - Variables
+
     // MARK: - View LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initServices()
         initView()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        initNavigationBar(title: "TTL_BILL_OPERATIONS".localizedNew, rightAction: {})
     }
     
     
@@ -51,14 +58,18 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
         self.btnMyBills.layer.borderColor = UIColor(named: themeColor.navigationSecondColor.rawValue)?.cgColor
         self.btnSearchBills.layer.borderWidth = 2
         self.btnSearchBills.layer.borderColor = UIColor(named: themeColor.navigationSecondColor.rawValue)?.cgColor
+        self.btnMyBills.layer.cornerRadius = 15
+        self.btnSearchBills.layer.cornerRadius = 15
+        self.btnQueryTopHolder.layer.cornerRadius = 15
+        self.tfBillIdNumber.keyboardType = .numberPad
     }
     
     private func initFont() {
-        btnScanBarcode.titleLabel?.font = UIFont.iGapFonticon(ofSize: 30)
+        btnScanBarcode.titleLabel?.font = UIFont.iGapFonticon(ofSize: 40)
         btnSearchBills.titleLabel?.font = UIFont.igFont(ofSize: 15)
         btnQueryTopHolder.titleLabel?.font = UIFont.igFont(ofSize: 15)
         btnMyBills.titleLabel?.font = UIFont.igFont(ofSize: 15)
-        lblTopHolder.font = UIFont.igFont(ofSize: 15)
+        lblTopHolder.font = UIFont.igFont(ofSize: 15, weight: .bold)
         tfBillIdNumber.font = UIFont.igFont(ofSize: 15)
         let attributes = [
             NSAttributedString.Key.foregroundColor: UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue),
@@ -76,6 +87,7 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
     
     private func initColors() {
         self.tableView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        self.topViewHolder.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         lblTopHolder.textColor = UIColor(named: themeColor.labelColor.rawValue)
         btnScanBarcode.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
         btnMyBills.setTitleColor(UIColor(named: themeColor.navigationSecondColor.rawValue), for: .normal)
@@ -83,7 +95,6 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
         self.btnSearchBills.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         self.btnMyBills.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         self.btnQueryTopHolder.backgroundColor = UIColor(named: themeColor.navigationSecondColor.rawValue)
-        
     }
     
     private func initAlignments() {
@@ -95,8 +106,51 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
         self.tableView.tableFooterView = UIView()
         
     }
+    private func validaatePhoneNUmber(phone : Int64!) -> String {
+        let str = String(phone)
+        if str.starts(with: "98") {
+            return str.replacingOccurrences(of: "98", with: "0")
+        } else if str.starts(with: "09") {
+            return str
+        } else {
+            return str
+        }
+    }
     
-    
+    // MARK: - Actions
+    @IBAction func txtBillNUmber(_ sender: UITextField) {
+
+    }
+    @IBAction func didTapOnScanBarcode(_ sender: UIButton) {
+        let scanner = IGSettingQrScannerViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
+        scanner.scannerPageType = .BillBarcode
+        scanner.hidesBottomBarWhenPushed = true
+        self.navigationController!.pushViewController(scanner, animated:true)
+
+    }
+    @IBAction func didTapOnBtnInquery(_ sender: UIButton) {
+        if tfBillIdNumber.text!.count <= 0 ||  tfBillIdNumber.text!.count > 13{
+            tfBillIdNumber.shake()
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_CHARACTER_COUNT_ELECTRICITY_BILL".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+        } else {
+            let realm = try! Realm()
+            let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
+            let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
+
+            let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
+            SMLoading.showLoadingPage(viewcontroller: self)
+            IGApiElectricityBill.shared.queryBill(billNumber: (tfBillIdNumber.text?.inEnglishNumbersNew())!, phoneNumber: userPhoneNumber, completion: {(success, response, errorMessage) in
+                SMLoading.hideLoadingPage()
+                if success {
+                    print(response)
+                    
+                } else {
+                    print(errorMessage)
+                }
+            })
+        }
+    }
+
     // MARK: - Table view data source
     
     

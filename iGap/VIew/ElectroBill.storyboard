@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -49,10 +50,18 @@
                                                                 <constraint firstAttribute="width" constant="50" id="dVn-ls-vWM"/>
                                                             </constraints>
                                                             <state key="normal" title="Button"/>
+                                                            <connections>
+                                                                <action selector="didTapOnScanBarcode:" destination="dko-3T-vZO" eventType="touchUpInside" id="IaC-Sx-yOV"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ojZ-1E-tKL">
                                                             <rect key="frame" x="10" y="119" width="248" height="34"/>
-                                                            <state key="normal" title="Button"/>
+                                                            <state key="normal" title="Button">
+                                                                <color key="titleColor" name="IGBackGroundColor"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="didTapOnBtnInquery:" destination="dko-3T-vZO" eventType="touchUpInside" id="4m7-If-qm8"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -78,11 +87,11 @@
                                                             <real key="value" value="8"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="pulseDelay">
-                                                            <real key="value" value="1"/>
+                                                            <real key="value" value="0.0"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="popIn" value="YES"/>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="popInDelay">
-                                                            <real key="value" value="1"/>
+                                                            <real key="value" value="0.0"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                                             <real key="value" value="1"/>
@@ -153,6 +162,7 @@
                             <outlet property="delegate" destination="dko-3T-vZO" id="5qq-RB-91z"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="0EX-yC-TIU" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="btnMyBills" destination="2af-Ak-3CY" id="Yv4-5t-lTD"/>
                         <outlet property="btnQueryTopHolder" destination="ojZ-1E-tKL" id="XhY-ka-Him"/>
@@ -168,4 +178,9 @@
             <point key="canvasLocation" x="-849.27536231884062" y="-47.544642857142854"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="IGBackGroundColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

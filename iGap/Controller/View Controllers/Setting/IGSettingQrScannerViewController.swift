@@ -59,10 +59,18 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
             make.width.equalTo(215)
         }
         if SMLangUtil.loadLanguage() == "fa" {
-            QRHolder.image = UIImage(named: "scan_Holder_FA")
+            if scannerPageType == .BillBarcode {
+                QRHolder.image = UIImage(named: "scan_Holder_BARCODE_FA")
+            } else {
+                QRHolder.image = UIImage(named: "scan_Holder_FA")
+            }
         }
         else {
-            QRHolder.image = UIImage(named: "scan_Holder_EN")
+            if scannerPageType == .BillBarcode {
+                QRHolder.image = UIImage(named: "scan_Holder_BARCODE_EN")
+            } else {
+                QRHolder.image = UIImage(named: "scan_Holder_EN")
+            }
         }
 
         scanner = MTBBarcodeScanner(previewView: previewView)
@@ -97,10 +105,19 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
             resolveScannedQrCode(code)
         } else if scannerPageType == .IVandScore {
             setActivity(plancode: code)
+        } else {
+            manageBillBarcode(code)
         }
     }
     
-    
+    private func manageBillBarcode(_ code: String) {
+        print("BARCODE SCANEED",code)
+//        let billDataVC = IGSettingQrScannerViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
+//        scanner.scannerPageType = .IVandScore
+//        scanner.hidesBottomBarWhenPushed = true
+//        self.navigationController!.pushViewController(scanner, animated:true)
+
+    }
     private func resolveScannedQrCode(_ code: String) {
         if code.contains("igap://") {
             
