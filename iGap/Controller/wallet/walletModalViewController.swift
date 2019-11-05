@@ -247,7 +247,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
             //            self.tfAmountToPy.text = (UserDefaults.standard.string(forKey: "modalHyperPrice"))!.inLocalizedLanguage().inRialFormat()
             self.tfAmountToPy.isEnabled = false
             hypermePrice = (UserDefaults.standard.string(forKey: "modalHyperPrice"))?.inRialFormat().inLocalizedLanguage()
-            self.tfAmountToPy.placeholder = (UserDefaults.standard.string(forKey: "modalHyperPrice"))?.inRialFormat().inLocalizedLanguage()
+            self.tfAmountToPy.placeholder = (UserDefaults.standard.string(forKey: "modalHyperPrice"))?.trimmingCharacters(in: .whitespaces).inEnglishNumbersNew().currencyFormat()
 
             self.tfAmountToPy.isUserInteractionEnabled = false
         }
@@ -1108,8 +1108,8 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var newStr = string
         
-        newStr = (textField.text! as NSString).replacingCharacters(in: range, with: newStr).onlyDigitChars()
-        textField.text = newStr == "" ? "" : newStr.onlyDigitChars().inRialFormat().inLocalizedLanguage()
+        newStr = (textField.text! as NSString).replacingCharacters(in: range, with: newStr).trimmingCharacters(in: .whitespaces).inEnglishNumbersNew().currencyFormat()
+        textField.text = newStr == "" ? "" : newStr.trimmingCharacters(in: .whitespaces).inEnglishNumbersNew().currencyFormat()
         
         if string == "" && range.location < textField.text!.length{
             let position = textField.position(from: textField.beginningOfDocument, offset: range.location)!
@@ -1117,7 +1117,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         }
         if newStr.length > 8 {
             
-            self.tfAmountToPy.text = "30000000".currencyFormat().inLocalizedLanguage()
+            self.tfAmountToPy.text = "30000000".currencyFormat()
         }
         return false
     }

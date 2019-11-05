@@ -3536,8 +3536,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
-                self.MoneyInputModal.removeFromSuperview()
-                self.MoneyInputModal = nil
+                if self.MoneyInputModal != nil {
+                    self.MoneyInputModal.removeFromSuperview()
+                    self.MoneyInputModal = nil
+                }
                 if self.dismissBtn != nil {
                     self.dismissBtn.removeFromSuperview()
                 }

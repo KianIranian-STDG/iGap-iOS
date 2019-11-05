@@ -39,7 +39,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
     var isToWallet = false
     override func viewDidLoad() {
         super.viewDidLoad()
-        tfAmount.addTarget(self, action: #selector(myTextFieldDidChange), for: .editingChanged)
+//        tfAmount.addTarget(self, action: #selector(myTextFieldDidChange), for: .editingChanged)
         tfCardNumber.delegate = self
         tfAmount.delegate = self
         self.hideKeyboardWhenTappedAround()
@@ -653,39 +653,23 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
 
         }
         else if textField.tag == 1 {
-            _ = 8
-            
-            newStr = (textField.text! as NSString).replacingCharacters(in: range, with: newStr).onlyDigitChars()
-            textField.text = newStr == "" ? "" : newStr.onlyDigitChars().inRialFormat().inLocalizedLanguage()
-            
-            if string == "" && range.location < textField.text!.length{
-                let position = textField.position(from: textField.beginningOfDocument, offset: range.location)!
-                textField.selectedTextRange = textField.textRange(from: position, to: position)
-            }
-            if isImmediate {
-                if newStr.length > 8 {
-                    
-                    self.tfAmount.text = "30000000".currencyFormat().inLocalizedLanguage()
+                                
+                newStr = (textField.text! as NSString).replacingCharacters(in: range, with: newStr).trimmingCharacters(in: .whitespaces).inEnglishNumbersNew().currencyFormat()
+                textField.text = newStr == "" ? "" : newStr.trimmingCharacters(in: .whitespaces).inEnglishNumbersNew().currencyFormat()
+                
+                if string == "" && range.location < textField.text!.length{
+                    let position = textField.position(from: textField.beginningOfDocument, offset: range.location)!
+                    textField.selectedTextRange = textField.textRange(from: position, to: position)
                 }
-            }
-            else {
-                if newStr.length > 9 {
-                    
-                    self.tfAmount.text = "150000000".currencyFormat().inLocalizedLanguage()
-                }
-            }
-           
-        }
-
-        return false
     }
+        return false
 
+    }
     fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
         return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
     }
     
     @objc func myTextFieldDidChange(_ textField: UITextField) {
-        textField.text = textField.text?.inLocalizedLanguage()
       
         if let string = tfAmount.text {
             let amount = string.RemoveingCurrencyFormat()
@@ -693,7 +677,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 if cashoutTypeSeg.selectedSegmentIndex == 0 {
                     if intAmount > 30000000 {
                         
-                        tfAmount.text = "30000000".currencyFormat().inLocalizedLanguage()
+                        tfAmount.text = "30000000".currencyFormat()
                         return
                     }
 
@@ -701,7 +685,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 else {
                     if intAmount > 150000000 {
                         
-                        tfAmount.text = "150000000".currencyFormat().inLocalizedLanguage()
+                        tfAmount.text = "150000000".currencyFormat()
                         return
                     }
 

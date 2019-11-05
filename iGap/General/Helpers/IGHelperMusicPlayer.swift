@@ -335,7 +335,7 @@ class IGHelperMusicPlayer {
     }
     private func createMainView() -> UIView {
         let view = UIView()
-        view.backgroundColor = UIColor(named: themeColor.receiveMessageBubleBGColor.rawValue)
+        view.backgroundColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
         //        view.backgroundColor = .red
         view.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
@@ -358,7 +358,7 @@ class IGHelperMusicPlayer {
         default:
             break
         }
-        btn.setTitleColor(UIColor.black, for: .normal)
+        btn.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
         btn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.heightAnchor.constraint(equalToConstant: 35).isActive = true
@@ -369,7 +369,7 @@ class IGHelperMusicPlayer {
     
     private func createCloseButton(btn: UIButton!,view:UIView!)  {
         btn.setTitle("🌩", for: .normal)
-        btn.setTitleColor(UIColor.black, for: .normal)
+        btn.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
         btn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.heightAnchor.constraint(equalToConstant: 35).isActive = true
@@ -384,8 +384,8 @@ class IGHelperMusicPlayer {
         topBorder.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
         topBorder.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
         topBorder.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
-        topBorder.backgroundColor = .darkGray
-        bottomBorder.backgroundColor = .darkGray
+        topBorder.backgroundColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+        bottomBorder.backgroundColor = UIColor(named: themeColor.labelGrayColor.rawValue)
         bottomBorder.translatesAutoresizingMaskIntoConstraints = false
         bottomBorder.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
         bottomBorder.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true

@@ -12,6 +12,7 @@
 		4FFCE2A01EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFCE29F1EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift */; };
 		8E01BC812293F00E0001C757 /* IGCustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E01BC802293F00E0001C757 /* IGCustomAlertView.swift */; };
 		8E01BC832293F06F0001C757 /* IGCustomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E01BC822293F06F0001C757 /* IGCustomModal.swift */; };
+		8E0405C2237146D300516DEB /* IGElecBillDetailPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0405C1237146D300516DEB /* IGElecBillDetailPageTableViewController.swift */; };
 		8E06F0592344A6CF00CE0536 /* IGProfileUsercellTypeRed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E06F0582344A6CF00CE0536 /* IGProfileUsercellTypeRed.swift */; };
 		8E098A7B2348B0B1008A40A9 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E098A7A2348B0B1008A40A9 /* Search.storyboard */; };
 		8E098A7D2348BDCD008A40A9 /* IGSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E098A7C2348BDCD008A40A9 /* IGSearchTableViewController.swift */; };
@@ -803,6 +804,7 @@
 		4FFCE29F1EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRegistrationStepPasswordViewController.swift; sourceTree = "<group>"; };
 		8E01BC802293F00E0001C757 /* IGCustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCustomAlertView.swift; sourceTree = "<group>"; };
 		8E01BC822293F06F0001C757 /* IGCustomModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCustomModal.swift; sourceTree = "<group>"; };
+		8E0405C1237146D300516DEB /* IGElecBillDetailPageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGElecBillDetailPageTableViewController.swift; sourceTree = "<group>"; };
 		8E06F0582344A6CF00CE0536 /* IGProfileUsercellTypeRed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileUsercellTypeRed.swift; sourceTree = "<group>"; };
 		8E098A7A2348B0B1008A40A9 /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		8E098A7C2348BDCD008A40A9 /* IGSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSearchTableViewController.swift; sourceTree = "<group>"; };
@@ -1819,6 +1821,7 @@
 			isa = PBXGroup;
 			children = (
 				8E8CA3A7236FFC9E000DA358 /* IGElecBillMainPageTableViewController.swift */,
+				8E0405C1237146D300516DEB /* IGElecBillDetailPageTableViewController.swift */,
 			);
 			path = ElecBill;
 			sourceTree = "<group>";
@@ -3950,6 +3953,7 @@
 				8E5FBCA5231BD9D70069D4F2 /* IGStringManager.swift in Sources */,
 				FAB0B87C232F5664002E35AB /* DeepLinkManager.swift in Sources */,
 				FA9D86A022796B44002F981A /* IGTabBarStickerController.swift in Sources */,
+				8E0405C2237146D300516DEB /* IGElecBillDetailPageTableViewController.swift in Sources */,
 				FA76598022902ACE006322A3 /* INSPhotoViewController.swift in Sources */,
 				93E181E41E77E7EE005C3593 /* IGChannelAndGroupInfoSharedMediaFileTableViewCell.swift in Sources */,
 				FA4CFD0721A0490D005FCBF2 /* IGHelperPreferences.swift in Sources */,

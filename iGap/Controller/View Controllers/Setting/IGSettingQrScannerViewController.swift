@@ -60,6 +60,7 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
         }
         if SMLangUtil.loadLanguage() == "fa" {
             if scannerPageType == .BillBarcode {
+                QRHolder.contentMode = .scaleAspectFit
                 QRHolder.image = UIImage(named: "scan_Holder_BARCODE_FA")
             } else {
                 QRHolder.image = UIImage(named: "scan_Holder_FA")
@@ -67,6 +68,7 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
         }
         else {
             if scannerPageType == .BillBarcode {
+                QRHolder.contentMode = .scaleAspectFit
                 QRHolder.image = UIImage(named: "scan_Holder_BARCODE_EN")
             } else {
                 QRHolder.image = UIImage(named: "scan_Holder_EN")
@@ -81,6 +83,7 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
             if success {
                 do {
                     try self.scanner?.startScanning(resultBlock: { codes in
+
                         if let codes = codes {
                             for code in codes {
                                 if let stringValue = code.stringValue {

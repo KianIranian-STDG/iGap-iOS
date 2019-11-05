@@ -48,9 +48,7 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
         customiseView()
     }
     
-    private func initServices() {
-        
-    }
+    private func initServices() {}
     
     private func customiseView() {
         self.topViewHolder.borderWidth = 0.5
@@ -116,13 +114,25 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
             return str
         }
     }
+    private func queryBill(userPhoneNumber: String!) {
+
+        IGApiElectricityBill.shared.queryBill(billNumber: (tfBillIdNumber.text?.inEnglishNumbersNew())!, phoneNumber: userPhoneNumber, completion: {(success, response, errorMessage) in
+            SMLoading.hideLoadingPage()
+            if success {
+                print(response)
+                
+            } else {
+                print(errorMessage)
+            }
+        })
+    }
     
     // MARK: - Actions
     @IBAction func txtBillNUmber(_ sender: UITextField) {
 
     }
     @IBAction func didTapOnScanBarcode(_ sender: UIButton) {
-        let scanner = IGSettingQrScannerViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
+        let scanner = IGSettingQrScannerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
         scanner.scannerPageType = .BillBarcode
         scanner.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(scanner, animated:true)
@@ -139,15 +149,8 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
 
             let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
             SMLoading.showLoadingPage(viewcontroller: self)
-            IGApiElectricityBill.shared.queryBill(billNumber: (tfBillIdNumber.text?.inEnglishNumbersNew())!, phoneNumber: userPhoneNumber, completion: {(success, response, errorMessage) in
-                SMLoading.hideLoadingPage()
-                if success {
-                    print(response)
-                    
-                } else {
-                    print(errorMessage)
-                }
-            })
+            queryBill(userPhoneNumber: userPhoneNumber)
+            
         }
     }
 

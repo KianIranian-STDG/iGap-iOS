@@ -27,10 +27,10 @@ class customAmountTextField: UITextField, UITextFieldDelegate {
     }
     @objc func myTextFieldDidChange(_ textField: UITextField) {
         
-        if let amountString = (textField.text)?.inLocalizedLanguage() {
+        if let amountString = (textField.text)?.inEnglishNumbersNew() {
             if amountString.count <= 9 {
                 let tmpTXT = (amountString.inEnglishNumbersNew().trimmingCharacters(in: .whitespaces)).currencyFormat()
-                textField.text = tmpTXT.inLocalizedLanguage()
+                textField.text = tmpTXT
             }
             else {
                 textField.deleteBackward()

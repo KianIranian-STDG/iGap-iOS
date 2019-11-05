@@ -31,6 +31,8 @@ class chargeWalletTableViewController: BaseTableViewController,UITextFieldDelega
         initNavigationBar()
         initDelegates ()
         initView()
+//        tfAmount.addTarget(self, action: #selector(myTextFieldDidChange), for: .editingChanged)
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -106,13 +108,21 @@ class chargeWalletTableViewController: BaseTableViewController,UITextFieldDelega
         
     }
 //    MARK: - UITETFIELD delegates
-    
+    @objc func myTextFieldDidChange(_ textField: UITextField) {
+          
+//          textField.text = textField.text
+        if let amountString = textField.text {
+              
+            textField.text = amountString.trimmingCharacters(in: .whitespaces).inEnglishNumbersNew().currencyFormat()
+              
+          }
+      }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         var newStr = string
         
-        newStr = (textField.text! as NSString).replacingCharacters(in: range, with: newStr).onlyDigitChars()
-        textField.text = newStr == "" ? "" : newStr.onlyDigitChars().inRialFormat().inEnglishNumbersNew().inLocalizedLanguage()
+        newStr = (textField.text! as NSString).replacingCharacters(in: range, with: newStr).trimmingCharacters(in: .whitespaces).inEnglishNumbersNew().currencyFormat()
+        textField.text = newStr == "" ? "" : newStr.trimmingCharacters(in: .whitespaces).inEnglishNumbersNew().currencyFormat()
         
         if string == "" && range.location < textField.text!.length{
             let position = textField.position(from: textField.beginningOfDocument, offset: range.location)!

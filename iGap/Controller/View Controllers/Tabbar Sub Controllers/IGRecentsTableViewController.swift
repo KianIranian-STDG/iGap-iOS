@@ -331,7 +331,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         self.tableView.tableFooterView = UIView()
         self.tableView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         self.view.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
         
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
             DispatchQueue.main.async {

@@ -334,7 +334,7 @@ extension String {
         formatter.maximumFractionDigits = 0
         formatter.minimumFractionDigits = 0
         
-        var amountWithPrefix = self
+        var amountWithPrefix = self.trimmingCharacters(in: .whitespaces).inEnglishNumbersNew()
         
         // remove from String: "$", ".", ","
         let regex = try! NSRegularExpression(pattern: "[^0-9]", options: .caseInsensitive)
