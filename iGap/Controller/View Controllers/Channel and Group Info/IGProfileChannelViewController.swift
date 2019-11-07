@@ -1025,18 +1025,25 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
                     return cell
                 case 4:
                     switch indexPath.row {
+                            
+                        case 0:
+                            if let memberCount = room?.channelRoom?.participantCount {
+
+                                cell.initLabels(nameLblString: "ALLMEMBER".localizedNew,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
+                            }
+                            return cell
+
+                        case 1:
+                                cell.initLabels(nameLblString: "ADMIN".localizedNew,detailLblString: "\(adminsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                                return cell
+
+                        case 2:
+                                cell.initLabels(nameLblString: "MODERATOR".localizedNew,detailLblString: "\(moderatprsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                                return cell
+
+                        default:
+                            return cell
                         
-                    case 0:
-                        return cell
-                        
-                    case 1:
-                        return cell
-                        
-                    case 2:
-                        return cell
-                        
-                    default:
-                        return cell
                     }
 
                 case 5:
