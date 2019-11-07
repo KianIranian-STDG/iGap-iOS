@@ -82,8 +82,8 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
         MTBBarcodeScanner.requestCameraPermission(success: { success in
             if success {
                 do {
+                    print("SCANNING")
                     try self.scanner?.startScanning(resultBlock: { codes in
-
                         if let codes = codes {
                             for code in codes {
                                 if let stringValue = code.stringValue {
@@ -115,10 +115,12 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
     
     private func manageBillBarcode(_ code: String) {
         print("BARCODE SCANEED",code)
-//        let billDataVC = IGSettingQrScannerViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
-//        scanner.scannerPageType = .IVandScore
-//        scanner.hidesBottomBarWhenPushed = true
-//        self.navigationController!.pushViewController(scanner, animated:true)
+        self.navigationController!.popViewController(animated: true)
+
+        let billDataVC = IGElecBillDetailPageTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
+        billDataVC.billNumber = String(code.prefix(13))
+        billDataVC.hidesBottomBarWhenPushed = true
+        self.navigationController!.pushViewController(billDataVC, animated:true)
 
     }
     private func resolveScannedQrCode(_ code: String) {

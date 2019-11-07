@@ -750,6 +750,12 @@
         "LBL_ELECTRICITYBILL_PAY" : "Electricity Bill Inquiry and Quick Payment",
         "TTL_BILL_OPERATIONS" : "Electricity Bill Operations",
         "MSG_CHARACTER_COUNT_ELECTRICITY_BILL" : "Bill number should be equal to 13",
+        "BILL_PAY_DATE" : "Time Limit",
+        "BILL_PAY_AMOUNT" : "Total Due",
+        "BILL_BRANCH_DETAILS" : "Electricity Branching Info",
+        "BILL_EDIT_MODE" : "Edit Bill Details",
+        "BILL_ADD_MODE" : "Add to my Bill's list",
+        "BILL_PDF_IMAGE" : "Show Bill's Image",
 
         
         "CHARITY" : "Charity",

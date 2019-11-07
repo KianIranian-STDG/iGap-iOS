@@ -20,6 +20,7 @@ class IGApiElectricityBill: IGApiBase {
         case addBill
         case getBills
         case queryBill
+        case branchingInfo
         
         var url: String {
             var urlString = IGApiElectricityBill.electricityBillBaseUrl
@@ -31,6 +32,9 @@ class IGApiElectricityBill: IGApiBase {
                 break
             case .getBills:
                 break
+            case .branchingInfo:
+                urlString += "/api/get-branch-info"
+                
             }
             
             return urlString
@@ -40,10 +44,10 @@ class IGApiElectricityBill: IGApiBase {
     static let shared = IGApiElectricityBill()
     private static let electricityBillBaseUrl = "https://api.igap.net/bill/v1.0"
     
-
+    
     func queryBill(billNumber: String,phoneNumber: String, completion: @escaping ((_ success: Bool, _ response: IGStructInqueryBill?, _ errorMessage: String?) -> Void) ) {
         let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber]
-
+        
         debugPrint("=========Request Url=========")
         debugPrint(Endpoint.queryBill.url)
         debugPrint("=========Request Headers=========")
@@ -63,6 +67,55 @@ class IGApiElectricityBill: IGApiBase {
             case .success(let value):
                 do {
                     let classData = try JSONDecoder().decode(IGStructInqueryBill.self, from: value)
+                    completion(true, classData, nil)
+                } catch let error {
+                    print(error.localizedDescription)
+                    guard json != nil, let message = json!["message"].string else {
+                        //                        IGHelperAlert.shared.showErrorAlert()
+                        completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
+                        return
+                    }
+                    //                    IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: message)
+                    completion(false, nil, message)
+                }
+                
+            case .failure(let error):
+                print("error: ", error.localizedDescription)
+                guard json != nil, let message = json!["message"].string else {
+                    //                    IGHelperAlert.shared.showErrorAlert()
+                    completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
+                    return
+                }
+                //                IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: message)
+                completion(false, nil, message)
+            }
+            
+        }
+    }
+    
+    
+    func branchingInfo(billNumber: String,phoneNumber: String, completion: @escaping ((_ success: Bool, _ response: IGStructBranchingInfo?, _ errorMessage: String?) -> Void) ) {
+        let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber]
+        
+        debugPrint("=========Request Url=========")
+        debugPrint(Endpoint.branchingInfo.url)
+        debugPrint("=========Request Headers=========")
+        debugPrint(self.getHeaders)
+        
+        AF.request(Endpoint.branchingInfo.url, method: .post,parameters: parameters,headers: self.getHeaders).responseData { (response) in
+            
+            let json = try? JSON(data: response.data ?? Data())
+            
+            debugPrint("=========Response Headers=========")
+            debugPrint(response.response ?? "no headers")
+            debugPrint("=========Response Body=========")
+            debugPrint(json ?? "NO RESPONSE BODY")
+            
+            switch response.result {
+                
+            case .success(let value):
+                do {
+                    let classData = try JSONDecoder().decode(IGStructBranchingInfo.self, from: value)
                     completion(true, classData, nil)
                 } catch let error {
                     print(error.localizedDescription)

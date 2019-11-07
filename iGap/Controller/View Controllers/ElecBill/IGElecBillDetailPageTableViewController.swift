@@ -25,11 +25,18 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController {
     @IBOutlet weak var btnPDFofBill : UIButton!
     @IBOutlet weak var topViewHolder : UIViewX!
 
+    @IBOutlet weak var stackHolder : UIStackView!
+    @IBOutlet weak var stackOne : UIStackView!
+    @IBOutlet weak var stackTwo : UIStackView!
+    @IBOutlet weak var stackThree : UIStackView!
+    @IBOutlet weak var stackFour : UIStackView!
+
     // MARK: - Variables
     var billNumber: String!
     var payDate: String!
     var payAmount: String!
     var payNumber: String!
+    var canEditBill : Bool = false
     // MARK: - View LifeCycle
 
     override func viewDidLoad() {
@@ -40,7 +47,7 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        initNavigationBar(title: "".localizedNew, rightAction: {})//set Title for Page and nav Buttons if needed
+        initNavigationBar(title: "TTL_BILL_OPERATIONS".localizedNew, rightAction: {})//set Title for Page and nav Buttons if needed
 
     }
     // MARK: - Development Funcs
@@ -66,29 +73,85 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController {
     }
     
     private func customiseView() {
+        self.topViewHolder.borderWidth = 0.5
+        self.topViewHolder.layer.borderColor = UIColor(named: themeColor.labelColor.rawValue)?.cgColor
+        btnDetailBranch.layer.borderColor = UIColor(named: themeColor.navigationSecondColor.rawValue)?.cgColor
+        btnDetailBranch.layer.borderWidth = 2
+        btnAddToMyBills.layer.borderColor = UIColor(named: themeColor.navigationSecondColor.rawValue)?.cgColor
+        btnAddToMyBills.layer.borderWidth = 2
+        btnPDFofBill.layer.borderColor = UIColor(named: themeColor.navigationSecondColor.rawValue)?.cgColor
+        btnPDFofBill.layer.borderWidth = 2
 
+        btnPay.layer.cornerRadius = 15
+        btnDetailBranch.layer.cornerRadius = 15
+        btnPDFofBill.layer.cornerRadius = 15
+        btnAddToMyBills.layer.cornerRadius = 15
     }
     
     private func initFont() {
-
+        lblTTlBillNumber.font = UIFont.igFont(ofSize: 14)
+        lblTTlBillPayDate.font = UIFont.igFont(ofSize: 14)
+        lblTTlBillPayAmount.font = UIFont.igFont(ofSize: 14)
+        lblTTlBillPayNumber.font = UIFont.igFont(ofSize: 14)
+        lblDataBillNumber.font = UIFont.igFont(ofSize: 14)
+        lblDataBillPayDate.font = UIFont.igFont(ofSize: 14)
+        lblDataBillPayAmount.font = UIFont.igFont(ofSize: 14)
+        lblDataBillPayNumber.font = UIFont.igFont(ofSize: 14)
+        btnPay.titleLabel?.font = UIFont.igFont(ofSize: 14)
+        btnPDFofBill.titleLabel?.font = UIFont.igFont(ofSize: 14)
+        btnAddToMyBills.titleLabel?.font = UIFont.igFont(ofSize: 14)
+        btnDetailBranch.titleLabel?.font = UIFont.igFont(ofSize: 14)
     }
     
     private func initStrings() {
-
+        lblTTlBillNumber.text = "BILL_ID".localizedNew
+        lblTTlBillPayDate.text = "BILL_PAY_DATE".localizedNew
+        lblTTlBillPayAmount.text = "BILL_PAY_AMOUNT".localizedNew
+        lblTTlBillPayNumber.text = "TRANSACTIONS_HISTORY_ORDER_ID".localizedNew
+        lblDataBillNumber.text = billNumber ?? "..."
+        lblDataBillPayDate.text = payDate ?? "..."
+        lblDataBillPayAmount.text = payAmount ?? "..."
+        lblDataBillPayNumber.text = payNumber ?? "..."
+        btnPay.setTitle("PU_PAYMENT".localizedNew, for: .normal)
+        btnDetailBranch.setTitle("BILL_BRANCH_DETAILS".localizedNew, for: .normal)
+        if canEditBill {
+            btnAddToMyBills.setTitle("BILL_EDIT_MODE".localizedNew, for: .normal)
+        } else {
+            btnAddToMyBills.setTitle("BILL_ADD_MODE".localizedNew, for: .normal)
+        }
+        btnPDFofBill.setTitle("BILL_PDF_IMAGE".localizedNew, for: .normal)
     }
     
     private func initColors() {
         self.tableView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-
+        self.topViewHolder.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        btnPay.setTitleColor(.white, for: .normal)
+        btnDetailBranch.setTitleColor(UIColor(named: themeColor.navigationSecondColor.rawValue), for: .normal)
+        btnAddToMyBills.setTitleColor(UIColor(named: themeColor.navigationSecondColor.rawValue), for: .normal)
+        btnPDFofBill.setTitleColor(UIColor(named: themeColor.navigationSecondColor.rawValue), for: .normal)
+        
+        btnPay.backgroundColor = UIColor(named: themeColor.navigationSecondColor.rawValue)
+        btnDetailBranch.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        btnAddToMyBills.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        btnPDFofBill.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
     }
     
     private func initAlignments() {
-
+        lblTTlBillPayNumber.textAlignment = lblTTlBillPayNumber.localizedNewDirection
+        lblTTlBillPayAmount.textAlignment = lblTTlBillPayNumber.localizedNewDirection
+        lblTTlBillPayDate.textAlignment = lblTTlBillPayNumber.localizedNewDirection
+        lblTTlBillNumber.textAlignment = lblTTlBillPayNumber.localizedNewDirection
     }
     
     private func customiseTableView() {
         self.tableView.tableFooterView = UIView()
-        
+        self.tableView.semanticContentAttribute = self.semantic
+        self.stackOne.semanticContentAttribute = self.semantic
+        self.stackTwo.semanticContentAttribute = self.semantic
+        self.stackThree.semanticContentAttribute = self.semantic
+        self.stackFour.semanticContentAttribute = self.semantic
+        self.stackHolder.semanticContentAttribute = self.semantic
+
     }
 
     private func validaatePhoneNUmber(phone : Int64!) -> String {
@@ -106,10 +169,18 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController {
         IGApiElectricityBill.shared.queryBill(billNumber: (billNumber.inEnglishNumbersNew()), phoneNumber: userPhoneNumber, completion: {(success, response, errorMessage) in
             SMLoading.hideLoadingPage()
             if success {
-                print(response)
                 self.payNumber = response?.data?.paymentIdentifier
                 self.payDate = response?.data?.paymentDeadLine
                 self.payAmount = response?.data?.totalBillDebt
+                let dateFormatter = ISO8601DateFormatter()
+                let date = dateFormatter.date(from:self.payDate)!
+                self.lblDataBillPayDate.text = date.completeHumanReadableTime().inLocalizedLanguage() ?? "..."
+
+                self.lblDataBillPayAmount.text = self.payAmount.inRialFormat()  + " " + "CURRENCY".localizedNew ?? "..."
+                self.lblDataBillNumber.text = self.billNumber.inLocalizedLanguage() ?? "..."
+                self.lblDataBillPayNumber.text = self.payNumber.inLocalizedLanguage() ?? "..."
+
+                self.tableView.reloadData()
 
             } else {
                 print(errorMessage)
@@ -117,6 +188,15 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController {
         })
     }
     // MARK: - Actions
+    @IBAction func didTapOnPayButton(_ sender: UIButton) {
+    }
+    @IBAction func didTapOnBranchingInfo(_ sender: UIButton) {
+        let branchingInfo = IGElecBillBranchingInfoTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
+        branchingInfo.hidesBottomBarWhenPushed = true
+        branchingInfo.billNUmber = (billNumber.inEnglishNumbersNew())
+        self.navigationController!.pushViewController(branchingInfo, animated:true)
+
+    }
 
 
     // MARK: - Table view data source

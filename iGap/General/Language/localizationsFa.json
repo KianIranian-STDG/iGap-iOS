@@ -658,6 +658,12 @@
         "LBL_ELECTRICITYBILL_PAY" : "استعلام و پرداخت قبض برق",
         "TTL_BILL_OPERATIONS" : "خدمات قبض برق",
         "MSG_CHARACTER_COUNT_ELECTRICITY_BILL" : "شناسه قبض می بایست ۱۳ کاراکتر باشد",
+        "BILL_PAY_AMOUNT" : "مبلغ پایان دوره",
+        "BILL_PAY_DATE" : "مهلت پرداخت",
+        "BILL_BRANCH_DETAILS" : "اطلاعات انشعاب",
+        "BILL_EDIT_MODE" : "ویرایش قبض",
+        "BILL_PDF_IMAGE" : "دریافت تصویر قبض",
+        "BILL_ADD_MODE" : "افزودن به لیست قبوض من",
 
         
         "CHARITY" : "خیریه",

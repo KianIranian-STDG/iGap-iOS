@@ -11,12 +11,12 @@
 import Foundation
 
 struct IGStructInqueryBill: Decodable {
-    var data : DataStruct?
+    var data : InqueryDataStruct?
     var status: Int?
     var message: String?
 }
 
-struct DataStruct: Decodable {
+struct InqueryDataStruct: Decodable {
     var billIdentifier: String?
     var paymentIdentifier: String?
     var totalBillDebt : String?
