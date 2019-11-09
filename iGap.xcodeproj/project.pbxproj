@@ -1780,13 +1780,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		8E3FC94A23703B1A003C9C6C /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		8E4177EA233CDA7F00CEB3AF /* AKMaskField */ = {
 			isa = PBXGroup;
 			children = (
@@ -3171,7 +3164,6 @@
 				FAD744F121B940D400801D2E /* Share */,
 				FAF795EB1DAA330C0030509B /* Products */,
 				FAF985881E2E10EC00B26940 /* Frameworks */,
-				8E3FC94A23703B1A003C9C6C /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
