@@ -624,6 +624,7 @@ class AbstractDashboardCell: UICollectionViewCell {
 //                return
 //            }
             
+            
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)

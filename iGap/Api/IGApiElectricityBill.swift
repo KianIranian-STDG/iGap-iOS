@@ -228,7 +228,7 @@ class IGApiElectricityBill: IGApiBase {
         }
     }
     ////////////////////////////EDIT BILL INFO////////////////////////////////
-    func editBill(billNumber: String,phoneNumber: String,nationalCode : String? = "",email: String? = "",billTitle : String? = "" ,viaSMS : Bool? = true,viaAP : Bool? = false,viaPRINT : Bool? = false,viaEmail : Bool? = false, completion: @escaping ((_ success: Bool, _ response: IGStructBillImage?, _ errorMessage: String?) -> Void) ) {
+    func editBill(billNumber: String,phoneNumber: String,nationalCode : String? = "",email: String? = "",billTitle : String? = "" ,viaSMS : Bool? = true,viaAP : Bool? = false,viaPRINT : Bool? = false,viaEmail : Bool? = false, completion: @escaping ((_ success: Bool, _ response: IGStructEditBill?, _ errorMessage: String?) -> Void) ) {
         let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber]
         
         debugPrint("=========Request Url=========")
@@ -236,7 +236,7 @@ class IGApiElectricityBill: IGApiBase {
         debugPrint("=========Request Headers=========")
         debugPrint(self.getHeaders)
         
-        AF.request(Endpoint.getImageOfBill.url, method: .post,parameters: parameters,headers: self.getHeaders).responseData { (response) in
+        AF.request(Endpoint.editBill.url, method: .post,parameters: parameters,headers: self.getHeaders).responseData { (response) in
             
             let json = try? JSON(data: response.data ?? Data())
             
@@ -252,7 +252,7 @@ class IGApiElectricityBill: IGApiBase {
                     
                 case .success(let value):
                     do {
-                        let classData = try JSONDecoder().decode(IGStructBillImage.self, from: value)
+                        let classData = try JSONDecoder().decode(IGStructEditBill.self, from: value)
                         completion(true, classData, nil)
                     } catch let error {
                         print(error.localizedDescription)
@@ -261,7 +261,10 @@ class IGApiElectricityBill: IGApiBase {
                             completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
                             return
                         }
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew,cancel: {
+                            UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                        })
+
                         completion(false, nil, message)
                     }
                     
@@ -272,7 +275,10 @@ class IGApiElectricityBill: IGApiBase {
                         completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
                         return
                     }
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew,cancel: {
+                        UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                    })
+
                     completion(false, nil, message)
                 }
                 
@@ -282,7 +288,10 @@ class IGApiElectricityBill: IGApiBase {
                     completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
                     return
                 }
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew,cancel: {
+                    UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                })
+
                 completion(false, nil, message)
                 
             }
@@ -291,7 +300,7 @@ class IGApiElectricityBill: IGApiBase {
     }
 
     ////////////////////////////ADD TO MY BILL LIST////////////////////////////////
-    func addBill(billNumber: String,phoneNumber: String,nationalCode : String? = "",email: String? = "",billTitle : String? = "" ,viaSMS : Bool? = true,viaAP : Bool? = false,viaPRINT : Bool? = false,viaEmail : Bool? = false, completion: @escaping ((_ success: Bool, _ response: IGStructBillImage?, _ errorMessage: String?) -> Void) ) {
+    func addBill(billNumber: String,phoneNumber: String,nationalCode : String? = "",email: String? = "",billTitle : String? = "" ,viaSMS : Bool? = true,viaAP : Bool? = false,viaPRINT : Bool? = false,viaEmail : Bool? = false, completion: @escaping ((_ success: Bool, _ response: IGStructAddBill?, _ errorMessage: String?) -> Void) ) {
         let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber]
         
         debugPrint("=========Request Url=========")
@@ -299,7 +308,7 @@ class IGApiElectricityBill: IGApiBase {
         debugPrint("=========Request Headers=========")
         debugPrint(self.getHeaders)
         
-        AF.request(Endpoint.getImageOfBill.url, method: .post,parameters: parameters,headers: self.getHeaders).responseData { (response) in
+        AF.request(Endpoint.addBill.url, method: .post,parameters: parameters,headers: self.getHeaders).responseData { (response) in
             
             let json = try? JSON(data: response.data ?? Data())
             
@@ -315,7 +324,7 @@ class IGApiElectricityBill: IGApiBase {
                     
                 case .success(let value):
                     do {
-                        let classData = try JSONDecoder().decode(IGStructBillImage.self, from: value)
+                        let classData = try JSONDecoder().decode(IGStructAddBill.self, from: value)
                         completion(true, classData, nil)
                     } catch let error {
                         print(error.localizedDescription)
@@ -324,7 +333,10 @@ class IGApiElectricityBill: IGApiBase {
                             completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
                             return
                         }
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew,cancel: {
+                            UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                        })
+
                         completion(false, nil, message)
                     }
                     
@@ -335,7 +347,10 @@ class IGApiElectricityBill: IGApiBase {
                         completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
                         return
                     }
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew,cancel: {
+                        UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                    })
+
                     completion(false, nil, message)
                 }
                 
@@ -345,7 +360,10 @@ class IGApiElectricityBill: IGApiBase {
                     completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
                     return
                 }
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew,cancel: {
+                    UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                })
+
                 completion(false, nil, message)
                 
             }

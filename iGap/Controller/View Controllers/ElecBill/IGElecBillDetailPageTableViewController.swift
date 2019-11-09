@@ -234,6 +234,20 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     // MARK: - Actions
     @IBAction func didTapOnPayButton(_ sender: UIButton) {
     }
+    @IBAction func didTapOnAddEditBill(_ sender: UIButton) {
+        let addEditVC = IGElecAddEditBillTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
+        addEditVC.hidesBottomBarWhenPushed = true
+        addEditVC.billNumber = (billNumber.inEnglishNumbersNew())
+        let realm = try! Realm()
+        let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
+        let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
+
+        let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
+
+        addEditVC.userNumber = userPhoneNumber
+        self.navigationController!.pushViewController(addEditVC, animated:true)
+
+    }
     @IBAction func didTapOnShowImage(_ sender: UIButton) {
         let realm = try! Realm()
         let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)

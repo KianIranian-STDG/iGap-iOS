@@ -775,6 +775,9 @@
         "BILL_DETAIL_DUE_DATE" : "Payment Deadline",
         "BILL_DETAIL_LAST_READ" : "Device Last Read Date",
         "BILL_DETAIL_POWER" : "Power",
+        "BILL_DETAIL" : "Bill Details",
+        "BILL_FILL_DATA" : "Please Fill The Form Below",
+        "BILL_NAME" : "Bill Name",
 
 
 

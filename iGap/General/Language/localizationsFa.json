@@ -683,6 +683,9 @@
         "BILL_DETAIL_DUE_DATE" : "مهلت پرداخت بدهی",
         "BILL_DETAIL_LAST_READ" : "آهرین تاریخ قرایت کنتور",
         "BILL_DETAIL_POWER" : "قدرت قراردادی",
+        "BILL_DETAIL" : "اطلاعات قبض",
+        "BILL_FILL_DATA" : "اطلاعات زیر را پر نمایید",
+        "BILL_NAME" : "نام قبض",
 
         
         "CHARITY" : "خیریه",
