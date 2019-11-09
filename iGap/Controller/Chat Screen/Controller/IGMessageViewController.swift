@@ -11,7 +11,6 @@
 import UIKit
 import IGProtoBuff
 import SwiftProtobuf
-import GrowingTextView
 import pop
 import SnapKit
 import AVFoundation
@@ -141,7 +140,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var txtPinnedMessage: UILabel!
     @IBOutlet weak var collectionView: IGMessageCollectionView!
     @IBOutlet weak var inputBarContainerView: UIView!
-    @IBOutlet weak var inputTextView: GrowingTextView!
     
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var inputTextViewHeightConstraint: NSLayoutConstraint!
@@ -375,7 +373,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
             else if isDelete! {
                 
-                UIView.transition(with: self.inputTextView, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {
+                UIView.transition(with: self.holderTextBox, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {
                     self.holderMultiSelect.isHidden = !isDelete!
                     self.holderTextBox.isHidden = isDelete!
                     
@@ -409,7 +407,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
         }
         else {
-            UIView.transition(with: self.inputTextView, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {
+            UIView.transition(with: self.holderTextBox, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {
                 self.holderMultiSelect.isHidden = true
                 self.holderTextBox.isHidden = false
                 
@@ -2377,11 +2375,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.btnSticker.isHidden = true
             } else {
                 self.btnSticker.isHidden = false
-                self.inputTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
-                
-                
             }
-            
         }
     }
     
@@ -4491,8 +4485,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.holderRecordView.layoutIfNeeded()
             },completion: nil)
             
-            
-            self.inputTextView.isHidden = false
             self.inputBarLeftView.isHidden = false
             
             //animation
@@ -5542,7 +5534,7 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
 
 
 //MARK: - GrowingTextViewDelegate
-extension IGMessageViewController: GrowingTextViewDelegate {
+extension IGMessageViewController: UITextViewDelegate {
     
     func allowSendTyping() -> Bool {
         let currentTime = IGGlobal.getCurrentMillis()
@@ -5556,11 +5548,6 @@ extension IGMessageViewController: GrowingTextViewDelegate {
     }
     
     func textViewDidChangeHeight(_ height: CGFloat) {
-        inputTextViewHeight = height
-        setInputBarHeight()
-    }
-    
-    func textViewDidChangeHeight(_ textView: GrowingTextView, height: CGFloat) {
         inputTextViewHeight = height
         setInputBarHeight()
     }

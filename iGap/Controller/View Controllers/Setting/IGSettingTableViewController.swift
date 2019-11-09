@@ -14,14 +14,13 @@ import IGProtoBuff
 import RxRealm
 import RxSwift
 import Gifu
-import NVActivityIndicatorView
 import MapKit
 public var currentSize : Int!
 public var currentIndexOfImage : Int!
 public var sizesArray = [Int?]()
 public var isAvatar = true
 
-class IGSettingTableViewController: BaseTableViewController, NVActivityIndicatorViewable, CLLocationManagerDelegate {
+class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var switchInAppBrowser: UISwitch!
     

@@ -13,7 +13,6 @@ import Contacts
 import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
-import NVActivityIndicatorView
 
 class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate {
 
@@ -282,8 +281,6 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         downloadIndicatorMainView.backgroundColor = UIColor.white
         downloadIndicatorMainView.frame = downloadViewFrame
         let andicatorViewFrame = CGRect(x: view.bounds.midX, y: view.bounds.midY,width: 50 , height: 50)
-        let activityIndicatorView = NVActivityIndicatorView(frame: andicatorViewFrame,type: NVActivityIndicatorType.audioEqualizer)
-        downloadIndicatorMainView.addSubview(activityIndicatorView)
         
         let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: avatarView)//, deleteView: deleteView, downloadView: downloadIndicatorMainView)
         galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
@@ -291,7 +288,6 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         }
         galleryPhotos = galleryPreview
         present(galleryPreview, animated: true, completion: nil)
-        activityIndicatorView.startAnimating()
     }
     //MARK: - Creat Chat With User
     func createChat() {

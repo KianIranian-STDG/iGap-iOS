@@ -17,9 +17,8 @@ import RxCocoa
 import IGProtoBuff
 import MGSwipeTableCell
 import MBProgressHUD
-import NVActivityIndicatorView
 
-class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorViewable, UITableViewDelegate, UITableViewDataSource ,cellTypeTwoDelegate{
+class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource ,cellTypeTwoDelegate{
 
     //MARK: -Variables
     private var lastContentOffset: CGFloat = 0
@@ -303,10 +302,6 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
         let downloadViewFrame = self.view.bounds
         downloadIndicatorMainView.backgroundColor = UIColor.white
         downloadIndicatorMainView.frame = downloadViewFrame
-        let andicatorViewFrame = CGRect(x: view.bounds.midX, y: view.bounds.midY,width: 50 , height: 50)
-        let activityIndicatorView = NVActivityIndicatorView(frame: andicatorViewFrame,
-                                                            type: NVActivityIndicatorType.audioEqualizer)
-        downloadIndicatorMainView.addSubview(activityIndicatorView)
         
         let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: channelImage)//, deleteView: deleteView, downloadView: downloadIndicatorMainView)
         galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
@@ -314,7 +309,6 @@ class IGProfileChannelViewController: BaseViewController, NVActivityIndicatorVie
         }
         galleryPhotos = galleryPreview
         present(galleryPreview, animated: true, completion: nil)
-        activityIndicatorView.startAnimating()
     }
     
     func requestToGetAvatarList() {

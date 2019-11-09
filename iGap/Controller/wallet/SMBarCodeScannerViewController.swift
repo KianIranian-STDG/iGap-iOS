@@ -7,9 +7,7 @@
 //
 
 import UIKit
-import QRCodeReader
 import AVFoundation
-import AMPopTip
 import webservice
 import SwiftyRSA
 

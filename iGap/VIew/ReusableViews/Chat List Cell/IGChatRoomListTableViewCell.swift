@@ -13,7 +13,6 @@ import MGSwipeTableCell
 import RxSwift
 import IGProtoBuff
 import SwiftProtobuf
-import GrowingTextView
 import pop
 import SnapKit
 import AVFoundation

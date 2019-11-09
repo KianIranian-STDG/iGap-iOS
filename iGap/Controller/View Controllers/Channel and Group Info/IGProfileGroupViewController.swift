@@ -17,9 +17,8 @@ import RxCocoa
 import IGProtoBuff
 import MGSwipeTableCell
 import MBProgressHUD
-import NVActivityIndicatorView
 
-class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewable,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,cellTypeTwoDelegate {
+class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,cellTypeTwoDelegate {
     
     //MARK: -Variables
     var adminsCount : String = "0"
@@ -328,10 +327,6 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         let downloadViewFrame = self.view.bounds
         downloadIndicatorMainView.backgroundColor = UIColor.white
         downloadIndicatorMainView.frame = downloadViewFrame
-        let andicatorViewFrame = CGRect(x: view.bounds.midX, y: view.bounds.midY,width: 50 , height: 50)
-        let activityIndicatorView = NVActivityIndicatorView(frame: andicatorViewFrame,
-                                                            type: NVActivityIndicatorType.audioEqualizer)
-        downloadIndicatorMainView.addSubview(activityIndicatorView)
         
         let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: avatarView)//, deleteView: deleteView, downloadView: downloadIndicatorMainView)
         galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
@@ -339,8 +334,6 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         }
         galleryPhotos = galleryPreview
         present(galleryPreview, animated: true, completion: nil)
-        activityIndicatorView.startAnimating()
-        
     }
     
     func requestToGetAvatarList() {

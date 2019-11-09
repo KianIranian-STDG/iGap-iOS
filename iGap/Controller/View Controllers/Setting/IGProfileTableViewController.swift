@@ -14,7 +14,6 @@ import IGProtoBuff
 import RxRealm
 import RxSwift
 import Gifu
-import NVActivityIndicatorView
 import MapKit
 import YPImagePicker
 
