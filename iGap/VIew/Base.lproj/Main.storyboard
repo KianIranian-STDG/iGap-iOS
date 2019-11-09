@@ -2081,7 +2081,6 @@
                         <outlet property="inputBarShareButton" destination="agU-js-JDV" id="VAV-UD-7Tv"/>
                         <outlet property="inputBarView" destination="f1F-hm-WrH" id="n4X-Kk-jjx"/>
                         <outlet property="inputBarViewBottomConstraint" destination="l9j-I8-pUw" id="9nC-iT-dAP"/>
-                        <outlet property="inputTextView" destination="agE-XC-sCP" id="32J-G6-ltg"/>
                         <outlet property="inputTextViewHeightConstraint" destination="i0G-sC-VLl" id="O1Y-ij-3h7"/>
                         <outlet property="joinButton" destination="uLc-FX-WjP" id="gTz-2h-Ury"/>
                         <outlet property="lblActionType" destination="KPH-rJ-BEy" id="1TS-Ba-YtO"/>
