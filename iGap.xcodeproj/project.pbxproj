@@ -54,6 +54,7 @@
 		8E3C699223603724001575BE /* PanModalPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C699023603724001575BE /* PanModalPresentationAnimator.swift */; };
 		8E3C69942360785E001575BE /* IGTagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C69932360785E001575BE /* IGTagManager.swift */; };
 		8E3C6D23235C5FC300723E4A /* IGHelperMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C6D22235C5FC300723E4A /* IGHelperMusicPlayer.swift */; };
+		8E3D6B9123770FEB00489762 /* IGStructBillImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3D6B9023770FEB00489762 /* IGStructBillImage.swift */; };
 		8E3FA9EF2333A10C0053816A /* IGProfileGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3FA9EE2333A10C0053816A /* IGProfileGroupViewController.swift */; };
 		8E3FC94C2370560A003C9C6C /* IGApiElectricityBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3FC94B2370560A003C9C6C /* IGApiElectricityBill.swift */; };
 		8E3FC94E23705A5A003C9C6C /* IGStructInqueryBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3FC94D23705A5A003C9C6C /* IGStructInqueryBill.swift */; };
@@ -850,6 +851,7 @@
 		8E3C699023603724001575BE /* PanModalPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanModalPresentationAnimator.swift; sourceTree = "<group>"; };
 		8E3C69932360785E001575BE /* IGTagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTagManager.swift; sourceTree = "<group>"; };
 		8E3C6D22235C5FC300723E4A /* IGHelperMusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperMusicPlayer.swift; sourceTree = "<group>"; };
+		8E3D6B9023770FEB00489762 /* IGStructBillImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructBillImage.swift; sourceTree = "<group>"; };
 		8E3FA9EE2333A10C0053816A /* IGProfileGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileGroupViewController.swift; sourceTree = "<group>"; };
 		8E3FC94B2370560A003C9C6C /* IGApiElectricityBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiElectricityBill.swift; sourceTree = "<group>"; };
 		8E3FC94D23705A5A003C9C6C /* IGStructInqueryBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructInqueryBill.swift; sourceTree = "<group>"; };
@@ -1686,6 +1688,7 @@
 			children = (
 				8E3FC94D23705A5A003C9C6C /* IGStructInqueryBill.swift */,
 				8E0405C62371B9CE00516DEB /* IGStructBranchingInfo.swift */,
+				8E3D6B9023770FEB00489762 /* IGStructBillImage.swift */,
 			);
 			path = ElectricityBills;
 			sourceTree = "<group>";
@@ -3726,6 +3729,7 @@
 				D60FF283234091310012ECF2 /* IGPlayer.swift in Sources */,
 				FAE6BAB2207B537B00E54ECE /* MKHipsterTileOverlay.swift in Sources */,
 				FA075DEF232A631E002E7AC7 /* IGStructInternetCategory.swift in Sources */,
+				8E3D6B9123770FEB00489762 /* IGStructBillImage.swift in Sources */,
 				8EBF54FF22D9B60D00834E6A /* BeautifulBarChart.swift in Sources */,
 				FA5B41A522EDD67D001203D0 /* IGHelperMessageStatus.swift in Sources */,
 				FA1DE8FC220ADD8300C465E5 /* StickerObserver.swift in Sources */,

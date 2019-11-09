@@ -757,6 +757,38 @@
         "BILL_ADD_MODE" : "Add to my Bill's list",
         "BILL_PDF_IMAGE" : "Show Bill's Image",
 
+        "BILL_DETAIL_IDENTIFIER" : "Bill Identifier",
+        "BILL_DETAIL_PAY_ID" : "Payment Identifier",
+        "BILL_DETAIL_COMPANY_CODE" : "Company Code",
+        "BILL_DETAIL_COMPANY_NAME" : "Company Name",
+        "BILL_DETAIL_PHASE" : "Phase",
+        "BILL_DETAIL_VOLTAGE" : "Voltage",
+        "BILL_DETAIL_TARIFE_TYPE" : "Tarife Type",
+        "BILL_DETAIL_CUSTOMER_TYPE" : "Customer Type",
+        "BILL_DETAIL_CUSTOMER_NAME" : "Customer Name",
+        "BILL_DETAIL_CUSTOMER_TEL" : "Customer Tel Number",
+        "BILL_DETAIL_CUSTOMER_MOB" : "Customer Mobile Number",
+        "BILL_DETAIL_CUSTOMER_ADD" : "Customer Address",
+        "BILL_DETAIL_CUSTOMER_POSTALCODE" : "Customer Postal Code",
+        "BILL_DETAIL_CUSTOMER_LOCATION_ZONE" : "Customer Zone",
+        "BILL_DETAIL_CUSTOMER_DEVICE_NUMBER" : "Device Serial Number",
+        "BILL_DETAIL_DUE_DATE" : "Payment Deadline",
+        "BILL_DETAIL_LAST_READ" : "Device Last Read Date",
+        "BILL_DETAIL_POWER" : "Power",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
         "CHARITY" : "Charity",
         

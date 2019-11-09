@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class IGElecBillDetailPageTableViewController: BaseTableViewController {
+class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumentInteractionControllerDelegate {
     // MARK: - Outlets
     @IBOutlet weak var lblTTlBillNumber : UILabel!
     @IBOutlet weak var lblDataBillNumber : UILabel!
@@ -187,8 +187,61 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController {
             }
         })
     }
+    private func getImageOfBill(userPhoneNumber: String!) {
+        IGApiElectricityBill.shared.getImageOfBill(billNumber: (billNumber.inEnglishNumbersNew()), phoneNumber: userPhoneNumber, completion: {(success, response, errorMessage) in
+            SMLoading.hideLoadingPage()
+            if success {
+                self.saveBase64StringToImage((response?.data?.document)!,ext: response?.data?.ext)
+            } else {
+                print(errorMessage)
+            }
+        })
+
+    }
+    private func saveBase64StringToImage(_ base64String: String,ext: String? = ".pdf") {
+
+        guard
+            var documentsURL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last,
+            let convertedData = Data(base64Encoded: base64String)
+            else {
+            //handle error when getting documents URL
+            return
+        }
+
+        //name your file however you prefer
+        documentsURL.appendPathComponent(self.billNumber + self.payDate + ext!)
+
+        do {
+            try convertedData.write(to: documentsURL)
+        } catch {
+            //handle write error here
+        }
+
+        //if you want to get a quick output of where your
+        //file was saved from the simulator on your machine
+        //just print the documentsURL and go there in Finder
+        print(documentsURL)
+        //let path =  Bundle.main.path(forResource: "Guide", ofType: ".pdf")!
+         let dc = UIDocumentInteractionController(url: documentsURL)
+         dc.delegate = self
+         dc.presentPreview(animated: true)
+
+    }
+    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
+        return self.navigationController!
+    }
+
     // MARK: - Actions
     @IBAction func didTapOnPayButton(_ sender: UIButton) {
+    }
+    @IBAction func didTapOnShowImage(_ sender: UIButton) {
+        let realm = try! Realm()
+        let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
+        let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
+
+        let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
+        SMLoading.showLoadingPage(viewcontroller: self)
+        self.getImageOfBill(userPhoneNumber: userPhoneNumber)
     }
     @IBAction func didTapOnBranchingInfo(_ sender: UIButton) {
         let branchingInfo = IGElecBillBranchingInfoTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
