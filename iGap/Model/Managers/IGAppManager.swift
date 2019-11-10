@@ -329,7 +329,6 @@ class IGAppManager: NSObject {
     
     public func getAccessToken() -> String? {
         if let session = IGDatabaseManager.shared.realm.objects(IGSessionInfo.self).first {
-            print("WWW || session.accessToken: \(session.accessToken)")
             return session.accessToken
         } else {
             return nil
