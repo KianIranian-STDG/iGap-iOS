@@ -208,16 +208,39 @@ class CellSizeCalculator: NSObject {
                         if reply.attachment != nil {
                             replyMessage = "******************************"
                         }
-                        var replyWidth = replyMessage!.width(withConstrainedHeight: 15, font: UIFont.igFont(ofSize: 12.0, weight: .bold))
+                        
+                        var replySenderTitle: String = ""
+                        if let roomTitle = reply.authorRoom?.title {
+                            replySenderTitle = roomTitle
+                        } else if let userDisplayName = reply.authorUser?.user?.displayName {
+                            replySenderTitle = userDisplayName
+                        }
+                        replySenderTitle = replySenderTitle.appending("*********")
+                        
+                        let replyTextWidth = replyMessage!.width(withConstrainedHeight: 15, font: UIFont.igFont(ofSize: 12.0, weight: .bold))
+                        let replyHeaderWidth = replySenderTitle.width(withConstrainedHeight: 15, font: UIFont.igFont(ofSize: 12.0, weight: .bold))
+                        
+                        var replyWidth = replyTextWidth
+                        if replyHeaderWidth > replyTextWidth {
+                            replyWidth = replyHeaderWidth
+                        }
+                        
                         if replyWidth > CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text {
                             replyWidth = CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text
                         }
                         if finalSize.width < replyWidth {
                             finalSize.width = replyWidth
                         }
-                    } else if message.forwardedFrom != nil {
-                        // for find best width should be fetch forward author name
-                        let forwardMessage = "******************************"
+                    } else if let forward = message.forwardedFrom {
+                        
+                        var forwardMessage: String = ""
+                        if let roomTitle = forward.authorRoom?.title {
+                            forwardMessage = roomTitle
+                        } else if let userDisplayName = forward.authorUser?.user?.displayName {
+                            forwardMessage = userDisplayName
+                        }
+                        
+                        forwardMessage = forwardMessage.appending("*************************") // append fake character for 'forwarded from' text
                         var forwardWidth = forwardMessage.width(withConstrainedHeight: 15, font: UIFont.igFont(ofSize: 12.0, weight: .bold))
                         if forwardWidth > CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text {
                             forwardWidth = CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text
