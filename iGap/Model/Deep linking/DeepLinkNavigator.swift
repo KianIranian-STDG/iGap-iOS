@@ -36,10 +36,8 @@ class DeeplinkNavigator {
                         if errorCode == .timeout {
                             self.proceedToDeeplink(type)
                         } else if errorCode == .clientGetRoomNotFound {
-                            
                             IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHAT_ROOM_NOT_FOUND".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
-
-                            }
+                        }
                     }
                 }).send()
             }

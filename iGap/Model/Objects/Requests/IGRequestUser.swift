@@ -1510,3 +1510,32 @@ class IGUserIVandSetActivityRequest: IGRequest {
         override class func handlePush(responseProtoMessage: Message) {}
     }
 }
+
+class IGUserRefreshTokenRequest: IGRequest {
+    
+    class func sendRequest(completion: @escaping (() -> Void)){
+        IGUserRefreshTokenRequest.Generator.generate(identity: completion).successPowerful({ (protoResponse, requestWrapper) in
+            if let requestRefreshTokenCompletion = requestWrapper.identity as? (() -> Void) {
+                if let response = protoResponse as? IGPUserRefreshTokenResponse {
+                    IGUserRefreshTokenRequest.Handler.interpret(response: response, completion: requestRefreshTokenCompletion)
+                }
+            }
+        }).error({ (errorCode, waitTime) in
+            IGGlobal.prgHide()
+        }).send()
+    }
+    
+    
+    class Generator: IGRequest.Generator {
+        class func generate(identity: @escaping (() -> Void)) -> IGRequestWrapper {
+            return IGRequestWrapper(message: IGPUserRefreshToken(), actionID: 156, identity: identity)
+        }
+    }
+    
+    class Handler: IGRequest.Handler {
+        class func interpret(response responseProtoMessage: IGPUserRefreshTokenResponse, completion: (() -> Void)?) {
+            IGAppManager.sharedManager.setAccessToken(accessToken: responseProtoMessage.igpAccessToken, completion: completion)
+        }
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}

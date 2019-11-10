@@ -110,6 +110,13 @@ class IGHelperMessage {
     /** first check message existance in local THEN if message is not exist in local fetch message from server */
     public func getMessage(roomId: Int64, messageId: Int64, completion: @escaping (_ message: IGRoomMessage?) -> ()){
         
+        if !(IGAppManager.sharedManager.isUserLoggiedIn()) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.getMessage(roomId: roomId, messageId: messageId, completion: completion)
+            }
+            return
+        }
+        
         if let message = IGRoomMessage.getMessageWithId(roomId: roomId, messageId: messageId) {
             if message.isDeleted {
                 IGGlobal.prgHide()

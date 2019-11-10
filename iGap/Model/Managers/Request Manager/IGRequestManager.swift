@@ -134,7 +134,8 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
             IGUserIVandGetScoreRequest.Handler.self                                 as IGRequest.Handler.Type),
     30155: (IGPUserIVandSetActivityResponse.self                                    as ResponseMessage.Type,
             IGUserIVandSetActivityRequest.Handler.self                              as IGRequest.Handler.Type),
-    
+    30156: (IGPUserRefreshTokenResponse.self                                        as ResponseMessage.Type,
+            IGUserRefreshTokenRequest.Handler.self                                  as IGRequest.Handler.Type),
     
     //Chat: 302xx
     30200: (IGPChatGetRoomResponse.self                     as ResponseMessage.Type,
@@ -445,6 +446,7 @@ var unsecureResponseActionID : [Int] = [30001,30002,30003]
 
 //login is not required for these methods
 var actionIdOfMethodsThatCanBeSentWithoutBeingLoggedIn : [Int] = [100, 101, 102,131,132, 500, 501, 502, 503, 802, 201, 310, 410, 700, 701, 702, 703]
+var waitingListActionId : [Int] = []//currently not exist any waiting actionId
 
 
 class IGRequestManager {
@@ -461,29 +463,6 @@ class IGRequestManager {
     fileprivate var syncroniseQueue = DispatchQueue(label: "thread-safe-obj", attributes: .concurrent)
     
     private init() {
-        //send pending request and listen for network changes
-        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (networkStatus) in
-            if networkStatus == .connected || networkStatus == .iGap {
-                self.syncroniseQueue.async(flags: .barrier) {
-                    if self.queuedRequests.count > 0 {
-                        self.queuedRequests.forEach {
-                            let id = $0.key
-                            let reqW = $0.value
-                            self.queuedRequests.removeValue(forKey: id)
-                            self.addRequestIDAndSend(requestWrappers: reqW)
-                            
-                        }
-                    }
-                }
-            }
-        }, onError: { (error) in
-            
-        }, onCompleted: {
-            
-        }, onDisposed: {
-            
-        }).disposed(by: disposeBag)
-        
         
         IGAppManager.sharedManager.isUserLoggedIn.asObservable().subscribe(onNext: { (loginState) in
             if loginState {
@@ -491,9 +470,9 @@ class IGRequestManager {
                     if self.queuedRequests.count > 0 {
                         self.queuedRequests.forEach {
                             let id = $0.key
-                            let reqW = $0.value
+                            let requestWrapper = $0.value
                             self.queuedRequests.removeValue(forKey: id)
-                            self.addRequestIDAndSend(requestWrappers: reqW)
+                            self.addRequestIDAndSend(requestWrappers: requestWrapper)
                         }
                     }
                 }
@@ -532,12 +511,11 @@ class IGRequestManager {
                     if shouldSendRequest {
                         IGWebSocketManager.sharedManager.send(requestW: requestWrapper)
                     } else {
-                        /*
-                         self.syncroniseQueue.async(flags: .barrier) {
-                         let randomID = self.generateRandomRequestID()
-                         self.queuedRequests[randomID] = requestWrapper
-                         }
-                         */
+                        if waitingListActionId.contains(requestWrapper.actionId) {
+                            self.syncroniseQueue.async(flags: .barrier) {
+                                self.queuedRequests[self.generateRandomRequestID()] = requestWrapper
+                            }
+                        }
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + Double(self.TIME_OUT) , execute: {
                         self.internalTimeOut(for: requestWrapper)
