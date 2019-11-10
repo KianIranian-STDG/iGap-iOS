@@ -199,6 +199,34 @@ class CellSizeCalculator: NSObject {
                 } else {
                     finalSize.width = stringRect.width
                 }
+                
+                /** if current text size is lower than max size check 'reply' & 'forward' text size for make text box with bigger width if needed */
+                if finalSize.width < CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text {
+                    if let reply = message.repliedTo {
+                        let message = reply.message
+                        var replyMessage = message
+                        if reply.attachment != nil {
+                            replyMessage = "******************************"
+                        }
+                        var replyWidth = replyMessage!.width(withConstrainedHeight: 15, font: UIFont.igFont(ofSize: 12.0, weight: .bold))
+                        if replyWidth > CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text {
+                            replyWidth = CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text
+                        }
+                        if finalSize.width < replyWidth {
+                            finalSize.width = replyWidth
+                        }
+                    } else if message.forwardedFrom != nil {
+                        // for find best width should be fetch forward author name
+                        let forwardMessage = "******************************"
+                        var forwardWidth = forwardMessage.width(withConstrainedHeight: 15, font: UIFont.igFont(ofSize: 12.0, weight: .bold))
+                        if forwardWidth > CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text {
+                            forwardWidth = CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text
+                        }
+                        if finalSize.width < forwardWidth {
+                            finalSize.width = forwardWidth
+                        }
+                    }
+                }
             }
         } else {
             finalSize.width = 200
