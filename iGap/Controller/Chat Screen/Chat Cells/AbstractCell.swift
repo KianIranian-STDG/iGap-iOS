@@ -365,7 +365,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                     if hasBottomOffset {
                         make.top.equalTo(imgMediaAbs.snp.bottom).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
-                        make.top.equalTo(imgMediaAbs.snp.bottom).offset(CellSizeCalculator.RTL_OFFSET)
+                        make.top.equalTo(imgMediaAbs.snp.bottom)
                     }
                 }
                 break
