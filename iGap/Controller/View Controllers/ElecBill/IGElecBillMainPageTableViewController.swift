@@ -122,6 +122,13 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
             SMLoading.hideLoadingPage()
             if success {
                 print(response)
+                self.navigationController!.popViewController(animated: true)
+
+                let billDataVC = IGElecBillDetailPageTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
+                billDataVC.billNumber = (self.tfBillIdNumber.text?.inEnglishNumbersNew())!
+                billDataVC.hidesBottomBarWhenPushed = true
+                self.navigationController!.pushViewController(billDataVC, animated:true)
+
                 
             } else {
                 print(errorMessage)
