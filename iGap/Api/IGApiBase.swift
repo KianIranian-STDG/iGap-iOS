@@ -48,25 +48,12 @@ class IGApiBase {
             guard let token = IGAppManager.sharedManager.getAccessToken() else { return ["Authorization": ""] }
             let authorization = "Bearer " + token
             IGApiBase.httpHeaders = ["Authorization": authorization]
-            print("TTT || *** FETCH Header ***")
-        } else {
-            print("TTT || *** JUST RETURN OLD Header ***")
         }
-        print("TTT || ************************************************************")
-        print("TTT || FETCH HEADER : \(IGApiBase.httpHeaders)")
-        print("TTT || ************************************************************")
         return IGApiBase.httpHeaders
     }
     
     public func refreshHeader(){
         IGApiBase.httpHeaders = ["Authorization": "Bearer " + IGAppManager.sharedManager.getAccessToken()!]
-        print("WWW || ************************************************************")
-        print("WWW || UPDATE HEADER : \(IGApiBase.httpHeaders)")
-        print("WWW || ************************************************************")
-        
-        print("TTT || ************************************************************")
-        print("TTT || UPDATE HEADER : \(IGApiBase.httpHeaders)")
-        print("TTT || ************************************************************")
     }
 }
 
