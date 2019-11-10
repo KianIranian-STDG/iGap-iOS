@@ -43,72 +43,81 @@ class IGApiInternetPackage: IGApiBase {
     
     func getCategories(completion: @escaping ((_ success: Bool, _ token: [IGStructInternetCategory]?) -> Void) ) {
         
-        AF.request(Endpoint.categories.url, method: .get, headers: self.getHeaders).responseData { (response) in
+        AF.request(Endpoint.categories.url, method: .get, headers: self.getHeader()).responseData { (response) in
             
-            switch response.result {
-                
-            case .success(let value):
-                
-                do {
-                    let dataString = String(data: value, encoding: String.Encoding.utf8) ?? "Data could not be printed"
-                    print(dataString)
-                    let classData = try JSONDecoder().decode([FailableDecodable<IGStructInternetCategory>].self, from: value).compactMap { $0.base }
-                    completion(true, classData)
-                } catch let error {
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+            if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                self.getCategories(completion: completion)
+            }) {
+            } else {
+                switch response.result {
+                    
+                case .success(let value):
+                    
+                    do {
+                        let dataString = String(data: value, encoding: String.Encoding.utf8) ?? "Data could not be printed"
+                        print(dataString)
+                        let classData = try JSONDecoder().decode([FailableDecodable<IGStructInternetCategory>].self, from: value).compactMap { $0.base }
+                        completion(true, classData)
+                    } catch _ {
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        completion(false, nil)
+                    }
+                    
+                case .failure(let error):
+                    guard let data = response.data else {
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        completion(false, nil)
+                        return
+                    }
+                    let json = try? JSON(data: data)
+                    guard let message = json?["message"].string else {
+                        print(error.localizedDescription)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        completion(false, nil)
+                        return
+                    }
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
                     completion(false, nil)
                 }
-                
-            case .failure(let error):
-                guard let data = response.data else {
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
-                    completion(false, nil)
-                    return
-                }
-                let json = try? JSON(data: data)
-                guard let message = json?["message"].string else {
-                    print(error.localizedDescription)
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
-                    completion(false, nil)
-                    return
-                }
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
-                completion(false, nil)
             }
         }
     }
     
     func getPackages(completion: @escaping ((_ success: Bool, _ token: IGStructInternetPackageCategorized?) -> Void) ) {
         
-        AF.request(Endpoint.packages.url, method: .get, headers: self.getHeaders).responseData { (response) in
+        AF.request(Endpoint.packages.url, method: .get, headers: self.getHeader()).responseData { (response) in
             
-            switch response.result {
-                
-            case .success(let value):
-                
-                do {
-                    let classData = try JSONDecoder().decode(IGStructInternetPackageCategorized.self, from: value)
-                    completion(true, classData)
-                } catch {
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
-                    completion(false, nil)
-                }
-                
-            case .failure(let error):
-                guard let data = response.data else {
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
-                    completion(false, nil)
-                    return
-                }
-                let json = try? JSON(data: data)
-                guard let message = json?["message"].string else {
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+            if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                self.getPackages(completion: completion)
+            }) {
+            } else {
+                switch response.result {
+                case .success(let value):
+                    
+                    do {
+                        let classData = try JSONDecoder().decode(IGStructInternetPackageCategorized.self, from: value)
+                        completion(true, classData)
+                    } catch {
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        completion(false, nil)
+                    }
+                    
+                case .failure(_):
+                    guard let data = response.data else {
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        completion(false, nil)
+                        return
+                    }
+                    let json = try? JSON(data: data)
+                    guard let message = json?["message"].string else {
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
 
+                        completion(false, nil)
+                        return
+                    }
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
                     completion(false, nil)
-                    return
                 }
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
-                completion(false, nil)
             }
         }
     }
@@ -117,30 +126,33 @@ class IGApiInternetPackage: IGApiBase {
         
         let parameters: Parameters = ["tel_num" : telNum, "type" : type]
        
-        AF.request(Endpoint.purchase.url, method: .post, parameters: parameters, headers: getHeaders).responseJSON { (response) in
+        AF.request(Endpoint.purchase.url, method: .post, parameters: parameters, headers: self.getHeader()).responseJSON { (response) in
             
-            switch response.result {
-                
-            case .success(let value):
-                let json = JSON(value)
-                guard let token = json["token"].string else {
-                    guard let message = json["message"].string else {
+            if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                self.purchase(telNum: telNum, type: type, completion: completion)
+            }) {
+            } else {
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    guard let token = json["token"].string else {
+                        guard json["message"].string != nil else {
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                            completion(false, nil)
+                            return
+                        }
                         IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                         completion(false, nil)
                         return
                     }
+                    completion(true, token)
+                    
+                case .failure(let error):
+                    print(error.localizedDescription)
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                     completion(false, nil)
-                    return
                 }
-                completion(true, token)
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
-                completion(false, nil)
             }
         }
     }
-    
 }

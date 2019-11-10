@@ -134,7 +134,8 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
             IGUserIVandGetScoreRequest.Handler.self                                 as IGRequest.Handler.Type),
     30155: (IGPUserIVandSetActivityResponse.self                                    as ResponseMessage.Type,
             IGUserIVandSetActivityRequest.Handler.self                              as IGRequest.Handler.Type),
-    
+    30156: (IGPUserRefreshTokenResponse.self                                        as ResponseMessage.Type,
+            IGUserRefreshTokenRequest.Handler.self                                  as IGRequest.Handler.Type),
     
     //Chat: 302xx
     30200: (IGPChatGetRoomResponse.self                     as ResponseMessage.Type,

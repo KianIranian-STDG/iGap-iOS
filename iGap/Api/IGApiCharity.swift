@@ -1,10 +1,12 @@
-//
-//  IGApiCharity.swift
-//  iGap
-//
-//  Created by MacBook Pro on 6/27/1398 AP.
-//  Copyright © 1398 AP Kianiranian STDG -www.kianiranian.com. All rights reserved.
-//
+/*
+* This is the source code of iGap for iOS
+* It is licensed under GNU AGPL v3.0
+* You should have received a copy of the license in this archive (see LICENSE).
+* Copyright © 2017 , iGap - www.iGap.net
+* iGap Messenger | Free, Fast and Secure instant messaging application
+* The idea of the Kianiranian STDG - www.kianiranian.com
+* All rights reserved.
+*/
 
 import Foundation
 import Alamofire
@@ -33,28 +35,32 @@ class IGApiCharity: IGApiBase {
         
         let parameters: Parameters = ["amount" : amount]
 
-        AF.request(Endpoint.help(charityId: charityId).url, method: .post, parameters: parameters, headers: getHeaders).responseJSON { (response) in
+        AF.request(Endpoint.help(charityId: charityId).url, method: .post, parameters: parameters, headers: self.getHeader()).responseJSON { (response) in
       
-            switch response.result {
-                
-            case .success(let value):
-                let json = JSON(value)
-                guard let token = json["token"].string else {
-                    guard let message = json["message"].string else {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+            if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                self.getHelpPaymentToken(charityId: charityId, amount: amount, completion: completion)
+            }) {
+            } else {
+                switch response.result {
+                    
+                case .success(let value):
+                    let json = JSON(value)
+                    guard let token = json["token"].string else {
+                        guard let message = json["message"].string else {
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                            completion(false, nil)
+                            return
+                        }
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
                         completion(false, nil)
                         return
                     }
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
+                    completion(true, token)
+                    
+                case .failure(_):
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                     completion(false, nil)
-                    return
                 }
-                completion(true, token)
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
-                completion(false, nil)
             }
         }
     }

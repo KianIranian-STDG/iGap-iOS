@@ -35,43 +35,33 @@ class IGApiTopup: IGApiBase {
     func purchase(telNum: String, cost: Int64, completion: @escaping ((_ success: Bool, _ token: String?) -> Void) ) {
         
         let parameters: Parameters = ["tel_num" : telNum, "cost" : cost]
-
-        debugPrint("=========Request Url=========")
-        debugPrint(Endpoint.purchase.url)
-        debugPrint("=========Request Headers=========")
-        debugPrint(getHeaders)
-        debugPrint("=========Request Parameters=========")
-        debugPrint(parameters)
         
-        AF.request(Endpoint.purchase.url, method: .post, parameters: parameters, headers: getHeaders).responseJSON { (response) in
+        AF.request(Endpoint.purchase.url, method: .post, parameters: parameters, headers: self.getHeader()).responseJSON { (response) in
             
-            debugPrint("=========Response Headers=========")
-            debugPrint(response.response ?? "no headers")
-            debugPrint("=========Response Body=========")
-            debugPrint(response.result ?? "NO RESPONSE BODY")
-            
-            
-            switch response.result {
-                
-            case .success(let value):
-                let json = JSON(value)
-                guard let token = json["token"].string else {
-                    guard let message = json["message"].string else {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
-
+            if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                self.purchase(telNum: telNum, cost: cost, completion: completion)
+            }) {
+            } else {
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    guard let token = json["token"].string else {
+                        guard let message = json["message"].string else {
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                            
+                            completion(false, nil)
+                            return
+                        }
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
                         completion(false, nil)
                         return
                     }
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
+                    completion(true, token)
+                    
+                case .failure(_):
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
                     completion(false, nil)
-                    return
                 }
-                completion(true, token)
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
-                completion(false, nil)
             }
         }
     }

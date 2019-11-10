@@ -57,145 +57,113 @@ class IGApiElectricityBill: IGApiBase {
     func queryBill(billNumber: String,phoneNumber: String, completion: @escaping ((_ success: Bool, _ response: IGStructInqueryBill?, _ errorMessage: String?) -> Void) ) {
         let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber]
         
-        debugPrint("=========Request Url=========")
-        debugPrint(Endpoint.queryBill.url)
-        debugPrint("=========Request Headers=========")
-        debugPrint(self.getHeaders)
-        
-        AF.request(Endpoint.queryBill.url, method: .post,parameters: parameters,headers: self.getHeaders).responseData { (response) in
+        AF.request(Endpoint.queryBill.url, method: .post,parameters: parameters,headers: self.getHeader()).responseData { (response) in
             
-            let json = try? JSON(data: response.data ?? Data())
-            
-            debugPrint("=========Response Headers=========")
-            debugPrint(response.response ?? "no headers")
-            debugPrint("=========Response Body=========")
-            debugPrint(json ?? "NO RESPONSE BODY")
-            
-            switch response.result {
-                
-            case .success(let value):
-                do {
-                    let classData = try JSONDecoder().decode(IGStructInqueryBill.self, from: value)
-                    completion(true, classData, nil)
-                } catch let error {
-                    print(error.localizedDescription)
+            if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                self.queryBill(billNumber: billNumber, phoneNumber: phoneNumber, completion: completion)
+            }) {
+            } else {
+                let json = try? JSON(data: response.data ?? Data())
+                switch response.result {
+                case .success(let value):
+                    do {
+                        let classData = try JSONDecoder().decode(IGStructInqueryBill.self, from: value)
+                        completion(true, classData, nil)
+                    } catch _ {
+                        guard json != nil, let message = json!["message"].string else {
+                            completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
+                            return
+                        }
+                        completion(false, nil, message)
+                    }
+                    
+                case .failure(_):
                     guard json != nil, let message = json!["message"].string else {
-                        //                        IGHelperAlert.shared.showErrorAlert()
                         completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
                         return
                     }
-                    //                    IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: message)
                     completion(false, nil, message)
                 }
-                
-            case .failure(let error):
-                print("error: ", error.localizedDescription)
-                guard json != nil, let message = json!["message"].string else {
-                    //                    IGHelperAlert.shared.showErrorAlert()
-                    completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
-                    return
-                }
-                //                IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: message)
-                completion(false, nil, message)
             }
-            
         }
     }
     
     
     func branchingInfo(billNumber: String,phoneNumber: String, completion: @escaping ((_ success: Bool, _ response: IGStructBranchingInfo?, _ errorMessage: String?) -> Void) ) {
         let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber]
-        
-        debugPrint("=========Request Url=========")
-        debugPrint(Endpoint.branchingInfo.url)
-        debugPrint("=========Request Headers=========")
-        debugPrint(self.getHeaders)
-        
-        AF.request(Endpoint.branchingInfo.url, method: .post,parameters: parameters,headers: self.getHeaders).responseData { (response) in
+        AF.request(Endpoint.branchingInfo.url, method: .post,parameters: parameters,headers: self.getHeader()).responseData { (response) in
             
-            let json = try? JSON(data: response.data ?? Data())
-            
-            debugPrint("=========Response Headers=========")
-            debugPrint(response.response ?? "no headers")
-            debugPrint("=========Response Body=========")
-            debugPrint(json ?? "NO RESPONSE BODY")
-            
-            switch response.response?.statusCode {
-            case 200:
-                
-                switch response.result {
+            if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                self.branchingInfo(billNumber: billNumber, phoneNumber: phoneNumber, completion: completion)
+            }) {
+            } else {
+                let json = try? JSON(data: response.data ?? Data())
+                switch response.response?.statusCode {
+                case 200:
                     
-                case .success(let value):
-                    do {
-                        let classData = try JSONDecoder().decode(IGStructBranchingInfo.self, from: value)
-                        completion(true, classData, nil)
-                    } catch let error {
-                        print(error.localizedDescription)
+                    switch response.result {
+                        
+                    case .success(let value):
+                        do {
+                            let classData = try JSONDecoder().decode(IGStructBranchingInfo.self, from: value)
+                            completion(true, classData, nil)
+                        } catch _ {
+                            guard json != nil, let message = json!["message"].string else {
+                                completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
+                                return
+                            }
+                            completion(false, nil, message)
+                        }
+                        
+                    case .failure(_):
                         guard json != nil, let message = json!["message"].string else {
-                            //                        IGHelperAlert.shared.showErrorAlert()
                             completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
                             return
                         }
-                        //                    IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: message)
                         completion(false, nil, message)
                     }
                     
-                case .failure(let error):
-                    print("error: ", error.localizedDescription)
+                default :
                     guard json != nil, let message = json!["message"].string else {
-                        //                    IGHelperAlert.shared.showErrorAlert()
                         completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
                         return
                     }
-                    //                IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: message)
                     completion(false, nil, message)
                 }
-                
-            default :
-                guard json != nil, let message = json!["message"].string else {
-                    //                    IGHelperAlert.shared.showErrorAlert()
-                    completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
-                    return
-                }
-                //                IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: message)
-                completion(false, nil, message)
-                
             }
-            
         }
     }
     
     ////////////////////////////GET IMAGE OF BILL////////////////////////////////
     func getImageOfBill(billNumber: String,phoneNumber: String, completion: @escaping ((_ success: Bool, _ response: IGStructBillImage?, _ errorMessage: String?) -> Void) ) {
         let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber]
-        
-        debugPrint("=========Request Url=========")
-        debugPrint(Endpoint.getImageOfBill.url)
-        debugPrint("=========Request Headers=========")
-        debugPrint(self.getHeaders)
-        
-        AF.request(Endpoint.getImageOfBill.url, method: .post,parameters: parameters,headers: self.getHeaders).responseData { (response) in
+        AF.request(Endpoint.getImageOfBill.url, method: .post,parameters: parameters,headers: self.getHeader()).responseData { (response) in
             
-            let json = try? JSON(data: response.data ?? Data())
-            
-            debugPrint("=========Response Headers=========")
-            debugPrint(response.response ?? "no headers")
-            debugPrint("=========Response Body=========")
-            debugPrint(json ?? "NO RESPONSE BODY")
-            
-            switch response.response?.statusCode {
-            case 200:
+            if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                self.getImageOfBill(billNumber: billNumber, phoneNumber: phoneNumber, completion: completion)
+            }) {
+            } else {
                 
-                switch response.result {
+                let json = try? JSON(data: response.data ?? Data())
+                switch response.response?.statusCode {
+                case 200:
                     
-                case .success(let value):
-                    do {
-                        let classData = try JSONDecoder().decode(IGStructBillImage.self, from: value)
-                        completion(true, classData, nil)
-                    } catch let error {
-                        print(error.localizedDescription)
+                    switch response.result {
+                    case .success(let value):
+                        do {
+                            let classData = try JSONDecoder().decode(IGStructBillImage.self, from: value)
+                            completion(true, classData, nil)
+                        } catch _ {
+                            guard json != nil, let message = json!["message"].string else {
+                                completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
+                                return
+                            }
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
+                            completion(false, nil, message)
+                        }
+
+                    case .failure(_):
                         guard json != nil, let message = json!["message"].string else {
-                            //                        IGHelperAlert.shared.showErrorAlert()
                             completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
                             return
                         }
@@ -203,61 +171,52 @@ class IGApiElectricityBill: IGApiBase {
                         completion(false, nil, message)
                     }
                     
-                case .failure(let error):
-                    print("error: ", error.localizedDescription)
+                    break
+                    
+                default :
                     guard json != nil, let message = json!["message"].string else {
-                        //                    IGHelperAlert.shared.showErrorAlert()
                         completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
                         return
                     }
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
                     completion(false, nil, message)
                 }
-                
-            default :
-                guard json != nil, let message = json!["message"].string else {
-                    //                    IGHelperAlert.shared.showErrorAlert()
-                    completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
-                    return
-                }
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
-                completion(false, nil, message)
-                
             }
-            
         }
     }
+    
+    
     ////////////////////////////EDIT BILL INFO////////////////////////////////
     func editBill(billNumber: String,phoneNumber: String,nationalCode : String? = "",email: String? = "",billTitle : String? = "" ,viaSMS : Bool? = true,viaAP : Bool? = false,viaPRINT : Bool? = false,viaEmail : Bool? = false, completion: @escaping ((_ success: Bool, _ response: IGStructBillImage?, _ errorMessage: String?) -> Void) ) {
         let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber]
         
-        debugPrint("=========Request Url=========")
-        debugPrint(Endpoint.getImageOfBill.url)
-        debugPrint("=========Request Headers=========")
-        debugPrint(self.getHeaders)
-        
-        AF.request(Endpoint.getImageOfBill.url, method: .post,parameters: parameters,headers: self.getHeaders).responseData { (response) in
-            
-            let json = try? JSON(data: response.data ?? Data())
-            
-            debugPrint("=========Response Headers=========")
-            debugPrint(response.response ?? "no headers")
-            debugPrint("=========Response Body=========")
-            debugPrint(json ?? "NO RESPONSE BODY")
-            
-            switch response.response?.statusCode {
-            case 200:
+        AF.request(Endpoint.getImageOfBill.url, method: .post,parameters: parameters,headers: self.getHeader()).responseData { (response) in
+            if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                self.editBill(billNumber: billNumber, phoneNumber: phoneNumber, completion: completion)
+            }) {
+            } else {
+                let json = try? JSON(data: response.data ?? Data())
                 
-                switch response.result {
+                switch response.response?.statusCode {
+                case 200:
                     
-                case .success(let value):
-                    do {
-                        let classData = try JSONDecoder().decode(IGStructBillImage.self, from: value)
-                        completion(true, classData, nil)
-                    } catch let error {
-                        print(error.localizedDescription)
+                    switch response.result {
+                        
+                    case .success(let value):
+                        do {
+                            let classData = try JSONDecoder().decode(IGStructBillImage.self, from: value)
+                            completion(true, classData, nil)
+                        } catch _ {
+                            guard json != nil, let message = json!["message"].string else {
+                                completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
+                                return
+                            }
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
+                            completion(false, nil, message)
+                        }
+                        
+                    case .failure(_):
                         guard json != nil, let message = json!["message"].string else {
-                            //                        IGHelperAlert.shared.showErrorAlert()
                             completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
                             return
                         }
@@ -265,28 +224,15 @@ class IGApiElectricityBill: IGApiBase {
                         completion(false, nil, message)
                     }
                     
-                case .failure(let error):
-                    print("error: ", error.localizedDescription)
+                default :
                     guard json != nil, let message = json!["message"].string else {
-                        //                    IGHelperAlert.shared.showErrorAlert()
                         completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
                         return
                     }
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
                     completion(false, nil, message)
                 }
-                
-            default :
-                guard json != nil, let message = json!["message"].string else {
-                    //                    IGHelperAlert.shared.showErrorAlert()
-                    completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
-                    return
-                }
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
-                completion(false, nil, message)
-                
             }
-            
         }
     }
 
@@ -294,33 +240,34 @@ class IGApiElectricityBill: IGApiBase {
     func addBill(billNumber: String,phoneNumber: String,nationalCode : String? = "",email: String? = "",billTitle : String? = "" ,viaSMS : Bool? = true,viaAP : Bool? = false,viaPRINT : Bool? = false,viaEmail : Bool? = false, completion: @escaping ((_ success: Bool, _ response: IGStructBillImage?, _ errorMessage: String?) -> Void) ) {
         let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber]
         
-        debugPrint("=========Request Url=========")
-        debugPrint(Endpoint.getImageOfBill.url)
-        debugPrint("=========Request Headers=========")
-        debugPrint(self.getHeaders)
-        
-        AF.request(Endpoint.getImageOfBill.url, method: .post,parameters: parameters,headers: self.getHeaders).responseData { (response) in
+        AF.request(Endpoint.getImageOfBill.url, method: .post,parameters: parameters,headers: self.getHeader()).responseData { (response) in
             
-            let json = try? JSON(data: response.data ?? Data())
-            
-            debugPrint("=========Response Headers=========")
-            debugPrint(response.response ?? "no headers")
-            debugPrint("=========Response Body=========")
-            debugPrint(json ?? "NO RESPONSE BODY")
-            
-            switch response.response?.statusCode {
-            case 200:
+            if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                self.addBill(billNumber: billNumber, phoneNumber: phoneNumber, completion: completion)
+            }) {
+            } else {
+                let json = try? JSON(data: response.data ?? Data())
                 
-                switch response.result {
+                switch response.response?.statusCode {
+                case 200:
                     
-                case .success(let value):
-                    do {
-                        let classData = try JSONDecoder().decode(IGStructBillImage.self, from: value)
-                        completion(true, classData, nil)
-                    } catch let error {
-                        print(error.localizedDescription)
+                    switch response.result {
+                        
+                    case .success(let value):
+                        do {
+                            let classData = try JSONDecoder().decode(IGStructBillImage.self, from: value)
+                            completion(true, classData, nil)
+                        } catch _ {
+                            guard json != nil, let message = json!["message"].string else {
+                                completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
+                                return
+                            }
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
+                            completion(false, nil, message)
+                        }
+                        
+                    case .failure(_):
                         guard json != nil, let message = json!["message"].string else {
-                            //                        IGHelperAlert.shared.showErrorAlert()
                             completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
                             return
                         }
@@ -328,29 +275,15 @@ class IGApiElectricityBill: IGApiBase {
                         completion(false, nil, message)
                     }
                     
-                case .failure(let error):
-                    print("error: ", error.localizedDescription)
+                default :
                     guard json != nil, let message = json!["message"].string else {
-                        //                    IGHelperAlert.shared.showErrorAlert()
                         completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
                         return
                     }
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
                     completion(false, nil, message)
                 }
-                
-            default :
-                guard json != nil, let message = json!["message"].string else {
-                    //                    IGHelperAlert.shared.showErrorAlert()
-                    completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
-                    return
-                }
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
-                completion(false, nil, message)
-                
             }
-            
         }
     }
-
 }

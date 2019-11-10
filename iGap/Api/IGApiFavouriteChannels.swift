@@ -34,28 +34,35 @@ class IGApiFavouriteChannels: IGApiBase {
     private static let beeptunesBaseUrl = "https://api.igap.net/services/v1.0/channel"
     
     func homeItems(completion: @escaping ((_ success: Bool, _ items: [FavouriteChannelHomeItem]) -> Void) ) {
-    
-        AF.request(Endpoint.homePage.url, headers: self.getHeaders).responseFavouriteChannelsArray(type: FavouriteChannelHomeItem.self) { response in
-
-            guard let items = response.value?.data else {
-                completion(false, [])
-                print("error", response.error ?? "")
-                return
+        AF.request(Endpoint.homePage.url, headers: self.getHeader()).responseFavouriteChannelsArray(type: FavouriteChannelHomeItem.self) { response in
+            if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                self.homeItems(completion: completion)
+            }) {
+            } else {
+                guard let items = response.value?.data else {
+                    completion(false, [])
+                    print("error", response.error ?? "")
+                    return
+                }
+                completion(true, items)
             }
-            completion(true, items)
         }
     }
     
     func getCategoryInfo(for categoryId: String, page: Int, completion: @escaping ((_ success: Bool, _ categoryInfo: FavouriteChannelCategoryInfo?) -> Void) ) {
         
-        AF.request(Endpoint.categoryInfo(id: categoryId, page: page).url, headers: self.getHeaders).responseCategoryInfo { response in
-            
-            guard let categoryInfo = response.value else {
-                completion(false, nil)
-                print("error", response.error ?? "")
-                return
+        AF.request(Endpoint.categoryInfo(id: categoryId, page: page).url, headers: self.getHeader()).responseCategoryInfo { response in
+            if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                self.getCategoryInfo(for: categoryId, page: page, completion: completion)
+            }) {
+            } else {
+                guard let categoryInfo = response.value else {
+                    completion(false, nil)
+                    print("error", response.error ?? "")
+                    return
+                }
+                completion(true, categoryInfo)
             }
-            completion(true, categoryInfo)
         }
     }
 }

@@ -329,6 +329,7 @@ class IGAppManager: NSObject {
     
     public func getAccessToken() -> String? {
         if let session = IGDatabaseManager.shared.realm.objects(IGSessionInfo.self).first {
+            print("WWW || session.accessToken: \(session.accessToken)")
             return session.accessToken
         } else {
             return nil
@@ -388,12 +389,17 @@ class IGAppManager: NSObject {
         _walletActive = enable
     }
     
-    public func setAccessToken(accessToken: String) {
+    public func setAccessToken(accessToken: String, completion: (() -> Void)? = nil) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
                 if let session = IGDatabaseManager.shared.realm.objects(IGSessionInfo.self).first {
+                    print("WWW || set accessToken: \(accessToken)")
                     session.accessToken = accessToken
                 }
+            }
+            IGApiBase.sharedApiBase.refreshHeader()
+            if completion != nil {
+                completion!()
             }
         }
     }
