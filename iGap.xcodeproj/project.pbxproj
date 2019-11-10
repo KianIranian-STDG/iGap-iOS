@@ -241,6 +241,10 @@
 		8ED68CAD2377218C00637C29 /* IGStructEditBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED68CAC2377218C00637C29 /* IGStructEditBill.swift */; };
 		8ED68CAF2377219B00637C29 /* IGStructAddBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED68CAE2377219B00637C29 /* IGStructAddBill.swift */; };
 		8ED68CB12377243C00637C29 /* IGElecAddEditBillTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED68CB02377243C00637C29 /* IGElecAddEditBillTableViewController.swift */; };
+		8ED68CB32377BDAC00637C29 /* IGElecBillMyBillListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED68CB22377BDAC00637C29 /* IGElecBillMyBillListTableViewController.swift */; };
+		8ED68CB52377BDC500637C29 /* IGElecBillTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED68CB42377BDC500637C29 /* IGElecBillTableViewCell.swift */; };
+		8ED68CB72377C2A500637C29 /* IGStructBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED68CB62377C2A500637C29 /* IGStructBill.swift */; };
+		8ED68CB92378165D00637C29 /* IGStructDeleteBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED68CB82378165D00637C29 /* IGStructDeleteBill.swift */; };
 		8ED97D7622E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED97D7522E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift */; };
 		8ED97D7822E2F7B300A0EB1F /* ServerDataInner.json in Resources */ = {isa = PBXBuildFile; fileRef = 8ED97D7722E2F7B300A0EB1F /* ServerDataInner.json */; };
 		8EE1BFC82281604D001A2867 /* IGSetUserNickNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */; };
@@ -1052,6 +1056,10 @@
 		8ED68CAC2377218C00637C29 /* IGStructEditBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructEditBill.swift; sourceTree = "<group>"; };
 		8ED68CAE2377219B00637C29 /* IGStructAddBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructAddBill.swift; sourceTree = "<group>"; };
 		8ED68CB02377243C00637C29 /* IGElecAddEditBillTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGElecAddEditBillTableViewController.swift; sourceTree = "<group>"; };
+		8ED68CB22377BDAC00637C29 /* IGElecBillMyBillListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGElecBillMyBillListTableViewController.swift; sourceTree = "<group>"; };
+		8ED68CB42377BDC500637C29 /* IGElecBillTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGElecBillTableViewCell.swift; sourceTree = "<group>"; };
+		8ED68CB62377C2A500637C29 /* IGStructBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructBill.swift; sourceTree = "<group>"; };
+		8ED68CB82378165D00637C29 /* IGStructDeleteBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructDeleteBill.swift; sourceTree = "<group>"; };
 		8ED97D7522E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFavouriteChannelsDashboardInnerTableViewController.swift; sourceTree = "<group>"; };
 		8ED97D7722E2F7B300A0EB1F /* ServerDataInner.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ServerDataInner.json; sourceTree = "<group>"; };
 		8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSetUserNickNameTableViewController.swift; sourceTree = "<group>"; };
@@ -1696,7 +1704,9 @@
 				8E0405C62371B9CE00516DEB /* IGStructBranchingInfo.swift */,
 				8E3D6B9023770FEB00489762 /* IGStructBillImage.swift */,
 				8ED68CAC2377218C00637C29 /* IGStructEditBill.swift */,
+				8ED68CB82378165D00637C29 /* IGStructDeleteBill.swift */,
 				8ED68CAE2377219B00637C29 /* IGStructAddBill.swift */,
+				8ED68CB62377C2A500637C29 /* IGStructBill.swift */,
 			);
 			path = ElectricityBills;
 			sourceTree = "<group>";
@@ -1841,6 +1851,8 @@
 				8ED68CB02377243C00637C29 /* IGElecAddEditBillTableViewController.swift */,
 				8E0405C1237146D300516DEB /* IGElecBillDetailPageTableViewController.swift */,
 				8E0405C82371C7F000516DEB /* IGElecBillBranchingInfoTableViewController.swift */,
+				8ED68CB22377BDAC00637C29 /* IGElecBillMyBillListTableViewController.swift */,
+				8ED68CB42377BDC500637C29 /* IGElecBillTableViewCell.swift */,
 			);
 			path = ElecBill;
 			sourceTree = "<group>";
@@ -3875,6 +3887,7 @@
 				8E1CD978232D06B0008D8758 /* IGUserContactsTableViewCell.swift in Sources */,
 				8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */,
 				8E4177F8233CDABD00CEB3AF /* AKMaskFieldPatternCharacter.swift in Sources */,
+				8ED68CB92378165D00637C29 /* IGStructDeleteBill.swift in Sources */,
 				8E3C697023603096001575BE /* MusicCell.swift in Sources */,
 				8EBB455D2270202A00A52D88 /* BaseCollectionViewController.swift in Sources */,
 				8E599D842328D13900D75376 /* CallTypesCVCell.swift in Sources */,
@@ -3908,6 +3921,7 @@
 				8E3C69942360785E001575BE /* IGTagManager.swift in Sources */,
 				FA76598422902ACE006322A3 /* INSPhotosDataSource.swift in Sources */,
 				FAC0F08920F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift in Sources */,
+				8ED68CB52377BDC500637C29 /* IGElecBillTableViewCell.swift in Sources */,
 				FAEC476421F31B1B006C07A4 /* AdditionalObserver.swift in Sources */,
 				932D1ABA1E741C18000F0D97 /* IGChannelAndGroupSharedMediaAudioAndLinkTableViewController.swift in Sources */,
 				8EEE895822A3CF360072383C /* SectionHeader.swift in Sources */,
@@ -4007,6 +4021,7 @@
 				8ECCA1EC22B7CF7A00D3A734 /* customAmountTextField.swift in Sources */,
 				FAB9064222B63F2600E81287 /* MessageOnChatReceiveObserver.swift in Sources */,
 				FA6C2DE92267413A005654AC /* IGScoreViewController.swift in Sources */,
+				8ED68CB32377BDAC00637C29 /* IGElecBillMyBillListTableViewController.swift in Sources */,
 				FA899B6F2046DFC8001A33CB /* CallStateObserver.swift in Sources */,
 				FAD8A02B21EE0860006996E1 /* IGHelperJson.swift in Sources */,
 				FA85066222670703002EEBF7 /* SMMyBarCodeViewController.swift in Sources */,
@@ -4016,6 +4031,7 @@
 				FA5EC5E11E069A1E006E2850 /* IGTextAttachment.swift in Sources */,
 				FA7E9BD422631D7900FB861D /* SelectCountryObserver.swift in Sources */,
 				8EA8F3EA231F9E450099C4EF /* UICircularRingStyle.swift in Sources */,
+				8ED68CB72377C2A500637C29 /* IGStructBill.swift in Sources */,
 				FAD959051F48AD8600FBD306 /* MTBBarcodeScanner.m in Sources */,
 				8E3C696E23602EB2001575BE /* Music.swift in Sources */,
 				8EC217A92259B90F00105B5A /* walletModalViewController.swift in Sources */,

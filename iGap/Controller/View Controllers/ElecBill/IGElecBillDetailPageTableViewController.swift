@@ -1,11 +1,12 @@
-//
-//  IGElecBillDetailPageTableViewController.swift
-//  iGap
-//
-//  Created by BenyaminMokhtarpour on 11/5/19.
-//  Copyright © 2019 Kianiranian STDG -www.kianiranian.com. All rights reserved.
-//
-
+/*
+* This is the source code of iGap for iOS
+* It is licensed under GNU AGPL v3.0
+* You should have received a copy of the license in this archive (see LICENSE).
+* Copyright © 2017 , iGap - www.iGap.net
+* iGap Messenger | Free, Fast and Secure instant messaging application
+* The idea of the Kianiranian STDG - www.kianiranian.com
+* All rights reserved.
+*/
 import UIKit
 import RealmSwift
 
@@ -33,6 +34,7 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
 
     // MARK: - Variables
     var billNumber: String!
+    var billTittle : String! = ""
     var payDate: String!
     var payAmount: String!
     var payNumber: String!
@@ -134,6 +136,15 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
         btnDetailBranch.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         btnAddToMyBills.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         btnPDFofBill.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        lblTTlBillNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        lblTTlBillPayNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        lblTTlBillPayDate.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        lblTTlBillPayAmount.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        lblDataBillNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        lblDataBillPayDate.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        lblDataBillPayAmount.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        lblDataBillPayNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
+
     }
     
     private func initAlignments() {
@@ -245,6 +256,8 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
         let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
 
         addEditVC.userNumber = userPhoneNumber
+        addEditVC.canEditBill = self.canEditBill
+        addEditVC.billTitle = self.billTittle
         self.navigationController!.pushViewController(addEditVC, animated:true)
 
     }

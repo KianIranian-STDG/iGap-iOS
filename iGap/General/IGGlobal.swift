@@ -164,7 +164,17 @@ class IGGlobal {
     internal static func isKeyPresentInUserDefaults(key: String) -> Bool {
         return UserDefaults.standard.object(forKey: key) != nil
     }
-
+    
+    internal static func validaatePhoneNUmber(phone : Int64!) -> String {
+        let str = String(phone)
+        if str.starts(with: "98") {
+            return str.replacingOccurrences(of: "98", with: "0")
+        } else if str.starts(with: "09") {
+            return str
+        } else {
+            return str
+        }
+    }
     /////SET LANGUAGE//////
     
     internal static func setLanguage() {

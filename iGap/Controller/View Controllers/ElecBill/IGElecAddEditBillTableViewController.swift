@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import SwiftEventBus
 
 class IGElecAddEditBillTableViewController: BaseTableViewController {
 
@@ -23,6 +24,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
     @IBOutlet weak var btnAddEdit: UIButton!
     // MARK: - Variables
     var billNumber: String!
+    var billTitle: String!
     var userNumber: String!
     var canEditBill : Bool = false
 
@@ -74,7 +76,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
     private func initStrings() {
         tfUserNumber.text = userNumber.inLocalizedLanguage()
         tfBillNUmber.text = billNumber.inLocalizedLanguage()
-        tfBillName.text = ""
+        tfBillName.text = billTitle
         if canEditBill {
             btnAddEdit.setTitle("BILL_EDIT_MODE".localizedNew, for: .normal)
         } else {
@@ -120,7 +122,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
     }
     
     private func addBill(userPhoneNumber: String) {
-        IGApiElectricityBill.shared.addBill(billNumber: (billNumber.inEnglishNumbersNew()), phoneNumber: userPhoneNumber.inEnglishNumbersNew(),billTitle: self.tfBillName.text, completion: {(success, response, errorMessage) in
+        IGApiElectricityBill.shared.addBill(billNumber: (billNumber.inEnglishNumbersNew()), phoneNumber: userPhoneNumber.inEnglishNumbersNew(),billTitle: self.tfBillName.text!, completion: {(success, response, errorMessage) in
              SMLoading.hideLoadingPage()
              if success {
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SUCCESS_OPERATION".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew , cancel: {
@@ -133,11 +135,14 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
          })
     }
     private func editBill(userPhoneNumber: String) {
-        IGApiElectricityBill.shared.editBill(billNumber: (billNumber.inEnglishNumbersNew()), phoneNumber: userPhoneNumber.inEnglishNumbersNew(),billTitle: self.tfBillName.text, completion: {(success, response, errorMessage) in
+        IGApiElectricityBill.shared.editBill(billNumber: (billNumber.inEnglishNumbersNew()), phoneNumber: userPhoneNumber.inEnglishNumbersNew(),billTitle: self.tfBillName.text!, completion: {(success, response, errorMessage) in
              SMLoading.hideLoadingPage()
              if success {
+
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SUCCESS_OPERATION".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew , cancel: {
                     self.navigationController?.popViewController(animated: true)
+                    SwiftEventBus.post(EventBusManager.updateBillsName)
+
                 })
 
              } else {
@@ -167,6 +172,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
             SMLoading.showLoadingPage(viewcontroller: self)
 
             editBill(userPhoneNumber: userPhoneNumber)
+            
         } else {
             let realm = try! Realm()
             let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)

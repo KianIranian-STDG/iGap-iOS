@@ -778,6 +778,9 @@
         "BILL_DETAIL" : "Bill Details",
         "BILL_FILL_DATA" : "Please Fill The Form Below",
         "BILL_NAME" : "Bill Name",
+        "BILL_BILL_LIST" : "My Bill List",
+        "LESS_THAN_1000" : "The amount to pay should be greater than 10,000 Rial",
+        "ADD_NEW_BILL" : "Add ne bill",
 
 
 

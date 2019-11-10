@@ -38,7 +38,7 @@ class IGApiElectricityBill: IGApiBase {
             case .deleteBill:
                 urlString += "/api/delete-bill"
             case .getBills:
-                break
+                urlString += "/api/get-bills"
             case .branchingInfo:
                 urlString += "/api/get-branch-info"
             case .getImageOfBill:
@@ -228,14 +228,16 @@ class IGApiElectricityBill: IGApiBase {
         }
     }
     ////////////////////////////EDIT BILL INFO////////////////////////////////
-    func editBill(billNumber: String,phoneNumber: String,nationalCode : String? = "",email: String? = "",billTitle : String? = "" ,viaSMS : Bool? = true,viaAP : Bool? = false,viaPRINT : Bool? = false,viaEmail : Bool? = false, completion: @escaping ((_ success: Bool, _ response: IGStructEditBill?, _ errorMessage: String?) -> Void) ) {
-        let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber]
+    func editBill(billNumber: String,phoneNumber: String,nationalCode : String? = "",email: String = "",billTitle : String ,viaSMS : Bool = true,viaAP : Bool = false,viaPRINT : Bool = false,viaEmail : Bool = false, completion: @escaping ((_ success: Bool, _ response: IGStructEditBill?, _ errorMessage: String?) -> Void) ) {
+        let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber, "bill_title" : billTitle,"viasms" : viaSMS,"viaap" : viaAP,"viaemail": viaEmail,"viaprint" : viaPRINT]
         
         debugPrint("=========Request Url=========")
         debugPrint(Endpoint.getImageOfBill.url)
         debugPrint("=========Request Headers=========")
         debugPrint(self.getHeaders)
-        
+        debugPrint("=========PARAMETERS=========")
+        debugPrint(parameters)
+
         AF.request(Endpoint.editBill.url, method: .post,parameters: parameters,headers: self.getHeaders).responseData { (response) in
             
             let json = try? JSON(data: response.data ?? Data())
@@ -298,11 +300,11 @@ class IGApiElectricityBill: IGApiBase {
             
         }
     }
-
+    
     ////////////////////////////ADD TO MY BILL LIST////////////////////////////////
-    func addBill(billNumber: String,phoneNumber: String,nationalCode : String? = "",email: String? = "",billTitle : String? = "" ,viaSMS : Bool? = true,viaAP : Bool? = false,viaPRINT : Bool? = false,viaEmail : Bool? = false, completion: @escaping ((_ success: Bool, _ response: IGStructAddBill?, _ errorMessage: String?) -> Void) ) {
-        let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber]
-        
+    func addBill(billNumber: String,phoneNumber: String,nationalCode : String? = "",email: String = "",billTitle : String ,viaSMS : Bool = true,viaAP : Bool = false,viaPRINT : Bool = false,viaEmail : Bool = false, completion: @escaping ((_ success: Bool, _ response: IGStructAddBill?, _ errorMessage: String?) -> Void) ) {
+        let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber, "bill_title" : billTitle,"viasms" : viaSMS,"viaap" : viaAP,"viaemail": viaEmail,"viaprint" : viaPRINT]
+
         debugPrint("=========Request Url=========")
         debugPrint(Endpoint.getImageOfBill.url)
         debugPrint("=========Request Headers=========")
@@ -364,6 +366,142 @@ class IGApiElectricityBill: IGApiBase {
                     UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                 })
 
+                completion(false, nil, message)
+                
+            }
+            
+        }
+    }
+    
+    
+    ////////////////////////////GET BILL LIST////////////////////////////////
+    func getBills(phoneNumber: String, completion: @escaping ((_ success: Bool, _ response: IGStructBill?, _ errorMessage: String?) -> Void) ) {
+        let parameters: Parameters = ["mobile_number" : phoneNumber]
+        
+        debugPrint("=========Request Url=========")
+        debugPrint(Endpoint.getBills.url)
+        debugPrint("=========Request Headers=========")
+        debugPrint(self.getHeaders)
+        
+        AF.request(Endpoint.getBills.url, method: .post,parameters: parameters,headers: self.getHeaders).responseData { (response) in
+            
+            let json = try? JSON(data: response.data ?? Data())
+            
+            debugPrint("=========Response Headers=========")
+            debugPrint(response.response ?? "no headers")
+            debugPrint("=========Response Body=========")
+            debugPrint(json ?? "NO RESPONSE BODY")
+            
+            switch response.response?.statusCode {
+            case 200:
+                
+                switch response.result {
+                    
+                case .success(let value):
+                    do {
+                        let classData = try JSONDecoder().decode(IGStructBill.self, from: value)
+                        completion(true, classData, nil)
+                    } catch let error {
+                        print(error.localizedDescription)
+                        guard json != nil, let message = json!["message"].string else {
+                            //                        IGHelperAlert.shared.showErrorAlert()
+                            completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
+                            return
+                        }
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew,cancel: {
+                            UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                        })
+
+                        completion(false, nil, message)
+                    }
+                    
+                case .failure(let error):
+                    print("error: ", error.localizedDescription)
+                    guard json != nil, let message = json!["message"].string else {
+                        //                    IGHelperAlert.shared.showErrorAlert()
+                        completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
+                        return
+                    }
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew,cancel: {
+                        UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                    })
+
+                    completion(false, nil, message)
+                }
+                
+            default :
+                guard json != nil, let message = json!["message"].string else {
+                    //                    IGHelperAlert.shared.showErrorAlert()
+                    completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
+                    return
+                }
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew,cancel: {
+                    UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                })
+
+                completion(false, nil, message)
+                
+            }
+            
+        }
+    }
+    
+    ////////////////////////////DELETE  BILL LIST////////////////////////////////
+    func deleteBill(billNumber: String,phoneNumber: String, completion: @escaping ((_ success: Bool, _ response: IGStructDeleteBill?, _ errorMessage: String?) -> Void) ) {
+        let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber]
+        
+        debugPrint("=========Request Url=========")
+        debugPrint(Endpoint.deleteBill.url)
+        debugPrint("=========Request Headers=========")
+        debugPrint(self.getHeaders)
+        
+        AF.request(Endpoint.deleteBill.url, method: .post,parameters: parameters,headers: self.getHeaders).responseData { (response) in
+            
+            let json = try? JSON(data: response.data ?? Data())
+            
+            debugPrint("=========Response Headers=========")
+            debugPrint(response.response ?? "no headers")
+            debugPrint("=========Response Body=========")
+            debugPrint(json ?? "NO RESPONSE BODY")
+            
+            switch response.response?.statusCode {
+            case 200:
+                
+                switch response.result {
+                    
+                case .success(let value):
+                    do {
+                        let classData = try JSONDecoder().decode(IGStructDeleteBill.self, from: value)
+                        completion(true, classData, nil)
+                    } catch let error {
+                        print(error.localizedDescription)
+                        guard json != nil, let message = json!["message"].string else {
+                            //                        IGHelperAlert.shared.showErrorAlert()
+                            completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
+                            return
+                        }
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        completion(false, nil, message)
+                    }
+                    
+                case .failure(let error):
+                    print("error: ", error.localizedDescription)
+                    guard json != nil, let message = json!["message"].string else {
+                        //                    IGHelperAlert.shared.showErrorAlert()
+                        completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
+                        return
+                    }
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
+                    completion(false, nil, message)
+                }
+                
+            default :
+                guard json != nil, let message = json!["message"].string else {
+                    //                    IGHelperAlert.shared.showErrorAlert()
+                    completion(false, nil, "UNSSUCCESS_OTP".localizedNew)
+                    return
+                }
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localizedNew)
                 completion(false, nil, message)
                 
             }

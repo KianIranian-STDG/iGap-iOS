@@ -23,6 +23,8 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
     @IBOutlet weak var tfBillIdNumber : UITextField!
     
     // MARK: - Variables
+    var myBillList: [billObject]!
+    var myBillListInnerData : [InqueryDataStruct]! = []
 
     // MARK: - View LifeCycle
     
@@ -116,14 +118,12 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
             return str
         }
     }
-    private func queryBill(userPhoneNumber: String!) {
+    private func querySingleBill(userPhoneNumber: String!) {
 
         IGApiElectricityBill.shared.queryBill(billNumber: (tfBillIdNumber.text?.inEnglishNumbersNew())!, phoneNumber: userPhoneNumber, completion: {(success, response, errorMessage) in
             SMLoading.hideLoadingPage()
             if success {
                 print(response)
-                self.navigationController!.popViewController(animated: true)
-
                 let billDataVC = IGElecBillDetailPageTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
                 billDataVC.billNumber = (self.tfBillIdNumber.text?.inEnglishNumbersNew())!
                 billDataVC.hidesBottomBarWhenPushed = true
@@ -135,10 +135,61 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
             }
         })
     }
-    
+
+    private func queryMultiBills(billNumber: String!,userPhoneNumber: String!) {
+
+        IGApiElectricityBill.shared.queryBill(billNumber: billNumber, phoneNumber: userPhoneNumber, completion: {(success, response, errorMessage) in
+            SMLoading.hideLoadingPage()
+            if success {
+                var billInfo = InqueryDataStruct()
+                billInfo.billIdentifier = billNumber
+                billInfo.paymentDeadLine = response?.data?.paymentDeadLine
+                billInfo.paymentIdentifier = response?.data?.paymentIdentifier
+                billInfo.totalBillDebt = response?.data?.totalBillDebt
+                self.myBillListInnerData.append(billInfo)
+            } else {
+                print(errorMessage)
+            }
+        })
+    }
+
+    private func getBillList(userPhoneNumber: String!) {
+        IGApiElectricityBill.shared.getBills(phoneNumber: userPhoneNumber, completion: {(success, response, errorMessage) in
+            SMLoading.hideLoadingPage()
+            if success {
+                self.myBillList = response?.data?.billData
+//                self.getBillsOtherData(bills: self.myBillList,userPhoneNumber: userPhoneNumber)
+                let billLisrVC = IGElecBillMyBillListTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
+                billLisrVC.myBillList = self.myBillList
+                billLisrVC.myBillListInnerData = self.myBillListInnerData
+                billLisrVC.userPhoneNumber = userPhoneNumber
+                billLisrVC.hidesBottomBarWhenPushed = true
+                self.navigationController!.pushViewController(billLisrVC, animated:true)
+
+            } else {
+                print(errorMessage)
+            }
+        })
+    }
+    private func getBillsOtherData(bills: [billObject],userPhoneNumber: String!) {
+        SMLoading.showLoadingPage(viewcontroller: self)
+        for bill in bills {
+            queryMultiBills(billNumber: bill.billIdentifier, userPhoneNumber: userPhoneNumber)
+        }
+
+    }
     // MARK: - Actions
     @IBAction func txtBillNUmber(_ sender: UITextField) {
 
+    }
+    @IBAction func didTapOnShowMyBillList(_ sender: UIButton) {
+        let realm = try! Realm()
+        let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
+        let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
+
+        let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
+        SMLoading.showLoadingPage(viewcontroller: self)
+        getBillList(userPhoneNumber: userPhoneNumber)
     }
     @IBAction func didTapOnScanBarcode(_ sender: UIButton) {
         let scanner = IGSettingQrScannerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
@@ -158,7 +209,7 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
 
             let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
             SMLoading.showLoadingPage(viewcontroller: self)
-            queryBill(userPhoneNumber: userPhoneNumber)
+            querySingleBill(userPhoneNumber: userPhoneNumber)
             
         }
     }
