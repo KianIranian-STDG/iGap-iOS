@@ -334,7 +334,7 @@ class IGUserContactsImportRequest : IGRequest {
             if let tstMD5 = md5Hex {
                 contactsImportRequestMessage.igpContactHash = tstMD5
             }
-            return IGRequestWrapper(message: contactsImportRequestMessage, actionID: 106)
+            return IGRequestWrapper(message: contactsImportRequestMessage, actionID: 106, identity: md5Hex)
         }
     }
     

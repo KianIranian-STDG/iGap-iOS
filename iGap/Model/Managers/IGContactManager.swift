@@ -25,6 +25,8 @@ class IGContactManager: NSObject {
     private var resultsChunk = [[CNContact]]()
     private var contactIndex = 0
     private var CONTACT_IMPORT_LIMIT = 25
+    private var md5Hex: String!
+    
     
     private override init() {
         super.init()
@@ -84,14 +86,12 @@ class IGContactManager: NSObject {
     
     private func sendContactsToServer() {
         DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1.0) {
-            if self.resultsChunk.count == 0 || self.contactIndex >= self.resultsChunk.count{
+            if self.resultsChunk.count == 0 {
                 self.getContactListFromServer()
                 return
             }
             
             var contactsPhoneStruct = [String]()
-            let result = self.resultsChunk[self.contactIndex]
-
             if self.results.count > 0 {
                 for contact in self.results {
                     for phone in contact.phoneNumbers {
@@ -99,24 +99,29 @@ class IGContactManager: NSObject {
                     }
                 }
             }
-
-            let sortedPhonenumbers = contactsPhoneStruct.sorted {$0.localizedStandardCompare($1) == .orderedAscending}
             
+            let sortedPhonenumbers = contactsPhoneStruct.sorted {$0.localizedStandardCompare($1) == .orderedAscending}
             let tmpString = (sortedPhonenumbers.joined(separator: ","))
             let md5Data = IGGlobal.MD5(string:tmpString)
-            let md5Hex =  md5Data.map { String(format: "%02hhx", $0) }.joined()
-
+            self.md5Hex = md5Data.map { String(format: "%02hhx", $0) }.joined()
+            if (IGAppManager.sharedManager.md5Hex() != self.md5Hex) {
+                self.sendContactPreparation()
+            } else {
+                self.getContactListFromServer()
+            }
+        }
+    }
+    
+    private func sendContactPreparation(){
+        if self.contactIndex < self.resultsChunk.count {
+            let result = self.resultsChunk[self.contactIndex]
             self.makeContactStruct(contacts: result) { (contactsStructList) in
-                if (IGAppManager.sharedManager.md5Hex() != md5Hex) {
-                    if (self.contactIndex ) == (self.resultsChunk.count - 1) {
-                        self.sendContact(phoneContacts: contactsStructList, md5Hex: md5Hex)
-                        self.contactIndex += 1
-
-                    } else {
-                        self.sendContact(phoneContacts: contactsStructList)
-                        self.contactIndex += 1
-                    }
+                if (self.contactIndex) == (self.resultsChunk.count - 1) {
+                    self.sendContact(phoneContacts: contactsStructList, md5Hex: self.md5Hex)
+                } else {
+                    self.sendContact(phoneContacts: contactsStructList)
                 }
+                self.contactIndex += 1
             }
         }
     }
@@ -142,16 +147,20 @@ class IGContactManager: NSObject {
     }
     
     private func sendContact(phoneContacts : [ContactsStruct], md5Hex : String? = nil){
-        IGUserContactsImportRequest.Generator.generateStruct(contacts: phoneContacts , md5Hex : md5Hex).success ({ (protoResponse) in
+        IGUserContactsImportRequest.Generator.generateStruct(contacts: phoneContacts , md5Hex : md5Hex).successPowerful ({ (protoResponse, requestWrapper) in
             if let contactImportResponse = protoResponse as? IGPUserContactsImportResponse {
                 IGUserContactsImportRequest.Handler.interpret(response: contactImportResponse)
-                self.sendContactsToServer()
+                self.sendContactPreparation()
+            }
+            // if md5Hex is exist this reponse is latest response for import contact so now get contact list from server
+            if let _ = requestWrapper.identity as? String {
+                self.getContactListFromServer()
             }
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
                 IGContactManager.importedContact = false
-                self.sendContactsToServer()
+                self.sendContactPreparation()
             default:
                 break
             }
