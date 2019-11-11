@@ -828,6 +828,34 @@
 "BILL_ADD_MODE" = "Add to my Bill's list";
 "BILL_PDF_IMAGE" = "Show Bill's Image";
 
+"BILL_DETAIL_IDENTIFIER" = "Bill Identifier";
+"BILL_DETAIL_PAY_ID" = "Payment Identifier";
+"BILL_DETAIL_COMPANY_CODE" = "Company Code";
+"BILL_DETAIL_COMPANY_NAME" = "Company Name";
+"BILL_DETAIL_PHASE" = "Phase";
+"BILL_DETAIL_VOLTAGE" = "Voltage";
+"BILL_DETAIL_TARIFE_TYPE" = "Tarife Type";
+"BILL_DETAIL_CUSTOMER_TYPE" = "Customer Type";
+"BILL_DETAIL_CUSTOMER_NAME" = "Customer Name";
+"BILL_DETAIL_CUSTOMER_TEL" = "Customer Tel Number";
+"BILL_DETAIL_CUSTOMER_MOB" = "Customer Mobile Number";
+"BILL_DETAIL_CUSTOMER_ADD" = "Customer Address";
+"BILL_DETAIL_CUSTOMER_POSTALCODE" = "Customer Postal Code";
+"BILL_DETAIL_CUSTOMER_LOCATION_ZONE" = "Customer Zone";
+"BILL_DETAIL_CUSTOMER_DEVICE_NUMBER" = "Device Serial Number";
+"BILL_DETAIL_DUE_DATE" = "Payment Deadline";
+"BILL_DETAIL_LAST_READ" = "Device Last Read Date";
+"BILL_DETAIL_POWER" = "Power";
+"BILL_DETAIL" = "Bill Details";
+"BILL_FILL_DATA" = "Please Fill The Form Below";
+"BILL_NAME" = "Bill Name";
+"BILL_BILL_LIST" = "My Bill List";
+"LESS_THAN_1000" = "The amount to pay should be greater than 10,000 Rial";
+"ADD_NEW_BILL" = "Add ne bill";
+"SELECT_COMPANY_FROM_LIST" = "Please Select company name from list Below";
+"ENETER_DEVICE_SERIAL_NUMBER" = "Please Enter your Counter Meter Serial Number";
+"FIND_MY_BILL" = "Find My Bill";
+
 
 "CHARITY" = "Charity";
 

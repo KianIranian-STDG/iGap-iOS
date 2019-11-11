@@ -122,11 +122,12 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
     }
     
     private func addBill(userPhoneNumber: String) {
-        IGApiElectricityBill.shared.addBill(billNumber: (billNumber.inEnglishNumbersNew()), phoneNumber: userPhoneNumber.inEnglishNumbersNew(),billTitle: self.tfBillName.text!, completion: {(success, response, errorMessage) in
+        IGApiElectricityBill.shared.addBill(billNumber: (tfBillNUmber.text!.inEnglishNumbersNew()), phoneNumber: userPhoneNumber.inEnglishNumbersNew(),billTitle: self.tfBillName.text!, completion: {(success, response, errorMessage) in
              SMLoading.hideLoadingPage()
              if success {
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SUCCESS_OPERATION".localized, cancelText: "GLOBAL_CLOSE".localized , cancel: {
                     self.navigationController?.popViewController(animated: true)
+                    SwiftEventBus.post(EventBusManager.updateBillsName)
                 })
 
              } else {
@@ -135,7 +136,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
          })
     }
     private func editBill(userPhoneNumber: String) {
-        IGApiElectricityBill.shared.editBill(billNumber: (billNumber.inEnglishNumbersNew()), phoneNumber: userPhoneNumber.inEnglishNumbersNew(),billTitle: self.tfBillName.text!, completion: {(success, response, errorMessage) in
+        IGApiElectricityBill.shared.editBill(billNumber: (tfBillNUmber.text!.inEnglishNumbersNew()), phoneNumber: userPhoneNumber.inEnglishNumbersNew(),billTitle: self.tfBillName.text!, completion: {(success, response, errorMessage) in
              SMLoading.hideLoadingPage()
              if success {
 
@@ -163,25 +164,31 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
 
     // MARK: - Actions
     @IBAction func didTapOnAddEditButton(_ sender: UIButton) {
-        if canEditBill {
-            let realm = try! Realm()
-            let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
-            let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
+        if tfBillNUmber.text == "" {
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localized, cancelText: "GLOBAL_CLOSE".localized)
 
-            let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
-            SMLoading.showLoadingPage(viewcontroller: self)
-
-            editBill(userPhoneNumber: userPhoneNumber)
-            
         } else {
-            let realm = try! Realm()
-            let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
-            let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
+            if canEditBill {
+                let realm = try! Realm()
+                let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
+                let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
 
-            let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
-            SMLoading.showLoadingPage(viewcontroller: self)
+                let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
+                SMLoading.showLoadingPage(viewcontroller: self)
 
-            addBill(userPhoneNumber: userPhoneNumber)
+                editBill(userPhoneNumber: userPhoneNumber)
+                
+            } else {
+                let realm = try! Realm()
+                let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
+                let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
+
+                let userPhoneNumber =  validaatePhoneNUmber(phone: userInDb?.phone)
+                SMLoading.showLoadingPage(viewcontroller: self)
+
+                addBill(userPhoneNumber: userPhoneNumber)
+            }
+
         }
     }
 

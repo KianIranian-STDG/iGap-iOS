@@ -9,8 +9,10 @@
 */
 import UIKit
 import RealmSwift
+import IGProtoBuff
+import  PecPayment
 
-class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumentInteractionControllerDelegate {
+class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumentInteractionControllerDelegate,BillMerchantResultObserver {
     // MARK: - Outlets
     @IBOutlet weak var lblTTlBillNumber : UILabel!
     @IBOutlet weak var lblDataBillNumber : UILabel!
@@ -241,9 +243,58 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
         return self.navigationController!
     }
+    private func initBillPaymanet(token: String){
+        let initpayment = InitPayment()
+        initpayment.registerBill(merchant: self)
+        initpayment.initBillPayment(Token: token, MerchantVCArg: UIApplication.topViewController()!, TSPEnabled: 0)
+    }
+    private func paySequence() {
+        let tmpPaymentAmount:Int? = Int(self.payAmount!) // firstText is UITextField
+        
+        if tmpPaymentAmount! < 10000 {
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "LESS_THAN_1000".localized, cancelText: "GLOBAL_CLOSE".localized)
+            
+        } else {
+            SMLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
+            IGMplGetBillToken.Generator.generate(billId: Int64(lblDataBillNumber.text!.inEnglishNumbersNew())!, payId: Int64(lblDataBillPayNumber.text!.inEnglishNumbersNew())!).success({ (protoResponse) in
+                SMLoading.hideLoadingPage()
+                if let mplGetBillTokenResponse = protoResponse as? IGPMplGetBillTokenResponse {
+                    if mplGetBillTokenResponse.igpStatus == 0 { //success
+                        self.initBillPaymanet(token: mplGetBillTokenResponse.igpToken)
+                    } else {
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: mplGetBillTokenResponse.igpMessage, cancelText: "GLOBAL_CLOSE".localized)
+                    }
+                }
+                
+            }).error ({ (errorCode, waitTime) in
+                SMLoading.hideLoadingPage()
+                switch errorCode {
+                case .timeout:
+                    
+                    break
+                default:
+                    break
+                }
+            }).send()
+            
+            
+        }
+    }
+    /*********************************************************/
+    /*************** Overrided Payment Mehtods ***************/
+    /*********************************************************/
+    
+    func BillMerchantUpdate(encData: String, message: String, status: Int) {
+        UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+    }
+    
+    func BillMerchantError(errorType: Int) {
+        //        showErrorAlertView(title: "GLOBAL_WARNING".localized, message: "MSG_ERROR_BILL_PAYMENT".localized, dismiss: true)
+    }
 
     // MARK: - Actions
     @IBAction func didTapOnPayButton(_ sender: UIButton) {
+        paySequence()
     }
     @IBAction func didTapOnAddEditBill(_ sender: UIButton) {
         let addEditVC = IGElecAddEditBillTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)

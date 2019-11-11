@@ -738,6 +738,34 @@
 "BILL_PDF_IMAGE" = "دریافت تصویر قبض";
 "BILL_ADD_MODE" = "افزودن به لیست قبوض من";
 
+"BILL_DETAIL_IDENTIFIER" = "شناسه قبض";
+"BILL_DETAIL_PAY_ID" = "شناسه پرداخت";
+"BILL_DETAIL_COMPANY_CODE" = "کد شرکت توزیع";
+"BILL_DETAIL_COMPANY_NAME" = "نام شرکت توضیع";
+"BILL_DETAIL_PHASE" = "فاز";
+"BILL_DETAIL_VOLTAGE" = "ولتاژ";
+"BILL_DETAIL_TARIFE_TYPE" = "نوع تعرفه";
+"BILL_DETAIL_CUSTOMER_TYPE" = "نوع مشترک";
+"BILL_DETAIL_CUSTOMER_NAME" = "نام مشترک";
+"BILL_DETAIL_CUSTOMER_TEL" = "شماره تماس مشترک";
+"BILL_DETAIL_CUSTOMER_MOB" = "شماره همراه مشترک";
+"BILL_DETAIL_CUSTOMER_ADD" = "آدرس مشترک";
+"BILL_DETAIL_CUSTOMER_POSTALCODE" = "کد پستی مشترک";
+"BILL_DETAIL_CUSTOMER_LOCATION_ZONE" = "محدوده جغرافیایی";
+"BILL_DETAIL_CUSTOMER_DEVICE_NUMBER" = "شماره کنتور";
+"BILL_DETAIL_DUE_DATE" = "مهلت پرداخت بدهی";
+"BILL_DETAIL_LAST_READ" = "آهرین تاریخ قرایت کنتور";
+"BILL_DETAIL_POWER" = "قدرت قراردادی";
+"BILL_DETAIL" = "اطلاعات قبض";
+"BILL_FILL_DATA" = "اطلاعات زیر را پر نمایید";
+"BILL_NAME" = "نام قبض";
+"BILL_BILL_LIST" = "لیست قبض های من";
+"LESS_THAN_1000" = "مبلغ پرداختی میبایست از ۱۰.۰۰۰ ریال بیشتر باشد";
+"ADD_NEW_BILL" = "افزودن قبض جدید";
+"SELECT_COMPANY_FROM_LIST" = "لطفا شرکت توزیع برق منطقه را انتخاب نمایید";
+"ENETER_DEVICE_SERIAL_NUMBER" = "لطفا سریال کنتور را وارد نمایید";
+"FIND_MY_BILL" = "یافتن قبض";
+
 
 "CHARITY" = "خیریه";
 

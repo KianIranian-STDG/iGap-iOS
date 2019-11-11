@@ -493,6 +493,23 @@ class AbstractDashboardCell: UICollectionViewCell {
             }
             
         // End
+        case .electricBillMenu:
+            if !(agreementSlug == "") {
+                if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
+                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+
+                } else {
+                    let vc = IGElecBillMainPageTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
+                    vc.hidesBottomBarWhenPushed = true
+                    UIApplication.topViewController()!.navigationController!.pushViewController(vc, animated:true)
+                    return
+                }
+            } else {
+                let vc = IGElecBillMainPageTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
+                vc.hidesBottomBarWhenPushed = true
+                UIApplication.topViewController()!.navigationController!.pushViewController(vc, animated:true)
+                return
+            }
         case .financialMenu:
 
             if !(agreementSlug == "") {

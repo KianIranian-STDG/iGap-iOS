@@ -12,6 +12,10 @@
 		4FFCE2A01EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFCE29F1EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift */; };
 		8E01BC812293F00E0001C757 /* IGCustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E01BC802293F00E0001C757 /* IGCustomAlertView.swift */; };
 		8E01BC832293F06F0001C757 /* IGCustomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E01BC822293F06F0001C757 /* IGCustomModal.swift */; };
+		8E031746237842EA00D5A2B5 /* IGElecBillByDeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E031745237842EA00D5A2B5 /* IGElecBillByDeviceTableViewCell.swift */; };
+		8E0317482378450200D5A2B5 /* IGElecBillByDeviceListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0317472378450200D5A2B5 /* IGElecBillByDeviceListTableViewController.swift */; };
+		8E03174A2378472700D5A2B5 /* IGStructBillByDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0317492378472700D5A2B5 /* IGStructBillByDevice.swift */; };
+		8E03174C2378482300D5A2B5 /* IGStructCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E03174B2378482300D5A2B5 /* IGStructCompany.swift */; };
 		8E0405C2237146D300516DEB /* IGElecBillDetailPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0405C1237146D300516DEB /* IGElecBillDetailPageTableViewController.swift */; };
 		8E0405C72371B9CE00516DEB /* IGStructBranchingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0405C62371B9CE00516DEB /* IGStructBranchingInfo.swift */; };
 		8E0405C92371C7F000516DEB /* IGElecBillBranchingInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0405C82371C7F000516DEB /* IGElecBillBranchingInfoTableViewController.swift */; };
@@ -798,6 +802,10 @@
 		4FFCE29F1EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRegistrationStepPasswordViewController.swift; sourceTree = "<group>"; };
 		8E01BC802293F00E0001C757 /* IGCustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCustomAlertView.swift; sourceTree = "<group>"; };
 		8E01BC822293F06F0001C757 /* IGCustomModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCustomModal.swift; sourceTree = "<group>"; };
+		8E031745237842EA00D5A2B5 /* IGElecBillByDeviceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGElecBillByDeviceTableViewCell.swift; sourceTree = "<group>"; };
+		8E0317472378450200D5A2B5 /* IGElecBillByDeviceListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGElecBillByDeviceListTableViewController.swift; sourceTree = "<group>"; };
+		8E0317492378472700D5A2B5 /* IGStructBillByDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructBillByDevice.swift; sourceTree = "<group>"; };
+		8E03174B2378482300D5A2B5 /* IGStructCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructCompany.swift; sourceTree = "<group>"; };
 		8E0405C1237146D300516DEB /* IGElecBillDetailPageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGElecBillDetailPageTableViewController.swift; sourceTree = "<group>"; };
 		8E0405C62371B9CE00516DEB /* IGStructBranchingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructBranchingInfo.swift; sourceTree = "<group>"; };
 		8E0405C82371C7F000516DEB /* IGElecBillBranchingInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGElecBillBranchingInfoTableViewController.swift; sourceTree = "<group>"; };
@@ -1678,6 +1686,8 @@
 				8ED68CB82378165D00637C29 /* IGStructDeleteBill.swift */,
 				8ED68CAE2377219B00637C29 /* IGStructAddBill.swift */,
 				8ED68CB62377C2A500637C29 /* IGStructBill.swift */,
+				8E0317492378472700D5A2B5 /* IGStructBillByDevice.swift */,
+				8E03174B2378482300D5A2B5 /* IGStructCompany.swift */,
 			);
 			path = ElectricityBills;
 			sourceTree = "<group>";
@@ -1823,7 +1833,9 @@
 				8E0405C1237146D300516DEB /* IGElecBillDetailPageTableViewController.swift */,
 				8E0405C82371C7F000516DEB /* IGElecBillBranchingInfoTableViewController.swift */,
 				8ED68CB22377BDAC00637C29 /* IGElecBillMyBillListTableViewController.swift */,
+				8E0317472378450200D5A2B5 /* IGElecBillByDeviceListTableViewController.swift */,
 				8ED68CB42377BDC500637C29 /* IGElecBillTableViewCell.swift */,
+				8E031745237842EA00D5A2B5 /* IGElecBillByDeviceTableViewCell.swift */,
 			);
 			path = ElecBill;
 			sourceTree = "<group>";
@@ -3738,6 +3750,7 @@
 				FA63BAAB1DD70E9C000B60AD /* IGRequestFile.swift in Sources */,
 				FAA9DFB81F4B1CC10076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationChangeEmailTableViewController.swift in Sources */,
 				FA0953451E1B97700043ED3F /* IGDeleteAccountTableViewController.swift in Sources */,
+				8E03174A2378472700D5A2B5 /* IGStructBillByDevice.swift in Sources */,
 				FA0953601E1B97700043ED3F /* IGSettingContactsBlockListTableViewCell.swift in Sources */,
 				8EBF54F822D9B60D00834E6A /* BeautifulBarChartPresenter.swift in Sources */,
 				8E96A32B225C920A007D8A77 /* SMReciept.swift in Sources */,
@@ -3852,6 +3865,7 @@
 				FA0953821E1B97E20043ED3F /* IGMemberChoose.swift in Sources */,
 				FAE6062621EB39DB00F03FFC /* SwiftWebVC.swift in Sources */,
 				8E3C69942360785E001575BE /* IGTagManager.swift in Sources */,
+				8E03174C2378482300D5A2B5 /* IGStructCompany.swift in Sources */,
 				FA76598422902ACE006322A3 /* INSPhotosDataSource.swift in Sources */,
 				FAC0F08920F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift in Sources */,
 				8ED68CB52377BDC500637C29 /* IGElecBillTableViewCell.swift in Sources */,
@@ -3935,6 +3949,7 @@
 				FAB7FF5321BFB39D0081FDBA /* VideoCallObserver.swift in Sources */,
 				FA86D44A21A96955007B80D7 /* IGHelperPopular.swift in Sources */,
 				8ECFB53E234A471E001233E9 /* phoneBookCellTypeTwo.swift in Sources */,
+				8E031746237842EA00D5A2B5 /* IGElecBillByDeviceTableViewCell.swift in Sources */,
 				FA248C98226AEBE800A72EA7 /* IGScoreHistoryViewController.swift in Sources */,
 				FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */,
 				FA6C2DE722673B21005654AC /* IGHelperAlert.swift in Sources */,
@@ -4023,6 +4038,7 @@
 				8EE552D42364ADD1003A21FE /* UIImage+Gif.swift in Sources */,
 				FA63BA9D1DD6E030000B60AD /* IGFile.swift in Sources */,
 				FA98F838204D37670070424E /* IGCallQuality.swift in Sources */,
+				8E0317482378450200D5A2B5 /* IGElecBillByDeviceListTableViewController.swift in Sources */,
 				FA0CC80C1E5D7D4400556283 /* StringTrimExtension.swift in Sources */,
 				FA0953711E1B97700043ED3F /* IGSettingTableViewController.swift in Sources */,
 				FA1C449C1DC716A20016C346 /* IGCountry.swift in Sources */,

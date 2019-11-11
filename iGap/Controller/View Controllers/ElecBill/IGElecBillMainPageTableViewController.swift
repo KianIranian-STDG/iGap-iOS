@@ -182,6 +182,12 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
     @IBAction func txtBillNUmber(_ sender: UITextField) {
 
     }
+    @IBAction func didTapOnSearchBill(_ sender: UIButton) {
+        let searchBill = IGElecBillByDeviceListTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
+        searchBill.hidesBottomBarWhenPushed = true
+        self.navigationController!.pushViewController(searchBill, animated:true)
+
+    }
     @IBAction func didTapOnShowMyBillList(_ sender: UIButton) {
         let realm = try! Realm()
         let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
