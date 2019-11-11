@@ -79,11 +79,11 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     private func customiseView() {
         self.topViewHolder.borderWidth = 0.5
         self.topViewHolder.layer.borderColor = UIColor(named: themeColor.labelColor.rawValue)?.cgColor
-        btnDetailBranch.layer.borderColor = UIColor(named: themeColor.navigationSecondColor.rawValue)?.cgColor
+        btnDetailBranch.layer.borderColor = UIColor(named: themeColor.labelSecondColor.rawValue)?.cgColor
         btnDetailBranch.layer.borderWidth = 2
-        btnAddToMyBills.layer.borderColor = UIColor(named: themeColor.navigationSecondColor.rawValue)?.cgColor
+        btnAddToMyBills.layer.borderColor = UIColor(named: themeColor.labelSecondColor.rawValue)?.cgColor
         btnAddToMyBills.layer.borderWidth = 2
-        btnPDFofBill.layer.borderColor = UIColor(named: themeColor.navigationSecondColor.rawValue)?.cgColor
+        btnPDFofBill.layer.borderColor = UIColor(named: themeColor.labelSecondColor.rawValue)?.cgColor
         btnPDFofBill.layer.borderWidth = 2
 
         btnPay.layer.cornerRadius = 15
@@ -129,12 +129,12 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     private func initColors() {
         self.tableView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         self.topViewHolder.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        btnPay.setTitleColor(.white, for: .normal)
-        btnDetailBranch.setTitleColor(UIColor(named: themeColor.navigationSecondColor.rawValue), for: .normal)
-        btnAddToMyBills.setTitleColor(UIColor(named: themeColor.navigationSecondColor.rawValue), for: .normal)
-        btnPDFofBill.setTitleColor(UIColor(named: themeColor.navigationSecondColor.rawValue), for: .normal)
+        btnPay.setTitleColor(UIColor(named: themeColor.textFieldBackGround.rawValue), for: .normal)
+        btnDetailBranch.setTitleColor(UIColor(named: themeColor.labelSecondColor.rawValue), for: .normal)
+        btnAddToMyBills.setTitleColor(UIColor(named: themeColor.labelSecondColor.rawValue), for: .normal)
+        btnPDFofBill.setTitleColor(UIColor(named: themeColor.labelSecondColor.rawValue), for: .normal)
         
-        btnPay.backgroundColor = UIColor(named: themeColor.navigationSecondColor.rawValue)
+        btnPay.backgroundColor = UIColor(named: themeColor.labelSecondColor.rawValue)
         btnDetailBranch.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         btnAddToMyBills.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         btnPDFofBill.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)

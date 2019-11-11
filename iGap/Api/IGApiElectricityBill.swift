@@ -69,24 +69,40 @@ class IGApiElectricityBill: IGApiBase {
             }) {
             } else {
                 let json = try? JSON(data: response.data ?? Data())
-                switch response.result {
-                case .success(let value):
-                    do {
-                        let classData = try JSONDecoder().decode(IGStructInqueryBill.self, from: value)
-                        completion(true, classData, nil)
-                    } catch _ {
+                switch response.response?.statusCode {
+                case 200:
+                    
+                    switch response.result {
+                        
+                    case .success(let value):
+                        do {
+                            let classData = try JSONDecoder().decode(IGStructInqueryBill.self, from: value)
+                            completion(true, classData, nil)
+                        } catch _ {
+                            guard json != nil, let message = json!["message"].string else {
+                                completion(false, nil, "UNSSUCCESS_OTP".localized)
+                                return
+                            }
+                            completion(false, nil, message)
+                        }
+                        
+                    case .failure(_):
                         guard json != nil, let message = json!["message"].string else {
                             completion(false, nil, "UNSSUCCESS_OTP".localized)
                             return
                         }
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized)
+
                         completion(false, nil, message)
                     }
                     
-                case .failure(_):
+                default :
                     guard json != nil, let message = json!["message"].string else {
                         completion(false, nil, "UNSSUCCESS_OTP".localized)
                         return
                     }
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized)
+
                     completion(false, nil, message)
                 }
             }
@@ -193,7 +209,7 @@ class IGApiElectricityBill: IGApiBase {
     
     
     ////////////////////////////EDIT BILL INFO////////////////////////////////
-    func editBill(billNumber: String,phoneNumber: String,nationalCode : String? = "",email: String = "",billTitle : String ,viaSMS : Bool = true,viaAP : Bool = false,viaPRINT : Bool = false,viaEmail : Bool = false, completion: @escaping ((_ success: Bool, _ response: IGStructEditBill?, _ errorMessage: String?) -> Void) ) {
+    func editBill(billNumber: String,phoneNumber: String,nationalCode : String? = "0",email: String = "",billTitle : String ,viaSMS : Bool = true,viaAP : Bool = false,viaPRINT : Bool = false,viaEmail : Bool = false, completion: @escaping ((_ success: Bool, _ response: IGStructEditBill?, _ errorMessage: String?) -> Void) ) {
         let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber, "bill_title" : billTitle,"viasms" : viaSMS,"viaap" : viaAP,"viaemail": viaEmail,"viaprint" : viaPRINT]
         
         AF.request(Endpoint.editBill.url, method: .post,parameters: parameters,headers: self.getHeader()).responseData { (response) in
@@ -265,7 +281,7 @@ class IGApiElectricityBill: IGApiBase {
     }
     
     ////////////////////////////ADD TO MY BILL LIST////////////////////////////////
-    func addBill(billNumber: String,phoneNumber: String,nationalCode : String? = "",email: String = "",billTitle : String ,viaSMS : Bool = true,viaAP : Bool = false,viaPRINT : Bool = false,viaEmail : Bool = false, completion: @escaping ((_ success: Bool, _ response: IGStructAddBill?, _ errorMessage: String?) -> Void) ) {
+    func addBill(billNumber: String,phoneNumber: String,nationalCode : String? = "0",email: String = "",billTitle : String ,viaSMS : Bool = true,viaAP : Bool = false,viaPRINT : Bool = false,viaEmail : Bool = false, completion: @escaping ((_ success: Bool, _ response: IGStructAddBill?, _ errorMessage: String?) -> Void) ) {
         let parameters: Parameters = ["bill_identifier" : billNumber, "mobile_number" : phoneNumber, "bill_title" : billTitle,"viasms" : viaSMS,"viaap" : viaAP,"viaemail": viaEmail,"viaprint" : viaPRINT]
         
         AF.request(Endpoint.addBill.url, method: .post,parameters: parameters,headers: self.getHeader()).responseData { (response) in

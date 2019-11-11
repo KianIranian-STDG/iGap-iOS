@@ -851,10 +851,11 @@
 "BILL_NAME" = "Bill Name";
 "BILL_BILL_LIST" = "My Bill List";
 "LESS_THAN_1000" = "The amount to pay should be greater than 10,000 Rial";
-"ADD_NEW_BILL" = "Add ne bill";
+"ADD_NEW_BILL" = "Add new bill";
 "SELECT_COMPANY_FROM_LIST" = "Please Select company name from list Below";
 "ENETER_DEVICE_SERIAL_NUMBER" = "Please Enter your Counter Meter Serial Number";
 "FIND_MY_BILL" = "Find My Bill";
+"INVALID_BILL_MSG" = "Probably the bill is invalid";
 
 
 "CHARITY" = "Charity";

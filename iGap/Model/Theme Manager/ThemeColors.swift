@@ -15,6 +15,7 @@ enum themeColor: String {
     case tableViewCell = "IGTableViewCellColor"
     case recentTVCellColor = "IGRecentTVCellColor"
     case labelColor = "IGLabelColor"
+    case labelSecondColor = "IGLabelSecondColor"
     case TVCellTitleColor = "IGTVCellTitleColor"
     case tabBarColor = "IGTabBarColor"
     case labelGrayColor = "IGLabelGrayColor"

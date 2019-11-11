@@ -153,6 +153,7 @@ extension String {
         if self.first == "0" || self.first == "۰" {
             return self.inEnglishNumbers()
         }
+
         numberFormatter.locale = Locale(identifier: "EN")
         guard let final = numberFormatter.number(from: self) else { return self.inEnglishNumbers() }
         return numberFormatter.string(from: final) ?? self.inEnglishNumbers()
