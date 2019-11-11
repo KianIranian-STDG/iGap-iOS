@@ -112,6 +112,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var btnStickerWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageTextViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageTextViewHeightConstraint: NSLayoutConstraint!
+    
     // MARK: - Variables
     var alreadyInSendMode : Bool = false
     var musicFile : MusicFile!
@@ -486,17 +487,15 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             RightBarConstraints.constant = 38
             btnMoney.isHidden = true
         } else {
-            if isBotRoom(){
+            if isBotRoom() {
                 btnMoney.isHidden = true
                 btnSticker.isHidden = true
                 self.btnStickerWidthConstraint.constant = 0.0
 
-            }
-            else {
+            } else {
                 btnMoney.isHidden = false
                 btnSticker.isHidden = false
                 self.btnStickerWidthConstraint.constant = 25.0
-
             }
         }
         tmpUserID  =  self.room?.chatRoom?.peer?.id
@@ -750,6 +749,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         IGGlobal.isInChatPage = true
         IGMessageViewController.messageViewControllerObserver = self
         IGMessageViewController.additionalObserver = self
@@ -1783,8 +1783,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     ///setting alignments based on language of app
     private func initAlignmentsNewChatView() {
-        lblPlaceHolder.textAlignment = lblPlaceHolder.localizedDirection
-        //        messageTextView.textAlignment = messageTextView.localizedDirection
+        lblPlaceHolder.textAlignment = self.TextAlignment
+//        messageTextView.textAlignment = messageTextView.localizedDirection
     }
     ///setting Strings based on language of App
     private func initChangeLanguegeNewChatView() {

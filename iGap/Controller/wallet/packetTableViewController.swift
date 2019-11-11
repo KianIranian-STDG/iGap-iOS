@@ -1026,7 +1026,6 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                 }
                 NotificationCenter.default.post(name: Notification.Name(SMConstants.notificationHistoryMerchantUpdate), object: nil,
                                                 userInfo: ["id": merchantID])
-
             }
             SMLoading.hideLoadingPage()
 

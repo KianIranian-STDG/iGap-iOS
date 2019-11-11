@@ -75,6 +75,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     @IBOutlet weak var lblLanguage: UILabel!
     @IBOutlet weak var lblFaq: UILabel!
     @IBOutlet weak var lblVersion: UILabel!
+    @IBOutlet weak var checkUpdateLbl: UILabel!
     @IBOutlet weak var lblMoneyAmount: UILabel!
     @IBOutlet weak var lblScoreAmount: UILabel!
     @IBOutlet weak var lblName: UILabel!
@@ -317,7 +318,6 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     }
 
     func initView() {
-
         btnMenGender.setTitle("", for: .normal)
         btnMenGender.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         btnWomenGender.setTitle("", for: .normal)
@@ -368,8 +368,8 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         lblWomenGender.font = UIFont.igFont(ofSize: 15)
         lblWomenGender.text = "WOMEN_GENDER".localized
         lblGenderInner.text = "GENDER".localized
-
     }
+    
     func textManagment() {
         lblBioTop.text = (userInDb.bio)
         btnName.setTitle((userInDb.displayName), for: .normal)
@@ -837,6 +837,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             shouldSave = false
         }
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         segue.destination.hidesBottomBarWhenPushed = true
         
@@ -870,6 +871,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         score.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(score, animated: true)
     }
+    
     @IBAction func btnCreditTapped(_ sender: Any) {
         goToSettings = false
         let walletVC = packetTableViewController.instantiateFromAppStroryboard(appStoryboard: .Wallet)
@@ -877,6 +879,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         self.navigationController!.pushViewController(walletVC, animated:true)
 
     }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             switch indexPath.row {
@@ -1005,6 +1008,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             return 0
         }
     }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -1014,6 +1018,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         // #warning Incomplete implementation, return the number of rows
         return 13
     }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         goToSettings = false
 
@@ -1131,6 +1136,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         self.updateBtnEditStateView(hasChnagedValue: hasNameChanged)
 
     }
+    
     @IBAction func userNameTFdidEndEditing(_ sender: UITextField) {
         if currentUserName != sender.text {
             currentUserName = sender.text!
@@ -1141,6 +1147,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         self.updateBtnEditStateView(hasChnagedValue: hasUserNameChanged)
 
     }
+    
     @IBAction func bioTFdidEndEditing(_ sender: UITextField) {
         if currentBio != sender.text {
             currentBio = sender.text!
@@ -1152,6 +1159,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         self.updateBtnEditStateView(hasChnagedValue: hasBioChanged)
 
     }
+    
     @IBAction func emailTFdidEndEditing(_ sender: UITextField) {
         if currentEmail != sender.text {
             currentEmail = sender.text!
@@ -1162,6 +1170,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         self.updateBtnEditStateView(hasChnagedValue: hasEmailChanged)
 
     }
+    
     @IBAction func referralTFdidEndEditing(_ sender: UITextField) {
         if currentReferral != sender.text {
             currentReferral = sender.text!
@@ -1194,6 +1203,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         }
 
     }
+    
     //Mark : - Services Requests
 
     //Hint: - send UserName Change Request
@@ -1237,6 +1247,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             }
         }).send()
     }
+    
     //Hint: - send Name Change Request
     private func sendNameRequest(current: String!) {
         SMLoading.showLoadingPage(viewcontroller: self)
@@ -1268,6 +1279,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             }
         }).send()
     }
+    
     //Hint: - send Bio Change Request
     private func sendBioRequest(current: String!) {
         SMLoading.showLoadingPage(viewcontroller: self)
@@ -1295,6 +1307,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             }
         }).send()
     }
+    
     //Hint: - send Email Change Request
     private func sendEmailRequest(current: String!) {
         SMLoading.showLoadingPage(viewcontroller: self)
@@ -1324,6 +1337,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             }
         }).send()
     }
+    
     //Hint: - send Referral Change Request
     private func sendReferralRequest(current: String!) {
         SMLoading.showLoadingPage(viewcontroller: self)
@@ -1449,6 +1463,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             }
         }
     }
+    
 }
 
 

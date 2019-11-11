@@ -15,7 +15,7 @@ import RxSwift
 import MarkdownKit
 import IGProtoBuff
 
-class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelegate {
+class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDelegate {
     
     var imgAvatarPay : UIImageViewX!
 
@@ -111,6 +111,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         if !(IGGlobal.shouldMultiSelect) {
             swipePositionManager()
         }
@@ -178,7 +179,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     }
     
     /* check message that should be rtl OR has bottom offset */
-    private func detectRtlAndBottomOffset(){
+    private func detectRtlAndBottomOffset() {
 
         if let message = finalRoomMessage.message, message.isRTL() {
             isRtl = true
@@ -235,7 +236,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         }
 
         txtMessageAbs.snp.remakeConstraints{ (make) in
-                make.top.equalTo((imgAvatarPay?.snp.bottom)!).offset(5)
+            make.top.equalTo((imgAvatarPay?.snp.bottom)!).offset(5)
         }
     }
     
@@ -274,7 +275,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 txtMessageAbs.attributedText = normalString
                 
             } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
-                let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
+                let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)) {
                 
                 var messageText = finalRoomMessage.message?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
                 messageText = messageText?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
@@ -307,7 +308,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
      ******************************************************************
      */
     
-    private func manageViewPosition(){
+    private func manageViewPosition() {
         
         if txtMessageAbs == nil && finalRoomMessage.type != .sticker {
             return

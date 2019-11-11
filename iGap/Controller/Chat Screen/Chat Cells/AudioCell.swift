@@ -85,7 +85,7 @@ class AudioCell: AbstractCell {
      * position of views after setMessage we call manageFileViewPosition because first we need evaluate
      * forwardViewAbs/replyViewAbs in AbstractCell
      */
-    private func makeAudioView(){
+    private func makeAudioView() {
         removeAudioView() //remove views for avoid from reuse seekbar and time
         
         if btnPlayAbs == nil {
