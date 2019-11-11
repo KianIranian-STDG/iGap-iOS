@@ -205,8 +205,8 @@ public class LocaleManager: NSObject {
         UIApplication.swizzleMethod(#selector(getter: UIApplication.userInterfaceLayoutDirection),
                                     with: #selector(getter: UIApplication.mn_custom_userInterfaceLayoutDirection))
         // Enforcing currect alignment for labels and texts which has `.natural` direction.
-        UILabel.swizzleMethod(#selector(UILabel.layoutSubviews), with: #selector(UILabel.mn_custom_layoutSubviews))
-        UITextField.swizzleMethod(#selector(UITextField.layoutSubviews), with: #selector(UITextField.mn_custom_layoutSubviews))
+//        UILabel.swizzleMethod(#selector(UILabel.layoutSubviews), with: #selector(UILabel.mn_custom_layoutSubviews))
+//        UITextField.swizzleMethod(#selector(UITextField.layoutSubviews), with: #selector(UITextField.mn_custom_layoutSubviews))
     }
 }
 

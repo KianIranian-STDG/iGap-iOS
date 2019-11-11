@@ -11,6 +11,7 @@
 import UIKit
 import maincore
 import SwiftEventBus
+
 class IGRegisterChooseLanguageTableViewController: UITableViewController {
     
     private var languagesArray = [String: String]()
@@ -87,11 +88,5 @@ class LanguageCell: BaseTableViewCell {
     @IBOutlet weak var langNameLbl: UILabel!
     @IBOutlet weak var langIsoCodeLbl: UILabel!
     @IBOutlet weak var selectedLangIconLbl: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        self.selectedLangIconLbl.textAlignment = self.appTextAlignment
-    }
     
 }
