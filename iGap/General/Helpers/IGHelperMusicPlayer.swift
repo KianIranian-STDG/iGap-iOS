@@ -107,8 +107,8 @@ class IGHelperMusicPlayer {
         let lblSong = UILabel()
         self.bgView.addSubview(lblSong)
         self.bgView.addSubview(lblSinger)
-        lblSinger.text = singerName ?? "UNKNOWN_ARTIST".MessageViewlocalizedNew
-        lblSong.text = songName ?? "UNKNOWN_AUDIO".MessageViewlocalizedNew
+        lblSinger.text = singerName ?? "UNKNOWN_ARTIST".MessageViewlocalized
+        lblSong.text = songName ?? "UNKNOWN_AUDIO".MessageViewlocalized
         
         musicTotalTime = songTime
         
@@ -157,10 +157,10 @@ class IGHelperMusicPlayer {
         let labels = self.bgView.subviews.flatMap { $0 as? UILabel }
         for label in labels {
             if label.tag == 707 { //songName
-                label.text = songName ?? "UNKNOWN_ARTIST".MessageViewlocalizedNew
+                label.text = songName ?? "UNKNOWN_ARTIST".MessageViewlocalized
             }
             if label.tag == 708 { //singerName
-                label.text = singerName ?? "UNKNOWN_AUDIO".MessageViewlocalizedNew
+                label.text = singerName ?? "UNKNOWN_AUDIO".MessageViewlocalized
 
             }
         }
@@ -330,7 +330,7 @@ class IGHelperMusicPlayer {
         }
         IGGlobal.topBarSongTime = 0
         }
-        let musicFile = MusicFile(songName: "VOICES_MESSAGE".MessageViewlocalizedNew , singerName: "UNKNOWN_ARTIST".MessageViewlocalizedNew, songTime: 0.0, currentTime: 0.0)
+        let musicFile = MusicFile(songName: "VOICES_MESSAGE".MessageViewlocalized , singerName: "UNKNOWN_ARTIST".MessageViewlocalized, songTime: 0.0, currentTime: 0.0)
         
     }
     private func createMainView() -> UIView {

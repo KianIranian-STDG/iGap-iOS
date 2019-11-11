@@ -19,8 +19,7 @@ class IGFavouriteChannelCVCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        let isEnglish = SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue
-        self.contentView.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
+        self.contentView.transform = LocaleManager.isRTL ? CGAffineTransform(scaleX: -1, y: 1) : CGAffineTransform.identity
         imageView.layer.cornerRadius = 8
     }
 }

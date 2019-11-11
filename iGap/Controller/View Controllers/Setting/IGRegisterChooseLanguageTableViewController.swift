@@ -12,42 +12,20 @@ import UIKit
 import maincore
 import SwiftEventBus
 class IGRegisterChooseLanguageTableViewController: UITableViewController {
+    
+    private var languagesArray = [String: String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        initNavigationBar()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-//        checkAppLanguage()
         
+        initNavigationBar()
+        languagesArray = LocaleManager.availableLocalizations.filter({ $0.key != "Base" })
     }
-    private func checkAppLanguage() {
-        print(SMLangUtil.loadLanguage())
-        lastLang = SMLangUtil.loadLanguage()
-        if SMLangUtil.loadLanguage() == "fa" {
-            IGGlobal.languageFileName = "localizationsFa"
-        } else {
-            IGGlobal.languageFileName = "localizationsEn"
-        }
-        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
-        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
-        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
-
-        if SMLangUtil.loadLanguage() == "fa" {
-            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-        } else {
-            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-        }
-        SwiftEventBus.post(EventBusManager.updateTabbarLang,sender: true)
-
-    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UITableView.appearance().semanticContentAttribute = .forceLeftToRight
         
+        UITableView.appearance().semanticContentAttribute = .forceLeftToRight
     }
 
     // MARK: - Table view data source
@@ -60,61 +38,60 @@ class IGRegisterChooseLanguageTableViewController: UITableViewController {
         label.font = UIFont.igFont(ofSize: 15)
         label.textAlignment = .center
         
+        print(LocaleManager.availableLocalizations)
+        print(languagesArray)
+        
         return label
-        
-        
     }
-    func initNavigationBar(){
+    
+    func initNavigationBar() {
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: " ")
         navigationItem.navigationController = self.navigationController as? IGNavigationController
-        
     }
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
-        
-    }
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
+    
+    
+    //MARK: - tableView dataSource and Delegate
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 2
+        return languagesArray.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "LangCell", for: indexPath) as? LanguageCell else {
+            return LanguageCell()
+        }
+        
+        let language = Array(languagesArray)[indexPath.row]
+        cell.langIsoCodeLbl.text = language.key.uppercased()
+        cell.langNameLbl.text = language.value
+        
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        switch indexPath.row {
-            
-        case 0 :
-        
-            SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian)
-            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoDissmissLangFANotificationName), object: nil)
-            
-//            checkAppLanguage()
-        case 1:
-           
-            SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.English)
-            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-
-//                Language.language = Language.english
-
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoDissmissLangENNotificationName), object: nil)
-//            checkAppLanguage()
-
-        case 2:
-            
-            SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian)
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoDissmissLangARNotificationName), object: nil)
-//            checkAppLanguage()
-
-        default :
-            break
-        }
+        let language = Array(languagesArray)[indexPath.row]
+        LocaleManager.apply(identifier: language.key, animated: false)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoDissmissLangNotificationName), object: nil)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
     }
 
+}
+
+class LanguageCell: BaseTableViewCell {
+    
+    @IBOutlet weak var langNameLbl: UILabel!
+    @IBOutlet weak var langIsoCodeLbl: UILabel!
+    @IBOutlet weak var selectedLangIconLbl: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        self.selectedLangIconLbl.textAlignment = self.appTextAlignment
+    }
+    
 }

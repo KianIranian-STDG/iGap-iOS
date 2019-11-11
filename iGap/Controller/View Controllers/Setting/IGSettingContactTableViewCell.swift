@@ -46,7 +46,7 @@ class IGSettingContactTableViewCell: MGSwipeTableCell {
         self.registeredUser = user
         
         contactNameLable.text = user.displayName
-        contactNameLable.textAlignment = contactNameLable.localizedNewDirection
+        contactNameLable.textAlignment = contactNameLable.localizedDirection
         userAvatarView.setUser(user)
         if user.isBlocked {
             blockedLabel.isHidden = false
@@ -61,25 +61,25 @@ class IGSettingContactTableViewCell: MGSwipeTableCell {
             }
             break
         case .lastMonth:
-            lastSeenStatusLabel.text = "LAST_MONTH".localizedNew
+            lastSeenStatusLabel.text = "LAST_MONTH".localized
             break
         case .lastWeek:
-            lastSeenStatusLabel.text = "LAST_WEAK".localizedNew
+            lastSeenStatusLabel.text = "LAST_WEAK".localized
             break
         case .longTimeAgo:
-            lastSeenStatusLabel.text = "A_LONG_TIME_AGO".localizedNew
+            lastSeenStatusLabel.text = "A_LONG_TIME_AGO".localized
             break
         case .online:
-            lastSeenStatusLabel.text = "ONLINE".localizedNew
+            lastSeenStatusLabel.text = "ONLINE".localized
             break
         case .recently:
-            lastSeenStatusLabel.text = "LAST_SEEN_RECENTLY".localizedNew
+            lastSeenStatusLabel.text = "LAST_SEEN_RECENTLY".localized
             break
         case .support:
-            lastSeenStatusLabel.text = "IGAP_SUPPORT".localizedNew
+            lastSeenStatusLabel.text = "IGAP_SUPPORT".localized
             break
         case .serviceNotification:
-            lastSeenStatusLabel.text = "SERVICE_NOTIFI".localizedNew
+            lastSeenStatusLabel.text = "SERVICE_NOTIFI".localized
             
             break
             

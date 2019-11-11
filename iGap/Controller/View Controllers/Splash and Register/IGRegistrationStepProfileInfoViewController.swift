@@ -46,7 +46,7 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
         profileImageView.isUserInteractionEnabled = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
         let navItem = self.navigationItem as! IGNavigationItem
-        navItem.addModalViewItems(leftItemText: nil, rightItemText: "NEXT_BTN".localizedNew, title: "YOUR_PROFILE".localizedNew)
+        navItem.addModalViewItems(leftItemText: nil, rightItemText: "NEXT_BTN".localized, title: "YOUR_PROFILE".localized)
         navItem.rightViewContainer?.addAction {
             self.didTapOnDone()
         }
@@ -57,7 +57,7 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        titleLabel.text = "ENTER_NAME_AND_CHOOSE_PHOTO".localizedNew
+        titleLabel.text = "ENTER_NAME_AND_CHOOSE_PHOTO".localized
     }
     
     private func initFonts() {
@@ -68,22 +68,22 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
         tfReferralNumber.font = UIFont.igFont(ofSize: 15)
         lblReferralHint.font = UIFont.igFont(ofSize: 13)
         txtCode.font = UIFont.igFont(ofSize: 15)
-        lblReferralHint.textAlignment = lblReferralHint.localizedNewDirection
+        lblReferralHint.textAlignment = lblReferralHint.localizedDirection
         tfReferralNumber.textAlignment = .left
-        nicknameTextField.textAlignment = nicknameTextField.localizedNewDirection
-        FnameTextField.textAlignment = nicknameTextField.localizedNewDirection
+        nicknameTextField.textAlignment = nicknameTextField.localizedDirection
+        FnameTextField.textAlignment = nicknameTextField.localizedDirection
         txtCode.textAlignment = .center
     }
     @objc func showCountriesList() {}
     
     private func initLanguage() {
-        txtCode.text = "CHOOSE_COUNTRY".localizedNew
-        lblReferralHint.text = "ENTER_REFERRAL_NUMBER".localizedNew
-        nicknameTextField.placeholder = "PLACE_HOLDER_F_NAME".localizedNew
-        FnameTextField.placeholder = "PLACE_HOLDER_L_NAME".localizedNew
-        tfReferralNumber.placeholder = "SETTING_PAGE_ACCOUNT_PHONENUMBER".localizedNew
-        pagetitleLabel.text = "PU_INFORMATION".localizedNew
-        titleLabel.text = "ENTER_NAME_AND_CHOOSE_PHOTO".localizedNew
+        txtCode.text = "CHOOSE_COUNTRY".localized
+        lblReferralHint.text = "ENTER_REFERRAL_NUMBER".localized
+        nicknameTextField.placeholder = "PLACE_HOLDER_F_NAME".localized
+        FnameTextField.placeholder = "PLACE_HOLDER_L_NAME".localized
+        tfReferralNumber.placeholder = "SETTING_PAGE_ACCOUNT_PHONENUMBER".localized
+        pagetitleLabel.text = "PU_INFORMATION".localized
+        titleLabel.text = "ENTER_NAME_AND_CHOOSE_PHOTO".localized
 
     }
     
@@ -125,7 +125,7 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
                         }).error({ (errorCode, waitTime) in
                             DispatchQueue.main.async {
                                 IGGlobal.prgHide()
-                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
                             }
                         }).send()
                         
@@ -137,7 +137,7 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
             }).error({ (errorCode, waitTime) in
                 DispatchQueue.main.async {
                     IGGlobal.prgHide()
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
                 }
             }).send()
         }
@@ -156,20 +156,20 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
                 if IGGlobal.matches(for: (selectedCountry?.codeRegex)!, in: phoneSpaceLess!) {
                     let countryCode = String(Int((self.selectedCountry?.countryCode)!))
                     let fullPhone = countryCode + " " + (phone?.replacingOccurrences(of: "_", with: ""))!
-                    let alertVC = UIAlertController(title: "IS_IT_CORRECT".localizedNew,message: "IS_PHONE_OK".localizedNew + fullPhone,preferredStyle: .alert)
-                    let yes = UIAlertAction(title: "GLOBAL_YES".localizedNew, style: .cancel, handler: { (action) in
+                    let alertVC = UIAlertController(title: "IS_IT_CORRECT".localized,message: "IS_PHONE_OK".localized + fullPhone,preferredStyle: .alert)
+                    let yes = UIAlertAction(title: "GLOBAL_YES".localized, style: .cancel, handler: { (action) in
                         IGGlobal.prgShow(self.view)
                         self.setRepresentative(phone: fullPhone)
                     })
-                    let no = UIAlertAction(title: "BTN_EDITE".localizedNew, style: .default, handler: nil)
+                    let no = UIAlertAction(title: "BTN_EDITE".localized, style: .default, handler: nil)
                     
                     alertVC.addAction(yes)
                     alertVC.addAction(no)
                     self.present(alertVC, animated: true, completion: nil)
                     return
                 } else {
-                    let alertVC = UIAlertController(title: "INVALID_PHONE".localizedNew, message: "ENTER_VALID_P_NUMBER".localizedNew, preferredStyle: .alert)
-                    alertVC.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil))
+                    let alertVC = UIAlertController(title: "INVALID_PHONE".localized, message: "ENTER_VALID_P_NUMBER".localized, preferredStyle: .alert)
+                    alertVC.addAction(UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil))
                     self.present(alertVC, animated: true, completion: nil)
                     
                 }
@@ -181,14 +181,14 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
     
     @objc func didTapOnChangeImage() {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.pickImage(screens: [.photo])
         })
-        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.pickImage(screens: [.library])
         })
         
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
         optionMenu.addAction(ChoosePhoto)
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
             optionMenu.addAction(cameraOption)} else {
@@ -236,7 +236,7 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
         }).error ({ (errorCode, waitTime) in
             IGGlobal.prgHide()
             DispatchQueue.main.async {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
             }
         }).send()
     }

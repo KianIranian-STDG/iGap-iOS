@@ -125,6 +125,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             print("Could not clear document directory \(error)")
         }
     }
+    
     private func userdefaultsManagment() {
         if (UserDefaults.standard.object(forKey: "silentPrivateChat") != nil) {
             IGGlobal.isSilent = UserDefaults.standard.bool(forKey: "silentPrivateChat")
@@ -140,26 +141,31 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         } else {
             fontDefaultSize = 15.0
         }
-
     }
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         //checksetting defaults
         userdefaultsManagment()
-        lastLang = SMLangUtil.loadLanguage()
-        if SMLangUtil.loadLanguage() == "fa" {
-            IGGlobal.languageFileName = "localizationsFa"
-        } else {
-            IGGlobal.languageFileName = "localizationsEn"
-        }
-        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
-        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
-        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
+//        lastLang = SMLangUtil.loadLanguage()
+//        if SMLangUtil.loadLanguage() == "fa" {
+//            IGGlobal.languageFileName = "localizationsFa"
+//        } else {
+//            IGGlobal.languageFileName = "localizationsEn"
+//        }
+//        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
+//        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
+//        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
 
-        if SMLangUtil.loadLanguage() == "fa" {
-            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-        } else {
-            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-        }
+//        if SMLangUtil.loadLanguage() == "fa" {
+//            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+//        } else {
+//            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+//        }
+        UIView.appearance().semanticContentAttribute = .forceLeftToRight
+        UITableView.appearance().semanticContentAttribute = LocaleManager.semantic
+        
+        LocaleManager.setup()
         
         SMUserManager.clearKeychainOnFirstRun()
         SMUserManager.loadFromKeychain()
@@ -211,7 +217,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
                     
                 }
                 
-        }
+            }
         )
         Realm.Configuration.defaultConfiguration = config
         compactRealm()
@@ -356,12 +362,10 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         
-        
     }
     /******************* Notificaton End *******************/
     
     private func detectBackground() {
-        
         if IGWallpaperPreview.chatSolidColor == nil {
             if let wallpaper = try! Realm().objects(IGRealmWallpaper.self).first {
                 if let color = wallpaper.selectedColor {
@@ -386,7 +390,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         }
         
         IGAppManager.sharedManager.clearDataOnLogout()
-        let storyboard : UIStoryboard = UIStoryboard(name: "Register", bundle: nil)
+        let storyboard: UIStoryboard = UIStoryboard(name: "Register", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "IGSplashNavigationController")
         vc.modalPresentationStyle = .fullScreen
 
@@ -423,7 +427,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let callPage = storyboard.instantiateViewController(withIdentifier: "IGCall") as! IGCall
             //Mark:- show Display Name of caller User if Nil we are not in terminate State
-            callPage.callerName = userName ?? "UNKNOWN".localizedNew
+            callPage.callerName = userName ?? "UNKNOWN".localized
             //End
             callPage.userId = userId
             callPage.isIncommingCall = isIncommmingCall
@@ -450,23 +454,24 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
                 
             }
             else {
-            let callAlert = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-            let voiceCall = UIAlertAction(title: "VOICE_CALL".localizedNew, style: .default, handler: { (action) in
-                self.showCallPage(userId: userId, isIncommmingCall: isIncommmingCall, sdp: sdp, type: IGPSignalingOffer.IGPType.voiceCalling, showAlert: false)
-            })
-            let videoCall = UIAlertAction(title: "VIDEO_CALL".localizedNew, style: .default, handler: { (action) in
-                self.showCallPage(userId: userId, isIncommmingCall: isIncommmingCall, sdp: sdp, type: IGPSignalingOffer.IGPType.videoCalling, showAlert: false)
-            })
-            let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
-            
-            callAlert.addAction(voiceCall)
-            callAlert.addAction(videoCall)
-            callAlert.addAction(cancel)
-            
-            self.window?.rootViewController?.present(callAlert, animated: true, completion: nil)
+                let callAlert = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+                let voiceCall = UIAlertAction(title: "VOICE_CALL".localized, style: .default, handler: { (action) in
+                    self.showCallPage(userId: userId, isIncommmingCall: isIncommmingCall, sdp: sdp, type: IGPSignalingOffer.IGPType.voiceCalling, showAlert: false)
+                })
+                let videoCall = UIAlertAction(title: "VIDEO_CALL".localized, style: .default, handler: { (action) in
+                    self.showCallPage(userId: userId, isIncommmingCall: isIncommmingCall, sdp: sdp, type: IGPSignalingOffer.IGPType.videoCalling, showAlert: false)
+                })
+                let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
+                
+                callAlert.addAction(voiceCall)
+                callAlert.addAction(videoCall)
+                callAlert.addAction(cancel)
+                
+                self.window?.rootViewController?.present(callAlert, animated: true, completion: nil)
+            }
         }
     }
-    }
+    
     func showCallQualityPage(rateId: Int64){
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let callQualityPage = storyboard.instantiateViewController(withIdentifier: "IGCallQualityShowing") as! IGCallQuality
@@ -555,30 +560,8 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     /***************************************** Deep Link Handler *****************************************/
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        
-//        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
-//        let host = urlComponents?.host ?? ""
-//        
-//        if host == "resolve" {
-//            let sb = UIStoryboard(name: "Main", bundle: .main)
-//            let secretVC = sb.instantiateViewController(withIdentifier: "IGMessageViewController") as? IGMessageViewController
-//            let messageID : String?
-//            let RoomID : String?
-//            let _ : String?
-//            RoomID = urlComponents?.queryItems?.first?.value
-//            messageID = urlComponents?.queryItems?.last?.value
-//            let strAsNSString = messageID! as NSString
-//            _ = strAsNSString.longLongValue
-//            let predicate = NSPredicate(format: "channelRoom.publicExtra.username = %@", RoomID!)
-//            if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
-//                secretVC!.room = room
-//                window?.rootViewController = secretVC
-//            }
-//        }
         print(url)
         return DeepLinkManager.shared.handleDeeplink(url: url)
-        
-//        return false
     }
     
     /******************************************************************************************************/
@@ -611,6 +594,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         voipRegistry.delegate = self
         voipRegistry.desiredPushTypes = [PKPushType.voIP]
     }
+    
 }
 
 // Helper function inserted by Swift 4.2 migrator.

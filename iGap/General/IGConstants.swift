@@ -34,11 +34,11 @@ struct SMDirection {
     }
     
     static func PageAffineTransform() -> CGAffineTransform {
-        return (SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue) ? CGAffineTransform(scaleX: 1,y: 1) : CGAffineTransform(scaleX: -1,y: 1)
+        return LocaleManager.isRTL ? CGAffineTransform(scaleX: -1,y: 1) : CGAffineTransform(scaleX: 1,y: 1)
     }
     
     static func TextAlignment() -> NSTextAlignment {
-        return (SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue) ? .left : .right
+        return LocaleManager.isRTL ? .right : .left
     }
 }
 

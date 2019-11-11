@@ -153,7 +153,7 @@ class SwiftWebVC: BaseViewController {
         navBarTitle.shadowOffset = CGSize(width: 0, height: 1);
         navBarTitle.font = UIFont.igFont(ofSize: 17.0)
         navBarTitle.textAlignment = .center
-        navBarTitle.text = "Loading ...".localizedNew
+        navBarTitle.text = "Loading ...".localized
         navigationItem.titleView = navBarTitle
         
         
@@ -403,7 +403,7 @@ extension SwiftWebVC: WKScriptMessageHandler {
                 let paymentView = IGPaymentView.sharedInstance
                 if success {
                     guard let paymentData = payment else {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
                         return
                     }
                     paymentView.show(on: UIApplication.shared.keyWindow!, title: self.navBarTitle.text ?? "", payToken: message.body as! String, payment: paymentData)

@@ -129,7 +129,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 switch  currentTabIndex {
                 case TabBarTab.Recent.rawValue:
                     let navItem = self.navigationItem as! IGNavigationItem
-                    navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localizedNew)
+                    navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localized)
                 default:
                     if isDashboardInner! {
                         self.initNavigationBar(title: nil, rightItemText: nil) { }
@@ -327,14 +327,14 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 self.btnRefresh!.isHidden = true
                 if IGGlobal.shouldShowChart {
                     if self.pollList.count == 0 {
-                        self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
+                        self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localized)
                     } else {
                         self.collectionView!.restore()
                     }
                 }
                 else {
                     if self.discoveries.count == 0 {
-                        self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
+                        self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localized)
                     } else {
                         self.collectionView!.restore()
                     }

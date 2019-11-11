@@ -54,15 +54,15 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         var title : String = "CHANNEL_TITLE"
         if room!.type == .channel {
             title = "CHANNEL_TITLE"
-            self.tfDescriptionOfRoom.placeholder = "CHANNELDESC".localizedNew
-            self.tfNameOfRoom.placeholder = "CHANNEL_NAME".localizedNew
+            self.tfDescriptionOfRoom.placeholder = "CHANNELDESC".localized
+            self.tfNameOfRoom.placeholder = "CHANNEL_NAME".localized
 
         } else {
             title = "GROUP_TITLE"
-            self.tfDescriptionOfRoom.placeholder = "GROUPDESC".localizedNew
-            self.tfNameOfRoom.placeholder = "GROUPNAME".localizedNew
+            self.tfDescriptionOfRoom.placeholder = "GROUPDESC".localized
+            self.tfNameOfRoom.placeholder = "GROUPNAME".localized
         }
-        self.initNavigationBar(title: title.localizedNew,rightItemText: "", iGapFont: true) {
+        self.initNavigationBar(title: title.localized,rightItemText: "", iGapFont: true) {
             if self.room?.type == .channel {
                 self.RequestSequenceChannel()
             } else {
@@ -208,7 +208,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 channelLink = "iGap.net/" + channelLink!
                 self.convertToPublic = false
                 tfChannelLink.isEnabled = false
-                lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PRIVATE".localizedNew
+                lblChannelType.text = "CHANNELTYPE".localized + "  " + "PRIVATE".localized
                 
             }
             if room?.channelRoom?.type == .publicRoom {
@@ -217,7 +217,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 tfChannelLink.isEnabled = true
                 self.convertToPublic = true
                 
-                lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PUBLIC".localizedNew
+                lblChannelType.text = "CHANNELTYPE".localized + "  " + "PUBLIC".localized
                 tmpOldUserName = channelLink
                 
             }
@@ -231,7 +231,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 channelLink = "iGap.net/" + channelLink!
                 self.convertToPublic = false
                 tfChannelLink.isEnabled = false
-                lblChannelType.text = "GROUPTYPE".localizedNew + "  " + "PRIVATE".localizedNew
+                lblChannelType.text = "GROUPTYPE".localized + "  " + "PRIVATE".localized
                 
             }
             if room?.groupRoom?.type == .publicRoom {
@@ -240,7 +240,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 tfChannelLink.isEnabled = true
                 self.convertToPublic = true
                 
-                lblChannelType.text = "GROUPTYPE".localizedNew + "  " + "PUBLIC".localizedNew
+                lblChannelType.text = "GROUPTYPE".localized + "  " + "PUBLIC".localized
                 tmpOldUserName = channelLink
                 
             }
@@ -335,7 +335,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                                 switch protoResponse {
                                 case let clientGetRoomResponse as IGPClientGetRoomResponse:
                                     IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
-                                    self.lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PRIVATE".localizedNew
+                                    self.lblChannelType.text = "CHANNELTYPE".localized + "  " + "PRIVATE".localized
                                     self.convertToPublic = false
                                     self.tableView.beginUpdates()
                                     SMLoading.hideLoadingPage()
@@ -422,7 +422,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             if channelUserName == "" {
                 SMLoading.hideLoadingPage()
                 dispatchGroup.leave()
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_FORM".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_FORM".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                 return
             }
@@ -430,7 +430,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             if channelUserName.count < 5 {
                 SMLoading.hideLoadingPage()
                 dispatchGroup.leave()
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_MINIMUM_LENGH".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_MINIMUM_LENGH".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                 return
             }
@@ -442,7 +442,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                     case let channelUpdateUserName as IGPChannelUpdateUsernameResponse :
                         IGChannelUpdateUsernameRequest.Handler.interpret(response: channelUpdateUserName)
                         self.tableView.beginUpdates()
-                        self.lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PUBLIC".localizedNew
+                        self.lblChannelType.text = "CHANNELTYPE".localized + "  " + "PUBLIC".localized
                         self.tmpOldUserName = self.tfChannelLink.text
                         self.tableView.endUpdates()
                         self.dispatchGroup.leave()
@@ -457,14 +457,14 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 if self.convertToPublic {
                     self.tableView.beginUpdates()
                     self.convertToPublic = true
-                    self.lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PUBLIC".localizedNew
+                    self.lblChannelType.text = "CHANNELTYPE".localized + "  " + "PUBLIC".localized
                     self.tableView.endUpdates()
                     self.dispatchGroup.leave()
                     
                 } else {
                     self.tableView.beginUpdates()
                     self.convertToPublic = false
-                    self.lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PRIVATE".localizedNew
+                    self.lblChannelType.text = "CHANNELTYPE".localized + "  " + "PRIVATE".localized
                     self.tableView.endUpdates()
                     self.dispatchGroup.leave()
                     
@@ -475,33 +475,33 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         break
                     case .channelUpdateUsernameIsInvalid:
 
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INVALID_USERNAME".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INVALID_USERNAME".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                         break
                         
                     case .channelUpdateUsernameHasAlreadyBeenTakenByAnotherUser:
 
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_TAKEN_USERNAME".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_TAKEN_USERNAME".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                         break
                         
                     case .channelUpdateUsernameMoreThanTheAllowedUsernmaeHaveBeenSelectedByYou:
 
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "More than the allowed usernmae have been selected by you", cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "More than the allowed usernmae have been selected by you", cancelText: "GLOBAL_CLOSE".localized)
 
                         break
                         
                     case .channelUpdateUsernameForbidden:
                         
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_UPDATE_USERNAME_FORBIDDEN".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_UPDATE_USERNAME_FORBIDDEN".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                         break
                         
                     case .channelUpdateUsernameLock:
                         let time = waitTime
                         let remainingMiuntes = time!/60
-                        let msg =  "MSG_CHANGE_USERNAME_AFTER".localizedNew + " \(remainingMiuntes)" + "MINUTE".localizedNew
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        let msg =  "MSG_CHANGE_USERNAME_AFTER".localized + " \(remainingMiuntes)" + "MINUTE".localized
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: "GLOBAL_CLOSE".localized)
 
                         break
                         
@@ -529,7 +529,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 SMLoading.hideLoadingPage()
                 self.dispatchGroup.leave()
                 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "GROUP_LINK_NOT_EMPTY".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "GROUP_LINK_NOT_EMPTY".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                 return
             }
@@ -537,7 +537,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             if groupUserName.count < 5 {
                 SMLoading.hideLoadingPage()
                 self.dispatchGroup.leave()
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_MINIMUM_LENGH".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_MINIMUM_LENGH".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                 return
             }
@@ -568,7 +568,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
 
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INVALID_USERNAME".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INVALID_USERNAME".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                         break
                         
@@ -577,7 +577,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
 
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_TAKEN_USERNAME".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_TAKEN_USERNAME".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                         break
                         
@@ -586,7 +586,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
                         
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "Error", showIconView: true, showDoneButton: false, showCancelButton: true, message: "More than the allowed usernmae have been selected by you", cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "Error", showIconView: true, showDoneButton: false, showCancelButton: true, message: "More than the allowed usernmae have been selected by you", cancelText: "GLOBAL_CLOSE".localized)
 
                         break
                         
@@ -594,18 +594,18 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
                         
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_UPDATE_USERNAME_FORBIDDEN".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_UPDATE_USERNAME_FORBIDDEN".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                         break
                         
                     case .groupUpdateUsernameLock:
                         let time = waitTime
                         let remainingMiuntes = time!/60
-                        let msg = "MSG_CHANGE_USERNAME_AFTER".localizedNew + " " + String(remainingMiuntes) + " " + "MINUTE".localizedNew
+                        let msg = "MSG_CHANGE_USERNAME_AFTER".localized + " " + String(remainingMiuntes) + " " + "MINUTE".localized
                         
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: "GLOBAL_CLOSE".localized)
 
                         break
                         
@@ -777,15 +777,15 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         lblChannelType.textColor = UIColor(named: themeColor.labelColor.rawValue)
         lblChannelReaction.textColor = UIColor(named: themeColor.labelColor.rawValue)
         //Direction Handler
-        lblSignMessage.textAlignment = lblSignMessage.localizedNewDirection
-        lblChannelType.textAlignment = lblSignMessage.localizedNewDirection
-        lblChannelReaction.textAlignment = lblChannelReaction.localizedNewDirection
+        lblSignMessage.textAlignment = lblSignMessage.localizedDirection
+        lblChannelType.textAlignment = lblSignMessage.localizedDirection
+        lblChannelReaction.textAlignment = lblChannelReaction.localizedDirection
         initLabels(room: self.room!)
     }
     func initLabels(room : IGRoom!) {
         if room.type == .channel {
-            lblChannelReaction.text = "CHANNELREACTION".localizedNew
-            lblSignMessage.text = "CHANNELSIGNMESSAGES".localizedNew
+            lblChannelReaction.text = "CHANNELREACTION".localized
+            lblSignMessage.text = "CHANNELSIGNMESSAGES".localized
             
             tfDescriptionOfRoom.text = room.channelRoom?.roomDescription
             tfNameOfRoom.text = room.title
@@ -817,21 +817,21 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     }
     @IBAction func btnChangeImageTapped(_ sender: UIButton) {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.pickImage(screens: [.photo])
         })
-        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.pickImage(screens: [.library])
         })
-        let removeAction = UIAlertAction(title: "DELETE_PHOTO".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let removeAction = UIAlertAction(title: "DELETE_PHOTO".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.deleteAvatar()
         })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
         
         optionMenu.addAction(ChoosePhoto)
         let alertActions = optionMenu.actions
         for action in alertActions {
-            if action.title == "DELETE_PHOTO".localizedNew{
+            if action.title == "DELETE_PHOTO".localized{
                 let removeColor = UIColor.iGapRed()
                 action.setValue(removeColor, forKey: "titleTextColor")
             }
@@ -884,27 +884,27 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
-        let publicChannel = UIAlertAction(title: "PUBLIC".localizedNew, style: .default, handler: { (action) in
+        let publicChannel = UIAlertAction(title: "PUBLIC".localized, style: .default, handler: { (action) in
             if self.room?.type == .channel {
                 self.tableView.beginUpdates()
-                self.lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PUBLIC".localizedNew
+                self.lblChannelType.text = "CHANNELTYPE".localized + "  " + "PUBLIC".localized
                 self.tfChannelLink.text = nil
                 self.tfChannelLink.isEnabled = true
                 self.convertToPublic = true
                 self.tableView.endUpdates()
             } else {
                 self.tableView.beginUpdates()
-                self.lblChannelType.text = "GROUPTYPE".localizedNew + "  " + "PUBLIC".localizedNew
+                self.lblChannelType.text = "GROUPTYPE".localized + "  " + "PUBLIC".localized
                 self.tfChannelLink.text = nil
                 self.tfChannelLink.isEnabled = true
                 self.convertToPublic = true
             }
         })
         
-        let privateChannel = UIAlertAction(title: "PRIVATE".localizedNew, style: .default, handler: { (action) in
+        let privateChannel = UIAlertAction(title: "PRIVATE".localized, style: .default, handler: { (action) in
             if self.room?.type == .channel {
                 self.tableView.beginUpdates()
-                self.lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PRIVATE".localizedNew
+                self.lblChannelType.text = "CHANNELTYPE".localized + "  " + "PRIVATE".localized
                 self.tfChannelLink.isEnabled = false
                 self.convertToPublic = false
                 
@@ -912,7 +912,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 
             } else {
                 self.tableView.beginUpdates()
-                self.lblChannelType.text = "GROUPTYPE".localizedNew + "  " + "PRIVATE".localizedNew
+                self.lblChannelType.text = "GROUPTYPE".localized + "  " + "PRIVATE".localized
                 self.tfChannelLink.isEnabled = false
                 self.convertToPublic = false
                 
@@ -921,7 +921,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             }
         })
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
         
         alertController.addAction(publicChannel)
         alertController.addAction(privateChannel)
@@ -1020,7 +1020,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     //MARK: -Header and Footer
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let containerFooterView = view as! UITableViewHeaderFooterView
-        containerFooterView.textLabel?.textAlignment = containerFooterView.textLabel!.localizedNewDirection
+        containerFooterView.textLabel?.textAlignment = containerFooterView.textLabel!.localizedDirection
         switch section {
         default :
             containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15,weight: .bold)
@@ -1030,19 +1030,19 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     }
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         let containerFooterView = view as! UITableViewHeaderFooterView
-        containerFooterView.textLabel?.textAlignment = containerFooterView.textLabel!.localizedNewDirection
+        containerFooterView.textLabel?.textAlignment = containerFooterView.textLabel!.localizedDirection
         containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15,weight: .light)
         
         switch section {
             
         case 2 :
             if room?.type == .channel {
-                containerFooterView.textLabel?.text = "CHANNEL_SIGN_FOOTER".localizedNew
+                containerFooterView.textLabel?.text = "CHANNEL_SIGN_FOOTER".localized
                 
             }
         case 3 :
             if room?.type == .channel {
-                containerFooterView.textLabel?.text = "CHANNEL_REACTIONS_FOOTER".localizedNew
+                containerFooterView.textLabel?.text = "CHANNEL_REACTIONS_FOOTER".localized
                 
             }
         default :
@@ -1060,11 +1060,11 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             case 0:
                 return ""
             case 1:
-                return "CHANNEL_INFO".localizedNew
+                return "CHANNEL_INFO".localized
             case 2:
-                return "CHANNELSIGNMESSAGES".localizedNew
+                return "CHANNELSIGNMESSAGES".localized
             case 3:
-                return "CHANNELREACTION".localizedNew
+                return "CHANNELREACTION".localized
             default:
                 return ""
             }
@@ -1074,7 +1074,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             case 0:
                 return ""
             case 1:
-                return "GROUP_INFO".localizedNew
+                return "GROUP_INFO".localized
             default:
                 return ""
             }
@@ -1090,9 +1090,9 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             case 1:
                 return ""
             case 2:
-                return "CHANNEL_SIGN_FOOTER".localizedNew
+                return "CHANNEL_SIGN_FOOTER".localized
             case 3:
-                return "CHANNEL_REACTIONS_FOOTER".localizedNew
+                return "CHANNEL_REACTIONS_FOOTER".localized
             default:
                 return ""
             }

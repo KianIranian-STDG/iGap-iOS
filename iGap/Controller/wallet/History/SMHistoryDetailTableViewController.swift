@@ -33,23 +33,23 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             if let senderId = self.detail?.sender.account_id, senderId != "", let receiverId = self.detail?.receiver.account_id, receiverId != "" {
                 if SMUserManager.accountId == senderId {
                     if let sender_balance_atm = self.detail?.sender.balance_atm {
-                        self.detailArray?.append(("".localized, String(sender_balance_atm).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localizedNew))
+                        self.detailArray?.append(("".localized, String(sender_balance_atm).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localized))
                     }
                 } else if SMUserManager.accountId == receiverId {
                     if let receiver_balance_atm = self.detail?.receiver.balance_atm {
-                        self.detailArray?.append(("TTL_REMAINING_AMOUNT".localizedNew, String(receiver_balance_atm).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localizedNew))
+                        self.detailArray?.append(("TTL_REMAINING_AMOUNT".localized, String(receiver_balance_atm).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localized))
                     }
                 }
             }
-            if let invoice = self.detail?.invoice_number , invoice != 0 { self.detailArray?.append(("TTL_INVOICE_NUM".localizedNew ,  String(invoice)))  }
-            if let trace = self.detail?.trace_no, trace != 0 { self.detailArray?.append(("TTL_PAY_NUMBER".localizedNew,String(trace))) }
-            if let cardNo = self.detail?.card_number , cardNo != "" { self.detailArray?.append(("TTL_CARDNUM".localizedNew , String(cardNo))) }
+            if let invoice = self.detail?.invoice_number , invoice != 0 { self.detailArray?.append(("TTL_INVOICE_NUM".localized ,  String(invoice)))  }
+            if let trace = self.detail?.trace_no, trace != 0 { self.detailArray?.append(("TTL_PAY_NUMBER".localized,String(trace))) }
+            if let cardNo = self.detail?.card_number , cardNo != "" { self.detailArray?.append(("TTL_CARDNUM".localized , String(cardNo))) }
             if let targetNo = self.detail?.target_card_number , targetNo != "" {
 				if targetNo.length == 16 {
-                    self.detailArray?.append(("TTL_DESTI_CARDNUM".localizedNew , String(targetNo)))
+                    self.detailArray?.append(("TTL_DESTI_CARDNUM".localized , String(targetNo)))
 				}
 				else {
-					self.detailArray?.append(("TTL_DESTI_IBAN".localizedNew , String(targetNo)))
+					self.detailArray?.append(("TTL_DESTI_IBAN".localized , String(targetNo)))
 				}
 			}
             
@@ -58,7 +58,7 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             let footerView = UIView(frame: CGRect.init(x: 10, y: 0, width: self.view.frame.width - 20 , height: 80 ))
             self.recieptButton?.colors = [UIColor(netHex: 0x66bdf7), UIColor(netHex: 0x2a91e9)]
             self.recieptButton?.layer.cornerRadius = 25
-            self.recieptButton?.setTitle("BTN_SHOW_RECEPIET".localizedNew, for: .normal)
+            self.recieptButton?.setTitle("BTN_SHOW_RECEPIET".localized, for: .normal)
             self.recieptButton?.enable()
             self.recieptButton?.addTarget(self, action: #selector(self.recieptPressed(_:)), for: .touchUpInside)
             footerView.addSubview(self.recieptButton!)
@@ -79,7 +79,7 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
     
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "WALLET_HISTORY_DETAILS".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "WALLET_HISTORY_DETAILS".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -91,13 +91,13 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
 		var status = "";
 		switch rowData?.is_paid.rawValue {
 		case 1:
-			status = "TTL_SUCCESS_PAYMENT".localizedNew
+			status = "TTL_SUCCESS_PAYMENT".localized
 		case 5:
-			status = "TTL_SUCCESS_PAYMENT".localizedNew
+			status = "TTL_SUCCESS_PAYMENT".localized
 		default:
-			status = "TTL_PAYMENT_PENDING_FRM".localizedNew
+			status = "TTL_PAYMENT_PENDING_FRM".localized
 		}
-        let dic = ["TTL_RECIEVER".localizedNew : rowData?.receiver.name ?? "" ,"TTL_TRANSACTION_TYPE".localizedNew : SMStringUtil.getTransType(type: (rowData?.transaction_type.rawValue)!), "TTL_PAY_STATUS".localizedNew :  status , "TTL_AMOUNT".localizedNew : rowData?.amount ?? ""  ,"TTL_INVOICE_NUMBER".localizedNew : rowData?.invoice_number ?? "","TTL_DATE".localizedNew : date ?? ""] as [String : Any]
+        let dic = ["TTL_RECIEVER".localized : rowData?.receiver.name ?? "" ,"TTL_TRANSACTION_TYPE".localized : SMStringUtil.getTransType(type: (rowData?.transaction_type.rawValue)!), "TTL_PAY_STATUS".localized :  status , "TTL_AMOUNT".localized : rowData?.amount ?? ""  ,"TTL_INVOICE_NUMBER".localized : rowData?.invoice_number ?? "","TTL_DATE".localized : date ?? ""] as [String : Any]
 //        let dic = ["status".localized :  (rowData?.is_paid)! == IS_PAID_STATUS.PAID ? "success.payment".localized : "history.paygear.receive.waiting".localized , "amount".localized : rowData?.amount,"invoice_number".localized : rowData?.invoice_number,"date".localized : date] as [String : Any]
         
         let result = ["result" : dic ,"state" : rowData?.is_paid.rawValue ?? ""] as NSDictionary
@@ -146,29 +146,29 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
         cell.frame = CGRect.init(x: 0.0, y: 0.0, width: self.view.frame.width, height: 80.0)
         cell.amountLabel.text = String(rowData!.amount).inRialFormat().inLocalizedLanguage()
         cell.timeLabel.text = Date.init(timeIntervalSince1970: TimeInterval((rowData!.pay_date != 0 ? rowData!.pay_date: rowData!.created_at_timestamp)/1000)).localizedDateTime()
-        cell.currencyLabel.text = "CURRENCY".localizedNew
+        cell.currencyLabel.text = "CURRENCY".localized
 
         cell.descLabel.text = rowData!.receiver.name
         
         switch rowData!.order_type {
         case .CHARGE:
-            cell.titleLabel.text = "TTL_TRANSITION_CHARGE_WALLET".localizedNew
+            cell.titleLabel.text = "TTL_TRANSITION_CHARGE_WALLET".localized
             cell.titleImage.isHidden = true
-            cell.descLabel.text = "TTL_WALLET_ACCOUNT".localizedNew
+            cell.descLabel.text = "TTL_WALLET_ACCOUNT".localized
             cell.profileImage.image = UIImage.init(named: "AppIcon")
         case .CASH_OUT:
             cell.titleImage.isHidden = false
             if rowData!.is_paid == .PAID {
                 cell.titleImage.image = UIImage.init(named: "up-arrow")
-                cell.titleLabel.text = "TTL_IS_PAYED".localizedNew
+                cell.titleLabel.text = "TTL_IS_PAYED".localized
 			}
 			else if (rowData?.is_paid == .REFUND) {
 				cell.titleImage.image = UIImage.init(named: "down-arrow")
-				cell.titleLabel.text = "TTL_MONEY_REFUND".localizedNew
+				cell.titleLabel.text = "TTL_MONEY_REFUND".localized
 			}
 			else {
                 cell.titleImage.image = UIImage.init(named: "hourglass")
-                cell.titleLabel.text = "TTL_CASHOUT_PENDING".localizedNew
+                cell.titleLabel.text = "TTL_CASHOUT_PENDING".localized
             }
             cell.profileImage.image = UIImage.init(named: "AppIcon")
         case .P2P:
@@ -219,10 +219,10 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             
             if row.is_paid == .PAID {
                 cell.titleImage.image = UIImage.init(named: "up-arrow")
-                cell.titleLabel.text = "TTL_RECIEVE_FRM".localizedNew
+                cell.titleLabel.text = "TTL_RECIEVE_FRM".localized
             }else{
                 cell.titleImage.image = UIImage.init(named: "hourglass")
-                cell.titleLabel.text = "TTL_PAYMENT_PENDING_FRM".localizedNew
+                cell.titleLabel.text = "TTL_PAYMENT_PENDING_FRM".localized
             }
             
             if let pic = row.sender.profile_picture , pic != "" {
@@ -239,10 +239,10 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             
             if row.is_paid == .PAID {
                 cell.titleImage.image = UIImage.init(named: "up-arrow")
-                cell.titleLabel.text = "TTL_PAYED_WITH_WALLED_CARD_TO".localizedNew
+                cell.titleLabel.text = "TTL_PAYED_WITH_WALLED_CARD_TO".localized
             }else{
                 cell.titleImage.image = UIImage.init(named: "hourglass")
-                cell.titleLabel.text = "TTL_PAY_WITH_WALLET_CARD_PENDING".localizedNew
+                cell.titleLabel.text = "TTL_PAY_WITH_WALLET_CARD_PENDING".localized
             }
             
             if let pic = row.receiver.profile_picture , pic != "" {
@@ -266,7 +266,7 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             
             if row.is_paid == .PAID {
                 cell.titleImage.image = UIImage.init(named: "up-arrow")
-                cell.titleLabel.text = "TTL_BUY_CLUB_FROM".localizedNew
+                cell.titleLabel.text = "TTL_BUY_CLUB_FROM".localized
             }else{
                 cell.titleImage.image = UIImage.init(named: "hourglass")
                 cell.titleLabel.text = "در انتظار خرید طرح باشگاه از".localized
@@ -307,7 +307,7 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
         //let cAccountId = accountId != nil ? accountId : SMUserManager.accountId
         if row.is_paid  == .PAID{
             cell.titleImage.image = UIImage.init(named: "down-arrow")
-            cell.titleLabel.text = "history.sale.share".localizedNew
+            cell.titleLabel.text = "history.sale.share".localized
         }
         if let pic = row.sender.profile_picture , pic != "" {
             let request = WS_methods(delegate: self, failedDialog: true)

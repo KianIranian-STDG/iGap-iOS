@@ -10,27 +10,27 @@ import UIKit
 
 class BaseTableViewCell: UITableViewCell {
     
-    var isAppEnglish: Bool {
+    var isRTL: Bool {
         get {
-            return SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
+            return LocaleManager.isRTL
         }
     }
     
     var appTransform: CGAffineTransform {
         get {
-            return isAppEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
+            return LocaleManager.transform
         }
     }
     
     var semantic: UISemanticContentAttribute {
         get {
-            return isAppEnglish ? .forceLeftToRight : .forceRightToLeft
+            return LocaleManager.semantic
         }
     }
     
     var appTextAlignment: NSTextAlignment {
         get {
-            return isAppEnglish ? .left : .right
+            return LocaleManager.TextAlignment
         }
     }
 

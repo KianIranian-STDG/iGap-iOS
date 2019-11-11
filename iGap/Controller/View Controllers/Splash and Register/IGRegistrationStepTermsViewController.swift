@@ -16,19 +16,17 @@ class IGRegistrationStepTermsViewController: BaseViewController {
     
     @IBOutlet weak var webView: UIWebView!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let navItem = self.navigationItem as! IGNavigationItem
-        navItem.addModalViewItems(leftItemText: nil, rightItemText: "DONE_BTN".localizedNew, title: "TERMS".localizedNew)
+        navItem.addModalViewItems(leftItemText: nil, rightItemText: "DONE_BTN".localized, title: "TERMS".localized)
         navItem.rightViewContainer?.addAction {
             self.dismiss(animated: true) {
                 
             }
         }
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

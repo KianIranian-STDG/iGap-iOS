@@ -18,8 +18,8 @@ class IGUserContactsTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        nameLbl.textAlignment = nameLbl.localizedNewDirection
-        phoneNumberLbl.textAlignment = phoneNumberLbl.localizedNewDirection
+        nameLbl.textAlignment = nameLbl.localizedDirection
+        phoneNumberLbl.textAlignment = phoneNumberLbl.localizedDirection
         avatarIconLbl.text = ""
         avatarIconLbl.layer.cornerRadius = self.avatarIconLbl.frame.height
     }

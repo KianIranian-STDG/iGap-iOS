@@ -30,20 +30,20 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        btnSubmit.setTitle("GLOBAL_OK".localizedNew, for: .normal)
+        btnSubmit.setTitle("GLOBAL_OK".localized, for: .normal)
         btnSubmit.titleLabel?.font = UIFont.igFont(ofSize: 17)
         if isOTP {
-            initNavigationBar(title: "RESET_WALLET_PIN".localizedNew)
-            self.lblFirstRow.text = "OTP_CODE".localizedNew
-            self.tfFirst.placeholder = "OTP_CODE_PLACEHOLDER".localizedNew
-            self.lblSecondRow.text = "NEW_PASS".localizedNew
-            self.lblThirdRow.text = "CONFIRM_NEW_PASS".localizedNew
+            initNavigationBar(title: "RESET_WALLET_PIN".localized)
+            self.lblFirstRow.text = "OTP_CODE".localized
+            self.tfFirst.placeholder = "OTP_CODE_PLACEHOLDER".localized
+            self.lblSecondRow.text = "NEW_PASS".localized
+            self.lblThirdRow.text = "CONFIRM_NEW_PASS".localized
         }
         else {
-            initNavigationBar(title: "WALLET_PIN".localizedNew)
-            self.lblFirstRow.text = "CURRENT_PASS".localizedNew
-            self.lblSecondRow.text = "NEW_PASS".localizedNew
-            self.lblThirdRow.text = "CONFIRM_NEW_PASS".localizedNew
+            initNavigationBar(title: "WALLET_PIN".localized)
+            self.lblFirstRow.text = "CURRENT_PASS".localized
+            self.lblSecondRow.text = "NEW_PASS".localized
+            self.lblThirdRow.text = "CONFIRM_NEW_PASS".localized
             
             
         }
@@ -79,20 +79,20 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         }
     }
     func initView() {
-        btnSubmit.setTitle("GLOBAL_OK".localizedNew, for: .normal)
+        btnSubmit.setTitle("GLOBAL_OK".localized, for: .normal)
         btnSubmit.titleLabel?.font = UIFont.igFont(ofSize: 17)
         if isOTP {
-            initNavigationBar(title: "RESET_WALLET_PIN".localizedNew)
-            self.lblFirstRow.text = "OTP_CODE".localizedNew
-            self.tfFirst.placeholder = "OTP_CODE_PLACEHOLDER".localizedNew
-            self.lblSecondRow.text = "NEW_PASS".localizedNew
-            self.lblThirdRow.text = "CONFIRM_NEW_PASS".localizedNew
+            initNavigationBar(title: "RESET_WALLET_PIN".localized)
+            self.lblFirstRow.text = "OTP_CODE".localized
+            self.tfFirst.placeholder = "OTP_CODE_PLACEHOLDER".localized
+            self.lblSecondRow.text = "NEW_PASS".localized
+            self.lblThirdRow.text = "CONFIRM_NEW_PASS".localized
         }
         else {
-            initNavigationBar(title: "WALLET_PIN".localizedNew)
-            self.lblFirstRow.text = "CURRENT_PASS".localizedNew
-            self.lblSecondRow.text = "NEW_PASS".localizedNew
-            self.lblThirdRow.text = "CONFIRM_NEW_PASS".localizedNew
+            initNavigationBar(title: "WALLET_PIN".localized)
+            self.lblFirstRow.text = "CURRENT_PASS".localized
+            self.lblSecondRow.text = "NEW_PASS".localized
+            self.lblThirdRow.text = "CONFIRM_NEW_PASS".localized
 
 
         }
@@ -115,7 +115,7 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
     /// Call API to get OTP message
     func callOTPAPI () {
         
-        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localizedNew)
+        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localized)
         
         let request = WS_methods.init(delegate: self, failedDialog: false)
         
@@ -123,27 +123,27 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
             //
             SMLoading.hideLoadingPage()
             
-            let message = "SUCCESS_OTP".localizedNew
+            let message = "SUCCESS_OTP".localized
 //
 //
-                        SMLoading.shared.showNormalDialog(viewController: self, height: 180 ,isleftButtonEnabled: false , title: "GLOBAL_MESSAGE".localizedNew, message: message ,yesPressed :{yes in
+                        SMLoading.shared.showNormalDialog(viewController: self, height: 180 ,isleftButtonEnabled: false , title: "GLOBAL_MESSAGE".localized, message: message ,yesPressed :{yes in
 ////
             })
-//            SMLoading.showToast(viewcontroller: self, text: "SUCCESS_OTP".localizedNew)
+//            SMLoading.showToast(viewcontroller: self, text: "SUCCESS_OTP".localized)
         }
         
         request.addFailedHandler { (response) in
             
             if SMValidation.showConnectionErrorToast(response) {
-                SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localizedNew)
+                SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localized)
             }
-            let message = "UNSSUCCESS_OTP".localizedNew
-            SMLoading.shared.showNormalDialog(viewController: self, height: 180 ,isleftButtonEnabled: false , title: "GLOBAL_MESSAGE".localizedNew, message: message ,yesPressed :{yes in
+            let message = "UNSSUCCESS_OTP".localized
+            SMLoading.shared.showNormalDialog(viewController: self, height: 180 ,isleftButtonEnabled: false , title: "GLOBAL_MESSAGE".localized, message: message ,yesPressed :{yes in
 
                 self.navigationController?.popViewController(animated: true)
 
             })
-//            SMLoading.showToast(viewcontroller: self, text: "UNSSUCCESS_OTP".localizedNew)
+//            SMLoading.showToast(viewcontroller: self, text: "UNSSUCCESS_OTP".localized)
 
             SMLoading.hideLoadingPage()
         }
@@ -160,7 +160,7 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
     ///   - newPass: new passcode
     func callResetAPI (otp: String, newPass: String) {
         
-        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localizedNew)
+        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localized)
         
         let request = WS_methods.init(delegate: self, failedDialog: false)
         
@@ -168,9 +168,9 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
             //
             SMLoading.hideLoadingPage()
             
-            let message = "SUCCESSFULL_CHANGE_PASS".localizedNew
+            let message = "SUCCESSFULL_CHANGE_PASS".localized
             
-            SMLoading.shared.showNormalDialog(viewController: self, height: 180 ,isleftButtonEnabled: false , title: "GLOBAL_MESSAGE".localizedNew, message: message ,yesPressed :{yes in
+            SMLoading.shared.showNormalDialog(viewController: self, height: 180 ,isleftButtonEnabled: false , title: "GLOBAL_MESSAGE".localized, message: message ,yesPressed :{yes in
                 
                 self.navigationController?.popViewController(animated: true)
                 
@@ -183,7 +183,7 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         request.addFailedHandler { (response) in
             
             if SMValidation.showConnectionErrorToast(response) {
-                SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localizedNew)
+                SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localized)
             }
             SMLoading.hideLoadingPage()
             SMMessage.showWithMessage(SMCard.testConvert(response))
@@ -236,11 +236,11 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
             }
             else {
                 
-                SMMessage.showWithMessage("PASSCODE_NOT_MACHED".localizedNew)
+                SMMessage.showWithMessage("PASSCODE_NOT_MACHED".localized)
             }
         }
         else {
-            SMMessage.showWithMessage("INPUT_VALUE_NOT_CORRECT".localizedNew)
+            SMMessage.showWithMessage("INPUT_VALUE_NOT_CORRECT".localized)
         }
         
         
@@ -251,7 +251,7 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
     ///   - newPass: the passcode to be define
     func callAPI (oldPass: String, newPass: String) {
         
-        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localizedNew)
+        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localized)
         
         let request = WS_methods.init(delegate: self, failedDialog: false)
         
@@ -262,11 +262,11 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
                 SMUserManager.pin = true
             }
             
-            var message = "SUCCESSFULL_CHANGE_PASS".localizedNew
+            var message = "SUCCESSFULL_CHANGE_PASS".localized
             if !self.isFirstTime {
-                message = "SUCCESSFULL_SET_PASS".localizedNew
+                message = "SUCCESSFULL_SET_PASS".localized
             }
-            SMLoading.shared.showNormalDialog(viewController: self, height: 180 ,isleftButtonEnabled: false , title: "GLOBAL_MESSAGE".localizedNew, message: message ,yesPressed :{yes in
+            SMLoading.shared.showNormalDialog(viewController: self, height: 180 ,isleftButtonEnabled: false , title: "GLOBAL_MESSAGE".localized, message: message ,yesPressed :{yes in
                 
                     self.navigationController?.popViewController(animated: true)
                 
@@ -279,7 +279,7 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         request.addFailedHandler { (response) in
             
             if SMValidation.showConnectionErrorToast(response) {
-                SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localizedNew)
+                SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localized)
             }
             SMLoading.hideLoadingPage()
             SMMessage.showWithMessage(SMCard.testConvert(response))
@@ -368,11 +368,11 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
                 }
                 else {
                     
-                    SMMessage.showWithMessage("PASSCODE_NOT_MACHED".localizedNew)
+                    SMMessage.showWithMessage("PASSCODE_NOT_MACHED".localized)
                 }
             }
             else {
-                SMMessage.showWithMessage("INPUT_VALUE_NOT_CORRECT".localizedNew)
+                SMMessage.showWithMessage("INPUT_VALUE_NOT_CORRECT".localized)
             }
             
             

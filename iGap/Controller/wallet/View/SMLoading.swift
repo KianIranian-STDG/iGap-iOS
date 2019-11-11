@@ -77,12 +77,12 @@ class SMLoading {
         alertView.title = title
         alertView.message = message
         
-        alertView.leftButtonTitle = "GLOBAL_NO".localizedNew
+        alertView.leftButtonTitle = "GLOBAL_NO".localized
         alertView.leftButtonAction = noPressed
         
-        alertView.rightButtonTitle = "GLOBAL_OK".localizedNew
+        alertView.rightButtonTitle = "GLOBAL_OK".localized
         alertView.rightButtonAction = yesPressed
-        alertView.forgotButtonTitle = "FORGET_WALLET_PIN".localizedNew
+        alertView.forgotButtonTitle = "FORGET_WALLET_PIN".localized
         alertView.forgotPinAction = forgotPin
         
         
@@ -91,7 +91,7 @@ class SMLoading {
             alertView.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         })
     }
-    static func showLoadingPage(viewcontroller: UIViewController,text: String? = "Loading ...".localizedNew) {
+    static func showLoadingPage(viewcontroller: UIViewController,text: String? = "Loading ...".localized) {
         
         self.hideLoadingPage {
             loadingViewPage = UIView(frame : UIScreen.main.bounds)
@@ -205,10 +205,10 @@ class SMLoading {
         
         alertView.savedCards = cards!
         
-        alertView.leftButtonTitle = "GLOBAL_NO".localizedNew
+        alertView.leftButtonTitle = "GLOBAL_NO".localized
         alertView.leftButtonAction = noPressed
         
-        alertView.rightButtonTitle = "GLOBAL_OK".localizedNew
+        alertView.rightButtonTitle = "GLOBAL_OK".localized
         alertView.rightButtonAction = yesPressed
         
         viewController.customPresentViewController(self.presenter(), viewController: alertView, animated: true, completion: nil)
@@ -224,10 +224,10 @@ class SMLoading {
         
         alertView.savedClubs = cards!
         
-        alertView.leftButtonTitle = "GLOBAL_NO".localizedNew
+        alertView.leftButtonTitle = "GLOBAL_NO".localized
         alertView.leftButtonAction = noPressed
         
-        alertView.rightButtonTitle = "GLOBAL_OK".localizedNew
+        alertView.rightButtonTitle = "GLOBAL_OK".localized
         alertView.rightButtonAction = yesPressed
         
         viewController.customPresentViewController(self.presenter(), viewController: alertView, animated: true, completion: nil)

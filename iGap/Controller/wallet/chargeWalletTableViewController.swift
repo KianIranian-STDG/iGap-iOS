@@ -40,22 +40,22 @@ class chargeWalletTableViewController: BaseTableViewController,UITextFieldDelega
         initChangeDirection()
     }
     func initChangeLang() {
-        tfAmount.placeholder = "PLACE_HOLDER_AMOUNT".localizedNew
-        lblEnterChargePriceTitle.text = "TTL_ENTER_CHARGE_PRICE".localizedNew
-        amountTitleLabel.text = "TTL_WALLET_ACCOUNT_BALANCE".localizedNew
-        cashableAmountLabel.text = "TTL_WALLET_ACCOUNT_CASHABLE".localizedNew
-//        balanceLabel.text = "TTL_WALLET_ACCOUNT_CASHABLE".localizedNew
+        tfAmount.placeholder = "PLACE_HOLDER_AMOUNT".localized
+        lblEnterChargePriceTitle.text = "TTL_ENTER_CHARGE_PRICE".localized
+        amountTitleLabel.text = "TTL_WALLET_ACCOUNT_BALANCE".localized
+        cashableAmountLabel.text = "TTL_WALLET_ACCOUNT_CASHABLE".localized
+//        balanceLabel.text = "TTL_WALLET_ACCOUNT_CASHABLE".localized
 
     }
     func initChangeDirection() {
-        cashableAmountLabel.textAlignment = cashableAmountLabel.localizedNewDirection
-        balanceLabel.textAlignment = balanceLabel.localizedNewDirection
+        cashableAmountLabel.textAlignment = cashableAmountLabel.localizedDirection
+        balanceLabel.textAlignment = balanceLabel.localizedDirection
 
-        amountTitleLabel.textAlignment = cashableAmountLabel.localizedNewDirection
-        cashableBalanceLabel.textAlignment = balanceLabel.localizedNewDirection
+        amountTitleLabel.textAlignment = cashableAmountLabel.localizedDirection
+        cashableBalanceLabel.textAlignment = balanceLabel.localizedDirection
     }
     func initView() {
-        btnSubmit.setTitle("GLOBAL_OK".localizedNew, for: .normal)
+        btnSubmit.setTitle("GLOBAL_OK".localized, for: .normal)
 
         self.cashableBalanceLabel.text = balance
         self.balanceLabel.text = balance
@@ -63,7 +63,7 @@ class chargeWalletTableViewController: BaseTableViewController,UITextFieldDelega
     // MARK : - init View elements
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "TTL_TRANSITION_CHARGE_WALLET".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "TTL_TRANSITION_CHARGE_WALLET".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         
     }

@@ -31,7 +31,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     var searchController : UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
-        searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
+        searchController.searchBar.setValue("CANCEL_BTN".localized, forKey: "cancelButtonText")
         
         let gradient = CAGradientLayer()
         let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
@@ -45,7 +45,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
         if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
             if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
-                searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+                searchBarCancelButton.setTitle("CANCEL_BTN".localized, for: .normal)
                 searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
                 searchBarCancelButton.tintColor = UIColor.white
             }
@@ -53,7 +53,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
                 placeHolderInsideSearchField.textColor = UIColor.white
                 placeHolderInsideSearchField.textAlignment = .center
-                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localizedNew
+                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localized
                 if let backgroundview = textField.subviews.first {
                     placeHolderInsideSearchField.center = backgroundview.center
                 }
@@ -131,12 +131,12 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
         if self.showMembersFilter == .all {
-            navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ALLMEMBER".localizedNew)
+            navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localized, title: "ALLMEMBER".localized)
             navigationItem.rightViewContainer?.addAction {
                 self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
             }
         } else {
-            navigationItem.addNavigationViewItems(rightItemText: "", title: "ALLMEMBER".localizedNew)
+            navigationItem.addNavigationViewItems(rightItemText: "", title: "ALLMEMBER".localized)
         }
     }
     
@@ -159,7 +159,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             }
 
             if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
-                searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+                searchBarCancelButton.setTitle("CANCEL_BTN".localized, for: .normal)
                 searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
                 searchBarCancelButton.tintColor = UIColor.white
             }
@@ -167,7 +167,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
                 placeHolderInsideSearchField.textColor = UIColor.white
                 placeHolderInsideSearchField.textAlignment = .center
-                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localizedNew
+                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localized
                 if let backgroundview = textField.subviews.first {
                     placeHolderInsideSearchField.center = backgroundview.center
                 }
@@ -264,20 +264,20 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 let navigationItem = self.navigationItem as! IGNavigationItem
                 if self.roomType == .channel {
                     if role == IGPChannelRoom.IGPRole.admin.rawValue {
-                        navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ALLMEMBER".localizedNew)
+                        navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localized, title: "ALLMEMBER".localized)
                         navigationItem.rightViewContainer?.addAction {
                             self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
                         }
                     } else if role == IGPChannelRoom.IGPRole.moderator.rawValue || role == IGPChannelRoom.IGPRole.member.rawValue {
-                        let alertC = UIAlertController(title: "HINT".localizedNew, message: "CHANGED_ROLE_HINT".localizedNew, preferredStyle: .alert)
-                        let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler:  {  action in
+                        let alertC = UIAlertController(title: "HINT".localized, message: "CHANGED_ROLE_HINT".localized, preferredStyle: .alert)
+                        let cancel = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler:  {  action in
                             self.navigationController?.popViewController(animated: true)
                         })
                         alertC.addAction(cancel)
                         UIApplication.topViewController()!.present(alertC, animated: true, completion: nil)
                     }
                 } else if self.roomType == .group {
-                    navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ALLMEMBER".localizedNew)
+                    navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localized, title: "ALLMEMBER".localized)
                     navigationItem.rightViewContainer?.addAction {
                         self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
                     }
@@ -346,9 +346,9 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         if fetchedMember {
             if (self.realmMembers?.count ?? 0) == 0 {
                 if self.showMembersFilter == .admin {
-                    self.tableView.setEmptyMessage("NOT_EXIST_ADMIN".localizedNew)
+                    self.tableView.setEmptyMessage("NOT_EXIST_ADMIN".localized)
                 } else if self.showMembersFilter == .moderator {
-                    self.tableView.setEmptyMessage("NOT_EXIST_MODERATOR".localizedNew)
+                    self.tableView.setEmptyMessage("NOT_EXIST_MODERATOR".localized)
                 }
             } else {
                 self.tableView.restore()
@@ -422,7 +422,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
-        let addAdmin = UIAlertAction(title: "SET_AS_ADMIN".localizedNew, style: .default, handler: { (action) in
+        let addAdmin = UIAlertAction(title: "SET_AS_ADMIN".localized, style: .default, handler: { (action) in
             if self.roomType == .channel {
                 self.requestToAddAdminInChannel(member)
             } else {
@@ -430,7 +430,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             }
         })
         
-        let removeAdmin = UIAlertAction(title: "REMOVE_ADMIN".localizedNew, style: .default, handler: { (action) in
+        let removeAdmin = UIAlertAction(title: "REMOVE_ADMIN".localized, style: .default, handler: { (action) in
             if self.roomType == .channel {
                 self.kickAdminChannel(userId: member.userId)
             } else {
@@ -438,7 +438,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             }
         })
         
-        let addModerator = UIAlertAction(title: "SET_AS_MODERATOR".localizedNew, style: .default, handler: { (action) in
+        let addModerator = UIAlertAction(title: "SET_AS_MODERATOR".localized, style: .default, handler: { (action) in
             if self.roomType == .channel {
                 self.requestToAddModeratorInChannel(member)
             } else {
@@ -446,7 +446,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             }
         })
         
-        let removeModerator = UIAlertAction(title: "REMOVE_MODERATOR".localizedNew, style: .default, handler: { (action) in
+        let removeModerator = UIAlertAction(title: "REMOVE_MODERATOR".localized, style: .default, handler: { (action) in
             if self.roomType == .channel {
                 self.kickModeratorChannel(userId: member.userId)
             } else {
@@ -454,7 +454,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             }
         })
         
-        let kickMember = UIAlertAction(title: "KICK_MEMBER".localizedNew, style: .default, handler: { (action) in
+        let kickMember = UIAlertAction(title: "KICK_MEMBER".localized, style: .default, handler: { (action) in
             if self.roomType == .channel {
                 self.kickMemberChannel(userId: member.userId)
             } else {
@@ -462,7 +462,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             }
         })
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
         
         if permissions.addAdmin {
             alertController.addAction(addAdmin)
@@ -486,10 +486,10 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     
     func kickAlert(title: String, message: String, alertClouser: @escaping ((_ state :AlertState) -> Void)){
         let option = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .destructive, handler: { (action) in
+        let ok = UIAlertAction(title: "GLOBAL_OK".localized, style: .destructive, handler: { (action) in
             alertClouser(AlertState.Ok)
         })
-        let cancel = UIAlertAction(title: "GLOBAL_NO".localizedNew, style: .cancel, handler: { (action) in
+        let cancel = UIAlertAction(title: "GLOBAL_NO".localized, style: .cancel, handler: { (action) in
             alertClouser(AlertState.No)
         })
         
@@ -514,7 +514,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         if let channelRoom = room {
             
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "REMOVE_ADMIN".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_ADMIN".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "REMOVE_ADMIN".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_ADMIN".localized, doneText: "GLOBAL_OK".localized, cancelText: "GLOBAL_CLOSE".localized, done: {
                 IGGlobal.prgShow(self.view)
                 IGChannelKickAdminRequest.Generator.generate(roomId: channelRoom.id , memberId: userId).success({ (protoResponse) in
                     IGGlobal.prgHide()
@@ -551,7 +551,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         if let channelRoom = room {
             
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "REMOVE_MODERATOR".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_MODERATOR".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "REMOVE_MODERATOR".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_MODERATOR".localized, doneText: "GLOBAL_OK".localized, cancelText: "GLOBAL_CLOSE".localized, done: {
                 
                     IGGlobal.prgShow(self.view)
                     IGChannelKickModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: userId).success({ (protoResponse) in
@@ -578,7 +578,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     func kickMemberChannel(userId: Int64) {
         if let _ = room {
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "KICK_MEMBER".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_KICK_USER".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "KICK_MEMBER".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_KICK_USER".localized, doneText: "GLOBAL_OK".localized, cancelText: "GLOBAL_CLOSE".localized, done: {
                 IGGlobal.prgShow(self.view)
                 IGChannelKickMemberRequest.Generator.generate(roomID: (self.room?.id)!, memberID: userId).success({ (protoResponse) in
                     IGGlobal.prgHide()
@@ -615,7 +615,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                     break
                 case .canNotAddThisUserAsAdminToGroup:
                     DispatchQueue.main.async {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                     }
                 default:
@@ -642,7 +642,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                     break
                 case .canNotAddThisUserAsModeratorToGroup:
                     DispatchQueue.main.async {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
                     }
                     
                 default:
@@ -657,7 +657,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     func kickAdmin(userId: Int64) {
         if let groupRoom = room {
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "REMOVE_ADMIN".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_ADMIN".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "REMOVE_ADMIN".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_ADMIN".localized, doneText: "GLOBAL_OK".localized, cancelText: "GLOBAL_CLOSE".localized, done: {
                 IGGlobal.prgShow(self.view)
                 IGGroupKickAdminRequest.Generator.generate(roomID: groupRoom.id , memberID: userId).success({ (protoResponse) in
                     IGGlobal.prgHide()
@@ -680,7 +680,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     
     func kickModerator(userId: Int64) {
         if let groupRoom = room {
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "REMOVE_MODERATOR".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_MODERATOR".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "REMOVE_MODERATOR".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_MODERATOR".localized, doneText: "GLOBAL_OK".localized, cancelText: "GLOBAL_CLOSE".localized, done: {
                 IGGlobal.prgShow(self.view)
                 IGGroupKickModeratorRequest.Generator.generate(memberId: userId, roomId: groupRoom.id).success({ (protoResponse) in
                     IGGlobal.prgHide()
@@ -692,7 +692,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
                         }
                     default:
                         break
@@ -706,7 +706,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     func kickMember(userId: Int64) {
         if room != nil {
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "KICK_MEMBER".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_KICK_USER".localizedNew, doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "KICK_MEMBER".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_KICK_USER".localized, doneText: "GLOBAL_OK".localized, cancelText: "GLOBAL_CLOSE".localized, done: {
                 IGGlobal.prgShow(self.view)
                 IGGroupKickMemberRequest.Generator.generate(memberId: userId, roomId: (self.room?.id)!).success({ (protoResponse) in
                     IGGlobal.prgHide()
@@ -718,7 +718,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
                         }
                     default:
                         break
@@ -743,11 +743,11 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
                     }
                 case .canNotAddThisUserAsAdminToGroup:
                     DispatchQueue.main.async {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                     }
                 default:
@@ -772,11 +772,11 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
                     }
                 case .canNotAddThisUserAsModeratorToGroup:
                     DispatchQueue.main.async {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
                     }
                     
                 default:

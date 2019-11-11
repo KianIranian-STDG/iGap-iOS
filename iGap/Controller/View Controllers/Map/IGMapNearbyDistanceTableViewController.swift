@@ -26,7 +26,7 @@ class IGMapNearbyDistanceTableViewController: BaseTableViewController {
         super.viewDidLoad()
         
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_NEARBY".localizedNew)
+        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_NEARBY".localized)
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self

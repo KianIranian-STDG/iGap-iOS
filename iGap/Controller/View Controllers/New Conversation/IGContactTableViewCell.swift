@@ -22,8 +22,8 @@ class IGContactTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        contactNameLable.textAlignment = contactNameLable.localizedNewDirection
-        contactPhoneNumber.textAlignment = contactPhoneNumber.localizedNewDirection
+        contactNameLable.textAlignment = contactNameLable.localizedDirection
+        contactPhoneNumber.textAlignment = contactPhoneNumber.localizedDirection
 
     }
     
@@ -40,28 +40,28 @@ class IGContactTableViewCell: UITableViewCell {
 
             switch user.lastSeenStatus {
             case .longTimeAgo:
-                self.contactPhoneNumber.text =  "A_LONG_TIME_AGO".localizedNew
+                self.contactPhoneNumber.text =  "A_LONG_TIME_AGO".localized
                 break
             case .lastMonth:
-                self.contactPhoneNumber.text = "LAST_MONTH".localizedNew
+                self.contactPhoneNumber.text = "LAST_MONTH".localized
                 break
             case .lastWeek:
-                self.contactPhoneNumber.text = "LAST_WEAK".localizedNew
+                self.contactPhoneNumber.text = "LAST_WEAK".localized
                 break
             case .online:
-                self.contactPhoneNumber.text  = "ONLINE".localizedNew
+                self.contactPhoneNumber.text  = "ONLINE".localized
                 break
             case .exactly:
                 self.contactPhoneNumber.text = "\(user.lastSeen!.humanReadableForLastSeen())".inLocalizedLanguage()
                 break
             case .recently:
-                self.contactPhoneNumber.text = "A_FEW_SEC_AGO".localizedNew
+                self.contactPhoneNumber.text = "A_FEW_SEC_AGO".localized
                 break
             case .support:
-                self.contactPhoneNumber.text = "IGAP_SUPPORT".localizedNew
+                self.contactPhoneNumber.text = "IGAP_SUPPORT".localized
                 break
             case .serviceNotification:
-                self.contactPhoneNumber.text = "SERVICE_NOTIFI".localizedNew
+                self.contactPhoneNumber.text = "SERVICE_NOTIFI".localized
                 break
             }
 

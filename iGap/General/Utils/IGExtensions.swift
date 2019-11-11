@@ -14,46 +14,49 @@ import var CommonCrypto.CC_MD5_DIGEST_LENGTH
 import func CommonCrypto.CC_MD5
 import typealias CommonCrypto.CC_LONG
 import SDWebImage
+
+
 extension UIDevice {
     var hasNotch: Bool {
         let bottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
         return bottom > 0
     }
 }
+
+
 extension Date {
     
     func localizedDateTime() -> String {
         var convertedDate = ""
-        if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
-            convertedDate =  SMDateUtil.toGregorian(self).inLocalizedLanguage()
-        }
-        else {
+        if LocaleManager.isRTL {
             convertedDate =  SMDateUtil.toPersian(self).inLocalizedLanguage()
+        } else {
+            convertedDate =  SMDateUtil.toGregorian(self).inLocalizedLanguage()
         }
         return convertedDate
     }
     
     func localizedDate(showHour: Bool = false) -> String {
         var convertedDate = ""
-        if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
-            convertedDate =  SMDateUtil.toGregorianOnlyDate(self, showHour: showHour).inLocalizedLanguage()
-        } else {
+        if LocaleManager.isRTL {
             convertedDate =  SMDateUtil.toPersianOnlyDate(self, showHour: showHour).inLocalizedLanguage()
+        } else {
+            convertedDate =  SMDateUtil.toGregorianOnlyDate(self, showHour: showHour).inLocalizedLanguage()
         }
         return convertedDate
     }
     
     static func toDate(_ year: Int, month: Int, day: Int, hour: Int? = nil, minute: Int? = nil) -> Date? {
-        
-        if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
-            return SMDateUtil.gregorianToDate(year, month: month, day: day, hour: hour, minute: minute)
-            
-        }
-        else {
+        if LocaleManager.isRTL {
             return SMDateUtil.persianToDate(year, month: month, day: day, hour: hour, minute: minute)
+        } else {
+            return SMDateUtil.gregorianToDate(year, month: month, day: day, hour: hour, minute: minute)
         }
     }
+    
 }
+
+
 extension UITableView {
     func reloadWithAnimation() {
         self.reloadData()
@@ -124,10 +127,10 @@ extension String {
     }
     
     func inLocalizedLanguage()->String{
-        if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
-            return self.inEnglishNumbersNew()
-        } else {
+        if LocaleManager.isRTL {
             return self.inPersianNumbersNew()
+        } else {
+            return self.inEnglishNumbersNew()
         }
     }
     

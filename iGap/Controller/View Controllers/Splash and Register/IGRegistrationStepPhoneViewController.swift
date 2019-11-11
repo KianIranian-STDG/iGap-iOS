@@ -77,11 +77,11 @@ class IGRegistrationStepPhoneViewController: UIViewController {
 
     
     private func setPrivacyAgreementLabel() {
-        self.lblAceptPrivacy.text = "PRIVACY_AGREEMENT".localizedNew
+        self.lblAceptPrivacy.text = "PRIVACY_AGREEMENT".localized
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapLabel(tap:)))
         self.lblAceptPrivacy.addGestureRecognizer(tap)
         self.lblAceptPrivacy.isUserInteractionEnabled = true
-        let current : String = SMLangUtil.loadLanguage()
+        let current: String = SMLangUtil.loadLanguage()
         if current == "fa" {
             guard let range = self.lblAceptPrivacy.text?.range(of: "قوانین و مقررات")?.nsRange else {
                 return
@@ -91,8 +91,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
             
             lblAceptPrivacy.attributedText = myMutableString
             
-        }
-        else {
+        } else {
             guard let range = self.lblAceptPrivacy.text?.range(of: "terms")?.nsRange else {
                 return
             }
@@ -103,6 +102,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
             
         }
     }
+    
     @objc func tapLabel(tap: UITapGestureRecognizer) {
         //Step 3: Add link substrings
         
@@ -116,35 +116,34 @@ class IGRegistrationStepPhoneViewController: UIViewController {
                 showTerms()
             }
             
-        }
-        else {
+        } else {
             guard let range = self.lblAceptPrivacy.text?.range(of: "terms")?.nsRange else {
                 return
             }
             if tap.didTapAttributedTextInLabel(label: self.lblAceptPrivacy, inRange: range) {
                 showTerms()
             }
-            
         }
-        
     }
+    
     private func setDefaultNavigationItem() {
         let navItem = self.navigationItem as! IGNavigationItem
-        navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localizedNew)
+        navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localized)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //newUIelemnts
-        btnSubmit.setTitle("BTN_SEND_CODE".localizedNew, for: .normal)
+        btnSubmit.setTitle("BTN_SEND_CODE".localized, for: .normal)
         btnSubmit.titleLabel?.font = UIFont.igFont(ofSize: 15)
         btnSubmit.layer.cornerRadius = 10
         
-        //
+        let locale = Locale.userPreferred // e.g "en_US"
+        print(locale.languageCode) // e.g "en"
         
-        lblHeader.text = "TTL_PICKNUM_WITH_COUNTRYCODE".localizedNew
-        countryNameLabel.text = "CHOOSE_COUNTRY".localizedNew
-        btnLoginQrCode.setTitle("LOGIN_USING_QR".localizedNew, for: .normal)
+        lblHeader.text = "TTL_PICKNUM_WITH_COUNTRYCODE".localized
+        countryNameLabel.text = "CHOOSE_COUNTRY".localized
+        btnLoginQrCode.setTitle("LOGIN_USING_QR".localized, for: .normal)
         btnLoginQrCode.titleLabel?.font = UIFont.igFont(ofSize: 15)
         setPrivacyAgreementLabel()
 
@@ -183,7 +182,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
             didTapOnSubmit()
         }
         else {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PRIVACY_AGREEMENT".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PRIVACY_AGREEMENT".localized, cancelText: "GLOBAL_CLOSE".localized)
 
         }
     }
@@ -198,7 +197,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIView.appearance().semanticContentAttribute = .forceLeftToRight
+//        UIView.appearance().semanticContentAttribute = .forceLeftToRight
         
         navigationController?.navigationItem.hidesBackButton = true
         countryBackgroundView.layer.cornerRadius = 6.0;
@@ -258,8 +257,8 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     
     func didTapOnSubmit() {
         if connectionStatus == .waitingForNetwork || connectionStatus == .connecting {
-            let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+            let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "NO_NETWORK".localized, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
             alert.addAction(okAction)
             self.present(alert, animated: true, completion: nil)
 
@@ -276,13 +275,13 @@ class IGRegistrationStepPhoneViewController: UIViewController {
                 if IGGlobal.matches(for: (selectedCountry?.codeRegex)!, in: phoneSpaceLess!) {
                     let countryCode = String(Int((self.selectedCountry?.countryCode)!))
                     let fullPhone = "+" + countryCode.inLocalizedLanguage() + " " + (phone?.replacingOccurrences(of: "_", with: ""))!.inLocalizedLanguage()
-                    let alertVC = UIAlertController(title: "IS_IT_CORRECT".localizedNew,message: "IS_PHONE_OK".localizedNew + "\n" + fullPhone.inLocalizedLanguage(),preferredStyle: .alert)
-                    let yes = UIAlertAction(title: "GLOBAL_YES".localizedNew, style: .cancel, handler: { (action) in
+                    let alertVC = UIAlertController(title: "IS_IT_CORRECT".localized,message: "IS_PHONE_OK".localized + "\n" + fullPhone.inLocalizedLanguage(),preferredStyle: .alert)
+                    let yes = UIAlertAction(title: "GLOBAL_YES".localized, style: .cancel, handler: { (action) in
                         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                         self.hud.mode = .indeterminate
                         self.userRegister(phoneSpaceLess: phoneSpaceLess!)
                     })
-                    let no = UIAlertAction(title: "BTN_EDITE".localizedNew, style: .default, handler: { (action) in
+                    let no = UIAlertAction(title: "BTN_EDITE".localized, style: .default, handler: { (action) in
                         
                     })
                     
@@ -296,8 +295,8 @@ class IGRegistrationStepPhoneViewController: UIViewController {
                     return;
                 }
             }
-            let alertVC = UIAlertController(title: "INVALID_PHONE".localizedNew, message: "ENTER_VALID_P_NUMBER".localizedNew, preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil))
+            let alertVC = UIAlertController(title: "INVALID_PHONE".localized, message: "ENTER_VALID_P_NUMBER".localized, preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
         }
     }
@@ -448,7 +447,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
             destination.delegate = self
         } else if segue.identifier == "presentTerms" {
             
-        }else if segue.identifier == "presentPrivacyPolicy" {
+        } else if segue.identifier == "presentPrivacyPolicy" {
             let destination = segue.destination as! IGRegistrationStepPrivacyPolicyViewController
             destination.body = body
 

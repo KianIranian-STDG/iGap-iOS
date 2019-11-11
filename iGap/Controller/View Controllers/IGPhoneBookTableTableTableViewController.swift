@@ -20,7 +20,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     class User: NSObject {
         let registredUser: IGRegisteredUser
         @objc let name: String
-        var section :Int?
+        var section: Int?
         init(registredUser: IGRegisteredUser){
             self.registredUser = registredUser
             self.name = registredUser.displayName
@@ -30,7 +30,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     var searchController : UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
-        searchController.searchBar.setValue("CANCEL_BTN".RecentTableViewlocalizedNew, forKey: "cancelButtonText")
+        searchController.searchBar.setValue("CANCEL_BTN".RecentTableViewlocalized, forKey: "cancelButtonText")
         searchController.definesPresentationContext = true
         searchController.searchBar.sizeToFit()
         searchController.dimsBackgroundDuringPresentation = false
@@ -161,7 +161,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             }
 
             if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
-                searchBarCancelButton.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
+                searchBarCancelButton.setTitle("CANCEL_BTN".RecentTableViewlocalized, for: .normal)
                 searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14, weight: .bold)
                 searchBarCancelButton.tintColor = UIColor.white
                 searchBarCancelButton.setTitleColor(UIColor.white, for: .normal)
@@ -170,7 +170,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
                 placeHolderInsideSearchField.textColor = UIColor.white
                 placeHolderInsideSearchField.textAlignment = .center
-                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localizedNew
+                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localized
                 if let backgroundview = textField.subviews.first {
                     placeHolderInsideSearchField.center = backgroundview.center
                 }
@@ -194,7 +194,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     private func setNavigationItems() {
         if currentTabIndex == TabBarTab.Profile.rawValue || currentTabIndex == TabBarTab.Recent.rawValue {
-            self.initNavigationBar(title: "NEW".localizedNew) { }
+            self.initNavigationBar(title: "NEW".localized) { }
         } else {
             let navigationItem = self.navigationItem as! IGNavigationItem
             navigationItem.setPhoneBookNavigationItems()
@@ -230,7 +230,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 switch  currentTabIndex {
                 case TabBarTab.Recent.rawValue:
                     let navItem = self.navigationItem as! IGNavigationItem
-                    navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localizedNew)
+                    navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localized)
                 default:
                     self.setNavigationItems()
                 }
@@ -252,12 +252,12 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         let lblText = UILabel()
         let btn = UIButton()
         lblIcon.text = ""
-        lblText.text = "SETTING_PAGE_INVITE_FRIENDS".localizedNew
+        lblText.text = "SETTING_PAGE_INVITE_FRIENDS".localized
         lblIcon.font = UIFont.iGapFonticon(ofSize: 24)
         lblIcon.textColor = UIColor(named: themeColor.labelColor.rawValue)
         lblText.textColor = UIColor(named: themeColor.labelColor.rawValue)
         lblText.font = UIFont.igFont(ofSize: 18)
-        lblText.textAlignment = lblText.localizedNewDirection
+        lblText.textAlignment = lblText.localizedDirection
         lblIcon.textAlignment = .center
         bottomBorder.backgroundColor = UIColor.darkGray.withAlphaComponent(0.6)
         headerView.addSubview(bottomBorder)
@@ -314,9 +314,9 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     private func setFooterLabelText() {
         guard footerLabel != nil else { return }
         if shouldShowSearchResults {
-            footerLabel.text = "\(self.filteredContacts.count)".inLocalizedLanguage() + "CONTACTS".localizedNew
+            footerLabel.text = "\(self.filteredContacts.count)".inLocalizedLanguage() + "CONTACTS".localized
         } else {
-            footerLabel.text = "\(self.contacts.count)".inLocalizedLanguage() + "CONTACTS".localizedNew
+            footerLabel.text = "\(self.contacts.count)".inLocalizedLanguage() + "CONTACTS".localized
         }
     }
 
@@ -376,7 +376,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 if indexPath.row == 0 {
                     let phoneBookCellTypeTwo = tableView.dequeueReusableCell(withIdentifier: "phoneBookCellTypeTwo", for: indexPath) as! phoneBookCellTypeTwo
                     phoneBookCellTypeTwo.lblIcon.text = ""
-                    phoneBookCellTypeTwo.lblText.text = "CREAT_CHANNEL".localizedNew
+                    phoneBookCellTypeTwo.lblText.text = "CREAT_CHANNEL".localized
                     phoneBookCellTypeTwo.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
 
                     return phoneBookCellTypeTwo
@@ -384,7 +384,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 } else if indexPath.row == 1 {
                     let phoneBookCellTypeTwo = tableView.dequeueReusableCell(withIdentifier: "phoneBookCellTypeTwo", for: indexPath) as! phoneBookCellTypeTwo
                     phoneBookCellTypeTwo.lblIcon.text = ""
-                    phoneBookCellTypeTwo.lblText.text = "CREAT_GROUP".localizedNew
+                    phoneBookCellTypeTwo.lblText.text = "CREAT_GROUP".localized
                     return phoneBookCellTypeTwo
 
                 } else {
@@ -406,7 +406,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                     let phoneBookCellTypeTwo = tableView.dequeueReusableCell(withIdentifier: "phoneBookCellTypeTwo", for: indexPath) as! phoneBookCellTypeTwo
                     phoneBookCellTypeTwo.lblIcon.text = ""
 
-                    phoneBookCellTypeTwo.lblText.text = "SETTING_PAGE_INVITE_FRIENDS".localizedNew
+                    phoneBookCellTypeTwo.lblText.text = "SETTING_PAGE_INVITE_FRIENDS".localized
                     return phoneBookCellTypeTwo
 
                 } else {
@@ -486,7 +486,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 }).error({ (errorCode, waitTime) in
                     DispatchQueue.main.async {
                         IGGlobal.prgHide()
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_RETRY".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_RETRY".localized, cancelText: "GLOBAL_CLOSE".localized )
                     }
                 }).send()
             } else {
@@ -506,7 +506,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 }).error({ (errorCode, waitTime) in
                     DispatchQueue.main.async {
                         IGGlobal.prgHide()
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_RETRY".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_RETRY".localized, cancelText: "GLOBAL_CLOSE".localized )
                     }
                 }).send()
             }
@@ -536,7 +536,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                     }).error({ (errorCode, waitTime) in
                         DispatchQueue.main.async {
                             IGGlobal.prgHide()
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_RETRY".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_RETRY".localized, cancelText: "GLOBAL_CLOSE".localized )
                         }
                     }).send()
                 }
@@ -562,7 +562,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                     }).error({ (errorCode, waitTime) in
                         DispatchQueue.main.async {
                             IGGlobal.prgHide()
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_RETRY".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_RETRY".localized, cancelText: "GLOBAL_CLOSE".localized )
                         }
                     }).send()
                 }

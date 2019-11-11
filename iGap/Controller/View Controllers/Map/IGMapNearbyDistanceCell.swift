@@ -79,9 +79,9 @@ class IGMapNearbyDistanceCell: UITableViewCell {
             if nearbyDistance.hasComment {
                 userComment.text = nearbyDistance.comment
             } else {
-                userComment.text = "NO_STATUS".localizedNew
+                userComment.text = "NO_STATUS".localized
             }
-            userDistance.text = "AROUND".localizedNew + " " + "\(nearbyDistance.distance)".inLocalizedLanguage() + " " + "METER".localizedNew
+            userDistance.text = "AROUND".localized + " " + "\(nearbyDistance.distance)".inLocalizedLanguage() + " " + "METER".localized
         }
     }
 }

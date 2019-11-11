@@ -35,24 +35,24 @@ class IGSettingsDataAndStorageTableViewController: BaseTableViewController {
     
     func initChangeLang() {
         // MARK: - Section 0
-        lblStorageUsage.text = "STORAGE_USAGE".localizedNew
-        lblDataUsage.text = "DATA_USAGE".localizedNew
+        lblStorageUsage.text = "STORAGE_USAGE".localized
+        lblDataUsage.text = "DATA_USAGE".localized
         // MARK: - Section 1
-        lblWhenUsingMobileData.text = "WHEN_USING_MOBILE_DATA".localizedNew
-        lblWhenConnectedToWIFI.text = "WHEN_CONNECTED_TO_WIFI".localizedNew
-        lblResetAutoDownload.text = "RESET_AUTO_DOWNLOAD_SETTINGS".localizedNew
+        lblWhenUsingMobileData.text = "WHEN_USING_MOBILE_DATA".localized
+        lblWhenConnectedToWIFI.text = "WHEN_CONNECTED_TO_WIFI".localized
+        lblResetAutoDownload.text = "RESET_AUTO_DOWNLOAD_SETTINGS".localized
         // MARK: - Section 2
-        lblGifs.text = "GIFS".localizedNew
-        lblVideos.text = "VIDEOS".localizedNew
+        lblGifs.text = "GIFS".localized
+        lblVideos.text = "VIDEOS".localized
         // MARK: - Section 3
-        lblUseLessData.text = "USE_LESS_DATA".localizedNew
+        lblUseLessData.text = "USE_LESS_DATA".localized
         // MARK: - Section 4
-        lblProxySettings.text = "PROXY_SETTINGS".localizedNew
+        lblProxySettings.text = "PROXY_SETTINGS".localized
         
     }
     func initDefaultNav() {
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "DATA_STORAGE".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "DATA_STORAGE".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -126,15 +126,15 @@ class IGSettingsDataAndStorageTableViewController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "HEADER_NETWORK_STORAGE_USAGE".localizedNew
+            return "HEADER_NETWORK_STORAGE_USAGE".localized
         case 1:
-            return "HEADER_AUTOMATIC_DOWNLOAD".localizedNew
+            return "HEADER_AUTOMATIC_DOWNLOAD".localized
         case 2:
-            return "HEADER_AUTO_PLAY".localizedNew
+            return "HEADER_AUTO_PLAY".localized
         case 3:
-            return "HEADER_VOICECALLS".localizedNew
+            return "HEADER_VOICECALLS".localized
         case 4:
-            return "HEADER_PROXYE".localizedNew
+            return "HEADER_PROXYE".localized
         default:
             return ""
         }

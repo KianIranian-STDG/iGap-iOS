@@ -27,7 +27,7 @@ class IGRegistrationStepQrViewController: BaseViewController {
 //        IGGlobal.setLanguage()
 
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "LOGIN_USING_QR".localizedNew)
+        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "LOGIN_USING_QR".localized)
         
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
@@ -75,11 +75,10 @@ class IGRegistrationStepQrViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        lblHEader.text = "SHOW_AND_LOGIN_USING_QR".localizedNew
+        lblHEader.text = "SHOW_AND_LOGIN_USING_QR".localized
 
         getNewQrCode()
 //        IGGlobal.setLanguage()
-
     }
     
     func getNewQrCode() {
@@ -116,8 +115,6 @@ class IGRegistrationStepQrViewController: BaseViewController {
         
     }
     
-    
-    
     fileprivate func loginUser(token: String) {
         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         hud.mode = .indeterminate
@@ -139,7 +136,6 @@ class IGRegistrationStepQrViewController: BaseViewController {
                             }
                             hud.hide(animated: true)
                             IGAppManager.sharedManager.setUserLoginSuccessful()
-                            self.checkAppLanguage()
                             self.dismiss(animated: true, completion: nil)
                         }
                     }).error({ (errorCode, waitTime) in
@@ -160,24 +156,4 @@ class IGRegistrationStepQrViewController: BaseViewController {
         }).send()
     }
     
-    private func checkAppLanguage() {
-        print(SMLangUtil.loadLanguage())
-        lastLang = SMLangUtil.loadLanguage()
-        if SMLangUtil.loadLanguage() == "fa" {
-            IGGlobal.languageFileName = "localizationsFa"
-        } else {
-            IGGlobal.languageFileName = "localizationsEn"
-        }
-        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
-        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
-        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
-
-        if SMLangUtil.loadLanguage() == "fa" {
-            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-        } else {
-            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-        }
-        SwiftEventBus.post(EventBusManager.updateTabbarLang,sender: true)
-
-    }
 }

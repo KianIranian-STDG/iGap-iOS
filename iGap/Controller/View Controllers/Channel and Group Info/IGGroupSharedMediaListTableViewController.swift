@@ -53,7 +53,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
     
     private func initNavigation(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SHAREDMEDIA".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SHAREDMEDIA".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -62,12 +62,12 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.isUserInteractionEnabled = true
-        lblLinks.text = "LINKS".localizedNew
-        lblVideos.text = "VIDEOS".localizedNew
-        lblImages.text = "IMAGES".localizedNew
-        lblVoices.text = "VOICES".localizedNew
-        lblAudios.text = "AUDIOS".localizedNew
-        lblFiles.text = "FILES".localizedNew
+        lblLinks.text = "LINKS".localized
+        lblVideos.text = "VIDEOS".localized
+        lblImages.text = "IMAGES".localized
+        lblVoices.text = "VOICES".localized
+        lblAudios.text = "AUDIOS".localized
+        lblFiles.text = "FILES".localized
 
     }
 
@@ -159,8 +159,8 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         self.hud.hide(animated: true)
@@ -196,8 +196,8 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         
@@ -235,8 +235,8 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -273,8 +273,8 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -312,8 +312,8 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -349,8 +349,8 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -386,8 +386,8 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -412,11 +412,11 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
             destination.room = room
             switch selectedRowNum {
             case 0:
-                destination.navigationTitle = "IMAGES".localizedNew
+                destination.navigationTitle = "IMAGES".localized
                 destination.sharedMedia = sharedMediaImageFile
                 destination.sharedMediaFilter = .image
             case 2:
-                destination.navigationTitle = "VIDEOS".localizedNew
+                destination.navigationTitle = "VIDEOS".localized
                 destination.sharedMedia = sharedMediaVideoFile
                 destination.sharedMediaFilter = .video
             default:
@@ -429,19 +429,19 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
             destination.room = room
             switch selectedRowNum {
             case 1:
-                destination.navigationTitle = "AUDIOS".localizedNew
+                destination.navigationTitle = "AUDIOS".localized
                 destination.sharedMedia = sharedMediaAudioFile
                 destination.sharedMediaFilter = .audio
             case 3:
-                destination.navigationTitle = "FILES".localizedNew
+                destination.navigationTitle = "FILES".localized
                 destination.sharedMedia = sharedMediaFile
                 destination.sharedMediaFilter = .file
             case 4:
-                destination.navigationTitle = "VOICES".localizedNew
+                destination.navigationTitle = "VOICES".localized
                 destination.sharedMedia = sharedMediaVoiceFile
                 destination.sharedMediaFilter = .voice
             case 5:
-                destination.navigationTitle = "LINKS".localizedNew
+                destination.navigationTitle = "LINKS".localized
                 destination.sharedMedia = sharedMediaLinkFile
                 destination.sharedMediaFilter = .url
             default:

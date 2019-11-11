@@ -151,7 +151,7 @@ class IGHelperBot {
         
         btn.titleLabel?.font = UIFont.igFont(ofSize: 17.0)
         if additionalButton.actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue {
-            btn.setTitle("CARD_TO_CARD".localizedNew, for: UIControl.State.normal)
+            btn.setTitle("CARD_TO_CARD".localized, for: UIControl.State.normal)
         } else {
             btn.setTitle(additionalButton.label, for: UIControl.State.normal)
         }
@@ -223,7 +223,7 @@ class IGHelperBot {
         }
         btn.titleLabel?.font = UIFont.igFont(ofSize: 17.0)
         if additionalButton.actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue {
-            btn.setTitle("CARD_TO_CARD".localizedNew, for: UIControl.State.normal)
+            btn.setTitle("CARD_TO_CARD".localized, for: UIControl.State.normal)
         } else {
             btn.setTitle(additionalButton.label, for: UIControl.State.normal)
         }
@@ -330,7 +330,7 @@ class IGHelperBot {
                 
             case IGPDiscoveryField.IGPButtonActionType.payDirect.rawValue :
                 guard let jsonValue = structAdditional.valueJson as? String, let json = jsonValue.toJSON() as? [String:AnyObject], let token = json["token"] as? String else {
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
                     break
                 }
                 IGGlobal.prgShow()
@@ -340,14 +340,14 @@ class IGHelperBot {
                     
                     if success {
                         guard let paymentData = payment else {
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
                             return
                         }
                         
-                        paymentView.show(on: UIApplication.shared.keyWindow!, title: "DIRECT_PAY".localizedNew, payToken: token, payment: paymentData)
+                        paymentView.show(on: UIApplication.shared.keyWindow!, title: "DIRECT_PAY".localized, payToken: token, payment: paymentData)
                     } else {
                         
-                        paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: "DIRECT_PAY".localizedNew, message: errorMessage ?? "", payToken: token)
+                        paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: "DIRECT_PAY".localized, message: errorMessage ?? "", payToken: token)
                     }
                 })
                 break

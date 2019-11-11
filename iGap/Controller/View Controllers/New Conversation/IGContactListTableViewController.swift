@@ -63,9 +63,9 @@ class IGContactListTableViewController: UITableViewController, UISearchResultsUp
     
     private func initNavigationBar() {
         let navigationItem = self.navigationItem as! IGNavigationItem
-        var title = "NEW_CONVERSATION".localizedNew
+        var title = "NEW_CONVERSATION".localized
         if forceCall {
-            title = "NEW_CALL".localizedNew
+            title = "NEW_CALL".localized
         }
 
         navigationItem.addNavigationViewItems(rightItemText: nil, title: title)
@@ -188,8 +188,8 @@ class IGContactListTableViewController: UITableViewController, UISearchResultsUp
             }).error({ (errorCode, waitTime) in
                 DispatchQueue.main.async {
                     IGGlobal.prgHide()
-                    let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
-                    let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alertC = UIAlertController(title: "GLOBAL_WARNING".localized, message: "ERROR_RETRY".localized, preferredStyle: .alert)
+                    let cancel = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                     alertC.addAction(cancel)
                     self.present(alertC, animated: true, completion: nil)
                 }

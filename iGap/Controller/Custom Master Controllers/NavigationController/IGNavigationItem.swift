@@ -19,13 +19,14 @@ protocol HandleBackNavigation {
 var currentPageName : String! = ""
 
 class IGNavigationItem: UINavigationItem {
+    
     var delegate : HandleBackNavigation?
     
     var rightViewContainer:  IGTappableView?
     var centerViewContainer: IGTappableView?
     var leftViewContainer:   IGTappableView?
     var backViewContainer:   IGTappableView?
-    var backViewContainer1:   IGTappableView?
+    var backViewContainer1:  IGTappableView?
     var CallandVideoCallContainer:   IGTappableView?
     var callViewContainer:   IGTappableView?
     var returnToCall:        IGTappableView?
@@ -45,30 +46,21 @@ class IGNavigationItem: UINavigationItem {
     //MARK: - Initilizers
     override init(title: String) {
         super.init(title: title)
-        configure()
+        
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configure()
-    }
-    
-    func configure() {
-//        let rightViewFrame = CGRect(x:0, y:0, width: 40, height: 40)
-//        rightViewContainer = IGTappableView(frame: rightViewFrame)
-//        rightViewContainer!.backgroundColor = UIColor.clear
-//        let rightBarButton = UIBarButtonItem(customView: rightViewContainer!)
-//        self.rightBarButtonItem = rightBarButton
-//        returnToCallMethod()
+        
     }
     
     //MARK: - Connecting
     func setNavigationItemForConnecting() {
-        setNavigationItemWithCenterActivityIndicator(text: "CONNECTING".localizedNew)
+        setNavigationItemWithCenterActivityIndicator(text: "CONNECTING".localized)
     }
     
     func setNavigationItemForWaitingForNetwork() {
-        setNavigationItemWithCenterActivityIndicator(text: "WAITING_NETWORK".localizedNew)
+        setNavigationItemWithCenterActivityIndicator(text: "WAITING_NETWORK".localized)
     }
     
 //    private func returnToCallMethod(){
@@ -86,7 +78,7 @@ class IGNavigationItem: UINavigationItem {
 //        label.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
 //        label.textAlignment = .center
 //        label.textColor = UIColor.iGapBarsInfo()
-//        label.text = "RETURN_TO_CALL".localizedNew
+//        label.text = "RETURN_TO_CALL".localized
 //        self.titleView?.addSubview(label)
 //
 //        self.titleView?.snp.makeConstraints { (make) in
@@ -174,9 +166,11 @@ class IGNavigationItem: UINavigationItem {
             let backArrowLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             callItemLabel.text = ""
             callItemLabel.font = UIFont.iGapFonticon(ofSize: 25)
+            callItemLabel.textAlignment = .left
             
             backArrowLabel.text = ""
             backArrowLabel.font = UIFont.iGapFonticon(ofSize: 25)
+            backArrowLabel.textAlignment = .left
             
             callItemLabel.textColor = .white
             backArrowLabel.textColor = .white
@@ -232,9 +226,12 @@ class IGNavigationItem: UINavigationItem {
             let backArrowLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             editItemLabel.text = ""
             editItemLabel.font = UIFont.iGapFonticon(ofSize: 25)
+            editItemLabel.textAlignment = .left
             
             backArrowLabel.text = ""
             backArrowLabel.font = UIFont.iGapFonticon(ofSize: 25)
+            backArrowLabel.textAlignment = .left
+            
             if currentRole == .admin || currentRole == .owner {
                 editItemLabel.isHidden = false
             } else {
@@ -296,9 +293,12 @@ class IGNavigationItem: UINavigationItem {
             let backArrowLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             editItemLabel.text = ""
             editItemLabel.font = UIFont.iGapFonticon(ofSize: 25)
+            editItemLabel.textAlignment = .left
             
             backArrowLabel.text = ""
             backArrowLabel.font = UIFont.iGapFonticon(ofSize: 25)
+            backArrowLabel.textAlignment = .left
+            
             if currentRole == .admin || currentRole == .owner {
                 editItemLabel.isHidden = false
             } else {
@@ -357,6 +357,7 @@ class IGNavigationItem: UINavigationItem {
         
         backArrowLabel.font = UIFont.iGapFonticon(ofSize: 25)
         backArrowLabel.textColor = .white
+        backArrowLabel.textAlignment = .left
 
         if IGGlobal.shouldMultiSelect {
             backArrowLabel.text = ""
@@ -540,7 +541,7 @@ class IGNavigationItem: UINavigationItem {
         leftViewContainer!.backgroundColor = UIColor.clear
         let leftBarButton = UIBarButtonItem(customView: leftViewContainer!)
         self.leftBarButtonItem = leftBarButton
-        let _ : String = SMLangUtil.loadLanguage()
+//        let _ : String = SMLangUtil.loadLanguage()
 
         let settingViewFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
         let btnEdit = UIButton(frame: settingViewFrame)
@@ -656,7 +657,6 @@ class IGNavigationItem: UINavigationItem {
         addiGapLogo()
     }
     
-    
     private func addFavoriteButton() {
         let leftViewFrame = CGRect(x: 0, y: 0, width: 50, height: 40)
         leftViewContainer = IGTappableView(frame: leftViewFrame)
@@ -701,9 +701,7 @@ class IGNavigationItem: UINavigationItem {
         
     }
     
-    
     func addiGapLogo() {
-        
         if IGCall.callPageIsEnable {
             AppDelegate.isFirstEnterToApp = false
             return
@@ -717,12 +715,7 @@ class IGNavigationItem: UINavigationItem {
             AppDelegate.isFirstEnterToApp = false
             let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 40))
             let btnLogo = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
-            if lastLang == "fa" {
-                btnLogo.setTitle("", for: .normal)
-
-            } else if lastLang == "en" {
-                btnLogo.setTitle("", for: .normal)
-            }
+            btnLogo.setTitle("APP_LOGO_ICON".Imagelocalized, for: .normal)
             btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 60)
 
             titleView.addSubview(btnLogo)
@@ -733,18 +726,14 @@ class IGNavigationItem: UINavigationItem {
             //Hint: call top code block again, because we want show iGap logo for all tabs
             let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 40))
             let btnLogo = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
-            if lastLang == "fa" {
-                btnLogo.setTitle("", for: .normal)
-
-            } else if lastLang == "en" {
-                btnLogo.setTitle("", for: .normal)
-            }
+            btnLogo.setTitle("APP_LOGO_ICON".Imagelocalized, for: .normal)
             btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 60)
 
             titleView.addSubview(btnLogo)
             self.titleView = titleView
         }
     }
+    
     //MARK: - Messages View
     func setNavigationBarForRoom(_ room: IGRoom) {
         if  IGGlobal.shouldMultiSelect {
@@ -806,10 +795,10 @@ class IGNavigationItem: UINavigationItem {
                 }
             } else if let groupRoom = room.groupRoom {
                 
-                self.centerViewSubLabel!.text = "\(groupRoom.participantCount) " + "MEMBER".localizedNew
+                self.centerViewSubLabel!.text = "\(groupRoom.participantCount) " + "MEMBER".localized
                 
             } else if let channelRoom = room.channelRoom {
-                self.centerViewSubLabel!.text = "\(channelRoom.participantCount) " + "MEMBER".localizedNew
+                self.centerViewSubLabel!.text = "\(channelRoom.participantCount) " + "MEMBER".localized
             }
         }
     }
@@ -954,9 +943,9 @@ class IGNavigationItem: UINavigationItem {
                 setLastSeenLabelForUser(peer , room: room)
             }
         } else if let groupRoom = room.groupRoom {
-            self.centerViewSubLabel!.text = "\(groupRoom.participantCount)" + "MEMBER".localizedNew
+            self.centerViewSubLabel!.text = "\(groupRoom.participantCount)" + "MEMBER".localized
         } else if let channelRoom = room.channelRoom {
-            self.centerViewSubLabel!.text = "\(channelRoom.participantCount)" + "MEMBER".localizedNew
+            self.centerViewSubLabel!.text = "\(channelRoom.participantCount)" + "MEMBER".localized
         }
     }
     
@@ -1090,7 +1079,7 @@ class IGNavigationItem: UINavigationItem {
             }
             
             if isBot(room: room){
-                self.centerViewSubLabel!.text = "BOT".localizedNew
+                self.centerViewSubLabel!.text = "BOT".localized
                 return
             }
             
@@ -1098,28 +1087,28 @@ class IGNavigationItem: UINavigationItem {
                 
                 switch user.lastSeenStatus {
                 case .longTimeAgo:
-                    self.centerViewSubLabel!.text = "A_LONG_TIME_AGO".localizedNew
+                    self.centerViewSubLabel!.text = "A_LONG_TIME_AGO".localized
                     break
                 case .lastMonth:
-                    self.centerViewSubLabel!.text = "LAST_MONTH".localizedNew
+                    self.centerViewSubLabel!.text = "LAST_MONTH".localized
                     break
                 case .lastWeek:
-                    self.centerViewSubLabel!.text = "LAST_WEAK".localizedNew
+                    self.centerViewSubLabel!.text = "LAST_WEAK".localized
                     break
                 case .online:
-                    self.centerViewSubLabel!.text = "ONLINE".localizedNew
+                    self.centerViewSubLabel!.text = "ONLINE".localized
                     break
                 case .exactly:
                     self.centerViewSubLabel!.text = "\(user.lastSeen!.humanReadableForLastSeen())".inLocalizedLanguage()
                     break
                 case .recently:
-                    self.centerViewSubLabel!.text = "A_FEW_SEC_AGO".localizedNew
+                    self.centerViewSubLabel!.text = "A_FEW_SEC_AGO".localized
                     break
                 case .support:
-                    self.centerViewSubLabel!.text = "IGAP_SUPPORT".localizedNew
+                    self.centerViewSubLabel!.text = "IGAP_SUPPORT".localized
                     break
                 case .serviceNotification:
-                    self.centerViewSubLabel!.text = "SERVICE_NOTIFI".localizedNew
+                    self.centerViewSubLabel!.text = "SERVICE_NOTIFI".localized
                     break
                 }
                 
@@ -1137,7 +1126,7 @@ class IGNavigationItem: UINavigationItem {
     
     private func isCloud(room: IGRoom) -> Bool {
         if !room.isInvalidated, room.chatRoom?.peer?.id == IGAppManager.sharedManager.userID() {
-            self.centerViewSubLabel!.text = "MY_CLOUD".localizedNew
+            self.centerViewSubLabel!.text = "MY_CLOUD".localized
             return true
         }
         return false

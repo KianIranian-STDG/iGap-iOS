@@ -75,7 +75,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         
-        displayNameLabel.textAlignment = displayNameLabel.localizedNewDirection
+        displayNameLabel.textAlignment = displayNameLabel.localizedDirection
         displayNameLabel.textColor = .white
         displayNameLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
         memberCountLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
@@ -117,13 +117,13 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         var title = ""
         
         if roomType == .chat {
-            title = "REPORT_REASON".RecentTableViewlocalizedNew
+            title = "REPORT_REASON".RecentTableViewlocalized
         } else {
-            title = "REPORT_REASON".RecentTableViewlocalizedNew
+            title = "REPORT_REASON".RecentTableViewlocalized
         }
         
         let alertC = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let abuse = UIAlertAction(title: "ABUSE".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+        let abuse = UIAlertAction(title: "ABUSE".RecentTableViewlocalized, style: .default, handler: { (action) in
             
             if roomType == .chat {
             } else {
@@ -131,7 +131,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             }
         })
         
-        let spam = UIAlertAction(title: "SPAM".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+        let spam = UIAlertAction(title: "SPAM".RecentTableViewlocalized, style: .default, handler: { (action) in
             
             if roomType == .chat {
             } else {
@@ -140,15 +140,15 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         })
         
         
-        let violence = UIAlertAction(title: "VIOLENCE".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+        let violence = UIAlertAction(title: "VIOLENCE".RecentTableViewlocalized, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.violence)
         })
         
-        let pornography = UIAlertAction(title: "PORNOGRAPHY".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+        let pornography = UIAlertAction(title: "PORNOGRAPHY".RecentTableViewlocalized, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.pornography)
         })
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .cancel, handler: { (action) in
+        let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalized, style: .cancel, handler: { (action) in
             
         })
         
@@ -173,8 +173,8 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
-                    let alert = UIAlertController(title: "SUCCESS", message: "REPORT_SUBMITED".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "SUCCESS", message: "REPORT_SUBMITED".RecentTableViewlocalized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -186,15 +186,15 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalized, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .clientRoomReportReportedBefore:
-                    let alert = UIAlertController(title: "GLLOBAL_WARNING".RecentTableViewlocalizedNew, message: "ROOM_REPORTED_BEFOR".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLLOBAL_WARNING".RecentTableViewlocalized, message: "ROOM_REPORTED_BEFOR".RecentTableViewlocalized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
@@ -242,8 +242,8 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalized, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -352,8 +352,8 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -377,15 +377,15 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             if let groupType = room?.groupRoom?.type {
                 switch groupType {
                 case .privateRoom:
-                    //                        groupTypeLabel.text = "PRIVATE".localizedNew
+                    //                        groupTypeLabel.text = "PRIVATE".localized
                     break
                 case .publicRoom:
-                    //                        groupTypeLabel.text = "PUBLIC".localizedNew
+                    //                        groupTypeLabel.text = "PUBLIC".localized
                     break
                 }
             }
             if let memberCount = room?.groupRoom?.participantCount {
-                memberCountLabel.text = "ALLMEMBER".localizedNew + ": " + "\(memberCount)"
+                memberCountLabel.text = "ALLMEMBER".localized + ": " + "\(memberCount)"
             }
             if room?.groupRoom?.type == .privateRoom {
                 groupLink = room?.groupRoom?.privateExtra?.inviteLink
@@ -403,19 +403,19 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         var title : String!
         var actionTitle: String!
         if myRole == .owner {
-            title = "MSG_SURE_TO_DELETE_GROUP".localizedNew
-            actionTitle = "BTN_DELETE".localizedNew
+            title = "MSG_SURE_TO_DELETE_GROUP".localized
+            actionTitle = "BTN_DELETE".localized
         }else{
-            title = "MSG_SURE_TO_LEAVE_GROUP".localizedNew
-            actionTitle = "LEAVE".localizedNew
+            title = "MSG_SURE_TO_LEAVE_GROUP".localized
+            actionTitle = "LEAVE".localized
         }
         let deleteConfirmAlertView = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let deleteAction = UIAlertAction(title: actionTitle , style:.default , handler: {
             (alert: UIAlertAction) -> Void in
             if self.myRole == .owner {
                 if self.connectionStatus == .connecting || self.connectionStatus == .waitingForNetwork {
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "NO_NETWORK".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 } else {
@@ -424,8 +424,8 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 }
             }else{
                 if self.connectionStatus == .connecting || self.connectionStatus == .waitingForNetwork {
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "NO_NETWORK".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }else {
@@ -434,7 +434,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             }
             
         })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style:.cancel , handler: {
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style:.cancel , handler: {
             (alert: UIAlertAction) -> Void in
         })
         deleteConfirmAlertView.addAction(deleteAction)
@@ -465,18 +465,18 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 groupLink = room?.groupRoom?.publicExtra?.username
             }
             
-            let alert = UIAlertController(title: "GROUP_LINK".localizedNew, message: groupLink, preferredStyle: .alert)
+            let alert = UIAlertController(title: "GROUP_LINK".localized, message: groupLink, preferredStyle: .alert)
             
-            let copyAction = UIAlertAction(title: "COPY".localizedNew, style: .default, handler: { (alert: UIAlertAction) -> Void in
+            let copyAction = UIAlertAction(title: "COPY".localized, style: .default, handler: { (alert: UIAlertAction) -> Void in
                 UIPasteboard.general.string = groupLink
             })
             
-            let shareAction = UIAlertAction(title: "SHARE".localizedNew, style: .default, handler: { (alert: UIAlertAction) -> Void in
+            let shareAction = UIAlertAction(title: "SHARE".localized, style: .default, handler: { (alert: UIAlertAction) -> Void in
                 IGHelperPopular.shareText(message: IGHelperPopular.shareLinkPrefixGroup + "\n" + groupLink!, viewController: self)
             })
             
             
-            let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
             
             alert.view.tintColor = UIColor.organizationalColor()
             alert.addAction(copyAction)
@@ -502,8 +502,8 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
@@ -564,8 +564,8 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.hud.hide(animated: true)
                         self.present(alert, animated: true, completion: nil)
@@ -598,8 +598,8 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -634,8 +634,8 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     self.hud.hide(animated: true)
                     switch errorCode {
                     case .timeout:
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     default:
@@ -702,7 +702,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     if let desc = room?.groupRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
+                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
                     }
                     
                     
@@ -712,7 +712,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 1:
                 switch indexPath.row {
                 case 0:
-                    cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                    cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
                     if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                         cellTwo.lblActionDetail.isOn = true
                     } else {
@@ -726,17 +726,17 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     
                 }
                 case 2:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
+                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
                     return cell
                     
                 case 3:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                        cell.initLabels(nameLblString: "ADD_MEMBER".localized)
                         return cell
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                        cell.initLabels(nameLblString: "ALLMEMBER".localized)
                         return cell
                         
                     default:
@@ -748,7 +748,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     switch indexPath.row {
                         
                     case 0 :
-                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localized,changeColor: true)
                         return cellTypeRed
                     default:
                         return cellTypeRed
@@ -765,7 +765,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     if let desc = room?.groupRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
+                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
                     }
                     
                     
@@ -775,7 +775,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 1:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
                         } else {
@@ -789,17 +789,17 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         
                     }
                 case 2:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
+                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
                     return cell
                     
                 case 3:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                        cell.initLabels(nameLblString: "ADD_MEMBER".localized)
                         return cell
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                        cell.initLabels(nameLblString: "ALLMEMBER".localized)
                         return cell
                         
                     default:
@@ -811,10 +811,10 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     switch indexPath.row {
                         
                     case 0 :
-                        cellTypeRed.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: "REPORT".localized,changeColor: true)
                         return cellTypeRed
                     case 1 :
-                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localized,changeColor: true)
                         return cellTypeRed
                     default:
                         return cellTypeRed
@@ -832,7 +832,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     if let desc = room?.groupRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
+                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
                     }
                     
                     
@@ -842,7 +842,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 1:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
                         } else {
@@ -856,17 +856,17 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         
                     }
                 case 2:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
+                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
                     return cell
                     
                 case 3:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                        cell.initLabels(nameLblString: "ADD_MEMBER".localized)
                         return cell
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                        cell.initLabels(nameLblString: "ALLMEMBER".localized)
                         return cell
                         
                     default:
@@ -878,11 +878,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     switch indexPath.row {
                         
                     case 0 :
-                        cellTypeRed.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: "REPORT".localized,changeColor: true)
                         
                         return cellTypeRed
                     case 1 :
-                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localized,changeColor: true)
                         
                         return cellTypeRed
                     default:
@@ -899,7 +899,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     if let desc = room?.groupRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
+                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
                     }
                     
                     
@@ -914,7 +914,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 2:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
                         } else {
@@ -928,17 +928,17 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         
                     }
                 case 3:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
+                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
                     return cell
                     
                 case 4:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                        cell.initLabels(nameLblString: "ADD_MEMBER".localized)
                         return cell
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                        cell.initLabels(nameLblString: "ALLMEMBER".localized)
                         return cell
                         
                     default:
@@ -950,7 +950,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     switch indexPath.row {
                         
                     case 0 :
-                        cellTypeRed.initLabels(nameLblString: "DELETE_GROUP".localizedNew,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: "DELETE_GROUP".localized,changeColor: true)
                         return cellTypeRed
                     default:
                         return cellTypeRed
@@ -972,7 +972,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     if let desc = room?.groupRoom?.roomDescription , desc != "" {
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
+                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
                     }
                     
                     
@@ -987,7 +987,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 2:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
                         } else {
@@ -1001,17 +1001,17 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         
                     }
                 case 3:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
+                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
                     return cell
                     
                 case 4:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                        cell.initLabels(nameLblString: "ADD_MEMBER".localized)
                         return cell
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                        cell.initLabels(nameLblString: "ALLMEMBER".localized)
                         return cell
                         
                     default:
@@ -1022,7 +1022,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 5:
                     switch indexPath.row {
                     case 0 :
-                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localized,changeColor: true)
                         return cellTypeRed
                     default:
                         return cellTypeRed
@@ -1039,7 +1039,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     if let desc = room?.groupRoom?.roomDescription , desc != "" {
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
+                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
                     }
                     
                     
@@ -1054,7 +1054,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 2:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
                         } else {
@@ -1068,17 +1068,17 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         
                     }
                 case 3:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
+                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
                     return cell
                     
                 case 4:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                        cell.initLabels(nameLblString: "ADD_MEMBER".localized)
                         return cell
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                        cell.initLabels(nameLblString: "ALLMEMBER".localized)
                         return cell
                         
                     default:
@@ -1089,7 +1089,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 5:
                     switch indexPath.row {
                     case 0 :
-                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localized,changeColor: true)
                         return cellTypeRed
                     default:
                         return cellTypeRed
@@ -1106,7 +1106,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     if let desc = room?.groupRoom?.roomDescription , desc != "" {
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
+                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
                     }
                     
                     
@@ -1121,7 +1121,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 2:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
                         } else {
@@ -1135,17 +1135,17 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         
                     }
                 case 3:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
+                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
                     return cell
                     
                 case 4:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                        cell.initLabels(nameLblString: "ADD_MEMBER".localized)
                         return cell
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                        cell.initLabels(nameLblString: "ALLMEMBER".localized)
                         return cell
                         
                     default:
@@ -1156,11 +1156,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 5:
                     switch indexPath.row {
                     case 0 :
-                        cellTypeRed.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: "REPORT".localized,changeColor: true)
                         return cellTypeRed
 
                     case 1 :
-                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localized,changeColor: true)
                         return cellTypeRed
 
                     default:
@@ -1178,7 +1178,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     if let desc = room?.groupRoom?.roomDescription , desc != "" {
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
+                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
                     }
                     
                     
@@ -1193,7 +1193,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 2:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
                         } else {
@@ -1207,17 +1207,17 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         
                     }
                 case 3:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
+                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
                     return cell
                     
                 case 4:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                        cell.initLabels(nameLblString: "ADD_MEMBER".localized)
                         return cell
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                        cell.initLabels(nameLblString: "ALLMEMBER".localized)
                         return cell
                         
                     default:
@@ -1228,11 +1228,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 5:
                     switch indexPath.row {
                     case 0 :
-                        cellTypeRed.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: "REPORT".localized,changeColor: true)
                         return cellTypeRed
 
                     case 1 :
-                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localized,changeColor: true)
                         return cellTypeRed
 
                     default:
@@ -1254,7 +1254,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 if let desc = room?.groupRoom?.roomDescription {
                     cell.initLabels(nameLblString: desc)
                 } else {
-                    cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
+                    cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
                 }
                 
                 
@@ -1269,11 +1269,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             case 2:
                 switch indexPath.row {
                 case 0:
-                    cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                    cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
                     return cellTwo
                     
                 case 1:
-                    cell.initLabels(nameLblString: "NOTIFICATION_SOUNDS".localizedNew)
+                    cell.initLabels(nameLblString: "NOTIFICATION_SOUNDS".localized)
                     return cell
                     
                 default:
@@ -1281,17 +1281,17 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     
                 }
             case 3:
-                cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
+                cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
                 return cell
                 
             case 4:
                 switch indexPath.row {
                 case 0 :
-                    cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                    cell.initLabels(nameLblString: "ADD_MEMBER".localized)
                     return cell
                     
                 case 1 :
-                    cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                    cell.initLabels(nameLblString: "ALLMEMBER".localized)
                     return cell
                     
                 default:
@@ -1302,15 +1302,15 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             case 5:
                 switch indexPath.row {
                 case 0 :
-                    cell.initLabels(nameLblString: "CLEAR_HISTORY".localizedNew)
+                    cell.initLabels(nameLblString: "CLEAR_HISTORY".localized)
                     return cell
                     
                 case 1 :
-                    cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                    cell.initLabels(nameLblString: "REPORT".localized,changeColor: true)
                     return cell
                     
                 case 2 :
-                    cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                    cell.initLabels(nameLblString: "LEAVE".localized,changeColor: true)
                     return cell
                 default:
                     return cell
@@ -1546,7 +1546,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
     //MARK: -Header and Footer
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let containerFooterView = view as! UITableViewHeaderFooterView
-        containerFooterView.textLabel?.textAlignment = containerFooterView.textLabel!.localizedNewDirection
+        containerFooterView.textLabel?.textAlignment = containerFooterView.textLabel!.localizedDirection
         switch section {
         default :
             containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15,weight: .bold)
@@ -1564,11 +1564,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localizedNew
+                    return "PRODUCTS_DETAILS".localized
                 case 1:
-                    return "NOTIFICATION_SOUNDS".localizedNew
+                    return "NOTIFICATION_SOUNDS".localized
                 case 2:
-                    return "SHAREDMEDIA".localizedNew
+                    return "SHAREDMEDIA".localized
                 default:
                     return ""
                 }
@@ -1576,13 +1576,13 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localizedNew
+                    return "PRODUCTS_DETAILS".localized
                 case 1:
-                    return "GROUP_LINK".localizedNew
+                    return "GROUP_LINK".localized
                 case 2:
-                    return "NOTIFICATION_SOUNDS".localizedNew
+                    return "NOTIFICATION_SOUNDS".localized
                 case 3:
-                    return "SHAREDMEDIA".localizedNew
+                    return "SHAREDMEDIA".localized
                 default:
                     return ""
                 }
@@ -1590,11 +1590,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localizedNew
+                    return "PRODUCTS_DETAILS".localized
                 case 1:
-                    return "NOTIFICATION_SOUNDS".localizedNew
+                    return "NOTIFICATION_SOUNDS".localized
                 case 2:
-                    return "SHAREDMEDIA".localizedNew
+                    return "SHAREDMEDIA".localized
                 default:
                     return ""
                 }
@@ -1602,11 +1602,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localizedNew
+                    return "PRODUCTS_DETAILS".localized
                 case 1:
-                    return "NOTIFICATION_SOUNDS".localizedNew
+                    return "NOTIFICATION_SOUNDS".localized
                 case 2:
-                    return "SHAREDMEDIA".localizedNew
+                    return "SHAREDMEDIA".localized
                 default:
                     return ""
                 }
@@ -1615,11 +1615,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localizedNew
+                    return "PRODUCTS_DETAILS".localized
                 case 1:
-                    return "NOTIFICATION_SOUNDS".localizedNew
+                    return "NOTIFICATION_SOUNDS".localized
                 case 2:
-                    return "SHAREDMEDIA".localizedNew
+                    return "SHAREDMEDIA".localized
                 default:
                     return ""
                 }
@@ -1631,13 +1631,13 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localizedNew
+                    return "PRODUCTS_DETAILS".localized
                 case 1:
-                    return "GROUP_LINK".localizedNew
+                    return "GROUP_LINK".localized
                 case 2:
-                    return "NOTIFICATION_SOUNDS".localizedNew
+                    return "NOTIFICATION_SOUNDS".localized
                 case 3:
-                    return "SHAREDMEDIA".localizedNew
+                    return "SHAREDMEDIA".localized
                 default:
                     return ""
                 }
@@ -1645,13 +1645,13 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localizedNew
+                    return "PRODUCTS_DETAILS".localized
                 case 1:
-                    return "GROUP_LINK".localizedNew
+                    return "GROUP_LINK".localized
                 case 2:
-                    return "NOTIFICATION_SOUNDS".localizedNew
+                    return "NOTIFICATION_SOUNDS".localized
                 case 3:
-                    return "SHAREDMEDIA".localizedNew
+                    return "SHAREDMEDIA".localized
                 default:
                     return ""
                 }
@@ -1659,13 +1659,13 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localizedNew
+                    return "PRODUCTS_DETAILS".localized
                 case 1:
-                    return "GROUP_LINK".localizedNew
+                    return "GROUP_LINK".localized
                 case 2:
-                    return "NOTIFICATION_SOUNDS".localizedNew
+                    return "NOTIFICATION_SOUNDS".localized
                 case 3:
-                    return "SHAREDMEDIA".localizedNew
+                    return "SHAREDMEDIA".localized
                 default:
                     return ""
                 }
@@ -1673,13 +1673,13 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localizedNew
+                    return "PRODUCTS_DETAILS".localized
                 case 1:
-                    return "GROUP_LINK".localizedNew
+                    return "GROUP_LINK".localized
                 case 2:
-                    return "NOTIFICATION_SOUNDS".localizedNew
+                    return "NOTIFICATION_SOUNDS".localized
                 case 3:
-                    return "SHAREDMEDIA".localizedNew
+                    return "SHAREDMEDIA".localized
                 default:
                     return ""
                 }
@@ -1688,11 +1688,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localizedNew
+                    return "PRODUCTS_DETAILS".localized
                 case 1:
-                    return "NOTIFICATION_SOUNDS".localizedNew
+                    return "NOTIFICATION_SOUNDS".localized
                 case 2:
-                    return "SHAREDMEDIA".localizedNew
+                    return "SHAREDMEDIA".localized
                 default:
                     return ""
                 }
@@ -1700,13 +1700,13 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         case .none:
             switch section {
             case 0:
-                return "PRODUCTS_DETAILS".localizedNew
+                return "PRODUCTS_DETAILS".localized
             case 1:
-                return "GROUP_LINK".localizedNew
+                return "GROUP_LINK".localized
             case 2:
-                return "NOTIFICATION_SOUNDS".localizedNew
+                return "NOTIFICATION_SOUNDS".localized
             case 3:
-                return "SHAREDMEDIA".localizedNew
+                return "SHAREDMEDIA".localized
             default:
                 return ""
             }        }

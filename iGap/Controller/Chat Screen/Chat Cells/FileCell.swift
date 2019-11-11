@@ -94,6 +94,7 @@ class FileCell: AbstractCell {
             txtFileName.font = UIFont.igFont(ofSize: 13)
             txtFileName.lineBreakMode = .byTruncatingMiddle
             txtFileName.numberOfLines = 1
+            txtFileName.textAlignment = .left
             mainBubbleViewAbs.addSubview(txtFileName)
         }
         
@@ -102,6 +103,7 @@ class FileCell: AbstractCell {
             txtFileSize.textColor = UIColor.dialogueBoxInfo()
             txtFileSize.font = UIFont.igFont(ofSize: 13)
             txtFileSize.numberOfLines = 0
+            txtFileSize.textAlignment = .left
             mainBubbleViewAbs.addSubview(txtFileSize)
         }
     }
@@ -141,13 +143,12 @@ class FileCell: AbstractCell {
         
         txtFileSize.snp.makeConstraints { (make) in
             make.leading.equalTo(imgFileAbs.snp.trailing).offset(10.0)
-            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(10.0)
+            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-10.0)
             make.top.equalTo(txtFileName.snp.bottom)
         }
     }
     
-    private func setFile(){
-        
+    private func setFile() {
         let attachment = finalRoomMessage.attachment!
         imgFileAbs.setThumbnail(for: attachment)
         txtFileName.text = attachment.name

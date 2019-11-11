@@ -70,7 +70,7 @@ class IGHelperShowToastAlertView {
             lblMessage.textColor = UIColor(named : themeColor.labelColor.rawValue)
             lblIcon.font = UIFont.iGapFonticon(ofSize: 20)
             lblIcon.textAlignment = .center
-            lblMessage.textAlignment = lblMessage.localizedNewDirection
+            lblMessage.textAlignment = lblMessage.localizedDirection
             lblMessage.font = UIFont.igFont(ofSize: 15,weight : .light)
             lblMessage.text = message
             switch type {

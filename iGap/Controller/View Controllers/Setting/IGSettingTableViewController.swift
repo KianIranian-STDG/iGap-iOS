@@ -58,7 +58,7 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
         
         self.clearsSelectionOnViewWillAppear = true
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "", title: "SETTING_VIEW".localizedNew, iGapFont: true)
+        navigationItem.addNavigationViewItems(rightItemText: "", title: "SETTING_VIEW".localized, iGapFont: true)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -71,15 +71,12 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
     
     
     func initChangeLanguage() {
-        
-        lblChangeLang.text = "SETTING_PAGE_CHANGE_LANGUAGE".localizedNew
-        lblPrivacyPolicy.text = "SETTING_PAGE_PRIVACY_AND_SECURITY".localizedNew
-        lblNotificationSounds.text = "NOTIFICATION_SOUNDS".localizedNew
-        lblDataStorage.text = "DATA_STORAGE".localizedNew
-        lblChatSettings.text = "CHAT_SETTINGS".localizedNew
-        lblLogOut.text = "SETTING_PAGE_ACCOUNT_LOGOUT".localizedNew
-        
-
+        lblChangeLang.text = "SETTING_PAGE_CHANGE_LANGUAGE".localized
+        lblPrivacyPolicy.text = "SETTING_PAGE_PRIVACY_AND_SECURITY".localized
+        lblNotificationSounds.text = "NOTIFICATION_SOUNDS".localized
+        lblDataStorage.text = "DATA_STORAGE".localized
+        lblChatSettings.text = "CHAT_SETTINGS".localized
+        lblLogOut.text = "SETTING_PAGE_ACCOUNT_LOGOUT".localized
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -209,17 +206,17 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
     //MARK: - DEVELOPMENT funcs
 
     private func showLogoutActionSheet(){
-        let logoutConfirmAlertView = UIAlertController(title: "SURE_LOGOUT".localizedNew , message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let logoutAction = UIAlertAction(title: "SETTING_PAGE_ACCOUNT_LOGOUT".localizedNew , style:.default , handler: { (alert: UIAlertAction) -> Void in
+        let logoutConfirmAlertView = UIAlertController(title: "SURE_LOGOUT".localized , message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        let logoutAction = UIAlertAction(title: "SETTING_PAGE_ACCOUNT_LOGOUT".localized , style:.default , handler: { (alert: UIAlertAction) -> Void in
             IGUserSessionLogoutRequest.sendRequest()
         })
         
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew , style:.cancel , handler: nil)
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized , style:.cancel , handler: nil)
         logoutConfirmAlertView.addAction(logoutAction)
         logoutConfirmAlertView.addAction(cancelAction)
         let alertActions = logoutConfirmAlertView.actions
         for action in alertActions {
-            if action.title == "SETTING_PAGE_ACCOUNT_LOGOUT".localizedNew {
+            if action.title == "SETTING_PAGE_ACCOUNT_LOGOUT".localized {
                 let logoutColor = UIColor.red
                 action.setValue(logoutColor, forKey: "titleTextColor")
             }
@@ -236,20 +233,20 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
     
     private func showMoreActionSheet(){
         let DeleteAccountAlertView = UIAlertController(title: nil , message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let logoutAction = UIAlertAction(title: "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localizedNew , style:.default , handler: {
+        let logoutAction = UIAlertAction(title: "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localized , style:.default , handler: {
             (alert: UIAlertAction) -> Void in
 //                self.logoutProcess()//logout process
                 self.deleteAccountProcess()
             
         })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew , style:.cancel , handler: {
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized , style:.cancel , handler: {
             (alert: UIAlertAction) -> Void in
         })
         DeleteAccountAlertView.addAction(logoutAction)
         DeleteAccountAlertView.addAction(cancelAction)
         let alertActions = DeleteAccountAlertView.actions
         for action in alertActions {
-            if action.title == "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localizedNew {
+            if action.title == "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localized {
                 let logoutColor = UIColor.red
                 action.setValue(logoutColor, forKey: "titleTextColor")
             }
@@ -264,7 +261,7 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     private func deleteAccountProcess() {
 
-        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "TTL_ATTENTION".localizedNew, showIconView: true, showDoneButton: true, showCancelButton: true, message: "SURE_DELETE".localizedNew,doneText: "GLOBAL_OK".localizedNew ,cancelText: "GLOBAL_CLOSE".localizedNew,cancel: {
+        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "TTL_ATTENTION".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "SURE_DELETE".localized,doneText: "GLOBAL_OK".localized ,cancelText: "GLOBAL_CLOSE".localized,cancel: {
             self.dismiss(animated: true, completion: nil)
         }, done: {
             self.dismiss(animated: true, completion: nil)

@@ -26,7 +26,7 @@ class CardsCollectionViewCell: UICollectionViewCell {
         self.layer.borderColor = UIColor.darkGray.cgColor
         lblCardNum.font = UIFont.igFont(ofSize: 20 , weight: .bold)
         lblBankName.font = UIFont.igFont(ofSize: 15 , weight: .bold)
-//        lblBankName.textAlignment = lblBankName.localizedNewDirection
+//        lblBankName.textAlignment = lblBankName.localizedDirection
 //        imgBackground.layer.cornerRadius = 15.0
 //        imgBackground.layer.masksToBounds = true
     }

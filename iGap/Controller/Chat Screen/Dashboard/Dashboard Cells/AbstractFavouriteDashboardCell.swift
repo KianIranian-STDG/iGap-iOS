@@ -250,7 +250,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
         
         
         if pollInfo.igpClicked {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_U_HAVE_ALREADY_VOTED".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_U_HAVE_ALREADY_VOTED".localized, cancelText: "GLOBAL_CLOSE".localized)
         }
         else {
             if pollInfo.igpClickable {
@@ -308,7 +308,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                         IGPClientSetPollItemClickRequest.sendRequest(itemId: pollInfo.igpID)
                         break
                     case .selectIsBiggerThanMax:
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_U_HAVE_REACHED_VOTE_LIMIT".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_U_HAVE_REACHED_VOTE_LIMIT".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                         break
                     default:
@@ -414,7 +414,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                 
             }
         case .showAlert:
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: discoveryInfo.igpValue, cancelText: "GLOBAL_CLOSE".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: discoveryInfo.igpValue, cancelText: "GLOBAL_CLOSE".localized)
 
             return
             
@@ -734,10 +734,10 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                     AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: discoveryInfo.igpValue, cancelText: "GLOBAL_CLOSE".localizedNew)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: discoveryInfo.igpValue, cancelText: "GLOBAL_CLOSE".localized)
                 }
             } else {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: discoveryInfo.igpValue, cancelText: "GLOBAL_CLOSE".localizedNew)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: discoveryInfo.igpValue, cancelText: "GLOBAL_CLOSE".localized)
             }
         case .walletMenu:
             

@@ -27,8 +27,8 @@ class SMNormalAlertViewController : BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        leftButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
-        rightButton.setTitle("GLOBAL_OK".localizedNew, for: .normal)
+        leftButton.setTitle("CANCEL_BTN".localized, for: .normal)
+        rightButton.setTitle("GLOBAL_OK".localized, for: .normal)
         dialogTitle.text = dialogT
         dialogTitle.textAlignment = .center
         if let mess = message {

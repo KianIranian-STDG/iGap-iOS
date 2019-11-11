@@ -38,7 +38,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        initNavigationBar(title: "BILL_DETAIL".localizedNew, rightAction: {})//set Title for Page and nav Buttons if needed
+        initNavigationBar(title: "BILL_DETAIL".localized, rightAction: {})//set Title for Page and nav Buttons if needed
 
     }
     // MARK: - Development Funcs
@@ -78,14 +78,14 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
         tfBillNUmber.text = billNumber.inLocalizedLanguage()
         tfBillName.text = billTitle
         if canEditBill {
-            btnAddEdit.setTitle("BILL_EDIT_MODE".localizedNew, for: .normal)
+            btnAddEdit.setTitle("BILL_EDIT_MODE".localized, for: .normal)
         } else {
-            btnAddEdit.setTitle("BILL_ADD_MODE".localizedNew, for: .normal)
+            btnAddEdit.setTitle("BILL_ADD_MODE".localized, for: .normal)
         }
-        lblTitle.text = "BILL_FILL_DATA".localizedNew
-        lblUserNumber.text = "BILL_DETAIL_CUSTOMER_MOB".localizedNew
-        lblBillNUmber.text = "BILL_ID".localizedNew
-        lblBillName.text = "BILL_NAME".localizedNew
+        lblTitle.text = "BILL_FILL_DATA".localized
+        lblUserNumber.text = "BILL_DETAIL_CUSTOMER_MOB".localized
+        lblBillNUmber.text = "BILL_ID".localized
+        lblBillName.text = "BILL_NAME".localized
     }
     
     private func initColors() {
@@ -111,13 +111,13 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
     }
     
     private func initAlignments() {
-        lblUserNumber.textAlignment = lblUserNumber.localizedNewDirection
-        lblBillNUmber.textAlignment = lblBillNUmber.localizedNewDirection
-        lblBillName.textAlignment = lblBillName.localizedNewDirection
+        lblUserNumber.textAlignment = lblUserNumber.localizedDirection
+        lblBillNUmber.textAlignment = lblBillNUmber.localizedDirection
+        lblBillName.textAlignment = lblBillName.localizedDirection
         lblTitle.textAlignment = .center
-        tfUserNumber.textAlignment = tfUserNumber.localizedNewDirection
-        tfBillNUmber.textAlignment = tfBillNUmber.localizedNewDirection
-        tfBillName.textAlignment = tfBillName.localizedNewDirection
+        tfUserNumber.textAlignment = tfUserNumber.localizedDirection
+        tfBillNUmber.textAlignment = tfBillNUmber.localizedDirection
+        tfBillName.textAlignment = tfBillName.localizedDirection
 
     }
     
@@ -125,7 +125,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
         IGApiElectricityBill.shared.addBill(billNumber: (billNumber.inEnglishNumbersNew()), phoneNumber: userPhoneNumber.inEnglishNumbersNew(),billTitle: self.tfBillName.text!, completion: {(success, response, errorMessage) in
              SMLoading.hideLoadingPage()
              if success {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SUCCESS_OPERATION".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew , cancel: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SUCCESS_OPERATION".localized, cancelText: "GLOBAL_CLOSE".localized , cancel: {
                     self.navigationController?.popViewController(animated: true)
                 })
 
@@ -139,7 +139,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
              SMLoading.hideLoadingPage()
              if success {
 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SUCCESS_OPERATION".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew , cancel: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SUCCESS_OPERATION".localized, cancelText: "GLOBAL_CLOSE".localized , cancel: {
                     self.navigationController?.popViewController(animated: true)
                     SwiftEventBus.post(EventBusManager.updateBillsName)
 

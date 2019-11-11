@@ -22,11 +22,11 @@ public class SMMerchant: SMEntity {
 	/// Defined roles name on application for merchant
 	static let roleString : [String]  = [
 		///Sore key name
-		"store".localizedNew,
+		"store".localized,
 		///No name
-		"other".localizedNew,
+		"other".localized,
 		///Driver key name
-		"driver".localizedNew]
+		"driver".localized]
 	
 	
 	///Merchant name

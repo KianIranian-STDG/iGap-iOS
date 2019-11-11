@@ -26,13 +26,13 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeHintTableViewControlle
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "CHANGE_HINT".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: "CHANGE_HINT".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         navigationItem.rightViewContainer?.addAction {
             self.changeHint()
         }
-        lbl1.text = "SETTING_PS_TV_HINT".localizedNew
-        txtHint.placeholder = "SETTING_PS_TV_RECOMMENDED_FIELD".localizedNew
+        lbl1.text = "SETTING_PS_TV_HINT".localized
+        txtHint.placeholder = "SETTING_PS_TV_RECOMMENDED_FIELD".localized
     }
     
     func changeHint(){

@@ -37,9 +37,9 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
         let navigationItem = self.navigationItem as! IGNavigationItem
         
         if self.pageAction == IGTwoStepQuestion.changeRecoveryQuestion {
-            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "SETTING_PS_TV_CHANGE_RECOVER_QUESTION".localizedNew)
+            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: "SETTING_PS_TV_CHANGE_RECOVER_QUESTION".localized)
         } else if self.pageAction == IGTwoStepQuestion.questionRecoveryPassword {
-            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "SETTING_PS_TV_RECOVER_PASS".localizedNew)
+            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: "SETTING_PS_TV_RECOVER_PASS".localized)
         }
         
         navigationItem.navigationController = self.navigationController as? IGNavigationController
@@ -56,14 +56,14 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
             question2TextField.text = questionTwo
         }
 
-        lbl1.text = "SETTING_PS_TV_Q1".localizedNew
-        lbl3.text = "SETTING_PS_TV_Q2".localizedNew
-        lbl2.text = "SETTING_PS_TV_A1".localizedNew
-        lbl4.text = "SETTING_PS_TV_A2".localizedNew
-        question1TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localizedNew
-        question2TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localizedNew
-        answer1TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localizedNew
-        answer2TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localizedNew
+        lbl1.text = "SETTING_PS_TV_Q1".localized
+        lbl3.text = "SETTING_PS_TV_Q2".localized
+        lbl2.text = "SETTING_PS_TV_A1".localized
+        lbl4.text = "SETTING_PS_TV_A2".localized
+        question1TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
+        question2TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
+        answer1TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
+        answer2TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
     }
     
     func changeRecoveryQuestion(){
@@ -84,14 +84,14 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
                 case .userTwoStepVerificationChangeRecoveryQuestionMaxTryLock:
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "SETTING_PS_TV_MAX_TRY_LOCK".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "SETTING_PS_TV_MAX_TRY_LOCK".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
@@ -113,8 +113,8 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
         IGUserTwoStepVerificationRecoverPasswordByAnswersRequest.Generator.generate(answerOne: answer1TextField.text!, answerTwo: answer2TextField.text!).success({ (protoResponse) in
             DispatchQueue.main.async {
                 hud.hide(animated: true)
-                let alert = UIAlertController(title: "SUCCESS".localizedNew, message: "SETTING_PS_TV_YOUR_PASS_REMOVED".localizedNew, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+                let alert = UIAlertController(title: "SUCCESS".localized, message: "SETTING_PS_TV_YOUR_PASS_REMOVED".localized, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
                     self.dismiss(animated: true, completion: nil)
                 })
                 alert.addAction(okAction)
@@ -124,24 +124,24 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-//                    self.showAlert(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew)
-//                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "SETTING_PS_TV_HINT".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PASSWORD_IS_NOT_SET".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+//                    self.showAlert(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized)
+//                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "SETTING_PS_TV_HINT".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PASSWORD_IS_NOT_SET".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                     break
                     
                 case .userTwoStepVerificationRecoverPasswordByAnswersMaxTryLock:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SETTING_PS_TV_MAX_TRY_LOCK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SETTING_PS_TV_MAX_TRY_LOCK".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                     break
                
                 case .userTwoStepVerificationRecoverPasswordByAnswersInvalidAnswers:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "INVALID_ANSWER".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "INVALID_ANSWER".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                     break
                     
                 case .userTwoStepVerificationRecoverPasswordByAnswersForbidden:
                   
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "RECOVER_BY_ANSWER_IS_FORBIDDEN".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "RECOVER_BY_ANSWER_IS_FORBIDDEN".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                     break
                     
@@ -155,7 +155,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
     
     private func isComplete() -> Bool {
         if question1TextField.text == "" || question2TextField.text == "" || answer1TextField.text == "" || answer2TextField.text == "" {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localized, cancelText: "GLOBAL_CLOSE".localized)
 
             return false
         }

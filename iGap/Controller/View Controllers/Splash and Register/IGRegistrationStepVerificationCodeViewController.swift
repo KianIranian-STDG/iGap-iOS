@@ -46,7 +46,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
         delayTime = delayBeforeSendingAgaing
         
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localizedNew, title: "AUTH_VERIFYMOBILE".localizedNew)
+        navigaitonItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localized, title: "AUTH_VERIFYMOBILE".localized)
         navigaitonItem.rightViewContainer?.addAction {
             self.didTapOnNext()
         }
@@ -97,25 +97,25 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
     }
 
     private func setTitleText(verificationMethod: IGVerificationCodeSendMethod){
-        var varificationMethodString = "VIA".localizedNew
+        var varificationMethodString = "VIA".localized
         switch verificationMethod {
         case .sms:
-            varificationMethodString += "SMS".localizedNew
+            varificationMethodString += "SMS".localized
             break
             
         case .call:
-            varificationMethodString += "SETTING_PS_CALL".localizedNew
+            varificationMethodString += "SETTING_PS_CALL".localized
             break
             
         case .igap:
-            varificationMethodString += "IGAP".localizedNew
+            varificationMethodString += "IGAP".localized
             break
             
         case .both:
-            varificationMethodString += "SMSANDIGAP".localizedNew
+            varificationMethodString += "SMSANDIGAP".localized
             break
         }
-        self.titleLabel.text = "MSG_ENTER_VERFICATIONCODE_SENT".localizedNew + "\n" + phoneNumber!.inLocalizedLanguage() + "\n" + varificationMethodString
+        self.titleLabel.text = "MSG_ENTER_VERFICATIONCODE_SENT".localized + "\n" + phoneNumber!.inLocalizedLanguage() + "\n" + varificationMethodString
     }
     
     
@@ -125,8 +125,8 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
             if IGGlobal.matches(for: self.codeRegex!, in: code) {
                 verifyUser()
             } else {
-                let alertVC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "INVALID_VERFI_CODE", preferredStyle: .alert)
-                let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
+                let alertVC = UIAlertController(title: "GLOBAL_WARNING".localized, message: "INVALID_VERFI_CODE", preferredStyle: .alert)
+                let ok = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: { (action) in
                     
                 })
 //                UITableView.appearance().semanticContentAttribute = .forceRightToLeft
@@ -143,7 +143,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
     @objc func updateCountDown() {
         self.delayBeforeSendingAgaing! -= 1
         if self.delayBeforeSendingAgaing! > 0 {
-            let fixedText = "DIDNT_RECIEVE_CODE_WAIT".localizedNew
+            let fixedText = "DIDNT_RECIEVE_CODE_WAIT".localized
             let remainingSeconds = self.delayBeforeSendingAgaing!%60
             let remainingMiuntes = self.delayBeforeSendingAgaing! / 60
             if remainingSeconds < 10 {
@@ -153,7 +153,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
             }
             self.perform(#selector(IGRegistrationStepVerificationCodeViewController.updateCountDown), with: nil, afterDelay: 1.0)
         } else {
-            retrySendingCodeLabel.text = "TAP_RESEND".localizedNew
+            retrySendingCodeLabel.text = "TAP_RESEND".localized
             let tap = UITapGestureRecognizer(target: self, action: #selector(IGRegistrationStepVerificationCodeViewController.tapFunction))
             retrySendingCodeLabel.isUserInteractionEnabled = true
             retrySendingCodeLabel.addGestureRecognizer(tap)
@@ -166,17 +166,17 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
     
     func manageGetRegisterationCode(){
         if callMethodSupport {
-            let alert = UIAlertController(title: nil, message: "RESEND_CODE_VIA".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
+            let alert = UIAlertController(title: nil, message: "RESEND_CODE_VIA".localized, preferredStyle: IGGlobal.detectAlertStyle())
             
-            let sendViaSms = UIAlertAction(title: "SMS".localizedNew, style: .default, handler: { (action) in
+            let sendViaSms = UIAlertAction(title: "SMS".localized, style: .default, handler: { (action) in
                 self.getRegisterToken(preferenceMethod: IGPUserRegister.IGPPreferenceMethod.verifyCodeSms)
             })
             
-            let sendViaCall = UIAlertAction(title: "SETTING_PS_CALL".localizedNew, style: .default, handler: { (action) in
+            let sendViaCall = UIAlertAction(title: "SETTING_PS_CALL".localized, style: .default, handler: { (action) in
                 self.getRegisterToken(preferenceMethod: IGPUserRegister.IGPPreferenceMethod.verifyCodeCall)
             })
             
-            let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+            let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
             
             alert.addAction(sendViaSms)
             alert.addAction(sendViaCall)

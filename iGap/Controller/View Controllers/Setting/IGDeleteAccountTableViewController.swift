@@ -26,7 +26,7 @@ class IGDeleteAccountTableViewController: UITableViewController , UIGestureRecog
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         tableView.tableFooterView = UIView()
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil , title: "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil , title: "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -39,14 +39,14 @@ class IGDeleteAccountTableViewController: UITableViewController , UIGestureRecog
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        lblBtn.text = "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localizedNew
+        lblBtn.text = "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localized
         
-        lblSub1.text = "DELETE_SUB1".localizedNew
-        lblSub2.text = "DELETE_SUB2".localizedNew
-        lblSub3.text = "DELETE_SUB3".localizedNew
+        lblSub1.text = "DELETE_SUB1".localized
+        lblSub2.text = "DELETE_SUB2".localized
+        lblSub3.text = "DELETE_SUB3".localized
 
-        lblTitle1.text = "DELETE_TITLE".localizedNew
-        lblHeader.text = "SURE_DELETE".localizedNew
+        lblTitle1.text = "DELETE_TITLE".localized
+        lblHeader.text = "SURE_DELETE".localized
     }
     
     
@@ -81,8 +81,8 @@ class IGDeleteAccountTableViewController: UITableViewController , UIGestureRecog
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)

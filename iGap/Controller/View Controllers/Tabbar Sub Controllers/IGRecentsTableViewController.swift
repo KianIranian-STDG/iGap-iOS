@@ -30,11 +30,11 @@ import SwiftEventBus
 
 
 class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObserver, UNUserNotificationCenterDelegate, ForwardStartObserver {
-    var headerHeight : CGFloat = 0
-    var searchController : UISearchController = {
+    var headerHeight: CGFloat = 0
+    var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
-        searchController.searchBar.setValue("CANCEL_BTN".RecentTableViewlocalizedNew, forKey: "cancelButtonText")
+        searchController.searchBar.setValue("CANCEL_BTN".RecentTableViewlocalized, forKey: "cancelButtonText")
         searchController.definesPresentationContext = true
         searchController.searchBar.sizeToFit()
         
@@ -50,7 +50,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
         
         return searchController
-
     }()
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -80,7 +79,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 13,weight: .bold)
         label.textColor = .black
-        label.textAlignment = label.localizedNewDirection
+        label.textAlignment = label.localizedDirection
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -159,14 +158,14 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
             
-            let newChat = UIAlertAction(title: "NEW_CALL".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+            let newChat = UIAlertAction(title: "NEW_CALL".RecentTableViewlocalized, style: .default, handler: { (action) in
                 let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
                 createChat.forceCall = true
                 createChat.hidesBottomBarWhenPushed = true
                 self.navigationController!.pushViewController(createChat, animated: true)
             })
             
-            let clearCallLog = UIAlertAction(title: "CLEAR_HISTORY".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+            let clearCallLog = UIAlertAction(title: "CLEAR_HISTORY".RecentTableViewlocalized, style: .default, handler: { (action) in
                 if IGAppManager.sharedManager.userID() != nil {
                     let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                     hud.mode = .indeterminate
@@ -205,7 +204,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
             })
             
-            let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .cancel, handler: nil)
+            let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalized, style: .cancel, handler: nil)
             
             alertController.addAction(newChat)
             alertController.addAction(clearCallLog)
@@ -215,8 +214,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             return
         }
         
-        let alertController = UIAlertController(title: nil, message: "WHICH_TYPE_OF".RecentTableViewlocalizedNew, preferredStyle: IGGlobal.detectAlertStyle())
-        let myCloud = UIAlertAction(title: "MY_CLOUD".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+        let alertController = UIAlertController(title: nil, message: "WHICH_TYPE_OF".RecentTableViewlocalized, preferredStyle: IGGlobal.detectAlertStyle())
+        let myCloud = UIAlertAction(title: "MY_CLOUD".RecentTableViewlocalized, style: .default, handler: { (action) in
             if let userId = IGAppManager.sharedManager.userID() {
                 let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                 hud.mode = .indeterminate
@@ -238,14 +237,14 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }).error({ (errorCode, waitTime) in
                     DispatchQueue.main.async {
                         hud.hide(animated: true)
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
 
                         
                     }
                 }).send()
             }
         })
-        let newChat = UIAlertAction(title: "NEW_C_C".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+        let newChat = UIAlertAction(title: "NEW_C_C".RecentTableViewlocalized, style: .default, handler: { (action) in
             let createChat = IGPhoneBookTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
             createChat.hidesBottomBarWhenPushed = true
             self.navigationController!.pushViewController(createChat, animated: true)
@@ -254,19 +253,19 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 //            createChat.hidesBottomBarWhenPushed = true
 //            self.navigationController!.pushViewController(createChat, animated: true)
         })
-        let newGroup = UIAlertAction(title: "NEW_GROUP".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+        let newGroup = UIAlertAction(title: "NEW_GROUP".RecentTableViewlocalized, style: .default, handler: { (action) in
             let createGroup = IGMemberAddOrUpdateState.instantiateFromAppStroryboard(appStoryboard: .Profile)
             createGroup.mode = "CreateGroup"
             createGroup.hidesBottomBarWhenPushed = true
             self.navigationController!.pushViewController(createGroup, animated: true)
         })
-        let newChannel = UIAlertAction(title: "NEW_CHANNEL".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+        let newChannel = UIAlertAction(title: "NEW_CHANNEL".RecentTableViewlocalized, style: .default, handler: { (action) in
             let createChannel = IGCreateNewChannelTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
             createChannel.hidesBottomBarWhenPushed = true
             self.navigationController!.pushViewController(createChannel, animated: true)
         })
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .cancel, handler: { (action) in
+        let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalized, style: .cancel, handler: { (action) in
             
         })
         
@@ -277,7 +276,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         alertController.addAction(cancel)
         
         self.present(alertController, animated: true, completion: nil)
-        
     }
     
     private func setDefaultNavigationItem() {
@@ -300,6 +298,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
         initialiseSearchBar()
     }
     
@@ -406,8 +405,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             //            print(result?.object as! Bool)
             self.updateLabelsData(singerName: IGGlobal.topBarSongSinger,songName: IGGlobal.topBarSongName)
         }
-
     }
+    
     @objc func updateLabelsData(singerName: String!,songName: String!) {
         self.tableView.beginUpdates()
         print("TOPBAR GOT REMOVED")
@@ -418,6 +417,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
         self.tableView.endUpdates()
     }
+    
     private func hideMusicTopPlayerWithAnimation() {
 //        UIView.animate(withDuration: 0.3, animations: {
                 self.tableView.beginUpdates()
@@ -430,8 +430,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             self.view.layoutIfNeeded()
             self.tableView.layoutIfNeeded()
         }
-
     }
+    
     private func showMusicTopPlayerWithAnimation() {
         self.tableView.beginUpdates()
         self.headerHeight = 40
@@ -441,16 +441,16 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             self.view.layoutIfNeeded()
             self.tableView.layoutIfNeeded()
         }
-
-
     }
+    
     private func stopMusic() {
         IGPlayer.shared.pauseMusic()
     }
+    
     private func playMusic() {
         IGPlayer.shared.playMusic()
-
     }
+    
     @objc private func changeDirectionOfUI() {
         let _ : String = SMLangUtil.loadLanguage()
     }
@@ -486,9 +486,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             if let navigationBar = self.navigationController?.navigationBar {
                 navigationBar.backgroundColor = .clear
             }
-
         }
-        
     }
     
     //MARK: Room List actions
@@ -501,39 +499,18 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         IGHelperGetShareData.manageShareDate()
         self.checkAppVersion()
         self.checkPermission()
-        checkAppLanguage()
         self.addRoomChangeNotificationBlock()
         self.deleteChannelMessages()
         self.fetchRoomList()
     }
     
-    private func checkAppLanguage() {
-        print(SMLangUtil.loadLanguage())
-        lastLang = SMLangUtil.loadLanguage()
-        if SMLangUtil.loadLanguage() == "fa" {
-            IGGlobal.languageFileName = "localizationsFa"
-        } else {
-            IGGlobal.languageFileName = "localizationsEn"
-        }
-        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
-        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
-        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
-
-        if SMLangUtil.loadLanguage() == "fa" {
-            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-        } else {
-            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-        }
-        SwiftEventBus.post(EventBusManager.updateTabbarLang,sender: true)
-
-    }
     /* check app need update or is deprecated now and don't allow */
     private func checkAppVersion() {
         DispatchQueue.main.async {
             if AppDelegate.isDeprecatedClient {
 
                 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "VERSION_DEPRICATED".RecentTableViewlocalizedNew, doneText: "UPDATE".RecentTableViewlocalizedNew,cancelText: "GLOBAL_CLOSE".localizedNew ,done: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "VERSION_DEPRICATED".RecentTableViewlocalized, doneText: "UPDATE".RecentTableViewlocalized,cancelText: "GLOBAL_CLOSE".localized ,done: {
                     UIApplication.shared.open(self.iGapStoreLink!, options: [:], completionHandler: nil)
 
                 })
@@ -541,7 +518,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
             } else if AppDelegate.isUpdateAvailable {
                 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .question, title: "UPDATE".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "VERSION_NEW".RecentTableViewlocalizedNew, doneText: "UPDATE".RecentTableViewlocalizedNew,cancelText: "GLOBAL_CLOSE".localizedNew ,done: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .question, title: "UPDATE".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "VERSION_NEW".RecentTableViewlocalized, doneText: "UPDATE".RecentTableViewlocalized,cancelText: "GLOBAL_CLOSE".localized ,done: {
                     UIApplication.shared.open(self.iGapStoreLink!, options: [:], completionHandler: nil)
 
                 })
@@ -695,25 +672,25 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let room = rooms![indexPath.row]
-        var muteTitle = "UN_MUTE".RecentTableViewlocalizedNew
+        var muteTitle = "UN_MUTE".RecentTableViewlocalized
         if room.mute == IGRoom.IGRoomMute.mute {
-            muteTitle = "UN_MUTE".RecentTableViewlocalizedNew
+            muteTitle = "UN_MUTE".RecentTableViewlocalized
         }
         else {
-            muteTitle = "MUTE".RecentTableViewlocalizedNew
+            muteTitle = "MUTE".RecentTableViewlocalized
             
         }
         
-        var pinTitle = "PINN".RecentTableViewlocalizedNew
+        var pinTitle = "PINN".RecentTableViewlocalized
         if room.pinId > 0 {
-            pinTitle = "UNPINN".RecentTableViewlocalizedNew
+            pinTitle = "UNPINN".RecentTableViewlocalized
         }
         //MUTE
         let btnMuteSwipeCell = UIContextualAction(style: .normal, title: muteTitle) { (contextualAction, view, boolValue) in
             boolValue(true) // pass true if you want the handler to allow the action
             
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
 
             } else {
                 self.muteRoom(room: room)
@@ -729,7 +706,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             boolValue(true) // pass true if you want the handler to allow the action
 
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
             } else {
                 self.pinRoom(room: room)
             }
@@ -739,23 +716,23 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         
         //MORE
-        let btnMoreSwipeCell = UIContextualAction(style: .normal, title: "MORE".RecentTableViewlocalizedNew) { (contextualAction, view, boolValue) in
+        let btnMoreSwipeCell = UIContextualAction(style: .normal, title: "MORE".RecentTableViewlocalized) { (contextualAction, view, boolValue) in
             boolValue(true) // pass true if you want the handler to allow the action
 
-            let title = room.title != nil ? room.title! : "BTN_DELETE".RecentTableViewlocalizedNew
-            let alertC = UIAlertController(title: title, message: "WHAT_DO_U_WANT".RecentTableViewlocalizedNew, preferredStyle: IGGlobal.detectAlertStyle())
-            let clear = UIAlertAction(title: "CLEAR_HISTORY".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+            let title = room.title != nil ? room.title! : "BTN_DELETE".RecentTableViewlocalized
+            let alertC = UIAlertController(title: title, message: "WHAT_DO_U_WANT".RecentTableViewlocalized, preferredStyle: IGGlobal.detectAlertStyle())
+            let clear = UIAlertAction(title: "CLEAR_HISTORY".RecentTableViewlocalized, style: .default, handler: { (action) in
                 switch room.type{
                 case .chat:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
 
                     } else {
                         self.clearChatMessageHistory(room: room)
                     }
                 case .group:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
                     } else {
                         self.clearGroupMessageHistory(room: room)
                     }
@@ -764,13 +741,13 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
             })
             
-            let clearLocalMessage = UIAlertAction(title: "CLEAR_HISTORY_LOCAL".localizedNew, style: .default, handler: { (action) in
+            let clearLocalMessage = UIAlertAction(title: "CLEAR_HISTORY_LOCAL".localized, style: .default, handler: { (action) in
                 IGRoomMessage.clearLocalMessage(roomId: room.id)
             })
             
             let mute = UIAlertAction(title: muteTitle, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
 
                 } else {
                     self.muteRoom(room: room)
@@ -779,34 +756,34 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             
             let pin = UIAlertAction(title: pinTitle, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
 
                 } else {
                     self.pinRoom(room: room)
                 }
             })
             
-            let report = UIAlertAction(title: "REPORT".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+            let report = UIAlertAction(title: "REPORT".RecentTableViewlocalized, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
 
                 } else {
                     self.report(room: room)
                 }
             })
             
-            let remove = UIAlertAction(title: "BTN_DELETE".RecentTableViewlocalizedNew, style: .destructive, handler: { (action) in
+            let remove = UIAlertAction(title: "BTN_DELETE".RecentTableViewlocalized, style: .destructive, handler: { (action) in
                 switch room.type {
                 case .chat:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
                     } else {
                         self.deleteChat(room: room)
                     }
                     break
                 case .group:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
 
                     } else {
                         self.deleteGroup(room: room)
@@ -814,7 +791,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     break
                 case .channel:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
                     } else {
                         self.deleteChannel(room: room)
                     }
@@ -822,13 +799,13 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
             })
             
-            let leave = UIAlertAction(title: "LEAVE".RecentTableViewlocalizedNew, style: .destructive, handler: { (action) in
+            let leave = UIAlertAction(title: "LEAVE".RecentTableViewlocalized, style: .destructive, handler: { (action) in
                 switch room.type {
                 case .chat:
                     break
                 case .group:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
 
                         
                     } else {
@@ -838,7 +815,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
 
                         
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
 
                     } else {
                         self.leaveChannel(room: room)
@@ -846,7 +823,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
             })
             
-            let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .cancel, handler: nil)
+            let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalized, style: .cancel, handler: nil)
             
             if room.type == .chat || room.type == .group {
                 alertC.addAction(clear)
@@ -1146,7 +1123,7 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORT_SUBMITED".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORT_SUBMITED".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
 
                 default:
                     break
@@ -1162,12 +1139,12 @@ extension IGRecentsTableViewController {
                 case .clientRoomReportReportedBefore:
                     
                     
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ROOM_REPORTED_BEFOR".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ROOM_REPORTED_BEFOR".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
 
                     break
                     
                 case .clientRoomReportForbidden:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Room Report Fobidden", cancelText: "GLOBAL_CLOSE".localizedNew )
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Room Report Fobidden", cancelText: "GLOBAL_CLOSE".localized )
 
                     break
                     
@@ -1186,7 +1163,7 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPUserReportResponse:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".RecentTableViewlocalizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORT_SUBMITED".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORT_SUBMITED".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
 
                 default:
                     break
@@ -1200,12 +1177,12 @@ extension IGRecentsTableViewController {
                     break
                     
                 case .userReportReportedBefore:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_REPORTED_BEFOR".RecentTableViewlocalizedNew, cancelText: "GLOBAL_CLOSE".localizedNew )
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_REPORTED_BEFOR".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
 
                     break
                     
                 case .userReportForbidden:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "User Report Forbidden.", cancelText: "GLOBAL_CLOSE".localizedNew )
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "User Report Forbidden.", cancelText: "GLOBAL_CLOSE".localized )
 
                     break
                     
@@ -1224,13 +1201,13 @@ extension IGRecentsTableViewController {
         var title = ""
         
         if roomType == .chat {
-            title = "REPORT_REASON".RecentTableViewlocalizedNew
+            title = "REPORT_REASON".RecentTableViewlocalized
         } else {
-            title = "REPORT_REASON".RecentTableViewlocalizedNew
+            title = "REPORT_REASON".RecentTableViewlocalized
         }
         
         let alertC = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let abuse = UIAlertAction(title: "ABUSE".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+        let abuse = UIAlertAction(title: "ABUSE".RecentTableViewlocalized, style: .default, handler: { (action) in
             
             if roomType == .chat {
                 self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.abuse)
@@ -1239,7 +1216,7 @@ extension IGRecentsTableViewController {
             }
         })
         
-        let spam = UIAlertAction(title: "SPAM".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+        let spam = UIAlertAction(title: "SPAM".RecentTableViewlocalized, style: .default, handler: { (action) in
             
             if roomType == .chat {
                 self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.spam)
@@ -1248,24 +1225,24 @@ extension IGRecentsTableViewController {
             }
         })
         
-        let fakeAccount = UIAlertAction(title: "FAKE_ACCOUNT".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+        let fakeAccount = UIAlertAction(title: "FAKE_ACCOUNT".RecentTableViewlocalized, style: .default, handler: { (action) in
             self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.fakeAccount)
         })
         
-        let violence = UIAlertAction(title: "VIOLENCE".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+        let violence = UIAlertAction(title: "VIOLENCE".RecentTableViewlocalized, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.violence)
         })
         
-        let pornography = UIAlertAction(title: "PORNOGRAPHY".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+        let pornography = UIAlertAction(title: "PORNOGRAPHY".RecentTableViewlocalized, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.pornography)
         })
         
-        let other = UIAlertAction(title: "OTHER".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+        let other = UIAlertAction(title: "OTHER".RecentTableViewlocalized, style: .default, handler: { (action) in
             self.selectedRoomForSegue = room
             self.performSegue(withIdentifier: "showReportPage", sender: self)
         })
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .cancel, handler: { (action) in
+        let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalized, style: .cancel, handler: { (action) in
             
         })
         
@@ -1355,7 +1332,7 @@ extension IGRecentsTableViewController {
                     case .timeout:
                         break
                     default:
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "There was an error leaving this group.", cancelText: "GLOBAL_CLOSE".localizedNew )
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "There was an error leaving this group.", cancelText: "GLOBAL_CLOSE".localized )
 
 
                     }
@@ -1480,7 +1457,7 @@ extension IGRecentsTableViewController {
             }
 
             if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
-                searchBarCancelButton.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
+                searchBarCancelButton.setTitle("CANCEL_BTN".RecentTableViewlocalized, for: .normal)
                 searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14, weight: .bold)
                 searchBarCancelButton.tintColor = UIColor.white
                 searchBarCancelButton.setTitleColor(UIColor.white, for: .normal)
@@ -1489,7 +1466,7 @@ extension IGRecentsTableViewController {
             if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
                 placeHolderInsideSearchField.textColor = UIColor.white
                 placeHolderInsideSearchField.textAlignment = .center
-                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localizedNew
+                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localized
                 if let backgroundview = textField.subviews.first {
                     placeHolderInsideSearchField.center = backgroundview.center
                 }
@@ -1541,7 +1518,7 @@ extension IGRecentsTableViewController: UISearchBarDelegate/*, UISearchResultsUp
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
 //        if let searchBarCancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
-//            searchBarCancelButton.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
+//            searchBarCancelButton.setTitle("CANCEL_BTN".RecentTableViewlocalized, for: .normal)
 //            searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
 //            searchBarCancelButton.tintColor = UIColor.white
 //        }

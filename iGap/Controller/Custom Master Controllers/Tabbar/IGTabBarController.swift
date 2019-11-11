@@ -29,11 +29,6 @@ class IGTabBarController: UITabBarController {
         super.viewDidLoad()
         
         initView()
-        SwiftEventBus.onMainThread(self, name: EventBusManager.updateTabbarLang) { result in
-            //            print(result?.object as! Float)
-            self.setTabBarItems()
-        }
-        
     }
     
     private func initView() {
@@ -115,7 +110,7 @@ class IGTabBarController: UITabBarController {
         let myTabBarItem1 = (self.tabBar.items?[0])! as UITabBarItem
         myTabBarItem1.image = UIImage(named: "ig-Phone-Book-Off_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         myTabBarItem1.selectedImage = UIImage(named: "ig-Phone-Book-on_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        myTabBarItem1.title = "TAB_PHONEBOOK".TabLocalizedNew
+        myTabBarItem1.title = "TAB_PHONEBOOK".Tablocalized
         myTabBarItem1.tag = 0
         myTabBarItem1.imageInsets = UIEdgeInsets(top: -8, left: 0, bottom: 0, right: 0)
         myTabBarItem1.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -10)
@@ -123,7 +118,7 @@ class IGTabBarController: UITabBarController {
         let myTabBarItem2 = (self.tabBar.items?[1])! as UITabBarItem
         myTabBarItem2.image = UIImage(named: "ig-Call-List_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         myTabBarItem2.selectedImage = UIImage(named: "ig-Call-List-on_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        myTabBarItem2.title = "TAB_CALL_LIST".TabLocalizedNew
+        myTabBarItem2.title = "TAB_CALL_LIST".Tablocalized
         myTabBarItem2.tag = 1
         myTabBarItem2.imageInsets = UIEdgeInsets(top: -8, left: 0, bottom: 0, right: 0)
         myTabBarItem2.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -10)
@@ -131,7 +126,7 @@ class IGTabBarController: UITabBarController {
         let myTabBarItem3 = (self.tabBar.items?[2])! as UITabBarItem
         myTabBarItem3.image = UIImage(named: "ig-Room-List-Off_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         myTabBarItem3.selectedImage = UIImage(named: "ig-Room-List-on_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        myTabBarItem3.title = "TAB_CHAT".TabLocalizedNew
+        myTabBarItem3.title = "TAB_CHAT".Tablocalized
         myTabBarItem3.tag = 2
         myTabBarItem3.imageInsets = UIEdgeInsets(top: -8, left: 0, bottom: 0, right: 0)
         myTabBarItem3.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -10)
@@ -139,7 +134,7 @@ class IGTabBarController: UITabBarController {
         let myTabBarItem4 = (self.tabBar.items?[3])! as UITabBarItem
         myTabBarItem4.image = UIImage(named: "ig-Dashboard-off_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         myTabBarItem4.selectedImage = UIImage(named: "ig-Discovery-on_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        myTabBarItem4.title = "TAB_DISCOVERY".TabLocalizedNew
+        myTabBarItem4.title = "TAB_DISCOVERY".Tablocalized
         myTabBarItem4.tag = 3
         myTabBarItem4.imageInsets = UIEdgeInsets(top: -8, left: 0, bottom: 0, right: 0)
         myTabBarItem4.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -10)
@@ -147,7 +142,7 @@ class IGTabBarController: UITabBarController {
         let myTabBarItem5 = (self.tabBar.items?[4])! as UITabBarItem
         myTabBarItem5.image = UIImage(named: "ig-Settings-off_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         myTabBarItem5.selectedImage = UIImage(named: "ig-Settings-on_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        myTabBarItem5.title = "TAB_PROFILE".TabLocalizedNew
+        myTabBarItem5.title = "TAB_PROFILE".Tablocalized
         myTabBarItem5.tag = 4
         myTabBarItem5.imageInsets = UIEdgeInsets(top: -8, left: 0, bottom: 0, right: 0)
         myTabBarItem5.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -10)

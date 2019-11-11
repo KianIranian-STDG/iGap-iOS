@@ -21,8 +21,8 @@ class BaseCollectionViewController: UICollectionViewController {
         let _ : String = SMLangUtil.loadLanguage()
     }
     
-    public func setDirectionManually(direction: UISemanticContentAttribute)  {
-        UIView.appearance().semanticContentAttribute = direction
-    }
+//    public func setDirectionManually(direction: UISemanticContentAttribute)  {
+//        UIView.appearance().semanticContentAttribute = direction
+//    }
     
 }

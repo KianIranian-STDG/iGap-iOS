@@ -17,35 +17,37 @@ import Gifu
 import MapKit
 import YPImagePicker
 
-class IGProfileTableViewController: UITableViewController, CLLocationManagerDelegate, UITextFieldDelegate {
+class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDelegate, UITextFieldDelegate {
+    
     lazy var colorView = { () -> UIView in
         let view = UIView()
         view.isUserInteractionEnabled = false
         return view
     }()
+    
     @IBOutlet weak  var btnCountryCodeWidthConstraints: NSLayoutConstraint!
     @IBOutlet weak  var tfRefferalWidthConstraints: NSLayoutConstraint!
-    var libraryBanner : [IGFile] = []
-    var wallpapersList : Results<IGRealmWallpaper>!
+    var libraryBanner: [IGFile] = []
+    var wallpapersList: Results<IGRealmWallpaper>!
     var userAvatarAttachment: IGFile!
 
-    var canCallNextRequest : Bool! = false
-    var currentGender : IGPGender.RawValue = 0
-    var currentName : String = ""
-    var currentUserName : String = ""
-    var currentBio : String = ""
-    var currentEmail : String = ""
-    var currentReferral : String = ""
+    var canCallNextRequest: Bool! = false
+    var currentGender: IGPGender.RawValue = 0
+    var currentName: String = ""
+    var currentUserName: String = ""
+    var currentBio: String = ""
+    var currentEmail: String = ""
+    var currentReferral: String = ""
     internal static var allowGetCountry:Bool = true
     var phone: String?
-    var selectedCountry : IGCountryInfo?
+    var selectedCountry: IGCountryInfo?
     var registrationResponse : (username:String, userId:Int64, authorHash:String, verificationMethod: IGVerificationCodeSendMethod, resendDelay:Int32, codeDigitsCount:Int32, codeRegex:String, callMethodSupport:Bool)?
 
     var isEditMode = false
     var shouldSave = false
     var tapCount = 0
-    var isMaleChecked : Bool! = false
-    var isFMaleChecked : Bool! = false
+    var isMaleChecked: Bool! = false
+    var isFMaleChecked: Bool! = false
 
     var tmpGender: IGGender = .unknown
     var tmpEmail: String = ""
@@ -111,7 +113,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     var notificationToken: NotificationToken?
     
     var isPoped = false
-    let disposeBag = DisposeBag()
+//    let disposeBag = DisposeBag()
     var userCards: [SMCard]?
     
     var editProfileNavBtn: UIButton!
@@ -239,7 +241,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 switch  currentTabIndex {
                 case TabBarTab.Recent.rawValue:
                     let navItem = self.navigationItem as! IGNavigationItem
-                    navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localizedNew)
+                    navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localized)
                 default:
                     self.initNavBar()
                 }
@@ -339,33 +341,33 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     }
     
     func initChangeLang() {
-        lblName.text = "NAME".localizedNew
-        lblUserName.text = "SETTING_PAGE_ACCOUNT_USERNAME".localizedNew
-        lblBioInner.text = "SETTING_PAGE_ACCOUNT_BIO".localizedNew
-        lblReferralInner.text = "SETTING_PAGE_ACCOUNT_REFERRAL".localizedNew
+        lblName.text = "NAME".localized
+        lblUserName.text = "SETTING_PAGE_ACCOUNT_USERNAME".localized
+        lblBioInner.text = "SETTING_PAGE_ACCOUNT_BIO".localized
+        lblReferralInner.text = "SETTING_PAGE_ACCOUNT_REFERRAL".localized
         lblBioInner.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
         lblReferralInner.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
 
-        btnName.setTitle("NAME".localizedNew, for: .normal)
-        lblCloud.text = "MY_CLOUD".localizedNew
-        lblSetting.text = "SETTING_VIEW".localizedNew
-        lblNew.text = "NEW".localizedNew
-        lblCredit.text = "CREDITS".localizedNew
-        lblScore.text = "SETTING_PAGE_ACCOUNT_SCORE_PAGE".localizedNew
+        btnName.setTitle("NAME".localized, for: .normal)
+        lblCloud.text = "MY_CLOUD".localized
+        lblSetting.text = "SETTING_VIEW".localized
+        lblNew.text = "NEW".localized
+        lblCredit.text = "CREDITS".localized
+        lblScore.text = "SETTING_PAGE_ACCOUNT_SCORE_PAGE".localized
         lblScoreAmount.text = "..."
-        lblInviteF.text = "SETTING_PAGE_INVITE_FRIENDS".localizedNew
-        lblQR.text = "SETTING_PAGE_QRCODE_SCANNER".localizedNew
-        lblNearby.text = "SETTING_NEARBY".localizedNew
-        lblFaq.text = "FAQ".localizedNew
+        lblInviteF.text = "SETTING_PAGE_INVITE_FRIENDS".localized
+        lblQR.text = "SETTING_PAGE_QRCODE_SCANNER".localized
+        lblNearby.text = "SETTING_NEARBY".localized
+        lblFaq.text = "FAQ".localized
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-            lblVersion.text = "SETTING_PAGE_FOOTER_VERSION".localizedNew + " \(version)".inLocalizedLanguage()
+            lblVersion.text = "SETTING_PAGE_FOOTER_VERSION".localized + " \(version)".inLocalizedLanguage()
         }
-        lblEmailInner.text = "SETTING_PS_TV_EMAIL".localizedNew
-        lblMenGender.text = "MEN_GENDER".localizedNew
+        lblEmailInner.text = "SETTING_PS_TV_EMAIL".localized
+        lblMenGender.text = "MEN_GENDER".localized
         lblMenGender.font = UIFont.igFont(ofSize: 15)
         lblWomenGender.font = UIFont.igFont(ofSize: 15)
-        lblWomenGender.text = "WOMEN_GENDER".localizedNew
-        lblGenderInner.text = "GENDER".localizedNew
+        lblWomenGender.text = "WOMEN_GENDER".localized
+        lblGenderInner.text = "GENDER".localized
 
     }
     func textManagment() {
@@ -446,19 +448,17 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
         lblBioTop.labelSpacing = 30                       // Distance between start and end labels
         lblBioTop.pauseInterval = 2.0                     // Seconds of pause before scrolling starts again
         lblBioTop.scrollSpeed = 30                        // Pixels per second
-        if lastLang == "en" {
-            lblBioTop.textAlignment = .left
-        }
-        else{
+        if self.isRTL {
             lblBioTop.textAlignment = .right
+        } else {
+            lblBioTop.textAlignment = .left
         }
         lblBioTop.fadeLength = 12                         // Length of the left and right edge fade, 0 to disable
         lblBioTop.scrollDirection = EFAutoScrollDirection.left
-        if lastLang == "en" {
-            lblBioTop.scrollDirection = EFAutoScrollDirection.left
-        }
-        else{
+        if self.isRTL {
             lblBioTop.scrollDirection = EFAutoScrollDirection.right
+        } else {
+            lblBioTop.scrollDirection = EFAutoScrollDirection.left
         }
 
 
@@ -699,9 +699,9 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
             
         } else {
             locationManager.stopUpdatingLocation()
-            let alert = UIAlertController(title: "LOCATION_SERVICE_DISABLE".localizedNew, message: "LOCATION_SERVICE_ENABLE_IT".localizedNew, preferredStyle: UIAlertController.Style.alert)
+            let alert = UIAlertController(title: "LOCATION_SERVICE_DISABLE".localized, message: "LOCATION_SERVICE_ENABLE_IT".localized, preferredStyle: UIAlertController.Style.alert)
             self.present(alert, animated: true, completion: nil)
-            alert.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { action in
+            alert.addAction(UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: { action in
                 switch action.style {
                 case .default: UIApplication.shared.open(NSURL(string: UIApplication.openSettingsURLString)! as URL, options: [:], completionHandler: nil)
                     
@@ -764,9 +764,9 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 }
             }).error({ (errorCode, waitTime) in
                 DispatchQueue.main.async {
-                    let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
+                    let alertC = UIAlertController(title: "GLOBAL_WARNING".localized, message: "UNSSUCCESS_OTP".localized, preferredStyle: .alert)
                     
-                    let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let cancel = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                     alertC.addAction(cancel)
                     self.present(alertC, animated: true, completion: nil)
                 }
@@ -862,6 +862,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     }
     
     @IBAction func btnCameraPickTapped(_ sender: Any) {
+        
     }
     
     @IBAction func btnScoreTapped(_ sender: Any) {
@@ -1027,7 +1028,7 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                 break
                 
             case 2 :
-                shareContent = "HEY_JOIN_IGAP".localizedNew
+                shareContent = "HEY_JOIN_IGAP".localized
                 let activityViewController = UIActivityViewController(activityItems: [shareContent as NSString], applicationActivities: nil)
                 self.tableView.deselectRow(at: indexPath, animated: true)
                 present(activityViewController, animated: true, completion: nil)
@@ -1216,18 +1217,18 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
                     break
                     
                 case .userProfileUpdateUsernameIsInvaild:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INVALID_USERNAME".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INVALID_USERNAME".localized, cancelText: "GLOBAL_CLOSE".localized)
                     break
                     
                 case .userProfileUpdateUsernameHasAlreadyBeenTaken:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_TAKEN_USERNAME".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_TAKEN_USERNAME".localized, cancelText: "GLOBAL_CLOSE".localized)
                     break
                     
                 case .userProfileUpdateLock:
                     let time = waitTime
                     let remainingMiuntes = time!/60
-                    let msg = "MSG_CHANGE_USERNAME_AFTER".localizedNew + " " + String(remainingMiuntes) + " " + "MINUTE".localizedNew
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: "GLOBAL_CLOSE".localizedNew)
+                    let msg = "MSG_CHANGE_USERNAME_AFTER".localized + " " + String(remainingMiuntes) + " " + "MINUTE".localized
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: "GLOBAL_CLOSE".localized)
                     break
                     
                 default:
@@ -1412,19 +1413,19 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     
     func choosePhotoActionSheet(sender : UIButton){
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.pickImage(screens: [.photo])
         })
         
-        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.pickImage(screens: [.library])
         })
         
-        let deleteAction = UIAlertAction(title: "DELETE_MAIN_AVATAR".localizedNew, style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
+        let deleteAction = UIAlertAction(title: "DELETE_MAIN_AVATAR".localized, style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
             self.deleteAvatar()
         })
         
-        let cancelAction = UIAlertAction(title: "BTN_CANCEL".localizedNew, style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "BTN_CANCEL".localized, style: .cancel, handler: nil)
         
         if self.avatars.count > 0 {
             optionMenu.addAction(deleteAction)
@@ -1460,7 +1461,7 @@ extension IGProfileTableViewController: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
-        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
+        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".RecentTableViewlocalized, for: .normal)
         let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
         lookAndFind.hero.isEnabled = true
         self.navigationController?.hero.isEnabled = true

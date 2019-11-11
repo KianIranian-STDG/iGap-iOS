@@ -10,7 +10,7 @@
 
 import UIKit
 
-class IGFavouriteChannelSlideTVCell: UITableViewCell {
+class IGFavouriteChannelSlideTVCell: BaseTableViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     var slidesCount = 0 {
         didSet {
@@ -47,9 +47,8 @@ class IGFavouriteChannelSlideTVCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         collectionView.isPagingEnabled = true
-        let isEnglish = SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue
-        self.collectionView.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
-        self.pageControl.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
+        self.collectionView.transform = self.isRTL ? CGAffineTransform(scaleX: -1, y: 1) : CGAffineTransform.identity
+        self.pageControl.transform = self.isRTL ? CGAffineTransform(scaleX: -1, y: 1) : CGAffineTransform.identity
     }
     
     @objc func slideshowTick(_ timer: Timer) {

@@ -1,0 +1,131 @@
+/*
+* This is the source code of iGap for iOS
+* It is licensed under GNU AGPL v3.0
+* You should have received a copy of the license in this archive (see LICENSE).
+* Copyright © 2017 , iGap - www.iGap.net
+* iGap Messenger | Free, Fast and Secure instant messaging application
+* The idea of the Kianiranian STDG - www.kianiranian.com
+* All rights reserved.
+*/
+
+"SELECTED" = "Selected";
+"LONG_PRESS_TO_RECORD" = "Hold to record...";
+"SLIDE_TO_CANCEL" = "Slide to Left to Cancel...";
+
+"MESSAGE" = "Message";
+"SEND_PHOTO" = "Send Photo";
+"CANCEL_BTN" = "Cancel";
+"UNPIN_ARE_U_SURE" = "Are you sure unpin this message?";
+"UNPIN_FOR_ALL" = "Unpin for all users";
+"UNPIN_FOR_ME" = "Unpin for me";
+"PIN_ARE_U_SURE" = "Are you sure pin this message?";
+"PINN" = "Pin To Top";
+"UNPINN" = "Unpin from Top";
+"TIME_OUT" = "can't connect to the server";
+"MSG_PLEASE_TRY_AGAIN" = "Please Try Again Later";
+"GLOBAL_OK" = "OK";
+"BTN_CASHOUT_WALLET" = "Cash Out";
+"CARD_TO_CARD" = "Card to Card";
+"FILL_AMOUNT" = "Please Fill input amount";
+"CARD_TO_CARD_REQUEST" = "Card to Card Request";
+"CAMERA_DEVICE" = "Device camera";
+"PHOTO_GALLERY" = "Photos gallery";
+"FILE" = "File";
+"CONTACT" = "Contact";
+"LOCATION" = "Location";
+"PHOTO_OR_VIDEO" = "Photo or Video";
+"DOCUMENT" = "Document";
+"STICKERS" = "Stickers";
+"EDITE_MESSAGE" = "Edite Message";
+"REPLY" = "Reply";
+"FORWARD" = "Forward";
+"LBL_STICKER" = "Stickers";
+"CARD_TO_CARD_MESSAGE" = "Card to Card Message";
+"CARD_TO_CARD_FILL_INFO" = "Please write your message !";
+"REPORT_REASON" = "Report Reason";
+"SPAM" = "Spam";
+"ABUSE" = "Abuse";
+"VIOLENCE" = "Violence";
+"FAKE_ACCOUNT" = "Fake Account";
+"PORNOGRAPHY" = "Pornography";
+"OTHER" = "Other";
+"GLOBAL_WARNING" = "Error";
+"NO_NETWORK" = "No network Connection";
+"Loading ..." = "Loading ...";
+"COPY" = "Copy";
+"PASTE" = "Paste";
+"BTN_EDITE" = "Edit";
+"SHARE" = "Share";
+"REPORT" = "Report";
+"MORE" = "More";
+"BTN_DELETE" = "Delete";
+"YESTERDAY" = "دیروز";
+"TODAY" = "امروز";
+
+"DELETE_FOR_ME" = "Delete for me";
+"DELETE_FOR_ME_AND" = "Delete for me and ";
+"SEND_AGAIN" = "Send Again";
+"UNSSUCCESS_OTP" = "An error has occurred ; please try again later";
+"GROUP_DOES_NOT_EXIST" = "Sorry;this group does not seem to exist.";
+"ARE_U_SURE_TO_JOIN" = "Are you sure want to join";
+"SUCCESS" = "Success";
+"U_JOINED" = "You Joined";
+"TO" = "to";
+"OPEN_NOW" = "Open Now";
+"MY_CLOUD" = "Cloud";
+"SHARE_TO" = "Share To";
+"SELECT_CHATS" = "Select Chats";
+"GLOBAL_DONE" = "Done";
+"FORWARDED_FROM" = "Forwarded from";
+"FORWARDED_MESSAGE" = "Forwarded Message";
+"RECORDED_BY" = "Recorded By =";
+"RECORDED_VOICE" = "Recorded Voice";
+"GLOBAL_TO" = "To";
+"GLOBAL_FROM" = "From";
+"TTL_INVOICE_NUMBER" = "Invoice Number";
+"PRICE" = "Amount";
+"TTL_AMOUNT" = "Price =";
+"TRACE_NUMBER" = "Trace Number";
+"WALLET_TRANSFER_MONEY" = "Wallet Money Transfer";
+"CURRENCY" = "Rial";
+"DESCRIPTION" = "Description";
+"NO_DESCRIPTION" = "There is no description";
+"TTL_REFERENCE_NUMBER" = "Reference Number";
+"TTL_CARDNUM" = "Card Number";
+"TTL_ACCOUNT_OWNER_NAME" = "Account Owner Name";
+"PAYMENT_TRANSFER_MONEY" = "Payment Money Transfer";
+"CARD_TRANSFER_MONEY" = "Card To Card Money Transfer";
+"TTL_DESTI_CARDNUM" = "Destination Card Number";
+"SOURCE_BANK" = "Source Bank";
+"DEST_CARD" = "Destination Card";
+"DEST_BANK" = "Destination Bank";
+"CLEAR_HISTORY_LOCAL" = "Clear Local History";
+"DRAFT" = "Draft = ";
+"DELETED_MESSAGE" = "Deleted Message";
+"FORWARDED_FROM" = "Forwarded from";
+"FORWARDED_MESSAGE" = "Forwarded Message";
+"IMAGES_MESSAGE" = "Image Message";
+"VIDEOS_MESSAGE" =  "Video Message";
+"GIFS_MESSAGE" = "Gif Message";
+"AUDIOS_MESSAGE" = "Audio Message";
+"VOICES_MESSAGE" = "Voice Message";
+"FILES_MESSAGE" = "File Message";
+"STICKERS_MESSAGE" = "Sticker Message";
+"WALLET_MESSAGE" = "Wallet Message";
+"PAYMENT_MESSAGE" = "Payment Message";
+"CARD_TO_CARD_MESSAGE" = "Card to Card Message";
+"UNKNOWN_MESSAGE" = "Unknown Message";
+"UNKNOWN_ARTIST" = "Unknown Artist";
+"UNKNOWN_AUDIO" = "Unknown Audio File";
+"CONTACT_MESSAGE" = "Contact Message";
+"LOCATION_MESSAGE" = "Location Message";
+"NO_NETWORK" = "No network Connection";
+"PRODUCTS_DETAILS" = "Description =";
+"REQUEST_CARD_TO_CARD" = "Send Card To Card Request";
+"EDITED" = "edited";
+"CALL" = "call";
+"ADD_CONTACT" = "Add Contact";
+"CALL_QUESTION" = "Which number do you want to call?";
+"ADD_CONTACT_QUESATION" = "Do you want to add this number to your contacts?";
+
+"START" = "Start";

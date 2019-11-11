@@ -125,54 +125,54 @@ class IGRoomMessageLog: Object {
         if let user = message.authorUser?.user {
             actorUsernameTitle = user.displayName
         } else {
-            actorUsernameTitle = "MSG_SOMEONE".localizedNew
+            actorUsernameTitle = "MSG_SOMEONE".localized
         }
         
         var bodyString = ""
         switch (message.log?.type)! {
         case .userJoined:
-            bodyString = actorUsernameTitle + " " + "MSG_JOINED_IGAP".localizedNew
+            bodyString = actorUsernameTitle + " " + "MSG_JOINED_IGAP".localized
         case .userDeleted:
-            bodyString = actorUsernameTitle + " " + "MSG_DELETED_ACCOUNT".localizedNew
+            bodyString = actorUsernameTitle + " " + "MSG_DELETED_ACCOUNT".localized
         case .roomCreated:
             if message.authorRoom != nil {
-                bodyString = "MSG_CHANNEL_WAS_CREATED".localizedNew
+                bodyString = "MSG_CHANNEL_WAS_CREATED".localized
             } else {
-                bodyString = actorUsernameTitle + " " + "MSG_CREATED_ROOM".localizedNew
+                bodyString = actorUsernameTitle + " " + "MSG_CREATED_ROOM".localized
             }
         case .memberAdded:
-            bodyString = actorUsernameTitle + " " + "MSG_ADDED".localizedNew
+            bodyString = actorUsernameTitle + " " + "MSG_ADDED".localized
         case .memberKicked:
-            bodyString = actorUsernameTitle + " " + "MSG_KICKED".localizedNew
+            bodyString = actorUsernameTitle + " " + "MSG_KICKED".localized
         case .memberLeft:
-            bodyString = actorUsernameTitle + " " + "MSG_LEFT".localizedNew
+            bodyString = actorUsernameTitle + " " + "MSG_LEFT".localized
         case .roomConvertedToPublic:
             if message.authorRoom != nil {
-                bodyString = "MSG_IS_PUBLIC".localizedNew
+                bodyString = "MSG_IS_PUBLIC".localized
             } else {
-                bodyString = actorUsernameTitle + " " + "MSG_CHANGED_TO_PUBLIC".localizedNew
+                bodyString = actorUsernameTitle + " " + "MSG_CHANGED_TO_PUBLIC".localized
             }
         case .roomConvertedToPrivate:
             if message.authorRoom != nil {
-                bodyString = "MSG_IS_PRIVATE".localizedNew
+                bodyString = "MSG_IS_PRIVATE".localized
             } else {
-                bodyString = actorUsernameTitle + " " + "MSG_CHANGED_TO_PRIVATE".localizedNew
+                bodyString = actorUsernameTitle + " " + "MSG_CHANGED_TO_PRIVATE".localized
             }
         case .memberJoinedByInviteLink:
-            bodyString = actorUsernameTitle + " " + "MSG_JOINED_VIA_LINK".localizedNew
+            bodyString = actorUsernameTitle + " " + "MSG_JOINED_VIA_LINK".localized
         case .roomDeleted:
-            bodyString = "MSG_ROOM_WAS_DELETED".localizedNew
+            bodyString = "MSG_ROOM_WAS_DELETED".localized
         case .missedVoiceCall:
             if message.authorHash==IGAppManager.sharedManager.authorHash(){
-                bodyString = "DID_NOT_RESPOND_TO_VOICE".localizedNew
+                bodyString = "DID_NOT_RESPOND_TO_VOICE".localized
             }else {
-                bodyString = "MISSED_CALL".localizedNew
+                bodyString = "MISSED_CALL".localized
             }
         case .missedVideoCall:
             if message.authorHash==IGAppManager.sharedManager.authorHash(){
-                bodyString = "DID_NOT_RESPOND_TO_VIDEO".localizedNew
+                bodyString = "DID_NOT_RESPOND_TO_VIDEO".localized
             }else {
-                bodyString = "MISSED_CALL".localizedNew
+                bodyString = "MISSED_CALL".localized
             }
         case .missedScreenShare:
             if message.authorHash==IGAppManager.sharedManager.authorHash(){
@@ -182,7 +182,7 @@ class IGRoomMessageLog: Object {
             }
         case .missedSecretChat:
             if message.authorHash==IGAppManager.sharedManager.authorHash(){
-                bodyString = "DID_NOT_RESPOND_TO_SCHAT".localizedNew
+                bodyString = "DID_NOT_RESPOND_TO_SCHAT".localized
             }else {
                 bodyString = "Missed secret chat"
             }

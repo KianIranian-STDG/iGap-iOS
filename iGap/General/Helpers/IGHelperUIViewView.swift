@@ -132,7 +132,7 @@ class IGHelperUIViewView {
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let callPage = storyboard.instantiateViewController(withIdentifier: "IGCall") as! IGCall
             //Mark:- show Display Name of caller User if Nil we are not in terminate State
-            callPage.callerName = userName ?? "UNKNOWN".localizedNew
+            callPage.callerName = userName ?? "UNKNOWN".localized
             //End
             callPage.userId = userId
             callPage.isIncommingReturnCall = isIncommmingCall
@@ -143,7 +143,7 @@ class IGHelperUIViewView {
         print(tempTimer)
         print(lastRecordedTime)
         print("|||||||||TIMER||||||||||")
-//            callPage.txtCallState.text = "CONNECTED".localizedNew
+//            callPage.txtCallState.text = "CONNECTED".localized
             callPage.isReturnCall = true
             var currentController = window.rootViewController
             if let presentedController = currentController!.presentedViewController {

@@ -37,7 +37,7 @@ class SMSingleAmountInputView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        infoLbl.text = "TTL_AMOUNT".localizedNew
+        infoLbl.text = "TTL_AMOUNT".localized
         self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
 
         

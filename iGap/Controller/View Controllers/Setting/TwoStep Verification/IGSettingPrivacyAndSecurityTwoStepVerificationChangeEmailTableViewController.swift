@@ -26,14 +26,14 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeEmailTableViewControll
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "CHNAGE_EMAIL".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: "CHNAGE_EMAIL".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         navigationItem.rightViewContainer?.addAction {
             self.changeEmail()
         }
 
-        lbl.text = "SETTING_PS_TV_EMAIL".localizedNew
-        emailTextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localizedNew
+        lbl.text = "SETTING_PS_TV_EMAIL".localized
+        emailTextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
 
     }
     

@@ -64,8 +64,8 @@ class IGRegisttrationStepSecurityQuestions: UIViewController,UIGestureRecognizer
     }
     func directionManager() {
         lblHeader.textAlignment = .center
-        lblSecQOne.textAlignment = lblSecQOne.localizedNewDirection
-        lblSecQTwo.textAlignment = lblSecQTwo.localizedNewDirection
+        lblSecQOne.textAlignment = lblSecQOne.localizedDirection
+        lblSecQTwo.textAlignment = lblSecQTwo.localizedDirection
     }
     func fontManager() {
         lblHeader.font = UIFont.igFont(ofSize: 15)

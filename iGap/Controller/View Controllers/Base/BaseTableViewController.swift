@@ -16,26 +16,28 @@ class BaseTableViewController: UITableViewController, UIGestureRecognizerDelegat
     
     let disposeBag = DisposeBag()
     
-    var isAppEnglish: Bool {
+    var isRTL: Bool {
         get {
-            return SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
+            return LocaleManager.isRTL
         }
     }
     
     var transform: CGAffineTransform {
         get {
-            return isAppEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
+            return LocaleManager.transform
         }
     }
     
     var semantic: UISemanticContentAttribute {
         get {
-            return isAppEnglish ? .forceLeftToRight : .forceRightToLeft
+            return LocaleManager.semantic
         }
     }
     
     var TextAlignment: NSTextAlignment {
-        return isAppEnglish ? .left : .right
+        get {
+            return LocaleManager.TextAlignment
+        }
     }
 
     override func viewDidLoad() {
@@ -49,9 +51,9 @@ class BaseTableViewController: UITableViewController, UIGestureRecognizerDelegat
         self.hideKeyboardWhenTappedAround()
     }
     
-    public func setDirectionManually(direction: UISemanticContentAttribute)  {
-        UIView.appearance().semanticContentAttribute = direction
-    }
+//    public func setDirectionManually(direction: UISemanticContentAttribute)  {
+//        UIView.appearance().semanticContentAttribute = direction
+//    }
     
     func initNavigationBar(title: String? = nil, rightItemText: String? = nil, iGapFont: Bool = false, rightAction: @escaping () -> ()) {
         let navigationItem = self.navigationItem as! IGNavigationItem

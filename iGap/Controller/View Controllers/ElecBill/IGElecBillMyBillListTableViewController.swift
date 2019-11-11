@@ -30,7 +30,7 @@ class IGElecBillMyBillListTableViewController: BaseTableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        initNavigationBar(title: "BILL_BILL_LIST".localizedNew, rightAction: {})//set Title for Page and nav Buttons if needed
+        initNavigationBar(title: "BILL_BILL_LIST".localized, rightAction: {})//set Title for Page and nav Buttons if needed
         
     }
     // MARK: - Development Funcs
@@ -52,7 +52,7 @@ class IGElecBillMyBillListTableViewController: BaseTableViewController {
         let headerView = UIView(frame: CGRect.init(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 70.0))
         let btn = UIButton()
         btn.layer.cornerRadius = 15
-        btn.setTitle("ADD_NEW_BILL".localizedNew, for: .normal)
+        btn.setTitle("ADD_NEW_BILL".localized, for: .normal)
         btn.setTitleColor(UIColor(named: themeColor.navigationSecondColor.rawValue), for: .normal)
         btn.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         btn.layer.borderColor = UIColor(named: themeColor.navigationSecondColor.rawValue)?.cgColor

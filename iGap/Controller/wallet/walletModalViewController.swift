@@ -201,7 +201,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         
         self.btnPay.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
         self.tfAmountToPy.font = UIFont.igFont(ofSize: 15)
-        self.tfPin.attributedPlaceholder = NSAttributedString(string: "enterpin".localizedNew, attributes: [
+        self.tfPin.attributedPlaceholder = NSAttributedString(string: "enterpin".localized, attributes: [
             .foregroundColor: UIColor.lightGray,
             .font: UIFont.igFont(ofSize: 15)
             ])
@@ -235,12 +235,12 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
             self.imgProfile?.layer.shadowOpacity = 0.5
             
         }
-        segmentPick.setTitle("SETTING_PAGE_WALLET".localizedNew, forSegmentAt: 0)
-        segmentPick.setTitle("SETTING_PAGE_CARD".localizedNew, forSegmentAt: 1)
-        btnPay.setTitle("BTN_PAY_CASHOUT".localizedNew, for: .normal)
-        lblPaidToTitle.text = "PAIED_TO_LBL".localizedNew
-        lblPaidToTitle.textAlignment = lblPaidToTitle.localizedNewDirection
-        lblDescription.textAlignment = lblDescription.localizedNewDirection
+        segmentPick.setTitle("SETTING_PAGE_WALLET".localized, forSegmentAt: 0)
+        segmentPick.setTitle("SETTING_PAGE_CARD".localized, forSegmentAt: 1)
+        btnPay.setTitle("BTN_PAY_CASHOUT".localized, for: .normal)
+        lblPaidToTitle.text = "PAIED_TO_LBL".localized
+        lblPaidToTitle.textAlignment = lblPaidToTitle.localizedDirection
+        lblDescription.textAlignment = lblDescription.localizedDirection
         
         if isHyperMe {
             print((UserDefaults.standard.string(forKey: "modalHyperPrice")))
@@ -279,9 +279,9 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 
                 self.holderButton.isHidden = false
                 
-                self.lblTTL0.text  = "WALLET_PAY_LBL0".localizedNew
-                self.lblTTL1.text  = "WALLET_PAY_LBL1".localizedNew
-                self.lblTTL3.text  = "WALLET_PAY_LBL3".localizedNew
+                self.lblTTL0.text  = "WALLET_PAY_LBL0".localized
+                self.lblTTL1.text  = "WALLET_PAY_LBL1".localized
+                self.lblTTL3.text  = "WALLET_PAY_LBL3".localized
                 if isHyperMe {
                     self.lblVALUE0.text  = self.tfAmountToPy.placeholder
 
@@ -322,9 +322,9 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 self.tfPin.isHidden = true
                 self.holderButton.isHidden = false
                 
-                self.lblTTL0.text  = "WALLET_PAY_LBL0".localizedNew
-                self.lblTTL1.text  = "WALLET_PAY_LBL1".localizedNew
-                self.lblTTL3.text  = "WALLET_PAY_LBL3".localizedNew
+                self.lblTTL0.text  = "WALLET_PAY_LBL0".localized
+                self.lblTTL1.text  = "WALLET_PAY_LBL1".localized
+                self.lblTTL3.text  = "WALLET_PAY_LBL3".localized
                 if isHyperMe {
                     self.lblVALUE0.text  = self.tfAmountToPy.placeholder
                 }
@@ -375,8 +375,8 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 
                 self.lblVALUE3.text  = String(Int(((self.lblVALUE0.text)?.onlyDigitChars())!)! - Int(((self.lblVALUE1.text)?.onlyDigitChars())!)!).inRialFormat()
                 
-                self.btnPickClub.setTitle("BTN_CASHOUT".localizedNew, for: .normal)
-                self.btnPay.setTitle("GLOBAL_OKGO".localizedNew, for: .normal)
+                self.btnPickClub.setTitle("BTN_CASHOUT".localized, for: .normal)
+                self.btnPay.setTitle("GLOBAL_OKGO".localized, for: .normal)
                 self.mainView.layoutIfNeeded()
             })
             self.view.layoutIfNeeded()
@@ -408,9 +408,9 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 
                 self.holderButton.isHidden = false
                 
-                self.lblTTL0.text  = "WALLET_PAY_LBL3".localizedNew
-                self.lblTTL1.text  = "TTL_WALLET_CLUB_USER".localizedNew
-                self.lblTTL3.text  = "TTL_WALLET_BALANCE_USER".localizedNew
+                self.lblTTL0.text  = "WALLET_PAY_LBL3".localized
+                self.lblTTL1.text  = "TTL_WALLET_CLUB_USER".localized
+                self.lblTTL3.text  = "TTL_WALLET_BALANCE_USER".localized
                 if isHyperMe {
                     self.lblVALUE0.text  = self.tfAmountToPy.placeholder
                     
@@ -464,8 +464,8 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                     
                     self.holderPin.layoutIfNeeded()
                     
-                    self.btnPickClub.setTitle("BTN_CASHOUT".localizedNew, for: .normal)
-                    self.btnPay.setTitle("PU_PAYMENT".localizedNew, for: .normal)
+                    self.btnPickClub.setTitle("BTN_CASHOUT".localized, for: .normal)
+                    self.btnPay.setTitle("PU_PAYMENT".localized, for: .normal)
                     self.mainView.layoutIfNeeded()
 
                 }
@@ -501,8 +501,8 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                     
                     self.holderPin.layoutIfNeeded()
                     
-                    self.btnPickClub.setTitle("BTN_CASHOUT".localizedNew, for: .normal)
-                    self.btnPay.setTitle("PU_PAYMENT".localizedNew, for: .normal)
+                    self.btnPickClub.setTitle("BTN_CASHOUT".localized, for: .normal)
+                    self.btnPay.setTitle("PU_PAYMENT".localized, for: .normal)
                     self.mainView.layoutIfNeeded()
                     
 
@@ -566,7 +566,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
     //
     //        if self.tfAmountToPy.text == "" ||
     //            self.tfAmountToPy.text?.inEnglishNumbers() == "0" {
-    //            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: "FILL_AMOUNT".localizedNew, leftButtonTitle: "", rightButtonTitle: "GLOBAL_OK".localizedNew,yesPressed: { yes in return;})
+    //            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localized, message: "FILL_AMOUNT".localized, leftButtonTitle: "", rightButtonTitle: "GLOBAL_OK".localized,yesPressed: { yes in return;})
     //        }
     //
     //        else {
@@ -589,7 +589,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
             tfAmountToPy.resignFirstResponder()
             if (self.tfAmountToPy.text == "" && (self.tfAmountToPy!.placeholder == "" || self.tfAmountToPy!.placeholder == nil)) ||
                 self.tfAmountToPy.text?.inEnglishNumbersNew() == "0" {
-                SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: "FILL_AMOUNT".localizedNew, leftButtonTitle: "", rightButtonTitle: "GLOBAL_OK".localizedNew,yesPressed: { yes in return;})
+                SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localized, message: "FILL_AMOUNT".localized, leftButtonTitle: "", rightButtonTitle: "GLOBAL_OK".localized,yesPressed: { yes in return;})
             }
             else {
                 if segmentPick.selectedSegmentIndex == 1 {
@@ -614,7 +614,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 
             }
             else {
-                if !((btnPickClub.currentTitle)! == "BTN_CASHOUT".localizedNew) || !((btnPickClub.currentTitle?.contains("BTN_CASHOUT".localizedNew))!) {
+                if !((btnPickClub.currentTitle)! == "BTN_CASHOUT".localized) || !((btnPickClub.currentTitle?.contains("BTN_CASHOUT".localized))!) {
                     self.currentStep = 2
                     self.initUI(stepCount: self.currentStep)
 
@@ -629,7 +629,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         case 2 :
             
             print(btnPickClub.titleLabel!.text)
-            if !((btnPickClub.currentTitle)! == "BTN_CASHOUT".localizedNew) || !((btnPickClub.currentTitle?.contains("BTN_CASHOUT".localizedNew))!) {
+            if !((btnPickClub.currentTitle)! == "BTN_CASHOUT".localized) || !((btnPickClub.currentTitle?.contains("BTN_CASHOUT".localized))!) {
 //                self.initUI(stepCount: self.currentStep)
                 self.currentStep = 3
                 if ((tfPin.text == "") || (tfPin.text == nil)) {
@@ -699,7 +699,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
     }
     @IBAction func cardPickTap(_ sender: Any) {
         
-        SMLoading.shared.showClubCardDialog(viewController: self, icon: nil, title: "SAVED_CARDS".localizedNew, cards: self.FinalMutualCards,yesPressed: { card, saveDefault in
+        SMLoading.shared.showClubCardDialog(viewController: self, icon: nil, title: "SAVED_CARDS".localized, cards: self.FinalMutualCards,yesPressed: { card, saveDefault in
             
             let tmp = self.FinalMutualCards
             let selectCard = (card as! SMCard)
@@ -714,7 +714,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 if newStr == "پیگیر کارت" {
                     newStr = "کیف پول کاربر"
                 }
-                self.btnPickClub.setTitle(("BTN_CASHOUT".localizedNew) + "     " + newStr, for: .normal)
+                self.btnPickClub.setTitle(("BTN_CASHOUT".localized) + "     " + newStr, for: .normal)
                 
             }
             if self.selectedCardTpPay.clubID != nil {
@@ -742,16 +742,16 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
             self.stepHolderPicker.isHidden = false
             if currentStep == 1 {
                 self.initUI(stepCount: currentStep)
-                self.btnPay.setTitle("GLOBAL_OKGO".localizedNew, for: .normal)
+                self.btnPay.setTitle("GLOBAL_OKGO".localized, for: .normal)
             }
             else if currentStep == 0 {
                 self.stepHolderPicker.isHidden = true
-                self.btnPay.setTitle("PU_PAYMENT".localizedNew, for: .normal)
+                self.btnPay.setTitle("PU_PAYMENT".localized, for: .normal)
                 
             }
             else {
                 self.initUI(stepCount: currentStep)
-                self.btnPay.setTitle("PU_PAYMENT".localizedNew, for: .normal)
+                self.btnPay.setTitle("PU_PAYMENT".localized, for: .normal)
                 
             }
             
@@ -759,7 +759,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         else {
             print("Card")
             self.stepHolderPicker.isHidden = true
-            self.btnPay.setTitle("PU_PAYMENT".localizedNew, for: .normal)
+            self.btnPay.setTitle("PU_PAYMENT".localized, for: .normal)
             
         }
     }
@@ -800,7 +800,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 SMLoading.hideLoadingPage()
 
                 //show message about your amount is not enough
-                SMMessage.showWithMessage("AMOUNT_IS_NOT_ENOUGH".localizedNew)
+                SMMessage.showWithMessage("AMOUNT_IS_NOT_ENOUGH".localized)
                 return
             }
             if payFromBoth {
@@ -966,7 +966,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 SMLoading.hideLoadingPage()
 
                 let message = (err as! NSDictionary).value(forKey: "message") as! String
-                SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: message)
+                SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localized, message: message)
 
               
                 
@@ -1019,7 +1019,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                     SMLoading.showToast(viewcontroller: self, text: "error".localized)
                     SMLoading.hideLoadingPage()
                     let message = (err as! NSDictionary).value(forKey: "message") as! String
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: message)
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localized, message: message)
 
                 })
             }
@@ -1032,7 +1032,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
     func GetMutualClubList(MerchantCode: String, UserCode: String, completed: @escaping ([Any])->()) {
         
         self.qrCode = MerchantCode.inEnglishNumbersNew()
-        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localizedNew)
+        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localized)
         let request = WS_methods(delegate: self, failedDialog: true)
         request.addSuccessHandler { (response : Any) in
 

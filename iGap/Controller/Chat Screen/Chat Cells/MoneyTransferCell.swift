@@ -50,11 +50,11 @@ class MoneyTransferCell: IGMessageGeneralCollectionViewCell {
         self.contentView.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
     }
     func initChangeLang() {
-        lblToTitle.text = "GLOBAL_TO".MessageViewlocalizedNew
-        lblFromTitle.text = "GLOBAL_FROM".MessageViewlocalizedNew
-        ttlInvoicelblInvoiceTitle.text = "TTL_INVOICE_NUMBER".MessageViewlocalizedNew
-        lblAmountTitle.text = "PRICE".MessageViewlocalizedNew
-        lblTraceNumberTitle.text = "TRACE_NUMBER".MessageViewlocalizedNew
+        lblToTitle.text = "GLOBAL_TO".MessageViewlocalized
+        lblFromTitle.text = "GLOBAL_FROM".MessageViewlocalized
+        ttlInvoicelblInvoiceTitle.text = "TTL_INVOICE_NUMBER".MessageViewlocalized
+        lblAmountTitle.text = "PRICE".MessageViewlocalized
+        lblTraceNumberTitle.text = "TRACE_NUMBER".MessageViewlocalized
         ttlTransfer.font = UIFont.igFont(ofSize: 15)
         txtDate.font = UIFont.igFont(ofSize: 15)
     }
@@ -67,12 +67,12 @@ class MoneyTransferCell: IGMessageGeneralCollectionViewCell {
         
         guard let wallet = message.wallet?.moneyTrasfer else { return }
         
-        ttlTransfer.text = "WALLET_TRANSFER_MONEY".MessageViewlocalizedNew
+        ttlTransfer.text = "WALLET_TRANSFER_MONEY".MessageViewlocalized
         ttlTransfer.backgroundColor = UIColor.iGapYellow()
         txtDate.backgroundColor = UIColor.iGapYellow()
         ttlTransfer.textColor = UIColor.black
         txtDate.textColor = UIColor.black
-        txtAmount.text = String(describing: wallet.amount).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".MessageViewlocalizedNew
+        txtAmount.text = String(describing: wallet.amount).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".MessageViewlocalized
         txtTrace.text = String(describing: wallet.traceNumber).inLocalizedLanguage()
         txtInvoice.text = String(describing: wallet.invoiceNumber).inLocalizedLanguage()
         
@@ -87,7 +87,7 @@ class MoneyTransferCell: IGMessageGeneralCollectionViewCell {
         }
 
         if wallet.walletDescription!.isEmpty {
-            txtDescription.text = "NO_DESCRIPTION".MessageViewlocalizedNew
+            txtDescription.text = "NO_DESCRIPTION".MessageViewlocalized
         } else {
             txtDescription.text = message.wallet?.moneyTrasfer?.walletDescription
         }

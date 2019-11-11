@@ -13,6 +13,7 @@ public class SwiftModalWebVC: UINavigationController {
     public enum SwiftModalWebVCTheme {
         case lightBlue, lightBlack, dark
     }
+    
     public enum SwiftModalWebVCDismissButtonStyle {
         case arrow, cross
     }

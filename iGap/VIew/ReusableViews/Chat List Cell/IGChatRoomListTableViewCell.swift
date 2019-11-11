@@ -328,7 +328,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     
     private func setLastMessage(for room: IGRoom) {
         DispatchQueue.main.async {
-            self.lastMessageLabel.textAlignment = self.lastMessageLabel.localizedNewDirection
+            self.lastMessageLabel.textAlignment = self.lastMessageLabel.localizedDirection
 
         if let draft = room.draft, (room.draft?.message != "" || room.draft?.replyTo != -1) {
             if let lastMessage = room.lastMessage {
@@ -336,20 +336,20 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
             } else {
                 self.timeLabel.text = ""
             }
-            self.lastMessageLabel.text = "DRAFT".localizedNew + " \(draft.message)"
+            self.lastMessageLabel.text = "DRAFT".localized + " \(draft.message)"
         } else if let lastMessage = room.lastMessage {
             if lastMessage.isDeleted {
-                self.lastMessageLabel.text = "DELETED_MESSAGE".localizedNew
+                self.lastMessageLabel.text = "DELETED_MESSAGE".localized
                 return
             }
             self.timeLabel.text = lastMessage.creationTime?.convertToHumanReadable(onlyTimeIfToday: true)
             if let forwarded = lastMessage.forwardedFrom {
                 if let user = forwarded.authorUser!.user {
-                    self.lastMessageLabel.text = "FORWARDED_FROM".localizedNew + " \(user.displayName)"
+                    self.lastMessageLabel.text = "FORWARDED_FROM".localized + " \(user.displayName)"
                 } else if let title = forwarded.authorRoom?.title {
-                    self.lastMessageLabel.text = "FORWARDED_FROM".localizedNew + " \(title)"
+                    self.lastMessageLabel.text = "FORWARDED_FROM".localized + " \(title)"
                 } else {
-                    self.lastMessageLabel.text = "FORWARDED_MESSAGE".localizedNew
+                    self.lastMessageLabel.text = "FORWARDED_MESSAGE".localized
                 }
             } else {
                 switch lastMessage.type {
@@ -363,38 +363,38 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
                         self.lastMessageLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
                     }
                 case .image:
-                    self.lastMessageLabel.text = "IMAGES_MESSAGE".localizedNew
+                    self.lastMessageLabel.text = "IMAGES_MESSAGE".localized
                 case .video:
-                    self.lastMessageLabel.text = "VIDEOS_MESSAGE".localizedNew
+                    self.lastMessageLabel.text = "VIDEOS_MESSAGE".localized
                 case .gif:
-                    self.lastMessageLabel.text = "GIFS_MESSAGE".localizedNew
+                    self.lastMessageLabel.text = "GIFS_MESSAGE".localized
                 case .audio:
-                    self.lastMessageLabel.text = "AUDIOS_MESSAGE".localizedNew
+                    self.lastMessageLabel.text = "AUDIOS_MESSAGE".localized
                 case .voice:
-                    self.lastMessageLabel.text = "VOICES_MESSAGE".localizedNew
+                    self.lastMessageLabel.text = "VOICES_MESSAGE".localized
                 case .file:
-                    self.lastMessageLabel.text = "FILES_MESSAGE".localizedNew
+                    self.lastMessageLabel.text = "FILES_MESSAGE".localized
                 case .sticker:
-                    self.lastMessageLabel.text = "STICKERS_MESSAGE".localizedNew
+                    self.lastMessageLabel.text = "STICKERS_MESSAGE".localized
                 case .wallet:
                     if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
-                        self.lastMessageLabel.text = "WALLET_MESSAGE".localizedNew
+                        self.lastMessageLabel.text = "WALLET_MESSAGE".localized
                     } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
-                        self.lastMessageLabel.text = "PAYMENT_MESSAGE".localizedNew
+                        self.lastMessageLabel.text = "PAYMENT_MESSAGE".localized
                     } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
-                        self.lastMessageLabel.text = "CARD_TO_CARD_MESSAGE".localizedNew
+                        self.lastMessageLabel.text = "CARD_TO_CARD_MESSAGE".localized
                     }
                 default:
-                    self.lastMessageLabel.text = "UNKNOWN_MESSAGE".localizedNew
+                    self.lastMessageLabel.text = "UNKNOWN_MESSAGE".localized
                     break
                 }
             }
             if lastMessage.type == .log {
                 self.lastMessageLabel.text = IGRoomMessageLog.textForLogMessage(lastMessage)
             } else if lastMessage.type == .contact {
-                self.lastMessageLabel.text = "CONTACT_MESSAGE".localizedNew
+                self.lastMessageLabel.text = "CONTACT_MESSAGE".localized
             } else if lastMessage.type == .location {
-                self.lastMessageLabel.text = "LOCATION_MESSAGE".localizedNew
+                self.lastMessageLabel.text = "LOCATION_MESSAGE".localized
             }
         } else {
             self.timeLabel.text = ""

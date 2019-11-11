@@ -22,7 +22,7 @@ class IGUserContactsTableViewController: BaseTableViewController, MFMessageCompo
     var searchController : UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
-        searchController.searchBar.setValue("CANCEL_BTN".RecentTableViewlocalizedNew, forKey: "cancelButtonText")
+        searchController.searchBar.setValue("CANCEL_BTN".RecentTableViewlocalized, forKey: "cancelButtonText")
         searchController.definesPresentationContext = true
         searchController.searchBar.sizeToFit()
         searchController.dimsBackgroundDuringPresentation = false
@@ -125,7 +125,7 @@ class IGUserContactsTableViewController: BaseTableViewController, MFMessageCompo
             }
 
             if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
-                searchBarCancelButton.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
+                searchBarCancelButton.setTitle("CANCEL_BTN".RecentTableViewlocalized, for: .normal)
                 searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14, weight: .bold)
                 searchBarCancelButton.tintColor = UIColor.white
                 searchBarCancelButton.setTitleColor(UIColor.white, for: .normal)
@@ -134,7 +134,7 @@ class IGUserContactsTableViewController: BaseTableViewController, MFMessageCompo
             if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
                 placeHolderInsideSearchField.textColor = UIColor.white
                 placeHolderInsideSearchField.textAlignment = .center
-                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localizedNew
+                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localized
                 if let backgroundview = textField.subviews.first {
                     placeHolderInsideSearchField.center = backgroundview.center
                 }
@@ -180,7 +180,7 @@ class IGUserContactsTableViewController: BaseTableViewController, MFMessageCompo
             let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
             let user = realm.objects(IGRegisteredUser.self).filter(predicate).first
             if let phone = (user?.phone) {
-                controller.body = "HEY_JOIN_IGAP".localizedNew + " " + "\(phone)"
+                controller.body = "HEY_JOIN_IGAP".localized + " " + "\(phone)"
 
             }
 

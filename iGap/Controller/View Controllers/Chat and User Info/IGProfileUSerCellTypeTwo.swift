@@ -30,7 +30,7 @@ class IGProfileUSerCellTypeTwo: UITableViewCell {
     }
     
     private func defaultInitLabels() {
-        lblActionName.textAlignment = lblActionName.localizedNewDirection
+        lblActionName.textAlignment = lblActionName.localizedDirection
         lblActionName.font = UIFont.igFont(ofSize: 15)
     }
     

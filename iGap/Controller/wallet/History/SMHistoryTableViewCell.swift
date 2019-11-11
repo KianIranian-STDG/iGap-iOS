@@ -27,11 +27,11 @@ class SMHistoryTableViewCell: UITableViewCell {
         initChangeCellLang()
     }
     func initChangeCellLang() {
-        titleLabel.textAlignment = titleLabel.localizedNewDirection
-        descLabel.textAlignment = descLabel.localizedNewDirection
-        timeLabel.textAlignment = timeLabel.localizedNewDirection
-        amountLabel.textAlignment = amountLabel.localizedNewDirection
-        currencyLabel.textAlignment = currencyLabel.localizedNewDirection
+        titleLabel.textAlignment = titleLabel.localizedDirection
+        descLabel.textAlignment = descLabel.localizedDirection
+        timeLabel.textAlignment = timeLabel.localizedDirection
+        amountLabel.textAlignment = amountLabel.localizedDirection
+        currencyLabel.textAlignment = currencyLabel.localizedDirection
         
     }
 

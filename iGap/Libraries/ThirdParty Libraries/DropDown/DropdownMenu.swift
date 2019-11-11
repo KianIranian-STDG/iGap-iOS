@@ -378,7 +378,7 @@ extension DropdownMenu: UITableViewDataSource {
 
         
         cell.textLabel?.text = item.title
-        cell.textLabel?.textAlignment = cell.textLabel!.localizedNewDirection
+        cell.textLabel?.textAlignment = cell.textLabel!.localizedDirection
 
         cell.textLabel?.font = textFont
         cell.tintColor = highlightColor
@@ -434,7 +434,7 @@ extension DropdownMenu: UITableViewDelegate {
         } else {
             let sectionHeader = SectionHeader(style: sectionHeaderStyle)
             sectionHeader.titleLabel.text = dropdownSection.sectionIdentifier
-            sectionHeader.titleLabel.textAlignment = sectionHeader.titleLabel.localizedNewDirection
+            sectionHeader.titleLabel.textAlignment = sectionHeader.titleLabel.localizedDirection
             return sectionHeader
         }
     }

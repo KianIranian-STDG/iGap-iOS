@@ -21,8 +21,8 @@ struct SMConstants {
     
     static let version : String    = Bundle.main.infoDictionary!["CFBundleShortVersionString"]! as! String
     static let build : String     = Bundle.main.infoDictionary!["CFBundleVersion"]! as! String
-    
 }
+
 struct EventBusManager {
     
     static let stopMusicPlayer = "stopMusicPlayer"
@@ -38,7 +38,6 @@ struct EventBusManager {
     static let updateLabelsData = "updateLabelsData"
     static let stopLastButtonState = "stopLastButtonState"
     static let updateBottomPlayerLabelsData = "updateBottomPlayerLabelsData"
-    static let updateTabbarLang = "updateTabbarLang"
     static let updateBillsName = "updateBillsName"
 }
 
@@ -63,6 +62,7 @@ struct SMLog {
 		#endif
 	}
 }
+
 @objcMembers
 class SMColor: NSObject {
         
@@ -121,13 +121,11 @@ struct SMFonts {
     static func IranYekanRegular(_ size:Float) -> UIFont {
         return UIFont(name: "IRANYekanMobile", size: CGFloat(size))!
     }
-    
 }
 
 
-
-    struct SMImage {
-        static func saveImage(image: UIImage, withName name: String) {
+struct SMImage {
+    static func saveImage(image: UIImage, withName name: String) {
 		
 		let imageData = NSData(data: image.pngData()!)
 		let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory,

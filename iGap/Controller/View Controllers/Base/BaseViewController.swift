@@ -15,35 +15,32 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let disposeBag = DisposeBag()
     
-    var isAppEnglish: Bool {
+    var isRTL: Bool {
         get {
-            return SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
+            return LocaleManager.isRTL
         }
     }
     
     var transform: CGAffineTransform {
         get {
-            return isAppEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
+            return LocaleManager.transform
         }
     }
     
     var semantic: UISemanticContentAttribute {
         get {
-            return isAppEnglish ? .forceLeftToRight : .forceRightToLeft
+            return LocaleManager.semantic
         }
     }
     
     var TextAlignment: NSTextAlignment {
-        return isAppEnglish ? .left : .right
+        get {
+            return LocaleManager.TextAlignment
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        if #available(iOS 13.0, *) {
-//            overrideUserInterfaceStyle = UIUserInterfaceStyle(rawValue: IGGlobal.themeMode)!
-//        } else {
-//            // Fallback on earlier versions
-//        }
 
 //        self.hideKeyboardWhenTappedAround()
     }

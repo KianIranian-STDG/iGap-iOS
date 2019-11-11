@@ -44,26 +44,26 @@ class IGHelperMediaPicker {
         var config = YPImagePickerConfiguration()
 
         /************************* manage strings *************************/
-        config.wordings.libraryTitle = "GALLERY".localizedNew
-        config.wordings.cameraTitle = "CAMERA".localizedNew
-        config.wordings.next = "NEXT_BTN".localizedNew
-        config.wordings.albumsTitle = "ALBUMS".localizedNew
-        config.wordings.cancel = "CANCEL_BTN".localizedNew
-        config.wordings.cover = "COVER".localizedNew
-        config.wordings.crop = "CROP".localizedNew
-        config.wordings.done = "GLOBAL_OK".localizedNew
-        config.wordings.filter = "FILTER".localizedNew
-        config.wordings.ok = "GLOBAL_OK".localizedNew
-        config.wordings.processing = "PROCESSING".localizedNew
-        config.wordings.save = "SAVE".localizedNew
-        config.wordings.trim = "TRIM".localizedNew
-        config.wordings.videoTitle = "VIDEO".localizedNew
-        config.wordings.warningMaxItemsLimit = "WARNING_MAX_ITEMS_LIMIT".localizedNew
+        config.wordings.libraryTitle = "GALLERY".localized
+        config.wordings.cameraTitle = "CAMERA".localized
+        config.wordings.next = "NEXT_BTN".localized
+        config.wordings.albumsTitle = "ALBUMS".localized
+        config.wordings.cancel = "CANCEL_BTN".localized
+        config.wordings.cover = "COVER".localized
+        config.wordings.crop = "CROP".localized
+        config.wordings.done = "GLOBAL_OK".localized
+        config.wordings.filter = "FILTER".localized
+        config.wordings.ok = "GLOBAL_OK".localized
+        config.wordings.processing = "PROCESSING".localized
+        config.wordings.save = "SAVE".localized
+        config.wordings.trim = "TRIM".localized
+        config.wordings.videoTitle = "VIDEO".localized
+        config.wordings.warningMaxItemsLimit = "WARNING_MAX_ITEMS_LIMIT".localized
         /*
         config.wordings.videoDurationPopup.title = ""
         config.wordings.videoDurationPopup.tooLongMessage = ""
         config.wordings.videoDurationPopup.tooShortMessage = ""
-        config.wordings.permissionPopup.cancel = "CANCEL_BTN".localizedNew
+        config.wordings.permissionPopup.cancel = "CANCEL_BTN".localized
         config.wordings.permissionPopup.grantPermission = ""
         config.wordings.permissionPopup.message = ""
         config.wordings.permissionPopup.title = ""

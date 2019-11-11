@@ -51,21 +51,21 @@ class CardToCardCell: IGMessageGeneralCollectionViewCell {
     }
     
     func initChangeLang() {
-        ttlTransfer.text = "CARD_TRANSFER_MONEY".MessageViewlocalizedNew
+        ttlTransfer.text = "CARD_TRANSFER_MONEY".MessageViewlocalized
         ttlTransfer.backgroundColor = UIColor.iGapSkyBlue()
         ttlDate.backgroundColor = UIColor.iGapSkyBlue()
         ttlTransfer.textColor = UIColor.black
         ttlDate.textColor = UIColor.black
-        ttlInvoicelblInvoiceNumber.text = "TRACE_NUMBER".MessageViewlocalizedNew
-        ttlAmount.text = "PRICE".MessageViewlocalizedNew
+        ttlInvoicelblInvoiceNumber.text = "TRACE_NUMBER".MessageViewlocalized
+        ttlAmount.text = "PRICE".MessageViewlocalized
         ttlTransfer.font = UIFont.igFont(ofSize: 15)
         ttlDate.font = UIFont.igFont(ofSize: 15)
-        ttlDestinationCardNUmber.text = "TTL_DESTI_CARDNUM".MessageViewlocalizedNew
-        ttlSourceCardNUmber.text = "TTL_CARDNUM".MessageViewlocalizedNew
-        lblSourceBankName.text = "SOURCE_BANK".MessageViewlocalizedNew
-        ttlDestinationBankName.text = "DEST_BANK".MessageViewlocalizedNew
-        lblRrn.text = "TTL_REFERENCE_NUMBER".MessageViewlocalizedNew
-        lblAccountOwnerName.text = "TTL_ACCOUNT_OWNER_NAME".MessageViewlocalizedNew
+        ttlDestinationCardNUmber.text = "TTL_DESTI_CARDNUM".MessageViewlocalized
+        ttlSourceCardNUmber.text = "TTL_CARDNUM".MessageViewlocalized
+        lblSourceBankName.text = "SOURCE_BANK".MessageViewlocalized
+        ttlDestinationBankName.text = "DEST_BANK".MessageViewlocalized
+        lblRrn.text = "TTL_REFERENCE_NUMBER".MessageViewlocalized
+        lblAccountOwnerName.text = "TTL_ACCOUNT_OWNER_NAME".MessageViewlocalized
     }
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
@@ -77,7 +77,7 @@ class CardToCardCell: IGMessageGeneralCollectionViewCell {
         guard let cardToCard = message.wallet?.cardToCard else {
             return
         }
-        lblAmount.text = String(describing: cardToCard.amount).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".MessageViewlocalizedNew
+        lblAmount.text = String(describing: cardToCard.amount).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".MessageViewlocalized
         ttlRrn.text =  (cardToCard.traceNumber)!.inLocalizedLanguage()
         ttlInvoice.text = (cardToCard.rrn)!.inLocalizedLanguage()
         lblSourceCard.text = (cardToCard.sourceCardNumber)!.inLocalizedLanguage()

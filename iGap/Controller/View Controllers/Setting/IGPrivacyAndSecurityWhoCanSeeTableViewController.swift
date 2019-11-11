@@ -81,9 +81,9 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         changeDirection()
-        lblNone.text = "NOBODY".localizedNew
-        lblEveryOne.text = "EVERYBODY".localizedNew
-        lblMyContacts.text = "MY_CONTACTS".localizedNew
+        lblNone.text = "NOBODY".localized
+        lblEveryOne.text = "EVERYBODY".localized
+        lblMyContacts.text = "MY_CONTACTS".localized
     }
     func changeDirection() {
         let current : String = SMLangUtil.loadLanguage()
@@ -132,7 +132,7 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController 
             let containerView = view as! UITableViewHeaderFooterView
             containerView.textLabel!.text = footerText
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
         }
     }
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -141,7 +141,7 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController 
             containerView.textLabel!.text = headerText
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
             containerView.textLabel?.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
         }
     }
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -181,16 +181,16 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController 
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
                 }
             default:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "UNSSUCCESS_OTP".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)

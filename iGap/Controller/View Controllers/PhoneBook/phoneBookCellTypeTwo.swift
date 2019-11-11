@@ -18,7 +18,7 @@ class phoneBookCellTypeTwo: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        lblText.textAlignment = lblText.localizedNewDirection
+        lblText.textAlignment = lblText.localizedDirection
         lblIcon.textAlignment = .center
         lblIcon.font = UIFont.iGapFonticon(ofSize: 25)
     }

@@ -34,7 +34,7 @@ open class SectionHeader: UIView {
     func commonInit() {
         titleLabel.font = style.font
         titleLabel.textColor = style.textColor
-        titleLabel.textAlignment = titleLabel.localizedNewDirection
+        titleLabel.textAlignment = titleLabel.localizedDirection
         backgroundColor = style.backgroundColor
         addSubview(titleLabel)
         updateTitleLabelConstraint()

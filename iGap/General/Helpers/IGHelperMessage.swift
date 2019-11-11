@@ -151,7 +151,7 @@ class IGHelperMessage {
     
     private func showDeletedMessageAlert(){
         DispatchQueue.main.async {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "DELETED_MESSAGE_2".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "DELETED_MESSAGE_2".localized, cancelText: "GLOBAL_CLOSE".localized)
 
         }
     }

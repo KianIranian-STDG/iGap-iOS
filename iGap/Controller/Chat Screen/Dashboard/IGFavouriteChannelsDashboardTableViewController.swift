@@ -37,7 +37,7 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UI
     
     func initNavigationBar() {
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_INTERESTING_CHANNELS".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_INTERESTING_CHANNELS".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -91,7 +91,7 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UI
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if items.count == 0 {
-            self.tableView.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
+            self.tableView.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localized)
             let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
             self.tableView.backgroundView?.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         } else {

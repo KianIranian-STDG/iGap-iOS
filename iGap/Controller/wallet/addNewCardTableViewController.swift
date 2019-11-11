@@ -29,23 +29,23 @@ class addNewCardTableViewController: BaseTableViewController , UITextFieldDelega
     override func viewWillAppear(_ animated: Bool) {
        super.viewWillAppear(animated)
         initChangeLang()
-        btnSave.setTitle("SAVE".localizedNew, for: .normal)
+        btnSave.setTitle("SAVE".localized, for: .normal)
     }
     func initChangeLang() {
-        lblcardNum.text = "TTL_CARDNUM".localizedNew
-        lblMonth.text = "TTL_MONTH".localizedNew
-        lblYear.text = "TTL_YEAR".localizedNew
+        lblcardNum.text = "TTL_CARDNUM".localized
+        lblMonth.text = "TTL_MONTH".localized
+        lblYear.text = "TTL_YEAR".localized
         
-        mounthTextField.placeholder = "TTL_MONTH".localizedNew
-        cardTextField.placeholder = "TTL_ENTER_CARD_NUMBER".localizedNew
-        yearTextField.placeholder = "TTL_YEAR".localizedNew
-        lblMonth.textAlignment = lblMonth.localizedNewDirection
-        lblYear.textAlignment = lblYear.localizedNewDirection
+        mounthTextField.placeholder = "TTL_MONTH".localized
+        cardTextField.placeholder = "TTL_ENTER_CARD_NUMBER".localized
+        yearTextField.placeholder = "TTL_YEAR".localized
+        lblMonth.textAlignment = lblMonth.localizedDirection
+        lblYear.textAlignment = lblYear.localizedDirection
     }
     // MARK : - init View elements
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "TTL_ADD_NEW_CARD".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "TTL_ADD_NEW_CARD".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         
     }
@@ -76,14 +76,14 @@ class addNewCardTableViewController: BaseTableViewController , UITextFieldDelega
                 
                 
                 if SMValidation.showConnectionErrorToast(err) {
-                    SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localizedNew)
+                    SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localized)
                 }
             })
             
             
         }
         else {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localized, cancelText: "GLOBAL_CLOSE".localized)
         }
         
        

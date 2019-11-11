@@ -62,10 +62,10 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
     var ManualCodeActive = false
 
     var scanner: MTBBarcodeScanner?
-    private var currentAmount: String = "Updating ...".localizedNew {
+    private var currentAmount: String = "Updating ...".localized {
         didSet {
             
-            lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + "CURRENCY".localizedNew
+            lblCurrency.text = "TTL_WALLET_BALANCE_USER".localized + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + "CURRENCY".localized
         }
     }
     override func viewDidLoad() {
@@ -86,20 +86,20 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
         self.lblCurrency.font = UIFont.igFont(ofSize: 18)
         self.userCards = SMCard.getAllCardsFromDB()
         self.userMerchants = SMMerchant.getAllMerchantsFromDB()
-        lblCurrency.text = "Updating ...".localizedNew
+        lblCurrency.text = "Updating ...".localized
 
         if isfromPacket {
             switch currentBussinessType {
             case 0 :
-                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + "CURRENCY".localizedNew
+                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localized + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + "CURRENCY".localized
                 
                 break
             case 2 :
-                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + "CURRENCY".localizedNew
+                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localized + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + "CURRENCY".localized
                 
                 break
             case 3 :
-                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + "CURRENCY".localizedNew
+                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localized + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + "CURRENCY".localized
                 self.updateAmountOfPayGear()
                 
                 break
@@ -190,9 +190,9 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
             manualInputView.confirmBtn.addTarget(self, action: #selector(confirmManualButtonSelected), for: .touchUpInside)
             manualInputView!.frame = CGRect(x: 0, y: self.view.frame.height, width: self.view.frame.width, height: manualInputView.frame.height)
             
-            manualInputView.confirmBtn.setTitle("GLOBAL_OK".localizedNew, for: .normal)
-            manualInputView.infoLbl.text = "ENTER_RECIEVER_CODE".localizedNew
-            manualInputView.inputTF.placeholder = "ENTER_CODE".localizedNew
+            manualInputView.confirmBtn.setTitle("GLOBAL_OK".localized, for: .normal)
+            manualInputView.infoLbl.text = "ENTER_RECIEVER_CODE".localized
+            manualInputView.inputTF.placeholder = "ENTER_CODE".localized
             
             let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(SMBarcodeMainViewController.handleGesture(gesture:)))
             swipeDown.direction = .down
@@ -202,9 +202,9 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
             
         }
         else {
-            manualInputView.confirmBtn.setTitle("GLOBAL_OK".localizedNew, for: .normal)
-            manualInputView.infoLbl.text = "ENTER_RECIEVER_CODE".localizedNew
-            manualInputView.inputTF.placeholder = "ENTER_CODE".localizedNew
+            manualInputView.confirmBtn.setTitle("GLOBAL_OK".localized, for: .normal)
+            manualInputView.infoLbl.text = "ENTER_RECIEVER_CODE".localized
+            manualInputView.inputTF.placeholder = "ENTER_CODE".localized
         }
         
         if #available(iOS 11.0, *) {
@@ -305,7 +305,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
         }        //go to process info
         
         if manualInputView.inputTF.text! == "" {
-            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: "ERROR_FORM".localizedNew, leftButtonTitle: "", rightButtonTitle: "GLOBAL_OK".localizedNew,yesPressed: { yes in
+            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localized, message: "ERROR_FORM".localized, leftButtonTitle: "", rightButtonTitle: "GLOBAL_OK".localized,yesPressed: { yes in
                 return
             })
         } else {
@@ -353,8 +353,8 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
     func initNavigationBar() {
        
 //        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 16),NSAttributedString.Key.foregroundColor: UIColor.white]
-//        self.navigationController!.navigationBar.topItem!.title = "SETTING_PAGE_QRCODE_SCANNER".localizedNew
-        self.initNavigationBar(title: "SETTING_PAGE_QRCODE_SCANNER".localizedNew) { }
+//        self.navigationController!.navigationBar.topItem!.title = "SETTING_PAGE_QRCODE_SCANNER".localized
+        self.initNavigationBar(title: "SETTING_PAGE_QRCODE_SCANNER".localized) { }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -383,7 +383,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
                     {
                         let amount = ((cards as! [SMCard])[0]).balance!
                         let strAsNSString = String.init(describing: amount).inRialFormat()
-                        self.lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(strAsNSString) \(" ")" + "CURRENCY".localizedNew
+                        self.lblCurrency.text = "TTL_WALLET_BALANCE_USER".localized + "\(" \n")\(strAsNSString) \(" ")" + "CURRENCY".localized
                     }
                 }
             }
@@ -553,7 +553,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
     }
     func getUserInformation(accountId: String, qrType: Int, productId: String? = "") {
         
-        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localizedNew)
+        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localized)
         
         self.targetAccountId = String(describing:accountId)
         UserDefaults.standard.setValue(self.targetAccountId!, forKey: "modalTargetAccountID")
@@ -662,14 +662,14 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
         self.qrCode = barcodeValue.inEnglishNumbersNew()
         UserDefaults.standard.setValue(String(self.qrCode!).onlyDigitChars().inEnglishNumbersNew(), forKey: "modalQRCode")
 
-        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localizedNew)
+        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localized)
         let request = WS_methods(delegate: self, failedDialog: true)
         
         request.addSuccessHandler { (response : Any) in
             if let jsonResult = response as? Dictionary<String, AnyObject> {
                 if let id = jsonResult["_id"] as? String , id == "" {
                     SMLoading.hideLoadingPage()
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: "GLOBAL_WARNING".localizedNew, message: "INVALID_QR".localizedNew, rightButtonTitle: "GLOBAL_OK".localizedNew)
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: "GLOBAL_WARNING".localized, message: "INVALID_QR".localized, rightButtonTitle: "GLOBAL_OK".localized)
                 }
                 else if let accountId = jsonResult["account_id"], !accountId.isKind(of: NSNull.self) {
                     SMLoading.hideLoadingPage()
@@ -686,7 +686,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
                 else {
                     SMLoading.hideLoadingPage()
                     try! self.scanner?.startScanning()
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: "GLOBAL_WARNING".localizedNew, message: "INVALID_QR".localizedNew, rightButtonTitle: "GLOBAL_OK".localizedNew)
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: "GLOBAL_WARNING".localized, message: "INVALID_QR".localized, rightButtonTitle: "GLOBAL_OK".localized)
                 }
             }
         }
@@ -694,7 +694,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
             SMLoading.hideLoadingPage()
             try! self.scanner?.startScanning()
             if SMValidation.showConnectionErrorToast(response) {
-                SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localizedNew)
+                SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localized)
             }
             SMMessage.showWithMessage(SMCard.testConvert(response))
         }
@@ -715,7 +715,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
 //            self.scanner?.stopScanning()
 
             // not active\
-            SMGetGift.getInstance().showInfo(viewcontroller: self, id: "GLOBAL_WARNING".localizedNew, value: "barcode.gift.used".localizedNew, isFaild: true)
+            SMGetGift.getInstance().showInfo(viewcontroller: self, id: "GLOBAL_WARNING".localized, value: "barcode.gift.used".localized, isFaild: true)
         }
     }
     func confirmGift() {
@@ -736,7 +736,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
             SMLoading.hideLoadingPage()
             self.closeGift()
             //show popup
-            SMGetGift.getInstance().showInfo(viewcontroller: self, id: "Oops!", value: "GLOBAL_WARNING".localizedNew, isFaild: true)
+            SMGetGift.getInstance().showInfo(viewcontroller: self, id: "Oops!", value: "GLOBAL_WARNING".localized, isFaild: true)
             //SMGetGift.getInstance().showSuccess(viewcontroller: self)
         })
         

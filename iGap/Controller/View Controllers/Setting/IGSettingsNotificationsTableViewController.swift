@@ -58,7 +58,7 @@ class IGSettingsNotificationsTableViewController: UITableViewController,UIGestur
     // MARK: - initializing Navigation Bar with items in it
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "MESSAGE_NOTIFICATIONS".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "MESSAGE_NOTIFICATIONS".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -66,17 +66,17 @@ class IGSettingsNotificationsTableViewController: UITableViewController,UIGestur
     }
     // MARK: - Change Strings Based on App Language
     func initChangeStrings(){
-        lblPrivateCHats.text = "SETTING_SOUND_SEND_MESSAGE".localizedNew
-        lblGroups.text = "NOTIFI_GROUPS".localizedNew
-        lblChannels.text = "NOTIFI_CHANNELS".localizedNew
-        lblEnabled.text = "NOTIFI_ENABLED".localizedNew
-        lblMUtedChats.text = "NOTIFI_INCLUDE_MUTED_CHATS".localizedNew
-        lblCountUnread.text = "NOTIFI_COUNT_UNREAD_MESSAGE".localizedNew
-        lblInAppSounds.text = "NOTIFI_IN_APP_SOUNDS".localizedNew
-        lblInAppVibrate.text = "NOTIFI_IN_APP_VIBRATE".localizedNew
-        lblInAppPreview.text = "NOTIFI_IN_APP_PREVIEW".localizedNew
-        lblJoint.text = "NOTIFI_NEW_CONTACTS".localizedNew
-        lblReset.text = "NOTIFI_RESET".localizedNew
+        lblPrivateCHats.text = "SETTING_SOUND_SEND_MESSAGE".localized
+        lblGroups.text = "NOTIFI_GROUPS".localized
+        lblChannels.text = "NOTIFI_CHANNELS".localized
+        lblEnabled.text = "NOTIFI_ENABLED".localized
+        lblMUtedChats.text = "NOTIFI_INCLUDE_MUTED_CHATS".localized
+        lblCountUnread.text = "NOTIFI_COUNT_UNREAD_MESSAGE".localized
+        lblInAppSounds.text = "NOTIFI_IN_APP_SOUNDS".localized
+        lblInAppVibrate.text = "NOTIFI_IN_APP_VIBRATE".localized
+        lblInAppPreview.text = "NOTIFI_IN_APP_PREVIEW".localized
+        lblJoint.text = "NOTIFI_NEW_CONTACTS".localized
+        lblReset.text = "NOTIFI_RESET".localized
 
         
     }
@@ -112,29 +112,29 @@ class IGSettingsNotificationsTableViewController: UITableViewController,UIGestur
         
         switch section {
         case 0 :
-            containerView.textLabel!.text = "MESSAGE_NOTIFICATIONS".localizedNew
+            containerView.textLabel!.text = "MESSAGE_NOTIFICATIONS".localized
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
         case 1 :
-            containerView.textLabel!.text = "BADGE_COUNTER".localizedNew
+            containerView.textLabel!.text = "BADGE_COUNTER".localized
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
         case 2 :
-            containerView.textLabel!.text = "IN_APP_NOTIFICATIONS".localizedNew
+            containerView.textLabel!.text = "IN_APP_NOTIFICATIONS".localized
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
         case 3 :
-            containerView.textLabel!.text = "EVENTS".localizedNew
+            containerView.textLabel!.text = "EVENTS".localized
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
         case 4 :
-            containerView.textLabel!.text = "RESET".localizedNew
+            containerView.textLabel!.text = "RESET".localized
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
         default :
-            containerView.textLabel!.text = "SETTING_PS_TV_TTL".localizedNew
+            containerView.textLabel!.text = "SETTING_PS_TV_TTL".localized
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
         }
         
     }
@@ -149,9 +149,9 @@ class IGSettingsNotificationsTableViewController: UITableViewController,UIGestur
         case 2 :
            break
         case 3 :
-            containerFooterView.textLabel!.text = "NOTIFI_EVENTS_FOOTER".localizedNew
+            containerFooterView.textLabel!.text = "NOTIFI_EVENTS_FOOTER".localized
             containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerFooterView.textLabel?.textAlignment = (containerFooterView.textLabel?.localizedNewDirection)!
+            containerFooterView.textLabel?.textAlignment = (containerFooterView.textLabel?.localizedDirection)!
         case 4 :
            break
         default :
@@ -178,15 +178,15 @@ class IGSettingsNotificationsTableViewController: UITableViewController,UIGestur
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0 :
-            return "MESSAGE_NOTIFICATIONS".localizedNew
+            return "MESSAGE_NOTIFICATIONS".localized
         case 1 :
-            return "BADGE_COUNTER".localizedNew
+            return "BADGE_COUNTER".localized
         case 2 :
-            return "IN_APP_NOTIFICATIONS".localizedNew
+            return "IN_APP_NOTIFICATIONS".localized
         case 3 :
-            return "EVENTS".localizedNew
+            return "EVENTS".localized
         case 4 :
-            return "RESET".localizedNew
+            return "RESET".localized
         default :
             return ""
         }
@@ -200,7 +200,7 @@ class IGSettingsNotificationsTableViewController: UITableViewController,UIGestur
         case 2 :
             return ""
         case 3 :
-            return "NOTIFI_EVENTS_FOOTER".localizedNew
+            return "NOTIFI_EVENTS_FOOTER".localized
         case 4 :
             return ""
         default :

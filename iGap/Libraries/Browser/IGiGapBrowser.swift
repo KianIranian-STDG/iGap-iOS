@@ -108,8 +108,7 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate {
         self.view.endEditing(true)
         if SMLangUtil.loadLanguage() == "fa" {
             self.webView.loadHTMLString(htmlString.replacingOccurrences(of: "justify", with: "right"), baseURL: nil)
-        }
-        else {
+        } else {
             self.webView.loadHTMLString(htmlString.replacingOccurrences(of: "justify", with: "center"), baseURL: nil)
         }
         makeAgrementBtns()
@@ -160,7 +159,7 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate {
         btnAgree.backgroundColor = UIColor.iGapGray()
         btnAgree.cornerRadius = 7.0
         btnAgree.popIn = true
-        btnAgree.setTitle("GLOBAL_OKGO".localizedNew, for: .normal)
+        btnAgree.setTitle("GLOBAL_OKGO".localized, for: .normal)
         btnAgree.titleLabel?.font = UIFont.igFont(ofSize: 20,weight: .bold)
         btnAgree.titleLabel?.textColor = UIColor.white
         btnAgree.isUserInteractionEnabled = false
@@ -189,7 +188,7 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate {
             make.left.equalTo(btnAgree.snp.left)
         }
 
-        lblAgrement.text = "AGREE_TO_TERMS".localizedNew
+        lblAgrement.text = "AGREE_TO_TERMS".localized
         lblAgrement.font = UIFont.igFont(ofSize: 15,weight: .bold)
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnLbl))
         lblAgrement.isUserInteractionEnabled = true
@@ -360,7 +359,7 @@ extension IGiGapBrowser: WKScriptMessageHandler {
                 let paymentView = IGPaymentView.sharedInstance
                 if success {
                     guard let paymentData = payment else {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
                         return
                     }
                     paymentView.show(on: UIApplication.shared.keyWindow!, title: self.pageTitle, payToken: message.body as! String, payment: paymentData)

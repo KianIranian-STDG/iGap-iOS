@@ -92,7 +92,7 @@ class customSearchBar: UISearchBar {
             placeHolderInsideSearchField.textColor = UIColor.white
             placeHolderInsideSearchField.textAlignment = .center
             placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15,weight: .bold)
-            placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localizedNew
+            placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localized
             
                 placeHolderInsideSearchField.frame = CGRect(x: 100.0, y: 5.0, width: 300.0, height: frame.size.height - 10.0)
         }

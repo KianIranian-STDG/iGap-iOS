@@ -40,7 +40,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     @IBOutlet weak var remoteCameraView: RTCEAGLVideoView!
     @IBOutlet weak var holdView: UIView!
     @IBOutlet weak var txtHold: UILabel!
-    var callerName : String? = "UNKNOWN".localizedNew
+    var callerName : String? = "UNKNOWN".localized
     
     let SWITCH_CAMERA_DELAY : Int64 = 1000
     let mainWidth = UIScreen.main.bounds.width
@@ -196,7 +196,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                     txtCallerName.font = UIFont.igFont(ofSize: 23,weight: .bold)
                     holdView.layer.cornerRadius = 10
                     txtCallerName.text = userRegisteredInfo.displayName
-                    txtCallState.text = "CONNECTED".localizedNew
+                    txtCallState.text = "CONNECTED".localized
                     
                     let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapOnMainView))
                     mainView.addGestureRecognizer(gesture)
@@ -468,7 +468,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     
     private func answerCall(withDelay: Bool = false){
         stopSound()
-        txtCallState.text = "COMMUNICATING".localizedNew
+        txtCallState.text = "COMMUNICATING".localized
         manageView(stateAnswer: false)
         if withDelay {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5){
@@ -557,7 +557,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             //localCameraView.isHidden = false
             //imgAvatar.isHidden = true
 //            btnSwitchCamera.isEnabled = true
-            txtiGap.text = "VIDEO_CALL".localizedNew
+            txtiGap.text = "VIDEO_CALL".localized
             IGCallAudioManager.sharedInstance.setSpeaker(button: btnSpeaker)
             
         } else if callType == .voiceCalling {
@@ -574,7 +574,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             localCameraView.isHidden = true
             imgAvatar.isHidden = false
 //            btnSwitchCamera.isEnabled = false
-            txtiGap.text = "VOICE_CALL".localizedNew
+            txtiGap.text = "VOICE_CALL".localized
 //            btnSwitchCamera.setTitle("", for: UIControl.State.normal)
         }
         
@@ -718,7 +718,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 
                 IGCallEventListener.playHoldSound = false
                 self.txtCallTime.isHidden = false
-                self.txtCallState.text = "CONNECTED".localizedNew
+                self.txtCallState.text = "CONNECTED".localized
                 
                 if !self.callIsConnected {
                     self.callIsConnected = true
@@ -777,95 +777,95 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 break
                 
             case .Finished, .Disconnected, .Accepted:
-                self.txtCallState.text = "DISCONNECTED".localizedNew
+                self.txtCallState.text = "DISCONNECTED".localized
                 self.playSound(sound: "igap_disconnect")
                 self.dismmis()
                 RTCClient.getInstance(justReturn: true)?.callStateDelegate = nil
                 break
                 
             case .Missed:
-                self.txtCallState.text = "MISSED".localizedNew
+                self.txtCallState.text = "MISSED".localized
                 self.dismmis()
                 break
                 
             case .NotAnswered:
-                self.txtCallState.text = "NOT_ANSWERED".localizedNew
+                self.txtCallState.text = "NOT_ANSWERED".localized
                 self.playSound(sound: "igap_noresponse")
                 self.dismmis()
                 break
                 
             case .Rejected:
-                self.txtCallState.text = "REJECTED".localizedNew
+                self.txtCallState.text = "REJECTED".localized
                 self.playSound(sound: "igap_disconnect")
                 self.dismmis()
                 break
                 
             case .TooLong:
-                self.txtCallState.text = "TOO_LONG".localizedNew
+                self.txtCallState.text = "TOO_LONG".localized
                 self.playSound(sound: "igap_disconnect")
                 self.dismmis()
                 break
                 
             case .Failed:
-                self.txtCallState.text = "FAILED".localizedNew
+                self.txtCallState.text = "FAILED".localized
                 self.playSound(sound: "igap_noresponse")
                 self.dismmis()
                 break
                 
             case .Unavailable:
-                self.txtCallState.text = "UNAVAILABLE".localizedNew
+                self.txtCallState.text = "UNAVAILABLE".localized
                 self.playSound(sound: "igap_noresponse")
                 self.dismmis()
                 break
                 
             case .IncommingCall:
-                self.txtCallState.text = "INCOMMING_CALL".localizedNew
+                self.txtCallState.text = "INCOMMING_CALL".localized
                 if self.callType == .videoCalling {
                     self.playSound(sound: "tone", repeatEnable: true)
                 }
                 break
                 
             case .Ringing:
-                self.txtCallState.text = "RINGING".localizedNew
+                self.txtCallState.text = "RINGING".localized
                 self.playSound(sound: "igap_ringing", repeatEnable: true)
                 break
                 
             case .Dialing:
-                self.txtCallState.text = "DIALING".localizedNew
+                self.txtCallState.text = "DIALING".localized
                 self.playSound(sound: "igap_signaling", repeatEnable: true)
                 break
                 
             case .signalingOfferForbiddenYouAreTalkingWithYourOtherDevices:
                 
                 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "TALKING_WITH_OTHER_DEVICE".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "TALKING_WITH_OTHER_DEVICE".localized, cancelText: "GLOBAL_CLOSE".localized)
 
                 
                 break
                 
             case .signalingOfferForbiddenTheUserIsInConversation:
                 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IN_CONVERSATION".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,cancel:  {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IN_CONVERSATION".localized, cancelText: "GLOBAL_CLOSE".localized,cancel:  {
                     self.dismmis()
                 })
 
                 break
                 
             case .signalingOfferForbiddenDialedNumberIsNotActive:
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "DILED_NUMBER_IS_INACTIVE".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,cancel:  {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "DILED_NUMBER_IS_INACTIVE".localized, cancelText: "GLOBAL_CLOSE".localized,cancel:  {
                     self.dismmis()
                 })
                 break
                 
             case .signalingOfferForbiddenUserIsBlocked:
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IS_BLOCKED".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,cancel:  {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IS_BLOCKED".localized, cancelText: "GLOBAL_CLOSE".localized,cancel:  {
                     self.dismmis()
                 })
                 break
                 
             case .signalingOfferForbiddenIsNotAllowedToCommunicate:
                 self.playSound(sound: "igap_disconnect")
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IS_NOT_ALLOWED_TO_COMMINUCATE".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,cancel:  {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IS_NOT_ALLOWED_TO_COMMINUCATE".localized, cancelText: "GLOBAL_CLOSE".localized,cancel:  {
                     self.dismmis()
                 })
                 break

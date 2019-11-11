@@ -39,9 +39,9 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail: UITa
         let navigationItem = self.navigationItem as! IGNavigationItem
         
         if self.pageAction == IGTwoStepEmail.verifyEmail {
-            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "VERIFY_EMAIL".localizedNew)
+            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: "VERIFY_EMAIL".localized)
         } else if self.pageAction == IGTwoStepEmail.recoverPassword{
-            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "RECOVER_PASS".localizedNew)
+            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: "RECOVER_PASS".localized)
         }
         
         navigationItem.navigationController = self.navigationController as? IGNavigationController
@@ -57,13 +57,13 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail: UITa
         if self.pageAction == IGTwoStepEmail.verifyEmail {
             self.resendVerifyEmail()
         } else if self.pageAction == IGTwoStepEmail.recoverPassword{
-            btnOutletResendCode.setTitle("AUTH_RESEND_BUTTON".localizedNew,for: .normal)
+            btnOutletResendCode.setTitle("AUTH_RESEND_BUTTON".localized,for: .normal)
             self.resendRecoveryToken()
         }
-        lbl.text = "VERFICATION_CODE".localizedNew
+        lbl.text = "VERFICATION_CODE".localized
         lbl.font = UIFont.igFont(ofSize: 17)
-        edtVerifyCode.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localizedNew
-        btnOutletResendCode.setTitle("AUTH_RESEND_BUTTON".localizedNew, for: .normal)
+        edtVerifyCode.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
+        btnOutletResendCode.setTitle("AUTH_RESEND_BUTTON".localized, for: .normal)
         btnOutletResendCode.titleLabel?.font = UIFont.igFont(ofSize: 15)
         edtVerifyCode.font = UIFont.igFont(ofSize: 15)
     }

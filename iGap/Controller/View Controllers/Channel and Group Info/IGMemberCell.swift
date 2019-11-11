@@ -29,7 +29,7 @@ class IGMemberCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        groupMemberNameLabel.textAlignment = groupMemberNameLabel.localizedNewDirection
+        groupMemberNameLabel.textAlignment = groupMemberNameLabel.localizedDirection
         initiconFonts()
     }
     
@@ -103,25 +103,25 @@ class IGMemberCell: UITableViewCell {
                 }
                 break
             case .lastMonth:
-                groupMemberRecentlyStatus.text = "LAST_MONTH".localizedNew
+                groupMemberRecentlyStatus.text = "LAST_MONTH".localized
                 break
             case .lastWeek:
-                groupMemberRecentlyStatus.text = "LAST_WEAK".localizedNew
+                groupMemberRecentlyStatus.text = "LAST_WEAK".localized
                 break
             case .longTimeAgo:
-                groupMemberRecentlyStatus.text = "A_LONG_TIME_AGO".localizedNew
+                groupMemberRecentlyStatus.text = "A_LONG_TIME_AGO".localized
                 break
             case .online:
-                groupMemberRecentlyStatus.text = "ONLINE".localizedNew
+                groupMemberRecentlyStatus.text = "ONLINE".localized
                 break
             case .recently:
-                groupMemberRecentlyStatus.text = "LAST_SEEN_RECENTLY".localizedNew
+                groupMemberRecentlyStatus.text = "LAST_SEEN_RECENTLY".localized
                 break
             case .support:
-                groupMemberRecentlyStatus.text = "IGAP_SUPPORT".localizedNew
+                groupMemberRecentlyStatus.text = "IGAP_SUPPORT".localized
                 break
             case .serviceNotification:
-                groupMemberRecentlyStatus.text = "SERVICE_NOTIFI".localizedNew
+                groupMemberRecentlyStatus.text = "SERVICE_NOTIFI".localized
                 break
             }
         } else { // when user info not exist yet!

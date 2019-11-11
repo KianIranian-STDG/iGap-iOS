@@ -111,14 +111,14 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
         let priceTitleLabel = UILabel(frame: CGRect(x: 8, y: separatorView1.frame.height + separatorView1.frame.origin.y + 8, width: dialogViewWidth-16, height: 30))
         priceTitleLabel.font = UIFont.igFont(ofSize: 19 , weight: .bold)
         priceTitleLabel.textColor = .black
-        priceTitleLabel.text = "PRICE".localizedNew
+        priceTitleLabel.text = "PRICE".localized
         priceTitleLabel.textAlignment = .center
         dialogView.addSubview(priceTitleLabel)
         
         let priceLabel = UILabel(frame: CGRect(x: 8, y: priceTitleLabel.frame.height + priceTitleLabel.frame.origin.y + 8, width: dialogViewWidth-16, height: 30))
         priceLabel.font = UIFont.igFont(ofSize: 20, weight: .bold)
         //        priceLabel.textColor = .black
-        priceLabel.text = price.inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localizedNew
+        priceLabel.text = price.inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localized
         priceLabel.textColor = UIColor.iGapGreen()
         
         priceLabel.textAlignment = .center
@@ -142,7 +142,7 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
         btnAction.frame.origin = CGPoint(x: 8, y: separatorView2.frame.height + separatorView2.frame.origin.y + 8)
         btnAction.frame.size = CGSize(width: dialogViewWidth - 16 , height: 40)
         btnAction.layer.cornerRadius = 10.0
-        btnAction.setTitle("BTN_PAY".localizedNew, for: .normal)
+        btnAction.setTitle("BTN_PAY".localized, for: .normal)
         btnAction.titleLabel?.font = UIFont.igFont(ofSize: 17)
         btnAction.backgroundColor = UIColor.iGapGreen()
         btnAction.addTarget(self, action: #selector(sendRequest), for: .touchUpInside)

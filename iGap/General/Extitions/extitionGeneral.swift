@@ -135,9 +135,7 @@ extension String {
     func truncateWord(_ maxLimit:Int) -> String{
         if self.length < maxLimit{
             return self
-        }else{
-            //            let indx = self.index(self.startIndex, offsetBy: maxLimit)
-            //            var newText = String(self[...indx])
+        } else {
             var newText = self.substring(self.startIndex.encodedOffset, maxLimit)
             let lastSpaceIndex = newText.range(of: " ", options: String.CompareOptions.backwards)?.lowerBound ?? self.endIndex
             newText = String(self[...lastSpaceIndex])

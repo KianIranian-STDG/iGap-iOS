@@ -29,7 +29,7 @@ class IGSettingAboutTableViewController: BaseTableViewController {
         super.viewDidLoad()
         self.tableView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "ABOUT".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "ABOUT".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -43,10 +43,10 @@ class IGSettingAboutTableViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        lblBlog.text = "SETTING_ABOUT_IGAP_BLOG".localizedNew
-        lblHome.text = "SETTING_ABOUT_IGAP_HOME".localizedNew
-        lblSupport.text = "SETTING_ABOUT_SUPPORT_REQUEST".localizedNew
-        lblCurrent.text = "SETTING_ABOUT_CYRRENT_VERSION".localizedNew
+        lblBlog.text = "SETTING_ABOUT_IGAP_BLOG".localized
+        lblHome.text = "SETTING_ABOUT_IGAP_HOME".localized
+        lblSupport.text = "SETTING_ABOUT_SUPPORT_REQUEST".localized
+        lblCurrent.text = "SETTING_ABOUT_CYRRENT_VERSION".localized
     }
     override func viewDidAppear(_ animated: Bool) {
         self.tableView.isUserInteractionEnabled = true
@@ -104,13 +104,13 @@ class IGSettingAboutTableViewController: BaseTableViewController {
             switch index! {
             case 0:
                 destination.pageUrl = "https://www.igap.net"
-                destination.pageTitle = "SETTING_ABOUT_IGAP_HOME".localizedNew
+                destination.pageTitle = "SETTING_ABOUT_IGAP_HOME".localized
             case 1:
                 destination.pageUrl = "https://blog.igap.net"
-                destination.pageTitle = "SETTING_ABOUT_IGAP_BLOG".localizedNew
+                destination.pageTitle = "SETTING_ABOUT_IGAP_BLOG".localized
             case 2:
                 destination.pageUrl = "https://support.igap.net"
-                destination.pageTitle = "SETTING_ABOUT_SUPPORT_REQUEST".localizedNew
+                destination.pageTitle = "SETTING_ABOUT_SUPPORT_REQUEST".localized
             default:
                 break
             }

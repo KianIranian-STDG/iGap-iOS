@@ -74,17 +74,17 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
         initChangeLang()
     }
     func initChangeLang() {
-        edtBillingID.placeholder = "BILLING_ID".localizedNew
-        edtPaymentCode.placeholder = "PAYMENT_CODE".localizedNew
-        btnPayment.setTitle("BTN_PAY".localizedNew, for: .normal)
-        txtAmount.text = "PLACE_HOLDER_AMOUNT".localizedNew
+        edtBillingID.placeholder = "BILLING_ID".localized
+        edtPaymentCode.placeholder = "PAYMENT_CODE".localized
+        btnPayment.setTitle("BTN_PAY".localized, for: .normal)
+        txtAmount.text = "PLACE_HOLDER_AMOUNT".localized
     }
     
     func initNavigationBar(){
         
-        var title = "SETTING_FS_PAY_BILLS".localizedNew
+        var title = "SETTING_FS_PAY_BILLS".localized
         if IGFinancialServiceBill.isTrafficOffenses {
-            title = "SETTING_FS_PAY_TRAFFIC_TICKETS".localizedNew
+            title = "SETTING_FS_PAY_TRAFFIC_TICKETS".localized
         }
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: title, width: 200)
@@ -159,7 +159,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
             edtPaymentCode.text = payId
         }
         if !price.isEmpty {
-            txtAmount.text = "\(Int(price)! * 1000) ".inLocalizedLanguage() + "CURRENCY".localizedNew
+            txtAmount.text = "\(Int(price)! * 1000) ".inLocalizedLanguage() + "CURRENCY".localized
         }
         
         if !IGFinancialServiceBill.isTrafficOffenses {
@@ -197,7 +197,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
     
     private func showErrorAlertView(title: String, message: String?, dismiss: Bool = false){
         let option = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .cancel, handler: { (action) in
+        let ok = UIAlertAction(title: "GLOBAL_OK".localized, style: .cancel, handler: { (action) in
             if dismiss {
                 self.navigationController?.popViewController(animated: true)
             }
@@ -249,7 +249,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
                 if mplGetBillTokenResponse.igpStatus == 0 { //success
                     self.initBillPaymanet(token: mplGetBillTokenResponse.igpToken)
                 } else {
-                    self.showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: mplGetBillTokenResponse.igpMessage)
+                    self.showErrorAlertView(title: "GLOBAL_WARNING".localized, message: mplGetBillTokenResponse.igpMessage)
                 }
             }
             
@@ -258,8 +258,8 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -279,7 +279,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
     }
     
     func BillMerchantError(errorType: Int) {
-        showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: "MSG_ERROR_BILL_PAYMENT".localizedNew, dismiss: true)
+        showErrorAlertView(title: "GLOBAL_WARNING".localized, message: "MSG_ERROR_BILL_PAYMENT".localized, dismiss: true)
     }
     
     /********************************************/

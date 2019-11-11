@@ -49,7 +49,7 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        initNavigationBar(title: "TTL_BILL_OPERATIONS".localizedNew, rightAction: {})//set Title for Page and nav Buttons if needed
+        initNavigationBar(title: "TTL_BILL_OPERATIONS".localized, rightAction: {})//set Title for Page and nav Buttons if needed
 
     }
     // MARK: - Development Funcs
@@ -106,22 +106,22 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     }
     
     private func initStrings() {
-        lblTTlBillNumber.text = "BILL_ID".localizedNew
-        lblTTlBillPayDate.text = "BILL_PAY_DATE".localizedNew
-        lblTTlBillPayAmount.text = "BILL_PAY_AMOUNT".localizedNew
-        lblTTlBillPayNumber.text = "TRANSACTIONS_HISTORY_ORDER_ID".localizedNew
+        lblTTlBillNumber.text = "BILL_ID".localized
+        lblTTlBillPayDate.text = "BILL_PAY_DATE".localized
+        lblTTlBillPayAmount.text = "BILL_PAY_AMOUNT".localized
+        lblTTlBillPayNumber.text = "TRANSACTIONS_HISTORY_ORDER_ID".localized
         lblDataBillNumber.text = billNumber ?? "..."
         lblDataBillPayDate.text = payDate ?? "..."
         lblDataBillPayAmount.text = payAmount ?? "..."
         lblDataBillPayNumber.text = payNumber ?? "..."
-        btnPay.setTitle("PU_PAYMENT".localizedNew, for: .normal)
-        btnDetailBranch.setTitle("BILL_BRANCH_DETAILS".localizedNew, for: .normal)
+        btnPay.setTitle("PU_PAYMENT".localized, for: .normal)
+        btnDetailBranch.setTitle("BILL_BRANCH_DETAILS".localized, for: .normal)
         if canEditBill {
-            btnAddToMyBills.setTitle("BILL_EDIT_MODE".localizedNew, for: .normal)
+            btnAddToMyBills.setTitle("BILL_EDIT_MODE".localized, for: .normal)
         } else {
-            btnAddToMyBills.setTitle("BILL_ADD_MODE".localizedNew, for: .normal)
+            btnAddToMyBills.setTitle("BILL_ADD_MODE".localized, for: .normal)
         }
-        btnPDFofBill.setTitle("BILL_PDF_IMAGE".localizedNew, for: .normal)
+        btnPDFofBill.setTitle("BILL_PDF_IMAGE".localized, for: .normal)
     }
     
     private func initColors() {
@@ -148,10 +148,10 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     }
     
     private func initAlignments() {
-        lblTTlBillPayNumber.textAlignment = lblTTlBillPayNumber.localizedNewDirection
-        lblTTlBillPayAmount.textAlignment = lblTTlBillPayNumber.localizedNewDirection
-        lblTTlBillPayDate.textAlignment = lblTTlBillPayNumber.localizedNewDirection
-        lblTTlBillNumber.textAlignment = lblTTlBillPayNumber.localizedNewDirection
+        lblTTlBillPayNumber.textAlignment = lblTTlBillPayNumber.localizedDirection
+        lblTTlBillPayAmount.textAlignment = lblTTlBillPayNumber.localizedDirection
+        lblTTlBillPayDate.textAlignment = lblTTlBillPayNumber.localizedDirection
+        lblTTlBillNumber.textAlignment = lblTTlBillPayNumber.localizedDirection
     }
     
     private func customiseTableView() {
@@ -187,7 +187,7 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
                 let date = dateFormatter.date(from:self.payDate)!
                 self.lblDataBillPayDate.text = date.completeHumanReadableTime().inLocalizedLanguage() ?? "..."
 
-                self.lblDataBillPayAmount.text = self.payAmount.inRialFormat()  + " " + "CURRENCY".localizedNew ?? "..."
+                self.lblDataBillPayAmount.text = self.payAmount.inRialFormat()  + " " + "CURRENCY".localized ?? "..."
                 self.lblDataBillNumber.text = self.billNumber.inLocalizedLanguage() ?? "..."
                 self.lblDataBillPayNumber.text = self.payNumber.inLocalizedLanguage() ?? "..."
 

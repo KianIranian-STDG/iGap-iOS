@@ -91,8 +91,8 @@ class cashoutModalStepOneViewController: BaseViewController {
         initCHangeLang()
     }
     func initCHangeLang() {
-        lblWalletPinTitle.text = "ENTER_WALLET_PIN".localizedNew
-        dialogTitle.text = "WALLET_PIN".localizedNew
+        lblWalletPinTitle.text = "ENTER_WALLET_PIN".localized
+        dialogTitle.text = "WALLET_PIN".localized
     }
     
     func initView() {
@@ -107,8 +107,8 @@ class cashoutModalStepOneViewController: BaseViewController {
         
         prepareConfirm(resp: message, amount: amount)
         self.dialogTitle.text = dialogT
-        btnOk.setTitle("GLOBAL_OK".localizedNew, for: .normal)
-        btnCancel.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+        btnOk.setTitle("GLOBAL_OK".localized, for: .normal)
+        btnCancel.setTitle("CANCEL_BTN".localized, for: .normal)
     }
     func AnimateMainViewHeight() {
         UIView.animate(withDuration: 0.5, animations: {
@@ -123,22 +123,22 @@ class cashoutModalStepOneViewController: BaseViewController {
         let personalItems = ((resp as! NSDictionary)["owner"]as! NSDictionary)
         let cardItems = ((resp as! NSDictionary)["destination_card_info"]as! NSDictionary)
         
-        leftLBLone.text  = "AMOUNT_IN".localizedNew
-        rightLBLone.text = amount + " " + "CURRENCY".localizedNew
+        leftLBLone.text  = "AMOUNT_IN".localized
+        rightLBLone.text = amount + " " + "CURRENCY".localized
 
-        leftLBLtwo.text  = "AMOUNT_OUT".localizedNew
-        rightLBLtwo.text = amount + " " + "CURRENCY".localizedNew
+        leftLBLtwo.text  = "AMOUNT_OUT".localized
+        rightLBLtwo.text = amount + " " + "CURRENCY".localized
         
-        leftLBLthree.text  = "WAGE".localizedNew
-        rightLBLthree.text = "\((resp as! NSDictionary)["transfer_fee"]!)".inRialFormat().inLocalizedLanguage() + "CURRENCY".localizedNew
+        leftLBLthree.text  = "WAGE".localized
+        rightLBLthree.text = "\((resp as! NSDictionary)["transfer_fee"]!)".inRialFormat().inLocalizedLanguage() + "CURRENCY".localized
         
-        leftLBLfour.text  = "DEST_CARD".localizedNew
+        leftLBLfour.text  = "DEST_CARD".localized
         rightLBLfour.text = "\(cardItems["card_number"]!)".addSepratorCardNum().inLocalizedLanguage()
 
-        leftLBLfive.text  = "DEST_BANK".localizedNew
+        leftLBLfive.text  = "DEST_BANK".localized
         rightLBLfive.text = "\(personalItems["bank_name"]!)"
 
-        leftLBLSix.text  = "OWNER_NAME".localizedNew
+        leftLBLSix.text  = "OWNER_NAME".localized
         rightLBLsix.text = "\(personalItems["first_name"]!)" + " " + "\(personalItems["last_name"]!)"
         
     }
@@ -163,7 +163,7 @@ class cashoutModalStepOneViewController: BaseViewController {
             if currentRole == "admin" {
                 
                 SMCard.chashout(amount: Int((rightLBLone.text!).inEnglishNumbersNew().onlyDigitChars()) , cardNumber: (rightLBLfour.text)?.onlyDigitChars(), cardToken: "", sourceCardToken:cardToken,  pin: (tfPin.text?.onlyDigitChars()) ,isFast : true, accountId: merchantID ,onSuccess: {resp in
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 180,isleftButtonEnabled: false, title: "CASHOUT_REQUEST".localizedNew, message: "SUCCESS_OPERATION".localizedNew, yesPressed: { pin in
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 180,isleftButtonEnabled: false, title: "CASHOUT_REQUEST".localized, message: "SUCCESS_OPERATION".localized, yesPressed: { pin in
                         self.view.endEditing(true)
                         self.navigationController?.popViewController(animated: true)
                         
@@ -176,7 +176,7 @@ class cashoutModalStepOneViewController: BaseViewController {
             else {
                 
                 SMCard.chashout(amount: Int((rightLBLone.text!).inEnglishNumbersNew().onlyDigitChars()) , cardNumber: (rightLBLfour.text)?.onlyDigitChars(), cardToken: "", sourceCardToken:cardToken,  pin: (tfPin.text?.onlyDigitChars()) ,isFast : true, accountId: merchantID ,onSuccess: {resp in
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 180,isleftButtonEnabled: false, title: "CASHOUT_REQUEST".localizedNew, message: "SUCCESS_OPERATION".localizedNew, yesPressed: { pin in
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 180,isleftButtonEnabled: false, title: "CASHOUT_REQUEST".localized, message: "SUCCESS_OPERATION".localized, yesPressed: { pin in
                         self.view.endEditing(true)
                         self.navigationController?.popViewController(animated: true)
                         
@@ -226,7 +226,7 @@ class cashoutModalStepOneViewController: BaseViewController {
     }
     
     func GoToWalletPinUI() {
-        dialogTitle.text = "WALLET_PIN".localizedNew
+        dialogTitle.text = "WALLET_PIN".localized
     }
     /*
     // MARK: - Navigation

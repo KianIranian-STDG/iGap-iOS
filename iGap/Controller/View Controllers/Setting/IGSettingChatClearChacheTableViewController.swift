@@ -86,19 +86,19 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        lblDocuments.text = "DOCUMENTS".localizedNew
-        lblVideos.text = "VIDEOS".localizedNew
-        lblImages.text = "IMAGES".localizedNew
-        lblVoices.text = "VOICES".localizedNew
-        lblAudios.text = "AUDIOS".localizedNew
-        lblGifs.text = "GIFS".localizedNew
-        lblStickers.text = "STICKERS".localizedNew
-        lblClearData.text = "SETTING_CC_CLEAR_DATA".localizedNew
+        lblDocuments.text = "DOCUMENTS".localized
+        lblVideos.text = "VIDEOS".localized
+        lblImages.text = "IMAGES".localized
+        lblVoices.text = "VOICES".localized
+        lblAudios.text = "AUDIOS".localized
+        lblGifs.text = "GIFS".localized
+        lblStickers.text = "STICKERS".localized
+        lblClearData.text = "SETTING_CC_CLEAR_DATA".localized
     }
     
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_CACHE_SETTINGS".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_CACHE_SETTINGS".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -158,14 +158,14 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
             return
         }
         
-        let alert = UIAlertController(title: "MSG_SURE_TO_DELETE_CACHE".localizedNew, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let deleteAction = UIAlertAction(title: "BTN_DELETE".localizedNew, style: .destructive , handler: { (alert: UIAlertAction) -> Void in
+        let alert = UIAlertController(title: "MSG_SURE_TO_DELETE_CACHE".localized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        let deleteAction = UIAlertAction(title: "BTN_DELETE".localized, style: .destructive , handler: { (alert: UIAlertAction) -> Void in
             DispatchQueue.main.async {
                 self.removeSelectedData()
                 self.navigationController?.popViewController(animated: true)
             }
         })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style:.cancel , handler: {
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style:.cancel , handler: {
             (alert: UIAlertAction) -> Void in
         })
         alert.addAction(deleteAction)

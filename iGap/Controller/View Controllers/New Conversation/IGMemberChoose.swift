@@ -24,7 +24,7 @@ class IGMemberChoose: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        contactNameLabel.textAlignment = contactNameLabel.localizedNewDirection
+        contactNameLabel.textAlignment = contactNameLabel.localizedDirection
     }
     
     func updateUI() {
@@ -33,28 +33,28 @@ class IGMemberChoose: UITableViewCell {
       
         switch user!.registredUser.lastSeenStatus {
         case .longTimeAgo:
-            self.lastSeenStatusLabel.text =  "A_LONG_TIME_AGO".localizedNew
+            self.lastSeenStatusLabel.text =  "A_LONG_TIME_AGO".localized
             break
         case .lastMonth:
-            self.lastSeenStatusLabel.text = "LAST_MONTH".localizedNew
+            self.lastSeenStatusLabel.text = "LAST_MONTH".localized
             break
         case .lastWeek:
-            self.lastSeenStatusLabel.text = "LAST_WEAK".localizedNew
+            self.lastSeenStatusLabel.text = "LAST_WEAK".localized
             break
         case .online:
-            self.lastSeenStatusLabel.text  = "ONLINE".localizedNew
+            self.lastSeenStatusLabel.text  = "ONLINE".localized
             break
         case .exactly:
             self.lastSeenStatusLabel.text = "\(user!.registredUser.lastSeen!.humanReadableForLastSeen())".inLocalizedLanguage()
             break
         case .recently:
-            self.lastSeenStatusLabel.text = "A_FEW_SEC_AGO".localizedNew
+            self.lastSeenStatusLabel.text = "A_FEW_SEC_AGO".localized
             break
         case .support:
-            self.lastSeenStatusLabel.text = "IGAP_SUPPORT".localizedNew
+            self.lastSeenStatusLabel.text = "IGAP_SUPPORT".localized
             break
         case .serviceNotification:
-            self.lastSeenStatusLabel.text = "SERVICE_NOTIFI".localizedNew
+            self.lastSeenStatusLabel.text = "SERVICE_NOTIFI".localized
             break
         }
         userAvatarView.setUser(user.registredUser)

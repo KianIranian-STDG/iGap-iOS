@@ -27,8 +27,6 @@ enum Language: String {
             return .forceRightToLeft
         }
     }
- 
-    
     
     static var language: Language {
         get {
@@ -65,8 +63,8 @@ enum Language: String {
             
             //Changes semantic to all views
             //this hack needs in case of languages with different semantics: leftToRight(en/uk) & rightToLeft(ar)
-            UIView.appearance().semanticContentAttribute = newValue.semantic
-            UITableView.appearance().semanticContentAttribute = newValue.semantic
+//            UIView.appearance().semanticContentAttribute = newValue.semantic
+//            UITableView.appearance().semanticContentAttribute = newValue.semantic
 
             //initialize the app from scratch
             //show initial view controller
@@ -75,12 +73,12 @@ enum Language: String {
             //After the app restart all labels/images will be set
             //see extension String below
             DispatchQueue.main.async {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 appDelegate.goToSpash()
-
             }
         }
     }
+    
 }
 
 
@@ -91,20 +89,20 @@ extension String {
         return NSLocalizedString(self, comment: "")
     }
     
-    var localizedImage: UIImage? {
-        return localizedImage()
-            ?? localizedImage(type: ".png")
-            ?? localizedImage(type: ".jpg")
-            ?? localizedImage(type: ".jpeg")
-            ?? UIImage(named: self)
-    }
-    
-    private func localizedImage(type: String = "") -> UIImage? {
-        guard let imagePath = Bundle.localizedBundle.path(forResource: self, ofType: type) else {
-            return nil
-        }
-        return UIImage(contentsOfFile: imagePath)
-    }
+//    var localizedImage: UIImage? {
+//        return localizedImage()
+//            ?? localizedImage(type: ".png")
+//            ?? localizedImage(type: ".jpg")
+//            ?? localizedImage(type: ".jpeg")
+//            ?? UIImage(named: self)
+//    }
+//
+//    private func localizedImage(type: String = "") -> UIImage? {
+//        guard let imagePath = Bundle.localizedBundle.path(forResource: self, ofType: type) else {
+//            return nil
+//        }
+//        return UIImage(contentsOfFile: imagePath)
+//    }
 }
 
 extension Bundle {

@@ -1,0 +1,30 @@
+/*
+* This is the source code of iGap for iOS
+* It is licensed under GNU AGPL v3.0
+* You should have received a copy of the license in this archive (see LICENSE).
+* Copyright © 2017 , iGap - www.iGap.net
+* iGap Messenger | Free, Fast and Secure instant messaging application
+* The idea of the Kianiranian STDG - www.kianiranian.com
+* All rights reserved.
+*/
+
+"BUY_INTERNET_PACKAGE" = "خرید بسته اینترنتی";
+"PLACE_HOLDER_MOBILE_NUM" = "۰۹*********";
+"INTERNET_PACKAGE_TYPE" = "نوع بسته";
+"TIME" = "زمان";
+"VOLUME" = "حجم";
+
+"CHOOSE_TIME" = "انتخاب زمان";
+"CHOOSE_VOLUME" = "انتخاب حجم";
+"CHOOSE_PACKAGE" = "انتخاب بسته";
+"BTN_PAY" = "خرید";
+
+"GB" = "گیگابایت";
+"MB" = "مگابایت";
+
+"MONTH" = "ماه";
+"WEEK" = "هفته";
+"DAY" = "روز";
+"YEAR" = "سال";
+
+"BUY_INTERNET_PACKAGE_IS_ONLY_POSSIBLE_FOR_MCI_USERS" = "خرید بسته اینترنتی فعلا فقط برای کاربران خطوط همراه اول ممکن می باشد.";

@@ -35,7 +35,7 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        initNavigationBar(title: "TTL_BILL_OPERATIONS".localizedNew, rightAction: {})
+        initNavigationBar(title: "TTL_BILL_OPERATIONS".localized, rightAction: {})
     }
     
     
@@ -75,15 +75,15 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
         let attributes = [
             NSAttributedString.Key.foregroundColor: UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue),
             NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)]
-        tfBillIdNumber.attributedPlaceholder = NSAttributedString(string: "BILL_ID".localizedNew, attributes:attributes as [NSAttributedString.Key : Any])
+        tfBillIdNumber.attributedPlaceholder = NSAttributedString(string: "BILL_ID".localized, attributes:attributes as [NSAttributedString.Key : Any])
     }
     
     private func initStrings() {
-        btnQueryTopHolder.setTitle("BTN_INQUERY".localizedNew, for: .normal)
-        btnMyBills.setTitle("BTN_MY_BILLS".localizedNew, for: .normal)
-        btnSearchBills.setTitle("BTN_SEARCH_BILLS".localizedNew, for: .normal)
+        btnQueryTopHolder.setTitle("BTN_INQUERY".localized, for: .normal)
+        btnMyBills.setTitle("BTN_MY_BILLS".localized, for: .normal)
+        btnSearchBills.setTitle("BTN_SEARCH_BILLS".localized, for: .normal)
         btnScanBarcode.setTitle("", for: .normal)
-        lblTopHolder.text = "LBL_ELECTRICITYBILL_PAY".localizedNew
+        lblTopHolder.text = "LBL_ELECTRICITYBILL_PAY".localized
     }
     
     private func initColors() {
@@ -201,7 +201,7 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
     @IBAction func didTapOnBtnInquery(_ sender: UIButton) {
         if tfBillIdNumber.text!.count <= 0 ||  tfBillIdNumber.text!.count > 13{
             tfBillIdNumber.shake()
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_CHARACTER_COUNT_ELECTRICITY_BILL".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_CHARACTER_COUNT_ELECTRICITY_BILL".localized, cancelText: "GLOBAL_CLOSE".localized)
         } else {
             let realm = try! Realm()
             let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)

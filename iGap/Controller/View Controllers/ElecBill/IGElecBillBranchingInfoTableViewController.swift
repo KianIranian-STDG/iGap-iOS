@@ -70,7 +70,7 @@ class IGElecBillBranchingInfoTableViewController: BaseTableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        initNavigationBar(title: "BILL_BRANCH_DETAILS".localizedNew, rightAction: {})//set Title for Page and nav Buttons if needed
+        initNavigationBar(title: "BILL_BRANCH_DETAILS".localized, rightAction: {})//set Title for Page and nav Buttons if needed
 
     }
     // MARK: - Development Funcs
@@ -143,24 +143,24 @@ class IGElecBillBranchingInfoTableViewController: BaseTableViewController {
     }
     
     private func initStrings() {
-        lblTitleRow0.text = "BILL_DETAIL_IDENTIFIER".localizedNew
-        lblTitleRow1.text = "BILL_DETAIL_PAY_ID".localizedNew
-        lblTitleRow2.text = "BILL_DETAIL_COMPANY_CODE".localizedNew
-        lblTitleRow3.text = "BILL_DETAIL_COMPANY_NAME".localizedNew
-        lblTitleRow4.text = "BILL_DETAIL_PHASE".localizedNew
-        lblTitleRow5.text = "BILL_DETAIL_VOLTAGE".localizedNew
-        lblTitleRow6.text = "BILL_DETAIL_TARIFE_TYPE".localizedNew
-        lblTitleRow7.text = "BILL_DETAIL_CUSTOMER_TYPE".localizedNew
-        lblTitleRow8.text = "BILL_DETAIL_CUSTOMER_NAME".localizedNew
-        lblTitleRow9.text = "BILL_DETAIL_CUSTOMER_TEL".localizedNew
-        lblTitleRow10.text = "BILL_DETAIL_CUSTOMER_MOB".localizedNew
-        lblTitleRow11.text = "BILL_DETAIL_CUSTOMER_ADD".localizedNew
-        lblTitleRow12.text = "BILL_DETAIL_CUSTOMER_POSTALCODE".localizedNew
-        lblTitleRow13.text = "BILL_DETAIL_CUSTOMER_LOCATION_ZONE".localizedNew
-        lblTitleRow14.text = "BILL_DETAIL_CUSTOMER_DEVICE_NUMBER".localizedNew
-        lblTitleRow15.text = "BILL_DETAIL_DUE_DATE".localizedNew
-        lblTitleRow16.text = "BILL_DETAIL_LAST_READ".localizedNew
-        lblTitleRow17.text = "BILL_DETAIL_POWER".localizedNew
+        lblTitleRow0.text = "BILL_DETAIL_IDENTIFIER".localized
+        lblTitleRow1.text = "BILL_DETAIL_PAY_ID".localized
+        lblTitleRow2.text = "BILL_DETAIL_COMPANY_CODE".localized
+        lblTitleRow3.text = "BILL_DETAIL_COMPANY_NAME".localized
+        lblTitleRow4.text = "BILL_DETAIL_PHASE".localized
+        lblTitleRow5.text = "BILL_DETAIL_VOLTAGE".localized
+        lblTitleRow6.text = "BILL_DETAIL_TARIFE_TYPE".localized
+        lblTitleRow7.text = "BILL_DETAIL_CUSTOMER_TYPE".localized
+        lblTitleRow8.text = "BILL_DETAIL_CUSTOMER_NAME".localized
+        lblTitleRow9.text = "BILL_DETAIL_CUSTOMER_TEL".localized
+        lblTitleRow10.text = "BILL_DETAIL_CUSTOMER_MOB".localized
+        lblTitleRow11.text = "BILL_DETAIL_CUSTOMER_ADD".localized
+        lblTitleRow12.text = "BILL_DETAIL_CUSTOMER_POSTALCODE".localized
+        lblTitleRow13.text = "BILL_DETAIL_CUSTOMER_LOCATION_ZONE".localized
+        lblTitleRow14.text = "BILL_DETAIL_CUSTOMER_DEVICE_NUMBER".localized
+        lblTitleRow15.text = "BILL_DETAIL_DUE_DATE".localized
+        lblTitleRow16.text = "BILL_DETAIL_LAST_READ".localized
+        lblTitleRow17.text = "BILL_DETAIL_POWER".localized
         
         lblDataRow0.text = "..."
         lblDataRow1.text = "..."
@@ -227,43 +227,43 @@ class IGElecBillBranchingInfoTableViewController: BaseTableViewController {
     }
     
     private func initAlignments() {
-        lblTitleRow0.textAlignment = lblTitleRow0.localizedNewDirection
-        lblTitleRow1.textAlignment = lblTitleRow1.localizedNewDirection
-        lblTitleRow2.textAlignment = lblTitleRow2.localizedNewDirection
-        lblTitleRow3.textAlignment = lblTitleRow3.localizedNewDirection
-        lblTitleRow4.textAlignment = lblTitleRow4.localizedNewDirection
-        lblTitleRow5.textAlignment = lblTitleRow5.localizedNewDirection
-        lblTitleRow6.textAlignment = lblTitleRow6.localizedNewDirection
-        lblTitleRow7.textAlignment = lblTitleRow7.localizedNewDirection
-        lblTitleRow8.textAlignment = lblTitleRow8.localizedNewDirection
-        lblTitleRow9.textAlignment = lblTitleRow9.localizedNewDirection
-        lblTitleRow10.textAlignment = lblTitleRow10.localizedNewDirection
-        lblTitleRow11.textAlignment = lblTitleRow11.localizedNewDirection
-        lblTitleRow12.textAlignment = lblTitleRow12.localizedNewDirection
-        lblTitleRow13.textAlignment = lblTitleRow13.localizedNewDirection
-        lblTitleRow14.textAlignment = lblTitleRow14.localizedNewDirection
-        lblTitleRow15.textAlignment = lblTitleRow15.localizedNewDirection
-        lblTitleRow16.textAlignment = lblTitleRow16.localizedNewDirection
-        lblTitleRow17.textAlignment = lblTitleRow17.localizedNewDirection
+        lblTitleRow0.textAlignment = lblTitleRow0.localizedDirection
+        lblTitleRow1.textAlignment = lblTitleRow1.localizedDirection
+        lblTitleRow2.textAlignment = lblTitleRow2.localizedDirection
+        lblTitleRow3.textAlignment = lblTitleRow3.localizedDirection
+        lblTitleRow4.textAlignment = lblTitleRow4.localizedDirection
+        lblTitleRow5.textAlignment = lblTitleRow5.localizedDirection
+        lblTitleRow6.textAlignment = lblTitleRow6.localizedDirection
+        lblTitleRow7.textAlignment = lblTitleRow7.localizedDirection
+        lblTitleRow8.textAlignment = lblTitleRow8.localizedDirection
+        lblTitleRow9.textAlignment = lblTitleRow9.localizedDirection
+        lblTitleRow10.textAlignment = lblTitleRow10.localizedDirection
+        lblTitleRow11.textAlignment = lblTitleRow11.localizedDirection
+        lblTitleRow12.textAlignment = lblTitleRow12.localizedDirection
+        lblTitleRow13.textAlignment = lblTitleRow13.localizedDirection
+        lblTitleRow14.textAlignment = lblTitleRow14.localizedDirection
+        lblTitleRow15.textAlignment = lblTitleRow15.localizedDirection
+        lblTitleRow16.textAlignment = lblTitleRow16.localizedDirection
+        lblTitleRow17.textAlignment = lblTitleRow17.localizedDirection
 
-        lblDataRow0.textAlignment = lblDataRow0.localizedNewDirection
-        lblDataRow1.textAlignment = lblDataRow1.localizedNewDirection
-        lblDataRow2.textAlignment = lblDataRow2.localizedNewDirection
-        lblDataRow3.textAlignment = lblDataRow3.localizedNewDirection
-        lblDataRow4.textAlignment = lblDataRow4.localizedNewDirection
-        lblDataRow5.textAlignment = lblDataRow5.localizedNewDirection
-        lblDataRow6.textAlignment = lblDataRow6.localizedNewDirection
-        lblDataRow7.textAlignment = lblDataRow7.localizedNewDirection
-        lblDataRow8.textAlignment = lblDataRow8.localizedNewDirection
-        lblDataRow9.textAlignment = lblDataRow9.localizedNewDirection
-        lblDataRow10.textAlignment = lblDataRow10.localizedNewDirection
-        lblDataRow11.textAlignment = lblDataRow11.localizedNewDirection
-        lblDataRow12.textAlignment = lblDataRow12.localizedNewDirection
-        lblDataRow13.textAlignment = lblDataRow13.localizedNewDirection
-        lblDataRow14.textAlignment = lblDataRow14.localizedNewDirection
-        lblDataRow15.textAlignment = lblDataRow15.localizedNewDirection
-        lblDataRow16.textAlignment = lblDataRow16.localizedNewDirection
-        lblDataRow17.textAlignment = lblDataRow17.localizedNewDirection
+        lblDataRow0.textAlignment = lblDataRow0.localizedDirection
+        lblDataRow1.textAlignment = lblDataRow1.localizedDirection
+        lblDataRow2.textAlignment = lblDataRow2.localizedDirection
+        lblDataRow3.textAlignment = lblDataRow3.localizedDirection
+        lblDataRow4.textAlignment = lblDataRow4.localizedDirection
+        lblDataRow5.textAlignment = lblDataRow5.localizedDirection
+        lblDataRow6.textAlignment = lblDataRow6.localizedDirection
+        lblDataRow7.textAlignment = lblDataRow7.localizedDirection
+        lblDataRow8.textAlignment = lblDataRow8.localizedDirection
+        lblDataRow9.textAlignment = lblDataRow9.localizedDirection
+        lblDataRow10.textAlignment = lblDataRow10.localizedDirection
+        lblDataRow11.textAlignment = lblDataRow11.localizedDirection
+        lblDataRow12.textAlignment = lblDataRow12.localizedDirection
+        lblDataRow13.textAlignment = lblDataRow13.localizedDirection
+        lblDataRow14.textAlignment = lblDataRow14.localizedDirection
+        lblDataRow15.textAlignment = lblDataRow15.localizedDirection
+        lblDataRow16.textAlignment = lblDataRow16.localizedDirection
+        lblDataRow17.textAlignment = lblDataRow17.localizedDirection
     }
     
     private func validaatePhoneNUmber(phone : Int64!) -> String {
@@ -291,24 +291,24 @@ class IGElecBillBranchingInfoTableViewController: BaseTableViewController {
         })
     }
     private func createTableData(data : BranchingDataStruct) {
-        lblTitleRow0.text = "BILL_DETAIL_IDENTIFIER".localizedNew
-        lblTitleRow1.text = "BILL_DETAIL_PAY_ID".localizedNew
-        lblTitleRow2.text = "BILL_DETAIL_COMPANY_CODE".localizedNew
-        lblTitleRow3.text = "BILL_DETAIL_COMPANY_NAME".localizedNew
-        lblTitleRow4.text = "BILL_DETAIL_PHASE".localizedNew
-        lblTitleRow5.text = "BILL_DETAIL_VOLTAGE".localizedNew
-        lblTitleRow6.text = "BILL_DETAIL_TARIFE_TYPE".localizedNew
-        lblTitleRow7.text = "BILL_DETAIL_CUSTOMER_TYPE".localizedNew
-        lblTitleRow8.text = "BILL_DETAIL_CUSTOMER_NAME".localizedNew
-        lblTitleRow9.text = "BILL_DETAIL_CUSTOMER_TEL".localizedNew
-        lblTitleRow10.text = "BILL_DETAIL_CUSTOMER_MOB".localizedNew
-        lblTitleRow11.text = "BILL_DETAIL_CUSTOMER_ADD".localizedNew
-        lblTitleRow12.text = "BILL_DETAIL_CUSTOMER_POSTALCODE".localizedNew
-        lblTitleRow13.text = "BILL_DETAIL_CUSTOMER_LOCATION_ZONE".localizedNew
-        lblTitleRow14.text = "BILL_DETAIL_CUSTOMER_DEVICE_NUMBER".localizedNew
-        lblTitleRow15.text = "BILL_DETAIL_DUE_DATE".localizedNew
-        lblTitleRow16.text = "BILL_DETAIL_LAST_READ".localizedNew
-        lblTitleRow17.text = "BILL_DETAIL_POWER".localizedNew
+        lblTitleRow0.text = "BILL_DETAIL_IDENTIFIER".localized
+        lblTitleRow1.text = "BILL_DETAIL_PAY_ID".localized
+        lblTitleRow2.text = "BILL_DETAIL_COMPANY_CODE".localized
+        lblTitleRow3.text = "BILL_DETAIL_COMPANY_NAME".localized
+        lblTitleRow4.text = "BILL_DETAIL_PHASE".localized
+        lblTitleRow5.text = "BILL_DETAIL_VOLTAGE".localized
+        lblTitleRow6.text = "BILL_DETAIL_TARIFE_TYPE".localized
+        lblTitleRow7.text = "BILL_DETAIL_CUSTOMER_TYPE".localized
+        lblTitleRow8.text = "BILL_DETAIL_CUSTOMER_NAME".localized
+        lblTitleRow9.text = "BILL_DETAIL_CUSTOMER_TEL".localized
+        lblTitleRow10.text = "BILL_DETAIL_CUSTOMER_MOB".localized
+        lblTitleRow11.text = "BILL_DETAIL_CUSTOMER_ADD".localized
+        lblTitleRow12.text = "BILL_DETAIL_CUSTOMER_POSTALCODE".localized
+        lblTitleRow13.text = "BILL_DETAIL_CUSTOMER_LOCATION_ZONE".localized
+        lblTitleRow14.text = "BILL_DETAIL_CUSTOMER_DEVICE_NUMBER".localized
+        lblTitleRow15.text = "BILL_DETAIL_DUE_DATE".localized
+        lblTitleRow16.text = "BILL_DETAIL_LAST_READ".localized
+        lblTitleRow17.text = "BILL_DETAIL_POWER".localized
         
         lblDataRow0.text = data.billIdentifier?.inLocalizedLanguage()
         lblDataRow1.text = data.paymentIdentifier?.inLocalizedLanguage()

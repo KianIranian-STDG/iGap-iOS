@@ -39,19 +39,19 @@ class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
             viewController = UIApplication.topViewController()
         }
         
-        let option = UIAlertController(title: "SETTING_PAGE_FINANCIAL_SERVICES".localizedNew, message: "MSG_FINANCIAL_SERVICES".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
+        let option = UIAlertController(title: "SETTING_PAGE_FINANCIAL_SERVICES".localized, message: "MSG_FINANCIAL_SERVICES".localized, preferredStyle: IGGlobal.detectAlertStyle())
         
-        let mobileCharge = UIAlertAction(title: "SETTING_FS_TOP_UP".localizedNew, style: .default, handler: { (action) in
+        let mobileCharge = UIAlertAction(title: "SETTING_FS_TOP_UP".localized, style: .default, handler: { (action) in
             let messagesVc = IGFinancialServiceCharge.instantiateFromAppStroryboard(appStoryboard: .Setting)
             messagesVc.hidesBottomBarWhenPushed = true
             viewController.navigationController!.pushViewController(messagesVc, animated: true)
         })
         
-        let cardToCard = UIAlertAction(title: "SETTING_FS_CARD_TO_CARD_BILLS".localizedNew, style: .default, handler: { (action) in
+        let cardToCard = UIAlertAction(title: "SETTING_FS_CARD_TO_CARD_BILLS".localized, style: .default, handler: { (action) in
             self.sendCardToCardRequest()
         })
         
-        let payBills = UIAlertAction(title: "SETTING_FS_PAY_BILLS".localizedNew, style: .default, handler: { (action) in
+        let payBills = UIAlertAction(title: "SETTING_FS_PAY_BILLS".localized, style: .default, handler: { (action) in
             IGFinancialServiceBill.BillInfo = nil
             IGFinancialServiceBill.isTrafficOffenses = false
             
@@ -60,7 +60,7 @@ class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
             viewController.navigationController!.pushViewController(messagesVc, animated: true)
         })
         
-        let trafficOffenses = UIAlertAction(title: "SETTING_FS_PAY_TRAFFIC_TICKETS".localizedNew, style: .default, handler: { (action) in
+        let trafficOffenses = UIAlertAction(title: "SETTING_FS_PAY_TRAFFIC_TICKETS".localized, style: .default, handler: { (action) in
             IGFinancialServiceBill.BillInfo = nil
             IGFinancialServiceBill.isTrafficOffenses = true
             
@@ -69,7 +69,7 @@ class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
             viewController.navigationController!.pushViewController(messagesVc, animated: true)
         })
         
-        let mobileBillingInquiry = UIAlertAction(title: "SETTING_FS_MBILL_INQUERY".localizedNew, style: .default, handler: { (action) in
+        let mobileBillingInquiry = UIAlertAction(title: "SETTING_FS_MBILL_INQUERY".localized, style: .default, handler: { (action) in
             IGFinancialServiceBillingInquiry.isMobile = true
             
             let messagesVc =  IGFinancialServiceBillingInquiry.instantiateFromAppStroryboard(appStoryboard: .Setting)
@@ -77,7 +77,7 @@ class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
             viewController.navigationController!.pushViewController(messagesVc, animated:true)
         })
         
-        let phoneBillingInquiry = UIAlertAction(title: "SETTING_FS_PHONE_INQUERY".localizedNew, style: .default, handler: { (action) in
+        let phoneBillingInquiry = UIAlertAction(title: "SETTING_FS_PHONE_INQUERY".localized, style: .default, handler: { (action) in
             IGFinancialServiceBillingInquiry.isMobile = false
             
             let messagesVc =  IGFinancialServiceBillingInquiry.instantiateFromAppStroryboard(appStoryboard: .Setting)
@@ -85,7 +85,7 @@ class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
             viewController.navigationController!.pushViewController(messagesVc, animated:true)
         })
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
         option.addAction(cardToCard)
         option.addAction(mobileCharge)
         option.addAction(payBills)

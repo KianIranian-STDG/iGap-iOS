@@ -50,9 +50,9 @@ class IGHelperAlert {
             
             var message: String!
             if isForbidden {
-                message = "FORWARD_PERMISSION".localizedNew
+                message = "FORWARD_PERMISSION".localized
             } else {
-                message = "FORWARD_QUESTION".localizedNew
+                message = "FORWARD_QUESTION".localized
             }
             
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -68,18 +68,18 @@ class IGHelperAlert {
             }
             
             if !isForbidden {
-                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: { (action) in
                     done?()
                 })
                 alert.addAction(okAction)
             }
             
-            let cancelAction = UIAlertAction(title: "FORWARD_CANCEL".localizedNew, style: .default, handler: { (action) in
+            let cancelAction = UIAlertAction(title: "FORWARD_CANCEL".localized, style: .default, handler: { (action) in
                 cancelForward?()
             })
             alert.addAction(cancelAction)
             
-            let anotherRoom = UIAlertAction(title: "ANOTHER_ROOM".localizedNew, style: .default, handler: nil)
+            let anotherRoom = UIAlertAction(title: "ANOTHER_ROOM".localized, style: .default, handler: nil)
             alert.addAction(anotherRoom)
             
             alertView!.present(alert, animated: true, completion: nil)

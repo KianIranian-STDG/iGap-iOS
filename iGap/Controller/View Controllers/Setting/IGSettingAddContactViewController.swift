@@ -32,7 +32,7 @@ class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepS
         super.viewDidLoad()
 
         makeView()
-        btnChooseCountry.setTitle("CHOOSE_COUNTRY".localizedNew, for: .normal)
+        btnChooseCountry.setTitle("CHOOSE_COUNTRY".localized, for: .normal)
         btnChooseCountry.layer.borderColor = UIColor.darkGray.cgColor
         btnChooseCountry.layer.borderWidth = 1.0
         btnChooseCountry.layer.cornerRadius = 15.0
@@ -41,8 +41,8 @@ class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepS
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        edtFirstName.placeholder = "PLACE_HOLDER_F_NAME".localizedNew
-        edtLastName.placeholder = "PLACE_HOLDER_L_NAME".localizedNew
+        edtFirstName.placeholder = "PLACE_HOLDER_F_NAME".localized
+        edtLastName.placeholder = "PLACE_HOLDER_L_NAME".localized
         edtFirstName.font = UIFont.igFont(ofSize: 15.0)
         edtLastName.font = UIFont.igFont(ofSize: 15.0)
         let current : String = SMLangUtil.loadLanguage()
@@ -65,7 +65,7 @@ class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepS
         
     }
     private func navInit() {
-        self.initNavigationBar(title: "ADD_BTN".localizedNew, rightItemText: "", iGapFont: true) {
+        self.initNavigationBar(title: "ADD_BTN".localized, rightItemText: "", iGapFont: true) {
             self.addContact()
         }
     }
@@ -105,8 +105,8 @@ class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepS
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }

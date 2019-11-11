@@ -30,7 +30,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationOptionsTableViewController: 
     
     var twoStepVerification: IGTwoStepVerification?
     var password: String?
-    let EMAIL_PREFIX = "MSG_UNVERIFIED_EMAIL".localizedNew
+    let EMAIL_PREFIX = "MSG_UNVERIFIED_EMAIL".localized
 
     
     @IBAction func btnResendVerificationCode(_ sender: Any) {
@@ -46,7 +46,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationOptionsTableViewController: 
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "", title: "TTL_OPTIONS".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: "", title: "TTL_OPTIONS".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         
         if let pattern = twoStepVerification?.unverifiedEmailPattern {
@@ -55,12 +55,12 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationOptionsTableViewController: 
             txtUnconfirmedEmail.isHidden = true
             btnOutletVerify.isHidden = true
         }
-        lbl1.text = "REMOVE_PASSWORD".localizedNew
-        lbl2.text = "CHANGE_PASSWORD".localizedNew
-        lbl3.text = "CHANGE_HINT".localizedNew
-        lbl4.text = "CHANGE_SECURITY_Q".localizedNew
-        lbl5.text = "SET_CHANGE_RECO_EMAIL".localizedNew
-        btnOutletVerify.setTitle("VERIFY_EMAIL".localizedNew, for: .normal)
+        lbl1.text = "REMOVE_PASSWORD".localized
+        lbl2.text = "CHANGE_PASSWORD".localized
+        lbl3.text = "CHANGE_HINT".localized
+        lbl4.text = "CHANGE_SECURITY_Q".localized
+        lbl5.text = "SET_CHANGE_RECO_EMAIL".localized
+        btnOutletVerify.setTitle("VERIFY_EMAIL".localized, for: .normal)
         btnOutletVerify.titleLabel?.font = UIFont.igFont(ofSize: 17)
 
     }
@@ -116,8 +116,8 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationOptionsTableViewController: 
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:

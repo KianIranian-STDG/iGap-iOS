@@ -27,9 +27,7 @@ var fontDefaultSize: CGFloat = 15.0
 let kIGUserLoggedInNotificationName = "im.igap.ios.user.logged.in"
 let kIGGoBackToMainNotificationName = "im.igap.ios.backed.to.main"
 let kIGChnageLanguageNotificationName = "im.igap.ios.change.language"
-let kIGGoDissmissLangFANotificationName = "im.igap.ios.dismiss.langFA"
-let kIGGoDissmissLangENNotificationName = "im.igap.ios.dismiss.langEN"
-let kIGGoDissmissLangARNotificationName = "im.igap.ios.dismiss.langAR"
+let kIGGoDissmissLangNotificationName = "im.igap.ios.dismiss.lang"
 let kIGNotificationNameDidCreateARoom = "im.igap.ios.room.created"
 let kIGNotificationNameDidCreateARoomAtProfile = "im.igap.ios.room.created.from.profile"
 let kIGNoticationForPushUserExpire = "im.igap.ios.user.expire"
@@ -158,9 +156,11 @@ class IGGlobal {
         
         IGGlobal.timeDic[group]?.lastMillis = currentTime
     }
+    
     internal static func getThread(_ string: String? = nil){
         print("TTT || ", string ?? "" ,Thread.current.isMainThread)
     }
+    
     internal static func isKeyPresentInUserDefaults(key: String) -> Bool {
         return UserDefaults.standard.object(forKey: key) != nil
     }
@@ -177,24 +177,21 @@ class IGGlobal {
     }
     /////SET LANGUAGE//////
     
-    internal static func setLanguage() {
-        if  lastLang == Language.persian.rawValue  {
-            SMLangUtil.changeLanguage(newLang: .Persian)
-            Language.language = Language.persian
-            SMLangUtil.changeLanguage(newLang: .Persian)
-        } else if lastLang == Language.arabic.rawValue {
-            SMLangUtil.changeLanguage(newLang: .Persian)
-            Language.language = Language.arabic
-            SMLangUtil.changeLanguage(newLang: .Persian)
-
-        } else {
-            SMLangUtil.changeLanguage(newLang: .English)
-            Language.language = Language.english
-            SMLangUtil.changeLanguage(newLang: .English)
-
-        }
-        
-    }
+//    internal static func setLanguage() {
+//        if  lastLang == Language.persian.rawValue  {
+//            SMLangUtil.changeLanguage(newLang: .Persian)
+//            Language.language = Language.persian
+//
+//        } else if lastLang == Language.arabic.rawValue {
+//            SMLangUtil.changeLanguage(newLang: .Persian)
+//            Language.language = Language.arabic
+//
+//        } else {
+//            SMLangUtil.changeLanguage(newLang: .English)
+//            Language.language = Language.english
+//        }
+//    }
+    
     /**********************************************/
     /****************** Progress ******************/
     private static var progressHUD = MBProgressHUD()
@@ -891,17 +888,17 @@ extension Date {
     func humanReadableForLastSeen() -> String {
         let differenctToNow = Date().timeIntervalSince1970 - self.timeIntervalSince1970
         if differenctToNow < 10 {
-            return "JUST_NOW".localizedNew
+            return "JUST_NOW".localized
         } else if differenctToNow < 120 {
-            return "IN_A_MINUTE".localizedNew
+            return "IN_A_MINUTE".localized
         } else if differenctToNow < 3600 {
             let minutes = Int(differenctToNow / 60)
-            return "\(minutes)".inLocalizedLanguage() + " " + "MINUTES_AGO".localizedNew
+            return "\(minutes)".inLocalizedLanguage() + " " + "MINUTES_AGO".localized
         } else if differenctToNow < 3600 * 2 {
-            return "AN_HOUR_AGO".localizedNew
+            return "AN_HOUR_AGO".localized
         } else if differenctToNow < 3600 * 24 {
             let hours = Int(differenctToNow / 3600)
-            return "\(hours)".inLocalizedLanguage() + " " + "HOURS_AGO".localizedNew
+            return "\(hours)".inLocalizedLanguage() + " " + "HOURS_AGO".localized
         }
         
         let dateFormatter = DateFormatter()
@@ -909,7 +906,7 @@ extension Date {
         let dateString = self.localizedDate()
         dateFormatter.dateFormat = "h:mm a"
         let timeString = dateFormatter.string(from: self)
-        return dateString.inLocalizedLanguage() + "AT".localizedNew + timeString.inLocalizedLanguage()
+        return dateString.inLocalizedLanguage() + "AT".localized + timeString.inLocalizedLanguage()
         
     }
 }
@@ -1013,7 +1010,7 @@ extension UIViewController {
     
     func showAlert(title: String, message: String, action: (()->())? = nil, completion: (() -> Swift.Void)? = nil) {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default) { (alertAction) in
+        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default) { (alertAction) in
             if let action = action {
                 action()
             }
@@ -1527,8 +1524,11 @@ extension UITextField {
     func getClearButton() -> UIButton? { return value(forKey: "clearButton") as? UIButton }
 }
 extension UITextView {
-    var localizedNewDirection: NSTextAlignment {
-        if lastLang == "en" {
+    
+    var localizedDirection: NSTextAlignment {
+        if LocaleManager.isRTL {
+            return NSTextAlignment.right
+        } else {
             guard let txt = self.text else { return NSTextAlignment.left }
             if (txt.isRTL()) {
                 return NSTextAlignment.right
@@ -1536,48 +1536,44 @@ extension UITextView {
                 return NSTextAlignment.left
             }
         }
-        else {
-            return NSTextAlignment.right
-        }
-        
     }
 
 }
 extension UILabel {
-    var localizedNewDirection: NSTextAlignment {
-        if lastLang == "en" {
+    
+    var localizedDirection: NSTextAlignment {
+        if LocaleManager.isRTL {
+            return NSTextAlignment.right
+        } else {
             guard let txt = self.text else { return NSTextAlignment.left }
-            if (txt.isRTL()) {
+            if txt.isRTL() {
                 return NSTextAlignment.right
             } else {
                 return NSTextAlignment.left
             }
         }
-        else {
-            return NSTextAlignment.right
-        }
-        
     }
     
-    var localizedNewDirectionDescriptions: NSTextAlignment {
-        if lastLang == "en" {
+    var localizedDirectionDescriptions: NSTextAlignment {
+        if LocaleManager.isRTL {
+            return NSTextAlignment.right
+        } else {
             guard let txt = self.text else {return NSTextAlignment.left}
-            if (txt.isRTLDesc()) {
+            if txt.isRTLDesc() {
                 return NSTextAlignment.right
             } else {
                 return NSTextAlignment.left
             }
         }
-        else{
-            return NSTextAlignment.right
-        }
-        
     }
+    
 }
 
 extension EFAutoScrollLabel {
-    var localizedNewDirection: NSTextAlignment {
-        if lastLang == "en" {
+    var localizedDirection: NSTextAlignment {
+        if LocaleManager.isRTL {
+            return NSTextAlignment.right
+        } else {
             guard let txt = self.text else {return NSTextAlignment.left}
             if (txt.isRTL()) {
                 return NSTextAlignment.right
@@ -1585,16 +1581,15 @@ extension EFAutoScrollLabel {
                 return NSTextAlignment.left
             }
         }
-        else{
-            return NSTextAlignment.right
-        }
-        
     }
+    
 }
 
 extension UITextField {
-    var localizedNewDirection: NSTextAlignment {
-        if lastLang == "en" {
+    var localizedDirection: NSTextAlignment {
+        if LocaleManager.isRTL {
+            return NSTextAlignment.right
+        } else {
             guard let txt = self.text else {return NSTextAlignment.left}
             if (txt.isRTL()) {
                 return NSTextAlignment.right
@@ -1602,23 +1597,21 @@ extension UITextField {
                 return NSTextAlignment.left
             }
         }
-        else{
-            return NSTextAlignment.right
-        }
-        
     }
+    
 }
 extension UISearchBar {
     
     func change(textFont : UIFont?) {
-        
         for view : UIView in (self.subviews[0]).subviews {
             
             if let textField = view as? UITextField {
                 textField.font = textFont
             }
         }
-    } }
+    }
+    
+}
 extension String {
     
     var isArabic: Bool {
@@ -1673,88 +1666,42 @@ extension String {
     }
     
     
-    var localizedNew: String {
-        if SMLangUtil.loadLanguage() == "fa" {
-            IGGlobal.languageFileName = "localizationsFa"
-        } else {
-            IGGlobal.languageFileName = "localizationsEn"
-        }
-        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
-        
-        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
-        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
-        
-        return MCLocalization.string(forKey: self) ?? "" //prevent crash if string coud not be fount
+//    var localized: String {
+//        if SMLangUtil.loadLanguage() == "fa" {
+//            IGGlobal.languageFileName = "localizationsFa"
+//        } else {
+//            IGGlobal.languageFileName = "localizationsEn"
+//        }
+//        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
+//
+//        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
+//        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
+//
+//        return MCLocalization.string(forKey: self) ?? "" //prevent crash if string coud not be fount
+//    }
+    
+    var Imagelocalized: String {
+         return NSLocalizedString(self, tableName: "ImageLocalizable", comment: "")
     }
     
-    var TabLocalizedNew: String {
-        if SMLangUtil.loadLanguage() == "fa" {
-            IGGlobal.languageFileName = "TabLocalizationFa"
-        } else {
-            IGGlobal.languageFileName = "TabLocalizationEn"
-        }
-        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
-        
-        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
-        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
-        
-        return MCLocalization.string(forKey: self)
+    var Tablocalized: String {
+         return NSLocalizedString(self, tableName: "TabBarLocalizable", comment: "")
     }
     
-    var RecentTableViewlocalizedNew: String {
-        if SMLangUtil.loadLanguage() == "fa" {
-            IGGlobal.languageFileName = "RecentTableViewlocalizationsFa"
-        } else {
-            IGGlobal.languageFileName = "RecentTableViewlocalizationsEn"
-        }
-        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
-        
-        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
-        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
-        
-        return MCLocalization.string(forKey: self)
+    var RecentTableViewlocalized: String {
+        return NSLocalizedString(self, tableName: "RecentTableViewLocalizable", comment: "")
     }
     
-    var MessageViewlocalizedNew: String {
-        if SMLangUtil.loadLanguage() == "fa" {
-            IGGlobal.languageFileName = "MessageViewlocalizationsFa"
-        } else {
-            IGGlobal.languageFileName = "MessageViewlocalizationsEn"
-        }
-        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
-        
-        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
-        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
-        
-        return MCLocalization.string(forKey: self)  ?? "" //prevent crash if string coud not be fount
+    var MessageViewlocalized: String {
+        return NSLocalizedString(self, tableName: "MessageViewLocalizable", comment: "")
     }
     
     var FinancialHistoryLocalization: String {
-        if SMLangUtil.loadLanguage() == "fa" {
-            IGGlobal.languageFileName = "FinancialHistoryLocalizationsFa"
-        } else {
-            IGGlobal.languageFileName = "FinancialHistoryLocalizationsEn"
-        }
-        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
-        
-        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
-        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
-        
-        return MCLocalization.string(forKey: self)
+        return NSLocalizedString(self, tableName: "FinancialHistoryLocalizable", comment: "")
     }
     
     var InternetPackageLocalization: String {
-        if SMLangUtil.loadLanguage() == "fa" {
-            IGGlobal.languageFileName = "InternetPackageLocalizationsFa"
-        } else {
-            IGGlobal.languageFileName = "InternetPackageLocalizationsEn"
-        }
-        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
-        
-        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
-        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
-        
-        return MCLocalization.string(forKey: self)
+        return NSLocalizedString(self, tableName: "InternetPackageLocalizable", comment: "")
     }
     
     func substring(offset: Int) -> String{
@@ -1797,11 +1744,7 @@ extension String {
         
         let nf = NumberFormatter()
         
-        if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
-            nf.locale = Locale(identifier: "en")
-        } else {
-            nf.locale = Locale(identifier: "fa")
-        }
+        nf.locale = Locale.userPreferred
         
         nf.numberStyle = .decimal
         nf.allowsFloats = false

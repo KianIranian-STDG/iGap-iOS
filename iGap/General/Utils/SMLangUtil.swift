@@ -9,150 +9,106 @@
 import UIKit
 import maincore
 
-var lastLang = ""
+//var lastLang = ""
 class SMLangUtil: NSObject {
 	
 	public enum SMLanguage : String {
-//		case Arabic = "ar"
         case Persian = "fa"
         case English = "en"
         case Arabic = "ar"
 	}
-	
-    static var lang = SMLanguage.English.rawValue
-	
-    
-    static func changeLanguage(newLang: SMLanguage) {
-        UserDefaults.standard.setValue(newLang.rawValue, forKey: "selectedLanguage")
-        UserDefaults.standard.synchronize()
-        MCLocalization.sharedInstance().language = newLang.rawValue
-        lastLang = newLang.rawValue
-        Bundle.setLanguage("en")
-        lang = newLang.rawValue
-    }
-    
     
     static func loadLanguage() -> String {
-        let targetLang = UserDefaults.standard.object(forKey: "selectedLanguage") as? String
-        lang = targetLang ?? SMLanguage.English.rawValue
-        Bundle.setLanguage("en")
-        setAppleLAnguageTo(lang: "en")
-        return lang
-
-    }
-    static func changeOrderToPersian() {
-        Bundle.setLanguage("fa")
-        setAppleLAnguageTo(lang: "fa")
-
-    }
-    static func changeOrderToEn() {
-        Bundle.setLanguage("en")
-        setAppleLAnguageTo(lang: "en")
-
-    }
-    static let APPLE_LANGUAGE_KEY = "AppleLanguages"
-
-    static func currentAppleLanguage() -> String{
-        let userdef = UserDefaults.standard
-        let langArray = userdef.object(forKey: APPLE_LANGUAGE_KEY) as! NSArray
-        let current = langArray.firstObject as! String
-        return current
-    }
-    static func setAppleLAnguageTo(lang: String) {
-        let userdef = UserDefaults.standard
-        userdef.set([lang,currentAppleLanguage()], forKey: APPLE_LANGUAGE_KEY)
-        userdef.synchronize()
+        return Locale.userPreferred.languageCode ?? "en"
     }
     
     static func changeLblText(tag: Int , parentViewController : String) -> (String){
-        
+
         switch parentViewController {
         case "iGap.IGAccountViewController":
             if tag == 1 {
-                return "SETTING_PAGE_ACCOUNT_NIKNAME".localizedNew
+                return "SETTING_PAGE_ACCOUNT_NIKNAME".localized
             }
             else if tag == 2 {
-                return "SETTING_PAGE_ACCOUNT_PHONENUMBER".localizedNew
+                return "SETTING_PAGE_ACCOUNT_PHONENUMBER".localized
             }
-                
+
             else if tag == 3 {
-                return "SETTING_PAGE_ACCOUNT_USERNAME".localizedNew
+                return "SETTING_PAGE_ACCOUNT_USERNAME".localized
             }
-                
+
             else if tag == 4 {
-                return "SETTING_PAGE_ACCOUNT_EMAIL".localizedNew
+                return "SETTING_PAGE_ACCOUNT_EMAIL".localized
             }
-                
+
             else if tag == 5 {
-                return "SETTING_PAGE_ACCOUNT_BIO".localizedNew
+                return "SETTING_PAGE_ACCOUNT_BIO".localized
             }
-                
+
             else if tag == 6 {
-                return "SETTING_PAGE_ACCOUNT_REFERRAL".localizedNew
+                return "SETTING_PAGE_ACCOUNT_REFERRAL".localized
             }
-                
+
             else if tag == 7 {
-                return "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localizedNew
+                return "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localized
             }
-                
+
             else if tag == 8 {
-                return "SETTING_PAGE_ACCOUNT_S_DESTRUCT".localizedNew
+                return "SETTING_PAGE_ACCOUNT_S_DESTRUCT".localized
             }
-                
+
             else if tag == 9 {
-                return "SETTING_PAGE_ACCOUNT_S_DESTRUCT_HINT".localizedNew
+                return "SETTING_PAGE_ACCOUNT_S_DESTRUCT_HINT".localized
             }
-                
-                
+
+
             else if tag == 10 {
-                return "SETTING_PAGE_ACCOUNT_LOGOUT".localizedNew
+                return "SETTING_PAGE_ACCOUNT_LOGOUT".localized
             }
-                
+
             else {
-                return "SETTING_PAGE_ACCOUNT_NIKNAME".localizedNew
+                return "SETTING_PAGE_ACCOUNT_NIKNAME".localized
             }
-            
+
         case "iGap.IGSettingChnageLanguageTableViewController":
             if tag == 1 {
-                return "SETTING_CHL_PERSIAN".localizedNew
+                return "SETTING_CHL_PERSIAN".localized
             }
             else if tag == 2 {
-                return "SETTING_CHL_ENGLISH".localizedNew
+                return "SETTING_CHL_ENGLISH".localized
             }
-                
+
             else if tag == 3 {
-                return "SETTING_CHL_ARABIC".localizedNew
+                return "SETTING_CHL_ARABIC".localized
             }
             else {
-                return "SETTING_CHL_PERSIAN".localizedNew
-                
+                return "SETTING_CHL_PERSIAN".localized
+
             }
         case "iGap.packetTableViewController":
             if tag == 1 {
-                return "TTL_WALLET_BALANCE_USER".localizedNew
+                return "TTL_WALLET_BALANCE_USER".localized
             }
             else if tag == 2 {
-                return "CURRENCY".localizedNew
+                return "CURRENCY".localized
             }
             else if tag == 3 {
-                return "BTN_CASHOUT_WALLET".localizedNew
+                return "BTN_CASHOUT_WALLET".localized
             }
             else if tag == 4 {
-                return "BTN_CHARGE_WALLET".localizedNew
+                return "BTN_CHARGE_WALLET".localized
             }
             else if tag == 5 {
-                return "RECOVER_PASS".localizedNew
+                return "RECOVER_PASS".localized
             }
             else {
-                return "TTL_MY_CARDS".localizedNew
+                return "TTL_MY_CARDS".localized
             }
-            
+
         default:
-            return "".localizedNew
-            
+            return "".localized
+
         }
-        
-        
     }
     
 }

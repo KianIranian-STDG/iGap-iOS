@@ -28,22 +28,22 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
     let PHONE_LENGTH = 11
     var latestPhoneNumber = ""
     
-    let operatorIrancell = "IRANCELL".localizedNew
-    let operatorMCI = "MCI".localizedNew
-    let operatorRightel = "RIGHTEL".localizedNew
-    let operatorNotDetect = "NOT_DETECTED_OPERATOR".localizedNew
+    let operatorIrancell = "IRANCELL".localized
+    let operatorMCI = "MCI".localized
+    let operatorRightel = "RIGHTEL".localized
+    let operatorNotDetect = "NOT_DETECTED_OPERATOR".localized
     
-    let normalCharge = "NORMAL_CHARGE".localizedNew
-    let amazingCharge = "AMAZING_CHARGE".localizedNew
-    let wimaxCharge = "WIMAX_CHARGE".localizedNew
-    let permanently = "PERMANENTLY_SIM_CART".localizedNew
+    let normalCharge = "NORMAL_CHARGE".localized
+    let amazingCharge = "AMAZING_CHARGE".localized
+    let wimaxCharge = "WIMAX_CHARGE".localized
+    let permanently = "PERMANENTLY_SIM_CART".localized
     
     let P1000: Int64 = 10000
     let P2000: Int64 = 20000
     let P5000: Int64 = 50000
     let P10000: Int64 = 100000
     let P20000: Int64 = 200000
-    let rials = "CURRENCY".localizedNew
+    let rials = "CURRENCY".localized
     
     var operatorDictionary: [String:IGOperator] =
         ["0910":IGOperator.mci,
@@ -86,7 +86,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         
         edtPhoneNubmer.delegate = self
         
-        initNavigationBar(title: "SETTING_FS_TOP_UP".localizedNew) {}
+        initNavigationBar(title: "SETTING_FS_TOP_UP".localized) {}
         manageButtonsView(buttons: [btnOperator,btnChargeType,btnPrice,btnBuy])
         ButtonViewActivate(button: btnOperator, isEnable: false)
     }
@@ -95,14 +95,14 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         initCHangeLang()
     }
     func initCHangeLang() {
-        txtOperatorTransport.text = "PORTED_SUBSCRIBER_DESABLE".localizedNew
+        txtOperatorTransport.text = "PORTED_SUBSCRIBER_DESABLE".localized
         txtOperatorTransport.textColor = UIColor.gray
 
-        edtPhoneNubmer.placeholder = "PLACE_HOLDER_MOBILE_NUM".localizedNew
-        self.btnPrice.setTitle("CHARGE_PRICE".localizedNew, for: UIControl.State.normal)
-        self.btnBuy.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
-        self.btnOperator.setTitle("CHOOSE_OPERATOR".localizedNew, for: UIControl.State.normal)
-        self.btnChargeType.setTitle("CHOOSE_CHARGE_TYPE".localizedNew, for: UIControl.State.normal)
+        edtPhoneNubmer.placeholder = "PLACE_HOLDER_MOBILE_NUM".localized
+        self.btnPrice.setTitle("CHARGE_PRICE".localized, for: UIControl.State.normal)
+        self.btnBuy.setTitle("BTN_PAY".localized, for: UIControl.State.normal)
+        self.btnOperator.setTitle("CHOOSE_OPERATOR".localized, for: UIControl.State.normal)
+        self.btnChargeType.setTitle("CHOOSE_CHARGE_TYPE".localized, for: UIControl.State.normal)
 
     }
     
@@ -151,7 +151,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         }
         
         operatorChargeType = nil
-        self.btnChargeType.setTitle("CHOOSE_CHARGE_TYPE".localizedNew, for: UIControl.State.normal)
+        self.btnChargeType.setTitle("CHOOSE_CHARGE_TYPE".localized, for: UIControl.State.normal)
     }
     
     private func showAlertView(title: String, message: String?, subtitles: [String], alertClouser: @escaping ((_ title :String) -> Void), hasCancel: Bool = true){
@@ -164,7 +164,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
             option.addAction(action)
         }
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
         
         option.addAction(cancel)
         
@@ -173,7 +173,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
     
     private func showErrorAlertView(title: String, message: String?, dismiss: Bool = false){
         let option = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .cancel, handler: { (action) in
+        let ok = UIAlertAction(title: "GLOBAL_OK".localized, style: .cancel, handler: { (action) in
             if dismiss {
                 self.navigationController?.popViewController(animated: true)
             }
@@ -195,11 +195,11 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
     @IBAction func switchToggle(_ sender: UISwitch) {
         if sender.isOn {
             operatorTransport = true
-            txtOperatorTransport.text = "PORTED_SUBSCRIBER_ENABLE".localizedNew
+            txtOperatorTransport.text = "PORTED_SUBSCRIBER_ENABLE".localized
             txtOperatorTransport.textColor = UIColor.iGapDarkGreenColor()
         } else {
             operatorTransport = false
-            txtOperatorTransport.text = "PORTED_SUBSCRIBER_DESABLE".localizedNew
+            txtOperatorTransport.text = "PORTED_SUBSCRIBER_DESABLE".localized
             txtOperatorTransport.textColor = UIColor.gray
             
             if operatorTypeBackup != nil {
@@ -212,7 +212,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
     }
     
     @IBAction func btnChooseOperator(_ sender: UIButton) {
-        showAlertView(title: "CHOOSE_OPERATOR".localizedNew, message: nil, subtitles: [operatorIrancell,operatorMCI,operatorRightel], alertClouser: { (title) -> Void in
+        showAlertView(title: "CHOOSE_OPERATOR".localized, message: nil, subtitles: [operatorIrancell,operatorMCI,operatorRightel], alertClouser: { (title) -> Void in
             
             switch title {
             case self.operatorIrancell:
@@ -241,7 +241,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
             chargeType = [normalCharge,amazingCharge,wimaxCharge,permanently]
         }
         
-        showAlertView(title: "TOPUP_TYPE".localizedNew, message: nil, subtitles: chargeType, alertClouser: { (title) -> Void in
+        showAlertView(title: "TOPUP_TYPE".localized, message: nil, subtitles: chargeType, alertClouser: { (title) -> Void in
             
             switch title {
             case self.normalCharge:
@@ -281,7 +281,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         
         let chargePrice = ["\(P1000) \(rials)" , "\(P2000) \(rials)" , "\(P5000) \(rials)", "\(P10000) \(rials)", "\(P20000) \(rials)"]
         
-        showAlertView(title: "CHARGE_PRICE".localizedNew, message: nil, subtitles: chargePrice, alertClouser: { (title) -> Void in
+        showAlertView(title: "CHARGE_PRICE".localized, message: nil, subtitles: chargePrice, alertClouser: { (title) -> Void in
             switch title {
             case "\(self.P1000) \(self.rials)":
                 self.chargeAmount = self.P1000
@@ -313,12 +313,12 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         }
         
         if (phoneNumber.count) < 11 || !phoneNumber.isNumber ||  (operatorDictionary[(phoneNumber.substring(offset: 4))] == nil) {
-            showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: "PHONE_NUMBER_WRONG".localizedNew)
+            showErrorAlertView(title: "GLOBAL_WARNING".localized, message: "PHONE_NUMBER_WRONG".localized)
             return
         }
         
         if operatorChargeType == nil || chargeAmount == nil {
-            showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: "CHECK_ALL_FIELDS".localizedNew)
+            showErrorAlertView(title: "GLOBAL_WARNING".localized, message: "CHECK_ALL_FIELDS".localized)
             return
         }
         
@@ -336,13 +336,13 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
                         let paymentView = IGPaymentView.sharedInstance
                         if success {
                             guard let paymentData = payment else {
-                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
                                 return
                             }
-                            paymentView.show(on: UIApplication.shared.keyWindow!, title: "MCI_CHARGE".localizedNew, payToken: token, payment: paymentData)
+                            paymentView.show(on: UIApplication.shared.keyWindow!, title: "MCI_CHARGE".localized, payToken: token, payment: paymentData)
                         } else {
                             
-                            paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: "MCI_CHARGE".localizedNew, message: errorMessage ?? "", payToken: token)
+                            paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: "MCI_CHARGE".localized, message: errorMessage ?? "", payToken: token)
                         }
                     })
                     
@@ -358,7 +358,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
                     if getTokenResponse.igpStatus == 0 { //success
                         self.registerTopup(token: getTokenResponse.igpToken)
                     } else {
-                        self.showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: getTokenResponse.igpMessage)
+                        self.showErrorAlertView(title: "GLOBAL_WARNING".localized, message: getTokenResponse.igpMessage)
                     }
                 }
             }).error ({ (errorCode, waitTime) in
@@ -366,8 +366,8 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -390,7 +390,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
     }
     
     func TopupMerchantError(errorType: Int) {
-        showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: "PAYMENT_ERROR_ACCURED".localizedNew, dismiss: true)
+        showErrorAlertView(title: "GLOBAL_WARNING".localized, message: "PAYMENT_ERROR_ACCURED".localized, dismiss: true)
     }
     
     

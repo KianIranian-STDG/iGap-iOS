@@ -1,0 +1,130 @@
+/*
+* This is the source code of iGap for iOS
+* It is licensed under GNU AGPL v3.0
+* You should have received a copy of the license in this archive (see LICENSE).
+* Copyright © 2017 , iGap - www.iGap.net
+* iGap Messenger | Free, Fast and Secure instant messaging application
+* The idea of the Kianiranian STDG - www.kianiranian.com
+* All rights reserved.
+*/
+
+"SELECTED" = "انتخاب شده";
+"LONG_PRESS_TO_RECORD" = "برای ضبط صدا نگه دارید...";
+"SLIDE_TO_CANCEL" = "برای لغو شدن به چپ بکشید..";
+"MESSAGE" = "پیام";
+"SEND_PHOTO" = "ارسال تصویر";
+"CANCEL_BTN" = "بستن";
+"UNPIN_ARE_U_SURE" = "آیا از برداشته شدن پین این پیام مطمئن هستید؟";
+"UNPIN_FOR_ALL" = "برداشتن پین برای همه";
+"UNPIN_FOR_ME" = "برداشتن پین برای من فقط";
+"PIN_ARE_U_SURE" = "آیا از پین شدن این پیام مطمئن هستید؟";
+"PINN" = "پین کردن";
+"UNPINN" = "برداشتن پین";
+"TIME_OUT" = "عدم امکان اتصال به سرور";
+"MSG_PLEASE_TRY_AGAIN" = "لطفا مجددا امتحان نمایید.";
+"GLOBAL_OK" = "تایید";
+"BTN_CASHOUT_WALLET" = "برداشت از کیف پول";
+"CARD_TO_CARD" = "کارت به کارت";
+"FILL_AMOUNT" = "لطفا فیلد مبلغ را پر نمایید";
+"CARD_TO_CARD_REQUEST" = "درخواست کارت به کارت";
+"CAMERA_DEVICE" = "دوربین دستگاه";
+"PHOTO_GALLERY" = "گالری تصاویر";
+"FILE" = "فایل";
+"CONTACT" = "مخاطب";
+"LOCATION" = "موقعیت مکانی";
+"PHOTO_OR_VIDEO" = "عکس یا فیلم";
+"DOCUMENT" = "داکیومنت";
+"STICKERS" = "استیکر ها";
+"EDITE_MESSAGE" = "ویرایش پیغام";
+"REPLY" = "پاسخ";
+"FORWARD" = "ارسال";
+"LBL_STICKER" = "استیکر";
+"CARD_TO_CARD_MESSAGE" = "پیام کارت به کارت";
+"CARD_TO_CARD_FILL_INFO" = "لطفاً متن درخواست خود را وارد کنید !";
+"REPORT_REASON" = "علت گزارش تخلف";
+"SPAM" = "اسپم";
+"ABUSE" = "محتوای توهین آمیز و آزاردهنده";
+"VIOLENCE" = "محتوای خشونت آمیز";
+"FAKE_ACCOUNT" = "حساب کاربری تقلبی";
+"PORNOGRAPHY" = "محتوای مستهحن";
+"OTHER" = "موارد دیگر";
+"GLOBAL_WARNING" = "خطا";
+"NO_NETWORK" = "خطا در برقراری اتصال به اینترنت";
+"Loading ..." = "در حال دریافت ...";
+"COPY" = "رونوشت";
+"PASTE" = "الصاق";
+"BTN_EDITE" = "ویرایش";
+"SHARE" = "اشتراک گذاری";
+"REPORT" = "گزارش تخلف";
+"MORE" = "بیشتر";
+"BTN_DELETE" = "حذف";
+"DELETE_FOR_ME" = "حذف برای من فقط";
+"DELETE_FOR_ME_AND" = "حذف کردن برای من و ";
+"SEND_AGAIN" = "ارسال مجدد";
+"UNSSUCCESS_OTP" = "مشکلی پیش آمد.مجددا تلاش کنید";
+"GROUP_DOES_NOT_EXIST" = "این گروه گویا وجود ندارد";
+"ARE_U_SURE_TO_JOIN" = "آیا از عضویت در این کانال مطمئن هستید؟";
+"SUCCESS" = "عملیات موفق";
+"U_JOINED" = "شما پیوستید ";
+"TO" = "به";
+"YESTERDAY" = "دیروز";
+"TODAY" = "امروز";
+
+"OPEN_NOW" = "باز کن";
+"MY_CLOUD" = "فضای ابری من";
+"SHARE_TO" = "ارسال به";
+"SELECT_CHATS" = "انتخاب گفت و گو";
+"GLOBAL_DONE" = "تایید";
+"FORWARDED_FROM" = "ارسال شده از";
+"FORWARDED_MESSAGE" = "پیام ارسال شده";
+"RECORDED_BY" = "ضبط شده توسط =";
+"RECORDED_VOICE" = "صدای ضبط شده";
+"GLOBAL_TO" = "به";
+"GLOBAL_FROM" = "از";
+"TTL_INVOICE_NUMBER" = "شماره صورتحساب";
+"PRICE" = "مبلغ";
+"TRACE_NUMBER" = "شماره پیگیری";
+"WALLET_TRANSFER_MONEY" = "انتقال وجه کیف پول";
+"CURRENCY" = "ریال";
+"NO_DESCRIPTION" = "توضیحی ثبت نشده است";
+"DESCRIPTION" = "توضیحات";
+"TTL_REFERENCE_NUMBER" = "شماره مرجع";
+"TTL_CARDNUM" = "شماره کارت";
+"TTL_ACCOUNT_OWNER_NAME" = "نام دارنده حساب";
+"PAYMENT_TRANSFER_MONEY" = "انتقال وجه پرداخت";
+"CARD_TRANSFER_MONEY" = "انتقال وجه کارت به کارت";
+"TTL_DESTI_CARDNUM" = "شماره کارت مقصد";
+"SOURCE_BANK" = "بانک مبدا";
+"DEST_CARD" = "کارت مقصد";
+"DEST_BANK" = "بانک مقصد";
+"CLEAR_HISTORY_LOCAL" = "پاک کردن تاریخچه از گوشی";
+"DRAFT" = "پیش نویس = ";
+"DELETED_MESSAGE" = "پیام حذف شده";
+"FORWARDED_FROM" = "ارسال شده از";
+"FORWARDED_MESSAGE" = "پیام ارسال شده";
+"IMAGES_MESSAGE" = "پیام تصویری";
+"VIDEOS_MESSAGE" =  "پیام ویدیویی";
+"GIFS_MESSAGE" = "پیام تصویر متحرک";
+"AUDIOS_MESSAGE" = "پیام صوتی";
+"VOICES_MESSAGE" = "پیام ضبط شده";
+"FILES_MESSAGE" = "پیام با محتوای فایل";
+"STICKERS_MESSAGE" = "پیام استیکر";
+"WALLET_MESSAGE" = "پیام کیف پول";
+"PAYMENT_MESSAGE" = "پیام پرداخت";
+"CARD_TO_CARD_MESSAGE" = "پیام کارت به کارت";
+"UNKNOWN_MESSAGE" = "پیام ناشناس";
+"UNKNOWN_ARTIST" = "خواننده نامشخص";
+"UNKNOWN_AUDIO" = "موسیقی فاقد نام";
+"CONTACT_MESSAGE" = "پیام مخاطب";
+"LOCATION_MESSAGE" = "پیام موقعیت مکانی";
+"NO_NETWORK" = "خطا در برقراری اتصال به اینترنت";
+"TTL_AMOUNT" = "مبلغ =";
+"PRODUCTS_DETAILS" = "شرح پیام =";
+"REQUEST_CARD_TO_CARD" = "ارسال درخواست کارت به کارت";
+"EDITED" = "ویرایش شده";
+"CALL" = "تماس";
+"ADD_CONTACT" = "اضافه کردن مخاطب";
+"CALL_QUESTION" = "با کدام شماره می خواهید تماس برقرار کنید؟";
+"ADD_CONTACT_QUESATION" = "آیا میخواهید این شماره را به مخاطبین خود اضافه کنید؟";
+
+"START" = "شروع";

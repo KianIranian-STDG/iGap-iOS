@@ -36,17 +36,17 @@ class IGLookAndFindCell: UITableViewCell {
     
     func setHeader(type: IGSearchType){
         if type == .channel {
-            txtHeader.text = "SETTING_PS_CHANNELS".localizedNew
+            txtHeader.text = "SETTING_PS_CHANNELS".localized
         } else if type == .group {
-            txtHeader.text = "SETTING_PS_GROUPS".localizedNew
+            txtHeader.text = "SETTING_PS_GROUPS".localized
         } else if type == .user {
-            txtHeader.text = "CONTACTS".localizedNew
+            txtHeader.text = "CONTACTS".localized
         } else if type == .bot {
-            txtHeader.text = "BOT".localizedNew
+            txtHeader.text = "BOT".localized
         } else if type == .message {
-            txtHeader.text = "MESSAGE_TITLE".localizedNew
+            txtHeader.text = "MESSAGE_TITLE".localized
         } else if type == .hashtag {
-            txtHeader.text = "HASHTAGS".localizedNew
+            txtHeader.text = "HASHTAGS".localized
         }
     }
     

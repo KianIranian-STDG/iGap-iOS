@@ -187,7 +187,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
             
             for package in packages {
                 let desc = package.description ?? ""
-                let title = desc + " " + "\(package.cost ?? 0)".onlyDigitChars().inRialFormat() + " " + "CURRENCY".localizedNew
+                let title = desc + " " + "\(package.cost ?? 0)".onlyDigitChars().inRialFormat() + " " + "CURRENCY".localized
                 let action = UIAlertAction(title: title, style: .default, handler: { (action) in
                     packageAlertClouser!(package)
                 })
@@ -195,7 +195,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
             }
         }
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
         
 //        cancel.setValue(UIColor.darkGray, forKey: "titleTextColor")
         option.addAction(cancel)
@@ -278,13 +278,13 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
         }
         
         if (phoneNumber.count) < 11 || !phoneNumber.isNumber ||  (operatorDictionary[(phoneNumber.substring(offset: 4))] == nil) {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "PHONE_NUMBER_WRONG".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "PHONE_NUMBER_WRONG".localized, cancelText: "GLOBAL_CLOSE".localized)
 
             return
         }
         
         if selectedCategory == nil || selectedPackage == nil {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localized, cancelText: "GLOBAL_CLOSE".localized)
 
             return
         }
@@ -303,7 +303,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
                         let paymentView = IGPaymentView.sharedInstance
                         if success {
                             guard let paymentData = payment else {
-                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
                                 return
                             }
                             paymentView.show(on: UIApplication.shared.keyWindow!, title: "BUY_INTERNET_PACKAGE".InternetPackageLocalization, payToken: token, payment: paymentData)
@@ -339,7 +339,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
                 
                 if operatorType != .mci {
                     self.view.endEditing(true)
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "BUY_INTERNET_PACKAGE_IS_ONLY_POSSIBLE_FOR_MCI_USERS".InternetPackageLocalization, cancelText: "GLOBAL_CLOSE".localizedNew)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "BUY_INTERNET_PACKAGE_IS_ONLY_POSSIBLE_FOR_MCI_USERS".InternetPackageLocalization, cancelText: "GLOBAL_CLOSE".localized)
 
                     return true
                 }

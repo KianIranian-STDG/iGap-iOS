@@ -33,7 +33,7 @@ class IGHelperJoin {
                 IGGlobal.prgHide()
                 if let clinetCheckInvitedlink = protoResponse as? IGPClientCheckInviteLinkResponse {
                     
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "iGap", showIconView: true, showDoneButton: false, showCancelButton: true, message: "Are you sure want to join \(clinetCheckInvitedlink.igpRoom.igpTitle)?",doneText: "GLOBAL_OK".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,done: {
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "iGap", showIconView: true, showDoneButton: false, showCancelButton: true, message: "Are you sure want to join \(clinetCheckInvitedlink.igpRoom.igpTitle)?",doneText: "GLOBAL_OK".localized, cancelText: "GLOBAL_CLOSE".localized,done: {
                         self.joinRoombyInvitedLink(room:clinetCheckInvitedlink.igpRoom, invitedToken: token)
                     })
 
@@ -77,7 +77,7 @@ class IGHelperJoin {
                     break
                 case .clientJoinByInviteLinkForbidden:
                     
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: "GROUP_DOES_NOT_EXIST".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "GROUP_DOES_NOT_EXIST".localized, cancelText: "GLOBAL_CLOSE".localized)
                     
                 case .clientJoinByInviteLinkAlreadyJoined:
                     self.openChatAfterJoin(room: IGRoom(igpRoom: room), before: true)
@@ -94,13 +94,13 @@ class IGHelperJoin {
         
         var beforeString = ""
         if before {
-            beforeString = "BEFORE".localizedNew + " "
+            beforeString = "BEFORE".localized + " "
         }
         
         DispatchQueue.main.async {
                         
-            let msg = "U_JOINED".localizedNew + " " + beforeString + "TO".localizedNew + room.title!
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localizedNew, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg,doneText: "OPEN_NOW".localizedNew, cancelText: "GLOBAL_CLOSE".localizedNew,done: {
+            let msg = "U_JOINED".localized + " " + beforeString + "TO".localized + room.title!
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg,doneText: "OPEN_NOW".localized, cancelText: "GLOBAL_CLOSE".localized,done: {
 
                 let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let chatPage = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController

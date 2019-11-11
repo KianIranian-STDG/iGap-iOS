@@ -38,14 +38,14 @@ class SMBank: SMEntity {
         switch (code) {
         case 1: //parsian
             key = 1
-            nameFA = "bank_parsian".localizedNew
+            nameFA = "bank_parsian".localized
             logoRes = "bank_logo_parsian"
             color = 0xFF92000e
             break
         case 2: //saman
             
             key = 2
-            nameFA = "bank_saman".localizedNew
+            nameFA = "bank_saman".localized
             logoRes = "bank_logo_saman"
             color = 0xFF2ab1ea
             //    backgroundDrawable = getBack(color)
@@ -53,7 +53,7 @@ class SMBank: SMEntity {
         case 3: //mellat
             
             key = 3
-            nameFA = "bank_mellat".localizedNew
+            nameFA = "bank_mellat".localized
             logoRes = "bank_logo_mellat"
             color = 0xFFa7002f
             //    backgroundDrawable = getBack(color)
@@ -61,7 +61,7 @@ class SMBank: SMEntity {
         case 4: //eghtesad novin
             
             key = 4
-            nameFA = "bank_eghtesad_novin".localizedNew
+            nameFA = "bank_eghtesad_novin".localized
             logoRes = "bank_logo_eghtesad_novin"
             color = 0xFFBEA4C7
             //    backgroundDrawable = getBack(color)
@@ -69,7 +69,7 @@ class SMBank: SMEntity {
         case 5: //pasargad
             
             key = 5
-            nameFA = "bank_pasargad".localizedNew
+            nameFA = "bank_pasargad".localized
             logoRes = "bank_logo_pasargad"
             color = 0xFF797676
             //    backgroundDrawable = getBack(color)
@@ -77,7 +77,7 @@ class SMBank: SMEntity {
         case 6: //karafarin
             
             key = 6
-            nameFA = "bank_karafarin".localizedNew
+            nameFA = "bank_karafarin".localized
             logoRes = "bank_logo_karafarin"
             color = 0xFF90B39D
             //    backgroundDrawable = getBack(color)
@@ -85,7 +85,7 @@ class SMBank: SMEntity {
         case 7: //sarmayeh
             
             key = 7
-            nameFA = "bank_sarmayeh".localizedNew
+            nameFA = "bank_sarmayeh".localized
             logoRes = "bank_logo_sarmayeh"
             color = 0xFFA3AEBE
             //    backgroundDrawable = getBack(color)
@@ -93,7 +93,7 @@ class SMBank: SMEntity {
         case 8: //melli
             
             key = 8
-            nameFA = "bank_melli".localizedNew
+            nameFA = "bank_melli".localized
             logoRes = "bank_logo_melli"
             color = 0xFF8BA3DC
             //    backgroundDrawable = getBack(color)
@@ -101,7 +101,7 @@ class SMBank: SMEntity {
         case 9: //sepah
             
             key = 9
-            nameFA = "bank_sepah".localizedNew
+            nameFA = "bank_sepah".localized
             logoRes = "bank_logo_sepah"
             color = 0xFF94B1D6
             //    backgroundDrawable = getBack(color)
@@ -109,7 +109,7 @@ class SMBank: SMEntity {
         case 10: //dey
             
             key = 10
-            nameFA = "bank_dey".localizedNew
+            nameFA = "bank_dey".localized
             logoRes = "bank_logo_dey"
             color = 0xFF74B1BF
             //    backgroundDrawable = getBack(color)
@@ -117,7 +117,7 @@ class SMBank: SMEntity {
         case 11: //tejarat
             
             key = 11
-            nameFA = "bank_tejarat".localizedNew
+            nameFA = "bank_tejarat".localized
             logoRes = "bank_logo_tejarat"
             color = 0xFF94BEE2
             //    backgroundDrawable = getBack(color)
@@ -126,7 +126,7 @@ class SMBank: SMEntity {
             
             key = 12
             
-            nameFA = "bank_refah".localizedNew
+            nameFA = "bank_refah".localized
             logoRes = "bank_logo_refah"
             color = 0xFF959BB4
             //    backgroundDrawable = getBack(color)
@@ -134,7 +134,7 @@ class SMBank: SMEntity {
         case 13: //saderat
             
             key = 13
-            nameFA = "bank_saderat".localizedNew
+            nameFA = "bank_saderat".localized
             logoRes = "bank_logo_saderat"
             color = 0xFF93BAD6
             //    backgroundDrawable = getBack(color)
@@ -142,7 +142,7 @@ class SMBank: SMEntity {
         case 14: //maskan
             
             key = 14
-            nameFA = "bank_maskan".localizedNew
+            nameFA = "bank_maskan".localized
             logoRes = "bank_logo_maskan"
             color = 0xFFDAB68C
             //    backgroundDrawable = getBack(color)
@@ -150,7 +150,7 @@ class SMBank: SMEntity {
         case 15: //shahr
             
             key = 15
-            nameFA = "bank_shahr".localizedNew
+            nameFA = "bank_shahr".localized
             logoRes = "bank_logo_shahr"
             color = 0xFFE19196
             //    backgroundDrawable = getBack(color)
@@ -158,7 +158,7 @@ class SMBank: SMEntity {
         case 16: //sina
             
             key = 16
-            nameFA = "bank_sina".localizedNew
+            nameFA = "bank_sina".localized
             logoRes = "bank_logo_sina"
             color = 0xFF94BEE2
             //    backgroundDrawable = getBack(color)
@@ -166,7 +166,7 @@ class SMBank: SMEntity {
         case 17: //keshavarzi
             
             key = 17
-            nameFA = "bank_keshavarzi".localizedNew
+            nameFA = "bank_keshavarzi".localized
             logoRes = "bank_logo_keshavarzi"
             color = 0xFFD1C78A
             //    backgroundDrawable = getBack(color)
@@ -174,7 +174,7 @@ class SMBank: SMEntity {
         case 18: //markazi
             
             key = 18
-            nameFA = "bank_markazi".localizedNew
+            nameFA = "bank_markazi".localized
             logoRes = "bank_logo_markazi"
             color = 0xFF97A1D6
             //    backgroundDrawable = getBack(color)
@@ -182,7 +182,7 @@ class SMBank: SMEntity {
         case 19: //gardeshgari
             
             key = 19
-            nameFA = "bank_gardeshgari".localizedNew
+            nameFA = "bank_gardeshgari".localized
             logoRes = "bank_logo_gardeshgari"
             color = 0xFFE6767D
             //    backgroundDrawable = getBack(color)
@@ -190,7 +190,7 @@ class SMBank: SMEntity {
         case 20: //post bank
             
             key = 20
-            nameFA = "bank_post_bank".localizedNew
+            nameFA = "bank_post_bank".localized
             logoRes = "bank_logo_post"
             color = 0xFF81B67D
             //    backgroundDrawable = getBack(color)
@@ -198,7 +198,7 @@ class SMBank: SMEntity {
         case 21: //ansar
             
             key = 21
-            nameFA = "bank_ansar".localizedNew
+            nameFA = "bank_ansar".localized
             logoRes = "bank_logo_ansar"
             color = 0xFFBFB174
             //    backgroundDrawable = getBack(color)
@@ -206,7 +206,7 @@ class SMBank: SMEntity {
         case 22: //iran zamin
             
             key = 22
-            nameFA = "bank_iran_zamin".localizedNew
+            nameFA = "bank_iran_zamin".localized
             logoRes = "bank_logo_iran_zamin"
             color = 0xFFCAA4DC
             //    backgroundDrawable = getBack(color)
@@ -214,7 +214,7 @@ class SMBank: SMEntity {
         case 23: //ayandeh
             
             key = 23
-            nameFA = "bank_ayandeh".localizedNew
+            nameFA = "bank_ayandeh".localized
             
             logoRes = "bank_logo_ayandeh"
             color = 0xFFBF9D74
@@ -223,7 +223,7 @@ class SMBank: SMEntity {
         case 24: //resalat
             
             key = 24
-            nameFA = "bank_resalat".localizedNew
+            nameFA = "bank_resalat".localized
             logoRes = "bank_logo_resalat"
             color = 0xFF97C0CA
             //    backgroundDrawable = getBack(color)
@@ -231,7 +231,7 @@ class SMBank: SMEntity {
         case 25: //tosee taavon
             
             key = 25
-            nameFA = "bank_tosee_taavon".localizedNew
+            nameFA = "bank_tosee_taavon".localized
             logoRes = "bank_logo_tosee_taavon"
             color = 0xFF99C4C9
             //    backgroundDrawable = getBack(color)
@@ -239,7 +239,7 @@ class SMBank: SMEntity {
         case 26: //tosee saderat
             
             key = 26
-            nameFA = "bank_tosee_saderat".localizedNew
+            nameFA = "bank_tosee_saderat".localized
             logoRes = "bank_logo_tosee_saderat"
             color = 0xFF92B691
             //    backgroundDrawable = getBack(color)
@@ -247,7 +247,7 @@ class SMBank: SMEntity {
         case 27: //hekmat iranian
             
             key = 27
-            nameFA = "bank_hekmat_iranian".localizedNew
+            nameFA = "bank_hekmat_iranian".localized
             logoRes = "bank_logo_hekmat_iranian"
             color = 0xFF89A3E9
             //    backgroundDrawable = getBack(color)
@@ -255,7 +255,7 @@ class SMBank: SMEntity {
         case 28: //sanat o madan
             
             key = 28
-            nameFA = "bank_sanato_madan".localizedNew
+            nameFA = "bank_sanato_madan".localized
             logoRes = "bank_logo_sanato_madan"
             color = 0xFF95B0D9
             //    backgroundDrawable = getBack(color)
@@ -263,7 +263,7 @@ class SMBank: SMEntity {
         case 29: //ghavamin
             
             key = 29
-            nameFA = "bank_ghavamin".localizedNew
+            nameFA = "bank_ghavamin".localized
             logoRes = "bank_logo_ghavamin"
             color = 0xFF74A776
             //    backgroundDrawable = getBack(color)
@@ -271,7 +271,7 @@ class SMBank: SMEntity {
         case 30: //mehr iran
             
             key = 30
-            nameFA = "bank_mehr_iran".localizedNew
+            nameFA = "bank_mehr_iran".localized
             logoRes = "bank_logo_mehr_iran"
             color = 0xFFA4C79D
             //    backgroundDrawable = getBack(color)
@@ -279,7 +279,7 @@ class SMBank: SMEntity {
         case 31: //mehr eghtesad
             
             key = 31
-            nameFA = "bank_mehr_eghtesad".localizedNew
+            nameFA = "bank_mehr_eghtesad".localized
             logoRes = "bank_logo_mehr_eghtesad"
             color = 0xFFA4C79D
             //    backgroundDrawable = getBack(color)
@@ -287,7 +287,7 @@ class SMBank: SMEntity {
         case 32: //etebari kosar
             
             key = 32
-            nameFA = "bank_etebari_kosar".localizedNew
+            nameFA = "bank_etebari_kosar".localized
             logoRes = "bank_logo_etebari_kosar"
             color = 0xFFCC8581
             //    backgroundDrawable = getBack(color)
@@ -295,7 +295,7 @@ class SMBank: SMEntity {
         case 33: //etebari tosee
             
             key = 33
-            nameFA = "bank_etebari_tosee".localizedNew
+            nameFA = "bank_etebari_tosee".localized
             logoRes = "bank_logo_etebari_tosee"
             color = 0xFFB36C70
             //    backgroundDrawable = getBack(color)
@@ -304,7 +304,7 @@ class SMBank: SMEntity {
             
             key = 34
             
-            nameFA = "bank_etebari_asgarieh".localizedNew
+            nameFA = "bank_etebari_asgarieh".localized
             logoRes = "bank_logo_etebari_asgarieh"
             color = 0xFF8998BF
             //    backgroundDrawable = getBack(color)
@@ -312,14 +312,14 @@ class SMBank: SMEntity {
         case 69: //paygear
             
             key = 69
-            nameFA = "paygear_card".localizedNew
+            nameFA = "paygear_card".localized
             logoRes = ""
             color = 0xffffff
             //    backgroundDrawable = getBack(color)
             break
             
         default:
-            nameFA = "paygear_card".localizedNew
+            nameFA = "paygear_card".localized
             logoRes = ""
             color = 0xffffff
         }

@@ -24,7 +24,7 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
         super.viewDidLoad()
 //        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PS_ACTIVE_SESSIONS".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PS_ACTIVE_SESSIONS".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -100,7 +100,7 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == otherSessions.count + 1 {
             if otherSessions.count > 0 {
-                return "SETTINGS_PS_TERMINATE_ALL_EXEPT".localizedNew
+                return "SETTINGS_PS_TERMINATE_ALL_EXEPT".localized
             } else {
                 return nil
             }
@@ -112,12 +112,12 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
         var headerText = ""
         switch section {
         case 0:
-            headerText = "SETTING_PS_AS_CURRENT_SESSIONS".localizedNew
+            headerText = "SETTING_PS_AS_CURRENT_SESSIONS".localized
         case 1:
             if otherSessions.count > 0 {
-                headerText = "SETTING_PS_ACTIVE_SESSIONS".localizedNew
+                headerText = "SETTING_PS_ACTIVE_SESSIONS".localized
             } else {
-                headerText = "SETTING_PS_NO_MORE_ACTIVE_SESSIONS".localizedNew
+                headerText = "SETTING_PS_NO_MORE_ACTIVE_SESSIONS".localized
             }
         default:
             break
@@ -141,16 +141,16 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
             var headerText = ""
             switch section {
             case 0:
-                headerText = "SETTING_PS_AS_CURRENT_SESSIONS".localizedNew
+                headerText = "SETTING_PS_AS_CURRENT_SESSIONS".localized
                 containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
 
             case 1:
                 if otherSessions.count > 0 {
-                    headerText = "SETTING_PS_ACTIVE_SESSIONS".localizedNew
+                    headerText = "SETTING_PS_ACTIVE_SESSIONS".localized
                     containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
 
                 } else {
-                    headerText = "SETTING_PS_NO_MORE_ACTIVE_SESSIONS".localizedNew
+                    headerText = "SETTING_PS_NO_MORE_ACTIVE_SESSIONS".localized
                     containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
 
                 }
@@ -159,11 +159,11 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
             }
             containerView.textLabel!.text = headerText
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
         }
         else {
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
 
         }
     }
@@ -174,13 +174,13 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
         if section == 0 {
             if section == otherSessions.count + 1 {
                 if otherSessions.count > 0 {
-                    containerView.textLabel!.text = "SETTINGS_PS_TERMINATE_ALL_EXEPT".localizedNew
+                    containerView.textLabel!.text = "SETTINGS_PS_TERMINATE_ALL_EXEPT".localized
                 } else {
                     containerView.textLabel!.text = nil
                 }
             }
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
             containerView.textLabel?.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
         }
         else {
@@ -199,17 +199,17 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
             self.tableView.isUserInteractionEnabled = false
             performSegue(withIdentifier: "GoToActiveSessionDetailsPage", sender: self)
         } else {
-            let logoutConfirmAlertView = UIAlertController(title: "SETTING_PS_AS_SURE_TO_TERMINATE".localizedNew, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-            let logoutAction = UIAlertAction(title: "TERMINATE".localizedNew, style:.default , handler: { _ in
+            let logoutConfirmAlertView = UIAlertController(title: "SETTING_PS_AS_SURE_TO_TERMINATE".localized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+            let logoutAction = UIAlertAction(title: "TERMINATE".localized, style:.default , handler: { _ in
                 self.terminateAllSession()
             })
-            let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style:.cancel , handler: { _ in
+            let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style:.cancel , handler: { _ in
             })
             logoutConfirmAlertView.addAction(logoutAction)
             logoutConfirmAlertView.addAction(cancelAction)
             let alertActions = logoutConfirmAlertView.actions
             for action in alertActions {
-                if action.title == "TERMINATE".localizedNew{
+                if action.title == "TERMINATE".localized{
                     let logoutColor = UIColor.red
                     action.setValue(logoutColor, forKey: "titleTextColor")
                 }
@@ -250,8 +250,8 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
                 IGGlobal.prgHide()
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:

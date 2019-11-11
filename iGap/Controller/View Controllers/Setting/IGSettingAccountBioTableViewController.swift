@@ -36,7 +36,7 @@ class IGSettingAccountBioTableViewController: UITableViewController , UIGestureR
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "SETTING_PAGE_ACCOUNT_BIO".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: "SETTING_PAGE_ACCOUNT_BIO".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         navigationItem.rightViewContainer?.addAction {
             if self.canDoAction {
@@ -46,7 +46,7 @@ class IGSettingAccountBioTableViewController: UITableViewController , UIGestureR
         
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
-        bioTextField.placeholder = "SETTING_PAGE_ACCOUNT_BIO".localizedNew
+        bioTextField.placeholder = "SETTING_PAGE_ACCOUNT_BIO".localized
         bioTextField.font = UIFont.igFont(ofSize: 17)
     }
     

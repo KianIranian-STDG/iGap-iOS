@@ -25,8 +25,8 @@ class SMHistoryDetailTableViewCell: UITableViewCell {
         initChangeCellLang()
     }
     func initChangeCellLang() {
-        value.textAlignment = value.localizedNewDirection
-        title.textAlignment = value.localizedNewDirection
+        value.textAlignment = value.localizedDirection
+        title.textAlignment = value.localizedDirection
 
     }
 

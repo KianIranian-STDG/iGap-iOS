@@ -15,13 +15,13 @@ class SMStringUtil {
         
         switch type {
         case 0:
-            return "TTL_CHARGE".localizedNew
+            return "TTL_CHARGE".localized
         case 1:
-            return "TTL_PREPAID".localizedNew
+            return "TTL_PREPAID".localized
         case 2:
-            return "TTL_INCASH".localizedNew
+            return "TTL_INCASH".localized
         case 3:
-            return "TTL_PAYMENT_GATEWAY".localizedNew
+            return "TTL_PAYMENT_GATEWAY".localized
             
         default:
             return ""
@@ -59,9 +59,5 @@ class SMStringUtil {
         
         return sb
     }
-    
-    
-    
-    
     
 }

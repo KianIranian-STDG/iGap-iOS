@@ -110,7 +110,7 @@ class IGPaymentView: UIView {
         if let description = payment.info.product?.description {
             self.descriptionLbl.text = description
         }
-        self.amountDescriptionLbl.text = "PLACE_HOLDER_AMOUNT".localizedNew
+        self.amountDescriptionLbl.text = "PLACE_HOLDER_AMOUNT".localized
         if let price = payment.info.price {
             self.amountLbl.text = "\(price)".onlyDigitChars().inRialFormat()
         }
@@ -118,8 +118,8 @@ class IGPaymentView: UIView {
         self.mainSV.isHidden = false
         self.statusSV.isHidden = true
         self.acceptBtn.isHidden = false
-        self.cancelBtn.setTitle("BTN_CANCEL".localizedNew, for: .normal)
-        self.acceptBtn.setTitle("PU_PAYMENT".localizedNew, for: .normal)
+        self.cancelBtn.setTitle("BTN_CANCEL".localized, for: .normal)
+        self.acceptBtn.setTitle("PU_PAYMENT".localized, for: .normal)
         self.cancelBtn.backgroundColor = UIColor.iGapRed()
         
         self.errorMessageLbl.isHidden = true
@@ -151,7 +151,7 @@ class IGPaymentView: UIView {
         if let description = paymentStatusData.info?.product?.description {
             self.descriptionLbl.text = description
         }
-        self.amountDescriptionLbl.text = "PLACE_HOLDER_AMOUNT".localizedNew
+        self.amountDescriptionLbl.text = "PLACE_HOLDER_AMOUNT".localized
         if let price = paymentStatusData.info?.price {
             self.amountLbl.text = "\(price)".onlyDigitChars().inRialFormat()
         }
@@ -165,11 +165,11 @@ class IGPaymentView: UIView {
         self.mainSV.isHidden = false
         self.statusSV.isHidden = false
         self.statusDescriptionLbl.text = message
-        self.statusCodeLbl.text = "PAYMENT_ORDER_ID".localizedNew + ": " + RRN.inLocalizedLanguage()
+        self.statusCodeLbl.text = "PAYMENT_ORDER_ID".localized + ": " + RRN.inLocalizedLanguage()
         
         self.errorMessageLbl.isHidden = true
         self.acceptBtn.isHidden = true
-        self.cancelBtn.setTitle("BTN_CLOSE".localizedNew, for: .normal)
+        self.cancelBtn.setTitle("BTN_CLOSE".localized, for: .normal)
         
         switch status {
             
@@ -237,7 +237,7 @@ class IGPaymentView: UIView {
         self.statusSV.isHidden = true
         
         self.acceptBtn.isHidden = true
-        self.cancelBtn.setTitle("BTN_CLOSE".localizedNew, for: .normal)
+        self.cancelBtn.setTitle("BTN_CLOSE".localized, for: .normal)
         self.cancelBtn.backgroundColor = UIColor.iGapYellow()
     }
     

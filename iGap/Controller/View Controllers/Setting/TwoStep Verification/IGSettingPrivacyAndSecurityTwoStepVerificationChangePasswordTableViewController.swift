@@ -30,8 +30,8 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangePasswordTableViewContr
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        lblPass.text = "SETTING_PS_TV_PASSWORD".localizedNew
-        lblVerify.text = "SETTING_PS_TV_VERIFY_PASSWORD".localizedNew
+        lblPass.text = "SETTING_PS_TV_PASSWORD".localized
+        lblVerify.text = "SETTING_PS_TV_VERIFY_PASSWORD".localized
     }
     
 }

@@ -136,7 +136,7 @@ class IGCallsTableViewController: BaseTableViewController {
                 switch  currentTabIndex {
                 case TabBarTab.Recent.rawValue:
                     let navItem = self.navigationItem as! IGNavigationItem
-                    navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localizedNew)
+                    navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localized)
                 default:
                     self.initNavigationBar()
                 }
@@ -242,7 +242,7 @@ class IGCallsTableViewController: BaseTableViewController {
     
     private func showClearHistoryActionSheet() {
         var actionTitle: String!
-        actionTitle = "CLEAR_HISTORY".localizedNew
+        actionTitle = "CLEAR_HISTORY".localized
         let deleteConfirmAlertView = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let deleteAction = UIAlertAction(title: actionTitle , style:.default , handler: { (action) in
             if IGAppManager.sharedManager.userID() != nil {
@@ -275,7 +275,7 @@ class IGCallsTableViewController: BaseTableViewController {
                 }).send()
             }
         })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style:.cancel , handler: {
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style:.cancel , handler: {
             (alert: UIAlertAction) -> Void in
         })
         deleteConfirmAlertView.addAction(deleteAction)
@@ -309,7 +309,7 @@ class IGCallsTableViewController: BaseTableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if callLogList!.count == 0 {
-            self.tableView!.setEmptyMessage("CALL_LISTT_EMPTY".localizedNew)
+            self.tableView!.setEmptyMessage("CALL_LISTT_EMPTY".localized)
         } else {
             self.tableView!.restore()
         }
@@ -455,19 +455,19 @@ extension IGCallsTableViewController: UICollectionViewDataSource, UICollectionVi
         
         switch callTypes[indexPath.item] {
         case .all:
-            cell.lbl.text = "FILTER_ALL_CALL".localizedNew
+            cell.lbl.text = "FILTER_ALL_CALL".localized
             break
         case .canceled:
-            cell.lbl.text = "FILTER_CANCELED_CALL".localizedNew
+            cell.lbl.text = "FILTER_CANCELED_CALL".localized
             break
         case .incoming:
-            cell.lbl.text = "FILTER_INCOMMING_CALL".localizedNew
+            cell.lbl.text = "FILTER_INCOMMING_CALL".localized
             break
         case .missed:
-            cell.lbl.text = "FILTER_MISSED_CALL".localizedNew
+            cell.lbl.text = "FILTER_MISSED_CALL".localized
             break
         case .outgoing:
-            cell.lbl.text = "FILTER_OUTGOING_CALL".localizedNew
+            cell.lbl.text = "FILTER_OUTGOING_CALL".localized
             break
         default:
             break
@@ -493,19 +493,19 @@ extension IGCallsTableViewController: UICollectionViewDataSource, UICollectionVi
         
         switch callTypes[indexPath.item] {
         case .all:
-            typeStr = "FILTER_ALL_CALL".localizedNew
+            typeStr = "FILTER_ALL_CALL".localized
             break
         case .canceled:
-            typeStr = "FILTER_CANCELED_CALL".localizedNew
+            typeStr = "FILTER_CANCELED_CALL".localized
             break
         case .incoming:
-            typeStr = "FILTER_INCOMMING_CALL".localizedNew
+            typeStr = "FILTER_INCOMMING_CALL".localized
             break
         case .missed:
-            typeStr = "FILTER_MISSED_CALL".localizedNew
+            typeStr = "FILTER_MISSED_CALL".localized
             break
         case .outgoing:
-            typeStr = "FILTER_OUTGOING_CALL".localizedNew
+            typeStr = "FILTER_OUTGOING_CALL".localized
             break
         default:
             break

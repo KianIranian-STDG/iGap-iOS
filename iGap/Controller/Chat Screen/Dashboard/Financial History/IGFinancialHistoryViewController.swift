@@ -53,7 +53,7 @@ class IGFinancialHistoryViewController: BaseViewController {
         
         self.transactionTypesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
         
-        self.initNavigationBar(title: "FINANCIAL_TRANSACTIONS_HISTORY".localizedNew) {}
+        self.initNavigationBar(title: "FINANCIAL_TRANSACTIONS_HISTORY".localized) {}
         
         self.setupSpinner()
         
@@ -122,19 +122,19 @@ extension IGFinancialHistoryViewController: UICollectionViewDataSource, UICollec
         
         switch transactionTypes[indexPath.item] {
         case .none:
-            label.text = "TRANSACTIONS_HISTORY_NONE".localizedNew
+            label.text = "TRANSACTIONS_HISTORY_NONE".localized
             break
         case .bill:
-            label.text = "TRANSACTIONS_HISTORY_BILL".localizedNew
+            label.text = "TRANSACTIONS_HISTORY_BILL".localized
             break
         case .topup:
-            label.text = "TRANSACTIONS_HISTORY_ُTOPUP".localizedNew
+            label.text = "TRANSACTIONS_HISTORY_ُTOPUP".localized
             break
         case .sales:
-            label.text = "TRANSACTIONS_HISTORY_ُSALES".localizedNew
+            label.text = "TRANSACTIONS_HISTORY_ُSALES".localized
             break
         case .cardToCard:
-            label.text = "TRANSACTIONS_HISTORY_CARD_TO_CARD".localizedNew
+            label.text = "TRANSACTIONS_HISTORY_CARD_TO_CARD".localized
             break
         default:
             break
@@ -160,19 +160,19 @@ extension IGFinancialHistoryViewController: UICollectionViewDataSource, UICollec
         
         switch transactionTypes[indexPath.item] {
         case .none:
-            typeStr = "TRANSACTIONS_HISTORY_NONE".localizedNew
+            typeStr = "TRANSACTIONS_HISTORY_NONE".localized
             break
         case .bill:
-            typeStr = "TRANSACTIONS_HISTORY_BILL".localizedNew
+            typeStr = "TRANSACTIONS_HISTORY_BILL".localized
             break
         case .topup:
-            typeStr = "TRANSACTIONS_HISTORY_ُTOPUP".localizedNew
+            typeStr = "TRANSACTIONS_HISTORY_ُTOPUP".localized
             break
         case .sales:
-            typeStr = "TRANSACTIONS_HISTORY_ُSALES".localizedNew
+            typeStr = "TRANSACTIONS_HISTORY_ُSALES".localized
             break
         case .cardToCard:
-            typeStr = "TRANSACTIONS_HISTORY_CARD_TO_CARD".localizedNew
+            typeStr = "TRANSACTIONS_HISTORY_CARD_TO_CARD".localized
             break
         default:
             break
@@ -236,34 +236,35 @@ extension IGFinancialHistoryViewController: UITableViewDataSource, UITableViewDe
             
             switch transaction.igpType {
             case .none:
-                cell.titleLbl.text = "TRANSACTIONS_HISTORY_NONE".localizedNew
+                cell.titleLbl.text = "TRANSACTIONS_HISTORY_NONE".localized
                 break
             case .bill:
-                cell.titleLbl.text = "TRANSACTIONS_HISTORY_BILL".localizedNew
+                cell.titleLbl.text = "TRANSACTIONS_HISTORY_BILL".localized
                 break
             case .topup:
-                cell.titleLbl.text = "TRANSACTIONS_HISTORY_ُTOPUP".localizedNew
+                cell.titleLbl.text = "TRANSACTIONS_HISTORY_ُTOPUP".localized
                 break
             case .sales:
-                cell.titleLbl.text = "TRANSACTIONS_HISTORY_ُSALES".localizedNew
+                cell.titleLbl.text = "TRANSACTIONS_HISTORY_ُSALES".localized
                 break
             case .cardToCard:
-                cell.titleLbl.text = "TRANSACTIONS_HISTORY_CARD_TO_CARD".localizedNew
+                cell.titleLbl.text = "TRANSACTIONS_HISTORY_CARD_TO_CARD".localized
                 break
             case .UNRECOGNIZED(_):
-                cell.titleLbl.text = "TRANSACTIONS_HISTORY_UNRECOGNIZED".localizedNew
+                cell.titleLbl.text = "TRANSACTIONS_HISTORY_UNRECOGNIZED".localized
                 break
             }
             
-            cell.tokenLbl.text = "TRANSACTIONS_HISTORY_ORDER_ID".localizedNew + ": " + "\(transaction.igpOrderID)".inLocalizedLanguage()
+            cell.tokenLbl.text = "TRANSACTIONS_HISTORY_ORDER_ID".localized + ": " + "\(transaction.igpOrderID)".inLocalizedLanguage()
             
             let payTimeSecond = Double(transaction.igpPayTime)
             var dateComps: (Int?, Int?, Int?, Int?, Int?, String?)!
             
-            if self.isAppEnglish {
-                dateComps = SMDateUtil.toGregorianYearMonthDayHoureMinuteWeekDay(payTimeSecond)
-            } else {
+            if self.isRTL {
                 dateComps = SMDateUtil.toPersianYearMonthDayHoureMinuteWeekDay(payTimeSecond)
+                
+            } else {
+                dateComps = SMDateUtil.toGregorianYearMonthDayHoureMinuteWeekDay(payTimeSecond)
             }
             
             cell.dateLbl.text = "\(dateComps.0 ?? 0)/\(dateComps.1 ?? 0)/\(dateComps.2 ?? 0)".inLocalizedLanguage()

@@ -28,7 +28,7 @@ class IGDeleteAccountReasonViewController: UITableViewController , UIGestureReco
         thirdCellTickImageView.isHidden = true
         self.tableView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localized)
         
         let navigationController = self.navigationController as! IGNavigationController
         navigationItem.navigationController = self.navigationController as? IGNavigationController

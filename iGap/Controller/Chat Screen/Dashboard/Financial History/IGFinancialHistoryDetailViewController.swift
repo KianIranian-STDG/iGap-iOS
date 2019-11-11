@@ -108,7 +108,7 @@ class IGFinancialHistoryDetailViewController: BaseViewController {
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-//                    IGHelperAlert.shared.showAlert(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew)
+//                    IGHelperAlert.shared.showAlert(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized)
                 }
             default:
                 break
@@ -122,10 +122,10 @@ class IGFinancialHistoryDetailViewController: BaseViewController {
         let payTimeSecond = Double(info.igpPayTime)
         var dateComps: (Int?, Int?, Int?, Int?, Int?, String?)!
         
-        if self.isAppEnglish {
-            dateComps = SMDateUtil.toGregorianYearMonthDayHoureMinuteWeekDay(payTimeSecond)
-        } else {
+        if self.isRTL {
             dateComps = SMDateUtil.toPersianYearMonthDayHoureMinuteWeekDay(payTimeSecond)
+        } else {
+            dateComps = SMDateUtil.toGregorianYearMonthDayHoureMinuteWeekDay(payTimeSecond)
         }
         
         self.payDateLbl.text = "\(dateComps.5 ?? "")\n\(dateComps.0 ?? 0)/\(dateComps.1 ?? 0)/\(dateComps.2 ?? 0)".inLocalizedLanguage()

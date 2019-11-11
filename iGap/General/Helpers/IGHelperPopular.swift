@@ -50,7 +50,7 @@ class IGHelperPopular {
             viewController.present(activityVC, animated: true, completion: nil)
         } else {
             
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "Share Problem", showIconView: true, showDoneButton: false, showCancelButton: true, message: "Unfortunately you can't share this file!", cancelText: "GLOBAL_CLOSE".localizedNew)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "Share Problem", showIconView: true, showDoneButton: false, showCancelButton: true, message: "Unfortunately you can't share this file!", cancelText: "GLOBAL_CLOSE".localized)
 
         }
     }

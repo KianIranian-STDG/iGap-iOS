@@ -10,7 +10,7 @@
 
 import UIKit
 
-class IGProfileUserCellTypeRed: UITableViewCell {
+class IGProfileUserCellTypeRed: BaseTableViewCell {
 
     @IBOutlet weak var lblActionName : UILabel!
     @IBOutlet weak var lblActionDetail : UILabel!
@@ -38,23 +38,19 @@ class IGProfileUserCellTypeRed: UITableViewCell {
 
     }
     private func defaultInitLabels() {
-        lblActionName.textAlignment = lblActionName.localizedNewDirection
-        lblActionDetail.textAlignment = lblActionDetail.localizedNewDirection
+        lblActionName.textAlignment = lblActionName.localizedDirection
+        lblActionDetail.textAlignment = lblActionDetail.localizedDirection
         lblActionDetail.font = UIFont.igFont(ofSize: 15)
         lblActionName.font = UIFont.igFont(ofSize: 15)
 
     }
     private func changedInitLabels() {
-        if  lastLang == Language.persian.rawValue  {
+        if self.isRTL {
             lblActionDetail.textAlignment = .left
-
-        } else if  lastLang == Language.english.rawValue  {
-            lblActionDetail.textAlignment = .right
-
         } else {
-            
+            lblActionDetail.textAlignment = .right
         }
-        lblActionName.textAlignment = lblActionName.localizedNewDirection
+        lblActionName.textAlignment = lblActionName.localizedDirection
         lblActionDetail.font = UIFont.igFont(ofSize: 15)
         lblActionName.font = UIFont.igFont(ofSize: 15)
 

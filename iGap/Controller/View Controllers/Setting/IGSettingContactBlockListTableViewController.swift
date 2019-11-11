@@ -54,7 +54,7 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
     
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PS_BLOCKED_USERS".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PS_BLOCKED_USERS".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -74,15 +74,15 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.isUserInteractionEnabled = true
 //        if let containerView = tableView.footerView(forSection: 0) {
-//            containerView.textLabel!.text = "MSG_NO_MSG_FRM_BLOCKED_USERS".localizedNew
+//            containerView.textLabel!.text = "MSG_NO_MSG_FRM_BLOCKED_USERS".localized
 //            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-//            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+//            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
 //            containerView.sizeToFit()
 //        }
 //        if let header = tableView.headerView(forSection: 0) {
-//            header.textLabel!.text = "SETTING_PS_BLOCKED_USERS".localizedNew
+//            header.textLabel!.text = "SETTING_PS_BLOCKED_USERS".localized
 //            header.textLabel?.font = UIFont.igFont(ofSize: 15)
-//            header.textLabel?.textAlignment = (header.textLabel?.localizedNewDirection)!
+//            header.textLabel?.textAlignment = (header.textLabel?.localizedDirection)!
 //
 //            header.sizeToFit()
 //        }
@@ -100,14 +100,14 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BlockedCell", for: indexPath) as! IGSettingContactBlockTableViewCell
         let lastRowIndex = self.tableView.numberOfRows(inSection: 0) - 1
         if indexPath.row == lastRowIndex {
-            cell.blockedContactName.text = "SETTING_PS_BLOCK_A_CONTACT".localizedNew
+            cell.blockedContactName.text = "SETTING_PS_BLOCK_A_CONTACT".localized
             cell.blockedContactName.textColor = UIColor.organizationalColor()
             cell.accessoryType = UITableViewCell.AccessoryType.none
         } else {
             cell.blockedContactName.text = blockedUsers[indexPath.row].displayName
         }
         
-        let btnUnblock = MGSwipeButton(title: "UNBLOCK".localizedNew, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
+        let btnUnblock = MGSwipeButton(title: "UNBLOCK".localized, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
             if !self.blockedUsers[indexPath.row].isInvalidated {
                 self.unblockedUser(blockedUserId: self.blockedUsers[indexPath.row].id)
             }
@@ -141,28 +141,28 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "MSG_NO_MSG_FRM_BLOCKED_USERS".localizedNew
+        return "MSG_NO_MSG_FRM_BLOCKED_USERS".localized
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        return "SETTING_CONTACTS_BLOCKLIST".localizedNew
+        return "SETTING_CONTACTS_BLOCKLIST".localized
     }
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         if section == 0 {
             let containerView = view as! UITableViewHeaderFooterView
-            containerView.textLabel!.text = "MSG_NO_MSG_FRM_BLOCKED_USERS".localizedNew
+            containerView.textLabel!.text = "MSG_NO_MSG_FRM_BLOCKED_USERS".localized
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
         }
     }
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if section == 0 {
             let containerView = view as! UITableViewHeaderFooterView
-            containerView.textLabel!.text = "SETTING_CONTACTS_BLOCKLIST".localizedNew
+            containerView.textLabel!.text = "SETTING_CONTACTS_BLOCKLIST".localized
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
         }
     }
     
@@ -175,7 +175,7 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
         return 50
     }
     override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        return "UNBLOCK".localizedNew
+        return "UNBLOCK".localized
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -202,8 +202,8 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
@@ -233,8 +233,8 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)

@@ -28,7 +28,7 @@ class IGScoreHistoryViewController: BaseViewController, UICollectionViewDelegate
         initNavigationBar()
         customizeView()
         manageShowActivties(isFirst: true)
-        btnScan.setTitle("SETTING_PAGE_QRCODE_SCANNER".localizedNew, for: .normal)
+        btnScan.setTitle("SETTING_PAGE_QRCODE_SCANNER".localized, for: .normal)
         btnScan.titleLabel!.font = UIFont.igFont(ofSize: 15)
     }
     
@@ -46,7 +46,7 @@ class IGScoreHistoryViewController: BaseViewController, UICollectionViewDelegate
     
     func initNavigationBar() {
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SCORE_HISTORY".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SCORE_HISTORY".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -68,9 +68,9 @@ class IGScoreHistoryViewController: BaseViewController, UICollectionViewDelegate
     
     private func manageShowActivties(isFirst: Bool = false){
         if isFirst {
-            self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
+            self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localized)
         } else if iVandActivities.count == 0 {
-            self.collectionView!.setEmptyMessage("PU_NODATA".localizedNew)
+            self.collectionView!.setEmptyMessage("PU_NODATA".localized)
         } else {
             self.collectionView!.restore()
         }

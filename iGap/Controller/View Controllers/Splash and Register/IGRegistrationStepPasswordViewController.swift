@@ -28,12 +28,12 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(SMLangUtil.currentAppleLanguage())
+//        print(SMLangUtil.currentAppleLanguage())
         
         self.passwordTextField.isSecureTextEntry = true
         initView()
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localizedNew, title: "AUTH_VERIFYMOBILE".localizedNew)
+        navigaitonItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localized, title: "AUTH_VERIFYMOBILE".localized)
         navigaitonItem.rightViewContainer?.addAction {
             self.view.endEditing(false)
             self.nextStep()
@@ -44,7 +44,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
         
     }
     func initView() {
-        btnForgetPass.setTitle("FORGET_PASSWORD".localizedNew, for: .normal)
+        btnForgetPass.setTitle("FORGET_PASSWORD".localized, for: .normal)
         
         btnForgetPass.titleLabel?.font = UIFont.igFont(ofSize: 15)
         btnForgetPass.layer.cornerRadius = 10
@@ -52,13 +52,13 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        lblHeader.text = "twoStepVerfi_HEADER".localizedNew
+        lblHeader.text = "twoStepVerfi_HEADER".localized
         self.passwordTextField.becomeFirstResponder()
-        print(SMLangUtil.currentAppleLanguage())
+//        print(SMLangUtil.currentAppleLanguage())
 
 //        IGGlobal.setLanguage()
 
-        print(SMLangUtil.currentAppleLanguage())
+//        print(SMLangUtil.currentAppleLanguage())
 
         IGUserTwoStepVerificationGetPasswordDetailRequest.Generator.generate().success({ (responseProto) in
             DispatchQueue.main.async {
@@ -84,21 +84,16 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
                     if let hasValidEmail = interpretedResponse.hasVerifiedEmailAddress {
                         self.recoverTypeArray.removeAll()
                         if hasValidEmail {
-                           
-                            print(SMLangUtil.currentAppleLanguage())
                             
 //                            IGGlobal.setLanguage()
                             
-                            print(SMLangUtil.currentAppleLanguage())
 
                             self.recoverTypeArray.append(IGStringsManager.GLOBAL_EMAIL.localized)
                             self.recoverTypeArray.append(IGStringsManager.GLOBAL_SECURITY_QUESTIONS.localized)
                         } else {
-                            print(SMLangUtil.currentAppleLanguage())
                             
 //                            IGGlobal.setLanguage()
                             
-                            print(SMLangUtil.currentAppleLanguage())
                             print(self.recoverTypeArray)
 
 //                            IGGlobal.setLanguage()
@@ -127,8 +122,8 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
     func nextStep() {
         if passwordTextField.text==nil || passwordTextField.text=="" {
             DispatchQueue.main.async {
-                let alertVC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "PLEASE_ENTER_PASS".localizedNew, preferredStyle: .alert)
-                let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                let alertVC = UIAlertController(title: "GLOBAL_WARNING".localized, message: "PLEASE_ENTER_PASS".localized, preferredStyle: .alert)
+                let ok = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
                 alertVC.addAction(ok)
                 self.present(alertVC, animated: true, completion: nil)
             }
@@ -245,12 +240,6 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
     
     @IBAction func didTapOnBtnForgetPass(_ sender: Any) {
         
-        print(SMLangUtil.currentAppleLanguage())
-        
-//        IGGlobal.setLanguage()
-        
-        print(SMLangUtil.currentAppleLanguage())
-
         let alert = UIAlertController(
             title: nil,
             message: nil,

@@ -48,7 +48,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         changeMessagePreview(font: fontDefaultSize)
 
         messageTimePreview.text = messageTimePreview.text?.inLocalizedLanguage()
-        lblMessagePreview.textAlignment =  messageTimePreview.localizedNewDirection
+        lblMessagePreview.textAlignment =  messageTimePreview.localizedDirection
         
     }
     
@@ -58,33 +58,33 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
     
     func initChangeLang() {
         // MARK: - Section 0
-        lblChatBG.text = "CHAT_BG".localizedNew
-        lblMessagePreview.text = "CHAT_PREVIEW_SAMPLE".localizedNew
+        lblChatBG.text = "CHAT_BG".localized
+        lblMessagePreview.text = "CHAT_PREVIEW_SAMPLE".localized
         // MARK: - Section 1
-        lblDarkTheme.text = "DARK_THEME".localizedNew
-        lblLightTheme.text = "LIGHT_THEME".localizedNew
+        lblDarkTheme.text = "DARK_THEME".localized
+        lblLightTheme.text = "LIGHT_THEME".localized
         // MARK: - Section 2
-//        lblEnableAnimation.text = "ENABLE_ANIMATIONS".localizedNew
-        lblStickers.text = "STICKERS".localizedNew
-        lblInAppBrowser.text = "SETTING_PAGE_IN_APP_BROWSER".localizedNew
+//        lblEnableAnimation.text = "ENABLE_ANIMATIONS".localized
+        lblStickers.text = "STICKERS".localized
+        lblInAppBrowser.text = "SETTING_PAGE_IN_APP_BROWSER".localized
 
     }
     func initDefaultNav() {
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "CHAT_SETTINGS".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "CHAT_SETTINGS".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
     }
     func initView() {
-        if lastLang == "fa" {
+        if self.isRTL {
             lblMinA.font = UIFont.systemFont(ofSize: 20)
             lblMaxA.font = UIFont.systemFont(ofSize: 12)
             viewMessagePreview.layer.cornerRadius = 15.0
             viewMessagePreview.roundCorners(corners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner], radius: 15.0)
 
-        } else if lastLang == "en" {
+        } else {
             lblMinA.font = UIFont.systemFont(ofSize: 12)
             lblMaxA.font = UIFont.systemFont(ofSize: 20)
             viewMessagePreview.roundCorners(corners: [.layerMinXMaxYCorner,.layerMinXMinYCorner,.layerMaxXMaxYCorner], radius: 15.0)
@@ -204,7 +204,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
     //MARK:-HEADER CONFIGS
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let containerFooterView = view as! UITableViewHeaderFooterView
-        containerFooterView.textLabel?.textAlignment = containerFooterView.textLabel!.localizedNewDirection
+        containerFooterView.textLabel?.textAlignment = containerFooterView.textLabel!.localizedDirection
         switch section {
         case 0  :
             containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15)
@@ -220,10 +220,10 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "TEXT_SIZE".localizedNew
+            return "TEXT_SIZE".localized
         case 1:
             if #available(iOS 13.0, *) {
-               // return "COLOR_THEME".localizedNew
+               // return "COLOR_THEME".localized
                 return ""
 
             } else {
@@ -231,7 +231,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
 
             }
         case 2:
-            return "OTHER".localizedNew
+            return "OTHER".localized
         default:
             return ""
         }

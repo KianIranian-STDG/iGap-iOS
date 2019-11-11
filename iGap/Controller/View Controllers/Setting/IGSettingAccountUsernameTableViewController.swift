@@ -40,7 +40,7 @@ class IGSettingAccountUsernameTableViewController: UITableViewController , UIGes
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "SETTING_PAGE_ACCOUNT_USERNAME".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: "SETTING_PAGE_ACCOUNT_USERNAME".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         navigationItem.rightViewContainer?.addAction {
             self.didTapOnDoneButton()
@@ -65,14 +65,14 @@ class IGSettingAccountUsernameTableViewController: UITableViewController , UIGes
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         if section == 0 {
             let containerView = view as! UITableViewHeaderFooterView
-            containerView.textLabel!.text = "USERNAME_VALID_CHARS".localizedNew
+            containerView.textLabel!.text = "USERNAME_VALID_CHARS".localized
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
         }
     }
 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "USERNAME_VALID_CHARS".localizedNew
+        return "USERNAME_VALID_CHARS".localized
 
     }
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -102,12 +102,12 @@ class IGSettingAccountUsernameTableViewController: UITableViewController , UIGes
                             self.statusActivityIndicatorView.isHidden = true
                             self.statusActivityIndicatorView.stopAnimating()
                             self.statusLabel.textColor = UIColor.red
-                            self.statusLabel.text = "MSG_INVALID_USERNAME".localizedNew
+                            self.statusLabel.text = "MSG_INVALID_USERNAME".localized
                         case .taken:
                             self.statusActivityIndicatorView.isHidden = true
                             self.statusActivityIndicatorView.stopAnimating()
                             self.statusLabel.textColor = UIColor.red
-                            self.statusLabel.text = "MSG_TAKEN_USERNAME".localizedNew
+                            self.statusLabel.text = "MSG_TAKEN_USERNAME".localized
                         default:
                             break
                         }
@@ -130,7 +130,7 @@ class IGSettingAccountUsernameTableViewController: UITableViewController , UIGes
             }).send()
         } else {
             statusLabel.textColor = UIColor.red
-            statusLabel.text = "MSG_INVALID_USERNAME".localizedNew
+            statusLabel.text = "MSG_INVALID_USERNAME".localized
         }
     }
     

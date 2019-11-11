@@ -90,10 +90,10 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
         self.btnSend.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
         self.stackHeightConstraint.constant = 56
         
-        let shareToText  = "SHARE_TO".localizedNew
+        let shareToText  = "SHARE_TO".localized
         let attrs = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 18 , weight: .bold)]
         let attributedString = NSMutableAttributedString(string:shareToText, attributes:attrs)
-        let normalText = "\n" + "SELECT_CHATS".localizedNew
+        let normalText = "\n" + "SELECT_CHATS".localized
         let normalString = NSMutableAttributedString(string:normalText)
         attributedString.append(normalString)
         lblInfo.attributedText = attributedString
@@ -110,7 +110,7 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
         
         if let index = filteredForwardItem.firstIndex(where: { $0.displayName == currentUser.displayName }) {
             var element = filteredForwardItem[index]
-            element.displayName = "MY_CLOUD".localizedNew
+            element.displayName = "MY_CLOUD".localized
             filteredForwardItem.remove(at: index)
             filteredForwardItem.insert(element, at: 1)
         }
@@ -121,7 +121,7 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
         doneToolbar.barStyle = .default
         
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "GLOBAL_DONE".localizedNew, style: .done, target: self, action: #selector(self.doneButtonAction))
+        let done: UIBarButtonItem = UIBarButtonItem(title: "GLOBAL_DONE".localized, style: .done, target: self, action: #selector(self.doneButtonAction))
         
         let items = [flexSpace, done]
         doneToolbar.items = items
@@ -223,7 +223,7 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
         self.usersCollectionView.reloadItems(at: [indexPath])
         lblCount.text = String(self.selectedItems.count).inPersianNumbersNew()
         if selectedItems.count > 0 {
-            let shareToText  = "SHARE_TO".localizedNew
+            let shareToText  = "SHARE_TO".localized
             let attrs = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 18 , weight: .bold)]
             let attributedString = NSMutableAttributedString(string:shareToText, attributes:attrs)
             var normalText = "\n"
@@ -235,11 +235,11 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
                 lblInfo.attributedText = attributedString
             }
         } else {
-            let shareToText  = "SHARE_TO".localizedNew
+            let shareToText  = "SHARE_TO".localized
             let attrs = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 18 , weight: .bold)]
             let attributedString = NSMutableAttributedString(string:shareToText, attributes:attrs)
             
-            let normalText = "\n" + "SELECT_CHATS".localizedNew
+            let normalText = "\n" + "SELECT_CHATS".localized
             let normalString = NSMutableAttributedString(string:normalText)
             attributedString.append(normalString)
             lblInfo.attributedText = attributedString
