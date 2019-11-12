@@ -20,7 +20,6 @@ import MBProgressHUD
 import UserNotifications
 import Contacts
 import AddressBook
-import Hero
 import messages
 import webservice
 import KeychainSwift
@@ -237,8 +236,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }).error({ (errorCode, waitTime) in
                     DispatchQueue.main.async {
                         hud.hide(animated: true)
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
-
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized)
                         
                     }
                 }).send()
@@ -1516,19 +1514,14 @@ extension IGRecentsTableViewController: UISearchBarDelegate/*, UISearchResultsUp
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
 //        if let searchBarCancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
 //            searchBarCancelButton.setTitle("CANCEL_BTN".RecentTableViewlocalized, for: .normal)
 //            searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
 //            searchBarCancelButton.tintColor = UIColor.white
 //        }
 
+        self.searchController.isActive = false
         let lookAndFind = IGLookAndFind.instantiateFromAppStroryboard(appStoryboard: .Setting)
-//        lookAndFind.hero.isEnabled = true
-//        self.searchBar.hero.id = "searchBar"
-//        self.navigationController?.hero.isEnabled = true
-//        self.navigationController?.hero.navigationAnimationType = .fade
-//        self.hero.replaceViewController(with: lookAndFind)
         lookAndFind.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(lookAndFind, animated: false)
 
@@ -1537,13 +1530,15 @@ extension IGRecentsTableViewController: UISearchBarDelegate/*, UISearchResultsUp
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         //Hide Cancel
-        searchBar.setShowsCancelButton(false, animated: true)
+//        searchBar.setShowsCancelButton(false, animated: true)
+        self.searchController.isActive = false
         searchBar.resignFirstResponder()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         //Hide Cancel
-        searchBar.setShowsCancelButton(false, animated: true)
+//        searchBar.setShowsCancelButton(false, animated: true)
+        self.searchController.isActive = false
         searchBar.text = String()
         searchBar.resignFirstResponder()
     }

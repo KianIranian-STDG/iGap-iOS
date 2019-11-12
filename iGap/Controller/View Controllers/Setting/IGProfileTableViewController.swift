@@ -25,8 +25,8 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         return view
     }()
     
-    @IBOutlet weak  var btnCountryCodeWidthConstraints: NSLayoutConstraint!
-    @IBOutlet weak  var tfRefferalWidthConstraints: NSLayoutConstraint!
+    @IBOutlet weak var btnCountryCodeWidthConstraints: NSLayoutConstraint!
+    @IBOutlet weak var tfRefferalWidthConstraints: NSLayoutConstraint!
     var libraryBanner: [IGFile] = []
     var wallpapersList: Results<IGRealmWallpaper>!
     var userAvatarAttachment: IGFile!
@@ -74,7 +74,8 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     @IBOutlet weak var lblNearby: UILabel!
     @IBOutlet weak var lblLanguage: UILabel!
     @IBOutlet weak var lblFaq: UILabel!
-    @IBOutlet weak var lblVersion: UILabel!
+    @IBOutlet weak var versionTitleLbl: UILabel!
+    @IBOutlet weak var versionNumLbl: UILabel!
     @IBOutlet weak var checkUpdateLbl: UILabel!
     @IBOutlet weak var lblMoneyAmount: UILabel!
     @IBOutlet weak var lblScoreAmount: UILabel!
@@ -131,7 +132,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         initView()
         initServices()
         
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
         
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
             DispatchQueue.main.async {
@@ -360,8 +361,10 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         lblNearby.text = "SETTING_NEARBY".localized
         lblFaq.text = "FAQ".localized
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-            lblVersion.text = "SETTING_PAGE_FOOTER_VERSION".localized + " \(version)".inLocalizedLanguage()
+            versionTitleLbl.text = "SETTING_PAGE_FOOTER_VERSION".localized
+            versionNumLbl.text = "\(version)".inLocalizedLanguage()
         }
+        checkUpdateLbl.text = "CHECK_FOR_UPDATE".localized
         lblEmailInner.text = "SETTING_PS_TV_EMAIL".localized
         lblMenGender.text = "MEN_GENDER".localized
         lblMenGender.font = UIFont.igFont(ofSize: 15)
@@ -887,23 +890,20 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             case 0 :
                 if isEditMode {
                     return 0
-                }
-                else {
+                } else {
                     return 84
                 }
             case 1 :
                 if isEditMode {
                     return 0
-                }
-                else {
+                } else {
                     return 74
                 }
                 
             case 2 :
                 if isEditMode {
                     return 0
-                }
-                else {
+                } else {
                     return 44
                 }
                 
@@ -911,25 +911,21 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             case 3 :
                 if isEditMode {
                     return 0
-                }
-                else {
+                } else {
                     return 44
                 }
                 
             case 4 :
                 if isEditMode {
                     return 0
-                }
-                else {
+                } else {
                     return 44
                 }
-                
                 
             case 5 :
                 if isEditMode {
                     return 0
-                }
-                else {
+                } else {
                     return 44
                 }
                 
@@ -937,25 +933,21 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             case 6 :
                 if isEditMode {
                     return 0
-                }
-                else {
+                } else {
                     return 44
                 }
                 
             case 7 :
                 if isEditMode {
+                    return 0
+                } else {
                     return 44
                 }
-                else {
-                    return 0
-                }
-                
                 
             case 8 :
                 if isEditMode {
                     return 44
-                }
-                else {
+                } else {
                     return 0
                 }
                 
@@ -967,6 +959,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 else {
                     return 0
                 }
+                
                 
             case 10 :
                 if isEditMode {
@@ -992,7 +985,13 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                     return 0
                 }
                 
-
+            case 13 :
+                if isEditMode {
+                    return 44
+                }
+                else {
+                    return 0
+                }
                 
             default :
                 if isEditMode {
@@ -1012,11 +1011,6 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 13
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -1065,6 +1059,8 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 break
 
             case 7 :
+                // check for update
+                checkVersionUpdate()
                 break
                 
             case 8 :
@@ -1079,6 +1075,9 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             case 11 :
                 break
                 
+            case 12 :
+                break
+                
             default:
                 break
             }
@@ -1086,8 +1085,54 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     
     
+    private func checkVersionUpdate() {
+        SMLoading.showLoadingPage(viewcontroller: self)
+        IGInfoUpdateResponse.Generator.generate().success { (responseProtoMessage) in
+            DispatchQueue.main.async {
+                SMLoading.hideLoadingPage()
+            }
+            
+            DispatchQueue.main.async {
+                switch responseProtoMessage {
+                case let response as IGPInfoUpdateResponse:
+                    if let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+                        if let buildV = Int32(buildVersion) {
+                            if buildV < response.igpLastVersion {
+                                
+                                let str = /*"<p style=\"text-align: justify;\"><strong>تست</strong></p>\n<p style=\"text-align: justify;\">تست ۲</p>\n<p style=\"text-align: justify;\">تست ۳</p>\n<p style=\"text-align: justify;\">تست ۴</p>\n<p style=\"text-align: justify;\">تست ۵</p>\n<p style=\"text-align: justify;\">تست ۶</p>\n<p style=\"text-align: justify;\">تست ۷</p>\n<p style=\"text-align: justify;\">تست ۷</p>\n<p style=\"text-align: justify;\">تست ۸</p>\n<p style=\"text-align: justify;\">تست ۸</p>\n<p style=\"text-align: justify;\">تست ۹</p>".html2String*/  response.igpBody.html2String
+                                print(str)
+                                
+                                IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "CHECK_FOR_UPDATE".localized, showDoneButton: true, showCancelButton: true, message: str, doneText: "UPDATE".localized, cancelText: "CANCEL_BTN".localized, cancel: {
+                                    
+                                }, done: {
+                                    
+                                    UIApplication.shared.open(URL(string: "http://d.igap.net/update")!, options: [:], completionHandler: nil)
+                                    
+                                })
+                            } else {
+                                // you are update
+                                IGHelperAlert.shared.showCustomAlert(view: self, alertType: .success, title: "CHECK_FOR_UPDATE".localized, showDoneButton: false, showCancelButton: true, message: response.igpBody, cancelText: "CANCEL_BTN".localized, cancel: {
+                                    
+                                }, done: {
+                                    
+                                })
+                            }
+                        } else {
+                            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .warning, title: "CHECK_FOR_UPDATE".localized, showDoneButton: false, showCancelButton: true, message: response.igpBody, cancelText: "CANCEL_BTN".localized)
+                        }
+                    } else {
+                        IGHelperAlert.shared.showCustomAlert(view: self, alertType: .warning, title: "CHECK_FOR_UPDATE".localized, showDoneButton: false, showCancelButton: true, message: response.igpBody, cancelText: "CANCEL_BTN".localized)
+                    }
+                    
+                default:
+                    break;
+                }
+            }
+        }.error({ (errorCode, waitTime) in }).send()
+    }
+    
+    
     //MARK : - ACTIONS
-
     @IBAction func btnMaleGendedidTapOnMaleGender(_ sender: Any) {
         if isMaleChecked {
         } else {
@@ -1475,13 +1520,11 @@ extension IGProfileTableViewController: UISearchBarDelegate {
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
         (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".RecentTableViewlocalized, for: .normal)
-        let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
-        lookAndFind.hero.isEnabled = true
-        self.navigationController?.hero.isEnabled = true
-        self.navigationController?.hero.navigationAnimationType = .fade
-        self.hero.replaceViewController(with: lookAndFind)
+        let lookAndFind = IGLookAndFind.instantiateFromAppStroryboard(appStoryboard: .Setting)
+        lookAndFind.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(lookAndFind, animated: false)
+        
         return true
     }
     

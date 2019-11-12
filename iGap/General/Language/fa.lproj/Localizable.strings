@@ -826,7 +826,8 @@
 "SETTING_PAGE_INVITE_FRIENDS" = "دعوت از دوستان";
 "SETTING_PAGE_ABOUT" = "درباره ما";
 "SETTING_PAGE_QRCODE_SCANNER" = "ورود با اسکن بارکد";
-"SETTING_PAGE_FOOTER_VERSION" = "آیگپ آی او اس نسخه ";
+"SETTING_PAGE_FOOTER_VERSION" = "نسخه";
+
 
 "SETTING_PAGE_ACCOUNT_NIKNAME" = "لقب";
 "SETTING_PAGE_ACCOUNT_IGAP_CLUB" = "باشگاه آیگپ";
@@ -1213,3 +1214,7 @@
 "USER_IS_NOT_ALLOWED_TO_COMMINUCATE" = "کاربر مجاز به برقراری تماس نمی باشد";
 "USER_IS_BLOCKED" = "کاربر مسدود شده است";
 "RESTRICTED_CREATE_ROOM" = "شما برای ایجاد اتاق های بیشتر محدود هستید!";
+
+
+"CHECK_FOR_UPDATE" = "کنترل بروزرسانی";
+"UPDATE" = "بروزرسانی";

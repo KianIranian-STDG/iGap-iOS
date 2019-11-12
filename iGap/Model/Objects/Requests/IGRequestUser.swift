@@ -106,8 +106,8 @@ class IGUserVerifyRequest : IGRequest {
 }
 
 //MARK: -
-class IGUserLoginRequest : IGRequest {
-    class Generator : IGRequest.Generator{
+class IGUserLoginRequest: IGRequest {
+    class Generator: IGRequest.Generator{
         class func generate(token: String) -> IGRequestWrapper {
             var userLoginRequestMessage = IGPUserLogin()
             userLoginRequestMessage.igpToken = token
@@ -853,13 +853,14 @@ class IGUserSessionTerminateRequest : IGRequest {
 }
 
 //MARK: -
-class IGUserSessionLogoutRequest : IGRequest {
+class IGUserSessionLogoutRequest: IGRequest {
     
     class func sendRequest() {
         IGGlobal.prgShow()
         IGUserSessionLogoutRequest.Generator.genarete().success({ (protoResponse) in
             IGGlobal.prgHide()
             if let logoutSessionProtoResponse = protoResponse as? IGPUserSessionLogoutResponse {
+                UIApplication.shared.unregisterForRemoteNotifications()
                 IGUserSessionLogoutRequest.Handler.interpret(response: logoutSessionProtoResponse)
             }
         }).error ({ (errorCode, waitTime) in

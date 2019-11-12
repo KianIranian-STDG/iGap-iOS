@@ -86,8 +86,8 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
         setTitleText(verificationMethod: verificationMethod!)
         updateCountDown()
     }
+    
     func initTimer() {
-        
         countdownTimer.labelFont = UIFont.igFont(ofSize: 30)
         countdownTimer.labelTextColor = UIColor.iGapSubmitButtons()
         countdownTimer.timerFinishingText = "00"
@@ -137,7 +137,6 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
                 })
             }
         }
-        
     }
     
     @objc func updateCountDown() {

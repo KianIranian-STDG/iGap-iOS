@@ -106,9 +106,7 @@ class IGSearchTableViewController: BaseTableViewController {
             if let backgroundview = textField.subviews.first {
                 backgroundview.backgroundColor = UIColor(named: themeColor.searchBarBackGroundColor.rawValue)
                 for view in backgroundview.subviews {
-                    if view is UIView {
-                        view.backgroundColor = .clear
-                    }
+                    view.backgroundColor = .clear
                 }
                 backgroundview.layer.cornerRadius = 10;
                 backgroundview.clipsToBounds = true;
@@ -184,10 +182,6 @@ class IGSearchTableViewController: BaseTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        self.navigationController?.hero.isEnabled = true
-        self.navigationController?.hero.navigationAnimationType = .selectBy(presenting: .slide(direction: .left), dismissing: .slide(direction: .right))
-        
         let searchResult = self.findResult[indexPath.row]
         
         var room = searchResult.room

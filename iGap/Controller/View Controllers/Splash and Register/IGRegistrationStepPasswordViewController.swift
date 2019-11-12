@@ -43,6 +43,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
     }
+    
     func initView() {
         btnForgetPass.setTitle("FORGET_PASSWORD".localized, for: .normal)
         
@@ -120,7 +121,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
     
     
     func nextStep() {
-        if passwordTextField.text==nil || passwordTextField.text=="" {
+        if passwordTextField.text == nil || passwordTextField.text == "" {
             DispatchQueue.main.async {
                 let alertVC = UIAlertController(title: "GLOBAL_WARNING".localized, message: "PLEASE_ENTER_PASS".localized, preferredStyle: .alert)
                 let ok = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
@@ -133,7 +134,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         self.hud.mode = .indeterminate
         
-        if let password = passwordTextField.text {
+        if let password = passwordTextField.text?.inEnglishNumbersNew() {
             IGUserTwoStepVerificationVerifyPasswordRequest.Generator.generate(password: password).success({ (verifyPasswordReponse) in
                 DispatchQueue.main.async {
                     switch verifyPasswordReponse {
@@ -239,7 +240,6 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
     }
     
     @IBAction func didTapOnBtnForgetPass(_ sender: Any) {
-        
         let alert = UIAlertController(
             title: nil,
             message: nil,
@@ -278,14 +278,8 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
             break
         }
         
-        
         present(alert, animated: true, completion: nil)
     }
-    
-    
-    
-    
-    
     
 }
 

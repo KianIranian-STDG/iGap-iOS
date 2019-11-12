@@ -76,8 +76,8 @@ class IGInfoPageRequest : IGRequest {
         }
     }
     
-    class Handler : IGRequest.Handler{
-        class func interpret(response responseProtoMessage:IGPInfoPageResponse) -> String {
+    class Handler : IGRequest.Handler {
+        class func interpret(response responseProtoMessage: IGPInfoPageResponse) -> String {
             return responseProtoMessage.igpBody
         }
         
@@ -86,8 +86,8 @@ class IGInfoPageRequest : IGRequest {
 }
 
 
-class IGInfoWallpaperRequest : IGRequest {
-    class Generator : IGRequest.Generator{
+class IGInfoWallpaperRequest: IGRequest {
+    class Generator: IGRequest.Generator{
         class func generate(fit: IGPInfoWallpaper.IGPFit, type: IGPInfoWallpaper.IGPType = .chatBackground) -> IGRequestWrapper {
             var wallpaper = IGPInfoWallpaper()
             wallpaper.igpFit = fit
@@ -96,9 +96,39 @@ class IGInfoWallpaperRequest : IGRequest {
         }
     }
     
-    class Handler : IGRequest.Handler{
+    class Handler: IGRequest.Handler {
         class func interpret(response responseProtoMessage:IGPInfoWallpaperResponse , type: IGPInfoWallpaper.IGPType = .chatBackground) {
             IGFactory.shared.saveWallpaper(wallpapers: responseProtoMessage.igpWallpaper ,type: type)
+        }
+        
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
+
+class IGInfoUpdateResponse: IGRequest {
+    class Generator: IGRequest.Generator {
+        class func generate() -> IGRequestWrapper {
+            var infoUpdate = IGPInfoUpdate()
+            if let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+                if let buildV = Int32(buildVersion) {
+                    infoUpdate.igpAppBuildVersion = Int32(buildV)
+                } else {
+                   infoUpdate.igpAppBuildVersion = Int32(1)
+                }
+            } else {
+                infoUpdate.igpAppBuildVersion = Int32(1)
+            }
+            
+//            infoUpdate.igpAppBuildVersion = Int32(510)
+            
+            infoUpdate.igpAppID = 3
+            return IGRequestWrapper(message: infoUpdate, actionID: 505, identity: infoUpdate)
+        }
+    }
+    
+    class Handler: IGRequest.Handler {
+        class func interpret(response responseProtoMessage: IGPInfoUpdateResponse) -> String {
+            return responseProtoMessage.igpBody
         }
         
         override class func handlePush(responseProtoMessage: Message) {}

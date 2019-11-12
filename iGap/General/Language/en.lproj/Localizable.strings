@@ -676,7 +676,7 @@
 "SETTING_PAGE_INVITE_FRIENDS" = "Invite Friends";
 "SETTING_PAGE_ABOUT" = "About";
 "SETTING_PAGE_QRCODE_SCANNER" = "Login Using QR Scan";
-"SETTING_PAGE_FOOTER_VERSION" = "iGap iOS Client V ";
+"SETTING_PAGE_FOOTER_VERSION" = "Version";
 "CREAT_CHANNEL" = "Creat Channel";
 "CREAT_GROUP" = "Create Group";
 "TODAY" = "Today";
@@ -1222,3 +1222,7 @@
 "USER_IS_NOT_ALLOWED_TO_COMMINUCATE" = "Is Not Allowed To Communicate";
 "USER_IS_BLOCKED" = "User Is Blocked";
 "RESTRICTED_CREATE_ROOM" = "You are restricted to create more rooms!";
+
+
+"CHECK_FOR_UPDATE" = "Check update";
+"UPDATE" = "Update";

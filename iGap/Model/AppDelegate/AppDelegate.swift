@@ -300,7 +300,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     
     /******************* Notificaton Start *******************/
     
-    func pushNotification(_ application: UIApplication){
+    func pushNotification(_ application: UIApplication) {
         FirebaseApp.configure()
         Messaging.messaging().isAutoInitEnabled = true
         Messaging.messaging().delegate = self

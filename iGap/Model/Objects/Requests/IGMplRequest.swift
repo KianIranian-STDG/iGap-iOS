@@ -211,7 +211,7 @@ class IGBillInquiryMci : IGRequest {
         }
     }
     
-    class Handler : IGRequest.Handler{
+    class Handler : IGRequest.Handler {
         class func interpret(response reponseProtoMessage:IGPBillInquiryMciResponse) {}
         override class func handlePush(responseProtoMessage: Message) {}
     }

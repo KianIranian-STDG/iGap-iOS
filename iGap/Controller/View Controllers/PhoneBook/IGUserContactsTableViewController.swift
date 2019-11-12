@@ -19,7 +19,7 @@ class IGUserContactsTableViewController: BaseTableViewController, MFMessageCompo
     
     private var shouldShowSearchResults = false
     
-    var searchController : UISearchController = {
+    var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
         searchController.searchBar.setValue("CANCEL_BTN".RecentTableViewlocalized, forKey: "cancelButtonText")

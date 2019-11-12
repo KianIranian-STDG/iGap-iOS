@@ -91,7 +91,7 @@ class SMLoading {
             alertView.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         })
     }
-    static func showLoadingPage(viewcontroller: UIViewController,text: String? = "Loading ...".localized) {
+    static func showLoadingPage(viewcontroller: UIViewController, text: String? = "Loading ...".localized) {
         
         self.hideLoadingPage {
             loadingViewPage = UIView(frame : UIScreen.main.bounds)

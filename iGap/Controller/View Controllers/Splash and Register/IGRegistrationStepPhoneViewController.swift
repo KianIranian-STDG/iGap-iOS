@@ -14,7 +14,7 @@ import MBProgressHUD
 import RxSwift
 import IGProtoBuff
 
-class IGRegistrationStepPhoneViewController: UIViewController {
+class IGRegistrationStepPhoneViewController: BaseViewController {
 
     var tapCount : Int! = 1
     var isChecked : Bool! = false
@@ -26,6 +26,8 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     @IBOutlet weak var termWebLink: UILabel!
     @IBOutlet weak var termLabel: UILabel!
     @IBOutlet weak var countryNameLabel: UILabel!
+    
+    @IBOutlet weak var privacyView: UIView!
     @IBOutlet weak var btnCheckmarkPrivacy: UIButton!
     @IBOutlet weak var btnSubmit: UIButton!
     
@@ -43,7 +45,6 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     var selectedCountry : IGCountryInfo?
     var registrationResponse : (username:String, userId:Int64, authorHash:String, verificationMethod: IGVerificationCodeSendMethod, resendDelay:Int32, codeDigitsCount:Int32, codeRegex:String, callMethodSupport:Bool)?
     var hud = MBProgressHUD()
-    private let disposeBag = DisposeBag()
     var connectionStatus: IGAppManager.ConnectionStatus?
     
     private func updateNavigationBarBasedOnNetworkStatus(_ status: IGAppManager.ConnectionStatus) {
@@ -141,6 +142,9 @@ class IGRegistrationStepPhoneViewController: UIViewController {
         let locale = Locale.userPreferred // e.g "en_US"
         print(locale.languageCode) // e.g "en"
         
+        btnCheckmarkPrivacy.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+        btnCheckmarkPrivacy.setTitle("NOT_CHECKED_ICON".Imagelocalized, for: .normal)
+        
         lblHeader.text = "TTL_PICKNUM_WITH_COUNTRYCODE".localized
         countryNameLabel.text = "CHOOSE_COUNTRY".localized
         btnLoginQrCode.setTitle("LOGIN_USING_QR".localized, for: .normal)
@@ -160,6 +164,10 @@ class IGRegistrationStepPhoneViewController: UIViewController {
             
         }).disposed(by: disposeBag)
         
+        privacyView.transform = self.transform
+        btnCheckmarkPrivacy.transform = self.transform
+        lblAceptPrivacy.transform = self.transform
+        
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnBackground))
         self.view.addGestureRecognizer(tapRecognizer)
@@ -169,21 +177,22 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     @IBAction func checkbtnCheckmarkClicked(_ sender: Any) {
         btnCheckmarkPrivacy.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         if isChecked {
-            btnCheckmarkPrivacy.setTitle("", for: .normal)
+            btnCheckmarkPrivacy.setTitle("NOT_CHECKED_ICON".Imagelocalized, for: .normal)
+            btnCheckmarkPrivacy.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
         }
         else {
-            btnCheckmarkPrivacy.setTitle("", for: .normal)
+            btnCheckmarkPrivacy.setTitle("CHECKED_ICON".Imagelocalized, for: .normal)
+            btnCheckmarkPrivacy.setTitleColor(#colorLiteral(red: 0.2549019608, green: 0.6941176471, blue: 0.1254901961, alpha: 1), for: .normal)
         }
         isChecked = !isChecked
 
     }
+    
     @IBAction func btnSubmitTap(_ sender: Any) {
         if isChecked {
             didTapOnSubmit()
-        }
-        else {
+        } else {
             IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PRIVACY_AGREEMENT".localized, cancelText: "GLOBAL_CLOSE".localized)
-
         }
     }
     
@@ -216,8 +225,6 @@ class IGRegistrationStepPhoneViewController: UIViewController {
         countryCodeBackgroundView.layer.masksToBounds = true
         countryCodeBackgroundView.layer.borderWidth = 1.0
         countryCodeBackgroundView.layer.borderColor = UIColor.organizationalColor().cgColor
-        btnCheckmarkPrivacy.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
-        btnCheckmarkPrivacy.setTitle("", for: .normal)
 
         let gradient = CAGradientLayer()
         let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)

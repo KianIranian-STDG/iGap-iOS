@@ -12,7 +12,6 @@ import UIKit
 import IGProtoBuff
 import SwiftProtobuf
 import RealmSwift
-import Hero
 
 class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate , UINavigationControllerDelegate , UIGestureRecognizerDelegate {
     
@@ -38,7 +37,6 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         }
         
         searchBar.delegate = self
-        searchBar.hero.id = "searchBar"
         setNavigationItem()
         tableView.delegate = self
         tableView.dataSource = self
@@ -58,7 +56,6 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.hero.navigationAnimationType = .fade
         let attributes:[NSAttributedString.Key:Any] = [
             NSAttributedString.Key.foregroundColor : UIColor(named: themeColor.labelColor.rawValue),
             NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)
@@ -261,11 +258,6 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         IGGlobal.isFromSearchPage = false
 
         IGRecentsTableViewController.needGetInfo = false
-//        self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar")
-        self.searchBar.hero.id = "searchBar"
-//        self.hero.replaceViewController(with: mainView)
-//        self.hero.unwindToRootViewController()
         self.navigationController?.popViewController(animated: false)
     }
     
@@ -318,8 +310,6 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        self.navigationController?.hero.isEnabled = true
-        self.navigationController?.hero.navigationAnimationType = .selectBy(presenting: .slide(direction: .left), dismissing: .slide(direction: .right))
         IGGlobal.isFromSearchPage = true
         let searchResult = self.findResult[indexPath.row]
         

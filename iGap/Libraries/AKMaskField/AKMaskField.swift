@@ -457,7 +457,7 @@ open class AKMaskField: UITextField, UITextFieldDelegate  {
         var location      = range.location
         var savedLocation = range.location
         
-        for replacementCharacter in string {
+        for replacementCharacter in string.inEnglishNumbersNew() {
             if location == maskText?.count { break }
             
             // Find next character
@@ -582,7 +582,7 @@ open class AKMaskField: UITextField, UITextFieldDelegate  {
                         
                         AKMaskFieldUtility
                             .replace(&maskText,
-                                     withString : _string,
+                                     withString : _string.inPersianNumbersNew(),
                                      inRange    : maskTextRange)
                         
                         

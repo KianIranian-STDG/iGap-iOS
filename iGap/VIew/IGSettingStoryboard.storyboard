@@ -6070,7 +6070,7 @@ kay*****@gm**.com</string>
                                                     <attributedString key="attributedText">
                                                         <fragment content="Country: iGap iOs 1.0.1">
                                                             <attributes>
-                                                                <font key="NSFont" metaFont="menu" size="14"/>
+                                                                <font key="NSFont" metaFont="label" size="14"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -6085,7 +6085,7 @@ kay*****@gm**.com</string>
                                                     <attributedString key="attributedText">
                                                         <fragment content="Last Activation: iGap">
                                                             <attributes>
-                                                                <font key="NSFont" metaFont="menu" size="14"/>
+                                                                <font key="NSFont" metaFont="label" size="14"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -6099,7 +6099,7 @@ kay*****@gm**.com</string>
                                                     <attributedString key="attributedText">
                                                         <fragment content="IP: iGap iOS">
                                                             <attributes>
-                                                                <font key="NSFont" metaFont="menu" size="14"/>
+                                                                <font key="NSFont" metaFont="label" size="14"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -6113,7 +6113,7 @@ kay*****@gm**.com</string>
                                                     <attributedString key="attributedText">
                                                         <fragment content="Platform: iGap iOS 1.0.1">
                                                             <attributes>
-                                                                <font key="NSFont" metaFont="menu" size="14"/>
+                                                                <font key="NSFont" metaFont="label" size="14"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -6128,7 +6128,7 @@ kay*****@gm**.com</string>
                                                     <attributedString key="attributedText">
                                                         <fragment content="Created Time: iGap">
                                                             <attributes>
-                                                                <font key="NSFont" metaFont="menu" size="14"/>
+                                                                <font key="NSFont" metaFont="label" size="14"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>

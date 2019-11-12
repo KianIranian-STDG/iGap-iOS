@@ -210,14 +210,14 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
     @IBAction func timeCheckmarkClicked(_ sender: UIButton) {
         if !isTimeChecked {
             // is not checked so check time checkmark
-            timeCheckMarkBtn.setTitle("", for: .normal)
+            timeCheckMarkBtn.setTitle("CHECKED_ICON".Imagelocalized, for: .normal)
             timeCheckMarkBtn.setTitleColor(#colorLiteral(red: 0.2549019608, green: 0.6941176471, blue: 0.1254901961, alpha: 1), for: .normal)
             self.selectTimeOrVolumeBtn.setTitle("CHOOSE_TIME".InternetPackageLocalization, for: .normal)
             self.selectedCategory = nil
             self.selectPackageBtn.isHidden = true
             
             // uncheck volume checkmark
-            volumeCheckMarkBtn.setTitle("", for: .normal)
+            volumeCheckMarkBtn.setTitle("NOT_CHECKED_ICON".Imagelocalized, for: .normal)
             volumeCheckMarkBtn.setTitleColor(#colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1), for: .normal)
         }
         isTimeChecked = true
@@ -226,14 +226,14 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
     @IBAction func volumeCheckmarkClicked(_ sender: UIButton) {
         if isTimeChecked {
             // if is not checked -> check it
-            volumeCheckMarkBtn.setTitle("", for: .normal)
+            volumeCheckMarkBtn.setTitle("CHECKED_ICON".Imagelocalized, for: .normal)
             volumeCheckMarkBtn.setTitleColor(#colorLiteral(red: 0.2549019608, green: 0.6941176471, blue: 0.1254901961, alpha: 1), for: .normal)
             self.selectTimeOrVolumeBtn.setTitle("CHOOSE_VOLUME".InternetPackageLocalization, for: .normal)
             self.selectedCategory = nil
             self.selectPackageBtn.isHidden = true
             
             // uncheck time checkmark
-            timeCheckMarkBtn.setTitle("", for: .normal)
+            timeCheckMarkBtn.setTitle("NOT_CHECKED_ICON".Imagelocalized, for: .normal)
             timeCheckMarkBtn.setTitleColor(#colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1), for: .normal)
         }
         isTimeChecked = false

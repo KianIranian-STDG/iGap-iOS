@@ -662,7 +662,6 @@
 		FAB4367522098C7D0073EEE1 /* IGRealmSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4367422098C7D0073EEE1 /* IGRealmSticker.swift */; };
 		FAB623EA229526D3006DEA00 /* CardToCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB623E9229526D3006DEA00 /* CardToCardCell.swift */; };
 		FAB623EC22952727006DEA00 /* CardToCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB623EB229526D5006DEA00 /* CardToCardCell.xib */; };
-		FAB798AE21A5681C0019FC92 /* Hero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB798AD21A5681C0019FC92 /* Hero.framework */; };
 		FAB7FF5321BFB39D0081FDBA /* VideoCallObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7FF5221BFB39D0081FDBA /* VideoCallObserver.swift */; };
 		FAB9064222B63F2600E81287 /* MessageOnChatReceiveObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB9064122B63F2600E81287 /* MessageOnChatReceiveObserver.swift */; };
 		FAB91BBB22393F6000459595 /* IGRealmChannelExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB91BBA22393F6000459595 /* IGRealmChannelExtra.swift */; };
@@ -1636,7 +1635,6 @@
 				FAAD3C2221EA220C00B1420A /* FirebaseMessaging.framework in Frameworks */,
 				FAAD3C2321EA220C00B1420A /* FirebaseCore.framework in Frameworks */,
 				FAAD3C2421EA220C00B1420A /* FirebaseInstanceID.framework in Frameworks */,
-				FAB798AE21A5681C0019FC92 /* Hero.framework in Frameworks */,
 				FA9402AC2042D49D00D1A35C /* WebRTC.framework in Frameworks */,
 				FABE83AB20FDB43E00D94F01 /* Digger.framework in Frameworks */,
 				FA39EAA320D7BF7B001CFF77 /* Protobuf.framework in Frameworks */,
