@@ -19,12 +19,10 @@ struct IGStructBill: Decodable {
 
 struct BillStruct: Decodable {
     var email: String?
-    var nationalCode: Int?
     var billData : [billObject]
     enum CodingKeys: String, CodingKey {
         
         case email = "email"
-        case nationalCode = "nationalcode"
         case billData = "billdata"
 
     }

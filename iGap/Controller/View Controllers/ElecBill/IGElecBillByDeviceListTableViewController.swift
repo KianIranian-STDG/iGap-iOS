@@ -52,12 +52,12 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
         self.tableView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
 //        self.topViewHolder.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         lblSelectCompany.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        btnSearch.setTitleColor(.white, for: .normal)
-        btnCompanyCodes.setTitleColor(UIColor(named: themeColor.navigationSecondColor.rawValue), for: .normal)
+        btnSearch.setTitleColor(UIColor(named: themeColor.textFieldBackGround.rawValue), for: .normal)
+        btnCompanyCodes.setTitleColor(UIColor(named: themeColor.labelSecondColor.rawValue), for: .normal)
         lblEnterSerialNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        btnCompanyCodes.layer.borderColor = UIColor(named: themeColor.navigationSecondColor.rawValue)?.cgColor
+        btnCompanyCodes.layer.borderColor = UIColor(named: themeColor.labelSecondColor.rawValue)?.cgColor
         btnCompanyCodes.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        btnSearch.backgroundColor = UIColor(named: themeColor.navigationSecondColor.rawValue)
+        btnSearch.backgroundColor = UIColor(named: themeColor.labelSecondColor.rawValue)
 
 
     }
@@ -157,7 +157,7 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
         self.view.addSubview(picker)
 
         toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 50))
-        toolBar.barTintColor = UIColor(named: themeColor.navigationSecondColor.rawValue)
+        toolBar.barTintColor = UIColor(named: themeColor.labelSecondColor.rawValue)
         toolBar.tintColor = UIColor(named: themeColor.backgroundColor.rawValue)
         toolBar.items = [UIBarButtonItem.init(title: "X", style: .done, target: self, action: #selector(onDoneButtonTapped))]
         self.view.addSubview(toolBar)

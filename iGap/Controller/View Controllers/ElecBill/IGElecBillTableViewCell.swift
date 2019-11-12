@@ -35,6 +35,7 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
     @IBOutlet var stackHolderInner : [UIStackView]!
     
     // MARK: - Variables
+    var billIsInvalid : Bool = false
     var myBillListInnerData : InqueryDataStruct!
     var payAmount : String!
     var userPhoneNumber : String!
@@ -103,13 +104,13 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
     private func initColors() {
         self.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         self.topViewHolder.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        btnPay.setTitleColor(.white, for: .normal)
-        btnDetail.setTitleColor(.white, for: .normal)
+        btnPay.setTitleColor(UIColor(named: themeColor.textFieldBackGround.rawValue), for: .normal)
+        btnDetail.setTitleColor(UIColor(named: themeColor.textFieldBackGround.rawValue), for: .normal)
         btnDelete.setTitleColor(UIColor.iGapRed(), for: .normal)
         btnEdite.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
         
-        btnPay.backgroundColor = UIColor(named: themeColor.navigationSecondColor.rawValue)
-        btnDetail.backgroundColor = UIColor(named: themeColor.navigationSecondColor.rawValue)
+        btnPay.backgroundColor = UIColor(named: themeColor.labelSecondColor.rawValue)
+        btnDetail.backgroundColor = UIColor(named: themeColor.labelSecondColor.rawValue)
         
         lblBillName.textColor = UIColor(named: themeColor.labelColor.rawValue)
         lblTTlBillNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
@@ -152,23 +153,40 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
             SMLoading.hideLoadingPage()
             if success {
                 self.myBillListInnerData = response?.data
-                self.lblDataBillPayNumber.text = response?.data?.paymentIdentifier?.inLocalizedLanguage()
-                self.payAmount = response?.data?.totalBillDebt
-                self.lblDataBillPayAmount.text = (response?.data?.totalBillDebt?.inLocalizedLanguage())! + "CURRENCY".localized
-                let paydate = response?.data?.paymentDeadLine!
-                let dateFormatter = ISO8601DateFormatter()
-                let date = dateFormatter.date(from:paydate!)!
-                self.lblDataBillPayDate.text = date.completeHumanReadableTime().inLocalizedLanguage()
+                if self.myBillListInnerData != nil {
+                    self.billIsInvalid = false
+                    self.lblDataBillPayNumber.text = response?.data?.paymentIdentifier?.inLocalizedLanguage()
+                    self.payAmount = response?.data?.totalBillDebt
+                    
+                    self.lblDataBillPayAmount.text = (response?.data?.totalBillDebt?.inLocalizedLanguage())! + "CURRENCY".localized
+                    let paydate = response?.data?.paymentDeadLine!
+                    let dateFormatter = ISO8601DateFormatter()
+                    let date = dateFormatter.date(from:paydate!)!
+                    self.lblDataBillPayDate.text = date.completeHumanReadableTime().inLocalizedLanguage()
+                } else {
+                    self.billIsInvalid = true
+                    self.lblDataBillPayDate.text = ""
+                    self.lblDataBillPayAmount.text = "0".inLocalizedLanguage()
+                    self.lblDataBillPayNumber.text = "0".inLocalizedLanguage()
+                }
             } else {
                 print(errorMessage)
+                self.billIsInvalid = true
+                self.lblDataBillPayDate.text = ""
+                self.lblDataBillPayAmount.text = "0".inLocalizedLanguage()
+                self.lblDataBillPayNumber.text = "0".inLocalizedLanguage()
+
             }
         })
     }
     @IBAction func didTapOnDetails(_ sender: UIButton) {
-        if self.myBillListInnerData == nil {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "PLEASE_WAIT_DATA_LOAD".localized, cancelText: "GLOBAL_CLOSE".localized)
+        if self.myBillListInnerData == nil && self.billIsInvalid == true {
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "INVALID_BILL_MSG".localized, cancelText: "GLOBAL_CLOSE".localized)
             
-        } else {
+        } else if self.myBillListInnerData == nil && self.billIsInvalid == false {
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "PLEASE_WAIT_DATA_LOAD".localized, cancelText: "GLOBAL_CLOSE".localized)
+        }
+        else {
             print("TAPPED ON DETAIL FOR :" , self.myBillListInnerData.billIdentifier)
             let billDataVC = IGElecBillDetailPageTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
             billDataVC.billNumber = (self.myBillListInnerData.billIdentifier!.inEnglishNumbersNew())

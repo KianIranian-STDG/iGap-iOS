@@ -89,7 +89,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
     }
     
     private func initColors() {
-        btnAddEdit.backgroundColor = UIColor(named: themeColor.navigationSecondColor.rawValue)
+        btnAddEdit.backgroundColor = UIColor(named: themeColor.labelSecondColor.rawValue)
         lblUserNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
         lblBillNUmber.textColor = UIColor(named: themeColor.labelColor.rawValue)
         lblBillName.textColor = UIColor(named: themeColor.labelColor.rawValue)
@@ -106,7 +106,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
         tfUserNumber.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         tfBillNUmber.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         tfBillName.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        btnAddEdit.setTitleColor(.white, for: .normal)
+        btnAddEdit.setTitleColor(UIColor(named: themeColor.textFieldBackGround.rawValue), for: .normal)
 
     }
     

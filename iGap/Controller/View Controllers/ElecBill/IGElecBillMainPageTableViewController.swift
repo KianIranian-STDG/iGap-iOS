@@ -56,9 +56,9 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
         self.topViewHolder.borderWidth = 0.5
         self.topViewHolder.layer.borderColor = UIColor(named: themeColor.labelColor.rawValue)?.cgColor
         self.btnMyBills.layer.borderWidth = 2
-        self.btnMyBills.layer.borderColor = UIColor(named: themeColor.navigationSecondColor.rawValue)?.cgColor
+        self.btnMyBills.layer.borderColor = UIColor(named: themeColor.labelSecondColor.rawValue)?.cgColor
         self.btnSearchBills.layer.borderWidth = 2
-        self.btnSearchBills.layer.borderColor = UIColor(named: themeColor.navigationSecondColor.rawValue)?.cgColor
+        self.btnSearchBills.layer.borderColor = UIColor(named: themeColor.labelSecondColor.rawValue)?.cgColor
         self.btnMyBills.layer.cornerRadius = 15
         self.btnSearchBills.layer.cornerRadius = 15
         self.btnQueryTopHolder.layer.cornerRadius = 15
@@ -91,12 +91,12 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
         self.topViewHolder.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         lblTopHolder.textColor = UIColor(named: themeColor.labelColor.rawValue)
         btnScanBarcode.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
-        btnQueryTopHolder.setTitleColor(.white, for: .normal)
-        btnMyBills.setTitleColor(UIColor(named: themeColor.navigationSecondColor.rawValue), for: .normal)
-        btnSearchBills.setTitleColor(UIColor(named: themeColor.navigationSecondColor.rawValue), for: .normal)
+        btnQueryTopHolder.setTitleColor(UIColor(named: themeColor.textFieldBackGround.rawValue), for: .normal)
+        btnMyBills.setTitleColor(UIColor(named: themeColor.labelSecondColor.rawValue), for: .normal)
+        btnSearchBills.setTitleColor(UIColor(named: themeColor.labelSecondColor.rawValue), for: .normal)
         self.btnSearchBills.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         self.btnMyBills.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        self.btnQueryTopHolder.backgroundColor = UIColor(named: themeColor.navigationSecondColor.rawValue)
+        self.btnQueryTopHolder.backgroundColor = UIColor(named: themeColor.labelSecondColor.rawValue)
     }
     
     private func initAlignments() {
