@@ -1111,17 +1111,15 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                                 })
                             } else {
                                 // you are update
-                                IGHelperAlert.shared.showCustomAlert(view: self, alertType: .success, title: "CHECK_FOR_UPDATE".localized, showDoneButton: false, showCancelButton: true, message: response.igpBody, cancelText: "CANCEL_BTN".localized, cancel: {
+                                IGHelperAlert.shared.showCustomAlert(view: self, alertType: .warning, title: nil, showDoneButton: false, showCancelButton: true, message: "YOU_ARE_UP_TO_DATE".localized, cancelText: "CANCEL_BTN".localized, cancel: {
                                     
                                 }, done: {
                                     
                                 })
                             }
                         } else {
-                            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .warning, title: "CHECK_FOR_UPDATE".localized, showDoneButton: false, showCancelButton: true, message: response.igpBody, cancelText: "CANCEL_BTN".localized)
                         }
                     } else {
-                        IGHelperAlert.shared.showCustomAlert(view: self, alertType: .warning, title: "CHECK_FOR_UPDATE".localized, showDoneButton: false, showCancelButton: true, message: response.igpBody, cancelText: "CANCEL_BTN".localized)
                     }
                     
                 default:
