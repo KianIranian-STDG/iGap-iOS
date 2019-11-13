@@ -40,7 +40,7 @@ class IGLookAndFindCell: UITableViewCell {
         } else if type == .group {
             txtHeader.text = "SETTING_PS_GROUPS".localized
         } else if type == .user {
-            txtHeader.text = "CONTACTS".localized
+            txtHeader.text = IGStringsManager.Contacts.rawValue.localized
         } else if type == .bot {
             txtHeader.text = "BOT".localized
         } else if type == .message {

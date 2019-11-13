@@ -18,7 +18,7 @@ class testVCViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.initNavigationBar(title: "SETTING_PAGE_INVITE_FRIENDS".localized) { }
+        self.initNavigationBar(title: IGStringsManager.InviteFriends.rawValue.localized) { }
     }
 
 }

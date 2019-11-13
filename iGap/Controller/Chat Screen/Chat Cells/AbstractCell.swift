@@ -1004,13 +1004,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             let body = repliedMessage.message
             
             if repliedMessage.type == .contact {
-                txtReplyMessageAbs.text = "CONTACT_MESSAGE".localized
+                txtReplyMessageAbs.text = IGStringsManager.ContactMessage.rawValue.localized
             } else if repliedMessage.type == .location {
-                txtReplyMessageAbs.text = "LOCATION_MESSAGE".localized
+                txtReplyMessageAbs.text = IGStringsManager.LocationMessage.rawValue.localized
             } else if body != nil && !(body?.isEmpty)! {
                 
                 if repliedMessage.type == .sticker {
-                    txtReplyMessageAbs.text = body! + "LBL_STICKER".localized
+                    txtReplyMessageAbs.text = body! + IGStringsManager.Sticker.rawValue.localized
                 } else {
                     let markdown = MarkdownParser()
                     markdown.enabledElements = MarkdownParser.EnabledElements.bold

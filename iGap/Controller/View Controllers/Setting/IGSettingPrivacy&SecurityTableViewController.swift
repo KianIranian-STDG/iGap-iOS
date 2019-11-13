@@ -77,7 +77,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         
         let predicate = NSPredicate(format: "isBlocked == 1")
         blockedUsers = try! Realm().objects(IGRegisteredUser.self).filter(predicate)
-        //        numberOfBlockedContacts.text = "\(blockedUsers.count)".inLocalizedLanguage() + "CONTACTS".localized
+        //        numberOfBlockedContacts.text = "\(blockedUsers.count)".inLocalizedLanguage() + IGStringsManager.Contacts.rawValue.localized
         numberOfBlockedContacts.isHidden = true
         if currentUser.selfRemove == -1 {
             getSelfRemove()
@@ -144,7 +144,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.isUserInteractionEnabled = true
-        //        numberOfBlockedContacts.text = "\(blockedUsers.count)" + "CONTACTS".localized
+        //        numberOfBlockedContacts.text = "\(blockedUsers.count)" + IGStringsManager.Contacts.rawValue.localized
         fetchBlockedContactsFromServer()
         showPrivacyInfo()
         initChangeLang()

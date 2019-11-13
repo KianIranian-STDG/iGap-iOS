@@ -30,7 +30,7 @@ class SMLangUtil: NSObject {
                 return "SETTING_PAGE_ACCOUNT_NIKNAME".localized
             }
             else if tag == 2 {
-                return "SETTING_PAGE_ACCOUNT_PHONENUMBER".localized
+                return IGStringsManager.Phone.rawValue.localized
             }
 
             else if tag == 3 {

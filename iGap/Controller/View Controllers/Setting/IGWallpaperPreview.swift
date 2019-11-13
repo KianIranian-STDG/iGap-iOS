@@ -59,7 +59,7 @@ class IGWallpaperPreview: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        btnSet.setTitle("SET_BTN".localized, for: .normal)
+        btnSet.setTitle(IGStringsManager.BtnSet.rawValue.localized, for: .normal)
         btnCancel.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
         initNavigationBar()
         customIndicatorView()
@@ -129,7 +129,7 @@ class IGWallpaperPreview: UIViewController, UIGestureRecognizerDelegate {
     
     private func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_CW_WALLPAPER_PREVIEW".localized, width: 250)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.ChatBG.rawValue.localized, width: 250)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self

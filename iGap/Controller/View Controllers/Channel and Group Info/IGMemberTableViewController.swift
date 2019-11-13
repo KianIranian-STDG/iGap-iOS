@@ -131,7 +131,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
         if self.showMembersFilter == .all {
-            navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localized, title: "ALLMEMBER".localized)
+            navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: "ALLMEMBER".localized)
             navigationItem.rightViewContainer?.addAction {
                 self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
             }
@@ -264,7 +264,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 let navigationItem = self.navigationItem as! IGNavigationItem
                 if self.roomType == .channel {
                     if role == IGPChannelRoom.IGPRole.admin.rawValue {
-                        navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localized, title: "ALLMEMBER".localized)
+                        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: "ALLMEMBER".localized)
                         navigationItem.rightViewContainer?.addAction {
                             self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
                         }
@@ -277,7 +277,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                         UIApplication.topViewController()!.present(alertC, animated: true, completion: nil)
                     }
                 } else if self.roomType == .group {
-                    navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localized, title: "ALLMEMBER".localized)
+                    navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: "ALLMEMBER".localized)
                     navigationItem.rightViewContainer?.addAction {
                         self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
                     }

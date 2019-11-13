@@ -159,7 +159,7 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
         }
         
         let alert = UIAlertController(title: "MSG_SURE_TO_DELETE_CACHE".localized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let deleteAction = UIAlertAction(title: "BTN_DELETE".localized, style: .destructive , handler: { (alert: UIAlertAction) -> Void in
+        let deleteAction = UIAlertAction(title: IGStringsManager.Delete.rawValue.localized, style: .destructive , handler: { (alert: UIAlertAction) -> Void in
             DispatchQueue.main.async {
                 self.removeSelectedData()
                 self.navigationController?.popViewController(animated: true)

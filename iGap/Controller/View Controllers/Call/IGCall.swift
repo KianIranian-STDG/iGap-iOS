@@ -250,7 +250,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                     txtCallerName.font = UIFont.igFont(ofSize: 23,weight: .bold)
                     holdView.layer.cornerRadius = 10
                     txtCallerName.text = userRegisteredInfo.displayName
-                    txtCallState.text = "Communicating..."
+            txtCallState.text = IGStringsManager.GlobalCommunicating.rawValue.localized
                     
                     let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapOnMainView))
                     mainView.addGestureRecognizer(gesture)
@@ -468,7 +468,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     
     private func answerCall(withDelay: Bool = false){
         stopSound()
-        txtCallState.text = "COMMUNICATING".localized
+        txtCallState.text = IGStringsManager.GlobalCommunicating.rawValue.localized
         manageView(stateAnswer: false)
         if withDelay {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5){

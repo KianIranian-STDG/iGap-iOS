@@ -1144,7 +1144,7 @@ class IGNavigationItem: UINavigationItem {
     
     private func isCloud(room: IGRoom) -> Bool {
         if !room.isInvalidated, room.chatRoom?.peer?.id == IGAppManager.sharedManager.userID() {
-            self.centerViewSubLabel!.text = "MY_CLOUD".localized
+            self.centerViewSubLabel!.text = IGStringsManager.Cloud.rawValue.localized
             return true
         }
         return false

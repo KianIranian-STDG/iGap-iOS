@@ -342,11 +342,8 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                 }
                 
             }).error({ (errorCode, waitTime) in
-                hud.hide(animated: true)
-                let alertC = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "ERROR_RETRY".localized, preferredStyle: .alert)
-                let cancel = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                alertC.addAction(cancel)
-                self.present(alertC, animated: true, completion: nil)
+                IGGlobal.prgHide()
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
             }).send()
         }
         
@@ -429,7 +426,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     //AMRK: - Show Delete Pop Over
     func showDeleteActionSheet() {
         let deleteChatConfirmAlertView = UIAlertController(title: "MSG_SURE_TO_DELETE_CHAT".localized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let deleteAction = UIAlertAction(title: "BTN_DELETE".localized, style:.default , handler: { (alert: UIAlertAction) -> Void in
+        let deleteAction = UIAlertAction(title: IGStringsManager.Delete.rawValue.localized, style:.default , handler: { (alert: UIAlertAction) -> Void in
             if let chatRoom = self.room {
                 self.deleteChat(room: chatRoom)
             }
@@ -441,7 +438,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         deleteChatConfirmAlertView.addAction(cancelAction)
         let alertActions = deleteChatConfirmAlertView.actions
         for action in alertActions {
-            if action.title == "BTN_DELETE".localized{
+            if action.title == IGStringsManager.Delete.rawValue.localized{
                 let logoutColor = UIColor.red
                 action.setValue(logoutColor, forKey: "titleTextColor")
             }
@@ -494,7 +491,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     //MARK: -Show Clear History Action Sheet
     func showClearHistoryActionSheet() {
         let clearChatConfirmAlertView = UIAlertController(title: "MSG_SURE_TO_DELETE_CHAT_HISTORY".localized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let deleteAction = UIAlertAction(title: "CLEAR_HISTORY".localized, style:.default , handler: {
+        let deleteAction = UIAlertAction(title: IGStringsManager.ClearHistory.rawValue.localized, style:.default , handler: {
             (alert: UIAlertAction) -> Void in
             if let chatRoom = self.room {
                 self.clearChatMessageHistory(room: chatRoom)
@@ -507,7 +504,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         clearChatConfirmAlertView.addAction(cancelAction)
         let alertActions = clearChatConfirmAlertView.actions
         for action in alertActions {
-            if action.title == "CLEAR_HISTORY".localized {
+            if action.title == IGStringsManager.ClearHistory.rawValue.localized {
                 let logoutColor = UIColor.red
                 action.setValue(logoutColor, forKey: "titleTextColor")
             }
@@ -585,23 +582,23 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         var title = ""
         
         if roomType == .chat {
-            title = "REPORT_REASON".localized
+            title = IGStringsManager.Report.rawValue.localized
         } else {
-            title = "REPORT_REASON".localized
+            title = IGStringsManager.Report.rawValue.localized
         }
         
         let alertC = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let abuse = UIAlertAction(title: "ABUSE".localized, style: .default, handler: { (action) in
+        let abuse = UIAlertAction(title: IGStringsManager.Abuse.rawValue.localized, style: .default, handler: { (action) in
             
                 self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.abuse)
         })
         
-        let spam = UIAlertAction(title: "SPAM".localized, style: .default, handler: { (action) in
+        let spam = UIAlertAction(title: IGStringsManager.Spam.rawValue.localized, style: .default, handler: { (action) in
             
                 self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.spam)
         })
         
-        let fakeAccount = UIAlertAction(title: "FAKE_ACCOUNT".localized, style: .default, handler: { (action) in
+        let fakeAccount = UIAlertAction(title: IGStringsManager.FakeAccount.rawValue.localized, style: .default, handler: { (action) in
             self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.fakeAccount)
         })
         
@@ -626,7 +623,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPUserReportResponse:
-                    let alert = UIAlertController(title: IGStringsManager.GlobalSuccess.rawValue.localized, message: "REPORT_SUBMITED".localized, preferredStyle: .alert)
+                    let alert = UIAlertController(title: IGStringsManager.GlobalSuccess.rawValue.localized, message: IGStringsManager.ReportSent.rawValue.localized, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
@@ -646,7 +643,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                     break
                     
                 case .userReportReportedBefore:
-                    let alert = UIAlertController(title: "GLLOBAL_WARNING".localized, message: "USER_REPORTED_BEFOR".localized, preferredStyle: .alert)
+                    let alert = UIAlertController(title: "GLLOBAL_WARNING".localized, message: IGStringsManager.UserReportedBefore.rawValue.localized, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
@@ -827,11 +824,11 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         case 4:
             switch indexPath.row {
                 case 0 :
-                    cell.initLabels(nameLblString: "CLEAR_HISTORY".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.ClearHistory.rawValue.localized)
                     return cell
 
                 case 1 :
-                    cell.initLabels(nameLblString: "REPORT".localized,changeColor: true)
+                    cell.initLabels(nameLblString: IGStringsManager.Report.rawValue.localized,changeColor: true)
                     return cell
 
                 case 2 :

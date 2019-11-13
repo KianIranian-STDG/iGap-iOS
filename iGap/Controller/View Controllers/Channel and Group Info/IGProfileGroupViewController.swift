@@ -117,13 +117,13 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         var title = ""
         
         if roomType == .chat {
-            title = "REPORT_REASON".localized
+            title = IGStringsManager.Report.rawValue.localized
         } else {
-            title = "REPORT_REASON".localized
+            title = IGStringsManager.Report.rawValue.localized
         }
         
         let alertC = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let abuse = UIAlertAction(title: "ABUSE".localized, style: .default, handler: { (action) in
+        let abuse = UIAlertAction(title: IGStringsManager.Abuse.rawValue.localized, style: .default, handler: { (action) in
             
             if roomType == .chat {
             } else {
@@ -131,7 +131,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             }
         })
         
-        let spam = UIAlertAction(title: "SPAM".localized, style: .default, handler: { (action) in
+        let spam = UIAlertAction(title: IGStringsManager.Spam.rawValue.localized, style: .default, handler: { (action) in
             
             if roomType == .chat {
             } else {
@@ -140,11 +140,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         })
         
         
-        let violence = UIAlertAction(title: "VIOLENCE".localized, style: .default, handler: { (action) in
+        let violence = UIAlertAction(title: IGStringsManager.Violence.rawValue.localized, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.violence)
         })
         
-        let pornography = UIAlertAction(title: "PORNOGRAPHY".localized, style: .default, handler: { (action) in
+        let pornography = UIAlertAction(title: IGStringsManager.Pornography.rawValue.localized, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.pornography)
         })
         
@@ -173,7 +173,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
-                    let alert = UIAlertController(title: "SUCCESS", message: "REPORT_SUBMITED".localized, preferredStyle: .alert)
+                    let alert = UIAlertController(title: "SUCCESS", message: IGStringsManager.ReportSent.rawValue.localized, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
@@ -404,10 +404,10 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         var actionTitle: String!
         if myRole == .owner {
             title = "MSG_SURE_TO_DELETE_GROUP".localized
-            actionTitle = "BTN_DELETE".localized
+            actionTitle = IGStringsManager.Delete.rawValue.localized
         }else{
             title = "MSG_SURE_TO_LEAVE_GROUP".localized
-            actionTitle = "LEAVE".localized
+            actionTitle = IGStringsManager.Leave.rawValue.localized
         }
         let deleteConfirmAlertView = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let deleteAction = UIAlertAction(title: actionTitle , style:.default , handler: {
@@ -748,7 +748,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     switch indexPath.row {
                         
                     case 0 :
-                        cellTypeRed.initLabels(nameLblString: "LEAVE".localized,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Leave.rawValue.localized,changeColor: true)
                         return cellTypeRed
                     default:
                         return cellTypeRed
@@ -811,10 +811,10 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     switch indexPath.row {
                         
                     case 0 :
-                        cellTypeRed.initLabels(nameLblString: "REPORT".localized,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Report.rawValue.localized,changeColor: true)
                         return cellTypeRed
                     case 1 :
-                        cellTypeRed.initLabels(nameLblString: "LEAVE".localized,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Leave.rawValue.localized,changeColor: true)
                         return cellTypeRed
                     default:
                         return cellTypeRed
@@ -878,11 +878,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     switch indexPath.row {
                         
                     case 0 :
-                        cellTypeRed.initLabels(nameLblString: "REPORT".localized,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Report.rawValue.localized,changeColor: true)
                         
                         return cellTypeRed
                     case 1 :
-                        cellTypeRed.initLabels(nameLblString: "LEAVE".localized,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Leave.rawValue.localized,changeColor: true)
                         
                         return cellTypeRed
                     default:
@@ -1022,7 +1022,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 5:
                     switch indexPath.row {
                     case 0 :
-                        cellTypeRed.initLabels(nameLblString: "LEAVE".localized,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Leave.rawValue.localized,changeColor: true)
                         return cellTypeRed
                     default:
                         return cellTypeRed
@@ -1089,7 +1089,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 5:
                     switch indexPath.row {
                     case 0 :
-                        cellTypeRed.initLabels(nameLblString: "LEAVE".localized,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Leave.rawValue.localized,changeColor: true)
                         return cellTypeRed
                     default:
                         return cellTypeRed
@@ -1156,11 +1156,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 5:
                     switch indexPath.row {
                     case 0 :
-                        cellTypeRed.initLabels(nameLblString: "REPORT".localized,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Report.rawValue.localized,changeColor: true)
                         return cellTypeRed
 
                     case 1 :
-                        cellTypeRed.initLabels(nameLblString: "LEAVE".localized,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Leave.rawValue.localized,changeColor: true)
                         return cellTypeRed
 
                     default:
@@ -1228,11 +1228,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 5:
                     switch indexPath.row {
                     case 0 :
-                        cellTypeRed.initLabels(nameLblString: "REPORT".localized,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Report.rawValue.localized,changeColor: true)
                         return cellTypeRed
 
                     case 1 :
-                        cellTypeRed.initLabels(nameLblString: "LEAVE".localized,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: IGStringsManager.Leave.rawValue.localized,changeColor: true)
                         return cellTypeRed
 
                     default:
@@ -1302,15 +1302,15 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             case 5:
                 switch indexPath.row {
                 case 0 :
-                    cell.initLabels(nameLblString: "CLEAR_HISTORY".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.ClearHistory.rawValue.localized)
                     return cell
                     
                 case 1 :
-                    cell.initLabels(nameLblString: "REPORT".localized,changeColor: true)
+                    cell.initLabels(nameLblString: IGStringsManager.Report.rawValue.localized,changeColor: true)
                     return cell
                     
                 case 2 :
-                    cell.initLabels(nameLblString: "LEAVE".localized,changeColor: true)
+                    cell.initLabels(nameLblString: IGStringsManager.Leave.rawValue.localized,changeColor: true)
                     return cell
                 default:
                     return cell

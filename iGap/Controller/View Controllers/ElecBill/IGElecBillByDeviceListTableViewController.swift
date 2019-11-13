@@ -65,9 +65,9 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
         lblEnterSerialNumber.font = UIFont.igFont(ofSize: 15)
         lblSelectCompany.font = UIFont.igFont(ofSize: 15)
         btnCompanyCodes.setTitle(IGStringsManager.CompanyName.rawValue.localized, for: .normal)
-        btnSearch.setTitle("FIND_MY_BILL".localized, for: .normal)
-        lblEnterSerialNumber.text = "ENETER_DEVICE_SERIAL_NUMBER".localized
-        lblSelectCompany.text = "SELECT_COMPANY_FROM_LIST".localized
+        btnSearch.setTitle(IGStringsManager.BillFindMode.rawValue.localized, for: .normal)
+        lblEnterSerialNumber.text = IGStringsManager.EnterSerialNum.rawValue.localized
+        lblSelectCompany.text = IGStringsManager.SelectProviderCompany.rawValue.localized
 
     }
     private func initFonts() {

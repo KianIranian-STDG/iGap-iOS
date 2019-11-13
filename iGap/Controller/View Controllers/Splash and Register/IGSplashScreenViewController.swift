@@ -52,7 +52,6 @@ class IGSplashScreenViewController: UIViewController {
         skipButton.layer.borderWidth = 0
         skipButton.layer.cornerRadius = 8
         skipButton.isHidden = true
-//        startButton.setTitle("LETS_GO".localized, for: .normal)
         startButton.titleLabel?.font = UIFont.igFont(ofSize: 15)
         titleStrs = [
             IGStringsManager.IntroTitleOne.rawValue.localized,

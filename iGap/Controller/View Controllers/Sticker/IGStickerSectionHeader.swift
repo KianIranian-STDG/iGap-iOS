@@ -46,7 +46,7 @@ class IGStickerSectionHeader: UICollectionReusableView {
         makeStickerAddButton()
         
         txtStickerTitle.text = sticker.name
-        txtStickerCount.text = String(describing: sticker.stickers.count).inLocalizedLanguage() + " " + "LBL_STICKER".localized
+        txtStickerCount.text = String(describing: sticker.stickers.count).inLocalizedLanguage() + " " + IGStringsManager.Sticker.rawValue.localized
     }
     
     func configureListPage(sticker: StickerTab, sectionIndex: Int) {
@@ -63,7 +63,7 @@ class IGStickerSectionHeader: UICollectionReusableView {
         makeStickerAddButton()
         
         txtStickerTitle.text = sticker.name
-        txtStickerCount.text = String(describing: sticker.stickers.count).inLocalizedLanguage() + " " + "LBL_STICKER".localized
+        txtStickerCount.text = String(describing: sticker.stickers.count).inLocalizedLanguage() + " " + IGStringsManager.Sticker.rawValue.localized
     }
     
     @objc func didTapOnAddOrRemove(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -178,7 +178,7 @@ class IGStickerSectionHeader: UICollectionReusableView {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 self.stickerAddRemove.layer.borderColor = UIColor.swipeRed().cgColor
                 self.stickerAddRemove.textColor = UIColor.swipeRed()
-                self.stickerAddRemove.text = "BTN_DELETE".localized
+                self.stickerAddRemove.text = IGStringsManager.Delete.rawValue.localized
                 self.stickerAddRemove.font = UIFont.igFont(ofSize: 17)
 
             }
@@ -186,7 +186,7 @@ class IGStickerSectionHeader: UICollectionReusableView {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 self.stickerAddRemove.layer.borderColor = UIColor.systemBlue.cgColor
                 self.stickerAddRemove.textColor = UIColor.systemBlue
-                self.stickerAddRemove.text = "ADD_BTN".localized
+                self.stickerAddRemove.text = IGStringsManager.Add.rawValue.localized
                 self.stickerAddRemove.font = UIFont.igFont(ofSize: 17)
             }
         }

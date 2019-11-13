@@ -31,7 +31,7 @@ class IGReport: UITableViewController , UIGestureRecognizerDelegate {
         
         txtReportDescription.delegate = self
         txtReportDescription.isUserInteractionEnabled = true
-        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: "REPORT".localized)
+        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: IGStringsManager.Report.rawValue.localized)
         navigationItem.rightViewContainer?.addAction {
             if self.txtReportDescription.text.isEmpty {
                 let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "PLEASE_WRITE_UR_REPORT".localized, preferredStyle: .alert)

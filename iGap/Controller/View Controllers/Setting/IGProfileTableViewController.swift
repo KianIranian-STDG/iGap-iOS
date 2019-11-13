@@ -243,7 +243,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 switch  currentTabIndex {
                 case TabBarTab.Recent.rawValue:
                     let navItem = self.navigationItem as! IGNavigationItem
-                    navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localized)
+                    navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: IGStringsManager.Phone.rawValue.localized)
                 default:
                     self.initNavBar()
                 }
@@ -350,13 +350,13 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         lblReferralInner.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
 
         btnName.setTitle("NAME".localized, for: .normal)
-        lblCloud.text = "MY_CLOUD".localized
+        lblCloud.text = IGStringsManager.Cloud.rawValue.localized
         lblSetting.text = "SETTING_VIEW".localized
         lblNew.text = IGStringsManager.GlobalNew.rawValue.localized
         lblCredit.text = "CREDITS".localized
         lblScore.text = "SETTING_PAGE_ACCOUNT_SCORE_PAGE".localized
         lblScoreAmount.text = "..."
-        lblInviteF.text = "SETTING_PAGE_INVITE_FRIENDS".localized
+        lblInviteF.text = IGStringsManager.InviteFriends.rawValue.localized
         lblQR.text = IGStringsManager.QrCodeScanner.rawValue.localized
         lblNearby.text = "SETTING_NEARBY".localized
         lblFaq.text = "FAQ".localized

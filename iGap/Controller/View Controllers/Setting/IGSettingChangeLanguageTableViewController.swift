@@ -23,7 +23,7 @@ class IGSettingChangeLanguageTableViewController: BaseTableViewController {
     
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_CHANGE_LANGUAGE".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.ChangeLang.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
     }
     

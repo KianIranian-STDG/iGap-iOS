@@ -289,7 +289,6 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     }
     
     func BillMerchantError(errorType: Int) {
-        //        showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "MSG_ERROR_BILL_PAYMENT".localized, dismiss: true)
     }
 
     // MARK: - Actions

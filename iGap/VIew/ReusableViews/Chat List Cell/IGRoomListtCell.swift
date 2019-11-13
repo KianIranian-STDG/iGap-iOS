@@ -523,9 +523,9 @@ class IGRoomListtCell: BaseTableViewCell {
                 if lastMessage.type == .log {
                     self.lastMsgLabel.text = IGRoomMessageLog.textForLogMessage(lastMessage)
                 } else if lastMessage.type == .contact {
-                    self.lastMsgLabel.text = "CONTACT_MESSAGE".localized
+                    self.lastMsgLabel.text = IGStringsManager.ContactMessage.rawValue.localized
                 } else if lastMessage.type == .location {
-                    self.lastMsgLabel.text = "LOCATION_MESSAGE".localized
+                    self.lastMsgLabel.text = IGStringsManager.LocationMessage.rawValue.localized
                 }
             } else {
                 self.timeLabel.text = ""

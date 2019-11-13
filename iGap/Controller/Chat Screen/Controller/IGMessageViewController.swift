@@ -1789,7 +1789,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     ///setting Strings based on language of App
     private func initChangeLanguegeNewChatView() {
         lblPlaceHolder.isHidden = false
-        lblPlaceHolder.text = "MESSAGE".localized
+        lblPlaceHolder.text = IGStringsManager.GlobalMessage.rawValue.localized
         lblCenterText.text = "SLIDE_TO_CANCEL".localized
         lblCenterIcon.text = ""
         self.btnCloseTopBar.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
@@ -2773,7 +2773,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let titleMe = "UNPIN_FOR_ME".localized
         if messageId != 0 {
             message = "PIN_ARE_U_SURE".localized
-            title = "PINN".localized
+            title = IGStringsManager.Pin.rawValue.localized
         }
         
         let alertC = UIAlertController(title: nil, message: message, preferredStyle: IGGlobal.detectAlertStyle())
@@ -2831,7 +2831,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let titleMe = "UNPIN_FOR_ME".localized
         if messageId != 0 {
             message = "PIN_ARE_U_SURE".localized
-            title = "PINN".localized
+            title = IGStringsManager.Pin.rawValue.localized
         }
         
         let alertC = UIAlertController(title: nil, message: message, preferredStyle: IGGlobal.detectAlertStyle())
@@ -4570,7 +4570,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         IGMessageViewController.selectedMessageToForwardToThisRoom = nil
         
         self.messageTextView.text = message.message
-        //        messageTextView.placeholder = "MESSAGE".localized
+        //        messageTextView.placeholder = IGStringsManager.GlobalMessage.rawValue.localized
 
 
         let numLines = (messageTextView.contentSize.height / messageTextView.font!.lineHeight).rounded(.down)
@@ -4624,7 +4624,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.messageTextView.becomeFirstResponder()
         self.lblPlaceHolder.isHidden = true
 
-        self.lblReplyName.text = "EDITE_MESSAGE".localized
+        self.lblReplyName.text = IGStringsManager.dialogEdit.rawValue.localized
         self.lblReplyBody.text = message.message
         self.setInputBarHeight()
     }
@@ -4640,11 +4640,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         self.selectedMessageToEdit = nil
         if isReply {
-            prefix = "REPLY".localized
+            prefix = IGStringsManager.Reply.rawValue.localized
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
             self.selectedMessageToReply = message
         } else {
-            prefix = "FORWARD".localized
+            prefix = IGStringsManager.Forward.rawValue.localized
             self.selectedMessageToReply = nil
             IGMessageViewController.selectedMessageToForwardFromThisRoom = message
             self.setSendAndRecordButtonStates()
@@ -4660,7 +4660,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if textMessage != nil && !(textMessage?.isEmpty)! {
             
             if message.type == .sticker {
-                self.lblReplyBody.text = textMessage! + "LBL_STICKER".localized
+                self.lblReplyBody.text = textMessage! + IGStringsManager.Sticker.rawValue.localized
             } else {
                 self.lblReplyBody.text = textMessage
                 
@@ -4672,19 +4672,19 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
             
         } else if finalMessage.contact != nil {
-            self.lblReplyBody.text = "\(prefix)" + "CONTACT_MESSAGE".localized
+            self.lblReplyBody.text = "\(prefix)" + IGStringsManager.ContactMessage.rawValue.localized
         } else if finalMessage.location != nil {
-            self.lblReplyBody.text = "\(prefix)" + "LOCATION_MESSAGE".localized
+            self.lblReplyBody.text = "\(prefix)" + IGStringsManager.LocationMessage.rawValue.localized
         } else if let file = finalMessage.attachment {
-            self.lblReplyBody.text = "\(prefix) '\(IGFile.convertFileTypeToString(fileType: file.type))'" + "MESSAGE".localized
+            self.lblReplyBody.text = "\(prefix) '\(IGFile.convertFileTypeToString(fileType: file.type))'" + IGStringsManager.GlobalMessage.rawValue.localized
         }
         
         self.setInputBarHeight()
     }
     
     private func manageCardToCardInputBar(){
-        self.lblReplyName.text = "CARD_TO_CARD_REQUEST".localized
-        self.lblReplyBody.text = "CARD_TO_CARD_FILL_INFO".localized
+        self.lblReplyName.text = IGStringsManager.CardToCard.rawValue.localized
+        self.lblReplyBody.text = IGStringsManager.CardToCardRequest.rawValue.localized
         self.setInputBarHeight()
     }
     
@@ -4695,10 +4695,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
-                    let alert = UIAlertController(title: "Success", message: "Your report has been successfully submitted", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Your report has been successfully submitted", cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+
                 default:
                     break
                 }
@@ -4708,24 +4706,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                    break
-                    
+                        break
                 case .clientRoomReportReportedBefore:
-                    let alert = UIAlertController(title: "Error", message: "This Room Reported Before", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: "This Room Reported Before", cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+
                     break
                     
                 case .clientRoomReportForbidden:
-                    let alert = UIAlertController(title: "Error", message: "Room Report Fobidden", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Room Report Fobidden", cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+
                     break
                     
                 default:
@@ -4741,19 +4731,19 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let messageId = message.id
         
         let alertC = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let abuse = UIAlertAction(title: "ABUSE".localized, style: .default, handler: { (action) in
+        let abuse = UIAlertAction(title: IGStringsManager.Abuse.rawValue.localized, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, messageId: messageId, reason: IGPClientRoomReport.IGPReason.abuse)
         })
         
-        let spam = UIAlertAction(title: "SPAM".localized, style: .default, handler: { (action) in
+        let spam = UIAlertAction(title: IGStringsManager.Spam.rawValue.localized, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, messageId: messageId, reason: IGPClientRoomReport.IGPReason.spam)
         })
         
-        let violence = UIAlertAction(title: "VIOLENCE".localized, style: .default, handler: { (action) in
+        let violence = UIAlertAction(title: IGStringsManager.Violence.rawValue.localized, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, messageId: messageId, reason: IGPClientRoomReport.IGPReason.violence)
         })
         
-        let pornography = UIAlertAction(title: "PORNOGRAPHY".localized, style: .default, handler: { (action) in
+        let pornography = UIAlertAction(title: IGStringsManager.Pornography.rawValue.localized, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, messageId: messageId, reason: IGPClientRoomReport.IGPReason.pornography)
         })
         
@@ -5665,9 +5655,9 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             self.copyMessage(cellMessage)
         })
         
-        var pinTitle = "PINN".localized
+        var pinTitle = IGStringsManager.Pin.rawValue.localized
         if self.room?.pinMessage != nil && self.room?.pinMessage?.id == cellMessage.id {
-            pinTitle = "UNPINN".localized
+            pinTitle = IGStringsManager.UnPin.rawValue.localized
         }
         
         let pin = UIAlertAction(title: pinTitle, style: .default, handler: { (action) in
@@ -5685,15 +5675,15 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 }
             }
         })
-        let reply = UIAlertAction(title: "REPLY".localized, style: .default, handler: { (action) in
+        let reply = UIAlertAction(title: IGStringsManager.Reply.rawValue.localized, style: .default, handler: { (action) in
             self.forwardOrReplyMessage(cellMessage)
         })
         
-        let forward = UIAlertAction(title: "FORWARD".localized, style: .default, handler: { (action) in
+        let forward = UIAlertAction(title: IGStringsManager.Forward.rawValue.localized, style: .default, handler: { (action) in
             self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : true,isDelete : false,isShare : false)
         })
         
-        let edit = UIAlertAction(title: "BTN_EDITE".localized, style: .default, handler: { (action) in
+        let edit = UIAlertAction(title: IGStringsManager.dialogEdit.rawValue.localized, style: .default, handler: { (action) in
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
                 let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalNoNetwork.rawValue.localized, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
@@ -5712,22 +5702,22 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             IGHelperPopular.shareAttachment(url: finalMessage.attachment?.path(), viewController: self)
         })
         
-        let report = UIAlertAction(title: "REPORT".localized, style: .default, handler: { (action) in
+        let report = UIAlertAction(title: IGStringsManager.Report.rawValue.localized, style: .default, handler: { (action) in
             self.report(room: self.room!, message: cellMessage)
         })
         
-        _ = UIAlertAction(title: "MORE".localized, style: .default, handler: { (action) in
+        _ = UIAlertAction(title: IGStringsManager.More.rawValue.localized, style: .default, handler: { (action) in
             for visibleCell in self.collectionView.visibleCells {
                 let aCell = visibleCell as! IGMessageGeneralCollectionViewCell
                 aCell.setMultipleSelectionMode(true)
             }
         })
-        _ = UIAlertAction(title: "BTN_DELETE".localized, style: .destructive, handler: { (action) in
+        _ = UIAlertAction(title: IGStringsManager.Delete.rawValue.localized, style: .destructive, handler: { (action) in
             self.deleteMessage(cellMessage)
         })
         var deleteTitle = ""
         if self.room!.type == .group || self.room!.type == .channel {
-            deleteTitle =  "BTN_DELETE".localized
+            deleteTitle =  IGStringsManager.Delete.rawValue.localized
         } else {
             deleteTitle =  "DELETE_FOR_ME".localized
         }
@@ -5872,7 +5862,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             }
         })
         
-        let delete = UIAlertAction(title: "BTN_DELETE".localized, style: .destructive, handler: { (action) in
+        let delete = UIAlertAction(title: IGStringsManager.Delete.rawValue.localized, style: .destructive, handler: { (action) in
             if let attachment = cellMessage.attachment {
                 IGMessageSender.defaultSender.deleteFailedMessage(primaryKeyId: attachment.cacheID, hasAttachment: true)
             } else {

@@ -129,7 +129,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 switch  currentTabIndex {
                 case TabBarTab.Recent.rawValue:
                     let navItem = self.navigationItem as! IGNavigationItem
-                    navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localized)
+                    navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: IGStringsManager.Phone.rawValue.localized)
                 default:
                     if isDashboardInner! {
                         self.initNavigationBar(title: nil, rightItemText: nil) { }

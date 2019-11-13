@@ -53,7 +53,7 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
         resultSearchController.searchBar.delegate = self
         searchBar.delegate = self
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localized, title: "CONTACTS_VIEW".localized)
+        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: "CONTACTS_VIEW".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -235,12 +235,12 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
         let alert = UIAlertController(title: "BTN_EDITE_CONTACT".localized, message: nil, preferredStyle: .alert)
         
         alert.addTextField { (textField) in
-            textField.placeholder = "PLACE_HOLDER_F_NAME".localized
+            textField.placeholder = IGStringsManager.FirstName.rawValue.localized
             textField.text = String(describing: firstname)
         }
         
         alert.addTextField { (textField) in
-            textField.placeholder = "PLACE_HOLDER_L_NAME".localized
+            textField.placeholder = IGStringsManager.LastName.rawValue.localized
             if lastname != nil && !(lastname?.isEmpty)! {
                 textField.text = String(describing: lastname!)
             }
@@ -316,17 +316,17 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
             let blockListCell  = tableView.dequeueReusableCell(withIdentifier: "BlockListCell", for: indexPath) as! IGSettingContactsBlockListTableViewCell
             if SMLangUtil.loadLanguage() == "fa" {
 
-                blockListCell.numberOfBlockedContacts.text = "\(blockedUsers.count)".inPersianNumbersNew()+" " + "CONTACTS".localized
+                blockListCell.numberOfBlockedContacts.text = "\(blockedUsers.count)".inPersianNumbersNew()+" " + IGStringsManager.Contacts.rawValue.localized
                 cell = blockListCell
             }
             else if SMLangUtil.loadLanguage() == "en" {
 
-                blockListCell.numberOfBlockedContacts.text = "\(blockedUsers.count)".inEnglishNumbersNew()+" " + "CONTACTS".localized
+                blockListCell.numberOfBlockedContacts.text = "\(blockedUsers.count)".inEnglishNumbersNew()+" " + IGStringsManager.Contacts.rawValue.localized
                 cell = blockListCell
             }
             else {
 
-                blockListCell.numberOfBlockedContacts.text = "\(blockedUsers.count)".inPersianNumbersNew()+" " + "CONTACTS".localized
+                blockListCell.numberOfBlockedContacts.text = "\(blockedUsers.count)".inPersianNumbersNew()+" " + IGStringsManager.Contacts.rawValue.localized
                 cell = blockListCell
             }
 
@@ -340,12 +340,12 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
             contactsCell.setUser(user.registredUser)
             //            }
             
-            let delete = MGSwipeButton(title: "BTN_DELETE".localized, backgroundColor: UIColor.swipeRed(), callback: { (sender: MGSwipeTableCell!) -> Bool in
+            let delete = MGSwipeButton(title: IGStringsManager.Delete.rawValue.localized, backgroundColor: UIColor.swipeRed(), callback: { (sender: MGSwipeTableCell!) -> Bool in
                 self.deleteContactAlert(phone: user.registredUser.phone)
                 return true
             })
             
-            let edit = MGSwipeButton(title: "BTN_EDITE".localized, backgroundColor: UIColor.swipeBlueGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
+            let edit = MGSwipeButton(title: IGStringsManager.dialogEdit.rawValue.localized, backgroundColor: UIColor.swipeBlueGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
                 self.contactEditAlert(phone: user.registredUser.phone, firstname: user.registredUser.firstName, lastname: user.registredUser.lastName)
                 return true
             })

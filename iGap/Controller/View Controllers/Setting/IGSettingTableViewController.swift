@@ -71,7 +71,7 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
     
     
     func initChangeLanguage() {
-        lblChangeLang.text = "SETTING_PAGE_CHANGE_LANGUAGE".localized
+        lblChangeLang.text = IGStringsManager.ChangeLang.rawValue.localized
         lblPrivacyPolicy.text = "SETTING_PAGE_PRIVACY_AND_SECURITY".localized
         lblNotificationSounds.text = "NOTIFICATION_SOUNDS".localized
         lblDataStorage.text = "DATA_STORAGE".localized

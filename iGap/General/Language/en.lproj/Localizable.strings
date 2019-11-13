@@ -6587,4 +6587,9 @@ TODO:// complete */
 "elec_bill_customer_zone" = "Customer Zone";
 "elec_bill_customer_due_date" = "Due Date";
 "elec_bill_device_last_read" = "Last Read Date";
+"elec_bill_enter_device_serial" = "Please Enter The Counter Meter Device's Serial Number";
+"elec_bill_select_provider_company_list" = "Please Select Your Provider Company From The List";
+"communicating" = "Communicating...";
+"what_do_u_want" = "What Do You Want to Do ?";
+"which_type_of" = "Which type of conversation would you like to initiate?";
 

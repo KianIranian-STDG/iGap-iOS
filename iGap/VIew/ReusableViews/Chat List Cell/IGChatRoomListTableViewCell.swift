@@ -392,9 +392,9 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
             if lastMessage.type == .log {
                 self.lastMessageLabel.text = IGRoomMessageLog.textForLogMessage(lastMessage)
             } else if lastMessage.type == .contact {
-                self.lastMessageLabel.text = "CONTACT_MESSAGE".localized
+                self.lastMessageLabel.text = IGStringsManager.ContactMessage.rawValue.localized
             } else if lastMessage.type == .location {
-                self.lastMessageLabel.text = "LOCATION_MESSAGE".localized
+                self.lastMessageLabel.text = IGStringsManager.LocationMessage.rawValue.localized
             }
         } else {
             self.timeLabel.text = ""

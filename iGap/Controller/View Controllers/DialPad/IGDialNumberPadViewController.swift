@@ -60,7 +60,7 @@ class IGDialNumberPadViewController: UIViewController,UIGestureRecognizerDelegat
     }
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.Phone.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self

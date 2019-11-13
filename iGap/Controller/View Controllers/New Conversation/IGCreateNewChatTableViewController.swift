@@ -386,10 +386,7 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
             }).error({ (errorCode, waitTime) in
                 DispatchQueue.main.async {
                     IGGlobal.prgHide()
-                    let alertC = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "ERROR_RETRY".localized, preferredStyle: .alert)
-                    let cancel = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alertC.addAction(cancel)
-                    self.present(alertC, animated: true, completion: nil)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
                 }
             }).send()
         }

@@ -164,7 +164,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 self.navigationController!.pushViewController(createChat, animated: true)
             })
             
-            let clearCallLog = UIAlertAction(title: "CLEAR_HISTORY".localized, style: .default, handler: { (action) in
+            let clearCallLog = UIAlertAction(title: IGStringsManager.ClearHistory.rawValue.localized, style: .default, handler: { (action) in
                 if IGAppManager.sharedManager.userID() != nil {
                     let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                     hud.mode = .indeterminate
@@ -213,8 +213,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             return
         }
         
-        let alertController = UIAlertController(title: nil, message: "WHICH_TYPE_OF".localized, preferredStyle: IGGlobal.detectAlertStyle())
-        let myCloud = UIAlertAction(title: "MY_CLOUD".localized, style: .default, handler: { (action) in
+        let alertController = UIAlertController(title: nil, message: IGStringsManager.WhichTypeOfMessage.rawValue.localized, preferredStyle: IGGlobal.detectAlertStyle())
+        let myCloud = UIAlertAction(title: IGStringsManager.Cloud.rawValue.localized, style: .default, handler: { (action) in
             if let userId = IGAppManager.sharedManager.userID() {
                 let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                 hud.mode = .indeterminate
@@ -241,7 +241,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }).send()
             }
         })
-        let newChat = UIAlertAction(title: "NEW_C_C".localized, style: .default, handler: { (action) in
+        let newChat = UIAlertAction(title: IGStringsManager.NewChat.rawValue.localized, style: .default, handler: { (action) in
             let createChat = IGPhoneBookTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
             createChat.hidesBottomBarWhenPushed = true
             self.navigationController!.pushViewController(createChat, animated: true)
@@ -659,18 +659,18 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let room = rooms![indexPath.row]
-        var muteTitle = "UN_MUTE".localized
+        var muteTitle = IGStringsManager.UnMute.rawValue.localized
         if room.mute == IGRoom.IGRoomMute.mute {
-            muteTitle = "UN_MUTE".localized
+            muteTitle = IGStringsManager.UnMute.rawValue.localized
         }
         else {
-            muteTitle = "MUTE".localized
+            muteTitle = IGStringsManager.Mute.rawValue.localized
             
         }
         
-        var pinTitle = "PINN".localized
+        var pinTitle = IGStringsManager.Pin.rawValue.localized
         if room.pinId > 0 {
-            pinTitle = "UNPINN".localized
+            pinTitle = IGStringsManager.UnPin.rawValue.localized
         }
         //MUTE
         let btnMuteSwipeCell = UIContextualAction(style: .normal, title: muteTitle) { (contextualAction, view, boolValue) in
@@ -703,12 +703,12 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         
         //MORE
-        let btnMoreSwipeCell = UIContextualAction(style: .normal, title: "MORE".localized) { (contextualAction, view, boolValue) in
+        let btnMoreSwipeCell = UIContextualAction(style: .normal, title: IGStringsManager.More.rawValue.localized) { (contextualAction, view, boolValue) in
             boolValue(true) // pass true if you want the handler to allow the action
 
-            let title = room.title != nil ? room.title! : "BTN_DELETE".localized
-            let alertC = UIAlertController(title: title, message: "WHAT_DO_U_WANT".localized, preferredStyle: IGGlobal.detectAlertStyle())
-            let clear = UIAlertAction(title: "CLEAR_HISTORY".localized, style: .default, handler: { (action) in
+            let title = room.title != nil ? room.title! : IGStringsManager.Delete.rawValue.localized
+            let alertC = UIAlertController(title: title, message: IGStringsManager.WhatToDo.rawValue.localized, preferredStyle: IGGlobal.detectAlertStyle())
+            let clear = UIAlertAction(title: IGStringsManager.ClearHistory.rawValue.localized, style: .default, handler: { (action) in
                 switch room.type{
                 case .chat:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
@@ -728,7 +728,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
             })
             
-            let clearLocalMessage = UIAlertAction(title: "CLEAR_HISTORY_LOCAL".localized, style: .default, handler: { (action) in
+            let clearLocalMessage = UIAlertAction(title: IGStringsManager.CLearCashe.rawValue.localized, style: .default, handler: { (action) in
                 IGRoomMessage.clearLocalMessage(roomId: room.id)
             })
             
@@ -750,7 +750,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
             })
             
-            let report = UIAlertAction(title: "REPORT".localized, style: .default, handler: { (action) in
+            let report = UIAlertAction(title: IGStringsManager.Report.rawValue.localized, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalNoNetwork.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
 
@@ -759,7 +759,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
             })
             
-            let remove = UIAlertAction(title: "BTN_DELETE".localized, style: .destructive, handler: { (action) in
+            let remove = UIAlertAction(title: IGStringsManager.Delete.rawValue.localized, style: .destructive, handler: { (action) in
                 switch room.type {
                 case .chat:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
@@ -786,7 +786,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
             })
             
-            let leave = UIAlertAction(title: "LEAVE".localized, style: .destructive, handler: { (action) in
+            let leave = UIAlertAction(title: IGStringsManager.Leave.rawValue.localized, style: .destructive, handler: { (action) in
                 switch room.type {
                 case .chat:
                     break
@@ -1110,7 +1110,7 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORT_SUBMITED".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ReportSent.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
 
                 default:
                     break
@@ -1124,10 +1124,6 @@ extension IGRecentsTableViewController {
                     break
                     
                 case .clientRoomReportReportedBefore:
-                    
-                    
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ROOM_REPORTED_BEFOR".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
-
                     break
                     
                 case .clientRoomReportForbidden:
@@ -1150,7 +1146,7 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPUserReportResponse:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORT_SUBMITED".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ReportSent.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
 
                 default:
                     break
@@ -1164,7 +1160,7 @@ extension IGRecentsTableViewController {
                     break
                     
                 case .userReportReportedBefore:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_REPORTED_BEFOR".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UserReportedBefore.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
 
                     break
                     
@@ -1188,13 +1184,13 @@ extension IGRecentsTableViewController {
         var title = ""
         
         if roomType == .chat {
-            title = "REPORT_REASON".localized
+            title = IGStringsManager.Report.rawValue.localized
         } else {
-            title = "REPORT_REASON".localized
+            title = IGStringsManager.Report.rawValue.localized
         }
         
         let alertC = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let abuse = UIAlertAction(title: "ABUSE".localized, style: .default, handler: { (action) in
+        let abuse = UIAlertAction(title: IGStringsManager.Abuse.rawValue.localized, style: .default, handler: { (action) in
             
             if roomType == .chat {
                 self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.abuse)
@@ -1203,7 +1199,7 @@ extension IGRecentsTableViewController {
             }
         })
         
-        let spam = UIAlertAction(title: "SPAM".localized, style: .default, handler: { (action) in
+        let spam = UIAlertAction(title: IGStringsManager.Spam.rawValue.localized, style: .default, handler: { (action) in
             
             if roomType == .chat {
                 self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.spam)
@@ -1212,15 +1208,15 @@ extension IGRecentsTableViewController {
             }
         })
         
-        let fakeAccount = UIAlertAction(title: "FAKE_ACCOUNT".localized, style: .default, handler: { (action) in
+        let fakeAccount = UIAlertAction(title: IGStringsManager.FakeAccount.rawValue.localized, style: .default, handler: { (action) in
             self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.fakeAccount)
         })
         
-        let violence = UIAlertAction(title: "VIOLENCE".localized, style: .default, handler: { (action) in
+        let violence = UIAlertAction(title: IGStringsManager.Violence.rawValue.localized, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.violence)
         })
         
-        let pornography = UIAlertAction(title: "PORNOGRAPHY".localized, style: .default, handler: { (action) in
+        let pornography = UIAlertAction(title: IGStringsManager.Pornography.rawValue.localized, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.pornography)
         })
         

@@ -110,7 +110,7 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
         
         if let index = filteredForwardItem.firstIndex(where: { $0.displayName == currentUser.displayName }) {
             var element = filteredForwardItem[index]
-            element.displayName = "MY_CLOUD".localized
+            element.displayName = IGStringsManager.Cloud.rawValue.localized
             filteredForwardItem.remove(at: index)
             filteredForwardItem.insert(element, at: 1)
         }
