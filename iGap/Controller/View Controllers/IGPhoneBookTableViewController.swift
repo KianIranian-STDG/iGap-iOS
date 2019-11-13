@@ -36,7 +36,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }
     
     var customHeaderView: UIView!
-    
+    var isInSearchMode : Bool = false
     var searchController : UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
@@ -59,6 +59,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }()
 
     private var contacts: Results<IGRegisteredUser>!
+    private var searchedContacts: Results<IGRegisteredUser>!
     private var forceCall: Bool = false
     private var pageName : String! = "NEW_CALL"
     private var lastContentOffset: CGFloat = 0
@@ -97,6 +98,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        isInSearchMode = false
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -462,8 +465,15 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         }
         
         self.searchController.isActive = false
+        
         IGGlobal.prgShow(self.view)
-        let user = self.contacts[selectedIndexPath]
+        var user = self.contacts[selectedIndexPath]
+
+        if isInSearchMode {
+            user = self.searchedContacts[selectedIndexPath]
+        } else {
+            user = self.contacts[selectedIndexPath]
+        }
         IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
             if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
                 DispatchQueue.main.async {
@@ -568,6 +578,8 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
             footerLabel?.isHidden = false
             let allContacts = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(NSPredicate(format: "isInContacts = 1")).sorted(byKeyPath: "displayName", ascending: true)
             contacts = allContacts.filter(predicate)
+            searchedContacts = allContacts.filter(predicate)
+            isInSearchMode = true
             self.tableView.reloadData()
         } else {
             footerLabel?.isHidden = true
@@ -583,6 +595,7 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
         
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         footerLabel?.isHidden = true
+        isInSearchMode = false
         allowInitObserver = true
         self.initObserver()
         self.tableView.reloadData()
@@ -590,6 +603,8 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.tableView.reloadData()
+        isInSearchMode = true
+
         searchController.searchBar.resignFirstResponder()
     }
 }

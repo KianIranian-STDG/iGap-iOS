@@ -242,7 +242,7 @@ class IGApiElectricityBill: IGApiBase {
                                 return
                             }
                             IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-                                UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+//                                UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                             })
                             
                             completion(false, nil, message)
@@ -256,7 +256,7 @@ class IGApiElectricityBill: IGApiBase {
                             return
                         }
                         IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-                            UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+//                            UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                         })
                         
                         completion(false, nil, message)
@@ -269,7 +269,7 @@ class IGApiElectricityBill: IGApiBase {
                         return
                     }
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-                        UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+//                        UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                     })
                     
                     completion(false, nil, message)
@@ -315,7 +315,7 @@ class IGApiElectricityBill: IGApiBase {
                                 return
                             }
                             IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-                                UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+//                                UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                             })
                             
                             completion(false, nil, message)
@@ -329,7 +329,7 @@ class IGApiElectricityBill: IGApiBase {
                             return
                         }
                         IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-                            UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+//                            UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                         })
                         
                         completion(false, nil, message)
@@ -342,7 +342,7 @@ class IGApiElectricityBill: IGApiBase {
                         return
                     }
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-                        UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+//                        UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                     })
                     
                     completion(false, nil, message)
@@ -391,7 +391,7 @@ class IGApiElectricityBill: IGApiBase {
                                 return
                             }
                             IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-                                UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+//                                UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                             })
                             
                             completion(false, nil, message)
@@ -405,7 +405,7 @@ class IGApiElectricityBill: IGApiBase {
                             return
                         }
                         IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-                            UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+//                            UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                         })
                         
                         completion(false, nil, message)
@@ -418,7 +418,7 @@ class IGApiElectricityBill: IGApiBase {
                         return
                     }
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-                        UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+//                        UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                     })
                     
                     completion(false, nil, message)
