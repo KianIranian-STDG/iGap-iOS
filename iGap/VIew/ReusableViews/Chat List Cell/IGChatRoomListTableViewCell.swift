@@ -363,19 +363,19 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
                         self.lastMessageLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
                     }
                 case .image:
-                    self.lastMessageLabel.text = "IMAGES_MESSAGE".localized
+                    self.lastMessageLabel.text = IGStringsManager.ImageMessage.rawValue.localized
                 case .video:
-                    self.lastMessageLabel.text = "VIDEOS_MESSAGE".localized
+                    self.lastMessageLabel.text = IGStringsManager.VideoMessage.rawValue.localized
                 case .gif:
-                    self.lastMessageLabel.text = "GIFS_MESSAGE".localized
+                    self.lastMessageLabel.text = IGStringsManager.GifMessage.rawValue.localized
                 case .audio:
-                    self.lastMessageLabel.text = "AUDIOS_MESSAGE".localized
+                    self.lastMessageLabel.text = IGStringsManager.AudioMessage.rawValue.localized
                 case .voice:
                     self.lastMessageLabel.text = IGStringsManager.VoiceMessage.rawValue.localized
                 case .file:
-                    self.lastMessageLabel.text = "FILES_MESSAGE".localized
+                    self.lastMessageLabel.text = IGStringsManager.FileMessage.rawValue.localized
                 case .sticker:
-                    self.lastMessageLabel.text = "STICKERS_MESSAGE".localized
+                    self.lastMessageLabel.text = IGStringsManager.StickerMessage.rawValue.localized
                 case .wallet:
                     if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
                         self.lastMessageLabel.text = "WALLET_MESSAGE".localized

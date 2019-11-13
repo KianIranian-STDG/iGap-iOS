@@ -383,19 +383,19 @@ public class IGFile: Object {
     
     internal static func convertFileTypeToString(fileType: IGFile.FileType) -> String{
         if fileType == .image {
-            return "IMAGES_MESSAGE".localized
+            return IGStringsManager.ImageMessage.rawValue.localized
         } else if fileType == .video {
-            return "VIDEOS_MESSAGE".localized
+            return IGStringsManager.VideoMessage.rawValue.localized
         } else if fileType == .gif {
-            return "GIFS_MESSAGE".localized
+            return IGStringsManager.GifMessage.rawValue.localized
         } else if fileType == .audio {
-            return "AUDIOS_MESSAGE".localized
+            return IGStringsManager.AudioMessage.rawValue.localized
         } else if fileType == .file {
-            return "FILES_MESSAGE".localized
+            return IGStringsManager.FileMessage.rawValue.localized
         } else if fileType == .voice {
             return IGStringsManager.VoiceMessage.rawValue.localized
         } else if fileType == .sticker {
-            return "STICKERS_MESSAGE".localized
+            return IGStringsManager.StickerMessage.rawValue.localized
         }
         return ""
     }

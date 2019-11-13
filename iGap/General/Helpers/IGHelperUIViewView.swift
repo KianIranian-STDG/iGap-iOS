@@ -143,7 +143,6 @@ class IGHelperUIViewView {
         print(tempTimer)
         print(lastRecordedTime)
         print("|||||||||TIMER||||||||||")
-//            callPage.txtCallState.text = "CONNECTED".localized
             callPage.isReturnCall = true
             var currentController = window.rootViewController
             if let presentedController = currentController!.presentedViewController {

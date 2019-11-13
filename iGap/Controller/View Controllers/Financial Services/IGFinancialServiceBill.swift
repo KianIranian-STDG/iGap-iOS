@@ -82,9 +82,9 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
     
     func initNavigationBar(){
         
-        var title = "SETTING_FS_PAY_BILLS".localized
+        var title = IGStringsManager.PayBills.rawValue.localized
         if IGFinancialServiceBill.isTrafficOffenses {
-            title = "SETTING_FS_PAY_TRAFFIC_TICKETS".localized
+            title = IGStringsManager.PayTraficTicket.rawValue.localized
         }
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: title, width: 200)

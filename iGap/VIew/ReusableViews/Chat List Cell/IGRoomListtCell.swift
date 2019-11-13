@@ -455,19 +455,19 @@ class IGRoomListtCell: BaseTableViewCell {
 //                            self.lastMsgLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
 //                        }
                     case .image:
-                        self.lastMsgLabel.text = "IMAGES_MESSAGE".localized
+                        self.lastMsgLabel.text = IGStringsManager.ImageMessage.rawValue.localized
                     case .video:
-                        self.lastMsgLabel.text = "VIDEOS_MESSAGE".localized
+                        self.lastMsgLabel.text = IGStringsManager.VideoMessage.rawValue.localized
                     case .gif:
-                        self.lastMsgLabel.text = "GIFS_MESSAGE".localized
+                        self.lastMsgLabel.text = IGStringsManager.GifMessage.rawValue.localized
                     case .audio:
-                        self.lastMsgLabel.text = "AUDIOS_MESSAGE".localized
+                        self.lastMsgLabel.text = IGStringsManager.AudioMessage.rawValue.localized
                     case .voice:
                         self.lastMsgLabel.text = IGStringsManager.VoiceMessage.rawValue.localized
                     case .file:
-                        self.lastMsgLabel.text = "FILES_MESSAGE".localized
+                        self.lastMsgLabel.text = IGStringsManager.FileMessage.rawValue.localized
                     case .sticker:
-                        self.lastMsgLabel.text = "STICKERS_MESSAGE".localized
+                        self.lastMsgLabel.text = IGStringsManager.StickerMessage.rawValue.localized
                     case .wallet:
                         if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
                             self.lastMsgLabel.text = "WALLET_MESSAGE".localized
@@ -494,19 +494,19 @@ class IGRoomListtCell: BaseTableViewCell {
 //                            self.lastMsgLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
 //                        }
                     case .image:
-                        self.lastMsgLabel.text = "IMAGES_MESSAGE".localized
+                        self.lastMsgLabel.text = IGStringsManager.ImageMessage.rawValue.localized
                     case .video:
-                        self.lastMsgLabel.text = "VIDEOS_MESSAGE".localized
+                        self.lastMsgLabel.text = IGStringsManager.VideoMessage.rawValue.localized
                     case .gif:
-                        self.lastMsgLabel.text = "GIFS_MESSAGE".localized
+                        self.lastMsgLabel.text = IGStringsManager.GifMessage.rawValue.localized
                     case .audio:
-                        self.lastMsgLabel.text = "AUDIOS_MESSAGE".localized
+                        self.lastMsgLabel.text = IGStringsManager.AudioMessage.rawValue.localized
                     case .voice:
                         self.lastMsgLabel.text = IGStringsManager.VoiceMessage.rawValue.localized
                     case .file:
-                        self.lastMsgLabel.text = "FILES_MESSAGE".localized
+                        self.lastMsgLabel.text = IGStringsManager.FileMessage.rawValue.localized
                     case .sticker:
-                        self.lastMsgLabel.text = "STICKERS_MESSAGE".localized
+                        self.lastMsgLabel.text = IGStringsManager.StickerMessage.rawValue.localized
                     case .wallet:
                         if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
                             self.lastMsgLabel.text = "WALLET_MESSAGE".localized

@@ -81,9 +81,9 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         changeDirection()
-        lblNone.text = "NOBODY".localized
-        lblEveryOne.text = "EVERYBODY".localized
-        lblMyContacts.text = "MY_CONTACTS".localized
+        lblNone.text = IGStringsManager.Nobody.rawValue.localized
+        lblEveryOne.text = IGStringsManager.Everbody.rawValue.localized
+        lblMyContacts.text = IGStringsManager.MyContacts.rawValue.localized
     }
     func changeDirection() {
         let current : String = SMLangUtil.loadLanguage()

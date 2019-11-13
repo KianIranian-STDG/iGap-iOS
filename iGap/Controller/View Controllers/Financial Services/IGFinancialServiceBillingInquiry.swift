@@ -88,9 +88,9 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
         
     }
     func initNavigationBar(){
-        var title = "SETTING_FS_PHONE_INQUERY".localized
+        var title = IGStringsManager.HomeBillsInquiry.rawValue.localized
         if IGFinancialServiceBillingInquiry.isMobile {
-            title = "SETTING_FS_MBILL_INQUERY".localized
+            title = IGStringsManager.HamrahAvalBillsInquiry.rawValue.localized
         }
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: title, width: 200)

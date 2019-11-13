@@ -166,7 +166,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
     }
     
     func clearCommentAlert(){
-        let option = UIAlertController(title: "CLEAR_STATUS".localized, message: "SETTING_NEARBY_MAP_STATUS".localized, preferredStyle: .alert)
+        let option = UIAlertController(title: "CLEAR_STATUS".localized, message: IGStringsManager.NearByMessage.rawValue.localized, preferredStyle: .alert)
         let ok = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .destructive, handler: { (action) in
             self.updateComment(comment: "")
         })

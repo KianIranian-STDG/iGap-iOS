@@ -243,13 +243,13 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
             avatarUserPrivacy = avatarPrivacy
             switch  avatarPrivacy{
             case .allowAll:
-                whoCanSeeProfilePhotoLabel.text = "EVERYBODY".localized
+                whoCanSeeProfilePhotoLabel.text = IGStringsManager.Everbody.rawValue.localized
                 break
             case .allowContacts:
-                whoCanSeeProfilePhotoLabel.text = "MY_CONTACTS".localized
+                whoCanSeeProfilePhotoLabel.text = IGStringsManager.MyContacts.rawValue.localized
                 break
             case .denyAll:
-                whoCanSeeProfilePhotoLabel.text = "NOBODY".localized
+                whoCanSeeProfilePhotoLabel.text = IGStringsManager.Nobody.rawValue.localized
                 break
             }
         }
@@ -263,13 +263,13 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
             lastSeenUserPrivacy = userStatePrivacy
             switch userStatePrivacy {
             case .allowAll:
-                whoCanSeeLastSeenLabel.text = "EVERYBODY".localized
+                whoCanSeeLastSeenLabel.text = IGStringsManager.Everbody.rawValue.localized
                 break
             case .allowContacts:
-                whoCanSeeLastSeenLabel.text = "MY_CONTACTS".localized
+                whoCanSeeLastSeenLabel.text = IGStringsManager.MyContacts.rawValue.localized
                 break
             case .denyAll:
-                whoCanSeeLastSeenLabel.text = "NOBODY".localized
+                whoCanSeeLastSeenLabel.text = IGStringsManager.Nobody.rawValue.localized
                 break
             }
         }
@@ -284,13 +284,13 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
             switch channelInvitePrivacy {
                 
             case .allowAll:
-                whoCanAddingMeToChannelLabel.text = "EVERYBODY".localized
+                whoCanAddingMeToChannelLabel.text = IGStringsManager.Everbody.rawValue.localized
                 break
             case .allowContacts:
-                whoCanAddingMeToChannelLabel.text = "MY_CONTACTS".localized
+                whoCanAddingMeToChannelLabel.text = IGStringsManager.MyContacts.rawValue.localized
                 break
             case .denyAll:
-                whoCanAddingMeToChannelLabel.text = "NOBODY".localized
+                whoCanAddingMeToChannelLabel.text = IGStringsManager.Nobody.rawValue.localized
                 break
             }
         }
@@ -304,13 +304,13 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
             groupInviteUserPrivacy = groupInvitePrivacy
             switch groupInvitePrivacy {
             case .allowAll:
-                whoCanAddingToGroupLabel.text = "EVERYBODY".localized
+                whoCanAddingToGroupLabel.text = IGStringsManager.Everbody.rawValue.localized
                 break
             case .allowContacts:
-                whoCanAddingToGroupLabel.text = "MY_CONTACTS".localized
+                whoCanAddingToGroupLabel.text = IGStringsManager.MyContacts.rawValue.localized
                 break
             case .denyAll:
-                whoCanAddingToGroupLabel.text = "NOBODY".localized
+                whoCanAddingToGroupLabel.text = IGStringsManager.Nobody.rawValue.localized
                 break
                 
             }
@@ -325,13 +325,13 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
             self.callPrivacy = callPrivacy
             switch callPrivacy {
             case .allowAll:
-                whoCanCallMe.text = "EVERYBODY".localized
+                whoCanCallMe.text = IGStringsManager.Everbody.rawValue.localized
                 break
             case .allowContacts:
-                whoCanCallMe.text = "MY_CONTACTS".localized
+                whoCanCallMe.text = IGStringsManager.MyContacts.rawValue.localized
                 break
             case .denyAll:
-                whoCanCallMe.text = "NOBODY".localized
+                whoCanCallMe.text = IGStringsManager.Nobody.rawValue.localized
                 break
             }
         }
@@ -345,13 +345,13 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
             self.callPrivacy = callPrivacy
             switch callPrivacy {
             case .allowAll:
-                whoCanVideoCallMe.text = "EVERYBODY".localized
+                whoCanVideoCallMe.text = IGStringsManager.Everbody.rawValue.localized
                 break
             case .allowContacts:
-                whoCanVideoCallMe.text = "MY_CONTACTS".localized
+                whoCanVideoCallMe.text = IGStringsManager.MyContacts.rawValue.localized
                 break
             case .denyAll:
-                whoCanVideoCallMe.text = "NOBODY".localized
+                whoCanVideoCallMe.text = IGStringsManager.Nobody.rawValue.localized
                 break
             }
         }

@@ -44,21 +44,21 @@ class IGHelperMediaPicker {
         var config = YPImagePickerConfiguration()
 
         /************************* manage strings *************************/
-        config.wordings.libraryTitle = "GALLERY".localized
-        config.wordings.cameraTitle = "CAMERA".localized
+        config.wordings.libraryTitle = IGStringsManager.Gallery.rawValue.localized
+        config.wordings.cameraTitle = IGStringsManager.Camera.rawValue.localized
         config.wordings.next = IGStringsManager.GlobalNext.rawValue.localized
-        config.wordings.albumsTitle = "ALBUMS".localized
+        config.wordings.albumsTitle = IGStringsManager.Albums.rawValue.localized
         config.wordings.cancel = IGStringsManager.GlobalCancel.rawValue.localized
-        config.wordings.cover = "COVER".localized
-        config.wordings.crop = "CROP".localized
+        config.wordings.cover = IGStringsManager.ChooseFrame.rawValue.localized
+        config.wordings.crop = IGStringsManager.Clip.rawValue.localized
         config.wordings.done = IGStringsManager.GlobalOK.rawValue.localized
-        config.wordings.filter = "FILTER".localized
+        config.wordings.filter = IGStringsManager.Filter.rawValue.localized
         config.wordings.ok = IGStringsManager.GlobalOK.rawValue.localized
-        config.wordings.processing = "PROCESSING".localized
+        config.wordings.processing = IGStringsManager.Processing.rawValue.localized
         config.wordings.save = IGStringsManager.GlobalSave.rawValue.localized
-        config.wordings.trim = "TRIM".localized
-        config.wordings.videoTitle = "VIDEO".localized
-        config.wordings.warningMaxItemsLimit = "WARNING_MAX_ITEMS_LIMIT".localized
+        config.wordings.trim = IGStringsManager.Trim.rawValue.localized
+        config.wordings.videoTitle = IGStringsManager.Video.rawValue.localized
+        config.wordings.warningMaxItemsLimit = IGStringsManager.ErrorMAxSelect.rawValue.localized
         /*
         config.wordings.videoDurationPopup.title = ""
         config.wordings.videoDurationPopup.tooLongMessage = ""

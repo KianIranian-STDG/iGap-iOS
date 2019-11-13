@@ -1337,7 +1337,7 @@ TODO:// complete */
 "E_713_2" = "Bad payload: Invalid offset";
 
 /*  */
-"E_713_3" = "Bad payload: Invalid max limit";
+"E_713_3" = "You Have Reached the maximum selection limit";
 
 /*  */
 "E_713_4" = "Bad payload: Invalid selector";
@@ -6609,3 +6609,7 @@ TODO:// complete */
 "before" = "before";
 "you_joined" = "You Joined";
 "open_now" = "Open Now";
+"sure_to_forward" = "Are you sure to Forward the message to this Room?";
+"albums" = "Albums";
+"choose_frame" = "Cover";
+"processing" = "Processing";

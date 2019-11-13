@@ -81,7 +81,7 @@ class SMGetGift {
             GetGiftView.MessageLabel.text = "کوپن هدیه پیگیر به مبلغ \(self.Value ?? "0") ریال. \nمایل به دریافت آن هستید؟"
             
         } else {
-            GetGiftView.MessageLabel.text = "barcode.gift.wrongemessage".localized
+            GetGiftView.MessageLabel.text = "....."
         }
         
         GetGiftView.layer.cornerRadius = 15
