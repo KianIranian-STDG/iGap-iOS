@@ -151,7 +151,7 @@ class IGHelperBot {
         
         btn.titleLabel?.font = UIFont.igFont(ofSize: 17.0)
         if additionalButton.actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue {
-            btn.setTitle("CARD_TO_CARD".localized, for: UIControl.State.normal)
+            btn.setTitle(IGStringsManager.CardToCard.rawValue.localized, for: UIControl.State.normal)
         } else {
             btn.setTitle(additionalButton.label, for: UIControl.State.normal)
         }
@@ -223,7 +223,7 @@ class IGHelperBot {
         }
         btn.titleLabel?.font = UIFont.igFont(ofSize: 17.0)
         if additionalButton.actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue {
-            btn.setTitle("CARD_TO_CARD".localized, for: UIControl.State.normal)
+            btn.setTitle(IGStringsManager.CardToCard.rawValue.localized, for: UIControl.State.normal)
         } else {
             btn.setTitle(additionalButton.label, for: UIControl.State.normal)
         }
@@ -344,10 +344,10 @@ class IGHelperBot {
                             return
                         }
                         
-                        paymentView.show(on: UIApplication.shared.keyWindow!, title: "DIRECT_PAY".localized, payToken: token, payment: paymentData)
+                        paymentView.show(on: UIApplication.shared.keyWindow!, title: IGStringsManager.Pay.rawValue.localized, payToken: token, payment: paymentData)
                     } else {
                         
-                        paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: "DIRECT_PAY".localized, message: errorMessage ?? "", payToken: token)
+                        paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: IGStringsManager.Pay.rawValue.localized, message: errorMessage ?? "", payToken: token)
                     }
                 })
                 break

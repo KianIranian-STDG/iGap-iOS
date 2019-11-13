@@ -3209,7 +3209,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     
                     
                     MoneyTransactionModal.btnWalletTransfer.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
-                    MoneyTransactionModal.btnCardToCardTransfer.setTitle("CARD_TO_CARD".localized, for: .normal)
+                    MoneyTransactionModal.btnCardToCardTransfer.setTitle(IGStringsManager.CardToCard.rawValue.localized, for: .normal)
                     //                    MoneyTransactionModal.infoLbl.text = IGStringsManager.EnterRecieverCode.rawValue.localized
                     
                     let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
@@ -3221,7 +3221,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 }
                 else {
                     MoneyTransactionModal.btnWalletTransfer.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
-                    MoneyTransactionModal.btnCardToCardTransfer.setTitle("CARD_TO_CARD".localized, for: .normal)
+                    MoneyTransactionModal.btnCardToCardTransfer.setTitle(IGStringsManager.CardToCard.rawValue.localized, for: .normal)
                     //                    MoneyTransactionModal.infoLbl.text = IGStringsManager.EnterRecieverCode.rawValue.localized
                     //                    MoneyTransactionModal.inputTF.placeholder = IGStringsManager.EnterCode.rawValue.localized
                 }
