@@ -505,7 +505,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             if AppDelegate.isDeprecatedClient {
 
                 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "VERSION_DEPRICATED".RecentTableViewlocalized, doneText: "UPDATE".RecentTableViewlocalized,cancelText: "GLOBAL_CLOSE".localized ,done: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".RecentTableViewlocalized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "VERSION_DEPRICATED".RecentTableViewlocalized, doneText: "UPDATE".RecentTableViewlocalized,cancelText: "GLOBAL_CLOSE".localized ,done: {
                     UIApplication.shared.open(self.iGapStoreLink!, options: [:], completionHandler: nil)
 
                 })
@@ -513,7 +513,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
             } else if AppDelegate.isUpdateAvailable {
                 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .question, title: "UPDATE".RecentTableViewlocalized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "VERSION_NEW".RecentTableViewlocalized, doneText: "UPDATE".RecentTableViewlocalized,cancelText: "GLOBAL_CLOSE".localized ,done: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .question, title: "UPDATE".RecentTableViewlocalized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "VERSION_NEW".RecentTableViewlocalized, doneText: "UPDATE".RecentTableViewlocalized,cancelText: "GLOBAL_CLOSE".localized ,done: {
                     UIApplication.shared.open(self.iGapStoreLink!, options: [:], completionHandler: nil)
 
                 })
