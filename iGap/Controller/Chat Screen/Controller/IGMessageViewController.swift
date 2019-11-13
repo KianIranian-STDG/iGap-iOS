@@ -6255,7 +6255,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                     self.present(alert, animated: true, completion: nil)
                     
                 case .clientJoinByInviteLinkForbidden:
-                    let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue, message: "GROUP_DOES_NOT_EXIST".localized, preferredStyle: .alert)
+                    let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue, message: IGStringsManager.GroupNotExist.rawValue.localized, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
@@ -6318,9 +6318,9 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
         DispatchQueue.main.async {
             
-            let alert = UIAlertController(title: IGStringsManager.GlobalSuccess.rawValue.localized, message: "U_JOINED".localized + " \(beforeString)" + "TO".localized + " \(room.title!)!", preferredStyle: .alert)
+            let alert = UIAlertController(title: IGStringsManager.GlobalSuccess.rawValue.localized, message: IGStringsManager.YouJoined.rawValue.localized + " \(beforeString)" + IGStringsManager.To.rawValue.localized + " \(room.title!)!", preferredStyle: .alert)
             let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-            let openNow = UIAlertAction(title: "OPEN_NOW".localized, style: .default, handler: { (action) in
+            let openNow = UIAlertAction(title: IGStringsManager.OpenNow.rawValue.localized, style: .default, handler: { (action) in
                 let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 chatPage.room = room
                 chatPage.hidesBottomBarWhenPushed = true

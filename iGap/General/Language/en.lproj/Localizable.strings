@@ -6603,3 +6603,9 @@ TODO:// complete */
 "Desktop" = "Desktop";
 "blackberry" = "BlackBerry";
 "unknown_audio" = "Unknow Audio";
+"user_not_exist" = "User Does Not Exist";
+"channel_not_exist" = "Channel Does Not Exist";
+"group_not_exist" = "Group Does Not Exist";
+"before" = "before";
+"you_joined" = "You Joined";
+"open_now" = "Open Now";

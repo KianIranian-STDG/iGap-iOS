@@ -77,7 +77,7 @@ class IGHelperJoin {
                     break
                 case .clientJoinByInviteLinkForbidden:
                     
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "GROUP_DOES_NOT_EXIST".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GroupNotExist.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     
                 case .clientJoinByInviteLinkAlreadyJoined:
                     self.openChatAfterJoin(room: IGRoom(igpRoom: room), before: true)
@@ -94,13 +94,13 @@ class IGHelperJoin {
         
         var beforeString = ""
         if before {
-            beforeString = "BEFORE".localized + " "
+            beforeString = IGStringsManager.Before.rawValue.localized + " "
         }
         
         DispatchQueue.main.async {
                         
-            let msg = "U_JOINED".localized + " " + beforeString + "TO".localized + room.title!
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg,doneText: "OPEN_NOW".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,done: {
+            let msg = IGStringsManager.YouJoined.rawValue.localized + " " + beforeString + IGStringsManager.To.rawValue.localized + room.title!
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg,doneText: IGStringsManager.OpenNow.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,done: {
 
                 let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let chatPage = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController

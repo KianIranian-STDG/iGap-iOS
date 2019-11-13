@@ -108,6 +108,9 @@ enum IGStringsManager : String {
     //MARK: - Creat Room StoryBoard
     case GroupName = "group_name"
     case GroupDesc = "group_description"
+    case GroupNotExist = "group_not_exist"
+    case ChannelNotExist = "channel_not_exist"
+    case UserNotExist = "user_not_exist"
     case ChannelDesc = "channel_description"
     case PublicChannel = "public_channel"
     case PrivateChannel = "private_channel"
@@ -351,6 +354,7 @@ enum IGStringsManager : String {
     case CardToCard = "cardToCardBtnText"
     //MARK: -Other
     case Update = "startUpdate"
+    case Before = "before"
     case NewVersionAvailable = "new_version_avilable"
     case DepricatedVersion = "deprecated"
     case Bio = "st_bio"
@@ -369,6 +373,9 @@ enum IGStringsManager : String {
     case LastSeenCheckBy = "title_Last_Seen"
     case ProfilePhotoCheck = "title_who_can_see_my_avatar"
     case AcceptTheTerms = "accept_the_terms"
+    case YouJoined = "you_joined"
+    case To = "wallet_to"
+    case OpenNow = "open_now"
     //MARK: -Player
     case UnknownArtist = "unknown_artist"
     case UnknownAudio = "unknown_audio"

@@ -380,7 +380,7 @@ import Foundation
             return endFormatted
         }
         
-        return startFormatted + " " + "to".localized + " " + endFormatted
+        return startFormatted + " " + IGStringsManager.To.rawValue.localized + " " + endFormatted
         
     }
     
@@ -409,12 +409,12 @@ import Foundation
             return endFormatted
         }
         
-        return startFormatted + " " + "to".localized + " " + endFormatted
+        return startFormatted + " " + IGStringsManager.To.rawValue.localized + " " + endFormatted
         
     }
     
     static func getJalaliTimeRangeForEvent(_ start: Int, end: Int) -> String {
-        return militaryTimeConversion(start) + " " + "to".localized + " " + militaryTimeConversion(end)
+        return militaryTimeConversion(start) + " " + IGStringsManager.To.rawValue.localized + " " + militaryTimeConversion(end)
     }
     
     static func convertEpochToPersianTimestamp(epoch: String) -> String {
