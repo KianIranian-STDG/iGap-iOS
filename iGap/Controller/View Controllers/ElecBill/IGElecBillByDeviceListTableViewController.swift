@@ -150,7 +150,6 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
         picker = UIPickerView.init()
         picker.delegate = self
         picker.backgroundColor = UIColor.white
-        picker.setValue(UIColor.black, forKey: "textColor")
         picker.autoresizingMask = .flexibleWidth
         picker.contentMode = .center
         picker.frame = CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 300)
@@ -194,10 +193,11 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
 
             pickerLabel?.font = UIFont.igFont(ofSize: 15)
             pickerLabel?.textAlignment = .center
+            
         }
 
         pickerLabel?.text = myCompaniesList[row].title
-
+        pickerLabel?.textColor = UIColor.black
         return pickerLabel!
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
