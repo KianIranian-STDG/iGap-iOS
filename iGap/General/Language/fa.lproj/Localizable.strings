@@ -1219,3 +1219,6 @@
 
 "CHECK_FOR_UPDATE" = "کنترل بروزرسانی";
 "UPDATE" = "بروزرسانی";
+"contacts_sending" = "درحال ارسال مخاطبین";
+"searched_contacts" = "مخاطبین جست و جو شده";
+"contacts_being_saved" = "درحال ذخیره سازی مخاطبین";

@@ -91,7 +91,7 @@
 		8E599D852328D13900D75376 /* CallTypesCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E599D832328D13900D75376 /* CallTypesCVCell.xib */; };
 		8E599D872329014100D75376 /* IGDialNumberPadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D862329014100D75376 /* IGDialNumberPadViewController.swift */; };
 		8E599D8A2329262500D75376 /* IGCallPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D892329262500D75376 /* IGCallPageViewController.swift */; };
-		8E599D8C2329EC5E00D75376 /* IGPhoneBookTableTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D8B2329EC5E00D75376 /* IGPhoneBookTableTableTableViewController.swift */; };
+		8E599D8C2329EC5E00D75376 /* IGPhoneBookTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D8B2329EC5E00D75376 /* IGPhoneBookTableViewController.swift */; };
 		8E5FBC09231534BA0069D4F2 /* IGCountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBC08231534BA0069D4F2 /* IGCountDownTimer.swift */; };
 		8E5FBC0B23154D090069D4F2 /* IGRegisttrationStepSecurityQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBC0A23154D080069D4F2 /* IGRegisttrationStepSecurityQuestions.swift */; };
 		8E5FBC9D231BD6AB0069D4F2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */; };
@@ -881,7 +881,7 @@
 		8E599D832328D13900D75376 /* CallTypesCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CallTypesCVCell.xib; sourceTree = "<group>"; };
 		8E599D862329014100D75376 /* IGDialNumberPadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGDialNumberPadViewController.swift; sourceTree = "<group>"; };
 		8E599D892329262500D75376 /* IGCallPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCallPageViewController.swift; sourceTree = "<group>"; };
-		8E599D8B2329EC5E00D75376 /* IGPhoneBookTableTableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPhoneBookTableTableTableViewController.swift; sourceTree = "<group>"; };
+		8E599D8B2329EC5E00D75376 /* IGPhoneBookTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPhoneBookTableViewController.swift; sourceTree = "<group>"; };
 		8E5FBC08231534BA0069D4F2 /* IGCountDownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCountDownTimer.swift; sourceTree = "<group>"; };
 		8E5FBC0A23154D080069D4F2 /* IGRegisttrationStepSecurityQuestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRegisttrationStepSecurityQuestions.swift; sourceTree = "<group>"; };
 		8E5FBC9E231BD6AB0069D4F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2190,7 +2190,7 @@
 				FA68A20F1DD9B0CD003A6651 /* Tabbar Sub Controllers */,
 				8EBB455E2270203200A52D88 /* Base */,
 				8E599D882329017700D75376 /* DialPad */,
-				8E599D8B2329EC5E00D75376 /* IGPhoneBookTableTableTableViewController.swift */,
+				8E599D8B2329EC5E00D75376 /* IGPhoneBookTableViewController.swift */,
 				FA56A03A233BC0E8000A0BB5 /* IGProfileSharedMediaPageViewController.swift */,
 				8E8CA3A9236FFCA3000DA358 /* ElecBill */,
 			);
@@ -4127,7 +4127,7 @@
 				8ECCA1E822B7B1E200D3A734 /* SMSingleAmountInputView.swift in Sources */,
 				8E96A318225B757E007D8A77 /* SMLangUtil.swift in Sources */,
 				8E098A7D2348BDCD008A40A9 /* IGSearchTableViewController.swift in Sources */,
-				8E599D8C2329EC5E00D75376 /* IGPhoneBookTableTableTableViewController.swift in Sources */,
+				8E599D8C2329EC5E00D75376 /* IGPhoneBookTableViewController.swift in Sources */,
 				FAA9DFBC1F4B1CD60076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTableViewController.swift in Sources */,
 				8E96A31A225B75EE007D8A77 /* SMDateUtil.swift in Sources */,
 				FA09535F1E1B97700043ED3F /* IGSettingContactBlockTableViewCell.swift in Sources */,

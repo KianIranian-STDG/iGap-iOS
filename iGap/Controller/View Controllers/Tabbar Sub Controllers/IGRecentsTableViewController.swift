@@ -247,9 +247,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             createChat.hidesBottomBarWhenPushed = true
             self.navigationController!.pushViewController(createChat, animated: true)
             
-//            let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-//            createChat.hidesBottomBarWhenPushed = true
-//            self.navigationController!.pushViewController(createChat, animated: true)
         })
         let newGroup = UIAlertAction(title: "NEW_GROUP".RecentTableViewlocalized, style: .default, handler: { (action) in
             let createGroup = IGMemberAddOrUpdateState.instantiateFromAppStroryboard(appStoryboard: .Profile)

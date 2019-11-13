@@ -341,7 +341,7 @@ class IGAppManager: NSObject {
         return _mplActive
     }
     public func md5Hex() -> String {
-        return _md5Hex!
+        return _md5Hex ?? ""
     }
     
     public func setWalletRegistered(enable: Bool) {

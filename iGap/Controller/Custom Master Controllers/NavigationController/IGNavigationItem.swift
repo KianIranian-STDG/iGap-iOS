@@ -531,8 +531,8 @@ class IGNavigationItem: UINavigationItem {
     //MARK: - Phone Book
     func setPhoneBookNavigationItems() {
         addiGapLogo()
-//        addSettingButton()
         addComopseButton()
+        addInviteFriendButton()
     }
     
     private func addSettingButton() {
@@ -541,13 +541,27 @@ class IGNavigationItem: UINavigationItem {
         leftViewContainer!.backgroundColor = UIColor.clear
         let leftBarButton = UIBarButtonItem(customView: leftViewContainer!)
         self.leftBarButtonItem = leftBarButton
-//        let _ : String = SMLangUtil.loadLanguage()
 
         let settingViewFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
         let btnEdit = UIButton(frame: settingViewFrame)
         btnEdit.setTitle("", for: .normal)
         btnEdit.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         leftViewContainer!.addSubview(btnEdit)
+    }
+    
+    private func addInviteFriendButton() {
+        let leftViewFrame = CGRect(x:0, y:0, width: 50, height:40)
+        leftViewContainer = IGTappableView(frame: leftViewFrame)
+        leftViewContainer!.backgroundColor = UIColor.clear
+        let leftBarButton = UIBarButtonItem(customView: leftViewContainer!)
+        self.leftBarButtonItem = leftBarButton
+        
+        let callListViewFrame =  CGRect(x: 0, y: 0, width: 40, height: 40)
+        let btnInviteFriend = UIButton(frame: callListViewFrame)
+        btnInviteFriend.setTitle("", for: .normal)
+        btnInviteFriend.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+        btnInviteFriend.isUserInteractionEnabled = false
+        leftViewContainer!.addSubview(btnInviteFriend)
     }
     
     private func addProfileEditButton() {

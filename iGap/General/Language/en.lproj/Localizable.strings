@@ -1227,3 +1227,6 @@
 
 "CHECK_FOR_UPDATE" = "Check update";
 "UPDATE" = "Update";
+"contacts_sending" = "Sending Contacts";
+"searched_contacts" = "Searched Contacts";
+"contacts_being_saved" = "Saving Contacts";

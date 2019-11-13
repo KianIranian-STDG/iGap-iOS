@@ -744,12 +744,12 @@ class IGFactory: NSObject {
 
     func saveRegistredContactsUsers(_ igpRegistredUsers: [IGPRegisteredUser]) {
         var delay = 0.0
-        var savedCount = 0
+        var savedCount: Double = 0.0
         let registredUsersArray = igpRegistredUsers.chunks(25)
         for registredUsers in registredUsersArray {
-            for userInfo in registredUsers {
-                delay += 0.1
-                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            delay += 0.1
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                for userInfo in registredUsers {
                     IGDatabaseManager.shared.perfrmOnDatabaseThread {
                         try! IGDatabaseManager.shared.realm.write {
                             let registeredUser = IGRegisteredUser.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpUser: userInfo)
@@ -757,12 +757,18 @@ class IGFactory: NSObject {
                             IGDatabaseManager.shared.realm.add(registeredUser, update: true)
                             //IGDatabaseManager.shared.realm.add(IGHelperGetShareData.setRealmShareInfo(igpUser: igpRegistredUser, igUser: user), update: true)
                         }
-
-                        savedCount = savedCount + 1
-                        if savedCount == igpRegistredUsers.count { //after add all contacts to db do contact clearization
-                            self.clearExtraContacts()
-                        }
                     }
+                    savedCount = savedCount + 1
+                }
+                
+                let percent = savedCount / Double(igpRegistredUsers.count) * 100
+                IGContactManager.sharedManager.contactExchangeLevel.value = .gettingList(percent: percent)
+                
+                if Int(savedCount) == igpRegistredUsers.count { //after add all contacts to db do contact clearization
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // use from delay just for show "%100" to user
+                        IGContactManager.sharedManager.contactExchangeLevel.value = .completed
+                    }
+                    self.clearExtraContacts()
                 }
             }
         }

@@ -516,3 +516,10 @@ enum AvatarAddRequestType: Int {
         }
     }
 }
+
+enum ContactExchangeLevel {
+    case importing(percent: Double)
+    case gettingList(percent: Double)
+    case completed
+}
+

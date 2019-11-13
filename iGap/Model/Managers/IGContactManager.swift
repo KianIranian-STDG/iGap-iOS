@@ -13,6 +13,7 @@ import Contacts
 import IGProtoBuff
 import RealmSwift
 import Contacts
+import RxSwift
 
 class IGContactManager: NSObject {
     
@@ -26,7 +27,7 @@ class IGContactManager: NSObject {
     private var contactIndex = 0
     private var CONTACT_IMPORT_LIMIT = 25
     private var md5Hex: String!
-    
+    lazy var contactExchangeLevel: Variable<ContactExchangeLevel>! = Variable(.completed)
     
     private override init() {
         super.init()
@@ -121,6 +122,8 @@ class IGContactManager: NSObject {
                 } else {
                     self.sendContact(phoneContacts: contactsStructList)
                 }
+                let percent = Double((self.contactIndex * self.CONTACT_IMPORT_LIMIT)) / Double(self.results.count) * 100
+                IGContactManager.sharedManager.contactExchangeLevel.value = .importing(percent: Double(percent))
                 self.contactIndex += 1
             }
         }
@@ -160,6 +163,7 @@ class IGContactManager: NSObject {
             switch errorCode {
             case .timeout:
                 IGContactManager.importedContact = false
+                self.contactIndex = self.contactIndex - 1
                 self.sendContactPreparation()
             default:
                 break
@@ -168,7 +172,7 @@ class IGContactManager: NSObject {
     }
     
     
-    private func getContactListFromServer() {
+    public func getContactListFromServer() {
         IGUserContactsGetListRequest.Generator.generate().success ({ (protoResponse) in
             switch protoResponse {
             case let contactGetListResponse as IGPUserContactsGetListResponse:
@@ -187,7 +191,7 @@ class IGContactManager: NSObject {
         }).send()
     }
     
-    func saveContactToDevicePhoneBook(name: String , phoneNumber: [String] , emailAddress:  [NSString]? = nil ) {
+    func saveContactToDevicePhoneBook(name: String , phoneNumber: [String] , emailAddress: [NSString] = []) {
         let newContact = CNMutableContact()
         newContact.givenName = name
         var tmpPhoneNumberArray = [CNLabeledValue<CNPhoneNumber>]()
@@ -195,7 +199,8 @@ class IGContactManager: NSObject {
         for number in phoneNumber {
             tmpPhoneNumberArray.append(CNLabeledValue( label:CNLabelPhoneNumberiPhone, value:CNPhoneNumber(stringValue:number)))
         }
-        for email in emailAddress! {
+        
+        for email in emailAddress {
             tmpEmailArray.append(CNLabeledValue(label: CNLabelHome, value: email))
         }
         

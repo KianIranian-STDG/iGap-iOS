@@ -910,6 +910,16 @@ extension Date {
         
     }
 }
+
+
+extension Double {
+    public func fetchPercent() -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .ordinal
+        return (formatter.string(from: self as NSNumber) ?? "0").replacingOccurrences(of: ".", with: "", options: NSString.CompareOptions.literal, range: nil)
+    }
+}
+
 //MARK: -
 
 extension UIPanGestureRecognizer {

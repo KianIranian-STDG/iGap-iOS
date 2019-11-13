@@ -351,6 +351,7 @@ class IGUserContactsImportRequest : IGRequest {
 class IGUserContactsGetListRequest : IGRequest {
     class Generator : IGRequest.Generator{
         class func generate() -> IGRequestWrapper {
+            IGContactManager.sharedManager.contactExchangeLevel.value = .gettingList(percent: 0)
             let contactsImportRequestMessage = IGPUserContactsGetList()
             return IGRequestWrapper(message: contactsImportRequestMessage, actionID: 107)
         }

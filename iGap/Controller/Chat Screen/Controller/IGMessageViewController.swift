@@ -6539,7 +6539,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     
     func onMessageDelete(roomId: Int64, messageId: Int64) {
         DispatchQueue.main.async {
-            self.removeItem(cellPosition: IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.firstIndex(of: messageId))
+            self.removeItem(cellPosition: IGMessageViewController.messageIdsStatic[roomId]?.firstIndex(of: messageId))
         }
     }
     
