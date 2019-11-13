@@ -393,7 +393,7 @@ public class IGFile: Object {
         } else if fileType == .file {
             return "FILES_MESSAGE".localized
         } else if fileType == .voice {
-            return "VOICES_MESSAGE".localized
+            return IGStringsManager.VoiceMessage.rawValue.localized
         } else if fileType == .sticker {
             return "STICKERS_MESSAGE".localized
         }

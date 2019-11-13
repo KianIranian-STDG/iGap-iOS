@@ -371,7 +371,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
                 case .audio:
                     self.lastMessageLabel.text = "AUDIOS_MESSAGE".localized
                 case .voice:
-                    self.lastMessageLabel.text = "VOICES_MESSAGE".localized
+                    self.lastMessageLabel.text = IGStringsManager.VoiceMessage.rawValue.localized
                 case .file:
                     self.lastMessageLabel.text = "FILES_MESSAGE".localized
                 case .sticker:

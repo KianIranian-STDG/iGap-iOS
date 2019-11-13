@@ -11,7 +11,7 @@ import Foundation
 
 enum IGStringsManager : String {
     //MARK: - Global Vars
-//    case GlobalLetsGo = "rg_Start"
+    //    case GlobalLetsGo = "rg_Start"
     case GlobalConnecting = "connecting"
     case GlobalWaitingConnection = "waiting_for_network"
     case GlobalWarning = "error"
@@ -52,7 +52,7 @@ enum IGStringsManager : String {
     case Online = "online"
     case IgapSupport = "st_title_support"
     case NotificationServices = "service_notification"
-
+    
     //MARK: - Intro Page
     case IntroTitleOne = "text_line_1_introduce_page3"
     case IntroTitleTwo = "text_line_1_introduce_page7"
@@ -139,7 +139,7 @@ enum IGStringsManager : String {
     case chooseMemberPlease = "please_choose_a_member"
     case AlreadyIsInTheMemberList = "existing_member"
     case AlreadyAreInTheMemberList = "existing_members"
-//MARK: - Wallet
+    //MARK: - Wallet
     case ServerDown = "E_9006"
     case AmountIsNotEnough = "Kuknos_transaction_error7"
     case Pay = "pay"
@@ -344,8 +344,8 @@ enum IGStringsManager : String {
     case Country = "country"
     case SelfDestruct = "self_destructs"
     case SelfDestructFooter = "desc_self_destroy"
-
-
+    
+    
     //cardToCard
     case CardToCardRequest = "cardToCardRequest"
     case CardToCard = "cardToCardBtnText"
@@ -368,6 +368,47 @@ enum IGStringsManager : String {
     case WhoCanInviteToGroups = "who_can_invite_you_to_group_s"
     case LastSeenCheckBy = "title_Last_Seen"
     case ProfilePhotoCheck = "title_who_can_see_my_avatar"
+    case AcceptTheTerms = "accept_the_terms"
+    //MARK: -Player
+    case UnknownArtist = "unknown_artist"
+    case UnknownAudio = "unknown_audio"
+    //MARK: -BANKS
+    case BankParsian = "bank_parsian"
+    case BankSaman = "bank_saman"
+    case BankMellat = "bank_mellat"
+    case BankPasargad = "bank_pasargad"
+    case BankEqtesadNovin = "bank_eghtesad_novin"
+    case BankKarafarin = "bank_karafarin"
+    case BankSarmaye = "bank_sarmayeh"
+    case BankMelli = "bank_melli"
+    case BankSepah = "bank_sepah"
+    case BankDey = "bank_dey"
+    case BankTejarat = "bank_tejarat"
+    case BankRefah = "bank_refah"
+    case BankSaderat = "bank_saderat"
+    case BankMaskan = "bank_maskan"
+    case BankShahr = "bank_shahr"
+    case BankSina = "bank_sina"
+    case BankKeshavarzi = "bank_keshavarzi"
+    case BankMarkazi = "bank_markazi"
+    case BankGardeshgari = "bank_gardeshgari"
+    case BankPost = "bank_post_bank"
+    case BankAnsar = "bank_ansar"
+    case BankIranzamin = "bank_iran_zamin"
+    case BankAyandeh = "bank_ayandeh"
+    case BankResalat = "bank_resalat"
+    case BankToseeTaavon = "bank_tosee_taavon"
+    case BankToseeSaderat = "bank_tosee_saderat"
+    case BankHekmat = "bank_hekmat_iranian"
+    case BankSanatMadan = "bank_sanato_madan"
+    case BankQavamin = "bank_ghavamin"
+    case BankMehrIran = "bank_mehr_iran"
+    case BankMehrEqtesad = "bank_mehr_eghtesad"
+    case BankKosar = "bank_etebari_kosar"
+    case BankEtebariTosee = "bank_etebari_tosee"
+    case BankMelal = "bank_etebari_asgarieh"
+    case PaygearCard = "paygear_card"
+
 }
 
 

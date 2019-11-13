@@ -188,7 +188,7 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate {
             make.left.equalTo(btnAgree.snp.left)
         }
 
-        lblAgrement.text = "AGREE_TO_TERMS".localized
+        lblAgrement.text = IGStringsManager.AcceptTheTerms.rawValue.localized
         lblAgrement.font = UIFont.igFont(ofSize: 15,weight: .bold)
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnLbl))
         lblAgrement.isUserInteractionEnabled = true

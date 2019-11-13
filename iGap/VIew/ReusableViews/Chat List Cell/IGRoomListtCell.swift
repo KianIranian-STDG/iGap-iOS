@@ -463,7 +463,7 @@ class IGRoomListtCell: BaseTableViewCell {
                     case .audio:
                         self.lastMsgLabel.text = "AUDIOS_MESSAGE".localized
                     case .voice:
-                        self.lastMsgLabel.text = "VOICES_MESSAGE".localized
+                        self.lastMsgLabel.text = IGStringsManager.VoiceMessage.rawValue.localized
                     case .file:
                         self.lastMsgLabel.text = "FILES_MESSAGE".localized
                     case .sticker:
@@ -502,7 +502,7 @@ class IGRoomListtCell: BaseTableViewCell {
                     case .audio:
                         self.lastMsgLabel.text = "AUDIOS_MESSAGE".localized
                     case .voice:
-                        self.lastMsgLabel.text = "VOICES_MESSAGE".localized
+                        self.lastMsgLabel.text = IGStringsManager.VoiceMessage.rawValue.localized
                     case .file:
                         self.lastMsgLabel.text = "FILES_MESSAGE".localized
                     case .sticker:
