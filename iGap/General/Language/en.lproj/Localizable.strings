@@ -6572,4 +6572,19 @@ TODO:// complete */
 "amount_in" = "Amount In";
 "amount_out" = "Amount Out";
 "please_wait_data_loading" = "Please wait while Data is Loading ...";
+"invalid_bill_message" = "The bill is probably invalid";
+"elec_bill_operations" = "Electricity Bill Operations";
+"elec_bill_name" = "Electricity Bill Name";
+"elec_provider_company_code" = "Company Code";
+"elec_provider_company_name" = "Company Name";
+"elec_provider_customer_type" = "Customer Type";
+"elec_provider_customer_tel" = "Customer Telphone";
+"elec_provider_bill_phase" = "Phase";
+"elec_provider_bill_voltage" = "Voltage";
+"elec_provider_bill_power" = "Power";
+"elec_provider_bill_tarif" = "Bill Tarif";
+"elec_bill_customer_postal_code" = "Customer PostalCode";
+"elec_bill_customer_zone" = "Customer Zone";
+"elec_bill_customer_due_date" = "Due Date";
+"elec_bill_device_last_read" = "Last Read Date";
 

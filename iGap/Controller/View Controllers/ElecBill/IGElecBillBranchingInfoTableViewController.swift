@@ -70,7 +70,7 @@ class IGElecBillBranchingInfoTableViewController: BaseTableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        initNavigationBar(title: "BILL_BRANCH_DETAILS".localized, rightAction: {})//set Title for Page and nav Buttons if needed
+        initNavigationBar(title: IGStringsManager.BillBranchingInfo.rawValue.localized, rightAction: {})//set Title for Page and nav Buttons if needed
 
     }
     // MARK: - Development Funcs
@@ -143,24 +143,24 @@ class IGElecBillBranchingInfoTableViewController: BaseTableViewController {
     }
     
     private func initStrings() {
-        lblTitleRow0.text = "BILL_DETAIL_IDENTIFIER".localized
-        lblTitleRow1.text = "BILL_DETAIL_PAY_ID".localized
-        lblTitleRow2.text = "BILL_DETAIL_COMPANY_CODE".localized
-        lblTitleRow3.text = "BILL_DETAIL_COMPANY_NAME".localized
-        lblTitleRow4.text = "BILL_DETAIL_PHASE".localized
-        lblTitleRow5.text = "BILL_DETAIL_VOLTAGE".localized
-        lblTitleRow6.text = "BILL_DETAIL_TARIFE_TYPE".localized
-        lblTitleRow7.text = "BILL_DETAIL_CUSTOMER_TYPE".localized
+        lblTitleRow0.text = IGStringsManager.ElecBillID.rawValue.localized
+        lblTitleRow1.text = IGStringsManager.PayIdentifier.rawValue.localized
+        lblTitleRow2.text = IGStringsManager.CompanyCode.rawValue.localized
+        lblTitleRow3.text = IGStringsManager.CompanyName.rawValue.localized
+        lblTitleRow4.text = IGStringsManager.BillPhase.rawValue.localized
+        lblTitleRow5.text = IGStringsManager.BillVoltage.rawValue.localized
+        lblTitleRow6.text = IGStringsManager.BillTarif.rawValue.localized
+        lblTitleRow7.text = IGStringsManager.BillCustomerType.rawValue.localized
         lblTitleRow8.text = IGStringsManager.ElecCustomerName.rawValue.localized
-        lblTitleRow9.text = "BILL_DETAIL_CUSTOMER_TEL".localized
-        lblTitleRow10.text = "BILL_DETAIL_CUSTOMER_MOB".localized
+        lblTitleRow9.text = IGStringsManager.CustomerTelNum.rawValue.localized
+        lblTitleRow10.text = IGStringsManager.CustomerMobNum.rawValue.localized
         lblTitleRow11.text = IGStringsManager.ElecCustomerAdd.rawValue.localized
-        lblTitleRow12.text = "BILL_DETAIL_CUSTOMER_POSTALCODE".localized
-        lblTitleRow13.text = "BILL_DETAIL_CUSTOMER_LOCATION_ZONE".localized
-        lblTitleRow14.text = "BILL_DETAIL_CUSTOMER_DEVICE_NUMBER".localized
-        lblTitleRow15.text = "BILL_DETAIL_DUE_DATE".localized
-        lblTitleRow16.text = "BILL_DETAIL_LAST_READ".localized
-        lblTitleRow17.text = "BILL_DETAIL_POWER".localized
+        lblTitleRow12.text = IGStringsManager.CustomerPostalCode.rawValue.localized
+        lblTitleRow13.text = IGStringsManager.CustomerZone.rawValue.localized
+        lblTitleRow14.text = IGStringsManager.BillDeviceSerial.rawValue.localized
+        lblTitleRow15.text = IGStringsManager.CustomerDueDate.rawValue.localized
+        lblTitleRow16.text = IGStringsManager.CustomerDeviceLastRead.rawValue.localized
+        lblTitleRow17.text = IGStringsManager.BillPower.rawValue.localized
         
         lblDataRow0.text = "..."
         lblDataRow1.text = "..."
@@ -283,32 +283,29 @@ class IGElecBillBranchingInfoTableViewController: BaseTableViewController {
             if success {
 
                 self.billInqueryData = response?.data
-                print("BILL BRANCHING INFO",self.billInqueryData)
                 self.createTableData(data: self.billInqueryData)
-            } else {
-                print(errorMessage)
-            }
+            } else {}
         })
     }
     private func createTableData(data : BranchingDataStruct) {
-        lblTitleRow0.text = "BILL_DETAIL_IDENTIFIER".localized
-        lblTitleRow1.text = "BILL_DETAIL_PAY_ID".localized
-        lblTitleRow2.text = "BILL_DETAIL_COMPANY_CODE".localized
-        lblTitleRow3.text = "BILL_DETAIL_COMPANY_NAME".localized
-        lblTitleRow4.text = "BILL_DETAIL_PHASE".localized
-        lblTitleRow5.text = "BILL_DETAIL_VOLTAGE".localized
-        lblTitleRow6.text = "BILL_DETAIL_TARIFE_TYPE".localized
-        lblTitleRow7.text = "BILL_DETAIL_CUSTOMER_TYPE".localized
+        lblTitleRow0.text = IGStringsManager.ElecBillID.rawValue.localized
+        lblTitleRow1.text = IGStringsManager.PayIdentifier.rawValue.localized
+        lblTitleRow2.text = IGStringsManager.CompanyCode.rawValue.localized
+        lblTitleRow3.text = IGStringsManager.CompanyName.rawValue.localized
+        lblTitleRow4.text = IGStringsManager.BillPhase.rawValue.localized
+        lblTitleRow5.text = IGStringsManager.BillVoltage.rawValue.localized
+        lblTitleRow6.text = IGStringsManager.BillTarif.rawValue.localized
+        lblTitleRow7.text = IGStringsManager.BillCustomerType.rawValue.localized
         lblTitleRow8.text = IGStringsManager.ElecCustomerName.rawValue.localized
-        lblTitleRow9.text = "BILL_DETAIL_CUSTOMER_TEL".localized
-        lblTitleRow10.text = "BILL_DETAIL_CUSTOMER_MOB".localized
+        lblTitleRow9.text = IGStringsManager.CustomerTelNum.rawValue.localized
+        lblTitleRow10.text = IGStringsManager.CustomerMobNum.rawValue.localized
         lblTitleRow11.text = IGStringsManager.ElecCustomerAdd.rawValue.localized
-        lblTitleRow12.text = "BILL_DETAIL_CUSTOMER_POSTALCODE".localized
-        lblTitleRow13.text = "BILL_DETAIL_CUSTOMER_LOCATION_ZONE".localized
-        lblTitleRow14.text = "BILL_DETAIL_CUSTOMER_DEVICE_NUMBER".localized
-        lblTitleRow15.text = "BILL_DETAIL_DUE_DATE".localized
-        lblTitleRow16.text = "BILL_DETAIL_LAST_READ".localized
-        lblTitleRow17.text = "BILL_DETAIL_POWER".localized
+        lblTitleRow12.text = IGStringsManager.CustomerPostalCode.rawValue.localized
+        lblTitleRow13.text = IGStringsManager.CustomerZone.rawValue.localized
+        lblTitleRow14.text = IGStringsManager.BillDeviceSerial.rawValue.localized
+        lblTitleRow15.text = IGStringsManager.CustomerDueDate.rawValue.localized
+        lblTitleRow16.text = IGStringsManager.CustomerDeviceLastRead.rawValue.localized
+        lblTitleRow17.text = IGStringsManager.BillPower.rawValue.localized
         
         lblDataRow0.text = data.billIdentifier?.inLocalizedLanguage()
         lblDataRow1.text = data.paymentIdentifier?.inLocalizedLanguage()

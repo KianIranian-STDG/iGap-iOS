@@ -38,7 +38,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        initNavigationBar(title: "BILL_DETAIL".localized, rightAction: {})//set Title for Page and nav Buttons if needed
+        initNavigationBar(title: IGStringsManager.Details.rawValue.localized, rightAction: {})//set Title for Page and nav Buttons if needed
 
     }
     // MARK: - Development Funcs
@@ -78,14 +78,14 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
         tfBillNUmber.text = billNumber.inLocalizedLanguage()
         tfBillName.text = billTitle
         if canEditBill {
-            btnAddEdit.setTitle("BILL_EDIT_MODE".localized, for: .normal)
+            btnAddEdit.setTitle(IGStringsManager.BillEditMode.rawValue.localized, for: .normal)
         } else {
-            btnAddEdit.setTitle("BILL_ADD_MODE".localized, for: .normal)
+            btnAddEdit.setTitle(IGStringsManager.BillAddMode.rawValue.localized, for: .normal)
         }
-        lblTitle.text = "BILL_FILL_DATA".localized
-        lblUserNumber.text = "BILL_DETAIL_CUSTOMER_MOB".localized
+        lblTitle.text = IGStringsManager.FillForm.rawValue.localized
+        lblUserNumber.text = IGStringsManager.CustomerMobNum.rawValue.localized
         lblBillNUmber.text = IGStringsManager.ElecBillID.rawValue.localized
-        lblBillName.text = "BILL_NAME".localized
+        lblBillName.text = IGStringsManager.BillName.rawValue.localized
     }
     
     private func initColors() {

@@ -51,7 +51,7 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        initNavigationBar(title: "TTL_BILL_OPERATIONS".localized, rightAction: {})//set Title for Page and nav Buttons if needed
+        initNavigationBar(title: IGStringsManager.BillOperations.rawValue.localized, rightAction: {})//set Title for Page and nav Buttons if needed
 
     }
     // MARK: - Development Funcs
@@ -109,21 +109,21 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     
     private func initStrings() {
         lblTTlBillNumber.text = IGStringsManager.ElecBillID.rawValue.localized
-        lblTTlBillPayDate.text = "BILL_PAY_DATE".localized
-        lblTTlBillPayAmount.text = "BILL_PAY_AMOUNT".localized
-        lblTTlBillPayNumber.text = "TRANSACTIONS_HISTORY_ORDER_ID".localized
+        lblTTlBillPayDate.text = IGStringsManager.BillPayDate.rawValue.localized
+        lblTTlBillPayAmount.text = IGStringsManager.BillPrice.rawValue.localized
+        lblTTlBillPayNumber.text = IGStringsManager.PayIdentifier.rawValue.localized
         lblDataBillNumber.text = billNumber ?? "..."
         lblDataBillPayDate.text = payDate ?? "..."
         lblDataBillPayAmount.text = payAmount ?? "..."
         lblDataBillPayNumber.text = payNumber ?? "..."
         btnPay.setTitle(IGStringsManager.Pay.rawValue.localized, for: .normal)
-        btnDetailBranch.setTitle("BILL_BRANCH_DETAILS".localized, for: .normal)
+        btnDetailBranch.setTitle(IGStringsManager.BillBranchingInfo.rawValue.localized, for: .normal)
         if canEditBill {
-            btnAddToMyBills.setTitle("BILL_EDIT_MODE".localized, for: .normal)
+            btnAddToMyBills.setTitle(IGStringsManager.BillEditMode.rawValue.localized, for: .normal)
         } else {
-            btnAddToMyBills.setTitle("BILL_ADD_MODE".localized, for: .normal)
+            btnAddToMyBills.setTitle(IGStringsManager.BillAddMode.rawValue.localized, for: .normal)
         }
-        btnPDFofBill.setTitle("BILL_PDF_IMAGE".localized, for: .normal)
+        btnPDFofBill.setTitle(IGStringsManager.BillImage.rawValue.localized, for: .normal)
     }
     
     private func initColors() {

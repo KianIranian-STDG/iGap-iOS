@@ -74,7 +74,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
             edtPhoneNumber.placeholder = "PLACE_HOLDER_PHONE_NUM".localized
         }
         edtProvisionCode.placeholder = "PLACE_HOLDER_P_CODE".localized
-        btnInquiry.setTitle("BTN_INQUERY".localized, for: .normal)
+        btnInquiry.setTitle(IGStringsManager.Inquiry.rawValue.localized, for: .normal)
         btnPayment.setTitle(IGStringsManager.Pay.rawValue.localized, for: .normal)
         btnPaymentMid.setTitle(IGStringsManager.Pay.rawValue.localized, for: .normal)
         txtAmount.text = "TXT_AMOUNT".localized

@@ -35,7 +35,7 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        initNavigationBar(title: "TTL_BILL_OPERATIONS".localized, rightAction: {})
+        initNavigationBar(title: IGStringsManager.BillOperations.rawValue.localized, rightAction: {})
     }
     
     
@@ -79,11 +79,11 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
     }
     
     private func initStrings() {
-        btnQueryTopHolder.setTitle("BTN_INQUERY".localized, for: .normal)
-        btnMyBills.setTitle("BTN_MY_BILLS".localized, for: .normal)
-        btnSearchBills.setTitle("BTN_SEARCH_BILLS".localized, for: .normal)
+        btnQueryTopHolder.setTitle(IGStringsManager.Inquiry.rawValue.localized, for: .normal)
+        btnMyBills.setTitle(IGStringsManager.MyBills.rawValue.localized, for: .normal)
+        btnSearchBills.setTitle(IGStringsManager.BillFindMode.rawValue.localized, for: .normal)
         btnScanBarcode.setTitle("", for: .normal)
-        lblTopHolder.text = "LBL_ELECTRICITYBILL_PAY".localized
+        lblTopHolder.text = IGStringsManager.BillInqueryAndPay.rawValue.localized
     }
     
     private func initColors() {

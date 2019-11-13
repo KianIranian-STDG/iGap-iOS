@@ -255,7 +255,7 @@ extension IGFinancialHistoryViewController: UITableViewDataSource, UITableViewDe
                 break
             }
             
-            cell.tokenLbl.text = "TRANSACTIONS_HISTORY_ORDER_ID".localized + ": " + "\(transaction.igpOrderID)".inLocalizedLanguage()
+            cell.tokenLbl.text = IGStringsManager.PayIdentifier.rawValue.localized + ": " + "\(transaction.igpOrderID)".inLocalizedLanguage()
             
             let payTimeSecond = Double(transaction.igpPayTime)
             var dateComps: (Int?, Int?, Int?, Int?, Int?, String?)!

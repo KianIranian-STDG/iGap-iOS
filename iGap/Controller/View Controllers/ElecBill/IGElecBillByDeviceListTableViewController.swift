@@ -33,7 +33,7 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        initNavigationBar(title: "BTN_SEARCH_BILLS".localized, rightAction: {})//set Title for Page and nav Buttons if needed
+        initNavigationBar(title: IGStringsManager.BillFindMode.rawValue.localized, rightAction: {})//set Title for Page and nav Buttons if needed
         
     }
     // MARK: - Development Funcs
@@ -64,7 +64,7 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
     private func initStrings() {
         lblEnterSerialNumber.font = UIFont.igFont(ofSize: 15)
         lblSelectCompany.font = UIFont.igFont(ofSize: 15)
-        btnCompanyCodes.setTitle("BILL_DETAIL_COMPANY_NAME".localized, for: .normal)
+        btnCompanyCodes.setTitle(IGStringsManager.CompanyName.rawValue.localized, for: .normal)
         btnSearch.setTitle("FIND_MY_BILL".localized, for: .normal)
         lblEnterSerialNumber.text = "ENETER_DEVICE_SERIAL_NUMBER".localized
         lblSelectCompany.text = "SELECT_COMPANY_FROM_LIST".localized

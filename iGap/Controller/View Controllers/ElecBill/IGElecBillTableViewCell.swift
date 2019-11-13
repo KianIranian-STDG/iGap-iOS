@@ -86,17 +86,17 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
     }
     
     private func initStrings() {
-        lblBillName.text = "BILL_NAME".localized
+        lblBillName.text = IGStringsManager.ElecBillID.rawValue.localized
         lblTTlBillNumber.text = IGStringsManager.ElecBillID.rawValue.localized
-        lblTTlBillPayDate.text = "BILL_PAY_DATE".localized
-        lblTTlBillPayAmount.text = "BILL_PAY_AMOUNT".localized
-        lblTTlBillPayNumber.text = "TRANSACTIONS_HISTORY_ORDER_ID".localized
+        lblTTlBillPayDate.text = IGStringsManager.BillPayDate.rawValue.localized
+        lblTTlBillPayAmount.text = IGStringsManager.BillPrice.rawValue.localized
+        lblTTlBillPayNumber.text = IGStringsManager.PayIdentifier.rawValue.localized
         lblDataBillNumber.text = "..."
         lblDataBillPayDate.text = "..."
         lblDataBillPayAmount.text = "..."
         lblDataBillPayNumber.text = "..."
         btnPay.setTitle(IGStringsManager.Pay.rawValue.localized, for: .normal)
-        btnDetail.setTitle("BILL_DETAIL".localized, for: .normal)
+        btnDetail.setTitle(IGStringsManager.Details.rawValue.localized, for: .normal)
         btnEdite.setTitle("", for: .normal)
         btnDelete.setTitle("", for: .normal)
     }
@@ -181,7 +181,7 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
     }
     @IBAction func didTapOnDetails(_ sender: UIButton) {
         if self.myBillListInnerData == nil && self.billIsInvalid == true {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "INVALID_BILL_MSG".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.InvalidBill.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             
         } else if self.myBillListInnerData == nil && self.billIsInvalid == false {
             IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.WaitDataFetch.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
