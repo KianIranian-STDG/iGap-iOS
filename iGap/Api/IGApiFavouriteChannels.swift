@@ -14,7 +14,7 @@ import Alamofire
 class IGApiFavouriteChannels: IGApiBase {
     enum Endpoint {
         case homePage
-        case categoryInfo(id: String, page: Int)
+        case categoryInfo(id: String, start: Int, display: Int)
         
         var url: String {
             var urlString = IGApiFavouriteChannels.beeptunesBaseUrl
@@ -22,8 +22,8 @@ class IGApiFavouriteChannels: IGApiBase {
             switch self {
             case .homePage:
                 break
-            case .categoryInfo(let id, let page):
-                urlString += "/category/\(id)?page=\(page)"
+            case .categoryInfo(let id, let start, let display):
+                urlString += "/category/\(id)?start=\(start)&display=\(display)"
             }
             
             return urlString
@@ -49,11 +49,10 @@ class IGApiFavouriteChannels: IGApiBase {
         }
     }
     
-    func getCategoryInfo(for categoryId: String, page: Int, completion: @escaping ((_ success: Bool, _ categoryInfo: FavouriteChannelCategoryInfo?) -> Void) ) {
-        
-        AF.request(Endpoint.categoryInfo(id: categoryId, page: page).url, headers: self.getHeader()).responseCategoryInfo { response in
+    func getCategoryInfo(for categoryId: String, start: Int, display: Int, completion: @escaping ((_ success: Bool, _ categoryInfo: FavouriteChannelCategoryInfo?) -> Void) ) {
+        AF.request(Endpoint.categoryInfo(id: categoryId, start: start, display: display).url, headers: self.getHeader()).responseCategoryInfo { response in
             if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
-                self.getCategoryInfo(for: categoryId, page: page, completion: completion)
+                self.getCategoryInfo(for: categoryId, start: start, display: display, completion: completion)
             }) {
             } else {
                 guard let categoryInfo = response.value else {

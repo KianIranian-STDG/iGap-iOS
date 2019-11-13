@@ -42,7 +42,7 @@ class IGFavouriteChannelsDashboardInnerTableViewController: UITableViewControlle
 
     func getData(page: Int) {
         
-        IGApiFavouriteChannels.shared.getCategoryInfo(for: categoryId, page: page) { (isSuccess, categoryInfo) in
+        IGApiFavouriteChannels.shared.getCategoryInfo(for: categoryId, start: 0 , display: 100) { (isSuccess, categoryInfo) in
             if isSuccess {
                 self.categoryInfo = categoryInfo
                 self.initNavigationBar()
