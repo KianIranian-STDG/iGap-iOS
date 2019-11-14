@@ -36,7 +36,7 @@ struct BranchingDataStruct: Decodable {
     var deviceSerialNumber : String?
     var paymentDeadLine : String?
     var lastReadDate : String?
-    var demandPower : Int?
+    var demandPower : Float?
     
     enum CodingKeys: String, CodingKey {
         

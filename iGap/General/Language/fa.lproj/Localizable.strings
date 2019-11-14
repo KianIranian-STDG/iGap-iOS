@@ -765,7 +765,7 @@
 "SELECT_COMPANY_FROM_LIST" = "لطفا شرکت توزیع برق منطقه را انتخاب نمایید";
 "ENETER_DEVICE_SERIAL_NUMBER" = "لطفا سریال کنتور را وارد نمایید";
 "FIND_MY_BILL" = "یافتن قبض";
-"INVALID_BILL_MSG" = "قبض به احتمال نامعتبر می باشد";
+"INVALID_BILL_MSG" = "قبض نامعتبر می باشد";
 
 
 "CHARITY" = "خیریه";

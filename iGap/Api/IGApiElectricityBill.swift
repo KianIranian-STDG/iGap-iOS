@@ -101,7 +101,6 @@ class IGApiElectricityBill: IGApiBase {
                         completion(false, nil, "UNSSUCCESS_OTP".localized)
                         return
                     }
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized)
 
                     completion(false, nil, message)
                 }
@@ -123,7 +122,6 @@ class IGApiElectricityBill: IGApiBase {
                 case 200:
                     
                     switch response.result {
-                        
                     case .success(let value):
                         do {
                             let classData = try JSONDecoder().decode(IGStructBranchingInfo.self, from: value)

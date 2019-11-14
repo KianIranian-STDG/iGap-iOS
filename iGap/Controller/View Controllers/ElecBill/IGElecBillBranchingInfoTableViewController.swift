@@ -334,7 +334,11 @@ class IGElecBillBranchingInfoTableViewController: BaseTableViewController {
         let dateFormatter = ISO8601DateFormatter()
         let date = dateFormatter.date(from: payDate!)!
         self.lblDataRow15.text = date.completeHumanReadableTime().inLocalizedLanguage() ?? "..."
-        lblDataRow16.text = data.lastReadDate
+        let lastReadDate = data.lastReadDate
+        let dateFormatterLastReadDate = ISO8601DateFormatter()
+        let dateLastReadDate = dateFormatter.date(from: lastReadDate!)!
+
+        lblDataRow16.text = dateLastReadDate.completeHumanReadableTime().inLocalizedLanguage() ?? "..."
         if let demandPower = data.demandPower {
            lblDataRow17.text = String(demandPower).inLocalizedLanguage()
         }
