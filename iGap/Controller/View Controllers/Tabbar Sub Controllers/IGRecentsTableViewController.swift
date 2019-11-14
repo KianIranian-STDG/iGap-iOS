@@ -344,7 +344,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         if IGAppManager.sharedManager.isUserLoggiedIn() {
             if IGRecentsTableViewController.needGetInfo {
                 self.checkAppVersion()
-                self.deleteChannelMessages()
                 self.fetchRoomList()
             }
         } else {
@@ -380,7 +379,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     
     private func eventBusInitialiser() {
         SwiftEventBus.onMainThread(self, name: EventBusManager.showTopMusicPlayer) { result in
-            print(result?.object)
             let musicFile : MusicFile = result?.object as! MusicFile
             IGGlobal.topBarSongTime = musicFile.songTime
             self.songName = musicFile.songName
@@ -495,7 +493,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         self.checkAppVersion()
         self.checkPermission()
         self.addRoomChangeNotificationBlock()
-        self.deleteChannelMessages()
         self.fetchRoomList()
     }
     
@@ -526,9 +523,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         /********** Contact Permission **********/
         CNContactStore().requestAccess(for: CNEntityType.contacts, completionHandler: { (granted, error) -> Void in
-            if self.allRoomsFetched {
-                IGContactManager.sharedManager.manageContact()
-            }
+            IGContactManager.sharedManager.manageContact()
             
             /********** Microphon Permission **********/
             AVAudioSession.sharedInstance().requestRecordPermission { (granted) in
@@ -568,17 +563,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         }
     }
     
-    /**
-     * use this method for delete channel messages for get messages
-     * from server again and update vote actions data
-     **/
-    private func deleteChannelMessages() {
-        if IGHelperPreferences.shared.readBoolean(key: IGHelperPreferences.keyChannelDeleteMessage) {
-            IGHelperPreferences.shared.writeBoolean(key: IGHelperPreferences.keyChannelDeleteMessage, state: false)
-            IGRoomMessage.deleteAllChannelMessages()
-        }
-    }
-    
     @objc private func fetchRoomList(offset: Int32 = 0 , limit: Int32 = Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)) {
         
         var clientConditionRooms: [IGPClientCondition.IGPRoom]?
@@ -613,7 +597,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     } else {
                         self.allRoomsFetched = true
                         self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse, removeDeleted: true)
-                        self.saveAndSendContacts()
                         IGFactory.shared.removeDeletedRooms()
                         //IGFactory.shared.deleteShareInfo()
                     }
@@ -627,12 +610,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 break
             }
         }).send()
-    }
-    
-    @objc private func saveAndSendContacts() {
-        if !IGContactManager.importedContact {
-            IGContactManager.sharedManager.manageContact()
-        }
     }
     
     // MARK: - Table view data source

@@ -150,38 +150,41 @@ class IGUserLoginRequest: IGRequest {
     class Handler : IGRequest.Handler {
         
         class func intrepret(response responseProtoMessage: IGPUserLoginResponse) {
-            IGAppManager.sharedManager.setUserLoginSuccessful()
-            IGAppManager.sharedManager.setAccessToken(accessToken: responseProtoMessage.igpAccessToken)
             AppDelegate.isUpdateAvailable = responseProtoMessage.igpUpdateAvailable
             AppDelegate.isDeprecatedClient = responseProtoMessage.igpDeprecatedClient
+            
+            IGAppManager.sharedManager.setUserLoginSuccessful()
+            IGAppManager.sharedManager.setAccessToken(accessToken: responseProtoMessage.igpAccessToken)
             IGAppManager.sharedManager.setMd5Hex(md5Hex: responseProtoMessage.igpContactHash)
-
             IGAppManager.sharedManager.setNetworkConnectionStatus(.iGap)
             IGAppManager.sharedManager.setMplActive(enable: responseProtoMessage.igpMplActive) // show/Hide financial and wallet
             IGAppManager.sharedManager.setWalletActive(enable: responseProtoMessage.igpWalletActive) //:show/Hide Only Wallet
+            IGAppManager.sharedManager.setWalletRegistered(enable: responseProtoMessage.igpWalletAgreementAccepted) //:check to call register wallet or not
+            
+            IGContactManager.sharedManager.manageContact()
             
             IGApiSticker.shared.fetchMySticker()
-
-            IGAppManager.sharedManager.setWalletRegistered(enable: responseProtoMessage.igpWalletAgreementAccepted) //:check to call register wallet or not
+            
             IGUploadManager.sharedManager.pauseAllUploads()
+            
             IGMessageSender.defaultSender.failSendingMessage()
+            
             IGDashboardViewController.discoveryObserver?.onFetchFirstPage()
+            
             if IGAppManager.sharedManager.walletRegistered() {
                 IGRequestWalletGetAccessToken.sendRequest()
-                
-            }
-            else {
+            } else {
                 IGRequestWalletRegister.sendRequest()
             }
             if IGAppManager.sharedManager.userID() != nil {
                 IGUserInfoRequest.sendRequest(userId: IGAppManager.sharedManager.userID()!)
             }
+            
             getToken()
             
             if #available(iOS 10.0, *) {
                 CallManager.nativeCallManager()
             }
-            
         }
         
         class func getToken(){

@@ -27,7 +27,7 @@ class IGContactManager: NSObject {
     private var contactIndex = 0
     private var CONTACT_IMPORT_LIMIT = 25
     private var md5Hex: String!
-    lazy var contactExchangeLevel: Variable<ContactExchangeLevel>! = Variable(.completed)
+    lazy var contactExchangeLevel: Variable<ContactExchangeLevel>! = Variable(.importing(percent: 0))
     
     private override init() {
         super.init()

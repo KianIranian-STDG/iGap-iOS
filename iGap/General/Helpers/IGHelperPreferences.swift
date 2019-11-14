@@ -16,7 +16,6 @@ class IGHelperPreferences {
     
     //setting preferences
     public static let keyInAppBrowser = "IN_APP_BROWSER"
-    public static let keyChannelDeleteMessage = "CHANNEL_DELETE_MESSAGES"
     public static let keyAllowFetchPromote = "ALLOW_FETCH_PROMOTE"
     public static let keyTrackInstallUser = "TRACK_INSTALL_USER"
     

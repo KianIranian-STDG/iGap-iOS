@@ -573,6 +573,7 @@ class IGRoomMessage: Object {
     }
     
     /* use this method for delete channel messages for get messages from server again and update vote actions data */
+    // Hint : this method dosen't have popular usage
     internal static func deleteAllChannelMessages(){
         DispatchQueue.main.async {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {

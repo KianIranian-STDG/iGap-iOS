@@ -66,10 +66,10 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     private var navigationControll : IGNavigationController!
     private let collation = UILocalizedIndexedCollation.current()
     private var realmNotificationToken: NotificationToken?
-    private var footerLabel: UILabel!
     private var allowInitObserver = true
     private let contactDisposeBag = DisposeBag()
     private var txtContactStates: UILabel!
+    private var contactSynced = false // when all contacts import to server and then fetched from server this value will be true
     var connectionStatus: IGAppManager.ConnectionStatus?
     internal static var callDelegate: IGCallFromContactListObserver!
     
@@ -79,9 +79,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         initObserver()
         
         self.tableView.bounces = false
-        self.tableView.contentOffset = CGPoint(x: 0, y: 55)
         self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
-        self.tableView.tableFooterView = makeFooterView()
         if #available(iOS 11.0, *) {
             self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
             if navigationItem.searchController == nil {
@@ -99,7 +97,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         isInSearchMode = false
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -159,6 +156,11 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                     self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
                     self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
                     self.tableView.endUpdates()
+                    
+                    if self.contactSynced {
+                        self.txtContactStates?.text = "\(self.contacts?.count ?? 0)".inLocalizedLanguage() + "CONTACTS".localized
+                    }
+                    
                     break
                 case .error(let err):
                     fatalError("\(err)")
@@ -181,6 +183,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             DispatchQueue.main.async {
                 switch contactExchangeLevel {
                 case .importing(let percent):
+                    self.contactSynced = false
                     if IGAppManager.sharedManager.isUserLoggiedIn() {
                         let formatter = NumberFormatter()
                         formatter.numberStyle = .percent
@@ -189,19 +192,20 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                     break
                     
                 case .gettingList(let percent):
+                    self.contactSynced = false
                     let formatter = NumberFormatter()
                     formatter.numberStyle = .percent
                     self.txtContactStates?.text = "\("contacts_being_saved".localized) %\(percent.fetchPercent())"
                     break
                     
                 case .completed:
+                    self.contactSynced = true
                     self.txtContactStates?.text = "\(self.contacts?.count ?? 0)".inLocalizedLanguage() + "CONTACTS".localized
                     break
                 }
             }
         }).disposed(by: contactDisposeBag)
     }
-    
     
     private func updateNavigationBarBasedOnNetworkStatus(_ status: IGAppManager.ConnectionStatus) {
         if let navigationItem = self.navigationItem as? IGNavigationItem {
@@ -238,15 +242,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         self.navigationController!.pushViewController(vc, animated:true)
     }
     
-    private func makeFooterView() -> UIView {
-        footerLabel = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 70.0))
-        footerLabel.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
-        footerLabel.font = UIFont.igFont(ofSize: 16)
-        footerLabel.textAlignment = .center
-        footerLabel.backgroundColor = .clear
-        return footerLabel
-    }
-    
     private func makeHeaderView() -> UIView {
         var customHeaderView: UIView!
         if currentTabIndex == TabBarTab.Profile.rawValue {
@@ -271,11 +266,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         return customHeaderView
     }
     
-    private func setFooterLabelText() {
-        guard footerLabel != nil else { return }
-        footerLabel?.text = "\(self.contacts?.count ?? 0)".inLocalizedLanguage() + "searched_contacts".localized
-    }
-
     @objc
     func didTapOnBtn(sender:UITapGestureRecognizer) {
         inviteContact()
@@ -575,26 +565,26 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
         let predicate: NSPredicate!
             predicate = NSPredicate(format: "displayName CONTAINS[c] %@", searchString)
         if !searchString.isEmpty {
-            footerLabel?.isHidden = false
             let allContacts = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(NSPredicate(format: "isInContacts = 1")).sorted(byKeyPath: "displayName", ascending: true)
             contacts = allContacts.filter(predicate)
             searchedContacts = allContacts.filter(predicate)
             isInSearchMode = true
             self.tableView.reloadData()
         } else {
-            footerLabel?.isHidden = true
             allowInitObserver = true
             self.initObserver()
         }
         
-        setFooterLabelText()
+        if self.contactSynced {
+            self.txtContactStates?.text = "\(self.contacts?.count ?? 0)".inLocalizedLanguage() + "CONTACTS".localized
+        }
     }
+    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         self.tableView.reloadData()
     }
         
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        footerLabel?.isHidden = true
         isInSearchMode = false
         allowInitObserver = true
         self.initObserver()
@@ -604,7 +594,6 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.tableView.reloadData()
         isInSearchMode = true
-
         searchController.searchBar.resignFirstResponder()
     }
 }
