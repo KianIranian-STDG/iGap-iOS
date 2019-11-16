@@ -150,6 +150,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 switch changes {
                 case .initial:
                     self.tableView.reloadData()
+                    self.setFooterLabelText()
                     break
                 case .update(_, let deletions, let insertions, let modifications):
                     self.tableView.beginUpdates()
@@ -161,6 +162,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                     if self.contactSynced {
                         self.txtContactStates?.text = "\(self.contacts?.count ?? 0)".inLocalizedLanguage() + "CONTACTS".localized
                     }
+                    self.setFooterLabelText()
                     
                     break
                 case .error(let err):
@@ -289,7 +291,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     private func setFooterLabelText() {
         guard txtFooter != nil else { return }
-        txtFooter?.text = "\(self.contacts?.count ?? 0) ".inLocalizedLanguage() + "searched_contacts".localized
+        txtFooter?.text = "\(self.contacts?.count ?? 0) ".inLocalizedLanguage() + "CONTACT".localized
     }
     
     @objc
