@@ -190,8 +190,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .percent
 //                            self.txtContactStates?.text = "\("contacts_sending".localized) %\(percent.fetchPercent())"
-                            
-                            navigationItem.setNavigationItemForSyncingContactsStatus(text: "\("contacts_sending".localized) %\(percent.fetchPercent())")
+                            // MERGE COMMENT
+                            //navigationItem.setNavigationItemForSyncingContactsStatus(text: "\("contacts_sending".localized) %\(percent.fetchPercent())")
                         }
                         break
                         
@@ -200,7 +200,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                         let formatter = NumberFormatter()
                         formatter.numberStyle = .percent
 //                        self.txtContactStates?.text = "\("contacts_being_saved".localized) %\(percent.fetchPercent())"
-                        navigationItem.setNavigationItemForSyncingContactsStatus(text: "\("contacts_being_saved".localized) %\(percent.fetchPercent())")
+                        // MERGE COMMENT
+                        //navigationItem.setNavigationItemForSyncingContactsStatus(text: "\("contacts_being_saved".localized) %\(percent.fetchPercent())")
                         break
                         
                     case .completed:
@@ -590,14 +591,12 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
         let predicate: NSPredicate!
             predicate = NSPredicate(format: "displayName CONTAINS[c] %@", searchString)
         if !searchString.isEmpty {
-            txtFooter?.isHidden = false
             let allContacts = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(NSPredicate(format: "isInContacts = 1")).sorted(byKeyPath: "displayName", ascending: true)
             contacts = allContacts.filter(predicate)
             searchedContacts = allContacts.filter(predicate)
             isInSearchMode = true
             self.tableView.reloadData()
         } else {
-            txtFooter?.isHidden = true
             allowInitObserver = true
             self.initObserver()
         }
@@ -614,7 +613,6 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
     }
         
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        txtFooter?.isHidden = true
         isInSearchMode = false
         allowInitObserver = true
         self.initObserver()
