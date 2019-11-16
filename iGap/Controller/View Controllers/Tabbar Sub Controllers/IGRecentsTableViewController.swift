@@ -242,18 +242,20 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }).send()
             }
         })
+        
         let newChat = UIAlertAction(title: "NEW_C_C".RecentTableViewlocalized, style: .default, handler: { (action) in
             let createChat = IGPhoneBookTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
             createChat.hidesBottomBarWhenPushed = true
             self.navigationController!.pushViewController(createChat, animated: true)
-            
         })
+        
         let newGroup = UIAlertAction(title: "NEW_GROUP".RecentTableViewlocalized, style: .default, handler: { (action) in
             let createGroup = IGMemberAddOrUpdateState.instantiateFromAppStroryboard(appStoryboard: .Profile)
             createGroup.mode = "CreateGroup"
             createGroup.hidesBottomBarWhenPushed = true
             self.navigationController!.pushViewController(createGroup, animated: true)
         })
+        
         let newChannel = UIAlertAction(title: "NEW_CHANNEL".RecentTableViewlocalized, style: .default, handler: { (action) in
             let createChannel = IGCreateNewChannelTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
             createChannel.hidesBottomBarWhenPushed = true
@@ -541,21 +543,46 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     
     private func addRoomChangeNotificationBlock() {
         self.notificationToken?.invalidate()
+        
         self.notificationToken = rooms!.observe { (changes: RealmCollectionChange) in
             switch changes {
             case .initial:
                 self.setTabbarBadge()
                 break
+                
             case .update(_, let deletions, let insertions, let modifications):
                 // Query messages have changed, so apply them to the TableView
                 self.tableView.beginUpdates()
-                self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
-                self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
-                self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
+                print("XXXX" + "\(self.rooms!.count)")
+                
+                if insertions.count != 0 {
+                    print(insertions)
+                }
+                
+                if deletions.count != 0 {
+                    print(deletions)
+                }
+                
+//                var numberOfRows = self.tableView.numberOfRows(inSection: 0)
+                
+//                let insertIndexes = insertions.map({ IndexPath(row: $0, section: 0) }).filter({ $0.row < numberOfRows })
+                self.tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .none)
+                
+//                numberOfRows = self.tableView.numberOfRows(inSection: 0)
+                
+//                let deleteIndexes = deletions.map({ IndexPath(row: $0, section: 0) }).filter({ $0.row < numberOfRows })
+                self.tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0) }), with: .none)
+                
+//                numberOfRows = self.tableView.numberOfRows(inSection: 0)
+                
+//                let modificationIndexes = modifications.map({ IndexPath(row: $0, section: 0) }).filter({ $0.row < numberOfRows })
+                self.tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }), with: .none)
                 
                 self.tableView.endUpdates()
+                
                 self.setTabbarBadge()
                 break
+                
             case .error(let err):
                 fatalError("\(err)")
                 break

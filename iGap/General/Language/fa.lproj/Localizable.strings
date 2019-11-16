@@ -1218,7 +1218,7 @@
 
 
 "CHECK_FOR_UPDATE" = "کنترل بروزرسانی";
-"YOU_ARE_UP_TO_DATE" = "شما نیاز به بروزرسانی ندارید";
+"YOU_ARE_UP_TO_DATE" = "نسخه شما بروز می باشد.";
 "UPDATE" = "بروزرسانی";
 "contacts_sending" = "درحال ارسال مخاطبین";
 "contacts_being_saved" = "درحال ذخیره سازی مخاطبین";

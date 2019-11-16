@@ -1226,7 +1226,7 @@
 
 
 "CHECK_FOR_UPDATE" = "Check update";
-"YOU_ARE_UP_TO_DATE" = "You are Updated";
+"YOU_ARE_UP_TO_DATE" = "Your app version is up to date.";
 "UPDATE" = "Update";
 "contacts_sending" = "Sending Contacts";
 "contacts_being_saved" = "Saving Contacts";
