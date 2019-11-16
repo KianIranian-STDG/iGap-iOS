@@ -14,7 +14,6 @@ import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
 
-
 class IGContactListTableViewController: UITableViewController, UISearchResultsUpdating, UIGestureRecognizerDelegate, IGCallFromContactListObserver {
     
     var contacts = try! Realm().objects(IGRegisteredUser.self).filter("isInContacts == 1").sorted(byKeyPath: "displayName", ascending: true)

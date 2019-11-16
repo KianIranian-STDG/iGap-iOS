@@ -170,39 +170,46 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             }
         }
     }
-    
-    private func initRxSwiftObservers(){
+     
+    private func initRxSwiftObservers() {
         /** Connection Observer */
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
             DispatchQueue.main.async {
-                self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
+//                self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
             }
         }).disposed(by: disposeBag)
         
         /** Contact Observer */
         IGContactManager.sharedManager.contactExchangeLevel.asObservable().subscribe(onNext: { (contactExchangeLevel) in
             DispatchQueue.main.async {
-                switch contactExchangeLevel {
-                case .importing(let percent):
-                    self.contactSynced = false
-                    if IGAppManager.sharedManager.isUserLoggiedIn() {
+                if let navigationItem = self.navigationItem as? IGNavigationItem {
+                    switch contactExchangeLevel {
+                    case .importing(let percent):
+                        self.contactSynced = false
+                        if IGAppManager.sharedManager.isUserLoggiedIn() {
+                            let formatter = NumberFormatter()
+                            formatter.numberStyle = .percent
+//                            self.txtContactStates?.text = "\("contacts_sending".localized) %\(percent.fetchPercent())"
+                            
+                            navigationItem.setNavigationItemForSyncingContactsStatus(text: "\("contacts_sending".localized) %\(percent.fetchPercent())")
+                        }
+                        break
+                        
+                    case .gettingList(let percent):
+                        self.contactSynced = false
                         let formatter = NumberFormatter()
                         formatter.numberStyle = .percent
-                        self.txtContactStates?.text = "\("contacts_sending".localized) %\(percent.fetchPercent())"
+//                        self.txtContactStates?.text = "\("contacts_being_saved".localized) %\(percent.fetchPercent())"
+                        navigationItem.setNavigationItemForSyncingContactsStatus(text: "\("contacts_being_saved".localized) %\(percent.fetchPercent())")
+                        break
+                        
+                    case .completed:
+                        self.contactSynced = true
+//                        self.txtContactStates?.text = "\(self.contacts?.count ?? 0)".inLocalizedLanguage() + "CONTACTS".localized
+//                        navigationItem.setNavigationItemForSyncingContactsStatus(text: "\(self.contacts?.count ?? 0)".inLocalizedLanguage() + "CONTACTS".localized)
+                        self.setNavigationItems()
+                        break
                     }
-                    break
-                    
-                case .gettingList(let percent):
-                    self.contactSynced = false
-                    let formatter = NumberFormatter()
-                    formatter.numberStyle = .percent
-                    self.txtContactStates?.text = "\("contacts_being_saved".localized) %\(percent.fetchPercent())"
-                    break
-                    
-                case .completed:
-                    self.contactSynced = true
-                    self.txtContactStates?.text = "\(self.contacts?.count ?? 0)".inLocalizedLanguage() + "CONTACTS".localized
-                    break
                 }
             }
         }).disposed(by: contactDisposeBag)
@@ -216,18 +223,18 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 connectionStatus = .waitingForNetwork
                 IGAppManager.connectionStatusStatic = .waitingForNetwork
                 break
-                
+
             case .connecting:
                 navigationItem.setNavigationItemForConnecting()
                 connectionStatus = .connecting
                 IGAppManager.connectionStatusStatic = .connecting
                 break
-                
+
             case .connected:
                 connectionStatus = .connected
                 IGAppManager.connectionStatusStatic = .connected
                 break
-                
+
             case .iGap:
                 connectionStatus = .iGap
                 IGAppManager.connectionStatusStatic = .iGap

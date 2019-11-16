@@ -63,6 +63,11 @@ class IGNavigationItem: UINavigationItem {
         setNavigationItemWithCenterActivityIndicator(text: "WAITING_NETWORK".localized)
     }
     
+    // contacts loadings
+    func setNavigationItemForSyncingContactsStatus(text: String) {
+        setNavigationItemWithCenterActivityIndicator(text: text)
+    }
+    
 //    private func returnToCallMethod(){
 //
 //        if !IGCall.callPageIsEnable {
