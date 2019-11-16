@@ -532,7 +532,6 @@ class IGNavigationItem: UINavigationItem {
     func setPhoneBookNavigationItems() {
         addiGapLogo()
         addComopseButton()
-        addInviteFriendButton()
     }
     
     private func addSettingButton() {

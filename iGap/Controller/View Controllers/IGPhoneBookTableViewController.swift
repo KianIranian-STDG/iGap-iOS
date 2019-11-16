@@ -69,6 +69,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     private var allowInitObserver = true
     private let contactDisposeBag = DisposeBag()
     private var txtContactStates: UILabel!
+    private var txtInviteContact: UILabel!
+    private var txtFooter: UILabel!
     private var contactSynced = false // when all contacts import to server and then fetched from server this value will be true
     var connectionStatus: IGAppManager.ConnectionStatus?
     internal static var callDelegate: IGCallFromContactListObserver!
@@ -79,7 +81,9 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         initObserver()
         
         self.tableView.bounces = false
+        self.tableView.contentOffset = CGPoint(x: 0, y: 55)
         self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
+        self.tableView.tableFooterView = makeFooterView()
         if #available(iOS 11.0, *) {
             self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
             if navigationItem.searchController == nil {
@@ -133,9 +137,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             navigationItem.setPhoneBookNavigationItems()
             navigationItem.rightViewContainer?.addAction {
                 self.goToAddContactsPage()
-            }
-            navigationItem.leftViewContainer?.addAction {
-                self.inviteContact()
             }
         }
     }
@@ -248,26 +249,43 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             customHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: (Int(UIScreen.main.bounds.width)), height: 64))
         } else {
             customHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: (Int(UIScreen.main.bounds.width)), height: 100))
-            txtContactStates = UILabel()
-            txtContactStates.font = UIFont.igFont(ofSize: 20, weight: .regular)
-            customHeaderView.addSubview(txtContactStates)
-            txtContactStates.snp.makeConstraints { (make) in
+            txtInviteContact = UILabel()
+            txtInviteContact.font = UIFont.igFont(ofSize: 20, weight: .regular)
+            customHeaderView.addSubview(txtInviteContact)
+            txtInviteContact.snp.makeConstraints { (make) in
                 make.centerX.equalTo(customHeaderView.snp.centerX)
                 make.bottom.equalTo(customHeaderView.snp.bottom).offset(-10)
                 make.height.equalTo(20)
                 make.width.greaterThanOrEqualTo(20)
             }
             
-            txtContactStates.text = "\(contacts?.count ?? 0)"
+            txtInviteContact.text = "SETTING_PAGE_INVITE_FRIENDS".localized
         }
         
         let searchBarView = searchController
         customHeaderView.addSubview(searchBarView.searchBar)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnInviteContact(sender:)))
+        customHeaderView?.addGestureRecognizer(tap)
         return customHeaderView
     }
     
+    private func makeFooterView() -> UIView {
+        txtFooter = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 70.0))
+        txtFooter.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+        txtFooter.font = UIFont.igFont(ofSize: 16)
+        txtFooter.textAlignment = .center
+        txtFooter.backgroundColor = .clear
+        return txtFooter
+    }
+    
+    private func setFooterLabelText() {
+        guard txtFooter != nil else { return }
+        txtFooter?.text = "\(self.contacts?.count ?? 0) ".inLocalizedLanguage() + "searched_contacts".localized
+    }
+    
     @objc
-    func didTapOnBtn(sender:UITapGestureRecognizer) {
+    func didTapOnInviteContact(sender:UITapGestureRecognizer) {
         inviteContact()
     }
     
@@ -565,12 +583,14 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
         let predicate: NSPredicate!
             predicate = NSPredicate(format: "displayName CONTAINS[c] %@", searchString)
         if !searchString.isEmpty {
+            txtFooter?.isHidden = false
             let allContacts = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(NSPredicate(format: "isInContacts = 1")).sorted(byKeyPath: "displayName", ascending: true)
             contacts = allContacts.filter(predicate)
             searchedContacts = allContacts.filter(predicate)
             isInSearchMode = true
             self.tableView.reloadData()
         } else {
+            txtFooter?.isHidden = true
             allowInitObserver = true
             self.initObserver()
         }
@@ -578,6 +598,8 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
         if self.contactSynced {
             self.txtContactStates?.text = "\(self.contacts?.count ?? 0)".inLocalizedLanguage() + "CONTACTS".localized
         }
+        
+        self.setFooterLabelText()
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -585,6 +607,7 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
     }
         
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        txtFooter?.isHidden = true
         isInSearchMode = false
         allowInitObserver = true
         self.initObserver()
