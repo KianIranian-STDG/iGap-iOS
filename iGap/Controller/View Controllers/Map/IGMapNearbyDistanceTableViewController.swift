@@ -26,7 +26,7 @@ class IGMapNearbyDistanceTableViewController: BaseTableViewController {
         super.viewDidLoad()
         
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_NEARBY".localized)
+        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.Nearby.rawValue.localized)
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -114,12 +114,7 @@ class IGMapNearbyDistanceTableViewController: BaseTableViewController {
             }).error({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later for start chat with this user!", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }

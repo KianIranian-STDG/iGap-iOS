@@ -196,13 +196,9 @@ class IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController: UICol
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.isFetchingFiles = false
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    self.isFetchingFiles = false
+                    break
+
                 default:
                     break
                 }

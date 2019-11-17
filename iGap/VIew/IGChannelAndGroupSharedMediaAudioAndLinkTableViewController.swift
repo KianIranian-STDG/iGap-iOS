@@ -154,13 +154,7 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: BaseTableView
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.isFetchingFiles = false
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -216,11 +210,8 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: BaseTableView
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                    
+                    break
+
                 case .clientJoinByInviteLinkForbidden:
                     let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GroupNotExist.rawValue.localized, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
@@ -245,7 +236,7 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: BaseTableView
             DispatchQueue.main.async {
                 self.hud.hide(animated: true)
                 if let clinetCheckInvitedlink = protoResponse as? IGPClientCheckInviteLinkResponse {
-                    let alert = UIAlertController(title: "iGap", message: "ARE_U_SURE_TO_JOIN".localized + " \(clinetCheckInvitedlink.igpRoom.igpTitle)?", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "iGap", message: IGStringsManager.SureToJoin.rawValue.localized + " \(clinetCheckInvitedlink.igpRoom.igpTitle)?", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (action) in
                         self.joinRoombyInvitedLink(room:clinetCheckInvitedlink.igpRoom, invitedToken: invitedLink)
                     })
@@ -261,11 +252,7 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: BaseTableView
                 switch errorCode {
                 case .timeout:
                     
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    
-                    self.present(alert, animated: true, completion: nil)
+                    break
                 default:
                     break
                 }

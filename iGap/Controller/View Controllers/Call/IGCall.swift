@@ -196,7 +196,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                     txtCallerName.font = UIFont.igFont(ofSize: 23,weight: .bold)
                     holdView.layer.cornerRadius = 10
                     txtCallerName.text = userRegisteredInfo.displayName
-                    txtCallState.text = "CONNECTED".localized
+                    txtCallState.text = IGStringsManager.Connected.rawValue.localized
                     
                     let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapOnMainView))
                     mainView.addGestureRecognizer(gesture)
@@ -718,7 +718,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 
                 IGCallEventListener.playHoldSound = false
                 self.txtCallTime.isHidden = false
-                self.txtCallState.text = "CONNECTED".localized
+                self.txtCallState.text = IGStringsManager.Connected.rawValue.localized
                 
                 if !self.callIsConnected {
                     self.callIsConnected = true
@@ -777,95 +777,93 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 break
                 
             case .Finished, .Disconnected, .Accepted:
-                self.txtCallState.text = "DISCONNECTED".localized
+                self.txtCallState.text = IGStringsManager.Disconnected.rawValue.localized
                 self.playSound(sound: "igap_disconnect")
                 self.dismmis()
                 RTCClient.getInstance(justReturn: true)?.callStateDelegate = nil
                 break
                 
             case .Missed:
-                self.txtCallState.text = "MISSED".localized
+                self.txtCallState.text = IGStringsManager.Missed.rawValue.localized
                 self.dismmis()
                 break
                 
             case .NotAnswered:
-                self.txtCallState.text = "NOT_ANSWERED".localized
+                self.txtCallState.text = IGStringsManager.UnAnsweredCall.rawValue.localized
                 self.playSound(sound: "igap_noresponse")
                 self.dismmis()
                 break
                 
             case .Rejected:
-                self.txtCallState.text = "REJECTED".localized
+                self.txtCallState.text = IGStringsManager.Reject.rawValue.localized
                 self.playSound(sound: "igap_disconnect")
                 self.dismmis()
                 break
                 
             case .TooLong:
-                self.txtCallState.text = "TOO_LONG".localized
+                self.txtCallState.text = ""
                 self.playSound(sound: "igap_disconnect")
                 self.dismmis()
                 break
                 
             case .Failed:
-                self.txtCallState.text = "FAILED".localized
+                self.txtCallState.text = IGStringsManager.Failed.rawValue.localized
                 self.playSound(sound: "igap_noresponse")
                 self.dismmis()
                 break
                 
             case .Unavailable:
-                self.txtCallState.text = "UNAVAILABLE".localized
+                self.txtCallState.text = ""
                 self.playSound(sound: "igap_noresponse")
                 self.dismmis()
                 break
                 
             case .IncommingCall:
-                self.txtCallState.text = "INCOMMING_CALL".localized
+                self.txtCallState.text = IGStringsManager.IncomingCall.rawValue.localized
                 if self.callType == .videoCalling {
                     self.playSound(sound: "tone", repeatEnable: true)
                 }
                 break
                 
             case .Ringing:
-                self.txtCallState.text = "RINGING".localized
+                self.txtCallState.text = IGStringsManager.Ringing.rawValue.localized
                 self.playSound(sound: "igap_ringing", repeatEnable: true)
                 break
                 
             case .Dialing:
-                self.txtCallState.text = "DIALING".localized
+                self.txtCallState.text = IGStringsManager.Dialing.rawValue.localized
                 self.playSound(sound: "igap_signaling", repeatEnable: true)
                 break
                 
             case .signalingOfferForbiddenYouAreTalkingWithYourOtherDevices:
                 
                 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "TALKING_WITH_OTHER_DEVICE".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
-
-                
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ErrorTalkingWithOther.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                 break
                 
             case .signalingOfferForbiddenTheUserIsInConversation:
                 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IN_CONVERSATION".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel:  {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ErrorUserInConversation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel:  {
                     self.dismmis()
                 })
 
                 break
                 
             case .signalingOfferForbiddenDialedNumberIsNotActive:
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "DILED_NUMBER_IS_INACTIVE".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel:  {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ErrorDialedNumIsNotActive.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel:  {
                     self.dismmis()
                 })
                 break
                 
             case .signalingOfferForbiddenUserIsBlocked:
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IS_BLOCKED".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel:  {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ErrorUserIsBlocked.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel:  {
                     self.dismmis()
                 })
                 break
                 
             case .signalingOfferForbiddenIsNotAllowedToCommunicate:
                 self.playSound(sound: "igap_disconnect")
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IS_NOT_ALLOWED_TO_COMMINUCATE".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel:  {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ErrorAllowedNotToCommunicate.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel:  {
                     self.dismmis()
                 })
                 break

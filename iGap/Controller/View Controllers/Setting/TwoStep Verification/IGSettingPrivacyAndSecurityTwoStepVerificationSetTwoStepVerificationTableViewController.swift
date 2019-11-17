@@ -50,39 +50,39 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        lblPass.text = "SETTING_PS_TV_PASSWORD".localized
-        lblVerify.text = "SETTING_PS_TV_VERIFY_PASSWORD".localized
-        lblQ1.text = "SETTING_PS_TV_Q1".localized
-        lblQ2.text = "SETTING_PS_TV_Q2".localized
-        lblA1.text = "SETTING_PS_TV_A1".localized
-        lblA2.text = "SETTING_PS_TV_A2".localized
+        lblPass.text = IGStringsManager.Password.rawValue.localized
+        lblVerify.text = IGStringsManager.PasswordReEnter.rawValue.localized
+        lblQ1.text = IGStringsManager.SecurityQOne.rawValue.localized
+        lblQ2.text = IGStringsManager.SecurityQTwo.rawValue.localized
+        lblA1.text = IGStringsManager.Answer.rawValue.localized
+        lblA2.text = IGStringsManager.Answer.rawValue.localized
         lblHint.text = IGStringsManager.InvalidHint.rawValue.localized
-        lblEmail.text = "SETTING_PS_TV_EMAIL".localized
+        lblEmail.text = IGStringsManager.Email.rawValue.localized
         
-        passwordTextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
-        verifyTextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
-        question1TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
-        question2TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
-        answer1TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
-        answer2TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
-        hintTextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
-        emailTextField.placeholder = "SETTING_PS_TV_RECOMMENDED_FIELD".localized
+        passwordTextField.placeholder = IGStringsManager.Required.rawValue.localized
+        verifyTextField.placeholder = IGStringsManager.Required.rawValue.localized
+        question1TextField.placeholder = IGStringsManager.Required.rawValue.localized
+        question2TextField.placeholder = IGStringsManager.Required.rawValue.localized
+        answer1TextField.placeholder = IGStringsManager.Required.rawValue.localized
+        answer2TextField.placeholder = IGStringsManager.Required.rawValue.localized
+        hintTextField.placeholder = IGStringsManager.Required.rawValue.localized
+        emailTextField.placeholder = IGStringsManager.Optional.rawValue.localized
     }
     
     func setPassword(){
         
         if passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || verifyTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || question1TextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || answer1TextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || question2TextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || answer2TextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || hintTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-            alertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "MSG_PLEASE_TRY_AGAIN".localized)
+            alertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalTryAgain.rawValue.localized)
             return
         }
         
         if passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) != verifyTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
-            alertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "SETTING_PS_TV_VERIFY_PASSWORD_NOTMATCH".localized)
+            alertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.ErrorPassNotMatch.rawValue.localized)
             return
         }
         
         if passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == hintTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
-            alertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "SETTING_PS_TV_HINT_ERROR".localized)
+            alertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.InvalidHint.rawValue.localized)
             return
         }
         
@@ -107,7 +107,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    self.alertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "MSG_PLEASE_TRY_AGAIN".localized)
+                    self.alertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalTryAgain.rawValue.localized)
                     break
                     
                 case .userTwoStepVerificationSetPasswordNewPasswordIsInvalid :
@@ -162,7 +162,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
         
         switch section {
         case 0 :
-            containerView.textLabel!.text = "SETTING_PS_TV_TTL".localized
+            containerView.textLabel!.text = IGStringsManager.TwoStepPassHeader.rawValue.localized
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
             containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
         case 1 :
@@ -177,7 +177,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
         
         switch section {
         case 0 :
-            containerFooterView.textLabel!.text = "SETTING_PS_TV_FOOTER HINT".localized
+            containerFooterView.textLabel!.text = IGStringsManager.TwoStepPassFooter.rawValue.localized
             containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15)
             containerFooterView.textLabel?.textAlignment = (containerFooterView.textLabel?.localizedDirection)!
             
@@ -213,7 +213,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0 :
-            return "SETTING_PS_TV_TTL".localized
+            return IGStringsManager.TwoStepPassHeader.rawValue.localized
         case 1 :
             return ""
         default :
@@ -223,7 +223,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch section {
         case 0 :
-            return "SETTING_PS_TV_FOOTER HINT".localized
+            return IGStringsManager.TwoStepPassFooter.rawValue.localized
         case 1 :
             return ""
         default :

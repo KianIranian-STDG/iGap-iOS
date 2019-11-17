@@ -115,7 +115,7 @@ class IGMemberCell: UITableViewCell {
                 groupMemberRecentlyStatus.text = IGStringsManager.Online.rawValue.localized
                 break
             case .recently:
-                groupMemberRecentlyStatus.text = "LAST_SEEN_RECENTLY".localized
+                groupMemberRecentlyStatus.text = IGStringsManager.NavLastSeenRecently.rawValue.localized
                 break
             case .support:
                 groupMemberRecentlyStatus.text = IGStringsManager.IgapSupport.rawValue.localized

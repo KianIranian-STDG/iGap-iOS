@@ -26,15 +26,15 @@ class IGSettingsDataAndStorageUsageTableViewController: UITableViewController,UI
     }
     func initChangeLang() {
         // MARK: - Section 0
-        lblKeepMedia.text = "KEEP_MEDIA".localized
+        lblKeepMedia.text = IGStringsManager.KeepMedia.rawValue.localized
         lblKeepMediaTime.text = "..."
         // MARK: - Section 1
-        lblCleaCache.text = "CLEAR_CACHE".localized
+        lblCleaCache.text = IGStringsManager.CLearCashe.rawValue.localized
         
     }
     func initDefaultNav() {
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "STORAGE_USAGE".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.ManageStorage.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -86,7 +86,7 @@ class IGSettingsDataAndStorageUsageTableViewController: UITableViewController,UI
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "FOOTER_KEEP_MEDIA".localized
+            return IGStringsManager.KeepMediaFooter.rawValue.localized
         default:
             return ""
         }

@@ -80,13 +80,8 @@ class IGDeleteAccountTableViewController: UITableViewController , UIGestureRecog
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
                     self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                    break
             case .userGetDeleteTokenLockedManyTries:
                 DispatchQueue.main.async {
                     

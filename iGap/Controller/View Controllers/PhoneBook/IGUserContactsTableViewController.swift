@@ -180,7 +180,7 @@ class IGUserContactsTableViewController: BaseTableViewController, MFMessageCompo
             let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
             let user = realm.objects(IGRegisteredUser.self).filter(predicate).first
             if let phone = (user?.phone) {
-                controller.body = "HEY_JOIN_IGAP".localized + " " + "\(phone)"
+                controller.body = IGStringsManager.HeyJoinIgap.rawValue.localized + " " + "\(phone)"
 
             }
 

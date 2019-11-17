@@ -28,7 +28,7 @@ class IGDeleteAccountReasonViewController: UITableViewController , UIGestureReco
         thirdCellTickImageView.isHidden = true
         self.tableView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: IGStringsManager.DeleteAccount.rawValue.localized)
+        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: IGStringsManager.DeleteAccount.rawValue.localized)
         
         let navigationController = self.navigationController as! IGNavigationController
         navigationItem.navigationController = self.navigationController as? IGNavigationController
@@ -89,13 +89,9 @@ class IGDeleteAccountReasonViewController: UITableViewController , UIGestureReco
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async{
-                        let alert = UIAlertController(title:"Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.hud.hide(animated: true)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    self.hud.hide(animated: true)
+                    break
+
                 case .userDeleteTokenInvalidCode:
                     DispatchQueue.main.async {
                         let alert = UIAlertController(title:"Invalid Code", message: "Please Re-Send correct code", preferredStyle: .alert)

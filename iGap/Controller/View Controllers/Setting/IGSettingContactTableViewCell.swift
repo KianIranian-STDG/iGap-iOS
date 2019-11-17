@@ -73,7 +73,7 @@ class IGSettingContactTableViewCell: MGSwipeTableCell {
             lastSeenStatusLabel.text = IGStringsManager.Online.rawValue.localized
             break
         case .recently:
-            lastSeenStatusLabel.text = "LAST_SEEN_RECENTLY".localized
+            lastSeenStatusLabel.text = IGStringsManager.NavLastSeenRecently.rawValue.localized
             break
         case .support:
             lastSeenStatusLabel.text = IGStringsManager.IgapSupport.rawValue.localized

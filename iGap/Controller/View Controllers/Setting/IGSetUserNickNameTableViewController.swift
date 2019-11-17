@@ -83,13 +83,8 @@ class IGSetUserNickNameTableViewController: UITableViewController , UITextFieldD
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                self.hud.hide(animated: true)
+                break
             default:
                 break
             }
@@ -124,13 +119,8 @@ class IGSetUserNickNameTableViewController: UITableViewController , UITextFieldD
                 }).error ({ (errorCode, waitTime) in
                     switch errorCode {
                     case .timeout:
-                        DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.hud.hide(animated: true)
-                            self.present(alert, animated: true, completion: nil)
-                        }
+                        self.hud.hide(animated: true)
+                        break
                     default:
                         break
                     }

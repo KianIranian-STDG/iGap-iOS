@@ -30,7 +30,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationOptionsTableViewController: 
     
     var twoStepVerification: IGTwoStepVerification?
     var password: String?
-    let EMAIL_PREFIX = "MSG_UNVERIFIED_EMAIL".localized
+    let EMAIL_PREFIX = IGStringsManager.ErrorUnverifiedEmail.rawValue.localized
 
     
     @IBAction func btnResendVerificationCode(_ sender: Any) {
@@ -46,7 +46,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationOptionsTableViewController: 
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "", title: "TTL_OPTIONS".localized)
+        navigationItem.addNavigationViewItems(rightItemText: "", title: "")
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         
         if let pattern = twoStepVerification?.unverifiedEmailPattern {
@@ -55,12 +55,12 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationOptionsTableViewController: 
             txtUnconfirmedEmail.isHidden = true
             btnOutletVerify.isHidden = true
         }
-        lbl1.text = "REMOVE_PASSWORD".localized
-        lbl2.text = "CHANGE_PASSWORD".localized
-        lbl3.text = "CHANGE_HINT".localized
-        lbl4.text = "CHANGE_SECURITY_Q".localized
-        lbl5.text = "SET_CHANGE_RECO_EMAIL".localized
-        btnOutletVerify.setTitle("VERIFY_EMAIL".localized, for: .normal)
+        lbl1.text = IGStringsManager.RemovePass.rawValue.localized
+        lbl2.text = IGStringsManager.changePass.rawValue.localized
+        lbl3.text = IGStringsManager.ChangeHint.rawValue.localized
+        lbl4.text = IGStringsManager.ChangeSecurityQ.rawValue.localized
+        lbl5.text = IGStringsManager.ChangeRecoEmail.rawValue.localized
+        btnOutletVerify.setTitle(IGStringsManager.VerifyEmail.rawValue.localized, for: .normal)
         btnOutletVerify.titleLabel?.font = UIFont.igFont(ofSize: 17)
 
     }
@@ -116,10 +116,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationOptionsTableViewController: 
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    break
                 default:
                     break
                 }

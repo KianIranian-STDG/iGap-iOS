@@ -54,13 +54,13 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         var title : String = "CHANNEL_TITLE"
         if room!.type == .channel {
             title = "CHANNEL_TITLE"
-            self.tfDescriptionOfRoom.placeholder = "CHANNELDESC".localized
+            self.tfDescriptionOfRoom.placeholder = IGStringsManager.ChannelDesc.rawValue.localized
             self.tfNameOfRoom.placeholder = IGStringsManager.ChannelName.rawValue.localized
 
         } else {
             title = "GROUP_TITLE"
-            self.tfDescriptionOfRoom.placeholder = "GROUPDESC".localized
-            self.tfNameOfRoom.placeholder = "GROUPNAME".localized
+            self.tfDescriptionOfRoom.placeholder = IGStringsManager.GroupDesc.rawValue.localized
+            self.tfNameOfRoom.placeholder = IGStringsManager.GroupName.rawValue.localized
         }
         self.initNavigationBar(title: title.localized,rightItemText: "", iGapFont: true) {
             if self.room?.type == .channel {
@@ -208,7 +208,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 channelLink = "iGap.net/" + channelLink!
                 self.convertToPublic = false
                 tfChannelLink.isEnabled = false
-                lblChannelType.text = "CHANNELTYPE".localized + "  " + "PRIVATE".localized
+                lblChannelType.text = IGStringsManager.PrivateChannel.rawValue.localized
                 
             }
             if room?.channelRoom?.type == .publicRoom {
@@ -217,7 +217,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 tfChannelLink.isEnabled = true
                 self.convertToPublic = true
                 
-                lblChannelType.text = "CHANNELTYPE".localized + "  " + "PUBLIC".localized
+                lblChannelType.text = IGStringsManager.PublicChannel.rawValue.localized
                 tmpOldUserName = channelLink
                 
             }
@@ -231,7 +231,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 channelLink = "iGap.net/" + channelLink!
                 self.convertToPublic = false
                 tfChannelLink.isEnabled = false
-                lblChannelType.text = "GROUPTYPE".localized + "  " + "PRIVATE".localized
+                lblChannelType.text = IGStringsManager.GroupType.rawValue.localized + "  " + IGStringsManager.Private.rawValue.localized
                 
             }
             if room?.groupRoom?.type == .publicRoom {
@@ -240,7 +240,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 tfChannelLink.isEnabled = true
                 self.convertToPublic = true
                 
-                lblChannelType.text = "GROUPTYPE".localized + "  " + "PUBLIC".localized
+                lblChannelType.text = IGStringsManager.GroupType.rawValue.localized + "  " + IGStringsManager.Public.rawValue.localized
                 tmpOldUserName = channelLink
                 
             }
@@ -335,7 +335,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                                 switch protoResponse {
                                 case let clientGetRoomResponse as IGPClientGetRoomResponse:
                                     IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
-                                    self.lblChannelType.text = "CHANNELTYPE".localized + "  " + "PRIVATE".localized
+                                    self.lblChannelType.text = IGStringsManager.ChannelType.rawValue.localized + "  " + IGStringsManager.Private.rawValue.localized
                                     self.convertToPublic = false
                                     self.tableView.beginUpdates()
                                     SMLoading.hideLoadingPage()
@@ -442,7 +442,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                     case let channelUpdateUserName as IGPChannelUpdateUsernameResponse :
                         IGChannelUpdateUsernameRequest.Handler.interpret(response: channelUpdateUserName)
                         self.tableView.beginUpdates()
-                        self.lblChannelType.text = "CHANNELTYPE".localized + "  " + "PUBLIC".localized
+                        self.lblChannelType.text = IGStringsManager.ChannelType.rawValue.localized + "  " + IGStringsManager.Public.rawValue.localized
                         self.tmpOldUserName = self.tfChannelLink.text
                         self.tableView.endUpdates()
                         self.dispatchGroup.leave()
@@ -457,14 +457,14 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 if self.convertToPublic {
                     self.tableView.beginUpdates()
                     self.convertToPublic = true
-                    self.lblChannelType.text = "CHANNELTYPE".localized + "  " + "PUBLIC".localized
+                    self.lblChannelType.text = IGStringsManager.ChannelType.rawValue.localized + "  " + IGStringsManager.Public.rawValue.localized
                     self.tableView.endUpdates()
                     self.dispatchGroup.leave()
                     
                 } else {
                     self.tableView.beginUpdates()
                     self.convertToPublic = false
-                    self.lblChannelType.text = "CHANNELTYPE".localized + "  " + "PRIVATE".localized
+                    self.lblChannelType.text = IGStringsManager.ChannelType.rawValue.localized + "  " + IGStringsManager.Private.rawValue.localized
                     self.tableView.endUpdates()
                     self.dispatchGroup.leave()
                     
@@ -493,14 +493,14 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         
                     case .channelUpdateUsernameForbidden:
                         
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_UPDATE_USERNAME_FORBIDDEN".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.MSGUpdateUserNameForbidden.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         break
                         
                     case .channelUpdateUsernameLock:
                         let time = waitTime
                         let remainingMiuntes = time!/60
-                        let msg =  "MSG_CHANGE_USERNAME_AFTER".localized + " \(remainingMiuntes)" + "MINUTE".localized
+                        let msg =  IGStringsManager.ErrorUpdateUSernameAfter.rawValue.localized + " \(remainingMiuntes)" + IGStringsManager.Minutes.rawValue.localized
                         IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         break
@@ -529,7 +529,8 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 SMLoading.hideLoadingPage()
                 self.dispatchGroup.leave()
                 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "GROUP_LINK_NOT_EMPTY".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ErrorGroupLinkNotEmpty
+                    .rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                 return
             }
@@ -594,14 +595,14 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
                         
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_UPDATE_USERNAME_FORBIDDEN".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.MSGUpdateUserNameForbidden.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         break
                         
                     case .groupUpdateUsernameLock:
                         let time = waitTime
                         let remainingMiuntes = time!/60
-                        let msg = "MSG_CHANGE_USERNAME_AFTER".localized + " " + String(remainingMiuntes) + " " + "MINUTE".localized
+                        let msg = IGStringsManager.ErrorUpdateUSernameAfter.rawValue.localized + " " + String(remainingMiuntes) + " " + IGStringsManager.Minutes.rawValue.localized
                         
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
@@ -784,8 +785,8 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     }
     func initLabels(room : IGRoom!) {
         if room.type == .channel {
-            lblChannelReaction.text = "CHANNELREACTION".localized
-            lblSignMessage.text = "CHANNELSIGNMESSAGES".localized
+            lblChannelReaction.text = IGStringsManager.ShowChannelReactions.rawValue.localized
+            lblSignMessage.text = IGStringsManager.SignMessages.rawValue.localized
             
             tfDescriptionOfRoom.text = room.channelRoom?.roomDescription
             tfNameOfRoom.text = room.title
@@ -884,27 +885,27 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
-        let publicChannel = UIAlertAction(title: "PUBLIC".localized, style: .default, handler: { (action) in
+        let publicChannel = UIAlertAction(title: IGStringsManager.Public.rawValue.localized, style: .default, handler: { (action) in
             if self.room?.type == .channel {
                 self.tableView.beginUpdates()
-                self.lblChannelType.text = "CHANNELTYPE".localized + "  " + "PUBLIC".localized
+                self.lblChannelType.text = IGStringsManager.ChannelType.rawValue.localized + "  " + IGStringsManager.Public.rawValue.localized
                 self.tfChannelLink.text = nil
                 self.tfChannelLink.isEnabled = true
                 self.convertToPublic = true
                 self.tableView.endUpdates()
             } else {
                 self.tableView.beginUpdates()
-                self.lblChannelType.text = "GROUPTYPE".localized + "  " + "PUBLIC".localized
+                self.lblChannelType.text = IGStringsManager.GroupType.rawValue.localized + "  " + IGStringsManager.Public.rawValue.localized
                 self.tfChannelLink.text = nil
                 self.tfChannelLink.isEnabled = true
                 self.convertToPublic = true
             }
         })
         
-        let privateChannel = UIAlertAction(title: "PRIVATE".localized, style: .default, handler: { (action) in
+        let privateChannel = UIAlertAction(title: IGStringsManager.Private.rawValue.localized, style: .default, handler: { (action) in
             if self.room?.type == .channel {
                 self.tableView.beginUpdates()
-                self.lblChannelType.text = "CHANNELTYPE".localized + "  " + "PRIVATE".localized
+                self.lblChannelType.text = IGStringsManager.ChannelType.rawValue.localized + "  " + IGStringsManager.Private.rawValue.localized
                 self.tfChannelLink.isEnabled = false
                 self.convertToPublic = false
                 
@@ -912,7 +913,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 
             } else {
                 self.tableView.beginUpdates()
-                self.lblChannelType.text = "GROUPTYPE".localized + "  " + "PRIVATE".localized
+                self.lblChannelType.text = IGStringsManager.GroupType.rawValue.localized + "  " + IGStringsManager.Private.rawValue.localized
                 self.tfChannelLink.isEnabled = false
                 self.convertToPublic = false
                 
@@ -1037,12 +1038,12 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             
         case 2 :
             if room?.type == .channel {
-                containerFooterView.textLabel?.text = "CHANNEL_SIGN_FOOTER".localized
+                containerFooterView.textLabel?.text = IGStringsManager.ChannelSignMessagesFooter.rawValue.localized
                 
             }
         case 3 :
             if room?.type == .channel {
-                containerFooterView.textLabel?.text = "CHANNEL_REACTIONS_FOOTER".localized
+                containerFooterView.textLabel?.text = IGStringsManager.ChannelReactionMessageFooter.rawValue.localized
                 
             }
         default :
@@ -1060,11 +1061,11 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             case 0:
                 return ""
             case 1:
-                return "CHANNEL_INFO".localized
+                return IGStringsManager.Information.rawValue.localized
             case 2:
-                return "CHANNELSIGNMESSAGES".localized
+                return IGStringsManager.SignMessages.rawValue.localized
             case 3:
-                return "CHANNELREACTION".localized
+                return IGStringsManager.ShowChannelReactions.rawValue.localized
             default:
                 return ""
             }
@@ -1074,7 +1075,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             case 0:
                 return ""
             case 1:
-                return "GROUP_INFO".localized
+                return IGStringsManager.Information.rawValue.localized
             default:
                 return ""
             }
@@ -1090,9 +1091,9 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             case 1:
                 return ""
             case 2:
-                return "CHANNEL_SIGN_FOOTER".localized
+                return IGStringsManager.ChannelSignMessagesFooter.rawValue.localized
             case 3:
-                return "CHANNEL_REACTIONS_FOOTER".localized
+                return IGStringsManager.ChannelReactionMessageFooter.rawValue.localized
             default:
                 return ""
             }

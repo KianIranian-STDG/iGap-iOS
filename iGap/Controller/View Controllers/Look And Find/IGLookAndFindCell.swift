@@ -42,11 +42,11 @@ class IGLookAndFindCell: UITableViewCell {
         } else if type == .user {
             txtHeader.text = IGStringsManager.Contacts.rawValue.localized
         } else if type == .bot {
-            txtHeader.text = "BOT".localized
+            txtHeader.text = IGStringsManager.Bot.rawValue.localized
         } else if type == .message {
-            txtHeader.text = "MESSAGE_TITLE".localized
+            txtHeader.text = IGStringsManager.Messages.rawValue.localized
         } else if type == .hashtag {
-            txtHeader.text = "HASHTAGS".localized
+            txtHeader.text = IGStringsManager.Hashtags.rawValue.localized
         }
     }
     

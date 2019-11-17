@@ -53,7 +53,7 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
         resultSearchController.searchBar.delegate = self
         searchBar.delegate = self
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: "CONTACTS_VIEW".localized)
+        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: IGStringsManager.Contacts.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -110,13 +110,9 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
                     self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
+
             default:
                 break
             }
@@ -192,7 +188,7 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
 
     
     private func deleteContactAlert(phone: Int64){
-        let alert = UIAlertController(title: "TTL_DELETE_CONTACT".localized, message: "MSG_ARE_U_SURE_TO_DELETE".localized, preferredStyle: .alert)
+        let alert = UIAlertController(title: IGStringsManager.Delete.rawValue.localized, message: IGStringsManager.SureToDeleteContact.rawValue.localized, preferredStyle: .alert)
         let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .destructive, handler: { action in
             self.deleteContact(phone: phone)
         })
@@ -217,13 +213,7 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    IGGlobal.prgHide()
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
             default:
                 break
             }
@@ -232,7 +222,7 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
     }
     
     private func contactEditAlert(phone: Int64, firstname: String, lastname: String?){
-        let alert = UIAlertController(title: "BTN_EDITE_CONTACT".localized, message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: IGStringsManager.dialogEdit.rawValue.localized, message: nil, preferredStyle: .alert)
         
         alert.addTextField { (textField) in
             textField.placeholder = IGStringsManager.FirstName.rawValue.localized
@@ -253,9 +243,9 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
             if firstname?.text != nil && !(firstname?.text?.isEmpty)! {
                 self.contactEdit(phone: phone, firstname: (firstname?.text)!, lastname: lastname?.text)
             } else {
-                let alert = UIAlertController(title: IGStringsManager.GlobalHint.rawValue.localized, message: "MSG_PLEASE_ENTER_F_NAME".localized, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.AddFirstName.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+
             }
         }))
         
@@ -277,13 +267,7 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    IGGlobal.prgHide()
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
             default:
                 break
             }
@@ -425,10 +409,7 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
                         self.hud.hide(animated: true)
                         switch errorCode {
                         case .timeout:
-                            let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true, completion: nil)
+                            break
                         default:
                             break
                         }

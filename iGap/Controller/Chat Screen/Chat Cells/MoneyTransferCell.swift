@@ -50,11 +50,11 @@ class MoneyTransferCell: IGMessageGeneralCollectionViewCell {
         self.contentView.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
     }
     func initChangeLang() {
-        lblToTitle.text = "GLOBAL_TO".localized
-        lblFromTitle.text = "GLOBAL_FROM".localized
+        lblToTitle.text = IGStringsManager.To.rawValue.localized
+        lblFromTitle.text = IGStringsManager.From.rawValue.localized
         ttlInvoicelblInvoiceTitle.text = IGStringsManager.InvoiceNumber.rawValue.localized
         lblAmountTitle.text = IGStringsManager.Price.rawValue.localized
-        lblTraceNumberTitle.text = "TRACE_NUMBER".localized
+        lblTraceNumberTitle.text = IGStringsManager.TraceNumber.rawValue.localized
         ttlTransfer.font = UIFont.igFont(ofSize: 15)
         txtDate.font = UIFont.igFont(ofSize: 15)
     }
@@ -67,7 +67,7 @@ class MoneyTransferCell: IGMessageGeneralCollectionViewCell {
         
         guard let wallet = message.wallet?.moneyTrasfer else { return }
         
-        ttlTransfer.text = "WALLET_TRANSFER_MONEY".localized
+        ttlTransfer.text = IGStringsManager.WalletMoneyTransfer.rawValue.localized
         ttlTransfer.backgroundColor = UIColor.iGapYellow()
         txtDate.backgroundColor = UIColor.iGapYellow()
         ttlTransfer.textColor = UIColor.black
@@ -87,7 +87,7 @@ class MoneyTransferCell: IGMessageGeneralCollectionViewCell {
         }
 
         if wallet.walletDescription!.isEmpty {
-            txtDescription.text = "NO_DESCRIPTION".localized
+            txtDescription.text = ""
         } else {
             txtDescription.text = message.wallet?.moneyTrasfer?.walletDescription
         }

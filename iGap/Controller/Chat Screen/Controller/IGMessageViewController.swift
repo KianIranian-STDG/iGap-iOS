@@ -444,7 +444,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         if self.selectedMessages.count > 0 {
-            lblSelectedMessages.text = String(self.selectedMessages.count).inLocalizedLanguage() + " " + "SELECTED".localized
+            lblSelectedMessages.text = String(self.selectedMessages.count).inLocalizedLanguage() + " " + IGStringsManager.Selected.rawValue.localized
             inputBarDeleteButton.setTitleColor(UIColor.iGapDarkGray(), for: .normal)
             inputBarDeleteButton.isEnabled = true
             
@@ -641,7 +641,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             if messagesCount == 0 {
                 mainHolder.isHidden = true
                 joinButton.isHidden = false
-                joinButton.setTitle("START".localized, for: UIControl.State.normal)
+                joinButton.setTitle(IGStringsManager.Start.rawValue.localized, for: UIControl.State.normal)
                 joinButton.layer.cornerRadius = 5
                 joinButton.layer.masksToBounds = false
                 joinButton.layer.shadowColor = UIColor.black.cgColor
@@ -1609,20 +1609,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func manageRequestPhone(){
         self.view.endEditing(true)
         if let roomTitle = self.room?.title {
-            let alert = UIAlertController(title: nil, message: "there is a request to access your phone number from" + " \(roomTitle)" + " . do you allow?", preferredStyle: IGGlobal.detectAlertStyle())
-            
-            let sendPhone = UIAlertAction(title: "SEND_PHOTO".localized, style: .default, handler: { (action) in
-                if let userId = IGAppManager.sharedManager.userID(), let userInfo = IGRegisteredUser.getUserInfo(id: userId) {
-                    self.messageTextView.text = String(describing: userInfo.phone)
-                    self.didTapOnSendButton(self.btnSend)
-                }
-            })
-            
-            let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
-            
-            alert.addAction(sendPhone)
-            alert.addAction(cancel)
-            self.present(alert, animated: true, completion: nil)
+            if let userId = IGAppManager.sharedManager.userID(), let userInfo = IGRegisteredUser.getUserInfo(id: userId) {
+                self.messageTextView.text = String(describing: userInfo.phone)
+                self.didTapOnSendButton(self.btnSend)
+            }
         }
     }
     
@@ -1790,7 +1780,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func initChangeLanguegeNewChatView() {
         lblPlaceHolder.isHidden = false
         lblPlaceHolder.text = IGStringsManager.GlobalMessage.rawValue.localized
-        lblCenterText.text = "SLIDE_TO_CANCEL".localized
+        lblCenterText.text = IGStringsManager.SlideToCancel.rawValue.localized
         lblCenterIcon.text = ""
         self.btnCloseTopBar.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
         self.btnCloseTopBar.setTitle("", for: .normal)
@@ -1995,7 +1985,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         sender.titleLabel!.textColor = UIColor.red
         
         sender.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-        IGHelperShowToastAlertView.shared.showPopAlert(view: self,innerView: holderMessageTextView, message: "LONG_PRESS_TO_RECORD".localized, time: 2.0, type: .alert)
+        IGHelperShowToastAlertView.shared.showPopAlert(view: self,innerView: holderMessageTextView, message: IGStringsManager.LongPressToRecord.rawValue.localized, time: 2.0, type: .alert)
         
         UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
             sender.transform = CGAffineTransform.identity
@@ -2768,11 +2758,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     func groupPin(messageId: Int64 = 0){
         
-        var message = "UNPIN_ARE_U_SURE".localized
-        var title = "UNPIN_FOR_ALL".localized
-        let titleMe = "UNPIN_FOR_ME".localized
+        var message = IGStringsManager.SureToUnpin.rawValue.localized
+        var title = IGStringsManager.UnpinForAll.rawValue.localized
+        let titleMe = IGStringsManager.UnpinForMe.rawValue.localized
         if messageId != 0 {
-            message = "PIN_ARE_U_SURE".localized
+            message = IGStringsManager.SureToPin.rawValue.localized
             title = IGStringsManager.Pin.rawValue.localized
         }
         
@@ -2796,12 +2786,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }).error({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -2826,11 +2811,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     func channelPin(messageId: Int64 = 0){
         
-        var message = "UNPIN_ARE_U_SURE".localized
-        var title = "UNPIN_FOR_ALL".localized
-        let titleMe = "UNPIN_FOR_ME".localized
+        var message = IGStringsManager.SureToUnpin.rawValue.localized
+        var title = IGStringsManager.UnpinForAll.rawValue.localized
+        let titleMe = IGStringsManager.UnpinForMe.rawValue.localized
         if messageId != 0 {
-            message = "PIN_ARE_U_SURE".localized
+            message = IGStringsManager.SureToPin.rawValue.localized
             title = IGStringsManager.Pin.rawValue.localized
         }
         
@@ -2853,12 +2838,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }).error({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -3391,7 +3371,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
             
             
-            CardToCardModal.confirmBtn.setTitle("REQUEST_CARD_TO_CARD".localized, for: .normal)
+            CardToCardModal.confirmBtn.setTitle(IGStringsManager.CardToCardRequest.rawValue.localized, for: .normal)
             
             let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
             swipeDown.direction = .down
@@ -3401,7 +3381,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
         }
         else {
-            CardToCardModal.confirmBtn.setTitle("REQUEST_CARD_TO_CARD".localized, for: .normal)
+            CardToCardModal.confirmBtn.setTitle(IGStringsManager.CardToCardRequest.rawValue.localized, for: .normal)
         }
         
         if #available(iOS 11.0, *) {
@@ -3667,23 +3647,23 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
-        let camera = UIAlertAction(title: "CAMERA_DEVICE".localized, style: .default, handler: { (action) in
+        let camera = UIAlertAction(title: IGStringsManager.Camera.rawValue.localized, style: .default, handler: { (action) in
             self.attachmentPicker(screens: [.photo, .video])
         })
         
-        let galley = UIAlertAction(title: "PHOTO_GALLERY".localized, style: .default, handler: { (action) in
+        let galley = UIAlertAction(title: IGStringsManager.Gallery.rawValue.localized, style: .default, handler: { (action) in
             self.attachmentPicker(screens: [.library])
         })
         
-        let document = UIAlertAction(title: "FILE".localized, style: .default, handler: { (action) in
+        let document = UIAlertAction(title: IGStringsManager.File.rawValue.localized, style: .default, handler: { (action) in
             self.sendAsFileAlert()
         })
         
-        let contact = UIAlertAction(title: "CONTACT".localized, style: .default, handler: { (action) in
+        let contact = UIAlertAction(title: IGStringsManager.Contact.rawValue.localized, style: .default, handler: { (action) in
             self.openContact()
         })
         
-        let location = UIAlertAction(title: "LOCATION".localized, style: .default, handler: { (action) in
+        let location = UIAlertAction(title: IGStringsManager.Location.rawValue.localized, style: .default, handler: { (action) in
             self.openLocation()
         })
         //location.setValue(UIImage(named: "Location_Marker"), forKey: "image")
@@ -3709,10 +3689,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private func sendAsFileAlert(){
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let photoOrVideo = UIAlertAction(title: "PHOTO_OR_VIDEO".localized, style: .default, handler: { (action) in
+        let photoOrVideo = UIAlertAction(title: IGStringsManager.PhotoOrVideo.rawValue.localized, style: .default, handler: { (action) in
             self.attachmentPicker(sendAsFile: true)
         })
-        let document = UIAlertAction(title: "DOCUMENT".localized, style: .default, handler: { (action) in
+        let document = UIAlertAction(title: IGStringsManager.Document.rawValue.localized, style: .default, handler: { (action) in
             self.documentPicker()
         })
         let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
@@ -4338,13 +4318,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.hud.hide(animated: true)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+
+                    self.hud.hide(animated: true)
+                    break
+
                 case .clinetJoinByUsernameForbidden:
                     DispatchQueue.main.async {
                         let alert = UIAlertController(title: "Error", message: "You don't have permission to join this room", preferredStyle: .alert)
@@ -5384,7 +5361,7 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
             }
             
             if self.selectedMessages.count > 0 {
-                lblSelectedMessages.text = String(self.selectedMessages.count).inLocalizedLanguage() + " " + "SELECTED".localized
+                lblSelectedMessages.text = String(self.selectedMessages.count).inLocalizedLanguage() + " " + IGStringsManager.Selected.rawValue.localized
                 inputBarDeleteButton.setTitleColor(UIColor.iGapDarkGray(), for: .normal)
                 inputBarDeleteButton.isEnabled = true
             } else {
@@ -5651,7 +5628,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     private func manageSendedMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
         
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let copy = UIAlertAction(title: "COPY".localized, style: .default, handler: { (action) in
+        let copy = UIAlertAction(title: IGStringsManager.Copy.rawValue.localized, style: .default, handler: { (action) in
             self.copyMessage(cellMessage)
         })
         
@@ -5694,7 +5671,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             }
         })
         
-        let share = UIAlertAction(title: "SHARE".localized, style: .default, handler: { (action) in
+        let share = UIAlertAction(title: IGStringsManager.Share.rawValue.localized, style: .default, handler: { (action) in
             var finalMessage = cellMessage
             if let forward = cellMessage.forwardedFrom {
                 finalMessage = forward
@@ -5719,7 +5696,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         if self.room!.type == .group || self.room!.type == .channel {
             deleteTitle =  IGStringsManager.Delete.rawValue.localized
         } else {
-            deleteTitle =  "DELETE_FOR_ME".localized
+            deleteTitle =  IGStringsManager.DeleteForMe.rawValue.localized
         }
         let deleteForMe = UIAlertAction(title: deleteTitle, style: .destructive, handler: { (action) in
             self.isBoth = false
@@ -5727,7 +5704,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             
         })
         let roomTitle = self.room?.title != nil ? self.room!.title! : ""
-        let deleteForBoth = UIAlertAction(title: "DELETE_FOR_ME_AND".localized + roomTitle, style: .destructive, handler: { (action) in
+        let deleteForBoth = UIAlertAction(title: IGStringsManager.DeleteForMeAnd.rawValue.localized + roomTitle, style: .destructive, handler: { (action) in
             //            self.deleteMessage(cellMessage, both: true)
             self.isBoth = true
             self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : false,isDelete : true,isShare : false)
@@ -5856,7 +5833,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     private func manageFailedMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
-        let resend = UIAlertAction(title: "SEND_AGAIN".localized, style: .default, handler: { (action) in
+        let resend = UIAlertAction(title: IGStringsManager.SendAgain.rawValue.localized, style: .default, handler: { (action) in
             DispatchQueue.main.async {
                 IGMessageSender.defaultSender.resend(message: cellMessage, to: self.room!)
             }
@@ -6204,10 +6181,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                         DispatchQueue.main.async {
                             switch errorCode {
                             case .timeout:
-                                let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                                alert.addAction(okAction)
-                                self.present(alert, animated: true, completion: nil)
+                                break
                             default:
                                 break
                             }
@@ -6249,11 +6223,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                    
+                    break
+
                 case .clientJoinByInviteLinkForbidden:
                     let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue, message: IGStringsManager.GroupNotExist.rawValue.localized, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
@@ -6279,7 +6250,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 self.hud.hide(animated: true)
                 if let clinetCheckInvitedlink = protoResponse as? IGPClientCheckInviteLinkResponse {
                     IGClinetCheckInviteLinkRequest.Handler.interpret(response: clinetCheckInvitedlink)
-                    let alert = UIAlertController(title: "iGap", message: "ARE_U_SURE_TO_JOIN".localized + "\n \(clinetCheckInvitedlink.igpRoom.igpTitle)", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "iGap", message: IGStringsManager.SureToJoin.rawValue.localized + "\n \(clinetCheckInvitedlink.igpRoom.igpTitle)", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (action) in
                         self.joinRoombyInvitedLink(room:clinetCheckInvitedlink.igpRoom, invitedToken: invitedLink)
                     })
@@ -6295,11 +6266,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 switch errorCode {
                 case .timeout:
                     
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    
-                    self.present(alert, animated: true, completion: nil)
+                    break
                 default:
                     break
                 }

@@ -40,7 +40,7 @@ class IGSettingAccountUsernameTableViewController: UITableViewController , UIGes
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: "SETTING_PAGE_ACCOUNT_USERNAME".localized)
+        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: "SETTING_PAGE_ACCOUNT_USERNAME".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         navigationItem.rightViewContainer?.addAction {
             self.didTapOnDoneButton()
@@ -159,26 +159,14 @@ class IGSettingAccountUsernameTableViewController: UITableViewController , UIGes
                         DispatchQueue.main.async {
                             switch errorCode {
                             case .timeout:
-                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                alert.addAction(okAction)
-                                self.present(alert, animated: true, completion: nil)
                                 break
-                                
+
                             case .userProfileUpdateUsernameIsInvaild:
-                                let alert = UIAlertController(title: "Timeout", message: "Username is invalid", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                alert.addAction(okAction)
-                                self.present(alert, animated: true, completion: nil)
                                 break
-                                
+
                             case .userProfileUpdateUsernameHasAlreadyBeenTaken:
-                                let alert = UIAlertController(title: "Timeout", message: "Username has already been taken by another user", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                alert.addAction(okAction)
-                                self.present(alert, animated: true, completion: nil)
                                 break
-                                
+
                             case .userProfileUpdateLock:
                                 let time = waitTime
                                 let remainingMiuntes = time!/60

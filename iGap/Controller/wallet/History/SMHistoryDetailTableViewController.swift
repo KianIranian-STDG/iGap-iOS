@@ -23,17 +23,14 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
         super.viewDidLoad()
         
         initNavigationBar()
-//        self.SMTitle = "transaction.info".localized
-//        SMLoading.showLoadingPage(viewcontroller: self.parent!)
         self.date = Date.init(timeIntervalSince1970: TimeInterval((self.rowData!.pay_date != 0 ? rowData!.pay_date: rowData!.created_at_timestamp)/1000)).localizedDateTime()
 		SMHistory.getDetailFromServer(accountId: accountId, orderId: (rowData!._id), { his in
-//            SMLoading.hideLoadingPage()
             self.detail = his as? PAY_obj_history
             self.detailArray = [(String,String)]()
             if let senderId = self.detail?.sender.account_id, senderId != "", let receiverId = self.detail?.receiver.account_id, receiverId != "" {
                 if SMUserManager.accountId == senderId {
                     if let sender_balance_atm = self.detail?.sender.balance_atm {
-                        self.detailArray?.append(("".localized, String(sender_balance_atm).inRialFormat().inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized))
+                        self.detailArray?.append(("", String(sender_balance_atm).inRialFormat().inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized))
                     }
                 } else if SMUserManager.accountId == receiverId {
                     if let receiver_balance_atm = self.detail?.receiver.balance_atm {
@@ -79,7 +76,7 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
     
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "WALLET_HISTORY_DETAILS".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.Details.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -98,7 +95,6 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
 			status = IGStringsManager.PaymentPending.rawValue.localized
 		}
         let dic = [IGStringsManager.Reciever.rawValue.localized : rowData?.receiver.name ?? "" ,IGStringsManager.TransactionType.rawValue.localized : SMStringUtil.getTransType(type: (rowData?.transaction_type.rawValue)!), IGStringsManager.PaymentStatus.rawValue.localized :  status , IGStringsManager.Amount.rawValue.localized : rowData?.amount ?? ""  ,IGStringsManager.InvoiceNumber.rawValue.localized : rowData?.invoice_number ?? "",IGStringsManager.DateTime.rawValue.localized : date ?? ""] as [String : Any]
-//        let dic = ["status".localized :  (rowData?.is_paid)! == IS_PAID_STATUS.PAID ? "success.payment".localized : "history.paygear.receive.waiting".localized , "amount".localized : rowData?.amount,"invoice_number".localized : rowData?.invoice_number,"date".localized : date] as [String : Any]
         
         let result = ["result" : dic ,"state" : rowData?.is_paid.rawValue ?? ""] as NSDictionary
        

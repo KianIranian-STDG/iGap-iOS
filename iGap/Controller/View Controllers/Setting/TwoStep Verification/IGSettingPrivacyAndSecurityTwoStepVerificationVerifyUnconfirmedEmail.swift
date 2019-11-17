@@ -39,9 +39,9 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail: UITa
         let navigationItem = self.navigationItem as! IGNavigationItem
         
         if self.pageAction == IGTwoStepEmail.verifyEmail {
-            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: "VERIFY_EMAIL".localized)
+            navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: IGStringsManager.VerifyEmail.rawValue.localized)
         } else if self.pageAction == IGTwoStepEmail.recoverPassword{
-            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: "RECOVER_PASS".localized)
+            navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: IGStringsManager.ForgetPassword.rawValue.localized)
         }
         
         navigationItem.navigationController = self.navigationController as? IGNavigationController
@@ -57,13 +57,13 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail: UITa
         if self.pageAction == IGTwoStepEmail.verifyEmail {
             self.resendVerifyEmail()
         } else if self.pageAction == IGTwoStepEmail.recoverPassword{
-            btnOutletResendCode.setTitle("AUTH_RESEND_BUTTON".localized,for: .normal)
+            btnOutletResendCode.setTitle(IGStringsManager.ResendCode.rawValue.localized,for: .normal)
             self.resendRecoveryToken()
         }
-        lbl.text = "VERFICATION_CODE".localized
+        lbl.text = IGStringsManager.VerifyMobile.rawValue.localized
         lbl.font = UIFont.igFont(ofSize: 17)
-        edtVerifyCode.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
-        btnOutletResendCode.setTitle("AUTH_RESEND_BUTTON".localized, for: .normal)
+        edtVerifyCode.placeholder = IGStringsManager.Required.rawValue.localized
+        btnOutletResendCode.setTitle(IGStringsManager.ResendCode.rawValue.localized, for: .normal)
         btnOutletResendCode.titleLabel?.font = UIFont.igFont(ofSize: 15)
         edtVerifyCode.font = UIFont.igFont(ofSize: 15)
     }
@@ -86,10 +86,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail: UITa
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout: break
-//                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-//                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                    alert.addAction(okAction)
-//                    self.present(alert, animated: true, completion: nil)
+                    break
                 default:
                     break
                 }
@@ -101,10 +98,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail: UITa
     func verifyRecoverEmail(){
         
         if edtVerifyCode.text == nil || edtVerifyCode.text == "" {
-            let alert = UIAlertController(title: "Error", message: "Please first enter your code", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(okAction)
-            self.present(alert, animated: true, completion: nil)
+
             return
         }
         
@@ -116,12 +110,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail: UITa
                 hud.hide(animated: true)
                 if ((protoResponse as? IGPUserTwoStepVerificationVerifyRecoveryEmailResponse) != nil) {
                     IGSettingPrivacyAndSecurityTwoStepVerificationOptionsTableViewController.verifiedEmail = true
-                    let alert = UIAlertController(title: "Success", message: "Your email successfuly verified", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-                        self.navigationController?.popViewController(animated: true)
-                    })
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    self.navigationController?.popViewController(animated: true)
                 }
             }
         }).error ({ (errorCode, waitTime) in
@@ -129,29 +118,16 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail: UITa
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                    
+                    break
+
                 case .userTwoStepVerificationVerifyRecoveryEmailMaxTryLock:
-                    let alert = UIAlertController(title: "Error", message: "Max try lock", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                    
+                        break
                 case .userTwoStepVerificationVerifyRecoveryEmailExpiredToken:
-                    let alert = UIAlertController(title: "Error", message: "Email expired token", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                    
+                    break
+
                 case .userTwoStepVerificationVerifyRecoveryEmailInvalidToken:
-                    let alert = UIAlertController(title: "Error", message: "Email invalid token", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                    
+                    break
+
                 default:
                     break
                 }
@@ -176,10 +152,6 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail: UITa
                 hud.hide(animated: true)
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .userTwoStepVerificationRequestRecoveryTokenNoRecoVeryEmail:
@@ -228,10 +200,6 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail: UITa
                 hud.hide(animated: true)
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .userTwoStepVerificationRecoverPasswordByTokenExpiredToken:

@@ -186,24 +186,16 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .clientRoomReportReportedBefore:
-                    let alert = UIAlertController(title: "GLLOBAL_WARNING".localized, message: "ROOM_REPORTED_BEFOR".localized, preferredStyle: .alert)
+                    let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.UserReportedBefore.rawValue.localized, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .clientRoomReportForbidden:
-                    let alert = UIAlertController(title: "Error", message: "Room Report Fobidden", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     break
                     
                 default:
@@ -242,10 +234,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    break
                 default:
                     break
                 }
@@ -351,12 +340,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -377,15 +361,13 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             if let groupType = room?.groupRoom?.type {
                 switch groupType {
                 case .privateRoom:
-                    //                        groupTypeLabel.text = "PRIVATE".localized
                     break
                 case .publicRoom:
-                    //                        groupTypeLabel.text = "PUBLIC".localized
                     break
                 }
             }
             if let memberCount = room?.groupRoom?.participantCount {
-                memberCountLabel.text = "ALLMEMBER".localized + ": " + "\(memberCount)"
+                memberCountLabel.text = IGStringsManager.AllMembers.rawValue.localized + ": " + "\(memberCount)"
             }
             if room?.groupRoom?.type == .privateRoom {
                 groupLink = room?.groupRoom?.privateExtra?.inviteLink
@@ -403,10 +385,10 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         var title : String!
         var actionTitle: String!
         if myRole == .owner {
-            title = "MSG_SURE_TO_DELETE_GROUP".localized
+            title = IGStringsManager.SureToRemoveGroup.rawValue.localized
             actionTitle = IGStringsManager.Delete.rawValue.localized
         }else{
-            title = "MSG_SURE_TO_LEAVE_GROUP".localized
+            title = IGStringsManager.SureToLeaveGroup.rawValue.localized
             actionTitle = IGStringsManager.Leave.rawValue.localized
         }
         let deleteConfirmAlertView = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
@@ -465,13 +447,13 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 groupLink = room?.groupRoom?.publicExtra?.username
             }
             
-            let alert = UIAlertController(title: "GROUP_LINK".localized, message: groupLink, preferredStyle: .alert)
+            let alert = UIAlertController(title: IGStringsManager.GroupLink.rawValue.localized, message: groupLink, preferredStyle: .alert)
             
-            let copyAction = UIAlertAction(title: "COPY".localized, style: .default, handler: { (alert: UIAlertAction) -> Void in
+            let copyAction = UIAlertAction(title: IGStringsManager.Copy.rawValue.localized, style: .default, handler: { (alert: UIAlertAction) -> Void in
                 UIPasteboard.general.string = groupLink
             })
             
-            let shareAction = UIAlertAction(title: "SHARE".localized, style: .default, handler: { (alert: UIAlertAction) -> Void in
+            let shareAction = UIAlertAction(title: IGStringsManager.Share.rawValue.localized, style: .default, handler: { (alert: UIAlertAction) -> Void in
                 IGHelperPopular.shareText(message: IGHelperPopular.shareLinkPrefixGroup + "\n" + groupLink!, viewController: self)
             })
             
@@ -501,13 +483,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
             default:
                 break
             }
@@ -563,13 +539,9 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.hud.hide(animated: true)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    self.hud.hide(animated: true)
+
+                    break
                 default:
                     break
                 }
@@ -598,10 +570,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    break
                 default:
                     break
                 }
@@ -634,10 +603,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     self.hud.hide(animated: true)
                     switch errorCode {
                     case .timeout:
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                        break
                     default:
                         break
                     }
@@ -702,7 +668,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     if let desc = room?.groupRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                     }
                     
                     
@@ -712,7 +678,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 1:
                 switch indexPath.row {
                 case 0:
-                    cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
+                    cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
                     if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                         cellTwo.lblActionDetail.isOn = true
                     } else {
@@ -726,7 +692,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     
                 }
                 case 2:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                     return cell
                     
                 case 3:
@@ -736,7 +702,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         return cell
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized)
                         return cell
                         
                     default:
@@ -765,7 +731,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     if let desc = room?.groupRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                     }
                     
                     
@@ -775,7 +741,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 1:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
+                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
                         } else {
@@ -789,7 +755,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         
                     }
                 case 2:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                     return cell
                     
                 case 3:
@@ -799,7 +765,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         return cell
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized)
                         return cell
                         
                     default:
@@ -832,7 +798,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     if let desc = room?.groupRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                     }
                     
                     
@@ -842,7 +808,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 1:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
+                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
                         } else {
@@ -856,7 +822,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         
                     }
                 case 2:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                     return cell
                     
                 case 3:
@@ -866,7 +832,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         return cell
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized)
                         return cell
                         
                     default:
@@ -899,7 +865,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     if let desc = room?.groupRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                     }
                     
                     
@@ -914,7 +880,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 2:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
+                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
                         } else {
@@ -928,7 +894,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         
                     }
                 case 3:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                     return cell
                     
                 case 4:
@@ -938,7 +904,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         return cell
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized)
                         return cell
                         
                     default:
@@ -950,7 +916,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     switch indexPath.row {
                         
                     case 0 :
-                        cellTypeRed.initLabels(nameLblString: "DELETE_GROUP".localized,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: IGStringsManager.DeleteGroup.rawValue.localized,changeColor: true)
                         return cellTypeRed
                     default:
                         return cellTypeRed
@@ -972,7 +938,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     if let desc = room?.groupRoom?.roomDescription , desc != "" {
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                     }
                     
                     
@@ -987,7 +953,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 2:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
+                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
                         } else {
@@ -1001,7 +967,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         
                     }
                 case 3:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                     return cell
                     
                 case 4:
@@ -1011,7 +977,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         return cell
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized)
                         return cell
                         
                     default:
@@ -1039,7 +1005,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     if let desc = room?.groupRoom?.roomDescription , desc != "" {
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                     }
                     
                     
@@ -1054,7 +1020,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 2:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
+                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
                         } else {
@@ -1068,7 +1034,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         
                     }
                 case 3:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                     return cell
                     
                 case 4:
@@ -1078,7 +1044,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         return cell
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized)
                         return cell
                         
                     default:
@@ -1106,7 +1072,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     if let desc = room?.groupRoom?.roomDescription , desc != "" {
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                     }
                     
                     
@@ -1121,7 +1087,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 2:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
+                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
                         } else {
@@ -1135,7 +1101,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         
                     }
                 case 3:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                     return cell
                     
                 case 4:
@@ -1145,7 +1111,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         return cell
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized)
                         return cell
                         
                     default:
@@ -1178,7 +1144,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     if let desc = room?.groupRoom?.roomDescription , desc != "" {
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                     }
                     
                     
@@ -1193,7 +1159,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 2:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
+                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
                         } else {
@@ -1207,7 +1173,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         
                     }
                 case 3:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                     return cell
                     
                 case 4:
@@ -1217,7 +1183,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                         return cell
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized)
                         return cell
                         
                     default:
@@ -1254,7 +1220,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 if let desc = room?.groupRoom?.roomDescription {
                     cell.initLabels(nameLblString: desc)
                 } else {
-                    cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                 }
                 
                 
@@ -1269,7 +1235,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             case 2:
                 switch indexPath.row {
                 case 0:
-                    cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
+                    cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
                     return cellTwo
                     
                 case 1:
@@ -1281,7 +1247,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     
                 }
             case 3:
-                cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                 return cell
                 
             case 4:
@@ -1291,7 +1257,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     return cell
                     
                 case 1 :
-                    cell.initLabels(nameLblString: "ALLMEMBER".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized)
                     return cell
                     
                 default:
@@ -1568,7 +1534,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 1:
                     return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 2:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 default:
                     return ""
                 }
@@ -1578,11 +1544,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 0:
                     return IGStringsManager.Desc.rawValue.localized
                 case 1:
-                    return "GROUP_LINK".localized
+                    return IGStringsManager.GroupLink.rawValue.localized
                 case 2:
                     return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 3:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 default:
                     return ""
                 }
@@ -1594,7 +1560,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 1:
                     return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 2:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 default:
                     return ""
                 }
@@ -1606,7 +1572,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 1:
                     return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 2:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 default:
                     return ""
                 }
@@ -1619,7 +1585,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 1:
                     return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 2:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 default:
                     return ""
                 }
@@ -1633,11 +1599,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 0:
                     return IGStringsManager.Desc.rawValue.localized
                 case 1:
-                    return "GROUP_LINK".localized
+                    return IGStringsManager.GroupLink.rawValue.localized
                 case 2:
                     return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 3:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 default:
                     return ""
                 }
@@ -1647,11 +1613,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 0:
                     return IGStringsManager.Desc.rawValue.localized
                 case 1:
-                    return "GROUP_LINK".localized
+                    return IGStringsManager.GroupLink.rawValue.localized
                 case 2:
                     return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 3:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 default:
                     return ""
                 }
@@ -1661,11 +1627,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 0:
                     return IGStringsManager.Desc.rawValue.localized
                 case 1:
-                    return "GROUP_LINK".localized
+                    return IGStringsManager.GroupLink.rawValue.localized
                 case 2:
                     return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 3:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 default:
                     return ""
                 }
@@ -1675,11 +1641,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 0:
                     return IGStringsManager.Desc.rawValue.localized
                 case 1:
-                    return "GROUP_LINK".localized
+                    return IGStringsManager.GroupLink.rawValue.localized
                 case 2:
                     return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 3:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 default:
                     return ""
                 }
@@ -1692,7 +1658,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 1:
                     return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 2:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 default:
                     return ""
                 }
@@ -1702,11 +1668,11 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             case 0:
                 return IGStringsManager.Desc.rawValue.localized
             case 1:
-                return "GROUP_LINK".localized
+                return IGStringsManager.GroupLink.rawValue.localized
             case 2:
                 return IGStringsManager.NotificationAndSound.rawValue.localized
             case 3:
-                return "SHAREDMEDIA".localized
+                return IGStringsManager.SharedMedia.rawValue.localized
             default:
                 return ""
             }        }

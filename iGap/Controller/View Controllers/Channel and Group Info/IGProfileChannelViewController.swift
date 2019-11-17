@@ -221,7 +221,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     break
                     
                 case .clientRoomReportReportedBefore:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ROOM_REPORTED_BEFOR".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UserReportedBefore.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
                     break
                     
                 case .clientRoomReportForbidden:
@@ -345,10 +345,10 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         var title : String!
         var actionTitle: String!
         if myRole == .owner {
-            title = "MSG_SURE_TO_DELETE_CHANNEL".localized
+            title = IGStringsManager.SureToRemoveChannel.rawValue.localized
             actionTitle = IGStringsManager.Delete.rawValue.localized
         } else {
-            title = "MSG_SURE_TO_LEAVE_CHANNEL".localized
+            title = IGStringsManager.SureToLeaveChannel.rawValue.localized
             actionTitle = IGStringsManager.Leave.rawValue.localized
         }
         let deleteConfirmAlertView = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
@@ -399,12 +399,12 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 channelLink = room?.channelRoom?.publicExtra?.username
             }
             
-            let alert = UIAlertController(title: "CHANNEL_LINK".localized, message: channelLink, preferredStyle: .alert)
-            let copyAction = UIAlertAction(title: "COPY".localized, style: .default, handler: { (alert: UIAlertAction) -> Void in
+            let alert = UIAlertController(title: IGStringsManager.ChannelLink.rawValue.localized, message: channelLink, preferredStyle: .alert)
+            let copyAction = UIAlertAction(title: IGStringsManager.Copy.rawValue.localized, style: .default, handler: { (alert: UIAlertAction) -> Void in
                 UIPasteboard.general.string = self.channelLink
             })
             
-            let shareAction = UIAlertAction(title: "SHARE".localized, style: .default, handler: { (alert: UIAlertAction) -> Void in
+            let shareAction = UIAlertAction(title: IGStringsManager.Share.rawValue.localized, style: .default, handler: { (alert: UIAlertAction) -> Void in
                 IGHelperPopular.shareText(message: IGHelperPopular.shareLinkPrefixChannel + "\n" + self.channelLink!, viewController: self)
             })
 
@@ -451,7 +451,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         }
         
         if let memberCount = room?.channelRoom?.participantCount {
-            channelUserCountLabel.text = "\(memberCount)".inLocalizedLanguage() + " " + "MEMBER".localized
+            channelUserCountLabel.text = "\(memberCount)".inLocalizedLanguage() + " " + IGStringsManager.Member.rawValue.localized
             channelUserCountLabel.textAlignment = channelUserCountLabel.localizedDirection
         }
     }
@@ -761,7 +761,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     if let desc = room?.channelRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                     }
                     
                     
@@ -777,16 +777,16 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     case 0:
                         if let memberCount = room?.channelRoom?.participantCount {
 
-                        cell.initLabels(nameLblString: "ALLMEMBER".localized,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                        cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                         }
                         return cell
 
                     case 1:
-                        cell.initLabels(nameLblString: "ADMIN".localized,detailLblString: "\(adminsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                        cell.initLabels(nameLblString: IGStringsManager.Admin.rawValue.localized,detailLblString: "\(adminsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                             return cell
 
                     case 2:
-                            cell.initLabels(nameLblString: "MODERATOR".localized,detailLblString: "\(moderatprsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                            cell.initLabels(nameLblString: IGStringsManager.Moderators.rawValue.localized,detailLblString: "\(moderatprsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                             return cell
 
                     default:
@@ -794,7 +794,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                         
                     }
                 case 3:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                     return cell
                     
      
@@ -822,7 +822,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     if let desc = room?.channelRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                     }
                     
                     
@@ -832,7 +832,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 case 1:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
+                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
                         } else {
@@ -846,7 +846,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                         
                     }
                 case 2:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                     return cell
                     
                 case 3:
@@ -873,7 +873,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                                     if let desc = room?.channelRoom?.roomDescription , desc != ""{
                                         cell.initLabels(nameLblString: desc)
                                     } else {
-                                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                                     }
                                     
                                     
@@ -883,7 +883,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                                 case 1:
                                     switch indexPath.row {
                                     case 0:
-                                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
+                                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
                                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                                             cellTwo.lblActionDetail.isOn = true
                                         } else {
@@ -897,7 +897,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                                         
                                     }
                                 case 2:
-                                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                                     return cell
                                     
                                 case 3:
@@ -924,7 +924,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     if let desc = room?.channelRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                     }
                     
                     
@@ -942,16 +942,16 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     case 0:
                         if let memberCount = room?.channelRoom?.participantCount {
 
-                            cell.initLabels(nameLblString: "ALLMEMBER".localized,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
+                            cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
                         }
                         return cell
 
                     case 1:
-                            cell.initLabels(nameLblString: "ADMIN".localized,detailLblString: "\(adminsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                            cell.initLabels(nameLblString: IGStringsManager.Admin.rawValue.localized,detailLblString: "\(adminsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                             return cell
 
                     case 2:
-                            cell.initLabels(nameLblString: "MODERATOR".localized,detailLblString: "\(moderatprsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                            cell.initLabels(nameLblString: IGStringsManager.Moderators.rawValue.localized,detailLblString: "\(moderatprsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                             return cell
 
                     default:
@@ -959,7 +959,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     
                 }
                 case 3:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                     return cell
                     
 
@@ -970,7 +970,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                         return cellTypeRed
                         
                     case 1 :
-                        cellTypeRed.initLabels(nameLblString: "DELETE_CHANNEL".localized,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: IGStringsManager.DeleteChannel.rawValue.localized,changeColor: true)
                         return cellTypeRed
                     default:
                         return cellTypeRed
@@ -994,7 +994,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     if let desc = room?.channelRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                     }
                     
                     
@@ -1002,12 +1002,12 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     return cell
                     
                 case 1:
-                    cell.initLabels(nameLblString: "FIELD_USERNAME".localized, detailLblString: channelLink, changeColor: false)
+                    cell.initLabels(nameLblString: IGStringsManager.Username.rawValue.localized, detailLblString: channelLink, changeColor: false)
                     return cell
                 case 2:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
+                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
                         return cellTwo
                         
                     default:
@@ -1015,7 +1015,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                         
                     }
                 case 3:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                     return cell
                 case 4:
                     switch indexPath.row {
@@ -1023,16 +1023,16 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                         case 0:
                             if let memberCount = room?.channelRoom?.participantCount {
 
-                                cell.initLabels(nameLblString: "ALLMEMBER".localized,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
+                                cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
                             }
                             return cell
 
                         case 1:
-                                cell.initLabels(nameLblString: "ADMIN".localized,detailLblString: "\(adminsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                                cell.initLabels(nameLblString: IGStringsManager.Admin.rawValue.localized,detailLblString: "\(adminsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                                 return cell
 
                         case 2:
-                                cell.initLabels(nameLblString: "MODERATOR".localized,detailLblString: "\(moderatprsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                                cell.initLabels(nameLblString: IGStringsManager.Moderators.rawValue.localized,detailLblString: "\(moderatprsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                                 return cell
 
                         default:
@@ -1065,7 +1065,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     if let desc = room?.channelRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                     }
                     
                     
@@ -1073,12 +1073,12 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     return cell
                     
                 case 1:
-                    cell.initLabels(nameLblString: "FIELD_USERNAME".localized, detailLblString: channelLink, changeColor: false)
+                    cell.initLabels(nameLblString: IGStringsManager.Username.rawValue.localized, detailLblString: channelLink, changeColor: false)
                     return cell
                 case 2:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
+                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
                         } else {
@@ -1092,7 +1092,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                         
                     }
                 case 3:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                     return cell
      
                     
@@ -1120,17 +1120,17 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     if let desc = room?.channelRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                     }
                     return cell
                     
                 case 1:
-                    cell.initLabels(nameLblString: "FIELD_USERNAME".localized, detailLblString: channelLink, changeColor: false)
+                    cell.initLabels(nameLblString: IGStringsManager.Username.rawValue.localized, detailLblString: channelLink, changeColor: false)
                     return cell
                 case 2:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
+                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
                         return cellTwo
                         
                     default:
@@ -1138,7 +1138,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                         
                     }
                 case 3:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                     return cell
                     
                     
@@ -1166,7 +1166,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     if let desc = room?.channelRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
-                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                     }
                     
                     
@@ -1174,12 +1174,12 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     return cell
                     
                 case 1:
-                    cell.initLabels(nameLblString: "FIELD_USERNAME".localized, detailLblString: channelLink, changeColor: false)
+                    cell.initLabels(nameLblString: IGStringsManager.Username.rawValue.localized, detailLblString: channelLink, changeColor: false)
                     return cell
                 case 2:
                     switch indexPath.row {
                     case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
+                        cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
                         if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
                         } else {
@@ -1193,7 +1193,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                         
                     }
                 case 3:
-                    cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                     return cell
                     
                 case 4:
@@ -1202,16 +1202,16 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                         case 0:
                             if let memberCount = room?.channelRoom?.participantCount {
 
-                                cell.initLabels(nameLblString: "ALLMEMBER".localized,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
+                                cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
                             }
                             return cell
 
                         case 1:
-                                cell.initLabels(nameLblString: "ADMIN".localized,detailLblString: "\(adminsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                                cell.initLabels(nameLblString: IGStringsManager.Admin.rawValue.localized,detailLblString: "\(adminsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                                 return cell
 
                         case 2:
-                                cell.initLabels(nameLblString: "MODERATOR".localized,detailLblString: "\(moderatprsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                                cell.initLabels(nameLblString: IGStringsManager.Moderators.rawValue.localized,detailLblString: "\(moderatprsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                                 return cell
 
                         default:
@@ -1222,7 +1222,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 case 5:
                     switch indexPath.row {
                     case 0 :
-                        cellTypeRed.initLabels(nameLblString: "DELETE_CHANNEL".localized,changeColor: true)
+                        cellTypeRed.initLabels(nameLblString: IGStringsManager.DeleteChannel.rawValue.localized,changeColor: true)
                         return cellTypeRed
                     default:
                         return cellTypeRed
@@ -1243,7 +1243,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 if let desc = room?.channelRoom?.roomDescription , desc != ""{
                     cell.initLabels(nameLblString: desc)
                 } else {
-                    cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                 }
                 
                 
@@ -1251,13 +1251,13 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 return cell
                 
             case 1:
-                cell.initLabels(nameLblString: "FIELD_USERNAME".localized, detailLblString: channelLink, changeColor: false)
+                cell.initLabels(nameLblString: IGStringsManager.Username.rawValue.localized, detailLblString: channelLink, changeColor: false)
 
                 return cell
             case 2:
                 switch indexPath.row {
                 case 0:
-                    cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
+                    cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
                     return cellTwo
                     
                 case 1:
@@ -1269,7 +1269,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     
                 }
             case 3:
-                cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+                cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
                 return cell
                 
             case 4:
@@ -1279,7 +1279,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     return cell
                     
                 case 1 :
-                    cell.initLabels(nameLblString: "ALLMEMBER".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.AllMembers.rawValue.localized)
                     return cell
                     
                 default:
@@ -1552,9 +1552,9 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 case 1:
                     return nil
                 case 2:
-                    return "MANAGE_MEMBERS".localized
+                    return IGStringsManager.ManageMembers.rawValue.localized
                 case 3:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 default:
                     return ""
                 }
@@ -1564,11 +1564,11 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 case 0:
                     return IGStringsManager.Desc.rawValue.localized
                 case 1:
-                    return "CHANNEL_INFO".localized
+                    return IGStringsManager.Information.rawValue.localized
                 case 2:
-                    return "MANAGE_MEMBERS".localized
+                    return IGStringsManager.ManageMembers.rawValue.localized
                 case 3:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 default:
                     return ""
                 }
@@ -1580,7 +1580,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 case 1:
                     return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 2:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 default:
                     return ""
                 }
@@ -1592,7 +1592,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 case 1:
                     return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 2:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 default:
                     return ""
                 }
@@ -1608,13 +1608,13 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 case 0:
                     return IGStringsManager.Desc.rawValue.localized
                 case 1:
-                    return "CHANNEL_INFO".localized
+                    return IGStringsManager.Information.rawValue.localized
                 case 2:
                     return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 3:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 case 4:
-                    return "ALLMEMBER".localized
+                    return IGStringsManager.AllMembers.rawValue.localized
                 default:
                     return ""
                 }
@@ -1624,13 +1624,13 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 case 0:
                     return IGStringsManager.Desc.rawValue.localized
                 case 1:
-                    return "CHANNEL_INFO".localized
+                    return IGStringsManager.Information.rawValue.localized
                 case 2:
                     return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 3:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 case 4:
-                    return "ALLMEMBER".localized
+                    return IGStringsManager.AllMembers.rawValue.localized
 
                 default:
                     return ""
@@ -1641,11 +1641,11 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 case 0:
                     return IGStringsManager.Desc.rawValue.localized
                 case 1:
-                    return "CHANNEL_INFO".localized
+                    return IGStringsManager.Information.rawValue.localized
                 case 2:
                     return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 3:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 default:
                     return ""
                 }
@@ -1657,7 +1657,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 case 1:
                     return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 2:
-                    return "SHAREDMEDIA".localized
+                    return IGStringsManager.SharedMedia.rawValue.localized
                 default:
                     return ""
                 }
@@ -1671,11 +1671,11 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
             case 0:
                 return IGStringsManager.Desc.rawValue.localized
             case 1:
-                return "CHANNEL_INFO".localized
+                return IGStringsManager.Information.rawValue.localized
             case 2:
                 return IGStringsManager.NotificationAndSound.rawValue.localized
             case 3:
-                return "SHAREDMEDIA".localized
+                return IGStringsManager.SharedMedia.rawValue.localized
             default:
                 return ""
             }

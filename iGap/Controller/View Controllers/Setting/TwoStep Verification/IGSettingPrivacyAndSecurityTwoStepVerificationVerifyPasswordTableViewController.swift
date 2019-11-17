@@ -31,25 +31,25 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewContr
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: "PASSWORD".localized)
+        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: IGStringsManager.Password.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         navigationItem.rightViewContainer?.addAction {
             self.verifyPassword()
         }
-        btnForgetPassword.setTitle("FORGET_PASSWORD".localized, for: .normal)
+        btnForgetPassword.setTitle(IGStringsManager.ForgetPassword.rawValue.localized, for: .normal)
         btnForgetPassword.titleLabel!.font = UIFont.igFont(ofSize: 15)
         passwordTextField.isSecureTextEntry = true
-        passwordTextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
+        passwordTextField.placeholder = IGStringsManager.Required.rawValue.localized
         passwordTextField.font = UIFont.igFont(ofSize: 17)
         
 
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        btnForgetPassword.setTitle("FORGET_PASSWORD".localized, for: .normal)
+        btnForgetPassword.setTitle(IGStringsManager.ForgetPassword.rawValue.localized, for: .normal)
         btnForgetPassword.titleLabel!.font = UIFont.igFont(ofSize: 15)
-        lblPass.text = "PASSWORD".localized
-        lblTextHint.text = "twoStepVerfi_HEADER".localized
+        lblPass.text = IGStringsManager.Password.rawValue.localized
+        lblTextHint.text = IGStringsManager.TwoStepHeader.rawValue.localized
     }
 
     
@@ -109,21 +109,16 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewContr
                     case .userTwoStepVerificationCheckPasswordBadPayload:
                         self.showAlert(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "Bad Payload")
                     case .userTwoStepVerificationCheckPasswordInternalServerError:
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INTERNAL_SERVER_ERROR".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
-
+                        break
                     case .userTwoStepVerificationCheckPasswordInvalidPassword:
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INVALID_PASS".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ErrorInvalidPass.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                     case .userTwoStepVerificationCheckPasswordMaxTryLock:
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Maximum try reached. Please try after \(waitTime!) seconds", cancelText: IGStringsManager.GlobalClose.rawValue.localized)
-
+                        break
                     case .userTwoStepVerificationCheckPasswordNoPassword:
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PASSWORD_IS_NOT_SET".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
-
+                        break
                     case.timeout: break
-//                        self.showAlert(title: IGStringsManager.GlobalWarning.rawValue.localized, message:  "TIME_OUT".localized)
                     default: break
-//                        self.showAlert(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "Unknown Error")
                     }
                 }
             }).send()
@@ -131,12 +126,12 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewContr
     }
     
     @IBAction func didTapOnForgotPasswordButton(_ sender: UIButton) {
-        let alertVC = UIAlertController(title: "FORGET_PASSWORD".localized, message: "MSG_FORGET_PASSWORD".localized, preferredStyle: IGGlobal.detectAlertStyle())
+        let alertVC = UIAlertController(title: IGStringsManager.ForgetPassword.rawValue.localized, message: IGStringsManager.SelectOneOfBelow.rawValue.localized, preferredStyle: IGGlobal.detectAlertStyle())
         
-        let email = UIAlertAction(title: "SETTING_PAGE_ACCOUNT_EMAIL".localized, style: .default) { (action) in
+        let email = UIAlertAction(title: IGStringsManager.RecoverByEmail.rawValue.localized, style: .default) { (action) in
             self.performSegue(withIdentifier: "showRecoverByEmail", sender: self)
         }
-        let questions = UIAlertAction(title: "RECOVERY_QUESTIONS".localized, style: .default) { (action) in
+        let questions = UIAlertAction(title: IGStringsManager.RecoverByQuestions.rawValue.localized, style: .default) { (action) in
             self.performSegue(withIdentifier: "changePasswordWithQuestions", sender: self)
         }
         let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel) { (action) in

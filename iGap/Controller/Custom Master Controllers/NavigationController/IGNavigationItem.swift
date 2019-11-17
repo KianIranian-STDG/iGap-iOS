@@ -68,49 +68,12 @@ class IGNavigationItem: UINavigationItem {
         setNavigationItemWithCenterActivityIndicator(text: text)
     }
     
-//    private func returnToCallMethod(){
-//
-//        if !IGCall.callPageIsEnable {
-//            return
-//        }
-//
-//        self.returnToCall = IGTappableView(frame: CGRect(x: 0, y: 0, width: 140, height: 35))
-//        self.titleView = self.returnToCall
-//
-//        self.returnToCall?.backgroundColor = UIColor.returnToCall()
-//        self.returnToCall?.layer.cornerRadius = 15
-//        let label = UILabel()
-//        label.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
-//        label.textAlignment = .center
-//        label.textColor = UIColor.iGapBarsInfo()
-//        label.text = "RETURN_TO_CALL".localized
-//        self.titleView?.addSubview(label)
-//
-//        self.titleView?.snp.makeConstraints { (make) in
-//            make.width.equalTo(150)
-//            make.height.equalTo(30)
-//        }
-//
-//        label.snp.makeConstraints { (make) in
-//            make.centerX.equalTo(self.titleView!.snp.centerX)
-//            make.centerY.equalTo(self.titleView!.snp.centerY)
-//        }
-//
-//        self.returnToCall?.addAction {
-//            if IGCall.staticReturnToCall != nil {
-//                IGCall.staticReturnToCall.returnToCall()
-//            }
-//        }
-//    }
-    
     private func setNavigationItemWithCenterActivityIndicator(text: String) {
         
         if IGCall.callPageIsEnable {
             return
         }
         
-//        self.centerViewContainer?.subviews.forEach { $0.removeFromSuperview() }
-//        self.centerViewContainer?.removeFromSuperview()
         self.centerViewContainer = IGTappableView(frame: CGRect(x: 0, y: 0, width: 170, height: 45))
         
         self.titleView = centerViewContainer
@@ -813,10 +776,10 @@ class IGNavigationItem: UINavigationItem {
                 }
             } else if let groupRoom = room.groupRoom {
                 
-                self.centerViewSubLabel!.text = "\(groupRoom.participantCount) " + "MEMBER".localized
+                self.centerViewSubLabel!.text = "\(groupRoom.participantCount) " + IGStringsManager.Member.rawValue.localized
                 
             } else if let channelRoom = room.channelRoom {
-                self.centerViewSubLabel!.text = "\(channelRoom.participantCount) " + "MEMBER".localized
+                self.centerViewSubLabel!.text = "\(channelRoom.participantCount) " + IGStringsManager.Member.rawValue.localized
             }
         }
     }
@@ -961,9 +924,9 @@ class IGNavigationItem: UINavigationItem {
                 setLastSeenLabelForUser(peer , room: room)
             }
         } else if let groupRoom = room.groupRoom {
-            self.centerViewSubLabel!.text = "\(groupRoom.participantCount)" + "MEMBER".localized
+            self.centerViewSubLabel!.text = "\(groupRoom.participantCount)" + IGStringsManager.Member.rawValue.localized
         } else if let channelRoom = room.channelRoom {
-            self.centerViewSubLabel!.text = "\(channelRoom.participantCount)" + "MEMBER".localized
+            self.centerViewSubLabel!.text = "\(channelRoom.participantCount)" + IGStringsManager.Member.rawValue.localized
         }
     }
     
@@ -1097,7 +1060,7 @@ class IGNavigationItem: UINavigationItem {
             }
             
             if isBot(room: room){
-                self.centerViewSubLabel!.text = "BOT".localized
+                self.centerViewSubLabel!.text = IGStringsManager.Bot.rawValue.localized
                 return
             }
             

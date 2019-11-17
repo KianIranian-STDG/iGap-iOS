@@ -35,19 +35,12 @@ class IGSettingsDataAndStorageTableViewController: BaseTableViewController {
     
     func initChangeLang() {
         // MARK: - Section 0
-        lblStorageUsage.text = "STORAGE_USAGE".localized
-        lblDataUsage.text = "DATA_USAGE".localized
+        lblStorageUsage.text = IGStringsManager.ManageStorage.rawValue.localized
         // MARK: - Section 1
-        lblWhenUsingMobileData.text = "WHEN_USING_MOBILE_DATA".localized
-        lblWhenConnectedToWIFI.text = "WHEN_CONNECTED_TO_WIFI".localized
-        lblResetAutoDownload.text = "RESET_AUTO_DOWNLOAD_SETTINGS".localized
         // MARK: - Section 2
-        lblGifs.text = "GIFS".localized
-        lblVideos.text = "VIDEOS".localized
+        lblVideos.text = IGStringsManager.Videos.rawValue.localized
         // MARK: - Section 3
-        lblUseLessData.text = "USE_LESS_DATA".localized
         // MARK: - Section 4
-        lblProxySettings.text = "PROXY_SETTINGS".localized
         
     }
     func initDefaultNav() {
@@ -126,15 +119,15 @@ class IGSettingsDataAndStorageTableViewController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "HEADER_NETWORK_STORAGE_USAGE".localized
+            return IGStringsManager.DiskNetworkUsageHeader.rawValue.localized
         case 1:
-            return "HEADER_AUTOMATIC_DOWNLOAD".localized
+            return ""
         case 2:
-            return "HEADER_AUTO_PLAY".localized
+            return ""
         case 3:
-            return "HEADER_VOICECALLS".localized
+            return ""
         case 4:
-            return "HEADER_PROXYE".localized
+            return ""
         default:
             return ""
         }

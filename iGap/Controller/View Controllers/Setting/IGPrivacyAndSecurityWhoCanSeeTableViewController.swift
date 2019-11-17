@@ -85,28 +85,7 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController 
         lblEveryOne.text = IGStringsManager.Everbody.rawValue.localized
         lblMyContacts.text = IGStringsManager.MyContacts.rawValue.localized
     }
-    func changeDirection() {
-        let current : String = SMLangUtil.loadLanguage()
-        
-        //        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
-        //        MCLocalization.sharedInstance().language = current
-        //        switch current {
-        //        case "fa" :
-        //            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-        //
-        //
-        //        case "en" :
-        //            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-        //
-        //        case "ar" :
-        //            UIView.appearance().semanticContentAttribute = .forceRightToLeft
-        //            //            self.loadViewIfNeeded()
-        //
-        //        default :
-        //            break
-        //        }
-        
-    }
+    func changeDirection() {}
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return headerText
     }
@@ -180,13 +159,8 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController 
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
                     self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                    break
             default:
                 DispatchQueue.main.async {
                     let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalTryAgain.rawValue.localized, preferredStyle: .alert)

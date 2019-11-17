@@ -131,12 +131,12 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
         if self.showMembersFilter == .all {
-            navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: "ALLMEMBER".localized)
+            navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: IGStringsManager.AllMembers.rawValue.localized)
             navigationItem.rightViewContainer?.addAction {
                 self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
             }
         } else {
-            navigationItem.addNavigationViewItems(rightItemText: "", title: "ALLMEMBER".localized)
+            navigationItem.addNavigationViewItems(rightItemText: "", title: IGStringsManager.AllMembers.rawValue.localized)
         }
     }
     
@@ -264,12 +264,12 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 let navigationItem = self.navigationItem as! IGNavigationItem
                 if self.roomType == .channel {
                     if role == IGPChannelRoom.IGPRole.admin.rawValue {
-                        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: "ALLMEMBER".localized)
+                        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: IGStringsManager.AllMembers.rawValue.localized)
                         navigationItem.rightViewContainer?.addAction {
                             self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
                         }
                     } else if role == IGPChannelRoom.IGPRole.moderator.rawValue || role == IGPChannelRoom.IGPRole.member.rawValue {
-                        let alertC = UIAlertController(title: "HINT".localized, message: "CHANGED_ROLE_HINT".localized, preferredStyle: .alert)
+                        let alertC = UIAlertController(title: IGStringsManager.GlobalHint.rawValue.localized, message: IGStringsManager.MSGRoleHasChanges.rawValue.localized, preferredStyle: .alert)
                         let cancel = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler:  {  action in
                             self.navigationController?.popViewController(animated: true)
                         })
@@ -277,7 +277,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                         UIApplication.topViewController()!.present(alertC, animated: true, completion: nil)
                     }
                 } else if self.roomType == .group {
-                    navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: "ALLMEMBER".localized)
+                    navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.Add.rawValue.localized, title: IGStringsManager.AllMembers.rawValue.localized)
                     navigationItem.rightViewContainer?.addAction {
                         self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
                     }
@@ -346,9 +346,9 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         if fetchedMember {
             if (self.realmMembers?.count ?? 0) == 0 {
                 if self.showMembersFilter == .admin {
-                    self.tableView.setEmptyMessage("NOT_EXIST_ADMIN".localized)
+                    self.tableView.setEmptyMessage(IGStringsManager.MSGNoAdmins.rawValue.localized)
                 } else if self.showMembersFilter == .moderator {
-                    self.tableView.setEmptyMessage("NOT_EXIST_MODERATOR".localized)
+                    self.tableView.setEmptyMessage(IGStringsManager.MSGNoModerators.rawValue.localized)
                 }
             } else {
                 self.tableView.restore()
@@ -422,7 +422,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
-        let addAdmin = UIAlertAction(title: "SET_AS_ADMIN".localized, style: .default, handler: { (action) in
+        let addAdmin = UIAlertAction(title: IGStringsManager.AssignAdmin.rawValue.localized, style: .default, handler: { (action) in
             if self.roomType == .channel {
                 self.requestToAddAdminInChannel(member)
             } else {
@@ -430,7 +430,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             }
         })
         
-        let removeAdmin = UIAlertAction(title: "REMOVE_ADMIN".localized, style: .default, handler: { (action) in
+        let removeAdmin = UIAlertAction(title: IGStringsManager.RemoveAdmin.rawValue.localized, style: .default, handler: { (action) in
             if self.roomType == .channel {
                 self.kickAdminChannel(userId: member.userId)
             } else {
@@ -438,7 +438,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             }
         })
         
-        let addModerator = UIAlertAction(title: "SET_AS_MODERATOR".localized, style: .default, handler: { (action) in
+        let addModerator = UIAlertAction(title: IGStringsManager.AssignModerator.rawValue.localized, style: .default, handler: { (action) in
             if self.roomType == .channel {
                 self.requestToAddModeratorInChannel(member)
             } else {
@@ -446,7 +446,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             }
         })
         
-        let removeModerator = UIAlertAction(title: "REMOVE_MODERATOR".localized, style: .default, handler: { (action) in
+        let removeModerator = UIAlertAction(title: IGStringsManager.RemoveModerator.rawValue.localized, style: .default, handler: { (action) in
             if self.roomType == .channel {
                 self.kickModeratorChannel(userId: member.userId)
             } else {
@@ -454,7 +454,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             }
         })
         
-        let kickMember = UIAlertAction(title: "KICK_MEMBER".localized, style: .default, handler: { (action) in
+        let kickMember = UIAlertAction(title: IGStringsManager.KickedOut.rawValue.localized, style: .default, handler: { (action) in
             if self.roomType == .channel {
                 self.kickMemberChannel(userId: member.userId)
             } else {
@@ -514,7 +514,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         if let channelRoom = room {
             
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "REMOVE_ADMIN".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_ADMIN".localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: IGStringsManager.RemoveAdmin.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: IGStringsManager.SureToRemoveAdminRoleFrom.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
                 IGGlobal.prgShow(self.view)
                 IGChannelKickAdminRequest.Generator.generate(roomId: channelRoom.id , memberId: userId).success({ (protoResponse) in
                     IGGlobal.prgHide()
@@ -531,12 +531,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                     IGGlobal.prgHide()
                     switch errorCode {
                     case .timeout:
-                        DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true, completion: nil)
-                        }
+                        break
                     default:
                         break
                     }
@@ -551,7 +546,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         if let channelRoom = room {
             
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "REMOVE_MODERATOR".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_MODERATOR".localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: IGStringsManager.RemoveModerator.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: IGStringsManager.SureToRemoveModeratorRoleFrom.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
                 
                     IGGlobal.prgShow(self.view)
                     IGChannelKickModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: userId).success({ (protoResponse) in
@@ -578,7 +573,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     func kickMemberChannel(userId: Int64) {
         if let _ = room {
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "KICK_MEMBER".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_KICK_USER".localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: IGStringsManager.KickedOut.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: IGStringsManager.SureToKickOut.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
                 IGGlobal.prgShow(self.view)
                 IGChannelKickMemberRequest.Generator.generate(roomID: (self.room?.id)!, memberID: userId).success({ (protoResponse) in
                     IGGlobal.prgHide()
@@ -657,7 +652,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     func kickAdmin(userId: Int64) {
         if let groupRoom = room {
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "REMOVE_ADMIN".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_ADMIN".localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.RemoveAdmin.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: IGStringsManager.SureToRemoveAdminRoleFrom.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
                 IGGlobal.prgShow(self.view)
                 IGGroupKickAdminRequest.Generator.generate(roomID: groupRoom.id , memberID: userId).success({ (protoResponse) in
                     IGGlobal.prgHide()
@@ -680,7 +675,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     
     func kickModerator(userId: Int64) {
         if let groupRoom = room {
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "REMOVE_MODERATOR".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_MODERATOR".localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.RemoveModerator.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: IGStringsManager.SureToRemoveModeratorRoleFrom.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
                 IGGlobal.prgShow(self.view)
                 IGGroupKickModeratorRequest.Generator.generate(memberId: userId, roomId: groupRoom.id).success({ (protoResponse) in
                     IGGlobal.prgHide()
@@ -706,7 +701,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     func kickMember(userId: Int64) {
         if room != nil {
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "KICK_MEMBER".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_KICK_USER".localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: IGStringsManager.KickedOut.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: IGStringsManager.SureToKickOut.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
                 IGGlobal.prgShow(self.view)
                 IGGroupKickMemberRequest.Generator.generate(memberId: userId, roomId: (self.room?.id)!).success({ (protoResponse) in
                     IGGlobal.prgHide()

@@ -107,7 +107,7 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
             cell.blockedContactName.text = blockedUsers[indexPath.row].displayName
         }
         
-        let btnUnblock = MGSwipeButton(title: "UNBLOCK".localized, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
+        let btnUnblock = MGSwipeButton(title: IGStringsManager.UnblockUser.rawValue.localized, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
             if !self.blockedUsers[indexPath.row].isInvalidated {
                 self.unblockedUser(blockedUserId: self.blockedUsers[indexPath.row].id)
             }
@@ -175,7 +175,7 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
         return 50
     }
     override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        return "UNBLOCK".localized
+        return IGStringsManager.UnblockUser.rawValue.localized
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -201,13 +201,8 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
                     self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                    break
             default:
                 break
             }
@@ -232,13 +227,8 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
                     self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                    break
             default:
                 break
             }

@@ -58,15 +58,12 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
     
     func initChangeLang() {
         // MARK: - Section 0
-        lblChatBG.text = "CHAT_BG".localized
-        lblMessagePreview.text = "CHAT_PREVIEW_SAMPLE".localized
+        lblChatBG.text = IGStringsManager.ChatBG.rawValue.localized
+        lblMessagePreview.text = IGStringsManager.ChatSample.rawValue.localized
         // MARK: - Section 1
-        lblDarkTheme.text = "DARK_THEME".localized
-        lblLightTheme.text = "LIGHT_THEME".localized
         // MARK: - Section 2
-//        lblEnableAnimation.text = "ENABLE_ANIMATIONS".localized
-        lblStickers.text = "STICKERS".localized
-        lblInAppBrowser.text = "SETTING_PAGE_IN_APP_BROWSER".localized
+        lblStickers.text = IGStringsManager.Sticker.rawValue.localized
+        lblInAppBrowser.text = IGStringsManager.InAppbrowser.rawValue.localized
 
     }
     func initDefaultNav() {
@@ -220,10 +217,9 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "TEXT_SIZE".localized
+            return IGStringsManager.TextSize.rawValue.localized
         case 1:
             if #available(iOS 13.0, *) {
-               // return "COLOR_THEME".localized
                 return ""
 
             } else {

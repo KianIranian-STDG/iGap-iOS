@@ -79,7 +79,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     
     private func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "ADD_STICKER".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.AddSticker.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -222,7 +222,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         if stickerPageType == StickerPageType.MAIN {
             if stickerTabs.count == 0 {
-                self.collectionView!.setEmptyMessage("PLEASE_ADD_STICKER".localized)
+                self.collectionView!.setEmptyMessage("")
             } else {
                 self.collectionView!.restore()
             }

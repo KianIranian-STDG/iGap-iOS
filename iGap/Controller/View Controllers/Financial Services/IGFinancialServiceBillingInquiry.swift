@@ -49,9 +49,9 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
                 make.leading.equalTo(self.view.snp.leading).offset(12)
             }
             edtProvisionCode.isHidden = true
-            edtPhoneNumber.placeholder = "PLACE_HOLDER_MOBILE_NUMBER".localized
+            edtPhoneNumber.placeholder = IGStringsManager.MobileNumber.rawValue.localized
         } else {
-            edtPhoneNumber.placeholder = "PLACE_HOLDER_PHONE_NUM".localized
+            edtPhoneNumber.placeholder = IGStringsManager.PhoneNumber.rawValue.localized
         }
         
         initNavigationBar()
@@ -69,22 +69,22 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
     }
     func initChangeLang() {
         if IGFinancialServiceBillingInquiry.isMobile {
-            edtPhoneNumber.placeholder = "PLACE_HOLDER_MOBILE_NUMBER".localized
+            edtPhoneNumber.placeholder = IGStringsManager.MobileNumber.rawValue.localized
         } else {
-            edtPhoneNumber.placeholder = "PLACE_HOLDER_PHONE_NUM".localized
+            edtPhoneNumber.placeholder = IGStringsManager.PhoneNumber.rawValue.localized
         }
-        edtProvisionCode.placeholder = "PLACE_HOLDER_P_CODE".localized
+        edtProvisionCode.placeholder = ""
         btnInquiry.setTitle(IGStringsManager.Inquiry.rawValue.localized, for: .normal)
         btnPayment.setTitle(IGStringsManager.Pay.rawValue.localized, for: .normal)
         btnPaymentMid.setTitle(IGStringsManager.Pay.rawValue.localized, for: .normal)
-        txtAmount.text = "TXT_AMOUNT".localized
-        txtMidTerm.text = "MID_TERM_BILL".localized
-        txtLastTerm.text = "END_TERM_BILL".localized
-        txtAmountMid.text = "TXT_AMOUNT".localized
-        txtBillingID.text = "BILLING_ID".localized
-        txtPaymentCode.text = "PAYMENT_CODE".localized
-        txtBillingIDMid.text = "BILLING_ID".localized
-        txtPaymentCodeMid.text = "PAYMENT_CODE".localized
+        txtAmount.text = IGStringsManager.AmountPlaceHolder.rawValue.localized
+        txtMidTerm.text = IGStringsManager.MidTerm.rawValue.localized
+        txtLastTerm.text = IGStringsManager.LastTerm.rawValue.localized
+        txtAmountMid.text = IGStringsManager.AmountPlaceHolder.rawValue.localized
+        txtBillingID.text = IGStringsManager.ElecBillID.rawValue.localized
+        txtPaymentCode.text = IGStringsManager.PayIdentifier.rawValue.localized
+        txtBillingIDMid.text = IGStringsManager.ElecBillID.rawValue.localized
+        txtPaymentCodeMid.text = IGStringsManager.PayIdentifier.rawValue.localized
         
     }
     func initNavigationBar(){
@@ -187,10 +187,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
                 IGGlobal.prgHide()
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    break
                 default:
                     break
                 }
@@ -292,7 +289,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
             }
             
             if (phoneNumber.count != 11 || !phoneNumber.isNumber) {
-                showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "MSG_ERROR_WROMG_MNUMBER".localized)
+                showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.WrongPhoneNUmber.rawValue.localized)
                 return
             }
             
@@ -306,12 +303,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
                 IGGlobal.prgHide()
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -324,7 +316,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
             }
             
             if (phoneNumber.count < 5 || !phoneNumber.isNumber) {
-                showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "MSG_ERROR_WROMG_MNUMBER".localized)
+                showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.WrongPhoneNUmber.rawValue.localized)
                 return
             }
             
@@ -334,7 +326,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
             }
             
             if (provisionCode.count < 1 || !provisionCode.isNumber) {
-                showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "MSG_ERROR_WROMG_MNUMBER".localized)
+                showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.WrongPhoneNUmber.rawValue.localized)
                 return
             }
             
@@ -348,12 +340,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
                 IGGlobal.prgHide()
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -379,7 +366,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
     }
     
     func BillMerchantError(errorType: Int) {
-        showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "MSG_ERROR_BILL_PAYMENT".localized, dismiss: true)
+        showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalTryAgain.rawValue.localized, dismiss: true)
     }
     
     /*********************************************************/

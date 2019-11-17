@@ -37,9 +37,9 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
         let navigationItem = self.navigationItem as! IGNavigationItem
         
         if self.pageAction == IGTwoStepQuestion.changeRecoveryQuestion {
-            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: "SETTING_PS_TV_CHANGE_RECOVER_QUESTION".localized)
+            navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: IGStringsManager.ChangeSecurityQ.rawValue.localized)
         } else if self.pageAction == IGTwoStepQuestion.questionRecoveryPassword {
-            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: "SETTING_PS_TV_RECOVER_PASS".localized)
+            navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: IGStringsManager.ForgetPassword.rawValue.localized)
         }
         
         navigationItem.navigationController = self.navigationController as? IGNavigationController
@@ -56,14 +56,14 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
             question2TextField.text = questionTwo
         }
 
-        lbl1.text = "SETTING_PS_TV_Q1".localized
-        lbl3.text = "SETTING_PS_TV_Q2".localized
-        lbl2.text = "SETTING_PS_TV_A1".localized
-        lbl4.text = "SETTING_PS_TV_A2".localized
-        question1TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
-        question2TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
-        answer1TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
-        answer2TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
+        lbl1.text = IGStringsManager.SecurityQOne.rawValue.localized
+        lbl3.text = IGStringsManager.SecurityQTwo.rawValue.localized
+        lbl2.text = IGStringsManager.Answer.rawValue.localized
+        lbl4.text = IGStringsManager.Answer.rawValue.localized
+        question1TextField.placeholder = IGStringsManager.Required.rawValue.localized
+        question2TextField.placeholder = IGStringsManager.Required.rawValue.localized
+        answer1TextField.placeholder = IGStringsManager.Required.rawValue.localized
+        answer2TextField.placeholder = IGStringsManager.Required.rawValue.localized
     }
     
     func changeRecoveryQuestion(){
@@ -84,16 +84,8 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     break
                 case .userTwoStepVerificationChangeRecoveryQuestionMaxTryLock:
-                    let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "SETTING_PS_TV_MAX_TRY_LOCK".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     break
                 default:
                     break
@@ -111,38 +103,23 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         hud.mode = .indeterminate
         IGUserTwoStepVerificationRecoverPasswordByAnswersRequest.Generator.generate(answerOne: answer1TextField.text!, answerTwo: answer2TextField.text!).success({ (protoResponse) in
-            DispatchQueue.main.async {
-                hud.hide(animated: true)
-                let alert = UIAlertController(title: IGStringsManager.GlobalSuccess.rawValue.localized, message: "SETTING_PS_TV_YOUR_PASS_REMOVED".localized, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-                    self.dismiss(animated: true, completion: nil)
-                })
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
-            }
+            hud.hide(animated: true)
+   
         }).error ({ (errorCode, waitTime) in
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-//                    self.showAlert(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized)
-//                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.InvalidHint.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PASSWORD_IS_NOT_SET".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
-
                     break
                     
                 case .userTwoStepVerificationRecoverPasswordByAnswersMaxTryLock:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SETTING_PS_TV_MAX_TRY_LOCK".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
-
                     break
                
                 case .userTwoStepVerificationRecoverPasswordByAnswersInvalidAnswers:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "INVALID_ANSWER".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ErrorInvalidAnswer.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                     break
                     
                 case .userTwoStepVerificationRecoverPasswordByAnswersForbidden:
-                  
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "RECOVER_BY_ANSWER_IS_FORBIDDEN".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
-
                     break
                     
                 default:

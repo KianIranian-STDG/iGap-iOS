@@ -62,7 +62,7 @@ class IGDeleteAccountConfirmationTableViewController: BaseTableViewController , 
 
     func nextButtonClicked(){
         if CodeEntryTextField.text?.isEmpty == true {
-            let alert = UIAlertController(title: "GAME_ALERT_TITLE".localized, message: "MSG_FILL_DELETE_CODE".localized, preferredStyle: UIAlertController.Style.alert)
+            let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.EnterCodeHere.rawValue.localized, preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: UIAlertAction.Style.default, handler: nil))
             alert.view.tintColor = UIColor.organizationalColor()
             self.present(alert, animated: true, completion: nil)
@@ -83,16 +83,11 @@ class IGDeleteAccountConfirmationTableViewController: BaseTableViewController , 
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async{
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
                         self.hud.hide(animated: true)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                        break
                 case .userDeleteTokenInvalidCode:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title:"INVALID_CODE".localized, message: IGStringsManager.InvalidCode.rawValue.localized, preferredStyle: .alert)
+                        let alert = UIAlertController(title:IGStringsManager.InvalidCode.rawValue.localized, message: IGStringsManager.InvalidCode.rawValue.localized, preferredStyle: .alert)
                         let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default , handler: nil)
                         alert.addAction(okAction)
                         self.hud.hide(animated: true)
@@ -124,13 +119,13 @@ class IGDeleteAccountConfirmationTableViewController: BaseTableViewController , 
     @objc func updateCountDown() {
         self.delayBeforeSendingAgaing! -= 1
         if self.delayBeforeSendingAgaing!>0 {
-            let fixedText = "DIDNT_RECIEVE_CODE_WAIT".localized
+            let fixedText = IGStringsManager.WaitUntil.rawValue.localized
             let remainingSeconds = self.delayBeforeSendingAgaing!%60
             let remainingMiuntes = self.delayBeforeSendingAgaing!/60
             retrySendingCodeLabel.text = "\(fixedText) \(remainingMiuntes):\(remainingSeconds)"
             self.perform(#selector(IGDeleteAccountConfirmationTableViewController.updateCountDown), with: nil, afterDelay: 1.0)
         } else {
-            retrySendingCodeLabel.text = "TAP_RESEND".localized
+            retrySendingCodeLabel.text = IGStringsManager.ResendCode.rawValue.localized
             let tap = UITapGestureRecognizer(target: self, action: #selector(IGDeleteAccountConfirmationTableViewController.tapFunction))
             retrySendingCodeLabel.isUserInteractionEnabled = true
             retrySendingCodeLabel.addGestureRecognizer(tap)
@@ -157,13 +152,8 @@ class IGDeleteAccountConfirmationTableViewController: BaseTableViewController , 
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
                     self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
             default:
                 break
             }

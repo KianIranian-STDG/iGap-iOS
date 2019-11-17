@@ -86,13 +86,13 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        lblDocuments.text = "DOCUMENTS".localized
-        lblVideos.text = "VIDEOS".localized
-        lblImages.text = "IMAGES".localized
-        lblVoices.text = "VOICES".localized
-        lblAudios.text = "AUDIOS".localized
+        lblDocuments.text = IGStringsManager.Documents.rawValue.localized
+        lblVideos.text = IGStringsManager.Videos.rawValue.localized
+        lblImages.text = IGStringsManager.Images.rawValue.localized
+        lblVoices.text = IGStringsManager.Voices.rawValue.localized
+        lblAudios.text = IGStringsManager.Audios.rawValue.localized
         lblGifs.text = "GIFS".localized
-        lblStickers.text = "STICKERS".localized
+        lblStickers.text = IGStringsManager.Sticker.rawValue.localized
         lblClearData.text = "SETTING_CC_CLEAR_DATA".localized
     }
     

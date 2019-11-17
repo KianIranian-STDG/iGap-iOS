@@ -193,14 +193,8 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         lblGroupsTitle.text = IGStringsManager.Groups.rawValue.localized
         lblActiveSessionsTitle.text = IGStringsManager.ActiveSessions.rawValue.localized
         lblTwoStepTitle.text = IGStringsManager.TwoSteps.rawValue.localized
-        lblIfAway.text = "IF_AWAY_FOR".localized
+        lblIfAway.text = IGStringsManager.IfAwayFor.rawValue.localized
         
-        lblDeleteAllCloud.text = "DELETE_ALL_CLOUD".localized
-        lblDeleteSyncedContacts.text = "DELETE_SYNCED_CONTACTS".localized
-        lblClearPayments.text = "CLEAR_PAYMENT_SHHIPPING".localized
-        lblSyncContacts.text = "SYNCED_CONTACTS".localized
-        lblSecretChatLink.text = "SECRET_CHAT_LINK_PREVIEW".localized
-        lblPasscode.text = "PASSCODE_LOCK".localized
         
     }
     

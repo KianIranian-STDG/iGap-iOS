@@ -172,7 +172,7 @@ class SMLoading {
         self.presenter = customPresenter
         return customPresenter
     }
-    func showNormalDialog(viewController:UIViewController, height: Float ,isleftButtonEnabled : Bool? = true ,title:String? ,message:String? ,leftButtonTitle : String? = IGStringsManager.GlobalNo.rawValue.localized ,rightButtonTitle :String? = "yes".localized , yesPressed: CallBack? = nil, noPressed: SimpleCallBack? = nil){
+    func showNormalDialog(viewController:UIViewController, height: Float ,isleftButtonEnabled : Bool? = true ,title:String? ,message:String? ,leftButtonTitle : String? = IGStringsManager.GlobalNo.rawValue.localized ,rightButtonTitle :String? = IGStringsManager.GlobalYes.rawValue.localized , yesPressed: CallBack? = nil, noPressed: SimpleCallBack? = nil){
         let storyboard : UIStoryboard = UIStoryboard(name: "wallet", bundle: nil)
         
         let alertView : SMNormalAlertViewController! = (storyboard.instantiateViewController(withIdentifier: "normalalert") as! SMNormalAlertViewController)

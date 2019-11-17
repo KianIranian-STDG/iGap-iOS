@@ -364,8 +364,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             versionTitleLbl.text = "SETTING_PAGE_FOOTER_VERSION".localized
             versionNumLbl.text = "\(version)".inLocalizedLanguage()
         }
-        checkUpdateLbl.text = "CHECK_FOR_UPDATE".localized
-        lblEmailInner.text = "SETTING_PS_TV_EMAIL".localized
+        lblEmailInner.text = IGStringsManager.Email.rawValue.localized
         lblMenGender.text = "MEN_GENDER".localized
         lblMenGender.font = UIFont.igFont(ofSize: 15)
         lblWomenGender.font = UIFont.igFont(ofSize: 15)
@@ -702,7 +701,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             
         } else {
             locationManager.stopUpdatingLocation()
-            let alert = UIAlertController(title: "LOCATION_SERVICE_DISABLE".localized, message: "LOCATION_SERVICE_ENABLE_IT".localized, preferredStyle: UIAlertController.Style.alert)
+            let alert = UIAlertController(title: nil, message: IGStringsManager.MSGEnaleLocationService.rawValue.localized, preferredStyle: UIAlertController.Style.alert)
             self.present(alert, animated: true, completion: nil)
             alert.addAction(UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { action in
                 switch action.style {
@@ -1027,7 +1026,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 break
                 
             case 2 :
-                shareContent = "HEY_JOIN_IGAP".localized
+                shareContent = IGStringsManager.HeyJoinIgap.rawValue.localized
                 let activityViewController = UIActivityViewController(activityItems: [shareContent as NSString], applicationActivities: nil)
                 self.tableView.deselectRow(at: indexPath, animated: true)
                 present(activityViewController, animated: true, completion: nil)
@@ -1280,7 +1279,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 case .userProfileUpdateLock:
                     let time = waitTime
                     let remainingMiuntes = time!/60
-                    let msg = "MSG_CHANGE_USERNAME_AFTER".localized + " " + String(remainingMiuntes) + " " + "MINUTE".localized
+                    let msg = IGStringsManager.ErrorUpdateUSernameAfter.rawValue.localized + " " + String(remainingMiuntes) + " " + IGStringsManager.Minutes.rawValue.localized
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     break
                     

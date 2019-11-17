@@ -1478,7 +1478,7 @@ TODO:// complete */
 "year_1" = "1 year";
 
 /*  */
-"E_114" = "Bad payload: Invalid email address";
+"E_114" = "Unverified email address";
 
 /*  */
 "E_115" = "Internal Server Error";
@@ -5552,7 +5552,7 @@ TODO:// complete */
 "igasht_success_payment" = "Your payment has been successful";
 
 /*  */
-"noDetail_textView" = "Is no detail";
+"noDetail_textView" = "no detail";
 
 /*  */
 "igasht_empty_history_message" = "No tickets purchased yet.";
@@ -6537,7 +6537,6 @@ TODO:// complete */
 "sms_and_igap" = "SMS and iGAP";
 "dialog_done" = "Done";
 "your_profile" = "Your Profile";
-"unsuccess_operation" = "An error has occurred ; please try again later";
 "two_step_verficatiion_header" = "You have enabled Two-Step verification; so your account is protected with an additional password";
 "show_and_login_using_qr_title" = "Scan this QR Code using your other device to log in to your iGap Account";
 "search_placeholder" = "Search";
@@ -6620,13 +6619,49 @@ TODO:// complete */
 "hours_ago" = "hours ago";
 "someone" = "Someone";
 "room_created" = "Created This Room";
-"channel_created" = "Channel was Created"
-"group_created" = "Group was Created"
+"channel_created" = "Channel was Created";
+"group_created" = "Group was Created";
 "did_not_respond_to_ur_voice_call" = "Did not respond to your voice call";
 "did_not_respond_to_ur_video_call" = "Did not respond to your video call";
 "msg_vote_to_see_barchart" = "Please Vote to see the BarChart !";
 "chart" = "Chart";
 "call_question" = "Which number do you want to call?";
 "Channels" = "Channels";
+"long_press_to_record" = "Long Press To Record";
+"unpin_are_u_sure" = "Are you sure unpin this message?";
+"unpin_for_all" = "Unpin for all users";
+"unpin_for_me" = "Unpin for me";
+"pin_are_u_sure" = "Are you sure pin this message?";
+"photo_or_video" = "Photo Or Video";
+"delete_for_me" = "Delete For Me";
+"delete_for_me_and" = "Delete For Me And";
+"send_again" = "Send Again";
+"share_to" = "Share To";
+"select_chat" = "Select Chat";
+"channel_info" = "Channel Info";
+"group_type" = "Group Type";
+"channel_type" = "Channel Type";
+"private" = "Private";
+"public" = "Public";
+"documents" = "Documents";
+"update_username_after" = "You can not change your username because you've recently changed it. you have to wait for  ";
+"group_link_can_not_be_empty" = "Group Link can not be empty";
+"role_has_changes" = "Your role has changed so you cannot view the members list at this time!";
+"not_exist_moderator" = "هیچ سردبیری ثبت نشده است!";
+"not_exist_admin" = "هیچ مدیری ثبت نشده است!";
+"exist_member" = "در حال حاضر جزء اعضاء شما است!";
+"msg_write_ur_report_description" = "Please write your report description";
+
+
+"ported_subscriber_enable" = "Ported Subscriber Enable";
+"ported_subscriber_disable" = "Ported Subscriber Disable";
+"enable_location_service" = "Location Service is Disabled Please go to Setting and enable it";
+"around" = "About";
+"meter" = "meter";
+"chat_preview_sample" = "it's morning in Tehran 😍";
+"keep_media_footer" = "All The images,videos and Audios that you did not have access in the period will be deleted.";
+"send_message_sound_alert" = "Send Message Sound Alert";
+"verify_password" = "Verify Password";
+"remove_password" = "Remove Password";
 
 

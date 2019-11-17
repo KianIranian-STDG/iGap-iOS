@@ -60,7 +60,6 @@ class SMHistoryTableViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initNavigationBar()
-//        self.SMTitle = "transaction.history".localized
         SMLoading.showLoadingPage(viewcontroller: self)
 		if accountId == nil {
             SMHistory.getHistoryFromServer(last : "",  {his in
@@ -99,7 +98,7 @@ class SMHistoryTableViewController: BaseTableViewController {
     // MARK : - init View elements
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "WALLET_HISTORY".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.TransactionHistory.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         if isInStandardHistoPage {
         let navigationController = self.navigationController as! IGNavigationController

@@ -26,13 +26,13 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeHintTableViewControlle
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: "CHANGE_HINT".localized)
+        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: IGStringsManager.ChangeHint.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         navigationItem.rightViewContainer?.addAction {
             self.changeHint()
         }
         lbl1.text = IGStringsManager.InvalidHint.rawValue.localized
-        txtHint.placeholder = "SETTING_PS_TV_RECOMMENDED_FIELD".localized
+        txtHint.placeholder = IGStringsManager.Optional.rawValue.localized
     }
     
     func changeHint(){
@@ -63,10 +63,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeHintTableViewControlle
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    break
                 case .userTwoStepVerificationChangeHintMaxTryLock:
                     let alert = UIAlertController(title: "Error", message: "Max Try Lock", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)

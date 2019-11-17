@@ -63,11 +63,11 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        segType.setTitle("SATELITE".localized, forSegmentAt: 1)
-        segType.setTitle("SATNDARD".localized, forSegmentAt: 0)
+        segType.setTitle(IGStringsManager.Satelite.rawValue.localized, forSegmentAt: 1)
+        segType.setTitle(IGStringsManager.Standard.rawValue.localized, forSegmentAt: 0)
         let font: [AnyHashable : Any] = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 14)]
         segType.setTitleTextAttributes((font as! [NSAttributedString.Key : Any]), for: .normal)
-        edtComment.placeholder = "YOUR_STATUS".localized
+        edtComment.placeholder = IGStringsManager.YourStatus.rawValue.localized
     }
     @IBAction func segmentChanger(_ sender: UISegmentedControl) {
         switch (sender.selectedSegmentIndex) {
@@ -122,7 +122,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
     
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "", title: "SETTING_PAGE_NEARBY".localized,iGapFont: true)
+        navigationItem.addNavigationViewItems(rightItemText: "", title: IGStringsManager.Nearby.rawValue.localized,iGapFont: true)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -136,15 +136,15 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
     func mapOptionsAlert(){
         let option = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
-        let updateMap = UIAlertAction(title: "SETTING_NEARBY_MAP_MANUALUPDATE".localized, style: .default, handler: { (action) in
+        let updateMap = UIAlertAction(title: IGStringsManager.ManuallyUpdateMap.rawValue.localized, style: .default, handler: { (action) in
             self.detectUsersCoordinate()
         })
         
-        let nearbyDistance = UIAlertAction(title: "SETTING_NEARBY_MAP_USERS_NEARBY_DISTANCE".localized, style: .default, handler: { (action) in
+        let nearbyDistance = UIAlertAction(title: IGStringsManager.NearbyUsers.rawValue.localized, style: .default, handler: { (action) in
             self.openNearbyDistanceList()
         })
         
-        let nearbyState = UIAlertAction(title: "SETTING_NEARBY_MAP_DISABLE_NEARBY".localized, style: .default, handler: { (action) in
+        let nearbyState = UIAlertAction(title: IGStringsManager.DisableNearbyVisibility.rawValue.localized, style: .default, handler: { (action) in
             self.disableNearbyVisibilityAlert()
         })
         
@@ -166,7 +166,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
     }
     
     func clearCommentAlert(){
-        let option = UIAlertController(title: "CLEAR_STATUS".localized, message: IGStringsManager.NearByMessage.rawValue.localized, preferredStyle: .alert)
+        let option = UIAlertController(title: IGStringsManager.ClearStatus.rawValue.localized, message: IGStringsManager.NearByMessage.rawValue.localized, preferredStyle: .alert)
         let ok = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .destructive, handler: { (action) in
             self.updateComment(comment: "")
         })
@@ -178,7 +178,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
     }
     
     func disableNearbyVisibilityAlert(){
-        let option = UIAlertController(title: "SETTING_NEARBY_MAP_DISABLE_NEARBY".localized, message: "MSG_DESABLE_MAP_VISIBILITY".localized, preferredStyle: .alert)
+        let option = UIAlertController(title: IGStringsManager.DisableNearbyVisibility.rawValue.localized, message: IGStringsManager.MSGNearbyDisble.rawValue.localized, preferredStyle: .alert)
         let ok = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .destructive, handler: { (action) in
             self.geoRegister()
         })
@@ -213,7 +213,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
             return
         }
         if status == .denied || status == .restricted {
-            let alert = UIAlertController(title: "LOCATION_SERVICE_DISABLE".localized, message: "LOCATION_SERVICE_ENABLE_IT".localized, preferredStyle: .alert)
+            let alert = UIAlertController(title: nil, message: IGStringsManager.MSGEnaleLocationService.rawValue.localized, preferredStyle: .alert)
 
             let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
             alert.addAction(okAction)
@@ -357,12 +357,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
             default:
                 break
             }
@@ -470,12 +465,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -542,12 +532,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
             default:
                 break
             }
@@ -574,12 +559,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
             }).error({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }

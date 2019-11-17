@@ -169,7 +169,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             timeLabel.textColor = .white
             if let phone = user?.phone {
                 if phone == 0 {
-                    self.phoneNumberLabel.text = "HIDDEN".localized
+                    self.phoneNumberLabel.text = ""
                 } else {
                     self.phoneNumberLabel.text = "\(phone)".inLocalizedLanguage()
                 }
@@ -239,12 +239,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -322,10 +317,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                                 DispatchQueue.main.async {
                                     switch errorCode {
                                     case .timeout:
-                                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                                        alert.addAction(okAction)
-                                        self.present(alert, animated: true, completion: nil)
+                                        break
                                     default:
                                         break
                                     }
@@ -364,7 +356,6 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
 
                         self.tableView.reloadData()
 
-//                        self.blockContactLabel.text = "UNBLOCK".localized
                         self.hud.hide(animated: true)
                     default:
                         break
@@ -373,13 +364,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             }).error({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.hud.hide(animated: true)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -409,13 +394,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.hud.hide(animated: true)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -425,7 +404,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     
     //AMRK: - Show Delete Pop Over
     func showDeleteActionSheet() {
-        let deleteChatConfirmAlertView = UIAlertController(title: "MSG_SURE_TO_DELETE_CHAT".localized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        let deleteChatConfirmAlertView = UIAlertController(title: IGStringsManager.SureToDeleteChat.rawValue.localized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let deleteAction = UIAlertAction(title: IGStringsManager.Delete.rawValue.localized, style:.default , handler: { (alert: UIAlertAction) -> Void in
             if let chatRoom = self.room {
                 self.deleteChat(room: chatRoom)
@@ -472,13 +451,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         }).error({ (errorCode , waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
             default:
                 DispatchQueue.main.async {
                     self.hud.hide(animated: true)
@@ -490,7 +463,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     }
     //MARK: -Show Clear History Action Sheet
     func showClearHistoryActionSheet() {
-        let clearChatConfirmAlertView = UIAlertController(title: "MSG_SURE_TO_DELETE_CHAT_HISTORY".localized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        let clearChatConfirmAlertView = UIAlertController(title: IGStringsManager.SUreToClearChatHistory.rawValue.localized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let deleteAction = UIAlertAction(title: IGStringsManager.ClearHistory.rawValue.localized, style:.default , handler: {
             (alert: UIAlertAction) -> Void in
             if let chatRoom = self.room {
@@ -537,13 +510,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         }).error({ (errorCode , waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
             default:
                 DispatchQueue.main.async {
                     self.hud.hide(animated: true)
@@ -636,14 +603,10 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .userReportReportedBefore:
-                    let alert = UIAlertController(title: "GLLOBAL_WARNING".localized, message: IGStringsManager.UserReportedBefore.rawValue.localized, preferredStyle: .alert)
+                    let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.UserReportedBefore.rawValue.localized, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
@@ -767,7 +730,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                 if let bio = user!.bio {
                     cell.initLabels(nameLblString: bio)
                 } else {
-                    cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.NoDetail.rawValue.localized)
                 }
                 
                 return cell
@@ -781,7 +744,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         case 1:
             switch indexPath.row {
             case 0:
-                cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localized)
+                cellTwo.initLabels(nameLblString: IGStringsManager.MuteNotification.rawValue.localized)
                 return cellTwo
                 
             case 1:
@@ -796,17 +759,17 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         case 1:
             switch indexPath.row {
             case 0:
-                cell.initLabels(nameLblString: "AUTH_USERNAME".localized , detailLblString: user!.username)
+                cell.initLabels(nameLblString: IGStringsManager.Username.rawValue.localized , detailLblString: user!.username)
                 return cell
                 
             case 1:
                 if let phone = user?.phone {
                     if phone == 0 {
 
-                        cell.initLabels(nameLblString: "POD_TELPHONE".localized , detailLblString: "HIDDEN".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.PhoneNumber.rawValue.localized , detailLblString: "")
 
                     } else {
-                        cell.initLabels(nameLblString: "POD_TELPHONE".localized , detailLblString : "\(phone)".inLocalizedLanguage())
+                        cell.initLabels(nameLblString: IGStringsManager.PhoneNumber.rawValue.localized , detailLblString : "\(phone)".inLocalizedLanguage())
                     }
                 }
                 return cell
@@ -816,10 +779,10 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                 
             }
         case 2:
-            cell.initLabels(nameLblString: "SHAREDMEDIA".localized)
+            cell.initLabels(nameLblString: IGStringsManager.SharedMedia.rawValue.localized)
             return cell
         case 3:
-            cell.initLabels(nameLblString: "CONVERT_CHAT_TO_GROUP".localized)
+            cell.initLabels(nameLblString: IGStringsManager.ConvertToGroup.rawValue.localized)
             return cell
         case 4:
             switch indexPath.row {
@@ -835,10 +798,10 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                     
 
                     if isBlockedUser {
-                            cell.initLabels(nameLblString: "UNBLOCK".localized,changeColor: true)
+                            cell.initLabels(nameLblString: IGStringsManager.UnblockUser.rawValue.localized,changeColor: true)
 
                         } else {
-                            cell.initLabels(nameLblString: "BLLOCK_CONTACT".localized,changeColor: true)
+                        cell.initLabels(nameLblString: IGStringsManager.BlockUser.rawValue.localized,changeColor: true)
                         }
                     return cell
                 default:
@@ -876,10 +839,10 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             return IGStringsManager.NotificationAndSound.rawValue.localized
             */
         case 1:
-            return "CONTACT_INFO".localized
+            return IGStringsManager.Information.rawValue.localized
 
         case 2:
-            return "SHAREDMEDIA".localized
+            return IGStringsManager.SharedMedia.rawValue.localized
         default:
             return ""
         }

@@ -53,7 +53,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
     
     private func initNavigation(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SHAREDMEDIA".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.SharedMedia.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -62,12 +62,12 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.isUserInteractionEnabled = true
-        lblLinks.text = "LINKS".localized
-        lblVideos.text = "VIDEOS".localized
-        lblImages.text = "IMAGES".localized
-        lblVoices.text = "VOICES".localized
-        lblAudios.text = "AUDIOS".localized
-        lblFiles.text = "FILES".localized
+        lblLinks.text = IGStringsManager.Links.rawValue.localized
+        lblVideos.text = IGStringsManager.Videos.rawValue.localized
+        lblImages.text = IGStringsManager.Images.rawValue.localized
+        lblVoices.text = IGStringsManager.Voices.rawValue.localized
+        lblAudios.text = IGStringsManager.Audios.rawValue.localized
+        lblFiles.text = IGStringsManager.Files.rawValue.localized
 
     }
 
@@ -158,14 +158,8 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                        self.hud.hide(animated: true)
-                        
-                    }
+                    self.hud.hide(animated: true)
+                    break
                 default:
                     break
                 }
@@ -195,13 +189,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                        
-                    }
+                    break
                 case .clientSearchRoomHistoryNotFound:
                     DispatchQueue.main.async {
                         self.sizeOfSharedImage.text = "\(0)"
@@ -234,13 +222,8 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                    
+                    break
+
                 case .clientSearchRoomHistoryNotFound:
                     DispatchQueue.main.async {
                         self.sizeOfSharedAudiosLabel.text = "\(0)"
@@ -272,12 +255,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 case .clientSearchRoomHistoryNotFound:
                     DispatchQueue.main.async {
                         self.sizeOfSharedVideos.text = "\(0)"
@@ -311,12 +289,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 case .clientSearchRoomHistoryNotFound:
                     DispatchQueue.main.async {
                         self.sizeOfSharedFiles.text = "\(0)"
@@ -348,12 +321,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 case .clientSearchRoomHistoryNotFound:
                     DispatchQueue.main.async {
                         self.sizeOfSharedVoice.text = "\(0)"
@@ -385,12 +353,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 case .clientSearchRoomHistoryNotFound:
                     DispatchQueue.main.async {
                         self.sizeOfSharedLinksLabel.text = "\(0)"
@@ -412,11 +375,11 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
             destination.room = room
             switch selectedRowNum {
             case 0:
-                destination.navigationTitle = "IMAGES".localized
+                destination.navigationTitle = IGStringsManager.Images.rawValue.localized
                 destination.sharedMedia = sharedMediaImageFile
                 destination.sharedMediaFilter = .image
             case 2:
-                destination.navigationTitle = "VIDEOS".localized
+                destination.navigationTitle = IGStringsManager.Videos.rawValue.localized
                 destination.sharedMedia = sharedMediaVideoFile
                 destination.sharedMediaFilter = .video
             default:
@@ -429,19 +392,19 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
             destination.room = room
             switch selectedRowNum {
             case 1:
-                destination.navigationTitle = "AUDIOS".localized
+                destination.navigationTitle = IGStringsManager.Audios.rawValue.localized
                 destination.sharedMedia = sharedMediaAudioFile
                 destination.sharedMediaFilter = .audio
             case 3:
-                destination.navigationTitle = "FILES".localized
+                destination.navigationTitle = IGStringsManager.Files.rawValue.localized
                 destination.sharedMedia = sharedMediaFile
                 destination.sharedMediaFilter = .file
             case 4:
-                destination.navigationTitle = "VOICES".localized
+                destination.navigationTitle = IGStringsManager.Voices.rawValue.localized
                 destination.sharedMedia = sharedMediaVoiceFile
                 destination.sharedMediaFilter = .voice
             case 5:
-                destination.navigationTitle = "LINKS".localized
+                destination.navigationTitle = IGStringsManager.Links.rawValue.localized
                 destination.sharedMedia = sharedMediaLinkFile
                 destination.sharedMediaFilter = .url
             default:

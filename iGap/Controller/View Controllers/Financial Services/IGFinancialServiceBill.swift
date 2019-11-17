@@ -74,8 +74,8 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
         initChangeLang()
     }
     func initChangeLang() {
-        edtBillingID.placeholder = "BILLING_ID".localized
-        edtPaymentCode.placeholder = "PAYMENT_CODE".localized
+        edtBillingID.placeholder = IGStringsManager.ElecBillID.rawValue.localized
+        edtPaymentCode.placeholder = IGStringsManager.PayIdentifier.rawValue.localized
         btnPayment.setTitle(IGStringsManager.Buy.rawValue.localized, for: .normal)
         txtAmount.text = IGStringsManager.AmountPlaceHolder.rawValue.localized
     }
@@ -257,12 +257,6 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
             IGGlobal.prgHide()
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
                 break
             default:
                 break
@@ -279,7 +273,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
     }
     
     func BillMerchantError(errorType: Int) {
-        showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "MSG_ERROR_BILL_PAYMENT".localized, dismiss: true)
+        showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalTryAgain.rawValue.localized, dismiss: true)
     }
     
     /********************************************/

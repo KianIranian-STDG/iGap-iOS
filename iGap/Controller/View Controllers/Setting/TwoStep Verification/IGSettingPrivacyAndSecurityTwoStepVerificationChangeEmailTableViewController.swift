@@ -26,14 +26,14 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeEmailTableViewControll
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localized, title: "CHNAGE_EMAIL".localized)
+        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: IGStringsManager.ChangeRecoEmail.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         navigationItem.rightViewContainer?.addAction {
             self.changeEmail()
         }
 
-        lbl.text = "SETTING_PS_TV_EMAIL".localized
-        emailTextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized
+        lbl.text = IGStringsManager.Email.rawValue.localized
+        emailTextField.placeholder = IGStringsManager.Required.rawValue.localized
 
     }
     
@@ -62,11 +62,8 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeEmailTableViewControll
                 switch errorCode {
                     
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                    
+                    break
+
                 case .userTwoStepVerificationChangeRecoveryEmailMaxTryLock:
                     let alert = UIAlertController(title: "Error", message: "Max Try Lock", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)

@@ -51,21 +51,21 @@ class CardToCardCell: IGMessageGeneralCollectionViewCell {
     }
     
     func initChangeLang() {
-        ttlTransfer.text = "CARD_TRANSFER_MONEY".localized
+        ttlTransfer.text = IGStringsManager.CardMoneyTransfer.rawValue.localized
         ttlTransfer.backgroundColor = UIColor.iGapSkyBlue()
         ttlDate.backgroundColor = UIColor.iGapSkyBlue()
         ttlTransfer.textColor = UIColor.black
         ttlDate.textColor = UIColor.black
-        ttlInvoicelblInvoiceNumber.text = "TRACE_NUMBER".localized
+        ttlInvoicelblInvoiceNumber.text = IGStringsManager.TraceNumber.rawValue.localized
         ttlAmount.text = IGStringsManager.Price.rawValue.localized
         ttlTransfer.font = UIFont.igFont(ofSize: 15)
         ttlDate.font = UIFont.igFont(ofSize: 15)
         ttlDestinationCardNUmber.text = IGStringsManager.DestinationCardNumber.rawValue.localized
         ttlSourceCardNUmber.text = IGStringsManager.CardNumber.rawValue.localized
-        lblSourceBankName.text = "SOURCE_BANK".localized
+        lblSourceBankName.text = IGStringsManager.SourceBank.rawValue.localized
         ttlDestinationBankName.text = IGStringsManager.DestinationBank.rawValue.localized
-        lblRrn.text = "TTL_REFERENCE_NUMBER".localized
-        lblAccountOwnerName.text = "TTL_ACCOUNT_OWNER_NAME".localized
+        lblRrn.text = IGStringsManager.RefrenceNum.rawValue.localized
+        lblAccountOwnerName.text = IGStringsManager.AccountOwnerName.rawValue.localized
     }
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
