@@ -6540,7 +6540,7 @@ TODO:// complete */
 "your_profile" = "Your Profile";
 "two_step_verficatiion_header" = "You have enabled Two-Step verification; so your account is protected with an additional password";
 "show_and_login_using_qr_title" = "Scan this QR Code using your other device to log in to your iGap Account";
-"search_placeholder" = "Search";
+"search_placeholder" = "جستجو";
 "msg_security_two_step_verification_hint" = "In Order to retrieve your account,Please Answer the following security questions,after answering correctly your two step verification password will be disabled and need to be activated again";
 "new_text" = "New";
 "new_call" = "New Call";

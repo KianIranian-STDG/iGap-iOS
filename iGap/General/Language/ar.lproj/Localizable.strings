@@ -6443,6 +6443,9 @@ TODO:// translate */
 "show_and_login_using_qr_title" = "Scan this QR Code using your other device to log in to your iGap Account";
 
 /*  */
+"search_placeholder" = "جستجو";
+
+/*  */
 "two_step_verficatiion_header" = "You have enabled Two-Step verification; so your account is protected with an additional password";
 
 /*  */

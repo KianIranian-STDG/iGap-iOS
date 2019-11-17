@@ -75,7 +75,6 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     @IBOutlet weak var lblLanguage: UILabel!
     @IBOutlet weak var lblFaq: UILabel!
     @IBOutlet weak var versionTitleLbl: UILabel!
-    @IBOutlet weak var versionNumLbl: UILabel!
     @IBOutlet weak var checkUpdateLbl: UILabel!
     @IBOutlet weak var lblMoneyAmount: UILabel!
     @IBOutlet weak var lblScoreAmount: UILabel!
@@ -361,7 +360,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         lblNearby.text = IGStringsManager.Nearby.rawValue.localized
         lblFaq.text = IGStringsManager.Faq.rawValue.localized
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-            versionTitleLbl.text = IGStringsManager.IgapVer.rawValue.localized + " \(version)".inLocalizedLanguage()
+            versionTitleLbl.text = IGStringsManager.GlobalAppVersion.rawValue.localized + "   \(version)".inLocalizedLanguage()
         }
         checkUpdateLbl.text = IGStringsManager.GlobalCheckUpdate.rawValue.localized
         lblEmailInner.text = IGStringsManager.Email.rawValue.localized
