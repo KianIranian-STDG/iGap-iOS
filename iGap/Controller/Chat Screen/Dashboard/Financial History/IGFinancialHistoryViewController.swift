@@ -53,7 +53,7 @@ class IGFinancialHistoryViewController: BaseViewController {
         
         self.transactionTypesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
         
-        self.initNavigationBar(title: "FINANCIAL_TRANSACTIONS_HISTORY".localized) {}
+        self.initNavigationBar(title: IGStringsManager.TransactionHistory.rawValue.localized) {}
         
         self.setupSpinner()
         
@@ -122,19 +122,19 @@ extension IGFinancialHistoryViewController: UICollectionViewDataSource, UICollec
         
         switch transactionTypes[indexPath.item] {
         case .none:
-            label.text = "TRANSACTIONS_HISTORY_NONE".localized
+            label.text = IGStringsManager.All.rawValue.localized
             break
         case .bill:
-            label.text = "TRANSACTIONS_HISTORY_BILL".localized
+            label.text = IGStringsManager.Bills.rawValue.localized
             break
         case .topup:
-            label.text = "TRANSACTIONS_HISTORY_ُTOPUP".localized
+            label.text = IGStringsManager.TopUp.rawValue.localized
             break
         case .sales:
-            label.text = "TRANSACTIONS_HISTORY_ُSALES".localized
+            label.text = IGStringsManager.Sales.rawValue.localized
             break
         case .cardToCard:
-            label.text = "TRANSACTIONS_HISTORY_CARD_TO_CARD".localized
+            label.text = IGStringsManager.CardToCard.rawValue.localized
             break
         default:
             break
@@ -160,19 +160,19 @@ extension IGFinancialHistoryViewController: UICollectionViewDataSource, UICollec
         
         switch transactionTypes[indexPath.item] {
         case .none:
-            typeStr = "TRANSACTIONS_HISTORY_NONE".localized
+            typeStr = IGStringsManager.All.rawValue.localized
             break
         case .bill:
-            typeStr = "TRANSACTIONS_HISTORY_BILL".localized
+            typeStr = IGStringsManager.Bills.rawValue.localized
             break
         case .topup:
-            typeStr = "TRANSACTIONS_HISTORY_ُTOPUP".localized
+            typeStr = IGStringsManager.TopUp.rawValue.localized
             break
         case .sales:
-            typeStr = "TRANSACTIONS_HISTORY_ُSALES".localized
+            typeStr = IGStringsManager.Sales.rawValue.localized
             break
         case .cardToCard:
-            typeStr = "TRANSACTIONS_HISTORY_CARD_TO_CARD".localized
+            typeStr = IGStringsManager.CardToCard.rawValue.localized
             break
         default:
             break
@@ -236,22 +236,22 @@ extension IGFinancialHistoryViewController: UITableViewDataSource, UITableViewDe
             
             switch transaction.igpType {
             case .none:
-                cell.titleLbl.text = "TRANSACTIONS_HISTORY_NONE".localized
+                cell.titleLbl.text = IGStringsManager.All.rawValue.localized
                 break
             case .bill:
-                cell.titleLbl.text = "TRANSACTIONS_HISTORY_BILL".localized
+                cell.titleLbl.text = IGStringsManager.Bills.rawValue.localized
                 break
             case .topup:
-                cell.titleLbl.text = "TRANSACTIONS_HISTORY_ُTOPUP".localized
+                cell.titleLbl.text = IGStringsManager.TopUp.rawValue.localized
                 break
             case .sales:
-                cell.titleLbl.text = "TRANSACTIONS_HISTORY_ُSALES".localized
+                cell.titleLbl.text = IGStringsManager.Sales.rawValue.localized
                 break
             case .cardToCard:
-                cell.titleLbl.text = "TRANSACTIONS_HISTORY_CARD_TO_CARD".localized
+                cell.titleLbl.text = IGStringsManager.CardToCard.rawValue.localized
                 break
             case .UNRECOGNIZED(_):
-                cell.titleLbl.text = "TRANSACTIONS_HISTORY_UNRECOGNIZED".localized
+                cell.titleLbl.text = "..."
                 break
             }
             

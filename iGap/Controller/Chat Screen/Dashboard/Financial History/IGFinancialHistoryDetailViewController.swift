@@ -107,9 +107,7 @@ class IGFinancialHistoryDetailViewController: BaseViewController {
         }).error({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-//                    IGHelperAlert.shared.showAlert(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized)
-                }
+                break
             default:
                 break
             }

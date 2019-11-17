@@ -32,7 +32,7 @@ class DashboardCell8: AbstractDashboardCell {
             lblHint.font = UIFont.igFont(ofSize: 13)
             lblHint.textAlignment = .center
             lblHint.textColor = UIColor.black.withAlphaComponent(0.8)
-            lblHint.text = "MSG_VOTE_TO_SEE_CHART".localized
+            lblHint.text = IGStringsManager.voteFirst.rawValue.localized
             self.mainView!.addSubview(lblHint)
             self.mainView.bringSubviewToFront(lblHint)
             lblHint?.snp.makeConstraints { (make) in

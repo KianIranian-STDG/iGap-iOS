@@ -36,9 +36,9 @@ class IGLookAndFindCell: UITableViewCell {
     
     func setHeader(type: IGSearchType){
         if type == .channel {
-            txtHeader.text = "SETTING_PS_CHANNELS".localized
+            txtHeader.text = IGStringsManager.Channels.rawValue.localized
         } else if type == .group {
-            txtHeader.text = "SETTING_PS_GROUPS".localized
+            txtHeader.text = IGStringsManager.Groups.rawValue.localized
         } else if type == .user {
             txtHeader.text = IGStringsManager.Contacts.rawValue.localized
         } else if type == .bot {

@@ -57,7 +57,7 @@ class CardToCardCell: IGMessageGeneralCollectionViewCell {
         ttlTransfer.textColor = UIColor.black
         ttlDate.textColor = UIColor.black
         ttlInvoicelblInvoiceNumber.text = "TRACE_NUMBER".localized
-        ttlAmount.text = "PRICE".localized
+        ttlAmount.text = IGStringsManager.Price.rawValue.localized
         ttlTransfer.font = UIFont.igFont(ofSize: 15)
         ttlDate.font = UIFont.igFont(ofSize: 15)
         ttlDestinationCardNUmber.text = IGStringsManager.DestinationCardNumber.rawValue.localized

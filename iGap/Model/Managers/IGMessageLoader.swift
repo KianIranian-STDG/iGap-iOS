@@ -714,7 +714,7 @@ class IGMessageLoader {
     private func unreadLayoutMessage(onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
         if (unreadCount > 0) {
             isShowLayoutUnreadMessage = true
-            let message = IGRoomMessage(body: "\("\(unreadCount)".inLocalizedLanguage()) \("UNREAD_MESSAGE".localized)")
+            let message = IGRoomMessage(body: "\("\(unreadCount)".inLocalizedLanguage()) \(IGStringsManager.UnreadMessage.rawValue.localized)")
             message.type = .unread
             onMessageReceive([message], .down)
         }

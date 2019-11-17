@@ -70,7 +70,7 @@ class IGCallListTableViewCell: BaseTableViewCell {
             
         case 0: //MISSED
             callStateView.text = ""
-            callState.text = "MISSED_CALL".localized
+            callState.text = IGStringsManager.Missed.rawValue.localized
             
             callStateView.textColor = UIColor.callStatusColor(status: 0)
             callState.textColor = UIColor.callStatusColor(status: 0)
@@ -78,7 +78,7 @@ class IGCallListTableViewCell: BaseTableViewCell {
             
         case 1: //CANCELED
             callStateView.text = ""
-            callState.text = "UNANSWERED_CALL".localized
+            callState.text = IGStringsManager.UnAnsweredCall.rawValue.localized
             
             callStateView.textColor = UIColor.callStatusColor(status: 1)
             callState.textColor = UIColor.callStatusColor(status: 1)

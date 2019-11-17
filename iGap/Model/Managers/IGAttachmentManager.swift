@@ -150,16 +150,16 @@ class IGAttachmentManager: NSObject {
         if sizeInByte == 0 {
             return ""
         } else if sizeInByte < 1024 { // Byte
-            return "\(sizeInByte)".inLocalizedLanguage() + "B".localized
+            return "\(sizeInByte)".inLocalizedLanguage() + IGStringsManager.Byte.rawValue.localized
         } else if sizeInByte < 1048576 { // KB
             let size: Double = Double(sizeInByte) / 1024.0
-            return String(format: "%.2f" + "KB".localized, size).inLocalizedLanguage()
+            return String(format: "%.2f" + IGStringsManager.KB.rawValue.localized, size).inLocalizedLanguage()
         } else if sizeInByte < 1073741824 { // MB
             let size: Double = Double(sizeInByte) / 1048576.0
-            return String(format: "%.2f" + "MB".localized, size).inLocalizedLanguage()
+            return String(format: "%.2f" + IGStringsManager.MB.rawValue.localized, size).inLocalizedLanguage()
         } else { // GB
             let size: Double = Double(sizeInByte) / 1073741824.0
-            return String(format: "%.2f" + "GB".localized, size).inLocalizedLanguage()
+            return String(format: "%.2f" + IGStringsManager.GB.rawValue.localized, size).inLocalizedLanguage()
         }
     }
     

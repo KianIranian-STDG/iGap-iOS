@@ -161,9 +161,9 @@ import Foundation
             let currentYear = (calendar as NSCalendar?)?.component(.year, from: date)
 
             if (currentYear) == year! && (currentMonth) == month && (currentDay) == day {
-                return "TODAY".localized
+                return IGStringsManager.Today.rawValue.localized
             } else if (currentYear) == year! && (currentMonth) == month && (currentDay) == day + 1 {
-                return "YESTERDAY".localized
+                return IGStringsManager.Yesterday.rawValue.localized
 
             } else {
                 return String(year!) + "/" + String(month) + "/" + String(day!);
@@ -179,9 +179,9 @@ import Foundation
             let calendar = Calendar.current
 
             if (calendar.component(.year, from: date)) == year! && (calendar.component(.month, from: date)) == month && (calendar.component(.day, from: date)) == day {
-                return "TODAY".localized
+                return IGStringsManager.Today.rawValue.localized
             } else if (calendar.component(.year, from: date)) == year! && (calendar.component(.month, from: date)) == month && (calendar.component(.day, from: date)) == day + 1 {
-                return "YESTERDAY".localized
+                return IGStringsManager.Yesterday.rawValue.localized
 
             } else {
                 return String(year!) + "/" + String(month) + "/" + String(day!);

@@ -111,7 +111,7 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
         let priceTitleLabel = UILabel(frame: CGRect(x: 8, y: separatorView1.frame.height + separatorView1.frame.origin.y + 8, width: dialogViewWidth-16, height: 30))
         priceTitleLabel.font = UIFont.igFont(ofSize: 19 , weight: .bold)
         priceTitleLabel.textColor = .black
-        priceTitleLabel.text = "PRICE".localized
+        priceTitleLabel.text = IGStringsManager.Price.rawValue.localized
         priceTitleLabel.textAlignment = .center
         dialogView.addSubview(priceTitleLabel)
         
@@ -142,7 +142,7 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
         btnAction.frame.origin = CGPoint(x: 8, y: separatorView2.frame.height + separatorView2.frame.origin.y + 8)
         btnAction.frame.size = CGSize(width: dialogViewWidth - 16 , height: 40)
         btnAction.layer.cornerRadius = 10.0
-        btnAction.setTitle("BTN_PAY".localized, for: .normal)
+        btnAction.setTitle(IGStringsManager.Buy.rawValue.localized, for: .normal)
         btnAction.titleLabel?.font = UIFont.igFont(ofSize: 17)
         btnAction.backgroundColor = UIColor.iGapGreen()
         btnAction.addTarget(self, action: #selector(sendRequest), for: .touchUpInside)

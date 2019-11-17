@@ -46,7 +46,7 @@ class IGScoreViewController: BaseViewController {
         
         initNavigationBar()
         customizeView()
-        btnSeeRecords.setTitle("SETTING_PAGE_ACCOUNT_GIFT_PAGE".localized, for: .normal)
+        btnSeeRecords.setTitle(IGStringsManager.ScanBarcode.rawValue.localized, for: .normal)
         initCircularProgressBar()
     }
     
@@ -54,9 +54,9 @@ class IGScoreViewController: BaseViewController {
         lblMaxRank.font = UIFont.igFont(ofSize: 10,weight: .bold)
         lblMaxRank.textAlignment = .center
         if self.isRTL {
-            lblMaxRank.text = "OF".localized + " " + String(text).inRialFormat()
+            lblMaxRank.text = IGStringsManager.Of.rawValue.localized + " " + String(text).inRialFormat()
         } else {
-            lblMaxRank.text = "OF".localized + " " + String(text).inRialFormat()
+            lblMaxRank.text = IGStringsManager.Of.rawValue.localized + " " + String(text).inRialFormat()
         }
     }
     
@@ -179,10 +179,10 @@ class IGScoreViewController: BaseViewController {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
         
-        txtScoreTitle.text = "YOUR_SCORE".localized
+        txtScoreTitle.text = IGStringsManager.YourScore.rawValue.localized
         txtScoreTitle.font = UIFont.igFont(ofSize: 20)
         
-        txtRankTitle.text = "YOUR_RANK".localized
+        txtRankTitle.text = IGStringsManager.Rank.rawValue.localized
         txtRankTitle.font = UIFont.igFont(ofSize: 20)
         //        txtScore.font = UIFont.igFont(ofSize: 25)
         btnSeeRecords.titleLabel?.font = UIFont.igFont(ofSize: 17)
@@ -192,7 +192,7 @@ class IGScoreViewController: BaseViewController {
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         
-        navigationItem.addNavigationViewItems(rightItemText: "", title: "SETTING_PAGE_ACCOUNT_SCORE_PAGE".localized,iGapFont :true)
+        navigationItem.addNavigationViewItems(rightItemText: "", title: IGStringsManager.YourScore.rawValue.localized,iGapFont :true)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -205,13 +205,11 @@ class IGScoreViewController: BaseViewController {
     }
     
     private func customizeView(){
-        btnSeeRecords.isHidden = true
+        btnSeeRecords.isHidden = false
         btnSeeRecords.layer.masksToBounds = true
         btnSeeRecords.layer.cornerRadius = 20
-        btnSeeRecords.layer.shadowOffset = CGSize(width: 1, height: 1)
-        btnSeeRecords.layer.shadowRadius = 1
-        btnSeeRecords.layer.shadowColor = UIColor.gray.cgColor
-        btnSeeRecords.layer.shadowOpacity = 0.4
+        btnSeeRecords.titleLabel!.font = UIFont.igFont(ofSize: 15)
+
     }
     
     private func getScore() {
@@ -240,5 +238,10 @@ class IGScoreViewController: BaseViewController {
     /****************************** Actions ******************************/
     
     @IBAction func btnSeeRecords(_ sender: UIButton) {
+        let scanner = IGSettingQrScannerViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
+        scanner.scannerPageType = .IVandScore
+        scanner.hidesBottomBarWhenPushed = true
+        self.navigationController!.pushViewController(scanner, animated:true)
+
     }
 }

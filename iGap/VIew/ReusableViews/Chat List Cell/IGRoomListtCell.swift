@@ -419,10 +419,10 @@ class IGRoomListtCell: BaseTableViewCell {
             
             if let draft = room.draft, (room.draft?.message != "" || room.draft?.replyTo != -1) {
                 
-                self.lastMsgLabel.text = "DRAFT".localized + " \(draft.message)"
+                self.lastMsgLabel.text = IGStringsManager.Draft.rawValue.localized + " \(draft.message)"
             } else if let lastMessage = room.lastMessage {
                 if lastMessage.isDeleted {
-                    self.lastMsgLabel.text = "DELETED_MESSAGE".localized
+                    self.lastMsgLabel.text = IGStringsManager.DeletedMessage.rawValue.localized
                     self.lastMessageStateImage.isHidden = true
                     self.unreadView.isHidden = true
                     
@@ -470,14 +470,14 @@ class IGRoomListtCell: BaseTableViewCell {
                         self.lastMsgLabel.text = IGStringsManager.StickerMessage.rawValue.localized
                     case .wallet:
                         if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
-                            self.lastMsgLabel.text = "WALLET_MESSAGE".localized
+                            self.lastMsgLabel.text = IGStringsManager.WalletMessage.rawValue.localized
                         } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
-                            self.lastMsgLabel.text = "PAYMENT_MESSAGE".localized
+                            self.lastMsgLabel.text = IGStringsManager.PaymentMessage.rawValue.localized
                         } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
-                            self.lastMsgLabel.text = "CARD_TO_CARD_MESSAGE".localized
+                            self.lastMsgLabel.text = IGStringsManager.CardToCardMessage.rawValue.localized
                         }
                     default:
-                        self.lastMsgLabel.text = "UNKNOWN_MESSAGE".localized
+                        self.lastMsgLabel.text = "UNKNOWN_MESSAGE"
                         break
                     }
                     
@@ -509,14 +509,14 @@ class IGRoomListtCell: BaseTableViewCell {
                         self.lastMsgLabel.text = IGStringsManager.StickerMessage.rawValue.localized
                     case .wallet:
                         if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
-                            self.lastMsgLabel.text = "WALLET_MESSAGE".localized
+                            self.lastMsgLabel.text = IGStringsManager.WalletMessage.rawValue.localized
                         } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
-                            self.lastMsgLabel.text = "PAYMENT_MESSAGE".localized
+                            self.lastMsgLabel.text = IGStringsManager.PaymentMessage.rawValue.localized
                         } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
-                            self.lastMsgLabel.text = "CARD_TO_CARD_MESSAGE".localized
+                            self.lastMsgLabel.text = IGStringsManager.CardToCardMessage.rawValue.localized
                         }
                     default:
-                        self.lastMsgLabel.text = "UNKNOWN_MESSAGE".localized
+                        self.lastMsgLabel.text = "UNKNOWN_MESSAGE"
                         break
                     }
                 }

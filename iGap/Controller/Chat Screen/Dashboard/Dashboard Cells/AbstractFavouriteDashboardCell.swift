@@ -250,7 +250,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
         
         
         if pollInfo.igpClicked {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_U_HAVE_ALREADY_VOTED".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.AlreadyVoted.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
         }
         else {
             if pollInfo.igpClickable {
@@ -308,7 +308,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
                         IGPClientSetPollItemClickRequest.sendRequest(itemId: pollInfo.igpID)
                         break
                     case .selectIsBiggerThanMax:
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_U_HAVE_REACHED_VOTE_LIMIT".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.MaximumPoll.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         break
                     default:

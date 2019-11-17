@@ -98,9 +98,9 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         txtOperatorTransport.text = "PORTED_SUBSCRIBER_DESABLE".localized
         txtOperatorTransport.textColor = UIColor.gray
 
-        edtPhoneNubmer.placeholder = "PLACE_HOLDER_MOBILE_NUM".localized
+        edtPhoneNubmer.placeholder = IGStringsManager.MobileNumber.rawValue.localized
         self.btnPrice.setTitle("CHARGE_PRICE".localized, for: UIControl.State.normal)
-        self.btnBuy.setTitle("BTN_PAY".localized, for: UIControl.State.normal)
+        self.btnBuy.setTitle(IGStringsManager.Buy.rawValue.localized, for: UIControl.State.normal)
         self.btnOperator.setTitle("CHOOSE_OPERATOR".localized, for: UIControl.State.normal)
         self.btnChargeType.setTitle("CHOOSE_CHARGE_TYPE".localized, for: UIControl.State.normal)
 
@@ -313,7 +313,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         }
         
         if (phoneNumber.count) < 11 || !phoneNumber.isNumber ||  (operatorDictionary[(phoneNumber.substring(offset: 4))] == nil) {
-            showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "PHONE_NUMBER_WRONG".localized)
+            showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.WrongPhoneNUmber.rawValue.localized)
             return
         }
         

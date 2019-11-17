@@ -143,14 +143,14 @@ class ContactCell: AbstractCell {
         
         if btnAddContact == nil {
             btnAddContact = UIButton()
-            btnAddContact.setTitle("ADD_CONTACT".localized, for: UIControl.State.normal)
+            btnAddContact.setTitle(IGStringsManager.AddContact.rawValue.localized, for: UIControl.State.normal)
             manageContactButtonView(btn: btnAddContact, color: UIColor.iGapBlue())
             mainBubbleViewAbs.addSubview(btnAddContact)
         }
         
         if btnCall == nil {
             btnCall = UIButton()
-            btnCall.setTitle("CALL".localized, for: UIControl.State.normal)
+            btnCall.setTitle(IGStringsManager.CALL.rawValue.localized, for: UIControl.State.normal)
             manageContactButtonView(btn: btnCall, color: UIColor(named: themeColor.labelGrayColor.rawValue)!)
             mainBubbleViewAbs.addSubview(btnCall)
         }
@@ -280,7 +280,7 @@ class ContactCell: AbstractCell {
                 return
             }
             
-            let option = UIAlertController(title: "CALL_QUESTION".localized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+            let option = UIAlertController(title: IGStringsManager.CallQuestion.rawValue.localized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
             
             for phone in finalRoomMessage.contact!.phones {
                 let action = UIAlertAction(title: phone.innerString, style: .default, handler: { (action) in
@@ -298,7 +298,7 @@ class ContactCell: AbstractCell {
     @objc func didTapOnAddContact(_ gestureRecognizer: UITapGestureRecognizer) {
         if !(IGGlobal.shouldMultiSelect) {
 
-            let option = UIAlertController(title: nil, message: "ADD_CONTACT_QUESATION".localized, preferredStyle: .alert)
+            let option = UIAlertController(title: nil, message: IGStringsManager.AddContactsQuestion.rawValue.localized, preferredStyle: .alert)
             
             let ok = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (action) in
                 var phones: [String] = []

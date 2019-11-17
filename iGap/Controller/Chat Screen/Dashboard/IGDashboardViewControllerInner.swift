@@ -137,7 +137,7 @@ class IGDashboardViewControllerInner: BaseViewController, UICollectionViewDelega
                 tmpPollList.igpScale = "8:4"
                 tmpPollList.igpPollfields[0].igpImageurl = ""
                 tmpPollList.igpPollfields[0].igpID = 99999999
-                tmpPollList.igpPollfields[0].igpLabel = "CHART".localized
+                tmpPollList.igpPollfields[0].igpLabel = IGStringsManager.Chart.rawValue.localized
                 
                 for elemnt in self.pollList {
                     for elemnt in elemnt.igpPollfields {

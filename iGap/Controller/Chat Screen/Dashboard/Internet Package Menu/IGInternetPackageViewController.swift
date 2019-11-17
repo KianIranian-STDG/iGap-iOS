@@ -83,7 +83,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         initCHangeLang()
-        initNavigationBar(title: "BUY_INTERNET_PACKAGE".InternetPackageLocalization) {}
+        initNavigationBar(title: IGStringsManager.BuyInternetPackage.rawValue.localized) {}
     }
     
     
@@ -129,15 +129,15 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
     }
     
     func initCHangeLang() {
-        packageTypeLbl.text = "INTERNET_PACKAGE_TYPE".InternetPackageLocalization
+        packageTypeLbl.text = IGStringsManager.PackageType.rawValue.localized
         
-        typeTimeLbl.text = "TIME".InternetPackageLocalization
-        typeVolumeLbl.text = "VOLUME".InternetPackageLocalization
+        typeTimeLbl.text = IGStringsManager.Time.rawValue.localized
+        typeVolumeLbl.text = IGStringsManager.Voloume.rawValue.localized
         
-        edtPhoneNubmer.placeholder = "PLACE_HOLDER_MOBILE_NUM".InternetPackageLocalization
-        self.selectTimeOrVolumeBtn.setTitle("CHOOSE_TIME".InternetPackageLocalization, for: .normal)
-        self.selectPackageBtn.setTitle("CHOOSE_PACKAGE".InternetPackageLocalization, for: .normal)
-        self.btnBuy.setTitle("BTN_PAY".InternetPackageLocalization, for: .normal)
+        edtPhoneNubmer.placeholder = IGStringsManager.MobileNumber.rawValue.localized
+        self.selectTimeOrVolumeBtn.setTitle(IGStringsManager.ChooseTime.rawValue.localized, for: .normal)
+        self.selectPackageBtn.setTitle(IGStringsManager.PackageType.rawValue.localized, for: .normal)
+        self.btnBuy.setTitle(IGStringsManager.Buy.rawValue.localized, for: .normal)
     }
     
     private func manageButtonsView(buttons: [UIButton]) {
@@ -160,7 +160,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
         let option = UIAlertController(title: title, message: message, preferredStyle: IGGlobal.detectAlertStyle())
         
         for category in categories {
-            let action = UIAlertAction(title: "\(category.category!.value!)".inLocalizedLanguage() + " " + category.category!.subType!.InternetPackageLocalization, style: .default, handler: { (action) in
+            let action = UIAlertAction(title: "\(category.category!.value!)".inLocalizedLanguage() + " " + category.category!.subType!.localized, style: .default, handler: { (action) in
                 categoryAlertClouser!(category, action)
             })
             
@@ -212,7 +212,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
             // is not checked so check time checkmark
             timeCheckMarkBtn.setTitle("CHECKED_ICON".Imagelocalized, for: .normal)
             timeCheckMarkBtn.setTitleColor(#colorLiteral(red: 0.2549019608, green: 0.6941176471, blue: 0.1254901961, alpha: 1), for: .normal)
-            self.selectTimeOrVolumeBtn.setTitle("CHOOSE_TIME".InternetPackageLocalization, for: .normal)
+            self.selectTimeOrVolumeBtn.setTitle(IGStringsManager.ChooseTime.rawValue.localized, for: .normal)
             self.selectedCategory = nil
             self.selectPackageBtn.isHidden = true
             
@@ -228,7 +228,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
             // if is not checked -> check it
             volumeCheckMarkBtn.setTitle("CHECKED_ICON".Imagelocalized, for: .normal)
             volumeCheckMarkBtn.setTitleColor(#colorLiteral(red: 0.2549019608, green: 0.6941176471, blue: 0.1254901961, alpha: 1), for: .normal)
-            self.selectTimeOrVolumeBtn.setTitle("CHOOSE_VOLUME".InternetPackageLocalization, for: .normal)
+            self.selectTimeOrVolumeBtn.setTitle(IGStringsManager.Voloume.rawValue.localized, for: .normal)
             self.selectedCategory = nil
             self.selectPackageBtn.isHidden = true
             
@@ -254,7 +254,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
             self.selectedCategory = category
             self.selectTimeOrVolumeBtn.setTitle(action.title, for: .normal)
             self.selectPackageBtn.isHidden = false
-            self.selectPackageBtn.setTitle("CHOOSE_PACKAGE".InternetPackageLocalization, for: .normal)
+            self.selectPackageBtn.setTitle(IGStringsManager.PackageType.rawValue.localized, for: .normal)
             self.selectedPackage = nil
             self.view.endEditing(true)
         }, packageAlertClouser: nil)
@@ -278,7 +278,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
         }
         
         if (phoneNumber.count) < 11 || !phoneNumber.isNumber ||  (operatorDictionary[(phoneNumber.substring(offset: 4))] == nil) {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "PHONE_NUMBER_WRONG".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.WrongPhoneNUmber.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
             return
         }
@@ -306,11 +306,11 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
                                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                                 return
                             }
-                            paymentView.show(on: UIApplication.shared.keyWindow!, title: "BUY_INTERNET_PACKAGE".InternetPackageLocalization, payToken: token, payment: paymentData)
+                            paymentView.show(on: UIApplication.shared.keyWindow!, title: IGStringsManager.BuyInternetPackage.rawValue.localized, payToken: token, payment: paymentData)
                             
                         } else {
                             
-                            paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: "BUY_INTERNET_PACKAGE".InternetPackageLocalization, message: errorMessage ?? "", payToken: token)
+                            paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: IGStringsManager.BuyInternetPackage.rawValue.localized, message: errorMessage ?? "", payToken: token)
                         }
                     })
                     
@@ -339,7 +339,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
                 
                 if operatorType != .mci {
                     self.view.endEditing(true)
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "BUY_INTERNET_PACKAGE_IS_ONLY_POSSIBLE_FOR_MCI_USERS".InternetPackageLocalization, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.OnlyMCI.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                     return true
                 }

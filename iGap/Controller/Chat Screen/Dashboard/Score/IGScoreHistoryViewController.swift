@@ -24,6 +24,7 @@ class IGScoreHistoryViewController: BaseViewController, UICollectionViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        btnScan.isHidden = true
         self.collectionView.semanticContentAttribute = self.semantic
         initNavigationBar()
         customizeView()
@@ -38,15 +39,11 @@ class IGScoreHistoryViewController: BaseViewController, UICollectionViewDelegate
     }
     
     @IBAction func btnScan(_ sender: UIButton) {
-        let scanner = IGSettingQrScannerViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
-        scanner.scannerPageType = .IVandScore
-        scanner.hidesBottomBarWhenPushed = true
-        self.navigationController!.pushViewController(scanner, animated:true)
     }
     
     func initNavigationBar() {
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SCORE_HISTORY".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.ScoreHistory.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -70,7 +67,7 @@ class IGScoreHistoryViewController: BaseViewController, UICollectionViewDelegate
         if isFirst {
             self.collectionView!.setEmptyMessage(IGStringsManager.WaitDataFetch.rawValue.localized)
         } else if iVandActivities.count == 0 {
-            self.collectionView!.setEmptyMessage("PU_NODATA".localized)
+            self.collectionView!.setEmptyMessage(IGStringsManager.GlobalNoHistory.rawValue.localized)
         } else {
             self.collectionView!.restore()
         }

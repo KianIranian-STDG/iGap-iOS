@@ -76,7 +76,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
     func initChangeLang() {
         edtBillingID.placeholder = "BILLING_ID".localized
         edtPaymentCode.placeholder = "PAYMENT_CODE".localized
-        btnPayment.setTitle("BTN_PAY".localized, for: .normal)
+        btnPayment.setTitle(IGStringsManager.Buy.rawValue.localized, for: .normal)
         txtAmount.text = IGStringsManager.AmountPlaceHolder.rawValue.localized
     }
     

@@ -15,13 +15,13 @@ class SMStringUtil {
         
         switch type {
         case 0:
-            return "TTL_CHARGE".localized
+            return IGStringsManager.Charge.rawValue.localized
         case 1:
-            return "TTL_PREPAID".localized
+            return IGStringsManager.Prepaid.rawValue.localized
         case 2:
-            return "TTL_INCASH".localized
+            return IGStringsManager.InCash.rawValue.localized
         case 3:
-            return "TTL_PAYMENT_GATEWAY".localized
+            return IGStringsManager.PayGateway.rawValue.localized
             
         default:
             return ""

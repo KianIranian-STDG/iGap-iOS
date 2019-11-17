@@ -888,17 +888,17 @@ extension Date {
     func humanReadableForLastSeen() -> String {
         let differenctToNow = Date().timeIntervalSince1970 - self.timeIntervalSince1970
         if differenctToNow < 10 {
-            return "JUST_NOW".localized
+            return IGStringsManager.NavLastSeenRecently.rawValue.localized
         } else if differenctToNow < 120 {
-            return "IN_A_MINUTE".localized
+            return IGStringsManager.InAminute.rawValue.localized
         } else if differenctToNow < 3600 {
             let minutes = Int(differenctToNow / 60)
-            return "\(minutes)".inLocalizedLanguage() + " " + "MINUTES_AGO".localized
+            return "\(minutes)".inLocalizedLanguage() + " " + IGStringsManager.MinuteAgo.rawValue.localized
         } else if differenctToNow < 3600 * 2 {
-            return "AN_HOUR_AGO".localized
+            return IGStringsManager.AnHourAgo.rawValue.localized
         } else if differenctToNow < 3600 * 24 {
             let hours = Int(differenctToNow / 3600)
-            return "\(hours)".inLocalizedLanguage() + " " + "HOURS_AGO".localized
+            return "\(hours)".inLocalizedLanguage() + " " + IGStringsManager.HoursAgo.rawValue.localized
         }
         
         let dateFormatter = DateFormatter()
@@ -906,7 +906,7 @@ extension Date {
         let dateString = self.localizedDate()
         dateFormatter.dateFormat = "h:mm a"
         let timeString = dateFormatter.string(from: self)
-        return dateString.inLocalizedLanguage() + "AT".localized + timeString.inLocalizedLanguage()
+        return dateString.inLocalizedLanguage() + IGStringsManager.At.rawValue.localized + timeString.inLocalizedLanguage()
         
     }
 }

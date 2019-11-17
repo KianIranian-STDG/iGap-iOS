@@ -42,7 +42,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "", title: "SETTING_PS_TWO_STEP_VERFI".localized,iGapFont: true)
+        navigationItem.addNavigationViewItems(rightItemText: "", title: IGStringsManager.TwoSteps.rawValue.localized,iGapFont: true)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         navigationItem.rightViewContainer?.addAction {
             self.setPassword()

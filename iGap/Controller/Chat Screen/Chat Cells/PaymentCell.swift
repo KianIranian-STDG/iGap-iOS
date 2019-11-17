@@ -56,7 +56,7 @@ class PaymentCell: IGMessageGeneralCollectionViewCell {
         lblToTitle.text = "GLOBAL_TO".localized
         lblFromTitle.text = "GLOBAL_FROM".localized
         ttlInvoicelblInvoiceTitle.text = IGStringsManager.InvoiceNumber.rawValue.localized
-        lblAmountTitle.text = "PRICE".localized
+        lblAmountTitle.text = IGStringsManager.Price.rawValue.localized
         lblTraceNumberTitle.text = "TRACE_NUMBER".localized
         ttlTransfer.text = "PAYMENT_TRANSFER_MONEY".localized
         lblCardNumber.text = IGStringsManager.CardNumber.rawValue.localized

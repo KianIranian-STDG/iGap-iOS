@@ -1044,14 +1044,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             
             if let authorUser = originalMessage.authorUser {
                 if let user = authorUser.user {
-                    txtForwardAbs.text = "FORWARDED_FROM".localized + " \(user.displayName)"
+                    txtForwardAbs.text = IGStringsManager.ForwardedFrom.rawValue.localized + " \(user.displayName)"
                 } else {
                     IGMessageViewController.messageOnChatReceiveObserver.onFetchUserInfo(userId: authorUser.userId)
                 }
             } else if let room = originalMessage.authorRoom {
-                txtForwardAbs.text = "FORWARDED_FROM".localized + " \(room.title != nil ? room.title! : "")"
+                txtForwardAbs.text = IGStringsManager.ForwardedFrom.rawValue.localized + " \(room.title != nil ? room.title! : "")"
             } else {
-                txtForwardAbs.text = "FORWARDED_FROM".localized
+                txtForwardAbs.text = IGStringsManager.ForwardedFrom.rawValue.localized
             }
 
             let text = originalMessage.message
@@ -1624,7 +1624,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
     private func makeEdit(){
         if txtEditedAbs == nil {
             txtEditedAbs = UILabel()
-            txtEditedAbs.text = "EDITED".localized
+            txtEditedAbs.text = IGStringsManager.Edited.rawValue.localized
             txtEditedAbs.font = UIFont.igFont(ofSize: 9.0)
             txtEditedAbs.textColor = UIColor.chatTimeTextColor()
             mainBubbleViewAbs.addSubview(txtEditedAbs)

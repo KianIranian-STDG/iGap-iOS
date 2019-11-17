@@ -131,7 +131,7 @@ class SMHistoryTableViewController: BaseTableViewController {
 //        SMLoading.hideLoadingPage()
 		self.rowData = his as? [PAY_obj_history]
 		if self.rowData?.count == 0 {
-			self.placeHolderLabel.text = "PU_NODATA".localized
+			self.placeHolderLabel.text = IGStringsManager.GlobalNoHistory.rawValue.localized
 		}
 		else{
 			self.placeHolderLabel.frame.size = CGSize.init(width: self.placeHolderLabel.frame.width, height: 0 )

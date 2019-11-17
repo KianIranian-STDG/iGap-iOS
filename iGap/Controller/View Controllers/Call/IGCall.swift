@@ -557,7 +557,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             //localCameraView.isHidden = false
             //imgAvatar.isHidden = true
 //            btnSwitchCamera.isEnabled = true
-            txtiGap.text = "VIDEO_CALL".localized
+            txtiGap.text = IGStringsManager.VideoCall.rawValue.localized
             IGCallAudioManager.sharedInstance.setSpeaker(button: btnSpeaker)
             
         } else if callType == .voiceCalling {
@@ -574,7 +574,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             localCameraView.isHidden = true
             imgAvatar.isHidden = false
 //            btnSwitchCamera.isEnabled = false
-            txtiGap.text = "VOICE_CALL".localized
+            txtiGap.text = IGStringsManager.VoiceCall.rawValue.localized
 //            btnSwitchCamera.setTitle("", for: UIControl.State.normal)
         }
         

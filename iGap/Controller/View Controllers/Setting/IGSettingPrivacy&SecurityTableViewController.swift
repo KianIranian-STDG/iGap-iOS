@@ -68,7 +68,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         
         //        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PS_TTL_PRIVACY".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.PrivacyPolicy.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -129,12 +129,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "TIME_OUT_MSG_SELFD".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
             default:
                 break
             }
@@ -177,27 +172,27 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
             if self.currentUser.selfRemove == -1 {
                 self.selfDestructionLabel.text = ""
             } else if self.currentUser.selfRemove == 12 {
-                self.selfDestructionLabel.text = "1 " + "YEAR".localized
+                self.selfDestructionLabel.text = "1 " + IGStringsManager.Year.rawValue.localized
             } else if self.currentUser.selfRemove == 1 {
-                self.selfDestructionLabel.text = "\(self.currentUser.selfRemove)" + "MONTH".localized
+                self.selfDestructionLabel.text = "\(self.currentUser.selfRemove)" + IGStringsManager.Month.rawValue.localized
             } else {
-                self.selfDestructionLabel.text = "\(self.currentUser.selfRemove)" + "MONTHS".localized
+                self.selfDestructionLabel.text = "\(self.currentUser.selfRemove)" + IGStringsManager.Month.rawValue.localized
             }
         }
     }
     func initChangeLang() {
-        lblBlockedUserTitle.text = "SETTING_PS_BLOCKED_USERS".localized
-        lblProfilePhotoTitle.text = "SETTING_PS_PROFILE_PHOTO".localized
-        lblLastSeenTitle.text = "SETTING_PS_LAST_SEEN".localized
-        lblGroupsTitle.text = "SETTING_PS_GROUPS".localized
-        lblChannelsTitle.text = "SETTING_PS_CHANNELS".localized
-        lblCallTitle.text = "VOICE_CALL".localized
-        lblVideoCallTitle.text = "VIDEO_CALL".localized
-        lblGroupsTitle.text = "SETTING_PS_GROUPS".localized
-        lblGroupsTitle.text = "SETTING_PS_GROUPS".localized
-        lblGroupsTitle.text = "SETTING_PS_GROUPS".localized
+        lblBlockedUserTitle.text = IGStringsManager.ListOfBlockedUsers.rawValue.localized
+        lblProfilePhotoTitle.text = IGStringsManager.ProfilePhoto.rawValue.localized
+        lblLastSeenTitle.text = IGStringsManager.LastSeen.rawValue.localized
+        lblGroupsTitle.text = IGStringsManager.Groups.rawValue.localized
+        lblChannelsTitle.text = IGStringsManager.Channels.rawValue.localized
+        lblCallTitle.text = IGStringsManager.VoiceCall.rawValue.localized
+        lblVideoCallTitle.text = IGStringsManager.VideoCall.rawValue.localized
+        lblGroupsTitle.text = IGStringsManager.Groups.rawValue.localized
+        lblGroupsTitle.text = IGStringsManager.Groups.rawValue.localized
+        lblGroupsTitle.text = IGStringsManager.Groups.rawValue.localized
         lblActiveSessionsTitle.text = IGStringsManager.ActiveSessions.rawValue.localized
-        lblTwoStepTitle.text = "SETTING_PS_TWO_STEP_VERFI".localized
+        lblTwoStepTitle.text = IGStringsManager.TwoSteps.rawValue.localized
         lblIfAway.text = "IF_AWAY_FOR".localized
         
         lblDeleteAllCloud.text = "DELETE_ALL_CLOUD".localized
@@ -514,13 +509,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
             default:
                 break
             }
@@ -607,7 +596,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
                             self.performSegue(withIdentifier: "ShowTwoStepVerificationPassword", sender: self)
                         default:
 
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_BAD_RESPONSE".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                            break
 
                         }
                     }
@@ -616,13 +605,13 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
                         hud.hide(animated: true)
                         switch errorCode {
                         case .userTwoStepVerificationGetPasswordDetailsBadPayload:
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Bad payload", cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
+                            break
                         case .userTwoStepVerificationGetPasswordDetailsInternalServerError:
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Internal Server Error", cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                            break
 
                         case .userTwoStepVerificationGetPasswordDetailsForbidden:
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Forbidden", cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                            break
 
                         case .userTwoStepVerificationGetPasswordDetailsNoPassword:
                             self.performSegue(withIdentifier: "GoToTwoStepVerificationPage", sender: self)
@@ -675,15 +664,13 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
             containerHeaderView.textLabel!.text = IGStringsManager.PrivacyPolicy.rawValue.localized
             containerHeaderView.textLabel?.font = UIFont.igFont(ofSize: 15)
         case 1 :
-            containerHeaderView.textLabel!.text = "HEADER_SECURITY".localized
+            containerHeaderView.textLabel!.text = IGStringsManager.Security.rawValue.localized
             containerHeaderView.textLabel?.font = UIFont.igFont(ofSize: 15)
         case 2 :
-            containerHeaderView.textLabel!.text = "HEADER_SELF_DISTRUCT".localized
+            containerHeaderView.textLabel!.text = IGStringsManager.SelfDestruct.rawValue.localized
             containerHeaderView.textLabel?.font = UIFont.igFont(ofSize: 15)
         case 3 :
             break
-            //            containerHeaderView.textLabel!.text = "HEADER_SELF_ADVANCE".localized
-        //            containerHeaderView.textLabel?.font = UIFont.igFont(ofSize: 15)
         default :
             break
             
@@ -696,12 +683,11 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         case 0:
             return IGStringsManager.PrivacyPolicy.rawValue.localized
         case 1:
-            return "HEADER_SECURITY".localized
+            return IGStringsManager.Security.rawValue.localized
         case 2:
-            return "HEADER_SELF_DISTRUCT".localized
+            return IGStringsManager.SelfDestruct.rawValue.localized
         case 3:
             return ""
-        //            return "HEADER_SELF_ADVANCE".localized
         default:
             return ""
         }
@@ -716,7 +702,6 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
             return ""
         case 3:
             return IGStringsManager.SelfDestructFooter.rawValue.localized
-        //            return "HEADER_SELF_ADVANCE".localized
         default:
             return ""
         }
@@ -743,7 +728,6 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     }
     
     @IBAction func goBackToPrivacyAndSecurityList(seque:UIStoryboardSegue){
-        //        numberOfBlockedContacts.text = "\(blockedUsers.count) ".inLocalizedLanguage() + "USERS".localized
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

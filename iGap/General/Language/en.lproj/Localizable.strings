@@ -1724,7 +1724,7 @@ TODO:// complete */
 "convert_chat_to_group_title" = "Convert chat to group";
 
 /*  */
-"minute_ago" = "minute ago";
+"minute_ago" = "a minute ago";
 
 /*  */
 "minutes_ago" = "minutes ago";
@@ -2111,7 +2111,7 @@ TODO:// complete */
 "delete_and_leave_channel" = "Delete and Leave Channel";
 
 /*  */
-"txt_draft" = "Draft:";
+"txt_draft" = "Draft";
 
 /*  */
 "txt_you" = "You";
@@ -2447,7 +2447,7 @@ TODO:// complete */
 "item_selected" = "item Selected";
 
 /*  */
-"forward_message" = "Forward message";
+"forward_message" = "Forwarded message";
 
 /*  */
 "file_not_download_yet" = "File Not Downloaded Yet";
@@ -2621,10 +2621,10 @@ TODO:// complete */
 "calls" = "Call list";
 
 /*  */
-"voice_calls" = "iGap Voice Call";
+"voice_calls" = "Voice Call";
 
 /*  */
-"video_calls" = "iGap Video Call";
+"video_calls" = "Video Call";
 
 /*  */
 "map" = "Map";
@@ -5348,7 +5348,7 @@ TODO:// complete */
 "payment_order_id_title" = "Order ID : %@";
 
 /*  */
-"payment_rrn_title" = "Transaction ID: %.0f";
+"payment_rrn_title" = "Transaction ID";
 
 /*  */
 "mci_topup_payment_title" = "MCI TopUp";
@@ -6613,3 +6613,20 @@ TODO:// complete */
 "albums" = "Albums";
 "choose_frame" = "Cover";
 "processing" = "Processing";
+"prepaid" = "Prepaid";
+"incash" = "Cash";
+"paygateway" = "Payment Gateway";
+"an_hour_ago" = "hour ago";
+"hours_ago" = "hours ago";
+"someone" = "Someone";
+"room_created" = "Created This Room";
+"channel_created" = "Channel was Created"
+"group_created" = "Group was Created"
+"did_not_respond_to_ur_voice_call" = "Did not respond to your voice call";
+"did_not_respond_to_ur_video_call" = "Did not respond to your video call";
+"msg_vote_to_see_barchart" = "Please Vote to see the BarChart !";
+"chart" = "Chart";
+"call_question" = "Which number do you want to call?";
+"Channels" = "Channels";
+
+

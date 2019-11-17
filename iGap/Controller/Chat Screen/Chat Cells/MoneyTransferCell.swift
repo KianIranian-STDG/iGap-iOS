@@ -53,7 +53,7 @@ class MoneyTransferCell: IGMessageGeneralCollectionViewCell {
         lblToTitle.text = "GLOBAL_TO".localized
         lblFromTitle.text = "GLOBAL_FROM".localized
         ttlInvoicelblInvoiceTitle.text = IGStringsManager.InvoiceNumber.rawValue.localized
-        lblAmountTitle.text = "PRICE".localized
+        lblAmountTitle.text = IGStringsManager.Price.rawValue.localized
         lblTraceNumberTitle.text = "TRACE_NUMBER".localized
         ttlTransfer.font = UIFont.igFont(ofSize: 15)
         txtDate.font = UIFont.igFont(ofSize: 15)

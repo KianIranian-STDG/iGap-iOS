@@ -165,11 +165,11 @@ class IGPaymentView: UIView {
         self.mainSV.isHidden = false
         self.statusSV.isHidden = false
         self.statusDescriptionLbl.text = message
-        self.statusCodeLbl.text = "PAYMENT_ORDER_ID".localized + ": " + RRN.inLocalizedLanguage()
+        self.statusCodeLbl.text = IGStringsManager.TransactionIdentifier.rawValue.localized + ": " + RRN.inLocalizedLanguage()
         
         self.errorMessageLbl.isHidden = true
         self.acceptBtn.isHidden = true
-        self.cancelBtn.setTitle("BTN_CLOSE".localized, for: .normal)
+        self.cancelBtn.setTitle(IGStringsManager.GlobalClose.rawValue.localized, for: .normal)
         
         switch status {
             
@@ -237,7 +237,7 @@ class IGPaymentView: UIView {
         self.statusSV.isHidden = true
         
         self.acceptBtn.isHidden = true
-        self.cancelBtn.setTitle("BTN_CLOSE".localized, for: .normal)
+        self.cancelBtn.setTitle(IGStringsManager.GlobalClose.rawValue.localized, for: .normal)
         self.cancelBtn.backgroundColor = UIColor.iGapYellow()
     }
     
