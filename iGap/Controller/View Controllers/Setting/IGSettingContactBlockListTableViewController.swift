@@ -54,7 +54,7 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
     
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PS_BLOCKED_USERS".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.ListOfBlockedUsers.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -73,19 +73,6 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.isUserInteractionEnabled = true
-//        if let containerView = tableView.footerView(forSection: 0) {
-//            containerView.textLabel!.text = "MSG_NO_MSG_FRM_BLOCKED_USERS".localized
-//            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-//            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
-//            containerView.sizeToFit()
-//        }
-//        if let header = tableView.headerView(forSection: 0) {
-//            header.textLabel!.text = "SETTING_PS_BLOCKED_USERS".localized
-//            header.textLabel?.font = UIFont.igFont(ofSize: 15)
-//            header.textLabel?.textAlignment = (header.textLabel?.localizedDirection)!
-//
-//            header.sizeToFit()
-//        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -100,7 +87,7 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BlockedCell", for: indexPath) as! IGSettingContactBlockTableViewCell
         let lastRowIndex = self.tableView.numberOfRows(inSection: 0) - 1
         if indexPath.row == lastRowIndex {
-            cell.blockedContactName.text = "SETTING_PS_BLOCK_A_CONTACT".localized
+            cell.blockedContactName.text = IGStringsManager.BlockUser.rawValue.localized
             cell.blockedContactName.textColor = UIColor.organizationalColor()
             cell.accessoryType = UITableViewCell.AccessoryType.none
         } else {
@@ -141,31 +128,13 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "MSG_NO_MSG_FRM_BLOCKED_USERS".localized
+        return ""
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        return "SETTING_CONTACTS_BLOCKLIST".localized
+        return ""
     }
-    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        if section == 0 {
-            let containerView = view as! UITableViewHeaderFooterView
-            containerView.textLabel!.text = "MSG_NO_MSG_FRM_BLOCKED_USERS".localized
-            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        if section == 0 {
-            let containerView = view as! UITableViewHeaderFooterView
-            containerView.textLabel!.text = "SETTING_CONTACTS_BLOCKLIST".localized
-            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
-        }
-    }
-    
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 50

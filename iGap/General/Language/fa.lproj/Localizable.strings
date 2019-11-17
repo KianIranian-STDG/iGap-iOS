@@ -42,1180 +42,6639 @@
 "SIGNALING_OFFER_VIDEO_CALLINGSIGNALING_OFFER_VIDEO_CALLING" = "Incoming video call from %1$@";
 "SIGNALING_OFFER_SCREEN_SHARING" = "Screen sharing request from %1$@";
 "SIGNALING_OFFER_SECRET_CHAT" = "Secret chat request from %1$@";
-/// MARK : - Global Strings
-"GLOBAL_OK" = "تایید";
-"GLOBAL_CANCEL" = "لغو";
-"EMAIL" = "پست الکترونیکی";
-"SECURITY_QUESTIONS" = "سوال امنیتی";
-"SEARCH_PLACEHOLDER" = "جست و جو نمایید";
-
-
-/// MARK : - Register Process
-"RGP_MSG_SECURITY_TWO_STEP_VERIFICATION" = "به منظور بازیابی حساب کاربری خود به سوالات امنیتی زیر جواب دهید.پس از پاسخ دادن موفق رمز دوم حساب کاربری شما غیر فعال می گردد";
-"RGP_SECURITY_QUESTION_ONE" = "سوال امنیتی اول : ";
-"RGP_SECURITY_QUESTION_TWO" = "سوال امنیتی دوم : ";
-"RGP_MSG_ANSWERS_WAS_WRONG" = "پاسخ های شما صحیح نمی باشند";
-"RGP_MSG_ANSWERS_WAS_EMPTY" = "لطفا تمامی فیلد ها را پر نمایید";
-
-
-// MARK : - introduntion page
-"LETS_GO" = "بزن بریم";
-
-"CHAT" = "گفتگو در آیگپ";
-"NEARBY_FEATURES" = "اطراف من";
-"ILAND" = "آیلند";
-"SECURITY_And_PRIVACY" = "امنیت در آیگپ";
-
-"CHAT_DESCRIPTION" = "شما میتوانید در آیگپ بصورت دونفره و یا گروهی به گفتگو بپردازید و خیالتان راحت باشد که همیشه به گفتگو های خود دسترسی دارید، همچنین میتوانید کانال بسازید و در آن عضو بگیرید و اطلاعات خود را بین میلیون ها کاربر دیگر نیز به اشتراک بگذارید.";
-"NEARBY_FEATURES_DESCRIPTION" = "با اطراف من پا به دنیای جدید بگذارید. در اطرافتان دوستان خود، مراکز تفریحی، هنری، تجاری و ... را پیدا کنید و از لحظه های خود لذت ببرید ...";
-"ILAND_DESCRIPTION" = "آیلند! سرزمین بی حد و مرز\nکه کلی اتفاق شگفت انگیز مثل گرفتن تاکسی، الوپیک، پرداخت قبض و رزرو تور و هتل توش افتاده. و تازه می تونی کلی بازی کنی، فیلم ببینی و موزیک گوش بدی.";
-"SECURITY_And_PRIVACY_DESCRIPTION" = "آیگپ یک ارتباط امن و مطمئن را برای شما برقرار میکند. پیام رسانِ آیگپ با استفاده از الگوریتم های رمزنگاری منحصربفرد در جابجایی همه داده های شما حداکثر امنیت را برای حفظ حریم خصوصی شما فراهم آورده است.";
-
-
-// localized new
-"paygearuser" = "حساب شخصی";
-"finance" = "مالی";
-"admin" = "مدیر";
-"store" = "فروشگاه";
-"other" = "سایر";
-"driver" = "راننده";
-"MONEY_TRANSFER_HISTORY" = "گردش حساب";
-"PAIED_TO_LBL" = "پرداخت به =";
-"SELECTED" = "انتخاب شده";
-
-"TAB_CHAT" = "گفتگو";
-"TAB_PHONEBOOK" = "مخاطبین";
-"TAB_DISCOVERY" = "آیلند";
-"TAB_CALL_LIST" = "تماس ها";
-"TAB_PROFILE" = "تنظیمات";
-
-
-"WALLET_PAY_LBL3" = "مبلغ قابل پرداخت(ریال) =";
-"WALLET_PAY_LBL1" = "مبلغ تخفیف(ریال) =";
-"WALLET_PAY_LBL0" = "مبلغ کل(ریال) =";
-"BTN_SEND_CODE" = "ارسال کد";
-"PRIVACY_AGREEMENT" = "قوانین و مقررات را می پذیرم";
-"MSG_PRIVACY_AGREEMENT" = "در صورت عدم تایید قوانین و مقررات امکان شروع فرایند ثبت نام وجود ندارد.";
-"WELCOME_TO_IGAP" = "به آیگپ خوش آمدید";
-"NOTIFICATION_SOUNDS" = "صوت و اعلان ها";
-"MUTE_NOTIFICATION_IN_PROFILE" = "بی صدا کردن اعلان";
-"DATA_STORAGE" = "داده ها و ذخیره سازی";
-"CHAT_SETTINGS" = "تنظیمات گفت و گو";
-"SET_AS_ADMIN" = "مدیر شود";
-"SET_AS_MODERATOR" = "سردبیر شود";
-"REMOVE_MODERATOR" = "حذف عنوان سردبیر";
-"REMOVE_ADMIN" = "حذف عنوان مدیر";
-
-
-"MCI_CHARGE" = "شارژ همراه اول";
-"CREAT_CHANNEL" = "ایجاد کانال";
-"CREAT_GROUP" = "ایجاد گروه";
-"TODAY" = "امروز";
-"YESTERDAY" = "دیروز";
-"IVANDSCORE_MSG" = "آیا از ثبت درخواست خود اطمینان دارید؟";
-
-
-"NEW_MESSAGES" = "پیام جدید";
-"WHICH_TYPE_OF" = "تمایل به ایجاد کدام یک از موارد زیر را دارید؟";
-"MY_CLOUD" = "فضای ابری من";
-"NEW_C_C" = "گفت و گو یا تماس جدید";
-"NEW_CALL" = "تماس جدید";
-"NEW_CONVERSATION" = "گفت و گوی جدید";
-"NEXT_BTN" = "بعدی";
-"REFERRAL" = "معرف = ";
-"YOUR_SCORE" = "امتیاز شما";
-"SCORE_HISTORY" = "تاریخچه امتیازات شما";
-"YOUR_STATUS" = "وضعیت شما";
-"WALLET_HISTORY" = "تاریخچه کیف پول";
-"WALLET_HISTORY_DETAILS" = "جزییات تاریخچه";
-"SETTING_CW_WALLPAPER_PREVIEW" = "نمایش تصویر پس زمینه";
-"CONTACT_INFO" = "اطلاعات کاربر";
-"MSG_SURE_TO_DELETE_CHAT" = "آیا از حذف این چت مطمین هستید؟";
-"MSG_SURE_TO_DELETE_GROUP" = "آیا از حذف این گروه مطمین هستید؟";
-"MSG_SURE_TO_LEAVE_GROUP" = "آیا از ترک این گروه مطمین هستید؟";
-"MSG_SURE_TO_DELETE_CHANNEL" =  "آیا از حذف این کانال مطمین هستید؟";
-"MSG_SURE_TO_LEAVE_CHANNEL" = "آیا از ترک این کانال مطمین هستید؟";
-
-"MSG_SURE_TO_DELETE_CHAT_HISTORY" = "آیا از حذف تاریخچه چت مطمین هستید؟";
-"INVALID_CODE" = "کد اشتباه";
-"MSG_THE_CODE_INVALID" = "کد وارد شده صحیح نمی باشد";
-"TAP_RESEND" = "برای ارسال مجدد اینجا کلیک کنید";
-"DIDNT_RECIEVE_CODE_WAIT" = "در صورت عدم دریافت کد لطفا شکیبا باشید";
-"MSG_SURE_TO_DELETE_CACHE" = "آیا از حذف این داده مطمین هستید؟";
-"KB" = "کیلوبایت";
-"MB" = "مگابایت";
-"GB" = "گیگابایت";
-"B" = "بایت";
-"PHOTO_OR_VIDEO" = "عکس یا فیلم";
-"UNPIN_ARE_U_SURE" = "آیا از برداشته شدن پین این پیام مطمئن هستید؟";
-"UNPIN_FOR_ALL" = "برداشتن پین برای همه";
-"UNPIN_FOR_ME" = "برداشتن پین برای من فقط";
-"PIN_ARE_U_SURE" = "آیا از پین شدن این پیام مطمئن هستید؟";
-"REPLY" = "پاسخ";
-"FORWARD" = "ارسال";
-"MULTI_FORWARD" = "ارسال چندگانه";
-"MORE" = "بیشتر";
-"SHARE" = "اشتراک گذاری";
-"DELETE_FOR_ME" = "حذف برای من فقط";
-"DELETE_FOR_ME_AND" = "حذف کردن برای من و ";
-"SEND_AGAIN" = "ارسال مجدد";
-"GROUP_DOES_NOT_EXIST" = "این گروه گویا وجود ندارد";
-"ARE_U_SURE_TO_JOIN" = "آیا از عضویت در این کانال مطمئن هستید؟";
-"U_JOINED" = "شما پیوستید ";
-"TO" = "به";
-"BEFORE" = "قبل";
-
-"OPEN_NOW" = "باز کن";
-"PLEASE_WRITE_UR_REPORT" = "لطفا توضیحات لازم برای علت گزارش خود را بنویسید";
-"REPORT_SUCCESS" = "گزارش شما با موفقیت ثبت شد";
-"REPORTED_BEFORE" = "گزارش شما قبلا ثبت شده است";
-"FORWARDED_FROM" = "ارسال شده از";
-"FORWARDED_MESSAGE" = "پیام ارسال شده";
-"REOLY_TO" = "پاسخ به = ";
-"GROUP_INFO" = "اطلاعات گروه";
-"DELETE_GROUP" = "حذف گروه";
-"DELETE_MAIN_AVATAR" = "حذف آواتار اصلی";
-"PRIVATE" = "خصوصی";
-"PUBLIC" = "عمومی";
-"COPY" = "رونوشت";
-"PASTE" = "الصاق";
-"GROUP_LINK" = "لینک گروه";
-"CHNAGE" = "تغییر";
-"NOTIFICATIONS" = "نوتیفیکیشن ها";
-"GROUPNAME" = "نام گروه";
-"GROUPDESC" = "شرح گروه";
-"GROUPTYPE" = "نوع گروه";
-"CHANNELDESC" = "شرح کانال";
-"CHANNELTYPE" = "نوع کانال";
-"CHANNELREACTION" = "واکنش در کانال";
-"CHANNELSIGNMESSAGES" = "امضا پیام ها";
-"CHANNEL_INFO" = "اطلاعات کانال";
-"CHANNEL_LINK" = "لینک کانال =";
-"GROUP_NO_MODERATOR" = "این گروه هیچ سردبیری ندارد";
-"GROUP_NO_ADMIN" = "این گروه هیچ مدیری ندارد";
-"MSG_U_HAVE_ALREADY_VOTED" = "شما قبلا رای خود را ثبت کرده اید";
-"MSG_U_HAVE_REACHED_VOTE_LIMIT" = "شما به تعداد مجاز رای خود را ثبت کرده اید";
-"MSG_VOTE_TO_SEE_CHART" = "برای مشاهده نتیجه نظرسنجی لطفا ابتدا رای خود را ثبت نمایید !";
-"MANAGE_MEMBERS" = "مدیریت اعضا";
-"CHANNEL_SIGN_FOOTER" = "اسامی مدیران را به پیامهایی که ارسال کرده اید اضافه کنید";
-"CHANNEL_REACTIONS_FOOTER" = "نام مدیرها را به پیامهایی که ارسال می کنند اضافه کنید";
-"CHANNEL_TITLE" = "ویرایش اطلاعات کانال";
-"GROUP_TITLE" = "ویرایش اطلاعات گروه";
-
-
-"PAYMENT_ORDER_ID" = "شماره تراکنش";
-
-
-"TYPE" = "نوع";
-"ADD_ADMIN" = "افزودن مدیر";
-"ADD_MODERATOR" = "افزودن سردبیر";
-"ADD_MEMBER" = "افزودن عضو";
-"ADD_MEMBER_TO" = "افزودن عضو به";
-
-"ALLMEMBER" = "اعضا";
-"ADMIN" = "مدیر";
-"MODERATOR" = "سردبیر";
-"ADMINANDMODERATOR" = "مدیر و سردبیر";
-"SHAREDMEDIA" = "محتواهای اشتراک گذاشته شده";
-"REMOVE_ADMIN" = "حذف مدیر";
-"REMOVE_MODERATOR" = "حذف سردبیر";
-"KICK_MEMBER" = "بیرون انداختن عضو";
-
-"ARE_U_SURE_REMOVE_ADMIN" = "آیا از اینکه وظیفه مدیر بودن را از این کاربر می خواهید بگیرید اطمینان دارید ؟";
-"ARE_U_SURE_REMOVE_MODERATOR" = "آیا از اینکه وظیفه سردبیر بودن را از این کاربر می خواهید بگیرید اطمینان دارید ؟";
-"ARE_U_SURE_KICK_USER" = "آیا از بیرون انداختن این کاربر اطمینان دارید ؟";
-"HIDDEN" = "مخفی";
-"DELETE_CHAT" = "حذف چت";
-"DELETE_CHANNEL" = "حذف کانال";
-"CONVERT_CHAT_TO_GROUP" = "تبدیل چت به گروه";
-"IN_CHAT_SEARCH" = "جست و جوی درون گغت و گو";
-"GROUP_LINK_NOT_EMPTY" = "قسمت لینک گروه نباید خالی باشد";
-"NAME" = "نام";
-"MSG_CHANGE_CHANNEL_USERNAME" = "ذخیره نام کاربری";
-"MSG_GROUP_DESC" = "لطفا برای گروه خود توضیحاتی وارد نمایید ...";
-"MSG_GROUP_CHANNEL" = "لطفا برای کانال خود توضیحاتی وارد نمایید ...";
-"MSG_PLEASE_CHOOSE_MEMBER" = "لطفا  کاربری را برای عضویت انتخاب نمایید.";
-"RECORDED_BY" = "ضبط شده توسط =";
-"RECORDED_VOICE" = "صدای ضبط شده";
-"MSG_USER_REPORTED_BEFOR" = "این کاربر قبلا ریپورت شده است";
-"MSG_REPORT_INVALID" = "توضیحات ریپورت مورد تایید نمی باشد";
-"TTL_PICKNUM_WITH_COUNTRYCODE" = "لطفا به منظور شروع فرایند ثبت نام کد کشور و شماره همراه خود را وارد نمایید";
-"TTL_OPTIONS" = "گزینه ها";
-"LOGIN_USING_QR" = "ورود توسط اسکن کد کیو آر";
-"TERMS" = "شرایط";
-"SMS" = "پیامک";
-"VIA" = " توسط ";
-"IGAP" = "آیگپ";
-"SMSANDIGAP" = "پیامک و آیگپ";
-"MSG_ENTER_VERFICATIONCODE_SENT" = "لطفا وارد نمایید کد تایید ارسال شده به ";
-"INVALID_VERFI_CODE" = "لطفا کد صحیح وارد نمایید";
-"RESEND_CODE_VIA" = "ارسال مجدد کد توسط =";
-"YOUR_PROFILE" = "صفحه شما";
-"ENTER_NAME_AND_CHOOSE_PHOTO" = "تصویر خود را انتخاب و نام خود را وارد نمایید";
-"ENTER_REFERRAL_NUMBER" = "لطفا شماره تماس معرف خود را وارد نمایید(اختیاری)";
-"SKIP" = "پرش";
-"SET_REFERRAL" = "ثبت معرف";
-"IS_PHONE_OK" = "آیا این شماره تماس درست می باشد؟";
-"IS_IT_CORRECT" = "آیا صحیح است؟";
-"INVALID_PHONE" = "شماره تماس اشتباه";
-"ENTER_VALID_P_NUMBER" = "لطفا شماره تماس صحیح وارد نمایید";
-"SHOW_AND_LOGIN_USING_QR" =  "این کیوآر کد را توسط دستگاه دیگر خود به منظور ورود به حساب کاربری اسکن نمایید";
-"PLEASE_ENTER_PASS" = "لطفا رمز خود را وارد نمایید";
-"twoStepVerfi_HEADER" = "شما تایید دومرحله ای را انتخاب کرده اید.برای همین حساب کاربری شما توسط رمزی دوم ایمن شده است";
-"BY_SIGNING_AGREEMENT" = "با ساخت حساب کاربری موافقت می کنید با  ";
-"TERMS_OF_SERVICE" = "شرایط و قوانین";
-"LETS_GO" = "بزن بریم";
-"MISSED_CALL" = "تماس از دست رفته";
-"UNANSWERED_CALL" = "تماس پاسخ داده نشده";
-"VOICE_CALL" = "تماس صوتی";
-"VIDEO_CALL" = "تماس تصویری";
-
-
-"COMMUNICATING" = "برقراری ارتباط";
-"CONNECTED" = "متصل شد";
-"DISCONNECTED" = "عدم اتصال";
-"MISSED" = "از دست رفته";
-"NOT_ANSWERED" = "عدم پاسخ دهی";
-"REJECTED" = "رد شده";
-"TOO_LONG" = "انتظار بیش از حد";
-"FAILED" = "رد شده";
-"UNAVAILABLE" = "عدم دسترسی";
-"INCOMMING_CALL" = "تماس ورودی";
-"RINGING" = "در حال زنگ خوردن";
-"DIALING" = "در حال گرفتن شماره";
-
-
-
-
-"DID_NOT_RESPOND_TO_VOICE" = "عدم پاسخ دهی به شروع تماس صوتی با شما";
-"DID_NOT_RESPOND_TO_VIDEO" = "عدم پاسخ دهی به شروع تماس تصویری با شما";
-"DID_NOT_RESPOND_TO_SCHAT" = "عدم پاسخ دهی به شروع گغت و گوی مخفی با شما";
-
-"MSG_CREATED_ROOM" = "این صفحه را ایجاد کرد ";
-"MSG_ADDED" = " اضافه کرد";
-"MSG_KICKED" = " بیرون انداخت";
-"MSG_LEFT" = " ترک کرد";
-"MSG_IS_PUBLIC" = "این کانال عمومی شد";
-"MSG_IS_PRIVATE" = "این کانال خصوصی شد";
-"MSG_CHANGED_TO_PUBLIC" = " به وضعبت عمومی تغییر داد";
-"MSG_CHANGED_TO_PRIVATE" = " به وضعبت خصوصی تغییر داد";
-"MSG_JOINED_VIA_LINK" = " توسط لینک دعوت ملحق شد";
-"MSG_ROOM_WAS_DELETED" = "این صفحه حذف گردید";
-"MSG_SOMEONE" = "یک شخص";
-"MSG_JOINED_IGAP" = " به آیگپ ملحق شد";
-"MSG_DELETED_ACCOUNT" = " حساب خود را حدف کرد";
-"MSG_CHANNEL_WAS_CREATED" = "کانال ایجاد گردید";
-"MSG_UNVERIFIED_EMAIL" = "ایمیل شما تایید نشده است=\n";
-"REMOVE_PASSWORD" = "حذف رمز عبور";
-"CHANGE_PASSWORD" = "تغییر رمز عبور";
-"CHANGE_HINT" = "تغییر راهنما";
-"CHNAGE_EMAIL" = "تغییر ایمیل";
-"CHANGE_SECURITY_Q" = "تغییر سوال های امنیتی";
-"SET_CHANGE_RECO_EMAIL" = "ورود یا تغییر ایمیل";
-"VERIFY_EMAIL" = "تایید ایمیل";
-
-
-
-
-
-
-"TRANSACTIONS_HISTORY_CARD_TO_CARD" = "کارت به کارت";
-"TRANSACTIONS_HISTORY_BILL" = "قبض و جریمه";
-"TRANSACTIONS_HISTORY_ُTOPUP" = "شارژ موبایل";
-"TRANSACTIONS_HISTORY_NONE" = "همه";
-"TRANSACTIONS_HISTORY_ُSALES" = "پرداخت اینترنتی";
-"TRANSACTIONS_HISTORY_UNRECOGNIZED" = "نامشخص";
-"TRANSACTIONS_HISTORY_ORDER_ID" = "شناسه پرداخت";
-
-
-
-
-"MSG_FILL_DELETE_CODE" = "لطفا کد حذف را وارد نمایید";
-
-"NO_STATUS" = "بدون وضعیت";
-"CLEAR_STATUS" = "پاک کردن وضعیت";
-"LOCATION_SERVICE_DISABLE" = "سرویس موقعیت مکانی غیر فعال می باشد";
-"LOCATION_SERVICE_ENABLE_IT" = "سرویس موقعیت مکانی غیر فعال می باشد.لطفا از قسمت تنظیمات مجددا آن را فعال نمایید";
-"MSG_DESABLE_MAP_VISIBILITY" = "غیر فعال سازی قابلیت اطراف من باعث خواهد شد وضعیت شما و سایرین برای یکدیگر غیر قابل مشاهده شود. آیا مایل به ادامهٔ کار هستید؟";
-"SATELITE" = "ماهواره";
-"SATNDARD" = "عادی";
-"ABOUT" = "درباره ما";
-"AROUND" = "حدود";
-"METER" = "متر";
-IGStringsManager.WaletSettings.rawValue. = "تنظیمات کیف پول";
-"RESET_WALLET_PIN" = "بازنشانی رمز کیف پول";
-"SHOW_THIS_QR" = "این کیو آر را به دیگران به منظور اسکن کردن و پرداخت وجه به شما نشان دهید";
-
-"FILES" = "فایل ها";
-"LINKS" = "لینک ها";
-"GIFS" = "تصاویر متحرک";
-"IMAGES" = "فایل های تصویری";
-"VIDEOS" = "ویدیو ها";
-"AUDIOS" = "فایل های صوتی";
-"VOICES" = "صداهای ضبط شده";
-"DOCUMENTS" = "داکیومنت ها";
-"DOCUMENT" = "داکیومنت";
-"STICKERS" = "استیکر ها";
-"SEND_PHOTO" = "ارسال تصویر";
-
-"FILES_MESSAGE" = "پیام با محتوای فایل";
-"GIFS_MESSAGE" = "پیام تصویر متحرک";
-"IMAGES_MESSAGE" = "پیام تصویری";
-"VIDEOS_MESSAGE" =  "پیام ویدیویی";
-"AUDIOS_MESSAGE" = "پیام صوتی";
-"VOICES_MESSAGE" = "پیام ضبط شده";
-"DOCUMENT_MESSAGE" = "پیام داکیومنت";
-"STICKERS_MESSAGE" = "پیام استیکر";
-"CONTACT_MESSAGE" = "پیام مخاطب";
-"LOCATION_MESSAGE" = "پیام موقعیت مکانی";
-"WALLET_MESSAGE" = "پیام کیف پول";
-"PAYMENT_MESSAGE" = "پیام پرداخت";
-"CARD_TO_CARD" = "کارت به کارت";
-"CARD_TO_CARD_MESSAGE" = "پیام کارت به کارت";
-"CARD_TO_CARD_REQUEST" = "درخواست کارت به کارت";
-"CARD_TO_CARD_FILL_INFO" = "لطفاً متن درخواست خود را وارد کنید !";
-"UNKNOWN_MESSAGE" = "پیام ناشناس";
-"DELETED_MESSAGE" = "پیام حذف شده";
-"DRAFT" = "پیش نویس = ";
-"enterpin" = "رمز کیف پول را وارد نمایید";
-
-
-
-"NEW_GROUP" = "گروه جدید";
-"NEW_CHANNEL" = "کانال جدید";
-"VERSION_DEPRICATED" = "نسخه فعلی منقضی شده است لطفا برای استفاده به روز رسانی نمایید";
-"VERSION_NEW" = "نسخه جدید موجود می باشد";
-"MUTE" = "بی صدا";
-"UN_MUTE" = "با صدا";
-"PINN" = "پین کردن";
-"UNPINN" = "برداشتن پین";
-"NO_NETWORK" = "خطا در برقراری اتصال به اینترنت";
-"WHAT_DO_U_WANT" = "چه کاری میخواهید انجام دهید؟";
-"CLEAR_HISTORY" = "پاک کردن تاریخچه";
-"CLEAR_HISTORY_LOCAL" = "پاک کردن تاریخچه از گوشی";
-"SHOW_HISTORY" = "نمایش تاریخچه";
-
-"REPORT" = "گزارش تخلف";
-"LEAVE" = "خروج";
-"REPORT_SUBMITED" = "گزارش تخلف با موفقیت ارسال شد";
-"ROOM_REPORTED_BEFOR" = "شما گزارش تخلف این روم را قبلاً ارسال کرده اید ";
-"USER_REPORTED_BEFOR" = "شما گزارش تخلف این کاربر را قبلاً ارسال کرده اید";
-"REPORT_REASON" = "علت گزارش تخلف";
-"SPAM" = "اسپم";
-"ABUSE" = "محتوای توهین آمیز و آزاردهنده";
-"VIOLENCE" = "محتوای خشونت آمیز";
-"FAKE_ACCOUNT" = "حساب کاربری تقلبی";
-"PORNOGRAPHY" = "محتوای مستهحن";
-"OTHER" = "موارد دیگر";
-"ADD_ADMIN" = "افزودن مدیر";
-"ADD_MODERATOR" = "افزودن سردبیر";
-"IN_A_MINUTE" = "یک دقیقه پیش";
-"JUST_NOW" = "همین الان";
-"MINUTES_AGO" = "دقیقه پیش";
-"AN_HOUR_AGO" = "یک ساعت قبل";
-"HOURS_AGO" = "ساعت پیش";
-"AT" = " در ";
-"PLEASE_ADD_STICKER" = "لطفا استیکر اضافه نمایید";
-"ADD_STICKER" = "افزودن استیکر";
-"LBL_STICKER" = "استیکر";
-"STICKER_CATEGORY" = "دسته بندی های استیکر";
-"CONNECTING" = "در حال اتصال ...";
-"WAITING_NETWORK" = "در جست و جوی اینترنت ...";
-"RETURN_TO_CALL" = "بازگشت به تماس";
-"MEMBER" = "عضو";
-"BOT" = "ربات";
-"IGAP_SUPPORT" = "پشتیبانی";
-"SERVICE_NOTIFI" = "Service Notification";
-"A_LONG_TIME_AGO" = "خیلی وقت پیش";
-"LAST_MONTH" = "ماه قبل";
-"LAST_WEAK" = "هفته قبل";
-"ONLINE" = "آنلاین";
-"LAST_SEEN_RECENTLY" = "همین حالا";
-"A_FEW_SEC_AGO" = "چند ثانیه قبل";
-"MINUTE" = "دقیقه";
-"ONLY_ADMIN_OWNER_CAN_SEE" = "فقط مدیران و صاحب کانال قادر به مشاهده این لیست می باشند";
-
-"PRICE" = "مبلغ";
-"TTL_DELETE_CONTACT" = "حذف مخاطب.";
-"TTL_MAP_STATUS" = "فعال سازی قابلیت اطراف من";
-"TTL_ATTENTION" = "توجه";
-"TTL_WALLET_BALANCE_USER" = "موجودی کیف کاربر";
-"TTL_WALLET_CLUB_USER" = "موجودی کارت باشگاه";
-"TTL_WALLET_BALANCE_STORE" = "موجودی کیف فروشگاه";
-"TTL_WALLET_BALANCE_DRIVER" = "موجودی کیف راننده";
-"TTL_MY_CARDS" = "کارت های من";
-"TTL_TRANSITION_CHARGE_WALLET" = "شارژ کیف پول";
-"TTL_IS_PAYED" = "تسویه حساب شده";
-"TTL_MONEY_REFUND" = "سند اصلاح - واریز مبلغ به کیف پول";
-"TTL_CASHOUT_PENDING" = "در انتظار تسویه حساب";
-IGStringsManager.Recieve.rawValue. = "دریافت از";
-"TTL_PAYMENT_PENDING_FRM" = "در انتظار";
-"TTL_PAYED_WITH_WALLED_CARD_TO" = "پرداخت با کیف پول به";
-"TTL_PAY_WITH_WALLET_CARD_PENDING" = "در انتظار پرداخت با کیف پول ";
-"TTL_BUY_CLUB_FROM" = "خرید طرح باشگاه از";
-"TTL_WALLET_ACCOUNT" = "حساب پیگیر";
-"TTL_SUCCESS_PAYMENT" = "پرداخت موفق";
-"TTL_RECIEVER" = "گیرنده =";
-"TTL_TRANSACTION_TYPE" = "نوع تراکنش =";
-"TTL_AMOUNT" = "مبلغ =";
-"TTL_PAY_STATUS" = "وضعیت پرداخت =";
-"TTL_INVOICE_NUMBER" = "شماره صورتحساب";
-"TTL_DATE" = "تاریخ =";
-"TTL_CARDNUM" = "شماره کارت";
-"TTL_REFERENCE_NUMBER" = "شماره مرجع";
-"TTL_ACCOUNT_OWNER_NAME" = "نام دارنده حساب";
-"TTL_DESTI_CARDNUM" = "شماره کارت مقصد";
-"TTL_DESTI_IBAN" = "شماره شبای مقصد";
-"TTL_PAY_NUMBER" = "شماره پیگیری";
-"TTL_REMAINING_AMOUNT" = "موجودی باقیمانده";
-"TTL_INVOICE_NUM" = "شماره قبض";
-"TTL_CHARGE" = "شارژ";
-"TTL_PREPAID" = "اعتباری";
-"TTL_INCASH" = "نقد";
-"TTL_PAYMENT_GATEWAY" = "پایانه فروش";
-
-"TTL_CASHOUT_TYPE_IMMIDIATE" = "فوری";
-"TTL_CASHOUT_TYPE_NORMAL" = "عادی";
-"TTL_CASHOUT_TYPE_TO_WALLET" = "به کیف پول";
-"TTL_WALLET_ACCOUNT_BALANCE" = "موجودی حساب پیگیر";
-"TTL_WALLET_ACCOUNT_CASHABLE" = "موجودی قابل برداشت";
-"TTL_CHOOSE_CASHOUT_AMOUNT" = "مبلغ برداشت را مشخص نمایید";
-"TTL_ENTER_CARD_NUMBER" = "شماره کارت را وارد نمایید";
-"TTL_ENTER_IBAN_NUMBER" = "شماره شبا را وارد نمایید";
-"TTL_HOW_TO_GET_IBAN" = "نحوه ی پیدا کردن شماره شبا";
-"TTL_ENTER_CHARGE_PRICE" = "مبلغ مورد نظر را وارد نمایید";
-"TTL_ADD_NEW_CARD" = "افزودن کارت";
-"TTL_YEAR" = "سال";
-IGStringsManager.Month.rawValue. = "ماه";
-"ANDROID" = "اندروید";
-"IOS" = "آی او اس";
-"MACOS" = "سیستم عامل مک";
-"WINDOWS" = "سیستم عامل ویندوز";
-"LINUX" = "سیستم عامل لینوکس";
-"LAST_ACTIVE_AT" = "آخرین زمان فعال بودن در = ";
-"PLATFORM_ANDROID" = "پلت فرم اندروید";
-"PLATFORM_IOS" = "پلت فرم آی او اس";
-"PLATFORM_MACOS" = "پلت فرم مک او اس";
-"PLATFORM_WINDOWS" = "پلت فرم ویندوز";
-"PLATFORM_LINUX" = "پلت فرم لینوکس";
-"PLATFORM_BLACKBERRY" = "پلت فرم بلک بری";
-"MOBILE" = "موبایل";
-"DESKTOP" = "دسکتاپ";
-"TABLET" = "تبلت";
-"UNKNOWN" = "ناشناس";
-"APP_VERSION" = "ورژن اپلیکیشن = ";
-"COUNTRY" = "کشور = ";
-"SESSION_INITIATED_AT" = "زمان ایجاد نشست = ";
-"IP" = "آی پی = ";
-
-"TTL_SET_AS_DEFAULT_CARD" = "قرار دادن به عنوان کارت پیش فرض";
-"TTL_WHO_CAN_SEE_MY_PROFILE_PHOTO" = "چه کسی بتواند تصویر پروفایل من را ببیند؟";
-"TTL_WHO_CAN_SEE_MY_PLAST_SEEN" = "چه کسی بتواند آخرین مشاهده من را ببیند؟";
-"TTL_WHO_CAN_ADD_TO_GROUPS" = " چه کسی من را به گروه دعوت کند ؟";
-"TTL_WHO_CAN_ADD_TO_CHANNNELS" = " چه کسی من را به کانال دعوت کند ؟";
-"TTL_ADDING_ME_TO_GROULS" = "افزودن من به گروه ها";
-"TTL_ADDING_ME_TO_CHANNELS" = "افزودن من به کانال ها";
-"TTL_WHO_CAN_CALL" = "چه کسی بتواند با من تماس بگیرد؟ ";
-
-"FILTER_INCOMMING_CALL" = "ورودی";
-"FILTER_MISSED_CALL" = "ازدست رفته";
-"FILTER_ALL_CALL" = "همه";
-"FILTER_CANCELED_CALL" = "رد شده";
-"FILTER_OUTGOING_CALL" = "خروجی";
-"CALL_LISTT_EMPTY" = "تاریخچه تماس های شما خالی می باشد.";
-
-"TEXT_SIZE" = "اندازه متن";
-"COLOR_THEME" = "قالب رنگی";
-"ENABLE_ANIMATIONS" = "فعال سازی انیمیشن ها";
-"DARK_THEME" = "تیره";
-"LIGHT_THEME" = "روشن";
-"CHAT_BG" = "پس زمینه گفت و گو";
-
-
-"MSG_CHANGE_USERNAME_AFTER" = "عدم امکان آپیدیت نام کاربری به علت اینکه اخیرا نام کاربری خود را تغییر داده اید. زمان انتظار ";
-"MSG_UPDATE_USERNAME_FORBIDDEN" = "عدم امکان آپدیت نام کاربری";
-"MSG_TAKEN_USERNAME" = "نام کاربری قبلا ثبت شده است";
-"MSG_INVALID_USERNAME" = "نام کاربری صحیح نمی باشد";
-"USERNAME_VALID_CHARS" = "شما می توانید از کاراکتر های a-z;0-9 استفاده نمایید";
-"MSG_MINIMUM_LENGH" = "حداقل باید ۵ کاراکتر باشد";
-"MSG_PLEASE_TRY_AGAIN" = "لطفا مجددا امتحان نمایید.";
-"MSG_ARE_U_SURE_TO_DELETE" = "آیا از حذف این مخاطب مطمین هستید؟";
-"MSG_PLEASE_ENTER_F_NAME" = "لطفا نام را وارد نمایید.";
-"MSG_PLEASE_ENTER_L_NAME" = "لطفا نام خانوادگی را وارد نمایید.";
-"MSG_MAP_DISTANCE" = "نکته = قابل ذکر است افراد بر روی نقشه با خطای 500 متر نمایش داده خواهند شد. پس جای نگرانی نیست";
-"MSG_FINANCIAL_SERVICES" = "مسیولیت کلیه خدمات مالی بر عهده شرکت تجارت الکترونیک پارسیان ( تاپ ) می باشد مرکز پاسخگویی مشتریان  =  2318-021";
-"MSG_NO_MSG_FRM_BLOCKED_USERS" = "توجه داشته باشید هیج پیفامی از کاربران مسدود شده دریافت نخواهید کرد";
-"MSG_ERROR_BILL_PAYMENT" = "مشکلی در زمان پرداخت قبض رخ داد";
-"MSG_ERROR_WROMG_MNUMBER" = "شماره همراه وارد شده صحیح نمی باشد";
-"MSG_PAGE_ACCOUNT_LOGOUT" = "آیا از حذف حساب کاربری خود مطمین هستید؟";
-"MSG_BAD_RESPONSE" = "رسپانس اشتباه";
-"MSG_IF_NOT_SHARE_LAST_SEEN" = "اگر آخرین وضعیت مشاهده خود را شیر نکنید .آخرین وضعیت مشاهده دیگران را نیز نمی توانید مشاهده کنید";
-"MSG_WRITE_YOUR_CHANNEL_NAME" = "لطفا نام کانال خود را وارد نمایید";
-"MSG_NEW_CHANNEL_FOOTER" = "توضیحات کانال خود را در این قسمت وارد نمایید";
-
-"MSG_NEW_CHANNEL_PUBLIC_CHANNEL_TITLE" = "کانال عمومی";
-"MSG_NEW_CHANNEL_PRIVATE_CHANNEL_TITLE" = "کانال خصوصی";
-"MSG_NEW_CHANNEL_PUBLIC_CHANNEL_DESC" = "کاربران می توانند با جست و جوی نام کاربری یا دریافت لینک دعوت به این کانال بپیوندند";
-"MSG_NEW_CHANNEL_PRIVATE_CHANNEL_DESC" = "کاربران در صورت افزوده شدن توسط مدیر(ان) امکان افزوده شدن به کانال را دارا می باشند";
-"NEW_CHANNEL_LINK" = "لینک کانال";
-
-
-"MSG_CHANNEL_SHARE_FOOTER" = "کاربران می توانند پس از به اشتراک گذاشتن کانال شما توسط این لینک و جست و جوی آن به کانال شما ملحق شوند";
-"MSG_CHANNEL_SHARE_JOIN" = ".کاربران می توانند توسط این لینک به کانال شما ملحق شوند.در آینده می توانید این لینک را نیز تفییر دهید";
-"MSG_CHANNEL_DESC" = ".برای کانال خود یک توضیح می توانید قرار دهید";
-
-"PLEASE_WAIT_DATA_LOAD" = "لطفا تا زمان بارگزاری تمام داده ها شکیبا باشید ...";
-
-
-"TIME_OUT" = "عدم امکان اتصال به سرور";
-"TIME_OUT_MSG_EMAIL" = "عدم امکان دریافت اطلاعات ایمیل شما از سرور.لطفا مجددا تلاش فرمایید";
-"TIME_OUT_MSG_BIO" = "عدم امکان دریافت اطلاعات بیوگرافی شما از سرور.لطفا مجددا تلاش فرمایید";
-"TIME_OUT_MSG_SELFD" = "عدم امکان دریافت ساعت های تخریب خودکار از سرور.لطفا مجددا تلاش فرمایید";
-
-"PLACE_HOLDER_F_NAME" = "نام";
-"PLACE_HOLDER_L_NAME" = "نام خانوادگی";
-"PLAVE_HOLDER_16_DIGIT" = "شماره ۱۶ رقمی کارت";
-"PLAVE_HOLDER_24_DIGIT" = "شماره ۲۴ رقمی شبا";
-"PLACE_HOLDER_AMOUNT" = "مبلغ(ریال)";
-"PLACE_HOLDER_MOBILE_NUM" = "۰۹*********";
-"PLACE_HOLDER_PHONE_NUM" = "شماره ثابت";
-"PLACE_HOLDER_MOBILE_NUMBER" = "شماره تلفن همراه";
-"PLACE_HOLDER_P_CODE" = "کد شهر";
-
-"BTN_EDITE_CONTACT" = "ویرایش مخاطب";
-"BTN_HINT" = "نشانه";
-"BTN_DELETE" = "حذف";
-"BTN_EDITE" = "ویرایش";
-"BTN_CHARGE_WALLET" = "شارژ کیف پول";
-"BTN_CASHOUT" = "برداشت از";
-"BTN_CASHOUT_WALLET" = "برداشت از کیف پول";
-"BTN_CASHOUT_WALLET_STORE" = "برداشت از کیف پول فروشگاه";
-"BTN_CASHOUT_WALLET_DRIVER" = "برداشت از کیف پول راننده";
-"BTN_SHOW_RECEPIET" = "نمایش رسید";
-"BTN_PAY_CASHOUT" = "برداشت";
-
-"SAVED_CARDS" = "کارت های ذخیره شده";
-"Loading ..." = "در حال بروزرسانی ...";
-"MORE" = "بیشتر ...";
-"Updating ..." = "در حال بروزرسانی";
-"UPDATE" = "بروزرسانی";
-
-"MONTH" = " ماه";
-"MONTHS" = " ماه";
-"ADD_BTN" = "افزودن";
-"CANCEL_BTN" = "بستن";
-"DONE_BTN" = "بستن";
-"CONTACTS" = " مخاطب";
-"BLOCK_LIST" = "مخاطبین مسدود شده";
-"CASHOUT_REQUEST" = "برداشت وجه";
-"MID_TERM_BILL" = "قبض میان دوره";
-"END_TERM_BILL" = "قبض پایان دوره";
-"TXT_AMOUNT" = "مبلغ(ریال)";
-"CHANNEL_NAME" = "نام کانال";
-
-"CURRENCY" = "ریال";
-"AMOUNT_IN" = "مبلغ واریزی";
-"AMOUNT_OUT" = "مبلغ برداشت";
-"WAGE" = "کارمزد";
-"DEST_CARD" = "کارت مقصد";
-"DEST_BANK" = "بانک مقصد";
-"SOURCE_BANK" = "بانک مبدا";
-
-"OWNER_NAME" = "نام صاحب";
-"OTP_CODE" = "کد یکبارمصرف";
-"CONFIRM_NEW_PASS" = "تکرار رمز عبور";
-"CURRENT_PASS" = "رمر عبور فعلی";
-"PASSWORD" = "رمز عبور";
-
-"MSG_PASSWORD_IS_NOT_SET" = "رمز عبور برای این حساب کاربری ایجاد نشده است";
-"MSG_INVALID_PASS" = "رمز عبور اشتباه";
-"MSG_INTERNAL_SERVER_ERROR" = "خطای داخلی سرور";
-
-"FORGET_PASSWORD" = "فراموشی رمز عبور";
-"MSG_FORGET_PASSWORD" = "مایل به استفاده از کدام یک از روش های زیر برای تغییر رمز عبور خود هستید؟";
-"RECOVERY_QUESTIONS" = "سوال های امنیتی";
-"RECOVER_PASS" = "بازیابی رمز عبور";
-"AGREE_TO_TERMS" = "موافقت با شرایط و قوانین";
-"history.sale.share" = "سهم از فروش";
-"NEW_PASS" = "رمز عبور جدید";
-"SUCCESS_OTP" = "رمز یکبار مصرف با موفقیت برای شما ارسال شد";
-"SERVER_DOWN" = "خطای برقراری ارتباط با سرور";
-"UNSSUCCESS_OTP" = "مشکلی پیش آمد.مجددا تلاش کنید";
-"SUCCESSFULL_CHANGE_PASS" = "پسورد شما با موفقیت تغییر یافت";
-"PASSCODE_NOT_MACHED" = "رمز عبور و تکرار آن هم خوانی ندارند";
-"INPUT_VALUE_NOT_CORRECT" = "مقادیر وارد شده صحیح نمی باشند.لطفا مجددا فیلد ها را چک نمایید.";
-"SUCCESSFULL_SET_PASS" = "پسورد جدید با موفقیت ثبت گردید";
-"CASHOUT_REQUEST" = "درخواست برداشت وجه";
-"FORGET_WALLET_PIN" = "فراموشی رمز کیف پول";
-"CHECK_ALL_FIELDS" = "لطفا تمام فیلد ها را چک نمایید";
-"OTP_CODE_PLACEHOLDER" = "کد یکبارمصرف ( حداقل ۶ رقم )";
-"BALANCE_NOT_ENOUGH" = "موجودی کیف پول کافی نمی باشد";
-"SUCCESS_OPERATION" = "عملیات با موفقیت انجام شد";
-"WALLET_PIN" = "رمز کیف پول";
-
-"CART_ACCOUNTS" = "لیست سبدها";
-"CART_NOACCOUNTS" = "سبدی برای نمایش وجود ندارد.";
-"EDIT_PROFILE" = "ویرایش مشخصات";
-"ERROR_RETRY" = "خطایی رخ داده است، دوباره تلاش نمایید.";
-"RED_FIELD" = "لطفا فیلدهای قرمز را تکمیل نمایید.";
-"PHOTO_GALLERY" = "گالری تصاویر";
-"CAMERA_DEVICE" = "دوربین دستگاه";
-"FILE" = "فایل";
-"CONTACT" = "مخاطب";
-"LOCATION" = "موقعیت مکانی";
-"OF" = "از";
-"FIELD_CITY" = "شهر";
-"FIELD_BIRTHDATE" = "تاریخ تولد";
-"FIELD_EMAIL" = "آدرس ایمیل";
-"FIELD_SUBTITLE" = "عنوان";
-"FIELD_USERNAME" = "نام کاربری";
-"FIELD_FULLNAME" = "نام کامل";
-"EDIT_PROFILEPIC" = "ویرایش تصویر";
-"SAVE" = "ذخیره";
-"SETTING_VIEW" = "تنظیمات";
-"CONTACTS_VIEW" = "مخاطبین";
-"ACCOUNT_VIEW" = "حساب کاربری";
-"ABOUT_RAAD" = "درباره پیگیر";
-"ACCOUNT_SEC" = "حساب کاربری";
-"MOREMORE" = "سایر";
-"LOGOUT" = "خروج";
-"SURE_LOGOUT" = "آیا برای خروج از حساب کاربری خود اطمینان دارید؟";
-"SURE_DELETE" =  "آیا از حذف حساب کاربری خود اطمینان دارید؟";
-"DELETE_TITLE" =  "حذف حساب کاربری باعث = ";
-
-"DELETE_SUB1" =  "حذف اطلاعات حساب و تصویر حساب کاربری شما";
-"DELETE_SUB2" =  "حذف شما از تمامی گروه ها";
-"DELETE_SUB3" =  "حذف تاریخچه پیام های شما از تلفن همراه";
-
-"DELETE_POST" = "حذف پست";
-"DELETE_PHOTO" = "حذف تصویر";
-"MY_QR" = "کیو آر من";
-"PLACE_HOLDER_SEARCH" = "جست و جو نمایید";
-
-"INVALID_QR" = "کیو آر ناشناخته می باشد";
-"FILL_AMOUNT" = "لطفا فیلد مبلغ را پر نمایید";
-"AMOUNT_IS_NOT_ENOUGH" = "موجودی کیف پول کافی نمی باشد.جهت انجام فرایند پرداخت می توانید از کارت بانکی استفاده نمایید";
-"SAVED_CARDS" = "کارت های ذخیره شده";
-"ENTER_WALLET_PIN" = "رمز کیف پول را وارد نمایید";
-"SUCCESS" = "عملیات موفق";
-
-"IRANCELL" = "ایرانسل";
-"MCI" = "همراه اول";
-"RIGHTEL" = "رایتل";
-"NOT_DETECTED_OPERATOR" = "اپراتور نامشخص";
-"NORMAL_CHARGE" = "شارژ معمولی";
-"AMAZING_CHARGE" = "شارژ شگفت انگیز";
-"WIMAX_CHARGE" = "شارژ وایمکس";
-"PERMANENTLY_SIM_CART" = "سیم کارت دایمی";
-"CHOOSE_COUNTRY" = "انتخاب کشور";
-"CHOOSE_CHARGE_TYPE" = "انتخاب نوع شارژ";
-"CHOOSE_OPERATOR" = "انتخاب اپراتور";
-"TOPUP_TYPE" = "نوع شارژ";
-"CHARGE_PRICE" = "مبلغ شارژ";
-"PORTED_SUBSCRIBER_ENABLE" = "فعال شدن ترابرد";
-"PORTED_SUBSCRIBER_DESABLE" = "غیر فعال شدن ترابرد";
-"PHONE_NUMBER_WRONG" = "شماره وارد شده اشتباه است";
-"PAYMENT_ERROR_ACCURED" = "مشکلی در زمان پرداخت بوجود آمد";
-"BTN_PAY" = "خرید";
-"BTN_CANCEL" = "انصراف";
-"BTN_CLOSE" = "بستن";
-"BTN_INQUERY" = "استعلام";
-"BTN_MY_BILLS" = "قبض های من";
-"BTN_SEARCH_BILLS" = "جست و جوی قبض";
-"BILLING_ID" = "کد قبض";
-"BILL_ID" = "شناسه قبض";
-"PAYMENT_CODE" = "کد پرداخت";
-"TAKE_A_PHOTO" = "گرفتن عکس";
-"DELETE_MAIN_AVATAR" = "حذف آواتار";
-"CHOOSE_PHOTO" = "انتخاب تصویر";
-"LBL_ELECTRICITYBILL_PAY" = "استعلام و پرداخت قبض برق";
-"TTL_BILL_OPERATIONS" = "خدمات قبض برق";
-"MSG_CHARACTER_COUNT_ELECTRICITY_BILL" = "شناسه قبض می بایست ۱۳ کاراکتر باشد";
-"BILL_PAY_AMOUNT" = "مبلغ پایان دوره";
-"BILL_PAY_DATE" = "مهلت پرداخت";
-"BILL_BRANCH_DETAILS" = "اطلاعات انشعاب";
-"BILL_EDIT_MODE" = "ویرایش قبض";
-"BILL_PDF_IMAGE" = "دریافت تصویر قبض";
-"BILL_ADD_MODE" = "افزودن به لیست قبوض من";
-
-"BILL_DETAIL_IDENTIFIER" = "شناسه قبض";
-"BILL_DETAIL_PAY_ID" = "شناسه پرداخت";
-"BILL_DETAIL_COMPANY_CODE" = "کد شرکت توزیع";
-"BILL_DETAIL_COMPANY_NAME" = "نام شرکت توضیع";
-"BILL_DETAIL_PHASE" = "فاز";
-"BILL_DETAIL_VOLTAGE" = "ولتاژ";
-"BILL_DETAIL_TARIFE_TYPE" = "نوع تعرفه";
-"BILL_DETAIL_CUSTOMER_TYPE" = "نوع مشترک";
-"BILL_DETAIL_CUSTOMER_NAME" = "نام مشترک";
-"BILL_DETAIL_CUSTOMER_TEL" = "شماره تماس مشترک";
-"BILL_DETAIL_CUSTOMER_MOB" = "شماره همراه مشترک";
-"BILL_DETAIL_CUSTOMER_ADD" = "آدرس مشترک";
-"BILL_DETAIL_CUSTOMER_POSTALCODE" = "کد پستی مشترک";
-"BILL_DETAIL_CUSTOMER_LOCATION_ZONE" = "محدوده جغرافیایی";
-"BILL_DETAIL_CUSTOMER_DEVICE_NUMBER" = "شماره کنتور";
-"BILL_DETAIL_DUE_DATE" = "مهلت پرداخت بدهی";
-"BILL_DETAIL_LAST_READ" = "آهرین تاریخ قرایت کنتور";
-"BILL_DETAIL_POWER" = "قدرت قراردادی";
-"BILL_DETAIL" = "اطلاعات قبض";
-"BILL_FILL_DATA" = "اطلاعات زیر را پر نمایید";
-"BILL_NAME" = "نام قبض";
-"BILL_BILL_LIST" = "لیست قبض های من";
-"LESS_THAN_1000" = "مبلغ پرداختی میبایست از ۱۰.۰۰۰ ریال بیشتر باشد";
-"ADD_NEW_BILL" = "افزودن قبض جدید";
-"SELECT_COMPANY_FROM_LIST" = "لطفا شرکت توزیع برق منطقه را انتخاب نمایید";
-"ENETER_DEVICE_SERIAL_NUMBER" = "لطفا سریال کنتور را وارد نمایید";
-"FIND_MY_BILL" = "یافتن قبض";
-"INVALID_BILL_MSG" = "قبض نامعتبر می باشد";
-
-
-"CHARITY" = "خیریه";
-
-
-"paygear_card" = "کیف پول";
+//MARK: - Imported From Android
+"text_i_introduce_page1" = "گپ";
+
+/*  */
+"text_line_1_introduce_page1" = "آی";
+
+/*  */
+"text_line_2_introduce_page1" = "ارتباطی بی حد و مرز";
+
+/*  */
+"text_line_3_introduce_page1" = "دنیای خود را با آیگپ بسازید.";
+
+/*  */
+"text_line_4_introduce_page1" = "فقط چند دقیقه تا آیگپی شدن شما!.";
+
+/* Page 2 introduce app */
+"text_line_1_introduce_page2" = "امنیت در آیگپ";
+
+/*  */
+"text_line_2_introduce_page2" = "آیگپ یک ارتباط امن و مطمئن را برای شما برقرار میکند. پیام رسانِ آیگپ با استفاده از الگوریتم های رمزنگاری منحصربفرد در جابجایی همه داده های شما حداکثر امنیت را برای حفظ حریم خصوصی شما فراهم آورده است.";
+
+/* Page 3 introduce app */
+"text_line_1_introduce_page3" = "گفتگو در آیگپ";
+
+/*  */
+"text_line_2_introduce_page3" = "شما میتوانید در آیگپ بصورت دونفره و یا گروهی به گفتگو بپردازید و خیالتان راحت باشد که همیشه به گفتگو های خود دسترسی دارید، همچنین میتوانید کانال بسازید و در آن عضو بگیرید و اطلاعات خود را بین میلیون ها کاربر دیگر نیز به اشتراک بگذارید.";
+
+/* TODO:// complete
+Page 4 introduce app */
+"text_line_1_introduce_page4" = "آیلند";
+
+/*  */
+"text_line_2_introduce_page4" = "آیلند! سرزمین بی حد و مرز\nکه کلی اتفاق شگفت انگیز مثل گرفتن تاکسی، الوپیک، پرداخت قبض و رزرو تور و هتل توش افتاده. و تازه می تونی کلی بازی کنی، فیلم ببینی و موزیک گوش بدی.";
+
+/* Page 5 introduce app */
+"text_line_1_introduce_page5" = "تماس صوتی و تصویری در آیگپ";
+
+/*  */
+"text_line_2_introduce_page5" = "شما میتوانید بر بستر آیگپ با سایر کاربرانِ تماس صوتیِ و تصویری کاملاً رایگان و امن برقرار کنید و در هزینه های خود صرفه جویی نمایید، همچنین تماس ها در آیگپ P2P بوده و حتی سرور های آیگپ هم در جابجایی صدا و تصویر شما دخالت ندارند.";
+
+/* Page 6 introduce app */
+"btn_start_page6" = "همین حالا شروع کنید";
+
+/*  */
+"text_line_1_introduce_page6" = "همه چیز رایگان در آیگپ!";
+
+/*  */
+"text_line_2_introduce_page6" = "آیگپ همیشه رایگان بوده و هست. پس بیش از این منتظر نمی مانیم. همین حالا دنیای خود را در آیگپ بسازید.";
+
+/*  */
+"text_line_1_introduce_page7" = "اطراف من";
+
+/*  */
+"text_line_2_introduce_page7" = "با اطراف من پا به دنیای جدید بگذارید. در اطرافتان دوستان خود، مراکز تفریحی، هنری، تجاری و ... را پیدا کنید و از لحظه های خود لذت ببرید ...";
+
+/* Fill Profile User */
+"pu_title_profileUser" = "اطلاعات خود را تکمیل کنید";
+
+/*  */
+"pu_desc_profileUser" = "نام خود را وارد کنید و در صورت تمایل عکس کاربری خود را انتخاب نمایید";
+
+/*  */
+"pu_addPhoto_profileUser" = "عکس پروفایل";
+
+/*  */
+"pu_nikname_profileUser" = "نام";
+
+/*  */
+"pu_Lets_Go" = "ادامه";
+
+/* Register Page */
+"rg_title_register" = "ثبت نام";
+
+/*  */
+"rg_confirm_text_register" = "لطفاً نام و کد کشور خود را تأیید و سپس شماره تلفن همراه خود را بدون صفر ابتدای آن وارد نمایید.";
+
+/*  */
+"rg_Start" = "بزن بریم...";
+
+/*  */
+"rg_Select_Country" = "کشور خود را انتخاب کنید";
+
+/*  */
+"rg_agreement_text_register" = "تأیید نهایی شماره تلفن شما، کد فعال سازی برای این شماره ارسال می شود.";
+
+/*  */
+"rg_verify_register1" = "در حال اتصال";
+
+/*  */
+"rg_verify_register2" = "منتظر دریافت کد تأیید";
+
+/*  */
+"rg_verify_register3" = "در حال تولید کلید امنیتی";
+
+/*  */
+"rg_verify_register4" = "نهایی سازی ثبت نام";
+
+/*  */
+"rg_verify_dialog_try_code" = "دستی وارد کردم";
+
+/*  */
+"rg_verify_dialog_resend_code" = "ارسال مجدد کد تأیید";
+
+/*  */
+"Re_dialog_verify_number_part1" = "\"شما شماره زیر را وارد کردید:";
+
+/*  */
+"Re_dialog_verify_number_part2" = "اگر شماره وارد شده صحیح است تأیید و در غیر اینصورت اصلاح نمایید";
+
+/*  */
+"Re_Enter_Verify_Code_Please" = "لطفاً کد تأیید را دستی وارد کنید";
+
+/*  */
+"verify_socket_message" = "‫شما با دستگاه دیگری در حساب خود هستید، آیگپ کد فعال سازی را توسط سیستم اطلاع رسانی خود به حساب شما ارسال  کرد، لطفاً دستگاه قبلی را چک کرده و کد را بصورت دستی وارد کنید.";
+
+/*  */
+"verify_time_out_message" = "آیگپ بصورت خودکار پیام تأیید را تشخیص داده و وارد می کند، در غیر اینصورت شما آن را دریافت کرده و می توانید به صورت دستی وارد نمایید، در صورت عدم دریافت کد تأیید، درخواست ارسال مجدد را انتخاب کنید.";
+
+/*  */
+"verify_invalid_code_message" = "متأسفیم، کد تأیید شما نامعتبر است، لطفاً کد صحیح را مجدد وارد نمایید.";
+
+/*  */
+"resend_message" = "ارسال مجدد کد فعال سازی";
+
+/*  */
+"phone_number" = "شماره تلفن";
+
+/*  */
+"Re_Phone_Verification" = "تأیید شماره تلفن";
+
+/* Reagent */
+"ra_title" = "معرف";
+
+/*  */
+"ra_enter_reagent_code" = "لطفا شماره ی معرف خود را وارد کنید(اختیاری)";
+
+/*  */
+"ra_confirm" = "تایید";
+
+/*  */
+"ra_skip" = "فعلا بیخیال!";
+
+/*  */
+"reagent_error_message" = "شماره وارد شده برای معرف اشتباه می باشد.";
+
+/* Toast */
+"Toast_waiting_fot_get_info" = "در انتظار اتصال و موقعیت یابی";
+
+/*  */
+"Toast_Location_Not_Found" = "موقعیت شما یافت نشد";
+
+/*  */
+"Toast_First_0" = "در ابتدای شماره نیاز به 0 نیست";
+
+/*  */
+"Toast_Minimum_Characters" = "تعداد کاراکترها کمتر از حد مجاز است";
+
+/*  */
+"Toast_Enter_Phone_Number" = "لطفاً شماره تلفن خود را بدون صفر ابتدای آن وارد کنید";
+
+/*  */
+"Toast_Enter_Code" = "لطفاً کد تأیید ارسالرا وارد نمایید";
+
+/*  */
+"Toast_Number_Block" = "شماره وارد شده مسدود شده است";
+
+/*  */
+"Toast_Invalid_nickname" = "نام نامعتبر است. لطفاً نام را تغییر دهید.";
+
+/*  */
+"Toast_Write_NickName" = "لطفاً نام خود را وارد کنید";
+
+/* Destruction */
+"sure_delete_account" = "آیا شما از حذف اکانت خود اطمینان دارید ؟";
+
+/*  */
+"delete_account_text_desc" = "(در صورتیکه اکانت خود را حذف کنید، همه فایل هایی که به صورت پیام دریافت کرده اید نیز به طور دائم حذف خواهند شد.)";
+
+/*  */
+"Destruction_Code" = "تخریب";
+
+/*  */
+"Destruction_Des" = "شما اکنون در حال تلاش برای تخریب اکانت خود هستید ، شماره تلفن شما برابر است با :";
+
+/*  */
+"iGap_autofill_Destruction_Code" = "آیگپ بصورت خودکار کد را تشخیص داده و جای خالی را پر میکند در صورتی که نتوانست به صورت دستی وارد کنید.";
+
+/* Message Type and Status */
+"video_message" = "پیام ویدئویی";
+
+/*  */
+"file_message" = "پیام فایلی";
+
+/*  */
+"audio_message" = "پیغام صوتی";
+
+/*  */
+"image_message" = "پیام تصویری";
+
+/*  */
+"contact_message" = "پیام مخاطب";
+
+/*  */
+"gif_message" = "پیام متحرک";
+
+/*  */
+"voice_message" = "پیغام صوتی";
+
+/*  */
+"typing" = "درحال نوشتن…";
+
+/*  */
+"sending_image" = "درحال ارسال تصویر…";
+
+/*  */
+"capturing_image" = "درحال گرفتن تصویر…";
+
+/*  */
+"sending_video" = "درحال ارسال ویدئو…";
+
+/*  */
+"capturing_video" = "درحال ضبط ویدئو…";
+
+/*  */
+"sending_audio" = "درحال ارسال صوت…";
+
+/*  */
+"recording_voice" = "درحال ضبط صدا…";
+
+/*  */
+"sending_voice" = "درحال ارسال صدا…";
+
+/*  */
+"sending_document" = "درحال ارسال سند…";
+
+/*  */
+"sending_gif" = "درحال ارسال تصویرمتحرک…";
+
+/*  */
+"sending_file" = "درحال ارسال فایل…";
+
+/*  */
+"sending_location" = "درحال ارسال موقعیت…";
+
+/*  */
+"choosing_contact" = "درحال انتخاب مخاطب…";
+
+/*  */
+"painting" = "درحال نقاشی…";
+
+/* Action Box */
+"log_out" = "خروج";
+
+/*  */
+"delete_account" = "حذف حساب کاربری";
+
+/*  */
+"mute" = "بی صدا";
+
+/*  */
+"unmute" = "با صدا";
+
+/*  */
+"mute_notification" = "اطلاع رسانی بیصدا";
+
+/*  */
+"pin_to_top" = "پین به بالا";
+
+/*  */
+"Unpin_to_top" = "برداشتن پین";
+
+/*  */
+"unmute_notification" = "اطلاع رسانی باصدا";
+
+/*  */
+"clear_history" = "پاک کردن تاریخچه";
+
+/*  */
+"to_delete_chat" = "حذف گفتگو";
+
+/*  */
+"left_group" = "ترک گروه";
+
+/*  */
+"delete_group" = "حذف گروه";
+
+/* Public String */
+"app_name" = "آیگپ";
+
+/*  */
+"call_name" = "تماس صوتی آیگپ";
+
+/*  */
+"chat" = "گفتگو";
+
+/*  */
+"group" = "گروه";
+
+/*  */
+"channel" = "کانال";
+
+/*  */
+"igap" = "آیگپ";
+
+/*  */
+"igapChanel" = "آیگپ";
+
+/*  */
+"search" = "جستجو";
+
+/*  */
+"d_of_d" = "%d از %d";
+
+/*  */
+"add_to_contact" = "افزودن به مخاطبین";
+
+/*  */
+"cancel" = "انصراف";
+
+/*  */
+"B_cancel" = "انصراف";
+
+/*  */
+"B_skip" = "بیخیال";
+
+/*  */
+"B_finish" = "پایان";
+
+/*  */
+"ok" = "تأیید";
+
+/*  */
+"B_ok" = "تأیید";
+
+/*  */
+"set" = "تأیید";
+
+/*  */
+"am_camera" = "دوربین";
+
+/*  */
+"am_music" = "صوت";
+
+/*  */
+"am_paint" = "نقاشی";
+
+/*  */
+"am_picture" = "تصویر";
+
+/*  */
+"am_document" = "سند";
+
+/*  */
+"am_location" = "مکان";
+
+/*  */
+"am_video" = "ویدئو";
+
+/*  */
+"am_file" = "فایل";
+
+/*  */
+"am_contact" = "مخاطب";
+
+/*  */
+"clear_history_content" = "آیا از پاکسازی تاریخچه اطمینان دارید؟";
+
+/*  */
+"delete_chat_content" = "آیا از حذف کامل این گفتگو اطمینان دارید؟";
+
+/*  */
+"to_delete_contact" = "حذف مخاطب";
+
+/*  */
+"delete_text" = "آیا از حذف این مخاطب اطمینان دارید؟";
+
+/*  */
+"just_wait_en" = "لطفاً منتظر باشید.";
+
+/*  */
+"device_dosenot_camera_en" = "این دستگاه دوربین ندارد.";
+
+/*  */
+"device_dosenot_support" = "دستگاه شما برنامه ای برای انجام این کار ندارد.";
+
+/*  */
+"do_you_want_to_turn_on_gps" = "سیستم مکان‌یاب جهانی (GPS) شما خاموش است، آیا مایلید آن را روشن کنید؟";
+
+/*  */
+"picture_is_saved_en" = "تصویر ذخیره شده است.";
+
+/*  */
+"select_picture_en" = "انتخاب تصویر";
+
+/*  */
+"cannot_load_data_en" = "عدم توانایی در بارگیری داده‌ها";
+
+/*  */
+"do_you_want_exit" = "آیا می‌خواهید خارج شوید؟";
+
+/*  */
+"slide_to_cancel_en" = "برای لغو بکشید";
+
+/*  */
+"video_duration" = "%s (%s)";
+
+/* setting */
+"st_Info" = "اطلاعات اکانت";
+
+/*  */
+"st_Language" = "زبان";
+
+/*  */
+"st_titleToolbar" = "تنظیمات";
+
+/*  */
+"st_title_general" = "تنظیمات عمومی";
+
+/*  */
+"st_username" = "نام کاربری";
+
+/*  */
+"st_nickname" = "نام";
+
+/*  */
+"st_contactName" = "نام مخاطب";
+
+/*  */
+"st_phoneNumber" = "شماره تلفن";
+
+/*  */
+"st_represent" = "معرف:";
+
+/*  */
+"st_title_info" = "اطلاعات";
+
+/*  */
+"st_title_notification_sounds" = "اعلانات و صداها";
+
+/*  */
+"st_title_Clear_Cache" = "پاک کردن حافظهٔ نهان";
+
+/*  */
+"st_title_Privacy_Security" = "امنیت و حریم خصوصی";
+
+/*  */
+"st_title_message" = "اتاق پیام";
+
+/*  */
+"st_title_message_textSize" = "اندازهٔ پیام متنی";
+
+/*  */
+"st_stickers" = "برچسب‌ها و تصاویر";
+
+/*  */
+"st_chatBackground" = "پس زمينهٔ صفحه گفتگو";
+
+/*  */
+"st_Enable_Animation" = "فعال کردن انیمیشن";
+
+/*  */
+"st_inApp_Browser" = "مرورگر درون برنامه‌ای";
+
+/*  */
+"st_crop" = "بریدن و بهبود حجم تصویر";
+
+/*  */
+"st_send_by_enter" = "با زدن کلید اینتر ارسال کن";
+
+/*  */
+"st_title_Media" = "چند رسانه ای";
+
+/*  */
+"st_auto_download_data" = "بارگیری خودکار در حالت اتصال به اینترنت سیم کارت";
+
+/*  */
+"title_auto_download_data" = "بارگیری خودکار در حالت اتصال به اینترنت سیم کارت";
+
+/*  */
+"st_auto_download_wifi" = "بارگیری خودکار در حالت اتصال به وای فای";
+
+/*  */
+"title_auto_download_wifi" = "بارگیری خودکار در حالت اتصال به وای فای";
+
+/*  */
+"st_auto_download_roaming" = "بارگیری خودکار در حالت اتصال به رومینگ داده";
+
+/*  */
+"title_auto_download_roaming" = "بارگیری خودکار در حالت اتصال به رومینگ داده";
+
+/*  */
+"st_auto_gif" = "اجرای خودکار تصاویر متحرک";
+
+/*  */
+"st_save_to_gallery" = "ذخیره‌ کردن در گالری";
+
+/*  */
+"st_title_support" = "پشتیبانی برنامه";
+
+/*  */
+"st_ask_question" = "سؤالی بپرسید.";
+
+/*  */
+"st_About_iGap" = "دربارهٔ آیگپ";
+
+/*  */
+"st_privacy_policy" = "سیاست های حریم خصوصی";
+
+/*  */
+"st_keepMedia" = "نگهداری فایل‌های چند رسانه‌ای";
+
+/*  */
+"st_dialog_content_keepMedia" = "‫تصاویر، ویدئوها و دیگر فایل‌های ذخیره شده در فضای ابری که شما به آنها دسترسی داشته اید، به منظور ایجاد فضای خالی از دستگاه پاک می شوند. همه ی رسانه ها در بخش ذخیره سازی فضای ابری نگه داری شده که در صورت نیاز می توانید مجدداً آنها را دانلود کنید.‬‬‬‬‬‬";
+
+/*  */
+"st_titleToolbar_page_Notification_and_sounds" = "اعلانات و صداها";
+
+/*  */
+"st_title_messageNotification" = "اعلانات پیام";
+
+/*  */
+"st_alert" = "هشدار";
+
+/*  */
+"st_messagePreview" = "پیش نمایش پیام";
+
+/*  */
+"st_led_color" = "رنگ چراغ صفحه نمایش";
+
+/*  */
+"st_vibrate" = "لرزش";
+
+/*  */
+"st_popupNotification" = "پنجره اعلان پیام";
+
+/*  */
+"st_sound" = "صدا";
+
+/*  */
+"st_title_groupNotification" = "اعلانات گروهی";
+
+/*  */
+"st_title_in_app_notification" = "اعلانات درون برنامه‌ای";
+
+/*  */
+"st_in_app_sound" = "صداهای درون برنامه‌ای";
+
+/*  */
+"st_in_app_vibrate" = "لرزش درون برنامه‌ای";
+
+/*  */
+"st_in_app_preview" = "پیش نمایش درون برنامه‌ای";
+
+/*  */
+"st_in_chat_sound" = "صداهای درون گفتگو";
+
+/*  */
+"st_title_Events" = "رویدادها";
+
+/*  */
+"st_Contact_joined_igap" = "مخاطبی اخیراً عضو آیگپ شده است.";
+
+/*  */
+"st_pinned_message" = "پیام‌های چسبیده شده";
+
+/*  */
+"st_title_other" = "سایر";
+
+/*  */
+"st_text_keep_alive_service" = "اگر نرم افزار توسط کاربر یا سیستم از حالت اجرا خارج شده‌ بود، باید دوباره اجرا شود. این کار اطمینان می‌دهد که شما تمام اعلانات را خواهید دید.";
+
+/*  */
+"st_keep_alive_service" = "سرویس همیشه در حال اجرا";
+
+/*  */
+"st_background_connection" = "اتصال پس زمینه";
+
+/*  */
+"st_text_background_connection" = "Keep a low impact background connection to iGap to receive notifications. Enable for reliable notifications.";
+
+/*  */
+"st_badge_counter" = "پیام‌های چسبیده شده";
+
+/*  */
+"st_Repeat_Notifications" = "پیام‌های چسبیده شده";
+
+/*  */
+"st_title_reset" = "بازنشانی";
+
+/*  */
+"st_reset_all_notification" = "بازنشانی همهٔ اعلانات";
+
+/*  */
+"st_text_reset_all_notification" = "تمامی تنظیمات معمول اعلانات را برای همهٔ مخاطبین و گروه های خود خنثی کنید.";
+
+/*  */
+"st_dialog_reset_all_notification" = "آیا مایلید تمامی تنظیمات اعلانات برنامه را به حالت اولیه بازگردانید؟";
+
+/*  */
+"st_dialog_reset_all_notification_yes" = "بلی";
+
+/*  */
+"st_dialog_reset_all_notification_no" = "خیر";
+
+/*  */
+"st_title_Background" = "پس زمينهٔ گفتگو";
+
+/*  */
+"st_stickers_and_picture" = "برچسب‌ها و تصویر";
+
+/* privacy and security */
+"privacy" = "حریم خصوصی";
+
+/*  */
+"Block_Users" = "لیست مسدود‌ شده";
+
+/*  */
+"Last_Seen" = "آخرین مشاهده";
+
+/*  */
+"Groups" = "گروه‌ها";
+
+/*  */
+"Security" = "امنیت";
+
+/*  */
+"Passcode_Lock" = "رمز عبور به هنگام قفل بودن نرم افزار";
+
+/*  */
+"Two_Step_Verification" = "تأیید دو مرحله‌ای";
+
+/*  */
+"Active_Sessions" = "نشست های فعال";
+
+/*  */
+"Account_Self_destruction" = "خودتخریبی حساب کاربری";
+
+/*  */
+"show_line_pattern" = "نمایش خطوط الگو";
+
+/* notification and sound group */
+"ntg_title_toolbar" = "اعلانات و صداها";
+
+/*  */
+"ntg_notifications" = "اعلانات";
+
+/*  */
+"ntg_Sound" = "صدا";
+
+/*  */
+"ntg_smart_notifications" = "اعلانات هوشمند";
+
+/* chanel_info */
+"chi_shared_Media" = "رسانه‌های به اشتراک گذاشته شده";
+
+/*  */
+"chi_clearChat" = "پاک کردن تاریخچهٔ گفتگو";
+
+/*  */
+"chi_blockContact" = "مسدود کردن این مخاطب";
+
+/*  */
+"chi_title_setting" = "تنظیمات";
+
+/*  */
+"chi_popup_call" = "تماس";
+
+/*  */
+"chi_popup_copy" = "کپی";
+
+/*  */
+"chi_NEXT_STEP" = "گام بعدی";
+
+/* fragment add contact */
+"fac_Add_Contact" = "افزودن مخاطب";
+
+/*  */
+"fac_contact_info" = "اطلاعات مخاطب";
+
+/*  */
+"fac_First_Name" = "نام";
+
+/*  */
+"fac_Last_Name" = "نام خانوادگی";
+
+/*  */
+"fac_Phone_Number" = "شماره تلفن";
+
+/*  */
+"fac_Find_in_Page" = "یافتن در صفحه";
+
+/*  */
+"fac_Open_in_Chrome" = "باز کردن در مرورگر کروم";
+
+/*  */
+"fac_Powered_by_iGap" = "ارائه شده توسط آیگپ";
+
+/*  */
+"menu_add_contact" = "افزودن مخاطب";
+
+/*  */
+"shared_media" = "رسانه‌های به اشتراک گذاشته شده";
+
+/*  */
+"shared_files" = "فایل‌های به اشتراک گذاشته شده";
+
+/*  */
+"shared_links" = "پیوند های به اشتراک گذاشته شده";
+
+/*  */
+"shared_music" = "موسیقی های به اشتراک گذاشته شده";
+
+/*  */
+"save_to_Music" = "ذخیره کردن در بخش موسیقی";
+
+/*  */
+"show_all_media" = "نمایش همهٔ رسانه‌ها";
+
+/*  */
+"save_to_gallery" = "ذخیره‌ کردن در گالری";
+
+/*  */
+"delete_from_gallery" = "حذف از گالری";
+
+/*  */
+"select_room" = "انتخاب گفتگو";
+
+/*  */
+"edited" = "ویرایش‌ شده";
+
+/*  */
+"today" = "امروز";
+
+/*  */
+"yesterday" = "دیروز";
+
+/* array */
+"array_Photo" = "عکس";
+
+/*  */
+"array_Voice_Message" = "پیام صوتی";
+
+/*  */
+"array_Video" = "ویدئو";
+
+/*  */
+"array_File" = "فایل";
+
+/*  */
+"array_Music" = "صوت";
+
+/*  */
+"array_GIF" = "تصویر متحرک";
+
+/*  */
+"array_Add_to_Contact" = "افزودن به فهرست مخاطبین";
+
+/*  */
+"array_Call" = "تماس";
+
+/*  */
+"array_Copy" = "کپی";
+
+/*  */
+"array_Off" = "خاموش";
+
+/*  */
+"array_No_popup" = "بدون پنجرۀ اعلان";
+
+/*  */
+"array_Only_when_screen_on" = "‫تنها زمانی که صفحهٔ نمایشگر روشن است";
+
+/*  */
+"array_Only_when_screen_off" = "تنها زمانی که صفحهٔ نمایشگر خاموش است";
+
+/*  */
+"array_Always_show_popup" = "نمایش همیشگی پنجره های اعلان پیام";
+
+/*  */
+"array_Disable" = "غیرفعال";
+
+/*  */
+"array_enable" = "فعال";
+
+/*  */
+"array_Default" = "پیش‌فرض";
+
+/*  */
+"array_Short" = "کوتاه";
+
+/*  */
+"array_Long" = "بلند";
+
+/*  */
+"array_Only_if_silent" = "در حالت سکوت دستگاه";
+
+/*  */
+"array_From_Gallery" = "گالری";
+
+/*  */
+"array_From_Camera" = "دوربین";
+
+/*  */
+"array_Delete_photo" = "حذف عکس";
+
+/*  */
+"array_5_minutes" = "۵ دقیقه";
+
+/*  */
+"array_10_minutes" = "۱۰ دقیقه";
+
+/*  */
+"array_30_minutes" = "۳۰ دقیقه";
+
+/*  */
+"array_1_hour" = "۱ ساعت";
+
+/*  */
+"array_2_hour" = "۲ ساعت";
+
+/*  */
+"array_4_hour" = "۴ ساعت";
+
+/*  */
+"array_Default_Notification_tone" = "آهنگ پیش‌فرض اعلانات";
+
+/*  */
+"replay_item_dialog" = "پاسخ";
+
+/*  */
+"copy_item_dialog" = "کپی";
+
+/*  */
+"share_item_dialog" = "اشتراک";
+
+/*  */
+"forward_item_dialog" = "ارسال";
+
+/*  */
+"delete_item_dialog" = "حذف";
+
+/*  */
+"saveToDownload_item_dialog" = "ذخیره در پوشهٔ دانلودها";
+
+/*  */
+"edit_item_dialog" = "ویرایش";
+
+/*  */
+"Search" = "جستجو";
+
+/*  */
+"Delete_and_leave_Group" = "حذف و ترک گروه";
+
+/*  */
+"New_Chanel" = "کانال جدید";
+
+/*  */
+"New_Group" = "گروه جدید";
+
+/* tarjome nashavad */
+"test" = "تست";
+
+/*  */
+"of" = "از";
+
+/*  */
+"save_to_music_folder" = "با موفقیت ذخیره کردن در پوشهٔ موسیقی";
+
+/*  */
+"no_comment" = "دیدگاهی وجود ندارد.";
+
+/*  */
+"comment" = "دیدگاه";
+
+/*  */
+"choose_picture" = "انتخاب تصویر از";
+
+/*  */
+"cansel" = "لغو";
+
+/*  */
+"from_camera" = "دوربین";
+
+/*  */
+"please_check_your_camera" = "لطفاً دوربین دستگاه خود را بررسی کنید.";
+
+/*  */
+"delete_photo" = "حذف عکس";
+
+/*  */
+"group_name" = "نام گروه";
+
+/*  */
+"save" = "ذخیره";
+
+/*  */
+"please_enter_group_name" = "لطفاً نام گروه را وارد کنید.";
+
+/*  */
+"group_description" = "توضیح مختصر گروه";
+
+/*  */
+"please_enter_group_description" = "لطفاً توضیح مختصری برای گروه وارد کنید.";
+
+/*  */
+"do_you_want_to_delete_this_group" = "آیا از حذف این گفتگو اطمینان دارید؟";
+
+/*  */
+"do_you_want_to_set_admin_role_to_member" = "آیا از گرفتن نقش مدیر از این عضو اطمینان دارید؟";
+
+/*  */
+"do_you_want_to_kick_this_member" = "آیا از بیرون انداختن این عضو اطمینان دارید؟";
+
+/*  */
+"do_you_want_to_set_modereator_role_to_member" = "آیا از گرفتن نقش ناظر از این عضو اطمینان دارید؟";
+
+/*  */
+"waiting_for_network" = "در انتظار اتصال به اینترنت";
+
+/*  */
+"connecting" = "در حال برقراری ارتباط";
+
+/*  */
+"updating" = "در حال به‌روزرسانی";
+
+/*  */
+"last_seen_recently" = "همین حالا";
+
+/*  */
+"member" = "اعضا";
+
+/*  */
+"member_chat" = "عضو";
+
+/*  */
+"one_member_chat" = "عضو";
+
+/*  */
+"exception" = "خطا:";
+
+/*  */
+"please_enter_phone_number" = "لطفاً شماره تماس را وارد کنید.";
+
+/*  */
+"please_enter_correct_phone_number" = "لطفا شماره تلفن صحیح وارد کنید";
+
+/*  */
+"please_enter_firstname_or_lastname" = "لطفاً نام یا نام خانوادگی را وارد کنید.";
+
+/*  */
+"confirm_email_title" = "کد تأیید";
+
+/*  */
+"confirm_email_text" = "به منظور تشخیص و تأیید پست الکترونیکی، کد تأییدی برای ایمیل شما ارسال شده است.";
+
+/*  */
+"new_chanel" = "کانال جدید";
+
+/*  */
+"can_not_save_picture_pleas_try_again" = "عدم توانایی در ذخیرهٔ تصویر، لطفاً دوباره تلاش کنید.";
+
+/*  */
+"chats" = "گفتگو";
+
+/*  */
+"contacts" = "مخاطبین";
+
+/*  */
+"messages" = "پیام‌ها";
+
+/*  */
+"show_message_count" = "پیام‌های قابل نمایش";
+
+/*  */
+"count_of_show_message" = "تعداد پیام‌های قابل نمایش";
+
+/*  */
+"new_messages_from" = "پیام‌های جدید از";
+
+/*  */
+"from" = "از";
+
+/*  */
+"new_message" = "پیام جدید";
+
+/*  */
+"new_messages" = "پیام‌ جدید";
+
+/*  */
+"new_message_recicve" = "پیام جدید دریافت شد.";
+
+/*  */
+"my_Position_is" = "موقعیت من:";
+
+/*  */
+"latitude" = "عرض جغرافیایی:";
+
+/*  */
+"longitude" = "طول جغرافیایی:";
+
+/*  */
+"unknown_artist" = "هنرمند نامشخص";
+
+/*  */
+"add_new_member" = "افزودن عضو(های) جدید";
+
+/*  */
+"set_admin" = "تعیین مدیر";
+
+/*  */
+"set_modereator" = "تعیین ناظر";
+
+/*  */
+"set_kick" = "بیرون انداختن";
+
+/*  */
+"member_can_add_new_member" = "اعضا می‌توانند عضوهای جدید اضافه کنند.";
+
+/*  */
+"notificaion_and_sound" = "اعلانات و صدا";
+
+/*  */
+"your_link" = "پیوند شما";
+
+/*  */
+"public_channel" = "کانال عمومی";
+
+/*  */
+"private_channel" = "کانال خصوصی";
+
+/*  */
+"desc_private_channel" = "کاربران تنها زمانی می توانند به این کانال بپیوندند که توسط مدیر(ان) به عنوان اعضای کانال اضافه شوند.";
+
+/*  */
+"desc_public_channel" = "کاربران می توانند با جستوجوی نام کاربری یا دریافت لینک دعوت به این کانال بپیوندند.";
+
+/*  */
+"last_msg_format_chat" = "%s";
+
+/* Error */
+"USER_VERIFY_BLOCKED_USER" = "کاربر مسدود شده است و امکان تأیید وجود ندارد.";
+
+/*  */
+"Enter_Code" = "کد تخریب";
+
+/*  */
+"E_2" = "نیاز به ورود به سیستم";
+
+/*  */
+"E_335" = "خطایی از کلاینت";
+
+/*  */
+"E_336" = "خطای درونی سرور";
+
+/*  */
+"E_337" = "این کار مجاز نیست.";
+
+/*  */
+"E_327_A" = "خطایی از کلاینت: شناسهٔ روم اشتباه است.";
+
+/*  */
+"E_327_B" = "";
+
+/*  */
+"E_328" = "خطای درونی سرور";
+
+/*  */
+"E_329" = "این کار مجاز نیست.";
+
+/*  */
+"E_332_1" = "خطایی از کلاینت: شناسهٔ روم اشتباه است.";
+
+/*  */
+"E_332_2" = "خطایی از کلاینت: شناسهٔ عضو اشتباه است.";
+
+/*  */
+"E_333" = "خطای درونی سرور";
+
+/*  */
+"E_334" = "این کار مجاز نیست.";
+
+/*  */
+"E_324_1" = "خطایی از کلاینت: شناسهٔ روم اشتباه است.";
+
+/*  */
+"E_324_2" = "خطایی از کلاینت: شناسهٔ عضو اشتباه است.";
+
+/*  */
+"E_325" = "خطایی از کلاینت: شناسهٔ عضو اشتباه است.";
+
+/*  */
+"E_326" = "خطایی از کلاینت: شناسهٔ عضو اشتباه است.";
+
+/*  */
+"E_318_1" = "خطایی از کلاینت: شناسهٔ روم اشتباه است.";
+
+/*  */
+"E_318_2" = "خطایی از کلاینت: شناسهٔ عضو اشتباه است.";
+
+/*  */
+"E_319" = "خطای درونی سرور";
+
+/*  */
+"E_320" = "این کار مجاز نیست.";
+
+/*  */
+"E_321" = "خطایی از کلاینت";
+
+/*  */
+"E_322" = "خطای درونی سرور";
+
+/*  */
+"E_323" = "این کار مجاز نیست.";
+
+/*  */
+"E_302_1" = "خطایی از کلاینت: شناسهٔ روم اشتباه است.";
+
+/*  */
+"E_302_2" = "خطایی از کلاینت: شناسهٔ کاربر اشتباه است.";
+
+/*  */
+"E_302_3" = "خطایی از کلاینت: شناسهٔ شروع پیام اشتباه است.";
+
+/*  */
+"E_302_4" = "خطایی از سمت کلاینت: نقش اشتباه است.";
+
+/*  */
+"E_303" = "خطای درونی سرور";
+
+/*  */
+"E_304" = "کاربر از پیش در این گفتگو حضور دارد.";
+
+/*  */
+"E_305" = "این کار مجاز نیست.";
+
+/*  */
+"E_330_1" = "خطایی از کلاینت: شناسهٔ روم اشتباه است.";
+
+/*  */
+"E_330_2" = "خطایی از سمت کلاینت: نام کاربری اشتباه است.";
+
+/*  */
+"E_330_3" = "خطایی از سمت کلاینت: توضیحات اشتباه است.";
+
+/*  */
+"E_331" = "خطای درونی سرور";
+
+/*  */
+"E_109" = "شناسه نامعتبر است.";
+
+/*  */
+"E_110" = "خطای درونی سرور";
+
+/*  */
+"E_111" = "دسترسی شما مسدود شده است.";
+
+/*  */
+"E_112" = "خطایی از سمت کلاینت: نام مستعار اشتباه است.";
+
+/*  */
+"E_113" = "خطای درونی سرور";
+
+/*  */
+"E_200" = "خطایی از سمت کلاینت: شناسهٔ عضو دیگر اشتباه است.";
+
+/*  */
+"E_201" = "خطای درونی سرور";
+
+/*  */
+"E_202" = "هیچ کاربر فعالی با شناسهٔ عضو ارائه شده وجود ندارد.";
+
+/*  */
+"E_124_1" = "خطایی از سمت کلاینت: شماره تلفن اشتباه است";
+
+/*  */
+"E_124_2" = "خطایی از سمت کلاینت: نام اشتباه است.";
+
+/*  */
+"E_124_3" = "خطایی از سمت کلاینت:  نام خانوادگی اشتباه است.";
+
+/*  */
+"E_124_4" = "خطایی از سمت کلاینت: نام یا نام خانوادگی اشتباه است.";
+
+/*  */
+"E_125" = "خطای درونی سرور";
+
+/*  */
+"E_122" = "خطایی از سمت کلاینت: شماره تلفن اشتباه است";
+
+/*  */
+"E_123" = "خطای درونی سرور";
+
+/*  */
+"E_218" = "خطایی از کلاینت: شناسهٔ روم اشتباه است.";
+
+/*  */
+"E_219" = "خطای درونی سرور";
+
+/*  */
+"E_220" = "این کار مجاز نیست.";
+
+/*  */
+"E_300_1" = "توضیح نامعتبر است";
+
+/*  */
+"E_300_2" = "خطایی از سمت کلاینت: توضیحات اشتباه است.";
+
+/*  */
+"E_301" = "خطای درونی سرور";
+
+/*  */
+"E_379" = "شما نمی توانید این کاربر را به گروه دعوت کنید.";
+
+/*  */
+"E_468" = "تغییر وضعیت امضاء کانال ممنوع است";
+
+/*  */
+"E_478" = "شما نمی توانید این کاربر را به کانال دعوت کنید.";
+
+/*  */
+"E_610" = "خطایی از سمت کلاینت";
+
+/*  */
+"E_611" = "خطای درونی سرور";
+
+/*  */
+"E_612" = "خطایی از سمت کلاینت";
+
+/*  */
+"E_613" = "خطای درونی سرور";
+
+/*  */
+"E_614" = "چنین گفتگویی یافت نشد.";
+
+/*  */
+"E_615_1" = "خطایی از کلاینت: شناسهٔ روم اشتباه است.";
+
+/*  */
+"E_615_2" = "خطایی از سمت کلاینت: شناسهٔ پیام اول اشتباه است.";
+
+/*  */
+"E_616" = "خطای درونی سرور";
+
+/*  */
+"E_617" = "دیگر پیامی برای مشاهده وجود ندارد.";
+
+/*  */
+"E_623" = "نام کاربری پیدا نشد.";
+
+/*  */
+"E_713_1" = "خطایی از سمت کلاینت: نشانه اشتباه است.";
+
+/*  */
+"E_713_2" = "خطایی از سمت کلاینت: آفست اشتباه است.";
+
+/*  */
+"E_713_3" = "خطایی از سمت کلاینت: سقف محدودیت بالااشتباه است.";
+
+/*  */
+"E_713_4" = "خطایی از سمت کلاینت: انتخاب کننده اشتباه است.";
+
+/*  */
+"E_713_5" = "خطایی از سمت کلاینت: آفست اشتباه است.";
+
+/*  */
+"E_714" = "خطای درونی سرور";
+
+/*  */
+"E_715" = "چنین فایلی یافت نشد.";
+
+/*  */
+"E_658" = "گزارش تخلف قبلاً ارسال شده است.";
+
+/*  */
+"E_659" = "در حال حاضر مجاز به ارسال گزارش تخلف نیستید.";
+
+/*  */
+"E_9002" = "دریافت شناسه امکان پذیر نیست";
+
+/*  */
+"E_9006" = "ارتباط با سرور امکان پذیر نیست";
+
+/*  */
+"E_9007" = "ارتباط با سرور امکان پذیر نیست";
+
+/*  */
+"E_9008" = "ارتباط با دریافت کننده برقرار نشد";
+
+/*  */
+"E_9009" = "ارتباط با سرور امکان پذیر نیست";
+
+/*  */
+"E_9010" = "دریافت کننده ثبت نام نکرده است";
+
+/*  */
+"E_9013" = "ثبت نام برای شما ممنوع است";
+
+/*  */
+"E_10165" = "Bad payload: User report";
+
+/*  */
+"E_10166" = "ServerError: User report internal";
+
+/*  */
+"E_10167" = "شما گزارش تخلف این کاربر را قبلاً ارسال کرده اید.";
+
+/*  */
+"E_10168" = "شما قادر به ارسال گزارش تخلف این کاربر نیستید.";
+
+/*  */
+"E_209_1" = "خطایی از کلاینت: شناسهٔ روم اشتباه است.";
+
+/*  */
+"E_209_2" = "خطایی از سمت کلاینت: شناسهٔ پیام اشتباه است.";
+
+/*  */
+"E_209_3" = "خطایی از سمت کلاینت: پیام اشتباه است.";
+
+/*  */
+"E_210" = "چنین فایلی برای درخواست یافت نشد.";
+
+/*  */
+"E_211" = "این کار مجاز نیست.";
+
+/*  */
+"E_212_1" = "خطایی از سمت کلاینت: توضیحات اشتباه است.";
+
+/*  */
+"E_213" = "خطای درونی سرور";
+
+/*  */
+"E_214" = "این کار مجاز نیست.";
+
+/*  */
+"E_154_1" = "کد نامعتبر:گرفتن کد";
+
+/*  */
+"E_233_1" = "شما توسط این کاربر مسدود شده اید .";
+
+/*  */
+"E_154_2" = "کد نامعتبر:گرفتن دلیل";
+
+/*  */
+"E_155" = "تخریب اکانت : خطای داخلی سرور";
+
+/*  */
+"E_156" = "تخریب اکانت : کد اشتباه است";
+
+/*  */
+"E_157" = "تخریب اکانت : کد اعتبار ندارد";
+
+/*  */
+"E_158" = "تخریب اکانت : تلاش بیش از اندازه";
+
+/*  */
+"time_out" = "عدم امکان اتصال به سرور";
+
+/*  */
+"resend_all_messages" = "‫ارسال دوبارهٔ %d پیام";
+
+/*  */
+"resend_chat_message" = "‫ارسال دوبارهٔ پیام";
+
+/*  */
+"if_you_are_away_for" = "پس از";
+
+/*  */
+"st_Gander" = "جنسیت:";
+
+/*  */
+"st_email" = "ایمیل:";
+
+/*  */
+"month_1" = "۱ماه";
+
+/*  */
+"month_3" = "۳ ماه";
+
+/*  */
+"month_6" = "۶ ماه";
+
+/*  */
+"year_1" = "یک سال";
+
+/*  */
+"E_114" = "خطایی از سمت کلاینت: ایمیل اشتباه است.";
+
+/*  */
+"E_115" = "خطای درونی سرور";
+
+/*  */
+"E_116" = "خطایی از سمت کلاینت: نوع جنسیت اشتباه است.";
+
+/*  */
+"E_118" = "اخطار: تعداد مخاطبین از محدودیت تعداد سمت سرور فراتر است.";
+
+/*  */
+"E_118_5" = "اخطار: تعداد پکیج انتقال مخاطبین از محدودیت تعداد سمت سرور فراتر است.";
+
+/*  */
+"list_admin" = "فهرست مدیران";
+
+/*  */
+"list_modereator" = "فهرست ناظران";
+
+/*  */
+"desc" = "توضیحات";
+
+/*  */
+"hello_blank_fragment" = "تست";
+
+/*  */
+"receive_code_text" = "آیا پیام متنی دریافت نکردید؟";
+
+/*  */
+"please_wait" = "منتظر باشید.";
+
+/*  */
+"New_Chat" = "گفتگوی جدید";
+
+/*  */
+"Invite_Friends" = "دعوت کردن دوستان";
+
+/*  */
+"iGap_FAQ" = "‫پرسش‌های متداول آیگپ";
+
+/*  */
+"Documents" = "اسناد";
+
+/*  */
+"remove_admin" = "حذف مدیر";
+
+/*  */
+"remove_moderator" = "حذف ناظر";
+
+/*  */
+"Male" = "آقا";
+
+/*  */
+"Female" = "خانم";
+
+/*  */
+"from_beginning" = "از ابتدا";
+
+/*  */
+"from_Now" = "از حالا";
+
+/*  */
+"last_50_Messages" = "۵۰ پیام آخر";
+
+/*  */
+"customs" = "سفارشی";
+
+/*  */
+"image_selected_for_send" = "تصویر انتخاب شده";
+
+/*  */
+"video_selected_for_send" = "ویدئوی انتخاب شده";
+
+/*  */
+"multi_video_selected_for_send" = "ویدئوی انتخاب شده";
+
+/*  */
+"audio_selected_for_send" = "صوت انتخاب شده";
+
+/*  */
+"file_selected_for_send" = "فایل انتخاب شده";
+
+/*  */
+"pain_selected_for_send" = "نقاشی انتخاب شده";
+
+/*  */
+"phone_selected_for_send" = "شماره تلفن انتخاب شده";
+
+/*  */
+"crop_selected_for_send" = "تصویر انتخاب شده";
+
+/*  */
+"location_message" = "پیام مکانی";
+
+/*  */
+"chat_to_group" = "انتقال گفتگو به گروه";
+
+/*  */
+"last_seen_at" = "آخرین بار دیده شده در";
+
+/*  */
+"long_time_ago" = "خیلی وقت پیش";
+
+/*  */
+"last_month" = "ماه گذشته";
+
+/*  */
+"last_week" = "هفتهٔ گذشته";
+
+/*  */
+"online" = "آنلاین";
+
+/*  */
+"exactly" = "دقیقاْ";
+
+/*  */
+"recently" = "اخیراً";
+
+/*  */
+"support" = "پشتیبانی";
+
+/*  */
+"service_notification" = "سرویس اعلانات برنامه";
+
+/*  */
+"B_edit" = "ویرایش";
+
+/*  */
+"left" = "ترک کردن";
+
+/*  */
+"Channel_name" = "کانال جدید";
+
+/*  */
+"arrow" = "پیکان";
+
+/*  */
+"Ringtone" = "آهنگ زنگ";
+
+/*  */
+"DISCARD" = "رد کردن";
+
+/*  */
+"unknown" = "ناشناس";
+
+/*  */
+"add_to_list_contact" = "افزودن به مخاطبین";
+
+/*  */
+"text_add_to_list_contact" = "آیا می‌خواهید این شماره را به مخاطبین اضافه کنید؟";
+
+/*  */
+"delete_account_text" = "آیا از حذف این حساب کاربری اطمینان دارید؟";
+
+/*  */
+"text_kick_admin" = "آیا از اخراج این مدیر اطمینان دارید؟؟";
+
+/*  */
+"text_kick_moderator" = "آیا از اخراج این ناظر اطمینان دارید؟";
+
+/*  */
+"dialog_readonly_chat" = "متأسفانه امکان ارسال پیام در گفتگو برای شما وجود ندارد.";
+
+/*  */
+"delete_chat" = "حذف گفتگو";
+
+/*  */
+"delete" = "حذف";
+
+/*  */
+"delete_account_text1" = "سایر";
+
+/*  */
+"delete_account_text2" = "سایر";
+
+/*  */
+"delete_account_text3" = "سایر";
+
+/*  */
+"delete_account_text4" = "سایر";
+
+/*  */
+"capture_image" = "گرفتن تصویر";
+
+/*  */
+"capture_video" = "گرفتن فیلم ویدئویی";
+
+/*  */
+"set_gender" = "تنظیم و ویرایش جنسیت";
+
+/*  */
+"set_email" = "تنظیم و ویرایش ایمیل";
+
+/*  */
+"delete_contact" = "حذف مخاطب";
+
+/*  */
+"error_email" = "نشانی ایمیل نامعتبر";
+
+/*  */
+"do_you_want_delete_this" = "آیا از حذف آیتم انتخاب شده اطمینان دارید؟";
+
+/*  */
+"do_you_want_delete_this_channel" = "آیا از حذف این کانال اطمینان دارید؟";
+
+/*  */
+"do_you_want_leave_this_channel" = "آیااز ترک این کانال اطمینان دارید؟";
+
+/*  */
+"do_you_want_clear_history_this" = "آیا از پاک کردن تاریخچه آیتم انتخاب شده اطمینان دارید؟";
+
+/*  */
+"active_session_title" = "لغو و بستن جلسه";
+
+/*  */
+"active_session_all_title" = "لغو و بستن جلسات";
+
+/*  */
+"active_session_content" = "آیا از غیر فعال کردنِ این جلسۀ فعال اطمینان دارید؟";
+
+/*  */
+"active_session_all_content" = "آیا از لغو همهٔ جلسات فعال اطمینان دارید؟";
+
+/*  */
+"USER_VERIFY_GIVEN_USERNAME" = "هیچ کاربری با نام کابری ارائه شده ثبت نام نکرده است.";
+
+/*  */
+"USER_VERIFY_MANY_TRIES" = "کد تأییدیه به دلیل چندین مرتبه وارد کردن برای مدتی مسدود می‌باشد.";
+
+/*  */
+"USER_VERIFY_MANY_TRIES_SEND" = "کد تأییدیه چندین مرتبه ارسال شده است.";
+
+/*  */
+"USER_VERIFY_EXPIRED" = "کد تأییدیه منقضی شده است.";
+
+/*  */
+"USER_VERIFY_BLOCK" = "کاربر به دلیل درخواستش مسدود شده است.";
+
+/*  */
+"convert_chat_to_group_content" = "آیا می‌خواهید این گفتگو را به گروه انتقال دهید؟";
+
+/*  */
+"convert_chat_to_group_title" = "انتقال گفتگو به گروه";
+
+/*  */
+"minute_ago" = "دقیقه پیش";
+
+/*  */
+"device" = "دستگاه:";
+
+/*  */
+"country" = "کشور:";
+
+/*  */
+"create_time" = "ایجاد شده در:";
+
+/*  */
+"ip" = "شناسه";
+
+/*  */
+"current_session" = "جلسهٔ فعلی";
+
+/*  */
+"Active_session" = "جلسهٔ فعال";
+
+/*  */
+"terminate" = "غیرفعال کردن";
+
+/*  */
+"terminate_all" = "لغو تمامی جلسات فعال";
+
+/*  */
+"forwarded_from" = "ارسال شده از";
+
+/*  */
+"more" = "بیشتر…";
+
+/*  */
+"do_you_want_to_delet_this_chat" = "آیا می‌خواهید این گفتگو را حذف کنید؟";
+
+/*  */
+"sound_at_most" = "صدای بلند";
+
+/*  */
+"number" = "تعداد";
+
+/*  */
+"photo" = "عکس";
+
+/*  */
+"music_name" = "عنوان موسیقی";
+
+/*  */
+"times" = "زمان‌ها";
+
+/*  */
+"info" = "اطلاعات";
+
+/*  */
+"description" = "توضیحات";
+
+/*  */
+"type_message" = "پیام...";
+
+/*  */
+"place" = "مکان";
+
+/*  */
+"minutes" = "دقیقه‌ها";
+
+/*  */
+"channel_link" = "پیوند کانال";
+
+/*  */
+"group_profile" = "پروفایل گروه";
+
+/*  */
+"iran" = "ایران";
+
+/*  */
+"naturemagazine" = "مجلهٔ نیچر";
+
+/*  */
+"everybody" = "همه";
+
+/*  */
+"music_time" = "زمان موسیقی";
+
+/*  */
+"new_group" = "گروه جدید";
+
+/*  */
+"delete_from_cache" = "حذف از حافظهٔ نهان";
+
+/*  */
+"leave_channel" = "ترک کردن کانال";
+
+/*  */
+"report" = "گزارش تخلف";
+
+/*  */
+"replay" = "پاسخ دادن";
+
+/*  */
+"members" = "اعضا";
+
+/*  */
+"skip" = "رد کردن";
+
+/*  */
+"settings" = "تنظیمات";
+
+/*  */
+"iGap_settings" = "تنظیمات حساب آیگپ";
+
+/*  */
+"please_write_your_message" = "لطفاْ پیام خود را بنویسید!";
+
+/*  */
+"share_audio_file" = "به اشتراک گذاشتن فایل صوتی";
+
+/*  */
+"share_image" = "به اشتراک گذاشتن تصویر";
+
+/*  */
+"share_image_2" = "به اشتراک گذاشتن تصویر";
+
+/*  */
+"share_video_file_2" = "به اشتراک گذاشتن فایل ویدئویی";
+
+/*  */
+"share_video_file" = "به اشتراک گذاشتن فایل ویدئویی";
+
+/*  */
+"share_file" = "به اشتراک گذاشتن فایل";
+
+/*  */
+"text_copied" = "متن کپی شده";
+
+/*  */
+"message" = "پیام";
+
+/*  */
+"future_done" = "این قابلیت در آینده ارائه خواهد شد.";
+
+/*  */
+"nick_name_not_exist" = "این نام وجود ندارد.";
+
+/*  */
+"first_name" = "نام";
+
+/*  */
+"last_name" = "نام خانوادگی";
+
+/*  */
+"block_this_contact" = "ارتباط این مخاطب مسدود شود؟";
+
+/*  */
+"block" = "مسدود";
+
+/*  */
+"clear_this_chat" = "آیا از حذف تاریخچۀ این گفتگو اطمینان دارید؟";
+
+/*  */
+"clear" = "پاک کردن";
+
+/*  */
+"can_not_save_image" = "عدم امکان ذخیرهٔ تصویر";
+
+/*  */
+"just_owner_can_delete" = "فقط مالک گروه می‌تواند حذف کند.";
+
+/*  */
+"shate_audio_file" = "به اشتراک گذاشتن فایل صوتی";
+
+/*  */
+"last_seen" = "آخرین مشاهده";
+
+/*  */
+"remove" = "حذف کردن";
+
+/*  */
+"please_check_your_connenction" = "لطفاْ شرایط ارتباطی خود را بررسی کنید.";
+
+/*  */
+"errore_verification_sms" = "پیام خطای تأیید";
+
+/*  */
+"male" = "آقا";
+
+/*  */
+"female" = "خانم";
+
+/*  */
+"share_via" = "به اشتراک گذاشتن از طریق";
+
+/*  */
+"error" = "خطا";
+
+/*  */
+"please_enter_code_for_verify" = "کد را وارد کنید.";
+
+/*  */
+"server_do_not_response" = "سرور پاسخ نمی‌دهد.";
+
+/*  */
+"share_image_from_igap" = "به اشتراک گذاشتن تصویر از آیگپ";
+
+/*  */
+"share_video_from_igap" = "به اشتراک گذاشتن ویدیو از آیگپ";
+
+/*  */
+"TERMINATE" = "لغو";
+
+/*  */
+"iGap_version" = "آیگپ iOS نسخه";
+
+/*  */
+"Bazzar" = "کافه بازار";
+
+/*  */
+"do_you_want_left_this" = "آیا از ترک آیتم انتخاب شده اطمینان دارید؟";
+
+/*  */
+"do_you_want_to_leave_this_group" = "آیا از ترک این گروه اطمینان دارید؟";
+
+/*  */
+"waiting_for_connection" = "در انتظار اتصال به سرور";
+
+/*  */
+"picture_save_to_galary" = "ذخیرهٔ تصویر در گالری";
+
+/*  */
+"my_location_title" = "موقعیت من";
+
+/*  */
+"shared_image" = "تصاویر به اشتراک گذاشته شده";
+
+/*  */
+"shared_video" = "ویدیوهای به اشتراک گذاشته شده";
+
+/*  */
+"shared_audio" = "صوت های به اشتراک گذاشته شده";
+
+/*  */
+"shared_voice" = "پیام های صوتی به اشتراک گذاشته شده";
+
+/*  */
+"shared_gif" = "تصاویر متحرک به اشتراک گذاشته شده";
+
+/*  */
+"shared_file" = "فایل های به اشتراک گذاشته شده";
+
+/*  */
+"images" = "تصاویر";
+
+/*  */
+"qr_payment" = "هزینهٔ کیو آر";
+
+/*  */
+"charge_balance" = "میزان شارژ";
+
+/*  */
+"total_balance" = "میزان کل";
+
+/*  */
+"rials" = "ریال";
+
+/*  */
+"amount_rials" = "%@ ریال";
+
+/*  */
+"unverified" = "تشخیص داده نشده/";
+
+/*  */
+"send_documents" = "ارسال اسناد و مدراک";
+
+/*  */
+"charge" = "شارژ";
+
+/*  */
+"transaction_history" = "تاریخچهٔ معاملات";
+
+/*  */
+"transfer_mony" = "انتقال پول";
+
+/*  */
+"create_qr_code" = "ایجاد کد کیو آر";
+
+/*  */
+"pay_via_qr_code" = "پرداخت از طریق کد کیو آر";
+
+/*  */
+"charge_out" = "شارژ کردن";
+
+/*  */
+"e_commerce" = "تجارت الکترونیک";
+
+/*  */
+"agrement" = "توافق";
+
+/*  */
+"payment_charge_out_text" = "پیغام شارژ کردن";
+
+/*  */
+"description_optional" = "توضیح (اختیاری)";
+
+/*  */
+"enter_the_code_here" = "کد را اینجا وارد کنید.";
+
+/*  */
+"transfer_to" = "انتقال به";
+
+/*  */
+"transfer_to_wallet" = "انتقال به کیف پول";
+
+/*  */
+"gift_message" = "اعتبار هدیه به مبلغ *.مایل به دریافت آن هستید؟";
+
+/*  */
+"toast_success_gift" = "برای اعمال اعتبار هدیه چند لحظه صبر کنید.";
+
+/*  */
+"amount_to_pay_factor" = "مبلغ قابل پرداخت فاکتور (ریال) :";
+
+/*  */
+"price" = "قیمت";
+
+/*  */
+"amunt" = "مقدار";
+
+/*  */
+"email_optional" = "ایمیل (اختیاری)";
+
+/*  */
+"create" = "ایجاد";
+
+/*  */
+"gif_selected_for_send" = "تصویر متحرک انتخاب شده برای ارسال";
+
+/*  */
+"log_message" = "ثبت پیام";
+
+/*  */
+"iranian_rials" = "ریال ایران (IRR)";
+
+/*  */
+"your_login_code_is" = "کد ورود شما هست:";
+
+/*  */
+"there_is_no_sheared_media" = "هیچ رسانه‌ای به اشتراک گذاشته نشده است.";
+
+/*  */
+"pending" = "معلق";
+
+/*  */
+"completed" = "کامل شده";
+
+/*  */
+"st_data_shams" = "تاریخ پارسی";
+
+/*  */
+"content_log_out" = "آیا از خروج از حساب کاربری خود اطمینان دارید؟";
+
+/*  */
+"one_day" = "یک روز قبل";
+
+/*  */
+"two_day" = "دو روز قبل";
+
+/*  */
+"three_day" = "سه روز قبل";
+
+/*  */
+"four_day" = "چهار روز قبل";
+
+/*  */
+"five_day" = "پنج روز قبل";
+
+/*  */
+"six_day" = "شش روز قبل";
+
+/*  */
+"at" = "در";
+
+/*  */
+"group_link_copy" = "کپی";
+
+/*  */
+"group_link_revoke" = "ابطال لینک";
+
+/*  */
+"group_link" = "لینک گروه";
+
+/*  */
+"normal_error" = "can't do it please try later";
+
+/*  */
+"channel_description" = "توضیح کانال";
+
+/*  */
+"channel_name" = "نام کانال";
+
+/*  */
+"delete_and_leave_channel" = "حذف و خارج شدن از کانال";
+
+/*  */
+"channel_delete" = "حذف کانال";
+
+/*  */
+"please_enter_channel_name" = "لطفاً نام کانال وارد کنید.";
+
+/*  */
+"new_channel" = "کانال جدید";
+
+/*  */
+"channel_left" = "ترک کانال";
+
+/*  */
+"please_enter_channel_description" = "لطفاً توضیح مختصری برای کانال وارد کنید.";
+
+/*  */
+"txt_you" = "شما";
+
+/*  */
+"you" = "شما";
+
+/*  */
+"farvardin" = "فروردین";
+
+/*  */
+"ordibehst" = "اردیبهشت";
+
+/*  */
+"khordad" = "خرداد";
+
+/*  */
+"tir" = "تیر";
+
+/*  */
+"mordad" = "مرداد";
+
+/*  */
+"shahrivar" = "شهریور";
+
+/*  */
+"mehr" = "مهر";
+
+/*  */
+"aban" = "آبان";
+
+/*  */
+"azar" = "آذر";
+
+/*  */
+"dey" = "دی";
+
+/*  */
+"bahman" = "بهمن";
+
+/*  */
+"esfand" = "اسفند";
+
+/*  */
+"join" = "عضویت";
+
+/*  */
+"do_you_want_to_join_to_this" = "آیا مایلید در این";
+
+/*  */
+"txt_draft" = "پیش نویس:";
+
+/*  */
+"st_signature" = "امضا";
+
+/*  */
+"spam" = "Spam";
+
+/*  */
+"sunday" = "یک شنبه";
+
+/*  */
+"monday" = "دوشنبه";
+
+/*  */
+"tuesday" = "سه شنبه";
+
+/*  */
+"wednesday" = "چهارشنبه";
+
+/*  */
+"thursday" = "پنج شنبه";
+
+/*  */
+"friday" = "جمعه";
+
+/*  */
+"saturday" = "شنبه";
+
+/*  */
+"block_user" = "مسدود کردن ارتباط مخاطب";
+
+/*  */
+"un_block_user" = "رفع مسدودیت ارتباط مخاطب";
+
+/*  */
+"prefix" = "توسط";
+
+/*  */
+"USER_JOINED" = "به آیگپ پیوست";
+
+/*  */
+"USER_DELETED" = "آیگپ را ترک کرد";
+
+/*  */
+"ROOM_CREATED" = "ایجاد شد";
+
+/*  */
+"MEMBER_ADDED" = "اضافه شد";
+
+/*  */
+"MEMBER_KICKED" = "حذف شد";
+
+/*  */
+"MEMBER_LEFT" = "را ترک کرد";
+
+/*  */
+"ROOM_CONVERTED_TO_PUBLIC" = "از خصوصی به عمومی تبدیل شد";
+
+/*  */
+"ROOM_CONVERTED_TO_PRIVATE" = "از عمومی به خصوصی تبدیل شد";
+
+/*  */
+"MEMBER_JOINED_BY_INVITE_LINK" = "با دعوت به";
+
+/*  */
+"Room_Deleted_log" = "حذف شد";
+
+/*  */
+"revoke" = "ابطال";
+
+/*  */
+"conversation" = "صفحه";
+
+/*  */
+"MISSED_SCREEN_SHARE" = "تماس از دست رفته";
+
+/*  */
+"MISSED_VOICE_CALL" = "تماس صوتی از دست رفته";
+
+/*  */
+"MISSED_VIDEO_CALL" = "تماس تصویری از دست رفته";
+
+/*  */
+"send_position" = "ارسال موقعیت";
+
+/*  */
+"deleted_message" = "پیام حذف شده";
+
+/*  */
+"unread_message" = "پیام خوانده نشده";
+
+/*  */
+"you_need_to_allow" = "باید اجازه استفاده از";
+
+/*  */
+"permission_camera" = "دوربین را بدهید";
+
+/*  */
+"permission_contact" = "لیست تماس ها را بدهید";
+
+/*  */
+"permission_calender" = "تقویم را بدهید";
+
+/*  */
+"permission_location" = "موقعیت یاب گوشی را بدهید";
+
+/*  */
+"permission_record_audio" = "میکروفن را بدهید";
+
+/*  */
+"permission_phone" = "گوشی را بدهید";
+
+/*  */
+"permission_sms" = "پیامک ها را بدهید";
+
+/*  */
+"st_privacy_blog" = "بلاگ رسمی آیگپ";
+
+/*  */
+"st_privacy_create_ticket" = "درخواست پشتیبانی";
+
+/*  */
+"st_privacy_iGap_home" = "صفحه رسمی آیگپ";
+
+/*  */
+"channel_public_hint_revoke" = "لینک عمومی کانال";
+
+/*  */
+"channel_link_title_revoke" = "لینک دعوت";
+
+/*  */
+"channel_link_hint_revoke" = "لینک دعوت به کانال";
+
+/*  */
+"self_destructs" = "خود تخریبی";
+
+/*  */
+"save_ok" = "ذخیره شد";
+
+/*  */
+"Toast_time_wait" = "لطفاً منتظر بمانید تا :";
+
+/*  */
+"array_delete_photo_group" = "حذف عکس";
+
+/*  */
+"group_link_hint_revoke" = "لینک دعوت گروه";
+
+/*  */
+"channel_title_convert_to_private" = "تبدیل به کانال خصوصی";
+
+/*  */
+"channel_text_convert_to_private" = "آیا می خواهید این کانال را به کانال خصوصی تبدیل کنید؟";
+
+/*  */
+"channel_title_convert_to_public" = "تبدیل به کانال عمومی";
+
+/*  */
+"channel_text_convert_to_public" = "آیا می خواهید این کانال را به کانال عمومی تبدیل کنید؟";
+
+/*  */
+"channel_title_channel_set_username" = "تخصیص لینک عمومی کانال";
+
+/*  */
+"group_title_convert_to_private" = "تبدیل به گروه خصوصی";
+
+/*  */
+"group_text_convert_to_private" = "آیا می خواهید این گروه را به گروه خصوصی تبدیل کنید؟";
+
+/*  */
+"group_title_convert_to_public" = "تبدیل به گروه عمومی";
+
+/*  */
+"group_text_convert_to_public" = "آیا می خواهید این گروه را به گروه عمومی تبدیل کنید؟";
+
+/*  */
+"group_title_set_username" = "تخصیص نام کاربری";
+
+/*  */
+"permission_storage" = "محل ذخیره سازی را بدهید";
+
+/*  */
+"you_have_to_get_storage_permision_for_continue" = "برای ادامه کار نیاز به مجوز ذخیره سازی می باشد";
+
+/*  */
+"clean_up_chat_rooms" = "پاک سازی کلی";
+
+/*  */
+"clean_up" = "پاک سازی";
+
+/*  */
+"do_you_want_to_clean_all_data_in_chat_rooms" = "آیا از حذف کلیۀ اطلاعات چت ها از پایگاه دادۀ داخلی اطمینان دارید؟";
+
+/*  */
+"pm" = "ب ظ";
+
+/*  */
+"am" = "ق ظ";
+
+/*  */
+"forward_message" = "ارسال پیام";
+
+/*  */
+"message_selected" = "پیام انتخاب شده است";
+
+/*  */
+"messages_selected" = "پیام انتخاب شده است";
+
+/*  */
+"file_not_download_yet" = "فایل هنوز دانلود نشده است";
+
+/*  */
+"navigation_drawer_close" = "بستن";
+
+/*  */
+"chat_with_yourself" = "فضای ابری من";
+
+/*  */
+"can_not_connent_to_server" = "اتصال با سرور برقرار نشد.";
+
+/*  */
+"text_is_empty" = "پیام خالی است.";
+
+/*  */
+"please_try_again" = "لطفاً مجدداً تلاش نمایید";
+
+/*  */
+"room_not_exist" = "صفحه ای با این شناسه یافت نشد";
+
+/*  */
+"app_theme" = "رنگ پوسته آیگپ";
+
+/*  */
+"app_notif_color" = "رنگ اعلانات در آیگپ";
+
+/*  */
+"theme" = "رنگ بندی";
+
+/*  */
+"is" = "است";
+
+/*  */
+"are" = "هست";
+
+/*  */
+"members_are" = "نفر";
+
+/*  */
+"toggle_botton_color" = "رنگ دکمه های ضامنی";
+
+/*  */
+"send_and_attach_botton_color" = "رنگ آیکن ارسال و پیوست ها";
+
+/*  */
+"default_header_font_color" = "رنگ تیتر نوشته ها";
+
+/*  */
+"default_progress_color" = "رنگ نوار پردازش";
+
+/*  */
+"who_can_see_my_avatar" = "چه کسی عکس های پروفایل من را ببیند؟";
+
+/*  */
+"who_can_invite_you_to_channel_s" = "چه کسی من را به کانال دعوت کند ؟";
+
+/*  */
+"who_can_invite_you_to_group_s" = "چه کسی من را به گروه دعوت کند ؟";
+
+/*  */
+"no_body" = "هیچکس";
+
+/*  */
+"my_contacts" = "مخاطبین من";
+
+/*  */
+"privacy_setting" = "تنظیمات خصوصی";
+
+/*  */
+"igap_search" = "‫بگرد و کشف کن";
+
+/*  */
+"set_color_to_default" = "برگرداندن رنگ ها به پیش فرض";
+
+/*  */
+"empty_message" = "لطفاً 5 کاراکتر ابتدایی نام کاربری را وارد کنید";
+
+/*  */
+"empty_message3" = "برای جستجو حداقل 5 کاراکتر وارد کنید";
+
+/*  */
+"there_is_no_any_result" = "نتیجه ای یافت نشد";
+
+/*  */
+"there_is_no_connection_to_server" = "ارتباط با سرور برقرار نیست";
+
+/*  */
+"empty_room" = "هنوز پیامی ندارید";
+
+/*  */
+"empty_call" = "شما تاکنون هیچ تماسی برقرار نکرده اید";
+
+/*  */
+"show_member" = "نمایش اعضا";
+
+/*  */
+"show_vote_layout_in_channel" = "نمایش لایه ثبت رای در کانال";
+
+/*  */
+"close" = "بستن";
+
+/*  */
+"INVALID" = "نامعتبر";
+
+/*  */
+"TAKEN" = "ثبت شده";
+
+/*  */
+"OCCUPYING_LIMIT_EXCEEDED" = "محدودیت دریافت";
+
+/*  */
+"st_trim" = "بریدن بخشی از ویدیو";
+
+/*  */
+"st_compress" = "فشرده سازی ویدیو";
+
+/*  */
+"compressing" = "فشرده سازی";
+
+/*  */
+"selected_color_can_not_set_on_yout_device" = "رنگ انتخاب شده قابل نمایش در دستگاه شما نیست";
+
+/*  */
+"keep_media_forever" = "برای همیشه";
+
+/*  */
+"keep_media_1month" = "یک هفته";
+
+/*  */
+"file_save_to_download_folder" = "فایل در پوشه دانلود ذخیره شد";
+
+/*  */
+"first_download_file" = "ابتدا فایل را دانلود کنید";
+
+/*  */
+"file_save_to_galary_folder" = "فایل در پوشه گالری ذخیره شد";
+
+/*  */
+"file_can_not_save_to_selected_folder" = "فایل در پوشه انتخاب شده ذخیره نشد.";
+
+/*  */
+"file_save_to_video_folder" = "فایل در پوشه ویدیو ذخیره شد.";
+
+/*  */
+"file_save_to_picture_folder" = "فایل در پوشه تصاویر ذخیره شد.";
+
+/*  */
+"title_limit_chat_to_unknown_contact" = "محدودیت در گفتگو (چت)";
+
+/*  */
+"text_limit_chat_to_unknown_contact" = "لطفاً تا اتمام زمان منتظر بمانید (شما تنها می توانید همزمان حداکثر به ۱۰ کاربر ناشناس پیغام دهید؛ بعد از دهمین کاربر از ادامه این کار متوقف خواهید شد و باید تا اتمام شمارش معکوس صبر کنید).";
+
+/*  */
+"title_limit_Create_Group" = "محدودیت در تعداد ساخت اتاق های گفتگو یا اطلاع رسانی";
+
+/*  */
+"text_limit_Create_Group" = "شما اجازه دارید نهایتاً ۲۵ گروه و یا کانال بسازید";
+
+/*  */
+"show_sender_name_in_group" = "نمایش نام فرستنده پیام در گروه";
+
+/*  */
+"calls" = "لیست تماس";
+
+/*  */
+"voice_calls" = "تماس صوتی آیگپ";
+
+/*  */
+"video_calls" = "تماس تصویری آیگپ";
+
+/*  */
+"map" = "نقشه";
+
+/*  */
+"igap_nearby" = "اطراف من";
+
+/*  */
+"igap_call" = "تماس صوتی آیگپ";
+
+/*  */
+"No_messages_here_yet" = "در حال حاضر پیامی وجود ندارد";
+
+/*  */
+"clean_log" = "پاک کردن تاریخچه تماس صوتی";
+
+/*  */
+"mandatory" = "(الزامی)";
+
+/*  */
+"optional" = "اختیاری";
+
+/*  */
+"desc_group_chanel" = "توضیحات (اختیاری)";
+
+/*  */
+"set_additional_password" = "تعیین رمزعبور";
+
+/*  */
+"two_step_verification_title" = "فعال سازی دو مرحله ای";
+
+/*  */
+"two_step_verification_description" = "شما می توانید رمزعبوری برای حساب کاربری خود تعیین کنید، این رمز زمانی مورد نیاز است که بخواهید جهت ورود به حساب کاربریتان از دستگاه دیگری استفاده نمایید. بعلاوهٔ این رمز شما زمان ورود به حساب کاربری کد تأییدی نیز به صورت پیامک دریافت خواهید کرد.";
+
+/*  */
+"two_step_verification_disable" = "فعال سازی دو مرحله ای غیر فعال شد.";
+
+/*  */
+"enter_a_password" = "رمز عبور را وارد کنید";
+
+/*  */
+"please_enter_your_password" = "لطفاً رمز عبور خود را وارد نمایید";
+
+/*  */
+"your_password" = "رمزعبور";
+
+/*  */
+"please_re_enter_your_password" = "لطفاً رمزعبور خود را یک بار دیگر وارد نمایید";
+
+/*  */
+"please_create_hint_for_your_password" = "لطفاً برای رمزعبورتان یک نشانه در نظر بگیرید";
+
+/*  */
+"password_hint" = "نشانهٔ رمزعبور";
+
+/*  */
+"password_Question_title_one" = "سؤال امنیتی شماره ۱ (الزامی)";
+
+/*  */
+"password_Question_one" = "برای مثال: معلم مورد علاقه تان کیست؟";
+
+/*  */
+"password_Question_title_two" = "سؤال امنیتی شماره ۲ (الزامی)";
+
+/*  */
+"title_toolbar_password_Question" = "سوالات امنیتی جدید";
+
+/*  */
+"password_Question_explain" = "لطفاً سؤالات و پاسخ های جدید را جهت بازیابی رمز عبور وارد نمایید.";
+
+/*  */
+"password_Question_two" = "برای مثال: بهترین دوست شما کیست؟";
+
+/*  */
+"password_answer" = "جواب";
+
+/*  */
+"password_Question_title" = "پرسش رمزعبور";
+
+/*  */
+"recovery_email" = "بازیابی از طریق پست الکترونیکی";
+
+/*  */
+"your_email" = "پست الکترونیکی (اختیاری)";
+
+/*  */
+"recovery_question" = "بازیابی از طریق سؤال امنیتی";
+
+/*  */
+"two_step_verification" = "فعال سازی دو مرحله ای";
+
+/*  */
+"forgot_password" = "رمزعبور خود را فراموش کرده اید؟";
+
+/*  */
+"Recovery_with_email" = "بازیابی از طریق پست الکترونیکی";
+
+/*  */
+"recent_code" = "کد جدید";
+
+/*  */
+"enter_code" = "کد را وارد کنید";
+
+/*  */
+"Change_password" = "تغییر رمزعبور";
+
+/*  */
+"Change_hint" = "تغییر نشانهٔ رمزعبور";
+
+/*  */
+"turn_Password_off" = "غیرفعال سازی درخواست رمزعبور";
+
+/*  */
+"turn_Password_off_desc" = "آیا مایلید رمز عبور را غیرفعال نمایید؟";
+
+/*  */
+"change_email_recovery" = "تعیین یا تغییر پست الکترونیکی";
+
+/*  */
+"Change_question_recovery" = "تغییر سؤالات امنیتی";
+
+/*  */
+"set_unconfirmed_email" = "تأیید پست الکترونیکی";
+
+/*  */
+"set_recovery_dialog_title" = "بازیابی از طریق:";
+
+/*  */
+"Recovery_with_question" = "بازیابی از طریق سؤال امنیتی";
+
+/*  */
+"please_enter_confirm_code" = "کد تأیید پست الکترونیکی";
+
+/*  */
+"recovery_by_email" = "بازیابی از طریق پست الکترونیکی";
+
+/*  */
+"recovery_by_question" = "بازیابی از طریق سؤال امنیتی";
+
+/*  */
+"recovery_by_question_dialog" = "سؤال امنیتی";
+
+/*  */
+"recovery_by_email_dialog" = "پست الکترونیکی";
+
+/*  */
+"recovery_Password" = "بازیابی رمزعبور";
+
+/*  */
+"your_email_desc" = "لطفاً پست الکترونیکی معتبری وارد کنید. این گزینه برای بازیابی رمزعبور فراموش شده است.";
+
+/*  */
+"call_with" = "انتخاب مخاطب";
+
+/*  */
+"please_enter_code" = "لطفاً کد را وارد نمایید";
+
+/*  */
+"please_enter_all_item" = "لطفاً کد را وارد نمایید";
+
+/*  */
+"Hint_cant_the_same_password" = "نشانهٔ در نظر گرفته شده برای رمزعبور نباید مشابه با رمزعبور باشد.";
+
+/*  */
+"please_complete_all_item" = "لطفاً همهٔ موارد را کامل کنید";
+
+/*  */
+"Password_dose_not_match" = "عدم مطابقت رمزعبور وارد شده";
+
+/*  */
+"Password_has_to_mor_than_character" = "رمزعبور باید بیش از ۲ کاراکتر باشد.";
+
+/*  */
+"Please_complete_all_Item" = "\"لطفاً همهٔ موارد را کامل کنید";
+
+/*  */
+"hint_can_same_password" = "\"نشانهٔ رمزعبور نباید با رمزعبور مشابه باشد";
+
+/*  */
+"Please_enter_your_hint" = "\"لطفاً نشانهٔ رمزعبور را وارد نمایید";
+
+/*  */
+"Please_enter_your_email" = "\"لطفاً پست الکترونیکی خود را وارد نمایید";
+
+/*  */
+"e_call_permision" = "اجازه برقراری ارتباط نیست";
+
+/*  */
+"e_904_6" = "یوزر بلاک شده است";
+
+/*  */
+"e_904_7" = "شماره گرفته شده فعال نیست";
+
+/*  */
+"e_904_8" = "شما با دستگاه دیگرتان در حال مکالمه هستید";
+
+/*  */
+"e_904_9" = "یوزر در حال مکالمه است";
+
+/*  */
+"tab_to_return_to_call" = "بازگشت به صفحه تماس";
+
+/*  */
+"who_is_allowed_to_voice_call" = "افراد مجاز برای تماس صوتی";
+
+/*  */
+"who_is_allowed_to_video_call" = "افراد مجاز برای تماس تصویری";
+
+/*  */
+"miss" = "از دست رفته";
+
+/*  */
+"not_answer" = "بدون پاسخ";
+
+/*  */
+"un_answered" = "بدون پاسخ";
+
+/*  */
+"e_906_1" = "شما اجازه تماس با این مخاطب را ندارید.";
+
+/*  */
+"iGap_has_crashed" = "آیگپ با خطای پیش بینی نشده برخورد کرده است!";
+
+/*  */
+"iGap_has_crashed_reload" = "شروع مجدد";
+
+/*  */
+"iGap_has_crashed_desc" = "خطای پیش بینی نشده ای پیش آمده که منجر به از کار افتادن برنامه شده است. ‫‫‏‫ما از خطای پیش آمده آگاهی داریم  و در حال برطرف کردن آن هستیم، تنها کاری که باید انجام دهید کلیک بر روی گزینهٔ «شروع مجدد» است.";
+
+/*  */
+"nothing" = "چیزی نیست!";
+
+/*  */
+"are_you_sure_clear_call_logs" = "آیا از حذف  تمامی تماس ها اطمینان دارید؟";
+
+/*  */
+"are_you_sure_clear_call_log" = "آیا از حذف  تماس های انتخاب شده اطمینان دارید؟";
+
+/*  */
+"please_write_your_reasons" = "لطفاً دلیل خود را بنویسید";
+
+/*  */
+"error_check_password" = "به دلیل تلاش پیاپی، رمزعبور برای مدتی غیرفعال است.";
+
+/*  */
+"your_confirm_email" = "لطفاً کد تأیید پست الکترونیکی را وارد کنید";
+
+/*  */
+"your_confirm_email_skip" = "بیخیال";
+
+/*  */
+"your_resend_email_skip" = "ارسال مجدد کد تأیید";
+
+/*  */
+"invalid_verify_email_code" = "کد تأیید نامعتبر است";
+
+/*  */
+"resend_verify_email_code" = "مجدداً کد تأیید را برای ایمیل شما ارسال کردیم";
+
+/*  */
+"enter_verify_email_code" = "لطفاً کد تأیید را وارد کنید";
+
+/*  */
+"invalid_password" = "کلمه عبور نامعتبر است";
+
+/*  */
+"please_set_password" = "تنظیم کلمه عبور";
+
+/*  */
+"please_set_hint" = "تنظیم یاداوری";
+
+/*  */
+"invalid_email" = "پست الکترونیکی نا معتبر";
+
+/*  */
+"yes" = "بلی";
+
+/*  */
+"no" = "خیر";
+
+/*  */
+"not_answered" = "پاسخی دریافت نشد";
+
+/*  */
+"unavalable" = "در دسترس نیست";
+
+/*  */
+"too_long" = "خیلی طولانی";
+
+/*  */
+"signaling" = "در حال برقراری تماس";
+
+/*  */
+"incoming_call" = "تماس ورودی";
+
+/*  */
+"ringing" = "در حال زنگ خوردن";
+
+/*  */
+"connecting_call" = "در حال اتصال";
+
+/*  */
+"connected" = "متصل شد";
+
+/*  */
+"disconnected" = "قطع شد";
+
+/*  */
+"faild" = "ناموفق";
+
+/*  */
+"reject" = "رد تماس";
+
+/*  */
+"busy" = "مشغول";
+
+/*  */
+"invalid_email_token" = "کد تأیید پست الکترونیکی نادرست است";
+
+/*  */
+"invalid_question_token" = "پاسخ شما نادرست است";
+
+/*  */
+"not_answerd_call" = "تماس صوتی از دست رفته";
+
+/*  */
+"recorded_by" = "ضبط شده توسط";
+
+/*  */
+"Login_with_QrCode" = "ورود با اسکن بارکد";
+
+/*  */
+"Input_device_specification" = "ورود موفق دستگاه";
+
+/*  */
+"QrCode_Scan" = "ورود با اسکن بارکد";
+
+/*  */
+"Call_Quality" = "کیفیت تماس";
+
+/*  */
+"desc_self_destroy" = "درصورتی که از حساب کاربری خود در طول یکی از مدت زمان های تعیین شده به هیچ وجه استفاده نکنید، حساب شما پس از آن زمان به صورت خودکار تخریب و برای همیشه حذف می شود.";
+
+/*  */
+"color_default" = "آیا مایلید رنگ بندی همه قسمت های برنامه به حالت اولیه و پیش فرض باز گردد؟";
+
+/*  */
+"crop_image_menu_rotate_right" = "چرخاندن";
+
+/*  */
+"crop_image_menu_crop" = "برش";
+
+/*  */
+"crop_image_menu_flip" = "برگرداندن تصویر";
+
+/*  */
+"crop_image_menu_flip_horizontally" = "برگرداندن افقی تصویر";
+
+/*  */
+"crop_image_menu_flip_vertically" = "برگرداندن عمودی تصویر";
+
+/*  */
+"title_who_can_see_my_avatar" = "دیده شدن عکسهای پروفایل من توسط";
+
+/*  */
+"title_who_can_invite_you_to_channel_s" = "دریافت لینک دعوت کانال از";
+
+/*  */
+"title_who_can_invite_you_to_group_s" = "دریافت لینک دعوت گروه از";
+
+/*  */
+"title_who_is_allowed_to_call" = "دریافت تماس از";
+
+/*  */
+"title_Last_Seen" = "چک شدن آخرین بازدید من توسط";
+
+/*  */
+"item" = "آیتم";
+
+/*  */
+"c_byte" = "بایت";
+
+/*  */
+"c_KB" = "کیلوبایت";
+
+/*  */
+"c_MB" = "مگابایت";
+
+/*  */
+"c_GB" = "گیگابایت";
+
+/*  */
+"c_TB" = "ترابایت";
+
+/*  */
+"audio" = "فایل صوتی";
+
+/*  */
+"total_size" = "حجم کل";
+
+/*  */
+"manage_spacing" = "کنترل حافظهٔ برنامه";
+
+/*  */
+"local_database" = "پایگاه دادهٔ محلی";
+
+/*  */
+"data_storage" = "ذخیره سازی اطلاعات";
+
+/*  */
+"keep_media" = "نگهداری و حفظ رسانه ها";
+
+/*  */
+"invite_friend" = "این مخاطب هنوز به آیگپ نپیوسته. آیا مایلید ایشان را دعوت کنید؟";
+
+/*  */
+"clean_up_description" = "پاک کردن پایگاه دادهٔ برنامه منجر به حذف پیام های متنی ذخیره شده در حافظهٔ نهان و فشرده شدن پایگاه داده به منظور ذخیرهٔ فضای داخلی خواهد شد. آیگپ برای کارکردن به مقداری از اطلاعات نیاز دارد، بنابراین حجم پایگاه داده کاملاً خالی نخواهد شد و به صفر نمیرسد. تکمیل این عملیات چند دقیقه زمان می برد.";
+
+/*  */
+"list_contacts" = "لیست مخاطبین شما";
+
+/*  */
+"limit_for_set_username" = "محدودیت زمانی برای تغییر نام کاربری";
+
+/*  */
+"clear_cache_desc" = "اطلاعات ذخیره شده در حافظهٔ نهان همان فایل های تصویری، ویدیویی یا اسنادی هستند که بر روی دستگاه شما دریافت و یا از سویِ آن ارسال شده اند؛ هر از گاهی عملیات پاکسازی باید بر روی این فایل ها انجام شود تا مانع از کُندی یا توقف در اجرای برنامه ها شود. هر گاه مایل باشید به این اطلاعات دست پیدا کنید می توانید دوباره فایل ها بارگیری کرده و مشاهده نمایید.";
+
+/*  */
+"name" = "نام";
+
+/*  */
+"turn_on_gps_explain" = "موقعیت مکانی و سایر ویژگی های نقشه غیر فعال می باشد. با فعال کردن دکمه زیراز قابلیت های مربوط به آن استفاده کنید.";
+
+/*  */
+"turn_off_map" = "خاموش";
+
+/*  */
+"turn_on_map" = "روشن";
+
+/*  */
+"positioning" = "تعیین وضعیت";
+
+/*  */
+"nearby" = "بروزرسانی دستی";
+
+/*  */
+"list_user_map" = "نمایش بصورت لیست";
+
+/*  */
+"map_registration" = "غیرفعال کردن قابلیت اطراف من";
+
+/*  */
+"comment_waiting" = "در حال دریافت یادداشت";
+
+/*  */
+"comment_no" = "بدون وضعیت";
+
+/*  */
+"distance" = "حدود %d متر";
+
+/*  */
+"hint_gps" = "وضعیت شما";
+
+/*  */
+"Visible_Status_title_dialog" = "فعال سازی";
+
+/*  */
+"Visible_Status_title_dialog_invisible" = "غیر فعال سازی";
+
+/*  */
+"Visible_Status_text_dialog" = "فعال سازی قابلیت \"اطراف من\" باعث خواهد شد وضعیت شما و سایرین برای یکدیگر قابل مشاهده شود. آیا مایل به ادامهٔ کار هستید؟";
+
+/*  */
+"Visible_Status_text_dialog_invisible" = "با غیرفعال کردن این قابلیت موقعیت شما از سایرین مخفی خواهد شد و همچنین قادر به مشاهدهٔ افراد در محدودهٔ خود نخواهید بود. آیا همواره مایل به ادامهٔ کار هستید؟";
+
+/*  */
+"Visible_Status_text" = "توجه! با فعال کردن دکمۀ زیر، موقعیت شما برای سایرین قابل مشاهده می باشد. لطفاً پیش از ادامه از انجام آن مطمئن شوید.";
+
+/*  */
+"Clear_Status" = "حذف وضعیت";
+
+/*  */
+"Clear_Status_desc" = "شما وضعیتی برای خود تعیین نکرده اید. آیا مایلید برنامه را بدون تعیین وضعیت ادامه دهید؟";
+
+/*  */
+"exceed_4_line" = "تعداد کاراکترهای تعیین وضعیت نباید از چهار خط بیشتر باشد.";
+
+/*  */
+"info_map" = "تنها کاربرانی برای شما قابل مشاهده اند که تا شعاع پنج کیلومتری از شما قرار دارند و وضعیت نقشه آنها روشن است.";
+
+/*  */
+"st_Auto_Rotate" = "چرخش خودکار صفحه";
+
+/*  */
+"Theme_Dark" = "حالت شب";
+
+/*  */
+"two_step_pass_code" = "قفل ورود به برنامه";
+
+/*  */
+"unlock_with_fingerPrint" = "قفل گشایی با اثرانگشت";
+
+/*  */
+"change_pass_code" = "تغییر رمز";
+
+/*  */
+"auto_lock" = "قفل خودکار";
+
+/*  */
+"allow_screen_capture" = "قابلیت گرفتن اسکرین شات";
+
+/*  */
+"Confirm_fingerPrint_continue" = "برای ادامه و ورود به برنامه به تأیید اثرانگشت شما نیازمندیم";
+
+/*  */
+"Touch_sensor" = "به کمک اثر انگشت";
+
+/*  */
+"FingerPrint" = "اثرانگشت";
+
+/*  */
+"Fingerprint_not_recognized" = "اثر انگشت شما شناسایی و تأیید نشد. لطفاً مجدداً تلاش کنید";
+
+/*  */
+"Auto_lock_description" = "بعد از هریک از زمان های انتخابی از میان لیست، برنامه قفل شده و برای ورود به برنامه باید رمز یا کد قفل گشا را وارد کنید.";
+
+/*  */
+"Allow_Screen_Capture_description" = "در صورتیکه این گزینه فعال شود، می توانید از هر قسمت در برنامه اسکرین شات بگیرید، اما فراموش نکنید که حتی با فعال بودن قابلیت قفل برنامه، سیستم همچنان چت های شما را در قسمت برنامه های در حال اجرا در بک گراند نمایش می دهد. شاید برای فعالسازی این قابلیت مجبور شوید یک بار برنامه را بسته و مجدداً باز کنید.";
+
+/*  */
+"set_pass_code_description" = "با فعالسازی قفل ورود به برنامه، آیکن قفل در بالای صفحۀ اصلی چت ها پدیدار می شود که با استفاده از آن می توان برنامه را قفل یا قفل آن را باز کرد.\nتوجه: برای تعیین رمز می توانید بدون محدودیت از اعداد یا ترکیب اعداد و حروف استفاده کنید. همچنین در صورت فراموشی آن کافی است یک بار از برنامه خارج شده و بار دیگر وارد شوید تا قفل ورود غیرفعال شود.";
+
+/*  */
+"forgot_pin_desc" = "در صورتیکه رمز خود را فرامش کرده اید تنها می توانید یک بار از برنامه خارج شده و بار دیگر وارد شوید. آیا مایل به ادامه این کار هستید؟";
+
+/*  */
+"forgot_pin_title" = "رمز خود را فراموش کرده اید؟";
+
+/*  */
+"enter_pass_code" = "کد قفل گشا را وارد کنید";
+
+/*  */
+"enter_change_pass_code" = "کد قفل گشا جدید را وارد کنید";
+
+/*  */
+"re_enter_pass_code" = "کد قفل گشا را مجدداً وارد کنید";
+
+/*  */
+"Disable" = "غیرفعال";
+
+/*  */
+"in_1_minutes" = "یک دقیقه";
+
+/*  */
+"in_5_minutes" = "5 دقیقه";
+
+/*  */
+"in_1_hours" = "یک ساعت";
+
+/*  */
+"in_5_hours" = "5 ساعت";
+
+/*  */
+"Unlock_with_your_passcode" = "کد قفل گشا را وارد کنید";
+
+/*  */
+"forgot_Unlock_with_your_passcode" = "رمز ورود را فراموش کرده اید؟";
+
+/*  */
+"limit_passcode" = "کد قفل گشا باید متشکل از حداقل ۴ حرف و یا عدد باشد";
+
+/*  */
+"block_the_user" = "مسدود کردن مخاطب";
+
+/*  */
+"block_the_user_text" = "آیا از مسدود کردن ارتباط این مخاطب اطمینان دارید؟";
+
+/*  */
+"unblock_the_user" = "رفع مسدودیت مخاطب";
+
+/*  */
+"unblock_the_user_text" = "آیا از رفع مسدودیت ارتباط این مخاطب اطمینان دارید؟";
+
+/*  */
+"PIN" = "پین";
+
+/*  */
+"password" = "رمز";
+
+/*  */
+"text_empty_user_map" = "متأسفانه هیچ کاربری اطراف شما نفشه خود را فعال نکرده است";
+
+/*  */
+"send_message_to" = "ارسال پیام به";
+
+/*  */
+"send_forward_to" = "آیا شما مطمئنید میخواهید انتقال دهید به";
+
+/*  */
+"st_bio" = "بیو";
+
+/*  */
+"st_des_bio" = "شما می توانید توضیح مختصری دربارهٔ خود در پروفایل وارد کنید. لازم به ذکر است هر کاربر با ورود به پروفایل شما این متن را خواهد دید.";
+
+/*  */
+"st_Report" = "گزارش تخلف";
+
+/*  */
+"st_Spam" = "اسپم";
+
+/*  */
+"st_Violence" = "محتوای خشونت آمیز";
+
+/*  */
+"st_Pornography" = "محتوای پورنوگرافی";
+
+/*  */
+"st_Other" = "سایر موارد";
+
+/*  */
+"st_Abuse" = "محتوای توهین آمیز و آزاردهنده";
+
+/*  */
+"st_FakeAccount" = "حساب کاربری جعلی";
+
+/*  */
+"st_limit_bio" = "کاراکترهای استفاده شده بیش از حد مجاز است. تنها 70 کاراکتر در این قسمت قابل استفاده اند";
+
+/*  */
+"st_checkbox_delete" = "حذف برای";
+
+/*  */
+"st_desc_delete" = "آیا از حذف این %@ پیام اطمینان دارید؟";
+
+/*  */
+"st_send_report" = "گزارش تخلف با موفقیت ارسال شد.";
+
+/*  */
+"set_position" = "عدم توانایی تنظیم موقعیت مکانی";
+
+/*  */
+"date" = "تاریخ";
+
+/*  */
+"miladi" = "میلادی";
+
+/*  */
+"shamsi" = "هجری شمسی";
+
+/*  */
+"ghamari" = "هجری قمری";
+
+/*  */
+"Uploading" = "بارگذاری";
+
+/*  */
+"moharam" = "محرم";
+
+/*  */
+"safar" = "صفر";
+
+/*  */
+"rabio_aval" = "ربیع‌الاول";
+
+/*  */
+"rabi_sani" = "ربیع‌الثانی";
+
+/*  */
+"jamado_aval" = "جمادی‌الاول";
+
+/*  */
+"jamado_sani" = "جمادی‌الثانی";
+
+/*  */
+"rajab" = "رجب";
+
+/*  */
+"shaban" = "شعبان";
+
+/*  */
+"ramezan" = "رمضان";
+
+/*  */
+"shaval" = "شوال";
+
+/*  */
+"zighade" = "ذیقعده";
+
+/*  */
+"zihaje" = "ذیحجه";
+
+/*  */
+"st_multi_tab" = "چند نواری";
+
+/*  */
+"st_dark_theme" = "زمینه تیره";
+
+/*  */
+"dont_ask_again" = "فهمیدم";
+
+/*  */
+"attention" = "توجه";
+
+/*  */
+"content_attention_dialog" = "نکته : قابل ذکر است افراد بر روی نقشه با خطای 500 متر نمایش داده خواهند شد. پس جای نگرانی نیست";
+
+/*  */
+"st_cameraBottomSheet" = "دوربین کوچک در پیوست ها";
+
+/*  */
+"open_default_player" = "ویدئو را با پخش کننده پیشفرض باز کن";
+
+/*  */
+"show_channel_vote" = "واکنش در کانال";
+
+/*  */
+"verify_channel" = "کانال تأیید شده";
+
+/*  */
+"verify_user" = "کاربر تأیید شده";
+
+/*  */
+"save_data_in_sd_card" = "ذخیره اطلاعات در کارت جانبی";
+
+/*  */
+"are_you_sure" = "شما مطمئن هستید ؟";
+
+/*  */
+"are_you_sure_request" = "آیا از ثبت درخواست خود اطمینان دارید؟";
+
+/*  */
+"are_you_sure_edit_contact" = "از ویرایش کاربر مطمئن هستید ؟";
+
+/*  */
+"change_storage_place" = "تغییر مکان ذخیره سازی";
+
+/*  */
+"other_files" = "سایر فایل ها";
+
+/*  */
+"title_import_contact_limit" = "اخطار: در حال بارگزاری لیست مخاطبین";
+
+/*  */
+"content_import_contact_limit" = "متاسفانه تعداد مخاطبین شما بیش از حد مجاز میباشد. تعداد مجاز بارگزاری شد.";
+
+/*  */
+"another_room" = "اتاق دیگر";
+
+/*  */
+"filter_cancel_content" = "آیا از تغییرات انجام داده منصرف شدید ؟";
+
+/*  */
+"lbl_brightness" = "روشنایی";
+
+/*  */
+"lbl_contrast" = "کنتراست";
+
+/*  */
+"lbl_saturation" = "اشباع";
+
+/*  */
+"tab_filters" = "فیلتر رنگ";
+
+/*  */
+"filter" = "فیلتر";
+
+/*  */
+"tab_edit" = "ویرایش";
+
+/*  */
+"can_not_open_file" = "این فایل باز نمی شود";
+
+/*  */
+"st_24_Clock" = "زمان ۲۴ ساعته";
+
+/*  */
+"pin_messages_content" = "میخواهید این پیام را %s کنید؟";
+
+/*  */
+"unpin" = "غیرسنجاق";
+
+/*  */
+"pin_message" = "سنجاق";
+
+/*  */
+"pined_message" = "سنجاق";
+
+/*  */
+"all_member" = "همه اعضا";
+
+/*  */
+"this_page" = "همین صفحه";
+
+/*  */
+"disable" = "غیرفعال";
+
+/*  */
+"scheduled" = "برنامه ریزی:";
+
+/*  */
+"from_theme" = "از:";
+
+/*  */
+"to_theme" = "تا:";
+
+/*  */
+"automatic" = "خودکار";
+
+/*  */
+"automatic_description_theme" = "حالت شب از 19 تا 8 با انتخاب حالت خودکار فعال شد";
+
+/*  */
+"setting_dark_theme" = "تنظیمات پوسته تاریک";
+
+/*  */
+"Select_Time" = "انتخاب زمان";
+
+/*  */
+"financial_services" = "خدمات مالی";
+
+/*  */
+"install_app" = "نصب برنامه";
+
+/*  */
+"text_top" = "برای استفاده از خدمات :کارت به کارت، خرید بلیط اتوبوس ، خرید شارژ، پرداخت قبوض، خرید بسته اینترنتی و سایر خدمات پرداخت، اپلیکیشن تاپ را نصب نمایید.";
+
+/*  */
+"text_paygear" = "پیگیر ، کیف پول همراه شما برداشت و واریز آنی وجه ، پرداخت هدیه ، خرید از فروشگاه ها و پرداخت کرایه تاکسی.";
+
+/*  */
+"customization" = "سفارشی سازی";
+
+/*  */
+"Apply_colors_to_customize" = "اعمال رنگ ها برای سفارشی سازی";
+
+/*  */
+"payment" = "پرداخت";
+
+/*  */
+"buy_charge" = "خرید شارژ تلفن همراه";
+
+/*  */
+"pay_bills" = "پرداخت قبوض";
+
+/*  */
+"pay_bills_crime" = "پرداخت قبوض راهنمایی و رانندگی";
+
+/*  */
+"barcode_reader" = "بار کد خوان";
+
+/*  */
+"billing_id" = "شناسه قبض";
+
+/*  */
+"enter" = "وارد کنید";
+
+/*  */
+"payment_code" = "شناسه پرداخت";
+
+/*  */
+"amount" = "مبلغ(ریال)";
+
+/*  */
+"buy" = "خرید";
+
+/*  */
+"select" = "انتخاب کنید";
+
+/*  */
+"hamrahe_aval" = "همراه اول";
+
+/*  */
+"irancell" = "ایرانسل";
+
+/*  */
+"ritel" = "رایتل";
+
+/*  */
+"normal_charge" = "شارژ معمولی";
+
+/*  */
+"amazing" = "شگفت انگیز";
+
+/*  */
+"wimax_charging" = "شارژ وایمکس";
+
+/*  */
+"permanently_charge" = "شارژ سیم کارت دائمی";
+
+/*  */
+"get_gifts" = "دریافت هدیه";
+
+/*  */
+"congratulations" = "تبریک";
+
+/*  */
+"unsuccessful" = "موفقیت آمیز نبود";
+
+/*  */
+"disabled_qr_voucher" = "متاسفانه این کیوآر قابل استفاده نیست یا قبلا استفاده شده است";
+
+/*  */
+"charge_1" = "10.000 ریالی";
+
+/*  */
+"charge_2" = "20.000 ریالی";
+
+/*  */
+"charge_5" = "50.000 ریالی";
+
+/*  */
+"charge_10" = "100.000 ریالی";
+
+/*  */
+"charge_20" = "200.000 ریالی";
+
+/*  */
+"charge_50" = "500.000 ریالی";
+
+/*  */
+"charge_100" = "1.000.000 ریالی";
+
+/*  */
+"charge_1_ir" = "10.000 ریالی +  9%  ارزش افزوده = 10.900 ریال";
+
+/*  */
+"charge_2_ir" = "20.000 ریالی +  9%  ارزش افزوده = 21.180 ریال";
+
+/*  */
+"charge_5_ir" = "50.000 ریالی +  9%  ارزش افزوده = 54.500 ریال";
+
+/*  */
+"charge_10_ir" = "100.000 ریالی +  9%  ارزش افزوده = 109.000 ریال";
+
+/*  */
+"charge_20_ir" = "200.000 ریالی +  9%  ارزش افزوده = 218.000 ریال";
+
+/*  */
+"biling_id_not_valid" = "شناسه قبض نامعتبر است";
+
+/*  */
+"pay_id_is_not_valid" = "شناسه پرداخت نامعتبر است";
+
+/*  */
+"charge_type" = "نوع شارژ";
+
+/*  */
+"operator" = "اپراتور";
+
+/*  */
+"trabord" = "ترابرد";
+
+/*  */
+"time_out_error" = "خطای زمان پردازش";
+
+/*  */
+"connection_error" = "خطای اتصال";
+
+/*  */
+"server_error" = "خطای سرور";
+
+/*  */
+"network_error" = "خطای شبکه";
+
+/*  */
+"dialog_canceled" = "لغو درخواست";
+
+/*  */
+"device_root" = "دستگاه روت شده است";
+
+/*  */
+"phone_number_is_not_valid" = "شماره تلفن معتبر نیست";
+
+/*  */
+"please_select_operator" = "اپراتور را انتخاب کنید";
+
+/*  */
+"wallet" = "کیف پول";
+
+/*  */
+"loading_wallet_agreement" = "در حال دریافت اطلاعات …";
+
+/*  */
+"i_agree_with_the_terms" = "با شرایط موافقم";
+
+/*  */
+"accept_the_terms" = "پذیرش شرایط";
+
+/*  */
+"wallet_agrement" = "توافق کیف پول";
+
+/*  */
+"SendMoney" = "ارسال پول";
+
+/*  */
+"transfer_amount_hint" = "مبلغ واریزی را وارد کنید";
+
+/*  */
+"amount_in_rial" = "مبلغ به ریال:";
+
+/*  */
+"pay" = "پرداخت";
+
+/*  */
+"transfer_to_dialog" = "انتقال به:";
+
+/*  */
+"am_money" = "پول";
+
+/*  */
+"trace_number" = "کد پیگیری";
+
+/*  */
+"amount_2" = "مبلغ:";
+
+/*  */
+"payment_canceled" = "پرداخت لغو شد";
+
+/*  */
+"PayGear_unavailable" = "کیف پول در دسترس نیست";
+
+/*  */
+"bills_inquiry" = "استعلام قبوض همراه اول و تلفن ثابت";
+
+/*  */
+"bills_inquiry_mci" = "استعلام قبوض همراه اول";
+
+/*  */
+"bills_inquiry_telecom" = "استعلام قبوض تلفن ثابت";
+
+/*  */
+"bills_inquiry_title" = "استعلام قبوض";
+
+/*  */
+"bill_type" = "نوع قبض";
+
+/*  */
+"telecom" = "تلفن ثابت";
+
+/*  */
+"phone" = "شماره تلفن";
+
+/*  */
+"area_code" = "پیش شماره";
+
+/*  */
+"inquiry" = "استعلام";
+
+/*  */
+"mci_opreator_check" = "این شماره از اپراتور همراه اول نیست";
+
+/*  */
+"mid_term" = "میان دوره";
+
+/*  */
+"intermediate_payment" = "پرداخت میان دوره";
+
+/*  */
+"last_term" = "پایان دوره";
+
+/*  */
+"last_term_payment" = "پرداخت پایان دوره";
+
+/*  */
+"responsible_for_all_financial_services" = "مسئولیت کلیه خدمات مالی بر عهده";
+
+/*  */
+"parsian_e_commerce_company_top" = "شرکت تجارت الکترونیک پارسیان ( تاپ )";
+
+/*  */
+"is_empty" = "می باشد";
+
+/*  */
+"empty_error_message" = "";
+
+/*  */
+"customer_response_center_021_2318" = "مرکز پاسخگویی مشتریان  :  2318-021";
+
+/*  */
+"ex_mobile_phone" = "مثال : 09123456789";
+
+/*  */
+"ex_area" = "مثال : 021";
+
+/*  */
+"ex_phone" = "مثال : 44567899";
+
+/*  */
+"sync_contact" = "همگام سازی مخاطبین";
+
+/*  */
+"satellite_view" = "حالت ماهواره";
+
+/*  */
+"default_view" = "حالت پیش فرض";
+
+/*  */
+"send_location_text" = "ارسال موقعیت";
+
+/*  */
+"map_distance" = "فاصله به متر";
+
+/*  */
+"get_location_data" = "در حال دریافت اطلاعات";
+
+/*  */
+"calculation" = "در حال محاسبه..";
+
+/*  */
+"send" = "ارسال";
+
+/*  */
+"not_success" = "ناموفق";
+
+/*  */
+"not_success_2" = "پرداخت ناموفق بود";
+
+/*  */
+"result_3" = "نتیجه پرداخت مشخص نیست به تاریخجه کیف پول مراجع یا با پشتیبانی تماس بگیرید";
+
+/*  */
+"result_4" = "پرداخت موفقیت آمیز بود اطلاعات بیشتر در قسمت تاریخچه کیف پول";
+
+/*  */
+"wallet_from" = "از";
+
+/*  */
+"wallet_to" = "به";
+
+/*  */
+"wallet_amount" = "مبلغ";
+
+/*  */
+"wallet_trace" = "کد پیگیری";
+
+/*  */
+"wallet_invoice" = "فاکتور";
+
+/*  */
+"wallet_data" = "تاریخ";
+
+/*  */
+"wallet_desc" = "---توضیحات پرداخت---";
+
+/*  */
+"wallet_toman" = "تومان";
+
+/*  */
+"wallet_Your_credit" = "اعتبار شما:";
+
+/*  */
+"wallet_Reial" = "%d ریال";
+
+/*  */
+"payment_rial" = "%@ ریال";
+
+/*  */
+"wallet_error_server" = "خطا در برقراری ارتباط با سرور";
+
+/*  */
+"USER_VERIFY_MAX_TRY_LOCK" = "USER VERIFY MAX TRY";
+
+/*  */
+"USER_GET_DELETE_TOKEN_MAX_TRY_LOCK" = "USER GET DELETE TOKEN MAX TRY";
+
+/*  */
+"USER_GET_DELETE_TOKEN_MAX_SEND" = "USER GET DELETE TOKEN MAX SEND";
+
+/*  */
+"USER_DELETE_MAX_TRY_LOCK" = "USER DELETE MAX TRY";
+
+/*  */
+"USER_PROFILE_UPDATE_USERNAME_UPDATE_LOCK" = "USER PROFILE UPDATE USERNAME UPDATE";
+
+/*  */
+"GROUP_UPDATE_USERNAME_UPDATE_LOCK" = "GROUP UPDATE USERNAME UPDATE LOCK";
+
+/*  */
+"CHANNEL_UPDATE_USERNAME_UPDATE_LOCK" = "CHANNEL UPDATE USERNAME UPDATE";
+
+/*  */
+"E_373" = "GROUP_REVOKE_LINK_BAD_PAYLOAD";
+
+/*  */
+"E_374" = "GROUP_REVOKE_LINK_INTERNAL_SERVER_ERROR";
+
+/*  */
+"E_375" = "GROUP_REVOKE_LINK_FORBIDDEN";
+
+/*  */
+"E_453" = "CHANNEL_CHECK_USERNAME_BAD_PAYLOAD";
+
+/*  */
+"E_454" = "CHANNEL_CHECK_USERNAME_INTERNAL_SERVER_ERROR";
+
+/*  */
+"E_455" = "CHANNEL_UPDATE_USERNAME_BAD_PAYLOAD";
+
+/*  */
+"E_456" = "CHANNEL_UPDATE_USERNAME_INTERNAL_SERVER_ERROR";
+
+/*  */
+"E_457" = "CHANNEL_UPDATE_USERNAME_UPDATE_LOCK";
+
+/*  */
+"E_458" = "CHANNEL_UPDATE_USERNAME_FORBIDDEN";
+
+/*  */
+"E_10108" = "USER_TWO_STEP_VERIFICATION_VERIFY_RECOVERY_EMAIL_BAD_PAYLOAD";
+
+/*  */
+"E_10109" = "USER_TWO_STEP_VERIFICATION_VERIFY_RECOVERY_EMAIL_INTERNAL_SERVER_ERROR";
+
+/*  */
+"E_10110" = "USER_TWO_STEP_VERIFICATION_VERIFY_RECOVERY_EMAIL_MAX_TRY_LOCK";
+
+/*  */
+"E_10111" = "USER_TWO_STEP_VERIFICATION_VERIFY_RECOVERY_EMAIL_EXPIRED_TOKEN";
+
+/*  */
+"E_10112" = "USER_TWO_STEP_VERIFICATION_VERIFY_RECOVERY_EMAIL_NO_PASSWORD";
+
+/*  */
+"E_10113" = "USER_TWO_STEP_VERIFICATION_VERIFY_RECOVERY_EMAIL_INVALID_TOKEN";
+
+/*  */
+"E_10114" = "USER_TWO_STEP_VERIFICATION_CHANGE_RECOVERY_EMAIL_BAD_PAYLOAD";
+
+/*  */
+"E_10115" = "USER_TWO_STEP_VERIFICATION_CHANGE_RECOVERY_EMAIL_INTERNAL_SERVER_ERROR";
+
+/*  */
+"E_10116" = "USER_TWO_STEP_VERIFICATION_CHANGE_RECOVERY_EMAIL_MAX_TRY_LOCK";
+
+/*  */
+"E_10117" = "USER_TWO_STEP_VERIFICATION_CHANGE_RECOVERY_EMAIL_NO_PASSWORD";
+
+/*  */
+"E_10118" = "USER_TWO_STEP_VERIFICATION_CHANGE_RECOVERY_EMAIL_INVALID_PASSWORD";
+
+/*  */
+"E_10119" = "USER_TWO_STEP_VERIFICATION_CHANGE_RECOVERY_EMAIL_CONFIRMED_BEFORE";
+
+/*  */
+"E_163" = "USER_PROFILE_CHECK_USERNAME_INTERNAL_SERVER_ERROR";
+
+/*  */
+"channel_name_notification" = "iGap Notification";
+
+/*  */
+"keep_media_6month" = "6 Month";
+
+/*  */
+"minutes_ago" = "minutes ago";
+
+/*  */
+"IP_blocked" = "به دلیل تلاش بیش از حد، IP شما برای مدتی مسدود شده است.";
+
+/*  */
+"export_chat" = "استخراج پیام ها";
+
+/*  */
+"export_message" = "قادر به استخراج پیام ها نیست";
+
+/*  */
+"wifi_data_usage" = "استفاده از داده بیسیم";
+
+/*  */
+"mobile_data_usage" = "استفاده از داده سیم کارت";
+
+/*  */
+"sent" = "ارسال شده";
+
+/*  */
+"received" = "دریافت شده";
+
+/*  */
+"bytes_sent" = "حجم ارسال شده";
+
+/*  */
+"bytes_received" = "حجم دریافت شده";
+
+/*  */
+"total" = "جمع";
+
+/*  */
+"total_sent" = "مجموع حجم ارسال شده";
+
+/*  */
+"total_received" = "مجموع حجم دریافت شده";
+
+/*  */
+"clear_data_usage" = "پاک کردن تاریخچه مصرف داده";
+
+/*  */
+"clearDataUsage" = "آیا مایل به پاک کردن تاریخچه مصرف داده هستید؟";
+
+/*  */
+"new_pattern_passCode" = "ایجاد الگوی جدید";
+
+/*  */
+"repeat_pattern_passCode" = "تکرار الگو";
+
+/*  */
+"repeat_pattern_pattern" = "رمز عبور با الگو";
+
+/*  */
+"solid_colors" = "رنگ های پس زمین";
+
+/*  */
+"wallpapers" = "تصاویر پس زمینه";
+
+/*  */
+"verify_register_sms" = "ارسال پیامک";
+
+/*  */
+"verify_register_call" = "تماس";
+
+/*  */
+"way_receive_register_code" = "Way to receive code:";
+
+/*  */
+"reply_label" = "Answer";
+
+/*  */
+"separate_notifications" = "اعلانات جداگانه";
+
+/*  */
+"mark_as_unread" = "خوانده شده";
+
+/*  */
+"planDB" = "\"iGapLocalDatabase.realm\"";
+
+/*  */
+"encriptedDB" = "iGapLocalDatabaseEncrypted.realm";
+
+/*  */
+"start" = "شروع";
+
+/*  */
+"bot" = "ربات";
+
+/*  */
+"back_to_menu" = "بازگشت به منوی اصلی";
+
+/*  */
+"empty_text_dr_bot" = "به دستیار هوشمند آیگپ خوش آمدید!";
+
+/*  */
+"deprecated" = "نسخه فعلی منقضی شده است لطفا برای استفاده به روز رسانی نمایید";
+
+/*  */
+"new_version_avilable" = "نسخه جدید موجود است";
+
+/*  */
+"new_version_alert" = "هشدار";
+
+/*  */
+"ignore" = "نادیده گرفتن";
+
+/*  */
+"hashtag" = "هشتگ";
+
+/*  */
+"igap_update" = "بروزرسانی";
+
+/*  */
+"permission_auto_start" = "لطفا برای رسیدن پیام ها حتی در زمانی که آیگپ در پس زمینه فعال نیست آیگپ را از منو انتخاب و فعال نمایید";
+
+/*  */
+"dont_show_again" = "مجددا نمایش نده";
+
+/*  */
+"invitation_message" = "سلام!از طریق لینک زیر میتونی تو آیگپ عضو بشی، منتظرتیم  http://d.igap.net/invite \nشماره معرف :";
+
+/*  */
+"namma_per_uh" = "FileLister";
+
+/*  */
+"Please_enter_valid_folder_name" = "لطفا نام پوشه را وارد کنید";
+
+/*  */
+"This_folder_already_exists" = "این پوشه در حال حاضر وجود دارد لطفا نام دیگری انتخاب کنید";
+
+/*  */
+"Select_directory" = "یک پوشه را انتخاب کنید";
+
+/*  */
+"Select_Video_file" = "یک فایل ویدیویی را انتخاب کنید";
+
+/*  */
+"Select_Image_file" = "> یک فایل تصویر را انتخاب کنید";
+
+/*  */
+"Select_Audio_file" = "فایل صوتی را انتخاب کنید";
+
+/*  */
+"Select_file" = "یک فایل را انتخاب کنید";
+
+/*  */
+"Default_Dir" = "مسیر پیش فرض";
+
+/*  */
+"Select" = "انتخاب";
+
+/*  */
+"Create_new_Folder_here" = "در اینجا یک پوشه جدید ایجاد کنید";
+
+/*  */
+"Powered_by_iGap" = "طراحی شده توسط آیگپ";
+
+/*  */
+"on_hold" = "call on hold...";
+
+/*  */
+"switchTo" = "switch To :";
+
+/*  */
+"stop" = "توقف";
+
+/*  */
+"stop_message_bot" = "آیا مطمئن هستید که میخواهید ربات را متوقف کنید؟";
+
+/*  */
+"startUpdate" = "به روز رسانی";
+
+/*  */
+"access_phone_number" = "آیا از ارسال شماره تلفن خود اطمینان دارید ؟";
+
+/*  */
+"access_location" = "آیا از ارسال مکان خود اطمینان دارید؟";
+
+/*  */
+"sticker_message" = "پیام استیکر";
+
+/*  */
+"Sticker_added_successfully" = "استیکر با موفقیت اضافه شد";
+
+/*  */
+"Please_select_an_option" = "لطفا یک گزینه را انتخاب کنید";
+
+/*  */
+"sticker" = "استیکر";
+
+/*  */
+"add_sticker" = "اضافه کردن استیکر";
+
+/*  */
+"remove_sticker" = "حذف استیکر";
+
+/*  */
+"remove_sticker_text" = "آیا مطمئن هستید که میخواهید این استیکرها را حذف کنید؟";
+
+/*  */
+"add_sticker_text" = "آیا مطمئن هستید که میخواهید این استیکرها را نصب کنید؟";
+
+/*  */
+"Add" = "افزودن";
+
+/*  */
+"Remove" = "حذف";
+
+/*  */
+"try_later" = "چند ثانیه بعد امتحان کنید";
+
+/*  */
+"representer" = "ثبت معرف";
+
+/*  */
+"representer_code" = "شماره تلفن همراه معرف خود را  وارد کنید";
+
+/*  */
+"unknown_type" = "این نوع کارت پشتیبانی نمی شود.";
+
+/*  */
+"order_history" = "مشاهده سوابق";
+
+/*  */
+"your_point" = "امتیاز شما:";
+
+/*  */
+"dialog_ok" = "باشه";
+
+/*  */
+"error_submit_qr_code" = "خطایی با درخواست شما رخ داده است!";
+
+/*  */
+"not_exist_activities" = "لیست سوابق شما خالی است.";
+
+/*  */
+"ivand_profile_title" = "امتیاز من";
+
+/*  */
+"ivand_activities_title" = "سوابق امتیاز";
+
+/*  */
+"scan_barcode" = "اسکن بارکد";
+
+/*  */
+"st_ivand" = "باشگاه آیگپ";
+
+/*  */
+"st_ivand_text_setting" = "امتیاز شما:";
+
+/*  */
+"E_10183" = "کد وارد شده نا معتبر می باشد";
+
+/*  */
+"share_link_item_dialog" = "اشتراک لینک";
+
+/*  */
+"not_found_message" = "این پیام وجود ندارد.";
+
+/*  */
+"ivnalid_data_provided" = "مقادیر ورودی اشتباه است.";
+
+/*  */
+"secret_chat" = "گفتگوی خصوصی";
+
+/*  */
+"new_message_notif" = "پیام جدید";
+
+/*  */
+"card_to_card" = "درخواست کارت به کارت";
+
+/*  */
+"your_device_is_root" = "متاسفانه دستگاه شما روت است.";
+
+/*  */
+"rial" = "ریال";
+
+/*  */
+"toman" = "تومان";
+
+/*  */
+"verify_fragment_hint" = "ما از طریق پیامک برای شما یک کد فعالسازی ارسال کرده‌ایم، در صورت عدم دریافت کد بعد از ۱ دقیقه دوباره درخواست دهید.";
+
+/*  */
+"new_user_pass_fragment_hint" = "برای حساب کیف پول خود یک رمز عبور تعیین کنید، شما بعدا می‌توانید از تنظیمات رمز خود را تغییر دهید.";
+
+/*  */
+"code_resend_text" = "* ثانیه تا ارسال دوباره پیامک";
+
+/*  */
+"resend_code" = "ارسال دوباره پیامک";
+
+/*  */
+"new_otp_requested" = "درخواست کد جدید ارسال شد";
+
+/*  */
+"request_again" = "درخواست مجدد";
+
+/*  */
+"sending_code_to_x" = "در حال ارسال پیامک به شماره\n*";
+
+/*  */
+"select_your_city" = "شهر خود را انتخاب کنید";
+
+/*  */
+"enter_username" = "شناسه کاربری خود را وارد کنید";
+
+/*  */
+"enter_code_correctly" = "کد ارسال شده را کامل وارد کنید";
+
+/*  */
+"enter_mobile_correctly" = "شماره موبایل خود را کامل وارد کنید";
+
+/*  */
+"enter_your_mobile" = "شماره موبایل خود را وارد کنید";
+
+/*  */
+"enter_your_mobile_without_zero" = "شماره موبایل خود را بدون صفر وارد کنید";
+
+/*  */
+"enter_your_activation_code" = "کد فعال‌سازی خود را وارد کنید";
+
+/*  */
+"country_code_not_valid" = "کد کشور صحیح نیست";
+
+/*  */
+"four_digits_activation_code" = "کد فعال‌سازی ۴ رقمی";
+
+/*  */
+"confirm_password" = "تکرار رمز عبور";
+
+/*  */
+"enter_your_confirm_password" = "تکرار رمز عبور خود را وارد کنید";
+
+/*  */
+"enter_your_password" = "رمز عبور خود را وارد کنید";
+
+/*  */
+"select_your_password" = "رمز عبور خود را انتخاب کنید";
+
+/*  */
+"enter_your_referral_code" = "کد معرف خود را وارد کنید";
+
+/*  */
+"select_your_province" = "استان خود را انتخاب کنید";
+
+/*  */
+"referral_code" = "کد معرف";
+
+/*  */
+"province_name" = "نام استان";
+
+/*  */
+"account_password" = "رمز حساب کاربری";
+
+/*  */
+"full_name" = "نام و نام خانوادگی";
+
+/*  */
+"user_name" = "نام کاربری";
+
+/*  */
+"birth_date" = "تاریخ تولد";
+
+/*  */
+"email" = "ایمیل";
+
+/*  */
+"province" = "استان";
+
+/*  */
+"edit_profile_hint" = "این اطلاعات به صورت رمزنگاری شده روی سرورهای امن کیف پول ذخیره می‌شوند و فقط در صورت نیاز با مجوز شما به سایر نرم افزارهای طرف سوم انتقال داده خواهد شد. کاربرد این اطلاعات به منظور راحتی فرآیندهای خرید می‌باشد.";
+
+/*  */
+"username" = "شناسه کاربری";
+
+/*  */
+"username_copied" = "شناسه کاربری کپی شد.";
+
+/*  */
+"select_city" = "انتخاب شهر";
+
+/*  */
+"select_province" = "انتخاب استان";
+
+/*  */
+"mobile_number" = "شماره موبایل";
+
+/*  */
+"paygear_user" = "کاربر کیف پول";
+
+/*  */
+"authorization_not_valid" = "مجوز دسترسی معتبر نیست";
+
+/*  */
+"already_read" = "قبلا خواندم";
+
+/*  */
+"login" = "ورود";
+
+/*  */
+"next" = "بعدی";
+
+/*  */
+"back" = "بازگشت";
+
+/*  */
+"code" = "کد";
+
+/*  */
+"never_mind" = "بی خیال";
+
+/*  */
+"not_now" = "الان نه!";
+
+/*  */
+"no_item" = "موردی یافت نشد";
+
+/*  */
+"retry" = "تلاش مجدد";
+
+/*  */
+"charge_wallet" = "شارژ کیف پول";
+
+/*  */
+"charge_paygear" = "شارژ کیف پول";
+
+/*  */
+"immediate_cash_out" = "برداشت فوری";
+
+/*  */
+"normal_cash_out" = "برداشت عادی";
+
+/*  */
+"enter_info_completely" = "اطلاعات را به صورت کامل وارد کنید";
+
+/*  */
+"source_card" = "کارت مبدا";
+
+/*  */
+"destination_card" = "کارت مقصد";
+
+/*  */
+"destination_card_number" = "شماره کارت مقصد";
+
+/*  */
+"destination_sheba_number" = "شماره شبای مقصد";
+
+/*  */
+"trace_no" = "کد رهگیری";
+
+/*  */
+"reference_code" = "شماره مرجع";
+
+/*  */
+"has" = "دارد";
+
+/*  */
+"not_has" = "ندارد";
+
+/*  */
+"see_details" = "مشاهده جزییات";
+
+/*  */
+"request_time" = "زمان درخواست";
+
+/*  */
+"settlement_time" = "زمان تسویه";
+
+/*  */
+"requested_amount" = "مبلغ درخواستی";
+
+/*  */
+"requested_amount_rial" = "مبلغ درخواستی(ریال)";
+
+/*  */
+"settlement_wage" = "کارمزد تسویه";
+
+/*  */
+"deposits" = "واریزی";
+
+/*  */
+"wage" = "کارمزد";
+
+/*  */
+"bank" = "بانک";
+
+/*  */
+"destination_bank" = "بانک مقصد";
+
+/*  */
+"card_owner" = "صاحب کارت";
+
+/*  */
+"total_price" = "مبلغ کل";
+
+/*  */
+"discount" = "تخفیف";
+
+/*  */
+"service_price" = "حق سرویس";
+
+/*  */
+"tax" = "مالیات";
+
+/*  */
+"delivery_price" = "هزینه ارسال";
+
+/*  */
+"payable_price_rial" = "قابل پرداخت (ریال)";
+
+/*  */
+"final_price_rial" = "مبلغ نهایی (ریال)";
+
+/*  */
+"payable_price" = "مبلغ پرداختی";
+
+/*  */
+"withdraw_price" = "مبلغ برداشت";
+
+/*  */
+"qr_not_detected" = "نماد قابل شناسایی نیست";
+
+/*  */
+"payment_price_rial" = "مبلغ پرداختی به ریال";
+
+/*  */
+"price_rial" = "مبلغ (ریال)";
+
+/*  */
+"amount_must_be_greater_1000" = "مبلغ باید بیشتر از 1000 ریال باشد";
+
+/*  */
+"amount_not_valid" = "مبلغ را صحیح وارد کنید";
+
+/*  */
+"payment_history" = "تاریخچه تراکنش‌ها";
+
+/*  */
+"set_card_pin" = "تعریف رمز امنیتی";
+
+/*  */
+"credit_card_set_pin_confirm" = "برای استفاده از کیف پولکارت ابتدا باید برای آن رمز تعریف کنید. آیا می‌خواهید رمز را فعال نمایید؟";
+
+/*  */
+"order_info" = "اطلاعات تراکنش";
+
+/*  */
+"pay_to" = "پرداخت به";
+
+/*  */
+"pay_with_raad_card_to" = "پرداخت با کیف پولکارت به";
+
+/*  */
+"pay_charge_for_raad_card_to" = "پرداخت شارژ کیف پولکارت به";
+
+/*  */
+"charge_paygear_card" = "شارژ کیف پولکارت";
+
+/*  */
+"purchase_club_plan_from" = "خرید طرح باشگاه از";
+
+/*  */
+"receive_from" = "دریافت از";
+
+/*  */
+"receive_sale_share_from" = "دریافت سهم فروش از";
+
+/*  */
+"receive_charge_for_raad_card_from" = "دریافت شارژ کیف پولکارت از";
+
+/*  */
+"settled" = "تسویه حساب شده";
+
+/*  */
+"settled_pending" = "در انتظار تسویه حساب";
+
+/*  */
+"settlement" = "تسویه";
+
+/*  */
+"payment_pending" = "در انتظار پرداخت";
+
+/*  */
+"taxi" = "تاکسی";
+
+/*  */
+"successful_payment" = "پرداخت موفق";
+
+/*  */
+"unsuccessful_payment" = "پرداخت ناموفق";
+
+/*  */
+"save_receipt" = "ذخیره رسید";
+
+/*  */
+"receipt_saved" = "رسید ذخیره شد";
+
+/*  */
+"scan" = "اسکن کنید";
+
+/*  */
+"cash_in_hint" = "مبلغ مورد نظر خود را وارد کرده و با استفاده از کارت بانکی و رمز دوم اینترنتی خود حساب خود را شارژ کنید.";
+
+/*  */
+"cash_out_normal_hint" = "برداشت عادی بوسیله شبکه شاپرک و شماره شبا صورت میگیرد. بعد از درخواست تا حداکثر ۲۴ ساعت پول به حساب شما واریز خواهد شد.";
+
+/*  */
+"cash_out_immediate_hint" = "کارمزد مطابق دستورالعمل‌های شاپرک از حساب شما کسر می‌گردد.";
+
+/*  */
+"how_to_get_sheba" = "نحوه اطلاع از شماره شبا";
+
+/*  */
+"my_qr_hint" = "کد تصویری خود را به دیگران نشان دهید تا آن را اسکن کنند و به شما پول بدهند!";
+
+/*  */
+"my_qr" = "کیوآر من";
+
+/*  */
+"card_16_digits" = "شماره ۱۶ رقمی کارت";
+
+/*  */
+"sheba_20_digits" = "شماره ۲۴ رقمی شبا";
+
+/*  */
+"no_camera_found" = "دوربین دستگاه یافت نشد";
+
+/*  */
+"paygear_balance" = "موجودی کیف پول";
+
+/*  */
+"paygear_card_balance" = "موجودی کیف پول";
+
+/*  */
+"paygear_account_balance" = "موجودی حساب کیف پول";
+
+/*  */
+"cashable_balance" = "موجودی قابل برداشت";
+
+/*  */
+"cashable_price" = "مبلغ قابل برداشت";
+
+/*  */
+"cash_in_paygear" = "شارژ حساب کیف پول";
+
+/*  */
+"cash_out_paygear" = "برداشت از کیف پول";
+
+/*  */
+"cashable" = "قابل برداشت";
+
+/*  */
+"not_cashable" = "غیر قابل برداشت";
+
+/*  */
+"gift" = "هدیه";
+
+/*  */
+"withdraw" = "برداشت";
+
+/*  */
+"cards" = "کارت‌ها";
+
+/*  */
+"my_cards" = "کارت‌های من";
+
+/*  */
+"cashout_today_limit" = "سقف برداشت امروز";
+
+/*  */
+"cash_out_request_done" = "درخواست تسویه انجام شد";
+
+/*  */
+"cashout_request" = "درخواست تسویه";
+
+/*  */
+"paygear_card_pin" = "رمز کیف پول";
+
+/*  */
+"qr" = "کیوآر";
+
+/*  */
+"scanner" = "اسکنر";
+
+/*  */
+"default_card" = "کارت پیش‌فرض";
+
+/*  */
+"delete_card" = "حذف کارت";
+
+/*  */
+"add_new_card" = "افزودن کارت جدید";
+
+/*  */
+"delete_card_confirm" = "آیا از حذف این کارت بانکی مطمئن هستید؟";
+
+/*  */
+"card_number" = "شماره کارت";
+
+/*  */
+"month" = "ماه";
+
+/*  */
+"year" = "سال";
+
+/*  */
+"edit" = "ویرایش";
+
+/*  */
+"camera" = "دوربین";
+
+/*  */
+"gallery" = "گالری";
+
+/*  */
+"delete_image" = "حذف تصویر";
+
+/*  */
+"click_here_for_adding_card" = "برای افزودن کارت اینجا را لمس کنید";
+
+/*  */
+"x_people" = "* نفر";
+
+/*  */
+"enter_receiver_code" = "کد پذیرنده را وارد کنید";
+
+/*  */
+"receiver_code" = "کد پذیرنده";
+
+/*  */
+"pay_with_price_x" = "پرداخت به مبلغ\n*";
+
+/*  */
+"internet_pin_2" = "رمز دوم اینترنتی";
+
+/*  */
+"cvv2" = "CVV2";
+
+/*  */
+"select_card" = "انتخاب کارت";
+
+/*  */
+"new_pass" = "رمز جدید";
+
+/*  */
+"confirm_pass" = "تکرار رمز";
+
+/*  */
+"current_pass" = "رمز فعلی";
+
+/*  */
+"passwords_not_match" = "رمزها یکسان نیستند";
+
+/*  */
+"card_pin_saved" = "رمز کیف پول ثبت شد";
+
+/*  */
+"card_pin_changed" = "رمز کیف پول تغییر یافت";
+
+/*  */
+"flash_light" = "چراغ قوه";
+
+/*  */
+"entering_driver_code" = "ورود دستی کد راننده یا مغازه";
+
+/*  */
+"scan_driver_or_store_qr" = "کیوآر را اسکن کنید";
+
+/*  */
+"data_unknown" = "اطلاعات دریافتی نامشخص است";
+
+/*  */
+"enter_card_number" = "شماره کارت را به طور کامل وارد کنید";
+
+/*  */
+"enter_cvv2" = "کد cvv2 کارت خود را وارد کنید";
+
+/*  */
+"enter_your_second_pin" = "رمز دوم کارت خود را وارد نمایید";
+
+/*  */
+"enter_expire_date" = "تاریخ انقضای کارت خود را وارد کنید";
+
+/*  */
+"enter_expire_date_year" = "سال انقضای کارت خود را وارد کنید";
+
+/*  */
+"enter_expire_date_month" = "ماه انقضای کارت خود را وارد کنید";
+
+/*  */
+"enter_expire_date_month_correctly" = "ماه انقضای کارت خود را به درستی وارد کنید";
+
+/*  */
+"enter_cash_in_price" = "مبلغ واریزی را مشخص نمایید";
+
+/*  */
+"enter_cash_out_price" = "مبلغ برداشت را مشخص نمایید";
+
+/*  */
+"enter_your_card_number" = "شماره کارت خود را وارد کنید";
+
+/*  */
+"enter_your_sheba_number" = "شماره شبا خود را وارد کنید";
+
+/*  */
+"enter_your_province" = "استان خود را مشخص کنید";
+
+/*  */
+"language" = "زبان برنامه";
+
+/*  */
+"privacy_policy" = "حریم خصوصی";
+
+/*  */
+"security_privacy_policy" = "امنیت و حریم خصوصی";
+
+/*  */
+"app_version" = "نسخه برنامه";
+
+/*  */
+"about_app" = "درباره برنامه";
+
+/*  */
+"terms_condition" = "قوانین و مقررات";
+
+/*  */
+"terms_and_conditions" = "قوانین و نحوه استفاده";
+
+/*  */
+"contact_us" = "تماس با ما";
+
+/*  */
+"faq" = "سوالات متداول";
+
+/*  */
+"logout_from_account" = "خروج از حساب کاربری";
+
+/*  */
+"logout_prompt" = "آیا میخواهید از حساب خود خارج شوید؟";
+
+/*  */
+"logout" = "خروج";
+
+/*  */
+"top_company" = "شرکت تجارت الکترونیک پارسیان";
+
+/*  */
 "bank_parsian" = "بانک پارسیان";
+
+/*  */
 "bank_saman" = "بانک سامان";
+
+/*  */
 "bank_mellat" = "بانک ملت";
-"bank_eghtesad_novin" = "بانک اقتصاد نوین";
+
+/*  */
 "bank_pasargad" = "بانک پاسارگاد";
-"bank_karafarin" = "بانک کارافرین";
+
+/*  */
+"bank_eghtesad_novin" = "بانک اقتصاد نوین";
+
+/*  */
+"bank_karafarin" = "بانک کارآفرین";
+
+/*  */
 "bank_sarmayeh" = "بانک سرمایه";
-"bank_melli" = "بانک ملی";
+
+/*  */
+"bank_melli" = "بانک ملی ایران";
+
+/*  */
 "bank_sepah" = "بانک سپه";
+
+/*  */
 "bank_dey" = "بانک دی";
+
+/*  */
 "bank_tejarat" = "بانک تجارت";
+
+/*  */
 "bank_refah" = "بانک رفاه";
-"bank_saderat" = "بانک صادرات";
+
+/*  */
+"bank_saderat" = "بانک صادرات ایران";
+
+/*  */
 "bank_maskan" = "بانک مسکن";
+
+/*  */
 "bank_shahr" = "بانک شهر";
+
+/*  */
 "bank_sina" = "بانک سینا";
+
+/*  */
 "bank_keshavarzi" = "بانک کشاورزی";
+
+/*  */
 "bank_markazi" = "بانک مرکزی";
+
+/*  */
 "bank_gardeshgari" = "بانک گردشگری";
+
+/*  */
 "bank_post_bank" = "پست بانک";
+
+/*  */
 "bank_ansar" = "بانک انصار";
+
+/*  */
 "bank_iran_zamin" = "بانک ایران زمین";
+
+/*  */
 "bank_ayandeh" = "بانک آینده";
+
+/*  */
 "bank_resalat" = "بانک رسالت";
+
+/*  */
 "bank_tosee_taavon" = "بانک توسعه تعاون";
-"bank_tosee_saderat" = "بانک توسعه صادرات";
+
+/*  */
+"bank_tosee_saderat" = "بانک توسعه صادرات ایران";
+
+/*  */
 "bank_hekmat_iranian" = "بانک حکمت ایرانیان";
+
+/*  */
 "bank_sanato_madan" = "بانک صنعت و معدن";
+
+/*  */
 "bank_ghavamin" = "بانک قوامین";
-"bank_mehr_iran" = "بانک قرض الحسنه مهر ایران";
+
+/*  */
+"bank_mehr_iran" = "بانک مهر ایران";
+
+/*  */
 "bank_mehr_eghtesad" = "بانک مهر اقتصاد";
-"bank_etebari_kosar" = "موسسه مالی کوثر";
-"bank_etebari_tosee" = "موسسه مالی توسعه";
-"bank_etebari_asgarieh" = "موسسه مالی ملل";
 
+/*  */
+"bank_etebari_kosar" = "موسسه اعتباری کوثر";
 
+/*  */
+"bank_etebari_tosee" = "موسسه اعتباری توسعه";
 
-"SETTING_PAGE_ACCOUNT" = "حساب کاربری";
-"SETTING_PAGE_CONTACTS" = "مخاطب ها";
-"SETTING_PAGE_NEARBY" = "اطراف من";
-"SETTING_PAGE_WALLET" = "کیف پول";
-"SETTING_PAGE_CARD" = "کارت بانکی";
-"ENTER_RECIEVER_CODE" = "کد گیرنده را وارد نمایید";
-"ENTER_CODE" = "کد را وارد نمایید";
+/*  */
+"bank_etebari_asgarieh" = "موسسه اعتباری عسگریه";
 
-"SETTING_PAGE_FINANCIAL_SERVICES" = "خدمات مالی";
-"SETTING_PAGE_CHANGE_LANGUAGE" = "تغییر زبان";
-"SETTING_PAGE_CHOOSE_LANGUAGE" = "Choose Language - انتخاب زبان";
-"SETTING_PAGE_CHAT_WALLPAPER" = "پس زمینه";
-"SETTING_PAGE_IN_APP_BROWSER" = "مرور گر درون برنامه ای";
-"SETTING_PAGE_PRIVACY_AND_SECURITY" = "امنیت و حریم خصوصی";
-"SETTING_PAGE_CACHE_SETTINGS" = "تنظیمات حافظه نهان";
-"SETTING_PAGE_INVITE_FRIENDS" = "دعوت از دوستان";
-"SETTING_PAGE_ABOUT" = "درباره ما";
-"SETTING_PAGE_QRCODE_SCANNER" = "ورود با اسکن بارکد";
-"SETTING_PAGE_FOOTER_VERSION" = "نسخه";
+/*  */
+"card_bank" = "کارت بانک";
 
+/*  */
+"paygear_card" = "کیف پول";
 
-"SETTING_PAGE_ACCOUNT_NIKNAME" = "لقب";
-"SETTING_PAGE_ACCOUNT_IGAP_CLUB" = "باشگاه آیگپ";
-"SETTING_PAGE_ACCOUNT_SCORE_PAGE" = "امتیاز";
-"SETTING_PAGE_ACCOUNT_INTERESTING_CHANNELS" = "کانالهای جذاب";
-"FINANCIAL_TRANSACTIONS_HISTORY" = "تاریخچه تراکنش ها";
+/*  */
+"set_password" = "ثبت رمز عبور";
 
+/*  */
+"change_password" = "تغییر رمز عبور کیف پول";
 
-"SETTING_PAGE_ACCOUNT_PHONENUMBER" = "شماره تماس";
-"SETTING_PAGE_ACCOUNT_USERNAME" = "نام کاربری";
-"SETTING_PAGE_ACCOUNT_EMAIL" = "ایمیل";
-"SETTING_PAGE_ACCOUNT_BIO" = "مختصری از من";
+/*  */
+"text_forgot" = "رمز عبور کیف پول برای شما ارسال شد.( رمز ارسال شده بعد از ۲ دقیقه منقضی می شود لطفاً بعد از دریافت مجدد آن را تغییر دهید )";
 
-"SETTING_PAGE_ACCOUNT_REFERRAL" =  "معرف";
-"SETTING_PAGE_ACCOUNT_D_ACCOUNT" = "حذف حساب کاربری";
-"SETTING_PAGE_ACCOUNT_S_DESTRUCT" = "خود تخریبی";
-"SETTING_PAGE_ACCOUNT_LOGOUT" = "خروج از حساب کاربری";
-"SETTING_PAGE_ACCOUNT_S_DESTRUCT_HINT" = "در صورت فعال نبودن به مدت ";
-"SETTING_PAGE_ACCOUNT_S_DESTRUCT_FOOTER" = "در صورتی که از حساب کاربری خود در طول یکی از مدت زمان های تعیین شده به هیچ وجه استفاده ننمایید ، حساب شما پس از سپری شدن آن زمان به صورت خودکار تخریب و برای همیشه حذف خواهد شد. ";
-"SETTING_CONTACTS_BLOCKLIST" = "لیست مسدود شده ها";
-"SETTING_NEARBY_MAP_STATUS" = "فعال سازی این گزینه باعث پدیدار شدن موقعیت مکانی شما بر روی نقشه برای دیگران می شود.";
-"SETTING_NEARBY_MAP_MANUALUPDATE" = "بروزرسانی دستی نقشه";
-"SETTING_NEARBY_MAP_USERS_NEARBY_DISTANCE" = "کاربران اطراف من";
-"SETTING_NEARBY_MAP_DISABLE_NEARBY" = "غیر فعال کردن قابلیت اطراف من";
-"SETTING_FS_TOP_UP" = "شارژ سیم کارت";
-"SETTING_FS_CARD_TO_CARD_BILLS" = "کارت به کارت";
-"SETTING_FS_PAY_BILLS" = "پرداخت قبوض";
-"SETTING_FS_PAY_TRAFFIC_TICKETS" = "پرداخت قبض جریمه";
-"SETTING_FS_MBILL_INQUERY" = "استعلام قبوض همراه اول";
-"SETTING_FS_PHONE_INQUERY" = "استعلام قبوض تلفن ثابت";
-"SETTING_CW_WALLPAPER_LIBRARY" = "تصاویر پس زمینه";
-"SETTING_CW_SOLID_COLORS" = "رنگ ها";
-"SETTING_CW_PHOTOS" = "گالری تصاویر";
-"SETTING_CW_RESET_WALLPAPER" = "بازنشانی پس زمینه";
-"SETTING_PS_TTL_PRIVACY" = "حریم خصوصی";
-"SETTING_PS_BLOCKED_USERS" = "مخاطبین مسدود شده";
-"SETTING_PS_PROFILE_PHOTO" = "تصویر پروفایل";
-"SETTING_PS_LAST_SEEN" = "آخرین وضعیت";
-"SETTING_PS_GROUPS" = "گروه ها";
-"SETTING_PS_CHANNELS" = "کانال ها";
-"SETTING_PS_CALL" = "تماس";
-"SETTING_PS_PRIVACY_HINT" = "تغییر اینکه چه کسی قابلیت افزودن شما به گروه ها یا کانال ها و یا برقراری تماس با شما را داشته باشد.";
-"SETTING_PS_TTL_SECURITY" = "امنیت";
-"SETTING_PS_ACTIVE_SESSIONS" = "نشست های فعال";
-IGStringsManager.GlobalNoHistory.rawValue. = "نشست فعال دیگری وجود ندارد";
-"SETTINGS_PS_TERMINATE_ALL_EXEPT" = "لغو تمامی جلسات فعال بجز نشست فعلی";
-"TERMINATE_ALL_SESSIONS" = "لغو تمامی نشست ها";
+/*  */
+"text_forgot_title" = "ارسال مجدد رمز";
 
-"SETTING_PS_AS_SURE_TO_TERMINATE" = "آیا از لغو همهٔ جلسات فعال اطمینان دارید؟ ";
-"SETTING_PS_AS_SURE_TO_TERMINATE_THIS" = "آیا از لغو این نشست  اطمینان دارید؟ ";
-"SETTING_PS_TV_FOOTER_HINT" = "لطفا از ورود ایمیل صحیح اطمینان حاصل کنید چرا که در صورت فراموشی رمز عبور تنها راه بازیابی می باشد";
+/*  */
+"Forgot_Passwords" = "بازیابی رمز عبور کیف پول";
 
-"SETTING_PS_TWO_STEP_VERFI" = "تایید دو مرحله ای";
-"SETTING_PS_AS_CURRENT_SESSIONS" = "نشست  فعلی";
-"SETTING_PS_AS_MORE_DETAILS" = "اطلاعات بیشتر";
-"SETTING_PS_TV_TTL" = "در صورت فعال کردن رمز دوم در هر بار ورود با دستگاهی جدید از شما این رمز دوم نیز پرسیده خواهد شد";
-"SETTING_PS_TV_REQUIRED_FIELD" = "اجباری";
-"SETTING_PS_TV_RECOMMENDED_FIELD" = "پیشنهادی";
-"SETTING_PS_TV_PASSWORD" = "رمز عبور =";
-"SETTING_PS_TV_VERIFY_PASSWORD" = "تایید رمز عبور =";
-"SETTING_PS_TV_VERIFY_PASSWORD_NOTMATCH" = "رمز عبور و تکرار آن یکسان نیستند";
-"SETTING_PS_TV_HINT_ERROR" = "راهنما نباید با رمزعبور یکسان باشد";
-"SETTING_PS_TV_RECOVER_PASS" = "بازیابی رمز عبور";
-"SETTING_PS_TV_CHANGE_RECOVER_QUESTION" = "تغییر سوال بازیابی";
-"SETTING_PS_TV_MAX_TRY_LOCK" = " تأییدیه به دلیل چندین مرتبه وارد کردن برای مدتی مسدود می‌باشد";
-"SETTING_PS_TV_YOUR_PASS_REMOVED" = "پسورد با موفقیت حذف گردید";
-"INVALID_ANSWER" = "پاسخ اشتباه است";
-"RECOVER_BY_ANSWER_IS_FORBIDDEN" = "بازیابی توسط پاسخ امنیتی ممنوع می باشد";
+/*  */
+"cashier" = "مالی";
 
-"SETTING_PS_BLOCK_A_CONTACT" = "مسدود سازی مخاطب...";
-"BLLOCK_CONTACT" = "مسدود سازی مخاطب";
+/*  */
+"admin" = "ادمین";
 
-"UNBLOCK" = "آزاد سازی";
-"SETTING_PS_TV_Q1" = "سوال امنیتی اول =";
-"SETTING_PS_TV_Q2" = "سوال امنیتی دوم =";
-"SETTING_PS_TV_A1" = "پاسخ سوال امنیتی اول =";
-"SETTING_PS_TV_A2" = "پاسخ سوال امنیتی دوم =";
-"SETTING_PS_TV_HINT" = "راهنما =";
-"SETTING_PS_TV_EMAIL" = "ایمیل";
-"SETTING_PS_TV_FOOTER HINT" = "از افزودن آدرس ایمیلی معتبر اطمینان حاصل کنید .چرا که در صورت فراموشی رمز عبور تنها راه بازیابی آن خواهد بود.";
-"SETTING_CC_CLEAR_DATA" = "پاک سازی داده ها";
-"SETTING_ABOUT_CYRRENT_VERSION" = "ورژن فعلی ";
-"SETTING_ABOUT_IGAP_HOME" = "صفحه رسمی آیگپ";
-"SETTING_ABOUT_IGAP_BLOG" = "وبلاگ رسمی آیگپ";
-"SETTING_ABOUT_SUPPORT_REQUEST" = "درخواست پشتیبانی";
-"SETTING_CHL_PERSIAN" = "پارسی";
-"SETTING_CHL_ENGLISH" = "انگلیسی";
-"SETTING_CHL_ARABIC" = "عربی";
-"YEAR" = "سال";
-"DELETE_CARD" = "حذف کارت";
-"EVERYBODY" = "همه";
-"MY_CONTACTS" = "مخاطبان من";
-"NOBODY" = "هیچ کس";
-"TERMINATE" = "از بین بردن";
+/*  */
+"taxi_balance" = "موجودی تاکسی";
 
-"TIMELINE_LIKES" = "پسندیده اند";
-"PU_GETDATA" = "در حال دریافت ...";
-"PU_COUPON" = "کوپن تخفیف";
-"PU_INFORMATION" = "اطلاعات";
-"PU_SHOPPING" = "فروشگاه";
-"GLOBAL_BLOCK" = "مسدود کردن";
-"GLOBAL_REPORT" = "گزارش صفحه";
-"PU_SENDMSG" = "ارسال پیام";
-"PU_FOLLOWING" = "دنبال میکنید";
-"PU_FOLLOW" = "دنبال کردن";
-"PU_NODATA" = "اطلاعاتی برای نمایش وجود ندارد.";
-"PU_EDITPROFILE" = "ویرایش اطلاعات";
-"PU_PAYMENT" = "پرداخت";
-"PU_FOLLOWER" = "دنبال کننده";
-"PU_FOLLOWINGS" = "دنبال شونده";
-"PU_POSTS" = "پست ها";
-"NO_PRODUCT_FOUND" = "محصولی برای نمایش وجود ندارد.";
-"TIMELINE_NOPOST" = "پستی برای نمایش وجود ندارد.";
-"GAME_ALERT" = "حالا بهتره شماره موبایلت رو وارد کنی! داخل هم چیزای جذابی هست که ببینی...";
-"GAME_ALERT_TITLE" = "پیغام";
-"PAGE_INFORMATION" = "اطلاعات";
-"COMMENT_INPUT" = "دیدگاه خود را بنویسید...";
-"COMMENT_ERROR" = "تعداد کارکتر دیدگاه میبایست خالی نباشد و کمتر از ۵۰۰ کارکتر باشد.";
-"COMMENT_TITLE" = "دیدگاه ها";
-"SOCKET_CONNECTING" = "در حال اتصال...";
-"MESSAGE_TITLE" = "پیغام ها";
-"HASHTAGS" = "هشتگ ها";
-"barcode.gift.used" = "این هدیه قبلا استفاده شده است.";
-"barcode.gift.title" = "هدیه";
-"barcode.gift.message" = "";
-"barcode.gift.confirm" = "ثبت هدیه";
-"barcode.gift.cancel" = "انصراف";
-"barcode.gift.wrongemessage" = "پاسخ درستی دریافت نشد";
+/*  */
+"shop_balance" = "موجودی فروشگاه";
 
-"MESSAGE" = "پیغام";
-"EDITE_MESSAGE" = "ویرایش پیغام";
-"NO_MESSAGE" = "پیغامی برای نمایش وجود ندارد";
+/*  */
+"cashout_taxi" = "برداشت از موجودی";
 
-"MESSAGE_INPUT" = "پیغام خود را بنویسید...";
+/*  */
+"balance_low" = "موجودی کیف پول شما کم است. موجودی کیف پول خود را افزایش دهید.";
 
-"SELECT_OWNER" = "انتخاب فروشگاه محصول";
+/*  */
+"bank_card" = "کارت بانکی";
 
-"CONTACT_TITLE" = "مخاطبین من";
-"CONTACT_PERM_ERROR"  = "اجازه دسترسی به لیست مخاطبین شما داده نشده است، لطفا برای استفاده از این بخش به تنظیمات مراجعه نموده و آنجا دسترسی را برای پیگیر فعال نمایید.";
-"CONTACT_NOTFOUND" = "کاربری برای نمایش یافت نشد!";
+/*  */
+"wallet_card" = "کیف پول";
 
-"NP_ERROR" = "متن شما حداکثر میبایست ۵۰۰ حرف باشد.";
-"NP_ERROR_TEXTPIC" = "برای ارسال پست حتما میبایست متن یا تصویر انتخاب شود.";
-"NP_TYPECONTENT" = "چیزی در ذهنتان دارید را تایپ کنید...";
-"NP_ENTERTEXT" = "درج متن";
-"NP_SAVEIMAGE" = "ذخیره تصویر";
-"NP_SCANNERHINT" = "اسکنر نماد پرداخت فعال است";
-"SET_BTN" = "ایجاد";
+/*  */
+"amount_to_pay" = "مبلغ قابل پرداخت (ریال) :";
 
-"PRODUCTS_TOTALPRICE" = "مجموع قیمت نهایی";
-"PRODUCTS_CONTINUE" = "ادامه و تکمیل خرید";
-"PRODUCTS_DISCOUNT" = "تخفیف، سود شما";
-"PRODUCTS_DETAILS" = "توضیحات";
-"PRODUCTS_NO_DETAILS" = "فاقد توضیحات";
-"TRANSFER_MONEY" = "انتقال وجه";
+/*  */
+"club_balance" = "موجودی کارت باشگاهی (ریال)";
+
+/*  */
+"wallet_balance" = "موجودی کیف پول (ریال)";
+
+/*  */
+"total_amount" = "مبلغ کل (ریال) :";
+
+/*  */
+"discount_amount" = "مبلغ تخفیف (ریال) :";
+
+/*  */
+"personalAccountType" = "شخصی";
+
+/*  */
+"taxiAccountType" = "راننده";
+
+/*  */
+"shopAccountType" = "فروشگاه";
+
+/*  */
+"default_sheba_number" = "شماره شبا پیش فرض";
+
+/*  */
+"default_sheba_number_message" = "آیا مایل به ذخیره این شماره به عنوان شماره شبای پیش فرض خود هستید؟\n دقت کنید! در صورت انتخاب پیشفرض از این پس تمام برداشت های عادی اتوماتیک با شماره شبا پیشفرض انجام می شود.";
+
+/*  */
+"recover_password" = "فراموشی رمز";
+
+/*  */
+"cash_out_two_wallet_hint" = "مبلغ را وارد کنید تا موجودی فروشگاه به موجودی کیف پول شخصی شما انتقال یابد.";
+
+/*  */
+"cash_to_wallet" = "کیف ‌پولی";
+
+/*  */
+"person" = "نفر";
+
+/*  */
+"club_balance_not_enough" = "مبلغ از موجودی این کارت  بیشتر است.";
+
+/*  */
+"enter_four_digit_code" = "کد شش رقمی  را وارد کنید";
+
+/*  */
+"four_digit_code" = "کد شش رقمی پیامک شده";
+
+/*  */
+"show_receipt" = "مشاهده رسید";
+
+/*  */
+"reciever_name" = "نام گیرنده";
+
+/*  */
+"date_time" = "تاریخ و ساعت";
+
+/*  */
+"transaction_type" = "نوع تراکنش";
+
+/*  */
+"purchase" = "خرید";
+
+/*  */
+"remaining_balance" = "موجودی باقیمانده";
+
+/*  */
+"refound" = "سند اصلاح واریز  مبلغ به کیف پول";
+
+/*  */
+"Recently_Sticker" = "به تازگی";
+
+/*  */
+"Favorite_Sticker" = "مورد علاقه";
+
+/*  */
+"item_selected" = "مورد انتخاب شده";
+
+/*  */
+"terms_and_condition" = "%@ را می پذیرم";
+
+/*  */
+"terms_and_condition_clickable" = "قوانین و مقررات";
+
+/*  */
+"charity_confirm" = "شما مبلغ %s ریال جهت کمک به خیریه %s در نظر گرفته اید.";
+
+/*  */
+"new_channel_hint" = "شما می توانید توضیحات اختیاری برای کانال خود را ارائه دهید.";
+
+/*  */
+"new_group_hint" = "شما می توانید یک توضیح اختیاری برای گروه خود ارائه دهید.";
+
+/*  */
+"permanent_link" = "لینک دائمی";
+
+/*  */
+"change_language_title" = "تغییر زبان برنامه";
+
+/*  */
+"terms_condition_title" = "قوانین و مقررات";
+
+/*  */
+"welcome_title" = "به آیگپ خوش آمدید";
+
+/*  */
+"add_modereator" = "افزودن ناظر";
+
+/*  */
+"add_admin" = "افزودن مدیر";
+
+/*  */
+"subscribers_title" = "مشترک";
+
+/*  */
+"invite_link_title" = "لینک دعوت";
+
+/*  */
+"add_to_home_screen" = "افزودن به صفحه اصلی";
+
+/*  */
+"channel_type" = "نوع کانال";
+
+/*  */
+"sign_message_title" = "امضا پیام ها";
+
+/*  */
+"get_money_title" = "دریافت وجه";
+
+/*  */
+"payment_continue_title" = "ادامه";
+
+/*  */
+"shabe_title" = "کارت به شبا";
+
+/*  */
+"bank_account_charge" = "موجودی حساب";
+
+/*  */
+"last_ten_transaction" = "ده تراکنش آخر";
+
+/*  */
+"Inventory" = "موجودی";
+
+/*  */
+"pay_bills_title" = "پرداخت قبض";
+
+/*  */
+"mobile_bills_title" = "قبض موبایل";
+
+/*  */
+"bills" = "قبض و جریمه";
+
+/*  */
+"charge_amount" = "مبلغ شارژ";
+
+/*  */
+"buy_internet_package_title" = "خرید بسته اینترنتی";
+
+/*  */
+"charity_title" = "نیکوکاری";
+
+/*  */
+"disk_and_network_usage" = "استفاده از حافظه و شبکه";
+
+/*  */
+"cache" = "حافظه ی محلی";
+
+/*  */
+"auto_play_media" = "پخش خودکار محتوا";
+
+/*  */
+"auto_download_media" = "دانلودخودکار محتوا";
+
+/*  */
+"chat_setting" = "تنظیمات گفتگو";
+
+/*  */
+"warning" = "اخطار";
+
+/*  */
+"accept_terms_and_condition_error_message" = "فراموش كردین شرایط و ضوابط را بپذیرید";
+
+/*  */
+"new_channels_rules" = "اگر یک پیوند دائمی را تنظیم کنید، افراد دیگر قادر به یافتن و پیوستن به کانال شما خواهند بود.\nشما می توانید از a-z، 0-9 و زیرخط استفاده کنید.\nحداقل طول 5 حرف است.";
+
+/*  */
+"refresh" = "تازه کردن";
+
+/*  */
+"mark_as_several" = "انتخاب چندتایی";
+
+/*  */
+"chat_setting_title" = "تنظیمات صفحه گفتگو";
+
+/*  */
+"add_new_subscriber" = "افزودن دنبال کننده";
+
+/*  */
+"cloud" = "فضای ابری";
+
+/*  */
+"score" = "امتیاز";
+
+/*  */
+"Credit" = "اعتبار";
+
+/*  */
+"make_as_read" = "خوانده شده";
+
+/*  */
+"read_all" = "همه خوانده شده";
+
+/*  */
+"financial_report" = "گزارش مالی";
+
+/*  */
+"fag" = "سوالات متداول";
+
+/*  */
+"wallet_message" = "پیام کیف پول";
+
+/*  */
+"unknown_message" = "این پیام پشتیبانی نمی شود!";
+
+/*  */
+"card_to_card_message" = "پیام کارت به کارت";
+
+/*  */
+"payment_message" = "پیام پرداخت";
+
+/*  */
+"available_merchants" = "مشاهده فروشگاه های پذیرنده این کارت";
+
+/*  */
+"available_merchants_title" = "پذیرندگان باشگاه";
+
+/*  */
+"balance_title" = "موجودی :";
+
+/*  */
 "WALLET_TRANSFER_MONEY" = "انتقال وجه کیف پول";
+
+/*  */
 "CARD_TRANSFER_MONEY" = "انتقال وجه کارت به کارت";
+
+/*  */
 "PAYMENT_TRANSFER_MONEY" = "پرداخت";
 
+/*  */
+"card_number_dest" = "شماره کارت مقصد";
 
-"PRODUCTS_SELLER" = "فروشنده";
-"PRODUCTS_SELECT_CATEGORY" = "انتخاب دسته";
-"PRODUCTS" = "محصولات";
-"PRODUCTS_SELECT_ITEM" = "انتخاب آیتم";
-"PRODUCTS_CART" = "سبد خرید";
-"PRODUCTS_CART_REMOVE" = "آیا از حذف تمامی محصولات موجود در سبد خوداطمینان دارید؟";
-"PRODUCTS_CART_EMPTY" = "سبد خرید شما خالی می باشد.";
-"PRODUCTS_CART_ADD" = "افزودن به سبد";
-"COUPON_EXPIRED" = "پایان یافته است";
-"COUPONS" = "کوپن ها";
-"COUPONS_ZERO" = "کوپنی وجود ندارد";
-"COUPONS_ZEROSAVE" = "کوپنی ذخیره نشده است.";
-"COUPONS_SHOW" = "مشاهده کوپن";
-"COUPONS_LOADERROR" = "خطایی در بارگذاری کوپن رخ داده است.";
-"COUPONS_REPORT" = "گزارش کوپن";
-"COUPONS_REMOVE" = "حذف کوپن";
-"COUPONS_SAVE" = "ذخیره کوپن";
-"COUPONS_USE" = "استفاده از کوپن تخفیف";
-"COUPONS_SAVE2" = "ذخیره کوپن تخفیف";
-"COUPONS_TERMOFUSE" = "توضیحات و شرایط";
-"COUPONS_SERIAL" = "سریال کوپن";
-"COUPONS_STOCK" = "تعداد موجود";
-"COUPONS_USECOUNT" = "دفعات قابل استفاده";
-"COUPONS_PUNCHIES" = "کوپن پانچی";
-"COUPON_SHARE" = "کوپن به اشتراک گذاشته اند.";
-"USER_BUY" = "خرید کردند.";
-"SHARED_POST" = "این پست را به اشتراک گذاشته اند.";
-"SHARED_PAGE" = "این صفحه را به اشتراک گذاشته اند.";
-"COUPON_SAVED2" = "کوپن ذخیره کردند.";
-"COUPON_USED2" = "کوپن استفاده کردند";
-"POST_VIEW" = "مشاهده کامل ...";
-"POST_VIEW2" = "مشاهده کامل";
-"AUTH_ENTER_MOBILE" = "لطفا شماره موبایل خود را وارد نمایید.";
-"AUTH_SEND_CODE" = "ارسال کد تاییدیه";
-"AUTH_FOOTER" = "قبل از شروع فعالیت بهتر است تا محتوای مربوط به قوانین و نحوه استفاده از پیگیر را مطالعه نمایید.";
-"AUTH_MOBILE_ERROR" = "شماره موبایل خود را بطور صحیح وارد نمایید.";
-"AUTH_REGISTER" = "ثبت نام";
-"AUTH_REGISTER_INFO" = "اطلاعات کاربری خودت رو وارد کن";
-"AUTH_USERNAME" = "شناسه کاربری";
-"AUTH_VERIFYMOBILE" = "کد تایید موبایل";
-"VERFICATION_CODE" = "کد تایید";
-"AUTH_HINT_MOBILE" = "به شماره موبایل <MOBILE> کدی پیامک شده است، در صورت عدم دریافت دوباره درخواست بدهید.";
-"AUTH_RESEND" = "ثانیه تا ارسال دوباره پیامک";
-"AUTH_RESEND_BUTTON" = "ارسال دوباره پیامک";
-"POSTS" = "پست ها";
-"PAYMENTS" = "پرداخت ها";
-"TIMELINE_COMMENT" = "دیدگاه";
-"TIMELINE_LIKE" = "پسندید";
-"TIMELINE_S" = "ند";
-"USERS" = "کاربر";
-"SHARE_TO" = "ارسال به";
-"SELECT_CHATS" = "انتخاب گفت و گو";
-"DIRECT_PAY" = "پرداخت مستقیم";
+/*  */
+"card_number_source" = "شماره کارت مبدا";
 
-"GLOBAL_HOME" = "خانه";
-"POD_ADDRESSES" = "آدرس ها";
-"POD_MYADDRESS" = "آدرس های من";
-"POD_MERCHANTADDRESS" = "مکان های فروشگاه";
-"POD_NEWADDRESS" = "افزودن آدرس جدید";
-"POD_NEWADDRESS2" = "افزودن آدرس";
-"POD_EDITADDRESS" = "ویرایش آدرس";
-"POD_SELECT_CITY" = "انتخاب شهر";
-"POD_POSTALCODE" = "کد پستی";
-"POD_TELPHONE" = "شماره تماس";
-"POD_ADDRESS" = "آدرس کامل";
-"POD_ERROR_MESSAGE" = "لطفا عنوان، شهر، آدرس کامل را بطور صحیح وارد نمایید.";
-"EXPLORE_HINT" = "نام فروشگاه، شناسه کاربری، محصول...";
-"SEARCHING" = "در حال جستجو ...";
-"SEARCH_PLACEHOLDER" = "جست و جو نمایید";
-"NEW" = "جدید";
-"HEY_JOIN_IGAP" = "سلام!از طریق لینک زیر میتونی تو آیگپ عضو بشی، منتظرتیم http=//d.igap.net/invite معرف =";
-"FAQ" = "پرسش های متداول";
-"SETTING_NEARBY" = "اطراف من";
-"CREDITS" = "اعتبار";
-"GENDER" = "جنسیت";
-"MEN_GENDER" = "مذکر";
-"WOMEN_GENDER" = "مونث";
-"SETTING_PAGE_ACCOUNT_GIFT_PAGE" = "جوایز";
-"YOUR_RANK" = "جایگاه شما";
-"SCORE_HISTORY" = "تاریخچه امتیازات شما";
-"YOUR_STATUS" = "وضعیت شما";
+/*  */
+"source_bank" = "بانک مبدا";
+
+/*  */
+"cardToCardInvoiceNumber" = "شماره صورتحساب";
+
+/*  */
+"cardToCardTrace" = "شماره پیگیری";
+
+/*  */
+"WalletRrnNumber" = "شماره مرجع";
+
+/*  */
+"cardToCardRequest" = "متن درخواست کارت به کارت خود را بنویسید.";
+
+/*  */
+"amCardToCardIconText" = "درخواست انتقال";
+
+/*  */
+"cardToCardBtnText" = "کارت به کارت";
+
+/*  */
+"crad_to_card_dest_name" = "نام دارنده حساب";
+
+/*  */
+"groups_in_common" = "گروه های مشترک";
+
+/*  */
+"register_with_barcode_scan" = "ورود با اسکن بارکد";
+
+/*  */
+"one_number" = "۱";
+
+/*  */
+"two_number" = "۲";
+
+/*  */
+"three_number" = "۳";
+
+/*  */
+"four_number" = "۴";
+
+/*  */
+"five_number" = "۵";
+
+/*  */
+"six_number" = "۶";
+
+/*  */
+"seven_number" = "۷";
+
+/*  */
+"eight_number" = "۸";
+
+/*  */
+"nine_number" = "۹";
+
+/*  */
+"star_number" = "*";
+
+/*  */
+"zero_number" = "۰";
+
+/*  */
+"administrators_title" = "مدیران";
+
+/*  */
+"moderators_title" = "ناظران";
+
+/*  */
+"view_contact" = "نمایش مخاطب";
+
+/*  */
+"new_group_call" = "تماس گروهی جدید";
+
+/*  */
+"dial_number" = "صفحه تماس";
+
+/*  */
+"call" = "تماس";
+
+/*  */
+"Select_Country" = "انتخاب کشور";
+
+/*  */
+"enter_wallet_password" = "رمز کیف پول خود را وارد کنید";
+
+/*  */
+"videos" = "فیلم ها";
+
+/*  */
+"audios" = "صوت ها";
+
+/*  */
+"voices" = "پیغام های صوتی";
+
+/*  */
+"gifs" = "گیف ها";
+
+/*  */
+"files" = "فایل ها";
+
+/*  */
+"links" = "لینک ها";
+
+/*  */
+"size" = "اندازه";
+
+/*  */
+"copy_link_title" = "کپی لینک";
+
+/*  */
+"location_dialog_message" = "آیا می خواهید از موقعیت مکانی شما استفاده شود؟";
+
+/*  */
+"recent_action" = "اقدامات اخیر";
+
+/*  */
+"sign_channel_message_description" = "اسامی مدیران را به پیامهایی که ارسال کرده اید اضافه کنید.";
+
+/*  */
+"reaction_message_detail" = "با فعال کردن این گزینه امکان نظردهی اعضا گروه برای هر پست فعال میشود.";
+
+/*  */
+"chat_history_for_new_member_title" = "تاریخچه گپ برای اعضای جدید";
+
+/*  */
+"permissions_title" = "مجوزها";
+
+/*  */
+"all" = "همه";
+
+/*  */
+"missed" = "از دست رفته";
+
+/*  */
+"incoming" = "ورودی";
+
+/*  */
+"canceled" = "لغو شده";
+
+/*  */
+"outgoing" = "خروجی";
+
+/*  */
+"no_item_selected" = "موردی انتخاب نشده است.";
+
+/*  */
+"subscriber" = "دنبال کنندگان";
+
+/*  */
+"point" = "امتیاز";
+
+/*  */
+"rank" = "رتبه";
+
+/*  */
+"tablet_empty_chat_description" = "شروع کار\n به آیگپ خوش آمدید.همیشه می توانید عکس نمایه خود را تنظیم کرده و یا در بخش تنظیمات نام خود را تغییر دهید.";
+
+/*  */
+"make_call" = "ایجاد تماس";
+
+/*  */
+"create_chat" = "ایجاد گفتگو";
+
+/*  */
+"delete_all" = "حذف همه";
+
+/*  */
+"maximum_poll" = "شما به تعداد مجاز رای خود را ثبت کرده اید.";
+
+/*  */
+"before_try" = "قبلا رای خود را ثبت کرده اید.";
+
+/*  */
+"poll_ok" = "رای شما با موفقیت ثبت شد";
+
+/*  */
+"igasht_title" = "آیگشت";
+
+/*  */
+"igasht_choose_province_title" = "شهر مورد نظر خود را انتخاب کنید";
+
+/*  */
+"igasht_search_by_location" = "جستجو بر اساس موقعیت";
+
+/*  */
+"igasht_add_to_favorite_title" = "به لیست علاقمندی ها اضافه کن";
+
+/*  */
+"igasht_buy_ticket_title" = "خرید بلیط";
+
+/*  */
+"detail_title" = "جزئیات";
+
+/*  */
+"igasht_place_of_visit_title" = "محل بازدید";
+
+/*  */
+"igasht-add-external-visits" = "اضافه کردن بازدید کننده خارجی";
+
+/*  */
+"igasht_ticket_type_title" = "نوع بلیط را مشخص کنید";
+
+/*  */
+"igasht_enter_ticket_count_title" = "تعداد بازدید کننده را وارد کنید.";
+
+/*  */
+"igasht_add_ticket_count_button_title" = "ثبت";
+
+/*  */
+"igasht_order_ticket_title" = "%s برای %d نفر";
+
+/*  */
+"igasht_favorites_title" = "علاقه مندی ها";
+
+/*  */
+"igasht_history_title" = "تاریخچه";
+
+/*  */
+"igasht_total_ticket_price" = "مبلغ نهایی: %d ریال";
+
+/*  */
+"igasht_add_ticket_error" = "لطفا بلیت خود را اضافه کنید.";
+
+/*  */
+"igasht_buy_ticket_successful" = "خرید با موفقیت انجام شد.";
+
+/*  */
+"str_frag_sync_contactTitle" = "به دوستان خود سلام کنید و بهشون بگید که در آیگپ هستید.";
+
+/*  */
+"str_frag_sync_contactWelcome" = "به آیگپ خوش آمدید";
+
+/*  */
+"str_frag_sync_skipBtn" = "شروع";
+
+/*  */
+"str_frag_sync_error" = "ارتباط با سرور برقرار نشد. لطفا دوباره تلاش کنید.";
+
+/*  */
+"money_request" = "درخواست کارت به کارت به:";
+
+/*  */
+"cardtocard_descriotion_error" = "توضیحات نمیتواند خالی باشد.";
+
+/*  */
+"cardtocard_amount_empty_error" = "مبلغ نمیتواند خالی باشد.";
+
+/*  */
+"cardtocard_morethan_error" = "حداقل مبلغ برای کارت به کارت ۱۰ هزار ریال میباشد.";
+
+/*  */
+"cardtocard_cartnumber_error" = "شماره کارت باید ۱۶ رقم باشد.";
+
+/*  */
+"cardtocard_cardnumber_error" = "شماره کارت مقصد نمیتواند خالی باشد.";
+
+/*  */
+"payment_order_id_title" = "شماره سفارش : %@";
+
+/*  */
+"payment_rrn_title" = "شماره تراکنش: %.0f";
+
+/*  */
+"mci_topup_payment_title" = "شارژ همراه اول";
+
+/*  */
+"insert_amount_in_rial" = "مبلغ را به ریال وارد کنید";
+
+/*  */
+"enter_16_digit_card_number" = "شماره کارت ۱۶ رقمی را وارد کنید";
+
+/*  */
+"buy_internet_package_type_title" = "نوع بسته";
+
+/*  */
+"buy_internet_package_time_type_title" = "زمان";
+
+/*  */
+"buy_internet_package_volume_type_title" = "حجم";
+
+/*  */
+"buy_internet_package_daily_filter_title" = "%.0f روز";
+
+/*  */
+"buy_internet_package_weekly_filter_title" = "%.0f هفته";
+
+/*  */
+"buy_internet_package_month_filter_title" = "%.0f ماه";
+
+/*  */
+"buy_internet_package_year_filter_title" = "%.0f سال";
+
+/*  */
+"buy_internet_package_volume_filter_gb_title" = "%.0f گیگابایت";
+
+/*  */
+"buy_internet_package_volume_filter_mb_title" = "%.0f مگابایت";
+
+/*  */
+"buy_internet_package_choose_title" = "انتخاب کنید";
+
+/*  */
+"beeptunes_purchase_song" = "آهنگ های خریداری شده";
+
+/*  */
+"beeptunes_sync_song" = "آهنگ های بارگیری شده";
+
+/*  */
+"beeptunes-favorite-song" = "آهنگ های مورد علاقه";
+
+/*  */
+"play_sound_in_chat" = "پخش صدای ارسال پیام در گفتگو";
+
+/*  */
+"charge_type_error_message" = "لطفا نوع شارژ را انتخاب کنید.";
+
+/*  */
+"charge_price_error_message" = "لطفا مبلغ شارژ را انتخاب کنید.";
+
+/*  */
+"no_channels_in_category" = "هیچ کانالی در این دسته بندی وجود ندارد!";
+
+/*  */
+"message_decline_write_new" = "نوشتن پیام جدید…";
+
+/*  */
+"message_decline_call_later" = "با شما تماس میگیرم.";
+
+/*  */
+"message_decline_Please_call_later" = "ممکن است بعدا تماس بگیرید؟";
+
+/*  */
+"message_decline_please_text_me" = "لطفا پیام بدهید.";
+
+/*  */
+"mpl_transaction_rrn" = "شماره مرجع";
+
+/*  */
+"mpl_transaction_trace" = "شماره پیگیری";
+
+/*  */
+"mpl_transaction_order_id" = "شماره سفارش";
+
+/*  */
+"pay_id" = "شناسه پرداخت";
+
+/*  */
+"mpl_transaction_sales" = "پرداخت اینترنتی";
+
+/*  */
+"mpl_transaction_topup" = "شارژ موبایل";
+
+/*  */
+"mpl_transaction_empty" = "اطلاعات موجود نمیباشد!";
+
+/*  */
+"mpl_transaction_card" = "کارت به کارت";
+
+/*  */
+"mpl_terminal_no" = "شماره پایانه";
+
+/*  */
+"mpl_transaction_merchent_name" = "نام پذیرنده";
+
+/*  */
+"mpl_do_you_want_save_receipt" = "آیا مایل به ذخیره ی رسید هستید؟";
+
+/*  */
+"mpl_transaction_nul" = "شما هیچ تراکنشی در ۵ روز گذشته ندارید!";
+
+/*  */
+"scan_barcode_to_enter_visit" = "جهت ورود و بازدید بارکد فوق را اسکن کنید";
+
+/*  */
+"Your_purchase_code" = "کد خرید شما %@";
+
+/*  */
+"igasht_count_title" = "تعداد";
+
+/*  */
+"igasht_service_title" = "سرویس";
+
+/*  */
+"kuknos_login_messge_str" = "لطفا کد ملی خود را وارد نمایید.";
+
+/*  */
+"kuknos_login_id_str" = "کد ملی";
+
+/*  */
+"kuknos_login_tel_str" = "تلفن";
+
+/*  */
+"kuknos_login_submit_str" = "ثبت";
+
+/*  */
+"kuknos_login_error_empty_str" = "کد ملی خود را وارد نمایید.";
+
+/*  */
+"kuknos_login_error_invalid_str" = "کد ملی نامعتبر میباشد.";
+
+/*  */
+"kuknos_login_error_server_str" = "خطای سرور";
+
+/*  */
+"kuknos_login_progress_str" = "بررسی...";
+
+/*  */
+"kuknos_Entry_NT_str" = "کیف توکن جدید";
+
+/*  */
+"kuknos_Entry_RT_str" = "بازیابی کیف توکن";
+
+/*  */
+"kuknos_Entry_Message" = "لطفا یکی از گزینه های زیر را انتخاب نمایید.";
+
+/*  */
+"kuknos_Restore_Title" = "لطفا کلمات بازیابی حساب خود را وارد نمایید.";
+
+/*  */
+"kuknos_Restore_Message" = "با استفاده از این کلمات، شما میتوانید حساب خود را مجددا بازیابی نمایید.";
+
+/*  */
+"kuknos_Restore_Btn" = "بازیابی";
+
+/*  */
+"kuknos_Restore_Hint" = "برای مثال: دریا، میز، کابل...";
+
+/*  */
+"kuknos_Restore_Error_empty_str" = "زنجیره کلمات بازیابی حساب خود را وارد کنید.";
+
+/*  */
+"kuknos_Restore_Error_invalid_str" = "طول زنجیره وارد شده کافی نمیباشد.";
+
+/*  */
+"kuknos_Restore_Error_Snack" = "باشه";
+
+/*  */
+"kuknos_SignupInfo_title" = "اطلاعات کاربر";
+
+/*  */
+"kuknos_SignupInfo_desc" = "لطفا موارد زیر را کامل نمایید.";
+
+/*  */
+"kuknos_SignupInfo_username" = "نام کاربری*";
+
+/*  */
+"kuknos_SignupInfo_name" = "نام *";
+
+/*  */
+"kuknos_SignupInfo_family" = "نام خانوادگی *";
+
+/*  */
+"kuknos_SignupInfo_email" = "آدرس ایمیل";
+
+/*  */
+"kuknos_SignupInfo_submitBtn" = "ثبت";
+
+/*  */
+"kuknos_SignupInfo_checkUsername" = "در حال بررسی...";
+
+/*  */
+"kuknos_SignupInfo_submitConnecting" = "ذخیره...";
+
+/*  */
+"kuknos_SignupInfo_advSettingBtn" = "فعال سازی موارد امنیتی بیشتر >";
+
+/*  */
+"kuknos_SignupInfo_errorUsernameInvalid" = "این نام کاربری موجود نمیباشد.";
+
+/*  */
+"kuknos_SignupInfo_ValidUsername" = "نام کاربری آزاد است.";
+
+/*  */
+"kuknos_SignupInfo_errorEmailInvalid" = "ساختار ایمیل وارد شده، صحیح نمیباشد.";
+
+/*  */
+"kuknos_SignupInfo_errorUsernameEmpty" = "لطفا نام کاربری خود را وارد نمایید.";
+
+/*  */
+"kuknos_RecoverySK_Title" = "کلمات بازیابی";
+
+/*  */
+"kuknos_RecoverySK_Message" = "کلمات نمایش داده شده به حروف کوچک و بزرگ حساس می باشند. این کلمات در آینده به شما کمک می کنند تا بتوانید حساب خود را بازیابی نمایید. لطفا در حفظ آن کوشا باشید.";
+
+/*  */
+"kuknos_RecoverySK_Btn" = "کلمات را یادداشت کردم.";
+
+/*  */
+"kuknos_RecoverySK_Hint" = "دریا، میز، کابل...";
+
+/*  */
+"kuknos_RecoverySK_Error_empty_str" = "زنجیره کلمات بازیابی حساب خود را وارد کنید.";
+
+/*  */
+"kuknos_RecoverySK_Error_invalid_str" = "طول زنجیره وارد شده کافی نمیباشد.";
+
+/*  */
+"kuknos_RecoverySK_Error_Snack" = "باشه";
+
+/*  */
+"kuknos_SetPass_title" = "ساخت رمز ورودی";
+
+/*  */
+"kuknos_SetPass_message" = "رمز ورودی (چهار رقمی) جهت رمزنگاری کلید خصوصی شما مورد استفاده قرار می گیرد. لطفا رمز را به گونه ای انتخاب نمایید که به راحتی قابل حدس زدن نباشد.";
+
+/*  */
+"kuknos_SetPass_submit" = "ثبت";
+
+/*  */
+"kuknos_SetPass_error" = "لطفا رمز ورودی خود را وارد نمایید.";
+
+/*  */
+"kuknos_SetPassConf_title" = "تایید رمز ورودی";
+
+/*  */
+"kuknos_SetPassConf_message" = "رمز ورودی انتخابی خود را مجددا وارد نمایید.";
+
+/*  */
+"kuknos_SetPassConf_submit" = "تایید";
+
+/*  */
+"kuknos_SetPassConf_error" = "رمز ورودی با رمز تاییدی مطابقت ندارد.";
+
+/*  */
+"kuknos_panelStr_balance" = "موجودی";
+
+/*  */
+"kuknos_panelStr_recieve" = "دریافت";
+
+/*  */
+"kuknos_panelStr_send" = "ارسال";
+
+/*  */
+"kuknos_panelStr_history" = "سابقه";
+
+/*  */
+"kuknos_panelStr_trading" = "مبادله";
+
+/*  */
+"kuknos_panelStr_kyc" = "احراز هویت";
+
+/*  */
+"kuknos_panelStr_buyPeyman" = "خرید پیمان";
+
+/*  */
+"kuknos_panelStr_setting" = "تنظیمات";
+
+/*  */
+"kuknos_develop" = "در حال توسعه";
+
+/*  */
+"kuknos_recieve_title" = "جهت دریافت اعتبار از افراد دیگر، شناسه کیف پول خود را برای آنها ارسال نمایید.";
+
+/*  */
+"kuknos_recieve_walletID" = "شناسه کیف پول شما: SDJUKILLBBBTGGGGYHRFFD";
+
+/*  */
+"kuknos_recieve_copyBtn" = "کپی کردن شناسه";
+
+/*  */
+"kuknos_recieve_copyToast" = "شناسه کیف پول شما در حافظه کپی شد.";
+
+/*  */
+"kuknos_send_title" = "ارسال اعتبار";
+
+/*  */
+"kuknos_send_walletAddress" = "شناسه کیف پول مقصد *";
+
+/*  */
+"kuknos_send_text" = "یادداشت";
+
+/*  */
+"kuknos_send_amount" = "مقدار *";
+
+/*  */
+"kuknos_send_sendBtn" = "ارسال";
+
+/*  */
+"kuknos_send_connectingServer" = "انتقال...";
+
+/*  */
+"kuknos_send_successServer" = "انتقال با موفقیت انجام شد.";
+
+/*  */
+"kuknos_send_errorServer" = "خطای سرور: لطفا دوباره تلاش کنید.";
+
+/*  */
+"kuknos_send_walletIDError" = "شناسه کیف پول مقصد را وارد نمایید.";
+
+/*  */
+"kuknos_send_AmountError" = "مقدار ارسالی نباید خالی باشد.";
+
+/*  */
+"kuknos_send_CreditError" = "اعتبار حساب شما کافی نیست.";
+
+/*  */
+"kuknos_send_AmountFromatError" = "مقدار ارسالی صحیح نیست. لطفا فقط از . و اعداد 0 تا 9 استفاده کنید.";
+
+/*  */
+"kuknos_send_dialogTitle" = "وضعیت انتقال";
+
+/*  */
+"kuknos_wHistory_date" = "تاریخ";
+
+/*  */
+"kuknos_wHistory_desc" = "توضیحات";
+
+/*  */
+"kuknos_wHistory_amount" = "مقدار";
+
+/*  */
+"kuknos_wHistory_dialogTitle" = "خطا";
+
+/*  */
+"kuknos_wHistory_error" = "ارتباط با سرور برقرار نشد. لطفا دقایقی دیگر دوباره تلاش کنید.";
+
+/*  */
+"kuknos_setting_title" = "تنظیمات";
+
+/*  */
+"kuknos_setting_changePin" = "تغییر رمز ورودی";
+
+/*  */
+"kuknos_setting_viewRecoveryP" = "نمایش زنجیره کلمات بازیابی";
+
+/*  */
+"kuknos_setting_logout" = "خروج از کیف پول";
+
+/*  */
+"kuknos_changePIN_title" = "تغییر رمز ورودی";
+
+/*  */
+"kuknos_changePIN_message" = "رمز ورودی (چهار رقمی) جهت رمزنگاری کلید خصوصی شما مورد استفاده قرار می گیرد. لطفا رمز را به گونه ای انتخاب نمایید که به راحتی قابل حدس زدن نباشد.";
+
+/*  */
+"kuknos_changePIN_oldP" = "رمز فعلی *";
+
+/*  */
+"kuknos_changePIN_newP" = "رمز جدید *";
+
+/*  */
+"kuknos_changePIN_rnewP" = "تایید رمز جدید *";
+
+/*  */
+"kuknos_changePIN_submit" = "ثبت";
+
+/*  */
+"kuknos_changePIN_load" = "ذخیره...";
+
+/*  */
+"kuknos_changePIN_emptyCP" = "رمز فعلی را وارد نمایید.";
+
+/*  */
+"kuknos_changePIN_emptyNP" = "رمز جدید را وارد نمایید.";
+
+/*  */
+"kuknos_changePIN_emptyRNP" = "تایید رمز جدید را وارد نمایید.";
+
+/*  */
+"kuknos_changePIN_wrongCP" = "رمز فعلی باید 4 رقمی باشد.";
+
+/*  */
+"kuknos_changePIN_wrongNP" = "رمز جدید باید 4 رقمی باشد.";
+
+/*  */
+"kuknos_changePIN_wrongRNP" = "رمز تایید باید 4 رقمی باشد.";
+
+/*  */
+"kuknos_changePIN_notEqual" = "رمز جدید با رمز تایید مطابقت ندارد.";
+
+/*  */
+"kuknos_changePIN_successTitle" = "موفقیت";
+
+/*  */
+"kuknos_changePIN_failTitle" = "خطا";
+
+/*  */
+"kuknos_changePIN_successM" = "رمز ورودی تغییر یافت.";
+
+/*  */
+"kuknos_changePIN_failM" = "ارتباط با سرور برقرار نشد. لطفا دقایقی دیگر دوباره تلاش کنید.";
+
+/*  */
+"kuknos_viewRecoveryEP_title" = "نمایش زنجیره کلمات";
+
+/*  */
+"kuknos_viewRecoveryEP_message" = "لطفا رمز عبور خود را وارد نمایید تا زنجیره کلمات بازیابی برای شما نمایش داده شود.";
+
+/*  */
+"kuknos_viewRecoveryEP_pin" = "رمز ورودی";
+
+/*  */
+"kuknos_viewRecoveryEP_btn" = "نمایش";
+
+/*  */
+"kuknos_viewRecoveryEP_load" = "دریافت داده...";
+
+/*  */
+"kuknos_viewRecoveryEP_emptyPIN" = "رمز ورودی نباید خالی باشد.";
+
+/*  */
+"kuknos_viewRecoveryEP_wrongPIN" = "رمز ورودی 4 رقمی میباشد.";
+
+/*  */
+"kuknos_viewRecoveryEP_wrongPINE" = "رمز ورودی صحیح نمیباشد. لطفا دوباره تلاش کنید.";
+
+/*  */
+"kuknos_viewRecoveryEP_failTitle" = "خطا";
+
+/*  */
+"kuknos_logout_title" = "خروج از کیف پول";
+
+/*  */
+"kuknos_logout_message" = "اخطار: خروج از کیف پول تمامی اطلاعات شما بر روی این دستگاه را پاک خواهد کرد و برای ورود مجدد باید حساب باید از فرایند بازیابی حساب استفاده کنید.";
+
+/*  */
+"kuknos_logout_pin" = "رمز ورودی";
+
+/*  */
+"kuknos_logout_btn" = "خروج از کیف پول";
+
+/*  */
+"kuknos_logout_load" = "خروج...";
+
+/*  */
+"kuknos_buyP_title" = "خرید پیمان";
+
+/*  */
+"kuknos_buyP_message" = "شبکه ققنوس یک پلتفرم چند توکنی (Multi Token) یا چند دارایی (Multi Asset) است که امکان ساختن انواع توکن بر روی آن مقدور است. در این میان یک توکن (یا دارایی) خاص بنام پیمان (PMN) وجود دارد که کارکردهای ویژه ای برای آن در نظر گرفته شده است.";
+
+/*  */
+"kuknos_buyP_amount" = "تعداد پیمان درخواستی *";
+
+/*  */
+"kuknos_buyP_btn" = "خرید";
+
+/*  */
+"kuknos_buyP_btn_server" = "بررسی...";
+
+/*  */
+"kuknos_buyP_btn_server2" = "انتقال به بانک";
+
+/*  */
+"kuknos_buyP_desc" = "- سنجش (پیمانه) ارزشگذاری سایر دارایی­ های شبکه ققنوس و تعیین ضریب تبدیل آنها به یکدیگر \n- به دلیل بهره گیری از پشتوانه طلا (هر پیمان دارای پشتوانه ۳۰ سوت طلای ۲۴ عیار) نوسان ارزش آن بسیارناچیز است و لذا در معاملات بازار می تواند به عنوان یک دارایی ثابت از آن استفاده نمود. \n- پرداخت هزینه های تراکنش های شبکه ققنوس \n- معیاری جهت کنترل حداقل مانده موجودی حساب ها";
+
+/*  */
+"kuknos_buyP_sumTitle" = "جمع پرداختی:";
+
+/*  */
+"kuknos_buyP_sumCurrency" = "ریال";
+
+/*  */
+"kuknos_buyP_emptyAmount" = "تعداد پیمان درخواستی خود را وارد نمایید.";
+
+/*  */
+"kuknos_buyP_zeroAmount" = "تعداد پیمان درخواستی نباید صفر باشد.";
+
+/*  */
+"kuknos_buyP_failS" = "ارتباط با سرور برقرار نشد. لطفا دقایقی دیگر دوباره تلاش کنید.";
+
+/*  */
+"kuknos_buyP_failB" = "ارتباط با سرور بانک برقرار نشد. لطفا دقایقی دیگر دوباره تلاش کنید.";
+
+/*  */
+"kuknos_buyP_currency" = "ریال";
+
+/*  */
+"kuknos_trade_origin" = "میزان فروش*";
+
+/*  */
+"kuknos_trade_dest" = "میزان خرید*";
+
+/*  */
+"kuknos_trade_btn" = "ثبت";
+
+/*  */
+"kuknos_trade_server" = "ارسال...";
+
+/*  */
+"kuknos_trade_emptyOriginAmount" = "میزان فروش نباید خالی باشد.";
+
+/*  */
+"kuknos_trade_zeroOriginAmount" = "میزان فروش نباید صفر باشد.";
+
+/*  */
+"kuknos_trade_emptyDestAmount" = "میزان خرید نباید خالی باشد.";
+
+/*  */
+"kuknos_trade_zeroDestAmount" = "میزان خرید نباید صفر باشد.";
+
+/*  */
+"kuknos_trade_fail" = "ارتباط با سرور برقرار نشد. لطفا دقایقی دیگر دوباره تلاش کنید.";
+
+/*  */
+"kuknos_trade_success" = "درخواست مبادله با موفقیت در سیستم ثبت شد.";
+
+/*  */
+"kuknos_trade_sell" = "فروش";
+
+/*  */
+"kuknos_trade_recieve" = "خرید";
+
+/*  */
+"kuknos_trade_amount" = "مقدار";
+
+/*  */
+"kuknos_trade_delete" = "";
+
+/*  */
+"kuknos_trade_date" = "تاریخ";
+
+/*  */
+"kuknos_tradePager_trade" = "مبادله";
+
+/*  */
+"kuknos_tradePager_active" = "درخواست های باز";
+
+/*  */
+"kuknos_tradePager_history" = "سابقه";
+
+/*  */
+"kuknos_tradeDialogDelete_title" = "حذف مبادله";
+
+/*  */
+"kuknos_tradeDialogDelete_message" = "آیا از حذف این مبادله اطمینان دارید؟";
+
+/*  */
+"kuknos_tradeDialogDelete_btn" = "بله";
+
+/*  */
+"kuknos_setting_copySeedKey" = "کپی کلید مخفی";
+
+/*  */
+"kuknos_setting_Directory" = "آیگپ - ققنوس";
+
+/*  */
+"kuknos_setting_fileName" = "Kuknos_Seed_Key.txt";
+
+/*  */
+"kuknos_setting_fileContent" = "Please be notified: this is the only key that you can use to access your account later.Do NOT share it with others.\n Seed Key: 2552SD4546854212313845JHJKHGGFGDGDETGJKLKMBBVGCGHFF";
+
+/*  */
+"kuknos_setting_copySKeyTitel" = "ذخیره کلید مخفی";
+
+/*  */
+"kuknos_setting_copySKeyMessage" = "جهت آگاهی: \n - این کلید تنها راه ورود مجدد و مدیریت حساب شما میباشد. \n - در نگهداری از این کلید کوشا باشید. \n - از به اشتراک گذاری این کلید با دیگران پرهیز کنید. \n این کلید در فولدر دانلود های شما ذخیره خواهد شد.";
+
+/*  */
+"kuknos_setting_copySKeyBtn" = "ذخیره";
+
+/*  */
+"kuknos_setting_copySFailTitle" = "خطا";
+
+/*  */
+"kuknos_setting_copySFailBtn" = "باشه";
+
+/*  */
+"kuknos_setting_copySFailReadM" = "آیگپ اجازه خواندن فایل ها را ندارد.";
+
+/*  */
+"kuknos_setting_copySFailWriteM" = "آیگپ اجازه نوشتن فایل را ندارد.";
+
+/*  */
+"kuknos_setting_copySFailDir" = "آیگپ اجازه ایجاد مسیر مناسب را ندارد.";
+
+/*  */
+"kuknos_setting_copySFailWriteFile" = "خطایی رخ داده است. لطفا دقایقی دیگر دوباره تلاش کنید.";
+
+/*  */
+"kuknos_setting_copySSuccessMessage" = "کلید مخفی شما آماده است. میتوانید در فولدر دانلود ها به کلید خود را مشاهده کنید.";
+
+/*  */
+"kuknos_setting_copySSuccessTitle" = "موفقیت";
+
+/*  */
+"kuknos_login_progress_load" = "دریافت داده...";
+
+/*  */
+"kuknos_login_progress_next" = "بعدی";
+
+/*  */
+"kuknos_panel_addAsset" = "افزودن دارایی";
+
+/*  */
+"kuknos_login_error_server_ErrorStr" = "خطای سرور: عدم جواب. لطفا دوباره تلاش کنید.";
+
+/*  */
+"kuknos_RecoverySK_ErrorGenerateMn" = "عدم امکان تولید زنجیره کلمات. لطفا با پشتیبانی تماس بگیرید.";
+
+/*  */
+"kuknos_RecoverySK_ErrorGenerateKey" = "عدم امکان تولید کلید عمومی. لطفا با پشتیبانی تماس بگیرید.";
+
+/*  */
+"kuknos_recieve_walletCopy" = "آدرس کیف پول من:";
+
+/*  */
+"kuknos_recieve_error" = "امکان تولید رمزینه گرافیکی وجود ندارد.";
+
+/*  */
+"kuknos_panelStr_firstUser" = "حساب کاربری درخواستی یافت نشد یا موجودی آن خالی است. در این صورت از منوی دریافت استفاده کنید.";
+
+/*  */
+"Kuknos_transaction_error1" = "درخواست شما موفقیت آمیز نبود. لطفا دقایقی دیگر دوباره تلاش کنید.";
+
+/*  */
+"Kuknos_transaction_error2" = "خطای سرور. لطفا دوباره تلاش کنید.";
+
+/*  */
+"Kuknos_transaction_error3" = "شماره تراکنش اشتباه است. لطفا دوباره تلاش کنید.";
+
+/*  */
+"Kuknos_transaction_error4" = "شناسایی کاربر موفقیت آمیز نبود. لطفا دقایقی دیگر دوباره تلاش کنید.";
+
+/*  */
+"Kuknos_transaction_error5" = "اکانت مقصد وجود ندارد.";
+
+/*  */
+"Kuknos_transaction_error6" = "اعتبار برای کارمزد تراکنش کافی نیست.";
+
+/*  */
+"Kuknos_transaction_error7" = "اعتبار شما کافی نیست.";
+
+/*  */
+"Kuknos_transaction_error8" = "خطای داخلی: لطفا دقایقی دیگر دوباره تلاش کنید.";
+
+/*  */
+"kuknos_send_walletIDError2" = "آدرس کیف پول معتبر نیست.";
+
+/*  */
+"kuknos_wHistory_sent" = "ارسال";
+
+/*  */
+"kuknos_wHistory_receive" = "دریافت";
+
+/*  */
+"kuknos_wHistory_time" = "زمان";
+
+/*  */
+"kuknos_wHistory_creatAccount" = "ایجاد حساب کاربری";
+
+/*  */
+"kuknos_AddAsset_Title" = "آیگپی";
+
+/*  */
+"kuknos_AddAsset_SubTitle" = "آیگپ";
+
+/*  */
+"kuknos_AddAsset_Desc" = "Far far away, behind the word mountains, far from thecountries Vokalia and Consonantia, there live the blind texts. Separated they live inBookmarksgrove right at the coast of the Semantics, a large language ocean. A small rivernamed Duden flows by their place and supplies it with the necessary regelialia. It is aparadisematic country, in which roasted parts of sentences fly into your mouth.";
+
+/*  */
+"kuknos_AddAsset_AddBTN" = "تمامی دارایی ها";
+
+/*  */
+"kuknos_AddAsset_title" = "دارایی های فعلی";
+
+/*  */
+"kuknos_trade_noItem" = "هیچ موردی یافت نشد.";
+
+/*  */
+"kuknos_Restore_CheckPIN" = "من در هنگام ساخت حساب رمز ورود ایجاد کرده ام.";
+
+/*  */
+"kuknos_RestorePass_title" = "رمز 4 رقمی خود را وارد کنید.";
+
+/*  */
+"kuknos_RestorePass_message" = "این رمز 4 رقمی برای تولید کلید عمومی و خصوصی شما مورد استفاده قرار میگیرد.";
+
+/*  */
+"kuknos_RestorePass_btn" = "بازیابی";
+
+/*  */
+"kuknos_Restore_checkBtn" = "بعدی";
+
+/*  */
+"kuknos_Entry_RTSeedKey_str" = "بازیابی از طریق کلید خصوصی";
+
+/*  */
+"kuknos_SignupInfo_friendlyTial" = "*igap.net";
+
+/*  */
+"kuknos_RecoverySK_CheckPIN" = "تمایل دارم برای ساخت حساب رمز 4 رقمی داشته باشم.";
+
+/*  */
+"of_from_total" = "از %@";
+
+/*  */
+"app_version_change_log" = "لیست تغییرات";
+
+/*  */
+"updated_version_title" = "نسخه شما به روز شده است";
+
+/*  */
+"check_update_title" = "کنترل بروزرسانی";
+
+/*  */
+"unblock" = "رفع انسداد";
+
+/*  */
+"view_profile" = "مشاهده پروفایل";
+
+/*  */
+"there_is_no_car_available" = "شما خودرویی ثبت نکرده اید.";
+
+/*  */
+"add_car" = "افزودن خودرو";
+
+/*  */
+"cars_plaque" = "شماره پلاک خودرو";
+
+/*  */
+"car_plaque" = "شماره پلاک خودرو";
+
+/*  */
+"c_pay_title" = "خدمات خودرو";
+
+/*  */
+"add_plaque" = "ثبت پلاک";
+
+/*  */
+"from_first" = "از ابتدا";
+
+/*  */
+"national_code" = "کد ملی";
+
+/*  */
+"plaque_is_not_valid" = "پلاک وارد شده صحیح نیست.";
+
+/*  */
+"complete_correct" = "اطلاعات وارد شده صحیح نیست.";
+
+/*  */
+"plaque_added" = "پلاک افزوده شد.";
+
+/*  */
+"at_least_cpay_amout" = "مبلغ (حداقل 20 هزار ریال)";
+
+/*  */
+"cpay_title" = "سی پی";
+
+/*  */
+"link_not_valid" = "لینک نامعتبر";
+
+/*  */
+"popular_channel" = "کانال های جذاب";
+
+/*  */
+"referral_code_invalid" = "کد معرف نامعتبر است";
+
+/*  */
+"already_registered" = "شما قبلا کد معرف ثبت کرده اید";
+
+/*  */
+"igasht_select_location_button_title" = "انتخاب محل";
+
+/*  */
+"igasht_selected_location_title" = "نقاط تفریحی استان %@";
+
+/*  */
+"igasht_location_found_count" = "%d مورد یافت شد";
+
+/*  */
+"igasht_success_payment" = "پرداخت شما با موفقیت انجام شد";
+
+/*  */
+"noDetail_textView" = "فاقد توضیحات";
+
+/*  */
+"igasht_empty_history_message" = "هنوز بلیطی خریداری نشده است.";
+
+/*  */
+"Restaurant_textView" = "رستوران";
+
+/*  */
+"parking_textView" = "پارکینگ";
+
+/*  */
+"wifi_textView" = "وای فای";
+
+/*  */
+"coffeeShop_textView" = "کافی شاپ";
+
+/*  */
+"wheelchair_textView" = "ویلچر";
+
+/*  */
+"prayerRoom_textView" = "نمازخانه";
+
+/*  */
+"user_edited" = "کاربر ویرایش شد.";
+
+/*  */
+"edit_contact" = "ویرایش مخاطب";
+
+/*  */
+"default_theme_title" = "پیش فرض";
+
+/*  */
+"dark_theme_title" = "تاریک";
+
+/*  */
+"red_theme_title" = "قرمز";
+
+/*  */
+"pink_theme_title" = "صورتی";
+
+/*  */
+"purple_theme_title" = "بنفش";
+
+/*  */
+"blue_theme_title" = "آبی";
+
+/*  */
+"green_theme_title" = "سبز";
+
+/*  */
+"amber_theme_title" = "زرد";
+
+/*  */
+"orange_theme_title" = "نارنجی";
+
+/*  */
+"gray_theme_title" = "طوسی تیره";
+
+/*  */
+"onboard_titles" = "<item>کیف پول موبایلی</item>\n        <item>خرید با QR</item>";
+
+/*  */
+"onboard_descriptions" = "<item>کیف پول یه حساب مجازی براتون می‌سازه که به شماره موبایل وصل می‌شه و دیگه لازم نیست کیف پول یا پول نقد یا کارت‌بانکی با خودتون ببرید.</item>\n        <item>توی مغازه‌ها، توی تاکسی یا هر جایی که پذیرنده کیف پول هستند می‌تونید از دکمه اسکن استفاده کنید و خریدتونو لذت‌بخش‌تر کنید.</item>";
+
+/*  */
+"news_MHits" = "پربازدیدترین";
+
+/*  */
+"news_comment" = "نظرات";
+
+/*  */
+"news_emptyList" = "هیچ موردی برای نمایش موجود نیست.";
+
+/*  */
+"news_ergent" = "پربحث ترین";
+
+/*  */
+"news_groupTitle" = "گروه های خبری";
+
+/*  */
+"news_latest" = "آخرین خبرها";
+
+/*  */
+"news_mainTitle" = "اخبار آیگپ";
+
+/*  */
+"news_related_news" = "اخبار مرتبط";
+
+/*  */
+"news_share" = "اشتراک گذاری خبر";
+
+/*  */
+"news_write_comment" = "نظر شما چیست؟";
+
+/*  */
+"error_ivand_limit_gift" = "متاسفانه هدایای تعیین شده به اتمام رسیده است.";
+
+/*  */
+"referral_error_yourself" = "امکان ثبت شماره خود به عنوان معرف مقدور نیست.";
+
+/*  */
+"iland" = "آیلند";
+
+/*  */
+"all_calls" = "تماس ها";
+
+/*  */
+"open_url" = "باز کردن لینک";
+
+/*  */
+"copied" = "کپی شد.";
+
+/*  */
+"message_is_long" = "پیام شما طولانی است.\nپیام تبدیل خواهد شد به";
+
+/*  */
+"elecBill_Entry_lengthError" = "شناسه قبض باید 13 کاراکتر باشد.";
+
+/*  */
+"elecBill_Entry_barcodeError" = "اسکن بارکد انجام نشد. لطفا دوباره تلاش کنید.";
+
+/*  */
+"elecBill_Entry_companyError" = "از این بخش تنها برای پرداخت قبض برق استفاده کنید.";
+
+/*  */
+"elecBill_main_billTitle" = "استعلام و پرداخت سریع قبض برق";
+
+/*  */
+"elecBill_main_billIDHint" = "شناسه قبض";
+
+/*  */
+"elecBill_main_billPay" = "استعلام";
+
+/*  */
+"elecBill_main_billMyList" = "قبض های من";
+
+/*  */
+"elecBill_main_billSearch" = "جستجوی قبض";
+
+/*  */
+"elecBill_main_billBranchInfo" = "اطلاعات انشعاب";
+
+/*  */
+"elecBill_pay_billID" = "شناسه قبض";
+
+/*  */
+"elecBill_pay_billPayID" = "شناسه پرداخت قبض";
+
+/*  */
+"elecBill_pay_billPrice" = "مبلغ پایان دوره";
+
+/*  */
+"elecBill_pay_billTime" = "مهلت پرداخت";
+
+/*  */
+"elecBill_pay_billPay" = "پرداخت";
+
+/*  */
+"elecBill_pay_billBranchInfo" = "اطلاعات انشعاب";
+
+/*  */
+"elecBill_pay_billAddBillList" = "اضافه کردن به لیست قبض های من";
+
+/*  */
+"elecBill_pay_billImage" = "دریافت تصویر قبض";
+
+/*  */
+"elecBill_Entry_nameError" = "لطفا نام انتخابی قبض را وارد کنید. برای مثال خانه";
+
+/*  */
+"elecBill_Entry_billIDError" = "لطفا شناسه قبض را وارد نمایید.";
+
+/*  */
+"elecBill_Entry_phoneError" = "لطفا شماره تلفن خود را وارد نمایید.";
+
+/*  */
+"elecBill_Entry_phoneLengthError" = "طول شماره تلفن شما باید از 11 رقم باشد.";
+
+/*  */
+"elecBill_Entry_phoneFormatError" = "شماره تلفن شما باید با 09 شروع شده باشد.";
+
+/*  */
+"elecBill_Entry_userIDError" = "لطفا کد ملی خود را وارد نمایید.";
+
+/*  */
+"elecBill_Entry_userIDLengthError" = "طول کد ملی شما کافی نیست.";
+
+/*  */
+"elecBill_Entry_emailFormatError" = "ساختار ایمیل شما صحیح نیست.";
+
+/*  */
+"elecBill_add_form" = "لطفا موارد خواسته شده را تکمیل کنید.";
+
+/*  */
+"elecBill_add_name" = "نام قبض *";
+
+/*  */
+"elecBill_add_billID" = "شناسه قبض *";
+
+/*  */
+"elecBill_add_phone" = "شماره تلفن شما *";
+
+/*  */
+"elecBill_add_UserNID" = "کد ملی شما *";
+
+/*  */
+"elecBill_add_Email" = "آدرس ایمیل شما";
+
+/*  */
+"elecBill_add_addBtn" = "اضافه کردن قبض";
+
+/*  */
+"elecBill_cell_showDetail" = "جزئیات";
+
+/*  */
+"elecBill_cell_addNewBill" = "اضافه کردن قبض جدید";
+
+/*  */
+"elecBill_cell_deleteAccount" = "حذف حساب کاربری";
+
+/*  */
+"elecBill_deleteBill_title" = "حذف قبض";
+
+/*  */
+"elecBill_deleteBill_desc" = "آیا از حذف این قبض اطمینان دارید؟";
+
+/*  */
+"elecBill_deleteBill_pos" = "حذف";
+
+/*  */
+"elecBill_deleteBill_neg" = "قبض حذف نشود.";
+
+/*  */
+"elecBill_deleteAccount_title" = "حذف حساب کاربری";
+
+/*  */
+"elecBill_deleteAccount_desc" = "آیا از حذف حساب کاربری خود اطمینان دارید؟";
+
+/*  */
+"elecBill_deleteAccount_pos" = "حذف حساب";
+
+/*  */
+"elecBill_deleteAccount_neg" = "لغو حذف حساب من";
+
+/*  */
+"elecBill_image_Directory" = "آیگپ - قبض برق";
+
+/*  */
+"elecBill_image_success" = "دانلود فایل کامل شد.";
+
+/*  */
+"elecBill_image_fail" = "بارگزاری با خطا مواجه شد.";
+
+/*  */
+"elecBill_image_open" = "باز کردن فایل";
+
+/*  */
+"elecBill_image_close" = "رد کردن";
+
+/*  */
+"elecBill_edit_saveBtn" = "ذخیره تغییرات";
+
+/*  */
+"elecBill_edit_Btn" = "ویرایش قبض";
+
+/*  */
+"elecBill_searchCell_billID" = "شناسه قبض";
+
+/*  */
+"elecBill_searchCell_CustomerName" = "نام مشتری";
+
+/*  */
+"elecBill_searchCell_CustomerAddress" = "آدرس مشتری";
+
+/*  */
+"elecBill_search_billSerial" = "شماره بدنه کنتور";
+
+/*  */
+"elecBill_search_billCompany" = "شرکت ارائه دهنده سرویس برق";
+
+/*  */
+"elecBill_search_billSearch" = "جستجو";
+
+/*  */
+"elecBill_search_billSpinner" = "انتخاب کنید";
+
+/*  */
+"elecBill_error_billMissing" = "اطلاعات لازم جهت پرداخت قبض موجود نیست.";
+
+/*  */
+"elecBill_error_bellowMin" = "امکان پرداخت قبض های زیر 10000 ریال وجود ندارد.";
+
+/*  */
+"elecBill_error_MPLError" = "سرویس پرداخت متصل نمی باشد.";
+
+/*  */
+"elecBill_error_title" = "خطا";
+
+/*  */
+"elecBill_error_listView" = "موردی برای نمایش موجود نیست. لطفا دقایقی دیگر دوباره تلاش کنید.";
+
+/*  */
+"elecBill_error_company" = "شما باید شرکت توزیع کننده برق خود را انتخاب کنید.";
+
+/*  */
+"elecBill_error_billSerial" = "شماره کنتور نمیتواند خالی باشد.";
+
+/*  */
+"elecBill_error_billSerialLength" = "شماره کنتور باید حداقل 7 کاراکتر باشد.";
+
+/*  */
+"elecBill_error_openCompanySpinner" = "باز کردن";
+
+/*  */
+"elecBill_error_zeroResultSearch" = "نتایج: قبضی یافت نشد.";
+
+/*  */
+"elecBill_error_zeroResultBill" = "هیچ قبضی به نام شما در سیستم موجود نیست.";
+
+/*  */
+"elecBill_error_notPossible" = "این عملیات در حال حاضر امکان پذیر نیست.";
+
+/*  */
+"elecBill_success_title" = "موفقیت";
+
+/*  */
+"elecBill_success_pay" = "پرداخت با موفقیت انجام شد.";
+
+/*  */
+"delete_from_storage" = "حذف از حافظه";
+
+/* <string name="news_latest">Latest</string>
+<string name="news_MHits">Most-Watched</string>
+<string name="news_ergent">Most_Read</string>
+<string name="news_emptyList">There is no item to show.
+ Pull down to refresh.</string>
+<string name="news_mainTitle">IGap News</string>
+<string name="news_serverError">Something went wrong. Please try again.</string>
+<string name="news_groupTitle">News Group</string>
+<string name="news_share">Share this news with your friends.</string>
+<string name="news_comment">Comments</string>
+<string name="news_write_comment">Write comment</string>
+<string name="news_related_news">Related News</string> */
+"news_no_comment" = "هیچ نظری ثبت نشده است.";
+
+/*  */
+"news_serverError" = "Something went wrong. Please try again.";
+
+/*  */
+"news_add_comment_title" = "ثبت نظر";
+
+/*  */
+"news_add_comment_author" = "نام";
+
+/*  */
+"news_add_comment_email" = "ایمیل";
+
+/*  */
+"news_add_comment_comment" = "دیدگاه شما";
+
+/*  */
+"news_add_comment_submit" = "ثبت";
+
+/*  */
+"news_add_comment_load" = "در حال ارسال";
+
+/*  */
+"news_add_comment_success" = "ثبت شد.";
+
+/*  */
+"news_add_comment_fail" = "خطا!";
+
+/*  */
+"news_add_comment_successToast" = "نظر شما با موفقیت ثبت شد.";
+
+/*  */
+"news_add_comment_errorAuthor" = "لطفا نام خود را وارد کنید.";
+
+/*  */
+"news_add_comment_errorEmail" = "لطفا ایمیل خود را وارد کنید.";
+
+/*  */
+"news_add_comment_errorEmail2" = "فرمت ایمیل وارد شده صحیح نیست.";
+
+/*  */
+"news_add_comment_errorComment" = "لطفا نظر خود را وارد کنید.";
+
+/*  */
+"your_profile" = "Your Profile";
+
+/*  */
+"dialog_done" = "Done";
+
+/*  */
+"new_text" = "new";
+
+/*  */
+"set_as_default_card" = "Set as Default Card";
+
+/*  */
+"driver_wallet_balance" = "Balance of Driver's Wallet";
+
+/*  */
+"wallet_store_balance" = "Balance of Shop's Wallet";
+
+/*  */
+"gift_is_used" = "This Gift Barcode Is Already Used";
+
+/*  */
+"please_fill_form_data_correctly" = "Please fill the form information correctly";
+
+/*  */
+"qr_code_scanner" = "Qr Code Scanner";
+
+/*  */
+"msg_security_two_step_verification" = "In Order to retrieve your accountPlease Answer the following security questions,after answering correctly your two step verification password will be disabled and need to be activated again";
+
+/*  */
+"show_and_login_using_qr_title" = "Scan this QR Code using your other device to log in to your iGap Account";
+
+/*  */
+"two_step_verficatiion_header" = "You have enabled Two-Step verification; so your account is protected with an additional password";
+
+/*  */
+"check_internet_connection" = "check internet connection";
+
+/*  */
+"credit" = "اعتبار";
+
+/*  */
+"do_not_send" = "نفرست";
+
+/*  */
+"increase_credit" = "Increase credit";
+
+/*  */
+"increase_score" = "Increase Score";
+
+/*  */
+"payment_for" = "به";
+
+/*  */
+"realmDatabaseEncrypt" = "iGapLocalDatabaseEncrypted.realm";
+
+/*  */
+"realmDatabaseNonEncrypt" = "iGapLocalDatabase.realm";
+
+/*  */
+"score_title" = "امتیاز";
+
+/*  */
+"your_rate" = "Your rate :";
+//MARK: -Imported From iOS
+"deleted_from_storage" = "حذف از حافظه";
+
+"auth_verify_mobile" = "کد تایید";
+"via" = "توسط";
+"sms_and_igap" = "پیامک و آیگپ";
+"dialog_done" = "تایید";
+"your_profile" = "جساب کاربری شما";
+"two_step_verficatiion_header" = "شما تایید دومرحله ای را انتخاب کرده اید.برای همین حساب کاربری شما توسط رمزی دوم ایمن شده است";
+"show_and_login_using_qr_title" = "این کیوآر کد را توسط دستگاه دیگر خود به منظور ورود به حساب کاربری اسکن نمایید";
+"msg_security_two_step_verification_hint" = "به منظور بازیابی حساب خود لطفا به سوالات زیر پاسخ بدهید";
+"new_text" = "جدید";
+"new_call" = "تماس جدید";
+"hint" = "راهنما";
+"check_all_the_fields" = "لطفا همه ی فیلد ها را چک نمایید";
+"minimum_number_of_letters" = "تعداد حروغ وارد شده کمتر از ۵ حرف می باشد";
+"already_taken_username" = "این نام کاربری قبلا توسط کاربری دیگر انتخاب شده است";
+"msg_update_username_forbidden" = ".کاربران می توانند توسط این لینک به کانال شما ملحق شوند.در آینده می توانید این لینک را نیز تفییر دهید";
+"new_channels_rules_private" = "People can join your channel by following this link.you can change the link at any time.";
+"add_member" = "افزودن کاربر";
+"add_member_to" = "افزودن کاربر به";
+"please_choose_a_member" = "لطفا یک کاربر را انتخاب نمایید";
+"exising_member" = "کاربر انتخابی در لیست موجود می باشد ";
+"exising_members" = "کاربران انتخابی در لیست موجود می باشند ";
+"loading" = "در حال دریافت ...";
+"ok_and_go" = "اعمال و رفتن";
+"enter_reciever_code" = "کد گیرنده را وارد نمایید";
+"please_fill_form_data_correctly" = "لطفا اطلاعات فرم را به صورت صحیح پر نمایید";
+"qr_code_scanner" = "بارکدخوان";
+"gift_is_used" = "این بارکد هدیه قبلا استفاده شده است";
+"wallet_store_balance" = "موجودی کیف پول مغازه";
+"driver_wallet_balance" = "موجودی کیف پول راننده";
+"set_as_default_card" = "تعریف به عنوان کارت پیشفرض";
+"otp_code" = "رمز یک بار مصرف";
+"success_payment" = "پرداخت موفق";
+"shares_of_sales" = "سهم از فروش";
+"to_wallet" = "به کیف پول";
+"success_operation" = "عملیات موفقیت آمیز بود";
+"amount_in" = "مبلغ واریزی";
+"amount_out" = "مبلغ برداشت";
+"please_wait_data_loading" = "تا زمان دریافت داده ها شکبیا باشید ...";
+"invalid_bill_message" = "قبض نا معتبر می باشد";
+"elec_bill_operations" = "خدمات قبض برق";
+"elec_bill_name" = "نام قبض";
+"elec_provider_company_code" = "کد شرکت توزیع";
+"elec_provider_company_name" = "نام شرکت توزیع";
+"elec_provider_customer_type" = "نوع مشترک";
+"elec_provider_customer_tel" = "تلفن مشترک";
+"elec_provider_bill_phase" = "فاز";
+"elec_provider_bill_voltage" = "ولتاژ";
+"elec_provider_bill_power" = "قدرت";
+"elec_provider_bill_tarif" = "تعرفه";
+"elec_bill_customer_postal_code" = "کدپستی";
+"elec_bill_customer_zone" = "منطقه";
+"elec_bill_customer_due_date" = "آخرین مهلت پرداخت";
+"elec_bill_device_last_read" = "آخرین تاریخ مشاهده کنتور";
+"elec_bill_enter_device_serial" = "سریال کنتور خود را وارد نمایید";
+"elec_bill_select_provider_company_list" = "لطفا شرکت توزیع منطقه خود را انتخاب نمایید";
+"communicating" = "برقراری ارتباط...";
+"what_do_u_want" = "قصد چه کاری را دارید؟";
+"which_type_of" = "تمایل به ایجاد کدام یک از موارد زیر را دارید؟";
+"last_active_at" = "آخرین زمان فعال بودن :";
+"linux" = "لینوکس";
+"windows" = "ویندوز";
+"mac_os" = "مک اواس";
+"ios" = "آی او اس";
+"android" = "اندروید";
+"tablet" = "تبلت";
+"mobile" = "موبایل";
+"Desktop" = "دیکتاپ";
+"blackberry" = "بلک بری";
+"unknown_audio" = "فایل صوتی نامشخص";
+"user_not_exist" = "این کاربر وجود ندارد";
+"channel_not_exist" = "کانال وجود ندارد";
+"group_not_exist" = "گروه وجود ندارد";
+"before" = "قبل";
+"you_joined" = "شما پیوستید ";
+"open_now" = "الان باز کن";
+"sure_to_forward" = "آیا از ارسال این پیام به این صفحه مطمین هستید؟";
+"albums" = "آلبوم ها";
+"choose_frame" = "انتخاب قاب";
+"processing" = "درحال پردازش";
+"prepaid" = "اعتباری";
+"incash" = "نقدی";
+"paygateway" = "درگاه پرداخت";
+"an_hour_ago" = "یک ساعت پیش";
+"hours_ago" = "ساعت پیش";
+"someone" = "شخصی";
+"room_created" = "این صفحه را ایجاد کرد";
+"channel_created" = "کانال ایجاد گردید";
+"group_created" = "گروه ایجاد گردید";
+"did_not_respond_to_ur_voice_call" = "عدم پاسخ دهی به شروع تماس صوتی با شما";
+"did_not_respond_to_ur_video_call" = "عدم پاسخ دهی به شروع تماس تصویری با شما";
+"msg_vote_to_see_barchart" = "برای مشاهده نتیجه نظرسنجی لطفا ابتدا رای خود را ثبت نمایید !";
+"chart" = "نمودار";
+"call_question" = "تمایل به برقراری تماس به کدام شماره را دارید؟";
+"Channels" = "کانال ها";
+"long_press_to_record" = "برای شروع ضبظ دست خود را نگخ دارید";
+"unpin_are_u_sure" = "آیا از برداشتن پین این پیام مطمینید؟";
+"unpin_for_all" = "برداشتن پین برای همه";
+"unpin_for_me" = "برداشتن پین برای من";
+"pin_are_u_sure" = "آیا از پین شدن این پیام مطمینید؟";
+"photo_or_video" = "تصویر یا ویدیو";
+"delete_for_me" = "حذف برای من";
+"delete_for_me_and" = "حذف برای من و";
+"send_again" = "ارسال مجدد";
+"share_to" = "اشتراک گذاری با";
+"select_chat" = "انتخاب گفت و گو";
+"channel_info" = "اطلاعات کانال";
+"group_type" = "نوع گروه";
+"channel_type" = "نوع کانال";
+"private" = "خصوصی";
+"public" = "عمومی";
+"documents" = "داکیومنت ها";
+"update_username_after" = "عدم امکان آپیدیت نام کاربری به علت اینکه اخیرا نام کاربری خود را تغییر داده اید. زمان انتظار ";
+"group_link_can_not_be_empty" = "قسمت لینک گروه نباید خالی باشد";
+"role_has_changes" = "نقش شما تغییر کرد بنابراین در حال حاضر نمی توانید لیست اعضا را مشاهده کنید!";
+"not_exist_moderator" = "هیچ سردبیری ثبت نشده است!";
+"not_exist_admin" = "هیچ مدیری ثبت نشده است!";
+"exist_member" = "در حال حاضر جزء اعضاء شما است!";
+"msg_write_ur_report_description" = "لطفا توضیحات لازم برای علت گزارش خود را بنویسید";
 
 
-"SEARCH_NORESULT" = "نتیجه ای یافت نشد.";
-"SEARCH_NEARBY" = "اطراف من";
-"CONTACT_FIND_FRIENDS" = "دوستان خود را پیدا کنید";
-"CONTACT_FIND_TEXT" = "دوستان خود را در پیگیر پیدا کنید، همدیگر را دنبال کنید و از لحظات همدیگر با خبر شوید و با یکدیگر گفتگو کنید.";
-"CONTACT_FIND" = "پیدا کردن دوستانم";
-"COUPON_SHARED" = "کوپن به اشتراک گذاشته است.";
-"POST_SHARE" = "این پست را به اشتراک گذاشته است.";
-"PAGE_SHARE" = "صفحه ای به اشتراک گذاشته است.";
-"COUPON_SAVED" = "کوپن ذخیره کرده است";
-"COUPON_USED" = "کوپن استفاده کرده است.";
-"BUY_TEXT" = "بار خرید کرد";
-"ERROR_CODE" = "کد وارد شده صحیح نمی باشد، دوباره تلاش کنید.";
-"ERROR_FORM" = "اطلاعات فرم را بطور صحیح وارد نمایید.";
-"MERCHANT" = "فروشگاه";
-"AND" = "و";
-"OTHER_USER" = "نفر دیگر";
-"GLOBAL_BUY" = "خرید";
-"GLOBAL_USER" = "کاربر";
-"GLOBAL_SHOP" = "فروشگاه";
-"GLOBAL_PRODUCT" = "محصول";
-"GLOBAL_COUPON" = "کوپن";
-"GLOBAL_MESSAGE" = "پیغام";
-"GLOBAL_ALL" = "همه";
-"GLOBAL_FROM" = "از";
-"GLOBAL_UNKNOWN" = "مشخص نیست";
-"GLOBAL_OKCLOSE" = "تایید و بستن";
-"GLOBAL_OKGO" = "تایید و ادامه";
-"GLOBAL_YES" = "بله";
-"GLOBAL_NO" = "خیر";
-"GLOBAL_OK" = "تایید";
-"GLOBAL_DONE" = "تایید";
-"TRACE_NUMBER" = "شماره پیگیری";
-
-"GLOBAL_TO" = "به";
-"GLOBAL_BACK" = "بازگشت";
-"GLOBAL_CLOSE" = "بستن";
-"GLOBAL_CREAT" = "ایجاد";
-"GLOBAL_UNLIMITED" = "نامحدود";
-"GLOBAL_CAPTION" = "عنوان";
-"GLOBAL_WARNING" = "خطا";
-"GLOBAL_VIEW" = "مشاهده";
-"GLOBAL_TOMAN" = "ریال";
-"GLOBAL_PERCENT" = "درصد";
-"GLOBAL_ERRORMSG" = "خطایی رخ داده است مجددا تلاش نمایید.";
-"PU_BALLOON" = "طرح ها";
-"PU_MERCHANTS" = "فروشگاه ها";
-"Token_Error" = "نرم‌افزار نیاز به بروزرسانی اطلاعات اکانت شما دارد. لطفا مجددا تلاش نمایید.";
-"FORWARD_PERMISSION" = "متاسفانه امکان ارسال پیام در گفتگو برای شما وجود ندارد!";
-"FORWARD_QUESTION" = "آیا میخواهید پیام را به این چت ارسال کنید؟";
-"FORWARD_CANCEL" = "انصراف از ارسال";
-"ANOTHER_ROOM" = "چت دیگر";
-"DESCRIPTION" = "توضیحات";
-"NO_DESCRIPTION" = "توضیحی ثبت نشده است";
-
-"MESSAGE_NOTIFICATIONS" = "اعلانات پیام ها";
-"PRIVATE_CHATS" = "پیام های خصوصی";
-"NOTIFI_GROUPS" = "گروه ها";
-"NOTIFI_CHANNELS" = "کانال ها";
-"VOICE_CALLS" = "تماس های صوتی";
-"BADGE_COUNTER" = "شمارنده ی نشانگر";
-"NOTIFI_ENABLED" = "فعال سازی";
-"NOTIFI_COUNT_UNREAD_MESSAGE" = "شمارش پیام های خوانده نشده";
-"NOTIFI_INCLUDE_MUTED_CHATS" = "افزودن گفت و گو های بی صدا";
-"IN_APP_NOTIFICATIONS" = "اعلانات درون برنامه ای";
-"NOTIFI_IN_APP_SOUNDS" = "صدا های درون برنامه ای";
-"NOTIFI_IN_APP_VIBRATE" = "لرزش درون برنامه ای";
-"NOTIFI_IN_APP_PREVIEW" = "پیش نمایش درون برنامه ای";
-"EVENTS" = "اتفاقات";
-"NOTIFI_NEW_CONTACTS" = "مخاطبین جدید";
-"RESET" = "بازنشانی";
-"NOTIFI_RESET" = "بازنشانی تمام اعلان ها";
-"NOTIFI_EVENTS_FOOTER" = "هنگامی که یکی از مخاطبین شما عضو آیگپ شد به شما اطلاع داده شود";
-
-
-"HEADER_SPRIVACY" = "حریم خصوصی";
-"HEADER_SECURITY" = "امنیت";
-"HEADER_SELF_DISTRUCT" = "خود تخریبی";
-"HEADER_SELF_ADVANCE" = "پیشرفته";
-"DELETE_ALL_CLOUD" = "حذف تمام پیش نویس های ابری";
-"DELETE_SYNCED_CONTACTS" = "حذف مخاطبین همگام شده";
-"CLEAR_PAYMENT_SHHIPPING" = "پاک کردن اطلاعات پرداخت و ارسال";
-"SYNCED_CONTACTS" = "همگام سازی مخاطبین";
-"SECRET_CHAT_LINK_PREVIEW" = "پیش نمایش های لینک";
-"IF_AWAY_FOR" = "در صورت نبودن به مدت";
-"PASSCODE_LOCK" = "قفل با گذرواژه";
-"HEADER_NETWORK_STORAGE_USAGE" = "میزان استفاده از حافظه و شبکه";
-"HEADER_AUTOMATIC_DOWNLOAD" = "دانلود خودکار رسانه ها";
-"HEADER_AUTO_PLAY" = "پخش خودکار رسانه ها";
-"HEADER_VOICECALLS" = "تماس صوتی";
-"HEADER_PROXYE" = "نوع اتصال";
-
-"STORAGE_USAGE" = "میزان استفاده از حافظه";
-"DATA_USAGE" = "میزان استفاده از شبکه";
-"WHEN_USING_MOBILE_DATA" = "زمان استفاده از داده تلفن";
-"WHEN_CONNECTED_TO_WIFI" =  "زمان اتصال به شبکه وای فای";
-"RESET_AUTO_DOWNLOAD_SETTINGS" = "بازنشانی تنظیمات دانلود خودکار";
-"USE_LESS_DATA" = "استفاده کمتر از داده";
-"PROXY_SETTINGS" = "تنظیمات پروکسی";
-"FOOTER_KEEP_MEDIA" = "تمامی تصاویر و ویدیو ها و فایل ها که در این بازه به  آنها دسترسی نداشته باشید از روی حاقظه ی دستگاه شما حذف خواهند شد";
-IGStringsManager.ClearCash.rawValue. = "پاک کردن حافظه موقت";
-"KEEP_MEDIA" = "نگهداری رسانه ها";
-"TEXT_SIZE" = "اندازه متن";
-"COLOR_THEME" = "قالب رنگی";
-"ENABLE_ANIMATIONS" = "فعال سازی انیمیشن ها";
-"DARK_THEME" = "تیره";
-"LIGHT_THEME" = "روشن";
-"CHAT_BG" = "پس زمینه گفت و گو";
-"CHAT_PREVIEW_SAMPLE" = "😍 الان صبحه تو تهران";
-
-
-
-"NO_CALL_HISTORY" = "تاریخچه تماس وجود ندارد!";
-"UNREAD_MESSAGE" = "پیام خوانده نشده";
-"CROP" = "برش";
-"GALLERY" = "گالری";
-"ALBUMS" = "آلبوم ها";
-"PHOTO" = "تصویر";
-"CAMERA" = "دوربین";
-"COVER" = "انتخاب قاب";
-"TRIM" = "برش ویدیو";
-"VIDEO" = "ویدیو";
-"WARNING_MAX_ITEMS_LIMIT" = "امکان انتخاب بیش از این تعداد وجود ندارد!";
-"CROP" = "برش";
-"FILTER" = "فیلتر";
-"PROCESSING" = "در حال پردازش";
-"SETTING_SOUND_SEND_MESSAGE" = "صوت ارسال پیام";
-"DELETED_MESSAGE_2" = "این پیام حذف شده است";
-"CHAT_ROOM_NOT_FOUND" = "چت مورد نظر یافت نشد";
-"CHANGED_ROLE_HINT" = "نقش شما تغییر کرد بنابراین در حال حاضر نمی توانید لیست اعضا را مشاهده کنید!";
-"HINT" = "توجه";
-"NOT_EXIST_MODERATOR" = "هیچ سردبیری ثبت نشده است!";
-"NOT_EXIST_ADMIN" = "هیچ مدیری ثبت نشده است!";
-"EXIST_MEMBER" = "در حال حاضر جزء اعضاء شما است!";
-"EXIST_MEMBERS" = "در حال حاضر جزء اعضاء شما هستند!";
-"CHART" = "نمودار";
-"QRCODE_SCANNER" = "اسکن بارکد";
-"SIGNALING_FORBIDDEN" = "عدم برقراری تماس";
-"TALKING_WITH_OTHER_DEVICE" = "در حال برقراری ارتباط با دستگاه دیگر خود می باشید";
-"USER_IN_CONVERSATION" = "کاربر در گفت و گو می باشد";
-"DILED_NUMBER_IS_INACTIVE" = "شماره تماس اشتباه می باشد";
-"USER_IS_NOT_ALLOWED_TO_COMMINUCATE" = "کاربر مجاز به برقراری تماس نمی باشد";
-"USER_IS_BLOCKED" = "کاربر مسدود شده است";
-"RESTRICTED_CREATE_ROOM" = "شما برای ایجاد اتاق های بیشتر محدود هستید!";
-
+"ported_subscriber_enable" = "فعال شدن ترابرد";
+"ported_subscriber_disable" = "غیر فعال شدن ترابرد";
+"enable_location_service" = "سرویس موقعیت مکانی غیر فعال می باشد.لطفا از قسمت تنظیمات مجددا آن را فعال نمایید";
+"around" = "حدود";
+"meter" = "متر";
+"chat_preview_sample" = "😍 الان صبحه تو تهران";
+"keep_media_footer" = "تمامی تصاویر و ویدیو ها و فایل ها که در این بازه به  آنها دسترسی نداشته باشید از روی حاقظه ی دستگاه شما حذف خواهند شد";
+"send_message_sound_alert" = "صوت ارسال پیام";
+"verify_password" = "تایید رمز عبور";
+"remove_password" = "حذف رمز عبور";
 
 "CHECK_FOR_UPDATE" = "کنترل بروزرسانی";
 "YOU_ARE_UP_TO_DATE" = "نسخه شما بروز می باشد.";

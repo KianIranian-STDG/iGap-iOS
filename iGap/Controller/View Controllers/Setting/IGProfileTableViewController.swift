@@ -357,7 +357,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         lblScore.text = IGStringsManager.YourScore.rawValue.localized
         lblScoreAmount.text = "..."
         lblInviteF.text = IGStringsManager.InviteFriends.rawValue.localized
-        lblQR.text = IGStringsManager.QrCodeScanner.rawValue.localized
+        lblQR.text = IGStringsManager.LoginUsingQr.rawValue.localized
         lblNearby.text = IGStringsManager.Nearby.rawValue.localized
         lblFaq.text = IGStringsManager.Faq.rawValue.localized
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {

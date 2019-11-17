@@ -47,7 +47,7 @@ class IGFinancialHistoryDetailViewController: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        initNavigationBar(title: "PAYMENT_HISTORY".FinancialHistoryLocalization, rightItemText: "", iGapFont: true) {
+        initNavigationBar(title: IGStringsManager.PaymentHistory.rawValue.localized, rightItemText: "", iGapFont: true) {
             IGGlobal.prgShow()
             UIGraphicsBeginImageContextWithOptions(self.view.frame.size,true,0.0)
             self.view.layer.render(in: UIGraphicsGetCurrentContext()!)
@@ -76,14 +76,14 @@ class IGFinancialHistoryDetailViewController: BaseViewController {
                         self.statusIconLbl.textColor = UIColor.iGapGreen()
                         self.statusIconLbl.text = ""
                         self.statusLbl.textColor = UIColor.iGapGreen()
-                        self.statusLbl.text = "SUCCESSFULL_PAYMENT".FinancialHistoryLocalization
+                        self.statusLbl.text = IGStringsManager.SuccessPayment.rawValue.localized
                         self.setupTransactionInfo(info: response.igpTransaction)
                         
                     } else {
                         // false status
                         let label = UILabel()
                         label.font = UIFont.igFont(ofSize: 15, weight: .bold)
-                        label.text = "INFORMATION_NOT_FOUND".FinancialHistoryLocalization
+                        label.text = ""
                         label.numberOfLines = 0
                         label.textAlignment = .center
                         self.view.addSubview(label)
@@ -93,10 +93,6 @@ class IGFinancialHistoryDetailViewController: BaseViewController {
                             make.centerX.equalTo(self.view.snp.centerX)
                             make.centerY.equalTo(self.view.snp.centerY)
                         }
-//                        self.statusIconLbl.textColor = UIColor.iGapRed()
-//                        self.statusIconLbl.text = ""
-//                        self.statusLbl.textColor = UIColor.iGapRed()
-//                        self.statusLbl.text = "UNSUCCESSFULL_PAYMENT".FinancialHistoryLocalization
                     }
                     
                 default:
@@ -137,28 +133,28 @@ class IGFinancialHistoryDetailViewController: BaseViewController {
                 self.statusIconLbl.textColor = UIColor.iGapRed()
                 self.statusIconLbl.text = ""
                 self.statusLbl.textColor = UIColor.iGapRed()
-                self.statusLbl.text = "UNSUCCESSFULL_PAYMENT".FinancialHistoryLocalization
+                self.statusLbl.text = IGStringsManager.Failed.rawValue.localized
             }
         case .topup:
             if info.igpTopup.igpStatus != 0 {
                 self.statusIconLbl.textColor = UIColor.iGapRed()
                 self.statusIconLbl.text = ""
                 self.statusLbl.textColor = UIColor.iGapRed()
-                self.statusLbl.text = "UNSUCCESSFULL_PAYMENT".FinancialHistoryLocalization
+                self.statusLbl.text = IGStringsManager.Failed.rawValue.localized
             }
         case .sales:
             if info.igpSales.igpStatus != 0 {
                 self.statusIconLbl.textColor = UIColor.iGapRed()
                 self.statusIconLbl.text = ""
                 self.statusLbl.textColor = UIColor.iGapRed()
-                self.statusLbl.text = "UNSUCCESSFULL_PAYMENT".FinancialHistoryLocalization
+                self.statusLbl.text = IGStringsManager.Failed.rawValue.localized
             }
         case .cardToCard:
             if info.igpCardtocard.igpStatus != 0 {
                 self.statusIconLbl.textColor = UIColor.iGapRed()
                 self.statusIconLbl.text = ""
                 self.statusLbl.textColor = UIColor.iGapRed()
-                self.statusLbl.text = "UNSUCCESSFULL_PAYMENT".FinancialHistoryLocalization
+                self.statusLbl.text = IGStringsManager.Failed.rawValue.localized
             }
         case .UNRECOGNIZED(_): break
             
@@ -227,25 +223,25 @@ class TransactionInfoTVCell: UITableViewCell {
         case .bill:
             let bill = transaction.igpBill
             let keyValue = transactionInfoKeys["BILL"]?[indexPath.row]
-            self.keyLbl.text = keyValue?.FinancialHistoryLocalization
+            self.keyLbl.text = IGStringsManager.Bills.rawValue.localized
             self.setupBill(keyValue: keyValue!, bill: bill)
             
         case .topup:
             let topup = transaction.igpTopup
             let keyValue = transactionInfoKeys["TOPUP"]?[indexPath.row]
-            self.keyLbl.text = keyValue?.FinancialHistoryLocalization
+            self.keyLbl.text = IGStringsManager.TopUp.rawValue.localized
             self.setupTopup(keyValue: keyValue!, topup: topup)
             
         case .sales:
             let sales = transaction.igpSales
             let keyValue = transactionInfoKeys["SALES"]?[indexPath.row]
-            self.keyLbl.text = keyValue?.FinancialHistoryLocalization
+            self.keyLbl.text = IGStringsManager.Sales.rawValue.localized
             self.setupSales(keyValue: keyValue!, sales: sales)
             
         case .cardToCard:
             let cardtocard = transaction.igpCardtocard
             let keyValue = transactionInfoKeys["CARD_TO_CARD"]?[indexPath.row]
-            self.keyLbl.text = keyValue?.FinancialHistoryLocalization
+            self.keyLbl.text = IGStringsManager.CardToCard.rawValue.localized
             self.setupCardtoCard(keyValue: keyValue!, cardToCard: cardtocard)
             
         case .UNRECOGNIZED(_):

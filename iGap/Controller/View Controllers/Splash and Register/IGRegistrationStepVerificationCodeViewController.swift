@@ -115,8 +115,9 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
             varificationMethodString += IGStringsManager.SmsAndIGap.rawValue.localized
             break
         }
-        //CHERRY_PICK
-        //self.titleLabel.text = IGStringsManager.VerifyCodeSentTo.rawValue.localized + "\n" + phoneNumber!.inLocalizedLanguage() + "\n" + varificationMethodString
+        let ptOne = IGStringsManager.VerifyCodeSentTo.rawValue.localized + "\n"
+        let ptTwo = phoneNumber!.inLocalizedLanguage() + "\n"
+        self.titleLabel.text = ptOne + ptTwo + varificationMethodString
     }
     
     

@@ -91,14 +91,14 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
         lblImages.text = IGStringsManager.Images.rawValue.localized
         lblVoices.text = IGStringsManager.Voices.rawValue.localized
         lblAudios.text = IGStringsManager.Audios.rawValue.localized
-        lblGifs.text = "GIFS".localized
+        lblGifs.text = IGStringsManager.Gifs.rawValue.localized
         lblStickers.text = IGStringsManager.Sticker.rawValue.localized
-        lblClearData.text = "SETTING_CC_CLEAR_DATA".localized
+        lblClearData.text = IGStringsManager.ClearDataUsage.rawValue.localized
     }
     
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_CACHE_SETTINGS".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "")
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -158,7 +158,7 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
             return
         }
         
-        let alert = UIAlertController(title: "MSG_SURE_TO_DELETE_CACHE".localized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        let alert = UIAlertController(title: IGStringsManager.AreYouSure.rawValue.localized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let deleteAction = UIAlertAction(title: IGStringsManager.Delete.rawValue.localized, style: .destructive , handler: { (alert: UIAlertAction) -> Void in
             DispatchQueue.main.async {
                 self.removeSelectedData()

@@ -3365,7 +3365,7 @@ TODO:// complete */
 "save_data_in_sd_card" = "Save data in sd card";
 
 /*  */
-"are_you_sure" = "Are you sure";
+"are_you_sure" = "Are you sure?";
 
 /*  */
 "are_you_sure_request" = "Are you sure you want to submit your request?";
@@ -4034,7 +4034,7 @@ TODO:// complete */
 "order_history" = "Score History";
 
 /*  */
-"your_point" = "Your Score:";
+"your_point" = "Your Score";
 
 /*  */
 "score_title" = "Score";
@@ -6530,6 +6530,7 @@ TODO:// complete */
 
 /*  */
 "news_add_comment_errorComment" = "لطفا نظر خود را وارد کنید.";
+//MARK: -Imported From iOS
 "deleted_from_storage" = "Deleted from Storage";
 
 "auth_verify_mobile" = "Verification code";
@@ -6571,7 +6572,7 @@ TODO:// complete */
 "amount_in" = "Amount In";
 "amount_out" = "Amount Out";
 "please_wait_data_loading" = "Please wait while Data is Loading ...";
-"invalid_bill_message" = "The bill is probably invalid";
+"invalid_bill_message" = "The bill is invalid";
 "elec_bill_operations" = "Electricity Bill Operations";
 "elec_bill_name" = "Electricity Bill Name";
 "elec_provider_company_code" = "Company Code";
@@ -6647,9 +6648,9 @@ TODO:// complete */
 "update_username_after" = "You can not change your username because you've recently changed it. you have to wait for  ";
 "group_link_can_not_be_empty" = "Group Link can not be empty";
 "role_has_changes" = "Your role has changed so you cannot view the members list at this time!";
-"not_exist_moderator" = "هیچ سردبیری ثبت نشده است!";
-"not_exist_admin" = "هیچ مدیری ثبت نشده است!";
-"exist_member" = "در حال حاضر جزء اعضاء شما است!";
+"not_exist_moderator" = "No moderator registered!";
+"not_exist_admin" = "No admin registered!";
+"exist_member" = "is already in your members!";
 "msg_write_ur_report_description" = "Please write your report description";
 
 
@@ -6664,4 +6665,10 @@ TODO:// complete */
 "verify_password" = "Verify Password";
 "remove_password" = "Remove Password";
 
+"CHECK_FOR_UPDATE" = "Check update";
+"YOU_ARE_UP_TO_DATE" = "You are Updated";
+"UPDATE" = "Update";
+"contacts_sending" = "Sending Contacts";
+"searched_contacts" = "Searched Contacts";
+"contacts_being_saved" = "Saving Contacts";
 

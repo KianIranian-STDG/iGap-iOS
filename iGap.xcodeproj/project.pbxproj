@@ -38,6 +38,7 @@
 		8E25A7C322674601004A5BC0 /* IGSettingChangeLanguageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25A7C222674601004A5BC0 /* IGSettingChangeLanguageTableViewController.swift */; };
 		8E25A7C522674BB6004A5BC0 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25A7C422674BB6004A5BC0 /* BaseTableViewController.swift */; };
 		8E25A7C722674BC8004A5BC0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */; };
+		8E2CCD0C237ED630000C3B3F /* ImageLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E2CCD0A237ED630000C3B3F /* ImageLocalizable.strings */; };
 		8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */; };
 		8E3C696A23602DDE001575BE /* MusicPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E3C696923602DDE001575BE /* MusicPlayer.storyboard */; };
 		8E3C696C23602E4D001575BE /* IGMusicPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */; };
@@ -94,7 +95,6 @@
 		8E599D8C2329EC5E00D75376 /* IGPhoneBookTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D8B2329EC5E00D75376 /* IGPhoneBookTableViewController.swift */; };
 		8E5FBC09231534BA0069D4F2 /* IGCountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBC08231534BA0069D4F2 /* IGCountDownTimer.swift */; };
 		8E5FBC0B23154D090069D4F2 /* IGRegisttrationStepSecurityQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBC0A23154D080069D4F2 /* IGRegisttrationStepSecurityQuestions.swift */; };
-		8E5FBC9D231BD6AB0069D4F2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */; };
 		8E5FBCA3231BD7440069D4F2 /* IGLocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCA2231BD7440069D4F2 /* IGLocalizationManager.swift */; };
 		8E5FBCA5231BD9D70069D4F2 /* IGStringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCA4231BD9D70069D4F2 /* IGStringManager.swift */; };
 		8E5FBCA7231CE6DC0069D4F2 /* IGProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCA6231CE6DC0069D4F2 /* IGProfileTableViewController.swift */; };
@@ -327,7 +327,6 @@
 		FA0953421E1B97700043ED3F /* IGActiveSessionsParentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953101E1B97700043ED3F /* IGActiveSessionsParentCell.swift */; };
 		FA0953471E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953151E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift */; };
 		FA09534B1E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953191E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift */; };
-		FA09534C1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09531A1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift */; };
 		FA09534D1E1B97700043ED3F /* IGSettingAddContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09531B1E1B97700043ED3F /* IGSettingAddContactTableViewController.swift */; };
 		FA09534E1E1B97700043ED3F /* IGSettingChatCatchContactAndGroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09531C1E1B97700043ED3F /* IGSettingChatCatchContactAndGroupsTableViewCell.swift */; };
 		FA09534F1E1B97700043ED3F /* IGSettingChatCatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09531D1E1B97700043ED3F /* IGSettingChatCatchTableViewCell.swift */; };
@@ -617,11 +616,6 @@
 		FAA65CFB220AC0280006994A /* StickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA65CFA220AC0270006994A /* StickerCell.swift */; };
 		FAA697172376C93E006810A4 /* LocaleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA697162376C93E006810A4 /* LocaleManager.swift */; };
 		FAA6971A23770CF2006810A4 /* TabBarLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAA6971C23770CF2006810A4 /* TabBarLocalizable.strings */; };
-		FAA6972023770E33006810A4 /* RecentTableViewLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAA6972223770E33006810A4 /* RecentTableViewLocalizable.strings */; };
-		FAA6972623770EC4006810A4 /* MessageViewLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAA6972823770EC4006810A4 /* MessageViewLocalizable.strings */; };
-		FAA6972C2377D6F2006810A4 /* FinancialHistoryLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAA6972E2377D6F2006810A4 /* FinancialHistoryLocalizable.strings */; };
-		FAA697322377D760006810A4 /* InternetPackageLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAA697342377D760006810A4 /* InternetPackageLocalizable.strings */; };
-		FAA6973A2377EDAE006810A4 /* ImageLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAA6973C2377EDAE006810A4 /* ImageLocalizable.strings */; };
 		FAA6C5DB2222BA800035D777 /* PecPayment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FAA6C5DA2222BA800035D777 /* PecPayment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FAA6C5DC2222BAEE0035D777 /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA6C5DA2222BA800035D777 /* PecPayment.framework */; };
 		FAA932F51DF45748002CC631 /* IGEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA932F41DF45748002CC631 /* IGEnums.swift */; };
@@ -822,6 +816,10 @@
 		8E25A7C222674601004A5BC0 /* IGSettingChangeLanguageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSettingChangeLanguageTableViewController.swift; sourceTree = "<group>"; };
 		8E25A7C422674BB6004A5BC0 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		8E2CCD08237ED259000C3B3F /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/TabBarLocalizable.strings; sourceTree = "<group>"; };
+		8E2CCD09237ED259000C3B3F /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8E2CCD0B237ED630000C3B3F /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/ImageLocalizable.strings; sourceTree = "<group>"; };
+		8E2CCD0D237ED644000C3B3F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ImageLocalizable.strings; sourceTree = "<group>"; };
 		8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customYearTextfield.swift; sourceTree = "<group>"; };
 		8E3C696923602DDE001575BE /* MusicPlayer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MusicPlayer.storyboard; sourceTree = "<group>"; };
 		8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMusicPlayerTableViewController.swift; sourceTree = "<group>"; };
@@ -1122,7 +1120,6 @@
 		FA0953151E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGPrivacyAndSecurityWhoCanSeeTableViewController.swift; sourceTree = "<group>"; };
 		FA0953161E1B97700043ED3F /* iGSetEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iGSetEmailTableViewController.swift; sourceTree = "<group>"; };
 		FA0953191E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingAccountPhoneNumberTableViewController.swift; sourceTree = "<group>"; };
-		FA09531A1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingAccountUsernameTableViewController.swift; sourceTree = "<group>"; };
 		FA09531B1E1B97700043ED3F /* IGSettingAddContactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingAddContactTableViewController.swift; sourceTree = "<group>"; };
 		FA09531C1E1B97700043ED3F /* IGSettingChatCatchContactAndGroupsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingChatCatchContactAndGroupsTableViewCell.swift; sourceTree = "<group>"; };
 		FA09531D1E1B97700043ED3F /* IGSettingChatCatchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingChatCatchTableViewCell.swift; sourceTree = "<group>"; };
@@ -1433,16 +1430,6 @@
 		FAA697162376C93E006810A4 /* LocaleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocaleManager.swift; sourceTree = "<group>"; };
 		FAA6971B23770CF2006810A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TabBarLocalizable.strings; sourceTree = "<group>"; };
 		FAA6971D23770CF8006810A4 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/TabBarLocalizable.strings; sourceTree = "<group>"; };
-		FAA6972123770E33006810A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/RecentTableViewLocalizable.strings; sourceTree = "<group>"; };
-		FAA6972323770E35006810A4 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/RecentTableViewLocalizable.strings; sourceTree = "<group>"; };
-		FAA6972723770EC4006810A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MessageViewLocalizable.strings; sourceTree = "<group>"; };
-		FAA6972923770EC6006810A4 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/MessageViewLocalizable.strings; sourceTree = "<group>"; };
-		FAA6972D2377D6F2006810A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/FinancialHistoryLocalizable.strings; sourceTree = "<group>"; };
-		FAA6972F2377D6F7006810A4 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/FinancialHistoryLocalizable.strings; sourceTree = "<group>"; };
-		FAA697332377D760006810A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InternetPackageLocalizable.strings; sourceTree = "<group>"; };
-		FAA697352377D763006810A4 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/InternetPackageLocalizable.strings; sourceTree = "<group>"; };
-		FAA6973B2377EDAE006810A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ImageLocalizable.strings; sourceTree = "<group>"; };
-		FAA6973D2377EDB0006810A4 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/ImageLocalizable.strings; sourceTree = "<group>"; };
 		FAA6C5DA2222BA800035D777 /* PecPayment.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PecPayment.framework; sourceTree = "<group>"; };
 		FAA932F41DF45748002CC631 /* IGEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGEnums.swift; sourceTree = "<group>"; };
 		FAA9DFAF1F4B1B330076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableViewController.swift; sourceTree = "<group>"; };
@@ -2205,7 +2192,6 @@
 				FA0953161E1B97700043ED3F /* iGSetEmailTableViewController.swift */,
 				8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */,
 				FA0953191E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift */,
-				FA09531A1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift */,
 				FA09531B1E1B97700043ED3F /* IGSettingAddContactTableViewController.swift */,
 				FA09531C1E1B97700043ED3F /* IGSettingChatCatchContactAndGroupsTableViewCell.swift */,
 				FA09531D1E1B97700043ED3F /* IGSettingChatCatchTableViewCell.swift */,
@@ -2581,12 +2567,8 @@
 		FA6C2DE222670AFE005654AC /* Language */ = {
 			isa = PBXGroup;
 			children = (
+				8E2CCD0A237ED630000C3B3F /* ImageLocalizable.strings */,
 				FAA697162376C93E006810A4 /* LocaleManager.swift */,
-				FAA6973C2377EDAE006810A4 /* ImageLocalizable.strings */,
-				FAA697342377D760006810A4 /* InternetPackageLocalizable.strings */,
-				FAA6972E2377D6F2006810A4 /* FinancialHistoryLocalizable.strings */,
-				FAA6972823770EC4006810A4 /* MessageViewLocalizable.strings */,
-				FAA6972223770E33006810A4 /* RecentTableViewLocalizable.strings */,
 				FAA6971C23770CF2006810A4 /* TabBarLocalizable.strings */,
 				8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */,
 				8E5FBCA2231BD7440069D4F2 /* IGLocalizationManager.swift */,
@@ -3417,6 +3399,7 @@
 				Base,
 				en,
 				fa,
+				ar,
 			);
 			mainGroup = FAF795E11DAA330C0030509B;
 			productRefGroup = FAF795EB1DAA330C0030509B /* Products */;
@@ -3446,7 +3429,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E1865392323A10400D8BCA9 /* ChannelAndSettings.storyboard in Resources */,
-				FAA6972623770EC4006810A4 /* MessageViewLocalizable.strings in Resources */,
 				8E6E83A32342617400392F27 /* EditProfileChannelAndGroup.storyboard in Resources */,
 				945B127423251F8D00DBF2DA /* IGPaymentView.xib in Resources */,
 				FABA60F0221804E400FFBB5A /* stickerPublicKey.txt in Resources */,
@@ -3469,6 +3451,7 @@
 				FA5656B9204AB18F00DB46F0 /* igap_noresponse.mp3 in Resources */,
 				8ECCA1E422B6585700D3A734 /* SMMoneyTransactionOptions.xib in Resources */,
 				943495C0231FBADC009854FE /* IGTransactionsTVCell.xib in Resources */,
+				8E2CCD0C237ED630000C3B3F /* ImageLocalizable.strings in Resources */,
 				8ECCA1F422B8F6DF00D3A734 /* multiForwardShareUsers.xib in Resources */,
 				8ED97D7822E2F7B300A0EB1F /* ServerDataInner.json in Resources */,
 				937455F91E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib in Resources */,
@@ -3495,11 +3478,9 @@
 				FA5656C2204AB18F00DB46F0 /* igap_disconnect.mp3 in Resources */,
 				8E96A32E225C96C3007D8A77 /* RecieptRow.xib in Resources */,
 				8EC217972258BD9E00105B5A /* SMSingleInputView.xib in Resources */,
-				FAA697322377D760006810A4 /* InternetPackageLocalizable.strings in Resources */,
 				FA82043B2025D90800A795D5 /* ImageCell.xib in Resources */,
 				FAF796071DAA392F0030509B /* Main.storyboard in Resources */,
 				FA417E51212179C900B5FBCD /* LocationCell.xib in Resources */,
-				FAA6973A2377EDAE006810A4 /* ImageLocalizable.strings in Resources */,
 				FAE6062D21EB39FB00F03FFC /* Media.xcassets in Resources */,
 				FA927E0A20286FE800DF7145 /* ContactCell.xib in Resources */,
 				8E599D852328D13900D75376 /* CallTypesCVCell.xib in Resources */,
@@ -3509,7 +3490,6 @@
 				FA5656BD204AB18F00DB46F0 /* igap_connect.mp3 in Resources */,
 				8ECCA1F022B8B9AB00D3A734 /* IGMultiForwardModal.xib in Resources */,
 				FA3306361F445A570096031A /* IRANSans.ttf in Resources */,
-				8E5FBC9D231BD6AB0069D4F2 /* Localizable.strings in Resources */,
 				FAFDB3B6204EBCCA0022D183 /* IGCallListTableViewCell.xib in Resources */,
 				FA99FF6D2235413B009035DF /* DashboardCell4.xib in Resources */,
 				8E1CD973232CF79A008D8758 /* PhoneBook.storyboard in Resources */,
@@ -3533,11 +3513,9 @@
 				FA93EE2E2029DBE300DD1521 /* AudioCell.xib in Resources */,
 				FA936906207364E100A0D86A /* Register.storyboard in Resources */,
 				FAF796061DAA392F0030509B /* LaunchScreen.storyboard in Resources */,
-				FAA6972023770E33006810A4 /* RecentTableViewLocalizable.strings in Resources */,
 				FA97D444201716270087BBD0 /* TextCell.xib in Resources */,
 				94E74DCA2323C798001AB47C /* TransactionInfoKeys.stringsdict in Resources */,
 				94E74DC323238F8F001AB47C /* FinancialHistory.storyboard in Resources */,
-				FAA6972C2377D6F2006810A4 /* FinancialHistoryLocalizable.strings in Resources */,
 				FAA6971A23770CF2006810A4 /* TabBarLocalizable.strings in Resources */,
 				FAB0F9461FE956D1008F23EB /* Splash.gif in Resources */,
 				8EBF552A22DCAA9500834E6A /* ServerData.json in Resources */,
@@ -3685,7 +3663,6 @@
 				8E599D6F2325316100D75376 /* IGSettingsNotificationsTableViewController.swift in Sources */,
 				FAC1330522C098D000817044 /* IGStructMessageOption.swift in Sources */,
 				8E83CAA42340B81700A8CF65 /* IGTransparentTabBar.swift in Sources */,
-				FA09534C1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift in Sources */,
 				8EA8F3EF231F9E450099C4EF /* UICircularTimerRing.swift in Sources */,
 				8EB887A32282A5F50069DDE3 /* IGMediaUserAvatar.swift in Sources */,
 				8E599D722325322000D75376 /* IGSettingsDataAndStorageUsageTableViewController.swift in Sources */,
@@ -4232,11 +4209,21 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		8E2CCD0A237ED630000C3B3F /* ImageLocalizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8E2CCD0B237ED630000C3B3F /* fa */,
+				8E2CCD0D237ED644000C3B3F /* en */,
+			);
+			name = ImageLocalizable.strings;
+			sourceTree = "<group>";
+		};
 		8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				8E5FBC9E231BD6AB0069D4F2 /* en */,
 				8E5FBCA1231BD6CD0069D4F2 /* fa */,
+				8E2CCD09237ED259000C3B3F /* ar */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4246,53 +4233,9 @@
 			children = (
 				FAA6971B23770CF2006810A4 /* en */,
 				FAA6971D23770CF8006810A4 /* fa */,
+				8E2CCD08237ED259000C3B3F /* ar */,
 			);
 			name = TabBarLocalizable.strings;
-			sourceTree = "<group>";
-		};
-		FAA6972223770E33006810A4 /* RecentTableViewLocalizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FAA6972123770E33006810A4 /* en */,
-				FAA6972323770E35006810A4 /* fa */,
-			);
-			name = RecentTableViewLocalizable.strings;
-			sourceTree = "<group>";
-		};
-		FAA6972823770EC4006810A4 /* MessageViewLocalizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FAA6972723770EC4006810A4 /* en */,
-				FAA6972923770EC6006810A4 /* fa */,
-			);
-			name = MessageViewLocalizable.strings;
-			sourceTree = "<group>";
-		};
-		FAA6972E2377D6F2006810A4 /* FinancialHistoryLocalizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FAA6972D2377D6F2006810A4 /* en */,
-				FAA6972F2377D6F7006810A4 /* fa */,
-			);
-			name = FinancialHistoryLocalizable.strings;
-			sourceTree = "<group>";
-		};
-		FAA697342377D760006810A4 /* InternetPackageLocalizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FAA697332377D760006810A4 /* en */,
-				FAA697352377D763006810A4 /* fa */,
-			);
-			name = InternetPackageLocalizable.strings;
-			sourceTree = "<group>";
-		};
-		FAA6973C2377EDAE006810A4 /* ImageLocalizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FAA6973B2377EDAE006810A4 /* en */,
-				FAA6973D2377EDB0006810A4 /* fa */,
-			);
-			name = ImageLocalizable.strings;
 			sourceTree = "<group>";
 		};
 		FAF796011DAA392F0030509B /* LaunchScreen.storyboard */ = {
