@@ -109,15 +109,26 @@ class IGFavouriteChannelsDashboardInnerTableViewController: UITableViewControlle
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SliderTypeThreeCell", for: indexPath as IndexPath) as! SliderTypeThreeCell
                 cell.isInnenr = true
                 cell.channelsListObj = self.categoryInfo.channels
-
                 cell.initViewInner()
-
                 return cell
-                
             }
-            
         }
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if showSlider {
+            if indexPath.row == 1 {
+                let numberOfRows = ceilf(Float(self.categoryInfo.channels?.count ?? 0) / 4)
+                return ((tableView.bounds.width/4.5) + 30) * CGFloat(numberOfRows)
+            }
+        } else {
+            if indexPath.row == 0 {
+                let numberOfRows = ceilf(Float(self.categoryInfo.channels?.count ?? 0) / 4)
+                return ((tableView.bounds.width/4.5) + 30) * CGFloat(numberOfRows)
+            }
+        }
+        return 0 
+    }
     
 }
