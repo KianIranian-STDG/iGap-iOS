@@ -177,7 +177,8 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
 //        UIView.appearance().semanticContentAttribute = .forceRightToLeft
         lblWalletBalance.text = SMLangUtil.changeLblText(tag: lblWalletBalance.tag, parentViewController: NSStringFromClass(self.classForCoder))
         lblWalletBalance.textAlignment = self.TextAlignment
-        lblMyCards.text = SMLangUtil.changeLblText(tag: lblMyCards.tag, parentViewController: NSStringFromClass(self.classForCoder))
+        lblMyCards.text = IGStringsManager.MyCards.rawValue.localized
+        lblMyCards.font = UIFont.igFont(ofSize: 20)
         lblCurrencyFormat.text = SMLangUtil.changeLblText(tag: lblCurrencyFormat.tag, parentViewController: NSStringFromClass(self.classForCoder))
         btnCashout.setTitle(SMLangUtil.changeLblText(tag: btnCashout.tag, parentViewController: NSStringFromClass(self.classForCoder)), for: .normal)
         btnCharge.setTitle(SMLangUtil.changeLblText(tag: btnCharge.tag, parentViewController: NSStringFromClass(self.classForCoder)), for: .normal)

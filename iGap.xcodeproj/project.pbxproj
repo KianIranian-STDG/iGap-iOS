@@ -820,6 +820,10 @@
 		8E2CCD09237ED259000C3B3F /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8E2CCD0B237ED630000C3B3F /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/ImageLocalizable.strings; sourceTree = "<group>"; };
 		8E2CCD0D237ED644000C3B3F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ImageLocalizable.strings; sourceTree = "<group>"; };
+		8E2CCD18237ED6B1000C3B3F /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/ImageLocalizable.strings; sourceTree = "<group>"; };
+		8E2CCD19237EEED2000C3B3F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ImageLocalizable.strings; sourceTree = "<group>"; };
+		8E2CCD1A237EEED2000C3B3F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/TabBarLocalizable.strings; sourceTree = "<group>"; };
+		8E2CCD1B237EEED2000C3B3F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customYearTextfield.swift; sourceTree = "<group>"; };
 		8E3C696923602DDE001575BE /* MusicPlayer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MusicPlayer.storyboard; sourceTree = "<group>"; };
 		8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMusicPlayerTableViewController.swift; sourceTree = "<group>"; };
@@ -3400,6 +3404,7 @@
 				en,
 				fa,
 				ar,
+				fr,
 			);
 			mainGroup = FAF795E11DAA330C0030509B;
 			productRefGroup = FAF795EB1DAA330C0030509B /* Products */;
@@ -4214,6 +4219,8 @@
 			children = (
 				8E2CCD0B237ED630000C3B3F /* fa */,
 				8E2CCD0D237ED644000C3B3F /* en */,
+				8E2CCD18237ED6B1000C3B3F /* ar */,
+				8E2CCD19237EEED2000C3B3F /* fr */,
 			);
 			name = ImageLocalizable.strings;
 			sourceTree = "<group>";
@@ -4224,6 +4231,7 @@
 				8E5FBC9E231BD6AB0069D4F2 /* en */,
 				8E5FBCA1231BD6CD0069D4F2 /* fa */,
 				8E2CCD09237ED259000C3B3F /* ar */,
+				8E2CCD1B237EEED2000C3B3F /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4234,6 +4242,7 @@
 				FAA6971B23770CF2006810A4 /* en */,
 				FAA6971D23770CF8006810A4 /* fa */,
 				8E2CCD08237ED259000C3B3F /* ar */,
+				8E2CCD1A237EEED2000C3B3F /* fr */,
 			);
 			name = TabBarLocalizable.strings;
 			sourceTree = "<group>";
