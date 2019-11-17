@@ -40,7 +40,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     var searchController : UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
-        searchController.searchBar.setValue("CANCEL_BTN".RecentTableViewlocalized, forKey: "cancelButtonText")
+        searchController.searchBar.setValue(IGStringsManager.GlobalCancel.rawValue.localized, forKey: "cancelButtonText")
         searchController.definesPresentationContext = true
         searchController.searchBar.sizeToFit()
         searchController.dimsBackgroundDuringPresentation = false
@@ -68,7 +68,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     private var realmNotificationToken: NotificationToken?
     private var allowInitObserver = true
     private let contactDisposeBag = DisposeBag()
-    private var txtContactStates: UILabel!
     private var txtInviteContact: UILabel!
     private var txtFooter: UILabel!
     private var contactSynced = false // when all contacts import to server and then fetched from server this value will be true
@@ -158,12 +157,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                     self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
                     self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
                     self.tableView.endUpdates()
-                    
-                    if self.contactSynced {
-                        self.txtContactStates?.text = "\(self.contacts?.count ?? 0)".inLocalizedLanguage() + "CONTACTS".localized
-                    }
                     self.setFooterLabelText()
-                    
                     break
                 case .error(let err):
                     fatalError("\(err)")
@@ -285,7 +279,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     private func setFooterLabelText() {
         guard txtFooter != nil else { return }
-        txtFooter?.text = "\(self.contacts?.count ?? 0) ".inLocalizedLanguage() + "CONTACT".localized
+        txtFooter?.text = "\(self.contacts?.count ?? 0) ".inLocalizedLanguage() + " " + IGStringsManager.Contacts.rawValue.localized
     }
     
     @objc
@@ -326,7 +320,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .destructive, handler: { action in
             self.deleteContact(phone: phone)
         })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style: .default, handler: nil)
+        let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .default, handler: nil)
         
         alert.addAction(okAction)
         alert.addAction(cancelAction)
@@ -373,7 +367,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             }
         }))
         
-        alert.addAction(UIAlertAction(title: "CANCEL_BTN".localized, style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .default, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
     }
@@ -560,7 +554,7 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
             }
 
             if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
-                searchBarCancelButton.setTitle("CANCEL_BTN".RecentTableViewlocalized, for: .normal)
+                searchBarCancelButton.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
                 searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14, weight: .bold)
                 searchBarCancelButton.tintColor = UIColor.white
                 searchBarCancelButton.setTitleColor(UIColor.white, for: .normal)
@@ -569,7 +563,7 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
             if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
                 placeHolderInsideSearchField.textColor = UIColor.white
                 placeHolderInsideSearchField.textAlignment = .center
-                placeHolderInsideSearchField.text = "search_placeholder".localized
+                placeHolderInsideSearchField.text = IGStringsManager.SearchPlaceHolder.rawValue.localized
                 if let backgroundview = textField.subviews.first {
                     placeHolderInsideSearchField.center = backgroundview.center
                 }
@@ -595,10 +589,6 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
         } else {
             allowInitObserver = true
             self.initObserver()
-        }
-        
-        if self.contactSynced {
-            self.txtContactStates?.text = "\(self.contacts?.count ?? 0)".inLocalizedLanguage() + "CONTACTS".localized
         }
         
         self.setFooterLabelText()

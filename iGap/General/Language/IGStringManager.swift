@@ -668,7 +668,7 @@ enum IGStringsManager : String {
     case LongPressToRecord = "long_press_to_record"
     case UnpinForMe = "unpin_for_me"
     case UnpinForAll = "unpin_for_all"
-    case Contact = "permission_contact"
+    case ContactPermission = "permission_contact"
     case Location = "permission_location"
     case File = "am_file"
     case PhotoOrVideo = "photo_or_video"

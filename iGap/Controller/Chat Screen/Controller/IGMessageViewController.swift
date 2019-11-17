@@ -3659,7 +3659,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.sendAsFileAlert()
         })
         
-        let contact = UIAlertAction(title: IGStringsManager.Contact.rawValue.localized, style: .default, handler: { (action) in
+        let contact = UIAlertAction(title: IGStringsManager.ContactPermission.rawValue.localized, style: .default, handler: { (action) in
             self.openContact()
         })
         
