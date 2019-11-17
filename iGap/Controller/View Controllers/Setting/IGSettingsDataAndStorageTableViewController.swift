@@ -52,7 +52,7 @@ class IGSettingsDataAndStorageTableViewController: BaseTableViewController {
     }
     func initDefaultNav() {
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "DATA_STORAGE".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.DataStorage.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self

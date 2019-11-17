@@ -32,7 +32,7 @@ class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepS
         super.viewDidLoad()
 
         makeView()
-        btnChooseCountry.setTitle("CHOOSE_COUNTRY".localized, for: .normal)
+        btnChooseCountry.setTitle(IGStringsManager.ChooseCountry.rawValue.localized, for: .normal)
         btnChooseCountry.layer.borderColor = UIColor.darkGray.cgColor
         btnChooseCountry.layer.borderWidth = 1.0
         btnChooseCountry.layer.cornerRadius = 15.0

@@ -40,7 +40,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     @IBOutlet weak var remoteCameraView: RTCEAGLVideoView!
     @IBOutlet weak var holdView: UIView!
     @IBOutlet weak var txtHold: UILabel!
-    var callerName : String? = "UNKNOWN".localized
+    var callerName : String? = IGStringsManager.Unknown.rawValue.localized
     
     let SWITCH_CAMERA_DELAY : Int64 = 1000
     let mainWidth = UIScreen.main.bounds.width

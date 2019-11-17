@@ -785,7 +785,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                 return cellTwo
                 
             case 1:
-                cell.initLabels(nameLblString: "NOTIFICATION_SOUNDS".localized)
+                cell.initLabels(nameLblString: IGStringsManager.NotificationAndSound.rawValue.localized)
                 return cell
                 
             default:
@@ -869,11 +869,11 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "SETTING_PAGE_ACCOUNT_BIO".localized
+            return IGStringsManager.Bio.rawValue.localized
         //Hint: -uncomment this line if the feauture was added
             /*
         case 1:
-            return "NOTIFICATION_SOUNDS".localized
+            return IGStringsManager.NotificationAndSound.rawValue.localized
             */
         case 1:
             return "CONTACT_INFO".localized

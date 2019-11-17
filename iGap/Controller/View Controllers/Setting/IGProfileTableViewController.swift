@@ -344,14 +344,14 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     func initChangeLang() {
         lblName.text = "NAME".localized
         lblUserName.text = "SETTING_PAGE_ACCOUNT_USERNAME".localized
-        lblBioInner.text = "SETTING_PAGE_ACCOUNT_BIO".localized
+        lblBioInner.text = IGStringsManager.Bio.rawValue.localized
         lblReferralInner.text = "SETTING_PAGE_ACCOUNT_REFERRAL".localized
         lblBioInner.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
         lblReferralInner.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
 
         btnName.setTitle("NAME".localized, for: .normal)
         lblCloud.text = IGStringsManager.Cloud.rawValue.localized
-        lblSetting.text = "SETTING_VIEW".localized
+        lblSetting.text = IGStringsManager.Settings.rawValue.localized
         lblNew.text = IGStringsManager.GlobalNew.rawValue.localized
         lblCredit.text = "CREDITS".localized
         lblScore.text = "SETTING_PAGE_ACCOUNT_SCORE_PAGE".localized

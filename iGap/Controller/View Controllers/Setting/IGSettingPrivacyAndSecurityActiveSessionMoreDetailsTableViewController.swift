@@ -30,7 +30,7 @@ class IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController: Ba
         super.viewDidLoad()
         SessionInfoCell.selectionStyle = UITableViewCell.SelectionStyle.none
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PS_ACTIVE_SESSIONS".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.ActiveSessions.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -52,11 +52,11 @@ class IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController: Ba
    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        lblTerminate.text = "TERMINATE".localized
+        lblTerminate.text = IGStringsManager.Terminate.rawValue.localized
     }
     func showConfirmDeleteAlertView(){
-        let deleteConfirmAlertView = UIAlertController(title: "SETTING_PS_AS_SURE_TO_TERMINATE_THIS".localized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let deleteAction = UIAlertAction(title: "TERMINATE".localized, style:.default , handler: {
+        let deleteConfirmAlertView = UIAlertController(title: IGStringsManager.SureToTerminateThis.rawValue.localized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        let deleteAction = UIAlertAction(title: IGStringsManager.Terminate.rawValue.localized, style:.default , handler: {
             (alert: UIAlertAction) -> Void in
             if let thisSession = self.selectedSession {
                 if thisSession.isCurrent == false {
@@ -73,7 +73,7 @@ class IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController: Ba
         deleteConfirmAlertView.addAction(cancelAction)
         let alertActions = deleteConfirmAlertView.actions
         for action in alertActions {
-            if action.title == "TERMINATE".localized{
+            if action.title == IGStringsManager.Terminate.rawValue.localized{
                 let logoutColor = UIColor.red
                 action.setValue(logoutColor, forKey: "titleTextColor")
             }
@@ -90,43 +90,43 @@ class IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController: Ba
         if let thisSession = selectedSession {
             switch thisSession.platform! {
             case .android :
-                platformSelectedSessionLabel.text = "PLATFORM_ANDROID".localized
+                platformSelectedSessionLabel.text = IGStringsManager.Android.rawValue.localized
                 selectedSessionImageview.image = UIImage(named:"IG_Settings_Active_Sessions_Device_Android")
             case .iOS :
-                platformSelectedSessionLabel.text = "PLATFORM_IOS".localized
+                platformSelectedSessionLabel.text = IGStringsManager.IOS.rawValue.localized
                 selectedSessionImageview.image = UIImage(named:"IG_Settings_Active_Sessions_Device_iPhone")
             case .macOS :
-                platformSelectedSessionLabel.text = "PLATFORM_MACOS".localized
+                platformSelectedSessionLabel.text = IGStringsManager.MacOs.rawValue.localized
                 selectedSessionImageview.image = UIImage(named:"IG_Settings_Active_Sessions_Device_Mac")
             case .windows :
-                platformSelectedSessionLabel.text = "PLATFORM_WINDOWS".localized
+                platformSelectedSessionLabel.text = IGStringsManager.Widnows.rawValue.localized
                 selectedSessionImageview.image = UIImage(named:"IG_Settings_Active_Sessions_Device_Windows")
             case .linux :
-                platformSelectedSessionLabel.text = "PLATFORM_LINUX".localized
+                platformSelectedSessionLabel.text = IGStringsManager.Linux.rawValue.localized
                 selectedSessionImageview.image = UIImage(named:"IG_Settings_Active_Sessions_Device_Linux")
             case .blackberry :
-                platformSelectedSessionLabel.text = "PLATFORM_BLACKBERRY".localized
+                platformSelectedSessionLabel.text = IGStringsManager.BlackBerry.rawValue.localized
                 selectedSessionImageview.image = UIImage(named:"IG_Settings_Active_Sessions_Device_Android")
             default:
                 break
             }
             switch thisSession.device! {
             case .mobile:
-                SelectedSessionDeviceModelLabel.text = "MOBILE".localized
+                SelectedSessionDeviceModelLabel.text = IGStringsManager.Mobile.rawValue.localized
             case .desktop:
-                SelectedSessionDeviceModelLabel.text = "DESKTOP".localized
+                SelectedSessionDeviceModelLabel.text = IGStringsManager.Desktop.rawValue.localized
             case .tablet:
-                SelectedSessionDeviceModelLabel.text = "TABLET".localized
+                SelectedSessionDeviceModelLabel.text = IGStringsManager.Tablet.rawValue.localized
             case .unknown:
-                SelectedSessionDeviceModelLabel.text = "UNKNOWN".localized
+                SelectedSessionDeviceModelLabel.text = IGStringsManager.Unknown.rawValue.localized
             }        
-            appVersionSelectedSessionLabel.text = "APP_VERSION".localized + "\(thisSession.appVersion)".inLocalizedLanguage()
-            countrySelectedSessionLabel.text = "COUNTRY".localized + " \(thisSession.country)"
+            appVersionSelectedSessionLabel.text = IGStringsManager.GlobalAppVersion.rawValue.localized + "\(thisSession.appVersion)".inLocalizedLanguage()
+            countrySelectedSessionLabel.text = IGStringsManager.Country.rawValue.localized + " \(thisSession.country)"
             let creationDateString = Date(timeIntervalSince1970: TimeInterval(thisSession.createTime)).completeHumanReadableTime()
-            createdTimeSelectedSessionLabel.text = "SESSION_INITIATED_AT".localized + creationDateString
+            createdTimeSelectedSessionLabel.text = IGStringsManager.SessionCreateOn.rawValue.localized + creationDateString
             let lastActiveDateString = Date(timeIntervalSince1970: TimeInterval(thisSession.activeTime)).completeHumanReadableTime().inLocalizedLanguage()
-            lastActivationSelectedSessionLabel.text = "LAST_ACTIVE_AT".localized  + lastActiveDateString.inLocalizedLanguage()
-            ipSelectedSessionLabel.text = "IP".localized + " \(thisSession.ip)".inLocalizedLanguage()
+            lastActivationSelectedSessionLabel.text = IGStringsManager.LastActiveAt.rawValue.localized  + lastActiveDateString.inLocalizedLanguage()
+            ipSelectedSessionLabel.text = IGStringsManager.IP.rawValue.localized + " \(thisSession.ip)".inLocalizedLanguage()
         }
     }
     
@@ -148,15 +148,10 @@ class IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController: Ba
                     }
                 }
             }).error ({ (errorCode, waitTime) in
+                IGGlobal.prgHide()
                 switch errorCode {
                 case .timeout:
-                    DispatchQueue.main.async {
-                        IGGlobal.prgHide()
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    break
                 default:
                     break
                 }
@@ -173,15 +168,11 @@ class IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController: Ba
                 IGUserSessionLogoutRequest.Handler.interpret(response: logoutSessionProtoResponse)
             }
         }).error ({ (errorCode, waitTime) in
+            IGGlobal.prgHide()
+
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    IGGlobal.prgHide()
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
+                break
             default:
                 break
             }

@@ -178,7 +178,7 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
             case .userIVandSetActivityBadPayload:
 
                 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: true ,showCancelButton: false, message: "MSG_THE_CODE_INVALID".localized, doneText: IGStringsManager.GlobalOK.rawValue.localized,done: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: true ,showCancelButton: false, message: IGStringsManager.InvalidCode.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized,done: {
                     self.navigationController!.popViewController(animated: true)
                 })
                 break

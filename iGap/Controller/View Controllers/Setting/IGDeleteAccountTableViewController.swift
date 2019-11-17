@@ -26,7 +26,7 @@ class IGDeleteAccountTableViewController: UITableViewController , UIGestureRecog
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         tableView.tableFooterView = UIView()
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil , title: "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil , title: IGStringsManager.DeleteAccount.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -39,14 +39,14 @@ class IGDeleteAccountTableViewController: UITableViewController , UIGestureRecog
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        lblBtn.text = "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localized
+        lblBtn.text = IGStringsManager.DeleteAccount.rawValue.localized
         
         lblSub1.text = "DELETE_SUB1".localized
         lblSub2.text = "DELETE_SUB2".localized
         lblSub3.text = "DELETE_SUB3".localized
 
         lblTitle1.text = "DELETE_TITLE".localized
-        lblHeader.text = "SURE_DELETE".localized
+        lblHeader.text = IGStringsManager.SureToDeleteAccount.rawValue.localized
     }
     
     

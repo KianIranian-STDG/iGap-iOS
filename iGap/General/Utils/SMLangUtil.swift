@@ -42,7 +42,7 @@ class SMLangUtil: NSObject {
             }
 
             else if tag == 5 {
-                return "SETTING_PAGE_ACCOUNT_BIO".localized
+                return IGStringsManager.Bio.rawValue.localized
             }
 
             else if tag == 6 {
@@ -50,11 +50,11 @@ class SMLangUtil: NSObject {
             }
 
             else if tag == 7 {
-                return "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localized
+                return IGStringsManager.DeleteAccount.rawValue.localized
             }
 
             else if tag == 8 {
-                return "SETTING_PAGE_ACCOUNT_S_DESTRUCT".localized
+                return IGStringsManager.SelfDestruct.rawValue.localized
             }
 
             else if tag == 9 {
@@ -63,7 +63,7 @@ class SMLangUtil: NSObject {
 
 
             else if tag == 10 {
-                return "SETTING_PAGE_ACCOUNT_LOGOUT".localized
+                return IGStringsManager.Logout.rawValue.localized
             }
 
             else {

@@ -30,19 +30,19 @@ class IGSettingPrivacyAndSecurityActiveSessionsDetailTableViewCell: UITableViewC
     func setSession(_ session: IGSession) {
         switch session.platform! {
         case .android :
-            activeSessionTitle.text = "ANDROID".localized
+            activeSessionTitle.text = IGStringsManager.Android.rawValue.localized
             activeSessionImageView.image = UIImage(named:"IG_Settings_Active_Sessions_Device_Android")
         case .iOS :
-            activeSessionTitle.text = "IOS".localized
+            activeSessionTitle.text = IGStringsManager.IOS.rawValue.localized
             activeSessionImageView.image = UIImage(named:"IG_Settings_Active_Sessions_Device_iPhone")
         case .macOS :
-            activeSessionTitle.text = "MACOS".localized
+            activeSessionTitle.text = IGStringsManager.MacOs.rawValue.localized
             activeSessionImageView.image = UIImage(named:"IG_Settings_Active_Sessions_Device_Mac")
         case .windows :
-            activeSessionTitle.text = "WINDOWS".localized
+            activeSessionTitle.text = IGStringsManager.Widnows.rawValue.localized
             activeSessionImageView.image = UIImage(named:"IG_Settings_Active_Sessions_Device_Windows")
         case .linux :
-            activeSessionTitle.text = "LINUX".localized
+            activeSessionTitle.text = IGStringsManager.Linux.rawValue.localized
             activeSessionImageView.image = UIImage(named:"IG_Settings_Active_Sessions_Device_Linux")
         case .blackberry :
             activeSessionTitle.text = "blackberry"
@@ -51,7 +51,7 @@ class IGSettingPrivacyAndSecurityActiveSessionsDetailTableViewCell: UITableViewC
         }
         
         let lastActiveDateString = Date(timeIntervalSince1970: TimeInterval(session.activeTime)).completeHumanReadableTime()
-        activeSessionLastseenLable.text = "LAST_ACTIVE_AT".localized + lastActiveDateString.inLocalizedLanguage()
+        activeSessionLastseenLable.text = IGStringsManager.LastActiveAt.rawValue.localized + lastActiveDateString.inLocalizedLanguage()
         activesessionCountryLable.text = session.country
         
     }

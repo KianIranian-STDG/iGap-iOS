@@ -6592,4 +6592,13 @@ TODO:// complete */
 "communicating" = "Communicating...";
 "what_do_u_want" = "What Do You Want to Do ?";
 "which_type_of" = "Which type of conversation would you like to initiate?";
-
+"last_active_at" = "Last Active At:";
+"linux" = "Linux";
+"windows" = "Windows";
+"mac_os" = "Mac OS";
+"ios" = "iOS";
+"android" = "Android";
+"tablet" = "Tablet";
+"mobile" = "Mobile";
+"Desktop" = "Desktop";
+"blackberry" = "BlackBerry";

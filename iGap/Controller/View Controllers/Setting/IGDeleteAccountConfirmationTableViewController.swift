@@ -36,7 +36,7 @@ class IGDeleteAccountConfirmationTableViewController: BaseTableViewController , 
             phoneNumberLabel.text = "\(userInDb.phone)"
         }
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalNext.rawValue.localized, title: "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localized)
+        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalNext.rawValue.localized, title: IGStringsManager.DeleteAccount.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -92,7 +92,7 @@ class IGDeleteAccountConfirmationTableViewController: BaseTableViewController , 
                     }
                 case .userDeleteTokenInvalidCode:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title:"INVALID_CODE".localized, message: "MSG_THE_CODE_INVALID".localized, preferredStyle: .alert)
+                        let alert = UIAlertController(title:"INVALID_CODE".localized, message: IGStringsManager.InvalidCode.rawValue.localized, preferredStyle: .alert)
                         let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default , handler: nil)
                         alert.addAction(okAction)
                         self.hud.hide(animated: true)

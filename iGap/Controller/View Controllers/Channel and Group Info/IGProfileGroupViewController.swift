@@ -1273,7 +1273,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     return cellTwo
                     
                 case 1:
-                    cell.initLabels(nameLblString: "NOTIFICATION_SOUNDS".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.NotificationAndSound.rawValue.localized)
                     return cell
                     
                 default:
@@ -1566,7 +1566,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 0:
                     return IGStringsManager.Desc.rawValue.localized
                 case 1:
-                    return "NOTIFICATION_SOUNDS".localized
+                    return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 2:
                     return "SHAREDMEDIA".localized
                 default:
@@ -1580,7 +1580,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 1:
                     return "GROUP_LINK".localized
                 case 2:
-                    return "NOTIFICATION_SOUNDS".localized
+                    return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 3:
                     return "SHAREDMEDIA".localized
                 default:
@@ -1592,7 +1592,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 0:
                     return IGStringsManager.Desc.rawValue.localized
                 case 1:
-                    return "NOTIFICATION_SOUNDS".localized
+                    return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 2:
                     return "SHAREDMEDIA".localized
                 default:
@@ -1604,7 +1604,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 0:
                     return IGStringsManager.Desc.rawValue.localized
                 case 1:
-                    return "NOTIFICATION_SOUNDS".localized
+                    return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 2:
                     return "SHAREDMEDIA".localized
                 default:
@@ -1617,7 +1617,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 0:
                     return IGStringsManager.Desc.rawValue.localized
                 case 1:
-                    return "NOTIFICATION_SOUNDS".localized
+                    return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 2:
                     return "SHAREDMEDIA".localized
                 default:
@@ -1635,7 +1635,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 1:
                     return "GROUP_LINK".localized
                 case 2:
-                    return "NOTIFICATION_SOUNDS".localized
+                    return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 3:
                     return "SHAREDMEDIA".localized
                 default:
@@ -1649,7 +1649,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 1:
                     return "GROUP_LINK".localized
                 case 2:
-                    return "NOTIFICATION_SOUNDS".localized
+                    return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 3:
                     return "SHAREDMEDIA".localized
                 default:
@@ -1663,7 +1663,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 1:
                     return "GROUP_LINK".localized
                 case 2:
-                    return "NOTIFICATION_SOUNDS".localized
+                    return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 3:
                     return "SHAREDMEDIA".localized
                 default:
@@ -1677,7 +1677,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 1:
                     return "GROUP_LINK".localized
                 case 2:
-                    return "NOTIFICATION_SOUNDS".localized
+                    return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 3:
                     return "SHAREDMEDIA".localized
                 default:
@@ -1690,7 +1690,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 0:
                     return IGStringsManager.Desc.rawValue.localized
                 case 1:
-                    return "NOTIFICATION_SOUNDS".localized
+                    return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 2:
                     return "SHAREDMEDIA".localized
                 default:
@@ -1704,7 +1704,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             case 1:
                 return "GROUP_LINK".localized
             case 2:
-                return "NOTIFICATION_SOUNDS".localized
+                return IGStringsManager.NotificationAndSound.rawValue.localized
             case 3:
                 return "SHAREDMEDIA".localized
             default:

@@ -873,7 +873,7 @@ IGStringsManager.Month.rawValue. = "ماه";
 "SETTING_PS_PRIVACY_HINT" = "تغییر اینکه چه کسی قابلیت افزودن شما به گروه ها یا کانال ها و یا برقراری تماس با شما را داشته باشد.";
 "SETTING_PS_TTL_SECURITY" = "امنیت";
 "SETTING_PS_ACTIVE_SESSIONS" = "نشست های فعال";
-"SETTING_PS_NO_MORE_ACTIVE_SESSIONS" = "نشست فعال دیگری وجود ندارد";
+IGStringsManager.GlobalNoHistory.rawValue. = "نشست فعال دیگری وجود ندارد";
 "SETTINGS_PS_TERMINATE_ALL_EXEPT" = "لغو تمامی جلسات فعال بجز نشست فعلی";
 "TERMINATE_ALL_SESSIONS" = "لغو تمامی نشست ها";
 

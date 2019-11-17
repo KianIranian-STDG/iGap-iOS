@@ -196,7 +196,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         lblGroupsTitle.text = "SETTING_PS_GROUPS".localized
         lblGroupsTitle.text = "SETTING_PS_GROUPS".localized
         lblGroupsTitle.text = "SETTING_PS_GROUPS".localized
-        lblActiveSessionsTitle.text = "SETTING_PS_ACTIVE_SESSIONS".localized
+        lblActiveSessionsTitle.text = IGStringsManager.ActiveSessions.rawValue.localized
         lblTwoStepTitle.text = "SETTING_PS_TWO_STEP_VERFI".localized
         lblIfAway.text = "IF_AWAY_FOR".localized
         
@@ -654,7 +654,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         
         switch section {
         case 3 :
-            containerFooterView.textLabel!.text = "SETTING_PAGE_ACCOUNT_S_DESTRUCT_FOOTER".localized
+            containerFooterView.textLabel!.text = IGStringsManager.SelfDestructFooter.rawValue.localized
             containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15)
             containerFooterView.sizeToFit()
         case 4 :
@@ -672,7 +672,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         
         switch section {
         case 0 :
-            containerHeaderView.textLabel!.text = "HEADER_SPRIVACY".localized
+            containerHeaderView.textLabel!.text = IGStringsManager.PrivacyPolicy.rawValue.localized
             containerHeaderView.textLabel?.font = UIFont.igFont(ofSize: 15)
         case 1 :
             containerHeaderView.textLabel!.text = "HEADER_SECURITY".localized
@@ -694,7 +694,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "HEADER_SPRIVACY".localized
+            return IGStringsManager.PrivacyPolicy.rawValue.localized
         case 1:
             return "HEADER_SECURITY".localized
         case 2:
@@ -715,7 +715,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         case 2:
             return ""
         case 3:
-            return "SETTING_PAGE_ACCOUNT_S_DESTRUCT_FOOTER".localized
+            return IGStringsManager.SelfDestructFooter.rawValue.localized
         //            return "HEADER_SELF_ADVANCE".localized
         default:
             return ""
@@ -740,10 +740,6 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     
     
     private func alertWaiting(){
-        let alert = UIAlertController(title: "Please Wait", message: "Please wait for detect your privacy info", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(okAction)
-        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func goBackToPrivacyAndSecurityList(seque:UIStoryboardSegue){
@@ -755,43 +751,43 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
             if selectedIndexPath.section == 0 {
                 switch selectedIndexPath.row {
                 case 1:
-                    whoCanSeeYourPrivacyAndSetting.headerText = "TTL_WHO_CAN_SEE_MY_PROFILE_PHOTO".localized
-                    whoCanSeeYourPrivacyAndSetting.mode = "SETTING_PS_PROFILE_PHOTO".localized
+                    whoCanSeeYourPrivacyAndSetting.headerText = ""
+                    whoCanSeeYourPrivacyAndSetting.mode = IGStringsManager.ProfilePhotoCheck.rawValue.localized
                     whoCanSeeYourPrivacyAndSetting.privacyType = .avatar
                     whoCanSeeYourPrivacyAndSetting.privacyLevel = avatarUserPrivacy
                     break
                     
                 case 2:
-                    whoCanSeeYourPrivacyAndSetting.headerText = "TTL_WHO_CAN_SEE_MY_PLAST_SEEN".localized
-                    whoCanSeeYourPrivacyAndSetting.lastSeenFooterText = "MSG_IF_NOT_SHARE_LAST_SEEN".localized
-                    whoCanSeeYourPrivacyAndSetting.mode = "SETTING_PS_LAST_SEEN".localized
+                    whoCanSeeYourPrivacyAndSetting.headerText = ""
+                    whoCanSeeYourPrivacyAndSetting.lastSeenFooterText = ""
+                    whoCanSeeYourPrivacyAndSetting.mode = IGStringsManager.LastSeenCheckBy.rawValue.localized
                     whoCanSeeYourPrivacyAndSetting.privacyType = .userStatus
                     whoCanSeeYourPrivacyAndSetting.privacyLevel = lastSeenUserPrivacy
                     break
                     
                 case 3:
-                    whoCanSeeYourPrivacyAndSetting.headerText = "TTL_WHO_CAN_ADD_TO_GROUPS".localized
-                    whoCanSeeYourPrivacyAndSetting.mode = "TTL_ADDING_ME_TO_GROULS".localized
+                    whoCanSeeYourPrivacyAndSetting.headerText = IGStringsManager.WhoCanInviteToGroups.rawValue.localized
+                    whoCanSeeYourPrivacyAndSetting.mode = IGStringsManager.WhoCanInviteToGroups.rawValue.localized
                     whoCanSeeYourPrivacyAndSetting.privacyType = .groupInvite
                     whoCanSeeYourPrivacyAndSetting.privacyLevel = groupInviteUserPrivacy
                     break
                     
                 case 4:
-                    whoCanSeeYourPrivacyAndSetting.headerText = "TTL_WHO_CAN_ADD_TO_CHANNNELS".localized
-                    whoCanSeeYourPrivacyAndSetting.mode = "TTL_ADDING_ME_TO_CHANNELS".localized
+                    whoCanSeeYourPrivacyAndSetting.headerText = IGStringsManager.WhoCanInviteToChannel.rawValue.localized
+                    whoCanSeeYourPrivacyAndSetting.mode = IGStringsManager.WhoCanInviteToChannel.rawValue.localized
                     whoCanSeeYourPrivacyAndSetting.privacyType = .channelInvite
                     whoCanSeeYourPrivacyAndSetting.privacyLevel = channelInviteUserPrivacy
                     break
                     
                 case 5:
-                    whoCanSeeYourPrivacyAndSetting.headerText = "TTL_WHO_CAN_CALL".localized
-                    whoCanSeeYourPrivacyAndSetting.mode = "SETTING_PS_CALL".localized
+                    whoCanSeeYourPrivacyAndSetting.headerText = IGStringsManager.WhoCanVoiceCall.rawValue.localized
+                    whoCanSeeYourPrivacyAndSetting.mode = IGStringsManager.CALL.rawValue.localized
                     whoCanSeeYourPrivacyAndSetting.privacyType = .voiceCalling
                     whoCanSeeYourPrivacyAndSetting.privacyLevel = callPrivacy
                     break
                 case 6:
-                    whoCanSeeYourPrivacyAndSetting.headerText = "TTL_WHO_CAN_CALL".localized
-                    whoCanSeeYourPrivacyAndSetting.mode = "SETTING_PS_CALL".localized
+                    whoCanSeeYourPrivacyAndSetting.headerText = IGStringsManager.WhoCanVoiceCall.rawValue.localized
+                    whoCanSeeYourPrivacyAndSetting.mode = IGStringsManager.CALL.rawValue.localized
                     whoCanSeeYourPrivacyAndSetting.privacyType = .videoCalling
                     whoCanSeeYourPrivacyAndSetting.privacyLevel = callPrivacy
                     break
@@ -806,7 +802,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         else if let selfDestructionVC = segue.destination as? IGSettingHaveCheckmarkOntheLeftTableViewController {
             selfDestructionVC.items = [1, 3, 6, 12]
             selfDestructionVC.mode = "Self-Destruction"
-            selfDestructionVC.modeT = "SETTING_PAGE_ACCOUNT_S_DESTRUCT".localized
+            selfDestructionVC.modeT = IGStringsManager.SelfDestruct.rawValue.localized
             
         }
     }

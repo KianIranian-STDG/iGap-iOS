@@ -132,7 +132,7 @@ class IGHelperUIViewView {
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let callPage = storyboard.instantiateViewController(withIdentifier: "IGCall") as! IGCall
             //Mark:- show Display Name of caller User if Nil we are not in terminate State
-            callPage.callerName = userName ?? "UNKNOWN".localized
+            callPage.callerName = userName ?? IGStringsManager.Unknown.rawValue.localized
             //End
             callPage.userId = userId
             callPage.isIncommingReturnCall = isIncommmingCall

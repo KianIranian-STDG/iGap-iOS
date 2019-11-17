@@ -54,7 +54,7 @@ class IGHelperNearby {
     }
     
     func openMapAlert() {
-        let option = UIAlertController(title: "TTL_ATTENTION".localized, message: "MSG_MAP_DISTANCE".localized, preferredStyle: .alert)
+        let option = UIAlertController(title: IGStringsManager.GlobalAttention.rawValue.localized, message: "MSG_MAP_DISTANCE".localized, preferredStyle: .alert)
         let ok = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (action) in
             let mapVC = IGMap.instantiateFromAppStroryboard(appStoryboard: .Main)
             mapVC.hidesBottomBarWhenPushed = true

@@ -498,11 +498,11 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     private func checkAppVersion() {
         DispatchQueue.main.async {
             if AppDelegate.isDeprecatedClient {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "VERSION_DEPRICATED".localized, doneText: "UPDATE".localized,cancelText: IGStringsManager.GlobalClose.rawValue.localized ,done: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.DepricatedVersion.rawValue.localized, doneText: IGStringsManager.Update.rawValue.localized,cancelText: IGStringsManager.GlobalClose.rawValue.localized ,done: {
                     UIApplication.shared.open(self.iGapStoreLink!, options: [:], completionHandler: nil)
                 })
             } else if AppDelegate.isUpdateAvailable {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .question, title: "UPDATE".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "VERSION_NEW".localized, doneText: "UPDATE".localized,cancelText: IGStringsManager.GlobalClose.rawValue.localized ,done: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .question, title: IGStringsManager.Update.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.NewVersionAvailable.rawValue.localized, doneText: IGStringsManager.Update.rawValue.localized,cancelText: IGStringsManager.GlobalClose.rawValue.localized ,done: {
                     UIApplication.shared.open(self.iGapStoreLink!, options: [:], completionHandler: nil)
                 })
             }

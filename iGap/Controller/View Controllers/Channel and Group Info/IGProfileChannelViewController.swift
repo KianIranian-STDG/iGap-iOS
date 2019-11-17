@@ -1261,7 +1261,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     return cellTwo
                     
                 case 1:
-                    cell.initLabels(nameLblString: "NOTIFICATION_SOUNDS".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.NotificationAndSound.rawValue.localized)
                     return cell
                     
                 default:
@@ -1578,7 +1578,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 case 0:
                     return IGStringsManager.Desc.rawValue.localized
                 case 1:
-                    return "NOTIFICATION_SOUNDS".localized
+                    return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 2:
                     return "SHAREDMEDIA".localized
                 default:
@@ -1590,7 +1590,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 case 0:
                     return IGStringsManager.Desc.rawValue.localized
                 case 1:
-                    return "NOTIFICATION_SOUNDS".localized
+                    return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 2:
                     return "SHAREDMEDIA".localized
                 default:
@@ -1610,7 +1610,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 case 1:
                     return "CHANNEL_INFO".localized
                 case 2:
-                    return "NOTIFICATION_SOUNDS".localized
+                    return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 3:
                     return "SHAREDMEDIA".localized
                 case 4:
@@ -1626,7 +1626,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 case 1:
                     return "CHANNEL_INFO".localized
                 case 2:
-                    return "NOTIFICATION_SOUNDS".localized
+                    return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 3:
                     return "SHAREDMEDIA".localized
                 case 4:
@@ -1643,7 +1643,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 case 1:
                     return "CHANNEL_INFO".localized
                 case 2:
-                    return "NOTIFICATION_SOUNDS".localized
+                    return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 3:
                     return "SHAREDMEDIA".localized
                 default:
@@ -1655,7 +1655,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 case 0:
                     return IGStringsManager.Desc.rawValue.localized
                 case 1:
-                    return "NOTIFICATION_SOUNDS".localized
+                    return IGStringsManager.NotificationAndSound.rawValue.localized
                 case 2:
                     return "SHAREDMEDIA".localized
                 default:
@@ -1673,7 +1673,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
             case 1:
                 return "CHANNEL_INFO".localized
             case 2:
-                return "NOTIFICATION_SOUNDS".localized
+                return IGStringsManager.NotificationAndSound.rawValue.localized
             case 3:
                 return "SHAREDMEDIA".localized
             default:
