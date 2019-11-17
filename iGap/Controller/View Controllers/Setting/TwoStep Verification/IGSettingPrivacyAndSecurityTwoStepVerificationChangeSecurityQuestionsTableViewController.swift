@@ -125,7 +125,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
                 switch errorCode {
                 case .timeout:
 //                    self.showAlert(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized)
-//                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "SETTING_PS_TV_HINT".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PASSWORD_IS_NOT_SET".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+//                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.InvalidHint.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PASSWORD_IS_NOT_SET".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                     break
                     

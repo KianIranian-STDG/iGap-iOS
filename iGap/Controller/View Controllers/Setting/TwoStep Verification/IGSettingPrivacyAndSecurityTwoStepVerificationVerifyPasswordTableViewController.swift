@@ -56,7 +56,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewContr
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == 0 {
         if let hint = self.twoStepVerification?.hint {
-            return "SETTING_PS_TV_HINT".localized + "\(hint)"
+            return IGStringsManager.InvalidHint.rawValue.localized + "\(hint)"
         }
         return ""
         }

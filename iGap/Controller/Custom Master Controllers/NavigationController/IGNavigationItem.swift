@@ -1105,28 +1105,28 @@ class IGNavigationItem: UINavigationItem {
                 
                 switch user.lastSeenStatus {
                 case .longTimeAgo:
-                    self.centerViewSubLabel!.text = "A_LONG_TIME_AGO".localized
+                    self.centerViewSubLabel!.text = IGStringsManager.LongTimeAgo.rawValue.localized
                     break
                 case .lastMonth:
-                    self.centerViewSubLabel!.text = "LAST_MONTH".localized
+                    self.centerViewSubLabel!.text = IGStringsManager.LastMonth.rawValue.localized
                     break
                 case .lastWeek:
-                    self.centerViewSubLabel!.text = "LAST_WEAK".localized
+                    self.centerViewSubLabel!.text = IGStringsManager.Lastweak.rawValue.localized
                     break
                 case .online:
-                    self.centerViewSubLabel!.text = "ONLINE".localized
+                    self.centerViewSubLabel!.text = IGStringsManager.Online.rawValue.localized
                     break
                 case .exactly:
                     self.centerViewSubLabel!.text = "\(user.lastSeen!.humanReadableForLastSeen())".inLocalizedLanguage()
                     break
                 case .recently:
-                    self.centerViewSubLabel!.text = "A_FEW_SEC_AGO".localized
+                    self.centerViewSubLabel!.text = IGStringsManager.NavLastSeenRecently.rawValue.localized
                     break
                 case .support:
-                    self.centerViewSubLabel!.text = "IGAP_SUPPORT".localized
+                    self.centerViewSubLabel!.text = IGStringsManager.IgapSupport.rawValue.localized
                     break
                 case .serviceNotification:
-                    self.centerViewSubLabel!.text = "SERVICE_NOTIFI".localized
+                    self.centerViewSubLabel!.text = IGStringsManager.NotificationServices.rawValue.localized
                     break
                 }
                 

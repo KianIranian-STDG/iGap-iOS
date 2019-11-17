@@ -1518,6 +1518,7 @@ extension IGProfileTableViewController: UISearchBarDelegate {
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        /*
         IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
         (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
         let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
@@ -1525,6 +1526,7 @@ extension IGProfileTableViewController: UISearchBarDelegate {
         self.navigationController?.hero.isEnabled = true
         self.navigationController?.hero.navigationAnimationType = .fade
         self.hero.replaceViewController(with: lookAndFind)
+        */
         return true
     }
     

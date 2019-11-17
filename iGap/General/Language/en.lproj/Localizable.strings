@@ -6550,6 +6550,12 @@ TODO:// complete */
 "new_call" = "New Call";
 "hint" = "Hint";
 "check_all_the_fields" = "Please Check All The Fields";
-"minimum_number_of_letters" = "The number of letters is less than 5 character"
-"already_taken_username" = "The user name is already taken by another user"
-"msg_update_username_forbidden" = "You are not allowed to Update your username"
+"minimum_number_of_letters" = "The number of letters is less than 5 character";
+"already_taken_username" = "The user name is already taken by another user";
+"msg_update_username_forbidden" = "You are not allowed to Update your username";
+"new_channels_rules_private" = "People can join your channel by following this link.you can change the link at any time.";
+"add_member" = "Add Member";
+"add_member_to" = "Add Member To";
+"please_choose_a_member" = "Please Choose a member";
+"exising_member" = "the selected member is alredy the list";
+"exising_members" = "the selected members are alredy the list";

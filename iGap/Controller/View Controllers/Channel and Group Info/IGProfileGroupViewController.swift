@@ -732,7 +732,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 3:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.AddMember.rawValue.localized)
                         return cell
                         
                     case 1 :
@@ -795,7 +795,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 3:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.AddMember.rawValue.localized)
                         return cell
                         
                     case 1 :
@@ -862,7 +862,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 3:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.AddMember.rawValue.localized)
                         return cell
                         
                     case 1 :
@@ -934,7 +934,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 4:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.AddMember.rawValue.localized)
                         return cell
                         
                     case 1 :
@@ -1007,7 +1007,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 4:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.AddMember.rawValue.localized)
                         return cell
                         
                     case 1 :
@@ -1074,7 +1074,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 4:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.AddMember.rawValue.localized)
                         return cell
                         
                     case 1 :
@@ -1141,7 +1141,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 4:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.AddMember.rawValue.localized)
                         return cell
                         
                     case 1 :
@@ -1213,7 +1213,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case 4:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localized)
+                        cell.initLabels(nameLblString: IGStringsManager.AddMember.rawValue.localized)
                         return cell
                         
                     case 1 :
@@ -1287,7 +1287,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             case 4:
                 switch indexPath.row {
                 case 0 :
-                    cell.initLabels(nameLblString: "ADD_MEMBER".localized)
+                    cell.initLabels(nameLblString: IGStringsManager.AddMember.rawValue.localized)
                     return cell
                     
                 case 1 :

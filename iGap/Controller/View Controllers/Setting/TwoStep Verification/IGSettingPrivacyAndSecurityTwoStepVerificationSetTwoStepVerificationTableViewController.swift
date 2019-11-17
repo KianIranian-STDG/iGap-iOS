@@ -56,7 +56,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
         lblQ2.text = "SETTING_PS_TV_Q2".localized
         lblA1.text = "SETTING_PS_TV_A1".localized
         lblA2.text = "SETTING_PS_TV_A2".localized
-        lblHint.text = "SETTING_PS_TV_HINT".localized
+        lblHint.text = IGStringsManager.InvalidHint.rawValue.localized
         lblEmail.text = "SETTING_PS_TV_EMAIL".localized
         
         passwordTextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localized

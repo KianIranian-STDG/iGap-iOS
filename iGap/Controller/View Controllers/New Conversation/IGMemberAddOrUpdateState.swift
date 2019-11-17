@@ -121,11 +121,11 @@ class IGMemberAddOrUpdateState: BaseViewController {
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         if mode == "Admin" {
-            navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_ADMIN".localized, iGapFont: true)
+            navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: IGStringsManager.AddAdmin.rawValue.localized, iGapFont: true)
         }
         
         if mode == "Moderator" {
-            navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MODERATOR".localized, iGapFont: true)
+            navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: IGStringsManager.AddModerator.rawValue.localized, iGapFont: true)
         }
         
         if mode == "CreateGroup" {
@@ -137,11 +137,11 @@ class IGMemberAddOrUpdateState: BaseViewController {
         }
         
         if mode == "Members" {
-            navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER".localized, iGapFont: true)
+            navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: IGStringsManager.AddMember.rawValue.localized, iGapFont: true)
         }
         
         if mode == "ConvertChatToGroup" {
-            navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER_TO".localized, iGapFont: true)
+            navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: IGStringsManager.AddMemberTo.rawValue.localized, iGapFont: true)
         }
         
         navigationItem.leftViewContainer?.addAction {
@@ -218,7 +218,7 @@ class IGMemberAddOrUpdateState: BaseViewController {
         if selectedUsers.count == 0 {
 
             
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "SETTING_PS_TV_HINT".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PLEASE_CHOOSE_MEMBER".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.chooseMemberPlease.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             return
         }
         
@@ -242,7 +242,7 @@ class IGMemberAddOrUpdateState: BaseViewController {
     
     func requestToAddmemberToChannel() {
         if selectedUsers.count == 0 {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "SETTING_PS_TV_HINT".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PLEASE_CHOOSE_MEMBER".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.chooseMemberPlease.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
             return
         }
@@ -266,7 +266,7 @@ class IGMemberAddOrUpdateState: BaseViewController {
     
     func requestToAddAdminInChannel() {
         if selectedUsers.count == 0 {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "SETTING_PS_TV_HINT".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PLEASE_CHOOSE_MEMBER".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.chooseMemberPlease.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
             return
         }
@@ -287,20 +287,9 @@ class IGMemberAddOrUpdateState: BaseViewController {
                     self.manageClosePage()
                     switch errorCode {
                     case .timeout:
-                        DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true, completion: nil)
-                        }
+                        break
                     case .canNotAddThisUserAsAdminToGroup:
-                        DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Error", message: "There is an error to adding this contact in channel", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true, completion: nil)
-                            
-                        }
+                        break
                     default:
                         break
                     }
@@ -313,7 +302,7 @@ class IGMemberAddOrUpdateState: BaseViewController {
     
     func requestToAddModeratorInChannel() {
         if selectedUsers.count == 0 {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "SETTING_PS_TV_HINT".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PLEASE_CHOOSE_MEMBER".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.chooseMemberPlease.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
             return
         }
@@ -335,20 +324,14 @@ class IGMemberAddOrUpdateState: BaseViewController {
                     IGGlobal.prgHide()
                     switch errorCode {
                     case .timeout:
-                        DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true, completion: nil)
-                        }
+                        break
                     case .canNotAddThisUserAsModeratorToGroup:
                         DispatchQueue.main.async {
-                            let alertC = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.UnsuccessOperation.rawValue.localized, preferredStyle: .alert)
                             
-                            let cancel = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                            alertC.addAction(cancel)
-                            self.present(alertC, animated: true, completion: nil)
+                            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalOK.rawValue.localized)
+
                         }
+                        
                         
                     default:
                         break
@@ -363,7 +346,7 @@ class IGMemberAddOrUpdateState: BaseViewController {
     //Group
     func requestToAddAdminInGroup() {
         if selectedUsers.count == 0 {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "SETTING_PS_TV_HINT".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PLEASE_CHOOSE_MEMBER".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.chooseMemberPlease.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
             return
         }
@@ -384,20 +367,9 @@ class IGMemberAddOrUpdateState: BaseViewController {
                     self.manageClosePage()
                     switch errorCode {
                     case .timeout:
-                        DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true, completion: nil)
-                        }
+                        break
                     case .canNotAddThisUserAsAdminToGroup:
-                        DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Error", message: "There is an error to adding this contact in group", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true, completion: nil)
-                            
-                        }
+                        break
                     default:
                         break
                     }
@@ -409,7 +381,7 @@ class IGMemberAddOrUpdateState: BaseViewController {
     
     func requestToAddModeratorInGroup() {
         if selectedUsers.count == 0 {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "SETTING_PS_TV_HINT".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PLEASE_CHOOSE_MEMBER".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.chooseMemberPlease.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
             return
         }
@@ -431,20 +403,12 @@ class IGMemberAddOrUpdateState: BaseViewController {
                     IGGlobal.prgHide()
                     switch errorCode {
                     case .timeout:
-                        DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true, completion: nil)
-                        }
                         break
                         
                     case .canNotAddThisUserAsModeratorToGroup:
                         DispatchQueue.main.async {
-                            let alertC = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.UnsuccessOperation.rawValue.localized, preferredStyle: .alert)
-                            let cancel = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
-                            alertC.addAction(cancel)
-                            self.present(alertC, animated: true, completion: nil)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+
                         }
                         break
                         
@@ -482,9 +446,9 @@ class IGMemberAddOrUpdateState: BaseViewController {
                         
                         var message: String!
                         if self.existErrorUserIds.count == 1 {
-                            message = names + "\n" + "EXIST_MEMBER".localized
+                            message = names + "\n" + IGStringsManager.AlreadyIsInTheMemberList.rawValue.localized
                         } else {
-                            message = names + "\n" + "EXIST_MEMBERS".localized
+                            message = names + "\n" + IGStringsManager.AlreadyAreInTheMemberList.rawValue.localized
                         }
                         
                         let alertC = UIAlertController(title: nil, message: message, preferredStyle: .alert)

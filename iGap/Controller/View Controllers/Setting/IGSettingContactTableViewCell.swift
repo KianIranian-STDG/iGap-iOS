@@ -61,25 +61,25 @@ class IGSettingContactTableViewCell: MGSwipeTableCell {
             }
             break
         case .lastMonth:
-            lastSeenStatusLabel.text = "LAST_MONTH".localized
+            lastSeenStatusLabel.text = IGStringsManager.LastMonth.rawValue.localized
             break
         case .lastWeek:
-            lastSeenStatusLabel.text = "LAST_WEAK".localized
+            lastSeenStatusLabel.text = IGStringsManager.Lastweak.rawValue.localized
             break
         case .longTimeAgo:
-            lastSeenStatusLabel.text = "A_LONG_TIME_AGO".localized
+            lastSeenStatusLabel.text = IGStringsManager.LongTimeAgo.rawValue.localized
             break
         case .online:
-            lastSeenStatusLabel.text = "ONLINE".localized
+            lastSeenStatusLabel.text = IGStringsManager.Online.rawValue.localized
             break
         case .recently:
             lastSeenStatusLabel.text = "LAST_SEEN_RECENTLY".localized
             break
         case .support:
-            lastSeenStatusLabel.text = "IGAP_SUPPORT".localized
+            lastSeenStatusLabel.text = IGStringsManager.IgapSupport.rawValue.localized
             break
         case .serviceNotification:
-            lastSeenStatusLabel.text = "SERVICE_NOTIFI".localized
+            lastSeenStatusLabel.text = IGStringsManager.NotificationServices.rawValue.localized
             
             break
             

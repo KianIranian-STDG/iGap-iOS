@@ -103,25 +103,25 @@ class IGMemberCell: UITableViewCell {
                 }
                 break
             case .lastMonth:
-                groupMemberRecentlyStatus.text = "LAST_MONTH".localized
+                groupMemberRecentlyStatus.text = IGStringsManager.LastMonth.rawValue.localized
                 break
             case .lastWeek:
-                groupMemberRecentlyStatus.text = "LAST_WEAK".localized
+                groupMemberRecentlyStatus.text = IGStringsManager.Lastweak.rawValue.localized
                 break
             case .longTimeAgo:
-                groupMemberRecentlyStatus.text = "A_LONG_TIME_AGO".localized
+                groupMemberRecentlyStatus.text = IGStringsManager.LongTimeAgo.rawValue.localized
                 break
             case .online:
-                groupMemberRecentlyStatus.text = "ONLINE".localized
+                groupMemberRecentlyStatus.text = IGStringsManager.Online.rawValue.localized
                 break
             case .recently:
                 groupMemberRecentlyStatus.text = "LAST_SEEN_RECENTLY".localized
                 break
             case .support:
-                groupMemberRecentlyStatus.text = "IGAP_SUPPORT".localized
+                groupMemberRecentlyStatus.text = IGStringsManager.IgapSupport.rawValue.localized
                 break
             case .serviceNotification:
-                groupMemberRecentlyStatus.text = "SERVICE_NOTIFI".localized
+                groupMemberRecentlyStatus.text = IGStringsManager.NotificationServices.rawValue.localized
                 break
             }
         } else { // when user info not exist yet!

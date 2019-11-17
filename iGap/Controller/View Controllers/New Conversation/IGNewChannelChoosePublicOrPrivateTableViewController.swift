@@ -223,7 +223,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
             channelLinkTextField.leftView = channelDefualtName
             channelLinkTextField.leftViewMode = UITextField.ViewMode.always
             channelLinkTextField.placeholder = "yourlink"
-            lblFooter.text = "MSG_CHANNEL_SHARE_FOOTER".localized
+            lblFooter.text = IGStringsManager.NewChannelPrivateFooterHint.rawValue.localized
 
             channelLinkTextField.delegate = self
             tableView.reloadData()
@@ -233,7 +233,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
             channelLinkTextField.text = invitedLink
             channelLinkTextField.textColor = UIColor(named: themeColor.labelColor.rawValue)
             channelLinkTextField.isUserInteractionEnabled = false
-            lblFooter.text = "MSG_CHANNEL_SHARE_JOIN".localized
+            lblFooter.text = IGStringsManager.NewChannelPrivateFooterHint.rawValue.localized
 
             channelLinkTextField.delegate = self
             tableView.reloadData()

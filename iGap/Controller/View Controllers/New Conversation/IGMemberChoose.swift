@@ -33,28 +33,28 @@ class IGMemberChoose: UITableViewCell {
       
         switch user!.registredUser.lastSeenStatus {
         case .longTimeAgo:
-            self.lastSeenStatusLabel.text =  "A_LONG_TIME_AGO".localized
+            self.lastSeenStatusLabel.text =  IGStringsManager.LongTimeAgo.rawValue.localized
             break
         case .lastMonth:
-            self.lastSeenStatusLabel.text = "LAST_MONTH".localized
+            self.lastSeenStatusLabel.text = IGStringsManager.LastMonth.rawValue.localized
             break
         case .lastWeek:
-            self.lastSeenStatusLabel.text = "LAST_WEAK".localized
+            self.lastSeenStatusLabel.text = IGStringsManager.Lastweak.rawValue.localized
             break
         case .online:
-            self.lastSeenStatusLabel.text  = "ONLINE".localized
+            self.lastSeenStatusLabel.text  = IGStringsManager.Online.rawValue.localized
             break
         case .exactly:
             self.lastSeenStatusLabel.text = "\(user!.registredUser.lastSeen!.humanReadableForLastSeen())".inLocalizedLanguage()
             break
         case .recently:
-            self.lastSeenStatusLabel.text = "A_FEW_SEC_AGO".localized
+            self.lastSeenStatusLabel.text = IGStringsManager.NavLastSeenRecently.rawValue.localized
             break
         case .support:
-            self.lastSeenStatusLabel.text = "IGAP_SUPPORT".localized
+            self.lastSeenStatusLabel.text = IGStringsManager.IgapSupport.rawValue.localized
             break
         case .serviceNotification:
-            self.lastSeenStatusLabel.text = "SERVICE_NOTIFI".localized
+            self.lastSeenStatusLabel.text = IGStringsManager.NotificationServices.rawValue.localized
             break
         }
         userAvatarView.setUser(user.registredUser)

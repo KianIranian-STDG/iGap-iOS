@@ -31,7 +31,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeHintTableViewControlle
         navigationItem.rightViewContainer?.addAction {
             self.changeHint()
         }
-        lbl1.text = "SETTING_PS_TV_HINT".localized
+        lbl1.text = IGStringsManager.InvalidHint.rawValue.localized
         txtHint.placeholder = "SETTING_PS_TV_RECOMMENDED_FIELD".localized
     }
     

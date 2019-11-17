@@ -34,6 +34,13 @@ enum IGStringsManager : String {
     case Member = "member"
     case GlobalSkip = "ra_skip"
     case GlobalHint = "hint"
+    case LastSeenAt = "last_seen_at"
+    case LongTimeAgo = "long_time_ago"
+    case LastMonth = "last_month"
+    case Lastweak = "last_week"
+    case Online = "online"
+    case IgapSupport = "st_title_support"
+    case NotificationServices = "service_notification"
 
     //MARK: - Intro Page
     case IntroTitleOne = "text_line_1_introduce_page3"
@@ -111,6 +118,17 @@ enum IGStringsManager : String {
     case InvalidUserName = "E_330_2"
     case AlreadyTakenUserName = "already_taken_username"
     case MSGUpdateUserNameForbidden = "msg_update_username_forbidden"
+    case NewChannelPublicFooterHint = "new_channels_rules"
+    case NewChannelPrivateFooterHint = "new_channels_rules_private"
+    case AddAdmin = "add_admin"
+    case AddModerator = "add_moderator"
+    case AddMember = "add_member"
+    case AddMemberTo = "add_member_to"
+    case InvalidHint = "Hint_cant_the_same_password"
+    case chooseMemberPlease = "please_choose_a_member"
+    case AlreadyIsInTheMemberList = "existing_member"
+    case AlreadyAreInTheMemberList = "existing_members"
+
 
 
 }

@@ -40,28 +40,28 @@ class IGContactTableViewCell: UITableViewCell {
 
             switch user.lastSeenStatus {
             case .longTimeAgo:
-                self.contactPhoneNumber.text =  "A_LONG_TIME_AGO".localized
+                self.contactPhoneNumber.text =  IGStringsManager.LongTimeAgo.rawValue.localized
                 break
             case .lastMonth:
-                self.contactPhoneNumber.text = "LAST_MONTH".localized
+                self.contactPhoneNumber.text = IGStringsManager.LastMonth.rawValue.localized
                 break
             case .lastWeek:
-                self.contactPhoneNumber.text = "LAST_WEAK".localized
+                self.contactPhoneNumber.text = IGStringsManager.Lastweak.rawValue.localized
                 break
             case .online:
-                self.contactPhoneNumber.text  = "ONLINE".localized
+                self.contactPhoneNumber.text  = IGStringsManager.Online.rawValue.localized
                 break
             case .exactly:
                 self.contactPhoneNumber.text = "\(user.lastSeen!.humanReadableForLastSeen())".inLocalizedLanguage()
                 break
             case .recently:
-                self.contactPhoneNumber.text = "A_FEW_SEC_AGO".localized
+                self.contactPhoneNumber.text = IGStringsManager.NavLastSeenRecently.rawValue.localized
                 break
             case .support:
-                self.contactPhoneNumber.text = "IGAP_SUPPORT".localized
+                self.contactPhoneNumber.text = IGStringsManager.IgapSupport.rawValue.localized
                 break
             case .serviceNotification:
-                self.contactPhoneNumber.text = "SERVICE_NOTIFI".localized
+                self.contactPhoneNumber.text = IGStringsManager.NotificationServices.rawValue.localized
                 break
             }
 

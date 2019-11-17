@@ -177,28 +177,28 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             self.usernameLabel.text = user!.username
             switch user!.lastSeenStatus {
             case .longTimeAgo:
-                self.timeLabel!.text = "A_LONG_TIME_AGO".localized
+                self.timeLabel!.text = IGStringsManager.LongTimeAgo.rawValue.localized
                 break
             case .lastMonth:
-                self.timeLabel!.text = "LAST_MONTH".localized
+                self.timeLabel!.text = IGStringsManager.LastMonth.rawValue.localized
                 break
             case .lastWeek:
-                self.timeLabel!.text = "LAST_WEAK".localized
+                self.timeLabel!.text = IGStringsManager.Lastweak.rawValue.localized
                 break
             case .online:
-                self.timeLabel!.text = "ONLINE".localized
+                self.timeLabel!.text = IGStringsManager.Online.rawValue.localized
                 break
             case .exactly:
                 self.timeLabel!.text = "\(user!.lastSeen!.humanReadableForLastSeen())".inLocalizedLanguage()
                 break
             case .recently:
-                self.timeLabel!.text = "A_FEW_SEC_AGO".localized
+                self.timeLabel!.text = IGStringsManager.NavLastSeenRecently.rawValue.localized
                 break
             case .support:
-                self.timeLabel!.text = "IGAP_SUPPORT".localized
+                self.timeLabel!.text = IGStringsManager.IgapSupport.rawValue.localized
                 break
             case .serviceNotification:
-                self.timeLabel!.text = "SERVICE_NOTIFI".localized
+                self.timeLabel!.text = IGStringsManager.NotificationServices.rawValue.localized
                 break
             }
         }
