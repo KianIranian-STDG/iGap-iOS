@@ -187,7 +187,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
             
             for package in packages {
                 let desc = package.description ?? ""
-                let title = desc + " " + "\(package.cost ?? 0)".onlyDigitChars().inRialFormat() + " " + "CURRENCY".localized
+                let title = desc + " " + "\(package.cost ?? 0)".onlyDigitChars().inRialFormat() + " " + IGStringsManager.Currency.rawValue.localized
                 let action = UIAlertAction(title: title, style: .default, handler: { (action) in
                     packageAlertClouser!(package)
                 })
@@ -303,7 +303,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
                         let paymentView = IGPaymentView.sharedInstance
                         if success {
                             guard let paymentData = payment else {
-                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                                 return
                             }
                             paymentView.show(on: UIApplication.shared.keyWindow!, title: "BUY_INTERNET_PACKAGE".InternetPackageLocalization, payToken: token, payment: paymentData)

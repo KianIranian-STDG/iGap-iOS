@@ -29,23 +29,23 @@ class addNewCardTableViewController: BaseTableViewController , UITextFieldDelega
     override func viewWillAppear(_ animated: Bool) {
        super.viewWillAppear(animated)
         initChangeLang()
-        btnSave.setTitle("SAVE".localized, for: .normal)
+        btnSave.setTitle(IGStringsManager.GlobalSave.rawValue.localized, for: .normal)
     }
     func initChangeLang() {
-        lblcardNum.text = "TTL_CARDNUM".localized
-        lblMonth.text = "TTL_MONTH".localized
-        lblYear.text = "TTL_YEAR".localized
+        lblcardNum.text = IGStringsManager.CardNumber.rawValue.localized
+        lblMonth.text = IGStringsManager.Month.rawValue.localized
+        lblYear.text = IGStringsManager.Year.rawValue.localized
         
-        mounthTextField.placeholder = "TTL_MONTH".localized
-        cardTextField.placeholder = "TTL_ENTER_CARD_NUMBER".localized
-        yearTextField.placeholder = "TTL_YEAR".localized
+        mounthTextField.placeholder = IGStringsManager.Month.rawValue.localized
+        cardTextField.placeholder = IGStringsManager.EnterYourCardNumber.rawValue.localized
+        yearTextField.placeholder = IGStringsManager.Year.rawValue.localized
         lblMonth.textAlignment = lblMonth.localizedDirection
         lblYear.textAlignment = lblYear.localizedDirection
     }
     // MARK : - init View elements
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "TTL_ADD_NEW_CARD".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.AddNewCard.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         
     }
@@ -76,7 +76,7 @@ class addNewCardTableViewController: BaseTableViewController , UITextFieldDelega
                 
                 
                 if SMValidation.showConnectionErrorToast(err) {
-                    SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localized)
+                    SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
                 }
             })
             

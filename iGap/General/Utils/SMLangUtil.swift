@@ -87,13 +87,13 @@ class SMLangUtil: NSObject {
             }
         case "iGap.packetTableViewController":
             if tag == 1 {
-                return "TTL_WALLET_BALANCE_USER".localized
+                return IGStringsManager.UserWalletBalance.rawValue.localized
             }
             else if tag == 2 {
-                return "CURRENCY".localized
+                return IGStringsManager.Currency.rawValue.localized
             }
             else if tag == 3 {
-                return "BTN_CASHOUT_WALLET".localized
+                return IGStringsManager.Cashout.rawValue.localized
             }
             else if tag == 4 {
                 return "BTN_CHARGE_WALLET".localized

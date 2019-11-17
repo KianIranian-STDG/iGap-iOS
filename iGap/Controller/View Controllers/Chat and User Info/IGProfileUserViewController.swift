@@ -626,7 +626,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPUserReportResponse:
-                    let alert = UIAlertController(title: "SUCCESS".localized, message: "REPORT_SUBMITED".localized, preferredStyle: .alert)
+                    let alert = UIAlertController(title: IGStringsManager.GlobalSuccess.rawValue.localized, message: "REPORT_SUBMITED".localized, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)

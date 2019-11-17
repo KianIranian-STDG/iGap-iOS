@@ -231,7 +231,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
 
             }
         case 2:
-            return "OTHER".localized
+            return IGStringsManager.Other.rawValue.localized
         default:
             return ""
         }

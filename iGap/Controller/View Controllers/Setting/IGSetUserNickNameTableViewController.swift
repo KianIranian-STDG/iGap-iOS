@@ -100,7 +100,7 @@ class IGSetUserNickNameTableViewController: UITableViewController , UITextFieldD
     
     func doneButtonClicked(){
         if nickNameTextField.text?.isEmpty == true {
-            let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "INPUT_VALUE_NOT_CORRECT".localized, preferredStyle: UIAlertController.Style.alert)
+            let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.IncorrectInput.rawValue.localized, preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: UIAlertAction.Style.default, handler: nil))
             alert.view.tintColor = UIColor.organizationalColor()
             self.present(alert, animated: true, completion: nil)

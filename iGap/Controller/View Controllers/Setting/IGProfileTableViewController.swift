@@ -357,7 +357,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         lblScore.text = "SETTING_PAGE_ACCOUNT_SCORE_PAGE".localized
         lblScoreAmount.text = "..."
         lblInviteF.text = "SETTING_PAGE_INVITE_FRIENDS".localized
-        lblQR.text = "SETTING_PAGE_QRCODE_SCANNER".localized
+        lblQR.text = IGStringsManager.QrCodeScanner.rawValue.localized
         lblNearby.text = "SETTING_NEARBY".localized
         lblFaq.text = "FAQ".localized
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
@@ -767,7 +767,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 }
             }).error({ (errorCode, waitTime) in
                 DispatchQueue.main.async {
-                    let alertC = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.UnsuccessOperation.rawValue.localized, preferredStyle: .alert)
+                    let alertC = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalTryAgain.rawValue.localized, preferredStyle: .alert)
                     
                     let cancel = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alertC.addAction(cancel)
@@ -1482,7 +1482,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             self.deleteAvatar()
         })
         
-        let cancelAction = UIAlertAction(title: "BTN_CANCEL".localized, style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
         
         if self.avatars.count > 0 {
             optionMenu.addAction(deleteAction)

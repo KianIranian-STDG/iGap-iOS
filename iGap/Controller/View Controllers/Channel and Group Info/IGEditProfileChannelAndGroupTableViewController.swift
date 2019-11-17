@@ -422,7 +422,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             if channelUserName == "" {
                 SMLoading.hideLoadingPage()
                 dispatchGroup.leave()
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_FORM".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalErrorForm.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                 return
             }

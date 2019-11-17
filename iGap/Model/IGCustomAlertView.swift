@@ -118,7 +118,7 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
         let priceLabel = UILabel(frame: CGRect(x: 8, y: priceTitleLabel.frame.height + priceTitleLabel.frame.origin.y + 8, width: dialogViewWidth-16, height: 30))
         priceLabel.font = UIFont.igFont(ofSize: 20, weight: .bold)
         //        priceLabel.textColor = .black
-        priceLabel.text = price.inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localized
+        priceLabel.text = price.inRialFormat().inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
         priceLabel.textColor = UIColor.iGapGreen()
         
         priceLabel.textAlignment = .center

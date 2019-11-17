@@ -21,7 +21,7 @@ class IGWalletSettingTableViewController: BaseTableViewController {
     // MARK : - init View elements
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "WALLET_SETTINGS".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.WalletSettings.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -29,8 +29,8 @@ class IGWalletSettingTableViewController: BaseTableViewController {
     // MARK: - Table view data source
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        lblChangePassCode.text = "WALLET_PIN".localized
-        lblRessetPassCode.text = "RESET_WALLET_PIN".localized
+        lblChangePassCode.text = IGStringsManager.WalletPin.rawValue.localized
+        lblRessetPassCode.text = IGStringsManager.ResetWalletPin.rawValue.localized
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -61,7 +61,7 @@ class TextCellCardToCard: IGMessageGeneralCollectionViewCell {
         guard let cardToCard = message.wallet?.cardToCard else {
             return
         }
-        lblAmount.text = String(describing: cardToCard.amount).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localized
+        lblAmount.text = String(describing: cardToCard.amount).inRialFormat().inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
         ttlRrn.text =  (cardToCard.traceNumber)!.inLocalizedLanguage()
         ttlInvoice.text = (cardToCard.rrn)!.inLocalizedLanguage()
         lblSourceCard.text = (cardToCard.sourceCardNumber)!.inLocalizedLanguage()

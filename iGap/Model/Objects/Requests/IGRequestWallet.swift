@@ -27,7 +27,7 @@ func callCards() {
             }
         }
     }, onFailed: {err in
-        //            SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+        //            SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
     })
 }
 func extractTokenFromAccessToken(token : String) -> String {

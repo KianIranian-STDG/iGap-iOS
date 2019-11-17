@@ -84,7 +84,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
         }
         lblTitle.text = "BILL_FILL_DATA".localized
         lblUserNumber.text = "BILL_DETAIL_CUSTOMER_MOB".localized
-        lblBillNUmber.text = "BILL_ID".localized
+        lblBillNUmber.text = IGStringsManager.ElecBillID.rawValue.localized
         lblBillName.text = "BILL_NAME".localized
     }
     
@@ -125,7 +125,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
         IGApiElectricityBill.shared.addBill(billNumber: (tfBillNUmber.text!.inEnglishNumbersNew()), phoneNumber: userPhoneNumber.inEnglishNumbersNew(),billTitle: self.tfBillName.text!, completion: {(success, response, errorMessage) in
              SMLoading.hideLoadingPage()
              if success {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SUCCESS_OPERATION".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized , cancel: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.SuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized , cancel: {
                     self.navigationController?.popViewController(animated: true)
                     SwiftEventBus.post(EventBusManager.updateBillsName)
                 })
@@ -140,7 +140,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
              SMLoading.hideLoadingPage()
              if success {
 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SUCCESS_OPERATION".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized , cancel: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.SuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized , cancel: {
                     self.navigationController?.popViewController(animated: true)
                     SwiftEventBus.post(EventBusManager.updateBillsName)
 

@@ -35,10 +35,10 @@ class GetGiftPopupView: UIView {
     override func awakeFromNib() {
 //        self.frame.size.height = 500.0
 
-        self.TitleLabel.text = "barcode.gift.title".localized
-        self.ConfirmButton.setTitle("barcode.gift.confirm".localized, for: .normal)
+        self.TitleLabel.text = IGStringsManager.Gift.rawValue.localized
+        self.ConfirmButton.setTitle(IGStringsManager.GetGift.rawValue.localized, for: .normal)
         self.ConfirmButton.setImage(nil, for: .normal)
-        self.CancelButton.setTitle("barcode.gift.cancel".localized, for: .normal)
+        self.CancelButton.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
         self.MessageLabel.text = self.MessageText
         
         gradientLayer.colors = [UIColor(red: 34/255, green: 148/255, blue: 255/255, alpha: 1), UIColor(red: 222/255, green: 10/255, blue: 233/255, alpha: 1)]

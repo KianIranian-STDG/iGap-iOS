@@ -52,7 +52,7 @@ import SwiftyRSA
 //    /// The wallet amount of user
 //    private var currentAmount: String = "0" {
 //        didSet {
-//            amountInfoLabel.text = "\("AmountPayGear".localized)\(currentAmount) \("Currency".localized)"
+//            amountInfoLabel.text = "\("AmountPayGear".localized)\(currentAmount) \(IGStringsManager.Currency.rawValue.localized)"
 //        }
 //    }
 //    private var popup : SMPaymentPopup!
@@ -93,7 +93,7 @@ import SwiftyRSA
 //            return
 //        }
 //
-//        //        amountInfoLabel.text = "\("AmountPayGear".localized)\(currentAmount) \("Currency".localized)"
+//        //        amountInfoLabel.text = "\("AmountPayGear".localized)\(currentAmount) \(IGStringsManager.Currency.rawValue.localized)"
 //    }
 //
 //    /// Reset observer notifications
@@ -217,7 +217,7 @@ import SwiftyRSA
 //        }
 //        SMInitialInfos.AtLeastOneFailedDelegate = {
 //
-//            SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+//            SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
 //            SMLoading.hideLoadingPage()
 //            self.userCards = SMCard.getAllCardsFromDB()
 //
@@ -241,7 +241,7 @@ import SwiftyRSA
 //            else {
 //
 //                //show invalid product
-//                SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: "error".localized, message: "Invalid.QR".localized, rightButtonTitle: "OK".localized)
+//                SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: "Invalid.QR".localized, rightButtonTitle: "OK".localized)
 //                self.reader.startScanning()
 //            }
 //        }
@@ -479,7 +479,7 @@ import SwiftyRSA
 //        //go to process info
 //
 //        if manualInputView.inputTF.text! == ""{
-//            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "error".localized, message: "fill".localized, leftButtonTitle: "", rightButtonTitle: "ok".localized,yesPressed: { yes in return;})
+//            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: "fill".localized, leftButtonTitle: "", rightButtonTitle: "ok".localized,yesPressed: { yes in return;})
 //        }else{
 //
 //            getQRCodeInformation(barcodeValue: manualInputView.inputTF.text!)
@@ -598,7 +598,7 @@ import SwiftyRSA
 //                SMLoading.hideLoadingPage()
 //                if transportType == .khati && price == "" {
 //                    //show invalid product
-//                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: "error".localized, message: "Invalid.QR".localized, rightButtonTitle: "OK".localized)
+//                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: "Invalid.QR".localized, rightButtonTitle: "OK".localized)
 //                }
 //
 //                if transportType == .khati {
@@ -636,7 +636,7 @@ import SwiftyRSA
 //
 //                    SMLoading.hideLoadingPage()
 //                    self.reader.startScanning()
-//                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: "error".localized, message: "Invalid.Data".localized, rightButtonTitle: "OK".localized)
+//                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: "Invalid.Data".localized, rightButtonTitle: "OK".localized)
 //                }
 //                else if let accountId = jsonResult["account_id"], !accountId.isKind(of: NSNull.self) {
 //                    SMLoading.hideLoadingPage()
@@ -648,7 +648,7 @@ import SwiftyRSA
 //
 //                    SMLoading.hideLoadingPage()
 //                    self.reader.startScanning()
-//                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: "error".localized, message: "Invalid.Data".localized, rightButtonTitle: "OK".localized)
+//                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: "Invalid.Data".localized, rightButtonTitle: "OK".localized)
 //                }
 //            }
 //
@@ -658,7 +658,7 @@ import SwiftyRSA
 //            SMLoading.hideLoadingPage()
 //            self.reader.startScanning()
 //            if SMValidation.showConnectionErrorToast(response) {
-//                SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+//                SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
 //            }
 //
 //        }
@@ -705,7 +705,7 @@ import SwiftyRSA
 //                        SMLoading.hideLoadingPage()
 //                        self.reader.startScanning()
 //
-//                        SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: "error".localized, message: "Invalid.QR".localized, rightButtonTitle: "OK".localized)
+//                        SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: "Invalid.QR".localized, rightButtonTitle: "OK".localized)
 //                    }
 //                }
 //            }
@@ -714,7 +714,7 @@ import SwiftyRSA
 //        }
 //        request.addFailedHandler({ (response: Any) in
 //            if SMValidation.showConnectionErrorToast(response) {
-//                SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+//                SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
 //            }
 //            SMLoading.hideLoadingPage()
 //            self.reader.startScanning()
@@ -761,7 +761,7 @@ import SwiftyRSA
 //            SMLoading.hideLoadingPage()
 //            //show popup
 //            if SMValidation.showConnectionErrorToast(response) {
-//                SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+//                SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
 //            }
 //            self.reader.startScanning()
 //        })
@@ -785,7 +785,7 @@ import SwiftyRSA
 //
 //        if self.popup.amountTF.text == "" ||
 //            self.popup.amountTF.text?.inEnglishNumbers() == "0" {
-//            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "error".localized, message: "fill.amount".localized, leftButtonTitle: "", rightButtonTitle: "OK".localized,yesPressed: { yes in return;})
+//            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: "fill.amount".localized, leftButtonTitle: "", rightButtonTitle: "OK".localized,yesPressed: { yes in return;})
 //        }
 //
 //        else {
@@ -802,7 +802,7 @@ import SwiftyRSA
 //                if SMUserManager.pin != nil, SMUserManager.pin == true {
 //
 //                    //show get pin popup
-//                    SMLoading.shared.showInputPinDialog(viewController: self, icon: nil, title: "", message: "enterpin".localized, yesPressed: { pin in
+//                    SMLoading.shared.showInputPinDialog(viewController: self, icon: nil, title: "", message: IGStringsManager.EnterWalletPin.rawValue.localized, yesPressed: { pin in
 //
 //                        self.gotoLoadingState()
 //
@@ -844,7 +844,7 @@ import SwiftyRSA
 //                                            SMLog.SMPrint(err)
 //
 //                                            if (err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"] != nil {
-//                                                SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "error".localized, message: ((err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"]! as! String).localized)
+//                                                SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: ((err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"]! as! String).localized)
 //                                            }
 //                                            self.gotobuttonState()
 //                                        })

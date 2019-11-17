@@ -22,11 +22,11 @@ public class SMMerchant: SMEntity {
 	/// Defined roles name on application for merchant
 	static let roleString : [String]  = [
 		///Sore key name
-		"store".localized,
+		IGStringsManager.Store.rawValue.localized,
 		///No name
-		"other".localized,
+		IGStringsManager.Other.rawValue.localized,
 		///Driver key name
-		"driver".localized]
+		IGStringsManager.Driver.rawValue.localized]
 	
 	
 	///Merchant name
@@ -172,7 +172,7 @@ public class SMMerchant: SMEntity {
 		let merchant = SMMerchant()
 		merchant.id = SMUserManager.accountId
 		merchant.name = SMUserManager.fullName
-		merchant.role = "paygearuser".localized
+		merchant.role = IGStringsManager.Personal.rawValue.localized
 		merchant.sort = 0
 		merchant.profilePicture = SMUserManager.profilePictureId
 		merchant.accountType = 2

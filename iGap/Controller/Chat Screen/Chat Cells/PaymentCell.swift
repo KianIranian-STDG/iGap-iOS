@@ -55,11 +55,11 @@ class PaymentCell: IGMessageGeneralCollectionViewCell {
     func initChangeLang() {
         lblToTitle.text = "GLOBAL_TO".localized
         lblFromTitle.text = "GLOBAL_FROM".localized
-        ttlInvoicelblInvoiceTitle.text = "TTL_INVOICE_NUMBER".localized
+        ttlInvoicelblInvoiceTitle.text = IGStringsManager.InvoiceNumber.rawValue.localized
         lblAmountTitle.text = "PRICE".localized
         lblTraceNumberTitle.text = "TRACE_NUMBER".localized
         ttlTransfer.text = "PAYMENT_TRANSFER_MONEY".localized
-        lblCardNumber.text = "TTL_CARDNUM".localized
+        lblCardNumber.text = IGStringsManager.CardNumber.rawValue.localized
         lblRRN.text = "TTL_REFERENCE_NUMBER".localized
         lblDescription.text = "DESCRIPTION".localized
         ttlTransfer.font = UIFont.igFont(ofSize: 15)
@@ -76,7 +76,7 @@ class PaymentCell: IGMessageGeneralCollectionViewCell {
             return
         }
         
-        txtAmount.text = String(describing: wallet.amount).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localized
+        txtAmount.text = String(describing: wallet.amount).inRialFormat().inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
         txtTrace.text = String(describing: wallet.traceNumber).inLocalizedLanguage()
         txtInvoice.text = String(describing: wallet.invoiceNumber).inLocalizedLanguage()
         txtRRN.text = String(describing: wallet.rrn)

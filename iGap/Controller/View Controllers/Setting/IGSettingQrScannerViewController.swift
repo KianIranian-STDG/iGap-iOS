@@ -36,7 +36,7 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
 
     private func initNavigation(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_QRCODE_SCANNER".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.QrCodeScanner.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -184,7 +184,7 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
                 break
             default:
 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: false, message: IGStringsManager.UnsuccessOperation.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized,done: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: false, message: IGStringsManager.GlobalTryAgain.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized,done: {
                     self.navigationController!.popViewController(animated: true)
                 })
 

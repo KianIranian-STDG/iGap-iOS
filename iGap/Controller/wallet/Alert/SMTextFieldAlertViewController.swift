@@ -49,7 +49,7 @@ class SMTextFieldAlertViewController: UIViewController,UITextFieldDelegate {
 				self.forgotPinButton.isHidden = true
 			}
 			else {
-				self.forgotPinButton.setTitle("no".localized, for: .normal)
+				self.forgotPinButton.setTitle(IGStringsManager.GlobalNo.rawValue.localized, for: .normal)
 				
 			}
 		}
@@ -57,7 +57,7 @@ class SMTextFieldAlertViewController: UIViewController,UITextFieldDelegate {
 		if payment {
 			
 			titleLabel.text = title
-			pinTextField.placeholder = "۰ ریال".localized
+			pinTextField.placeholder = ""
 			pinTextField.isSecureTextEntry = false
 			
 			leftButton.layer.borderColor = UIColor.clear.cgColor

@@ -52,7 +52,7 @@ class MoneyTransferCell: IGMessageGeneralCollectionViewCell {
     func initChangeLang() {
         lblToTitle.text = "GLOBAL_TO".localized
         lblFromTitle.text = "GLOBAL_FROM".localized
-        ttlInvoicelblInvoiceTitle.text = "TTL_INVOICE_NUMBER".localized
+        ttlInvoicelblInvoiceTitle.text = IGStringsManager.InvoiceNumber.rawValue.localized
         lblAmountTitle.text = "PRICE".localized
         lblTraceNumberTitle.text = "TRACE_NUMBER".localized
         ttlTransfer.font = UIFont.igFont(ofSize: 15)
@@ -72,7 +72,7 @@ class MoneyTransferCell: IGMessageGeneralCollectionViewCell {
         txtDate.backgroundColor = UIColor.iGapYellow()
         ttlTransfer.textColor = UIColor.black
         txtDate.textColor = UIColor.black
-        txtAmount.text = String(describing: wallet.amount).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localized
+        txtAmount.text = String(describing: wallet.amount).inRialFormat().inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
         txtTrace.text = String(describing: wallet.traceNumber).inLocalizedLanguage()
         txtInvoice.text = String(describing: wallet.invoiceNumber).inLocalizedLanguage()
         

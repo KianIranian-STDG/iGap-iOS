@@ -79,7 +79,7 @@ class IGReport: UITableViewController , UIGestureRecognizerDelegate {
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
-                    let alert = UIAlertController(title: "SUCCESS".localized, message: "REPORT_SUCCESS".localized, preferredStyle: .alert)
+                    let alert = UIAlertController(title: IGStringsManager.GlobalSuccess.rawValue.localized, message: "REPORT_SUCCESS".localized, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (action) in
                         if self.navigationController is IGNavigationController {
                             self.navigationController?.popViewController(animated: true)
@@ -138,7 +138,7 @@ class IGReport: UITableViewController , UIGestureRecognizerDelegate {
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPUserReportResponse:
-                    let alert = UIAlertController(title: "SUCCESS".localized, message: "REPORT_SUCCESS".localized, preferredStyle: .alert)
+                    let alert = UIAlertController(title: IGStringsManager.GlobalSuccess.rawValue.localized, message: "REPORT_SUCCESS".localized, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (action) in
                         if self.navigationController is IGNavigationController {
                             self.navigationController?.popViewController(animated: true)

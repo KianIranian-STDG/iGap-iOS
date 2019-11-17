@@ -6542,11 +6542,7 @@ TODO:// complete */
 "show_and_login_using_qr_title" = "Scan this QR Code using your other device to log in to your iGap Account";
 "search_placeholder" = "Search";
 "msg_security_two_step_verification_hint" = "In Order to retrieve your account,Please Answer the following security questions,after answering correctly your two step verification password will be disabled and need to be activated again";
-"security_question_one" = "Security Question One : ";
-"security_question_two" = "Security Question Two : ";
-"msg_answers_was_wrong" = "Your Answers are incorrect";
-"msg_answers_was_empty" = "Please Fill in all the fields";
-"new" = "New";
+"new_text" = "New";
 "new_call" = "New Call";
 "hint" = "Hint";
 "check_all_the_fields" = "Please Check All The Fields";
@@ -6559,3 +6555,21 @@ TODO:// complete */
 "please_choose_a_member" = "Please Choose a member";
 "exising_member" = "the selected member is alredy the list";
 "exising_members" = "the selected members are alredy the list";
+"loading" = "Loading...";
+"ok_and_go" = "Ok and Go";
+"enter_reciever_code" = "Enter reciever's code";
+"please_fill_form_data_correctly" = "Please fill the form information correctly";
+"qr_code_scanner" = "Qr Code Scanner";
+"gift_is_used" = "This Gift Barcode Is Already Used";
+"wallet_store_balance" = "Balance of Shop's Wallet";
+"driver_wallet_balance" = "Balance of Driver's Wallet";
+"set_as_default_card" = "Set as Default Card";
+"otp_code" = "One Time Password";
+"success_payment" = "Successful Payment";
+"shares_of_sales" = "Share of sales";
+"to_wallet" = "To Wallet";
+"success_operation" = "The operation was successful";
+"amount_in" = "Amount In";
+"amount_out" = "Amount Out";
+"please_wait_data_loading" = "Please wait while Data is Loading ...";
+

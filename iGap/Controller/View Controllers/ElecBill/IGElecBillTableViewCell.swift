@@ -87,7 +87,7 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
     
     private func initStrings() {
         lblBillName.text = "BILL_NAME".localized
-        lblTTlBillNumber.text = "BILL_ID".localized
+        lblTTlBillNumber.text = IGStringsManager.ElecBillID.rawValue.localized
         lblTTlBillPayDate.text = "BILL_PAY_DATE".localized
         lblTTlBillPayAmount.text = "BILL_PAY_AMOUNT".localized
         lblTTlBillPayNumber.text = "TRANSACTIONS_HISTORY_ORDER_ID".localized
@@ -95,7 +95,7 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
         lblDataBillPayDate.text = "..."
         lblDataBillPayAmount.text = "..."
         lblDataBillPayNumber.text = "..."
-        btnPay.setTitle("PU_PAYMENT".localized, for: .normal)
+        btnPay.setTitle(IGStringsManager.Pay.rawValue.localized, for: .normal)
         btnDetail.setTitle("BILL_DETAIL".localized, for: .normal)
         btnEdite.setTitle("", for: .normal)
         btnDelete.setTitle("", for: .normal)
@@ -158,7 +158,7 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
                     self.lblDataBillPayNumber.text = response?.data?.paymentIdentifier?.inLocalizedLanguage()
                     self.payAmount = response?.data?.totalBillDebt
                     
-                    self.lblDataBillPayAmount.text = (response?.data?.totalBillDebt?.inLocalizedLanguage())! + "CURRENCY".localized
+                    self.lblDataBillPayAmount.text = (response?.data?.totalBillDebt?.inLocalizedLanguage())! + IGStringsManager.Currency.rawValue.localized
                     let paydate = response?.data?.paymentDeadLine!
                     let dateFormatter = ISO8601DateFormatter()
                     let date = dateFormatter.date(from:paydate!)!
@@ -184,10 +184,9 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
             IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "INVALID_BILL_MSG".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             
         } else if self.myBillListInnerData == nil && self.billIsInvalid == false {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "PLEASE_WAIT_DATA_LOAD".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.WaitDataFetch.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
         }
         else {
-            print("TAPPED ON DETAIL FOR :" , self.myBillListInnerData.billIdentifier)
             let billDataVC = IGElecBillDetailPageTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
             billDataVC.billNumber = (self.myBillListInnerData.billIdentifier!.inEnglishNumbersNew())
             billDataVC.canEditBill = true
@@ -200,7 +199,7 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
     }
     @IBAction func didTapOnPay(_ sender: UIButton) {
         if self.myBillListInnerData == nil {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "PLEASE_WAIT_DATA_LOAD".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.WaitDataFetch.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
         } else {
             paySequence()
         }
@@ -209,7 +208,7 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
         IGApiElectricityBill.shared.deleteBill(billNumber: (lblDataBillNumber.text?.inEnglishNumbersNew())!, phoneNumber: self.userPhoneNumber, completion: {(success, response, errorMessage) in
             SMLoading.hideLoadingPage()
             if success {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SUCCESS_OPERATION".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized , cancel: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.SuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized , cancel: {
                     SwiftEventBus.post(EventBusManager.updateBillsName)
                 })
                 
@@ -244,7 +243,7 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
         let tmpPaymentAmount:Int? = Int(self.payAmount!) // firstText is UITextField
         
         if tmpPaymentAmount! < 10000 {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "LESS_THAN_1000".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.LessThan10000.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             
         } else {
             SMLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
@@ -281,6 +280,5 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
     }
     
     func BillMerchantError(errorType: Int) {
-        //        showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "MSG_ERROR_BILL_PAYMENT".localized, dismiss: true)
     }
 }

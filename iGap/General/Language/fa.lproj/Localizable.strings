@@ -342,7 +342,7 @@
 "ABOUT" = "درباره ما";
 "AROUND" = "حدود";
 "METER" = "متر";
-"WALLET_SETTINGS" = "تنظیمات کیف پول";
+IGStringsManager.WaletSettings.rawValue. = "تنظیمات کیف پول";
 "RESET_WALLET_PIN" = "بازنشانی رمز کیف پول";
 "SHOW_THIS_QR" = "این کیو آر را به دیگران به منظور اسکن کردن و پرداخت وجه به شما نشان دهید";
 
@@ -448,7 +448,7 @@
 "TTL_IS_PAYED" = "تسویه حساب شده";
 "TTL_MONEY_REFUND" = "سند اصلاح - واریز مبلغ به کیف پول";
 "TTL_CASHOUT_PENDING" = "در انتظار تسویه حساب";
-"TTL_RECIEVE_FRM" = "دریافت از";
+IGStringsManager.Recieve.rawValue. = "دریافت از";
 "TTL_PAYMENT_PENDING_FRM" = "در انتظار";
 "TTL_PAYED_WITH_WALLED_CARD_TO" = "پرداخت با کیف پول به";
 "TTL_PAY_WITH_WALLET_CARD_PENDING" = "در انتظار پرداخت با کیف پول ";
@@ -486,7 +486,7 @@
 "TTL_ENTER_CHARGE_PRICE" = "مبلغ مورد نظر را وارد نمایید";
 "TTL_ADD_NEW_CARD" = "افزودن کارت";
 "TTL_YEAR" = "سال";
-"TTL_MONTH" = "ماه";
+IGStringsManager.Month.rawValue. = "ماه";
 "ANDROID" = "اندروید";
 "IOS" = "آی او اس";
 "MACOS" = "سیستم عامل مک";

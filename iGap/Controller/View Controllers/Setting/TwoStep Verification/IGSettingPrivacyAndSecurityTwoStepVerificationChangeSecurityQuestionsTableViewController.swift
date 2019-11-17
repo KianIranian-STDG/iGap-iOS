@@ -113,7 +113,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
         IGUserTwoStepVerificationRecoverPasswordByAnswersRequest.Generator.generate(answerOne: answer1TextField.text!, answerTwo: answer2TextField.text!).success({ (protoResponse) in
             DispatchQueue.main.async {
                 hud.hide(animated: true)
-                let alert = UIAlertController(title: "SUCCESS".localized, message: "SETTING_PS_TV_YOUR_PASS_REMOVED".localized, preferredStyle: .alert)
+                let alert = UIAlertController(title: IGStringsManager.GlobalSuccess.rawValue.localized, message: "SETTING_PS_TV_YOUR_PASS_REMOVED".localized, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
                     self.dismiss(animated: true, completion: nil)
                 })

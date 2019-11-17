@@ -188,7 +188,7 @@ class IGContactListTableViewController: UITableViewController, UISearchResultsUp
                 DispatchQueue.main.async {
                     IGGlobal.prgHide()
 
-                    IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalOK.rawValue.localized)
+                    IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalOK.rawValue.localized)
 
                 }
             }).send()

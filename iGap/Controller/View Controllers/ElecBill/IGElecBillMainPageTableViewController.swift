@@ -75,7 +75,7 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
         let attributes = [
             NSAttributedString.Key.foregroundColor: UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue),
             NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)]
-        tfBillIdNumber.attributedPlaceholder = NSAttributedString(string: "BILL_ID".localized, attributes:attributes as [NSAttributedString.Key : Any])
+        tfBillIdNumber.attributedPlaceholder = NSAttributedString(string: IGStringsManager.ElecBillID.rawValue.localized, attributes:attributes as [NSAttributedString.Key : Any])
     }
     
     private func initStrings() {

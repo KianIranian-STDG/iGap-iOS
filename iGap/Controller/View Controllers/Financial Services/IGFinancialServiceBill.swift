@@ -77,7 +77,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
         edtBillingID.placeholder = "BILLING_ID".localized
         edtPaymentCode.placeholder = "PAYMENT_CODE".localized
         btnPayment.setTitle("BTN_PAY".localized, for: .normal)
-        txtAmount.text = "PLACE_HOLDER_AMOUNT".localized
+        txtAmount.text = IGStringsManager.AmountPlaceHolder.rawValue.localized
     }
     
     func initNavigationBar(){
@@ -159,7 +159,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
             edtPaymentCode.text = payId
         }
         if !price.isEmpty {
-            txtAmount.text = "\(Int(price)! * 1000) ".inLocalizedLanguage() + "CURRENCY".localized
+            txtAmount.text = "\(Int(price)! * 1000) ".inLocalizedLanguage() + IGStringsManager.Currency.rawValue.localized
         }
         
         if !IGFinancialServiceBill.isTrafficOffenses {

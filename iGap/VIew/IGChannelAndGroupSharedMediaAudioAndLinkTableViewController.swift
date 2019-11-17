@@ -283,7 +283,7 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: BaseTableView
         }
         
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: "SUCCESS".localized, message: "U_JOINED".localized + " \(beforeString)" + "TO".localized + " \(room.title!)!", preferredStyle: .alert)
+            let alert = UIAlertController(title: IGStringsManager.GlobalSuccess.rawValue.localized, message: "U_JOINED".localized + " \(beforeString)" + "TO".localized + " \(room.title!)!", preferredStyle: .alert)
             let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
             let openNow = UIAlertAction(title: "OPEN_NOW".localized, style: .default, handler: { (action) in
                 let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)

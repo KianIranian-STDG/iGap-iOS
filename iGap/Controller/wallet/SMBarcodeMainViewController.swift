@@ -62,22 +62,17 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
     var ManualCodeActive = false
 
     var scanner: MTBBarcodeScanner?
-    private var currentAmount: String = "Updating ...".localized {
+    private var currentAmount: String = IGStringsManager.GlobalUpdating.rawValue.localized {
         didSet {
             
-            lblCurrency.text = "TTL_WALLET_BALANCE_USER".localized + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + "CURRENCY".localized
+            lblCurrency.text = IGStringsManager.UserWalletBalance.rawValue.localized + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + IGStringsManager.Currency.rawValue.localized
         }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         lblCurrency.backgroundColor = UIColor(named: themeColor.navigationSecondColor.rawValue)
         lblCurrency.textColor = .white
-        if SMLangUtil.loadLanguage() == "fa" {
-            QRHolder.image = UIImage(named: "scan_Holder_FA")
-        }
-        else {
-            QRHolder.image = UIImage(named: "scan_Holder_EN")
-        }
+        QRHolder.image = UIImage(named: "SCAN_HOLDER_QR".Imagelocalized)
 
         initView()
         
@@ -86,20 +81,20 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
         self.lblCurrency.font = UIFont.igFont(ofSize: 18)
         self.userCards = SMCard.getAllCardsFromDB()
         self.userMerchants = SMMerchant.getAllMerchantsFromDB()
-        lblCurrency.text = "Updating ...".localized
+        lblCurrency.text = IGStringsManager.GlobalUpdating.rawValue.localized
 
         if isfromPacket {
             switch currentBussinessType {
             case 0 :
-                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localized + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + "CURRENCY".localized
+                lblCurrency.text = IGStringsManager.UserWalletBalance.rawValue.localized + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + IGStringsManager.Currency.rawValue.localized
                 
                 break
             case 2 :
-                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localized + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + "CURRENCY".localized
+                lblCurrency.text = IGStringsManager.UserWalletBalance.rawValue.localized + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + IGStringsManager.Currency.rawValue.localized
                 
                 break
             case 3 :
-                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localized + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + "CURRENCY".localized
+                lblCurrency.text = IGStringsManager.UserWalletBalance.rawValue.localized + "\(" \n")\(merchantBalance.inRialFormat()) \(" ")" + IGStringsManager.Currency.rawValue.localized
                 self.updateAmountOfPayGear()
                 
                 break
@@ -191,8 +186,8 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
             manualInputView!.frame = CGRect(x: 0, y: self.view.frame.height, width: self.view.frame.width, height: manualInputView.frame.height)
             
             manualInputView.confirmBtn.setTitle(IGStringsManager.GlobalOK.rawValue.localized, for: .normal)
-            manualInputView.infoLbl.text = "ENTER_RECIEVER_CODE".localized
-            manualInputView.inputTF.placeholder = "ENTER_CODE".localized
+            manualInputView.infoLbl.text = IGStringsManager.EnterRecieverCode.rawValue.localized
+            manualInputView.inputTF.placeholder = IGStringsManager.EnterCode.rawValue.localized
             
             let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(SMBarcodeMainViewController.handleGesture(gesture:)))
             swipeDown.direction = .down
@@ -203,8 +198,8 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
         }
         else {
             manualInputView.confirmBtn.setTitle(IGStringsManager.GlobalOK.rawValue.localized, for: .normal)
-            manualInputView.infoLbl.text = "ENTER_RECIEVER_CODE".localized
-            manualInputView.inputTF.placeholder = "ENTER_CODE".localized
+            manualInputView.infoLbl.text = IGStringsManager.EnterRecieverCode.rawValue.localized
+            manualInputView.inputTF.placeholder = IGStringsManager.EnterCode.rawValue.localized
         }
         
         if #available(iOS 11.0, *) {
@@ -305,7 +300,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
         }        //go to process info
         
         if manualInputView.inputTF.text! == "" {
-            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: "ERROR_FORM".localized, leftButtonTitle: "", rightButtonTitle: IGStringsManager.GlobalOK.rawValue.localized,yesPressed: { yes in
+            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalErrorForm.rawValue.localized, leftButtonTitle: "", rightButtonTitle: IGStringsManager.GlobalOK.rawValue.localized,yesPressed: { yes in
                 return
             })
         } else {
@@ -353,8 +348,8 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
     func initNavigationBar() {
        
 //        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 16),NSAttributedString.Key.foregroundColor: UIColor.white]
-//        self.navigationController!.navigationBar.topItem!.title = "SETTING_PAGE_QRCODE_SCANNER".localized
-        self.initNavigationBar(title: "SETTING_PAGE_QRCODE_SCANNER".localized) { }
+//        self.navigationController!.navigationBar.topItem!.title = IGStringsManager.QrCodeScanner.rawValue.localized
+        self.initNavigationBar(title: IGStringsManager.QrCodeScanner.rawValue.localized) { }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -383,13 +378,13 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
                     {
                         let amount = ((cards as! [SMCard])[0]).balance!
                         let strAsNSString = String.init(describing: amount).inRialFormat()
-                        self.lblCurrency.text = "TTL_WALLET_BALANCE_USER".localized + "\(" \n")\(strAsNSString) \(" ")" + "CURRENCY".localized
+                        self.lblCurrency.text = IGStringsManager.UserWalletBalance.rawValue.localized + "\(" \n")\(strAsNSString) \(" ")" + IGStringsManager.Currency.rawValue.localized
                     }
                 }
             }
             needToUpdate = true
         }, onFailed: {err in
-            //            SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+            //            SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
         })
     }
     
@@ -542,7 +537,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
             SMLoading.hideLoadingPage()
             //show popup
             if SMValidation.showConnectionErrorToast(response) {
-                SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+                SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
             }
             
         })
@@ -553,7 +548,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
     }
     func getUserInformation(accountId: String, qrType: Int, productId: String? = "") {
         
-        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localized)
+        SMLoading.showLoadingPage(viewcontroller: self, text: IGStringsManager.GlobalLoading.rawValue.localized)
         
         self.targetAccountId = String(describing:accountId)
         UserDefaults.standard.setValue(self.targetAccountId!, forKey: "modalTargetAccountID")
@@ -662,14 +657,14 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
         self.qrCode = barcodeValue.inEnglishNumbersNew()
         UserDefaults.standard.setValue(String(self.qrCode!).onlyDigitChars().inEnglishNumbersNew(), forKey: "modalQRCode")
 
-        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localized)
+        SMLoading.showLoadingPage(viewcontroller: self, text: IGStringsManager.GlobalLoading.rawValue.localized)
         let request = WS_methods(delegate: self, failedDialog: true)
         
         request.addSuccessHandler { (response : Any) in
             if let jsonResult = response as? Dictionary<String, AnyObject> {
                 if let id = jsonResult["_id"] as? String , id == "" {
                     SMLoading.hideLoadingPage()
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: "INVALID_QR".localized, rightButtonTitle: IGStringsManager.GlobalOK.rawValue.localized)
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.QrNotRecognised.rawValue.localized, rightButtonTitle: IGStringsManager.GlobalOK.rawValue.localized)
                 }
                 else if let accountId = jsonResult["account_id"], !accountId.isKind(of: NSNull.self) {
                     SMLoading.hideLoadingPage()
@@ -686,7 +681,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
                 else {
                     SMLoading.hideLoadingPage()
                     try! self.scanner?.startScanning()
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: "INVALID_QR".localized, rightButtonTitle: IGStringsManager.GlobalOK.rawValue.localized)
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.QrNotRecognised.rawValue.localized, rightButtonTitle: IGStringsManager.GlobalOK.rawValue.localized)
                 }
             }
         }
@@ -694,7 +689,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
             SMLoading.hideLoadingPage()
             try! self.scanner?.startScanning()
             if SMValidation.showConnectionErrorToast(response) {
-                SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localized)
+                SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
             }
             SMMessage.showWithMessage(SMCard.testConvert(response))
         }
@@ -715,7 +710,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
 //            self.scanner?.stopScanning()
 
             // not active\
-            SMGetGift.getInstance().showInfo(viewcontroller: self, id: IGStringsManager.GlobalWarning.rawValue.localized, value: "barcode.gift.used".localized, isFaild: true)
+            SMGetGift.getInstance().showInfo(viewcontroller: self, id: IGStringsManager.GlobalWarning.rawValue.localized, value: IGStringsManager.GiftIsUsedAlready.rawValue.localized, isFaild: true)
         }
     }
     func confirmGift() {

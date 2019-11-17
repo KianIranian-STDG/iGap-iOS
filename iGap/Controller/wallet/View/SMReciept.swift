@@ -102,12 +102,12 @@ class SMReciept {
             if let state = self.response?.value(forKey: "state") as? UInt , state == 0 {
                 
                 recieptView.recieptColor.backgroundColor = UIColor.init(netHex: 0xFFC158)
-                recieptView.titleLabel.text = "در انتظار پرداخت".localized
+                recieptView.titleLabel.text = IGStringsManager.PaymentPending.rawValue.localized
                 recieptView.statusImage.image = UIImage.init(named: "hourglass")
             }
             else {
 //                recieptView.recieptColor.backgroundColor = UIColor.init(netHex: 0x3BFF3D)
-                recieptView.titleLabel.text = "پرداخت موفق".localized
+                recieptView.titleLabel.text = IGStringsManager.SuccessPayment.rawValue.localized
                  recieptView.statusImage.image = UIImage.init(named: "tick")
             }
             

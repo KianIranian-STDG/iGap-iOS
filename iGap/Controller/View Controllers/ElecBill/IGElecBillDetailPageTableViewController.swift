@@ -108,7 +108,7 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     }
     
     private func initStrings() {
-        lblTTlBillNumber.text = "BILL_ID".localized
+        lblTTlBillNumber.text = IGStringsManager.ElecBillID.rawValue.localized
         lblTTlBillPayDate.text = "BILL_PAY_DATE".localized
         lblTTlBillPayAmount.text = "BILL_PAY_AMOUNT".localized
         lblTTlBillPayNumber.text = "TRANSACTIONS_HISTORY_ORDER_ID".localized
@@ -116,7 +116,7 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
         lblDataBillPayDate.text = payDate ?? "..."
         lblDataBillPayAmount.text = payAmount ?? "..."
         lblDataBillPayNumber.text = payNumber ?? "..."
-        btnPay.setTitle("PU_PAYMENT".localized, for: .normal)
+        btnPay.setTitle(IGStringsManager.Pay.rawValue.localized, for: .normal)
         btnDetailBranch.setTitle("BILL_BRANCH_DETAILS".localized, for: .normal)
         if canEditBill {
             btnAddToMyBills.setTitle("BILL_EDIT_MODE".localized, for: .normal)
@@ -189,7 +189,7 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
                 let date = dateFormatter.date(from:self.payDate)!
                 self.lblDataBillPayDate.text = date.completeHumanReadableTime().inLocalizedLanguage() ?? "..."
 
-                self.lblDataBillPayAmount.text = self.payAmount.inRialFormat()  + " " + "CURRENCY".localized ?? "..."
+                self.lblDataBillPayAmount.text = self.payAmount.inRialFormat()  + " " + IGStringsManager.Currency.rawValue.localized ?? "..."
                 self.lblDataBillNumber.text = self.billNumber.inLocalizedLanguage() ?? "..."
                 self.lblDataBillPayNumber.text = self.payNumber.inLocalizedLanguage() ?? "..."
 
@@ -252,7 +252,7 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
         let tmpPaymentAmount:Int? = Int(self.payAmount!) // firstText is UITextField
         
         if tmpPaymentAmount! < 10000 {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "LESS_THAN_1000".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.LessThan10000.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             
         } else {
             SMLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)

@@ -236,7 +236,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }).error({ (errorCode, waitTime) in
                     DispatchQueue.main.async {
                         hud.hide(animated: true)
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
                     }
                 }).send()
             }
@@ -1110,7 +1110,7 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORT_SUBMITED".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORT_SUBMITED".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
 
                 default:
                     break
@@ -1150,7 +1150,7 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPUserReportResponse:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORT_SUBMITED".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORT_SUBMITED".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
 
                 default:
                     break
@@ -1224,7 +1224,7 @@ extension IGRecentsTableViewController {
             self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.pornography)
         })
         
-        let other = UIAlertAction(title: "OTHER".localized, style: .default, handler: { (action) in
+        let other = UIAlertAction(title: IGStringsManager.Other.rawValue.localized, style: .default, handler: { (action) in
             self.selectedRoomForSegue = room
             self.performSegue(withIdentifier: "showReportPage", sender: self)
         })

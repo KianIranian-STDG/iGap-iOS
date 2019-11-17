@@ -67,9 +67,9 @@ class IGElecBillByDeviceTableViewCell: BaseTableViewCell {
     }
     
     private func initStrings() {
-        lblTTlBillNumber.text = "BILL_ID".localized
-        lblTTlCustomerAddress.text = "BILL_DETAIL_CUSTOMER_ADD".localized
-        lblTTlCustomerName.text = "BILL_DETAIL_CUSTOMER_NAME".localized
+        lblTTlBillNumber.text = IGStringsManager.ElecBillID.rawValue.localized
+        lblTTlCustomerAddress.text = IGStringsManager.ElecCustomerAdd.rawValue.localized
+        lblTTlCustomerName.text = IGStringsManager.ElecCustomerName.rawValue.localized
         lblDataBillNumber.text = "..."
         lblDataCustomerName.text = "..."
         lblDataCustomerAddress.text = "..."

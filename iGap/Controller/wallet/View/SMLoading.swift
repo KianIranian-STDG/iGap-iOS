@@ -77,12 +77,12 @@ class SMLoading {
         alertView.title = title
         alertView.message = message
         
-        alertView.leftButtonTitle = "GLOBAL_NO".localized
+        alertView.leftButtonTitle = IGStringsManager.GlobalNo.rawValue.localized
         alertView.leftButtonAction = noPressed
         
         alertView.rightButtonTitle = IGStringsManager.GlobalOK.rawValue.localized
         alertView.rightButtonAction = yesPressed
-        alertView.forgotButtonTitle = "FORGET_WALLET_PIN".localized
+        alertView.forgotButtonTitle = IGStringsManager.ResetWalletPin.rawValue.localized
         alertView.forgotPinAction = forgotPin
         
         
@@ -91,7 +91,7 @@ class SMLoading {
             alertView.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         })
     }
-    static func showLoadingPage(viewcontroller: UIViewController, text: String? = "Loading ...".localized) {
+    static func showLoadingPage(viewcontroller: UIViewController,text: String? = IGStringsManager.GlobalLoading.rawValue.localized) {
         
         self.hideLoadingPage {
             loadingViewPage = UIView(frame : UIScreen.main.bounds)
@@ -172,7 +172,7 @@ class SMLoading {
         self.presenter = customPresenter
         return customPresenter
     }
-    func showNormalDialog(viewController:UIViewController, height: Float ,isleftButtonEnabled : Bool? = true ,title:String? ,message:String? ,leftButtonTitle : String? = "no".localized ,rightButtonTitle :String? = "yes".localized , yesPressed: CallBack? = nil, noPressed: SimpleCallBack? = nil){
+    func showNormalDialog(viewController:UIViewController, height: Float ,isleftButtonEnabled : Bool? = true ,title:String? ,message:String? ,leftButtonTitle : String? = IGStringsManager.GlobalNo.rawValue.localized ,rightButtonTitle :String? = "yes".localized , yesPressed: CallBack? = nil, noPressed: SimpleCallBack? = nil){
         let storyboard : UIStoryboard = UIStoryboard(name: "wallet", bundle: nil)
         
         let alertView : SMNormalAlertViewController! = (storyboard.instantiateViewController(withIdentifier: "normalalert") as! SMNormalAlertViewController)
@@ -205,7 +205,7 @@ class SMLoading {
         
         alertView.savedCards = cards!
         
-        alertView.leftButtonTitle = "GLOBAL_NO".localized
+        alertView.leftButtonTitle = IGStringsManager.GlobalNo.rawValue.localized
         alertView.leftButtonAction = noPressed
         
         alertView.rightButtonTitle = IGStringsManager.GlobalOK.rawValue.localized
@@ -224,7 +224,7 @@ class SMLoading {
         
         alertView.savedClubs = cards!
         
-        alertView.leftButtonTitle = "GLOBAL_NO".localized
+        alertView.leftButtonTitle = IGStringsManager.GlobalNo.rawValue.localized
         alertView.leftButtonAction = noPressed
         
         alertView.rightButtonTitle = IGStringsManager.GlobalOK.rawValue.localized

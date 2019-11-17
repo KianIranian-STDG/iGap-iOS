@@ -266,7 +266,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                 let tt = tmpJson?.amount
                 let tmpAmount : Int! = tt
                 let attrsRegular = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 14 , weight: .regular)]
-                let normalString = NSMutableAttributedString(string: "TTL_AMOUNT".localized + " " + String(tmpAmount).inRialFormat().inLocalizedLanguage() + "CURRENCY".localized  + "\n_________________________\n", attributes:attrsRegular)
+                let normalString = NSMutableAttributedString(string: IGStringsManager.Amount.rawValue.localized + " " + String(tmpAmount).inRialFormat().inLocalizedLanguage() + IGStringsManager.Currency.rawValue.localized  + "\n_________________________\n", attributes:attrsRegular)
                 let attributedString = NSMutableAttributedString(string: IGStringsManager.Desc.rawValue.localized + " " + messageText!, attributes:  attrsRegular)
                 normalString.append(attributedString)
                 

@@ -47,7 +47,7 @@ class SMSavedCardsAlertViewController: UIViewController,UIPickerViewDelegate,UIP
 		if showDefaultSwitch {
 			defaultSwitchView.isHidden = false
 			defaultSwitch.isOn = true
-			defaultSwitchLabel.text = "save.as.default".localized
+            defaultSwitchLabel.text = IGStringsManager.SetAsDefaultCard.rawValue.localized
 			defaultSwitchLabel.textAlignment = alignment
 			
 			let transform = SMDirection.PageAffineTransform()

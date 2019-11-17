@@ -182,7 +182,7 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
         btnCashout.setTitle(SMLangUtil.changeLblText(tag: btnCashout.tag, parentViewController: NSStringFromClass(self.classForCoder)), for: .normal)
         btnCharge.setTitle(SMLangUtil.changeLblText(tag: btnCharge.tag, parentViewController: NSStringFromClass(self.classForCoder)), for: .normal)
         recoverPassBtn.setTitle(SMLangUtil.changeLblText(tag: recoverPassBtn.tag, parentViewController: NSStringFromClass(self.classForCoder)), for: .normal)
-        lblMyHistoryTitle.text = "MONEY_TRANSFER_HISTORY".localized
+        lblMyHistoryTitle.text = IGStringsManager.TransactionHistory.rawValue.localized
     }
     
     func initView() {
@@ -243,8 +243,8 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
             self.btnHisto.isHidden = false
             self.recoverPassBtn.isHidden = true
             self.recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
-            self.lblWalletBalance.text = "TTL_WALLET_BALANCE_USER".localized
-            self.btnCashout.setTitle("BTN_CASHOUT_WALLET".localized, for: .normal)
+            self.lblWalletBalance.text = IGStringsManager.UserWalletBalance.rawValue.localized
+            self.btnCashout.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
             initView()
             self.view.layoutIfNeeded()
             DispatchQueue.main.async {
@@ -259,12 +259,12 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
             self.recoverPassBtn.isHidden = false
             self.recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
             if currentBussinessType == 0 {
-                self.lblWalletBalance.text = "TTL_WALLET_BALANCE_STORE".localized
-                self.btnCashout.setTitle("BTN_CASHOUT_WALLET_STORE".localized, for: .normal)
+                self.lblWalletBalance.text = IGStringsManager.StoreWalletBalance.rawValue.localized
+                self.btnCashout.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
             }
             if currentBussinessType == 2 {
-                self.btnCashout.setTitle("BTN_CASHOUT_WALLET_DRIVER".localized, for: .normal)
-                self.lblWalletBalance.text = "TTL_WALLET_BALANCE_DRIVER".localized
+                self.btnCashout.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
+                self.lblWalletBalance.text = IGStringsManager.DriverWalletBalance.rawValue.localized
             }
             initView()
             self.view.layoutIfNeeded()
@@ -280,12 +280,12 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
             self.recoverPassBtn.isHidden = true
             self.recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
             if currentBussinessType == 0 {
-                self.lblWalletBalance.text = "TTL_WALLET_BALANCE_STORE".localized
-                self.btnCashout.setTitle("BTN_CASHOUT_WALLET_STORE".localized, for: .normal)
+                self.lblWalletBalance.text = IGStringsManager.StoreWalletBalance.rawValue.localized
+                self.btnCashout.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
             }
             if currentBussinessType == 2 {
-                self.btnCashout.setTitle("BTN_CASHOUT_WALLET_DRIVER".localized, for: .normal)
-                self.lblWalletBalance.text = "TTL_WALLET_BALANCE_DRIVER".localized
+                self.btnCashout.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
+                self.lblWalletBalance.text = IGStringsManager.DriverWalletBalance.rawValue.localized
             }
             initView()
             self.view.layoutIfNeeded()
@@ -361,7 +361,7 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
         if showSection {
             switch bussinessArray.count {
             case 1 :
-                let item0 = DropdownItem(image: nil, title: "paygearuser".localized, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
+                let item0 = DropdownItem(image: nil, title: IGStringsManager.Personal.rawValue.localized, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
                 let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
                 items = [[item0]]
                 menuView = DropdownMenu(navigationController: navigationController!, sections: [section0], selectedIndexPath: selectedIndexPath)
@@ -369,10 +369,10 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
             case 2 :
 
                 if bussinessArray.contains(0) {
-                    let item0 = DropdownItem(image: nil, title: "paygearuser".localized, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
+                    let item0 = DropdownItem(image: nil, title: IGStringsManager.Personal.rawValue.localized, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
                     let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
                     
-                    let section1 = DropdownSection(sectionIdentifier:  "store".localized, items: Merchantitems)
+                    let section1 = DropdownSection(sectionIdentifier:  IGStringsManager.Store.rawValue.localized, items: Merchantitems)
                     
                     
                     
@@ -381,10 +381,10 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                     
                 }
                 else if bussinessArray.contains(1) {
-                    let item0 = DropdownItem(image: nil, title: "paygearuser".localized, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
+                    let item0 = DropdownItem(image: nil, title: IGStringsManager.Personal.rawValue.localized, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
                     let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
                     
-                    let section1 = DropdownSection(sectionIdentifier:  "other".localized, items: otheritems)
+                    let section1 = DropdownSection(sectionIdentifier:  IGStringsManager.Other.rawValue.localized, items: otheritems)
                     
                     
                     
@@ -393,10 +393,10 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                     
                 }
                 else if bussinessArray.contains(2) {
-                    let item0 = DropdownItem(image: nil, title: "paygearuser".localized, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
+                    let item0 = DropdownItem(image: nil, title: IGStringsManager.Personal.rawValue.localized, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
                     let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
                     
-                    let section1 = DropdownSection(sectionIdentifier:  "driver".localized, items: Taxyitems)
+                    let section1 = DropdownSection(sectionIdentifier:  IGStringsManager.Driver.rawValue.localized, items: Taxyitems)
                     
                     
                     
@@ -410,11 +410,11 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                 break
             case 3 :
                 if (bussinessArray.contains(0)) && (bussinessArray.contains(1)) {
-                    let item0 = DropdownItem(image: nil, title: "paygearuser".localized, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
+                    let item0 = DropdownItem(image: nil, title: IGStringsManager.Personal.rawValue.localized, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
                     let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
                     
-                    let section1 = DropdownSection(sectionIdentifier:  "store".localized, items: Merchantitems)
-                    let section2 = DropdownSection(sectionIdentifier:  "other".localized, items: otheritems)
+                    let section1 = DropdownSection(sectionIdentifier:  IGStringsManager.Store.rawValue.localized, items: Merchantitems)
+                    let section2 = DropdownSection(sectionIdentifier:  IGStringsManager.Other.rawValue.localized, items: otheritems)
                     
                     
                     
@@ -424,11 +424,11 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                 }
                 
                 else if (bussinessArray.contains(0)) && (bussinessArray.contains(2)) {
-                    let item0 = DropdownItem(image: nil, title: "paygearuser".localized, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
+                    let item0 = DropdownItem(image: nil, title: IGStringsManager.Personal.rawValue.localized, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
                     let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
                     
-                    let section1 = DropdownSection(sectionIdentifier:  "store".localized, items: Merchantitems)
-                    let section2 = DropdownSection(sectionIdentifier:  "driver".localized, items: Taxyitems)
+                    let section1 = DropdownSection(sectionIdentifier:  IGStringsManager.Store.rawValue.localized, items: Merchantitems)
+                    let section2 = DropdownSection(sectionIdentifier:  IGStringsManager.Driver.rawValue.localized, items: Taxyitems)
                     
                     
                     
@@ -438,11 +438,11 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                 }
                 
                 else if (bussinessArray.contains(1)) && (bussinessArray.contains(2)) {
-                    let item0 = DropdownItem(image: nil, title: "paygearuser".localized, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
+                    let item0 = DropdownItem(image: nil, title: IGStringsManager.Personal.rawValue.localized, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
                     let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
                     
-                    let section1 = DropdownSection(sectionIdentifier:  "other".localized, items: otheritems)
-                    let section2 = DropdownSection(sectionIdentifier:  "driver".localized, items: Taxyitems)
+                    let section1 = DropdownSection(sectionIdentifier:  IGStringsManager.Other.rawValue.localized, items: otheritems)
+                    let section2 = DropdownSection(sectionIdentifier:  IGStringsManager.Driver.rawValue.localized, items: Taxyitems)
                     
                     
                     
@@ -454,12 +454,12 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
             case 4 :
                 
                 if (bussinessArray.contains(0)) && (bussinessArray.contains(1))  && (bussinessArray.contains(2)) {
-                    let item0 = DropdownItem(image: nil, title: "paygearuser".localized, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
+                    let item0 = DropdownItem(image: nil, title: IGStringsManager.Personal.rawValue.localized, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3, merchant: nil)
                     let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
                     
-                    let section1 = DropdownSection(sectionIdentifier:  "store".localized, items: Merchantitems)
-                    let section2 = DropdownSection(sectionIdentifier:  "other".localized, items: otheritems)
-                    let section3 = DropdownSection(sectionIdentifier:  "driver".localized, items: Taxyitems)
+                    let section1 = DropdownSection(sectionIdentifier:  IGStringsManager.Store.rawValue.localized, items: Merchantitems)
+                    let section2 = DropdownSection(sectionIdentifier:  IGStringsManager.Other.rawValue.localized, items: otheritems)
+                    let section3 = DropdownSection(sectionIdentifier:  IGStringsManager.Driver.rawValue.localized, items: Taxyitems)
 
                     
                     
@@ -488,7 +488,7 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
     // MARK : - init View elements
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_WALLET".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.Wallet.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
     }
     
@@ -574,7 +574,7 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
 
         if isCard! == false && isPaygear == true {
             if needToUpdate {
-                lblCurrency.text = "Updating ...".localized
+                lblCurrency.text = IGStringsManager.GlobalUpdating.rawValue.localized
 
             }
             else {
@@ -585,7 +585,7 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
         }
         else {
             if needToUpdate {
-                lblCurrency.text = "Updating ...".localized
+                lblCurrency.text = IGStringsManager.GlobalUpdating.rawValue.localized
                 
             }
             else {
@@ -733,7 +733,7 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
             }
             needToUpdate = true
         }, onFailed: {err in
-//            SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+//            SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
         })
     }
     
@@ -880,7 +880,7 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
             cell.cellType = self.stringCardTypeArray[indexPath.item]
 //            let tmpType = self.stringCardTypeArray[indexPath.item]
             if cell.cellType == 1 {
-                cell.lblBankName.text = String.init(describing: self.stringClubAmountsArray[indexPath.item]).inRialFormat() + " " + "CURRENCY".localized
+                cell.lblBankName.text = String.init(describing: self.stringClubAmountsArray[indexPath.item]).inRialFormat() + " " + IGStringsManager.Currency.rawValue.localized
                 cell.lblCardNum.text = self.stringCardNumArray[indexPath.item].inLocalizedLanguage()
 //                let cardNum = (self.stringCardNumArray[indexPath.item])
             } else {
@@ -978,7 +978,7 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
     //MARK:- MERCHANTS SERVICES
     func getMerChantCards() {
         SMLoading.showLoadingPage(viewcontroller: self)
-        lblCurrency.text = "Updating ...".localized
+        lblCurrency.text = IGStringsManager.GlobalUpdating.rawValue.localized
 
         DispatchQueue.main.async {
             SMCard.getMerchatnCardsFromServer(accountId: merchantID, { (value) in
@@ -1051,7 +1051,7 @@ extension packetTableViewController: DropdownMenuDelegate {
             finishDefault(isPaygear: true, isCard: false)
             isMerchant = false
             let navigationItem = self.navigationItem as! IGNavigationItem
-            navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_WALLET".localized)
+            navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.Wallet.rawValue.localized)
             amountsView.isHidden = false
             mainAmountView.TOPcornerRadius = 10
 

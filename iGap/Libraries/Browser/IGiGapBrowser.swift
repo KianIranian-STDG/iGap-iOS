@@ -159,7 +159,7 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate {
         btnAgree.backgroundColor = UIColor.iGapGray()
         btnAgree.cornerRadius = 7.0
         btnAgree.popIn = true
-        btnAgree.setTitle("GLOBAL_OKGO".localized, for: .normal)
+        btnAgree.setTitle(IGStringsManager.GlobalOKandGo.rawValue.localized, for: .normal)
         btnAgree.titleLabel?.font = UIFont.igFont(ofSize: 20,weight: .bold)
         btnAgree.titleLabel?.textColor = UIColor.white
         btnAgree.isUserInteractionEnabled = false
@@ -359,7 +359,7 @@ extension IGiGapBrowser: WKScriptMessageHandler {
                 let paymentView = IGPaymentView.sharedInstance
                 if success {
                     guard let paymentData = payment else {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                         return
                     }
                     paymentView.show(on: UIApplication.shared.keyWindow!, title: self.pageTitle, payToken: message.body as! String, payment: paymentData)

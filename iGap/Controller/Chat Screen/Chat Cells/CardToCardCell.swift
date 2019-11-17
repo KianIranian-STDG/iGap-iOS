@@ -60,10 +60,10 @@ class CardToCardCell: IGMessageGeneralCollectionViewCell {
         ttlAmount.text = "PRICE".localized
         ttlTransfer.font = UIFont.igFont(ofSize: 15)
         ttlDate.font = UIFont.igFont(ofSize: 15)
-        ttlDestinationCardNUmber.text = "TTL_DESTI_CARDNUM".localized
-        ttlSourceCardNUmber.text = "TTL_CARDNUM".localized
+        ttlDestinationCardNUmber.text = IGStringsManager.DestinationCardNumber.rawValue.localized
+        ttlSourceCardNUmber.text = IGStringsManager.CardNumber.rawValue.localized
         lblSourceBankName.text = "SOURCE_BANK".localized
-        ttlDestinationBankName.text = "DEST_BANK".localized
+        ttlDestinationBankName.text = IGStringsManager.DestinationBank.rawValue.localized
         lblRrn.text = "TTL_REFERENCE_NUMBER".localized
         lblAccountOwnerName.text = "TTL_ACCOUNT_OWNER_NAME".localized
     }
@@ -77,7 +77,7 @@ class CardToCardCell: IGMessageGeneralCollectionViewCell {
         guard let cardToCard = message.wallet?.cardToCard else {
             return
         }
-        lblAmount.text = String(describing: cardToCard.amount).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localized
+        lblAmount.text = String(describing: cardToCard.amount).inRialFormat().inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
         ttlRrn.text =  (cardToCard.traceNumber)!.inLocalizedLanguage()
         ttlInvoice.text = (cardToCard.rrn)!.inLocalizedLanguage()
         lblSourceCard.text = (cardToCard.sourceCardNumber)!.inLocalizedLanguage()

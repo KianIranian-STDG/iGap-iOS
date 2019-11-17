@@ -55,7 +55,7 @@ class IGHelperMediaPicker {
         config.wordings.filter = "FILTER".localized
         config.wordings.ok = IGStringsManager.GlobalOK.rawValue.localized
         config.wordings.processing = "PROCESSING".localized
-        config.wordings.save = "SAVE".localized
+        config.wordings.save = IGStringsManager.GlobalSave.rawValue.localized
         config.wordings.trim = "TRIM".localized
         config.wordings.videoTitle = "VIDEO".localized
         config.wordings.warningMaxItemsLimit = "WARNING_MAX_ITEMS_LIMIT".localized

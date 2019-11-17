@@ -233,13 +233,13 @@ class IGDashboardViewControllerInner: BaseViewController, UICollectionViewDelega
                 self.btnRefresh!.isHidden = true
                 if IGGlobal.shouldShowChart {
                     if self.pollList.count == 0 {
-                        self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localized)
+                        self.collectionView!.setEmptyMessage(IGStringsManager.WaitDataFetch.rawValue.localized)
                     } else {
                         self.collectionView!.restore()
                     }
                 } else {
                     if self.discovery.count == 0 {
-                        self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localized)
+                        self.collectionView!.setEmptyMessage(IGStringsManager.WaitDataFetch.rawValue.localized)
                     } else {
                         self.collectionView!.restore()
                     }

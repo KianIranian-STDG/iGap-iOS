@@ -3208,9 +3208,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     
                     
                     
-                    MoneyTransactionModal.btnWalletTransfer.setTitle("BTN_CASHOUT_WALLET".localized, for: .normal)
+                    MoneyTransactionModal.btnWalletTransfer.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
                     MoneyTransactionModal.btnCardToCardTransfer.setTitle("CARD_TO_CARD".localized, for: .normal)
-                    //                    MoneyTransactionModal.infoLbl.text = "ENTER_RECIEVER_CODE".localized
+                    //                    MoneyTransactionModal.infoLbl.text = IGStringsManager.EnterRecieverCode.rawValue.localized
                     
                     let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
                     swipeDown.direction = .down
@@ -3220,10 +3220,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     
                 }
                 else {
-                    MoneyTransactionModal.btnWalletTransfer.setTitle("BTN_CASHOUT_WALLET".localized, for: .normal)
+                    MoneyTransactionModal.btnWalletTransfer.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
                     MoneyTransactionModal.btnCardToCardTransfer.setTitle("CARD_TO_CARD".localized, for: .normal)
-                    //                    MoneyTransactionModal.infoLbl.text = "ENTER_RECIEVER_CODE".localized
-                    //                    MoneyTransactionModal.inputTF.placeholder = "ENTER_CODE".localized
+                    //                    MoneyTransactionModal.infoLbl.text = IGStringsManager.EnterRecieverCode.rawValue.localized
+                    //                    MoneyTransactionModal.inputTF.placeholder = IGStringsManager.EnterCode.rawValue.localized
                 }
                 
                 if #available(iOS 11.0, *) {
@@ -3270,12 +3270,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
             needToUpdate = true
         }, onFailed: {err in
-            //            SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+            //            SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
         })
     }
     func transferToWallet(pbKey: String!,token: String)  {
         
-        SMLoading.shared.showInputPinDialog(viewController: self, icon: nil, title: "", message: "enterpin".localized, yesPressed: { pin in
+        SMLoading.shared.showInputPinDialog(viewController: self, icon: nil, title: "", message: IGStringsManager.EnterWalletPin.rawValue.localized, yesPressed: { pin in
             self.payFromSingleCard(card: self.sourceCard , pin : (pin as! String))
         }, forgotPin: {
             
@@ -3323,7 +3323,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 }
             }, onFailed: {err in
                 if (err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"] != nil {
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "error".localized, message: ((err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"]! as! String).localized)
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: ((err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"]! as! String).localized)
                 }
             })
         }
@@ -3346,7 +3346,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
             
             MoneyInputModal.confirmBtn.setTitle(IGStringsManager.GlobalOK.rawValue.localized, for: .normal)
-            //                    MoneyTransactionModal.infoLbl.text = "ENTER_RECIEVER_CODE".localized
+            //                    MoneyTransactionModal.infoLbl.text = IGStringsManager.EnterRecieverCode.rawValue.localized
             
             let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
             swipeDown.direction = .down
@@ -3425,7 +3425,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if MoneyInputModal != nil {
             if MoneyInputModal.inputTF.text == "" ||  MoneyInputModal.inputTF.text == nil {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: "FILL_AMOUNT".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.AmountNotValid.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
             }
             else {
@@ -3457,7 +3457,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if CardToCardModal != nil {
             if CardToCardModal.inputTFOne.text == "" ||  CardToCardModal.inputTFOne.text == nil || CardToCardModal.inputTFTwo.text == "" ||  CardToCardModal.inputTFTwo.text == nil || CardToCardModal.inputTFThree.text == "" ||  CardToCardModal.inputTFThree.text == nil {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "FILL_AMOUNT".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.AmountNotValid.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             } else {
                 
                 let messageText = CardToCardModal.inputTFOne.text!.substring(offset: MAX_TEXT_LENGHT)
@@ -4757,7 +4757,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.reportRoom(roomId: roomId, messageId: messageId, reason: IGPClientRoomReport.IGPReason.pornography)
         })
         
-        let other = UIAlertAction(title: "OTHER".localized, style: .default, handler: { (action) in
+        let other = UIAlertAction(title: IGStringsManager.Other.rawValue.localized, style: .default, handler: { (action) in
             self.reportMessageId = messageId
             self.performSegue(withIdentifier: "showReportPage", sender: self)
         })
@@ -5327,7 +5327,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if indexPath.row < messages!.count {
                 if let message = messages?[indexPath.row] {
                     if message.shouldFetchBefore {
-                        header.setText("Loading ...".localized)
+                        header.setText(IGStringsManager.GlobalLoading.rawValue.localized)
                     } else {
                         
                         let dayTimePeriodFormatter = DateFormatter()
@@ -6234,7 +6234,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             
         }).error({ (errorCode, waitTime) in
             hud.hide(animated: true)
-            let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.UnsuccessOperation.rawValue.localized, preferredStyle: .alert)
+            let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalTryAgain.rawValue.localized, preferredStyle: .alert)
             let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
             alert.addAction(okAction)
             self.present(alert, animated: true, completion: nil)
@@ -6328,7 +6328,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
         DispatchQueue.main.async {
             
-            let alert = UIAlertController(title: "SUCCESS".localized, message: "U_JOINED".localized + " \(beforeString)" + "TO".localized + " \(room.title!)!", preferredStyle: .alert)
+            let alert = UIAlertController(title: IGStringsManager.GlobalSuccess.rawValue.localized, message: "U_JOINED".localized + " \(beforeString)" + "TO".localized + " \(room.title!)!", preferredStyle: .alert)
             let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
             let openNow = UIAlertAction(title: "OPEN_NOW".localized, style: .default, handler: { (action) in
                 let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)

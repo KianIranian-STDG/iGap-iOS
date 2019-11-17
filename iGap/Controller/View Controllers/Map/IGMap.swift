@@ -170,7 +170,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
         let ok = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .destructive, handler: { (action) in
             self.updateComment(comment: "")
         })
-        let cancel = UIAlertAction(title: "GLOBAL_NO".localized, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: IGStringsManager.GlobalNo.rawValue.localized, style: .cancel, handler: nil)
         
         option.addAction(ok)
         option.addAction(cancel)
@@ -182,7 +182,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
         let ok = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .destructive, handler: { (action) in
             self.geoRegister()
         })
-        let cancel = UIAlertAction(title: "GLOBAL_NO".localized, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: IGStringsManager.GlobalNo.rawValue.localized, style: .cancel, handler: nil)
         
         option.addAction(ok)
         option.addAction(cancel)

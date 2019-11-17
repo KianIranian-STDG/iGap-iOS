@@ -91,7 +91,7 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UI
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if items.count == 0 {
-            self.tableView.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localized)
+            self.tableView.setEmptyMessage(IGStringsManager.WaitDataFetch.rawValue.localized)
             let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
             self.tableView.backgroundView?.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         } else {

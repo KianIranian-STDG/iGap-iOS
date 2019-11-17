@@ -41,8 +41,8 @@ class SMTwoInputView: UIView {
         super.awakeFromNib()
 //        self.inputTFTwo.text = SMStringUtil.separateFormat(newStr, separators: [4, 4, 4, 4], delimiter: "-").inLocalizedLanguage()
 
-//        infoLblOne.text = "TTL_AMOUNT".localized
-        closeBtn.setTitle("BTN_CANCEL".localized, for: .normal)
+//        infoLblOne.text = IGStringsManager.Amount.rawValue.localized
+        closeBtn.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
         self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
     }
     

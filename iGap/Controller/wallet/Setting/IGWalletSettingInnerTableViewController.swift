@@ -33,17 +33,17 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         btnSubmit.setTitle(IGStringsManager.GlobalOK.rawValue.localized, for: .normal)
         btnSubmit.titleLabel?.font = UIFont.igFont(ofSize: 17)
         if isOTP {
-            initNavigationBar(title: "RESET_WALLET_PIN".localized)
-            self.lblFirstRow.text = "OTP_CODE".localized
-            self.tfFirst.placeholder = "OTP_CODE_PLACEHOLDER".localized
-            self.lblSecondRow.text = "NEW_PASS".localized
-            self.lblThirdRow.text = "CONFIRM_NEW_PASS".localized
+            initNavigationBar(title: IGStringsManager.ResetWalletPin.rawValue.localized)
+            self.lblFirstRow.text = IGStringsManager.OTPCode.rawValue.localized
+            self.tfFirst.placeholder = IGStringsManager.OTPCode.rawValue.localized
+            self.lblSecondRow.text = IGStringsManager.NewPass.rawValue.localized
+            self.lblThirdRow.text = IGStringsManager.RepeatPassCode.rawValue.localized
         }
         else {
-            initNavigationBar(title: "WALLET_PIN".localized)
-            self.lblFirstRow.text = "CURRENT_PASS".localized
-            self.lblSecondRow.text = "NEW_PASS".localized
-            self.lblThirdRow.text = "CONFIRM_NEW_PASS".localized
+            initNavigationBar(title: IGStringsManager.WalletPin.rawValue.localized)
+            self.lblFirstRow.text = IGStringsManager.CurrentPassCode.rawValue.localized
+            self.lblSecondRow.text = IGStringsManager.NewPass.rawValue.localized
+            self.lblThirdRow.text = IGStringsManager.RepeatPassCode.rawValue.localized
             
             
         }
@@ -82,17 +82,17 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         btnSubmit.setTitle(IGStringsManager.GlobalOK.rawValue.localized, for: .normal)
         btnSubmit.titleLabel?.font = UIFont.igFont(ofSize: 17)
         if isOTP {
-            initNavigationBar(title: "RESET_WALLET_PIN".localized)
-            self.lblFirstRow.text = "OTP_CODE".localized
-            self.tfFirst.placeholder = "OTP_CODE_PLACEHOLDER".localized
-            self.lblSecondRow.text = "NEW_PASS".localized
-            self.lblThirdRow.text = "CONFIRM_NEW_PASS".localized
+            initNavigationBar(title: IGStringsManager.ResetWalletPin.rawValue.localized)
+            self.lblFirstRow.text = IGStringsManager.OTPCode.rawValue.localized
+            self.tfFirst.placeholder = IGStringsManager.OTPCode.rawValue.localized
+            self.lblSecondRow.text = IGStringsManager.NewPass.rawValue.localized
+            self.lblThirdRow.text = IGStringsManager.RepeatPassCode.rawValue.localized
         }
         else {
-            initNavigationBar(title: "WALLET_PIN".localized)
-            self.lblFirstRow.text = "CURRENT_PASS".localized
-            self.lblSecondRow.text = "NEW_PASS".localized
-            self.lblThirdRow.text = "CONFIRM_NEW_PASS".localized
+            initNavigationBar(title: IGStringsManager.WalletPin.rawValue.localized)
+            self.lblFirstRow.text = IGStringsManager.CurrentPassCode.rawValue.localized
+            self.lblSecondRow.text = IGStringsManager.NewPass.rawValue.localized
+            self.lblThirdRow.text = IGStringsManager.RepeatPassCode.rawValue.localized
 
 
         }
@@ -115,7 +115,7 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
     /// Call API to get OTP message
     func callOTPAPI () {
         
-        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localized)
+        SMLoading.showLoadingPage(viewcontroller: self, text: IGStringsManager.GlobalLoading.rawValue.localized)
         
         let request = WS_methods.init(delegate: self, failedDialog: false)
         
@@ -123,27 +123,27 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
             //
             SMLoading.hideLoadingPage()
             
-            let message = "SUCCESS_OTP".localized
+            let message = IGStringsManager.NewCodeSuccessSent.rawValue.localized
 //
 //
-                        SMLoading.shared.showNormalDialog(viewController: self, height: 180 ,isleftButtonEnabled: false , title: "GLOBAL_MESSAGE".localized, message: message ,yesPressed :{yes in
+                        SMLoading.shared.showNormalDialog(viewController: self, height: 180 ,isleftButtonEnabled: false , title: IGStringsManager.GlobalMessage.rawValue.localized, message: message ,yesPressed :{yes in
 ////
             })
-//            SMLoading.showToast(viewcontroller: self, text: "SUCCESS_OTP".localized)
+//            SMLoading.showToast(viewcontroller: self, text: IGStringsManager.NewCodeSuccessSent.rawValue.localized)
         }
         
         request.addFailedHandler { (response) in
             
             if SMValidation.showConnectionErrorToast(response) {
-                SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localized)
+                SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
             }
-            let message = IGStringsManager.UnsuccessOperation.rawValue.localized
-            SMLoading.shared.showNormalDialog(viewController: self, height: 180 ,isleftButtonEnabled: false , title: "GLOBAL_MESSAGE".localized, message: message ,yesPressed :{yes in
+            let message = IGStringsManager.GlobalTryAgain.rawValue.localized
+            SMLoading.shared.showNormalDialog(viewController: self, height: 180 ,isleftButtonEnabled: false , title: IGStringsManager.GlobalMessage.rawValue.localized, message: message ,yesPressed :{yes in
 
                 self.navigationController?.popViewController(animated: true)
 
             })
-//            SMLoading.showToast(viewcontroller: self, text: IGStringsManager.UnsuccessOperation.rawValue.localized)
+//            SMLoading.showToast(viewcontroller: self, text: IGStringsManager.GlobalTryAgain.rawValue.localized)
 
             SMLoading.hideLoadingPage()
         }
@@ -160,7 +160,7 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
     ///   - newPass: new passcode
     func callResetAPI (otp: String, newPass: String) {
         
-        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localized)
+        SMLoading.showLoadingPage(viewcontroller: self, text: IGStringsManager.GlobalLoading.rawValue.localized)
         
         let request = WS_methods.init(delegate: self, failedDialog: false)
         
@@ -168,9 +168,9 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
             //
             SMLoading.hideLoadingPage()
             
-            let message = "SUCCESSFULL_CHANGE_PASS".localized
+            let message = IGStringsManager.PinCodeSuccessChange.rawValue.localized
             
-            SMLoading.shared.showNormalDialog(viewController: self, height: 180 ,isleftButtonEnabled: false , title: "GLOBAL_MESSAGE".localized, message: message ,yesPressed :{yes in
+            SMLoading.shared.showNormalDialog(viewController: self, height: 180 ,isleftButtonEnabled: false , title: IGStringsManager.GlobalMessage.rawValue.localized, message: message ,yesPressed :{yes in
                 
                 self.navigationController?.popViewController(animated: true)
                 
@@ -183,7 +183,7 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         request.addFailedHandler { (response) in
             
             if SMValidation.showConnectionErrorToast(response) {
-                SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localized)
+                SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
             }
             SMLoading.hideLoadingPage()
             SMMessage.showWithMessage(SMCard.testConvert(response))
@@ -236,11 +236,11 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
             }
             else {
                 
-                SMMessage.showWithMessage("PASSCODE_NOT_MACHED".localized)
+                SMMessage.showWithMessage(IGStringsManager.PinNotMatch.rawValue.localized)
             }
         }
         else {
-            SMMessage.showWithMessage("INPUT_VALUE_NOT_CORRECT".localized)
+            SMMessage.showWithMessage(IGStringsManager.IncorrectInput.rawValue.localized)
         }
         
         
@@ -251,7 +251,7 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
     ///   - newPass: the passcode to be define
     func callAPI (oldPass: String, newPass: String) {
         
-        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localized)
+        SMLoading.showLoadingPage(viewcontroller: self, text: IGStringsManager.GlobalLoading.rawValue.localized)
         
         let request = WS_methods.init(delegate: self, failedDialog: false)
         
@@ -262,11 +262,11 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
                 SMUserManager.pin = true
             }
             
-            var message = "SUCCESSFULL_CHANGE_PASS".localized
+            var message = IGStringsManager.PinCodeSuccessChange.rawValue.localized
             if !self.isFirstTime {
-                message = "SUCCESSFULL_SET_PASS".localized
+                message = IGStringsManager.PinCodeSuccessChange.rawValue.localized
             }
-            SMLoading.shared.showNormalDialog(viewController: self, height: 180 ,isleftButtonEnabled: false , title: "GLOBAL_MESSAGE".localized, message: message ,yesPressed :{yes in
+            SMLoading.shared.showNormalDialog(viewController: self, height: 180 ,isleftButtonEnabled: false , title: IGStringsManager.GlobalMessage.rawValue.localized, message: message ,yesPressed :{yes in
                 
                     self.navigationController?.popViewController(animated: true)
                 
@@ -279,7 +279,7 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         request.addFailedHandler { (response) in
             
             if SMValidation.showConnectionErrorToast(response) {
-                SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localized)
+                SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
             }
             SMLoading.hideLoadingPage()
             SMMessage.showWithMessage(SMCard.testConvert(response))
@@ -368,11 +368,11 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
                 }
                 else {
                     
-                    SMMessage.showWithMessage("PASSCODE_NOT_MACHED".localized)
+                    SMMessage.showWithMessage(IGStringsManager.PinNotMatch.rawValue.localized)
                 }
             }
             else {
-                SMMessage.showWithMessage("INPUT_VALUE_NOT_CORRECT".localized)
+                SMMessage.showWithMessage(IGStringsManager.IncorrectInput.rawValue.localized)
             }
             
             

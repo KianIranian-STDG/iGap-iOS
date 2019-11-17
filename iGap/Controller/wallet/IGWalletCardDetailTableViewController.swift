@@ -37,11 +37,11 @@ class IGWalletCardDetailTableViewController: BaseTableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        lblCardDefaultTitle.text = "TTL_SET_AS_DEFAULT_CARD".localized
-        btnRemove.setTitle("DELETE_CARD".localized, for: .normal)
+        lblCardDefaultTitle.text = IGStringsManager.SetAsDefaultCard.rawValue.localized
+        btnRemove.setTitle(IGStringsManager.DeleteCard.rawValue.localized, for: .normal)
     }
     func initView() {
-        self.btnAmount.setTitle(amount.inRialFormat() + " " + "CURRENCY".localized, for: .normal)
+        self.btnAmount.setTitle(amount.inRialFormat() + " " + IGStringsManager.Currency.rawValue.localized, for: .normal)
         
         imgBankLogo.image = UIImage(named: logoString)
         imgBackgroundCard.downloadedFrom(link: urlBack , cashable: true, contentMode: .scaleToFill, completion: {_ in
@@ -56,7 +56,7 @@ class IGWalletCardDetailTableViewController: BaseTableViewController {
                 qrVC.hidesBottomBarWhenPushed = true
                 self.navigationController!.pushViewController(qrVC, animated: true)
             }
-            self.lblBankName.text = amount.inRialFormat() + " " + "CURRENCY".localized
+            self.lblBankName.text = amount.inRialFormat() + " " + IGStringsManager.Currency.rawValue.localized
             lblCardNum.text = ""
         } else {
             self.initNavigationBar(title: bankName, rightItemText: "", iGapFont: true) {
@@ -86,7 +86,7 @@ class IGWalletCardDetailTableViewController: BaseTableViewController {
         }, onFailed: { err in
             
             if SMValidation.showConnectionErrorToast(err) {
-                SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localized)
+                SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
             }
         })
     }
@@ -135,7 +135,7 @@ class IGWalletCardDetailTableViewController: BaseTableViewController {
         }, onFailed: {err in
             
             if SMValidation.showConnectionErrorToast(err) {
-                SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localized)
+                SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
             }
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1), execute: {
 

@@ -43,9 +43,9 @@ class SMRecieptView: UIView {
    
     func setupUI(){
 
-		saveReciept.setTitle("ذخیره".localized, for: .normal)
-		closeReciept.setTitle("بستن".localized, for: .normal)
-		titleLabel.text = "پرداخت موفق".localized
+        saveReciept.setTitle(IGStringsManager.GlobalSave.rawValue.localized, for: .normal)
+        closeReciept.setTitle(IGStringsManager.GlobalClose.rawValue.localized, for: .normal)
+        titleLabel.text = IGStringsManager.SuccessPayment.rawValue.localized
         
         saveReciept.layer.cornerRadius = saveReciept.frame.height / 2
         saveReciept.layer.borderWidth = 0.5

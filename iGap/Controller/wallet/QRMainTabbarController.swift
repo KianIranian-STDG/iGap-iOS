@@ -23,26 +23,26 @@ class QRMainTabbarController: UITabBarController {
         override func viewDidLoad() {
             super.viewDidLoad()
             self.tabBar.barTintColor = UIColor(named: themeColor.navigationSecondColor.rawValue)
-            tabBar.items![0].title = "SETTING_PAGE_QRCODE_SCANNER".localized
-            tabBar.items![1].title = "MY_QR".localized
+            tabBar.items![0].title = IGStringsManager.QrCodeScanner.rawValue.localized
+            tabBar.items![1].title = IGStringsManager.MyQr.rawValue.localized
         }
         
         override func viewWillAppear(_ animated: Bool) {
             selectedItemTitleMustbeBold()
-            tabBar.items![0].title = "SETTING_PAGE_QRCODE_SCANNER".localized
-            tabBar.items![1].title = "MY_QR".localized
+            tabBar.items![0].title = IGStringsManager.QrCodeScanner.rawValue.localized
+            tabBar.items![1].title = IGStringsManager.MyQr.rawValue.localized
         }
         
         override func viewDidAppear(_ animated: Bool) {
             selectedItemTitleMustbeBold()
-            tabBar.items![0].title = "SETTING_PAGE_QRCODE_SCANNER".localized
-            tabBar.items![1].title = "MY_QR".localized
+            tabBar.items![0].title = IGStringsManager.QrCodeScanner.rawValue.localized
+            tabBar.items![1].title = IGStringsManager.MyQr.rawValue.localized
         }
         
         override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
             selectedItemTitleMustbeBold()
-            tabBar.items![0].title = "SETTING_PAGE_QRCODE_SCANNER".localized
-            tabBar.items![1].title = "MY_QR".localized
+            tabBar.items![0].title = IGStringsManager.QrCodeScanner.rawValue.localized
+            tabBar.items![1].title = IGStringsManager.MyQr.rawValue.localized
         }
         
         func selectedItemTitleMustbeBold(){

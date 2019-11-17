@@ -40,11 +40,11 @@ class chargeWalletTableViewController: BaseTableViewController,UITextFieldDelega
         initChangeDirection()
     }
     func initChangeLang() {
-        tfAmount.placeholder = "PLACE_HOLDER_AMOUNT".localized
-        lblEnterChargePriceTitle.text = "TTL_ENTER_CHARGE_PRICE".localized
-        amountTitleLabel.text = "TTL_WALLET_ACCOUNT_BALANCE".localized
-        cashableAmountLabel.text = "TTL_WALLET_ACCOUNT_CASHABLE".localized
-//        balanceLabel.text = "TTL_WALLET_ACCOUNT_CASHABLE".localized
+        tfAmount.placeholder = IGStringsManager.AmountPlaceHolder.rawValue.localized
+        lblEnterChargePriceTitle.text = IGStringsManager.EnterChargePrice.rawValue.localized
+        amountTitleLabel.text = IGStringsManager.WalletBalance.rawValue.localized
+        cashableAmountLabel.text = IGStringsManager.CashablePrice.rawValue.localized
+//        balanceLabel.text = IGStringsManager.CashablePrice.rawValue.localized
 
     }
     func initChangeDirection() {
@@ -63,7 +63,7 @@ class chargeWalletTableViewController: BaseTableViewController,UITextFieldDelega
     // MARK : - init View elements
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "TTL_TRANSITION_CHARGE_WALLET".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.ChargeWallet.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         
     }
@@ -96,7 +96,7 @@ class chargeWalletTableViewController: BaseTableViewController,UITextFieldDelega
             
         }, onFailed: {err in
             if SMValidation.showConnectionErrorToast(err) {
-                SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+                SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
             }
             SMLoading.hideLoadingPage()
             SMLog.SMPrint(err)

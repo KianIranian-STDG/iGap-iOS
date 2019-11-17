@@ -74,7 +74,7 @@ class SMMyBarCodeViewController: BaseViewController {
         
         getBarcode()
         infoLbl.font = UIFont.igFont(ofSize: 15,weight: .bold)
-        infoLbl.text = "SHOW_THIS_QR".localized
+        infoLbl.text = IGStringsManager.MyQrToPayHint.rawValue.localized
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -109,9 +109,9 @@ class SMMyBarCodeViewController: BaseViewController {
     // MARK : - init View elements
     func initNavigationBar() {
 //        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 16),NSAttributedString.Key.foregroundColor: UIColor.white]
-//        self.navigationController!.navigationBar.topItem!.title = "MY_QR".localized
+//        self.navigationController!.navigationBar.topItem!.title = IGStringsManager.MyQr.rawValue.localized
         
-        self.initNavigationBar(title: "MY_QR".localized) { }
+        self.initNavigationBar(title: IGStringsManager.MyQr.rawValue.localized) { }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -100,7 +100,7 @@ class IGHelperJoin {
         DispatchQueue.main.async {
                         
             let msg = "U_JOINED".localized + " " + beforeString + "TO".localized + room.title!
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg,doneText: "OPEN_NOW".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,done: {
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg,doneText: "OPEN_NOW".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,done: {
 
                 let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let chatPage = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController

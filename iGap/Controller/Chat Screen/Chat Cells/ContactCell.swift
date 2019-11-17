@@ -320,7 +320,7 @@ class ContactCell: AbstractCell {
             })
             option.addAction(ok)
             
-            let cancel = UIAlertAction(title: "GLOBAL_NO".localized, style: .cancel, handler: nil)
+            let cancel = UIAlertAction(title: IGStringsManager.GlobalNo.rawValue.localized, style: .cancel, handler: nil)
             option.addAction(cancel)
             
             UIApplication.topViewController()!.present(option, animated: true, completion: {})

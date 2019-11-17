@@ -86,18 +86,17 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         initChangeDirection()
     }
     func initChangeLang() {
-        lblCashoutPriceHeader.text = "TTL_CHOOSE_CASHOUT_AMOUNT".localized
-        lblEnterCardNUmberHeader.text = "TTL_ENTER_CARD_NUMBER".localized
-        lblWalletAccountBalanceTitle.text = "TTL_WALLET_ACCOUNT_BALANCE".localized
-        lblCashableAmountBalanceTitle.text = "TTL_WALLET_ACCOUNT_CASHABLE".localized
-        cashoutTypeSeg.setTitle("TTL_CASHOUT_TYPE_IMMIDIATE".localized, forSegmentAt: 0)
-        cashoutTypeSeg.setTitle("TTL_CASHOUT_TYPE_NORMAL".localized, forSegmentAt: 1)
+        lblCashoutPriceHeader.text = IGStringsManager.EnterCashoutAmount.rawValue.localized
+        lblEnterCardNUmberHeader.text = IGStringsManager.EnterYourCardNumber.rawValue.localized
+        lblWalletAccountBalanceTitle.text = IGStringsManager.WalletBalance.rawValue.localized
+        lblCashableAmountBalanceTitle.text = IGStringsManager.CashablePrice.rawValue.localized
+        cashoutTypeSeg.setTitle(IGStringsManager.ImmidiateCashout.rawValue.localized, forSegmentAt: 0)
+        cashoutTypeSeg.setTitle(IGStringsManager.NormalCashout.rawValue.localized, forSegmentAt: 1)
         if currentRole == "admin" {
-            cashoutTypeSeg.setTitle("TTL_CASHOUT_TYPE_TO_WALLET".localized, forSegmentAt: 2)
-
+            cashoutTypeSeg.setTitle(IGStringsManager.ToWallet.rawValue.localized, forSegmentAt: 2)
         }
-        btnGetIban.setTitle("TTL_HOW_TO_GET_IBAN".localized, for: .normal)
-        btnpay.setTitle("BTN_PAY_CASHOUT".localized, for: .normal)
+        btnGetIban.setTitle(IGStringsManager.HowToGetIBAN.rawValue.localized, for: .normal)
+        btnpay.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
 
     }
     func initChangeDirection() {
@@ -106,7 +105,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
     }
     @IBAction func cardPickTap(_ sender: Any) {
         tmpCardToken = ""
-        SMLoading.shared.showSavedCardDialog(viewController: self, icon: nil, title: "SAVED_CARDS".localized, cards: SMCashout.getAllCardsFromDB(),yesPressed: { card, saveDefault in
+        SMLoading.shared.showSavedCardDialog(viewController: self, icon: nil, title: IGStringsManager.MyCards.rawValue.localized, cards: SMCashout.getAllCardsFromDB(),yesPressed: { card, saveDefault in
             self.selectCard = (card as! SMCashout)
             print("CARDS IN DB:")
             print(SMCashout.getAllCardsFromDB())
@@ -129,15 +128,15 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
     // MARK : - init View elements
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "BTN_CASHOUT_WALLET".localized)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.Cashout.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         
     }
     func initView() {
-        tfCardNumber.placeholder = "PLAVE_HOLDER_16_DIGIT".localized
-        self.tfAmount.placeholder = "PLACE_HOLDER_AMOUNT".localized
-        self.lblWalletAmountBalance.text = balance + " " + "CURRENCY".localized
-        self.lblCashableAmountBalance.text = balance + " " + "CURRENCY".localized
+        tfCardNumber.placeholder = IGStringsManager.PlaceHolder16.rawValue.localized
+        self.tfAmount.placeholder = IGStringsManager.AmountPlaceHolder.rawValue.localized
+        self.lblWalletAmountBalance.text = balance + " " + IGStringsManager.Currency.rawValue.localized
+        self.lblCashableAmountBalance.text = balance + " " + IGStringsManager.Currency.rawValue.localized
         if currentRole == "admin" {
             widthConstrait.constant = 0
             
@@ -160,7 +159,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         
         
         if let presentedViewController = self.storyboard?.instantiateViewController(withIdentifier: "cashoutModalStepOne") as! cashoutModalStepOneViewController? {
-            presentedViewController.dialogT = "CASHOUT_REQUEST".localized
+            presentedViewController.dialogT = IGStringsManager.CashoutRequest.rawValue.localized
             presentedViewController.amount = amount!.inEnglishNumbersNew()
             presentedViewController.message = resp
             presentedViewController.providesPresentationContextTransitionStyle = true
@@ -178,12 +177,12 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         alertView.title = title
         alertView.message = message
         
-        alertView.leftButtonTitle = "GLOBAL_NO".localized
+        alertView.leftButtonTitle = IGStringsManager.GlobalNo.rawValue.localized
         alertView.leftButtonAction = noPressed
         
-        alertView.rightButtonTitle = "GLOBAL_YES".localized
+        alertView.rightButtonTitle = IGStringsManager.GlobalYes.rawValue.localized
         alertView.rightButtonAction = yesPressed
-        alertView.forgotButtonTitle = "FORGET_WALLET_PIN".localized
+        alertView.forgotButtonTitle = IGStringsManager.ResetWalletPin.rawValue.localized
         alertView.forgotPinAction = forgotPin
         
         
@@ -193,7 +192,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         })
     }
     
-    public func showNormalDialog(viewController:UIViewController, height: Float ,isleftButtonEnabled : Bool? = true ,title:String? ,message:String? ,leftButtonTitle : String? = "GLOBAL_NO".localized ,rightButtonTitle :String? = "GLOBAL_YES".localized , yesPressed: CallBack? = nil, noPressed: SimpleCallBack? = nil){
+    public func showNormalDialog(viewController:UIViewController, height: Float ,isleftButtonEnabled : Bool? = true ,title:String? ,message:String? ,leftButtonTitle : String? = IGStringsManager.GlobalNo.rawValue.localized ,rightButtonTitle :String? = IGStringsManager.GlobalYes.rawValue.localized , yesPressed: CallBack? = nil, noPressed: SimpleCallBack? = nil){
         
         let alertView : SMNormalAlertViewController! = storyboard?.instantiateViewController(withIdentifier: "normalalert") as! SMNormalAlertViewController?
         alertView.dialogT = title
@@ -244,7 +243,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
             }, onFailed: {err in
                 //?
                 if SMValidation.showConnectionErrorToast(err)  {
-                    SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+                    SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
                 }
                 let message = (err as! NSDictionary).value(forKey: "message") as! String
                 SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: message)
@@ -261,7 +260,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 return
             }
 
-            SMLoading.shared.showInputPinDialog(viewController: self, icon: nil, title: "", message: "ENTER_WALLET_PIN".localized, yesPressed: { pin in
+            SMLoading.shared.showInputPinDialog(viewController: self, icon: nil, title: "", message: IGStringsManager.EnterWalletPin.rawValue.localized, yesPressed: { pin in
 //                self.gotoLoadingState()
                 SMLoading.showLoadingPage(viewcontroller: self)
                 if currentRole == "admin" {
@@ -269,7 +268,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 }
                 SMCard.chashout(amount: amount , cardNumber:  cardNu, cardToken: "",sourceCardToken: sourceCardToken, pin: (pin as? String) ,isFast : false, accountId: accountId ,onSuccess: {resp in
                     
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 180,isleftButtonEnabled: false, title: "SUCCESS_OPERATION".localized, message: "SUCCESS".localized, yesPressed: { pin in
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 180,isleftButtonEnabled: false, title: IGStringsManager.GlobalSuccess.rawValue.localized , message: IGStringsManager.SuccessOperation.rawValue.localized, yesPressed: { pin in
                         
                 
                         
@@ -299,7 +298,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         }
         else {
             //show get pin popup
-            SMLoading.shared.showInputPinDialog(viewController: self, icon: nil, title: "", message: "enterpin".localized, yesPressed: { pin in
+            SMLoading.shared.showInputPinDialog(viewController: self, icon: nil, title: "", message: IGStringsManager.EnterWalletPin.rawValue.localized, yesPressed: { pin in
                 
 //                self.gotoLoadingState()
                 SMLoading.showLoadingPage(viewcontroller: self)
@@ -423,7 +422,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                     
                 }
                 else {
-                    SMMessage.showWithMessage("BALANCE_NOT_ENOUGH".localized)
+                    SMMessage.showWithMessage(IGStringsManager.LowWalletbalance.rawValue.localized)
                 }
                 
             }
@@ -453,7 +452,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                     
                 }
                 else {
-                    SMMessage.showWithMessage("BALANCE_NOT_ENOUGH".localized)
+                    SMMessage.showWithMessage(IGStringsManager.LowWalletbalance.rawValue.localized)
                 }
                 
             }
@@ -500,8 +499,8 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
 
             }
             self.loadViewIfNeeded()
-            tfCardNumber.placeholder = "PLAVE_HOLDER_16_DIGIT".localized
-            lblEnterCardNUmberHeader.text = "TTL_ENTER_CARD_NUMBER".localized
+            tfCardNumber.placeholder = IGStringsManager.PlaceHolder16.rawValue.localized
+            lblEnterCardNUmberHeader.text = IGStringsManager.EnterYourCardNumber.rawValue.localized
 
             isImmediate = true
             isToWallet = false
@@ -521,8 +520,8 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
             }
             widthConstrait.constant = 0
             self.loadViewIfNeeded()
-            tfCardNumber.placeholder = "PLAVE_HOLDER_24_DIGIT".localized
-            lblEnterCardNUmberHeader.text = "TTL_ENTER_IBAN_NUMBER".localized
+            tfCardNumber.placeholder = IGStringsManager.PlaceHolder24.rawValue.localized
+            lblEnterCardNUmberHeader.text = IGStringsManager.EnterIbanNumber.rawValue.localized
 
             isImmediate = false
             isToWallet = false

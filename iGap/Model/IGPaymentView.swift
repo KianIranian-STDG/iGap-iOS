@@ -110,7 +110,7 @@ class IGPaymentView: UIView {
         if let description = payment.info.product?.description {
             self.descriptionLbl.text = description
         }
-        self.amountDescriptionLbl.text = "PLACE_HOLDER_AMOUNT".localized
+        self.amountDescriptionLbl.text = IGStringsManager.AmountPlaceHolder.rawValue.localized
         if let price = payment.info.price {
             self.amountLbl.text = "\(price)".onlyDigitChars().inRialFormat()
         }
@@ -118,8 +118,8 @@ class IGPaymentView: UIView {
         self.mainSV.isHidden = false
         self.statusSV.isHidden = true
         self.acceptBtn.isHidden = false
-        self.cancelBtn.setTitle("BTN_CANCEL".localized, for: .normal)
-        self.acceptBtn.setTitle("PU_PAYMENT".localized, for: .normal)
+        self.cancelBtn.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
+        self.acceptBtn.setTitle(IGStringsManager.Pay.rawValue.localized, for: .normal)
         self.cancelBtn.backgroundColor = UIColor.iGapRed()
         
         self.errorMessageLbl.isHidden = true
@@ -151,7 +151,7 @@ class IGPaymentView: UIView {
         if let description = paymentStatusData.info?.product?.description {
             self.descriptionLbl.text = description
         }
-        self.amountDescriptionLbl.text = "PLACE_HOLDER_AMOUNT".localized
+        self.amountDescriptionLbl.text = IGStringsManager.AmountPlaceHolder.rawValue.localized
         if let price = paymentStatusData.info?.price {
             self.amountLbl.text = "\(price)".onlyDigitChars().inRialFormat()
         }

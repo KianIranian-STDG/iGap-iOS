@@ -75,8 +75,8 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
         }
         edtProvisionCode.placeholder = "PLACE_HOLDER_P_CODE".localized
         btnInquiry.setTitle("BTN_INQUERY".localized, for: .normal)
-        btnPayment.setTitle("PU_PAYMENT".localized, for: .normal)
-        btnPaymentMid.setTitle("PU_PAYMENT".localized, for: .normal)
+        btnPayment.setTitle(IGStringsManager.Pay.rawValue.localized, for: .normal)
+        btnPaymentMid.setTitle(IGStringsManager.Pay.rawValue.localized, for: .normal)
         txtAmount.text = "TXT_AMOUNT".localized
         txtMidTerm.text = "MID_TERM_BILL".localized
         txtLastTerm.text = "END_TERM_BILL".localized
@@ -210,32 +210,32 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
             self.paymentCode = "\(lastTerm.igpPayID)"
             self.txtBillingID.text = "\(lastTerm.igpBillID)"
             self.txtPaymentCode.text = "\(lastTerm.igpPayID)"
-            self.txtAmount.text = "\(lastTerm.igpAmount) " + "CURRENCY".localized
+            self.txtAmount.text = "\(lastTerm.igpAmount) " + IGStringsManager.Currency.rawValue.localized
             
             if lastTerm.igpAmount != 0 {
                 self.manageButtonsView(buttons: [self.btnPayment])
                 self.manageViews(views: [self.viewOne])
-                self.btnPayment.setTitle("PU_PAYMENT".localized, for: UIControl.State.normal)
+                self.btnPayment.setTitle(IGStringsManager.Pay.rawValue.localized, for: UIControl.State.normal)
             } else {
                 self.manageButtonsView(buttons: [self.btnPayment],enable: false)
                 self.manageViews(views: [self.viewOne], enable: false)
-                self.btnPayment.setTitle("PU_PAYMENT".localized, for: UIControl.State.normal)
+                self.btnPayment.setTitle(IGStringsManager.Pay.rawValue.localized, for: UIControl.State.normal)
             }
             
             self.billingIdMid = "\(midTerm.igpBillID)"
             self.paymentCodeMid = "\(midTerm.igpPayID)"
             self.txtBillingIDMid.text = "\(midTerm.igpBillID)"
             self.txtPaymentCodeMid.text = "\(midTerm.igpPayID)"
-            self.txtAmountMid.text = "\(midTerm.igpAmount) " + "CURRENCY".localized
+            self.txtAmountMid.text = "\(midTerm.igpAmount) " + IGStringsManager.Currency.rawValue.localized
             
             if midTerm.igpAmount != 0 {
                 self.manageButtonsView(buttons: [self.btnPaymentMid])
                 self.manageViews(views: [self.viewTwo])
-                self.btnPaymentMid.setTitle("PU_PAYMENT".localized, for: UIControl.State.normal)
+                self.btnPaymentMid.setTitle(IGStringsManager.Pay.rawValue.localized, for: UIControl.State.normal)
             } else {
                 self.manageButtonsView(buttons: [self.btnPaymentMid],enable: false)
                 self.manageViews(views: [self.viewTwo], enable: false)
-                self.btnPaymentMid.setTitle("PU_PAYMENT".localized, for: UIControl.State.normal)
+                self.btnPaymentMid.setTitle(IGStringsManager.Pay.rawValue.localized, for: UIControl.State.normal)
             }
         }
     }
@@ -246,32 +246,32 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
             self.paymentCode = "\(lastTerm.igpPayID)"
             self.txtBillingID.text = "\(lastTerm.igpBillID)"
             self.txtPaymentCode.text = "\(lastTerm.igpPayID)"
-            self.txtAmount.text = "\(lastTerm.igpAmount) " + "CURRENCY".localized
+            self.txtAmount.text = "\(lastTerm.igpAmount) " + IGStringsManager.Currency.rawValue.localized
             
             if lastTerm.igpAmount != 0 {
                 self.manageButtonsView(buttons: [self.btnPayment])
                 self.manageViews(views: [self.viewOne])
-                self.btnPayment.setTitle("PU_PAYMENT".localized, for: UIControl.State.normal)
+                self.btnPayment.setTitle(IGStringsManager.Pay.rawValue.localized, for: UIControl.State.normal)
             } else {
                 self.manageButtonsView(buttons: [self.btnPayment],enable: false)
                 self.manageViews(views: [self.viewOne], enable: false)
-                self.btnPayment.setTitle("PU_PAYMENT".localized, for: UIControl.State.normal)
+                self.btnPayment.setTitle(IGStringsManager.Pay.rawValue.localized, for: UIControl.State.normal)
             }
             
             self.billingIdMid = "\(midTerm.igpBillID)"
             self.paymentCodeMid = "\(midTerm.igpPayID)"
             self.txtBillingIDMid.text = "\(midTerm.igpBillID)"
             self.txtPaymentCodeMid.text = "\(midTerm.igpPayID)"
-            self.txtAmountMid.text = "\(midTerm.igpAmount) " + "CURRENCY".localized
+            self.txtAmountMid.text = "\(midTerm.igpAmount) " + IGStringsManager.Currency.rawValue.localized
             
             if midTerm.igpAmount != 0 {
                 self.manageButtonsView(buttons: [self.btnPaymentMid])
                 self.manageViews(views: [self.viewTwo])
-                self.btnPaymentMid.setTitle("PU_PAYMENT".localized, for: UIControl.State.normal)
+                self.btnPaymentMid.setTitle(IGStringsManager.Pay.rawValue.localized, for: UIControl.State.normal)
             } else {
                 self.manageButtonsView(buttons: [self.btnPaymentMid],enable: false)
                 self.manageViews(views: [self.viewTwo], enable: false)
-                self.btnPaymentMid.setTitle("PU_PAYMENT".localized, for: UIControl.State.normal)
+                self.btnPaymentMid.setTitle(IGStringsManager.Pay.rawValue.localized, for: UIControl.State.normal)
             }
         }
     }

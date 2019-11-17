@@ -151,10 +151,10 @@ class IGElecBillBranchingInfoTableViewController: BaseTableViewController {
         lblTitleRow5.text = "BILL_DETAIL_VOLTAGE".localized
         lblTitleRow6.text = "BILL_DETAIL_TARIFE_TYPE".localized
         lblTitleRow7.text = "BILL_DETAIL_CUSTOMER_TYPE".localized
-        lblTitleRow8.text = "BILL_DETAIL_CUSTOMER_NAME".localized
+        lblTitleRow8.text = IGStringsManager.ElecCustomerName.rawValue.localized
         lblTitleRow9.text = "BILL_DETAIL_CUSTOMER_TEL".localized
         lblTitleRow10.text = "BILL_DETAIL_CUSTOMER_MOB".localized
-        lblTitleRow11.text = "BILL_DETAIL_CUSTOMER_ADD".localized
+        lblTitleRow11.text = IGStringsManager.ElecCustomerAdd.rawValue.localized
         lblTitleRow12.text = "BILL_DETAIL_CUSTOMER_POSTALCODE".localized
         lblTitleRow13.text = "BILL_DETAIL_CUSTOMER_LOCATION_ZONE".localized
         lblTitleRow14.text = "BILL_DETAIL_CUSTOMER_DEVICE_NUMBER".localized
@@ -299,10 +299,10 @@ class IGElecBillBranchingInfoTableViewController: BaseTableViewController {
         lblTitleRow5.text = "BILL_DETAIL_VOLTAGE".localized
         lblTitleRow6.text = "BILL_DETAIL_TARIFE_TYPE".localized
         lblTitleRow7.text = "BILL_DETAIL_CUSTOMER_TYPE".localized
-        lblTitleRow8.text = "BILL_DETAIL_CUSTOMER_NAME".localized
+        lblTitleRow8.text = IGStringsManager.ElecCustomerName.rawValue.localized
         lblTitleRow9.text = "BILL_DETAIL_CUSTOMER_TEL".localized
         lblTitleRow10.text = "BILL_DETAIL_CUSTOMER_MOB".localized
-        lblTitleRow11.text = "BILL_DETAIL_CUSTOMER_ADD".localized
+        lblTitleRow11.text = IGStringsManager.ElecCustomerAdd.rawValue.localized
         lblTitleRow12.text = "BILL_DETAIL_CUSTOMER_POSTALCODE".localized
         lblTitleRow13.text = "BILL_DETAIL_CUSTOMER_LOCATION_ZONE".localized
         lblTitleRow14.text = "BILL_DETAIL_CUSTOMER_DEVICE_NUMBER".localized

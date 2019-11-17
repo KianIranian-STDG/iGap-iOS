@@ -28,7 +28,7 @@ class IGScoreHistoryViewController: BaseViewController, UICollectionViewDelegate
         initNavigationBar()
         customizeView()
         manageShowActivties(isFirst: true)
-        btnScan.setTitle("SETTING_PAGE_QRCODE_SCANNER".localized, for: .normal)
+        btnScan.setTitle(IGStringsManager.QrCodeScanner.rawValue.localized, for: .normal)
         btnScan.titleLabel!.font = UIFont.igFont(ofSize: 15)
     }
     
@@ -68,7 +68,7 @@ class IGScoreHistoryViewController: BaseViewController, UICollectionViewDelegate
     
     private func manageShowActivties(isFirst: Bool = false){
         if isFirst {
-            self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localized)
+            self.collectionView!.setEmptyMessage(IGStringsManager.WaitDataFetch.rawValue.localized)
         } else if iVandActivities.count == 0 {
             self.collectionView!.setEmptyMessage("PU_NODATA".localized)
         } else {

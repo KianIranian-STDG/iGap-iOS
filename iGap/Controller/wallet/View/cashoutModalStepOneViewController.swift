@@ -91,8 +91,8 @@ class cashoutModalStepOneViewController: BaseViewController {
         initCHangeLang()
     }
     func initCHangeLang() {
-        lblWalletPinTitle.text = "ENTER_WALLET_PIN".localized
-        dialogTitle.text = "WALLET_PIN".localized
+        lblWalletPinTitle.text = IGStringsManager.EnterWalletPin.rawValue.localized
+        dialogTitle.text = IGStringsManager.WalletPin.rawValue.localized
     }
     
     func initView() {
@@ -123,22 +123,22 @@ class cashoutModalStepOneViewController: BaseViewController {
         let personalItems = ((resp as! NSDictionary)["owner"]as! NSDictionary)
         let cardItems = ((resp as! NSDictionary)["destination_card_info"]as! NSDictionary)
         
-        leftLBLone.text  = "AMOUNT_IN".localized
-        rightLBLone.text = amount + " " + "CURRENCY".localized
+        leftLBLone.text  = IGStringsManager.AmountIn.rawValue.localized
+        rightLBLone.text = amount + " " + IGStringsManager.Currency.rawValue.localized
 
-        leftLBLtwo.text  = "AMOUNT_OUT".localized
-        rightLBLtwo.text = amount + " " + "CURRENCY".localized
+        leftLBLtwo.text  = IGStringsManager.AmountOut.rawValue.localized
+        rightLBLtwo.text = amount + " " + IGStringsManager.Currency.rawValue.localized
         
-        leftLBLthree.text  = "WAGE".localized
-        rightLBLthree.text = "\((resp as! NSDictionary)["transfer_fee"]!)".inRialFormat().inLocalizedLanguage() + "CURRENCY".localized
+        leftLBLthree.text  = IGStringsManager.Wage.rawValue.localized
+        rightLBLthree.text = "\((resp as! NSDictionary)["transfer_fee"]!)".inRialFormat().inLocalizedLanguage() + IGStringsManager.Currency.rawValue.localized
         
-        leftLBLfour.text  = "DEST_CARD".localized
+        leftLBLfour.text  = IGStringsManager.DestinationCard.rawValue.localized
         rightLBLfour.text = "\(cardItems["card_number"]!)".addSepratorCardNum().inLocalizedLanguage()
 
-        leftLBLfive.text  = "DEST_BANK".localized
+        leftLBLfive.text  = IGStringsManager.DestinationBank.rawValue.localized
         rightLBLfive.text = "\(personalItems["bank_name"]!)"
 
-        leftLBLSix.text  = "OWNER_NAME".localized
+        leftLBLSix.text  = IGStringsManager.AccountOwnerName.rawValue.localized
         rightLBLsix.text = "\(personalItems["first_name"]!)" + " " + "\(personalItems["last_name"]!)"
         
     }
@@ -163,7 +163,7 @@ class cashoutModalStepOneViewController: BaseViewController {
             if currentRole == "admin" {
                 
                 SMCard.chashout(amount: Int((rightLBLone.text!).inEnglishNumbersNew().onlyDigitChars()) , cardNumber: (rightLBLfour.text)?.onlyDigitChars(), cardToken: "", sourceCardToken:cardToken,  pin: (tfPin.text?.onlyDigitChars()) ,isFast : true, accountId: merchantID ,onSuccess: {resp in
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 180,isleftButtonEnabled: false, title: "CASHOUT_REQUEST".localized, message: "SUCCESS_OPERATION".localized, yesPressed: { pin in
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 180,isleftButtonEnabled: false, title: IGStringsManager.CashoutRequest.rawValue.localized, message: IGStringsManager.SuccessOperation.rawValue.localized, yesPressed: { pin in
                         self.view.endEditing(true)
                         self.navigationController?.popViewController(animated: true)
                         
@@ -176,7 +176,7 @@ class cashoutModalStepOneViewController: BaseViewController {
             else {
                 
                 SMCard.chashout(amount: Int((rightLBLone.text!).inEnglishNumbersNew().onlyDigitChars()) , cardNumber: (rightLBLfour.text)?.onlyDigitChars(), cardToken: "", sourceCardToken:cardToken,  pin: (tfPin.text?.onlyDigitChars()) ,isFast : true, accountId: merchantID ,onSuccess: {resp in
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 180,isleftButtonEnabled: false, title: "CASHOUT_REQUEST".localized, message: "SUCCESS_OPERATION".localized, yesPressed: { pin in
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 180,isleftButtonEnabled: false, title: IGStringsManager.CashoutRequest.rawValue.localized, message: IGStringsManager.SuccessOperation.rawValue.localized, yesPressed: { pin in
                         self.view.endEditing(true)
                         self.navigationController?.popViewController(animated: true)
                         
@@ -226,7 +226,7 @@ class cashoutModalStepOneViewController: BaseViewController {
     }
     
     func GoToWalletPinUI() {
-        dialogTitle.text = "WALLET_PIN".localized
+        dialogTitle.text = IGStringsManager.WalletPin.rawValue.localized
     }
     /*
     // MARK: - Navigation

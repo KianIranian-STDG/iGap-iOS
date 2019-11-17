@@ -141,7 +141,7 @@ class SMHistoryTableViewController: BaseTableViewController {
 	
 	func doFail(_ err: Any) {
 //        if SMValidation.showConnectionErrorToast(err) {
-//            SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+//            SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
 //        }
 		SMLog.SMPrint(err)
 //        SMLoading.hideLoadingPage()
@@ -168,30 +168,30 @@ class SMHistoryTableViewController: BaseTableViewController {
         let row = rowData![indexPath.row]
         cell.amountLabel.text = String(row.amount).inRialFormat().inLocalizedLanguage()
         cell.timeLabel.text = Date.init(timeIntervalSince1970: TimeInterval((row.pay_date != 0 ? row.pay_date: row.created_at_timestamp)/1000)).localizedDateTime()
-        cell.currencyLabel.text = "CURRENCY".localized
+        cell.currencyLabel.text = IGStringsManager.Currency.rawValue.localized
         cell.descLabel.text = row.receiver.name
         print("ROW||||")
         print(row.order_type.rawValue)
         print(row)
         switch row.order_type {
         case .CHARGE:
-            cell.titleLabel.text = "TTL_TRANSITION_CHARGE_WALLET".localized
+            cell.titleLabel.text = IGStringsManager.ChargeWallet.rawValue.localized
             cell.titleImage.isHidden = true
-            cell.descLabel.text = "TTL_WALLET_ACCOUNT".localized
+            cell.descLabel.text = IGStringsManager.Wallet.rawValue.localized
             cell.profileImage.image = UIImage.init(named: "AppIcon")
         case .CASH_OUT:
             cell.titleImage.isHidden = false
             if row.is_paid == .PAID {
                 cell.titleImage.image = UIImage.init(named: "up-arrow")
-                cell.titleLabel.text = "TTL_IS_PAYED".localized
+                cell.titleLabel.text = IGStringsManager.Cashout.rawValue.localized
             }
 			else if (row.is_paid == .REFUND) {
 				cell.titleImage.image = UIImage.init(named: "down-arrow")
-				cell.titleLabel.text = "TTL_MONEY_REFUND".localized
+				cell.titleLabel.text = IGStringsManager.MoneyRefounded.rawValue.localized
 			}
 			else{
                 cell.titleImage.image = UIImage.init(named: "hourglass")
-                cell.titleLabel.text = "TTL_CASHOUT_PENDING".localized
+                cell.titleLabel.text = IGStringsManager.CashoutPending.rawValue.localized
             }
             cell.profileImage.image = UIImage.init(named: "AppIcon")
         case .P2P:
@@ -241,7 +241,7 @@ class SMHistoryTableViewController: BaseTableViewController {
 		}, onFailed: {err in
 			SMLog.SMPrint(err)
 //            if SMValidation.showConnectionErrorToast(err) {
-//                SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+//                SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
 //            }
 			self.indicator.stopAnimating()
 			self.loadingData = false
@@ -261,7 +261,7 @@ class SMHistoryTableViewController: BaseTableViewController {
 //            }, onFailed: {err in
 //                SMLog.SMPrint(err)
 //                if SMValidation.showConnectionErrorToast(err) {
-//                    SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+//                    SMLoading.showToast(viewcontroller: self, text: IGStringsManager.ServerDown.rawValue.localized)
 //                }
 //                self.indicator.stopAnimating()
 //                self.loadingData = false
@@ -279,10 +279,10 @@ class SMHistoryTableViewController: BaseTableViewController {
         if row.receiver.account_id == cAccountId {
             if row.is_paid == .PAID {
                 cell.titleImage.image = UIImage.init(named: "down-arrow")
-                cell.titleLabel.text = "TTL_RECIEVE_FRM".localized
+                cell.titleLabel.text = IGStringsManager.Recieve.rawValue.localized
             }else{
                 cell.titleImage.image = UIImage.init(named: "hourglass")
-                cell.titleLabel.text = "TTL_PAYMENT_PENDING_FRM".localized
+                cell.titleLabel.text = IGStringsManager.PaymentPending.rawValue.localized
             }
             if let pic = row.sender.profile_picture , pic != "" {
                 let request = WS_methods(delegate: self, failedDialog: false)
@@ -296,10 +296,10 @@ class SMHistoryTableViewController: BaseTableViewController {
         else{
             if row.is_paid == .PAID {
                 cell.titleImage.image = UIImage.init(named: "up-arrow")
-                cell.titleLabel.text = "TTL_PAYED_WITH_WALLED_CARD_TO".localized
+                cell.titleLabel.text = IGStringsManager.PaidWithWalletTo.rawValue.localized
             }else{
                 cell.titleImage.image = UIImage.init(named: "hourglass")
-                cell.titleLabel.text = "TTL_PAY_WITH_WALLET_CARD_PENDING".localized
+                cell.titleLabel.text = IGStringsManager.PaymentPending.rawValue.localized
             }
             
             if let pic = row.receiver.profile_picture , pic != "" {
@@ -323,10 +323,10 @@ class SMHistoryTableViewController: BaseTableViewController {
             
             if row.is_paid == .PAID {
                 cell.titleImage.image = UIImage.init(named: "up-arrow")
-                cell.titleLabel.text = "TTL_BUY_CLUB_FROM".localized
+                cell.titleLabel.text = IGStringsManager.BuyClubFrom.rawValue.localized
             }else{
                 cell.titleImage.image = UIImage.init(named: "hourglass")
-                cell.titleLabel.text = "history.paygear.receive.club.waiting".localized
+                cell.titleLabel.text = IGStringsManager.CashoutPending.rawValue.localized
             }
             
             if let pic = row.sender.profile_picture , pic != "" {
@@ -343,10 +343,10 @@ class SMHistoryTableViewController: BaseTableViewController {
             
             if row.is_paid == .PAID {
                 cell.titleImage.image = UIImage.init(named: "up-arrow")
-                cell.titleLabel.text = "فروش طرح باشگاه به".localized
+                cell.titleLabel.text = "فروش طرح باشگاه به"
             }else{
                 cell.titleImage.image = UIImage.init(named: "hourglass")
-                cell.titleLabel.text = "در انتظار فروش طرح باشگاه به".localized
+                cell.titleLabel.text = "در انتظار فروش طرح باشگاه به"
             }
             
             if let pic = row.receiver.profile_picture , pic != "" {
@@ -365,7 +365,7 @@ class SMHistoryTableViewController: BaseTableViewController {
         //let cAccountId = accountId != nil ? accountId : SMUserManager.accountId
         if row.is_paid  == .PAID{
             cell.titleImage.image = UIImage.init(named: "down-arrow")
-            cell.titleLabel.text = "history.sale.share".localized
+            cell.titleLabel.text = IGStringsManager.ShareOfSales.rawValue.localized
         }
         if let pic = row.sender.profile_picture , pic != "" {
             let request = WS_methods(delegate: self, failedDialog: true)

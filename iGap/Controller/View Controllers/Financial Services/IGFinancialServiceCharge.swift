@@ -43,7 +43,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
     let P5000: Int64 = 50000
     let P10000: Int64 = 100000
     let P20000: Int64 = 200000
-    let rials = "CURRENCY".localized
+    let rials = IGStringsManager.Currency.rawValue.localized
     
     var operatorDictionary: [String:IGOperator] =
         ["0910":IGOperator.mci,
@@ -336,7 +336,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
                         let paymentView = IGPaymentView.sharedInstance
                         if success {
                             guard let paymentData = payment else {
-                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                                 return
                             }
                             paymentView.show(on: UIApplication.shared.keyWindow!, title: "MCI_CHARGE".localized, payToken: token, payment: paymentData)

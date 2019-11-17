@@ -100,7 +100,7 @@ class IGDeleteAccountConfirmationTableViewController: BaseTableViewController , 
                     }
                 default:
                     DispatchQueue.main.async {
-                        let alertC = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.UnsuccessOperation.rawValue.localized, preferredStyle: .alert)
+                        let alertC = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalTryAgain.rawValue.localized, preferredStyle: .alert)
                         
                         let cancel = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                         alertC.addAction(cancel)
