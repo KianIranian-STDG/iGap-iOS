@@ -855,7 +855,7 @@
 "SELECT_COMPANY_FROM_LIST" = "Please Select company name from list Below";
 "ENETER_DEVICE_SERIAL_NUMBER" = "Please Enter your Counter Meter Serial Number";
 "FIND_MY_BILL" = "Find My Bill";
-"INVALID_BILL_MSG" = "The bill is invalid";
+"INVALID_BILL_MSG" = "Probably the bill is invalid";
 
 
 "CHARITY" = "Charity";
