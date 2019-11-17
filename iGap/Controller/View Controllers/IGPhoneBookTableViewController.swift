@@ -191,9 +191,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                         if IGAppManager.sharedManager.isUserLoggiedIn() {
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .percent
-//                            self.txtContactStates?.text = "\("contacts_sending".localized) %\(percent.fetchPercent())"
-                            // MERGE COMMENT
-                            //navigationItem.setNavigationItemForSyncingContactsStatus(text: "\("contacts_sending".localized) %\(percent.fetchPercent())")
+                            navigationItem.setNavigationItemForSyncingContactsStatus(text: "\("contacts_sending".localized) %\(percent.fetchPercent())")
                         }
                         break
                         
@@ -201,15 +199,11 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                         self.contactSynced = false
                         let formatter = NumberFormatter()
                         formatter.numberStyle = .percent
-//                        self.txtContactStates?.text = "\("contacts_being_saved".localized) %\(percent.fetchPercent())"
-                        // MERGE COMMENT
-                        //navigationItem.setNavigationItemForSyncingContactsStatus(text: "\("contacts_being_saved".localized) %\(percent.fetchPercent())")
+                        navigationItem.setNavigationItemForSyncingContactsStatus(text: "\("contacts_being_saved".localized) %\(percent.fetchPercent())")
                         break
                         
                     case .completed:
                         self.contactSynced = true
-//                        self.txtContactStates?.text = "\(self.contacts?.count ?? 0)".inLocalizedLanguage() + "CONTACTS".localized
-//                        navigationItem.setNavigationItemForSyncingContactsStatus(text: "\(self.contacts?.count ?? 0)".inLocalizedLanguage() + "CONTACTS".localized)
                         self.setNavigationItems()
                         break
                     }
