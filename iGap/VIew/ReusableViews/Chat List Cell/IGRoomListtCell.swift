@@ -422,7 +422,7 @@ class IGRoomListtCell: BaseTableViewCell {
                 self.lastMsgLabel.text = "DRAFT".localized + " \(draft.message)"
             } else if let lastMessage = room.lastMessage {
                 if lastMessage.isDeleted {
-                    self.lastMsgLabel.text = "DELETED_MESSAGE".MessageViewlocalized
+                    self.lastMsgLabel.text = "DELETED_MESSAGE".localized
                     self.lastMessageStateImage.isHidden = true
                     self.unreadView.isHidden = true
                     
@@ -455,29 +455,29 @@ class IGRoomListtCell: BaseTableViewCell {
 //                            self.lastMsgLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
 //                        }
                     case .image:
-                        self.lastMsgLabel.text = "IMAGES_MESSAGE".MessageViewlocalized
+                        self.lastMsgLabel.text = "IMAGES_MESSAGE".localized
                     case .video:
-                        self.lastMsgLabel.text = "VIDEOS_MESSAGE".MessageViewlocalized
+                        self.lastMsgLabel.text = "VIDEOS_MESSAGE".localized
                     case .gif:
-                        self.lastMsgLabel.text = "GIFS_MESSAGE".MessageViewlocalized
+                        self.lastMsgLabel.text = "GIFS_MESSAGE".localized
                     case .audio:
-                        self.lastMsgLabel.text = "AUDIOS_MESSAGE".MessageViewlocalized
+                        self.lastMsgLabel.text = "AUDIOS_MESSAGE".localized
                     case .voice:
-                        self.lastMsgLabel.text = "VOICES_MESSAGE".MessageViewlocalized
+                        self.lastMsgLabel.text = "VOICES_MESSAGE".localized
                     case .file:
-                        self.lastMsgLabel.text = "FILES_MESSAGE".MessageViewlocalized
+                        self.lastMsgLabel.text = "FILES_MESSAGE".localized
                     case .sticker:
-                        self.lastMsgLabel.text = "STICKERS_MESSAGE".MessageViewlocalized
+                        self.lastMsgLabel.text = "STICKERS_MESSAGE".localized
                     case .wallet:
                         if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
-                            self.lastMsgLabel.text = "WALLET_MESSAGE".MessageViewlocalized
+                            self.lastMsgLabel.text = "WALLET_MESSAGE".localized
                         } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
-                            self.lastMsgLabel.text = "PAYMENT_MESSAGE".MessageViewlocalized
+                            self.lastMsgLabel.text = "PAYMENT_MESSAGE".localized
                         } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
-                            self.lastMsgLabel.text = "CARD_TO_CARD_MESSAGE".MessageViewlocalized
+                            self.lastMsgLabel.text = "CARD_TO_CARD_MESSAGE".localized
                         }
                     default:
-                        self.lastMsgLabel.text = "UNKNOWN_MESSAGE".MessageViewlocalized
+                        self.lastMsgLabel.text = "UNKNOWN_MESSAGE".localized
                         break
                     }
                     
@@ -494,38 +494,38 @@ class IGRoomListtCell: BaseTableViewCell {
 //                            self.lastMsgLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
 //                        }
                     case .image:
-                        self.lastMsgLabel.text = "IMAGES_MESSAGE".MessageViewlocalized
+                        self.lastMsgLabel.text = "IMAGES_MESSAGE".localized
                     case .video:
-                        self.lastMsgLabel.text = "VIDEOS_MESSAGE".MessageViewlocalized
+                        self.lastMsgLabel.text = "VIDEOS_MESSAGE".localized
                     case .gif:
-                        self.lastMsgLabel.text = "GIFS_MESSAGE".MessageViewlocalized
+                        self.lastMsgLabel.text = "GIFS_MESSAGE".localized
                     case .audio:
-                        self.lastMsgLabel.text = "AUDIOS_MESSAGE".MessageViewlocalized
+                        self.lastMsgLabel.text = "AUDIOS_MESSAGE".localized
                     case .voice:
-                        self.lastMsgLabel.text = "VOICES_MESSAGE".MessageViewlocalized
+                        self.lastMsgLabel.text = "VOICES_MESSAGE".localized
                     case .file:
-                        self.lastMsgLabel.text = "FILES_MESSAGE".MessageViewlocalized
+                        self.lastMsgLabel.text = "FILES_MESSAGE".localized
                     case .sticker:
-                        self.lastMsgLabel.text = "STICKERS_MESSAGE".MessageViewlocalized
+                        self.lastMsgLabel.text = "STICKERS_MESSAGE".localized
                     case .wallet:
                         if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
-                            self.lastMsgLabel.text = "WALLET_MESSAGE".MessageViewlocalized
+                            self.lastMsgLabel.text = "WALLET_MESSAGE".localized
                         } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
-                            self.lastMsgLabel.text = "PAYMENT_MESSAGE".MessageViewlocalized
+                            self.lastMsgLabel.text = "PAYMENT_MESSAGE".localized
                         } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
-                            self.lastMsgLabel.text = "CARD_TO_CARD_MESSAGE".MessageViewlocalized
+                            self.lastMsgLabel.text = "CARD_TO_CARD_MESSAGE".localized
                         }
                     default:
-                        self.lastMsgLabel.text = "UNKNOWN_MESSAGE".MessageViewlocalized
+                        self.lastMsgLabel.text = "UNKNOWN_MESSAGE".localized
                         break
                     }
                 }
                 if lastMessage.type == .log {
                     self.lastMsgLabel.text = IGRoomMessageLog.textForLogMessage(lastMessage)
                 } else if lastMessage.type == .contact {
-                    self.lastMsgLabel.text = "CONTACT_MESSAGE".MessageViewlocalized
+                    self.lastMsgLabel.text = "CONTACT_MESSAGE".localized
                 } else if lastMessage.type == .location {
-                    self.lastMsgLabel.text = "LOCATION_MESSAGE".MessageViewlocalized
+                    self.lastMsgLabel.text = "LOCATION_MESSAGE".localized
                 }
             } else {
                 self.timeLabel.text = ""

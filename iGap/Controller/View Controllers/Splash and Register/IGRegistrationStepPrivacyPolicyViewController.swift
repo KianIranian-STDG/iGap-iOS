@@ -20,7 +20,7 @@ class IGRegistrationStepPrivacyPolicyViewController: BaseViewController {
         super.viewDidLoad()
         
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PS_TTL_PRIVACY".localized)
+        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.PrivacyPolicy.rawValue.localized)
         
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
 

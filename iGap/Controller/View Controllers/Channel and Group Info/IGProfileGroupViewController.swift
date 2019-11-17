@@ -117,13 +117,13 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         var title = ""
         
         if roomType == .chat {
-            title = "REPORT_REASON".RecentTableViewlocalized
+            title = "REPORT_REASON".localized
         } else {
-            title = "REPORT_REASON".RecentTableViewlocalized
+            title = "REPORT_REASON".localized
         }
         
         let alertC = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let abuse = UIAlertAction(title: "ABUSE".RecentTableViewlocalized, style: .default, handler: { (action) in
+        let abuse = UIAlertAction(title: "ABUSE".localized, style: .default, handler: { (action) in
             
             if roomType == .chat {
             } else {
@@ -131,7 +131,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             }
         })
         
-        let spam = UIAlertAction(title: "SPAM".RecentTableViewlocalized, style: .default, handler: { (action) in
+        let spam = UIAlertAction(title: "SPAM".localized, style: .default, handler: { (action) in
             
             if roomType == .chat {
             } else {
@@ -140,15 +140,15 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         })
         
         
-        let violence = UIAlertAction(title: "VIOLENCE".RecentTableViewlocalized, style: .default, handler: { (action) in
+        let violence = UIAlertAction(title: "VIOLENCE".localized, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.violence)
         })
         
-        let pornography = UIAlertAction(title: "PORNOGRAPHY".RecentTableViewlocalized, style: .default, handler: { (action) in
+        let pornography = UIAlertAction(title: "PORNOGRAPHY".localized, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.pornography)
         })
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalized, style: .cancel, handler: { (action) in
+        let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: { (action) in
             
         })
         
@@ -173,8 +173,8 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
-                    let alert = UIAlertController(title: "SUCCESS", message: "REPORT_SUBMITED".RecentTableViewlocalized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalized, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "SUCCESS", message: "REPORT_SUBMITED".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -186,15 +186,15 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalized, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalized, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .clientRoomReportReportedBefore:
-                    let alert = UIAlertController(title: "GLLOBAL_WARNING".RecentTableViewlocalized, message: "ROOM_REPORTED_BEFOR".RecentTableViewlocalized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalized, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLLOBAL_WARNING".localized, message: "ROOM_REPORTED_BEFOR".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
@@ -242,8 +242,8 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalized, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalized, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -353,7 +353,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case .timeout:
                     DispatchQueue.main.async {
                         let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -414,8 +414,8 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             (alert: UIAlertAction) -> Void in
             if self.myRole == .owner {
                 if self.connectionStatus == .connecting || self.connectionStatus == .waitingForNetwork {
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "NO_NETWORK".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalNoNetwork.rawValue.localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 } else {
@@ -424,8 +424,8 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 }
             }else{
                 if self.connectionStatus == .connecting || self.connectionStatus == .waitingForNetwork {
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "NO_NETWORK".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalNoNetwork.rawValue.localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }else {
@@ -434,7 +434,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             }
             
         })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style:.cancel , handler: {
+        let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style:.cancel , handler: {
             (alert: UIAlertAction) -> Void in
         })
         deleteConfirmAlertView.addAction(deleteAction)
@@ -476,7 +476,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             })
             
             
-            let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
             
             alert.view.tintColor = UIColor.organizationalColor()
             alert.addAction(copyAction)
@@ -503,7 +503,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             case .timeout:
                 DispatchQueue.main.async {
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
@@ -565,7 +565,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 case .timeout:
                     DispatchQueue.main.async {
                         let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.hud.hide(animated: true)
                         self.present(alert, animated: true, completion: nil)
@@ -599,7 +599,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 switch errorCode {
                 case .timeout:
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -635,7 +635,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     switch errorCode {
                     case .timeout:
                         let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     default:
@@ -1564,7 +1564,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return "NOTIFICATION_SOUNDS".localized
                 case 2:
@@ -1576,7 +1576,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return "GROUP_LINK".localized
                 case 2:
@@ -1590,7 +1590,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return "NOTIFICATION_SOUNDS".localized
                 case 2:
@@ -1602,7 +1602,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return "NOTIFICATION_SOUNDS".localized
                 case 2:
@@ -1615,7 +1615,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return "NOTIFICATION_SOUNDS".localized
                 case 2:
@@ -1631,7 +1631,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return "GROUP_LINK".localized
                 case 2:
@@ -1645,7 +1645,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return "GROUP_LINK".localized
                 case 2:
@@ -1659,7 +1659,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return "GROUP_LINK".localized
                 case 2:
@@ -1673,7 +1673,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return "GROUP_LINK".localized
                 case 2:
@@ -1688,7 +1688,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return "NOTIFICATION_SOUNDS".localized
                 case 2:
@@ -1700,7 +1700,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         case .none:
             switch section {
             case 0:
-                return "PRODUCTS_DETAILS".localized
+                return IGStringsManager.Desc.rawValue.localized
             case 1:
                 return "GROUP_LINK".localized
             case 2:

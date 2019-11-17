@@ -125,7 +125,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
         IGApiElectricityBill.shared.addBill(billNumber: (tfBillNUmber.text!.inEnglishNumbersNew()), phoneNumber: userPhoneNumber.inEnglishNumbersNew(),billTitle: self.tfBillName.text!, completion: {(success, response, errorMessage) in
              SMLoading.hideLoadingPage()
              if success {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SUCCESS_OPERATION".localized, cancelText: "GLOBAL_CLOSE".localized , cancel: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SUCCESS_OPERATION".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized , cancel: {
                     self.navigationController?.popViewController(animated: true)
                     SwiftEventBus.post(EventBusManager.updateBillsName)
                 })
@@ -140,7 +140,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
              SMLoading.hideLoadingPage()
              if success {
 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SUCCESS_OPERATION".localized, cancelText: "GLOBAL_CLOSE".localized , cancel: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SUCCESS_OPERATION".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized , cancel: {
                     self.navigationController?.popViewController(animated: true)
                     SwiftEventBus.post(EventBusManager.updateBillsName)
 
@@ -165,7 +165,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
     // MARK: - Actions
     @IBAction func didTapOnAddEditButton(_ sender: UIButton) {
         if tfBillNUmber.text == "" {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localized, cancelText: "GLOBAL_CLOSE".localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalCheckFields.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
         } else {
             if canEditBill {

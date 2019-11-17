@@ -112,7 +112,7 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
             case .timeout:
                 DispatchQueue.main.async {
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
@@ -193,10 +193,10 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
     
     private func deleteContactAlert(phone: Int64){
         let alert = UIAlertController(title: "TTL_DELETE_CONTACT".localized, message: "MSG_ARE_U_SURE_TO_DELETE".localized, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .destructive, handler: { action in
+        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .destructive, handler: { action in
             self.deleteContact(phone: phone)
         })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style: .default, handler: nil)
+        let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .default, handler: nil)
         
         alert.addAction(okAction)
         alert.addAction(cancelAction)
@@ -220,7 +220,7 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
                 DispatchQueue.main.async {
                     IGGlobal.prgHide()
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -246,20 +246,20 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
             }
         }
         
-        alert.addAction(UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: { [weak alert] (_) in
+        alert.addAction(UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { [weak alert] (_) in
             let firstname = alert?.textFields![0]
             let lastname = alert?.textFields![1]
             
             if firstname?.text != nil && !(firstname?.text?.isEmpty)! {
                 self.contactEdit(phone: phone, firstname: (firstname?.text)!, lastname: lastname?.text)
             } else {
-                let alert = UIAlertController(title: "BTN_HINT".localized, message: "MSG_PLEASE_ENTER_F_NAME".localized, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil))
+                let alert = UIAlertController(title: IGStringsManager.GlobalHint.rawValue.localized, message: "MSG_PLEASE_ENTER_F_NAME".localized, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
         }))
         
-        alert.addAction(UIAlertAction(title: "CANCEL_BTN".localized, style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .default, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
     }
@@ -280,7 +280,7 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
                 DispatchQueue.main.async {
                     IGGlobal.prgHide()
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -426,7 +426,7 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
                         switch errorCode {
                         case .timeout:
                             let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                            let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                             alert.addAction(okAction)
                             self.present(alert, animated: true, completion: nil)
                         default:

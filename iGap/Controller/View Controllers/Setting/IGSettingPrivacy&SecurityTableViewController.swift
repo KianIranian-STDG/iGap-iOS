@@ -131,7 +131,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
             case .timeout:
                 DispatchQueue.main.async {
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "TIME_OUT_MSG_SELFD".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -516,7 +516,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
             case .timeout:
                 DispatchQueue.main.async {
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
@@ -607,7 +607,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
                             self.performSegue(withIdentifier: "ShowTwoStepVerificationPassword", sender: self)
                         default:
 
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_BAD_RESPONSE".localized, cancelText: "GLOBAL_CLOSE".localized)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_BAD_RESPONSE".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         }
                     }
@@ -616,13 +616,13 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
                         hud.hide(animated: true)
                         switch errorCode {
                         case .userTwoStepVerificationGetPasswordDetailsBadPayload:
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Bad payload", cancelText: "GLOBAL_CLOSE".localized)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Bad payload", cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         case .userTwoStepVerificationGetPasswordDetailsInternalServerError:
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Internal Server Error", cancelText: "GLOBAL_CLOSE".localized)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Internal Server Error", cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         case .userTwoStepVerificationGetPasswordDetailsForbidden:
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Forbidden", cancelText: "GLOBAL_CLOSE".localized)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GAME_ALERT_TITLE".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Forbidden", cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         case .userTwoStepVerificationGetPasswordDetailsNoPassword:
                             self.performSegue(withIdentifier: "GoToTwoStepVerificationPage", sender: self)

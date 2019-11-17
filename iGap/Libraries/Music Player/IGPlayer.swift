@@ -34,8 +34,8 @@ class IGPlayer {
     private var latestTimeValue: String?
     private var latestSliderValue: Float?
     private var latestButtonValue: String!
-    private var singerName : String! = "UNKNOWN_ARTIST".MessageViewlocalized
-    private var songName : String! = "VOICES_MESSAGE".MessageViewlocalized
+    private var singerName : String! = "UNKNOWN_ARTIST".localized
+    private var songName : String! = "VOICES_MESSAGE".localized
     private var songTime : Float! = 0
     var currentTimeOfSong : Float! = 0
     ////audio player custom vars
@@ -206,11 +206,11 @@ class IGPlayer {
         var hasSingerName : Bool = false
         var hasSongName : Bool = false
         if IGGlobal.isVoice {
-            songName = "VOICES_MESSAGE".MessageViewlocalized
+            songName = "VOICES_MESSAGE".localized
             if roomMessage?.authorUser != nil {
                 singerName = roomMessage?.authorUser?.user?.displayName
                 IGGlobal.topBarSongSinger = singerName
-                nowPlayingInfo[MPMediaItemPropertyTitle] = "VOICES_MESSAGE".MessageViewlocalized + " " + singerName
+                nowPlayingInfo[MPMediaItemPropertyTitle] = "VOICES_MESSAGE".localized + " " + singerName
 
             }
             
@@ -231,7 +231,7 @@ class IGPlayer {
                 }
             }
             if !hasSingerName {
-                singerName = "UNKNOWN_ARTIST".MessageViewlocalized
+                singerName = "UNKNOWN_ARTIST".localized
                 IGGlobal.topBarSongSinger = singerName
                 nowPlayingInfo[MPMediaItemPropertyArtist] = singerName
 
@@ -245,7 +245,7 @@ class IGPlayer {
 
                     
                 } else {
-                    songName = "UNKNOWN_AUDIO".MessageViewlocalized
+                    songName = "UNKNOWN_AUDIO".localized
                     IGGlobal.topBarSongName = songName
                     nowPlayingInfo[MPMediaItemPropertyTitle] = songName
 

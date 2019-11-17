@@ -190,7 +190,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
             manualInputView.confirmBtn.addTarget(self, action: #selector(confirmManualButtonSelected), for: .touchUpInside)
             manualInputView!.frame = CGRect(x: 0, y: self.view.frame.height, width: self.view.frame.width, height: manualInputView.frame.height)
             
-            manualInputView.confirmBtn.setTitle("GLOBAL_OK".localized, for: .normal)
+            manualInputView.confirmBtn.setTitle(IGStringsManager.GlobalOK.rawValue.localized, for: .normal)
             manualInputView.infoLbl.text = "ENTER_RECIEVER_CODE".localized
             manualInputView.inputTF.placeholder = "ENTER_CODE".localized
             
@@ -202,7 +202,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
             
         }
         else {
-            manualInputView.confirmBtn.setTitle("GLOBAL_OK".localized, for: .normal)
+            manualInputView.confirmBtn.setTitle(IGStringsManager.GlobalOK.rawValue.localized, for: .normal)
             manualInputView.infoLbl.text = "ENTER_RECIEVER_CODE".localized
             manualInputView.inputTF.placeholder = "ENTER_CODE".localized
         }
@@ -305,7 +305,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
         }        //go to process info
         
         if manualInputView.inputTF.text! == "" {
-            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localized, message: "ERROR_FORM".localized, leftButtonTitle: "", rightButtonTitle: "GLOBAL_OK".localized,yesPressed: { yes in
+            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: "ERROR_FORM".localized, leftButtonTitle: "", rightButtonTitle: IGStringsManager.GlobalOK.rawValue.localized,yesPressed: { yes in
                 return
             })
         } else {
@@ -669,7 +669,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
             if let jsonResult = response as? Dictionary<String, AnyObject> {
                 if let id = jsonResult["_id"] as? String , id == "" {
                     SMLoading.hideLoadingPage()
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: "GLOBAL_WARNING".localized, message: "INVALID_QR".localized, rightButtonTitle: "GLOBAL_OK".localized)
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: "INVALID_QR".localized, rightButtonTitle: IGStringsManager.GlobalOK.rawValue.localized)
                 }
                 else if let accountId = jsonResult["account_id"], !accountId.isKind(of: NSNull.self) {
                     SMLoading.hideLoadingPage()
@@ -686,7 +686,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
                 else {
                     SMLoading.hideLoadingPage()
                     try! self.scanner?.startScanning()
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: "GLOBAL_WARNING".localized, message: "INVALID_QR".localized, rightButtonTitle: "GLOBAL_OK".localized)
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: "INVALID_QR".localized, rightButtonTitle: IGStringsManager.GlobalOK.rawValue.localized)
                 }
             }
         }
@@ -715,7 +715,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
 //            self.scanner?.stopScanning()
 
             // not active\
-            SMGetGift.getInstance().showInfo(viewcontroller: self, id: "GLOBAL_WARNING".localized, value: "barcode.gift.used".localized, isFaild: true)
+            SMGetGift.getInstance().showInfo(viewcontroller: self, id: IGStringsManager.GlobalWarning.rawValue.localized, value: "barcode.gift.used".localized, isFaild: true)
         }
     }
     func confirmGift() {
@@ -736,7 +736,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
             SMLoading.hideLoadingPage()
             self.closeGift()
             //show popup
-            SMGetGift.getInstance().showInfo(viewcontroller: self, id: "Oops!", value: "GLOBAL_WARNING".localized, isFaild: true)
+            SMGetGift.getInstance().showInfo(viewcontroller: self, id: "Oops!", value: IGStringsManager.GlobalWarning.rawValue.localized, isFaild: true)
             //SMGetGift.getInstance().showSuccess(viewcontroller: self)
         })
         

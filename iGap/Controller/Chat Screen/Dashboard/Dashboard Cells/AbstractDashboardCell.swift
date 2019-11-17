@@ -231,7 +231,7 @@ class AbstractDashboardCell: UICollectionViewCell {
         IGGlobal.shouldShowChart = true
         
         if pollInfo.igpClicked {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_U_HAVE_ALREADY_VOTED".localized, cancelText: "GLOBAL_CLOSE".localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_U_HAVE_ALREADY_VOTED".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
         } else {
             if pollInfo.igpClickable {
                 IGPClientSetPollItemClickRequest.Generator.generate(itemId: pollInfo.igpID).success({ (protoResponse) in
@@ -274,7 +274,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                         IGPClientSetPollItemClickRequest.sendRequest(itemId: pollInfo.igpID)
                         break
                     case .selectIsBiggerThanMax:
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_U_HAVE_REACHED_VOTE_LIMIT".localized, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_U_HAVE_REACHED_VOTE_LIMIT".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         break
                     default:
@@ -414,7 +414,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                 
             }
         case .showAlert:
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: discoveryInfo.igpValue, cancelText: "GLOBAL_CLOSE".localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: discoveryInfo.igpValue, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
             return
         //Hint :- favouriteChannels Handler
@@ -759,7 +759,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                 } else {
         
                     
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .question, title: nil, showIconView: true, showDoneButton: true, showCancelButton: false, message: "IVANDSCORE_MSG".localized,doneText: "GLOBAL_OK".localized, cancelText: "GLOBAL_CLOSE".localized,done: {
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .question, title: nil, showIconView: true, showDoneButton: true, showCancelButton: false, message: "IVANDSCORE_MSG".localized,doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,done: {
                         IGUserIVandSetActivityRequest.sendRequest(plancode: discoveryInfo.igpValue)
                         return
 
@@ -768,7 +768,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                 }
             } else {
                 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .question, title: nil, showIconView: true, showDoneButton: true, showCancelButton: false, message: "IVANDSCORE_MSG".localized,doneText: "GLOBAL_OK".localized, cancelText: "GLOBAL_CLOSE".localized,done: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .question, title: nil, showIconView: true, showDoneButton: true, showCancelButton: false, message: "IVANDSCORE_MSG".localized,doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,done: {
                     IGUserIVandSetActivityRequest.sendRequest(plancode: discoveryInfo.igpValue)
                     return
 
@@ -797,11 +797,11 @@ class AbstractDashboardCell: UICollectionViewCell {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: discoveryInfo.igpValue, cancelText: "GLOBAL_CLOSE".localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: discoveryInfo.igpValue, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                 }
             } else {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: discoveryInfo.igpValue, cancelText: "GLOBAL_CLOSE".localized)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: discoveryInfo.igpValue, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             }
         case .walletMenu:
             
@@ -867,7 +867,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             
         case .charity:
             guard let jsonValue = valueType.toJSON() as? [String:AnyObject], let id = jsonValue["charityId"] as? String, let price = jsonValue["price"] as? Int else {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                 break
             }
             IGGlobal.prgShow()
@@ -880,7 +880,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                         let paymentView = IGPaymentView.sharedInstance
                         if success {
                             guard let paymentData = payment else {
-                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
+                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                                 return
                             }
                             paymentView.show(on: UIApplication.shared.keyWindow!, title: "CHARITY".localized, payToken: token, payment: paymentData)

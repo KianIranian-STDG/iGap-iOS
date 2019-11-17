@@ -80,7 +80,7 @@ class IGApiElectricityBill: IGApiBase {
                             completion(true, classData, nil)
                         } catch _ {
                             guard json != nil, let message = json!["message"].string else {
-                                completion(false, nil, "UNSSUCCESS_OTP".localized)
+                                completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                                 return
                             }
                             completion(false, nil, message)
@@ -88,20 +88,20 @@ class IGApiElectricityBill: IGApiBase {
                         
                     case .failure(_):
                         guard json != nil, let message = json!["message"].string else {
-                            completion(false, nil, "UNSSUCCESS_OTP".localized)
+                            completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                             return
                         }
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         completion(false, nil, message)
                     }
                     
                 default :
                     guard json != nil, let message = json!["message"].string else {
-                        completion(false, nil, "UNSSUCCESS_OTP".localized)
+                        completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                         return
                     }
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     completion(false, nil, message)
                 }
             }
@@ -128,7 +128,7 @@ class IGApiElectricityBill: IGApiBase {
                             completion(true, classData, nil)
                         } catch _ {
                             guard json != nil, let message = json!["message"].string else {
-                                completion(false, nil, "UNSSUCCESS_OTP".localized)
+                                completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                                 return
                             }
                             completion(false, nil, message)
@@ -136,7 +136,7 @@ class IGApiElectricityBill: IGApiBase {
                         
                     case .failure(_):
                         guard json != nil, let message = json!["message"].string else {
-                            completion(false, nil, "UNSSUCCESS_OTP".localized)
+                            completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                             return
                         }
                         completion(false, nil, message)
@@ -144,7 +144,7 @@ class IGApiElectricityBill: IGApiBase {
                     
                 default :
                     guard json != nil, let message = json!["message"].string else {
-                        completion(false, nil, "UNSSUCCESS_OTP".localized)
+                        completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                         return
                     }
                     completion(false, nil, message)
@@ -174,19 +174,19 @@ class IGApiElectricityBill: IGApiBase {
                             completion(true, classData, nil)
                         } catch _ {
                             guard json != nil, let message = json!["message"].string else {
-                                completion(false, nil, "UNSSUCCESS_OTP".localized)
+                                completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                                 return
                             }
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                             completion(false, nil, message)
                         }
                         
                     case .failure(_):
                         guard json != nil, let message = json!["message"].string else {
-                            completion(false, nil, "UNSSUCCESS_OTP".localized)
+                            completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                             return
                         }
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                         completion(false, nil, message)
                     }
                     
@@ -194,10 +194,10 @@ class IGApiElectricityBill: IGApiBase {
                     
                 default :
                     guard json != nil, let message = json!["message"].string else {
-                        completion(false, nil, "UNSSUCCESS_OTP".localized)
+                        completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                         return
                     }
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     completion(false, nil, message)
                 }
             }
@@ -236,11 +236,11 @@ class IGApiElectricityBill: IGApiBase {
                             print(error.localizedDescription)
                             guard json != nil, let message = json!["message"].string else {
                                 //                        IGHelperAlert.shared.showErrorAlert()
-                                completion(false, nil, "UNSSUCCESS_OTP".localized)
+                                completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                                 return
                             }
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-//                                UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel: {
+                                UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                             })
                             
                             completion(false, nil, message)
@@ -250,11 +250,11 @@ class IGApiElectricityBill: IGApiBase {
                         print("error: ", error.localizedDescription)
                         guard json != nil, let message = json!["message"].string else {
                             //                    IGHelperAlert.shared.showErrorAlert()
-                            completion(false, nil, "UNSSUCCESS_OTP".localized)
+                            completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                             return
                         }
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-//                            UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel: {
+                            UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                         })
                         
                         completion(false, nil, message)
@@ -263,17 +263,14 @@ class IGApiElectricityBill: IGApiBase {
                 default :
                     guard json != nil, let message = json!["message"].string else {
                         //                    IGHelperAlert.shared.showErrorAlert()
-                        completion(false, nil, "UNSSUCCESS_OTP".localized)
+                        completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                         return
                     }
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-//                        UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel: {
+                        UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                     })
-                    
                     completion(false, nil, message)
-                    
                 }
-                
             }
         }
     }
@@ -309,11 +306,11 @@ class IGApiElectricityBill: IGApiBase {
                             print(error.localizedDescription)
                             guard json != nil, let message = json!["message"].string else {
                                 //                        IGHelperAlert.shared.showErrorAlert()
-                                completion(false, nil, "UNSSUCCESS_OTP".localized)
+                                completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                                 return
                             }
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-//                                UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel: {
+                                UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                             })
                             
                             completion(false, nil, message)
@@ -323,11 +320,11 @@ class IGApiElectricityBill: IGApiBase {
                         print("error: ", error.localizedDescription)
                         guard json != nil, let message = json!["message"].string else {
                             //                    IGHelperAlert.shared.showErrorAlert()
-                            completion(false, nil, "UNSSUCCESS_OTP".localized)
+                            completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                             return
                         }
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-//                            UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel: {
+                            UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                         })
                         
                         completion(false, nil, message)
@@ -336,20 +333,16 @@ class IGApiElectricityBill: IGApiBase {
                 default :
                     guard json != nil, let message = json!["message"].string else {
                         //                    IGHelperAlert.shared.showErrorAlert()
-                        completion(false, nil, "UNSSUCCESS_OTP".localized)
+                        completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                         return
                     }
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-//                        UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel: {
+                        UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                     })
                     
                     completion(false, nil, message)
-                    
                 }
-                
-                
             }
-            
         }
     }
     
@@ -384,12 +377,11 @@ class IGApiElectricityBill: IGApiBase {
                         } catch let error {
                             print(error.localizedDescription)
                             guard json != nil, let message = json!["message"].string else {
-                                //                        IGHelperAlert.shared.showErrorAlert()
-                                completion(false, nil, "UNSSUCCESS_OTP".localized)
+                                completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                                 return
                             }
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-//                                UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel: {
+                                UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                             })
                             
                             completion(false, nil, message)
@@ -398,12 +390,11 @@ class IGApiElectricityBill: IGApiBase {
                     case .failure(let error):
                         print("error: ", error.localizedDescription)
                         guard json != nil, let message = json!["message"].string else {
-                            //                    IGHelperAlert.shared.showErrorAlert()
-                            completion(false, nil, "UNSSUCCESS_OTP".localized)
+                            completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                             return
                         }
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-//                            UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel: {
+                            UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                         })
                         
                         completion(false, nil, message)
@@ -411,16 +402,14 @@ class IGApiElectricityBill: IGApiBase {
                     
                 default :
                     guard json != nil, let message = json!["message"].string else {
-//                    IGHelperAlert.shared.showErrorAlert()
-                        completion(false, nil, "UNSSUCCESS_OTP".localized)
+                        completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                         return
                     }
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized,cancel: {
-//                        UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel: {
+                        UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
                     })
                     
                     completion(false, nil, message)
-                    
                 }
             }
         }
@@ -456,10 +445,10 @@ class IGApiElectricityBill: IGApiBase {
                             print(error.localizedDescription)
                             guard json != nil, let message = json!["message"].string else {
                                 //                        IGHelperAlert.shared.showErrorAlert()
-                                completion(false, nil, "UNSSUCCESS_OTP".localized)
+                                completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                                 return
                             }
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                             completion(false, nil, message)
                         }
                         
@@ -467,20 +456,20 @@ class IGApiElectricityBill: IGApiBase {
                         print("error: ", error.localizedDescription)
                         guard json != nil, let message = json!["message"].string else {
                             //                    IGHelperAlert.shared.showErrorAlert()
-                            completion(false, nil, "UNSSUCCESS_OTP".localized)
+                            completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                             return
                         }
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                         completion(false, nil, message)
                     }
                     
                 default :
                     guard json != nil, let message = json!["message"].string else {
                         //                    IGHelperAlert.shared.showErrorAlert()
-                        completion(false, nil, "UNSSUCCESS_OTP".localized)
+                        completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                         return
                     }
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     completion(false, nil, message)
                     
                 }
@@ -513,10 +502,10 @@ class IGApiElectricityBill: IGApiBase {
                             print(error.localizedDescription)
                             guard json != nil, let message = json!["message"].string else {
                                 //                        IGHelperAlert.shared.showErrorAlert()
-                                completion(false, nil, "UNSSUCCESS_OTP".localized)
+                                completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                                 return
                             }
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                             completion(false, nil, message)
                         }
                         
@@ -524,20 +513,20 @@ class IGApiElectricityBill: IGApiBase {
                         print("error: ", error.localizedDescription)
                         guard json != nil, let message = json!["message"].string else {
                             //                    IGHelperAlert.shared.showErrorAlert()
-                            completion(false, nil, "UNSSUCCESS_OTP".localized)
+                            completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                             return
                         }
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                         completion(false, nil, message)
                     }
                     
                 default :
                     guard json != nil, let message = json!["message"].string else {
                         //                    IGHelperAlert.shared.showErrorAlert()
-                        completion(false, nil, "UNSSUCCESS_OTP".localized)
+                        completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                         return
                     }
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     completion(false, nil, message)
                     
                 }
@@ -571,10 +560,10 @@ class IGApiElectricityBill: IGApiBase {
                             print(error.localizedDescription)
                             guard json != nil, let message = json!["message"].string else {
                                 //                        IGHelperAlert.shared.showErrorAlert()
-                                completion(false, nil, "UNSSUCCESS_OTP".localized)
+                                completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                                 return
                             }
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                             completion(false, nil, message)
                         }
                         
@@ -582,20 +571,20 @@ class IGApiElectricityBill: IGApiBase {
                         print("error: ", error.localizedDescription)
                         guard json != nil, let message = json!["message"].string else {
                             //                    IGHelperAlert.shared.showErrorAlert()
-                            completion(false, nil, "UNSSUCCESS_OTP".localized)
+                            completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                             return
                         }
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                         completion(false, nil, message)
                     }
                     
                 default :
                     guard json != nil, let message = json!["message"].string else {
                         //                    IGHelperAlert.shared.showErrorAlert()
-                        completion(false, nil, "UNSSUCCESS_OTP".localized)
+                        completion(false, nil, IGStringsManager.UnsuccessOperation.rawValue.localized)
                         return
                     }
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: "GLOBAL_CLOSE".localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     completion(false, nil, message)
                     
                 }

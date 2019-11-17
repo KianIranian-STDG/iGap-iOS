@@ -55,7 +55,7 @@ class chargeWalletTableViewController: BaseTableViewController,UITextFieldDelega
         cashableBalanceLabel.textAlignment = balanceLabel.localizedDirection
     }
     func initView() {
-        btnSubmit.setTitle("GLOBAL_OK".localized, for: .normal)
+        btnSubmit.setTitle(IGStringsManager.GlobalOK.rawValue.localized, for: .normal)
 
         self.cashableBalanceLabel.text = balance
         self.balanceLabel.text = balance

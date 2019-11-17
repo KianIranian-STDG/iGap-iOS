@@ -195,7 +195,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
             }
         }
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
         
 //        cancel.setValue(UIColor.darkGray, forKey: "titleTextColor")
         option.addAction(cancel)
@@ -278,13 +278,13 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
         }
         
         if (phoneNumber.count) < 11 || !phoneNumber.isNumber ||  (operatorDictionary[(phoneNumber.substring(offset: 4))] == nil) {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "PHONE_NUMBER_WRONG".localized, cancelText: "GLOBAL_CLOSE".localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "PHONE_NUMBER_WRONG".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
             return
         }
         
         if selectedCategory == nil || selectedPackage == nil {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localized, cancelText: "GLOBAL_CLOSE".localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalCheckFields.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
             return
         }
@@ -303,7 +303,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
                         let paymentView = IGPaymentView.sharedInstance
                         if success {
                             guard let paymentData = payment else {
-                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
+                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                                 return
                             }
                             paymentView.show(on: UIApplication.shared.keyWindow!, title: "BUY_INTERNET_PACKAGE".InternetPackageLocalization, payToken: token, payment: paymentData)
@@ -339,7 +339,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
                 
                 if operatorType != .mci {
                     self.view.endEditing(true)
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "BUY_INTERNET_PACKAGE_IS_ONLY_POSSIBLE_FOR_MCI_USERS".InternetPackageLocalization, cancelText: "GLOBAL_CLOSE".localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "BUY_INTERNET_PACKAGE_IS_ONLY_POSSIBLE_FOR_MCI_USERS".InternetPackageLocalization, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                     return true
                 }

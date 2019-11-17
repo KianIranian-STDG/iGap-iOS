@@ -247,7 +247,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                     SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
                 }
                 let message = (err as! NSDictionary).value(forKey: "message") as! String
-                SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localized, message: message)
+                SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: message)
 
 
                 
@@ -282,7 +282,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                     
                     SMLoading.hideLoadingPage()
                     let message = (err as! NSDictionary).value(forKey: "message") as! String
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localized, message: message)
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: message)
 
                     
                 })
@@ -338,7 +338,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                                     }
                                 }, onFailed: {err in
                                     let message = (err as! NSDictionary).value(forKey: "message") as! String
-                                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localized, message: message)
+                                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: message)
 
                                     SMLoading.hideLoadingPage()
                                     
@@ -353,7 +353,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 }, onFailed: { (err) in
                     SMLog.SMPrint(err)
                     let message = (err as! NSDictionary).value(forKey: "message") as! String
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localized, message: message)
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: message)
 
                 })
                 
@@ -404,7 +404,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
     @IBAction func btnPayTap(_ sender: Any) {
         if currentRole != "admin" {
             if tfAmount.text == nil || tfCardNumber.text == nil || tfAmount.text == "" || tfCardNumber.text == "" {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localized, cancelText: "GLOBAL_CLOSE".localized)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalCheckFields.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                 
             }
@@ -418,7 +418,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                         payNormal(amountStr: (tfAmount.text!).inEnglishNumbersNew().onlyDigitChars(), cardNumber: (tfCardNumber.text!).inEnglishNumbersNew(),cardToken: self.tmpCardToken)
                     }
                     else {
-                        SMLoading.showToast(viewcontroller: self, text: "CHECK_ALL_FIELDS".localized)
+                        SMLoading.showToast(viewcontroller: self, text: IGStringsManager.GlobalCheckFields.rawValue.localized)
                     }
                     
                 }
@@ -431,7 +431,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         }else {
 
             if tfAmount.text == nil || tfAmount.text == ""  {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localized, cancelText: "GLOBAL_CLOSE".localized)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalCheckFields.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
             }
             else {
@@ -446,7 +446,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                             payNormal(amountStr: (tfAmount.text!.onlyDigitChars()).inEnglishNumbersNew(), cardNumber: (tfCardNumber.text!).inEnglishNumbersNew(),cardToken: self.tmpCardToken)
                         }
                         else {
-                            SMLoading.showToast(viewcontroller: self, text: "CHECK_ALL_FIELDS".localized)
+                            SMLoading.showToast(viewcontroller: self, text: IGStringsManager.GlobalCheckFields.rawValue.localized)
                         }
                     }
 

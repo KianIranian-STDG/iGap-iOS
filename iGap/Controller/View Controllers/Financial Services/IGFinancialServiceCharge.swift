@@ -164,7 +164,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
             option.addAction(action)
         }
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
         
         option.addAction(cancel)
         
@@ -173,7 +173,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
     
     private func showErrorAlertView(title: String, message: String?, dismiss: Bool = false){
         let option = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "GLOBAL_OK".localized, style: .cancel, handler: { (action) in
+        let ok = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .cancel, handler: { (action) in
             if dismiss {
                 self.navigationController?.popViewController(animated: true)
             }
@@ -313,12 +313,12 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         }
         
         if (phoneNumber.count) < 11 || !phoneNumber.isNumber ||  (operatorDictionary[(phoneNumber.substring(offset: 4))] == nil) {
-            showErrorAlertView(title: "GLOBAL_WARNING".localized, message: "PHONE_NUMBER_WRONG".localized)
+            showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "PHONE_NUMBER_WRONG".localized)
             return
         }
         
         if operatorChargeType == nil || chargeAmount == nil {
-            showErrorAlertView(title: "GLOBAL_WARNING".localized, message: "CHECK_ALL_FIELDS".localized)
+            showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalCheckFields.rawValue.localized)
             return
         }
         
@@ -336,7 +336,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
                         let paymentView = IGPaymentView.sharedInstance
                         if success {
                             guard let paymentData = payment else {
-                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
+                                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                                 return
                             }
                             paymentView.show(on: UIApplication.shared.keyWindow!, title: "MCI_CHARGE".localized, payToken: token, payment: paymentData)
@@ -358,7 +358,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
                     if getTokenResponse.igpStatus == 0 { //success
                         self.registerTopup(token: getTokenResponse.igpToken)
                     } else {
-                        self.showErrorAlertView(title: "GLOBAL_WARNING".localized, message: getTokenResponse.igpMessage)
+                        self.showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: getTokenResponse.igpMessage)
                     }
                 }
             }).error ({ (errorCode, waitTime) in
@@ -367,7 +367,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
                 case .timeout:
                     DispatchQueue.main.async {
                         let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -390,7 +390,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
     }
     
     func TopupMerchantError(errorType: Int) {
-        showErrorAlertView(title: "GLOBAL_WARNING".localized, message: "PAYMENT_ERROR_ACCURED".localized, dismiss: true)
+        showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "PAYMENT_ERROR_ACCURED".localized, dismiss: true)
     }
     
     

@@ -148,7 +148,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
             self.disableNearbyVisibilityAlert()
         })
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
         
         option.addAction(updateMap)
         option.addAction(nearbyDistance)
@@ -160,14 +160,14 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
     
     func commentMaxAlert(){
         let option = UIAlertController(title: nil, message: "Comment cannot be more than \(MAX_COMMENT_LENGTH) characters!", preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "GLOBAL_OK".localized, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .cancel, handler: nil)
         option.addAction(cancel)
         self.present(option, animated: true, completion: {})
     }
     
     func clearCommentAlert(){
         let option = UIAlertController(title: "CLEAR_STATUS".localized, message: "SETTING_NEARBY_MAP_STATUS".localized, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "GLOBAL_OK".localized, style: .destructive, handler: { (action) in
+        let ok = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .destructive, handler: { (action) in
             self.updateComment(comment: "")
         })
         let cancel = UIAlertAction(title: "GLOBAL_NO".localized, style: .cancel, handler: nil)
@@ -179,7 +179,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
     
     func disableNearbyVisibilityAlert(){
         let option = UIAlertController(title: "SETTING_NEARBY_MAP_DISABLE_NEARBY".localized, message: "MSG_DESABLE_MAP_VISIBILITY".localized, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "GLOBAL_OK".localized, style: .destructive, handler: { (action) in
+        let ok = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .destructive, handler: { (action) in
             self.geoRegister()
         })
         let cancel = UIAlertAction(title: "GLOBAL_NO".localized, style: .cancel, handler: nil)
@@ -215,7 +215,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
         if status == .denied || status == .restricted {
             let alert = UIAlertController(title: "LOCATION_SERVICE_DISABLE".localized, message: "LOCATION_SERVICE_ENABLE_IT".localized, preferredStyle: .alert)
 
-            let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+            let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
             alert.addAction(okAction)
 
             present(alert, animated: true, completion: nil)
@@ -359,7 +359,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
             case .timeout:
                 DispatchQueue.main.async {
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -472,7 +472,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
                 case .timeout:
                     DispatchQueue.main.async {
                         let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -544,7 +544,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
             case .timeout:
                 DispatchQueue.main.async {
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -576,7 +576,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
                 case .timeout:
                     DispatchQueue.main.async {
                         let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }

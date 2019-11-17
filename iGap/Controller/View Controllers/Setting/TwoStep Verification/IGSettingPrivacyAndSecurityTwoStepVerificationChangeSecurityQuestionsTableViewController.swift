@@ -85,13 +85,13 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
                 switch errorCode {
                 case .timeout:
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
                 case .userTwoStepVerificationChangeRecoveryQuestionMaxTryLock:
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "SETTING_PS_TV_MAX_TRY_LOCK".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "SETTING_PS_TV_MAX_TRY_LOCK".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
@@ -114,7 +114,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
             DispatchQueue.main.async {
                 hud.hide(animated: true)
                 let alert = UIAlertController(title: "SUCCESS".localized, message: "SETTING_PS_TV_YOUR_PASS_REMOVED".localized, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+                let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
                     self.dismiss(animated: true, completion: nil)
                 })
                 alert.addAction(okAction)
@@ -125,23 +125,23 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
                 switch errorCode {
                 case .timeout:
 //                    self.showAlert(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized)
-//                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "SETTING_PS_TV_HINT".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PASSWORD_IS_NOT_SET".localized, cancelText: "GLOBAL_CLOSE".localized)
+//                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "SETTING_PS_TV_HINT".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PASSWORD_IS_NOT_SET".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                     break
                     
                 case .userTwoStepVerificationRecoverPasswordByAnswersMaxTryLock:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SETTING_PS_TV_MAX_TRY_LOCK".localized, cancelText: "GLOBAL_CLOSE".localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "SETTING_PS_TV_MAX_TRY_LOCK".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                     break
                
                 case .userTwoStepVerificationRecoverPasswordByAnswersInvalidAnswers:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "INVALID_ANSWER".localized, cancelText: "GLOBAL_CLOSE".localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "INVALID_ANSWER".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                     break
                     
                 case .userTwoStepVerificationRecoverPasswordByAnswersForbidden:
                   
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "RECOVER_BY_ANSWER_IS_FORBIDDEN".localized, cancelText: "GLOBAL_CLOSE".localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "RECOVER_BY_ANSWER_IS_FORBIDDEN".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                     break
                     
@@ -155,7 +155,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
     
     private func isComplete() -> Bool {
         if question1TextField.text == "" || question2TextField.text == "" || answer1TextField.text == "" || answer2TextField.text == "" {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localized, cancelText: "GLOBAL_CLOSE".localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalCheckFields.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
             return false
         }

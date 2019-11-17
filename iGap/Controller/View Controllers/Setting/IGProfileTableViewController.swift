@@ -352,7 +352,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         btnName.setTitle("NAME".localized, for: .normal)
         lblCloud.text = "MY_CLOUD".localized
         lblSetting.text = "SETTING_VIEW".localized
-        lblNew.text = "NEW".localized
+        lblNew.text = IGStringsManager.GlobalNew.rawValue.localized
         lblCredit.text = "CREDITS".localized
         lblScore.text = "SETTING_PAGE_ACCOUNT_SCORE_PAGE".localized
         lblScoreAmount.text = "..."
@@ -704,7 +704,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             locationManager.stopUpdatingLocation()
             let alert = UIAlertController(title: "LOCATION_SERVICE_DISABLE".localized, message: "LOCATION_SERVICE_ENABLE_IT".localized, preferredStyle: UIAlertController.Style.alert)
             self.present(alert, animated: true, completion: nil)
-            alert.addAction(UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: { action in
+            alert.addAction(UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { action in
                 switch action.style {
                 case .default: UIApplication.shared.open(NSURL(string: UIApplication.openSettingsURLString)! as URL, options: [:], completionHandler: nil)
                     
@@ -767,9 +767,9 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 }
             }).error({ (errorCode, waitTime) in
                 DispatchQueue.main.async {
-                    let alertC = UIAlertController(title: "GLOBAL_WARNING".localized, message: "UNSSUCCESS_OTP".localized, preferredStyle: .alert)
+                    let alertC = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.UnsuccessOperation.rawValue.localized, preferredStyle: .alert)
                     
-                    let cancel = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let cancel = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alertC.addAction(cancel)
                     self.present(alertC, animated: true, completion: nil)
                 }
@@ -1270,18 +1270,18 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                     break
                     
                 case .userProfileUpdateUsernameIsInvaild:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INVALID_USERNAME".localized, cancelText: "GLOBAL_CLOSE".localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.InvalidUserName.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     break
                     
                 case .userProfileUpdateUsernameHasAlreadyBeenTaken:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_TAKEN_USERNAME".localized, cancelText: "GLOBAL_CLOSE".localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.AlreadyTakenUserName.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     break
                     
                 case .userProfileUpdateLock:
                     let time = waitTime
                     let remainingMiuntes = time!/60
                     let msg = "MSG_CHANGE_USERNAME_AFTER".localized + " " + String(remainingMiuntes) + " " + "MINUTE".localized
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: "GLOBAL_CLOSE".localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     break
                     
                 default:
@@ -1470,11 +1470,11 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     
     func choosePhotoActionSheet(sender : UIButton){
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let cameraOption = UIAlertAction(title: IGStringsManager.Camera.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.pickImage(screens: [.photo])
         })
         
-        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let ChoosePhoto = UIAlertAction(title: IGStringsManager.Gallery.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.pickImage(screens: [.library])
         })
         
@@ -1518,11 +1518,13 @@ extension IGProfileTableViewController: UISearchBarDelegate {
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".RecentTableViewlocalized, for: .normal)
-        let lookAndFind = IGLookAndFind.instantiateFromAppStroryboard(appStoryboard: .Setting)
-        lookAndFind.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(lookAndFind, animated: false)
-        
+        IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
+        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
+        let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
+        lookAndFind.hero.isEnabled = true
+        self.navigationController?.hero.isEnabled = true
+        self.navigationController?.hero.navigationAnimationType = .fade
+        self.hero.replaceViewController(with: lookAndFind)
         return true
     }
     

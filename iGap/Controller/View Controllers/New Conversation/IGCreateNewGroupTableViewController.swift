@@ -36,8 +36,8 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         addBottomBorder(textField: descriptionTextField)
         
         groupNameCell.selectionStyle = UITableViewCell.SelectionStyle.none
-        groupNameTextField.placeholder = "GROUPNAME".localized
-        descriptionTextField.placeholder = "DESCRIPTION".localized
+        groupNameTextField.placeholder = IGStringsManager.GroupName.rawValue.localized
+        descriptionTextField.placeholder = IGStringsManager.GroupDesc.rawValue.localized
         groupNameTextField.textAlignment = self.TextAlignment
         descriptionTextField.textAlignment = self.TextAlignment
         groupAvatarImage.isUserInteractionEnabled = false
@@ -54,7 +54,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     
     private func initNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localized, title: "NEW_GROUP".localized)
+        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalNext.rawValue.localized, title: IGStringsManager.NewGroup.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -91,19 +91,19 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     
     func choosePhotoActionSheet(sender : UIImageView){
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let cameraOption = UIAlertAction(title: IGStringsManager.Gallery.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.pickImage(screens: [.photo])
         })
         
-        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let ChoosePhoto = UIAlertAction(title: IGStringsManager.Gallery.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
            self.pickImage(screens: [.library])
         })
         
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: {
+        let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
         })
         
-        let removeAction = UIAlertAction(title: "DELETE_PHOTO".localized, style: .default, handler: {
+        let removeAction = UIAlertAction(title: IGStringsManager.DeletePhoto.rawValue.localized, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.groupAvatarImage.image = self.defualtImage
         })
@@ -121,7 +121,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         
         let alertActions = optionMenu.actions
         for action in alertActions {
-            if action.title == "DELETE_PHOTO".localized{
+            if action.title == IGStringsManager.DeletePhoto.rawValue.localized{
                 let removeColor = UIColor.red
                 action.setValue(removeColor, forKey: "titleTextColor")
             }
@@ -258,10 +258,6 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
                                 case .timeout:
                                     DispatchQueue.main.async {
                                         IGGlobal.prgHide()
-                                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
-                                        alert.addAction(okAction)
-                                        self.present(alert, animated: true, completion: nil)
                                     }
                                 default:
                                     break

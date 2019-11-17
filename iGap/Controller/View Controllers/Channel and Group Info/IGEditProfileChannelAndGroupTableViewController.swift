@@ -55,7 +55,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         if room!.type == .channel {
             title = "CHANNEL_TITLE"
             self.tfDescriptionOfRoom.placeholder = "CHANNELDESC".localized
-            self.tfNameOfRoom.placeholder = "CHANNEL_NAME".localized
+            self.tfNameOfRoom.placeholder = IGStringsManager.ChannelName.rawValue.localized
 
         } else {
             title = "GROUP_TITLE"
@@ -422,7 +422,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             if channelUserName == "" {
                 SMLoading.hideLoadingPage()
                 dispatchGroup.leave()
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_FORM".localized, cancelText: "GLOBAL_CLOSE".localized)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_FORM".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                 return
             }
@@ -430,7 +430,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             if channelUserName.count < 5 {
                 SMLoading.hideLoadingPage()
                 dispatchGroup.leave()
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_MINIMUM_LENGH".localized, cancelText: "GLOBAL_CLOSE".localized)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalMinimumLetters.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                 return
             }
@@ -475,25 +475,25 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         break
                     case .channelUpdateUsernameIsInvalid:
 
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INVALID_USERNAME".localized, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.InvalidUserName.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         break
                         
                     case .channelUpdateUsernameHasAlreadyBeenTakenByAnotherUser:
 
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_TAKEN_USERNAME".localized, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.AlreadyTakenUserName.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         break
                         
                     case .channelUpdateUsernameMoreThanTheAllowedUsernmaeHaveBeenSelectedByYou:
 
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "More than the allowed usernmae have been selected by you", cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "More than the allowed usernmae have been selected by you", cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         break
                         
                     case .channelUpdateUsernameForbidden:
                         
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_UPDATE_USERNAME_FORBIDDEN".localized, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_UPDATE_USERNAME_FORBIDDEN".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         break
                         
@@ -501,7 +501,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         let time = waitTime
                         let remainingMiuntes = time!/60
                         let msg =  "MSG_CHANGE_USERNAME_AFTER".localized + " \(remainingMiuntes)" + "MINUTE".localized
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         break
                         
@@ -529,7 +529,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 SMLoading.hideLoadingPage()
                 self.dispatchGroup.leave()
                 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "GROUP_LINK_NOT_EMPTY".localized, cancelText: "GLOBAL_CLOSE".localized)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "GROUP_LINK_NOT_EMPTY".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                 return
             }
@@ -537,7 +537,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             if groupUserName.count < 5 {
                 SMLoading.hideLoadingPage()
                 self.dispatchGroup.leave()
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_MINIMUM_LENGH".localized, cancelText: "GLOBAL_CLOSE".localized)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalMinimumLetters.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                 return
             }
@@ -568,7 +568,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
 
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INVALID_USERNAME".localized, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.InvalidUserName.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         break
                         
@@ -577,7 +577,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
 
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_TAKEN_USERNAME".localized, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.AlreadyTakenUserName.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         break
                         
@@ -586,7 +586,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
                         
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "Error", showIconView: true, showDoneButton: false, showCancelButton: true, message: "More than the allowed usernmae have been selected by you", cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "Error", showIconView: true, showDoneButton: false, showCancelButton: true, message: "More than the allowed usernmae have been selected by you", cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         break
                         
@@ -594,7 +594,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
                         
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_UPDATE_USERNAME_FORBIDDEN".localized, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_UPDATE_USERNAME_FORBIDDEN".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         break
                         
@@ -605,7 +605,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                         
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         break
                         
@@ -817,21 +817,21 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     }
     @IBAction func btnChangeImageTapped(_ sender: UIButton) {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let cameraOption = UIAlertAction(title: IGStringsManager.Camera.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.pickImage(screens: [.photo])
         })
-        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let ChoosePhoto = UIAlertAction(title: IGStringsManager.Gallery.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.pickImage(screens: [.library])
         })
-        let removeAction = UIAlertAction(title: "DELETE_PHOTO".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let removeAction = UIAlertAction(title: IGStringsManager.DeletePhoto.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.deleteAvatar()
         })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
         
         optionMenu.addAction(ChoosePhoto)
         let alertActions = optionMenu.actions
         for action in alertActions {
-            if action.title == "DELETE_PHOTO".localized{
+            if action.title == IGStringsManager.DeletePhoto.rawValue.localized{
                 let removeColor = UIColor.iGapRed()
                 action.setValue(removeColor, forKey: "titleTextColor")
             }
@@ -921,7 +921,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             }
         })
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
         
         alertController.addAction(publicChannel)
         alertController.addAction(privateChannel)

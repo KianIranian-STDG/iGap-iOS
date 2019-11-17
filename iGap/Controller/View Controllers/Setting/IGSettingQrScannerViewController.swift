@@ -139,7 +139,7 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
                         let alertMessage = "App Name: \(newDeviceResponse.appName)\nBuild Version: \(newDeviceResponse.buildVersion)\nApp Version: \(newDeviceResponse.appVersion)\nPlatform: \(newDeviceResponse.platform)\nPlatform Version: \(newDeviceResponse.platformVersion)\nDevice: \(newDeviceResponse.device)\nDevice Name: \(newDeviceResponse.devicename)"
                         
                         
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: alertTitle, showIconView: true, showDoneButton: false, showCancelButton: true, message: alertMessage, cancelText: "GLOBAL_CLOSE".localized , cancel:  {
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: alertTitle, showIconView: true, showDoneButton: false, showCancelButton: true, message: alertMessage, cancelText: IGStringsManager.GlobalClose.rawValue.localized , cancel:  {
                             self.navigationController?.popViewController(animated: true)
                             self.dismiss(animated: true, completion: nil)
                         })
@@ -161,12 +161,12 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
                 switch response.igpState {
                 case true :
                     
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: true ,showCancelButton: false, message: response.igpMessage, doneText: "GLOBAL_OK".localized,done: {
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: true ,showCancelButton: false, message: response.igpMessage, doneText: IGStringsManager.GlobalOK.rawValue.localized,done: {
                         self.navigationController!.popViewController(animated: true)
                         })
                     break
                 default :
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: true ,showCancelButton: false, message: response.igpMessage, doneText: "GLOBAL_OK".localized,done: {
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: true ,showCancelButton: false, message: response.igpMessage, doneText: IGStringsManager.GlobalOK.rawValue.localized,done: {
                         self.navigationController!.popViewController(animated: true)
                         })
 
@@ -178,13 +178,13 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
             case .userIVandSetActivityBadPayload:
 
                 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: true ,showCancelButton: false, message: "MSG_THE_CODE_INVALID".localized, doneText: "GLOBAL_OK".localized,done: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: nil, showIconView: true, showDoneButton: true ,showCancelButton: false, message: "MSG_THE_CODE_INVALID".localized, doneText: IGStringsManager.GlobalOK.rawValue.localized,done: {
                     self.navigationController!.popViewController(animated: true)
                 })
                 break
             default:
 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: true, showCancelButton: false, message: "UNSSUCCESS_OTP".localized, doneText: "GLOBAL_OK".localized,done: {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: false, message: IGStringsManager.UnsuccessOperation.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized,done: {
                     self.navigationController!.popViewController(animated: true)
                 })
 

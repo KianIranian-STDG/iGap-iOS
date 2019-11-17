@@ -252,7 +252,7 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
         let tmpPaymentAmount:Int? = Int(self.payAmount!) // firstText is UITextField
         
         if tmpPaymentAmount! < 10000 {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "LESS_THAN_1000".localized, cancelText: "GLOBAL_CLOSE".localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "LESS_THAN_1000".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             
         } else {
             SMLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
@@ -262,7 +262,7 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
                     if mplGetBillTokenResponse.igpStatus == 0 { //success
                         self.initBillPaymanet(token: mplGetBillTokenResponse.igpToken)
                     } else {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: mplGetBillTokenResponse.igpMessage, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: mplGetBillTokenResponse.igpMessage, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     }
                 }
                 
@@ -289,7 +289,7 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     }
     
     func BillMerchantError(errorType: Int) {
-        //        showErrorAlertView(title: "GLOBAL_WARNING".localized, message: "MSG_ERROR_BILL_PAYMENT".localized, dismiss: true)
+        //        showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "MSG_ERROR_BILL_PAYMENT".localized, dismiss: true)
     }
 
     // MARK: - Actions

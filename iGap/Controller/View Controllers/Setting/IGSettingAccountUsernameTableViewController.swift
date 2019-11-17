@@ -102,12 +102,12 @@ class IGSettingAccountUsernameTableViewController: UITableViewController , UIGes
                             self.statusActivityIndicatorView.isHidden = true
                             self.statusActivityIndicatorView.stopAnimating()
                             self.statusLabel.textColor = UIColor.red
-                            self.statusLabel.text = "MSG_INVALID_USERNAME".localized
+                            self.statusLabel.text = IGStringsManager.InvalidUserName.rawValue.localized
                         case .taken:
                             self.statusActivityIndicatorView.isHidden = true
                             self.statusActivityIndicatorView.stopAnimating()
                             self.statusLabel.textColor = UIColor.red
-                            self.statusLabel.text = "MSG_TAKEN_USERNAME".localized
+                            self.statusLabel.text = IGStringsManager.AlreadyTakenUserName.rawValue.localized
                         default:
                             break
                         }
@@ -130,7 +130,7 @@ class IGSettingAccountUsernameTableViewController: UITableViewController , UIGes
             }).send()
         } else {
             statusLabel.textColor = UIColor.red
-            statusLabel.text = "MSG_INVALID_USERNAME".localized
+            statusLabel.text = IGStringsManager.InvalidUserName.rawValue.localized
         }
     }
     

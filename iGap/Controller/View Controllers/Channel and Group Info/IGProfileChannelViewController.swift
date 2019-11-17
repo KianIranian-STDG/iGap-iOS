@@ -152,13 +152,13 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         var title = ""
         
         if roomType == .chat {
-            title = "REPORT_REASON".RecentTableViewlocalized
+            title = "REPORT_REASON".localized
         } else {
-            title = "REPORT_REASON".RecentTableViewlocalized
+            title = "REPORT_REASON".localized
         }
         
         let alertC = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let abuse = UIAlertAction(title: "ABUSE".RecentTableViewlocalized, style: .default, handler: { (action) in
+        let abuse = UIAlertAction(title: "ABUSE".localized, style: .default, handler: { (action) in
             
             if roomType == .chat {
             } else {
@@ -166,7 +166,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
             }
         })
         
-        let spam = UIAlertAction(title: "SPAM".RecentTableViewlocalized, style: .default, handler: { (action) in
+        let spam = UIAlertAction(title: "SPAM".localized, style: .default, handler: { (action) in
             
             if roomType == .chat {
             } else {
@@ -175,15 +175,15 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         })
         
         
-        let violence = UIAlertAction(title: "VIOLENCE".RecentTableViewlocalized, style: .default, handler: { (action) in
+        let violence = UIAlertAction(title: "VIOLENCE".localized, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.violence)
         })
         
-        let pornography = UIAlertAction(title: "PORNOGRAPHY".RecentTableViewlocalized, style: .default, handler: { (action) in
+        let pornography = UIAlertAction(title: "PORNOGRAPHY".localized, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.pornography)
         })
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalized, style: .cancel, handler: { (action) in
+        let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: { (action) in
             
         })
         
@@ -207,7 +207,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
                     
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORT_SUBMITED".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "SUCCESS".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "REPORT_SUBMITED".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                 default:
                     break
@@ -221,7 +221,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     break
                     
                 case .clientRoomReportReportedBefore:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ROOM_REPORTED_BEFOR".RecentTableViewlocalized, cancelText: "GLOBAL_CLOSE".localized )
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ROOM_REPORTED_BEFOR".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
                     break
                     
                 case .clientRoomReportForbidden:
@@ -356,20 +356,20 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
             (alert: UIAlertAction) -> Void in
             if self.myRole == .owner {
                 if self.connectionStatus == .connecting || self.connectionStatus == .waitingForNetwork {
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".MessageViewlocalized, cancelText: "GLOBAL_CLOSE".localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalNoNetwork.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                 } else {
                     self.deleteChannelRequest()
                 }
             } else {
                 if self.connectionStatus == .connecting || self.connectionStatus == .waitingForNetwork {
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "NO_NETWORK".MessageViewlocalized, cancelText: "GLOBAL_CLOSE".localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalNoNetwork.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                 } else {
                     self.leftChannelRequest(room: self.room!)
                 }
             }
             
         })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style:.cancel , handler: {
+        let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style:.cancel , handler: {
             (alert: UIAlertAction) -> Void in
         })
         deleteConfirmAlertView.addAction(deleteAction)
@@ -409,7 +409,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
             })
 
             
-            let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
             
             alert.view.tintColor = UIColor.organizationalColor()
             alert.addAction(copyAction)
@@ -1548,7 +1548,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return nil
                 case 2:
@@ -1562,7 +1562,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return "CHANNEL_INFO".localized
                 case 2:
@@ -1576,7 +1576,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return "NOTIFICATION_SOUNDS".localized
                 case 2:
@@ -1588,7 +1588,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return "NOTIFICATION_SOUNDS".localized
                 case 2:
@@ -1606,7 +1606,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
             case .admin?:
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return "CHANNEL_INFO".localized
                 case 2:
@@ -1622,7 +1622,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return "CHANNEL_INFO".localized
                 case 2:
@@ -1639,7 +1639,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return "CHANNEL_INFO".localized
                 case 2:
@@ -1653,7 +1653,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 
                 switch section {
                 case 0:
-                    return "PRODUCTS_DETAILS".localized
+                    return IGStringsManager.Desc.rawValue.localized
                 case 1:
                     return "NOTIFICATION_SOUNDS".localized
                 case 2:
@@ -1669,7 +1669,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         case .none:
             switch section {
             case 0:
-                return "PRODUCTS_DETAILS".localized
+                return IGStringsManager.Desc.rawValue.localized
             case 1:
                 return "CHANNEL_INFO".localized
             case 2:

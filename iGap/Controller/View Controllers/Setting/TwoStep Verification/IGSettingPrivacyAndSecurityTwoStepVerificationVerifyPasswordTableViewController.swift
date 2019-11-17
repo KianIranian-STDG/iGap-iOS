@@ -107,23 +107,23 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewContr
                     self.tableView.isScrollEnabled = true
                     switch errorCode {
                     case .userTwoStepVerificationCheckPasswordBadPayload:
-                        self.showAlert(title: "GLOBAL_WARNING".localized, message: "Bad Payload")
+                        self.showAlert(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "Bad Payload")
                     case .userTwoStepVerificationCheckPasswordInternalServerError:
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INTERNAL_SERVER_ERROR".localized, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INTERNAL_SERVER_ERROR".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                     case .userTwoStepVerificationCheckPasswordInvalidPassword:
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INVALID_PASS".localized, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_INVALID_PASS".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                     case .userTwoStepVerificationCheckPasswordMaxTryLock:
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Maximum try reached. Please try after \(waitTime!) seconds", cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Maximum try reached. Please try after \(waitTime!) seconds", cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                     case .userTwoStepVerificationCheckPasswordNoPassword:
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PASSWORD_IS_NOT_SET".localized, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PASSWORD_IS_NOT_SET".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                     case.timeout: break
-//                        self.showAlert(title: "GLOBAL_WARNING".localized, message:  "TIME_OUT".localized)
+//                        self.showAlert(title: IGStringsManager.GlobalWarning.rawValue.localized, message:  "TIME_OUT".localized)
                     default: break
-//                        self.showAlert(title: "GLOBAL_WARNING".localized, message: "Unknown Error")
+//                        self.showAlert(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "Unknown Error")
                     }
                 }
             }).send()
@@ -139,7 +139,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewContr
         let questions = UIAlertAction(title: "RECOVERY_QUESTIONS".localized, style: .default) { (action) in
             self.performSegue(withIdentifier: "changePasswordWithQuestions", sender: self)
         }
-        let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel) { (action) in
+        let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel) { (action) in
             
         }
         if (twoStepVerification?.hasVerifiedEmailAddress)! {

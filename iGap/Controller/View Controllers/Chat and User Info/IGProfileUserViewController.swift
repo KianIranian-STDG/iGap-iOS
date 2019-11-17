@@ -241,7 +241,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                 case .timeout:
                     DispatchQueue.main.async {
                         let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -323,7 +323,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                                     switch errorCode {
                                     case .timeout:
                                         let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                                         alert.addAction(okAction)
                                         self.present(alert, animated: true, completion: nil)
                                     default:
@@ -343,8 +343,8 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                 
             }).error({ (errorCode, waitTime) in
                 hud.hide(animated: true)
-                let alertC = UIAlertController(title: "GLOBAL_WARNING".localized, message: "ERROR_RETRY".localized, preferredStyle: .alert)
-                let cancel = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                let alertC = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "ERROR_RETRY".localized, preferredStyle: .alert)
+                let cancel = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                 alertC.addAction(cancel)
                 self.present(alertC, animated: true, completion: nil)
             }).send()
@@ -378,7 +378,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                 case .timeout:
                     DispatchQueue.main.async {
                         let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.hud.hide(animated: true)
                         self.present(alert, animated: true, completion: nil)
@@ -414,7 +414,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                 case .timeout:
                     DispatchQueue.main.async {
                         let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.hud.hide(animated: true)
                         self.present(alert, animated: true, completion: nil)
@@ -434,7 +434,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                 self.deleteChat(room: chatRoom)
             }
         })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style:.cancel , handler: {
+        let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style:.cancel , handler: {
             (alert: UIAlertAction) -> Void in
         })
         deleteChatConfirmAlertView.addAction(deleteAction)
@@ -477,7 +477,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             case .timeout:
                 DispatchQueue.main.async {
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
@@ -500,7 +500,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                 self.clearChatMessageHistory(room: chatRoom)
             }
         })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style:.cancel , handler: {
+        let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style:.cancel , handler: {
             (alert: UIAlertAction) -> Void in
         })
         clearChatConfirmAlertView.addAction(deleteAction)
@@ -542,7 +542,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             case .timeout:
                 DispatchQueue.main.async {
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
@@ -585,27 +585,27 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         var title = ""
         
         if roomType == .chat {
-            title = "REPORT_REASON".RecentTableViewlocalized
+            title = "REPORT_REASON".localized
         } else {
-            title = "REPORT_REASON".RecentTableViewlocalized
+            title = "REPORT_REASON".localized
         }
         
         let alertC = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let abuse = UIAlertAction(title: "ABUSE".RecentTableViewlocalized, style: .default, handler: { (action) in
+        let abuse = UIAlertAction(title: "ABUSE".localized, style: .default, handler: { (action) in
             
                 self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.abuse)
         })
         
-        let spam = UIAlertAction(title: "SPAM".RecentTableViewlocalized, style: .default, handler: { (action) in
+        let spam = UIAlertAction(title: "SPAM".localized, style: .default, handler: { (action) in
             
                 self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.spam)
         })
         
-        let fakeAccount = UIAlertAction(title: "FAKE_ACCOUNT".RecentTableViewlocalized, style: .default, handler: { (action) in
+        let fakeAccount = UIAlertAction(title: "FAKE_ACCOUNT".localized, style: .default, handler: { (action) in
             self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.fakeAccount)
         })
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalized, style: .cancel, handler: { (action) in
+        let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: { (action) in
             
         })
         
@@ -626,8 +626,8 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPUserReportResponse:
-                    let alert = UIAlertController(title: "SUCCESS".RecentTableViewlocalized, message: "REPORT_SUBMITED".RecentTableViewlocalized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalized, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "SUCCESS".localized, message: "REPORT_SUBMITED".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -639,15 +639,15 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalized, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalized, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .userReportReportedBefore:
-                    let alert = UIAlertController(title: "GLLOBAL_WARNING".RecentTableViewlocalized, message: "USER_REPORTED_BEFOR".RecentTableViewlocalized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalized, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLLOBAL_WARNING".localized, message: "USER_REPORTED_BEFOR".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break

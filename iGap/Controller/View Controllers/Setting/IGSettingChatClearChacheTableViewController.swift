@@ -165,7 +165,7 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
                 self.navigationController?.popViewController(animated: true)
             }
         })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style:.cancel , handler: {
+        let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style:.cancel , handler: {
             (alert: UIAlertAction) -> Void in
         })
         alert.addAction(deleteAction)

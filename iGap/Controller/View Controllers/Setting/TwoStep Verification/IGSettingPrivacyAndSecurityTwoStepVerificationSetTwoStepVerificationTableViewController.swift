@@ -72,17 +72,17 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
     func setPassword(){
         
         if passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || verifyTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || question1TextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || answer1TextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || question2TextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || answer2TextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || hintTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-            alertController(title: "GLOBAL_WARNING".localized, message: "MSG_PLEASE_TRY_AGAIN".localized)
+            alertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "MSG_PLEASE_TRY_AGAIN".localized)
             return
         }
         
         if passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) != verifyTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
-            alertController(title: "GLOBAL_WARNING".localized, message: "SETTING_PS_TV_VERIFY_PASSWORD_NOTMATCH".localized)
+            alertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "SETTING_PS_TV_VERIFY_PASSWORD_NOTMATCH".localized)
             return
         }
         
         if passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == hintTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
-            alertController(title: "GLOBAL_WARNING".localized, message: "SETTING_PS_TV_HINT_ERROR".localized)
+            alertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "SETTING_PS_TV_HINT_ERROR".localized)
             return
         }
         
@@ -107,7 +107,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    self.alertController(title: "GLOBAL_WARNING".localized, message: "MSG_PLEASE_TRY_AGAIN".localized)
+                    self.alertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "MSG_PLEASE_TRY_AGAIN".localized)
                     break
                     
                 case .userTwoStepVerificationSetPasswordNewPasswordIsInvalid :

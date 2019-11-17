@@ -55,16 +55,16 @@ class IGSplashScreenViewController: UIViewController {
 //        startButton.setTitle("LETS_GO".localized, for: .normal)
         startButton.titleLabel?.font = UIFont.igFont(ofSize: 15)
         titleStrs = [
-            "Chat",
-            "Nearby Feature",
-            "iLand",
-            "Security & Privacy"
+            IGStringsManager.IntroTitleOne.rawValue.localized,
+            IGStringsManager.IntroTitleTwo.rawValue.localized,
+            IGStringsManager.IntroTitleThree.rawValue.localized,
+            IGStringsManager.IntroTitleFour.rawValue.localized
         ]
         descriptions = [
-            "You can have one-on-one or group chats and even create your own channel and add members in order to share information with millions of people.",
-            "Leave a new world around me. Around you, find your friends, entertainment centers, art, business and other and enjoy your moments ...",
-            "iLand! without limitation\nwith wonderful events as taking a taxi, pay bills and booking hotels and flights . Oh Also you can play games, watch films and listen to music",
-            "iGap attaches the utmost importance to your security and privacy using the individual encryption algorithms and guarantees a safe and secure connection between you, your friends and family."
+            IGStringsManager.IntroDescOne.rawValue.localized,
+            IGStringsManager.IntroDescTwo.rawValue.localized,
+            IGStringsManager.IntroDescThree.rawValue.localized,
+            IGStringsManager.IntroDescFour.rawValue.localized
         ]
         
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_INSTALL_USER)
@@ -95,21 +95,21 @@ class IGSplashScreenViewController: UIViewController {
     }
     
     @objc private func dismissLangModal() {
-        startButton.setTitle("LETS_GO".localized, for: .normal)
+        startButton.setTitle(IGStringsManager.BtnSendCode.rawValue.localized, for: .normal)
         let images = ["ic_init_cominucation", "ic_init_nearby", "ic_init_iland", "ic_init_security"]
         
         titleStrs = [
-            "CHAT".localized,
-            "NEARBY_FEATURES".localized,
-            "ILAND".localized,
-            "SECURITY_And_PRIVACY".localized
+            IGStringsManager.IntroTitleOne.rawValue.localized,
+            IGStringsManager.IntroTitleTwo.rawValue.localized,
+            IGStringsManager.IntroTitleThree.rawValue.localized,
+            IGStringsManager.IntroTitleFour.rawValue.localized
         ]
         
         descriptions = [
-            "CHAT_DESCRIPTION".localized,
-            "NEARBY_FEATURES_DESCRIPTION".localized,
-            "ILAND_DESCRIPTION".localized,
-            "SECURITY_And_PRIVACY_DESCRIPTION".localized
+            "You can have one-on-one or group chats and even create your own channel and add members in order to share information with millions of people.",
+            "Leave a new world around me. Around you, find your friends, entertainment centers, art, business and other and enjoy your moments ...",
+            "iLand! without limitation\nwith wonderful events as taking a taxi, pay bills and booking hotels and flights . Oh Also you can play games, watch films and listen to music",
+            "iGap attaches the utmost importance to your security and privacy using the individual encryption algorithms and guarantees a safe and secure connection between you, your friends and family."
         ]
         
         for i in 0..<numberOfPages {

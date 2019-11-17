@@ -80,7 +80,7 @@ class SMLoading {
         alertView.leftButtonTitle = "GLOBAL_NO".localized
         alertView.leftButtonAction = noPressed
         
-        alertView.rightButtonTitle = "GLOBAL_OK".localized
+        alertView.rightButtonTitle = IGStringsManager.GlobalOK.rawValue.localized
         alertView.rightButtonAction = yesPressed
         alertView.forgotButtonTitle = "FORGET_WALLET_PIN".localized
         alertView.forgotPinAction = forgotPin
@@ -208,7 +208,7 @@ class SMLoading {
         alertView.leftButtonTitle = "GLOBAL_NO".localized
         alertView.leftButtonAction = noPressed
         
-        alertView.rightButtonTitle = "GLOBAL_OK".localized
+        alertView.rightButtonTitle = IGStringsManager.GlobalOK.rawValue.localized
         alertView.rightButtonAction = yesPressed
         
         viewController.customPresentViewController(self.presenter(), viewController: alertView, animated: true, completion: nil)
@@ -227,7 +227,7 @@ class SMLoading {
         alertView.leftButtonTitle = "GLOBAL_NO".localized
         alertView.leftButtonAction = noPressed
         
-        alertView.rightButtonTitle = "GLOBAL_OK".localized
+        alertView.rightButtonTitle = IGStringsManager.GlobalOK.rawValue.localized
         alertView.rightButtonAction = yesPressed
         
         viewController.customPresentViewController(self.presenter(), viewController: alertView, animated: true, completion: nil)

@@ -20,7 +20,7 @@ class IGRegistrationStepTermsViewController: BaseViewController {
         super.viewDidLoad()
         
         let navItem = self.navigationItem as! IGNavigationItem
-        navItem.addModalViewItems(leftItemText: nil, rightItemText: "DONE_BTN".localized, title: "TERMS".localized)
+        navItem.addModalViewItems(leftItemText: nil, rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: IGStringsManager.TermsAndConditions.rawValue.localized)
         navItem.rightViewContainer?.addAction {
             self.dismiss(animated: true) {
                 

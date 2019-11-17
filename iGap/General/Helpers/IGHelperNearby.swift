@@ -24,7 +24,7 @@ class IGHelperNearby {
             
             let option = UIAlertController(title: "TTL_MAP_STATUS".localized, message: "SETTING_NEARBY_MAP_STATUS".localized, preferredStyle: IGGlobal.detectAlertStyle())
             
-            let enable = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: { (action) in
+            let enable = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (action) in
                 IGGeoRegister.Generator.generate(enable: true).success({ (protoResponse) in
                     DispatchQueue.main.async {
                         if let registerResponse = protoResponse as? IGPGeoRegisterResponse {
@@ -44,7 +44,7 @@ class IGHelperNearby {
                 }).send()
             })
             
-            let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
+            let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
             
             option.addAction(enable)
             option.addAction(cancel)
@@ -55,7 +55,7 @@ class IGHelperNearby {
     
     func openMapAlert() {
         let option = UIAlertController(title: "TTL_ATTENTION".localized, message: "MSG_MAP_DISTANCE".localized, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: { (action) in
+        let ok = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (action) in
             let mapVC = IGMap.instantiateFromAppStroryboard(appStoryboard: .Main)
             mapVC.hidesBottomBarWhenPushed = true
             UIApplication.topViewController()?.navigationController!.pushViewController(mapVC, animated: true)

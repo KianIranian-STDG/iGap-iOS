@@ -19,7 +19,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBOutlet weak var searchBar: UISearchBar! {
         didSet {
             searchBar.change(textFont: UIFont.igFont(ofSize: 15))
-//            (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localized, for: .normal)
+//            (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
         }
     }
 
@@ -31,7 +31,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         if let searchBarCancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
-            searchBarCancelButton.setTitle("CANCEL_BTN".localized, for: .normal)
+            searchBarCancelButton.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
             searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14, weight: .bold)
             searchBarCancelButton.tintColor = UIColor(named: themeColor.labelColor.rawValue)
         }
@@ -50,7 +50,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.searchBar.becomeFirstResponder()
         }
-//        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localized, for: .normal)
+//        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
 
     }
     
@@ -61,13 +61,13 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
             NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)
         ]
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
-//        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localized, for: .normal)
+//        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
 
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localized, for: .normal)
+//        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
 
     }
     

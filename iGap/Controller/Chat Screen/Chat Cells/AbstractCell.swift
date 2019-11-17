@@ -266,8 +266,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                 let tt = tmpJson?.amount
                 let tmpAmount : Int! = tt
                 let attrsRegular = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 14 , weight: .regular)]
-                let normalString = NSMutableAttributedString(string: "TTL_AMOUNT".MessageViewlocalized + " " + String(tmpAmount).inRialFormat().inLocalizedLanguage() + "CURRENCY".MessageViewlocalized  + "\n_________________________\n", attributes:attrsRegular)
-                let attributedString = NSMutableAttributedString(string: "PRODUCTS_DETAILS".MessageViewlocalized + " " + messageText!, attributes:  attrsRegular)
+                let normalString = NSMutableAttributedString(string: "TTL_AMOUNT".localized + " " + String(tmpAmount).inRialFormat().inLocalizedLanguage() + "CURRENCY".localized  + "\n_________________________\n", attributes:attrsRegular)
+                let attributedString = NSMutableAttributedString(string: IGStringsManager.Desc.rawValue.localized + " " + messageText!, attributes:  attrsRegular)
                 normalString.append(attributedString)
                 
                 txtMessageAbs.numberOfLines = 0
@@ -1004,13 +1004,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             let body = repliedMessage.message
             
             if repliedMessage.type == .contact {
-                txtReplyMessageAbs.text = "CONTACT_MESSAGE".MessageViewlocalized
+                txtReplyMessageAbs.text = "CONTACT_MESSAGE".localized
             } else if repliedMessage.type == .location {
-                txtReplyMessageAbs.text = "LOCATION_MESSAGE".MessageViewlocalized
+                txtReplyMessageAbs.text = "LOCATION_MESSAGE".localized
             } else if body != nil && !(body?.isEmpty)! {
                 
                 if repliedMessage.type == .sticker {
-                    txtReplyMessageAbs.text = body! + "LBL_STICKER".MessageViewlocalized
+                    txtReplyMessageAbs.text = body! + "LBL_STICKER".localized
                 } else {
                     let markdown = MarkdownParser()
                     markdown.enabledElements = MarkdownParser.EnabledElements.bold
@@ -1044,14 +1044,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             
             if let authorUser = originalMessage.authorUser {
                 if let user = authorUser.user {
-                    txtForwardAbs.text = "FORWARDED_FROM".MessageViewlocalized + " \(user.displayName)"
+                    txtForwardAbs.text = "FORWARDED_FROM".localized + " \(user.displayName)"
                 } else {
                     IGMessageViewController.messageOnChatReceiveObserver.onFetchUserInfo(userId: authorUser.userId)
                 }
             } else if let room = originalMessage.authorRoom {
-                txtForwardAbs.text = "FORWARDED_FROM".MessageViewlocalized + " \(room.title != nil ? room.title! : "")"
+                txtForwardAbs.text = "FORWARDED_FROM".localized + " \(room.title != nil ? room.title! : "")"
             } else {
-                txtForwardAbs.text = "FORWARDED_FROM".MessageViewlocalized
+                txtForwardAbs.text = "FORWARDED_FROM".localized
             }
 
             let text = originalMessage.message
@@ -1624,7 +1624,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
     private func makeEdit(){
         if txtEditedAbs == nil {
             txtEditedAbs = UILabel()
-            txtEditedAbs.text = "EDITED".MessageViewlocalized
+            txtEditedAbs.text = "EDITED".localized
             txtEditedAbs.font = UIFont.igFont(ofSize: 9.0)
             txtEditedAbs.textColor = UIColor.chatTimeTextColor()
             mainBubbleViewAbs.addSubview(txtEditedAbs)

@@ -22,7 +22,7 @@ class IGSearchTableViewController: BaseTableViewController {
             
             let searchController = UISearchController(searchResultsController: nil)
             searchController.searchBar.placeholder = ""
-            searchController.searchBar.setValue("CANCEL_BTN".localized, forKey: "cancelButtonText")
+            searchController.searchBar.setValue(IGStringsManager.GlobalCancel.rawValue.localized, forKey: "cancelButtonText")
             
             let gradient = CAGradientLayer()
             let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
@@ -86,7 +86,7 @@ class IGSearchTableViewController: BaseTableViewController {
 
         
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil,title: "SEARCH_PLACEHOLDER".localized, iGapFont: true)
+        navigationItem.addNavigationViewItems(rightItemText: nil,title: IGStringsManager.SearchPlaceHolder.rawValue.localized, iGapFont: true)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
 
     }
@@ -114,7 +114,7 @@ class IGSearchTableViewController: BaseTableViewController {
             }
             
             if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
-                searchBarCancelButton.setTitle("CANCEL_BTN".localized, for: .normal)
+                searchBarCancelButton.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
                 searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
                 searchBarCancelButton.tintColor = UIColor.white
             }
@@ -122,7 +122,7 @@ class IGSearchTableViewController: BaseTableViewController {
             if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
                 placeHolderInsideSearchField.textColor = UIColor.white
                 placeHolderInsideSearchField.textAlignment = .center
-                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localized
+                placeHolderInsideSearchField.text = IGStringsManager.SearchPlaceHolder.rawValue.localized
                 if let backgroundview = textField.subviews.first {
                     placeHolderInsideSearchField.center = backgroundview.center
                 }
@@ -140,7 +140,7 @@ class IGSearchTableViewController: BaseTableViewController {
 
         // navigationItem.setChatListsNavigationItems()
 //        let navigationItem = self.navigationItem as! IGNavigationItem
-//        navigationItem.addNavigationViewItems(rightItemText: nil,title: "SEARCH_PLACEHOLDER".localized, iGapFont: true)
+//        navigationItem.addNavigationViewItems(rightItemText: nil,title: IGStringsManager.SearchPlaceHolder.rawValue.localized, iGapFont: true)
 //        navigationItem.navigationController = self.navigationController as? IGNavigationController
 //        self.initNavigationBar {
 //            

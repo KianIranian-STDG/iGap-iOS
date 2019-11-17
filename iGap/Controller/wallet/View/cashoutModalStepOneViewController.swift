@@ -107,8 +107,8 @@ class cashoutModalStepOneViewController: BaseViewController {
         
         prepareConfirm(resp: message, amount: amount)
         self.dialogTitle.text = dialogT
-        btnOk.setTitle("GLOBAL_OK".localized, for: .normal)
-        btnCancel.setTitle("CANCEL_BTN".localized, for: .normal)
+        btnOk.setTitle(IGStringsManager.GlobalOK.rawValue.localized, for: .normal)
+        btnCancel.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
     }
     func AnimateMainViewHeight() {
         UIView.animate(withDuration: 0.5, animations: {

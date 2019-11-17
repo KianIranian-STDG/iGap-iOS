@@ -36,7 +36,7 @@ class IGDeleteAccountConfirmationTableViewController: BaseTableViewController , 
             phoneNumberLabel.text = "\(userInDb.phone)"
         }
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localized, title: "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localized)
+        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalNext.rawValue.localized, title: "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -63,7 +63,7 @@ class IGDeleteAccountConfirmationTableViewController: BaseTableViewController , 
     func nextButtonClicked(){
         if CodeEntryTextField.text?.isEmpty == true {
             let alert = UIAlertController(title: "GAME_ALERT_TITLE".localized, message: "MSG_FILL_DELETE_CODE".localized, preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "GLOBAL_OK".localized, style: UIAlertAction.Style.default, handler: nil))
+            alert.addAction(UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: UIAlertAction.Style.default, handler: nil))
             alert.view.tintColor = UIColor.organizationalColor()
             self.present(alert, animated: true, completion: nil)
         } else {
@@ -85,7 +85,7 @@ class IGDeleteAccountConfirmationTableViewController: BaseTableViewController , 
                 case .timeout:
                     DispatchQueue.main.async{
                         let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.hud.hide(animated: true)
                         self.present(alert, animated: true, completion: nil)
@@ -93,16 +93,16 @@ class IGDeleteAccountConfirmationTableViewController: BaseTableViewController , 
                 case .userDeleteTokenInvalidCode:
                     DispatchQueue.main.async {
                         let alert = UIAlertController(title:"INVALID_CODE".localized, message: "MSG_THE_CODE_INVALID".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default , handler: nil)
+                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default , handler: nil)
                         alert.addAction(okAction)
                         self.hud.hide(animated: true)
                         self.present(alert, animated: true, completion: nil)
                     }
                 default:
                     DispatchQueue.main.async {
-                        let alertC = UIAlertController(title: "GLOBAL_WARNING".localized, message: "UNSSUCCESS_OTP".localized, preferredStyle: .alert)
+                        let alertC = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.UnsuccessOperation.rawValue.localized, preferredStyle: .alert)
                         
-                        let cancel = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                        let cancel = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                         alertC.addAction(cancel)
                         self.hud.hide(animated: true)
                         self.present(alertC, animated: true, completion: nil)
@@ -159,7 +159,7 @@ class IGDeleteAccountConfirmationTableViewController: BaseTableViewController , 
             case .timeout:
                 DispatchQueue.main.async {
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)

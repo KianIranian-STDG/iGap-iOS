@@ -65,11 +65,11 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
         setNavigation()
     }
     private func initView() {
-        lblPublicChannel.text = "MSG_NEW_CHANNEL_PUBLIC_CHANNEL_TITLE".localized
-        lblPrivateChannel.text = "MSG_NEW_CHANNEL_PRIVATE_CHANNEL_TITLE".localized
-        lblPublicChannelDesc.text = "MSG_NEW_CHANNEL_PUBLIC_CHANNEL_DESC".localized
-        lblPrivateChannelDesc.text = "MSG_NEW_CHANNEL_PRIVATE_CHANNEL_DESC".localized
-        lblChannelLink.text = "NEW_CHANNEL_LINK".localized
+        lblPublicChannel.text = IGStringsManager.PublicChannel.rawValue.localized
+        lblPrivateChannel.text = IGStringsManager.PrivateChannel.rawValue.localized
+        lblPublicChannelDesc.text = IGStringsManager.PublicChannelDesc.rawValue.localized
+        lblPrivateChannelDesc.text = IGStringsManager.PrivateChannelDesc.rawValue.localized
+        lblChannelLink.text = IGStringsManager.ChannelLink.rawValue.localized
 
         
         lblPublicChannel.font = UIFont.igFont(ofSize: 17,weight: .bold)
@@ -88,7 +88,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
     
     private func setNavigation(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localized, title: "NEW_CHANNEL".localized)
+        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalNext.rawValue.localized, title: IGStringsManager.NewChannel.rawValue.localized)
 
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
@@ -110,8 +110,8 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
     func convertChannelToPublic() {
         if let channelUserName = channelLinkTextField.text {
             if channelUserName == "" {
-                let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "CHECK_ALL_FIELDS".localized, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalCheckFields.rawValue.localized, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                 alert.addAction(okAction)
                 self.hud.hide(animated: true)
                 self.present(alert, animated: true, completion: nil)
@@ -119,8 +119,8 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
             }
             
             if channelUserName.count < 5 {
-                let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "MSG_MINIMUM_LENGH".localized, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalMinimumLetters.rawValue.localized, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                 alert.addAction(okAction)
                 self.hud.hide(animated: true)
                 self.present(alert, animated: true, completion: nil)
@@ -148,46 +148,30 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
-                        let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                        
+                        break
                     case .channelUpdateUsernameIsInvalid:
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "MSG_INVALID_USERNAME".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                        IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.InvalidUserName.rawValue.localized, cancelText: IGStringsManager.GlobalOK.rawValue.localized)
+
                         break
                         
                     case .channelUpdateUsernameHasAlreadyBeenTakenByAnotherUser:
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "MSG_TAKEN_USERNAME".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                        
+                        IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.AlreadyTakenUserName.rawValue.localized, cancelText: IGStringsManager.GlobalOK.rawValue.localized)
+
                         break
                         
                     case .channelUpdateUsernameMoreThanTheAllowedUsernmaeHaveBeenSelectedByYou:
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "More than the allowed usernmae have been selected by you", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                        IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "More than the allowed usernmae have been selected by you", cancelText: IGStringsManager.GlobalOK.rawValue.localized)
+
                         break
                         
                     case .channelUpdateUsernameForbidden:
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "MSG_UPDATE_USERNAME_FORBIDDEN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                        IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.MSGUpdateUserNameForbidden.rawValue.localized, cancelText: IGStringsManager.GlobalOK.rawValue.localized)
+
+                        
                         break
                         
                     case .channelUpdateUsernameLock:
-                        let time = waitTime
-                        let remainingMiuntes = time!/60
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "MSG_CHANGE_USERNAME_AFTER".localized +  "\(remainingMiuntes)".inLocalizedLanguage() + "MINUTE".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true,completion: nil)
                         break
                         
                     default:
@@ -220,10 +204,8 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+
+                    break
                 default:
                     break
                 }

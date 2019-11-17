@@ -31,7 +31,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     var searchController : UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
-        searchController.searchBar.setValue("CANCEL_BTN".localized, forKey: "cancelButtonText")
+        searchController.searchBar.setValue(IGStringsManager.GlobalCancel.rawValue.localized, forKey: "cancelButtonText")
         
         let gradient = CAGradientLayer()
         let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
@@ -45,7 +45,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
         if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
             if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
-                searchBarCancelButton.setTitle("CANCEL_BTN".localized, for: .normal)
+                searchBarCancelButton.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
                 searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
                 searchBarCancelButton.tintColor = UIColor.white
             }
@@ -53,7 +53,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
                 placeHolderInsideSearchField.textColor = UIColor.white
                 placeHolderInsideSearchField.textAlignment = .center
-                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localized
+                placeHolderInsideSearchField.text = IGStringsManager.SearchPlaceHolder.rawValue.localized
                 if let backgroundview = textField.subviews.first {
                     placeHolderInsideSearchField.center = backgroundview.center
                 }
@@ -159,7 +159,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             }
 
             if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
-                searchBarCancelButton.setTitle("CANCEL_BTN".localized, for: .normal)
+                searchBarCancelButton.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
                 searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
                 searchBarCancelButton.tintColor = UIColor.white
             }
@@ -167,7 +167,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
                 placeHolderInsideSearchField.textColor = UIColor.white
                 placeHolderInsideSearchField.textAlignment = .center
-                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localized
+                placeHolderInsideSearchField.text = IGStringsManager.SearchPlaceHolder.rawValue.localized
                 if let backgroundview = textField.subviews.first {
                     placeHolderInsideSearchField.center = backgroundview.center
                 }
@@ -270,7 +270,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                         }
                     } else if role == IGPChannelRoom.IGPRole.moderator.rawValue || role == IGPChannelRoom.IGPRole.member.rawValue {
                         let alertC = UIAlertController(title: "HINT".localized, message: "CHANGED_ROLE_HINT".localized, preferredStyle: .alert)
-                        let cancel = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler:  {  action in
+                        let cancel = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler:  {  action in
                             self.navigationController?.popViewController(animated: true)
                         })
                         alertC.addAction(cancel)
@@ -462,7 +462,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             }
         })
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
         
         if permissions.addAdmin {
             alertController.addAction(addAdmin)
@@ -486,7 +486,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     
     func kickAlert(title: String, message: String, alertClouser: @escaping ((_ state :AlertState) -> Void)){
         let option = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "GLOBAL_OK".localized, style: .destructive, handler: { (action) in
+        let ok = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .destructive, handler: { (action) in
             alertClouser(AlertState.Ok)
         })
         let cancel = UIAlertAction(title: "GLOBAL_NO".localized, style: .cancel, handler: { (action) in
@@ -514,7 +514,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         if let channelRoom = room {
             
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "REMOVE_ADMIN".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_ADMIN".localized, doneText: "GLOBAL_OK".localized, cancelText: "GLOBAL_CLOSE".localized, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "REMOVE_ADMIN".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_ADMIN".localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
                 IGGlobal.prgShow(self.view)
                 IGChannelKickAdminRequest.Generator.generate(roomId: channelRoom.id , memberId: userId).success({ (protoResponse) in
                     IGGlobal.prgHide()
@@ -551,7 +551,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         if let channelRoom = room {
             
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "REMOVE_MODERATOR".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_MODERATOR".localized, doneText: "GLOBAL_OK".localized, cancelText: "GLOBAL_CLOSE".localized, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "REMOVE_MODERATOR".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_MODERATOR".localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
                 
                     IGGlobal.prgShow(self.view)
                     IGChannelKickModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: userId).success({ (protoResponse) in
@@ -578,7 +578,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     func kickMemberChannel(userId: Int64) {
         if let _ = room {
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "KICK_MEMBER".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_KICK_USER".localized, doneText: "GLOBAL_OK".localized, cancelText: "GLOBAL_CLOSE".localized, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "KICK_MEMBER".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_KICK_USER".localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
                 IGGlobal.prgShow(self.view)
                 IGChannelKickMemberRequest.Generator.generate(roomID: (self.room?.id)!, memberID: userId).success({ (protoResponse) in
                     IGGlobal.prgHide()
@@ -615,7 +615,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                     break
                 case .canNotAddThisUserAsAdminToGroup:
                     DispatchQueue.main.async {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                     }
                 default:
@@ -642,7 +642,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                     break
                 case .canNotAddThisUserAsModeratorToGroup:
                     DispatchQueue.main.async {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     }
                     
                 default:
@@ -657,7 +657,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     func kickAdmin(userId: Int64) {
         if let groupRoom = room {
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "REMOVE_ADMIN".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_ADMIN".localized, doneText: "GLOBAL_OK".localized, cancelText: "GLOBAL_CLOSE".localized, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "REMOVE_ADMIN".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_ADMIN".localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
                 IGGlobal.prgShow(self.view)
                 IGGroupKickAdminRequest.Generator.generate(roomID: groupRoom.id , memberID: userId).success({ (protoResponse) in
                     IGGlobal.prgHide()
@@ -680,7 +680,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     
     func kickModerator(userId: Int64) {
         if let groupRoom = room {
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "REMOVE_MODERATOR".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_MODERATOR".localized, doneText: "GLOBAL_OK".localized, cancelText: "GLOBAL_CLOSE".localized, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: "REMOVE_MODERATOR".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_REMOVE_MODERATOR".localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
                 IGGlobal.prgShow(self.view)
                 IGGroupKickModeratorRequest.Generator.generate(memberId: userId, roomId: groupRoom.id).success({ (protoResponse) in
                     IGGlobal.prgHide()
@@ -692,7 +692,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                         }
                     default:
                         break
@@ -706,7 +706,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     func kickMember(userId: Int64) {
         if room != nil {
             
-            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "KICK_MEMBER".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_KICK_USER".localized, doneText: "GLOBAL_OK".localized, cancelText: "GLOBAL_CLOSE".localized, done: {
+            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "KICK_MEMBER".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "ARE_U_SURE_KICK_USER".localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized, done: {
                 IGGlobal.prgShow(self.view)
                 IGGroupKickMemberRequest.Generator.generate(memberId: userId, roomId: (self.room?.id)!).success({ (protoResponse) in
                     IGGlobal.prgHide()
@@ -718,7 +718,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                         }
                     default:
                         break
@@ -743,11 +743,11 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     }
                 case .canNotAddThisUserAsAdminToGroup:
                     DispatchQueue.main.async {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                     }
                 default:
@@ -772,11 +772,11 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     }
                 case .canNotAddThisUserAsModeratorToGroup:
                     DispatchQueue.main.async {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     }
                     
                 default:

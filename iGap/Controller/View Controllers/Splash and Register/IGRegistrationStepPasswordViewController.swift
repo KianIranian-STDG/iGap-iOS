@@ -33,7 +33,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
         self.passwordTextField.isSecureTextEntry = true
         initView()
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localized, title: "AUTH_VERIFYMOBILE".localized)
+        navigaitonItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalNext.rawValue.localized, title: IGStringsManager.VerifyMobile.rawValue.localized)
         navigaitonItem.rightViewContainer?.addAction {
             self.view.endEditing(false)
             self.nextStep()
@@ -45,7 +45,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
     }
     
     func initView() {
-        btnForgetPass.setTitle("FORGET_PASSWORD".localized, for: .normal)
+        btnForgetPass.setTitle(IGStringsManager.ForgetPassword.rawValue.localized, for: .normal)
         
         btnForgetPass.titleLabel?.font = UIFont.igFont(ofSize: 15)
         btnForgetPass.layer.cornerRadius = 10
@@ -53,7 +53,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        lblHeader.text = "twoStepVerfi_HEADER".localized
+        lblHeader.text = IGStringsManager.TwoStepHeader.rawValue.localized
         self.passwordTextField.becomeFirstResponder()
 //        print(SMLangUtil.currentAppleLanguage())
 
@@ -89,8 +89,8 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
 //                            IGGlobal.setLanguage()
                             
 
-                            self.recoverTypeArray.append(IGStringsManager.GLOBAL_EMAIL.localized)
-                            self.recoverTypeArray.append(IGStringsManager.GLOBAL_SECURITY_QUESTIONS.localized)
+                            self.recoverTypeArray.append(IGStringsManager.Email.rawValue.localized)
+                            self.recoverTypeArray.append(IGStringsManager.SecurityQuestion.rawValue.localized)
                         } else {
                             
 //                            IGGlobal.setLanguage()
@@ -99,7 +99,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
 
 //                            IGGlobal.setLanguage()
 
-                            self.recoverTypeArray.append(IGStringsManager.GLOBAL_SECURITY_QUESTIONS.localized)
+                            self.recoverTypeArray.append(IGStringsManager.SecurityQuestion.rawValue.localized)
                             print(self.recoverTypeArray)
 
                         }
@@ -123,8 +123,8 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
     func nextStep() {
         if passwordTextField.text == nil || passwordTextField.text == "" {
             DispatchQueue.main.async {
-                let alertVC = UIAlertController(title: "GLOBAL_WARNING".localized, message: "PLEASE_ENTER_PASS".localized, preferredStyle: .alert)
-                let ok = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                let alertVC = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.PleaseEnterPassword.rawValue.localized, preferredStyle: .alert)
+                let ok = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                 alertVC.addAction(ok)
                 self.present(alertVC, animated: true, completion: nil)
             }
@@ -217,10 +217,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
                     }).error({ (errorCode, waitTime) in
                         DispatchQueue.main.async {
                             self.hud.hide(animated: true)
-                            let alertVC = UIAlertController(title: "Error", message: "There was an error logging you in. Try again please.", preferredStyle: .alert)
-                            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            alertVC.addAction(ok)
-                            self.present(alertVC, animated: true, completion: nil)
+                            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                         }
                     }).send()
                     
@@ -231,10 +228,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
         }).error({ (errorCode, waitTime) in
             DispatchQueue.main.async {
                 self.hud.hide(animated: true)
-                let alertVC = UIAlertController(title: "Error", message: "There was an error logging you in. Try again please.", preferredStyle: .alert)
-                let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alertVC.addAction(ok)
-                self.present(alertVC, animated: true, completion: nil)
+                IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             }
         }).send()
     }
@@ -247,11 +241,11 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
         )
         
 //        let cancel = UIAlertAction(title: IGStringsManager.GLOBAL_CANCEL.localized, style: .default, handler: nil)
-        let cancel = UIAlertAction(title: NSLocalizedString("GLOBAL_CANCEL", comment: ""), style: .default, handler: nil)
-        let email = UIAlertAction(title: IGStringsManager.GLOBAL_EMAIL.localized, style: .default, handler: { _ in
+        let cancel = UIAlertAction(title: NSLocalizedString(IGStringsManager.GlobalCancel.rawValue, comment: ""), style: .default, handler: nil)
+        let email = UIAlertAction(title: IGStringsManager.Email.rawValue.localized, style: .default, handler: { _ in
             
         })
-        let secQ = UIAlertAction(title: IGStringsManager.GLOBAL_SECURITY_QUESTIONS.localized, style: .default, handler: { _ in
+        let secQ = UIAlertAction(title: IGStringsManager.SecurityQuestion.rawValue.localized, style: .default, handler: { _ in
             let secQVC = IGRegisttrationStepSecurityQuestions.instantiateFromAppStroryboard(appStoryboard: .Register)
             secQVC.secQOne = self.secQOne
             secQVC.secQTwo = self.secQTwo

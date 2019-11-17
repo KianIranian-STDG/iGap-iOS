@@ -30,7 +30,7 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        btnSubmit.setTitle("GLOBAL_OK".localized, for: .normal)
+        btnSubmit.setTitle(IGStringsManager.GlobalOK.rawValue.localized, for: .normal)
         btnSubmit.titleLabel?.font = UIFont.igFont(ofSize: 17)
         if isOTP {
             initNavigationBar(title: "RESET_WALLET_PIN".localized)
@@ -79,7 +79,7 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         }
     }
     func initView() {
-        btnSubmit.setTitle("GLOBAL_OK".localized, for: .normal)
+        btnSubmit.setTitle(IGStringsManager.GlobalOK.rawValue.localized, for: .normal)
         btnSubmit.titleLabel?.font = UIFont.igFont(ofSize: 17)
         if isOTP {
             initNavigationBar(title: "RESET_WALLET_PIN".localized)
@@ -137,13 +137,13 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
             if SMValidation.showConnectionErrorToast(response) {
                 SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localized)
             }
-            let message = "UNSSUCCESS_OTP".localized
+            let message = IGStringsManager.UnsuccessOperation.rawValue.localized
             SMLoading.shared.showNormalDialog(viewController: self, height: 180 ,isleftButtonEnabled: false , title: "GLOBAL_MESSAGE".localized, message: message ,yesPressed :{yes in
 
                 self.navigationController?.popViewController(animated: true)
 
             })
-//            SMLoading.showToast(viewcontroller: self, text: "UNSSUCCESS_OTP".localized)
+//            SMLoading.showToast(viewcontroller: self, text: IGStringsManager.UnsuccessOperation.rawValue.localized)
 
             SMLoading.hideLoadingPage()
         }

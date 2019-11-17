@@ -461,7 +461,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
                 let videoCall = UIAlertAction(title: "VIDEO_CALL".localized, style: .default, handler: { (action) in
                     self.showCallPage(userId: userId, isIncommmingCall: isIncommmingCall, sdp: sdp, type: IGPSignalingOffer.IGPType.videoCalling, showAlert: false)
                 })
-                let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
+                let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
                 
                 callAlert.addAction(voiceCall)
                 callAlert.addAction(videoCall)

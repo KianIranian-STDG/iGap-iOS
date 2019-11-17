@@ -36,7 +36,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         initNavigationBar()
         
         channelAvatarImage.isUserInteractionEnabled = false
-        lblFooter.text = "MSG_NEW_CHANNEL_FOOTER".localized
+        lblFooter.text = IGStringsManager.NewChannelHint.rawValue.localized
         lblFooter.textAlignment = lblFooter.localizedDirection
         lblFooter.font = UIFont.igFont(ofSize: 13)
         changeImageBtn.layer.cornerRadius = changeImageBtn.frame.height / 2
@@ -53,19 +53,19 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
           let navigationControllerr = self.navigationController as! IGNavigationController
           navigationControllerr.navigationBar.isHidden = false
 
-          descriptionTextField.placeholder = "PRODUCTS_DETAILS".localized
-          channelnameTextField.placeholder = "CHANNEL_NAME".localized
+          descriptionTextField.placeholder = IGStringsManager.Desc.rawValue.localized
+          channelnameTextField.placeholder = IGStringsManager.ChannelName.rawValue.localized
       }
     
     private func initNavigationBar() {
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localized, title: "NEW_CHANNEL".localized)
+        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalNext.rawValue.localized, title: IGStringsManager.NewChannel.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         
         navigationItem.rightViewContainer?.addAction {
             if self.channelnameTextField.text?.isEmpty == true {
-                let alert = UIAlertController(title: "BTN_HINT".localized, message: "MSG_WRITE_YOUR_CHANNEL_NAME".localized, preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "GLOBAL_OK".localized, style: UIAlertAction.Style.default, handler: nil))
+                let alert = UIAlertController(title: IGStringsManager.GlobalHint.rawValue.localized, message: IGStringsManager.MsgEnterChannelName.rawValue.localized, preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: UIAlertAction.Style.default, handler: nil))
                 alert.view.tintColor = UIColor.organizationalColor()
                 self.present(alert, animated: true, completion: nil)
             } else {
@@ -132,24 +132,21 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
                     var errorBody = ""
                     switch errorCode {
                     case .channelCreatLimitReached :
-                        errorBody = "RESTRICTED_CREATE_ROOM".localized
+                        errorBody = IGStringsManager.RestrictionCreatRoom.rawValue.localized
                         break
                     case .timeout:
-                        errorBody = "TIME_OUT".localized
+                        errorBody = IGStringsManager.GlobalTimeOut.rawValue.localized
                         break
                     default:
-                        errorBody = "MSG_PLEASE_TRY_AGAIN".localized
+                        errorBody = IGStringsManager.GlobalTryAgain.rawValue.localized
                         break
                     }
                     if waitTime != nil && waitTime != 0 {
-                        errorBody += "MSG_PLEASE_TRY_AGAIN".localized + "\n" + "\(waitTime ?? 0)"
+                        errorBody += IGStringsManager.GlobalTryAgain.rawValue.localized + "\n" + "\(waitTime ?? 0)"
                     }
                     DispatchQueue.main.async {
                         IGGlobal.prgHide()
-                        let alert = UIAlertController(title: nil, message: errorBody, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                        IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: errorBody, cancelText: IGStringsManager.GlobalOK.rawValue.localized)
                     }
 
                 }).send()
@@ -173,7 +170,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         let containerView = view as! UITableViewHeaderFooterView
         if section == 0 {
-            containerView.textLabel!.text = "MSG_CHANNEL_DESC".localized
+            containerView.textLabel!.text = IGStringsManager.ChannelDesc.rawValue.localized
         }
         containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
         containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
@@ -186,16 +183,16 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
     func choosePhotoActionSheet(sender : UIImageView){
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
-        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let cameraOption = UIAlertAction(title: IGStringsManager.Camera.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.pickImage(screens: [.photo])
         })
         
-        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let ChoosePhoto = UIAlertAction(title: IGStringsManager.Gallery.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.pickImage(screens: [.library])
         })
        
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
-        let removeAction = UIAlertAction(title: "DELETE_PHOTO".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
+        let removeAction = UIAlertAction(title: IGStringsManager.DeletePhoto.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.channelAvatarImage.image = self.defaultImage
         })
 
@@ -206,7 +203,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         }
         let alertActions = optionMenu.actions
         for action in alertActions {
-            if action.title == "DELETE_PHOTO".localized{
+            if action.title == IGStringsManager.DeletePhoto.rawValue.localized{
                 let removeColor = UIColor.red
                 action.setValue(removeColor, forKey: "titleTextColor")
             }

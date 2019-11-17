@@ -51,21 +51,21 @@ class CardToCardCell: IGMessageGeneralCollectionViewCell {
     }
     
     func initChangeLang() {
-        ttlTransfer.text = "CARD_TRANSFER_MONEY".MessageViewlocalized
+        ttlTransfer.text = "CARD_TRANSFER_MONEY".localized
         ttlTransfer.backgroundColor = UIColor.iGapSkyBlue()
         ttlDate.backgroundColor = UIColor.iGapSkyBlue()
         ttlTransfer.textColor = UIColor.black
         ttlDate.textColor = UIColor.black
-        ttlInvoicelblInvoiceNumber.text = "TRACE_NUMBER".MessageViewlocalized
-        ttlAmount.text = "PRICE".MessageViewlocalized
+        ttlInvoicelblInvoiceNumber.text = "TRACE_NUMBER".localized
+        ttlAmount.text = "PRICE".localized
         ttlTransfer.font = UIFont.igFont(ofSize: 15)
         ttlDate.font = UIFont.igFont(ofSize: 15)
-        ttlDestinationCardNUmber.text = "TTL_DESTI_CARDNUM".MessageViewlocalized
-        ttlSourceCardNUmber.text = "TTL_CARDNUM".MessageViewlocalized
-        lblSourceBankName.text = "SOURCE_BANK".MessageViewlocalized
-        ttlDestinationBankName.text = "DEST_BANK".MessageViewlocalized
-        lblRrn.text = "TTL_REFERENCE_NUMBER".MessageViewlocalized
-        lblAccountOwnerName.text = "TTL_ACCOUNT_OWNER_NAME".MessageViewlocalized
+        ttlDestinationCardNUmber.text = "TTL_DESTI_CARDNUM".localized
+        ttlSourceCardNUmber.text = "TTL_CARDNUM".localized
+        lblSourceBankName.text = "SOURCE_BANK".localized
+        ttlDestinationBankName.text = "DEST_BANK".localized
+        lblRrn.text = "TTL_REFERENCE_NUMBER".localized
+        lblAccountOwnerName.text = "TTL_ACCOUNT_OWNER_NAME".localized
     }
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
@@ -77,7 +77,7 @@ class CardToCardCell: IGMessageGeneralCollectionViewCell {
         guard let cardToCard = message.wallet?.cardToCard else {
             return
         }
-        lblAmount.text = String(describing: cardToCard.amount).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".MessageViewlocalized
+        lblAmount.text = String(describing: cardToCard.amount).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localized
         ttlRrn.text =  (cardToCard.traceNumber)!.inLocalizedLanguage()
         ttlInvoice.text = (cardToCard.rrn)!.inLocalizedLanguage()
         lblSourceCard.text = (cardToCard.sourceCardNumber)!.inLocalizedLanguage()

@@ -46,7 +46,7 @@ struct SMMessage {
     static func showWithMessage(_ message: String) {
         
         let dialog = MC_message_dialog(title: MCLocalization.string(forKey: "GLOBAL_MESSAGE"), message: message, delegate: UIApplication.shared.delegate?.window??.rootViewController ?? UIViewController())
-        let okBtn = MC_ActionDialog.action(withTitle: MCLocalization.string(forKey: "GLOBAL_OK"), style: MCMessageDialogActionButton.blue, handler: nil)
+        let okBtn = MC_ActionDialog.action(withTitle: MCLocalization.string(forKey: IGStringsManager.GlobalOK.rawValue), style: MCMessageDialogActionButton.blue, handler: nil)
         dialog.addAction(okBtn)
         dialog.show()
     }

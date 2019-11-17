@@ -85,7 +85,7 @@ class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
             viewController.navigationController!.pushViewController(messagesVc, animated:true)
         })
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
         option.addAction(cardToCard)
         option.addAction(mobileCharge)
         option.addAction(payBills)

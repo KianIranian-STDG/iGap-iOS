@@ -31,11 +31,11 @@ class IGReport: UITableViewController , UIGestureRecognizerDelegate {
         
         txtReportDescription.delegate = self
         txtReportDescription.isUserInteractionEnabled = true
-        navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localized, title: "REPORT".localized)
+        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: "REPORT".localized)
         navigationItem.rightViewContainer?.addAction {
             if self.txtReportDescription.text.isEmpty {
-                let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "PLEASE_WRITE_UR_REPORT".localized, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "PLEASE_WRITE_UR_REPORT".localized, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)
             } else {
@@ -80,7 +80,7 @@ class IGReport: UITableViewController , UIGestureRecognizerDelegate {
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
                     let alert = UIAlertController(title: "SUCCESS".localized, message: "REPORT_SUCCESS".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: { (action) in
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (action) in
                         if self.navigationController is IGNavigationController {
                             self.navigationController?.popViewController(animated: true)
                         }
@@ -139,7 +139,7 @@ class IGReport: UITableViewController , UIGestureRecognizerDelegate {
                 switch protoResponse {
                 case _ as IGPUserReportResponse:
                     let alert = UIAlertController(title: "SUCCESS".localized, message: "REPORT_SUCCESS".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: { (action) in
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (action) in
                         if self.navigationController is IGNavigationController {
                             self.navigationController?.popViewController(animated: true)
                         }
@@ -157,21 +157,21 @@ class IGReport: UITableViewController , UIGestureRecognizerDelegate {
                 switch errorCode {
                 case .timeout:
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .userReportDescriptionIsInvalid:
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "MSG_REPORT_INVALID".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "MSG_REPORT_INVALID".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .userReportReportedBefore:
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "MSG_USER_REPORTED_BEFOR".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "MSG_USER_REPORTED_BEFOR".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break

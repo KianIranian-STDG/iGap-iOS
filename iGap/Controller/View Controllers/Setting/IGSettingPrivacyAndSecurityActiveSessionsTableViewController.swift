@@ -203,7 +203,7 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
             let logoutAction = UIAlertAction(title: "TERMINATE".localized, style:.default , handler: { _ in
                 self.terminateAllSession()
             })
-            let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style:.cancel , handler: { _ in
+            let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style:.cancel , handler: { _ in
             })
             logoutConfirmAlertView.addAction(logoutAction)
             logoutConfirmAlertView.addAction(cancelAction)
@@ -251,7 +251,7 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
                 switch errorCode {
                 case .timeout:
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:

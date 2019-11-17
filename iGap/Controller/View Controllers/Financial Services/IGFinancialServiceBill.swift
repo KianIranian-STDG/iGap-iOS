@@ -197,7 +197,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
     
     private func showErrorAlertView(title: String, message: String?, dismiss: Bool = false){
         let option = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "GLOBAL_OK".localized, style: .cancel, handler: { (action) in
+        let ok = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .cancel, handler: { (action) in
             if dismiss {
                 self.navigationController?.popViewController(animated: true)
             }
@@ -249,7 +249,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
                 if mplGetBillTokenResponse.igpStatus == 0 { //success
                     self.initBillPaymanet(token: mplGetBillTokenResponse.igpToken)
                 } else {
-                    self.showErrorAlertView(title: "GLOBAL_WARNING".localized, message: mplGetBillTokenResponse.igpMessage)
+                    self.showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: mplGetBillTokenResponse.igpMessage)
                 }
             }
             
@@ -259,7 +259,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
             case .timeout:
                 DispatchQueue.main.async {
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -279,7 +279,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
     }
     
     func BillMerchantError(errorType: Int) {
-        showErrorAlertView(title: "GLOBAL_WARNING".localized, message: "MSG_ERROR_BILL_PAYMENT".localized, dismiss: true)
+        showErrorAlertView(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "MSG_ERROR_BILL_PAYMENT".localized, dismiss: true)
     }
     
     /********************************************/

@@ -838,34 +838,34 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             case .signalingOfferForbiddenYouAreTalkingWithYourOtherDevices:
                 
                 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "TALKING_WITH_OTHER_DEVICE".localized, cancelText: "GLOBAL_CLOSE".localized)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "TALKING_WITH_OTHER_DEVICE".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                 
                 break
                 
             case .signalingOfferForbiddenTheUserIsInConversation:
                 
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IN_CONVERSATION".localized, cancelText: "GLOBAL_CLOSE".localized,cancel:  {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IN_CONVERSATION".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel:  {
                     self.dismmis()
                 })
 
                 break
                 
             case .signalingOfferForbiddenDialedNumberIsNotActive:
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "DILED_NUMBER_IS_INACTIVE".localized, cancelText: "GLOBAL_CLOSE".localized,cancel:  {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "DILED_NUMBER_IS_INACTIVE".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel:  {
                     self.dismmis()
                 })
                 break
                 
             case .signalingOfferForbiddenUserIsBlocked:
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IS_BLOCKED".localized, cancelText: "GLOBAL_CLOSE".localized,cancel:  {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IS_BLOCKED".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel:  {
                     self.dismmis()
                 })
                 break
                 
             case .signalingOfferForbiddenIsNotAllowedToCommunicate:
                 self.playSound(sound: "igap_disconnect")
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IS_NOT_ALLOWED_TO_COMMINUCATE".localized, cancelText: "GLOBAL_CLOSE".localized,cancel:  {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "USER_IS_NOT_ALLOWED_TO_COMMINUCATE".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel:  {
                     self.dismmis()
                 })
                 break

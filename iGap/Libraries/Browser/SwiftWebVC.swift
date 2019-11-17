@@ -403,7 +403,7 @@ extension SwiftWebVC: WKScriptMessageHandler {
                 let paymentView = IGPaymentView.sharedInstance
                 if success {
                     guard let paymentData = payment else {
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                         return
                     }
                     paymentView.show(on: UIApplication.shared.keyWindow!, title: self.navBarTitle.text ?? "", payToken: message.body as! String, payment: paymentData)

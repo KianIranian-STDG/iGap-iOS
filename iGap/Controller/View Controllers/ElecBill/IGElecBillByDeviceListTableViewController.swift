@@ -101,7 +101,7 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
         if self.selectedCode == nil || self.tfSerialNumber.text == "" || self.tfSerialNumber.text!.isEmpty {
             SMLoading.hideLoadingPage()
 
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHECK_ALL_FIELDS".localized, cancelText: "GLOBAL_CLOSE".localized )
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalCheckFields.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
         } else {
             IGApiElectricityBill.shared.searchBill(serialNumber: self.tfSerialNumber.text!.inEnglishNumbersNew(),companyCode: self.selectedCode, completion: {(success, response, errorMessage) in
                 SMLoading.hideLoadingPage()

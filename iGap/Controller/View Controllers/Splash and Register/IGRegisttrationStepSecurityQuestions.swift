@@ -41,11 +41,11 @@ class IGRegisttrationStepSecurityQuestions: UIViewController,UIGestureRecognizer
     func initView() {
 //        IGGlobal.setLanguage()
         
-        lblHeader.text = IGStringsManager.RGP_MSG_SECURITYHEADER.localized
-        lblSecQOne.text = IGStringsManager.RGP_SECURITYQUESTION_ONE.localized + "\n" + secQOne
-        lblSecQTwo.text = IGStringsManager.RGP_SECURITYQUESTION_TWO.localized + "\n" + secQTwo
+        lblHeader.text = IGStringsManager.SecurityQuestion.rawValue.localized
+        lblSecQOne.text = IGStringsManager.SecurityQOne.rawValue.localized + "\n" + secQOne
+        lblSecQTwo.text = IGStringsManager.SecurityQTwo.rawValue.localized + "\n" + secQTwo
         
-        btnSubmit.setTitle(IGStringsManager.GLOBALOK.localized, for: .normal)
+        btnSubmit.setTitle(IGStringsManager.GlobalOK.rawValue.localized, for: .normal)
         btnSubmit.titleLabel?.font = UIFont.igFont(ofSize: 15)
         btnSubmit.layer.cornerRadius = 10
         directionManager()
@@ -55,7 +55,7 @@ class IGRegisttrationStepSecurityQuestions: UIViewController,UIGestureRecognizer
     }
     func initNavigation() {
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.GLOBAL_SECURITY_QUESTIONS.localized)
+        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.SecurityQuestion.rawValue.localized)
         
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
@@ -172,10 +172,7 @@ class IGRegisttrationStepSecurityQuestions: UIViewController,UIGestureRecognizer
                     }).error({ (errorCode, waitTime) in
                         DispatchQueue.main.async {
                             self.hud.hide(animated: true)
-                            let alertVC = UIAlertController(title: "Error", message: "There was an error logging you in. Try again please.", preferredStyle: .alert)
-                            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            alertVC.addAction(ok)
-                            self.present(alertVC, animated: true, completion: nil)
+                            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                         }
                     }).send()
                     
@@ -186,10 +183,7 @@ class IGRegisttrationStepSecurityQuestions: UIViewController,UIGestureRecognizer
         }).error({ (errorCode, waitTime) in
             DispatchQueue.main.async {
                 self.hud.hide(animated: true)
-                let alertVC = UIAlertController(title: "Error", message: "There was an error logging you in. Try again please.", preferredStyle: .alert)
-                let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alertVC.addAction(ok)
-                self.present(alertVC, animated: true, completion: nil)
+                IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             }
         }).send()
     }

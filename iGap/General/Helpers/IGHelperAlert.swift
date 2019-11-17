@@ -68,7 +68,7 @@ class IGHelperAlert {
             }
             
             if !isForbidden {
-                let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: { (action) in
+                let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (action) in
                     done?()
                 })
                 alert.addAction(okAction)

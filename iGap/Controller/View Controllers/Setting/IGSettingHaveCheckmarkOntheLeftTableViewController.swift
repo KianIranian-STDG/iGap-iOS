@@ -34,7 +34,7 @@ class IGSettingHaveCheckmarkOntheLeftTableViewController: BaseTableViewControlle
         self.navigationItem.title = navBarTitle
 //        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_CLOSE".localized, title: modeT)
+        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalClose.rawValue.localized, title: modeT)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         navigationItem.rightViewContainer?.addAction {
             self.doneButtonClicked()

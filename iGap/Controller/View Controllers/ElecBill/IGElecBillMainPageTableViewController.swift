@@ -207,7 +207,7 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
     @IBAction func didTapOnBtnInquery(_ sender: UIButton) {
         if tfBillIdNumber.text!.count <= 0 ||  tfBillIdNumber.text!.count > 13{
             tfBillIdNumber.shake()
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_CHARACTER_COUNT_ELECTRICITY_BILL".localized, cancelText: "GLOBAL_CLOSE".localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_CHARACTER_COUNT_ELECTRICITY_BILL".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
         } else {
             let realm = try! Realm()
             let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)

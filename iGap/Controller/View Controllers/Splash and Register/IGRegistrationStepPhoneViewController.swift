@@ -78,7 +78,7 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
 
     
     private func setPrivacyAgreementLabel() {
-        self.lblAceptPrivacy.text = "PRIVACY_AGREEMENT".localized
+        self.lblAceptPrivacy.text = IGStringsManager.PrivacyAgreement.rawValue.localized
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapLabel(tap:)))
         self.lblAceptPrivacy.addGestureRecognizer(tap)
         self.lblAceptPrivacy.isUserInteractionEnabled = true
@@ -129,25 +129,20 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
     
     private func setDefaultNavigationItem() {
         let navItem = self.navigationItem as! IGNavigationItem
-        navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localized)
+        navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: IGStringsManager.RegisterationStepOneTitle.rawValue.localized)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //newUIelemnts
-        btnSubmit.setTitle("BTN_SEND_CODE".localized, for: .normal)
+        btnSubmit.setTitle(IGStringsManager.BtnSendCode.rawValue.localized, for: .normal)
         btnSubmit.titleLabel?.font = UIFont.igFont(ofSize: 15)
         btnSubmit.layer.cornerRadius = 10
         
         let locale = Locale.userPreferred // e.g "en_US"
-        print(locale.languageCode) // e.g "en"
-        
-        btnCheckmarkPrivacy.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
-        btnCheckmarkPrivacy.setTitle("NOT_CHECKED_ICON".Imagelocalized, for: .normal)
-        
-        lblHeader.text = "TTL_PICKNUM_WITH_COUNTRYCODE".localized
-        countryNameLabel.text = "CHOOSE_COUNTRY".localized
-        btnLoginQrCode.setTitle("LOGIN_USING_QR".localized, for: .normal)
+        lblHeader.text = IGStringsManager.PickNumWithCountry.rawValue.localized
+        countryNameLabel.text = IGStringsManager.ChooseCountry.rawValue.localized
+        btnLoginQrCode.setTitle(IGStringsManager.LoginWithQrScan.rawValue.localized, for: .normal)
         btnLoginQrCode.titleLabel?.font = UIFont.igFont(ofSize: 15)
         setPrivacyAgreementLabel()
 
@@ -192,7 +187,7 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
         if isChecked {
             didTapOnSubmit()
         } else {
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "MSG_PRIVACY_AGREEMENT".localized, cancelText: "GLOBAL_CLOSE".localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.MSGForgetTerms.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
         }
     }
     
@@ -264,8 +259,8 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
     
     func didTapOnSubmit() {
         if connectionStatus == .waitingForNetwork || connectionStatus == .connecting {
-            let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "NO_NETWORK".localized, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+            let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalNoNetwork.rawValue.localized, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
             alert.addAction(okAction)
             self.present(alert, animated: true, completion: nil)
 
@@ -282,29 +277,18 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
                 if IGGlobal.matches(for: (selectedCountry?.codeRegex)!, in: phoneSpaceLess!) {
                     let countryCode = String(Int((self.selectedCountry?.countryCode)!))
                     let fullPhone = "+" + countryCode.inLocalizedLanguage() + " " + (phone?.replacingOccurrences(of: "_", with: ""))!.inLocalizedLanguage()
-                    let alertVC = UIAlertController(title: "IS_IT_CORRECT".localized,message: "IS_PHONE_OK".localized + "\n" + fullPhone.inLocalizedLanguage(),preferredStyle: .alert)
-                    let yes = UIAlertAction(title: "GLOBAL_YES".localized, style: .cancel, handler: { (action) in
+                    
+                    let message = IGStringsManager.YouHaveEnteredNumber.rawValue.localized + "\n" + fullPhone.inLocalizedLanguage() + "\n" + IGStringsManager.ConfirmIfNumberIsOk.rawValue.localized
+                    IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: nil, showIconView: true, showDoneButton: true, showCancelButton: true, message: message, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.dialogEdit.rawValue.localized, cancel: {}, done: {
                         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                         self.hud.mode = .indeterminate
                         self.userRegister(phoneSpaceLess: phoneSpaceLess!)
-                    })
-                    let no = UIAlertAction(title: "BTN_EDITE".localized, style: .default, handler: { (action) in
-                        
-                    })
-                    
-                    
-                    alertVC.addAction(yes)
-                    alertVC.addAction(no)
-                    self.present(alertVC, animated: true, completion: {
-                        
+
                     })
                     
                     return;
                 }
             }
-            let alertVC = UIAlertController(title: "INVALID_PHONE".localized, message: "ENTER_VALID_P_NUMBER".localized, preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil))
-            self.present(alertVC, animated: true, completion: nil)
         }
     }
     
@@ -430,13 +414,8 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
-                }
+
+                break
             default:
                 break
             }

@@ -110,7 +110,7 @@ class SMGetGift {
         GetGiftView.MessageLabel.text = self.Value
         GetGiftView.ConfirmButton.isHidden = true
         GetGiftView.ConfirmButtonWidth.constant = 0
-        GetGiftView.CancelButton.setTitle("GLOBAL_OK".localized, for: .normal)
+        GetGiftView.CancelButton.setTitle(IGStringsManager.GlobalOK.rawValue.localized, for: .normal)
         GetGiftView.layer.cornerRadius = 15
         GetGiftView.layer.masksToBounds = true
         GetGiftView.delegate = viewcontroller as? HandleGiftView
@@ -137,7 +137,7 @@ class SMGetGift {
         GetGiftView.ConfirmButtonWidth.constant = 0
         GetGiftView.CancelButton.isHidden = false
         GetGiftView.CancelButton.backgroundColor = UIColor(red: 0/255, green: 230/255, blue: 118/255, alpha: 1)
-        GetGiftView.CancelButton.setTitle("GLOBAL_OK".localized, for: .normal)
+        GetGiftView.CancelButton.setTitle(IGStringsManager.GlobalOK.rawValue.localized, for: .normal)
         GetGiftView.CancelButton.setTitleColor(UIColor.white, for: .normal)
         GetGiftView.ResultLabel.text = self.ResultMessage
         GetGiftView.layer.cornerRadius = 15

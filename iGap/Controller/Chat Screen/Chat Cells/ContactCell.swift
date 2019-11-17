@@ -143,14 +143,14 @@ class ContactCell: AbstractCell {
         
         if btnAddContact == nil {
             btnAddContact = UIButton()
-            btnAddContact.setTitle("ADD_CONTACT".MessageViewlocalized, for: UIControl.State.normal)
+            btnAddContact.setTitle("ADD_CONTACT".localized, for: UIControl.State.normal)
             manageContactButtonView(btn: btnAddContact, color: UIColor.iGapBlue())
             mainBubbleViewAbs.addSubview(btnAddContact)
         }
         
         if btnCall == nil {
             btnCall = UIButton()
-            btnCall.setTitle("CALL".MessageViewlocalized, for: UIControl.State.normal)
+            btnCall.setTitle("CALL".localized, for: UIControl.State.normal)
             manageContactButtonView(btn: btnCall, color: UIColor(named: themeColor.labelGrayColor.rawValue)!)
             mainBubbleViewAbs.addSubview(btnCall)
         }
@@ -280,7 +280,7 @@ class ContactCell: AbstractCell {
                 return
             }
             
-            let option = UIAlertController(title: "CALL_QUESTION".MessageViewlocalized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+            let option = UIAlertController(title: "CALL_QUESTION".localized, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
             
             for phone in finalRoomMessage.contact!.phones {
                 let action = UIAlertAction(title: phone.innerString, style: .default, handler: { (action) in
@@ -289,7 +289,7 @@ class ContactCell: AbstractCell {
                 option.addAction(action)
             }
             
-            let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
+            let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
             option.addAction(cancel)
             UIApplication.topViewController()!.present(option, animated: true, completion: {})
         }
@@ -298,9 +298,9 @@ class ContactCell: AbstractCell {
     @objc func didTapOnAddContact(_ gestureRecognizer: UITapGestureRecognizer) {
         if !(IGGlobal.shouldMultiSelect) {
 
-            let option = UIAlertController(title: nil, message: "ADD_CONTACT_QUESATION".MessageViewlocalized, preferredStyle: .alert)
+            let option = UIAlertController(title: nil, message: "ADD_CONTACT_QUESATION".localized, preferredStyle: .alert)
             
-            let ok = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: { (action) in
+            let ok = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (action) in
                 var phones: [String] = []
                 for phone in self.finalRoomMessage.contact!.phones {
                     phones.append(phone.innerString)

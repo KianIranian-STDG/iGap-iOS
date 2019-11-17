@@ -42,1191 +42,6514 @@
 "SIGNALING_OFFER_VIDEO_CALLINGSIGNALING_OFFER_VIDEO_CALLING" = "Incoming video call from %1$@";
 "SIGNALING_OFFER_SCREEN_SHARING" = "Screen sharing request from %1$@";
 "SIGNALING_OFFER_SECRET_CHAT" = "Secret chat request from %1$@";
-/// MARK : - Global Strings
-"GLOBAL_OK" = "OK";
-"GLOBAL_CANCEL" = "Cancel";
-"EMAIL" = "Email";
-"SECURITY_QUESTIONS" = "Security Questions";
-"SEARCH_PLACEHOLDER" = "Search";
-
-
-/// MARK : - Register Process
-"RGP_MSG_SECURITY_TWO_STEP_VERIFICATION" = "In Order to retrieve your accountPlease Answer the following security questions,after answering correctly your two step verification password will be disabled and need to be activated again";
-"RGP_SECURITY_QUESTION_ONE" = "Security Question One : ";
-"RGP_SECURITY_QUESTION_TWO" = "Security Question Two : ";
-"RGP_MSG_ANSWERS_WAS_WRONG" = "Your Answers are incorrect";
-"RGP_MSG_ANSWERS_WAS_EMPTY" = "Please Fill in all the fields";
-
-
-
-// MARK : - introduntion page
-"LETS_GO" = "Let's Go";
-
-"CHAT" = "Chat";
-"NEARBY_FEATURES" = "Nearby Feature";
-"ILAND" = "iLand";
-"SECURITY_And_PRIVACY" = "Security & Privacy";
-
-"CHAT_DESCRIPTION" = "You can have one-on-one or group chats and even create your own channel and add members in order to share information with millions of people.";
-"NEARBY_FEATURES_DESCRIPTION" = "Leave a new world around me. Around you, find your friends, entertainment centers, art, business and other and enjoy your moments ...";
-"ILAND_DESCRIPTION" = "iLand! without limitation\nwith wonderful events as taking a taxi, pay bills and booking hotels and flights . Oh Also you can play games, watch films and listen to music";
-"SECURITY_And_PRIVACY_DESCRIPTION" = "iGap attaches the utmost importance to your security and privacy using the individual encryption algorithms and guarantees a safe and secure connection between you, your friends and family.";
-
-
-// localized new
-"paygearuser" = "Personal Account";
-"finance" = "Finance";
-"admin" = "Admin";
-"SET_AS_ADMIN" = "Set As Admin";
-"SET_AS_MODERATOR" = "Set As Moderator";
-"REMOVE_MODERATOR" = "Remove Moderator Role";
-"REMOVE_ADMIN" = "Remove Admin Role";
-
-
-"TAB_CHAT" = "Chats";
-"TAB_PHONEBOOK" = "Contacts";
-"TAB_DISCOVERY" = "iLand";
-"TAB_CALL_LIST" = "Call List";
-"TAB_PROFILE" = "Setting";
-
-"store" = "Store";
-"other" = "Other";
-"driver" = "Driver";
-"MONEY_TRANSFER_HISTORY" = "Money Transactions History";
-"ENTER_RECIEVER_CODE" = "Enter Reciever Code";
-"ENTER_CODE" = "Enter Code";
-"PAIED_TO_LBL" = "Paied To =";
-"BTN_SEND_CODE" = "Send Code";
-"PRIVACY_AGREEMENT" = "Agree to the terms of service";
-"MSG_PRIVACY_AGREEMENT" = "Registration is forbidden ;please accept the terms of use first!";
-"WELCOME_TO_IGAP" = "Welcome To iGap";
-"NOTIFICATION_SOUNDS" = "Notifications and Sounds";
-"MUTE_NOTIFICATION_IN_PROFILE" = "Mute Notification";
-"DATA_STORAGE" = "Data and Storage";
-"CHAT_SETTINGS" = "Chat Settings";
-
-"history.sale.share" = "Share of Sales";
-
-
-"MCI_CHARGE" = "";
-
-
-"NEW_MESSAGES" = "New Messages";
-"WHICH_TYPE_OF" = "Which type of conversation would you like to initiate?";
-"MY_CLOUD" = "Cloud";
-"NEXT_BTN" = "Next";
-"REFERRAL" = "Referral = ";
-"YOUR_SCORE" = "Your Score";
-"SCORE_HISTORY" = "Score History";
-"WALLET_HISTORY" = "Wallet History";
-"WALLET_HISTORY_DETAILS" = "History Details";
-"YOUR_STATUS" = "Your Status";
-"NO_STATUS" = "No Status";
-"ABOUT" = "About ";
-"AROUND" = "About";
-"METER" = "meter";
-"WALLET_SETTINGS" = "Wallet Settings";
-"GROUP_NO_MODERATOR" = "This Group has No Moderator";
-"GROUP_NO_ADMIN" = "This Group has No Admin";
-"MSG_SURE_TO_LEAVE_GROUP" = "Are you sure you want to Leave this group?";
-"MSG_SURE_TO_DELETE_GROUP" = "Are you sure you want to Delete this group?";
-"MSG_SURE_TO_DELETE_CHAT" = "Are you sure you want to Delete this chat?";
-"MSG_SURE_TO_DELETE_CHANNEL" = "Are you sure you want to Delete this chat?";
-"MSG_SURE_TO_LEAVE_CHANNEL" = "Are you sure you want to Leave this Channel?";
-"TTL_OPTIONS" = "Options";
-"MSG_UNVERIFIED_EMAIL" = "You have an unverifies email address=\n";
-
-"MSG_SURE_TO_DELETE_CACHE" = "Are you sure you want to Clear selected Data?";
-"MSG_SURE_TO_DELETE_CHAT_HISTORY" = "Are you sure you want to Delete chat history?";
-"INVALID_CODE" = "Invalid Code";
-"MSG_THE_CODE_INVALID" = "The code you entered is invalid!";
-"CLEAR_STATUS" = "Clear Status";
-"LOCATION_SERVICE_DISABLE" = "Location Service is Disabled";
-"LOCATION_SERVICE_ENABLE_IT" = "Location Service is Disabled Please go to Setting and enable it";
-"MSG_DESABLE_MAP_VISIBILITY" = "Disabling Nearby will not only result in hiding your status from others; but you won't also be able to see others' status within your certain range. Are you still sure to continue?";
-"SATELITE" = "Satelite";
-"SATNDARD" = "Standard";
-"SHOW_THIS_QR" = "Show this QR to others so they scan and pay money to you";
-"MSG_FILL_DELETE_CODE" = "Please fill in the Delete Code field.";
-"TAP_RESEND" = "Tap here if you did not recieve the code";
-"DIDNT_RECIEVE_CODE_WAIT" = "Didn't receive the text message?\nPlease wait";
-"KB" = "KB";
-"MB" = "MB";
-"GB" = "GB";
-"B" = "B";
-"PHOTO_OR_VIDEO" = "Photo or Video";
-"REPLY" = "Reply";
-"FORWARD" = "Forward";
-"MULTI_FORWARD" = "Multi Forward";
-"MORE" = "More";
-"SHARE" = "Share";
-"DELETE_FOR_ME" = "Delete for me";
-"DELETE_FOR_ME_AND" = "Delete for me and ";
-"SEND_AGAIN" = "Send Again";
-"ARE_U_SURE_TO_JOIN" = "Are you sure want to join";
-"U_JOINED" = "You Joined";
-"TO" = "to";
-"BEFORE" = "before";
-"OPEN_NOW" = "Open Now";
-
-"GROUP_DOES_NOT_EXIST" = "Sorry;this group does not seem to exist.";
-"PLEASE_WRITE_UR_REPORT" = "Please write your report description";
-"REPORT_SUCCESS" = "Your report has been successfully submitted";
-"REPORTED_BEFORE" = "You have reported this room before";
-"FORWARDED_FROM" = "Forwarded from";
-"FORWARDED_MESSAGE" = "Forwarded Message";
-"REOLY_TO" = "Reply to = ";
-"CHANNEL_LINK" = "Channel Link =";
-"SELECTED" = "Selected";
-"MANAGE_MEMBERS" = "Manage Members";
-"OF" = "Of ";
-
-
-
-
-"GROUP_INFO" = "Group Info";
-"DELETE_GROUP" = "Delete Group";
-"DELETE_MAIN_AVATAR" = "Delete Main Avatar";
-"PRIVATE" = "Private";
-"PUBLIC" = "Public";
-"COPY" = "Copy";
-"PASTE" = "Paste";
-"GROUP_LINK" = "Group Link";
-"CHNAGE" = "Change";
-"NOTIFICATIONS" = "Notifications";
-"GROUPNAME" = "GroupName";
-"CHANNELDESC" = "Channel Description";
-"CHANNELTYPE" = "Channel Type";
-"CHANNELREACTION" = "Channel Reaction";
-"CHANNELSIGNMESSAGES" = "Sign Messages";
-
-"GROUPDESC" = "Group Desciption";
-"GROUPTYPE" = "Group Type";
-"ALLMEMBER" = "Members";
-"ADMINANDMODERATOR" = "Admins and Moderators";
-"SHAREDMEDIA" = "Shared Media";
-"ADD_ADMIN" = "Add admin";
-"ADD_MODERATOR" = "Add Moderator";
-"KICK_MEMBER" = "Kick Member";
-"ADMIN" = "Admin";
-"MODERATOR" = "Moderator";
-"TYPE" = "Type";
-"ADD_MEMBER" = "Add member";
-"ADD_MEMBER_TO" = "Add member to";
-
-"ARE_U_SURE_REMOVE_ADMIN" = "Are you sure you want to remove the admin role from this member?";
-"ARE_U_SURE_REMOVE_MODERATOR" = "Are you sure you want to remove the Moderator role from this member?";
-"ARE_U_SURE_KICK_USER" = "Are you sure you want to Kick this member?";
-"HIDDEN" = "Hidden";
-"DELETE_CHAT" = "Delete Chat";
-"DELETE_CHANNEL" = "Delete Channel";
-"CONVERT_CHAT_TO_GROUP" = "Convert Chat To Group";
-"IN_CHAT_SEARCH" = "In-Chat search";
-"GROUP_LINK_NOT_EMPTY" = "Group Link can not be empty";
-"NAME" = "Name";
-"CHANNEL_INFO" = "Channel Info";
-"RECORDED_BY" = "Recorded By =";
-"RECORDED_VOICE" = "Recorded Voice";
-"MSG_USER_REPORTED_BEFOR" = "This User has been reported befor";
-"MSG_REPORT_INVALID" = "The report description is invalid";
-"TTL_PICKNUM_WITH_COUNTRYCODE" = "Pleas enter your mobile number with country code";
-"LOGIN_USING_QR" = "Login using Qr Code";
-"TERMS" = "Terms";
-"SMS" = "SMS";
-"VIA" = " Via ";
-"IGAP" = "iGAP";
-"SMSANDIGAP" = "SMS and iGAP";
-"MSG_ENTER_VERFICATIONCODE_SENT" = "Please enter the verification Code sent to ";
-"INVALID_VERFI_CODE" = "Please enter a valid Code";
-"RESEND_CODE_VIA" = "Resend Code Via =";
-"YOUR_PROFILE" = "Your Profile";
-"ENTER_NAME_AND_CHOOSE_PHOTO" = "Please enter your name and choose your profile picture";
-"ENTER_REFERRAL_NUMBER" = "Please Enter your Referral Mobile Number Here (Optional)";
-"SKIP" = "Skip";
-"SET_REFERRAL" = "Set Referral";
-"IS_PHONE_OK" = "Is the Mobile Number Correct = ? \n";
-"IS_IT_CORRECT" = "Is it Correct?";
-"INVALID_PHONE" = "Invalid Mobile Number";
-"ENTER_VALID_P_NUMBER" = "Please Enter a valid Mobile NUmber";
-"SHOW_AND_LOGIN_USING_QR" =  "Scan this QR Code using your other device to log in to your iGap Account";
-"PLEASE_ENTER_PASS" = "Please Enter Your Pass";
-"twoStepVerfi_HEADER" = "You have enabled Two-Step verification; so your account is protected with an additional password";
-"BY_SIGNING_AGREEMENT" = "By signing up an account you agree to  ";
-"TERMS_OF_SERVICE" = "Terms of Services";
-"AGREE_TO_TERMS" = "Agree To Terms";
-
-"MISSED_CALL" = "Missed Call";
-"UNANSWERED_CALL" = "Unanswerd Call";
-
-
-
-"COMMUNICATING" = "Communicating ...";
-"CONNECTED" = "Connected";
-"DISCONNECTED" = "Disconnected";
-"MISSED" = "Missed";
-"NOT_ANSWERED" = "Not Answered";
-"REJECTED" = "Rejected";
-"TOO_LONG" = "Too Long";
-"FAILED" = "Failed";
-"UNAVAILABLE" = "Unavailable";
-"INCOMMING_CALL" = "Incomming Call ...";
-"RINGING" = "Ringing ...";
-"DIALING" = "Dialing ...";
-"DID_NOT_RESPOND_TO_VOICE" = "Did not respond to your voice call";
-"DID_NOT_RESPOND_TO_VIDEO" = "Did not respond to your video call";
-"DID_NOT_RESPOND_TO_SCHAT" = "Did not respond to start a secret chat with you";
-
-"USERNAME_VALID_CHARS" = "You can use a-z;0-9 and underscores.";
-
-
-"MSG_CREATED_ROOM" = " Created this room";
-"MSG_ADDED" = " Added";
-"MSG_KICKED" = " Kicked";
-"MSG_LEFT" = " Left";
-"MSG_IS_PUBLIC" = "This channel is now public";
-"MSG_IS_PRIVATE" = "اینThis Channel is now Private";
-"MSG_CHANGED_TO_PUBLIC" = " is changed to public";
-"MSG_CHANGED_TO_PRIVATE" = " is changed to private";
-"MSG_JOINED_VIA_LINK" = " Joined via invitation link";
-"MSG_ROOM_WAS_DELETED" = "this room was deleted";
-"MSG_SOMEONE" = "Someone";
-"MSG_JOINED_IGAP" = " Joined to iGap";
-"MSG_DELETED_ACCOUNT" = " Deleted his account";
-"MSG_CHANNEL_WAS_CREATED" = "Channel was created";
-"REMOVE_PASSWORD" = "Remove Password";
-"CHANGE_PASSWORD" = "Chnage Password";
-"CHANGE_HINT" = "Change Hint";
-"CHNAGE_EMAIL" = "Change Email";
-"CHANGE_SECURITY_Q" = "Change Security Questions";
-"SET_CHANGE_RECO_EMAIL" = "Change or Set Recovery Email";
-"VERIFY_EMAIL" = "Verify Email";
-
-
-
-"WALLET_PAY_LBL3" = "Total Amount (Rials) =";
-"WALLET_PAY_LBL1" = "Discount Amount (Rials) =";
-"WALLET_PAY_LBL0" = "Payable Amount (Rials) =";
-
-
-
-
-
-
-
-"TRANSACTIONS_HISTORY_CARD_TO_CARD" = "Card to Card";
-"TRANSACTIONS_HISTORY_BILL" = "Bill";
-"TRANSACTIONS_HISTORY_ُTOPUP" = "Topup";
-"TRANSACTIONS_HISTORY_NONE" = "All";
-"TRANSACTIONS_HISTORY_ُSALES" = "Sales";
-"TRANSACTIONS_HISTORY_UNRECOGNIZED" = "Unrecognized";
-"TRANSACTIONS_HISTORY_ORDER_ID" = "Order ID";
-
-
-
-
-
-
-"FILES" = "Files";
-"LINKS" = "Links";
-"GIFS" = "Gifs";
-"IMAGES" = "Images";
-"VIDEOS" = "Videos";
-"AUDIOS" = "Audios";
-"VOICES" = "Voices";
-"DOCUMENTS" = "Documents";
-"DOCUMENT" = "Document";
-"STICKERS" = "Stickers";
-"FILES_MESSAGE" = "File Message";
-"GIFS_MESSAGE" = "Gif Message";
-"IMAGES_MESSAGE" = "Image Message";
-"VIDEOS_MESSAGE" =  "Video Message";
-"AUDIOS_MESSAGE" = "Audio Message";
-"VOICES_MESSAGE" = "Voice Message";
-"DOCUMENT_MESSAGE" = "Document Message";
-"STICKERS_MESSAGE" = "Sticker Message";
-"CONTACT_MESSAGE" = "Contact Message";
-"LOCATION_MESSAGE" = "Location Message";
-"WALLET_MESSAGE" = "Wallet Message";
-"PAYMENT_MESSAGE" = "Payment Message";
-"CARD_TO_CARD" = "Card to Card";
-"CARD_TO_CARD_MESSAGE" = "Card to Card Message";
-"CARD_TO_CARD_REQUEST" = "Card to Card Request";
-"CARD_TO_CARD_FILL_INFO" = "Please write your message !";
-"UNKNOWN_MESSAGE" = "Unknown Message";
-"DELETED_MESSAGE" = "Deleted Message";
-"DRAFT" = "Draft = ";
-"VOICE_CALL" = "Voice Call";
-"VIDEO_CALL" = "Video Call";
-
-
-
-"PLACE_HOLDER_SEARCH" = "Begin your search by tapping here";
-"SEND_PHOTO" = "Send Photo";
-"UNPIN_ARE_U_SURE" = "Are you sure unpin this message?";
-"UNPIN_FOR_ALL" = "Unpin for all users";
-"UNPIN_FOR_ME" = "Unpin for me";
-"PIN_ARE_U_SURE" = "Are you sure pin this message?";
-
-
-
-
-"NEW_C_C" = "New Conversation Or Call";
-"NEW_CALL" = "New Call";
-"NEW_CONVERSATION" = "New Conversation";
-"NEW_GROUP" = "New Group";
-"NEW_CHANNEL" = "New Channel";
-"VERSION_DEPRICATED" = "Version is deprecated please update to use";
-"VERSION_NEW" = "New Version Is Available";
-"MUTE" = "Mute";
-"UN_MUTE" = "Unmute";
-"PINN" = "Pin To Top";
-"UNPINN" = "Unpin From Top";
-"NO_NETWORK" = "No network Connection";
-"WHAT_DO_U_WANT" = "What do you want to do?";
-"CLEAR_HISTORY" = "Clear History";
-"CLEAR_HISTORY_LOCAL" = "Clear Local History";
-"SHOW_HISTORY" = "Show History";
-"REPORT" = "Report";
-"LEAVE" = "Leave";
-"REPORT_SUBMITED" = "Report was successfully sent.";
-"ROOM_REPORTED_BEFOR" = "You have already reported this Room";
-"USER_REPORTED_BEFOR" = "You have already reported this User";
-"REPORT_REASON" = "Report Reason";
-"SPAM" = "Spam";
-"ABUSE" = "Abuse";
-"VIOLENCE" = "Violence";
-"FAKE_ACCOUNT" = "Fake Account";
-"PORNOGRAPHY" = "Pornography";
-"OTHER" = "Other";
-"MY_QR" = "My QR";
-"BTN_PAY_CASHOUT" = "Cash Out";
-"MSG_U_HAVE_ALREADY_VOTED" = "You Have Already Voted!";
-"MSG_U_HAVE_REACHED_VOTE_LIMIT" = "You Have Reached Your Vote Limit";
-"MSG_VOTE_TO_SEE_CHART" = "Please Vote to see the BarChart !";
-
-
-"PAYMENT_ORDER_ID" = "Transaction ID";
-
-
-"CONNECTING" = "Connecting ...";
-"WAITING_NETWORK" = "Waiting for Network ...";
-"RETURN_TO_CALL" = "Return to call";
-"MEMBER" = "Member";
-"BOT" = "Bot";
-"IGAP_SUPPORT" = "iGap Support";
-"SERVICE_NOTIFI" = "Service Notification";
-"A_LONG_TIME_AGO" = "A long time ago";
-"LAST_MONTH" = "Last month";
-"LAST_WEAK" = "Last weak";
-"ONLINE" = "Online";
-"LAST_SEEN_RECENTLY" = "Last Seen Recently";
-"A_FEW_SEC_AGO" = "A few seconds ago";
-"IN_A_MINUTE" = "In a minute";
-"JUST_NOW" = "Just now";
-"MINUTES_AGO" = "minutes ago";
-"AN_HOUR_AGO" = "An hour ago";
-"HOURS_AGO" = "hours ago";
-"AT" = " at ";
-"PLEASE_ADD_STICKER" = "Please Add Sticker!";
-"ADD_STICKER" = "Add Sticker";
-"LBL_STICKER" = "Stickers";
-"STICKER_CATEGORY" = "Sticker Categories";
-
-"TTL_DELETE_CONTACT" = "Delete Contact.";
-"TTL_MAP_STATUS" = "Notice! Activating Map Status";
-"TTL_ATTENTION" = "Attention";
-"TTL_WALLET_BALANCE_USER" = "User Wallet Balance";
-"TTL_WALLET_CLUB_USER" = "Club card Balance";
-"TTL_WALLET_BALANCE_STORE" = "Store Wallet Balance";
-"TTL_WALLET_BALANCE_DRIVER" = "Store Wallet Balance";
-"TTL_MY_CARDS" = "My Cards";
-"TTL_TRANSITION_CHARGE_WALLET" = "Charge Wallet";
-"TTL_IS_PAYED" = "Cashout";
-"TTL_MONEY_REFUND" = "Money transfered to your wallet";
-"TTL_CASHOUT_PENDING" = "Cashout Pending";
-"TTL_RECIEVE_FRM" = "Recieved From ";
-"TTL_PAYMENT_PENDING_FRM" = "Pending";
-"TTL_PAYED_WITH_WALLED_CARD_TO" = "Cashout From Wallet to";
-"TTL_PAY_WITH_WALLET_CARD_PENDING" = "Cashout Pending ";
-"TTL_BUY_CLUB_FROM" = "Buy Club From";
-"TTL_WALLET_ACCOUNT" = "Wallent Account";
-"TTL_SUCCESS_PAYMENT" = "Successfull";
-"TTL_RECIEVER" = "Reciever =";
-"TTL_TRANSACTION_TYPE" = "Transaction Type =";
-"TTL_AMOUNT" = "Amount =";
-"TTL_PAY_STATUS" = "Payment Status =";
-"TTL_INVOICE_NUMBER" = "Invoice Number";
-"TTL_DATE" = "Date =";
-"TTL_CARDNUM" = "Card Number";
-"TTL_REFERENCE_NUMBER" = "Reference Number";
-"TTL_ACCOUNT_OWNER_NAME" = "Account Owner Name";
-"TTL_DESCRIPTION" = "Description";
-"TTL_DESTI_CARDNUM" = "Destination Card Number";
-"TTL_DESTI_IBAN" = "Destination IBAN Number";
-"TTL_PAY_NUMBER" = "Payment Number";
-"TTL_REMAINING_AMOUNT" = "Remaining Amount";
-"TTL_INVOICE_NUM" = "Invoice NUmber";
-"TTL_CHARGE" = "Charge";
-"TTL_PREPAID" = "Prepaid";
-"TTL_INCASH" = "In Cash";
-"TTL_PAYMENT_GATEWAY" = "Pay Gateway";
-"TTL_ADD_NEW_CARD" = "Add New Card";
-
-
-"TTL_CASHOUT_TYPE_IMMIDIATE" = "Immidiate";
-"TTL_CASHOUT_TYPE_NORMAL" = "Normal";
-"TTL_CASHOUT_TYPE_TO_WALLET" = "To Wallet";
-"TTL_WALLET_ACCOUNT_BALANCE" = "Wallet Account Balance";
-"TTL_WALLET_ACCOUNT_CASHABLE" = "Cashbale Balance";
-"TTL_CHOOSE_CASHOUT_AMOUNT" = "Enter Cashout Price";
-"TTL_ENTER_CARD_NUMBER" = "Enter Your Card NUmber";
-"TTL_ENTER_IBAN_NUMBER" = "Enter Your IBAN NUmber";
-"TTL_ENTER_CHARGE_PRICE" = "Enter Charge Price";
-"TTL_HOW_TO_GET_IBAN" = "How To Get IBAN";
-"TTL_YEAR" = "Year";
-"TTL_MONTH" = "Month";
-"TTL_SET_AS_DEFAULT_CARD" = "Set As Default Card";
-"TTL_WHO_CAN_SEE_MY_PROFILE_PHOTO" = "Who Can See My Profile Photo?";
-"TTL_WHO_CAN_SEE_MY_PLAST_SEEN" = "Who Can See My Last Seen?";
-"TTL_WHO_CAN_ADD_TO_GROUPS" = "Who can invite me to Groups?";
-"TTL_WHO_CAN_ADD_TO_CHANNNELS" = "Who can invite me to Channels?";
-"TTL_ADDING_ME_TO_GROULS" = "Adding me To Groups";
-"TTL_ADDING_ME_TO_CHANNELS" = "Adding me To Channels";
-"TTL_WHO_CAN_CALL" = "Who can call me?";
-"MSG_CHANGE_CHANNEL_USERNAME" = "Save Username Changes";
-
-
-"MSG_NEW_CHANNEL_PUBLIC_CHANNEL_TITLE" = "Public Channel";
-"MSG_NEW_CHANNEL_PRIVATE_CHANNEL_TITLE" = "Private Channel";
-"MSG_NEW_CHANNEL_PUBLIC_CHANNEL_DESC" = "Users can join your channel using either invitation link or by searching username of your channel";
-"MSG_NEW_CHANNEL_PRIVATE_CHANNEL_DESC" = "users can join your channel only by being added by admin(s)";
-"NEW_CHANNEL_LINK" = "Channel Link";
-"ONLY_ADMIN_OWNER_CAN_SEE" = "Only admins and owner of the channel can see this list";
-"CHANNEL_SIGN_FOOTER" = "Add names of the admins to the messages they post";
-"CHANNEL_REACTIONS_FOOTER" = "Add names of the admins to the messages they post";
-"CHANNEL_TITLE" = "Edit Channel Info";
-"GROUP_TITLE" = "Edit Group Info";
-
-"TEXT_SIZE" = "Text Size";
-"COLOR_THEME" = "Color Theme";
-"ENABLE_ANIMATIONS" = "Enable Animations";
-"DARK_THEME" = "Dark";
-"LIGHT_THEME" = "Light";
-"CHAT_BG" = "Chat background";
-
-
-
-"FILTER_INCOMMING_CALL" = "Incomming";
-"FILTER_MISSED_CALL" = "Missed";
-"FILTER_ALL_CALL" = "All";
-"FILTER_CANCELED_CALL" = "Canceled";
-"FILTER_OUTGOING_CALL" = "Outgoing";
-"CALL_LISTT_EMPTY" = " Your Call List History is empty";
-
-
-
-
-"MSG_NEW_CHANNEL_FOOTER" = "You can add decription for your channel here";
-"MSG_CHANNEL_SHARE_FOOTER" = "People can share this link whith others and find your channel using iGap search.";
-"MSG_CHANNEL_SHARE_JOIN" = "People can join your channel by following this link.you can change the link at any time.";
-"MSG_CHANGE_USERNAME_AFTER" = "You can not change your username because you've recently changed it. you have to wait for  ";
-"MSG_UPDATE_USERNAME_FORBIDDEN" = "You are not allowed to update username";
-"MSG_INVALID_USERNAME" = "Username is Invalid";
-"MSG_TAKEN_USERNAME" = "Username has already been taken";
-"MSG_MINIMUM_LENGH" = "Enter at least 5 letters";
-"MSG_PLEASE_TRY_AGAIN" = "Please Try Again Later";
-"MSG_ARE_U_SURE_TO_DELETE" = "Are you sure you want to delete this Contact؟";
-"MSG_PLEASE_ENTER_F_NAME" = "Please enter first name!";
-"MSG_PLEASE_ENTER_F_NAME" = "Please enter last name!";
-"MSG_MAP_DISTANCE" = "Note= People on the map will be displayed with a 500-meter error. So no worries";
-"MSG_FINANCIAL_SERVICES" = "Responsible for all financial services Parsian e-commerce company (top). \n Customer Support Center= 021-2318";
-"MSG_NO_MSG_FRM_BLOCKED_USERS" = "You will not recieve messages from people on the block list.";
-"MSG_ERROR_BILL_PAYMENT" = "An error during Bill payment accoured";
-"MSG_ERROR_WROMG_MNUMBER" = "Phone NUmber is Wrong";
-"MSG_PAGE_ACCOUNT_LOGOUT" = "Are you sure you want to Log out?";
-"MSG_BAD_RESPONSE" = "Bad Response";
-"MSG_IF_NOT_SHARE_LAST_SEEN" = "If you don't share your Last Seen ; you won't be able to see people's Last Seen";
-"MSG_WRITE_YOUR_CHANNEL_NAME" = "Please write your channel name";
-"PLEASE_WAIT_DATA_LOAD" = "Please wait while Data is Loading ...";
-"MSG_CHANNEL_DESC" = "You can Provide an optional description for your channel";
-"MSG_GROUP_DESC" = "Enter some text to describe your Group ...";
-"MSG_GROUP_CHANNEL" = "Enter some text to describe your Channel ...";
-"MSG_PLEASE_CHOOSE_MEMBER" = "Please Choose a member";
-
-
-
-
-"TIME_OUT" = "can't connect to the server";
-"TIME_OUT_MSG_EMAIL" = "can't fetch your Email Address From the server;Please try again later";
-"TIME_OUT_MSG_BIO" = "can't fetch your Bio From the server;Please try again later";
-"TIME_OUT_MSG_SELFD" = "can't fetch Self Destruction Times From the server;Please try again later";
-"PLACE_HOLDER_F_NAME" = "First Name";
-"PLACE_HOLDER_L_NAME" = "Last Name";
-"PLAVE_HOLDER_16_DIGIT" = "16 Digit Card NUmber";
-"PLAVE_HOLDER_24_DIGIT" = "24 Digit IBAN NUmber";
-"PLACE_HOLDER_AMOUNT" = "Price(Rial)";
-"PLACE_HOLDER_MOBILE_NUM" = "09*********";
-"PLACE_HOLDER_PHONE_NUM" = "Telephone Number";
-"PLACE_HOLDER_P_CODE" = "Code";
-
-
-"UNBLOCK" = "Unblock";
-"CONTACT_INFO" = "Contact Info";
-
-"BTN_EDITE_CONTACT" = "Edit Contact";
-"BTN_HINT" = "Hint";
-"BTN_DELETE" = "Delete";
-"BTN_EDITE" = "Edit";
-"BTN_CHARGE_WALLET" = "Charge";
-"BTN_CASHOUT" = "Cash Out";
-"BTN_CASHOUT_WALLET" = "Cash Out";
-"BTN_CASHOUT_WALLET_STORE" = "Cash Out from Store Wallet";
-"BTN_CASHOUT_WALLET_DRIVER" = "Cash Out from Driver Wallet";
-"BTN_SHOW_RECEPIET" = "Show Reciept";
-
-"MID_TERM_BILL" = "Mid-Term Bill";
-"END_TERM_BILL" = "End-Term Bill";
-"TXT_AMOUNT" = "Amount (Rial)";
-
-"ADD_BTN" = "Add";
-"CANCEL_BTN" = "Cancel";
-"DONE_BTN" = "Done";
-
-"MONTH" = " Month";
-"MONTHS" = " Months";
-"CONTACTS" = " Contacts";
-"BLOCK_LIST" = "Block List";
-"SAVED_CARDS" = "Saved Cards";
-"EVERYBODY" = "Everybody";
-"MY_CONTACTS" = "My Contacts";
-"NOBODY" = "Nobody";
-"TERMINATE" = "Terminate";
-"MORE" = "More ...";
-"Loading ..." = "Loading ...";
-"Updating ..." = "Updating ...";
-"UPDATE" = "Update";
-
-"CURRENCY" = "Rial";
-"AMOUNT_IN" = "Amount In";
-"AMOUNT_OUT" = "Amount Out";
-"WAGE" = "Wage";
-"DEST_CARD" = "Destination Card";
-"DEST_BANK" = "Destination Bank";
-"SOURCE_BANK" = "Source Bank";
-"OWNER_NAME" = "Owner Name";
-"OTP_CODE" = "OTP Code";
-"CONFIRM_NEW_PASS" = "Confirm new password";
-"CURRENT_PASS" = "Current password";
-"PASSWORD" = "Password";
-"MSG_PASSWORD_IS_NOT_SET" = "Password is not set for this account";
-"MSG_INVALID_PASS" = "Invalid Password";
-"MSG_INTERNAL_SERVER_ERROR" = "Internal server Error";
-"FORGET_PASSWORD" = "Forget Password";
-"MSG_FORGET_PASSWORD" = "Which option do you want to use to change your password?";
-"RECOVERY_QUESTIONS" = "Recovery Questions";
-"RECOVER_PASS" = "Recover Password";
-"TRANSFER_MONEY" = "Transfer Money";
+//MARK: - App Localizations
+
+
+/* Check connect to internet Page introduce app */
+"text_i_introduce_page1" = "i";
+
+/*  */
+"text_line_1_introduce_page1" = "Gap";
+
+/*  */
+"text_line_2_introduce_page1" = "Limitless Connection";
+
+/*  */
+"text_line_3_introduce_page1" = "Build your own world by iGap right now.";
+
+/*  */
+"text_line_4_introduce_page1" = "It takes only few minutes to join iGap community!";
+
+/* Page 2 introduce app */
+"text_line_1_introduce_page2" = "Security & Privacy";
+
+/*  */
+"text_line_2_introduce_page2" = "iGap attaches the utmost importance to your security and privacy using the individual encryption algorithms and guarantees a safe and secure connection between you, your friends and family.";
+
+/* Page 3 introduce app */
+"text_line_1_introduce_page3" = "Chat";
+
+/*  */
+"text_line_2_introduce_page3" = "You can have one-on-one or group chats and even create your own channel and add members in order to share information with millions of people.";
+
+/* Page 4 introduce app
+TODO:// complete */
+"text_line_1_introduce_page4" = "iLand";
+
+/*  */
+"text_line_2_introduce_page4" = "iLand! without limitation\nwith wonderful events as taking a taxi, pay bills and booking hotels and flights . Oh Also you can play games, watch films and listen to music";
+
+/* Page 5 introduce app */
+"text_line_1_introduce_page5" = "Voice and video Call";
+
+/*  */
+"text_line_2_introduce_page5" = "You can make thoroughly free and secure voice and video calls to anyone on iGap and save your money. iGap voice and video call is P2P-based with no server's interference in voice and video transmission.";
+
+/* Page 6 introduce app */
+"btn_start_page6" = "Start Now";
+
+/*  */
+"text_line_1_introduce_page6" = "Everything for Free in iGap!";
+
+/*  */
+"text_line_2_introduce_page6" = "Let’s stop waiting! \n iGap is thoroughly free. So, just now build your own world freely.";
+
+/*  */
+"text_line_1_introduce_page7" = "Nearby Feature";
+
+/*  */
+"text_line_2_introduce_page7" = "Leave a new world around me. Around you, find your friends, entertainment centers, art, business and other and enjoy your moments ...";
+
+/* Fill Profile User */
+"pu_title_profileUser" = "Complete Your User Profile";
+
+/*  */
+"pu_desc_profileUser" = "Enter your Nickname and select a photo as your Profile Avatar/Picture";
+
+/*  */
+"pu_addPhoto_profileUser" = "Profile Picture";
+
+/*  */
+"pu_nikname_profileUser" = "First Name";
+
+/*  */
+"pu_Lets_Go" = "Continue";
+
+/* Register Page */
+"rg_title_register" = "Registration";
+
+/*  */
+"rg_confirm_text_register" = "Please confirm your country name and code then enter your phone number without its first zero/0";
+
+/*  */
+"rg_Start" = "Let's Go";
+
+/*  */
+"rg_Select_Country" = "Select your Country";
+
+/*  */
+"rg_agreement_text_register" = "Recheck and confirm your phone number! We're sending a verification code to this number";
+
+/*  */
+"rg_verify_register1" = "Connecting";
+
+/*  */
+"rg_verify_register2" = "Waiting for the Code";
+
+/*  */
+"rg_verify_register3" = "Creating Security Key";
+
+/*  */
+"rg_verify_register4" = "Finalizing Registration";
+
+/*  */
+"rg_verify_dialog_try_code" = "I entered manually";
+
+/*  */
+"rg_verify_dialog_resend_code" = "Resend Code";
+
+/*  */
+"Re_dialog_verify_number_part1" = "You have entered this number :";
+
+/*  */
+"Re_dialog_verify_number_part2" = "Tap OK if this entered phone number is correct or simply modify it if wrong.";
+
+/*  */
+"Re_Enter_Verify_Code_Please" = "Please enter the verification code sent To";
+
+/*  */
+"verify_socket_message" = "You have logged into your account on another device and iGap has sent a verification code via its Notification Service in your account, Please check another device and enter the verification code.";
+
+/*  */
+"verify_time_out_message" = "iGap recognizes the code automatically; if not, enter it manually. (Please ask the app to resend the verification code if you have not received it yet)";
+
+/*  */
+"verify_invalid_code_message" = "Unfortunately; the verification code is invalid , Please enter the correct one manually.";
+
+/*  */
+"resend_message" = "Resending the verification code";
+
+/*  */
+"phone_number" = "Phone Number";
+
+/*  */
+"Re_Phone_Verification" = "Verifying the entered phone number";
+
+/* Reagent */
+"ra_title" = "referral";
+
+/*  */
+"ra_enter_reagent_code" = "enter referral code(Optional)";
+
+/*  */
+"ra_confirm" = "Confirm";
+
+/*  */
+"ra_skip" = "Skip";
+
+/*  */
+"reagent_error_message" = "The number entered is incorrect for the referral.";
+
+/* Toast */
+"Toast_waiting_fot_get_info" = "Connecting and getting Info...";
+
+/*  */
+"Toast_Location_Not_Found" = "Location not found.";
+
+/*  */
+"Toast_First_0" = "Don't need 0 at the beginning";
+
+/*  */
+"Toast_Enter_Phone_Number" = "Please enter your phone number without the first zero/0";
+
+/*  */
+"Toast_Minimum_Characters" = "The number of characters is less than the limit";
+
+/*  */
+"Toast_Enter_Code" = "Please enter the verification code";
+
+/*  */
+"Toast_Number_Block" = "This number is blocked";
+
+/*  */
+"Toast_time_wait" = "please wait until:";
+
+/*  */
+"Toast_Invalid_nickname" = "Invalid Nickname,Please change it.";
+
+/*  */
+"Toast_Write_NickName" = "Please enter your nickname";
+
+/* Destruction */
+"sure_delete_account" = "Are you sure you want to delete your account?";
+
+/*  */
+"Destruction_Code" = "Destruction Code";
+
+/*  */
+"Destruction_Des" = "Now you are deleting your account; your phone number is :";
+
+/*  */
+"iGap_autofill_Destruction_Code" = "iGap automatically fills the field of Deletion Code; otherwise, fill it manually .";
+
+/* Message Type and Status */
+"video_message" = "Video Message";
+
+/*  */
+"file_message" = "File Message";
+
+/*  */
+"audio_message" = "Audio Message";
+
+/*  */
+"image_message" = "Image Message";
+
+/*  */
+"contact_message" = "Contact Message";
+
+/*  */
+"gif_message" = "Gif Message";
+
+/*  */
+"voice_message" = "Voice Message";
+
+/*  */
+"typing" = "typing…";
+
+/*  */
+"sending_image" = "Sending image…";
+
+/*  */
+"capturing_image" = "Capturing image…";
+
+/*  */
+"sending_video" = "Sending video…";
+
+/*  */
+"capturing_video" = "Capturing video…";
+
+/*  */
+"sending_audio" = "Sending audio…";
+
+/*  */
+"recording_voice" = "Recording voice…";
+
+/*  */
+"sending_voice" = "Sending voice…";
+
+/*  */
+"sending_document" = "Sending document…";
+
+/*  */
+"sending_gif" = "Sending gif…";
+
+/*  */
+"sending_file" = "Sending file…";
+
+/*  */
+"sending_location" = "Sending location…";
+
+/*  */
+"choosing_contact" = "Choosing contact…";
+
+/*  */
+"painting" = "Painting…";
+
+/* Action Box */
+"log_out" = "Logout";
+
+/*  */
+"delete_account" = "Delete Account";
+
+/*  */
+"mute" = "Mute";
+
+/*  */
+"unmute" = "Unmute";
+
+/*  */
+"mute_notification" = "Mute Notification";
+
+/*  */
+"pin_to_top" = "Pin To Top";
+
+/*  */
+"Unpin_to_top" = "UnPin From Top";
+
+/*  */
+"unmute_notification" = "Unmute Notification";
+
+/*  */
+"clear_history" = "Clear History";
+
+/*  */
+"delete_chat" = "Delete Chat";
+
+/*  */
+"delete" = "Delete";
+
+/*  */
+"left_group" = "Leave Group";
+
+/*  */
+"delete_group" = "Delete Group";
+
+/* Public String */
+"search" = "Search";
+
+/*  */
+"d_of_d" = "%d of %d";
+
+/*  */
+"add_to_contact" = "Add to Contact";
+
+/*  */
+"app_name" = "iGap";
+
+/*  */
+"call_name" = "iGap Voice Call";
+
+/*  */
+"chat" = "Chat";
+
+/*  */
+"group" = "Group";
+
+/*  */
+"channel" = "Channel";
+
+/*  */
+"igap" = "iGap";
+
+/*  */
+"igapChanel" = "iGap";
+
+/*  */
+"clear_history_content" = "Are you sure you want to clear history?";
+
+/*  */
+"delete_chat_content" = "Are you sure you want to delete this chat?";
+
+/*  */
+"delete_text" = "Are you sure you want to delete this contact?";
+
+/*  */
+"cancel" = "Cancel";
+
+/*  */
+"B_cancel" = "Cancel";
+
+/*  */
+"B_skip" = "Skip";
+
+/*  */
+"B_finish" = "Finish";
+
+/*  */
+"ok" = "Ok";
+
+/*  */
+"B_ok" = "Ok";
+
+/*  */
+"set" = "Confirm";
+
+/*  */
+"am_camera" = "Camera";
+
+/*  */
+"am_music" = "Music";
+
+/*  */
+"am_paint" = "Paint";
+
+/*  */
+"am_picture" = "Picture";
+
+/*  */
+"am_document" = "Document";
+
+/*  */
+"am_location" = "Location";
+
+/*  */
+"am_video" = "Video";
+
+/*  */
+"am_file" = "File";
+
+/*  */
+"am_contact" = "Contact";
+
+/*  */
+"just_wait_en" = "Please Wait";
+
+/*  */
+"device_dosenot_camera_en" = "This device does not have a camera.";
+
+/*  */
+"device_dosenot_support" = "This device does not have an app for this action.";
+
+/*  */
+"do_you_want_to_turn_on_gps" = "Your GPS is off, do you want to turn it on?";
+
+/*  */
+"picture_is_saved_en" = "The Picture was Saved.";
+
+/*  */
+"select_picture_en" = "Select Picture";
+
+/*  */
+"cannot_load_data_en" = "Unable to load data.";
+
+/*  */
+"do_you_want_exit" = "Do you want to exit?";
+
+/*  */
+"slide_to_cancel_en" = "Slide to Cancel";
+
+/*  */
+"video_duration" = "%s (%s)";
+
+/* setting */
+"st_Info" = "Account Info";
+
+/*  */
+"st_Language" = "Language";
+
+/*  */
+"st_titleToolbar" = "Settings";
+
+/*  */
+"st_title_general" = "General Settings";
+
+/*  */
+"st_username" = "Username";
+
+/*  */
+"st_nickname" = "First Name";
+
+/*  */
+"st_contactName" = "Contact Name";
+
+/*  */
+"st_phoneNumber" = "Phone Number";
+
+/*  */
+"st_represent" = "Referral:";
+
+/*  */
+"st_title_info" = "Information";
+
+/*  */
+"st_title_notification_sounds" = "Notifications and Sounds";
+
+/*  */
+"st_title_Clear_Cache" = "Clear Cache";
+
+/*  */
+"st_title_Privacy_Security" = "Privacy and Security";
+
+/*  */
+"st_title_message" = "Message Room";
+
+/*  */
+"st_title_message_textSize" = "Text Message Size";
+
+/*  */
+"st_stickers" = "Stickers and Pictures";
+
+/*  */
+"st_chatBackground" = "Chat Background";
+
+/*  */
+"st_Enable_Animation" = "Enable Animations";
+
+/*  */
+"st_inApp_Browser" = "In-App browser";
+
+/*  */
+"st_crop" = "Crop and Resize Photo";
+
+/*  */
+"st_send_by_enter" = "Send by Enter Key";
+
+/*  */
+"st_title_Media" = "Multimedia";
+
+/*  */
+"st_auto_download_data" = "Auto-download (Using Mobile Data)";
+
+/*  */
+"title_auto_download_data" = "Auto-download\n(Using Mobile Data)";
+
+/*  */
+"st_auto_download_wifi" = "Auto-download (When Connected on Wi-Fi)";
+
+/*  */
+"title_auto_download_wifi" = "Auto-download\n(Using Wi-Fi)";
+
+/*  */
+"st_auto_download_roaming" = "Auto-download (When Roaming)";
+
+/*  */
+"title_auto_download_roaming" = "Auto-download\n(Using Data Roaming)";
+
+/*  */
+"st_auto_gif" = "Auto Play GIFs";
+
+/*  */
+"st_save_to_gallery" = "Save to Gallery";
+
+/*  */
+"st_title_support" = "iGap Support";
+
+/*  */
+"st_ask_question" = "Ask a Question";
+
+/*  */
+"st_About_iGap" = "About iGap";
+
+/*  */
+"st_privacy_policy" = "Privacy Policy";
+
+/*  */
+"st_keepMedia" = "Store Multimedia Files";
+
+/*  */
+"st_dialog_content_keepMedia" = "Photos, videos and all other files saved on your cloud storage could be removed from your device in order to free up space. All these removed files and media are stored on cloud storage and could be downloaded and saved again if needed.";
+
+/*  */
+"st_titleToolbar_page_Notification_and_sounds" = "Notification & Sounds";
+
+/*  */
+"st_title_messageNotification" = "Message Notifications";
+
+/*  */
+"st_alert" = "Alert";
+
+/*  */
+"st_messagePreview" = "Message Preview";
+
+/*  */
+"st_led_color" = "LED Color";
+
+/*  */
+"st_vibrate" = "Vibration";
+
+/*  */
+"st_popupNotification" = "Pop-up Notifications";
+
+/*  */
+"st_sound" = "Sound";
+
+/*  */
+"st_title_groupNotification" = "Group Notifications";
+
+/*  */
+"st_title_in_app_notification" = "In-App Notifications";
+
+/*  */
+"st_in_app_sound" = "In-App Sounds";
+
+/*  */
+"st_in_app_vibrate" = "In-App Vibration";
+
+/*  */
+"st_in_app_preview" = "In-App Preview";
+
+/*  */
+"st_in_chat_sound" = "Sounds in Chat";
+
+/*  */
+"st_title_Events" = "Events";
+
+/*  */
+"st_Contact_joined_igap" = "Recently Joined iGap.";
+
+/*  */
+"st_pinned_message" = "Pinned Messages";
+
+/*  */
+"st_title_other" = "Other";
+
+/*  */
+"st_text_keep_alive_service" = "Relaunch app if shut down by user or system. This will ensure you all notifications will be shown.";
+
+/*  */
+"st_keep_alive_service" = "Keep Service Running all time";
+
+/*  */
+"st_background_connection" = "Background Connection";
+
+/*  */
+"st_text_background_connection" = "Keep a low impact background connection to iGap to receive notifications. Enable for reliable notifications.";
+
+/*  */
+"st_badge_counter" = "Pinned Messages";
+
+/*  */
+"st_Repeat_Notifications" = "Pinned Messages";
+
+/*  */
+"st_title_reset" = "Reset";
+
+/*  */
+"st_reset_all_notification" = "Reset all Notifications";
+
+/*  */
+"st_text_reset_all_notification" = "Undo all custom notification settings for all your contacts and groups";
+
+/*  */
+"st_dialog_reset_all_notification" = "Are you sure you want to undo all custom notification settings?";
+
+/*  */
+"st_dialog_reset_all_notification_yes" = "YES";
+
+/*  */
+"st_dialog_reset_all_notification_no" = "NO";
+
+/*  */
+"st_title_Background" = "Chat Background";
+
+/*  */
+"st_stickers_and_picture" = "Stickers and Pictures";
+
+/* privacy and security */
+"privacy" = "Privacy";
+
+/*  */
+"Block_Users" = "List of Blocked Users";
+
+/*  */
+"Last_Seen" = "Last Seen";
+
+/*  */
+"Groups" = "Groups";
+
+/*  */
+"Security" = "Security";
+
+/*  */
+"Passcode_Lock" = "Pass Code Lock";
+
+/*  */
+"Two_Step_Verification" = "Two-Step Verification";
+
+/*  */
+"Active_Sessions" = "Active Sessions";
+
+/*  */
+"Account_Self_destruction" = "Account self-destructs";
+
+/* notification and sound group */
+"ntg_title_toolbar" = "Notifications & Sounds";
+
+/*  */
+"ntg_notifications" = "Notifications";
+
+/*  */
+"ntg_Sound" = "Sound";
+
+/*  */
+"ntg_smart_notifications" = "Smart Notifications";
+
+/* chanel_info */
+"chi_shared_Media" = "Shared Media";
+
+/*  */
+"chi_clearChat" = "Clear Chat History";
+
+/*  */
+"chi_blockContact" = "Block this contact";
+
+/*  */
+"chi_title_setting" = "Settings";
+
+/*  */
+"chi_popup_call" = "Voice Call";
+
+/*  */
+"chi_popup_copy" = "Copy";
+
+/*  */
+"chi_NEXT_STEP" = "Next Step";
+
+/* fragment add contact */
+"fac_Add_Contact" = "Add Contact";
+
+/*  */
+"fac_contact_info" = "Contact Info";
+
+/*  */
+"fac_First_Name" = "First Name";
+
+/*  */
+"fac_Last_Name" = "Last Name";
+
+/*  */
+"fac_Phone_Number" = "Phone Number";
+
+/*  */
+"fac_Find_in_Page" = "Find in Page";
+
+/*  */
+"fac_Open_in_Chrome" = "Complete Action Using Chrome";
+
+/*  */
+"fac_Powered_by_iGap" = "Powered by iGap";
+
+/*  */
+"menu_add_contact" = "Add Contact";
+
+/*  */
+"shared_media" = "Shared Media";
+
+/*  */
+"shared_files" = "Shared Files";
+
+/*  */
+"shared_links" = "Shared Links";
+
+/*  */
+"shared_music" = "Shared Music";
+
+/*  */
+"save_to_Music" = "Save to Music";
+
+/*  */
+"show_all_media" = "Show all Media";
+
+/*  */
+"save_to_gallery" = "Save to Gallery";
+
+/*  */
+"delete_from_gallery" = "Delete from Gallery";
+
+/*  */
+"select_room" = "Select Room";
+
+/*  */
+"edited" = "Edited";
+
+/*  */
+"today" = "Today";
+
+/*  */
+"yesterday" = "Yesterday";
+
+/*  */
+"clean_log" = "Clear Call History";
+
+/* array */
+"array_Photo" = "Photo";
+
+/*  */
+"array_Voice_Message" = "Voice Message";
+
+/*  */
+"array_Video" = "Video";
+
+/*  */
+"array_File" = "File";
+
+/*  */
+"array_Music" = "Music";
+
+/*  */
+"array_GIF" = "GIF";
+
+/*  */
+"array_Add_to_Contact" = "Add to Contact List";
+
+/*  */
+"array_Call" = "Call";
+
+/*  */
+"array_Copy" = "Copy";
+
+/*  */
+"array_Off" = "Off";
+
+/*  */
+"array_No_popup" = "No pop-up";
+
+/*  */
+"array_Only_when_screen_on" = "Only when the screen is on";
+
+/*  */
+"array_Only_when_screen_off" = "Only when the screen is off";
+
+/*  */
+"array_Always_show_popup" = "Show popup always";
+
+/*  */
+"array_Disable" = "Disable";
+
+/*  */
+"array_enable" = "Enable";
+
+/*  */
+"array_Default" = "Default";
+
+/*  */
+"array_Short" = "Short";
+
+/*  */
+"array_Long" = "Long";
+
+/*  */
+"array_Only_if_silent" = "When silent";
+
+/*  */
+"array_From_Gallery" = "Gallery";
+
+/*  */
+"array_From_Camera" = "Camera";
+
+/*  */
+"array_Delete_photo" = "Delete Photo";
+
+/*  */
+"array_5_minutes" = "5 Minutes";
+
+/*  */
+"array_10_minutes" = "10 Minutes";
+
+/*  */
+"array_30_minutes" = "30 Minutes";
+
+/*  */
+"array_1_hour" = "1 Hour";
+
+/*  */
+"array_2_hour" = "2 Hours";
+
+/*  */
+"array_4_hour" = "4 Hours";
+
+/*  */
+"array_Default_Notification_tone" = "Default Notifications Tone";
+
+/*  */
+"replay_item_dialog" = "Reply";
+
+/*  */
+"copy_item_dialog" = "Copy";
+
+/*  */
+"share_item_dialog" = "Share";
+
+/*  */
+"forward_item_dialog" = "Forward";
+
+/*  */
+"delete_item_dialog" = "Delete";
+
+/*  */
+"saveToDownload_item_dialog" = "Save To Downloads";
+
+/*  */
+"edit_item_dialog" = "Edit";
+
+/*  */
+"Search" = "Search";
+
+/*  */
+"Delete_and_leave_Group" = "Delete and Leave Group";
+
+/*  */
+"New_Chanel" = "New Channel";
+
+/*  */
+"New_Group" = "New Group";
+
+/* tarjome nashavad */
+"test" = "Will likely mark this as an error despite being correct. You may want to add 91211111 will likely mark this as an error despite being correct. You may want to add";
+
+/*  */
+"of" = "Of";
+
+/*  */
+"save_to_music_folder" = "Save to music folder successfully";
+
+/*  */
+"no_comment" = "No Comment";
+
+/*  */
+"comment" = "Comment";
+
+/*  */
+"choose_picture" = "Choose Picture from";
+
+/*  */
+"cansel" = "Cancel";
+
+/*  */
+"from_camera" = "Camera";
+
+/*  */
+"please_check_your_camera" = "Please Check your Device Camera.";
+
+/*  */
+"delete_photo" = "Delete Photo";
+
+/*  */
+"group_name" = "Group Name";
+
+/*  */
+"group_link" = "Group Link";
+
+/*  */
+"save" = "Save";
+
+/*  */
+"please_enter_group_name" = "Please enter group name";
+
+/*  */
+"group_description" = "Group Description";
+
+/*  */
+"please_enter_group_description" = "Please enter a description about group";
+
+/*  */
+"do_you_want_to_set_admin_role_to_member" = "Are you sure you want to remove the admin role from this member?";
+
+/*  */
+"do_you_want_to_kick_this_member" = "Are you sure you want to kick this member?";
+
+/*  */
+"do_you_want_to_set_modereator_role_to_member" = "Are you sure you want to remove the moderator role from this member?";
+
+/*  */
+"waiting_for_network" = "Waiting for network…";
+
+/*  */
+"connecting" = "Connecting…";
+
+/*  */
+"updating" = "Updating…";
+
+/*  */
+"last_seen_recently" = "Just Now";
+
+/*  */
+"member" = "Members";
+
+/*  */
+"member_chat" = "Members";
+
+/*  */
+"one_member_chat" = "Member";
+
+/*  */
+"save_ok" = "Saved";
+
+/*  */
+"exception" = "Exception:";
+
+/*  */
+"please_enter_phone_number" = "Please enter your phone number";
+
+/*  */
+"please_enter_correct_phone_number" = "Please enter correct phone number";
+
+/*  */
+"please_enter_firstname_or_lastname" = "Please enter your first name or last name";
+
+/*  */
+"new_chanel" = "New Channel";
+
+/*  */
+"can_not_save_picture_pleas_try_again" = "Can't save picture, please try again";
+
+/*  */
+"chats" = "Chats";
+
+/*  */
+"contacts" = "Contacts";
+
+/*  */
+"messages" = "Messages";
+
+/*  */
+"show_message_count" = "Displayable Messages";
+
+/*  */
+"count_of_show_message" = "Number of Displayable Messages";
+
+/*  */
+"new_messages_from" = "New Messages from";
+
+/*  */
+"from" = "From";
+
+/*  */
+"new_message" = "New Message";
+
+/*  */
+"new_messages" = "New Messages";
+
+/*  */
+"new_message_recicve" = "New Message Received";
+
+/*  */
+"my_Position_is" = "My Location is:";
+
+/*  */
+"latitude" = "Latitude :";
+
+/*  */
+"longitude" = "Longitude :";
+
+/*  */
+"unknown_artist" = "Unknown Artist";
+
+/*  */
+"add_new_member" = "Add New Members";
+
+/*  */
+"set_admin" = "Assign Admin";
+
+/*  */
+"add_admin" = "Add Admin";
+
+/*  */
+"set_modereator" = "Assign Moderator";
+
+/*  */
+"add_modereator" = "Add Moderator";
+
+/*  */
+"set_kick" = "Kick out";
+
+/*  */
+"member_can_add_new_member" = "Members Can Add New Members";
+
+/*  */
+"notificaion_and_sound" = "Notifications and Sounds";
+
+/*  */
+"your_link" = "Your Link";
+
+/*  */
+"public_channel" = "Public Channel";
+
+/*  */
+"private_channel" = "Private Channel";
+
+/*  */
+"desc_private_channel" = "Not anyone can join. They can only be added as members by the admin(s).";
+
+/*  */
+"desc_public_channel" = "Anyone can join public channels via searching or receiving the invitation link.";
+
+/*  */
+"last_msg_format_chat" = "%s";
+
+/* Error */
+"USER_VERIFY_BLOCKED_USER" = "User is blocked, no possibility to verify";
+
+/*  */
+"Enter_Code" = "Destruction Code";
+
+/*  */
+"E_2" = "Need to Log in";
+
+/*  */
+"E_335" = "Bad payload";
+
+/*  */
+"E_336" = "Internal Server Error";
+
+/*  */
+"E_337" = "This operation is not permitted.";
+
+/*  */
+"E_327_A" = "Bad payload: Invalid room ID";
+
+/*  */
+"E_327_B" = "Bad payload: Invalid member ID";
+
+/*  */
+"E_328" = "Internal Server Error";
+
+/*  */
+"E_329" = "This operation is not permitted.";
+
+/*  */
+"E_332_1" = "Bad payload: Invalid room ID";
+
+/*  */
+"E_332_2" = "Bad payload: Invalid member ID";
+
+/*  */
+"E_333" = "Internal Server Error";
+
+/*  */
+"E_334" = "This operation is not permitted.";
+
+/*  */
+"E_324_1" = "Bad payload: Invalid room ID";
+
+/*  */
+"E_324_2" = "Bad payload: Invalid member ID";
+
+/*  */
+"E_325" = "Bad payload: Invalid member ID";
+
+/*  */
+"E_326" = "Bad payload: Invalid member ID";
+
+/*  */
+"E_318_1" = "Bad payload: Invalid room ID";
+
+/*  */
+"E_318_2" = "Bad payload: Invalid member ID";
+
+/*  */
+"E_319" = "Internal Server Error";
+
+/*  */
+"E_320" = "This operation is not permitted.";
+
+/*  */
+"E_321" = "Bad payload";
+
+/*  */
+"E_322" = "Internal Server Error";
+
+/*  */
+"E_323" = "This operation is not permitted.";
+
+/*  */
+"E_302_1" = "Bad payload: Invalid room ID";
+
+/*  */
+"E_302_2" = "Bad payload: Invalid user ID";
+
+/*  */
+"E_302_3" = "Bad payload: Invalid starting Message ID";
+
+/*  */
+"E_302_4" = "Bad payload: Invalid role";
+
+/*  */
+"E_303" = "Internal Server Error";
+
+/*  */
+"E_304" = "The user is already in this conversation.";
+
+/*  */
+"E_305" = "This operation is not permitted.";
+
+/*  */
+"E_330_1" = "Bad payload: Invalid room ID";
+
+/*  */
+"E_330_2" = "Invalid username";
+
+/*  */
+"E_330_3" = "Bad payload: Invalid description";
+
+/*  */
+"E_331" = "Internal Server Error";
+
+/*  */
+"E_109" = "Invalid Token";
+
+/*  */
+"E_110" = "Internal Server Error";
+
+/*  */
+"E_111" = "User is blocked";
+
+/*  */
+"E_112" = "Bad payload: Invalid nickname";
+
+/*  */
+"E_113" = "Internal Server Error";
+
+/*  */
+"E_200" = "Bad payload: Invalid Peer ID";
+
+/*  */
+"E_201" = "Internal Server Error";
+
+/*  */
+"E_202" = "There is no active user with the given Peer ID.";
+
+/*  */
+"E_124_1" = "Bad payload: Invalid phone number";
+
+/*  */
+"E_124_2" = "Bad payload: Invalid first name";
+
+/*  */
+"E_124_3" = "Bad payload: Invalid last name";
+
+/*  */
+"E_124_4" = "Bad payload: first name or last name is required";
+
+/*  */
+"E_125" = "Internal Server Error";
+
+/*  */
+"E_122" = "Bad payload: Invalid phone number";
+
+/*  */
+"E_123" = "Internal Server Error";
+
+/*  */
+"E_163" = "USER_PROFILE_CHECK_USERNAME_INTERNAL_SERVER_ERROR";
+
+/*  */
+"E_218" = "Bad payload: Invalid room ID";
+
+/*  */
+"E_219" = "Internal Server Error";
+
+/*  */
+"E_220" = "This operation is not permitted.";
+
+/*  */
+"E_233_1" = "You have got Blocked by This User";
+
+/*  */
+"E_300_1" = "Bad payload: Invalid description";
+
+/*  */
+"E_300_2" = "Bad payload: Invalid description";
+
+/*  */
+"E_301" = "Internal Server Error";
+
+/*  */
+"E_379" = "You cannot invite this user to groups because of the protected privacy for the request";
+
+/*  */
+"E_373" = "GROUP_REVOKE_LINK_BAD_PAYLOAD";
+
+/*  */
+"E_374" = "GROUP_REVOKE_LINK_INTERNAL_SERVER_ERROR";
+
+/*  */
+"E_375" = "GROUP_REVOKE_LINK_FORBIDDEN";
+
+/*  */
+"E_453" = "CHANNEL_CHECK_USERNAME_BAD_PAYLOAD";
+
+/*  */
+"E_454" = "CHANNEL_CHECK_USERNAME_INTERNAL_SERVER_ERROR";
+
+/*  */
+"E_455" = "CHANNEL_UPDATE_USERNAME_BAD_PAYLOAD";
+
+/*  */
+"E_456" = "CHANNEL_UPDATE_USERNAME_INTERNAL_SERVER_ERROR";
+
+/*  */
+"E_457" = "CHANNEL_UPDATE_USERNAME_UPDATE_LOCK";
+
+/*  */
+"E_458" = "CHANNEL_UPDATE_USERNAME_FORBIDDEN";
+
+/*  */
+"E_468" = "channel update signature forbidden";
+
+/*  */
+"E_478" = "You cannot invite this user to groups because of the protected privacy for the request";
+
+/*  */
+"E_610" = "Bad payload";
+
+/*  */
+"E_611" = "Internal Server Error";
+
+/*  */
+"E_612" = "Bad payload";
+
+/*  */
+"E_613" = "Internal Server Error";
+
+/*  */
+"E_614" = "The Conversation not found.";
+
+/*  */
+"E_615_1" = "Bad payload: Invalid room ID";
+
+/*  */
+"E_615_2" = "Bad payload: Invalid ID of the first message";
+
+/*  */
+"E_616" = "Internal Server Error";
+
+/*  */
+"E_617" = "No Other Messages to be Viewed.";
+
+/*  */
+"E_623" = "Client Resolve Username Not Found";
+
+/*  */
+"E_713_1" = "Bad payload: Invalid token";
+
+/*  */
+"E_713_2" = "Bad payload: Invalid offset";
+
+/*  */
+"E_713_3" = "Bad payload: Invalid max limit";
+
+/*  */
+"E_713_4" = "Bad payload: Invalid selector";
+
+/*  */
+"E_713_5" = "Bad payload: Invalid offset";
+
+/*  */
+"E_714" = "Internal Server Error";
+
+/*  */
+"E_715" = "file not found.";
+
+/*  */
+"E_658" = "You have already sent report.";
+
+/*  */
+"E_659" = "You are forbidden to send a report.";
+
+/*  */
+"E_9002" = "Unable to get initialize id";
+
+/*  */
+"E_9006" = "Communication with the server is not possible";
+
+/*  */
+"E_9007" = "Communication with the server is not possible";
+
+/*  */
+"E_9008" = "Connection with recipient failed";
+
+/*  */
+"E_9009" = "Communication with the server is not possible";
+
+/*  */
+"E_9010" = "The recipient has not registered";
+
+/*  */
+"E_9013" = "Your registration is forbidden";
+
+/*  */
+"E_10108" = "USER_TWO_STEP_VERIFICATION_VERIFY_RECOVERY_EMAIL_BAD_PAYLOAD";
+
+/*  */
+"E_10109" = "USER_TWO_STEP_VERIFICATION_VERIFY_RECOVERY_EMAIL_INTERNAL_SERVER_ERROR";
+
+/*  */
+"E_10110" = "USER_TWO_STEP_VERIFICATION_VERIFY_RECOVERY_EMAIL_MAX_TRY_LOCK";
+
+/*  */
+"E_10111" = "USER_TWO_STEP_VERIFICATION_VERIFY_RECOVERY_EMAIL_EXPIRED_TOKEN";
+
+/*  */
+"E_10112" = "USER_TWO_STEP_VERIFICATION_VERIFY_RECOVERY_EMAIL_NO_PASSWORD";
+
+/*  */
+"E_10113" = "USER_TWO_STEP_VERIFICATION_VERIFY_RECOVERY_EMAIL_INVALID_TOKEN";
+
+/*  */
+"E_10114" = "USER_TWO_STEP_VERIFICATION_CHANGE_RECOVERY_EMAIL_BAD_PAYLOAD";
+
+/*  */
+"E_10115" = "USER_TWO_STEP_VERIFICATION_CHANGE_RECOVERY_EMAIL_INTERNAL_SERVER_ERROR";
+
+/*  */
+"E_10116" = "USER_TWO_STEP_VERIFICATION_CHANGE_RECOVERY_EMAIL_MAX_TRY_LOCK";
+
+/*  */
+"E_10117" = "USER_TWO_STEP_VERIFICATION_CHANGE_RECOVERY_EMAIL_NO_PASSWORD";
+
+/*  */
+"E_10118" = "USER_TWO_STEP_VERIFICATION_CHANGE_RECOVERY_EMAIL_INVALID_PASSWORD";
+
+/*  */
+"E_10119" = "USER_TWO_STEP_VERIFICATION_CHANGE_RECOVERY_EMAIL_CONFIRMED_BEFORE";
+
+/*  */
+"E_10165" = "Bad payload: User report";
+
+/*  */
+"E_10166" = "ServerError: User report internal";
+
+/*  */
+"E_10167" = "You have already reported this user.";
+
+/*  */
+"E_10168" = "You are forbidden to do this action.";
+
+/*  */
+"E_209_1" = "Bad payload: Invalid room ID";
+
+/*  */
+"E_209_2" = "Bad payload: Invalid message ID";
+
+/*  */
+"E_209_3" = "Bad payload: Invalid message";
+
+/*  */
+"E_210" = "No such file is found for request.";
+
+/*  */
+"E_211" = "This operation is not permitted.";
+
+/*  */
+"E_212_1" = "Bad payload: Invalid room ID";
+
+/*  */
+"E_213" = "Internal Server Error";
+
+/*  */
+"E_214" = "This operation is not permitted.";
+
+/*  */
+"resend_all_messages" = "Resend %d messages";
+
+/*  */
+"resend_chat_message" = "Resend messages";
+
+/*  */
+"if_you_are_away_for" = "Away for";
+
+/*  */
+"st_Gander" = "Gender:";
+
+/*  */
+"st_email" = "Email:";
+
+/*  */
+"month_1" = "1 month";
+
+/*  */
+"month_3" = "3 months";
+
+/*  */
+"month_6" = "6 months";
+
+/*  */
+"year_1" = "1 year";
+
+/*  */
+"E_114" = "Bad payload: Invalid email address";
+
+/*  */
+"E_115" = "Internal Server Error";
+
+/*  */
+"E_116" = "Bad payload: Invalid gender";
+
+/*  */
+"E_118" = "Warning: Number of Contacts has exceeded the server restrictions.";
+
+/*  */
+"E_118_5" = "Warning: Number of Contacts Chunk has exceeded the server restrictions.";
+
+/*  */
+"E_154_1" = "Bad payload: get token";
+
+/*  */
+"E_154_2" = "Bad payload: get reason";
+
+/*  */
+"E_155" = "USER_DELETE INTERNAL SERVER ERROR";
+
+/*  */
+"E_156" = "USER DELETE INVALID TOKEN";
+
+/*  */
+"E_157" = "USER DELETE EXPIRED TOKEN";
+
+/*  */
+"E_158" = "USER DELETE MAX TRY LOCK";
+
+/*  */
+"time_out" = "can't connect to server";
+
+/*  */
+"normal_error" = "can't do it please try later";
+
+/*  */
+"list_admin" = "List of Admin(s)";
+
+/*  */
+"list_modereator" = "List of Moderator(s)";
+
+/*  */
+"desc" = "Description";
+
+/*  */
+"hello_blank_fragment" = "Hello blank fragment";
+
+/*  */
+"receive_code_text" = "Did not you receive a text message?";
+
+/*  */
+"please_wait" = "Please Wait.";
+
+/*  */
+"New_Chat" = "New Chat";
+
+/*  */
+"Invite_Friends" = "Invite Friends";
+
+/*  */
+"iGap_FAQ" = "iGap FAQs";
+
+/*  */
+"Documents" = "Documents";
+
+/*  */
+"remove_admin" = "Remove Admin";
+
+/*  */
+"remove_moderator" = "Remove Moderator";
+
+/*  */
+"Male" = "Male";
+
+/*  */
+"Female" = "Female";
+
+/*  */
+"from_beginning" = "From the Beginning";
+
+/*  */
+"from_Now" = "From Now";
+
+/*  */
+"last_50_Messages" = "Last 50 Messages";
+
+/*  */
+"customs" = "Customs";
+
+/*  */
+"image_selected_for_send" = "selected image";
+
+/*  */
+"video_selected_for_send" = "selected video";
+
+/*  */
+"multi_video_selected_for_send" = "\"selected";
+
+/*  */
+"audio_selected_for_send" = "selected audio";
+
+/*  */
+"file_selected_for_send" = "selected file";
+
+/*  */
+"pain_selected_for_send" = "selected paint";
+
+/*  */
+"phone_selected_for_send" = "selected phone";
+
+/*  */
+"crop_selected_for_send" = "selected Image";
+
+/*  */
+"location_message" = "Location Message";
+
+/*  */
+"chat_to_group" = "Convert to Group";
+
+/*  */
+"last_seen_at" = "last seen at";
+
+/*  */
+"long_time_ago" = "long time ago";
+
+/*  */
+"last_month" = "last month";
+
+/*  */
+"last_week" = "last week";
+
+/*  */
+"online" = "online";
+
+/*  */
+"exactly" = "Exactly";
+
+/*  */
+"recently" = "Recently";
+
+/*  */
+"support" = "Support";
+
+/*  */
+"service_notification" = "Notification Services";
+
+/*  */
+"B_edit" = "Edit";
+
+/*  */
+"left" = "Leave";
+
+/*  */
+"Channel_name" = "New Channel";
+
+/*  */
+"arrow" = "Arrow";
+
+/*  */
+"Ringtone" = "Ringtone";
+
+/*  */
+"DISCARD" = "Discard";
+
+/*  */
+"unknown" = "Unknown";
+
+/*  */
+"add_to_list_contact" = "Add to Contact List";
+
+/*  */
+"text_add_to_list_contact" = "Do you want to add this phone number to your contacts list?";
+
+/*  */
+"delete_account_text" = "Are you sure you want to delete your account?";
+
+/*  */
+"delete_account_text_desc" = "(If you delete your account, all sort of files received as messages will be deleted permanently!)";
+
+/*  */
+"text_kick_admin" = "Are you sure you want to kick this admin out?";
+
+/*  */
+"text_kick_moderator" = "Are you sure you want to kick this moderator out?";
+
+/*  */
+"dialog_readonly_chat" = "Sorry, you are not allowed to send any messages to this chat.";
+
+/*  */
+"to_delete_contact" = "Delete Contact";
+
+/*  */
+"capture_image" = "Capture Image";
+
+/*  */
+"capture_video" = "Capture Video";
+
+/*  */
+"set_gender" = "Set Gander";
+
+/*  */
+"set_email" = "Set Email";
+
+/*  */
+"delete_contact" = "Delete Contact";
+
+/*  */
+"error_email" = "Wrong Email Address";
+
+/*  */
+"active_session_title" = "Terminate the Active Session";
+
+/*  */
+"active_session_all_title" = "Terminate all Active Sessions";
+
+/*  */
+"active_session_content" = "Are you sure you want to terminate this active session?";
+
+/*  */
+"active_session_all_content" = "Are you sure you want to terminate all active sessions?";
+
+/*  */
+"USER_VERIFY_GIVEN_USERNAME" = "There is no registered user with given username.";
+
+/*  */
+"USER_VERIFY_MANY_TRIES" = "Verification code is locked for a while due to too many tries.";
+
+/*  */
+"USER_VERIFY_MANY_TRIES_SEND" = "Verification code has been forwarded frequently.";
+
+/*  */
+"USER_VERIFY_EXPIRED" = "Verification code is expired.";
+
+/*  */
+"USER_VERIFY_BLOCK" = "User is blocked for his/her request";
+
+/*  */
+"convert_chat_to_group_content" = "Do you want to convert this chat to a group?";
+
+/*  */
+"convert_chat_to_group_title" = "Convert chat to group";
+
+/*  */
+"minute_ago" = "minute ago";
+
+/*  */
+"minutes_ago" = "minutes ago";
+
+/*  */
+"device" = "Device:";
+
+/*  */
+"country" = "Country:";
+
+/*  */
+"create_time" = "Create on:";
+
+/*  */
+"ip" = "IP:";
+
+/*  */
+"current_session" = "Current Session";
+
+/*  */
+"Active_session" = "Active Session";
+
+/*  */
+"terminate" = "Terminate";
+
+/*  */
+"terminate_all" = "Terminate all other Active Sessions";
+
+/*  */
+"forwarded_from" = "Forwarded from";
+
+/*  */
+"more" = "more ...";
+
+/*  */
+"do_you_want_to_delet_this_chat" = "Do you want to delete this chat?";
+
+/*  */
+"sound_at_most" = "Sound at most";
+
+/*  */
+"number" = "Number";
+
+/*  */
+"photo" = "Photo";
+
+/*  */
+"music_name" = "Music Name";
+
+/*  */
+"times" = "Times";
+
+/*  */
+"info" = "Info";
+
+/*  */
+"description" = "Description";
+
+/*  */
+"type_message" = "Message...";
+
+/*  */
+"place" = "Place";
+
+/*  */
+"minutes" = "Minutes";
+
+/*  */
+"channel_link" = "Channel Link";
+
+/*  */
+"group_profile" = "Group Profile";
+
+/*  */
+"iran" = "Iran";
+
+/*  */
+"naturemagazine" = "Nature Magazine";
+
+/*  */
+"everybody" = "Everybody";
+
+/*  */
+"music_time" = "Music Time";
+
+/*  */
+"new_group" = "New Group";
+
+/*  */
+"delete_from_cache" = "Delete From Cache";
+
+/*  */
+"leave_channel" = "Leave Channel";
+
+/*  */
+"report" = "Report";
+
+/*  */
+"replay" = "Reply";
+
+/*  */
+"members" = "Members";
+
+/*  */
+"skip" = "Skip";
+
+/*  */
+"settings" = "Settings";
+
+/*  */
+"iGap_settings" = "iGap Account Settings";
+
+/*  */
+"please_write_your_message" = "Please type your message!";
+
+/*  */
+"share_audio_file" = "Shared Audios";
+
+/*  */
+"share_image" = "Shared Images";
+
+/*  */
+"share_image_2" = "Share Image";
+
+/*  */
+"share_video_file_2" = "Share Video";
+
+/*  */
+"share_video_file" = "Shared Videos";
+
+/*  */
+"share_file" = "Shared Files";
+
+/*  */
+"text_copied" = "Text Copied";
+
+/*  */
+"message" = "Message";
+
+/*  */
+"future_done" = "will be offered in the future";
+
+/*  */
+"nick_name_not_exist" = "Name not exist";
+
+/*  */
+"first_name" = "First Name";
+
+/*  */
+"last_name" = "Last Name";
+
+/*  */
+"block_this_contact" = "Block This Contact?";
+
+/*  */
+"block" = "Block";
+
+/*  */
+"clear_this_chat" = "Are you sure you want to clear this chat history?";
+
+/*  */
+"clear" = "Clear";
+
+/*  */
+"can_not_save_image" = "Can't Save image";
+
+/*  */
+"just_owner_can_delete" = "Just Creator can delete";
+
+/*  */
+"shate_audio_file" = "Share audio File";
+
+/*  */
+"last_seen" = "Last seen";
+
+/*  */
+"remove" = "Remove";
+
+/*  */
+"please_check_your_connenction" = "Please check your connection";
+
+/*  */
+"errore_verification_sms" = "Error verification SMS";
+
+/*  */
+"male" = "Male";
+
+/*  */
+"female" = "Female";
+
+/*  */
+"share_via" = "Share via";
+
+/*  */
+"error" = "Error";
+
+/*  */
+"please_enter_code_for_verify" = "Enter Code.";
+
+/*  */
+"server_do_not_response" = "Server don't response";
+
+/*  */
+"share_image_from_igap" = "Share image from iGap";
+
+/*  */
+"share_video_from_igap" = "Share video from iGap";
+
+/*  */
+"TERMINATE" = "TERMINATE";
+
+/*  */
+"iGap_version" = "iGap Android Client V";
+
+/*  */
+"Bazzar" = "Bazaar";
+
+/*  */
+"do_you_want_to_delete_this_group" = "Are you sure you want to delete this group?";
+
+/*  */
+"do_you_want_to_leave_this_group" = "Are you sure you want to leave this group?";
+
+/*  */
+"waiting_for_connection" = "Waiting for Connecting to Server";
+
+/*  */
+"array_delete_photo_group" = "Delete Photo";
+
+/*  */
+"to_delete_chat" = "Delete Chat";
+
+/*  */
+"picture_save_to_galary" = "picture saved to gallery";
+
+/*  */
+"my_location_title" = "My Location";
+
+/*  */
+"shared_image" = "Shared Images";
+
+/*  */
+"shared_video" = "Shared Videos";
+
+/*  */
+"shared_audio" = "Shared Audios";
+
+/*  */
+"shared_voice" = "Shared Voices";
+
+/*  */
+"shared_gif" = "Shared Gifs";
+
+/*  */
+"shared_file" = "Shared Files";
+
+/*  */
+"images" = "Images";
+
+/*  */
+"qr_payment" = "QR Payment";
+
+/*  */
+"charge_balance" = "Charge balance";
+
+/*  */
+"total_balance" = "Total balance";
+
+/*  */
+"rials" = "Rial";
+
+/*  */
+"amount_rials" = "%@ Rials";
+
+/*  */
+"unverified" = "Unverified/";
+
+/*  */
+"send_documents" = "Sending documents";
+
+/*  */
+"charge" = "Charge";
+
+/*  */
+"transaction_history" = "Transaction history";
+
+/*  */
+"transfer_mony" = "Transfer Money";
+
+/*  */
+"create_qr_code" = "Create QR code";
+
+/*  */
+"pay_via_qr_code" = "Pay via QR code";
+
+/*  */
+"charge_out" = "Charge out";
+
+/*  */
+"e_commerce" = "E-Commerce";
+
+/*  */
+"agrement" = "Agreement";
+
+/*  */
+"payment_charge_out_text" = "Message of Charging out";
+
+/*  */
+"description_optional" = "Description(optional)";
+
+/*  */
+"enter_the_code_here" = "Enter the code here";
+
+/*  */
+"transfer_to" = "Transfer to";
+
+/*  */
+"transfer_to_wallet" = "Transfer to wallet";
+
+/*  */
+"gift_message" = "Gift Amount *.\nWant to get it?";
+
+/*  */
+"toast_success_gift" = "Wait a few moments to apply gift credit.";
+
+/*  */
+"amount_to_pay_factor" = "Amount to pay factor (Rials) :";
+
+/*  */
+"price" = "Price";
+
+/*  */
+"amunt" = "Amount";
+
+/*  */
+"email_optional" = "Email(optional)";
+
+/*  */
+"create" = "Create";
+
+/*  */
+"gif_selected_for_send" = "the GIF selected to send";
+
+/*  */
+"log_message" = "Log message";
+
+/*  */
+"iranian_rials" = "Iranian Rial(IRR)";
+
+/*  */
+"your_login_code_is" = "Your login code is:";
+
+/*  */
+"there_is_no_sheared_media" = "There are no shared media";
+
+/*  */
+"pending" = "Pending";
+
+/*  */
+"completed" = "Completed";
+
+/* New String */
+"please_enter_channel_name" = "Please Enter Channel Name";
+
+/*  */
+"new_channel" = "New Channel";
+
+/*  */
+"channel_name" = "Channel Name";
+
+/*  */
+"channel_description" = "Channel Description";
+
+/*  */
+"channel_delete" = "Delete Channel";
+
+/*  */
+"channel_left" = "Leave Channel";
+
+/*  */
+"please_enter_channel_description" = "Please Enter Channel Description";
+
+/*  */
+"delete_and_leave_channel" = "Delete and Leave Channel";
+
+/*  */
+"txt_draft" = "Draft:";
+
+/*  */
+"txt_you" = "You";
+
+/*  */
+"you" = "You";
+
+/*  */
+"st_data_shams" = "Persian Date";
+
+/*  */
+"do_you_want_left_this" = "Are you sure you want to leave this room?";
+
+/*  */
+"do_you_want_delete_this" = "Are you sure you want to delete this room?";
+
+/*  */
+"do_you_want_delete_this_channel" = "Are you sure you want to delete this channel?";
+
+/*  */
+"do_you_want_leave_this_channel" = "Are you sure you want to leave this channel?";
+
+/*  */
+"do_you_want_clear_history_this" = "Are you sure you want to clear history of this room?";
+
+/*  */
+"content_log_out" = "Are you sure you want to sign out of your iGap account?";
+
+/*  */
+"st_signature" = "Signature";
+
+/*  */
+"one_day" = "Last day";
+
+/*  */
+"two_day" = "Two days ago";
+
+/*  */
+"three_day" = "Three days ago";
+
+/*  */
+"four_day" = "Four days ago";
+
+/*  */
+"five_day" = "Five days ago";
+
+/*  */
+"six_day" = "Six days ago";
+
+/*  */
+"at" = "at";
+
+/*  */
+"new_channel_hint" = "You can provide an optional description for your channel.";
+
+/*  */
+"new_group_hint" = "You can provide an optional description for your group.";
+
+/*  */
+"farvardin" = "Farvardin";
+
+/*  */
+"ordibehst" = "Ordibehesht";
+
+/*  */
+"khordad" = "Khordad";
+
+/*  */
+"tir" = "Tir";
+
+/*  */
+"mordad" = "Mordad";
+
+/*  */
+"shahrivar" = "Shahrivar";
+
+/*  */
+"mehr" = "Mehr";
+
+/*  */
+"aban" = "Aban";
+
+/*  */
+"azar" = "Azar";
+
+/*  */
+"dey" = "Dey";
+
+/*  */
+"bahman" = "Bahman";
+
+/*  */
+"esfand" = "Esfand";
+
+/*  */
+"group_link_copy" = "Copy";
+
+/*  */
+"group_link_revoke" = "Change Link";
+
+/*  */
+"join" = "Join";
+
+/*  */
+"do_you_want_to_join_to_this" = "Do you want to join this";
+
+/*  */
+"block_user" = "Block User";
+
+/*  */
+"un_block_user" = "Unblock User";
+
+/*  */
+"spam" = "Spam";
+
+/*  */
+"sunday" = "Sunday";
+
+/*  */
+"monday" = "Monday";
+
+/*  */
+"tuesday" = "Tuesday";
+
+/*  */
+"wednesday" = "Wednesday";
+
+/*  */
+"thursday" = "Thursday";
+
+/*  */
+"friday" = "Friday";
+
+/*  */
+"saturday" = "Saturday";
+
+/*  */
+"USER_JOINED" = "joined iGap";
+
+/*  */
+"USER_DELETED" = "left iGap";
+
+/*  */
+"ROOM_CREATED" = "created";
+
+/*  */
+"MEMBER_ADDED" = "added";
+
+/*  */
+"prefix" = "";
+
+/* have to empty */
+"MEMBER_KICKED" = "kicked out";
+
+/*  */
+"MEMBER_LEFT" = "left Page";
+
+/*  */
+"ROOM_CONVERTED_TO_PUBLIC" = "converted to Public";
+
+/*  */
+"ROOM_CONVERTED_TO_PRIVATE" = "converted to Private";
+
+/*  */
+"MEMBER_JOINED_BY_INVITE_LINK" = "joined via Invite Link";
+
+/*  */
+"Room_Deleted_log" = "deleted Room";
+
+/*  */
+"conversation" = "conversation";
+
+/*  */
+"MISSED_SCREEN_SHARE" = "Missed Screen Share";
+
+/*  */
+"MISSED_VOICE_CALL" = "Missed Voice Call";
+
+/*  */
+"MISSED_VIDEO_CALL" = "Missed Video Call";
+
+/*  */
+"delete_account_text1" = "other";
+
+/*  */
+"delete_account_text2" = "other";
+
+/*  */
+"delete_account_text3" = "other";
+
+/*  */
+"delete_account_text4" = "other";
+
+/*  */
+"revoke" = "Revoke";
+
+/*  */
+"channel_link_title_revoke" = "Invitation Link";
+
+/*  */
+"channel_link_hint_revoke" = "Channel Invitation Link";
+
+/*  */
+"group_link_hint_revoke" = "Group Invitation Link";
+
+/*  */
+"self_destructs" = "Self-destruct";
+
+/*  */
+"channel_title_convert_to_private" = "Convert to private";
+
+/*  */
+"channel_text_convert_to_private" = "Do you want to convert this channel to private?";
+
+/*  */
+"channel_title_convert_to_public" = "Convert to public";
+
+/*  */
+"channel_text_convert_to_public" = "Do you want to convert this channel to public?";
+
+/*  */
+"channel_title_channel_set_username" = "Set Username";
+
+/*  */
+"group_title_convert_to_private" = "Convert to Private";
+
+/*  */
+"group_text_convert_to_private" = "Do you want to convert this group to private?";
+
+/*  */
+"group_title_convert_to_public" = "Convert to Public";
+
+/*  */
+"group_text_convert_to_public" = "Do you want to convert this group to public?";
+
+/*  */
+"group_title_set_username" = "Set Username";
+
+/*  */
+"send_position" = "Send Position";
+
+/*  */
+"deleted_message" = "Deleted Message";
+
+/*  */
+"unread_message" = "Unread Message";
+
+/*  */
+"you_need_to_allow" = "iGap needs to access your";
+
+/*  */
+"permission_camera" = "Camera";
+
+/*  */
+"permission_storage" = "Storage";
+
+/*  */
+"permission_contact" = "Contact";
+
+/*  */
+"permission_calender" = "Calender";
+
+/*  */
+"permission_location" = "Location";
+
+/*  */
+"permission_record_audio" = "Record Audio";
+
+/*  */
+"permission_phone" = "Call Phone";
+
+/*  */
+"permission_sms" = "Received Messages";
+
+/*  */
+"USER_VERIFY_MAX_TRY_LOCK" = "USER VERIFY MAX TRY";
+
+/*  */
+"USER_GET_DELETE_TOKEN_MAX_TRY_LOCK" = "USER GET DELETE TOKEN MAX TRY";
+
+/*  */
+"USER_GET_DELETE_TOKEN_MAX_SEND" = "USER GET DELETE TOKEN MAX SEND";
+
+/*  */
+"USER_DELETE_MAX_TRY_LOCK" = "USER DELETE MAX TRY";
+
+/*  */
+"USER_PROFILE_UPDATE_USERNAME_UPDATE_LOCK" = "USER PROFILE UPDATE USERNAME UPDATE";
+
+/*  */
+"GROUP_UPDATE_USERNAME_UPDATE_LOCK" = "GROUP UPDATE USERNAME UPDATE LOCK";
+
+/*  */
+"CHANNEL_UPDATE_USERNAME_UPDATE_LOCK" = "CHANNEL UPDATE USERNAME UPDATE";
+
+/*  */
+"channel_public_hint_revoke" = "Channel Public Link";
+
+/*  */
+"st_privacy_blog" = "iGap Official Blog";
+
+/*  */
+"st_privacy_create_ticket" = "Support Request";
+
+/*  */
+"st_privacy_iGap_home" = "iGap Official Home";
+
+/*  */
+"you_have_to_get_storage_permision_for_continue" = "You need the storage permission for going on.";
+
+/*  */
+"clean_up_chat_rooms" = "Clean Up All";
+
+/*  */
+"clean_up" = "Clean Up";
+
+/*  */
+"do_you_want_to_clean_all_data_in_chat_rooms" = "Are you sure you want to clean up all data in local chat rooms?";
+
+/*  */
+"pm" = "PM";
+
+/*  */
+"am" = "AM";
+
+/*  */
+"message_selected" = "Message(s) Selected";
+
+/*  */
+"messages_selected" = "Message(s) Selected";
+
+/*  */
+"item_selected" = "item Selected";
+
+/*  */
+"forward_message" = "Forward message";
+
+/*  */
+"file_not_download_yet" = "File Not Downloaded Yet";
+
+/*  */
+"navigation_drawer_open" = "Open";
+
+/*  */
+"navigation_drawer_close" = "Close";
+
+/*  */
+"chat_with_yourself" = "My Cloud";
+
+/*  */
+"can_not_connent_to_server" = "Server not Found";
+
+/*  */
+"text_is_empty" = "Text Is Empty";
+
+/*  */
+"please_try_again" = "Please Try Again";
+
+/*  */
+"room_not_exist" = "There is no room with this ID";
+
+/*  */
+"app_theme" = "iGap Theme Color";
+
+/*  */
+"app_notif_color" = "Notification";
+
+/*  */
+"theme" = "Color";
+
+/*  */
+"is" = "is";
+
+/*  */
+"are" = "are";
+
+/*  */
+"members_are" = "Members are";
+
+/*  */
+"toggle_botton_color" = "Toggle Button Color";
+
+/*  */
+"send_and_attach_botton_color" = "Send and Attach Button";
+
+/*  */
+"default_header_font_color" = "Title";
+
+/*  */
+"default_progress_color" = "Progress bar";
+
+/*  */
+"who_can_see_my_avatar" = "Who can see my Avatar?";
+
+/*  */
+"who_can_invite_you_to_channel_s" = "Who can invite me to Channels?";
+
+/*  */
+"who_can_invite_you_to_group_s" = "Who can invite me to Groups?";
+
+/*  */
+"no_body" = "Nobody";
+
+/*  */
+"my_contacts" = "My Contacts";
+
+/*  */
+"privacy_setting" = "Privacy Setting";
+
+/*  */
+"igap_search" = "Look and Find";
+
+/*  */
+"set_color_to_default" = "Reset Colors Back to Default";
+
+/*  */
+"empty_message" = "Please try to enter the first 5 characters of username";
+
+/*  */
+"empty_message3" = "Enter at least 5 characters to search";
+
+/*  */
+"there_is_no_any_result" = "No Result";
+
+/*  */
+"there_is_no_connection_to_server" = "Server not found";
+
+/*  */
+"empty_room" = "No Messages Yet";
+
+/*  */
+"empty_call" = "You didn't make any call yet";
+
+/*  */
+"show_member" = "Show Members List";
+
+/*  */
+"show_vote_layout_in_channel" = "Show Channel Vote Layout";
+
+/*  */
+"close" = "Close";
+
+/*  */
+"INVALID" = "INVALID";
+
+/*  */
+"TAKEN" = "TAKEN";
+
+/*  */
+"OCCUPYING_LIMIT_EXCEEDED" = "RECEIVING IS LIMITED";
+
+/*  */
+"st_trim" = "Trim Video";
+
+/*  */
+"st_compress" = "Compress Video";
+
+/*  */
+"compressing" = "Compressing...";
+
+/*  */
+"selected_color_can_not_set_on_yout_device" = "Selected color cannot be set on your device";
+
+/*  */
+"keep_media_forever" = "Forever";
+
+/*  */
+"keep_media_1month" = "1 Month";
+
+/*  */
+"keep_media_6month" = "6 Month";
+
+/*  */
+"file_save_to_download_folder" = "File save to download folder";
+
+/*  */
+"first_download_file" = "First download file";
+
+/*  */
+"file_save_to_galary_folder" = "File save to galary folder";
+
+/*  */
+"file_can_not_save_to_selected_folder" = "File can not save to selected folder";
+
+/*  */
+"file_save_to_video_folder" = "File save to video folder";
+
+/*  */
+"file_save_to_picture_folder" = "File save to picture folder";
+
+/*  */
+"title_limit_chat_to_unknown_contact" = "Restriction in Chatting";
+
+/*  */
+"text_limit_chat_to_unknown_contact" = "Please wait for the process to finish (You are not allowed to send messages to more than 10 Unknown Users regularly at the same time; after getting to number 10, you get stopped until the end of countdown timer)";
+
+/*  */
+"title_limit_Create_Group" = "Restriction in Number of Rooms";
+
+/*  */
+"text_limit_Create_Group" = "You are allowed to create up to 25 Groups and/or Channels";
+
+/*  */
+"show_sender_name_in_group" = "Show Sender Name in Groups";
+
+/*  */
+"calls" = "Call list";
+
+/*  */
+"voice_calls" = "iGap Voice Call";
+
+/*  */
+"video_calls" = "iGap Video Call";
+
+/*  */
+"map" = "Map";
+
+/*  */
+"igap_nearby" = "Nearby";
+
+/*  */
+"igap_call" = "iGap Voice Call";
+
+/*  */
+"No_messages_here_yet" = "No messages here yet…";
+
+/*  */
+"mandatory" = "(Required)";
+
+/*  */
+"optional" = "(Optional)";
+
+/*  */
+"desc_group_chanel" = "Description (Optional)";
+
+/*  */
+"set_additional_password" = "Set Additional Password";
+
+/*  */
+"two_step_verification_title" = "Two-Step Verification";
+
+/*  */
+"two_step_verification_description" = "You can set a password that will be required when you log in on a new device in addition to the code you get via SMS.";
+
+/*  */
+"two_step_verification_disable" = "Two-Step Verification is disable";
+
+/*  */
+"enter_a_password" = "Enter a Password";
+
+/*  */
+"please_enter_your_password" = "Please enter your Password";
+
+/*  */
+"your_password" = "Your Password";
+
+/*  */
+"please_re_enter_your_password" = "Please re-enter your password";
+
+/*  */
+"please_create_hint_for_your_password" = "Please create a password hint";
+
+/*  */
+"password_hint" = "Password Hint";
+
+/*  */
+"password_Question_title_one" = "Question one (Required)";
+
+/*  */
+"password_Question_one" = "eg: Who is your Favorite teacher?";
+
+/*  */
+"password_Question_title_two" = "Question two (Required)";
+
+/*  */
+"title_toolbar_password_Question" = "New Security Questions";
+
+/*  */
+"password_Question_explain" = "Change old question with answers for recovering password.";
+
+/*  */
+"password_Question_two" = "eg: Who is your best friend?";
+
+/*  */
+"password_answer" = "Answer";
+
+/*  */
+"password_Question_title" = "Password Question";
+
+/*  */
+"recovery_email" = "Recovery E-mail";
+
+/*  */
+"your_email" = "Your Email (Optional)";
+
+/*  */
+"recovery_question" = "Recovery Question";
+
+/*  */
+"two_step_verification" = "Two-Step Verification";
+
+/*  */
+"forgot_password" = "Forgot password?";
+
+/*  */
+"Recovery_with_email" = "Recovery via E-mail";
+
+/*  */
+"recent_code" = "Recent code";
+
+/*  */
+"enter_code" = "Enter your code";
+
+/*  */
+"Change_password" = "Change Password";
+
+/*  */
+"Change_hint" = "Change Hint";
+
+/*  */
+"turn_Password_off" = "Turn Password off";
+
+/*  */
+"turn_Password_off_desc" = "Do you really want to remove password?";
+
+/*  */
+"change_email_recovery" = "Set/change Recovery E-Mail";
+
+/*  */
+"Change_question_recovery" = "Change Security Questions";
+
+/*  */
+"set_recovery_dialog_title" = "Recover password via:";
+
+/*  */
+"set_unconfirmed_email" = "Confirm E-Mail";
+
+/*  */
+"Recovery_with_question" = "Recovery with Question";
+
+/*  */
+"please_enter_confirm_code" = "Confirmation Code";
+
+/*  */
+"recovery_by_email" = "Recovery via E-mail";
+
+/*  */
+"recovery_by_question" = "Recovery via Question";
+
+/*  */
+"recovery_by_question_dialog" = "Security Question";
+
+/*  */
+"recovery_by_email_dialog" = "E-mail";
+
+/*  */
+"recovery_Password" = "Recovery Password";
+
+/*  */
+"your_email_desc" = "Please add your valid e-mail! It is another way to recover your forgotten password";
+
+/*  */
+"call_with" = "Select Contact";
+
+/*  */
+"please_enter_code" = "Please enter code";
+
+/*  */
+"please_enter_all_item" = "Please enter code";
+
+/*  */
+"Hint_cant_the_same_password" = "Hint can't be the same as password";
+
+/*  */
+"please_complete_all_item" = "\"Please complete all items";
+
+/*  */
+"Password_dose_not_match" = "\"Password does not match";
+
+/*  */
+"Password_has_to_mor_than_character" = "\"Password has to be more than 2 characters";
+
+/*  */
+"Please_complete_all_Item" = "\"Please complete all items";
+
+/*  */
+"hint_can_same_password" = "\"hint can't be the same as password";
+
+/*  */
+"Please_enter_your_hint" = "\"Please enter your hint";
+
+/*  */
+"Please_enter_your_email" = "\"Please enter your email";
+
+/*  */
+"error_check_password" = "Password is locked for a while due to too many tries.";
+
+/*  */
+"e_call_permision" = "Is not allowed to communicate";
+
+/*  */
+"e_904_6" = "User is blocked";
+
+/*  */
+"e_904_7" = "Dialed number is not active";
+
+/*  */
+"e_904_8" = "You are talking with your other devices";
+
+/*  */
+"e_904_9" = "The user is in conversation";
+
+/*  */
+"e_906_1" = "Is not allowed to communicate";
+
+/*  */
+"tab_to_return_to_call" = "Return to Call Screen";
+
+/*  */
+"iGap_has_crashed" = "iGap has crashed!";
+
+/*  */
+"iGap_has_crashed_reload" = "Reset";
+
+/*  */
+"iGap_has_crashed_desc" = "An unexpected error occurred forcing the application to stop. We are aware of this error. Please be sure we are fixing this problem, all you have to do is only click \"Reset\".";
+
+/*  */
+"who_is_allowed_to_voice_call" = "Who can voice call me?";
+
+/*  */
+"who_is_allowed_to_video_call" = "Who can video call me?";
+
+/*  */
+"miss" = "Missed Call";
+
+/*  */
+"not_answer" = "Unanswered Call";
+
+/*  */
+"un_answered" = "Unanswered";
+
+/*  */
+"nothing" = "Nothing";
+
+/*  */
+"are_you_sure_clear_call_logs" = "Are you sure you want to clear all calls?";
+
+/*  */
+"are_you_sure_clear_call_log" = "Are you sure you want to clear selected calls?";
+
+/*  */
+"please_write_your_reasons" = "Please write your reasons";
+
+/*  */
+"your_confirm_email" = "Enter the confirmation code sent to Email";
+
+/*  */
+"confirm_email_title" = "Confirmation email";
+
+/*  */
+"confirm_email_text" = "A code has been sent to your email in order that your email address will be verified and confirmed then.";
+
+/*  */
+"your_confirm_email_skip" = "Skip";
+
+/*  */
+"your_resend_email_skip" = "Resend Confirmation Code";
+
+/*  */
+"invalid_verify_email_code" = "Invalid verify email code";
+
+/*  */
+"resend_verify_email_code" = "We've resent the confirmation code to your email";
+
+/*  */
+"enter_verify_email_code" = "Please enter verify email code";
+
+/*  */
+"invalid_password" = "Password is invalid";
+
+/*  */
+"please_set_password" = "Please set password";
+
+/*  */
+"please_set_hint" = "Please set hint";
+
+/*  */
+"invalid_email" = "Your email is invalid";
+
+/*  */
+"yes" = "Yes";
+
+/*  */
+"no" = "No";
+
+/*  */
+"not_answered" = "Not Answered ANSWERED";
+
+/*  */
+"unavalable" = "Unavailable";
+
+/*  */
+"too_long" = "Too Long";
+
+/*  */
+"signaling" = "Signaling";
+
+/*  */
+"incoming_call" = "Incoming Call";
+
+/*  */
+"ringing" = "Ringing";
+
+/*  */
+"connecting_call" = "Connecting";
+
+/*  */
+"connected" = "Connected";
+
+/*  */
+"disconnected" = "Disconnected";
+
+/*  */
+"faild" = "Failed";
+
+/*  */
+"reject" = "Rejected";
+
+/*  */
+"busy" = "Busy";
+
+/*  */
+"invalid_email_token" = "Your email token is invalid";
+
+/*  */
+"invalid_question_token" = "Your answer is invalid";
+
+/*  */
+"not_answerd_call" = "Voice Call Cancelled";
+
+/*  */
+"recorded_by" = "Recorded By";
+
+/*  */
+"Login_with_QrCode" = "Login With QR Scan";
+
+/*  */
+"Input_device_specification" = "Device login success";
+
+/*  */
+"QrCode_Scan" = "Login With QR Scan";
+
+/*  */
+"Call_Quality" = "Call Quality";
+
+/*  */
+"desc_self_destroy" = "If you choose one of the periods in the following and never use your iGap account during the certain time, your account will be destructed and deleted spontaneously.";
+
+/*  */
+"color_default" = "Are you sure you want to reset all changes with color to default?";
+
+/*  */
+"crop_image_menu_rotate_right" = "Rotate";
+
+/*  */
+"crop_image_menu_crop" = "Crop";
+
+/*  */
+"crop_image_menu_flip" = "Flip";
+
+/*  */
+"crop_image_menu_flip_horizontally" = "Flip horizontally";
+
+/*  */
+"crop_image_menu_flip_vertically" = "Flip vertically";
+
+/*  */
+"title_who_can_see_my_avatar" = "My Avatars get seen by";
+
+/*  */
+"title_who_can_invite_you_to_channel_s" = "Channels Invite Link received from";
+
+/*  */
+"title_who_can_invite_you_to_group_s" = "Groups Invite Link received from";
+
+/*  */
+"title_who_is_allowed_to_call" = "Calls received from";
+
+/*  */
+"title_Last_Seen" = "My Last Seen checked by";
+
+/*  */
+"item" = "item";
+
+/*  */
+"c_byte" = "byte";
+
+/*  */
+"c_KB" = "KB";
+
+/*  */
+"c_MB" = "MB";
+
+/*  */
+"c_GB" = "GB";
+
+/*  */
+"c_TB" = "TB";
+
+/*  */
+"audio" = "Audio";
+
+/*  */
+"total_size" = "Total Size";
+
+/*  */
+"manage_spacing" = "Manage Spacing";
+
+/*  */
+"local_database" = "Local Database";
+
+/*  */
+"data_storage" = "Data Storage";
+
+/*  */
+"keep_media" = "Keep Media";
+
+/*  */
+"invite_friend" = "This user dose not have iGap yet, send an invitation?";
+
+/*  */
+"clean_up_description" = "Clearing the local database will delete the texts of cached messages and compress the database to save internal disk space. iGap needs some data to work, so database size will not reach zero. \n\n This operation can take few minutes to complete.";
+
+/*  */
+"list_contacts" = "List of Phone Contacts";
+
+/*  */
+"limit_for_set_username" = "Limit time for change Username";
+
+/*  */
+"clear_cache_desc" = "Cached data on your device are the uploaded and/or downloaded files as photos, videos or documents, which must be cleared occasionally not to stop your device working or slow it down. Whenever you want to see them again, it is sufficient only to tap on them for downloading.";
+
+/*  */
+"name" = "Name";
+
+/*  */
+"turn_on_gps_explain" = "The location status and other features of map are disabled. To use all the capabilities, turn the switch on first.";
+
+/*  */
+"turn_off_map" = "turn off";
+
+/*  */
+"turn_on_map" = "turn on";
+
+/*  */
+"positioning" = "positioning";
+
+/*  */
+"nearby" = "Manually Update the Map";
+
+/*  */
+"list_user_map" = "List of People Nearby";
+
+/*  */
+"map_registration" = "Disable \"Nearby\" Visibility";
+
+/*  */
+"comment_waiting" = "Receiving notes...";
+
+/*  */
+"comment_no" = "No Status";
+
+/*  */
+"distance" = "about %d m";
+
+/*  */
+"hint_gps" = "Your Status";
+
+/*  */
+"Clear_Status" = "Clear Status";
+
+/*  */
+"Clear_Status_desc" = "You will be visible to others with no status. Are you sure to continue?";
+
+/*  */
+"Visible_Status_title_dialog" = "Enable Nearby";
+
+/*  */
+"Visible_Status_title_dialog_invisible" = "Disable Nearby";
+
+/*  */
+"Visible_Status_text_dialog" = "Enabling Nearby will result in getting your and others' status visible to both. Are you sure to continue?";
+
+/*  */
+"Visible_Status_text_dialog_invisible" = "Disabling Nearby will not only result in hiding your status from others, but you won't also be able to see others' status within your certain range. Are you still sure to continue?";
+
+/*  */
+"Visible_Status_text" = "Notice! Activating \"Map Status\" will result in making your location visible to others. Please be sure about it before turning on.";
+
+/*  */
+"info_map" = "Only the users within your 5KM radius distance are visible to you if their Map Status in ON.";
+
+/*  */
+"exceed_4_line" = "Your status cannot exceed 4 lines.";
+
+/*  */
+"st_Auto_Rotate" = "Auto-Rotate Screen";
+
+/*  */
+"st_24_Clock" = "24 hour clock";
+
+/*  */
+"Theme_Dark" = "Dark Theme";
+
+/*  */
+"two_step_pass_code" = "PassCode Lock";
+
+/*  */
+"unlock_with_fingerPrint" = "Unlock With FingerPrint";
+
+/*  */
+"change_pass_code" = "Change PassCode";
+
+/*  */
+"auto_lock" = "Auto-lock";
+
+/*  */
+"allow_screen_capture" = "Allow Screen Capture";
+
+/*  */
+"Confirm_fingerPrint_continue" = "Confirm fingerPrint to continue";
+
+/*  */
+"Touch_sensor" = "Touch sensor";
+
+/*  */
+"FingerPrint" = "FingerPrint";
+
+/*  */
+"Fingerprint_not_recognized" = "Fingerprint not recognized. Try again";
+
+/*  */
+"Auto_lock_description" = "The app will be locked after each time you choose and you need to unlock it at the beginning.";
+
+/*  */
+"Allow_Screen_Capture_description" = "If enabled, you can take screenshots of the app, but the system will display your chats in the task switcher even when the passcode is on. You may need to restart the app for this to take effect.";
+
+/*  */
+"set_pass_code_description" = "When you set a passcode, a lock icon will appear on top of the main chats page. Tap it to lock or unlock the app.\n    \nNote: you can set only numbers as a PIN or a combination of numbers and letters as a Password with no restriction. \nIf you forget your passcode, you just need to log out once and log in again with no need to enter the PIN/Password.";
+
+/*  */
+"forgot_pin_desc" = "If you have forgotten your PIN/Password, there is no way to recover but only to log out and log in again. Are you sure to log out?";
+
+/*  */
+"forgot_pin_title" = "Forgot PIN/Password?";
+
+/*  */
+"enter_pass_code" = "Enter your passcode";
+
+/*  */
+"enter_change_pass_code" = "Enter your new passcode";
+
+/*  */
+"re_enter_pass_code" = "Re-enter your passcode";
+
+/*  */
+"Disable" = "Disable";
+
+/*  */
+"in_1_minutes" = "in 1 minute";
+
+/*  */
+"in_5_minutes" = "in 5 minutes";
+
+/*  */
+"in_1_hours" = "in 1 hour";
+
+/*  */
+"in_5_hours" = "in 5 hours";
+
+/*  */
+"PIN" = "PIN";
+
+/*  */
+"password" = "Password";
+
+/*  */
+"Unlock_with_your_passcode" = "Unlock with your passcode";
+
+/*  */
+"forgot_Unlock_with_your_passcode" = "Forgot Passcode?";
+
+/*  */
+"limit_passcode" = "The passcode must contain at least 4 numbers and/or letters.";
+
+/*  */
+"block_the_user" = "Block the User";
+
+/*  */
+"block_the_user_text" = "Are you sure to block this User?";
+
+/*  */
+"unblock_the_user" = "Unblock the User";
+
+/*  */
+"unblock_the_user_text" = "Are you sure to unblock this User?";
+
+/*  */
+"text_empty_user_map" = "Oops! No user nearby has turned on her/his map yet";
+
+/*  */
+"send_message_to" = "Send Message To";
+
+/*  */
+"send_forward_to" = "Are you sure send forward for";
+
+/*  */
+"st_bio" = "Bio";
+
+/*  */
+"st_des_bio" = "You can add a few lines about yourself. anyone who opens your profile will see this text.";
+
+/*  */
+"st_Report" = "Report";
+
+/*  */
+"st_Spam" = "Spam";
+
+/*  */
+"st_Violence" = "Violence";
+
+/*  */
+"st_Pornography" = "Pornography";
+
+/*  */
+"st_Other" = "Other";
+
+/*  */
+"st_Abuse" = "Abuse";
+
+/*  */
+"st_FakeAccount" = "Fake Account";
+
+/*  */
+"st_limit_bio" = "You have exceeded the allowed number of characters. You can use only 70 characters for Bio.";
+
+/*  */
+"st_checkbox_delete" = "Delete for";
+
+/*  */
+"st_desc_delete" = "Are you sure you want to delete %@ message(s)?";
+
+/*  */
+"st_send_report" = "Report was successfully sent.";
+
+/*  */
+"set_position" = "Can not set position";
+
+/*  */
+"date" = "Date";
+
+/*  */
+"miladi" = "Gregorian";
+
+/*  */
+"shamsi" = "Hijri Shamsi";
+
+/*  */
+"ghamari" = "Hijri Lunar";
+
+/*  */
+"Uploading" = "Uploading...";
+
+/*  */
+"moharam" = "Muharram";
+
+/*  */
+"safar" = "Safar";
+
+/*  */
+"rabio_aval" = "Rabi Awwal";
+
+/*  */
+"rabi_sani" = "Rabi Thani";
+
+/*  */
+"jamado_aval" = "Jumada Awwal";
+
+/*  */
+"jamado_sani" = "Jumada Thani";
+
+/*  */
+"rajab" = "Rajab";
+
+/*  */
+"shaban" = "Shaaban";
+
+/*  */
+"ramezan" = "Ramadhan";
+
+/*  */
+"shaval" = "Shawwal";
+
+/*  */
+"zighade" = "Thul Qidah";
+
+/*  */
+"zihaje" = "Thul Hijjah";
+
+/*  */
+"st_multi_tab" = "Multi Tab";
+
+/*  */
+"st_dark_theme" = "Dark Theme";
+
+/*  */
+"dont_ask_again" = "Understood";
+
+/*  */
+"attention" = "Attention";
+
+/*  */
+"content_attention_dialog" = "Note: People on the map will be displayed with a 500-meter error. So no worries";
+
+/*  */
+"st_cameraBottomSheet" = "Small camera in attachments";
+
+/*  */
+"open_default_player" = "Open video with default player";
+
+/*  */
+"show_channel_vote" = "Channel Reaction";
+
+/*  */
+"verify_channel" = "Verified Channel";
+
+/*  */
+"verify_user" = "Verified User";
+
+/*  */
+"another_room" = "Another Room";
+
+/*  */
+"send" = "Send";
+
+/*  */
+"do_not_send" = "Don't Send";
+
+/*  */
+"save_data_in_sd_card" = "Save data in sd card";
+
+/*  */
+"are_you_sure" = "Are you sure";
+
+/*  */
+"are_you_sure_request" = "Are you sure you want to submit your request?";
+
+/*  */
+"are_you_sure_edit_contact" = "Are you sure to edit contact?";
+
+/*  */
+"change_storage_place" = "Change storage place";
+
+/*  */
+"other_files" = "Other Files";
+
+/*  */
+"title_import_contact_limit" = "Warning: Import contact list";
+
+/*  */
+"content_import_contact_limit" = "Number of your contact list has exceeded the server restrictions and only the approved part will be uploaded.";
+
+/*  */
+"filter_cancel_content" = "Are you discarding changes?";
+
+/*  */
+"lbl_brightness" = "Brightness";
+
+/*  */
+"lbl_contrast" = "Contrast";
+
+/*  */
+"lbl_saturation" = "Saturation";
+
+/*  */
+"tab_filters" = "Filters";
+
+/*  */
+"filter" = "Filter";
+
+/*  */
+"tab_edit" = "Edit";
+
+/*  */
+"can_not_open_file" = "This file can not be opened";
+
+/*  */
+"pin_messages_content" = "Do you want to pin this message?";
+
+/*  */
+"unpin" = "UnPin";
+
+/*  */
+"pin_message" = "Pin";
+
+/*  */
+"pined_message" = "Pinned Message";
+
+/*  */
+"all_member" = "All Members";
+
+/*  */
+"this_page" = "This Page";
+
+/*  */
+"disable" = "Disable";
+
+/*  */
+"scheduled" = "Scheduled:";
+
+/*  */
+"from_theme" = "From:";
+
+/*  */
+"to_theme" = "Until:";
+
+/*  */
+"automatic" = "Automatic";
+
+/*  */
+"automatic_description_theme" = "The night mode was activated from 19 to 8 with automatic mode selection";
+
+/*  */
+"setting_dark_theme" = "Setting Dark Theme";
+
+/*  */
+"Select_Time" = "Select Time";
+
+/*  */
+"financial_services" = "Financial Services";
+
+/*  */
+"install_app" = "Install App";
+
+/*  */
+"text_top" = "To use the service: to install the application for the card, buy a bus ticket, purchase a charge, pay bills, buy a package and other payment services.";
+
+/*  */
+"text_paygear" = "Follow up, pick up your wallet and instant cash deposit, pay your gifts, buy from stores and pay tax limousines.";
+
+/*  */
+"customization" = "customization";
+
+/*  */
+"Apply_colors_to_customize" = "Apply colors to customize";
+
+/*  */
+"channel_name_notification" = "iGap Notification";
+
+/*  */
+"payment" = "Payment";
+
+/*  */
+"buy_charge" = "Top up SIM card";
+
+/*  */
+"pay_bills" = "Pay bills";
+
+/*  */
+"pay_bills_crime" = "Pay traffic tickets";
+
+/*  */
+"barcode_reader" = "Barcode reader";
+
+/*  */
+"billing_id" = "Billing ID";
+
+/*  */
+"enter" = "enter";
+
+/*  */
+"payment_code" = "Payment code";
+
+/*  */
+"amount" = "Amount(Rial)";
+
+/*  */
+"buy" = "pay";
+
+/*  */
+"select" = "Select";
+
+/*  */
+"hamrahe_aval" = "Hamrahe Aval";
+
+/*  */
+"irancell" = "IranCell";
+
+/*  */
+"ritel" = "Ritel";
+
+/*  */
+"normal_charge" = "Normal charge";
+
+/*  */
+"amazing" = "Amazing charge";
+
+/*  */
+"wimax_charging" = "WiMAX charge";
+
+/*  */
+"permanently_charge" = "Charge permanent SIM cards";
+
+/*  */
+"get_gifts" = "Get Gift";
+
+/*  */
+"congratulations" = "Congratulations";
+
+/*  */
+"unsuccessful" = "Failed";
+
+/*  */
+"disabled_qr_voucher" = "This voucher is disabled or used before.";
+
+/*  */
+"charge_1" = "10,000 Rials";
+
+/*  */
+"charge_2" = "20,000 Rials";
+
+/*  */
+"charge_5" = "50,000 Rials";
+
+/*  */
+"charge_10" = "100,000 Rials";
+
+/*  */
+"charge_20" = "200,000 Rials";
+
+/*  */
+"charge_50" = "500,000 Rials";
+
+/*  */
+"charge_100" = "1,000,000 Rials";
+
+/*  */
+"charge_1_ir" = "10,000 Rials + 9% Value Added = 10,900 Rials";
+
+/*  */
+"charge_2_ir" = "20,000 Rials + 9% Value Added = 21,180 Rials";
+
+/*  */
+"charge_5_ir" = "50,000 Rials + 9% Value Added = 54,500 Rials";
+
+/*  */
+"charge_10_ir" = "100,000 Rials + 9% Value Added = 109,000 Rials";
+
+/*  */
+"charge_20_ir" = "200,000 Rials + 9% Value Added = 218,000 Rials";
+
+/*  */
+"biling_id_not_valid" = "Billing id is not valid";
+
+/*  */
+"pay_id_is_not_valid" = "Payment Id is not valid";
+
+/*  */
+"charge_type" = "Charge type";
+
+/*  */
+"operator" = "operator";
+
+/*  */
+"trabord" = "Ported subscriber";
+
+/*  */
+"time_out_error" = "time out error";
+
+/*  */
+"connection_error" = "No Network Connection";
+
+/*  */
+"server_error" = "Server Error";
+
+/*  */
+"network_error" = "Network Error";
+
+/*  */
+"dialog_canceled" = "Request canceled";
+
+/*  */
+"device_root" = "device root";
+
+/*  */
+"phone_number_is_not_valid" = "phone number is not valid";
+
+/*  */
+"please_select_operator" = "please select operator";
+
+/*  */
+"wallet" = "Wallet";
+
+/*  */
+"loading_wallet_agreement" = "Loading wallet agreement …";
+
+/*  */
+"i_agree_with_the_terms" = "I agree with the terms";
+
+/*  */
+"accept_the_terms" = "Accept the terms";
+
+/*  */
+"wallet_agrement" = "Wallet agreement";
+
+/*  */
+"SendMoney" = "Send Money";
+
+/*  */
+"transfer_amount_hint" = "Enter the transfer amount below";
+
+/*  */
+"amount_in_rial" = "Amount in Rial";
+
+/*  */
+"pay" = "Pay";
+
+/*  */
+"transfer_to_dialog" = "Transfer to :";
+
+/*  */
+"am_money" = "money";
+
+/*  */
+"trace_number" = "Trace Number";
+
+/*  */
+"amount_2" = "amount :";
+
+/*  */
+"payment_canceled" = "payment is canceled";
+
+/*  */
+"PayGear_unavailable" = "PayGear is unavailable";
+
+/*  */
+"bills_inquiry_mci" = "MCI subscribers bill inquiry";
+
+/*  */
+"bills_inquiry_telecom" = "Home phones bill inquiry";
+
+/*  */
+"bills_inquiry" = "Bills inquiry mci and telecom";
+
+/*  */
+"bills_inquiry_title" = "Bills inquiry";
+
+/*  */
+"bill_type" = "Bill Type";
+
+/*  */
+"telecom" = "Home phone";
+
+/*  */
+"phone" = "Phone number";
+
+/*  */
+"area_code" = "Area code";
+
+/*  */
+"inquiry" = "Inquiry";
+
+/*  */
+"mci_opreator_check" = "This number is not an mci subscriber";
+
+/*  */
+"mid_term" = "mid term";
+
+/*  */
+"intermediate_payment" = "mid-term payment";
+
+/*  */
+"last_term" = "last term";
+
+/*  */
+"last_term_payment" = "last-term payment";
+
+/*  */
+"responsible_for_all_financial_services" = "Responsible for all financial services";
+
+/*  */
+"parsian_e_commerce_company_top" = "Parsian e-commerce company (top)";
+
+/*  */
+"is_empty" = "";
+
+/*  */
+"empty_error_message" = "";
+
+/*  */
+"customer_response_center_021_2318" = "Customer Support Center: 021-2318";
+
+/*  */
+"ex_mobile_phone" = "Ex : 09123456789";
+
+/*  */
+"ex_area" = "Ex : 021";
+
+/*  */
+"ex_phone" = "Ex : 44567899";
+
+/*  */
+"sync_contact" = "Sync Contact";
+
+/*  */
+"satellite_view" = "Satellite View";
+
+/*  */
+"default_view" = "Default View";
+
+/*  */
+"send_location_text" = "Send selected location";
+
+/*  */
+"map_distance" = "m away";
+
+/*  */
+"calculation" = "Calculating...";
+
+/*  */
+"get_location_data" = "Getting data";
+
+/*  */
+"not_success" = "Unsuccessful";
+
+/*  */
+"not_success_2" = "Payment was unsuccessful";
+
+/*  */
+"result_3" = "The result of the payment is not known to the wallet period of the references or with the support contact.";
+
+/*  */
+"result_4" = "Payment was successful. Check more in the wallet history section.";
+
+/*  */
+"wallet_from" = "From";
+
+/*  */
+"wallet_to" = "To";
+
+/*  */
+"wallet_amount" = "Amount";
+
+/*  */
+"wallet_trace" = "Trace Number";
+
+/*  */
+"wallet_invoice" = "Invoice Number";
+
+/*  */
+"wallet_data" = "Pay Time";
+
+/*  */
+"wallet_desc" = "---Description---";
+
+/*  */
+"wallet_toman" = "Toman";
+
+/*  */
+"wallet_Your_credit" = "Your credit :";
+
+/*  */
+"wallet_Reial" = "%d Rial";
+
+/*  */
+"payment_rial" = "%@ ریال";
+
+/*  */
+"wallet_error_server" = "Error communicating with server";
+
+/*  */
+"IP_blocked" = "Due to overuse, your IP has been blocked for a while.";
+
+/*  */
+"export_chat" = "Export Chat";
+
+/*  */
+"export_message" = "Not able to extract messages";
+
+/*  */
+"wifi_data_usage" = "Wi-Fi Data Usage";
+
+/*  */
+"mobile_data_usage" = "Mobile Data Usage";
+
+/*  */
+"sent" = "Sent";
+
+/*  */
+"received" = "Received";
+
+/*  */
+"bytes_sent" = "Bytes sent";
+
+/*  */
+"bytes_received" = "Bytes received";
+
+/*  */
+"total" = "Total";
+
+/*  */
+"total_sent" = "Total sent";
+
+/*  */
+"total_received" = "Total received";
+
+/*  */
+"clear_data_usage" = "Clear data usage";
+
+/*  */
+"clearDataUsage" = "Are you sure you want to clear data usage?";
+
+/*  */
+"new_pattern_passCode" = "Create new pattern";
+
+/*  */
+"repeat_pattern_passCode" = "Repeat pattern";
+
+/*  */
+"repeat_pattern_pattern" = "Pattern PassCode";
+
+/*  */
+"show_line_pattern" = "Show line pattern";
+
+/*  */
+"verify_register_sms" = "SMS";
+
+/*  */
+"verify_register_call" = "Call";
+
+/*  */
+"way_receive_register_code" = "Way to receive code:";
+
+/*  */
+"separate_notifications" = "Separate Notifications";
+
+/*  */
+"mark_as_unread" = "Mark as read";
+
+/*  */
+"reply_label" = "Answer";
+
+/*  */
+"solid_colors" = "Solid colors";
+
+/*  */
+"wallpapers" = "Wallpapers";
+
+/*  */
+"planDB" = "iGapLocalDatabase.realm";
+
+/*  */
+"encriptedDB" = "iGapLocalDatabaseEncrypted.realm";
+
+/*  */
+"realmDatabaseEncrypt" = "iGapLocalDatabaseEncrypted.realm";
+
+/*  */
+"realmDatabaseNonEncrypt" = "iGapLocalDatabase.realm";
+
+/*  */
+"check_internet_connection" = "check internet connection";
+
+/*  */
+"start" = "Start";
+
+/*  */
+"bot" = "Bot";
+
+/*  */
+"back_to_menu" = "back to main menu";
+
+/*  */
+"igap_update" = "Update";
+
+/*  */
+"empty_text_dr_bot" = "Welcome to iGap Smart Intelligence Assistant!";
+
+/*  */
+"hashtag" = "Hashtag";
+
+/*  */
+"deprecated" = "Version is deprecated please update to use";
+
+/*  */
+"new_version_avilable" = "New version is available";
+
+/*  */
+"new_version_alert" = "Alert";
+
+/*  */
+"ignore" = "Ignore";
+
+/*  */
+"permission_auto_start" = "please select and active iGap from menu to receive messages when even app is not in background";
+
+/*  */
+"dont_show_again" = "Do not show again";
+
+/*  */
+"invitation_message" = "Hey Join iGap : http://d.igap.net/invite I'm waiting for you! \n Referred Number is :";
+
+/*  */
+"namma_per_uh" = "FileLister";
+
+/*  */
+"Please_enter_valid_folder_name" = "Please enter a valid folder name";
+
+/*  */
+"This_folder_already_exists" = "This folder already exists.\n Please provide another name for the folder";
+
+/*  */
+"Select_directory" = "Select a directory";
+
+/*  */
+"Select_Video_file" = "Select a Video file";
+
+/*  */
+"Select_Image_file" = "Select an Image file";
+
+/*  */
+"Select_Audio_file" = "Select Audio file";
+
+/*  */
+"Select_file" = "Select a file";
+
+/*  */
+"Default_Dir" = "Default Dir";
+
+/*  */
+"Select" = "Select";
+
+/*  */
+"Create_new_Folder_here" = "Create a new Folder here";
+
+/*  */
+"Powered_by_iGap" = "Powered by iGap";
+
+/*  */
+"on_hold" = "call on hold...";
+
+/*  */
+"switchTo" = "switch To :";
+
+/*  */
+"stop" = "Stop Bot";
+
+/*  */
+"stop_message_bot" = "Are you sure you want to stop this bot?";
+
+/*  */
+"startUpdate" = "update";
+
+/*  */
+"sticker" = "Sticker";
+
+/*  */
+"add_sticker" = "Add Sticker";
+
+/*  */
+"remove_sticker" = "Remove Sticker";
+
+/*  */
+"remove_sticker_text" = "Are you sure you want to remove this stickers?";
+
+/*  */
+"add_sticker_text" = "Are you sure you want to install this stickers?";
+
+/*  */
+"access_phone_number" = "Are you sure to send your phone number?";
+
+/*  */
+"access_location" = "Are you sure to send your location?";
+
+/*  */
+"sticker_message" = "Sticker message";
+
+/*  */
+"Sticker_added_successfully" = "Sticker added successfully";
+
+/*  */
+"Add" = "Add";
+
+/*  */
+"Remove" = "Remove";
+
+/*  */
+"Recently" = "Recently";
+
+/*  */
+"Favorite" = "Favorite";
+
+/*  */
+"Please_select_an_option" = "Please select an option";
+
+/*  */
+"try_later" = "Try some second later";
+
+/*  */
+"representer" = "Set Referral";
+
+/*  */
+"representer_code" = "Please set your Referral phone number here";
+
+/*  */
+"unknown_type" = "not supported card";
+
+/*  */
+"order_history" = "Score History";
+
+/*  */
+"your_point" = "Your Score:";
+
+/*  */
+"score_title" = "Score";
+
+/*  */
+"dialog_ok" = "Ok";
+
+/*  */
+"error_submit_qr_code" = "There is an error with the request!";
+
+/*  */
+"not_exist_activities" = "Your history is empty.";
+
+/*  */
+"ivand_profile_title" = "My Score";
+
+/*  */
+"ivand_activities_title" = "Score History";
+
+/*  */
+"scan_barcode" = "Scan Barcode";
+
+/*  */
+"st_ivand" = "iGap Club";
+
+/*  */
+"st_ivand_text_setting" = "Your Score:";
+
+/*  */
+"E_10183" = "The entered code is invalid";
+
+/*  */
+"share_link_item_dialog" = "Share Link";
+
+/*  */
+"not_found_message" = "This message is missing.";
+
+/*  */
+"ivnalid_data_provided" = "Input values are incorrect.";
+
+/*  */
+"secret_chat" = "Secret Chat";
+
+/*  */
+"new_message_notif" = "New Message";
+
+/*  */
+"card_to_card" = "Request card to card";
+
+/*  */
+"your_device_is_root" = "Sorry! Your device is root.";
+
+/*  */
+"change_language_title" = "Change Language";
+
+/*  */
+"terms_condition_title" = "Terms and Condition";
+
+/*  */
+"warning" = "Warning";
+
+/*  */
+"accept_terms_and_condition_error_message" = "forget to accept terms and conditions";
+
+/*  */
+"welcome_title" = "Welcome To iGap";
+
+/*  */
+"increase_credit" = "Increase credit";
+
+/*  */
+"your_rate" = "Your rate :";
+
+/*  */
+"increase_score" = "Increase Score";
+
+/*  */
+"bots_and_channels" = "Bots and Channels";
+
+/*  */
+"permanent_link" = "Permanent Link";
+
+/*  */
+"new_channels_rules" = "If you set a permanent link, other people will be able to find and join your channel.\n\nYou can use a–z, 0–9 and underscores.\nMinimum length as 5 characters.";
+
+/*  */
+"chat_history_for_new_member_title" = "Chat history for new members";
+
+/*  */
+"permissions_title" = "Permissions";
+
+/*  */
+"administrators_title" = "Administrators";
+
+/*  */
+"moderators_title" = "Moderators";
+
+/*  */
+"rial" = "Rials";
+
+/*  */
+"toman" = "Toman";
+
+/*  */
+"verify_fragment_hint" = "We sent an activation code to your phone. If you didn't receive any code, request again after 1 minute.";
+
+/*  */
+"new_user_pass_fragment_hint" = "Specify a passcode for your card. You can change it later in Settings.";
+
+/*  */
+"code_resend_text" = "* seconds to resend code";
+
+/*  */
+"resend_code" = "Resend code";
+
+/*  */
+"new_otp_requested" = "New code sent to your phone";
+
+/*  */
+"request_again" = "Request again";
+
+/*  */
+"sending_code_to_x" = "Code sent to your phone \n*";
+
+/*  */
+"select_your_city" = "Select your city";
+
+/*  */
+"enter_username" = "Enter your username";
+
+/*  */
+"enter_code_correctly" = "Enter the activation code correctly";
+
+/*  */
+"enter_mobile_correctly" = "Enter your phone number correctly";
+
+/*  */
+"enter_your_mobile" = "Enter your phone number";
+
+/*  */
+"enter_your_mobile_without_zero" = "Enter your phone number without zero";
+
+/*  */
+"enter_your_activation_code" = "Enter the activation code";
+
+/*  */
+"country_code_not_valid" = "The country code is not valid";
+
+/*  */
+"four_digits_activation_code" = "4 digits activation code";
+
+/*  */
+"confirm_password" = "Repeat Password";
+
+/*  */
+"enter_your_confirm_password" = "Reenter your password";
+
+/*  */
+"enter_your_password" = "Enter your password";
+
+/*  */
+"select_your_password" = "Select your password";
+
+/*  */
+"enter_your_referral_code" = "Enter your Referral code";
+
+/*  */
+"select_your_province" = "Select your province";
+
+/*  */
+"referral_code" = "Referral code";
+
+/*  */
+"province_name" = "Province Name";
+
+/*  */
+"account_password" = "Account Password";
+
+/*  */
+"full_name" = "Full Name";
+
+/*  */
+"user_name" = "Username";
+
+/*  */
+"birth_date" = "Birth Date";
+
+/*  */
+"email" = "Email";
+
+/*  */
+"province" = "Province";
+
+/*  */
+"edit_profile_hint" = "";
+
+/*  */
+"username" = "Username";
+
+/*  */
+"username_copied" = "Username Copied";
+
+/*  */
+"select_city" = "Select City";
+
+/*  */
+"select_province" = "Select Province";
+
+/*  */
+"mobile_number" = "Mobile Number";
+
+/*  */
+"paygear_user" = "Wallet User";
+
+/*  */
+"authorization_not_valid" = "User authentication is not valid";
+
+/*  */
+"already_read" = "I already read";
+
+/*  */
+"login" = "Login";
+
+/*  */
+"next" = "Next";
+
+/*  */
+"back" = "Back";
+
+/*  */
+"code" = "Code";
+
+/*  */
+"never_mind" = "Never Mind";
+
+/*  */
+"not_now" = "Not Now!";
+
+/*  */
+"no_item" = "No Item";
+
+/*  */
+"retry" = "Retry";
+
+/*  */
+"default_card" = "Default Card";
+
+/*  */
+"delete_card" = "Delete Card";
+
+/*  */
+"add_new_card" = "Add New Card";
+
+/*  */
+"delete_card_confirm" = "Are you sure you want to delete this card?";
+
+/*  */
+"card_number" = "Card Number";
+
+/*  */
+"month" = "Month";
+
+/*  */
+"year" = "Year";
+
+/*  */
+"edit" = "Edit";
+
+/*  */
+"camera" = "Camera";
+
+/*  */
+"gallery" = "Gallery";
+
+/*  */
+"delete_image" = "Delete Picture";
+
+/*  */
+"charge_wallet" = "Wallet Charge";
+
+/*  */
+"charge_paygear" = "Charge Wallet";
+
+/*  */
+"immediate_cash_out" = "Immediate";
+
+/*  */
+"normal_cash_out" = "Normal";
+
+/*  */
+"enter_info_completely" = "Enter info correctly";
+
+/*  */
+"source_card" = "Source Card";
+
+/*  */
+"destination_card" = "Destination Card";
+
+/*  */
+"destination_card_number" = "Destination Card Number";
+
+/*  */
+"destination_sheba_number" = "Destination IBAN Number";
+
+/*  */
+"trace_no" = "Trace No";
+
+/*  */
+"reference_code" = "Reference No";
+
+/*  */
+"has" = "Has";
+
+/*  */
+"not_has" = "Has not";
+
+/*  */
+"see_details" = "See Details";
+
+/*  */
+"request_time" = "Request Time";
+
+/*  */
+"settlement_time" = "Settlement Time";
+
+/*  */
+"requested_amount" = "Requested Price";
+
+/*  */
+"requested_amount_rial" = "Requested Price (Rial)";
+
+/*  */
+"settlement_wage" = "کارمزد تسویه";
+
+/*  */
+"deposits" = "Deposited";
+
+/*  */
+"wage" = "Wage";
+
+/*  */
+"bank" = "Bank";
+
+/*  */
+"destination_bank" = "Destination Bank";
+
+/*  */
+"card_owner" = "Card Owner";
+
+/*  */
+"total_price" = "Total Price";
+
+/*  */
+"discount" = "Discount";
+
+/*  */
+"service_price" = "Service";
+
+/*  */
+"tax" = "Tax";
+
+/*  */
+"delivery_price" = "Delivery";
+
+/*  */
+"payable_price_rial" = "Payable Price (Rial)";
+
+/*  */
+"final_price_rial" = "Final Price (Rial)";
+
+/*  */
+"payable_price" = "Payment Price";
+
+/*  */
+"withdraw_price" = "مبلغ برداشت";
+
+/*  */
+"qr_not_detected" = "QR not recognized";
+
+/*  */
+"payment_price_rial" = "Payment Price (Rial)";
+
+/*  */
+"price_rial" = "Amount (Rial)";
+
+/*  */
+"amount_must_be_greater_1000" = "Amount must be greter than 1000 rials";
+
+/*  */
+"amount_not_valid" = "Amount is not valid";
+
+/*  */
+"payment_history" = "Payment History";
+
+/*  */
+"set_card_pin" = "Set Passcode";
+
+/*  */
+"credit_card_set_pin_confirm" = "For paying, you must specify a passcode for your Wallet card.\nDo you want to set?";
+
+/*  */
+"order_info" = "Transaction Info";
+
+/*  */
+"pay_to" = "Paid To";
+
+/*  */
+"pay_with_raad_card_to" = "Paid with Wallet card to";
+
+/*  */
+"pay_charge_for_raad_card_to" = "پرداخت شارژ پیگیرکارت به";
+
+/*  */
+"charge_paygear_card" = "Wallet Charge";
+
+/*  */
+"purchase_club_plan_from" = "خرید طرح باشگاه از";
+
+/*  */
+"receive_from" = "Received From";
+
+/*  */
+"receive_sale_share_from" = "دریافت سهم فروش از";
+
+/*  */
+"receive_charge_for_raad_card_from" = "دریافت شارژ پیگیرکارت از";
+
+/*  */
+"settled" = "Cashout";
+
+/*  */
+"settled_pending" = "Cashout Pending";
+
+/*  */
+"settlement" = "تسویه";
+
+/*  */
+"payment_pending" = "Payment pending";
+
+/*  */
+"taxi" = "Taxi";
+
+/*  */
+"successful_payment" = "Successful Payment";
+
+/*  */
+"unsuccessful_payment" = "Unsuccessful Payment";
+
+/*  */
+"save_receipt" = "Save Receipt";
+
+/*  */
+"receipt_saved" = "Receipt Saved";
+
+/*  */
+"scan" = "SCAN";
+
+/*  */
+"cash_in_hint" = "Enter your charging amount and charge your card.";
+
+/*  */
+"cash_out_normal_hint" = "";
+
+/*  */
+"cash_out_immediate_hint" = "";
+
+/*  */
+"how_to_get_sheba" = "How to get IBAN";
+
+/*  */
+"my_qr_hint" = "Show this QR to others so they scan and pay money to you.";
+
+/*  */
+"my_qr" = "My QR";
+
+/*  */
+"credit" = "Credit";
+
+/*  */
+"card_16_digits" = "16 digits card number";
+
+/*  */
+"sheba_20_digits" = "24 digits IBAN number";
+
+/*  */
+"no_camera_found" = "No camera Found";
+
+/*  */
+"paygear_balance" = "Wallet Balance";
+
+/*  */
+"paygear_card_balance" = "Wallet Card Balance";
+
+/*  */
+"paygear_account_balance" = "Wallet Account Balance";
+
+/*  */
+"cashable_balance" = "Cashable Balance";
+
+/*  */
+"cashable_price" = "Cashable Price";
+
+/*  */
+"cash_in_paygear" = "Charge";
+
+/*  */
+"cash_out_paygear" = "Cashout";
+
+/*  */
+"cashable" = "Cashable";
+
+/*  */
+"not_cashable" = "Non Cashable";
+
+/*  */
+"gift" = "Gift";
+
+/*  */
+"withdraw" = "Cashout";
+
+/*  */
+"cards" = "Cards";
+
+/*  */
+"my_cards" = "My Cards";
+
+/*  */
+"cashout_today_limit" = "Today Cashout Limit";
+
+/*  */
+"cash_out_request_done" = "Cahsout Request done";
+
+/*  */
+"cashout_request" = "Cashout Request";
+
+/*  */
+"paygear_card_pin" = "Wallet Passcode";
+
+/*  */
+"qr" = "QR";
+
+/*  */
+"scanner" = "Scanner";
+
+/*  */
+"x_people" = "* People";
+
+/*  */
+"enter_receiver_code" = "Enter the merchant code";
+
+/*  */
+"receiver_code" = "Merchant Code";
+
+/*  */
+"pay_with_price_x" = "Payment Price\n*";
+
+/*  */
+"internet_pin_2" = "Pin";
+
+/*  */
+"cvv2" = "CVV2";
+
+/*  */
+"select_card" = "Select Card";
+
+/*  */
+"click_here_for_adding_card" = "To add card click here.";
+
+/*  */
+"new_pass" = "New Passcode";
+
+/*  */
+"confirm_pass" = "Repeat Passcode";
+
+/*  */
+"current_pass" = "Current Passcode";
+
+/*  */
+"passwords_not_match" = "Passcodes are not match";
+
+/*  */
+"card_pin_saved" = "Passcode saved";
+
+/*  */
+"card_pin_changed" = "Passcode changed";
+
+/*  */
+"flash_light" = "Flashlight";
+
+/*  */
+"entering_driver_code" = "Entering the driver or store code";
+
+/*  */
+"scan_driver_or_store_qr" = "For paying, scan the driver or store QR";
+
+/*  */
+"data_unknown" = "QR data is unknown";
+
+/*  */
+"enter_card_number" = "Enter card number correctly";
+
+/*  */
+"enter_cvv2" = "Enter your card CVV2 number";
+
+/*  */
+"enter_your_second_pin" = "Enter your card second pin";
+
+/*  */
+"enter_expire_date" = "Enter your card exp date";
+
+/*  */
+"enter_expire_date_year" = "Enter your card exp year";
+
+/*  */
+"enter_expire_date_month" = "Enter your card exp month";
+
+/*  */
+"enter_expire_date_month_correctly" = "Enter your card exp month correctly";
+
+/*  */
+"enter_cash_in_price" = "Enter charge price";
+
+/*  */
+"enter_cash_out_price" = "Enter cashout price";
+
+/*  */
+"enter_your_card_number" = "Enter your card number";
+
+/*  */
+"enter_your_sheba_number" = "Enter your IBAN number";
+
+/*  */
+"language" = "Language";
+
+/*  */
+"privacy_policy" = "Privacy Policy";
+
+/*  */
+"security_privacy_policy" = "Security and Privacy Policy";
+
+/*  */
+"app_version" = "Version";
+
+/*  */
+"about_app" = "About App";
+
+/*  */
+"terms_and_conditions" = "Terms and Conditions";
+
+/*  */
+"terms_condition" = "Terms and Conditions";
+
+/*  */
+"contact_us" = "Contact Us";
+
+/*  */
+"faq" = "FAQ";
+
+/*  */
+"logout_from_account" = "Logout from Account";
+
+/*  */
+"logout_prompt" = "Are you sure you want to logout from your account?";
+
+/*  */
+"logout" = "Logout";
+
+/*  */
+"onboard_titles" = "<item>Mobile Wallet</item>\n        <item>Pay with QR</item>";
+
+/*  */
+"onboard_descriptions" = "<item>\n            With Wallet you dont need to carry cash or physical card anymore.\n        </item>\n        <item>\n            In stores or taxis or everywhere else that has Wallet, you can scan their QR and pay\n            them easily.\n        </item>";
+
+/*  */
+"top_company" = "Tejarat Electronic Parsian";
+
+/*  */
+"bank_parsian" = "Parsian Bank";
+
+/*  */
+"bank_saman" = "Saman Bank";
+
+/*  */
+"bank_mellat" = "Mellat Bank";
+
+/*  */
+"bank_pasargad" = "Pasargad Bank";
+
+/*  */
+"bank_eghtesad_novin" = "EN Bank";
+
+/*  */
+"bank_karafarin" = "Karafarin Bank";
+
+/*  */
+"bank_sarmayeh" = "Sarmayeh Bank";
+
+/*  */
+"bank_melli" = "Bank Melli Iran";
+
+/*  */
+"bank_sepah" = "Bank Sepah";
+
+/*  */
+"bank_dey" = "Bank Day";
+
+/*  */
+"bank_tejarat" = "Tejarat Bank";
+
+/*  */
+"bank_refah" = "Refah Bank";
+
+/*  */
+"bank_saderat" = "Bank Saderat Iran";
+
+/*  */
+"bank_maskan" = "Bank Maskan";
+
+/*  */
+"bank_shahr" = "Shahr Bank";
+
+/*  */
+"bank_sina" = "Sina Bank";
+
+/*  */
+"bank_keshavarzi" = "Keshavarzi Bank";
+
+/*  */
+"bank_markazi" = "Central Bank of Iran";
+
+/*  */
+"bank_gardeshgari" = "Tourism Bank";
+
+/*  */
+"bank_post_bank" = "Post Bank of Iran";
+
+/*  */
+"bank_ansar" = "Ansar Bank";
+
+/*  */
+"bank_iran_zamin" = "Iran Zamin Bank";
+
+/*  */
+"bank_ayandeh" = "Ayandeh Bank";
+
+/*  */
+"bank_resalat" = "RQ Bank";
+
+/*  */
+"bank_tosee_taavon" = "Tose'e Ta'avon Bank";
+
+/*  */
+"bank_tosee_saderat" = "Export Development Bank of Iran";
+
+/*  */
+"bank_hekmat_iranian" = "Bank Hekmat Iranian";
+
+/*  */
+"bank_sanato_madan" = "Bank of Industry & Mine";
+
+/*  */
+"bank_ghavamin" = "Ghavamin Bank";
+
+/*  */
+"bank_mehr_iran" = "Mehr Iran Bank";
+
+/*  */
+"bank_mehr_eghtesad" = "Mehr Eqtesad Bank";
+
+/*  */
+"bank_etebari_kosar" = "Kosar Credit Institute";
+
+/*  */
+"bank_etebari_tosee" = "Tosse'e Credit Institute";
+
+/*  */
+"bank_etebari_asgarieh" = "Melal Credit Institution";
+
+/*  */
+"card_bank" = "Bank Card";
+
+/*  */
+"paygear_card" = "Wallet Card";
+
+/*  */
+"set_password" = "Set Password";
+
+/*  */
+"change_password" = "Change Wallet Password";
+
+/*  */
+"text_forgot" = "Wallet password sent to you.\n(The password will expire after 2 minutes, please change it after retrieving it)";
+
+/*  */
+"text_forgot_title" = "Resend Password";
+
+/*  */
+"Forgot_Passwords" = "Wallet Password recovery";
+
+/*  */
+"enter_your_province" = "select your province";
+
+/*  */
+"cashier" = "finance";
+
+/*  */
+"balance_low" = "Your wallet balance is not enough.please top-up it.";
+
+/*  */
+"admin" = "admin";
+
+/*  */
+"taxi_balance" = "Taxi Balance";
+
+/*  */
+"shop_balance" = "Shop Balance";
+
+/*  */
+"cashout_taxi" = "Cashout";
+
+/*  */
+"bank_card" = "‌Bank Card";
+
+/*  */
+"wallet_card" = "Wallet";
+
+/*  */
+"amount_to_pay" = "Amount to pay (Rials) :";
+
+/*  */
+"club_balance" = "Club card balance (Rials)";
+
+/*  */
+"wallet_balance" = "Wallet balance (Rials)";
+
+/*  */
+"total_amount" = "Total Amount (Rials) :";
+
+/*  */
+"discount_amount" = "Discount Amount (Rials) :";
+
+/*  */
+"personalAccountType" = "Personal";
+
+/*  */
+"taxiAccountType" = "Driver";
+
+/*  */
+"shopAccountType" = "Shop";
+
+/*  */
+"default_sheba_number" = "Default IBAN number";
+
+/*  */
+"default_sheba_number_message" = "Do you want to save this IBAN number as default IBAN number?\\n Attention! All Automatic normal cashout will use this IBAN Number until you change it,";
+
+/*  */
+"recover_password" = "Recover password";
+
+/*  */
+"cash_out_two_wallet_hint" = "Enter Cash out amount then your merchant balance will transfer to your personal wallet";
+
+/*  */
+"cash_to_wallet" = "to Personal wallet";
+
+/*  */
+"person" = "person";
+
+/*  */
+"club_balance_not_enough" = "This Card balance is not enough";
+
+/*  */
+"enter_four_digit_code" = "Enter Six digits code";
+
+/*  */
+"four_digit_code" = "Six digit code";
+
+/*  */
+"show_receipt" = "Show Receipt";
+
+/*  */
+"reciever_name" = "Receiver";
+
+/*  */
+"date_time" = "date and time";
+
+/*  */
+"transaction_type" = "Transaction Type";
+
+/*  */
+"purchase" = "Purchase";
+
+/*  */
+"remaining_balance" = "Remaining balance";
+
+/*  */
+"refound" = "money transferred to your wallet";
+
+/*  */
+"Recently_Sticker" = "Recently";
+
+/*  */
+"Favorite_Sticker" = "Favorite";
+
+/*  */
+"subscribers_title" = "Subscribers";
+
+/*  */
+"invite_link_title" = "invite link";
+
+/*  */
+"add_to_home_screen" = "Add to Home screen";
+
+/*  */
+"channel_type" = "Channel Type";
+
+/*  */
+"sign_message_title" = "Sign Messages";
+
+/*  */
+"sign_channel_message_description" = "Add names of the admins to the messages they post.";
+
+/*  */
+"recent_action" = "Recent Actions";
+
+/*  */
+"get_money_title" = "Get Money";
+
+/*  */
+"payment_for" = "for";
+
+/*  */
+"payment_continue_title" = "continue";
+
+/*  */
+"shabe_title" = "Shaba Card";
+
+/*  */
+"bank_account_charge" = "Account Charge";
+
+/*  */
+"last_ten_transaction" = "Last 10 transaction";
+
+/*  */
+"Inventory" = "Inventory";
+
+/*  */
+"pay_bills_title" = "Pay Bills";
+
+/*  */
+"mobile_bills_title" = "Mobile Bills";
+
+/*  */
+"bills" = "Bills";
+
+/*  */
+"charge_amount" = "Charge amount";
+
+/*  */
+"buy_internet_package_title" = "Buy Internet Package";
+
+/*  */
+"charity_title" = "Charity";
+
+/*  */
+"charity_confirm" = "You have set the %1$@ Rial to help charity %2$@";
+
+/*  */
+"disk_and_network_usage" = "Disk and Network Usage";
+
+/*  */
+"cache" = "Cache";
+
+/*  */
+"auto_play_media" = "Auto-play Media";
+
+/*  */
+"auto_download_media" = "Auto-download Media";
+
+/*  */
+"chat_setting" = "Chat Settings";
+
+/*  */
+"terms_and_condition" = "Agree to the terms of service";
+
+/*  */
+"terms_and_condition_clickable" = "rules and regulations";
+
+/*  */
+"add_bank_card" = "Add Your Card Here!";
+
+/*  */
+"chat_setting_title" = "Chat Setting";
+
+/*  */
+"refresh" = "Refresh";
+
+/*  */
+"mark_as_several" = "Mark as several";
+
+/*  */
+"add_new_subscriber" = "Add Subscriber";
+
+/*  */
+"financial_report" = "Financial Report";
+
+/*  */
+"fag" = "FAQ";
+
+/*  */
+"cloud" = "Cloud";
+
+/*  */
+"score" = "Score";
+
+/*  */
+"Credit" = "Credit";
+
+/*  */
+"make_as_read" = "Make as Read";
+
+/*  */
+"read_all" = "Read All";
+
+/*  */
+"wallet_message" = "Wallet Message";
+
+/*  */
+"unknown_message" = "This message is not supported!";
+
+/*  */
+"card_to_card_message" = "Card to Card Message";
+
+/*  */
+"payment_message" = "Payment Message";
+
+/*  */
+"available_merchants" = "See merchants that accepts this card";
+
+/*  */
+"available_merchants_title" = "See merchants that accepts this card";
+
+/*  */
+"balance_title" = "balance :";
+
+/*  */
 "WALLET_TRANSFER_MONEY" = "Wallet Money Transfer";
+
+/*  */
 "CARD_TRANSFER_MONEY" = "Card To Card Money Transfer";
+
+/*  */
 "PAYMENT_TRANSFER_MONEY" = "Payment Money Transfer";
 
-"NEW_PASS" = "New password";
-"SUCCESS_OTP" = "OTP Code has been send to you successfully";
-"SERVER_DOWN" = "Server is down; please try later";
-"UNSSUCCESS_OTP" = "An error has occurred ; please try again later";
-"SUCCESSFULL_CHANGE_PASS" = "Your password has been changed successfully";
-"PASSCODE_NOT_MACHED" = "Password you entered does not match the Confirmation password";
-"INPUT_VALUE_NOT_CORRECT" = "Input values are not correct ; please check all the fields";
-"SUCCESSFULL_SET_PASS" = "New password has been set successfully";
-"CASHOUT_REQUEST" = "Cash out request";
-"FORGET_WALLET_PIN" = "Forget wallet Password";
-"CHECK_ALL_FIELDS" = "Please check all the fields";
-"OTP_CODE_PLACEHOLDER" = "OTP Code ( Minimum 6 Digits )";
-"BALANCE_NOT_ENOUGH" = "Wallet balance is not enough";
-"SUCCESS_OPERATION" = "The operation was successful";
-"INVALID_QR" = "QR data is unknown";
-"FILL_AMOUNT" = "Please Fill input amount";
-"AMOUNT_IS_NOT_ENOUGH" = "PayGear balance is not enough; you could use card to pay.";
-"SAVED_CARDS" = "Choose Destination Card";
-"ENTER_WALLET_PIN" = "Please Enter your wallet Pin";
-"SUCCESS" = "Success";
-"WALLET_PIN" = "Wallet Pin";
-"TAKE_A_PHOTO" = "Take a Photo";
-"DELETE_MAIN_AVATAR" = "Delete Main Avatar";
-"CHOOSE_PHOTO" = "Choose Photo";
-"MINUTE" = "Minute";
-"CHANNEL_NAME" = "Channel Name";
-"LETS_GO" = "Let's Go";
-"PLACE_HOLDER_MOBILE_NUMBER" = "Mobile Number";
+/*  */
+"card_number_dest" = "Destination card number";
 
+/*  */
+"card_number_source" = "Source card number";
 
-"SETTING_PAGE_ACCOUNT" = "Account";
-"SETTING_PAGE_CONTACTS" = "Contacts";
-"SETTING_PAGE_NEARBY" = "Nearby";
-"SETTING_PAGE_WALLET" = "Wallet";
-"SETTING_PAGE_CARD" = "Card";
-"SETTING_PAGE_FINANCIAL_SERVICES" = "Financial Services";
-"SETTING_PAGE_CHANGE_LANGUAGE" = "Change Language";
-"SETTING_PAGE_CHOOSE_LANGUAGE" = "Choose Language - انتخاب زبان";
+/*  */
+"source_bank" = "Source bank";
 
-"SETTING_PAGE_CHAT_WALLPAPER" = "Chat Wallpaper";
-"SETTING_PAGE_IN_APP_BROWSER" = "In App Browser";
-"SETTING_PAGE_PRIVACY_AND_SECURITY" = "Privacy & Security";
-"SETTING_PAGE_CACHE_SETTINGS" = "Cache Settings";
-"SETTING_PAGE_INVITE_FRIENDS" = "Invite Friends";
-"SETTING_PAGE_ABOUT" = "About";
-"SETTING_PAGE_QRCODE_SCANNER" = "Login Using QR Scan";
-"SETTING_PAGE_FOOTER_VERSION" = "Version";
-"CREAT_CHANNEL" = "Creat Channel";
-"CREAT_GROUP" = "Create Group";
-"TODAY" = "Today";
-"YESTERDAY" = "Yesterday";
-"IVANDSCORE_MSG" = "Are you sure you want to submit your request?";
+/*  */
+"cardToCardInvoiceNumber" = "Billing number";
 
+/*  */
+"cardToCardTrace" = "Trace Number";
 
-"SETTING_PAGE_ACCOUNT_NIKNAME" = "Nikname";
-"SETTING_PAGE_ACCOUNT_IGAP_CLUB" = "iGap Club";
-"SETTING_PAGE_ACCOUNT_SCORE_PAGE" = "Score";
-"SETTING_PAGE_ACCOUNT_INTERESTING_CHANNELS" = "Interesting Channels";
-"FINANCIAL_TRANSACTIONS_HISTORY" = "Transactions History";
-"SETTING_PAGE_ACCOUNT_PHONENUMBER" = "Mobile Number";
-"SETTING_PAGE_ACCOUNT_USERNAME" = "Username";
-"SETTING_PAGE_ACCOUNT_EMAIL" = "Email";
-"SETTING_PAGE_ACCOUNT_BIO" = "Bio";
-"SETTING_PAGE_ACCOUNT_REFERRAL" = "Referral";
-"SETTING_PAGE_ACCOUNT_D_ACCOUNT" = "Delete Account";
-"SETTING_PAGE_ACCOUNT_S_DESTRUCT" = "Self Destruct";
-"SETTING_PAGE_ACCOUNT_S_DESTRUCT_HINT" = "If you are away for";
-"SETTING_PAGE_ACCOUNT_LOGOUT" = "Log Out";
-"SETTING_CONTACTS_BLOCKLIST" = "Block List";
-"SETTING_NEARBY_MAP_STATUS" = "Activating map status will result in making your location visible to others.";
-"SETTING_NEARBY_MAP_MANUALUPDATE" = "Manually Update the Map";
-"SETTING_NEARBY_MAP_USERS_NEARBY_DISTANCE" = "Users Nearby Distance";
-"SETTING_NEARBY_MAP_DISABLE_NEARBY" = "Disable Nearby Visibility";
-"SETTING_FS_TOP_UP" = "Top Up SIM Card";
-"SETTING_FS_CARD_TO_CARD_BILLS" = "Card to Card";
-"SETTING_FS_PAY_BILLS" = "Pay Bills";
-"SETTING_FS_PAY_TRAFFIC_TICKETS" = "Pay Traffic Tickets";
-"SETTING_FS_MBILL_INQUERY" = "Mobile Bills Inquiry";
-"SETTING_FS_PHONE_INQUERY" = "Phone Bills Inquiry";
-"SETTING_CW_WALLPAPER_LIBRARY" = "Wallpaper Library";
-"SETTING_CW_WALLPAPER_PREVIEW" = "Wallpaper Preview";
-"SETTING_CW_SOLID_COLORS" = "Solid Colors";
-"SETTING_CW_PHOTOS" = "Photos";
-"SETTING_CW_RESET_WALLPAPER" = "Reset Wallpaper";
-"RESET_WALLET_PIN" = "Reset Wallet Pin";
-"SETTING_PS_TTL_PRIVACY" = "Privacy";
-"SETTING_PS_BLOCKED_USERS" = "Blocked Users";
-"SETTING_PS_BLOCK_A_CONTACT" = "Block Contact ...";
-"BLLOCK_CONTACT" = "Block Contact";
-"SETTING_PS_PROFILE_PHOTO" = "Profile Photo";
-"SETTING_PS_LAST_SEEN" = "Last Seen";
-"SETTING_PS_GROUPS" = "Groups";
-"SETTING_PS_CHANNELS" = "Channels";
-"SETTING_PS_CALL" = "Call";
-"SETTING_PS_PRIVACY_HINT" = "Change who can add you to groups and channels and has the ability to call you and see your profile picture";
-"SETTING_PS_TTL_SECURITY" = "Security";
-"SETTING_PS_ACTIVE_SESSIONS" = "Active Sessions";
-"SETTING_PS_NO_MORE_ACTIVE_SESSIONS" = "No More Active Sessions";
-"SETTINGS_PS_TERMINATE_ALL_EXEPT" = "Terminate all other Active Sessions";
-"TERMINATE_ALL_SESSIONS" = "Terminate all Sessions";
-"SETTING_PS_AS_CURRENT_SESSIONS" = "Current Sessions";
-"SETTING_PS_AS_SURE_TO_TERMINATE" = "Are you sure you want to terminate all active sessions?";
-"SETTING_PS_AS_SURE_TO_TERMINATE_THIS" = "Are you sure you want to terminate this Session?";
-"SETTING_PS_TWO_STEP_VERFI" = "Two Step Verification";
-"SETTING_PS_AS_MORE_DETAILS" = "More Details";
-"SETTING_PS_TV_TTL" = "You can set a password which will be asked each time you try to log in with an unknown new device";
-"SETTING_PS_TV_PASSWORD" = "Password =";
-"SETTING_PS_TV_VERIFY_PASSWORD" = "Verify Password =";
-"SETTING_PS_TV_REQUIRED_FIELD" = "Required";
-"SETTING_PS_TV_RECOMMENDED_FIELD" = "Recommended";
+/*  */
+"WalletRrnNumber" = "Reference No";
 
-"SETTING_PS_TV_VERIFY_PASSWORD_NOTMATCH" = "Password and verify password do not match";
-"SETTING_PS_TV_HINT_ERROR" = "Hint Can't Be The Same As Password";
-"SETTING_PS_TV_RECOVER_PASS" = "Password Recovery";
-"SETTING_PS_TV_CHANGE_RECOVER_QUESTION" = "Change Recovery Question";
-"SETTING_PS_TV_MAX_TRY_LOCK" = " Verification code is locked for a while due to too many tries.";
-"SETTING_PS_TV_YOUR_PASS_REMOVED" = "Password Removed Successfully";
-"INVALID_ANSWER" = "Wrong Answer";
-"RECOVER_BY_ANSWER_IS_FORBIDDEN" = "Recovery Using Security question is forbidden";
-"SET_BTN" = "Set";
+/*  */
+"cardToCardRequest" = "Write your text for card to card.";
 
-"enterpin" = "Enter Pin";
+/*  */
+"amCardToCardIconText" = "Transfer Request";
 
-"SETTING_PS_TV_Q1" = "Question 1 =";
-"SETTING_PS_TV_Q2" = "Question 2 =";
-"SETTING_PS_TV_A1" = "Answer 1 =";
-"SETTING_PS_TV_A2" = "Answer 2 =";
-"SETTING_PS_TV_HINT" = "Hint =";
-"SETTING_PS_TV_EMAIL" = "Email";
-"SETTING_PS_TV_FOOTER_HINT" = "Please make sure to add a valid Email Address ;because it is the only way to retrieve your forgotten password =";
-"SETTING_CC_CLEAR_DATA" = "Clear Data";
-"SETTING_ABOUT_CYRRENT_VERSION" = "Current Version";
-"SETTING_ABOUT_IGAP_HOME" = "iGap Official Home";
-"SETTING_ABOUT_IGAP_BLOG" = "iGap Official Blog";
-"SETTING_ABOUT_SUPPORT_REQUEST" = "Support Request";
+/*  */
+"cardToCardBtnText" = "Card to Card";
 
-"SETTING_CHL_PERSIAN" = "Persian";
-"SETTING_CHL_ENGLISH" = "English";
-"SETTING_CHL_ARABIC" = "Arabic";
-"YEAR" = "Year";
-"MONTH" = "Month";
-"ANDROID" = "Android";
-"IOS" = "iOS";
-"MACOS" = "macOS";
-"WINDOWS" = "Windows";
-"LINUX" = "Linux";
-"LAST_ACTIVE_AT" = "Last Active at = ";
-"PLATFORM_ANDROID" = "Platform Android";
-"PLATFORM_IOS" = "Platform iOS";
-"PLATFORM_MACOS" = "Platform macOS";
-"PLATFORM_WINDOWS" = "Platform Windows";
-"PLATFORM_LINUX" = "Platform Linux";
-"PLATFORM_BLACKBERRY" = "Platform Blackberry";
-"MOBILE" = "Mobile";
-"DESKTOP" = "Desktop";
-"TABLET" = "Tablet";
-"UNKNOWN" = "Unknown";
-"APP_VERSION" = "App Version = ";
-"COUNTRY" = "Country = ";
-"SESSION_INITIATED_AT" = "Session Initiated at = ";
+/*  */
+"crad_to_card_dest_name" = "Account Owner Name";
 
-"IRANCELL" = "Irancell";
-"MCI" = "MCI";
-"RIGHTEL" = "Rightel";
-"NOT_DETECTED_OPERATOR" = "Unidentified Operator";
-"NORMAL_CHARGE" = "Normal Charge";
-"AMAZING_CHARGE" = "Amazing Charge";
-"WIMAX_CHARGE" = "Wimax";
-"PERMANENTLY_SIM_CART" = "Permanently Sim Card";
-"CHOOSE_COUNTRY" = "Choose Country";
+/*  */
+"groups_in_common" = "Groups in Common";
 
-"CHOOSE_CHARGE_TYPE" = "Choose Charge Type";
-"CHOOSE_OPERATOR" = "Choose Operator";
-"TOPUP_TYPE" = "Top Up Type";
-"CHARGE_PRICE" = "Charge Price";
-"PORTED_SUBSCRIBER_ENABLE" = "Ported Subscriber Enable";
-"PORTED_SUBSCRIBER_DESABLE" = "Ported Subscriber Disable";
-"PHONE_NUMBER_WRONG" = "phone number is wrong!";
-"PAYMENT_ERROR_ACCURED" = "An error during payment process has accured";
-"BTN_PAY" = "Pay";
-"BTN_CANCEL" = "Cancel";
-"BTN_CLOSE" = "Close";
-"BTN_INQUERY" = "Inquiry";
-"BTN_MY_BILLS" = "My Bill";
-"BILL_ID" = "Bill Number";
-"BTN_SEARCH_BILLS" = "Search Bills";
-"BILLING_ID" = "Billing ID";
-"PAYMENT_CODE" = "Payment Code";
-"LBL_ELECTRICITYBILL_PAY" = "Electricity Bill Inquiry and Quick Payment";
-"TTL_BILL_OPERATIONS" = "Electricity Bill Operations";
-"MSG_CHARACTER_COUNT_ELECTRICITY_BILL" = "Bill number should be equal to 13";
-"BILL_PAY_DATE" = "Time Limit";
-"BILL_PAY_AMOUNT" = "Total Due";
-"BILL_BRANCH_DETAILS" = "Electricity Branching Info";
-"BILL_EDIT_MODE" = "Edit Bill Details";
-"BILL_ADD_MODE" = "Add to my Bill's list";
-"BILL_PDF_IMAGE" = "Show Bill's Image";
+/*  */
+"register_with_barcode_scan" = "Login with QR scan";
 
-"BILL_DETAIL_IDENTIFIER" = "Bill Identifier";
-"BILL_DETAIL_PAY_ID" = "Payment Identifier";
-"BILL_DETAIL_COMPANY_CODE" = "Company Code";
-"BILL_DETAIL_COMPANY_NAME" = "Company Name";
-"BILL_DETAIL_PHASE" = "Phase";
-"BILL_DETAIL_VOLTAGE" = "Voltage";
-"BILL_DETAIL_TARIFE_TYPE" = "Tarife Type";
-"BILL_DETAIL_CUSTOMER_TYPE" = "Customer Type";
-"BILL_DETAIL_CUSTOMER_NAME" = "Customer Name";
-"BILL_DETAIL_CUSTOMER_TEL" = "Customer Tel Number";
-"BILL_DETAIL_CUSTOMER_MOB" = "Customer Mobile Number";
-"BILL_DETAIL_CUSTOMER_ADD" = "Customer Address";
-"BILL_DETAIL_CUSTOMER_POSTALCODE" = "Customer Postal Code";
-"BILL_DETAIL_CUSTOMER_LOCATION_ZONE" = "Customer Zone";
-"BILL_DETAIL_CUSTOMER_DEVICE_NUMBER" = "Device Serial Number";
-"BILL_DETAIL_DUE_DATE" = "Payment Deadline";
-"BILL_DETAIL_LAST_READ" = "Device Last Read Date";
-"BILL_DETAIL_POWER" = "Power";
-"BILL_DETAIL" = "Bill Details";
-"BILL_FILL_DATA" = "Please Fill The Form Below";
-"BILL_NAME" = "Bill Name";
-"BILL_BILL_LIST" = "My Bill List";
-"LESS_THAN_1000" = "The amount to pay should be greater than 10,000 Rial";
-"ADD_NEW_BILL" = "Add new bill";
-"SELECT_COMPANY_FROM_LIST" = "Please Select company name from list Below";
-"ENETER_DEVICE_SERIAL_NUMBER" = "Please Enter your Counter Meter Serial Number";
-"FIND_MY_BILL" = "Find My Bill";
-"INVALID_BILL_MSG" = "Probably the bill is invalid";
+/*  */
+"one_number" = "1";
 
+/*  */
+"two_number" = "2";
 
-"CHARITY" = "Charity";
+/*  */
+"three_number" = "3";
 
+/*  */
+"four_number" = "4";
 
-"paygear_card" = "Paygear Card";
-"bank_parsian" = "Parsian Bank";
-"bank_saman" = "Saman Bank";
-"bank_mellat" = "Mellat Bank";
-"bank_eghtesad_novin" = "Eghtesad-e-Novin Bank";
-"bank_pasargad" = "Pasargad Bank";
-"bank_karafarin" = "Karafarin Bank";
-"bank_sarmayeh" = "Sarmayeh Bank";
-"bank_melli" = "Melli Bank";
-"bank_sepah" = "Sepah Bank";
-"bank_dey" = "Dey Bank";
-"bank_tejarat" = "Tejarat Bank";
-"bank_refah" = "Refah Bank";
-"bank_saderat" = "Saderat Bank";
-"bank_maskan" = "Maskan Bank";
-"bank_shahr" = "Shahr Bank";
-"bank_sina" = "Sina Bank";
-"bank_keshavarzi" = "Keshavarzi Bank";
-"bank_markazi" = "Centeral Bank of Iran";
-"bank_gardeshgari" = "Gardeshgari Bank";
-"bank_post_bank" = "Post Bank";
-"bank_ansar" = "Ansar Bank";
-"bank_iran_zamin" = "Iran-Zamin Bank";
-"bank_ayandeh" = "Ayandeh Bank";
-"bank_resalat" = "Resalat Bank";
-"bank_tosee_taavon" = "Tosee-Taavon Bank";
-"bank_tosee_saderat" = "Tosee-saderat Bank";
-"bank_hekmat_iranian" = "Hekmate-Iranian Bank";
-"bank_sanato_madan" = "Sanat-Madan Bank";
-"bank_ghavamin" = "Ghavamin Bank";
-"bank_mehr_iran" = "Qarzol-Hasaneh Mehr Iran Bank";
-"bank_mehr_eghtesad" = "Mehr Eqtesad Bank";
-"bank_etebari_kosar" = "Kosar Credit Institute";
-"bank_etebari_tosee" = "Tosee Credit Institute";
-"bank_etebari_asgarieh" = "Askariye Credit Institute";
+/*  */
+"five_number" = "5";
 
-"DELETE_POST" = "Remove Post";
-"DELETE_PHOTO" = "Remove Photo";
-"DELETE_CARD" = "Remove Card";
-"CART_ACCOUNTS" = "Carts’ list";
-"CART_NOACCOUNTS" = "No cart available";
-"EDIT_PROFILE" = "Edit profile";
-"ERROR_RETRY" = "An error has occurred; please try again";
-"RED_FIELD" = "Please fill the red color fields";
-"PHOTO_GALLERY" = "Photos gallery";
-"CAMERA_DEVICE" = "Device camera";
-"FILE" = "File";
-"CONTACT" = "Contact";
-"LOCATION" = "Location";
-"FIELD_CITY" = "City";
-"FIELD_BIRTHDATE" = "Birthday";
-"FIELD_EMAIL" = "Email address";
-"FIELD_SUBTITLE" = "Subject";
-"FIELD_USERNAME" = "Username";
-"FIELD_FULLNAME" = "Full name";
-"EDIT_PROFILEPIC" = "Edit photo";
-"SAVE" = "Save";
-"SETTING_VIEW" = "Settings";
-"CONTACTS_VIEW" = "Contacts";
-"ACCOUNT_VIEW" = "Account";
-"ABOUT_RAAD" = "About Raad";
-"ACCOUNT_SEC" = "User account";
-"MOREMORE" = "More";
-"LOGOUT" = "Logout";
-"SURE_LOGOUT" = "You are to sign out from your account; are you sure?";
-"SURE_DELETE" = "Are you sure you want to delete your iGap Account ?";
-"DELETE_TITLE" =  "Deleting your account will =";
+/*  */
+"six_number" = "6";
 
-"DELETE_SUB1" =  "Delete your profile picture and account info";
-"DELETE_SUB2" =  "Delete you from all Groups";
-"DELETE_SUB3" =  "Delete your message history on this phone";
+/*  */
+"seven_number" = "7";
 
-"IP" = "IP = ";
+/*  */
+"eight_number" = "8";
 
-"TIMELINE_LIKES" = "Liked";
-"PU_GETDATA" = "Receiving data …";
-"PU_COUPON" = "Coupon";
-"PU_INFORMATION" = "Information";
-"PU_SHOPPING" = "Store";
-"GLOBAL_BLOCK" = "Block";
-"GLOBAL_REPORT" = "Report page";
-"PU_SENDMSG" = "Send message";
-"PU_FOLLOWING" = "Following";
-"PU_FOLLOW" = "Follow";
-"PU_NODATA" = "No content available.";
-"PU_EDITPROFILE" = "Edit Information";
-"PU_PAYMENT" = "Pay";
-"PU_FOLLOWER" = "Follower";
-"PU_FOLLOWINGS" = "Followings";
-"PU_POSTS" = "Posts";
-"NO_PRODUCT_FOUND" = "No product available.";
-"TIMELINE_NOPOST" = "No post available.";
-"GAME_ALERT" = "Now; enter your phone number to show you some amazing stuff inside the app...";
-"GAME_ALERT_TITLE" = "Alert";
-"PAGE_INFORMATION" = "Information";
-"COMMENT_INPUT" = "Enter your comment...";
-"COMMENT_ERROR" = "Comment section should not be empty & the characters limit is at most 500 chr.";
-"COMMENT_TITLE" = "Comments";
-"SOCKET_CONNECTING" = "Connecting...";
-"MESSAGE_TITLE" = "Messages";
-"HASHTAGS" = "Hashtags";
-"MESSAGE" = "Message";
-"EDITE_MESSAGE" = "Edite Message";
+/*  */
+"nine_number" = "9";
 
-"SETTING_PS_TV_FOOTER HINT" = "Please Make sure to enter a valid email address; because incase of forgetting the password; this would be the only way to retrieve your account";
+/*  */
+"star_number" = "*";
 
-"NO_MESSAGE" = "No messages to show";
+/*  */
+"zero_number" = "0";
 
-"MESSAGE_INPUT" = "Write your message...";
+/*  */
+"back_number" = "<";
 
-"SELECT_OWNER" = "Select product owner";
+/*  */
+"view_contact" = "View Contact";
 
-"CONTACT_TITLE" = "My contacts";
-"CONTACT_PERM_ERROR"  = "The permission to access to your contact list is not granted; to enable this section; go to your privacy settings and grant access to your contact list for Raad";
-"CONTACT_NOTFOUND" = "No contact found";
+/*  */
+"new_group_call" = "New Group Call";
 
-"NP_ERROR" = "Your content should be at most 500 character";
-"NP_ERROR_TEXTPIC" = "To send your post; at least you need to enter text or upload a photo ";
-"NP_TYPECONTENT" = "Type whats in your mind …";
-"NP_ENTERTEXT" = "Enter your text";
-"NP_SAVEIMAGE" = "Save photo";
-"NP_SCANNERHINT" = "QR scanner sign is activated";
-"PRODUCTS_TOTALPRICE" = "Total Amount";
-"PRODUCTS_CONTINUE" = "Continue & Finish the purchase";
-"PRODUCTS_DISCOUNT" = "Discount; your gain is";
-"PRODUCTS_DETAILS" = "Description";
-"PRODUCTS_NO_DETAILS" = "No Description";
-"PRODUCTS_SELLER" = "Seller";
-"PRODUCTS_SELECT_CATEGORY" = "Select Category";
-"PRODUCTS" = "Products";
-"PRODUCTS_SELECT_ITEM" = "Select the Item";
-"PRODUCTS_CART" = "Shopping Cart";
-"PRODUCTS_CART_REMOVE" = "This action will remove all products from the cart; are you sure ?";
-"PRODUCTS_CART_EMPTY" = " Your shopping cart is empty";
-"PRODUCTS_CART_ADD" = "Add to cart";
-"COUPON_EXPIRED" = "Expired";
-"COUPONS" = "Coupons";
-"COUPONS_ZERO" = "No coupon exist";
-"COUPONS_ZEROSAVE" = "No coupon saved";
-"COUPONS_SHOW" = "Coupon preview";
-"COUPONS_LOADERROR" = "An error occurred while loading the coupon";
-"COUPONS_REPORT" = "Report the coupon";
-"COUPONS_REMOVE" = "Remove the coupon";
-"COUPONS_SAVE" = "Save the coupon";
-"COUPONS_USE" = "Redeem the coupon";
-"COUPONS_SAVE2" = "Save the coupon";
-"COUPONS_TERMOFUSE" = "Terms of use";
-"COUPONS_SERIAL" = "Coupon Serial";
-"COUPONS_STOCK" = "Remained Inventory";
-"COUPONS_USECOUNT" = "Redeem count remained";
-"COUPONS_PUNCHIES" = "Punch Coupon";
-"COUPON_SHARE" = "Shared coupon";
-"USER_BUY" = "Purchased";
-"SHARED_POST" = "Shared this post";
-"SHARED_PAGE" = " Shared this page";
-"COUPON_SAVED2" = "Saved this coupon";
-"COUPON_USED2" = "Redeemed coupon";
-"POST_VIEW" = "Show all ...";
-"POST_VIEW2" = "Show all";
-"AUTH_ENTER_MOBILE" = " Enter you cell number; please";
-"AUTH_SEND_CODE" = "Send the verification code";
-"AUTH_FOOTER" = " before any further actions; please read our EULA and our social network how to manual";
-"AUTH_MOBILE_ERROR" = " Please; enter your phone number in a correct manner";
-"AUTH_REGISTER" = "Register";
-"AUTH_REGISTER_INFO" = "Enter your login infos";
-"AUTH_USERNAME" = "Username";
-"AUTH_VERIFYMOBILE" = "Verification code";
-"VERFICATION_CODE" = "Verification code";
+/*  */
+"dial_number" = "Dial Number";
 
-"AUTH_HINT_MOBILE" = " A verification code sent; if it doesn't received <MOBILE>; request a code again";
-"AUTH_RESEND" = "Seconds remained to send the code; again";
-"AUTH_RESEND_BUTTON" = "Send the code again";
-"POSTS" = "Posts";
-"PAYMENTS" = "Payments";
-"TIMELINE_COMMENT" = "Comment";
-"TIMELINE_LIKE" = "Liked";
-"TIMELINE_S" = "s";
-"USERS" = "User";
-"GLOBAL_HOME" = "Home";
-"POD_ADDRESSES" = "Address";
-"POD_MYADDRESS" = "My Addresses";
-"POD_MERCHANTADDRESS" = "Sellers’ locations";
-"POD_NEWADDRESS" = "Add New Address";
-"POD_NEWADDRESS2" = "Add Address";
-"POD_EDITADDRESS" = "Edit Address";
-"POD_SELECT_CITY" = "Select City";
-"POD_POSTALCODE" = "Postal code";
-"POD_TELPHONE" = "Phone number";
-"POD_ADDRESS" = "Full Address";
-"POD_ERROR_MESSAGE" = " Please select carefully your subject; city & full address";
-"EXPLORE_HINT" = "Merchant name; Username; Product...";
-"SEARCHING" = "Searching ...";
-"SEARCH_PLACEHOLDER" = "Search";
+/*  */
+"Select_Country" = "Select Country";
 
-"SEARCH_NORESULT" = " No results found";
-"SEARCH_NEARBY" = "Around Me";
-"CONTACT_FIND_FRIENDS" = "Find your friends";
-"CONTACT_FIND_TEXT" = "";
-"CONTACT_FIND" = "Find my friends";
-"COUPON_SHARED" = " Shared a coupon";
-"SHARE_TO" = "Share To";
-"SELECT_CHATS" = "Select Chats";
-"DIRECT_PAY" = "Direct pay";
+/*  */
+"call" = "Call";
 
-"POST_SHARE" = " Shared this post";
-"PAGE_SHARE" = " Shared a page";
-"COUPON_SAVED" = "Saved a coupon";
-"COUPON_USED" = " Redeemed a coupon";
-"BUY_TEXT" = "Times Purchased";
-"ERROR_CODE" = "The code you entered is wrong; please try again";
-"ERROR_FORM" = " Please fill the form information correctly";
-"MERCHANT" = "Merchant";
-"AND" = "&";
-"OTHER_USER" = "Another one";
-"GLOBAL_BUY" = "Purchase";
-"GLOBAL_USER" = "User";
-"GLOBAL_SHOP" = "Store";
-"GLOBAL_PRODUCT" = "Product";
-"GLOBAL_COUPON" = "Coupon";
-"GLOBAL_MESSAGE" = "Message";
-"GLOBAL_ALL" = "All";
-"GLOBAL_FROM" = "From";
-"GLOBAL_UNKNOWN" = "Unknown";
-"GLOBAL_OKCLOSE" = "verify and close";
-"GLOBAL_OKGO" = "verify and continue";
-"GLOBAL_YES" = "yes";
-"GLOBAL_NO" = "No";
-"GLOBAL_OK" = "OK";
-"GLOBAL_DONE" = "Done";
-"GLOBAL_TO" = "To";
-"GLOBAL_BACK" = "back";
-"GLOBAL_CLOSE" = "Close";
-"GLOBAL_CREAT" = "Creat";
-"PRICE" = "Amount";
-"TRACE_NUMBER" = "Trace Number";
-"GENDER" = "Gender";
-"MEN_GENDER" = "Male";
-"WOMEN_GENDER" = "Female";
-"SETTING_PAGE_ACCOUNT_GIFT_PAGE" = "Gifts";
-"YOUR_SCORE" = "Your Score";
-"YOUR_RANK" = "Your Rank";
-"SCORE_HISTORY" = "Score History";
+/*  */
+"enter_wallet_password" = "Enter wallet password";
 
-"GLOBAL_UNLIMITED" = "unlimited";
-"GLOBAL_CAPTION" = "subject";
-"GLOBAL_WARNING" = "Error";
-"GLOBAL_VIEW" = "view";
-"GLOBAL_TOMAN" = "Toman";
-"GLOBAL_PERCENT" = "Percent";
-"PU_BALLOON" = "Plans";
-"PU_MERCHANTS" = "Stores";
-"CREDITS" = "Credit";
-"FAQ" = "FAQ";
-"Token_Error" = "App needed to refresh your authentication detail; please try again.";
-"HEY_JOIN_IGAP" = "Hey Join iGap = http=//d.igap.net/invite I'm waiting for you! Referred Number is =";
-"NEW" = "New";
-"SETTING_NEARBY" = "Nearby";
+/*  */
+"videos" = "Videos";
 
-"FORWARD_PERMISSION" = "Sorry; you are not allowed to send any messages to this chat!";
-"FORWARD_QUESTION" = "Do you want to forward message to this room ?";
-"FORWARD_CANCEL" = "Cancel Forward";
-"ANOTHER_ROOM" = "Another Room";
-"DESCRIPTION" = "Description";
-"NO_DESCRIPTION" = "There is no description";
+/*  */
+"audios" = "Audios";
 
-"barcode.gift.used" = "Gift has Been Used";
-"barcode.gift.title" = "Gift";
-"barcode.gift.message" = "";
-"barcode.gift.confirm" = "Get Gift";
-"barcode.gift.cancel" = "Cancel";
+/*  */
+"voices" = "Voices";
 
-"MESSAGE_NOTIFICATIONS" = "Message Notifications";
-"PRIVATE_CHATS" = "Private Chats";
-"NOTIFI_GROUPS" = "Groups";
-"NOTIFI_CHANNELS" = "Channels";
-"VOICE_CALLS" = "Voice Calls";
-"BADGE_COUNTER" = "Badge Counter";
-"NOTIFI_ENABLED" = "Enabled";
-"NOTIFI_COUNT_UNREAD_MESSAGE" = "Count Unread Messages";
-"NOTIFI_INCLUDE_MUTED_CHATS" = "Include Muted Chats";
-"IN_APP_NOTIFICATIONS" = "In-App Notifications";
-"NOTIFI_IN_APP_SOUNDS" = "In-App Sounds ";
-"NOTIFI_IN_APP_VIBRATE" = "In-App Vibrate ";
-"NOTIFI_IN_APP_PREVIEW" = "In-App Preview ";
-"EVENTS" = "Events";
-"NOTIFI_NEW_CONTACTS" = "New Contacts ";
-"RESET" = "Reset";
-"NOTIFI_RESET" = "Reset All Notifications";
-"NOTIFI_EVENTS_FOOTER" = "Get Notified when some one from your contacts joined iGap";
+/*  */
+"gifs" = "Gifs";
 
+/*  */
+"files" = "Files";
 
-"HEADER_SPRIVACY" = "Privacy";
-"HEADER_SECURITY" = "Security";
-"HEADER_SELF_DISTRUCT" = "Self Destruction";
-"HEADER_SELF_ADVANCE" = "Advance";
-"DELETE_ALL_CLOUD" = "Delete All Cloud Drafts";
-"DELETE_SYNCED_CONTACTS" = "Delete Synced Contacts";
-"CLEAR_PAYMENT_SHHIPPING" = "Clear Payment and Shipping Info";
-"SYNCED_CONTACTS" = "Synced Contacts";
-"SECRET_CHAT_LINK_PREVIEW" = "Link Preview";
-"IF_AWAY_FOR" = "If Away For";
-"PASSCODE_LOCK" = "Passcode Lock";
-"HEADER_NETWORK_STORAGE_USAGE" = "Network and Storage Usage";
-"HEADER_AUTOMATIC_DOWNLOAD" = "Automatic Media Download";
-"HEADER_AUTO_PLAY" = "Auto-Play Media";
-"HEADER_VOICECALLS" = "Voice Calls";
-"HEADER_PROXYE" = "Proxy";
-"SETTING_PAGE_ACCOUNT_S_DESTRUCT_FOOTER" = "If you dont use your account and be away for the selected amount of time; your account will be removed automatically";
+/*  */
+"links" = "Links";
 
+/*  */
+"size" = "Size";
 
-"STORAGE_USAGE" = "Storage Usage";
-"DATA_USAGE" = "Data Usage";
-"WHEN_USING_MOBILE_DATA" = "When Using Mobile Data";
-"WHEN_CONNECTED_TO_WIFI" = "When Connected To Wi-Fi";
-"RESET_AUTO_DOWNLOAD_SETTINGS" = "Reset Auto Download Settings";
-"USE_LESS_DATA" = "Use Less Data";
-"PROXY_SETTINGS" = "Proxy Settings";
-"FOOTER_KEEP_MEDIA" = "All The images and videos that you did not have access in the period will be deleted.";
-"CLEAR_CACHE" = "Clear Cache";
-"KEEP_MEDIA" = "Keep Media";
-"TEXT_SIZE" = "Text Size";
-"COLOR_THEME" = "Color Theme";
-"ENABLE_ANIMATIONS" = "Enable Animations";
-"DARK_THEME" = "Dark";
-"LIGHT_THEME" = "Light";
-"CHAT_BG" = "Chat background";
-"CHAT_PREVIEW_SAMPLE" = "it's morning in Tehran 😍";
+/*  */
+"copy_link_title" = "Copy Link";
 
+/*  */
+"location_dialog_message" = "Do you want to use your location?";
 
+/*  */
+"forward_slash" = "/";
 
-"NO_CALL_HISTORY" = "Not exist call history!";
-"UNREAD_MESSAGE" = "unread message";
-"CROP" = "crop";
-"GALLERY" = "gallery";
-"ALBUMS" = "albums";
-"PHOTO" = "photo";
-"CAMERA" = "camera";
-"COVER" = "cover";
-"TRIM" = "trim";
-"VIDEO" = "video";
-"WARNING_MAX_ITEMS_LIMIT" = "No more items can be selected!";
-"CROP" = "crop";
-"FILTER" = "filter";
-"PROCESSING" = "processing";
-"SETTING_SOUND_SEND_MESSAGE" = "Send Message Sound";
-"DELETED_MESSAGE_2" = "This message has been deleted";
-"CHAT_ROOM_NOT_FOUND" = "The desired chat could not be found";
-"CHANGED_ROLE_HINT" = "Your role has changed so you cannot view the members list at this time!";
-"HINT" = "Hint";
-"NOT_EXIST_MODERATOR" = "No moderator registered!";
-"NOT_EXIST_ADMIN" = "No admin registered!";
-"EXIST_MEMBER" = "is already in your members!";
-"EXIST_MEMBERS" = "are now your members!";
-"CHART" = "chart";
-"QRCODE_SCANNER" = "QR scanner";
-"SIGNALING_FORBIDDEN" = "Signaling Forbidden";
-"TALKING_WITH_OTHER_DEVICE" = "You Are Talking With Your Other Devices";
-"USER_IN_CONVERSATION" = "The User Is In Conversation";
-"DILED_NUMBER_IS_INACTIVE" = "Dialed Number Is Not Active";
-"USER_IS_NOT_ALLOWED_TO_COMMINUCATE" = "Is Not Allowed To Communicate";
-"USER_IS_BLOCKED" = "User Is Blocked";
-"RESTRICTED_CREATE_ROOM" = "You are restricted to create more rooms!";
+/*  */
+"reaction_message_detail" = "show a vote section for every channel's posts for members.";
 
+/*  */
+"all" = "All";
 
-"CHECK_FOR_UPDATE" = "Check update";
-"YOU_ARE_UP_TO_DATE" = "Your app version is up to date.";
-"UPDATE" = "Update";
-"contacts_sending" = "Sending Contacts";
-"contacts_being_saved" = "Saving Contacts";
+/*  */
+"missed" = "Missed";
+
+/*  */
+"incoming" = "Incoming";
+
+/*  */
+"canceled" = "Canceled";
+
+/*  */
+"outgoing" = "Outgoing";
+
+/*  */
+"no_item_selected" = "No item selected.";
+
+/*  */
+"subscriber" = "Subscribers";
+
+/*  */
+"point" = "points";
+
+/*  */
+"rank" = "Rank";
+
+/*  */
+"tablet_empty_chat_description" = "Get Started \nWelcome to iGap. You can ever set your profile picture and/or change your name in Settings section.";
+
+/*  */
+"make_call" = "Make Phone Call";
+
+/*  */
+"create_chat" = "Create Chat";
+
+/*  */
+"delete_all" = "Delete All";
+
+/*  */
+"maximum_poll" = "You Have Reached Your Vote Limit.";
+
+/*  */
+"before_try" = "You have already registered your vote.";
+
+/*  */
+"poll_ok" = "Your vote was successfully recorded.";
+
+/*  */
+"str_frag_sync_contactTitle" = "Say Hi to your friends and let them know you are on iGap";
+
+/*  */
+"str_frag_sync_contactWelcome" = "Welcome to iGap";
+
+/*  */
+"str_frag_sync_skipBtn" = "Get Started";
+
+/*  */
+"str_frag_sync_error" = "Something went wrong. Please try again.";
+
+/*  */
+"download_icon" = "";
+
+/*  */
+"igasht_title" = "آیگشت";
+
+/*  */
+"igasht_choose_province_title" = "Select the city you want";
+
+/*  */
+"igasht_search_by_location" = "جستجو بر اساس موقعیت";
+
+/*  */
+"igasht_add_to_favorite_title" = "به لیست علاقمندی ها اضافه کن";
+
+/*  */
+"igasht_buy_ticket_title" = "Buy tickets";
+
+/*  */
+"detail_title" = "Details";
+
+/*  */
+"igasht_place_of_visit_title" = "محل بازدید";
+
+/*  */
+"igasht-add-external-visits" = "اضافه کردن بازدید خارجی";
+
+/*  */
+"igasht_ticket_type_title" = "Specify the type of ticket";
+
+/*  */
+"igasht_enter_ticket_count_title" = "تعداد بازدید کننده را وارد کنید.";
+
+/*  */
+"igasht_add_ticket_count_button_title" = "ثبت";
+
+/*  */
+"igasht_order_ticket_title" = "%1$@ for %2$d person";
+
+/*  */
+"igasht_favorites_title" = "Favorites";
+
+/*  */
+"igasht_history_title" = "History";
+
+/*  */
+"igasht_total_ticket_price" = "Total Price: %d Rials";
+
+/*  */
+"igasht_add_ticket_error" = "Please Add Ticket";
+
+/*  */
+"igasht_buy_ticket_successful" = "Buy Ticket Successful";
+
+/*  */
+"money_request" = "Card To Card Request to:";
+
+/*  */
+"cardtocard_descriotion_error" = "Description can not be empty";
+
+/*  */
+"cardtocard_amount_empty_error" = "Amount can not be empty";
+
+/*  */
+"cardtocard_morethan_error" = "Minimum amount must be more than 10,000 Rials";
+
+/*  */
+"cardtocard_cartnumber_error" = "Card number must be 16 digits";
+
+/*  */
+"cardtocard_cardnumber_error" = "Card number can not be empty";
+
+/*  */
+"payment_order_id_title" = "Order ID : %@";
+
+/*  */
+"payment_rrn_title" = "Transaction ID: %.0f";
+
+/*  */
+"mci_topup_payment_title" = "MCI TopUp";
+
+/*  */
+"insert_amount_in_rial" = "insert amount in rial";
+
+/*  */
+"enter_16_digit_card_number" = "Enter the 16-digit card number";
+
+/*  */
+"buy_internet_package_type_title" = "Package Type";
+
+/*  */
+"buy_internet_package_time_type_title" = "Time";
+
+/*  */
+"buy_internet_package_volume_type_title" = "Volume";
+
+/*  */
+"buy_internet_package_daily_filter_title" = "%.0f Day";
+
+/*  */
+"buy_internet_package_weekly_filter_title" = "%.0f Week";
+
+/*  */
+"buy_internet_package_month_filter_title" = "%.0f Month";
+
+/*  */
+"buy_internet_package_year_filter_title" = "%.0f Year";
+
+/*  */
+"buy_internet_package_volume_filter_gb_title" = "%.2f GB";
+
+/*  */
+"buy_internet_package_volume_filter_mb_title" = "%.2f MB";
+
+/*  */
+"buy_internet_package_choose_title" = "Choose Item";
+
+/*  */
+"beeptunes_purchase_song" = "Purchase Song";
+
+/*  */
+"beeptunes_sync_song" = "Sync Song";
+
+/*  */
+"beeptunes-favorite-song" = "Favorite Song";
+
+/*  */
+"play_sound_in_chat" = "Play Message Sound In Chat";
+
+/*  */
+"charge_type_error_message" = "Please Select Charge Type";
+
+/*  */
+"charge_price_error_message" = "Please select Charge Price";
+
+/*  */
+"no_channels_in_category" = "There are no channels in this category!";
+
+/*  */
+"message_decline_write_new" = "Compose new message…";
+
+/*  */
+"message_decline_call_later" = "I,II call you back.";
+
+/*  */
+"message_decline_Please_call_later" = "Can you call back later?";
+
+/*  */
+"message_decline_please_text_me" = "Please text me.";
+
+/*  */
+"mpl_transaction_rrn" = "RRN";
+
+/*  */
+"mpl_transaction_trace" = "Trace Number";
+
+/*  */
+"mpl_transaction_order_id" = "Order Id";
+
+/*  */
+"pay_id" = "Pay Id";
+
+/*  */
+"mpl_transaction_merchent_name" = "Merchant Name";
+
+/*  */
+"mpl_transaction_sales" = "Sales";
+
+/*  */
+"mpl_transaction_topup" = "TopUp";
+
+/*  */
+"mpl_transaction_empty" = "No information available!";
+
+/*  */
+"mpl_transaction_card" = "Card To Card";
+
+/*  */
+"mpl_terminal_no" = "Terminal No";
+
+/*  */
+"mpl_do_you_want_save_receipt" = "Do you want save receipt?";
+
+/*  */
+"mpl_transaction_nul" = "You have no transactions in the last 5 days!";
+
+/*  */
+"of_from_total" = "of %@";
+
+/*  */
+"app_version_change_log" = "Change Log";
+
+/*  */
+"updated_version_title" = "Your Version Is Update";
+
+/*  */
+"check_update_title" = "Check Update";
+
+/*  */
+"unblock" = "Unblock";
+
+/*  */
+"view_profile" = "View Profile";
+
+/*  */
+"there_is_no_car_available" = "There is no car available.";
+
+/*  */
+"add_car" = "Add Car";
+
+/*  */
+"cars_plaque" = "Cars Plaque";
+
+/*  */
+"car_plaque" = "Car Plaque";
+
+/*  */
+"c_pay_title" = "Car services";
+
+/*  */
+"add_plaque" = "Submit Plaque";
+
+/*  */
+"from_first" = "From First";
+
+/*  */
+"national_code" = "National ID";
+
+/*  */
+"plaque_is_not_valid" = "Plaque is not valid.";
+
+/*  */
+"complete_correct" = "Informations are invalid.";
+
+/*  */
+"plaque_added" = "Plaque Added.";
+
+/*  */
+"at_least_cpay_amout" = "Amount (Minimum 20,000 Rials)";
+
+/*  */
+"cpay_title" = "C-Pay";
+
+/*  */
+"link_not_valid" = "Invalid link";
+
+/*  */
+"popular_channel" = "Interesting channels";
+
+/*  */
+"referral_code_invalid" = "Referral code invalid";
+
+/*  */
+"already_registered" = "You have already registered referral code";
+
+/*  */
+"scan_barcode_to_enter_visit" = "Scan the barcode above to enter and visit";
+
+/*  */
+"Your_purchase_code" = "Your purchase code %@";
+
+/*  */
+"igasht_count_title" = "count";
+
+/*  */
+"igasht_service_title" = "Service";
+
+/*  */
+"igasht_select_location_button_title" = "Select location";
+
+/*  */
+"igasht_selected_location_title" = "Recreational areas of %@ province";
+
+/*  */
+"igasht_location_found_count" = "%d items found";
+
+/*  */
+"igasht_success_payment" = "Your payment has been successful";
+
+/*  */
+"noDetail_textView" = "Is no detail";
+
+/*  */
+"igasht_empty_history_message" = "No tickets purchased yet.";
+
+/*  */
+"Restaurant_textView" = "Restaurant";
+
+/*  */
+"parking_textView" = "Parking";
+
+/*  */
+"wifi_textView" = "WiFi";
+
+/*  */
+"coffeeShop_textView" = "Coffee shop";
+
+/*  */
+"wheelchair_textView" = "wheelchair";
+
+/*  */
+"prayerRoom_textView" = "Prayer room";
+
+/* kuknos */
+"kuknos_login_messge_str" = "Please enter your ID number for registration.";
+
+/*  */
+"kuknos_login_id_str" = "ID Number";
+
+/*  */
+"kuknos_login_tel_str" = "Phone Number";
+
+/*  */
+"kuknos_login_submit_str" = "Register";
+
+/*  */
+"kuknos_login_error_empty_str" = "Enter your ID number";
+
+/*  */
+"kuknos_login_error_invalid_str" = "Enter a Valid ID number";
+
+/*  */
+"kuknos_login_error_server_str" = "Server Error: User already exists.";
+
+/*  */
+"kuknos_login_progress_str" = "Checking...";
+
+/*  */
+"kuknos_Entry_NT_str" = "New Token Wallet";
+
+/*  */
+"kuknos_Entry_RT_str" = "Retrieve Token Wallet";
+
+/*  */
+"kuknos_Entry_Message" = "Please select one of the below options:";
+
+/*  */
+"kuknos_Restore_Title" = "Please enter your account recovery keys.";
+
+/*  */
+"kuknos_Restore_Message" = "By using these words, you will be able to retrieve your account.";
+
+/*  */
+"kuknos_Restore_Btn" = "Retrieve";
+
+/*  */
+"kuknos_Restore_Hint" = "For example: water blue water ...";
+
+/*  */
+"kuknos_Restore_Error_empty_str" = "Enter your key stream";
+
+/*  */
+"kuknos_Restore_Error_invalid_str" = "Your key stream length is not long enough.";
+
+/*  */
+"kuknos_Restore_Error_Snack" = "Ok";
+
+/*  */
+"kuknos_SignupInfo_title" = "User Information";
+
+/*  */
+"kuknos_SignupInfo_desc" = "Please complete the fields:";
+
+/*  */
+"kuknos_SignupInfo_username" = "Username *";
+
+/*  */
+"kuknos_SignupInfo_name" = "Name *";
+
+/*  */
+"kuknos_SignupInfo_family" = "Family *";
+
+/*  */
+"kuknos_SignupInfo_email" = "Email Address";
+
+/*  */
+"kuknos_SignupInfo_submitBtn" = "Submit";
+
+/*  */
+"kuknos_SignupInfo_checkUsername" = "checking....";
+
+/*  */
+"kuknos_SignupInfo_submitConnecting" = "Saving...";
+
+/*  */
+"kuknos_SignupInfo_advSettingBtn" = "Advanced Security >";
+
+/*  */
+"kuknos_SignupInfo_errorUsernameInvalid" = "This username is not available.";
+
+/*  */
+"kuknos_SignupInfo_ValidUsername" = "Good to go";
+
+/*  */
+"kuknos_SignupInfo_errorEmailInvalid" = "Email Format is incorrect.";
+
+/*  */
+"kuknos_SignupInfo_errorUsernameEmpty" = "Username must not be empty.";
+
+/*  */
+"kuknos_RecoverySK_Title" = "Recovery keys";
+
+/*  */
+"kuknos_RecoverySK_Message" = "All of the below keywords are case sensitive. Please make sure you write down and save your recovery phrase. You will need this phrase to restore your wallet.";
+
+/*  */
+"kuknos_RecoverySK_Btn" = "Okay, I have written it down.";
+
+/*  */
+"kuknos_RecoverySK_Hint" = "water Blue brown ...";
+
+/*  */
+"kuknos_RecoverySK_Error_empty_str" = "Enter your key stream";
+
+/*  */
+"kuknos_RecoverySK_Error_invalid_str" = "Your key stream length is not long enough.";
+
+/*  */
+"kuknos_RecoverySK_Error_Snack" = "Ok";
+
+/*  */
+"kuknos_SetPass_title" = "Create a 4 digit PIN";
+
+/*  */
+"kuknos_SetPass_message" = "This 4 numeric PIN will be used to encrypt your secret keys. Please make sure you choose a PIN that is difficult to guess for others.";
+
+/*  */
+"kuknos_SetPass_submit" = "Submit";
+
+/*  */
+"kuknos_SetPass_error" = "Please enter your PIN code.";
+
+/*  */
+"kuknos_SetPassConf_title" = "Confirm your PIN code";
+
+/*  */
+"kuknos_SetPassConf_message" = "Please re-enter your selected PIN code.";
+
+/*  */
+"kuknos_SetPassConf_submit" = "Confirm";
+
+/*  */
+"kuknos_SetPassConf_error" = "Your PIN code does NOT match.";
+
+/*  */
+"kuknos_panelStr_balance" = "Balance";
+
+/*  */
+"kuknos_panelStr_recieve" = "Recieve";
+
+/*  */
+"kuknos_panelStr_send" = "Send";
+
+/*  */
+"kuknos_panelStr_history" = "History";
+
+/*  */
+"kuknos_panelStr_trading" = "Trading";
+
+/*  */
+"kuknos_panelStr_kyc" = "KYC";
+
+/*  */
+"kuknos_panelStr_buyPeyman" = "Buy Peyman";
+
+/*  */
+"kuknos_panelStr_setting" = "Setting";
+
+/*  */
+"kuknos_develop" = "developing";
+
+/*  */
+"kuknos_recieve_title" = "For receiving credit from others, you must send your wallet ID to others.";
+
+/*  */
+"kuknos_recieve_walletID" = "Your wallet Address is:";
+
+/*  */
+"kuknos_recieve_copyBtn" = "Copy Wallet Address";
+
+/*  */
+"kuknos_recieve_copyToast" = "Wallet Address copied in clipboard.";
+
+/*  */
+"kuknos_send_title" = "Send Token";
+
+/*  */
+"kuknos_send_walletAddress" = "Wallet Address* :";
+
+/*  */
+"kuknos_send_text" = "Memo ID or text";
+
+/*  */
+"kuknos_send_amount" = "Amount* :";
+
+/*  */
+"kuknos_send_sendBtn" = "Send";
+
+/*  */
+"kuknos_send_connectingServer" = "transferring...";
+
+/*  */
+"kuknos_send_successServer" = "Transfer is successfully done.";
+
+/*  */
+"kuknos_send_errorServer" = "Something went wrong. Please try again.";
+
+/*  */
+"kuknos_send_walletIDError" = "Wallet Address must not be empty.";
+
+/*  */
+"kuknos_send_AmountError" = "Amount must not be empty.";
+
+/*  */
+"kuknos_send_CreditError" = "NOT enough credit.";
+
+/*  */
+"kuknos_send_AmountFromatError" = "Amount format is wrong. please only use . and digits.";
+
+/*  */
+"kuknos_send_dialogTitle" = "Transfer Status";
+
+/*  */
+"kuknos_wHistory_date" = "Date";
+
+/*  */
+"kuknos_wHistory_desc" = "Description";
+
+/*  */
+"kuknos_wHistory_amount" = "Amount";
+
+/*  */
+"kuknos_wHistory_dialogTitle" = "Error";
+
+/*  */
+"kuknos_wHistory_error" = "The connection to server is lost. Please try again in a few moments.";
+
+/*  */
+"kuknos_setting_title" = "Setting";
+
+/*  */
+"kuknos_setting_changePin" = "Change PIN";
+
+/*  */
+"kuknos_setting_viewRecoveryP" = "View Recovery Phrase";
+
+/*  */
+"kuknos_setting_logout" = "Logout";
+
+/*  */
+"kuknos_changePIN_title" = "Change PIN code";
+
+/*  */
+"kuknos_changePIN_message" = "This 4-numeric PIN will used to encrypt your secret keys.\n        Please make sure you choose a PIN that is difficult to guess for others.";
+
+/*  */
+"kuknos_changePIN_oldP" = "Current PIN* :";
+
+/*  */
+"kuknos_changePIN_newP" = "New PIN* :";
+
+/*  */
+"kuknos_changePIN_rnewP" = "Confirm PIN* :";
+
+/*  */
+"kuknos_changePIN_submit" = "Submit";
+
+/*  */
+"kuknos_changePIN_load" = "changing...";
+
+/*  */
+"kuknos_changePIN_emptyCP" = "Current PIN must NOT be empty.";
+
+/*  */
+"kuknos_changePIN_emptyNP" = "New PIN must NOT be empty.";
+
+/*  */
+"kuknos_changePIN_emptyRNP" = "Re-enter new PIN to verify it.";
+
+/*  */
+"kuknos_changePIN_wrongCP" = "Current PIN is a 4-digit number.";
+
+/*  */
+"kuknos_changePIN_wrongNP" = "New PIN must be 4-digit.";
+
+/*  */
+"kuknos_changePIN_wrongRNP" = "Confirm PIN ust be 4-digit.";
+
+/*  */
+"kuknos_changePIN_notEqual" = "New and confirm PIN does Not match.";
+
+/*  */
+"kuknos_changePIN_successTitle" = "Success";
+
+/*  */
+"kuknos_changePIN_failTitle" = "Fail";
+
+/*  */
+"kuknos_changePIN_successM" = "PIN code successfully changed.";
+
+/*  */
+"kuknos_changePIN_failM" = "The connection to server is lost. Please try again in a few moments.";
+
+/*  */
+"kuknos_viewRecoveryEP_title" = "Show Recovery Keys";
+
+/*  */
+"kuknos_viewRecoveryEP_message" = "Please enter your PIN to view your recovery phrase.";
+
+/*  */
+"kuknos_viewRecoveryEP_pin" = "PIN";
+
+/*  */
+"kuknos_viewRecoveryEP_btn" = "View";
+
+/*  */
+"kuknos_viewRecoveryEP_load" = "Loading...";
+
+/*  */
+"kuknos_viewRecoveryEP_emptyPIN" = "Current PIN must NOT be empty.";
+
+/*  */
+"kuknos_viewRecoveryEP_wrongPIN" = "Current PIN is a 4-digit number.";
+
+/*  */
+"kuknos_viewRecoveryEP_wrongPINE" = "PIN code is wrong. Please try again.";
+
+/*  */
+"kuknos_viewRecoveryEP_failTitle" = "Fail";
+
+/*  */
+"kuknos_logout_title" = "Logout";
+
+/*  */
+"kuknos_logout_message" = "Warning: loging out from your wallet will wipe the information from this machine.\n        To view your wallet, you will have to go through the restoration process again.";
+
+/*  */
+"kuknos_logout_pin" = "PIN";
+
+/*  */
+"kuknos_logout_btn" = "Logout";
+
+/*  */
+"kuknos_logout_load" = "Loging out...";
+
+/*  */
+"kuknos_buyP_title" = "Buy Peyman";
+
+/*  */
+"kuknos_buyP_message" = "Kuknos is a multi-token platform that provides issues of any assets.\n        In Kuknos platform we have an assets called Paymon (PMN) which is the native assets for Kuknos.";
+
+/*  */
+"kuknos_buyP_amount" = "Number of Peymen (PMN)* :";
+
+/*  */
+"kuknos_buyP_btn" = "Buy";
+
+/*  */
+"kuknos_buyP_btn_server" = "Checking...";
+
+/*  */
+"kuknos_buyP_btn_server2" = "Finilizing...";
+
+/*  */
+"kuknos_buyP_desc" = "PS:\n\n        - Rest of the assets in kuknos is valuated by this Paymon\n\n        - Since Paymon has been backed by gold (one unit of PMN is equal to 30 mg 24-karat gold)\n\n        - will be used as transactions fee\n\n        - Consider as a gauge for assessing minimum balances";
+
+/*  */
+"kuknos_buyP_sumTitle" = "Sum:";
+
+/*  */
+"kuknos_buyP_sumCurrency" = "IRR";
+
+/*  */
+"kuknos_buyP_emptyAmount" = "Number of PMN can NOT be empty.";
+
+/*  */
+"kuknos_buyP_zeroAmount" = "Number of PMN can NOT be zero.";
+
+/*  */
+"kuknos_buyP_failS" = "The connection to server is lost. Please try again in a few moments.";
+
+/*  */
+"kuknos_buyP_failB" = "Bank payment servers are not responding. Please try again in a few moments.";
+
+/*  */
+"kuknos_buyP_currency" = "IRR";
+
+/*  */
+"kuknos_trade_origin" = "Selling*";
+
+/*  */
+"kuknos_trade_dest" = "Buying*";
+
+/*  */
+"kuknos_trade_btn" = "Submit";
+
+/*  */
+"kuknos_trade_server" = "Sending";
+
+/*  */
+"kuknos_trade_emptyOriginAmount" = "Selling Amount can NOT be empty.";
+
+/*  */
+"kuknos_trade_zeroOriginAmount" = "Selling Amount can NOT be zero.";
+
+/*  */
+"kuknos_trade_emptyDestAmount" = "Buying Amount can NOT be empty.";
+
+/*  */
+"kuknos_trade_zeroDestAmount" = "Buying Amount can NOT be zero.";
+
+/*  */
+"kuknos_trade_fail" = "The connection to server is lost. Please try again in a few moments.";
+
+/*  */
+"kuknos_trade_success" = "Trade request is successfully submitted.";
+
+/*  */
+"kuknos_trade_sell" = "Selling";
+
+/*  */
+"kuknos_trade_recieve" = "Receiving";
+
+/*  */
+"kuknos_trade_amount" = "Amount";
+
+/*  */
+"kuknos_trade_delete" = "";
+
+/*  */
+"kuknos_trade_date" = "Date";
+
+/*  */
+"kuknos_tradePager_trade" = "Trade";
+
+/*  */
+"kuknos_tradePager_active" = "Open Orders";
+
+/*  */
+"kuknos_tradePager_history" = "History";
+
+/*  */
+"kuknos_tradeDialogDelete_title" = "Delete Trade Transaction";
+
+/*  */
+"kuknos_tradeDialogDelete_message" = "Are you sure you want to delete this trade?";
+
+/*  */
+"kuknos_tradeDialogDelete_btn" = "OK";
+
+/*  */
+"kuknos_setting_copySeedKey" = "Copy Seed Key";
+
+/*  */
+"kuknos_setting_Directory" = "IGap - Kuknos";
+
+/*  */
+"kuknos_setting_fileName" = "Kuknos_Seed_Key.txt";
+
+/*  */
+"kuknos_setting_fileContent" = "Please be notified: this is the only key that you can use to access your account later.\n        Do NOT share it with others.";
+
+/*  */
+"kuknos_setting_copySKeyTitel" = "Save Seed Key";
+
+/*  */
+"kuknos_setting_copySKeyMessage" = "Be informed:\n -Your seed key is the only way to access your account.\n -Keep it Safe\n -Do NOT share it with others.\n it will be saved in your Download folder.";
+
+/*  */
+"kuknos_setting_copySKeyBtn" = "Save";
+
+/*  */
+"kuknos_setting_copySFailTitle" = "Fail";
+
+/*  */
+"kuknos_setting_copySFailBtn" = "OK";
+
+/*  */
+"kuknos_setting_copySFailReadM" = "Igap does not have READ permission.";
+
+/*  */
+"kuknos_setting_copySFailWriteM" = "Igap does not have WRITE permission.";
+
+/*  */
+"kuknos_setting_copySFailDir" = "Igap can not make necessary directory.";
+
+/*  */
+"kuknos_setting_copySFailWriteFile" = "Something went wrong. Please try again later.";
+
+/*  */
+"kuknos_setting_copySSuccessMessage" = "Your Seed key is ready and available in Download folder.";
+
+/*  */
+"kuknos_setting_copySSuccessTitle" = "Success";
+
+/*  */
+"kuknos_login_progress_load" = "Loading...";
+
+/*  */
+"kuknos_login_progress_next" = "Next";
+
+/*  */
+"kuknos_panel_addAsset" = "Add Asset";
+
+/*  */
+"kuknos_login_error_server_ErrorStr" = "Server Error: No response. please try again later.";
+
+/*  */
+"kuknos_RecoverySK_ErrorGenerateMn" = "Can NOT generate recovery key. make contact with support.";
+
+/*  */
+"kuknos_RecoverySK_ErrorGenerateKey" = "Can NOT generate seed key. make contact with support.";
+
+/*  */
+"kuknos_recieve_walletCopy" = "My Kuknos wallet address is:";
+
+/*  */
+"kuknos_recieve_error" = "Your Qr-Code can not be generated. make sure you are logged in.";
+
+/*  */
+"kuknos_panelStr_firstUser" = "Account was not found or it has no credits. Use Receive menu to get credits.";
+
+/*  */
+"Kuknos_transaction_error1" = "Transaction is not successful. Please try again later.";
+
+/*  */
+"Kuknos_transaction_error2" = "Server Error. Please try again later.";
+
+/*  */
+"Kuknos_transaction_error3" = "Transaction Sequence has NOT found. Please try again later.";
+
+/*  */
+"Kuknos_transaction_error4" = "Authentication Failed. Please try again later.";
+
+/*  */
+"Kuknos_transaction_error5" = "Destination account does NOT exist.";
+
+/*  */
+"Kuknos_transaction_error6" = "Transaction fee is not enough. Please try again later.";
+
+/*  */
+"Kuknos_transaction_error7" = "Your credit is not enough.";
+
+/*  */
+"Kuknos_transaction_error8" = "Something went wrong. Please try again later.";
+
+/*  */
+"kuknos_send_walletIDError2" = "Wallet Address is NOT valid.";
+
+/*  */
+"kuknos_wHistory_sent" = "Sent";
+
+/*  */
+"kuknos_wHistory_receive" = "Receive";
+
+/*  */
+"kuknos_wHistory_time" = "Time";
+
+/*  */
+"kuknos_wHistory_creatAccount" = "Create Account";
+
+/*  */
+"kuknos_AddAsset_Title" = "IGapy";
+
+/*  */
+"kuknos_AddAsset_SubTitle" = "IGap";
+
+/*  */
+"kuknos_AddAsset_Desc" = "Far far away, behind the word mountains, far from the\n        countries Vokalia and Consonantia, there live the blind texts. Separated they live in\n        Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river\n        named Duden flows by their place and supplies it with the necessary regelialia. It is a\n        paradisematic country, in which roasted parts of sentences fly into your mouth.";
+
+/*  */
+"kuknos_AddAsset_AddBTN" = "More Assets";
+
+/*  */
+"kuknos_AddAsset_title" = "Current Assets";
+
+/*  */
+"kuknos_trade_noItem" = "There is no record.";
+
+/*  */
+"kuknos_Restore_CheckPIN" = "I had set PIN code for my account before.";
+
+/*  */
+"kuknos_RestorePass_title" = "Enter your 4 digit PIN code";
+
+/*  */
+"kuknos_RestorePass_message" = "This 4 numeric PIN will be used to restore your secret key.";
+
+/*  */
+"kuknos_RestorePass_btn" = "Retrieve";
+
+/*  */
+"kuknos_Restore_checkBtn" = "Next";
+
+/*  */
+"kuknos_Entry_RTSeedKey_str" = "Retrieve With Seed Key";
+
+/*  */
+"kuknos_SignupInfo_friendlyTial" = "*igap.net";
+
+/*  */
+"kuknos_RecoverySK_CheckPIN" = "I want to set a PIN code for extra security.";
+
+/*  */
+"user_edited" = "User Edited";
+
+/*  */
+"edit_contact" = "Edit Contact";
+
+/*  */
+"default_theme_title" = "Default";
+
+/*  */
+"dark_theme_title" = "Dark";
+
+/*  */
+"red_theme_title" = "Red";
+
+/*  */
+"pink_theme_title" = "Pink";
+
+/*  */
+"purple_theme_title" = "Purple";
+
+/*  */
+"blue_theme_title" = "Blue";
+
+/*  */
+"green_theme_title" = "Green";
+
+/*  */
+"amber_theme_title" = "Yellow";
+
+/*  */
+"orange_theme_title" = "Orange";
+
+/*  */
+"gray_theme_title" = "Dark Gray";
+
+/*  */
+"error_ivand_limit_gift" = "Unfortunately, the set gifts have come to an end.";
+
+/*  */
+"referral_error_yourself" = "It is not possible to register your number as a referral.";
+
+/*  */
+"iland" = "iLand";
+
+/*  */
+"all_calls" = "Calls";
+
+/*  */
+"open_url" = "Open Link";
+
+/*  */
+"copied" = "Copied";
+
+/*  */
+"message_is_long" = "رسالتك طويلة جدًا. \n سيتم إخفاء الرسالة";
+
+/*  */
+"elecBill_Entry_lengthError" = "Bill ID must be 13 character.";
+
+/*  */
+"elecBill_Entry_barcodeError" = "Barcode scan failed. Please try again.";
+
+/*  */
+"elecBill_Entry_companyError" = "We only support Electricity Bill.";
+
+/*  */
+"elecBill_main_billTitle" = "Electricity Bill Inquiry and quick payment";
+
+/*  */
+"elecBill_main_billIDHint" = "Electricity Bill Number";
+
+/*  */
+"elecBill_main_billPay" = "Inquiry My Bill";
+
+/*  */
+"elecBill_main_billMyList" = "My Electricity Bills";
+
+/*  */
+"elecBill_main_billSearch" = "Search Bills";
+
+/*  */
+"elecBill_main_billBranchInfo" = "Electricity Branching Info";
+
+/*  */
+"elecBill_pay_billID" = "Bill ID";
+
+/*  */
+"elecBill_pay_billPayID" = "Bill Pay ID";
+
+/*  */
+"elecBill_pay_billPrice" = "Total due";
+
+/*  */
+"elecBill_pay_billTime" = "Time Limit";
+
+/*  */
+"elecBill_pay_billPay" = "Pay";
+
+/*  */
+"elecBill_pay_billBranchInfo" = "Electricity Branching Info";
+
+/*  */
+"elecBill_pay_billAddBillList" = "Add to my Bill's list";
+
+/*  */
+"elecBill_pay_billImage" = "Show bill's image";
+
+/*  */
+"elecBill_Entry_nameError" = "Bill's name can NOT be empty. for example: Home";
+
+/*  */
+"elecBill_Entry_billIDError" = "Bill's ID can NOT be empty.";
+
+/*  */
+"elecBill_Entry_phoneError" = "Your phone number can NOT be empty.";
+
+/*  */
+"elecBill_Entry_phoneLengthError" = "Your phone number must be 11 character.";
+
+/*  */
+"elecBill_Entry_phoneFormatError" = "Your phone number must starts with 09.";
+
+/*  */
+"elecBill_Entry_userIDError" = "Your national ID can NOT be empty.";
+
+/*  */
+"elecBill_Entry_userIDLengthError" = "Your national ID must be 10 character.";
+
+/*  */
+"elecBill_Entry_emailFormatError" = "Your Email format is wrong.";
+
+/*  */
+"elecBill_add_form" = "Please complete the form.";
+
+/*  */
+"elecBill_add_name" = "Bill's name *";
+
+/*  */
+"elecBill_add_billID" = "Bill's ID *";
+
+/*  */
+"elecBill_add_phone" = "Your Mobile Number *";
+
+/*  */
+"elecBill_add_UserNID" = "Your National ID *";
+
+/*  */
+"elecBill_add_Email" = "Your Email Address";
+
+/*  */
+"elecBill_add_addBtn" = "Add bill";
+
+/*  */
+"elecBill_cell_showDetail" = "Detail";
+
+/*  */
+"elecBill_cell_addNewBill" = "Add new bill";
+
+/*  */
+"elecBill_cell_deleteAccount" = "Delete Account";
+
+/*  */
+"elecBill_deleteBill_title" = "Delete Bill";
+
+/*  */
+"elecBill_deleteBill_desc" = "Are you sure to delete this bill?";
+
+/*  */
+"elecBill_deleteBill_pos" = "Delete";
+
+/*  */
+"elecBill_deleteBill_neg" = "No, don't delete.";
+
+/*  */
+"elecBill_deleteAccount_title" = "Delete Account";
+
+/*  */
+"elecBill_deleteAccount_desc" = "Are you sure to delete your account?";
+
+/*  */
+"elecBill_deleteAccount_pos" = "Delete";
+
+/*  */
+"elecBill_deleteAccount_neg" = "No, don't delete.";
+
+/*  */
+"elecBill_image_Directory" = "IGap - Electricity Bill";
+
+/*  */
+"elecBill_image_success" = "Download is complete.";
+
+/*  */
+"elecBill_image_fail" = "Download has failed.";
+
+/*  */
+"elecBill_image_open" = "Open File";
+
+/*  */
+"elecBill_image_close" = "Dismiss";
+
+/*  */
+"elecBill_edit_saveBtn" = "Save Changes";
+
+/*  */
+"elecBill_edit_Btn" = "Edit Bill";
+
+/*  */
+"elecBill_searchCell_billID" = "Bill ID";
+
+/*  */
+"elecBill_searchCell_CustomerName" = "Customer Name";
+
+/*  */
+"elecBill_searchCell_CustomerAddress" = "Customer Address";
+
+/*  */
+"elecBill_search_billSerial" = "Power meter's body number";
+
+/*  */
+"elecBill_search_billCompany" = "Electricity Provider Company";
+
+/*  */
+"elecBill_search_billSearch" = "Find my Bill";
+
+/*  */
+"elecBill_search_billSpinner" = "choose";
+
+/*  */
+"elecBill_error_billMissing" = "Not enough data to pay the bill.";
+
+/*  */
+"elecBill_error_bellowMin" = "Can't pay bills under 10,000 Rial.";
+
+/*  */
+"elecBill_error_MPLError" = "Can't connect to payment service.";
+
+/*  */
+"elecBill_error_title" = "Error";
+
+/*  */
+"elecBill_error_listView" = "There is no data to show. Please try again later.";
+
+/*  */
+"elecBill_error_company" = "You must choose a service provider.";
+
+/*  */
+"elecBill_error_billSerial" = "Bill serial can NOT be empty.";
+
+/*  */
+"elecBill_error_billSerialLength" = "Bill serial must be at least 7 character.";
+
+/*  */
+"elecBill_error_openCompanySpinner" = "Open";
+
+/*  */
+"elecBill_error_zeroResultSearch" = "result: No bills found.";
+
+/*  */
+"elecBill_error_zeroResultBill" = "No bills is registered under your name.";
+
+/*  */
+"elecBill_error_notPossible" = "This action is Not available at the moment.";
+
+/*  */
+"elecBill_success_title" = "Success";
+
+/*  */
+"elecBill_success_pay" = "Payment is successful.";
+
+/* <string name="news_latest">Latest</string>
+<string name="news_MHits">Most-Watched</string>
+<string name="news_ergent">Most_Read</string>
+<string name="news_emptyList">There is no item to show.
+ Pull down to refresh.</string>
+<string name="news_mainTitle">IGap News</string>
+<string name="news_serverError">Something went wrong. Please try again.</string>
+<string name="news_groupTitle">News Group</string>
+<string name="news_share">Share this news with your friends.</string>
+<string name="news_comment">Comments</string>
+<string name="news_write_comment">Write comment</string>
+<string name="news_related_news">Related News</string> */
+"news_MHits" = "پربازدیدترین";
+
+/*  */
+"news_comment" = "نظرات";
+
+/*  */
+"news_emptyList" = "هیچ موردی برای نمایش موجود نیست. \n برای بارگزاری مجدد صفحه را به سمت پایین بکشید.";
+
+/*  */
+"news_ergent" = "پربحث ترین";
+
+/*  */
+"news_groupTitle" = "گروه های خبری";
+
+/*  */
+"news_latest" = "آخرین خبرها";
+
+/*  */
+"news_mainTitle" = "اخبار آیگپ";
+
+/*  */
+"news_related_news" = "اخبار مرتبط";
+
+/*  */
+"news_share" = "اشتراک گذاری خبر";
+
+/*  */
+"news_write_comment" = "نظر شما چیست؟";
+
+/*  */
+"news_no_comment" = "هیچ نظری ثبت نشده است.";
+
+/*  */
+"news_serverError" = "Something went wrong. Please try again.";
+
+/*  */
+"news_add_comment_title" = "ثبت نظر";
+
+/*  */
+"news_add_comment_author" = "نام";
+
+/*  */
+"news_add_comment_email" = "ایمیل";
+
+/*  */
+"news_add_comment_comment" = "دیدگاه شما";
+
+/*  */
+"news_add_comment_submit" = "ثبت";
+
+/*  */
+"news_add_comment_load" = "در حال ارسال";
+
+/*  */
+"news_add_comment_success" = "ثبت شد.";
+
+/*  */
+"news_add_comment_fail" = "خطا!";
+
+/*  */
+"news_add_comment_successToast" = "نظر شما با موفقیت ثبت شد.";
+
+/*  */
+"news_add_comment_errorAuthor" = "لطفا نام خود را وارد کنید.";
+
+/*  */
+"news_add_comment_errorEmail" = "لطفا ایمیل خود را وارد کنید.";
+
+/*  */
+"news_add_comment_errorEmail2" = "فرمت ایمیل وارد شده صحیح نیست.";
+
+/*  */
+"news_add_comment_errorComment" = "لطفا نظر خود را وارد کنید.";
+"deleted_from_storage" = "Deleted from Storage";
+
+"auth_verify_mobile" = "Verification code";
+"via" = "Via";
+"sms_and_igap" = "SMS and iGAP";
+"dialog_done" = "Done";
+"your_profile" = "Your Profile";
+"unsuccess_operation" = "An error has occurred ; please try again later";
+"two_step_verficatiion_header" = "You have enabled Two-Step verification; so your account is protected with an additional password";
+"show_and_login_using_qr_title" = "Scan this QR Code using your other device to log in to your iGap Account";
+"search_placeholder" = "Search";
+"msg_security_two_step_verification_hint" = "In Order to retrieve your account,Please Answer the following security questions,after answering correctly your two step verification password will be disabled and need to be activated again";
+"security_question_one" = "Security Question One : ";
+"security_question_two" = "Security Question Two : ";
+"msg_answers_was_wrong" = "Your Answers are incorrect";
+"msg_answers_was_empty" = "Please Fill in all the fields";
+"new" = "New";
+"new_call" = "New Call";
+"hint" = "Hint";
+"check_all_the_fields" = "Please Check All The Fields";
+"minimum_number_of_letters" = "The number of letters is less than 5 character"
+"already_taken_username" = "The user name is already taken by another user"
+"msg_update_username_forbidden" = "You are not allowed to Update your username"

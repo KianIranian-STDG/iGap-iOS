@@ -25,7 +25,7 @@ class IGSetUserNickNameTableViewController: UITableViewController , UITextFieldD
         nickNameTextField.delegate = self
         self.tableView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localized, title: "SETTING_PAGE_ACCOUNT_NIKNAME".localized)
+        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: "SETTING_PAGE_ACCOUNT_NIKNAME".localized)
         navigationItem.navigationController = (self.navigationController as! IGNavigationController)
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -100,8 +100,8 @@ class IGSetUserNickNameTableViewController: UITableViewController , UITextFieldD
     
     func doneButtonClicked(){
         if nickNameTextField.text?.isEmpty == true {
-            let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "INPUT_VALUE_NOT_CORRECT".localized, preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "GLOBAL_OK".localized, style: UIAlertAction.Style.default, handler: nil))
+            let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "INPUT_VALUE_NOT_CORRECT".localized, preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: UIAlertAction.Style.default, handler: nil))
             alert.view.tintColor = UIColor.organizationalColor()
             self.present(alert, animated: true, completion: nil)
         } else {

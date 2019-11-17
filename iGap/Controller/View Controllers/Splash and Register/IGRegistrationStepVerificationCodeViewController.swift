@@ -46,7 +46,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
         delayTime = delayBeforeSendingAgaing
         
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localized, title: "AUTH_VERIFYMOBILE".localized)
+        navigaitonItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalNext.rawValue.localized, title: IGStringsManager.VerifyMobile.rawValue.localized)
         navigaitonItem.rightViewContainer?.addAction {
             self.didTapOnNext()
         }
@@ -97,25 +97,25 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
     }
 
     private func setTitleText(verificationMethod: IGVerificationCodeSendMethod){
-        var varificationMethodString = "VIA".localized
+        var varificationMethodString = IGStringsManager.Via.rawValue.localized + " "
         switch verificationMethod {
         case .sms:
-            varificationMethodString += "SMS".localized
+            varificationMethodString += IGStringsManager.SMS.rawValue.localized
             break
             
         case .call:
-            varificationMethodString += "SETTING_PS_CALL".localized
+            varificationMethodString += IGStringsManager.CALL.rawValue.localized
             break
             
         case .igap:
-            varificationMethodString += "IGAP".localized
+            varificationMethodString += IGStringsManager.iGap.rawValue.localized
             break
             
         case .both:
-            varificationMethodString += "SMSANDIGAP".localized
+            varificationMethodString += IGStringsManager.SmsAndIGap.rawValue.localized
             break
         }
-        self.titleLabel.text = "MSG_ENTER_VERFICATIONCODE_SENT".localized + "\n" + phoneNumber!.inLocalizedLanguage() + "\n" + varificationMethodString
+        self.titleLabel.text = IGStringsManager.VeridyCodeSentTo.rawValue.localized + "\n" + phoneNumber!.inLocalizedLanguage() + "\n" + varificationMethodString
     }
     
     
@@ -125,16 +125,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
             if IGGlobal.matches(for: self.codeRegex!, in: code) {
                 verifyUser()
             } else {
-                let alertVC = UIAlertController(title: "GLOBAL_WARNING".localized, message: "INVALID_VERFI_CODE", preferredStyle: .alert)
-                let ok = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: { (action) in
-                    
-                })
-//                UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-
-                alertVC.addAction(ok)
-                self.present(alertVC, animated: true, completion: {
-                    
-                })
+                IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.EnterValidVerification.rawValue.localized, cancelText:  IGStringsManager.GlobalClose.rawValue.localized)
             }
         }
     }
@@ -142,7 +133,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
     @objc func updateCountDown() {
         self.delayBeforeSendingAgaing! -= 1
         if self.delayBeforeSendingAgaing! > 0 {
-            let fixedText = "DIDNT_RECIEVE_CODE_WAIT".localized
+            let fixedText = IGStringsManager.ResendCode.rawValue.localized
             let remainingSeconds = self.delayBeforeSendingAgaing!%60
             let remainingMiuntes = self.delayBeforeSendingAgaing! / 60
             if remainingSeconds < 10 {
@@ -152,7 +143,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
             }
             self.perform(#selector(IGRegistrationStepVerificationCodeViewController.updateCountDown), with: nil, afterDelay: 1.0)
         } else {
-            retrySendingCodeLabel.text = "TAP_RESEND".localized
+            retrySendingCodeLabel.text = IGStringsManager.ResendCode.rawValue.localized
             let tap = UITapGestureRecognizer(target: self, action: #selector(IGRegistrationStepVerificationCodeViewController.tapFunction))
             retrySendingCodeLabel.isUserInteractionEnabled = true
             retrySendingCodeLabel.addGestureRecognizer(tap)
@@ -165,17 +156,17 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
     
     func manageGetRegisterationCode(){
         if callMethodSupport {
-            let alert = UIAlertController(title: nil, message: "RESEND_CODE_VIA".localized, preferredStyle: IGGlobal.detectAlertStyle())
+            let alert = UIAlertController(title: nil, message: IGStringsManager.ResendCode.rawValue.localized + " " + IGStringsManager.Via.rawValue.localized, preferredStyle: IGGlobal.detectAlertStyle())
             
-            let sendViaSms = UIAlertAction(title: "SMS".localized, style: .default, handler: { (action) in
+            let sendViaSms = UIAlertAction(title: IGStringsManager.SMS.rawValue.localized.localized, style: .default, handler: { (action) in
                 self.getRegisterToken(preferenceMethod: IGPUserRegister.IGPPreferenceMethod.verifyCodeSms)
             })
             
-            let sendViaCall = UIAlertAction(title: "SETTING_PS_CALL".localized, style: .default, handler: { (action) in
+            let sendViaCall = UIAlertAction(title: IGStringsManager.CALL.rawValue.localized, style: .default, handler: { (action) in
                 self.getRegisterToken(preferenceMethod: IGPUserRegister.IGPPreferenceMethod.verifyCodeCall)
             })
             
-            let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
+            let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
             
             alert.addAction(sendViaSms)
             alert.addAction(sendViaCall)
@@ -388,10 +379,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
                         }).error({ (errorCode, waitTime) in
                             DispatchQueue.main.async {
                                 self.hud.hide(animated: true)
-                                let alertVC = UIAlertController(title: "Error", message: "There was an error logging you in. Try again please.", preferredStyle: .alert)
-                                let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                alertVC.addAction(ok)
-                                self.present(alertVC, animated: true, completion: nil)
+                                IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                             }
                         }).send()
                     }
@@ -403,10 +391,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
         }).error({ (errorCode, waitTime) in
             DispatchQueue.main.async {
                 self.hud.hide(animated: true)
-                let alertVC = UIAlertController(title: "Error", message: "There was an error logging you in. Try again please.", preferredStyle: .alert)
-                let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alertVC.addAction(ok)
-                self.present(alertVC, animated: true, completion: nil)
+                IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             }
         }).send()
     }

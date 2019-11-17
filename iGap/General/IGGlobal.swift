@@ -1020,7 +1020,7 @@ extension UIViewController {
     
     func showAlert(title: String, message: String, action: (()->())? = nil, completion: (() -> Swift.Void)? = nil) {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default) { (alertAction) in
+        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default) { (alertAction) in
             if let action = action {
                 action()
             }

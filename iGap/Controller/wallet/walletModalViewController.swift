@@ -566,7 +566,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
     //
     //        if self.tfAmountToPy.text == "" ||
     //            self.tfAmountToPy.text?.inEnglishNumbers() == "0" {
-    //            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localized, message: "FILL_AMOUNT".localized, leftButtonTitle: "", rightButtonTitle: "GLOBAL_OK".localized,yesPressed: { yes in return;})
+    //            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: "FILL_AMOUNT".localized, leftButtonTitle: "", rightButtonTitle: IGStringsManager.GlobalOK.rawValue.localized,yesPressed: { yes in return;})
     //        }
     //
     //        else {
@@ -589,7 +589,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
             tfAmountToPy.resignFirstResponder()
             if (self.tfAmountToPy.text == "" && (self.tfAmountToPy!.placeholder == "" || self.tfAmountToPy!.placeholder == nil)) ||
                 self.tfAmountToPy.text?.inEnglishNumbersNew() == "0" {
-                SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localized, message: "FILL_AMOUNT".localized, leftButtonTitle: "", rightButtonTitle: "GLOBAL_OK".localized,yesPressed: { yes in return;})
+                SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: "FILL_AMOUNT".localized, leftButtonTitle: "", rightButtonTitle: IGStringsManager.GlobalOK.rawValue.localized,yesPressed: { yes in return;})
             }
             else {
                 if segmentPick.selectedSegmentIndex == 1 {
@@ -966,7 +966,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 SMLoading.hideLoadingPage()
 
                 let message = (err as! NSDictionary).value(forKey: "message") as! String
-                SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localized, message: message)
+                SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: message)
 
               
                 
@@ -1019,7 +1019,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                     SMLoading.showToast(viewcontroller: self, text: "error".localized)
                     SMLoading.hideLoadingPage()
                     let message = (err as! NSDictionary).value(forKey: "message") as! String
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localized, message: message)
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: IGStringsManager.GlobalWarning.rawValue.localized, message: message)
 
                 })
             }

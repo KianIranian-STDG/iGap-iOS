@@ -31,7 +31,7 @@
 "UN_MUTE" = "Unmute";
 "PINN" = "Pin To Top";
 "UNPINN" = "Unpin From Top";
-"GLOBAL_WARNING" = "Error";
+IGStringsManager.GlobalWarning.rawValue = "Error";
 "GLOBAL_OK" = "OK";
 "BTN_DELETE" = "Delete";
 "MORE" = "More";
@@ -66,7 +66,7 @@
 "NEW_MESSAGES" = "New Messages";
 "WHICH_TYPE_OF" = "Which type of conversation would you like to initiate?";
 "MY_CLOUD" = "Cloud";
-"UNSSUCCESS_OTP" = "An error has occurred ; please try again later";
+IGStringsManager.UnsuccessOperation.rawValue = "An error has occurred ; please try again later";
 "PLACE_HOLDER_SEARCH" = "Begin your search by tapping here";
 "GAME_ALERT_TITLE" = "Alert";
 "UPDATE" = "Update";

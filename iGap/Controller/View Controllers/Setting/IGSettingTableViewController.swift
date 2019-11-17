@@ -211,7 +211,7 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
             IGUserSessionLogoutRequest.sendRequest()
         })
         
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized , style:.cancel , handler: nil)
+        let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized , style:.cancel , handler: nil)
         logoutConfirmAlertView.addAction(logoutAction)
         logoutConfirmAlertView.addAction(cancelAction)
         let alertActions = logoutConfirmAlertView.actions
@@ -239,7 +239,7 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
                 self.deleteAccountProcess()
             
         })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized , style:.cancel , handler: {
+        let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized , style:.cancel , handler: {
             (alert: UIAlertAction) -> Void in
         })
         DeleteAccountAlertView.addAction(logoutAction)
@@ -261,7 +261,7 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     private func deleteAccountProcess() {
 
-        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "TTL_ATTENTION".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "SURE_DELETE".localized,doneText: "GLOBAL_OK".localized ,cancelText: "GLOBAL_CLOSE".localized,cancel: {
+        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "TTL_ATTENTION".localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: "SURE_DELETE".localized,doneText: IGStringsManager.GlobalOK.rawValue.localized ,cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel: {
             self.dismiss(animated: true, completion: nil)
         }, done: {
             self.dismiss(animated: true, completion: nil)

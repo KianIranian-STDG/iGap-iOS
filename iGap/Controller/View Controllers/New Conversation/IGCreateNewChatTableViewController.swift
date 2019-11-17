@@ -23,7 +23,7 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
             
             let searchController = UISearchController(searchResultsController: nil)
             searchController.searchBar.placeholder = ""
-            searchController.searchBar.setValue("CANCEL_BTN".localized, forKey: "cancelButtonText")
+            searchController.searchBar.setValue(IGStringsManager.GlobalCancel.rawValue.localized, forKey: "cancelButtonText")
             
             let gradient = CAGradientLayer()
             let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
@@ -108,7 +108,7 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         sections = fillContacts()
 //        creatHeader()
         
-        self.initNavigationBar(title: "NEW".localized) { }
+        self.initNavigationBar(title: IGStringsManager.GlobalNew.rawValue.localized) { }
     }
 
     func creatHeader() {
@@ -151,8 +151,8 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         lblChannel.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
         lblGroup.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
         
-        lblChannel.text = "NEW_CHANNEL".localized
-        lblGroup.text = "NEW_GROUP".localized
+        lblChannel.text = IGStringsManager.NewChannel.rawValue.localized
+        lblGroup.text = IGStringsManager.NewGroup.rawValue.localized
         lblChannel.textAlignment = lblChannel.localizedDirection
         lblGroup.textAlignment = lblGroup.localizedDirection
         //MARK:- add buttons and labels
@@ -240,12 +240,12 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         }
         
         
-        var title = "NEW_CONVERSATION".localized
+        var title = IGStringsManager.NewChat.rawValue.localized
         if forceCall {
-            title = "NEW_CALL".localized
+            title = IGStringsManager.NewCall.rawValue.localized
         }
         navigationItem.addNavigationBackItem()
-//        navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "GLOBAL_CLOSE".localized, title: title)
+//        navigationItem.addModalViewItems(leftItemText: nil, rightItemText: IGStringsManager.GlobalClose.rawValue.localized, title: title)
 //
 //        // navigationItem.setChatListsNavigationItems()
 //        navigationItem.rightViewContainer?.addAction {
@@ -386,8 +386,8 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
             }).error({ (errorCode, waitTime) in
                 DispatchQueue.main.async {
                     IGGlobal.prgHide()
-                    let alertC = UIAlertController(title: "GLOBAL_WARNING".localized, message: "ERROR_RETRY".localized, preferredStyle: .alert)
-                    let cancel = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let alertC = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "ERROR_RETRY".localized, preferredStyle: .alert)
+                    let cancel = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alertC.addAction(cancel)
                     self.present(alertC, animated: true, completion: nil)
                 }
@@ -415,7 +415,7 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
             }
 
             if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
-                searchBarCancelButton.setTitle("CANCEL_BTN".localized, for: .normal)
+                searchBarCancelButton.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
                 searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
                 searchBarCancelButton.tintColor = UIColor.white
             }
@@ -423,7 +423,7 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
             if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
                 placeHolderInsideSearchField.textColor = UIColor.white
                 placeHolderInsideSearchField.textAlignment = .center
-                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localized
+                placeHolderInsideSearchField.text = IGStringsManager.SearchPlaceHolder.rawValue.localized
                 if let backgroundview = textField.subviews.first {
                     placeHolderInsideSearchField.center = backgroundview.center
                 }

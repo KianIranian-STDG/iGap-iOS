@@ -46,14 +46,14 @@ class IGHelperMediaPicker {
         /************************* manage strings *************************/
         config.wordings.libraryTitle = "GALLERY".localized
         config.wordings.cameraTitle = "CAMERA".localized
-        config.wordings.next = "NEXT_BTN".localized
+        config.wordings.next = IGStringsManager.GlobalNext.rawValue.localized
         config.wordings.albumsTitle = "ALBUMS".localized
-        config.wordings.cancel = "CANCEL_BTN".localized
+        config.wordings.cancel = IGStringsManager.GlobalCancel.rawValue.localized
         config.wordings.cover = "COVER".localized
         config.wordings.crop = "CROP".localized
-        config.wordings.done = "GLOBAL_OK".localized
+        config.wordings.done = IGStringsManager.GlobalOK.rawValue.localized
         config.wordings.filter = "FILTER".localized
-        config.wordings.ok = "GLOBAL_OK".localized
+        config.wordings.ok = IGStringsManager.GlobalOK.rawValue.localized
         config.wordings.processing = "PROCESSING".localized
         config.wordings.save = "SAVE".localized
         config.wordings.trim = "TRIM".localized
@@ -63,7 +63,7 @@ class IGHelperMediaPicker {
         config.wordings.videoDurationPopup.title = ""
         config.wordings.videoDurationPopup.tooLongMessage = ""
         config.wordings.videoDurationPopup.tooShortMessage = ""
-        config.wordings.permissionPopup.cancel = "CANCEL_BTN".localized
+        config.wordings.permissionPopup.cancel = IGStringsManager.GlobalCancel.rawValue.localized
         config.wordings.permissionPopup.grantPermission = ""
         config.wordings.permissionPopup.message = ""
         config.wordings.permissionPopup.title = ""

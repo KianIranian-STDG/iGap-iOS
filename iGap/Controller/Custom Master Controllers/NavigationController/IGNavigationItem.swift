@@ -56,11 +56,11 @@ class IGNavigationItem: UINavigationItem {
     
     //MARK: - Connecting
     func setNavigationItemForConnecting() {
-        setNavigationItemWithCenterActivityIndicator(text: "CONNECTING".localized)
+        setNavigationItemWithCenterActivityIndicator(text: IGStringsManager.GlobalConnecting.rawValue.localized)
     }
     
     func setNavigationItemForWaitingForNetwork() {
-        setNavigationItemWithCenterActivityIndicator(text: "WAITING_NETWORK".localized)
+        setNavigationItemWithCenterActivityIndicator(text: IGStringsManager.GlobalWaitingConnection.rawValue.localized)
     }
     
     // contacts loadings

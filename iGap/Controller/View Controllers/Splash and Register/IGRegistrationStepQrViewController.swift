@@ -27,7 +27,7 @@ class IGRegistrationStepQrViewController: BaseViewController {
 //        IGGlobal.setLanguage()
 
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "LOGIN_USING_QR".localized)
+        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.LoginUsingQr.rawValue.localized)
         
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
@@ -75,7 +75,7 @@ class IGRegistrationStepQrViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        lblHEader.text = "SHOW_AND_LOGIN_USING_QR".localized
+        lblHEader.text = IGStringsManager.LoginUsingQRTitle.rawValue.localized
 
         getNewQrCode()
 //        IGGlobal.setLanguage()
@@ -141,10 +141,8 @@ class IGRegistrationStepQrViewController: BaseViewController {
                     }).error({ (errorCode, waitTime) in
                         DispatchQueue.main.async {
                             hud.hide(animated: true)
-                            let alertVC = UIAlertController(title: "Error", message: "There was an error logging you in. Try again please.", preferredStyle: .alert)
-                            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            alertVC.addAction(ok)
-                            self.present(alertVC, animated: true, completion: nil)
+                            
+                            IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                         }
                     }).send()
                 default:

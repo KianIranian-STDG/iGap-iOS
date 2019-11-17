@@ -37,7 +37,7 @@ class DeeplinkNavigator {
                             self.proceedToDeeplink(type)
                         } else if errorCode == .clientGetRoomNotFound {
                             
-                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHAT_ROOM_NOT_FOUND".localized, cancelText: "GLOBAL_CLOSE".localized)
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "CHAT_ROOM_NOT_FOUND".localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                         }
                     }
                 }).send()
@@ -97,7 +97,7 @@ class DeeplinkNavigator {
             IGGlobal.prgHide()
             if isSuccess {
                 guard let paymentStatus = paymentStatus else {
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                     return
                 }
                 if paymentView.payToken != nil {
@@ -109,7 +109,7 @@ class DeeplinkNavigator {
                 
             } else {
                 paymentView.hideView()
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "UNSSUCCESS_OTP".localized, cancelText: "GLOBAL_CLOSE".localized)
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UnsuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             }
         }
     }

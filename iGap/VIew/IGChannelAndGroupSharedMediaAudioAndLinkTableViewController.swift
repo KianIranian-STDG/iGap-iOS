@@ -156,7 +156,7 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: BaseTableView
                 case .timeout:
                     DispatchQueue.main.async {
                         let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.isFetchingFiles = false
                         self.present(alert, animated: true, completion: nil)
@@ -217,13 +217,13 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: BaseTableView
                 switch errorCode {
                 case .timeout:
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     
                 case .clientJoinByInviteLinkForbidden:
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localized, message: "GROUP_DOES_NOT_EXIST".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: "GROUP_DOES_NOT_EXIST".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
@@ -246,10 +246,10 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: BaseTableView
                 self.hud.hide(animated: true)
                 if let clinetCheckInvitedlink = protoResponse as? IGPClientCheckInviteLinkResponse {
                     let alert = UIAlertController(title: "iGap", message: "ARE_U_SURE_TO_JOIN".localized + " \(clinetCheckInvitedlink.igpRoom.igpTitle)?", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: { (action) in
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (action) in
                         self.joinRoombyInvitedLink(room:clinetCheckInvitedlink.igpRoom, invitedToken: invitedLink)
                     })
-                    let cancelAction = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
+                    let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
                     
                     alert.addAction(okAction)
                     alert.addAction(cancelAction)
@@ -262,7 +262,7 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: BaseTableView
                 case .timeout:
                     
                     let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
                     
                     self.present(alert, animated: true, completion: nil)
@@ -284,7 +284,7 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: BaseTableView
         
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "SUCCESS".localized, message: "U_JOINED".localized + " \(beforeString)" + "TO".localized + " \(room.title!)!", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
+            let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
             let openNow = UIAlertAction(title: "OPEN_NOW".localized, style: .default, handler: { (action) in
                 let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 chatPage.room = room

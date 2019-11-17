@@ -105,7 +105,7 @@ class IGSettingChatWallpaperTableViewController: BaseTableViewController, UINavi
             IGFactory.shared.setWallpaperFile(wallpaper: nil)
             IGFactory.shared.setWallpaperSolidColor(solidColor: nil)
         })
-        let cancel = UIAlertAction(title: "CANCEL_BTN".localized, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
         
         alert.addAction(resetWallpaper)
         alert.addAction(cancel)
