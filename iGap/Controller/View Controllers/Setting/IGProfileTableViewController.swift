@@ -1098,19 +1098,15 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                         if let buildV = Int32(buildVersion) {
                             if buildV < response.igpLastVersion {
                                 
-                                let str = /*"<p style=\"text-align: justify;\"><strong>تست</strong></p>\n<p style=\"text-align: justify;\">تست ۲</p>\n<p style=\"text-align: justify;\">تست ۳</p>\n<p style=\"text-align: justify;\">تست ۴</p>\n<p style=\"text-align: justify;\">تست ۵</p>\n<p style=\"text-align: justify;\">تست ۶</p>\n<p style=\"text-align: justify;\">تست ۷</p>\n<p style=\"text-align: justify;\">تست ۷</p>\n<p style=\"text-align: justify;\">تست ۸</p>\n<p style=\"text-align: justify;\">تست ۸</p>\n<p style=\"text-align: justify;\">تست ۹</p>".html2String*/  response.igpBody.html2String
-                                print(str)
-                                
-                                IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "CHECK_FOR_UPDATE".localized, showDoneButton: true, showCancelButton: true, message: str, doneText: "UPDATE".localized, cancelText: "CANCEL_BTN".localized, cancel: {
+                                let str = response.igpBody.html2String
+                                IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "check_update_title".localized, showDoneButton: true, showCancelButton: true, message: str, doneText: "igap_update".localized, cancelText: "CANCEL_BTN".localized, cancel: {
                                     
                                 }, done: {
-                                    
                                     UIApplication.shared.open(URL(string: "http://d.igap.net/update")!, options: [:], completionHandler: nil)
-                                    
                                 })
                             } else {
                                 // you are update
-                                IGHelperAlert.shared.showCustomAlert(view: self, alertType: .warning, title: nil, showDoneButton: false, showCancelButton: true, message: "YOU_ARE_UP_TO_DATE".localized, cancelText: "CANCEL_BTN".localized, cancel: {
+                                IGHelperAlert.shared.showCustomAlert(view: self, alertType: .warning, title: nil, showDoneButton: false, showCancelButton: true, message: "updated_version_title".localized, cancelText: "CANCEL_BTN".localized, cancel: {
                                     
                                 }, done: {
                                     

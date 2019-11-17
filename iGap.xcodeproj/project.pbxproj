@@ -301,6 +301,7 @@
 		D6081912234DF2D5009C2A38 /* IGRealmAuthorUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6062F9B234DF0CC0007EF53 /* IGRealmAuthorUser.swift */; };
 		D60FF283234091310012ECF2 /* IGPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60FF282234091310012ECF2 /* IGPlayer.swift */; };
 		D617C711234CC69300A59EB3 /* IGWriteFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D617C710234CC69300A59EB3 /* IGWriteFileManager.swift */; };
+		D61FB6F02381421E00EA3694 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */; };
 		D62214A0235871E5000E48B1 /* IGRealmMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = D622149F23586DD2000E48B1 /* IGRealmMember.swift */; };
 		D629462D2349DA0600FB5A08 /* IGHelperMediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D629462C2349DA0600FB5A08 /* IGHelperMediaPicker.swift */; };
 		D629462F2349E1B700FB5A08 /* YPImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D629462E2349E1B700FB5A08 /* YPImagePicker.framework */; };
@@ -820,7 +821,6 @@
 		8E2CCD09237ED259000C3B3F /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8E2CCD0B237ED630000C3B3F /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/ImageLocalizable.strings; sourceTree = "<group>"; };
 		8E2CCD0D237ED644000C3B3F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ImageLocalizable.strings; sourceTree = "<group>"; };
-		8E2CCD18237ED6B1000C3B3F /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/ImageLocalizable.strings; sourceTree = "<group>"; };
 		8E2CCD19237EEED2000C3B3F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ImageLocalizable.strings; sourceTree = "<group>"; };
 		8E2CCD1A237EEED2000C3B3F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/TabBarLocalizable.strings; sourceTree = "<group>"; };
 		8E2CCD1B237EEED2000C3B3F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1100,6 +1100,7 @@
 		D6062F9B234DF0CC0007EF53 /* IGRealmAuthorUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmAuthorUser.swift; sourceTree = "<group>"; };
 		D60FF282234091310012ECF2 /* IGPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPlayer.swift; sourceTree = "<group>"; };
 		D617C710234CC69300A59EB3 /* IGWriteFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGWriteFileManager.swift; sourceTree = "<group>"; };
+		D61FB6F12381429D00EA3694 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/ImageLocalizable.strings; sourceTree = "<group>"; };
 		D622149F23586DD2000E48B1 /* IGRealmMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmMember.swift; sourceTree = "<group>"; };
 		D629462C2349DA0600FB5A08 /* IGHelperMediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperMediaPicker.swift; sourceTree = "<group>"; };
 		D629462E2349E1B700FB5A08 /* YPImagePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YPImagePicker.framework; path = Carthage/Build/iOS/YPImagePicker.framework; sourceTree = "<group>"; };
@@ -3492,6 +3493,7 @@
 				FA99FF712235428A009035DF /* DashboardCell5.xib in Resources */,
 				FA5656C3204AB18F00DB46F0 /* igap_ringing.mp3 in Resources */,
 				FA33063B1F445AE80096031A /* IRANSans_Bold.ttf in Resources */,
+				D61FB6F02381421E00EA3694 /* Localizable.strings in Resources */,
 				FA5656BD204AB18F00DB46F0 /* igap_connect.mp3 in Resources */,
 				8ECCA1F022B8B9AB00D3A734 /* IGMultiForwardModal.xib in Resources */,
 				FA3306361F445A570096031A /* IRANSans.ttf in Resources */,
@@ -4219,8 +4221,8 @@
 			children = (
 				8E2CCD0B237ED630000C3B3F /* fa */,
 				8E2CCD0D237ED644000C3B3F /* en */,
-				8E2CCD18237ED6B1000C3B3F /* ar */,
 				8E2CCD19237EEED2000C3B3F /* fr */,
+				D61FB6F12381429D00EA3694 /* ar */,
 			);
 			name = ImageLocalizable.strings;
 			sourceTree = "<group>";

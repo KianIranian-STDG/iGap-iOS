@@ -541,7 +541,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             case .update(_, let deletions, let insertions, let modifications):
                 // Query messages have changed, so apply them to the TableView
                 self.tableView.beginUpdates()
-                print("XXXX" + "\(self.rooms!.count)")
                 
                 if insertions.count != 0 {
                     print(insertions)

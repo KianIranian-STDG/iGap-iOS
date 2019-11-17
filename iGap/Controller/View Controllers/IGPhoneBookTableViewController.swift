@@ -263,7 +263,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 make.width.greaterThanOrEqualTo(20)
             }
             
-            txtInviteContact.text = "SETTING_PAGE_INVITE_FRIENDS".localized
+            txtInviteContact.text = "Invite_Friends".localized
         }
         
         let searchBarView = searchController
