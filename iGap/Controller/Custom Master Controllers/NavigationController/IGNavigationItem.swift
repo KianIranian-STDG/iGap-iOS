@@ -63,7 +63,6 @@ class IGNavigationItem: UINavigationItem {
         setNavigationItemWithCenterActivityIndicator(text: IGStringsManager.GlobalWaitingConnection.rawValue.localized)
     }
     
-    // contacts loadings
     func setNavigationItemForSyncingContactsStatus(text: String) {
         setNavigationItemWithCenterActivityIndicator(text: text)
     }
