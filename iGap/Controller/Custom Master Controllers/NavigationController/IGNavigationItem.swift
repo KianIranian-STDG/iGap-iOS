@@ -851,6 +851,7 @@ class IGNavigationItem: UINavigationItem {
             
             callView.addAction {
                 DispatchQueue.main.async {
+                    UIApplication.topViewController()!.view.endEditing(true)
                     (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: userId, isIncommmingCall: false)
                 }
             }

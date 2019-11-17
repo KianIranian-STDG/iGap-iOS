@@ -129,32 +129,25 @@ class IGHelperUIViewView {
     }
     private func showCallPage(userId: Int64 ,userName: String? = nil, isIncommmingCall: Bool = true, sdp: String? = nil, type:IGPSignalingOffer.IGPType = .voiceCalling, mode:String? = nil, showAlert: Bool = true,window : UIWindow,lastRecordedTime : Int? = nil){
         
-            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let callPage = storyboard.instantiateViewController(withIdentifier: "IGCall") as! IGCall
-            //Mark:- show Display Name of caller User if Nil we are not in terminate State
-            callPage.callerName = userName ?? IGStringsManager.Unknown.rawValue.localized
-            //End
-            callPage.userId = userId
-            callPage.isIncommingReturnCall = isIncommmingCall
-            callPage.callType = type
-            callPage.callSdp = sdp
-            callPage.recordedTime = lastRecordedTime! + tempTimer
-        print("|||||||||TIMER||||||||||")
-        print(tempTimer)
-        print(lastRecordedTime)
-        print("|||||||||TIMER||||||||||")
-            callPage.isReturnCall = true
-            var currentController = window.rootViewController
-            if let presentedController = currentController!.presentedViewController {
-                currentController = presentedController
-            }
-            self.remove()
-
-            callPage.modalPresentationStyle = .fullScreen
-            currentController!.present(callPage, animated: true, completion: nil)
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let callPage = storyboard.instantiateViewController(withIdentifier: "IGCall") as! IGCall
+        //Mark:- show Display Name of caller User if Nil we are not in terminate State
+        callPage.callerName = userName ?? IGStringsManager.Unknown.rawValue.localized
+        //End
+        callPage.userId = userId
+        callPage.isIncommingReturnCall = isIncommmingCall
+        callPage.callType = type
+        callPage.callSdp = sdp
+        callPage.recordedTime = lastRecordedTime! + tempTimer
+        callPage.isReturnCall = true
+        var currentController = window.rootViewController
+        if let presentedController = currentController!.presentedViewController {
+            currentController = presentedController
+        }
+        self.remove()
         
-
-        
+        callPage.modalPresentationStyle = .fullScreen
+        currentController!.present(callPage, animated: true, completion: nil)
     }
     class myBackViewGesture: UITapGestureRecognizer {
         var userID = Int64()
