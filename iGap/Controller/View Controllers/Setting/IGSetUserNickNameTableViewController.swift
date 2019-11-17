@@ -25,7 +25,7 @@ class IGSetUserNickNameTableViewController: UITableViewController , UITextFieldD
         nickNameTextField.delegate = self
         self.tableView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: "SETTING_PAGE_ACCOUNT_NIKNAME".localized)
+        navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalDone.rawValue.localized, title: IGStringsManager.Username.rawValue.localized)
         navigationItem.navigationController = (self.navigationController as! IGNavigationController)
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self

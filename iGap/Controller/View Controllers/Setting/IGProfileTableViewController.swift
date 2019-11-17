@@ -342,34 +342,34 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     
     func initChangeLang() {
-        lblName.text = "NAME".localized
-        lblUserName.text = "SETTING_PAGE_ACCOUNT_USERNAME".localized
+        lblName.text = IGStringsManager.FirstName.rawValue.localized
+        lblUserName.text = IGStringsManager.Username.rawValue.localized
         lblBioInner.text = IGStringsManager.Bio.rawValue.localized
-        lblReferralInner.text = "SETTING_PAGE_ACCOUNT_REFERRAL".localized
+        lblReferralInner.text = IGStringsManager.Referral.rawValue.localized
         lblBioInner.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
         lblReferralInner.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
 
-        btnName.setTitle("NAME".localized, for: .normal)
+        btnName.setTitle(IGStringsManager.FirstName.rawValue.localized, for: .normal)
         lblCloud.text = IGStringsManager.Cloud.rawValue.localized
         lblSetting.text = IGStringsManager.Settings.rawValue.localized
         lblNew.text = IGStringsManager.GlobalNew.rawValue.localized
-        lblCredit.text = "CREDITS".localized
-        lblScore.text = "SETTING_PAGE_ACCOUNT_SCORE_PAGE".localized
+        lblCredit.text = IGStringsManager.Credit.rawValue.localized
+        lblScore.text = IGStringsManager.YourScore.rawValue.localized
         lblScoreAmount.text = "..."
         lblInviteF.text = IGStringsManager.InviteFriends.rawValue.localized
         lblQR.text = IGStringsManager.QrCodeScanner.rawValue.localized
-        lblNearby.text = "SETTING_NEARBY".localized
-        lblFaq.text = "FAQ".localized
+        lblNearby.text = IGStringsManager.Nearby.rawValue.localized
+        lblFaq.text = IGStringsManager.Faq.rawValue.localized
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-            versionTitleLbl.text = "SETTING_PAGE_FOOTER_VERSION".localized
-            versionNumLbl.text = "\(version)".inLocalizedLanguage()
+            //CHERRY_PICK
+            //lblVersion.text = IGStringsManager.IgapVer.rawValue.localized + " \(version)".inLocalizedLanguage()
         }
         lblEmailInner.text = IGStringsManager.Email.rawValue.localized
-        lblMenGender.text = "MEN_GENDER".localized
+        lblMenGender.text = IGStringsManager.Male.rawValue.localized
         lblMenGender.font = UIFont.igFont(ofSize: 15)
         lblWomenGender.font = UIFont.igFont(ofSize: 15)
-        lblWomenGender.text = "WOMEN_GENDER".localized
-        lblGenderInner.text = "GENDER".localized
+        lblWomenGender.text = IGStringsManager.Female.rawValue.localized
+        lblGenderInner.text = IGStringsManager.Gender.rawValue.localized
     }
     
     func textManagment() {
@@ -1477,7 +1477,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             self.pickImage(screens: [.library])
         })
         
-        let deleteAction = UIAlertAction(title: "DELETE_MAIN_AVATAR".localized, style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
+        let deleteAction = UIAlertAction(title: IGStringsManager.DeletePhoto.rawValue.localized, style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
             self.deleteAvatar()
         })
         

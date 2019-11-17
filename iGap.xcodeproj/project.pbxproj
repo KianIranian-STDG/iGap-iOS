@@ -325,11 +325,7 @@
 		FA0953071E1B87E40043ED3F /* IGSettingStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA0953061E1B87E40043ED3F /* IGSettingStoryboard.storyboard */; };
 		FA0953411E1B97700043ED3F /* IGActiveSessionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09530F1E1B97700043ED3F /* IGActiveSessionObject.swift */; };
 		FA0953421E1B97700043ED3F /* IGActiveSessionsParentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953101E1B97700043ED3F /* IGActiveSessionsParentCell.swift */; };
-		FA0953431E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953111E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift */; };
-		FA0953451E1B97700043ED3F /* IGDeleteAccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953131E1B97700043ED3F /* IGDeleteAccountTableViewController.swift */; };
-		FA0953461E1B97700043ED3F /* iGPhoneNumberPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953141E1B97700043ED3F /* iGPhoneNumberPageViewController.swift */; };
 		FA0953471E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953151E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift */; };
-		FA09534A1E1B97700043ED3F /* IGSettingAboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953181E1B97700043ED3F /* IGSettingAboutTableViewController.swift */; };
 		FA09534B1E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953191E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift */; };
 		FA09534C1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09531A1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift */; };
 		FA09534D1E1B97700043ED3F /* IGSettingAddContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09531B1E1B97700043ED3F /* IGSettingAddContactTableViewController.swift */; };
@@ -1123,12 +1119,8 @@
 		FA0953061E1B87E40043ED3F /* IGSettingStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IGSettingStoryboard.storyboard; sourceTree = "<group>"; };
 		FA09530F1E1B97700043ED3F /* IGActiveSessionObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGActiveSessionObject.swift; sourceTree = "<group>"; };
 		FA0953101E1B97700043ED3F /* IGActiveSessionsParentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGActiveSessionsParentCell.swift; sourceTree = "<group>"; };
-		FA0953111E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDeleteAccountConfirmationTableViewController.swift; sourceTree = "<group>"; };
-		FA0953131E1B97700043ED3F /* IGDeleteAccountTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDeleteAccountTableViewController.swift; sourceTree = "<group>"; };
-		FA0953141E1B97700043ED3F /* iGPhoneNumberPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iGPhoneNumberPageViewController.swift; sourceTree = "<group>"; };
 		FA0953151E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGPrivacyAndSecurityWhoCanSeeTableViewController.swift; sourceTree = "<group>"; };
 		FA0953161E1B97700043ED3F /* iGSetEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iGSetEmailTableViewController.swift; sourceTree = "<group>"; };
-		FA0953181E1B97700043ED3F /* IGSettingAboutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingAboutTableViewController.swift; sourceTree = "<group>"; };
 		FA0953191E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingAccountPhoneNumberTableViewController.swift; sourceTree = "<group>"; };
 		FA09531A1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingAccountUsernameTableViewController.swift; sourceTree = "<group>"; };
 		FA09531B1E1B97700043ED3F /* IGSettingAddContactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingAddContactTableViewController.swift; sourceTree = "<group>"; };
@@ -2207,15 +2199,11 @@
 				FAA9DFAE1F4B1B330076A22F /* TwoStep Verification */,
 				FA09530F1E1B97700043ED3F /* IGActiveSessionObject.swift */,
 				FA0953101E1B97700043ED3F /* IGActiveSessionsParentCell.swift */,
-				FA0953111E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift */,
-				FA0953131E1B97700043ED3F /* IGDeleteAccountTableViewController.swift */,
 				FA82523F21DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift */,
-				FA0953141E1B97700043ED3F /* iGPhoneNumberPageViewController.swift */,
 				FA0953151E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift */,
 				8E5FBCA6231CE6DC0069D4F2 /* IGProfileTableViewController.swift */,
 				FA0953161E1B97700043ED3F /* iGSetEmailTableViewController.swift */,
 				8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */,
-				FA0953181E1B97700043ED3F /* IGSettingAboutTableViewController.swift */,
 				FA0953191E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift */,
 				FA09531A1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift */,
 				FA09531B1E1B97700043ED3F /* IGSettingAddContactTableViewController.swift */,
@@ -3743,7 +3731,6 @@
 				FABE0A7021D3BDBE009C46D7 /* IGCallAudioManager.swift in Sources */,
 				FA63BAAB1DD70E9C000B60AD /* IGRequestFile.swift in Sources */,
 				FAA9DFB81F4B1CC10076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationChangeEmailTableViewController.swift in Sources */,
-				FA0953451E1B97700043ED3F /* IGDeleteAccountTableViewController.swift in Sources */,
 				8E03174A2378472700D5A2B5 /* IGStructBillByDevice.swift in Sources */,
 				FA0953601E1B97700043ED3F /* IGSettingContactsBlockListTableViewCell.swift in Sources */,
 				8EBF54F822D9B60D00834E6A /* BeautifulBarChartPresenter.swift in Sources */,
@@ -3802,7 +3789,6 @@
 				8ED97D7622E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift in Sources */,
 				FAA65CFB220AC0280006994A /* StickerCell.swift in Sources */,
 				8EBF550922D9B85400834E6A /* DahsboardCell8.swift in Sources */,
-				FA0953431E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift in Sources */,
 				FA76598922902ACE006322A3 /* INSPhotosViewController.swift in Sources */,
 				FA77E0FF2261EBCB008D6D25 /* DiscoveryObserver.swift in Sources */,
 				FA09538A1E1B97E20043ED3F /* IGCreateNewGroupTableViewController.swift in Sources */,
@@ -3919,7 +3905,6 @@
 				FA09534F1E1B97700043ED3F /* IGSettingChatCatchTableViewCell.swift in Sources */,
 				FA0953571E1B97700043ED3F /* IGSettingChatWallpaperLibraryCollectionViewCell.swift in Sources */,
 				8EE7FC97225DE16100B6C2C3 /* SMTextFieldAlertViewController.swift in Sources */,
-				FA09534A1E1B97700043ED3F /* IGSettingAboutTableViewController.swift in Sources */,
 				FAD580881DDC4C6900A242DE /* IGMessageCollectionViewFlowLayout.swift in Sources */,
 				FA63BAB11DD70F36000B60AD /* IGRequestClient.swift in Sources */,
 				FA50A8D01DD35EFD00C6D2EA /* IGRegistrationStepTermsViewController.swift in Sources */,
@@ -4023,7 +4008,6 @@
 				FA09536B1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController.swift in Sources */,
 				8E0405C92371C7F000516DEB /* IGElecBillBranchingInfoTableViewController.swift in Sources */,
 				8E5FBCA3231BD7440069D4F2 /* IGLocalizationManager.swift in Sources */,
-				FA0953461E1B97700043ED3F /* iGPhoneNumberPageViewController.swift in Sources */,
 				8E599D812328C59600D75376 /* UICollectionViewCustom.swift in Sources */,
 				FA99FF74223544B2009035DF /* DashboardCell6.swift in Sources */,
 				8E83CAA223408E8600A8CF65 /* ThemeColors.swift in Sources */,

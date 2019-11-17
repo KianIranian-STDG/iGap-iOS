@@ -137,6 +137,7 @@ enum IGStringsManager : String {
     case ChannelInfo = "channel_info"
     case ManageMembers = "show_member"
     case Username = "st_username"
+    case Referral = "ra_title"
     case DeleteChannel = "channel_delete"
     case GroupName = "group_name"
     case GroupDesc = "group_description"
@@ -534,6 +535,10 @@ enum IGStringsManager : String {
     case AddSticker = "add_sticker"
     
     //MARK: -Setting
+    case Gender = "st_Gander"
+    case IgapVer = "iGap_version"
+    case Faq = "faq"
+    case Credit = "credit"
     case WaitUntil = "Toast_time_wait"
     case EnterCodeHere = "enter_the_code_here"
     case changePass = "Change_password"

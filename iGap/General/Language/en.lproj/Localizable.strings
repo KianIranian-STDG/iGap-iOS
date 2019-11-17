@@ -176,7 +176,7 @@ TODO:// complete */
 "Re_Phone_Verification" = "Verifying the entered phone number";
 
 /* Reagent */
-"ra_title" = "referral";
+"ra_title" = "Referral";
 
 /*  */
 "ra_enter_reagent_code" = "enter referral code(Optional)";
@@ -1460,7 +1460,7 @@ TODO:// complete */
 "if_you_are_away_for" = "Away for";
 
 /*  */
-"st_Gander" = "Gender:";
+"st_Gander" = "Gender";
 
 /*  */
 "st_email" = "Email:";
@@ -1937,7 +1937,7 @@ TODO:// complete */
 "TERMINATE" = "TERMINATE";
 
 /*  */
-"iGap_version" = "iGap Android Client V";
+"iGap_version" = "iGap iOS Client V";
 
 /*  */
 "Bazzar" = "Bazaar";
