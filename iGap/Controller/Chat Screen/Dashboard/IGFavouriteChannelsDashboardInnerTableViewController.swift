@@ -128,7 +128,7 @@ class IGFavouriteChannelsDashboardInnerTableViewController: UITableViewControlle
                 return ((tableView.bounds.width/4.5) + 30) * CGFloat(numberOfRows)
             }
         }
-        return 0 
+        return UITableView.automaticDimension
     }
     
 }
