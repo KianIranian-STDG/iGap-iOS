@@ -361,9 +361,9 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         lblNearby.text = IGStringsManager.Nearby.rawValue.localized
         lblFaq.text = IGStringsManager.Faq.rawValue.localized
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-            //CHERRY_PICK
-            //lblVersion.text = IGStringsManager.IgapVer.rawValue.localized + " \(version)".inLocalizedLanguage()
+            versionTitleLbl.text = IGStringsManager.IgapVer.rawValue.localized + " \(version)".inLocalizedLanguage()
         }
+        checkUpdateLbl.text = IGStringsManager.GlobalCheckUpdate.rawValue.localized
         lblEmailInner.text = IGStringsManager.Email.rawValue.localized
         lblMenGender.text = IGStringsManager.Male.rawValue.localized
         lblMenGender.font = UIFont.igFont(ofSize: 15)

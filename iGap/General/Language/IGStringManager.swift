@@ -33,6 +33,7 @@ enum IGStringsManager : String {
     case GlobalCommunicating = "communicating"
     case GlobalNoHistory = "not_exist_activities"
     case GlobalAppVersion = "app_version"
+    case GlobalCheckUpdate = "check_update_title"
     case iGap = "app_name"
     case SearchPlaceHolder = "Search"
     case GlobalCheckFields = "check_all_the_fields"
