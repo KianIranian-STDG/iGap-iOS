@@ -1098,14 +1098,14 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                             if buildV < response.igpLastVersion {
                                 
                                 let str = response.igpBody.html2String
-                                IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: "check_update_title".localized, showDoneButton: true, showCancelButton: true, message: str, doneText: "igap_update".localized, cancelText: IGStringsManager.GlobalCancel.rawValue.localized, cancel: {
+                                IGHelperAlert.shared.showCustomAlert(view: self, alertType: .question, title: IGStringsManager.GlobalCheckUpdate.rawValue.localized, showDoneButton: true, showCancelButton: true, message: str, doneText: IGStringsManager.GlobalUpdate.rawValue.localized, cancelText: IGStringsManager.GlobalCancel.rawValue.localized, cancel: {
                                     
                                 }, done: {
                                     UIApplication.shared.open(URL(string: "http://d.igap.net/update")!, options: [:], completionHandler: nil)
                                 })
                             } else {
                                 // you are update
-                                IGHelperAlert.shared.showCustomAlert(view: self, alertType: .warning, title: nil, showDoneButton: false, showCancelButton: true, message: "updated_version_title".localized, cancelText: IGStringsManager.GlobalCancel.rawValue.localized, cancel: {
+                                IGHelperAlert.shared.showCustomAlert(view: self, alertType: .warning, title: nil, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalUpdateVersion.rawValue.localized, cancelText: IGStringsManager.GlobalCancel.rawValue.localized, cancel: {
                                     
                                 }, done: {
                                     

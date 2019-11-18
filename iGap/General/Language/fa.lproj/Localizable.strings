@@ -6639,8 +6639,8 @@ Page 4 introduce app */
 "chart" = "نمودار";
 "call_question" = "تمایل به برقراری تماس به کدام شماره را دارید؟";
 "Channels" = "کانال ها";
-"long_press_to_record" = "برای شروع ضبظ دست خود را نگخ دارید";
-"unpin_are_u_sure" = "آیا از برداشتن پین این پیام مطمینید؟";
+"long_press_to_record" = "برای شروع ضبط دست خود را نگه دارید";
+"unpin_are_u_sure" = "آیا از برداشتن پین این پیام مطمئنید؟";
 "unpin_for_all" = "برداشتن پین برای همه";
 "unpin_for_me" = "برداشتن پین برای من";
 "pin_are_u_sure" = "آیا از پین شدن این پیام مطمینید؟";
@@ -6677,4 +6677,4 @@ Page 4 introduce app */
 "remove_password" = "حذف رمز عبور";
 
 "contacts_sending" = "درحال ارسال مخاطبین";
-"contacts_being_saved" = "درحال ذخیره سازی مخاطبین";
+"contacts_saving" = "درحال ذخیره سازی مخاطبین";

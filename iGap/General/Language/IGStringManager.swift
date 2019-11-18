@@ -34,6 +34,8 @@ enum IGStringsManager : String {
     case GlobalNoHistory = "not_exist_activities"
     case GlobalAppVersion = "app_version"
     case GlobalCheckUpdate = "check_update_title"
+    case GlobalUpdateVersion = "updated_version_title"
+    case GlobalUpdate = "igap_update"
     case iGap = "app_name"
     case SearchPlaceHolder = "Search"
     case GlobalCheckFields = "check_all_the_fields"
@@ -42,6 +44,10 @@ enum IGStringsManager : String {
     case GlobalOKandGo = "ok_and_go"
     case GlobalMessage = "message"
     case GlobalSuccess = "kuknos_changePIN_successTitle"
+    case ContactSending = "contacts_sending"
+    case ContactSaving = "contacts_saving"
+    case ContactDelete = "to_delete_contact"
+    case Edit = "edit"
     
     //MARK: - VOTE
     case AlreadyVoted = "before_try"

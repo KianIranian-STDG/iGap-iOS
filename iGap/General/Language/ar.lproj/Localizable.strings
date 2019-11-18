@@ -6693,3 +6693,7 @@ TODO:// translate */
 "send_message_sound_alert" = "إرسال رسالة الصوت";
 "verify_password" = "اكد كلمة المرور";
 "remove_password" = "إزالة كلمة المرور";
+
+// New Strings
+"contacts_sending" = "Sending Contacts";
+"contacts_saving" = "Saving Contacts";

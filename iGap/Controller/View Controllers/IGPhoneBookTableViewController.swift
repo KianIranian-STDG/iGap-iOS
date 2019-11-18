@@ -130,7 +130,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     private func setNavigationItems() {
         if currentTabIndex == TabBarTab.Profile.rawValue {
-            self.initNavigationBar(title: "NEW".localized) { }
+            self.initNavigationBar(title: IGStringsManager.GlobalNew.rawValue.localized) { }
         } else {
             let navigationItem = self.navigationItem as! IGNavigationItem
             navigationItem.setPhoneBookNavigationItems()
@@ -185,7 +185,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                         if IGAppManager.sharedManager.isUserLoggiedIn() {
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .percent
-                            navigationItem.setNavigationItemForSyncingContactsStatus(text: "\("contacts_sending".localized) %\(percent.fetchPercent())")
+                            navigationItem.setNavigationItemForSyncingContactsStatus(text: "\(IGStringsManager.ContactSending.rawValue.localized) %\(percent.fetchPercent())")
                         }
                         break
                         
@@ -193,7 +193,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                         self.contactSynced = false
                         let formatter = NumberFormatter()
                         formatter.numberStyle = .percent
-                        navigationItem.setNavigationItemForSyncingContactsStatus(text: "\("contacts_being_saved".localized) %\(percent.fetchPercent())")
+                        navigationItem.setNavigationItemForSyncingContactsStatus(text: "\(IGStringsManager.ContactSaving.rawValue.localized) %\(percent.fetchPercent())")
                         break
                         
                     case .completed:
@@ -257,7 +257,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 make.width.greaterThanOrEqualTo(20)
             }
             
-            txtInviteContact.text = "Invite_Friends".localized
+            txtInviteContact.text = IGStringsManager.InviteFriends.rawValue.localized
         }
         
         let searchBarView = searchController
@@ -316,8 +316,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     //Mark:- Contact Delete & Edit
     private func deleteContactAlert(phone: Int64){
-        let alert = UIAlertController(title: "TTL_DELETE_CONTACT".localized, message: "MSG_ARE_U_SURE_TO_DELETE".localized, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .destructive, handler: { action in
+        let alert = UIAlertController(title: IGStringsManager.ContactDelete.rawValue.localized, message: IGStringsManager.SureToDeleteContact.rawValue.localized, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .destructive, handler: { action in
             self.deleteContact(phone: phone)
         })
         let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .default, handler: nil)
@@ -340,29 +340,29 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }
     
     private func contactEditAlert(phone: Int64, firstname: String, lastname: String?){
-        let alert = UIAlertController(title: "BTN_EDITE_CONTACT".localized, message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: IGStringsManager.Edit.rawValue.localized, message: nil, preferredStyle: .alert)
         
         alert.addTextField { (textField) in
-            textField.placeholder = "PLACE_HOLDER_F_NAME".localized
+            textField.placeholder = IGStringsManager.FirstName.rawValue.localized
             textField.text = String(describing: firstname)
         }
         
         alert.addTextField { (textField) in
-            textField.placeholder = "PLACE_HOLDER_L_NAME".localized
+            textField.placeholder = IGStringsManager.LastName.rawValue.localized
             if lastname != nil && !(lastname?.isEmpty)! {
                 textField.text = String(describing: lastname!)
             }
         }
         
-        alert.addAction(UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: { [weak alert] (_) in
+        alert.addAction(UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { [weak alert] (_) in
             let firstname = alert?.textFields![0]
             let lastname = alert?.textFields![1]
             
             if firstname?.text != nil && !(firstname?.text?.isEmpty)! {
                 self.contactEdit(phone: phone, firstname: (firstname?.text)!, lastname: lastname?.text)
             } else {
-                let alert = UIAlertController(title: "BTN_HINT".localized, message: "MSG_PLEASE_ENTER_F_NAME".localized, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil))
+                let alert = UIAlertController(title: IGStringsManager.GlobalHint.rawValue.localized, message: IGStringsManager.AddFirstName.rawValue.localized, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
         }))
@@ -375,7 +375,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     private func contactEdit(phone: Int64, firstname: String, lastname: String?){
         IGGlobal.prgShow(self.view)
         IGUserContactsEditRequest.Generator.generate(phone: phone, firstname: firstname, lastname: lastname).success({ (protoResponse) in
-            
             if let contactEditResponse = protoResponse as? IGPUserContactsEditResponse {
                 IGUserContactsEditRequest.Handler.interpret(response: contactEditResponse)
                 DispatchQueue.main.async {
@@ -383,18 +382,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 }
             }
         }).error ({ (errorCode, waitTime) in
-            switch errorCode {
-            case .timeout:
-                DispatchQueue.main.async {
-                    IGGlobal.prgHide()
-                    let alert = UIAlertController(title: "TIME_OUT".localized, message: "MSG_PLEASE_TRY_AGAIN".localized, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localized, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
-            default:
-                break
-            }
+            self.contactEdit(phone: phone, firstname: firstname, lastname: lastname)
         }).send()
     }
 
@@ -419,7 +407,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             if indexPath.row == 0 {
                 let phoneBookCellTypeTwo = tableView.dequeueReusableCell(withIdentifier: "phoneBookCellTypeTwo", for: indexPath) as! phoneBookCellTypeTwo
                 phoneBookCellTypeTwo.lblIcon.text = ""
-                phoneBookCellTypeTwo.lblText.text = "CREAT_CHANNEL".localized
+                phoneBookCellTypeTwo.lblText.text = IGStringsManager.NewChannel.rawValue.localized
                 phoneBookCellTypeTwo.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
                 
                 return phoneBookCellTypeTwo
@@ -427,7 +415,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             } else if indexPath.row == 1 {
                 let phoneBookCellTypeTwo = tableView.dequeueReusableCell(withIdentifier: "phoneBookCellTypeTwo", for: indexPath) as! phoneBookCellTypeTwo
                 phoneBookCellTypeTwo.lblIcon.text = ""
-                phoneBookCellTypeTwo.lblText.text = "CREAT_GROUP".localized
+                phoneBookCellTypeTwo.lblText.text = IGStringsManager.NewGroup.rawValue.localized
                 return phoneBookCellTypeTwo
                 
             } else {
@@ -490,22 +478,19 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 }
             }
         }).error({ (errorCode, waitTime) in
-            DispatchQueue.main.async {
-                IGGlobal.prgHide()
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "GLOBAL_WARNING".localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "ERROR_RETRY".localized, cancelText: "GLOBAL_CLOSE".localized )
-            }
+            IGGlobal.prgHide()
         }).send()
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let contactInfo = contacts[indexPath.row]
-        let btnEditSwipeCell = UIContextualAction(style: .normal, title: "BTN_EDITE".localized) { (contextualAction, view, boolValue) in
+        let btnEditSwipeCell = UIContextualAction(style: .normal, title: IGStringsManager.Edit.rawValue.localized) { (contextualAction, view, boolValue) in
             boolValue(true) // pass true if you want the handler to allow the action
             self.contactEditAlert(phone: contactInfo.phone, firstname: contactInfo.firstName, lastname: contactInfo.lastName)
         }
         
-        let btnDeleteSwipeCell = UIContextualAction(style: .normal, title: "BTN_DELETE".localized) { (contextualAction, view, boolValue) in
+        let btnDeleteSwipeCell = UIContextualAction(style: .normal, title: IGStringsManager.Delete.rawValue.localized) { (contextualAction, view, boolValue) in
             boolValue(true) // pass true if you want the handler to allow the action
             self.deleteContactAlert(phone: contactInfo.phone)
         }

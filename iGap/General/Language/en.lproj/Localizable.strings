@@ -6665,6 +6665,7 @@ TODO:// complete */
 "verify_password" = "Verify Password";
 "remove_password" = "Remove Password";
 
+// New Strings
 "contacts_sending" = "Sending Contacts";
-"contacts_being_saved" = "Saving Contacts";
+"contacts_saving" = "Saving Contacts";
 
