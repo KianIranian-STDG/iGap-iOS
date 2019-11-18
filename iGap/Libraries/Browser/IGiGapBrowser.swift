@@ -244,7 +244,6 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate {
     }
     //setAgreement Slug and Go
     private func carpinoAggrement(itemID:Int32!) {
-        let t = self.url
         self.webView.load(URLRequest.init(url: URL.init(string: "about:blank")!))
 
         IGClientSetDiscoveryItemAgreemnetRequest.Generator.generate(itemId: itemID).success { (responseProto) in

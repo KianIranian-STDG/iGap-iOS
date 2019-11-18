@@ -61,7 +61,7 @@ fileprivate class IGFactoryTask: NSObject {
                             case let response as IGPUserInfoResponse:
                                 let user = IGRegisteredUser(igpUser: response.igpUser)
                                 try! IGDatabaseManager.shared.realm.write {
-                                    IGDatabaseManager.shared.realm.add(user, update: true)
+                                    IGDatabaseManager.shared.realm.add(user, update: .modified)
                                 }
                             default:
                                 break
@@ -109,7 +109,7 @@ fileprivate class IGFactoryTask: NSObject {
                                     try! IGDatabaseManager.shared.realm.write {
                                         let room = IGRoom.putOrUpdate(igpRoom)
                                         room.isParticipant = isParticipane
-                                        IGDatabaseManager.shared.realm.add(room, update: true)
+                                        IGDatabaseManager.shared.realm.add(room, update: .modified)
                                     }
                                 default:
                                     break
@@ -308,7 +308,7 @@ class IGFactory: NSObject {
                      message.type = .sticker
                      }
                      */
-                    IGDatabaseManager.shared.realm.add(message, update: true)
+                    IGDatabaseManager.shared.realm.add(message, update: .modified)
                     
                     self.updateRoomLastMessageIfPossible(roomID: roomId)
                 }
@@ -319,7 +319,7 @@ class IGFactory: NSObject {
     func saveNewlyWriitenMessageToDatabase(_ message: IGRoomMessage) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
-                IGDatabaseManager.shared.realm.add(message, update: true)
+                IGDatabaseManager.shared.realm.add(message, update: .modified)
                 let roomId = message.roomId
                 self.updateRoomLastMessageIfPossibleWithoutTransaction(roomID: roomId)
             }
@@ -420,7 +420,7 @@ class IGFactory: NSObject {
                     if let tempMessageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
                         message.primaryKeyId = tempMessageInDb.primaryKeyId
                         try! IGDatabaseManager.shared.realm.write {
-                            IGDatabaseManager.shared.realm.add(message, update: true)
+                            IGDatabaseManager.shared.realm.add(message, update: .modified)
                         }
                     }
                 }
@@ -655,7 +655,7 @@ class IGFactory: NSObject {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             for contact in contacts {
                 try! IGDatabaseManager.shared.realm.write {
-                    IGDatabaseManager.shared.realm.add(contact, update: true)
+                    IGDatabaseManager.shared.realm.add(contact, update: .modified)
                 }
             }
         }
@@ -754,8 +754,8 @@ class IGFactory: NSObject {
                         try! IGDatabaseManager.shared.realm.write {
                             let registeredUser = IGRegisteredUser.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpUser: userInfo)
                             registeredUser.isInContacts = true
-                            IGDatabaseManager.shared.realm.add(registeredUser, update: true)
-                            //IGDatabaseManager.shared.realm.add(IGHelperGetShareData.setRealmShareInfo(igpUser: igpRegistredUser, igUser: user), update: true)
+                            IGDatabaseManager.shared.realm.add(registeredUser, update: .modified)
+                            //IGDatabaseManager.shared.realm.add(IGHelperGetShareData.setRealmShareInfo(igpUser: igpRegistredUser, igUser: user), update: .modified)
                         }
                     }
                     savedCount = savedCount + 1
@@ -779,7 +779,7 @@ class IGFactory: NSObject {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 try! IGDatabaseManager.shared.realm.write {
                     let user = IGRegisteredUser(igpUser: igpRegistredUser)
-                    IGDatabaseManager.shared.realm.add(user, update: true)
+                    IGDatabaseManager.shared.realm.add(user, update: .modified)
                     let predicate = NSPredicate(format: "id = %lld", user.id)
                     if let userInDb = try! Realm().objects(IGRegisteredUser.self).filter(predicate).first {
                         let cotactPredicate = NSPredicate(format: "phoneNumber = %@", "\(user.phone)")
@@ -967,7 +967,7 @@ class IGFactory: NSObject {
                     case .secretChat:
                         userPrivacy.secretChat = igPrivacyLevel
                     }
-                    IGDatabaseManager.shared.realm.add(userPrivacy, update: true)
+                    IGDatabaseManager.shared.realm.add(userPrivacy, update: .modified)
                 }
             }
         }
@@ -1009,7 +1009,7 @@ class IGFactory: NSObject {
             try! IGDatabaseManager.shared.realm.write {
                 let predicate = NSPredicate(format: "id = %lld", callLog.igpID)
                 if let _ = IGDatabaseManager.shared.realm.objects(IGRealmCallLog.self).filter(predicate).first {
-                    IGDatabaseManager.shared.realm.add(IGRealmCallLog(signalingLog: callLog), update: true)
+                    IGDatabaseManager.shared.realm.add(IGRealmCallLog(signalingLog: callLog), update: .modified)
                 } else {
                     IGDatabaseManager.shared.realm.add(IGRealmCallLog(signalingLog: callLog))
                 }
@@ -1045,7 +1045,7 @@ class IGFactory: NSObject {
             try! IGDatabaseManager.shared.realm.write {
                 let predicate = NSPredicate(format: "id = %lld", nearbyDistance.igpUserID)
                 if let _ = IGDatabaseManager.shared.realm.objects(IGRealmMapNearbyDistance.self).filter(predicate).first {
-                    IGDatabaseManager.shared.realm.add(IGRealmMapNearbyDistance(nearbyDistance: nearbyDistance), update: true)
+                    IGDatabaseManager.shared.realm.add(IGRealmMapNearbyDistance(nearbyDistance: nearbyDistance), update: .modified)
                 } else {
                     IGDatabaseManager.shared.realm.add(IGRealmMapNearbyDistance(nearbyDistance: nearbyDistance))
                 }
@@ -1265,7 +1265,7 @@ class IGFactory: NSObject {
     func saveRoomToDatabase(_ igpRoom: IGPRoom, isParticipant: Bool?) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
-                IGDatabaseManager.shared.realm.add(IGRoom.putOrUpdate(igpRoom), update: true)
+                IGDatabaseManager.shared.realm.add(IGRoom.putOrUpdate(igpRoom), update: .modified)
             }
         }
     }
@@ -1713,7 +1713,7 @@ class IGFactory: NSObject {
                         stickerItems.append(IGRealmStickerItem(sticker: stickerItem))
                     }
 
-                    IGDatabaseManager.shared.realm.add(IGRealmSticker(sticker: sticker, stickerItems: stickerItems), update: true)
+                    IGDatabaseManager.shared.realm.add(IGRealmSticker(sticker: sticker, stickerItems: stickerItems), update: .modified)
                 }
             }
         }

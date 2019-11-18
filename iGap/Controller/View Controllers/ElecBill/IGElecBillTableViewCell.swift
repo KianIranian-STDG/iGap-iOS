@@ -170,7 +170,6 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
                     self.lblDataBillPayNumber.text = "0".inLocalizedLanguage()
                 }
             } else {
-                print(errorMessage)
                 self.billIsInvalid = true
                 self.lblDataBillPayDate.text = ""
                 self.lblDataBillPayAmount.text = "0".inLocalizedLanguage()
@@ -211,13 +210,10 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.SuccessOperation.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized , cancel: {
                     SwiftEventBus.post(EventBusManager.updateBillsName)
                 })
-                
-            } else {
-                print(errorMessage)
             }
         })
-        
     }
+    
     @IBAction func didTapOnEdite(_ sender: UIButton) {
         let addEditVC = IGElecAddEditBillTableViewController.instantiateFromAppStroryboard(appStoryboard: .ElectroBill)
         addEditVC.hidesBottomBarWhenPushed = true

@@ -217,43 +217,12 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-//        let navigationControllerr = self.navigationController as! IGNavigationController
-
-//        if DeepLinkManager.shared.hasDeepLink() {
-//            navigationControllerr.navigationBar.isHidden = false
-//        } else {
-//            navigationControllerr.navigationBar.isHidden = true
-//        }
-//        let navigationItem = self.navigationItem as! IGNavigationItem
-//        navigationItem.searchController = nil
-    }
-    
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        
-        if navigationItem.searchController == nil {
-            
-   
-            
-        }
-        
-        
-        var title = IGStringsManager.NewChat.rawValue.localized
         if forceCall {
             title = IGStringsManager.NewCall.rawValue.localized
         }
         navigationItem.addNavigationBackItem()
-//        navigationItem.addModalViewItems(leftItemText: nil, rightItemText: IGStringsManager.GlobalClose.rawValue.localized, title: title)
-//
-//        // navigationItem.setChatListsNavigationItems()
-//        navigationItem.rightViewContainer?.addAction {
-//            let navigationItem = self.navigationItem as! IGNavigationItem
-//            navigationItem.searchController = nil
-//
-//            self.navigationController?.popToRootViewController(animated: true)
-//        }
     }
     
     override func viewDidLayoutSubviews() {

@@ -240,7 +240,7 @@ class IGAppManager: NSObject {
             sessionInto.userID = _userID!
             sessionInto.authorHash = _authorHash
             try! realm.write {
-                realm.add(sessionInto, update: true)
+                realm.add(sessionInto, update: .modified)
             }
         }
     }
@@ -256,7 +256,7 @@ class IGAppManager: NSObject {
             let sessionInto = IGSessionInfo()
             sessionInto.username = username
             try! realm.write {
-                realm.add(sessionInto, update: true)
+                realm.add(sessionInto, update: .modified)
             }
         }
     }
@@ -276,7 +276,7 @@ class IGAppManager: NSObject {
             let sessionInto = IGSessionInfo()
             sessionInto.userID = userId
             try! realm.write {
-                realm.add(sessionInto, update: true)
+                realm.add(sessionInto, update: .modified)
             }
         }
     }
@@ -292,7 +292,7 @@ class IGAppManager: NSObject {
             let sessionInto = IGSessionInfo()
             sessionInto.authorHash = authorHash
             try! realm.write {
-                realm.add(sessionInto, update: true)
+                realm.add(sessionInto, update: .modified)
             }
         }
     }

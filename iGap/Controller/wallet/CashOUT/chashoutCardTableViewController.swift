@@ -116,8 +116,6 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 self.tfCardNumber.font = UIFont.igFont(ofSize: 15)
             }
             if let cardToken = self.selectCard?.token! {
-                
-                let newStr = cardToken
                 self.tmpCardToken = cardToken
             }
         },noPressed: {

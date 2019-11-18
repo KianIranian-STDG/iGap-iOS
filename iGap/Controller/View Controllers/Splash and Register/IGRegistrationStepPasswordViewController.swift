@@ -85,23 +85,10 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
                     if let hasValidEmail = interpretedResponse.hasVerifiedEmailAddress {
                         self.recoverTypeArray.removeAll()
                         if hasValidEmail {
-                            
-//                            IGGlobal.setLanguage()
-                            
-
                             self.recoverTypeArray.append(IGStringsManager.Email.rawValue.localized)
                             self.recoverTypeArray.append(IGStringsManager.SecurityQuestion.rawValue.localized)
                         } else {
-                            
-//                            IGGlobal.setLanguage()
-                            
-                            print(self.recoverTypeArray)
-
-//                            IGGlobal.setLanguage()
-
                             self.recoverTypeArray.append(IGStringsManager.SecurityQuestion.rawValue.localized)
-                            print(self.recoverTypeArray)
-
                         }
                     }
                     

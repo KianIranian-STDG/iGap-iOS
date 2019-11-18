@@ -137,7 +137,7 @@ class IGContactManager: NSObject {
             try! IGDatabaseManager.shared.realm.write {
                 for contact in contacts {
                     for phone in contact.phoneNumbers {
-                        IGDatabaseManager.shared.realm.add(IGContact(phoneNumber: phone.value.stringValue, firstName: contact.givenName, lastName: contact.familyName), update: true)
+                        IGDatabaseManager.shared.realm.add(IGContact(phoneNumber: phone.value.stringValue, firstName: contact.givenName, lastName: contact.familyName), update: .modified)
                         
                         var structContact = ContactsStruct()
                         structContact.phoneNumber = phone.value.stringValue

@@ -328,8 +328,6 @@ class IGPlayer {
         latestSliderValue = slider.value
         let currentTime = player.getCurrentTime()
         let currentTimeFloat = (CMTimeGetSeconds(currentTime))
-        let currentValue = Float(currentTimeFloat)
-
 
         player.seekToTime(value: CMTimeMakeWithSeconds(Float64(slider.value), preferredTimescale: attachmentTimeScale))
         flag = false

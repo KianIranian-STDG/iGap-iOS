@@ -197,27 +197,8 @@ class IGContactListTableViewController: UITableViewController, UISearchResultsUp
 }
 
 extension IGContactListTableViewController {
-    
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let remaining = scrollView.contentSize.height - (scrollView.frame.size.height + scrollView.contentOffset.y)
-//        if (self.lastContentOffset > scrollView.contentOffset.y) {
-//            // move up
-//            DispatchQueue.main.async() {
-//                self.tableView.contentInset.top = 0.0
-//            }
-//        }
-//        else if (self.lastContentOffset < scrollView.contentOffset.y) && scrollView.contentOffset.y >= 0 && self.lastContentOffset >= 0  {
-//            // move down
-//            DispatchQueue.main.async() {
-//            }
-//        }
-//        else if self.lastContentOffset == 0 {
-//            DispatchQueue.main.async() {
-//                self.tableView.contentInset.top = 15.0
-//            }
-//        }
         self.lastContentOffset = scrollView.contentOffset.y
-        
     }
 }
 
