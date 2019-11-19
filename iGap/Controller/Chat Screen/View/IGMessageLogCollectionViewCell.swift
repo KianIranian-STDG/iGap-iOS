@@ -55,6 +55,7 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
         self.logLabel.text = message.message
         self.logBackgroundView.layer.cornerRadius = 12.0
         self.logBackgroundView.backgroundColor = UIColor.unreadBackground()
+        addShadow()
         logLableWidthConstraint.constant = (message.message!.width(withConstrainedHeight: 25, font: UIFont.igFont(ofSize: 14, weight: .medium)))
         logBackgroundWidthConstraint.constant = IGGlobal.fetchUIScreen().width - 20
     }
@@ -64,6 +65,7 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
         self.logLabel.text = "unknown message"
         self.logBackgroundView.layer.cornerRadius = 12.0
         self.logBackgroundView.backgroundColor = UIColor.logBackground()
+        addShadow()
         manageWidth("unknown message")
     }
     
@@ -73,6 +75,7 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
         self.logLabel.text = text
         self.logBackgroundView.layer.cornerRadius = 12.0
         self.logBackgroundView.backgroundColor = UIColor.logBackground()
+        addShadow()
         manageWidth(text)
     }
     
@@ -81,6 +84,7 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
         self.logLabel.text = time
         self.logBackgroundView.layer.cornerRadius = 12.0
         self.logBackgroundView.backgroundColor = UIColor.logBackground()
+        addShadow()
         manageWidth(time)
     }
     
@@ -97,5 +101,13 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
         }
         logLableWidthConstraint.constant = size
         logBackgroundWidthConstraint.constant = size + 20
+    }
+    
+    private func addShadow(){
+        self.logBackgroundView.layer.shadowColor = UIColor.black.cgColor
+        self.logBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.logBackgroundView.layer.shadowRadius = 3.0
+        self.logBackgroundView.layer.shadowOpacity = 0.2
+        self.logBackgroundView.layer.masksToBounds = false
     }
 }

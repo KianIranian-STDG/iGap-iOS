@@ -17,11 +17,11 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nqL-ib-lty" customClass="AnimateloadingView" customModule="iGap" customModuleProvider="target">
-                        <rect key="frame" x="252.5" y="10" width="50" height="50"/>
+                        <rect key="frame" x="262.5" y="20" width="30" height="30"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="50" id="gid-yU-4So"/>
-                            <constraint firstAttribute="height" constant="50" id="viF-Rd-EM9"/>
+                            <constraint firstAttribute="width" constant="30" id="gid-yU-4So"/>
+                            <constraint firstAttribute="height" constant="30" id="viF-Rd-EM9"/>
                         </constraints>
                     </view>
                 </subviews>

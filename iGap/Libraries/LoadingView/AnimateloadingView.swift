@@ -13,7 +13,6 @@ import UIKit
 
 class AnimateloadingView : UIView {
     
-    public var color: UIColor = UIColor.white
     public var isAnimating : Bool = false
     /**
      Start animating.
@@ -21,7 +20,7 @@ class AnimateloadingView : UIView {
     public final func startAnimating() {
         isHidden = false
         layer.speed = 1
-        setUpAnimation(in: layer, size: self.frame.size, color: color)
+        setUpAnimation(in: layer, size: self.frame.size)
     }
     /**
      Stop animating.
@@ -32,7 +31,8 @@ class AnimateloadingView : UIView {
         layer.sublayers?.removeAll()
         isAnimating = false
     }
-    func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor) {
+    func setUpAnimation(in layer: CALayer, size: CGSize) {
+        let color = UIColor.init(named: themeColor.progressColor.rawValue)!
         let beginTime: Double = 0.5
         let strokeStartDuration: Double = 1.5
         let strokeEndDuration: Double = 1.1
@@ -70,8 +70,25 @@ class AnimateloadingView : UIView {
             height: size.height
         )
         
+        let backgroundFrame = CGRect(
+            x: (layer.bounds.width - (size.width + 10)) / 2,
+            y: (layer.bounds.height - (size.height + 10)) / 2,
+            width: size.width + 10,
+            height: size.height + 10
+        )
+
+        let backgroundView: UIView = UIView(frame: backgroundFrame)
+        backgroundView.backgroundColor = UIColor.init(named: themeColor.progressBackgroundColor.rawValue)
+        backgroundView.layer.shadowColor = UIColor.black.cgColor
+        backgroundView.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        backgroundView.layer.shadowRadius = 5
+        backgroundView.layer.shadowOpacity = 0.3
+        backgroundView.layer.masksToBounds = false
+        backgroundView.layer.cornerRadius = (size.width + 10) / 2
+        
         circle.frame = frame
         circle.add(groupAnimation, forKey: "animation")
+        self.addSubview(backgroundView)
         layer.addSublayer(circle)
         isAnimating = true
     }
