@@ -44,7 +44,8 @@ class IGMessageLoader {
     private var visibleItemCount: Int32 = 0 // visible item in recycler view
     private var totalItemCount: Int32 = 0 // all item in recycler view
     private var scrollEnd: Int32 = 80 // (hint: It should be less than MessageLoader.LOCAL_LIMIT) to determine the limits to get to the bottom or top of the list
-    
+    private var topProgressId: Int64 = 0 // top real messageId plus one. save this value then for hide top progress find position of message and then remove
+    private var bottomProgressId: Int64 = 0 // bottom real messageId minus one. save this value then for hide bottom progress find position of message and then remove
     private var firstLoadUp = true // first load message to the up direction for load from local or from server. after load set this variable to false. now we use this variable for set delay at first time load message.
     private var firstLoadDown = true // first load message to the down direction for load from local or from server. after load set this variable to false. now we use this variable for set delay at first time load message.
     private var forceFirstLoadUp = false // if exist 'unread' or 'savedScrollMessageId' set this param true for allow scroll top to load up message from local or server
@@ -180,7 +181,7 @@ class IGMessageLoader {
                     getMessages(onMessageReceive: onMessageReceive)
                     return
                 }
-                unreadLayoutMessage(onMessageReceive: onMessageReceive)
+                makeUnreadLayoutMessage(onMessageReceive: onMessageReceive)
                 fetchMessageId = firstUnreadMessage.id
                 
             } else {
@@ -323,6 +324,8 @@ class IGMessageLoader {
             onMessageReceive(messageInfos, .up)
         } else {
             onMessageReceive(messageInfos, .down)
+            
+            // this block of code is for manage unread & save state together
             if (hasSavedState()) {
                 
                 if (messageId != 0) {
@@ -443,7 +446,7 @@ class IGMessageLoader {
             /**
              * show progress when start for get history from server
              */
-            //progressItem(SHOW, direction);
+            manageProgress(state: .SHOW, direction: direction, messageId: oldMessageId, onMessageReceive: onMessageReceive)
             if (!IGAppManager.sharedManager.isUserLoggiedIn()) {
                 getOnlineMessageAfterTimeOut(messageIdGetHistory: oldMessageId, direction: direction, onMessageReceive: onMessageReceive)
                 return
@@ -469,12 +472,11 @@ class IGMessageLoader {
                  if (roomId != mRoomId) {
                     return;
                  }
-                 hideProgress();
-                 /**
+                 */
+                /**
                  * hide progress received history
                  */
-                 progressItem(HIDE, direction);
-                 */
+                self.manageProgress(state: .HIDE, direction: direction)
                 
                 var realmRoomMessages: Results<IGRoomMessage>!
                 var sort: [SortDescriptor]!
@@ -535,11 +537,10 @@ class IGMessageLoader {
                 let requestClientGetRoomHistory = requestWrapper.message as! IGPClientGetRoomHistory
                 let requestIdentity = requestWrapper.identity as! IGStructClientGetRoomHistoryIdentity
                 
-                //hideProgress();
                 /**
                  * hide progress if have any error
                  */
-                //progressItem(HIDE, direction);
+                self.manageProgress(state: .HIDE, direction: direction)
                 
                 switch errorCode {
                 case .clinetGetRoomHistoryNoMoreMessage:
@@ -608,82 +609,6 @@ class IGMessageLoader {
     }
     
     /**
-     * manage progress changeState in adapter
-     *
-     * @param progressState SHOW or HIDE changeState detect with enum
-     * @param direction     define direction for show progress in UP or DOWN
-     */
-    
-    private func progressItem(progressState: ProgressState, direction: IGPClientGetRoomHistory.IGPDirection) {
-        /*
-        G.handler.post(new Runnable() {
-            @Override
-            public void run() {
-                int progressIndex = 0;
-                if (direction == DOWN) {
-                    progressIndex = mAdapter.getAdapterItemCount() - 1;
-                }
-                if (progressState == SHOW) {
-                    if ((mAdapter.getAdapterItemCount() > 0) && !(mAdapter.getAdapterItem(progressIndex) instanceof ProgressWaiting)) {
-                        recyclerView.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (direction == DOWN && progressIdentifierDown == 0) {
-                                    progressIdentifierDown = SUID.id().get();
-                                    mAdapter.add(new ProgressWaiting(mAdapter, FragmentChat.this).withIdentifier(progressIdentifierDown));
-                                } else if (direction == UP && progressIdentifierUp == 0) {
-                                    progressIdentifierUp = SUID.id().get();
-                                    mAdapter.add(0, new ProgressWaiting(mAdapter, FragmentChat.this).withIdentifier(progressIdentifierUp));
-                                }
-                            }
-                        });
-                    }
-                } else {
-                    /**
-                     * i do this action with delay because sometimes instance wasn't successful
-                     * for detect progress so client need delay for detect this instance
-                     */
-                    if ((mAdapter.getItemCount() > 0) && (mAdapter.getAdapterItem(progressIndex) instanceof ProgressWaiting)) {
-                        mAdapter.remove(progressIndex);
-                        if (direction == DOWN) {
-                            progressIdentifierDown = 0;
-                        } else {
-                            progressIdentifierUp = 0;
-                        }
-                    } else {
-                        G.handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                /**
-                                 * if not detected progress item for remove use from item identifier and remove progress item
-                                 */
-                                if (direction == DOWN && progressIdentifierDown != 0) {
-                                    for (int i = (mAdapter.getItemCount() - 1); i >= 0; i--) {
-                                        if (mAdapter.getItem(i).getIdentifier() == progressIdentifierDown) {
-                                            mAdapter.remove(i);
-                                            progressIdentifierDown = 0;
-                                            break;
-                                        }
-                                    }
-                                } else if (direction == UP && progressIdentifierUp != 0) {
-                                    for (int i = 0; i < (mAdapter.getItemCount() - 1); i++) {
-                                        if (mAdapter.getItem(i).getIdentifier() == progressIdentifierUp) {
-                                            mAdapter.remove(i);
-                                            progressIdentifierUp = 0;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        });
-                    }
-                }
-            }
-        });
-     */
-    }
- 
-    /**
      * first set gap for room message for correctly load message and after than call {@link #getMessages()}
      *
      * @param messageId set gap for this message id
@@ -711,12 +636,40 @@ class IGMessageLoader {
     /**
      * make unread layout message and add to the view
      */
-    private func unreadLayoutMessage(onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
+    private func makeUnreadLayoutMessage(onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
         if (unreadCount > 0) {
             isShowLayoutUnreadMessage = true
             let message = IGRoomMessage(body: "\("\(unreadCount)".inLocalizedLanguage()) \(IGStringsManager.UnreadMessage.rawValue.localized)")
             message.type = .unread
             onMessageReceive([message], .down)
+        }
+    }
+    
+    
+    private func manageProgress(state: ProgressState, direction: IGPClientGetRoomHistory.IGPDirection, messageId: Int64 = 0, onMessageReceive: ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)? = nil) {
+        if state == .SHOW {
+            if ((topProgressId == 0 && direction == .up)  ||  (bottomProgressId == 0 && direction == .down)) {
+                let message = IGRoomMessage(body: "")
+                message.type = .progress
+                if direction == .up {
+                    topProgressId = messageId + 1
+                    message.id = topProgressId
+                } else {
+                    bottomProgressId = messageId - 1
+                    message.id = bottomProgressId
+                }
+                IGMessageViewController.messageOnChatReceiveObserver?.onAddWaitingProgress(message: message, direction: direction)
+            }
+        } else {
+            var fakeMessageId: Int64!
+            if direction == .down {
+                fakeMessageId = self.bottomProgressId
+                self.bottomProgressId = 0
+            } else {
+                fakeMessageId = self.topProgressId
+                self.topProgressId = 0
+            }
+            IGMessageViewController.messageOnChatReceiveObserver?.onRemoveWaitingProgress(fakeMessageId: fakeMessageId, direction: direction)
         }
     }
     
@@ -1177,10 +1130,4 @@ class IGMessageLoader {
     private func setGap(messageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection) {
         IGFactory.shared.setGap(messageId: messageId, direction: direction)
     }
-}
-
-
-enum ProgressState {
-    case SHOW
-    case HIDE
 }

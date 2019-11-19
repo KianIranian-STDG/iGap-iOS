@@ -167,6 +167,7 @@ public enum IGRoomMessageType: Int {
     case wallet
     case unread
     case time
+    case progress
     
     func toIGP() -> IGPRoomMessageType {
         switch self {
@@ -204,7 +205,7 @@ public enum IGRoomMessageType: Int {
             return .sticker
         case .wallet:
             return .wallet
-        case .unread, .time:
+        case .unread, .time, .progress:
             return .UNRECOGNIZED(-10)
         }
     }
@@ -521,5 +522,10 @@ enum ContactExchangeLevel {
     case importing(percent: Double)
     case gettingList(percent: Double)
     case completed
+}
+
+enum ProgressState {
+    case SHOW
+    case HIDE
 }
 

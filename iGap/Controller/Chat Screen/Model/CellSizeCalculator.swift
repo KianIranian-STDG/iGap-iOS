@@ -166,7 +166,11 @@ class CellSizeCalculator: NSObject {
             finalSize.height = CellSizeLimit.ConstantSizes.Unread.Height
             finalSize.width = CellSizeLimit.ConstantSizes.Unread.Width
             
-        } else if finalMessage.type == .contact {
+         } else if finalMessage.type == .progress {
+             finalSize.height = CellSizeLimit.ConstantSizes.Progress.Height
+             finalSize.width = CellSizeLimit.ConstantSizes.Progress.Width
+             
+         } else if finalMessage.type == .contact {
             let contactHeight = ContactCell.getContactHeight(finalMessage.contact!)
             finalSize.width = CellSizeLimit.ConstantSizes.Contact.Width
             finalSize.height += CellSizeLimit.ConstantSizes.Contact.Height

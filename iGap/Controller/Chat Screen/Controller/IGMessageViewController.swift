@@ -244,7 +244,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     var messagesWithForwardedMedia = try! Realm().objects(IGRoomMessage.self)
     var notificationToken: NotificationToken?
     
-    var logMessageCellIdentifer = IGMessageLogCollectionViewCell.cellReuseIdentifier()
     var room : IGRoom?
     var forwardedMessageArray : [IGRoomMessage] = []
     var privateRoom : IGRoom?
@@ -1608,7 +1607,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private func manageRequestPhone(){
         self.view.endEditing(true)
-        if let roomTitle = self.room?.title {
+        if (self.room?.title) != nil {
             if let userId = IGAppManager.sharedManager.userID(), let userInfo = IGRegisteredUser.getUserInfo(id: userId) {
                 self.messageTextView.text = String(describing: userInfo.phone)
                 self.didTapOnSendButton(self.btnSend)
@@ -4890,7 +4889,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
         if (self.room?.isInvalidated)! {
             self.navigationController?.popViewController(animated: true)
             
-            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
+            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
             cell.setUnknownMessage()
             
             return cell
@@ -5254,27 +5253,31 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             }
             
         } else if message.type == .log {
-            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
+            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
             let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
             cell.setMessage(message, room: self.room!,isIncommingMessage: true,shouldShowAvatar: false,messageSizes:bubbleSize,isPreviousMessageFromSameSender: false,isNextMessageFromSameSender: false)
             return cell
         } else if message.type == .time {
-            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
+            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
             cell.setTime(message.message!)
             return cell
         } else if message.type == .unread {
-            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
+            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
             let _ = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
             cell.setUnreadMessage(message)
             return cell
+        } else if message.type == .progress {
+            let cell: ProgressCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressCell.cellReuseIdentifier(), for: indexPath) as! ProgressCell
+            cell.showProgress()
+            return cell
         } else {
-            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
+            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
             cell.setUnknownMessage()
             return cell
         }
         
         
-        let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
+        let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
         cell.setUnknownMessage()
         return cell
         
@@ -6515,6 +6518,15 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }
     }
     
+    func onAddWaitingProgress(message: IGRoomMessage, direction: IGPClientGetRoomHistory.IGPDirection) {
+        self.appendMessageArray([message], direction)
+        self.addWaitingProgress(direction: direction)
+    }
+    
+    func onRemoveWaitingProgress(fakeMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection) {
+        self.removeProgress(fakeMessageId: fakeMessageId, direction: direction)
+    }
+    
     /*********************************************************************************/
     /******************* Collection Manager (Add , Remove , Update) ******************/
     
@@ -6538,7 +6550,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
                 
                 var delay: Double = 0
                 if self.messageLoader.hasUnread() || self.messageLoader.hasSavedState() {
-                    delay = 1
+                    delay = 0
                 }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
@@ -6561,7 +6573,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
                     self.addChatItemToTop(count: realmRoomMessages.count)
                     self.messageLoader.setWaitingHistoryUpLocal(isWaiting: false)
                     if updateMessageId != 0 {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
                             if let pos = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: updateMessageId) {
                                 self.updateItem(cellPosition: pos)
                             }
@@ -6571,10 +6583,10 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             }
         } else { // Down Direction
             if self.messageLoader.isFirstLoadDown() {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
                     self.appendMessageArray(realmRoomMessages, direction)
                     self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: scrollToBottom)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
                         let bottomOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - self.collectionView.bounds.size.height)
                         self.collectionView.setContentOffset(bottomOffset, animated: false)
                     }
@@ -6637,6 +6649,14 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }, completion: nil)
     }
     
+    private func addWaitingProgress(direction: IGPClientGetRoomHistory.IGPDirection){
+        if direction == .up {
+            addChatItemToTop(count: 1)
+        } else {
+            addChatItemToBottom(count: 1, scrollToBottom: true)
+        }
+    }
+    
     private func removeItem(cellPosition: Int?){
         if cellPosition == nil {return}
         DispatchQueue.main.async {
@@ -6644,6 +6664,17 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             self.collectionView?.performBatchUpdates({
                 self.collectionView?.deleteItems(at: [IndexPath(row: cellPosition!, section: 0)])
             }, completion: nil)
+        }
+    }
+    
+    private func removeProgress(fakeMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection){
+        DispatchQueue.main.async {
+            if let cellPosition = IGMessageViewController.messageIdsStatic[(self.currentRoomId)!]?.firstIndex(of: fakeMessageId) {
+                self.removeMessageArrayByPosition(cellPosition: cellPosition)
+                self.collectionView?.performBatchUpdates({
+                    self.collectionView?.deleteItems(at: [IndexPath(row: cellPosition, section: 0)])
+                }, completion: nil)
+            }
         }
     }
     

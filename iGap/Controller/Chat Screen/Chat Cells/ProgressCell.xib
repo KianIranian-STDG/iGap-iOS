@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ProgressCell" customModule="iGap">
+            <rect key="frame" x="0.0" y="0.0" width="555" height="70"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="555" height="70"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nqL-ib-lty" customClass="AnimateloadingView" customModule="iGap" customModuleProvider="target">
+                        <rect key="frame" x="252.5" y="10" width="50" height="50"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="gid-yU-4So"/>
+                            <constraint firstAttribute="height" constant="50" id="viF-Rd-EM9"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="nqL-ib-lty" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="dyt-eX-Kdr"/>
+                <constraint firstItem="nqL-ib-lty" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="wuJ-LC-mSb"/>
+            </constraints>
+            <size key="customSize" width="555" height="50"/>
+            <connections>
+                <outlet property="progress" destination="nqL-ib-lty" id="1Xj-Hf-HhY"/>
+            </connections>
+            <point key="canvasLocation" x="-58.399999999999999" y="53.973013493253376"/>
+        </collectionViewCell>
+    </objects>
+</document>

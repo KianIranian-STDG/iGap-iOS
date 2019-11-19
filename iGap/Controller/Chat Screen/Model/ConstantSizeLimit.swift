@@ -128,6 +128,11 @@ class CellSizeLimit: NSObject {
             static let Width: CGFloat = IGGlobal.fetchUIScreen().width
         }
         
+        struct Progress {
+            static let Height: CGFloat = 50.0
+            static let Width: CGFloat = 50.0
+        }
+        
         struct Wallet {
             static let Width: CGFloat = 220.0
             static let Height: CGFloat = 300.0

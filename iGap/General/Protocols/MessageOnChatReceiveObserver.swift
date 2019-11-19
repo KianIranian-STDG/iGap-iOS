@@ -19,4 +19,6 @@ protocol MessageOnChatReceiveObserver {
     func onMessageEdit(messageId: Int64, roomId: Int64, message: String, messageType: IGPRoomMessageType, messageVersion: Int64)
     func onMessageDelete(roomId: Int64, messageId: Int64)
     func onFetchUserInfo(userId: Int64)
+    func onAddWaitingProgress(message: IGRoomMessage, direction: IGPClientGetRoomHistory.IGPDirection)
+    func onRemoveWaitingProgress(fakeMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection)
 }
