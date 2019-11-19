@@ -2890,12 +2890,6 @@
                                                     <color key="textColor" name="IGTVCellTitleColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2.0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="7KR-Kk-5m9" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="352.33333333333331" y="12.333333333333334" width="35.666666666666686" height="19.333333333333329"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" name="IGTVCellTitleColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJp-6I-YL8">
                                                     <rect key="frame" x="12" y="0.0" width="390" height="1"/>
                                                     <color key="backgroundColor" white="0.78000000000000003" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2907,9 +2901,7 @@
                                             <constraints>
                                                 <constraint firstItem="eJp-6I-YL8" firstAttribute="leading" secondItem="7uy-1s-CHl" secondAttribute="leading" constant="12" id="0cH-FN-CMA"/>
                                                 <constraint firstItem="duq-Uq-xI0" firstAttribute="leading" secondItem="7uy-1s-CHl" secondAttribute="leadingMargin" constant="6" id="DVG-94-uyZ"/>
-                                                <constraint firstItem="7KR-Kk-5m9" firstAttribute="centerY" secondItem="7uy-1s-CHl" secondAttribute="centerY" id="FaV-bV-1nA"/>
                                                 <constraint firstItem="eJp-6I-YL8" firstAttribute="top" secondItem="7uy-1s-CHl" secondAttribute="top" id="Rfw-Hl-U7Q"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="7KR-Kk-5m9" secondAttribute="trailing" constant="6" id="cVm-Rh-7eC"/>
                                                 <constraint firstItem="duq-Uq-xI0" firstAttribute="centerY" secondItem="7uy-1s-CHl" secondAttribute="centerY" id="itA-a7-UZB"/>
                                                 <constraint firstAttribute="trailing" secondItem="eJp-6I-YL8" secondAttribute="trailing" constant="12" id="uRO-oe-Azm"/>
                                             </constraints>
