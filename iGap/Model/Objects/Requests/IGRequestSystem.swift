@@ -27,32 +27,41 @@ class IGConnectionSecuringRequest : IGRequest {
             let sessionPublicKey = connectionSecuringResponseMessage.igpPublicKey
             let symmetricKeyLength = Int(connectionSecuringResponseMessage.igpSymmetricKeyLength)
             let secondaryChunkSize = Int(connectionSecuringResponseMessage.igpSecondaryChunkSize)
-
-
+            
             IGSecurityManager.sharedManager.setConnecitonPublicKey(sessionPublicKey)
             IGWebSocketManager.sharedManager.connectionProblemTimerDelay = Double(connectionSecuringResponseMessage.igpHeartbeatInterval+5)
             
-            let generatedEncryptedSymmetricKeyData = IGSecurityManager.sharedManager.generateEncryptedSymmetricKeyData(length: symmetricKeyLength,secondaryChunkSize:secondaryChunkSize)
-            
-            
-            var connectionSecuringResponseRequest = IGPConnectionSymmetricKey()
-            connectionSecuringResponseRequest.igpSymmetricKey = generatedEncryptedSymmetricKeyData
-            connectionSecuringResponseRequest.igpVersion = 2
-            
-            let requestWrapper : IGRequestWrapper = IGRequestWrapper(message: connectionSecuringResponseRequest, actionID: 2)
-            IGWebSocketManager.sharedManager.send(requestW: requestWrapper)
+            let symmetricKey = IGSecurityManager.sharedManager.generateEncryptedSymmetricKeyData(length: symmetricKeyLength,secondaryChunkSize:secondaryChunkSize)
+            IGConnectionSymmetricKeyRequest.sendRequest(symmetricKey: symmetricKey)
         }
     }
 }
 
 //MARK: -
 class IGConnectionSymmetricKeyRequest : IGRequest {
-    class Generator : IGRequest.Generator{
-        
+    
+    class func sendRequest(symmetricKey: Data) {
+        IGConnectionSymmetricKeyRequest.Generator.generate(symmetricKey: symmetricKey).successPowerful({ (responseProto, requestWrapper) in
+            IGConnectionSymmetricKeyRequest.Handler.interpret(response: responseProto)
+        }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
+            if errorCode == .timeout {
+                self.sendRequest(symmetricKey: symmetricKey)
+            }
+        }).send()
     }
     
-    class Handler : IGRequest.Handler{
-        override class func handlePush(responseProtoMessage: Message) {
+    class Generator : IGRequest.Generator {
+        class func generate(symmetricKey: Data) -> IGRequestWrapper {
+            var connectionSecuringResponseRequest = IGPConnectionSymmetricKey()
+            connectionSecuringResponseRequest.igpSymmetricKey = symmetricKey
+            connectionSecuringResponseRequest.igpVersion = 2
+            return IGRequestWrapper(message: connectionSecuringResponseRequest, actionID: 2)
+        }
+    }
+    
+    class Handler : IGRequest.Handler {
+        
+        class func interpret(response responseProtoMessage: Message) {
             let symmetricKeyResponseMessage = responseProtoMessage as! IGPConnectionSymmetricKeyResponse
             if(symmetricKeyResponseMessage.igpSecurityIssue){
                 DispatchQueue.main.async {
@@ -62,18 +71,19 @@ class IGConnectionSymmetricKeyRequest : IGRequest {
                     UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
 
                 }
-            }else {
+            } else {
                 //TODO: check if is accepted
                 let symmetricIVSize = Int(symmetricKeyResponseMessage.igpSymmetricIvSize)
                 let symmetricMethod = symmetricKeyResponseMessage.igpSymmetricMethod
-
                 IGSecurityManager.sharedManager.setSymmetricIVSize(symmetricIVSize)
                 IGSecurityManager.sharedManager.setEncryptionMethod(symmetricMethod)
-
                 IGWebSocketManager.sharedManager.setConnectionSecure()
-                //login if possible
                 IGAppManager.sharedManager.login()
             }
+        }
+        
+        override class func handlePush(responseProtoMessage: Message) {
+            IGConnectionSymmetricKeyRequest.Handler.interpret(response: responseProtoMessage)
         }
     }
 }

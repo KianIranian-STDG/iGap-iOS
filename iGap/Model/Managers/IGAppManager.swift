@@ -407,6 +407,10 @@ class IGAppManager: NSObject {
                 }).error({ (errorCode, waitTime) in
                     self.isTryingToLoginUser = false
                     switch errorCode {
+                    case .timeout:
+                        self.login()
+                        break
+                        
                     case .userLoginFailed, .userLoginFailedOne, .userLoginFailedTwo, .userLoginFailedThree, .userLoginFaieldUserIsBlocked:
                         DispatchQueue.main.async {
                             let appDelegate = UIApplication.shared.delegate as! AppDelegate
