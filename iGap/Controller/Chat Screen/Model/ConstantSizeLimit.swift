@@ -129,8 +129,8 @@ class CellSizeLimit: NSObject {
         }
         
         struct Progress {
-            static let Height: CGFloat = 50.0
-            static let Width: CGFloat = 50.0
+            static let Height: CGFloat = 80.0
+            static let Width: CGFloat = 80.0
         }
         
         struct Wallet {

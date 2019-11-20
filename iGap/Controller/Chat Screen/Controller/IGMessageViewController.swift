@@ -3847,6 +3847,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let documentPicker: UIDocumentPickerViewController = UIDocumentPickerViewController(documentTypes: documentPickerIdentifiers, in: UIDocumentPickerMode.import)
         documentPicker.delegate = self
         documentPicker.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+        UINavigationBar.appearance(whenContainedInInstancesOf: [UIDocumentBrowserViewController.self]).tintColor = UIColor.blue
         self.present(documentPicker, animated: true, completion: nil)
     }
     
@@ -6579,7 +6580,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
                     self.appendMessageArray(realmRoomMessages, direction)
                     self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: scrollToBottom)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                         let bottomOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - self.collectionView.bounds.size.height)
                         self.collectionView.setContentOffset(bottomOffset, animated: false)
                     }
