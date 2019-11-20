@@ -54,6 +54,7 @@ class IGChatSendMessageRequest : IGRequest {
             }
             sendMessageRequestMessage.igpRoomID = room.id
             sendMessageRequestMessage.igpMessageType = message.type.toIGP()
+            sendMessageRequestMessage.igpRandomID = message.randomId
             if let attachmentToken = attachmentToken {
                 sendMessageRequestMessage.igpAttachment = attachmentToken
             } else if let attachmentToken = message.attachment?.token {

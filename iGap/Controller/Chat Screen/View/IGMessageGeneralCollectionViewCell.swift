@@ -20,6 +20,7 @@ protocol IGMessageGeneralCollectionViewCellDelegate {
     func didTapOnReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell)
     func didTapOnForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell)
     func didTapOnMultiForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell)
+    func didTapOnFailedStatus(cellMessage: IGRoomMessage)
     func didTapOnReturnToMessage()
     func didTapOnHashtag(hashtagText: String)
     func didTapOnMention(mentionText: String)

@@ -456,7 +456,7 @@ class IGRequestManager {
     static let sharedManager = IGRequestManager()
     
     let disposeBag = DisposeBag()
-    private let TIME_OUT: Int64  = 15 //milisecond
+    private let TIME_OUT: Int64  = 15 //sencond
     private var queuedRequests   = [String : IGRequestWrapper]()
     private var pendingRequests  = [String : IGRequestWrapper]()
     private var resolvedRequests = [String : IGRequestWrapper]()

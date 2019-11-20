@@ -3847,7 +3847,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let documentPicker: UIDocumentPickerViewController = UIDocumentPickerViewController(documentTypes: documentPickerIdentifiers, in: UIDocumentPickerMode.import)
         documentPicker.delegate = self
         documentPicker.modalPresentationStyle = UIModalPresentationStyle.fullScreen
-        UINavigationBar.appearance(whenContainedInInstancesOf: [UIDocumentBrowserViewController.self]).tintColor = UIColor.blue
+        UINavigationBar.appearance(whenContainedInInstancesOf: [UIDocumentBrowserViewController.self]).tintColor = UIColor.init(named: themeColor.labelColor.rawValue)
         self.present(documentPicker, animated: true, completion: nil)
     }
     
@@ -5605,6 +5605,13 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             }
         }
     }
+    
+    func didTapOnFailedStatus(cellMessage: IGRoomMessage) {
+        DispatchQueue.main.async {
+            IGMessageSender.defaultSender.resend(message: cellMessage, to: self.room!)
+        }
+    }
+    
     func swipToReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
         if !(IGGlobal.shouldMultiSelect) {
             

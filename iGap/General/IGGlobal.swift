@@ -377,7 +377,7 @@ class IGGlobal {
     }
     
     public class func randomId() -> Int64 {
-        return Int64(arc4random()) + (Int64(arc4random()) << 32)
+        return Int64(arc4random()) + (Int64(arc4random()) << 18)
     }
     
     /* if device is iPad return "alert" style otherwise will be returned "actionSheet" style */

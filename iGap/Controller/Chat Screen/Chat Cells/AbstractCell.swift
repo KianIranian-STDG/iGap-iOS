@@ -777,6 +777,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                 btnReturnToMessageAbs?.addGestureRecognizer(tapReturnToMessage)
             }
             
+            let statusGusture = UITapGestureRecognizer(target: self, action: #selector(didTapOnFailedStatus(_:)))
+            txtStatusAbs?.addGestureRecognizer(statusGusture)
+            txtStatusAbs?.isUserInteractionEnabled = true
+            
             let tap5 = UITapGestureRecognizer(target: self, action: #selector(didTapOnSenderAvatar(_:)))
             avatarViewAbs?.addGestureRecognizer(tap5)
             
@@ -832,6 +836,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
     
     @objc func didTapOnReturnToMessage(_ gestureRecognizer: UITapGestureRecognizer) {
         self.delegate?.didTapOnReturnToMessage()
+    }
+    
+    @objc func didTapOnFailedStatus(_ gestureRecognizer: UITapGestureRecognizer) {
+        if realmRoomMessage.status == .failed {
+            self.delegate?.didTapOnFailedStatus(cellMessage: realmRoomMessage!)
+        }
     }
     
     func didTapOnForwardedAttachment(_ gestureRecognizer: UITapGestureRecognizer) {

@@ -269,6 +269,7 @@ class IGChannelSendMessageRequest: IGRequest {
             
             channelSendMessageRequestMessage.igpRoomID = room.id
             channelSendMessageRequestMessage.igpMessageType = message.type.toIGP()
+            channelSendMessageRequestMessage.igpRandomID = message.randomId
             
             if let attachmentToken = attachmentToken {
                 channelSendMessageRequestMessage.igpAttachment = attachmentToken
