@@ -266,6 +266,8 @@ class IGMessageLoader {
                 }
             }
             
+            onMessageReceive(messageInfos, direction)
+            
             /**
              * if gap is exist ,check that reached to gap or not and if
              * reached send request to server for clientGetRoomHistory
@@ -320,6 +322,7 @@ class IGMessageLoader {
             getOnlineMessage(oldMessageId: oldMessageId, direction: direction, onMessageReceive: onMessageReceive)
         }
         
+        /*
         if (direction == .up) {
             onMessageReceive(messageInfos, .up)
         } else {
@@ -344,7 +347,7 @@ class IGMessageLoader {
                 }
             }
         }
-        
+         */
         /*
         if (unreadCount > 0) {
            recyclerView.scrollToPosition(0);
@@ -648,17 +651,19 @@ class IGMessageLoader {
     
     private func manageProgress(state: ProgressState, direction: IGPClientGetRoomHistory.IGPDirection, messageId: Int64 = 0, onMessageReceive: ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)? = nil) {
         if state == .SHOW {
-            if ((topProgressId == 0 && direction == .up)  ||  (bottomProgressId == 0 && direction == .down)) {
-                let message = IGRoomMessage(body: "")
-                message.type = .progress
-                if direction == .up {
-                    topProgressId = messageId + 1
-                    message.id = topProgressId
-                } else {
-                    bottomProgressId = messageId - 1
-                    message.id = bottomProgressId
+            DispatchQueue.main.async {
+                if ((self.topProgressId == 0 && direction == .up)  ||  (self.bottomProgressId == 0 && direction == .down)) {
+                    let message = IGRoomMessage(body: "")
+                    message.type = .progress
+                    if direction == .up {
+                        self.topProgressId = messageId + 1
+                        message.id = self.topProgressId
+                    } else {
+                        self.bottomProgressId = messageId - 1
+                        message.id = self.bottomProgressId
+                    }
+                    IGMessageViewController.messageOnChatReceiveObserver?.onAddWaitingProgress(message: message, direction: direction)
                 }
-                IGMessageViewController.messageOnChatReceiveObserver?.onAddWaitingProgress(message: message, direction: direction)
             }
         } else {
             var fakeMessageId: Int64!

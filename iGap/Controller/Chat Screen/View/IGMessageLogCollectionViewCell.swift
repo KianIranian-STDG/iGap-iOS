@@ -106,8 +106,8 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
     
     private func addShadow(){
         self.logBackgroundView.layer.shadowColor = UIColor.black.cgColor
-        self.logBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        self.logBackgroundView.layer.shadowRadius = 2
+        self.logBackgroundView.layer.shadowOffset = CGSize(width: 1.5, height: 1.5)
+        self.logBackgroundView.layer.shadowRadius = 2.5
         self.logBackgroundView.layer.shadowOpacity = 0.3
         self.logBackgroundView.layer.masksToBounds = false
     }
