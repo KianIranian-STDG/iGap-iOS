@@ -191,6 +191,12 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                         
                     case .gettingList(let percent):
                         self.contactSynced = false
+                        
+                        /* don't show start of contact saving view to the user when user is not login yet */
+                        if percent == 0 && !IGAppManager.sharedManager.isUserLoggiedIn() {
+                            break
+                        }
+                        
                         let formatter = NumberFormatter()
                         formatter.numberStyle = .percent
                         navigationItem.setNavigationItemForSyncingContactsStatus(text: "\(IGStringsManager.ContactSaving.rawValue.localized) %\(percent.fetchPercent())")
@@ -248,7 +254,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         } else {
             customHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: (Int(UIScreen.main.bounds.width)), height: 100))
             txtInviteContact = UILabel()
-            txtInviteContact.font = UIFont.igFont(ofSize: 20, weight: .regular)
+            txtInviteContact.font = UIFont.igFont(ofSize: 18, weight: .regular)
             customHeaderView.addSubview(txtInviteContact)
             txtInviteContact.snp.makeConstraints { (make) in
                 make.centerX.equalTo(customHeaderView.snp.centerX)
