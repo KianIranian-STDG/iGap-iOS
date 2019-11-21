@@ -73,30 +73,26 @@ class IGNavigationItem: UINavigationItem {
             return
         }
         
-        self.centerViewContainer = IGTappableView(frame: CGRect(x: 0, y: 0, width: 170, height: 45))
-        
-        self.titleView = centerViewContainer
-        
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 15.0,weight: .bold)
         label.textAlignment = .center
         label.textColor = UIColor.iGapBarsInfo()
         label.text = text
-        self.titleView?.addSubview(label)
-        label.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.centerViewContainer!.snp.centerX)
-            make.centerY.equalTo(self.centerViewContainer!.snp.centerY).offset(-2)
-        }
+        label.sizeToFit()
         
         let activityIndicatorView = UIActivityIndicatorView(style: .white)
-        self.titleView?.addSubview(activityIndicatorView)
         activityIndicatorView.startAnimating()
-        activityIndicatorView.snp.makeConstraints { (make) in
-            make.right.equalTo(label.snp.left).offset(-4)
-            make.centerY.equalTo(self.centerViewContainer!.snp.centerY)
-            make.width.equalTo(20.0)
-            make.height.equalTo(20.0)
-        }
+        
+        let statusSV = UIStackView()
+        
+        statusSV.axis = .horizontal
+        statusSV.distribution = .fill
+        statusSV.alignment = .center
+        statusSV.spacing = 4
+        statusSV.addArrangedSubview(activityIndicatorView)
+        statusSV.addArrangedSubview(label)
+        
+        self.titleView = statusSV
     }
     
     
@@ -693,25 +689,23 @@ class IGNavigationItem: UINavigationItem {
 
         if IGTabBarController.currentTabStatic == .Recent || AppDelegate.isFirstEnterToApp || IGTabBarController.currentTabStatic == .Contact  {
             AppDelegate.isFirstEnterToApp = false
-            let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 40))
-            let btnLogo = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
-            btnLogo.setTitle("APP_LOGO_ICON".Imagelocalized, for: .normal)
-            btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 60)
-
-            titleView.addSubview(btnLogo)
             
-            self.titleView = titleView
-            
+            initNavBarWithIgapIcon()
         } else {
             //Hint: call top code block again, because we want show iGap logo for all tabs
-            let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 40))
-            let btnLogo = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
-            btnLogo.setTitle("APP_LOGO_ICON".Imagelocalized, for: .normal)
-            btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 60)
-
-            titleView.addSubview(btnLogo)
-            self.titleView = titleView
+            initNavBarWithIgapIcon()
         }
+    }
+    
+    func initNavBarWithIgapIcon() {
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 40))
+        let btnLogo = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
+        btnLogo.setTitle("APP_LOGO_ICON".Imagelocalized, for: .normal)
+        btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 60)
+
+        titleView.addSubview(btnLogo)
+        
+        self.titleView = titleView
     }
     
     //MARK: - Messages View

@@ -76,6 +76,10 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.initNavBarWithIgapIcon()
+        
         initRxSwiftObservers()
         initObserver()
         
@@ -140,7 +144,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         }
     }
     
-    private func initObserver(){
+    private func initObserver() {
         if allowInitObserver {
             allowInitObserver = false
             IGPhoneBookTableViewController.callDelegate = self
@@ -252,15 +256,18 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         if currentTabIndex == TabBarTab.Profile.rawValue {
             customHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: (Int(UIScreen.main.bounds.width)), height: 64))
         } else {
-            customHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: (Int(UIScreen.main.bounds.width)), height: 100))
+            customHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: (Int(UIScreen.main.bounds.width)), height: 110))
             txtInviteContact = UILabel()
             txtInviteContact.font = UIFont.igFont(ofSize: 18, weight: .regular)
+            txtInviteContact.textAlignment = self.TextAlignment
             customHeaderView.addSubview(txtInviteContact)
             txtInviteContact.snp.makeConstraints { (make) in
-                make.centerX.equalTo(customHeaderView.snp.centerX)
-                make.bottom.equalTo(customHeaderView.snp.bottom).offset(-10)
-                make.height.equalTo(20)
-                make.width.greaterThanOrEqualTo(20)
+//                make.centerX.equalTo(customHeaderView.snp.centerX)
+                make.bottom.equalTo(customHeaderView.snp.bottom).offset(-8)
+                make.height.equalTo(30)
+                make.width.greaterThanOrEqualTo(30)
+                make.leading.equalTo(customHeaderView.snp.leading).offset(16)
+                make.trailing.equalTo(customHeaderView.snp.trailing).offset(-16)
             }
             
             txtInviteContact.text = IGStringsManager.InviteFriends.rawValue.localized
@@ -285,7 +292,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     private func setFooterLabelText() {
         guard txtFooter != nil else { return }
-        txtFooter?.text = "\(self.contacts?.count ?? 0) ".inLocalizedLanguage() + " " + IGStringsManager.Contacts.rawValue.localized
+        txtFooter?.text = "\(self.contacts?.count ?? 0) ".inLocalizedLanguage() + " " + IGStringsManager.Contact.rawValue.localized
     }
     
     @objc

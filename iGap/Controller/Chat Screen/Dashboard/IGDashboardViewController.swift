@@ -41,7 +41,8 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         super.viewDidLoad()
         isfromPacket = false
         
-//        self.title = ""
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.initNavBarWithIgapIcon()
 
         registerCellsNib()
         self.collectionView.dataSource = self
@@ -71,9 +72,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         initFont()
                 
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
-            DispatchQueue.main.async {
-                self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
-            }
+            self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
         }, onError: { (error) in
             
         }, onCompleted: {

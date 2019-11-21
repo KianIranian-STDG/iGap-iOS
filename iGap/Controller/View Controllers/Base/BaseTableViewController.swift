@@ -59,8 +59,9 @@ class BaseTableViewController: UITableViewController, UIGestureRecognizerDelegat
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: rightItemText, title: title, iGapFont: iGapFont)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
-        let navigationController = self.navigationController as! IGNavigationController
-        navigationController.interactivePopGestureRecognizer?.delegate = self
+        if let navigationController = self.navigationController as? IGNavigationController {
+            navigationController.interactivePopGestureRecognizer?.delegate = self
+        }
         
         navigationItem.rightViewContainer?.addAction(rightAction)
     }

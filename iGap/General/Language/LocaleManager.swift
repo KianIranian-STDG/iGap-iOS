@@ -105,7 +105,8 @@ public class LocaleManager: NSObject {
      - Return: A dictionary that keys are language identifiers and values are localized language name
     */
     @objc public class var availableLocalizations: [String: String] {
-        let keys = Bundle.main.localizations.sorted()
+        let keys = Bundle.main.localizations.sorted(by: { $0 > $1 })
+        print(keys)
         let vals = keys.map({ Locale.userPreferred.localizedString(forIdentifier: $0) ?? $0 })
         return [String: String].init(zip(keys, vals), uniquingKeysWith: { v, _ in v })
     }

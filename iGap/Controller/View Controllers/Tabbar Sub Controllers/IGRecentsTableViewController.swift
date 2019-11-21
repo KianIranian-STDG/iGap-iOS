@@ -302,6 +302,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     override func viewDidLoad() {
         super.viewDidLoad()
         isfromPacket = false
+        
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.initNavBarWithIgapIcon()
 
         self.tableView.bounces = false
         self.searchController.searchBar.delegate = self
@@ -326,9 +329,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
         
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
-            DispatchQueue.main.async {
-                self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
-            }
+            self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
         }, onError: { (error) in
             
         }, onCompleted: {

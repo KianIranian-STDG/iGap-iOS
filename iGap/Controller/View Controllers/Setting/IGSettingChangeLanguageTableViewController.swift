@@ -12,13 +12,13 @@ import UIKit
 
 class IGSettingChangeLanguageTableViewController: BaseTableViewController {
     
-    private var languagesArray = [String: String]()
+    private var languagesArray = Array<(key: String, value: String)>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initNavigationBar()
-        languagesArray = LocaleManager.availableLocalizations.filter({ $0.key != "Base" })
+        languagesArray = Array(LocaleManager.availableLocalizations.filter({ $0.key != "Base" })).sorted(by: { $0.key < $1.key })
     }
     
     func initNavigationBar(){
@@ -45,7 +45,7 @@ class IGSettingChangeLanguageTableViewController: BaseTableViewController {
             return LanguageCell()
         }
         
-        let language = Array(languagesArray)[indexPath.row]
+        let language = languagesArray[indexPath.row]
         cell.langIsoCodeLbl.text = language.key.uppercased()
         cell.langNameLbl.text = language.value
         
@@ -64,7 +64,7 @@ class IGSettingChangeLanguageTableViewController: BaseTableViewController {
         let cell = tableView.cellForRow(at: indexPath) as! LanguageCell
         cell.selectedLangIconLbl.isHidden = false
         
-        let language = Array(languagesArray)[indexPath.row]
+        let language = languagesArray[indexPath.row]
         if Locale.userPreferred.languageCode != language.key {
             LocaleManager.apply(identifier: language.key, animated: true)
         }

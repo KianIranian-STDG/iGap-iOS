@@ -15,6 +15,7 @@ import RealmSwift
 import MBProgressHUD
 
 class IGCallsTableViewController: BaseTableViewController {
+    
     var transactionTypesCollectionView : UICollectionView!
     var selectedRowUser : IGRegisteredUser?
     var cellIdentifer = IGCallListTableViewCell.cellReuseIdentifier()
@@ -47,6 +48,9 @@ class IGCallsTableViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.initNavBarWithIgapIcon()
 
         let sortProperties = [SortDescriptor(keyPath: "offerTime", ascending: false)]
         callLogList = try! Realm().objects(IGRealmCallLog.self).sorted(by: sortProperties)
@@ -72,9 +76,7 @@ class IGCallsTableViewController: BaseTableViewController {
         callTypes = IGPSignalingGetLog.IGPFilter.allCases
         
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
-            DispatchQueue.main.async {
-                self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
-            }
+            self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
         }, onError: { (error) in
             
         }, onCompleted: {

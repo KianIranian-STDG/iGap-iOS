@@ -127,6 +127,9 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.initNavBarWithIgapIcon()
+        
         self.hideKeyboardWhenTappedAround()
         initView()
         initServices()
@@ -134,9 +137,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
         
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
-            DispatchQueue.main.async {
-                self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
-            }
+            self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
         }, onError: { (error) in
             
         }, onCompleted: {

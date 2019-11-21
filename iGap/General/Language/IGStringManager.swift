@@ -322,7 +322,7 @@ enum IGStringsManager : String {
     //MARK: -Call
     case Outgoing = "outgoing"
     case Missed = "missed"
-    case Incomming = "incomming"
+    case Incomming = "incoming"
     case Canceled = "canceled"
     case All = "all"
     case VoiceCall = "voice_calls"
@@ -514,6 +514,7 @@ enum IGStringsManager : String {
     case Sticker = "sticker"
     case Phone = "phone"
     case Contacts = "contacts"
+    case Contact = "am_contact"
     case ClearHistory = "clear_history"
     case Pornography = "st_Pornography"
     case Report = "st_Report"

@@ -7,17 +7,6 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "iGapVerticalLogo-2.png",
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "light"
-        }
-      ],
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
       "filename" : "iGapVerticalLogo-3.png",
       "appearances" : [
         {
@@ -37,16 +26,6 @@
       "appearances" : [
         {
           "appearance" : "luminosity",
-          "value" : "light"
-        }
-      ]
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "2x",
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
           "value" : "dark"
         }
       ]
@@ -54,16 +33,6 @@
     {
       "idiom" : "universal",
       "scale" : "3x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "3x",
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "light"
-        }
-      ]
     },
     {
       "idiom" : "universal",

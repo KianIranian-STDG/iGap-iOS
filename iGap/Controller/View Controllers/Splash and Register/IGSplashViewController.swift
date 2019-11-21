@@ -14,14 +14,14 @@ class IGSplashViewController: UIViewController {
     @IBOutlet weak var selectLanguageTV: UITableView!
     
     // MARK: - Variables
-    private var languagesArray = [String: String]()
+    private var languagesArray = Array<(key: String, value: String)>()
 
     // MARK: - built in functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.selectLanguageTV.isHidden = true
-        languagesArray = LocaleManager.availableLocalizations.filter({ $0.key != "Base" })
+        languagesArray = Array(LocaleManager.availableLocalizations.filter({ $0.key != "Base" })).sorted(by: { $0.key < $1.key })
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // Change `2.0` to the desired number of seconds.
             UIView.transition(with: self.selectLanguageTV, duration: 0.3, options: .transitionCrossDissolve, animations: {
@@ -65,7 +65,7 @@ extension IGSplashViewController: UITableViewDelegate, UITableViewDataSource {
             return LanguageCell()
         }
         
-        let language = Array(languagesArray)[indexPath.row]
+        let language = languagesArray[indexPath.row]
         cell.langIsoCodeLbl.text = language.key.uppercased()
         cell.langNameLbl.text = language.value
         
@@ -75,7 +75,7 @@ extension IGSplashViewController: UITableViewDelegate, UITableViewDataSource {
     //MARK: - tableView Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let language = Array(languagesArray)[indexPath.row]
+        let language = languagesArray[indexPath.row]
         LocaleManager.apply(identifier: language.key, animated: false)
 //        RootVCSwitcher.updateRootVC(storyBoard: "Register", viewControllerID: "IGSplashNavigationController")
     }
