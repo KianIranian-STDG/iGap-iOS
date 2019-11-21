@@ -127,7 +127,7 @@ class IGRepresentativeViewController: BaseViewController, SelectCountryObserver 
         }).send()
     }
     
-    private func finish(){
+    private func finish() {
         if popView {
             self.navigationController?.popViewController(animated: true)
         } else {
@@ -144,4 +144,5 @@ class IGRepresentativeViewController: BaseViewController, SelectCountryObserver 
         selectedCountry = country
         setCountryInfo(country: country)
     }
+    
 }

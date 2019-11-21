@@ -16,8 +16,8 @@ import IGProtoBuff
 
 class IGRegistrationStepPhoneViewController: BaseViewController {
 
-    var tapCount : Int! = 1
-    var isChecked : Bool! = false
+    var tapCount: Int! = 1
+    var isChecked: Bool! = false
 
     @IBOutlet weak var countryBackgroundView: UIView!
     @IBOutlet weak var phoneNumberBackgroundView: UIView!
@@ -36,9 +36,8 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
     @IBOutlet weak var countryCodeLabel: UILabel!
     @IBOutlet weak var btnLoginQrCode: UIButton!
     
-    var body : String!
+    var body: String!
     @IBOutlet weak var lblHeader: UILabel!
-
     
     internal static var allowGetCountry:Bool = true
     var phone: String?
@@ -139,7 +138,6 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
         btnSubmit.titleLabel?.font = UIFont.igFont(ofSize: 15)
         btnSubmit.layer.cornerRadius = 10
         
-        let locale = Locale.userPreferred // e.g "en_US"
         lblHeader.text = IGStringsManager.PickNumWithCountry.rawValue.localized
         countryNameLabel.text = IGStringsManager.ChooseCountry.rawValue.localized
         btnLoginQrCode.setTitle(IGStringsManager.LoginWithQrScan.rawValue.localized, for: .normal)
@@ -170,7 +168,7 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
 
     //actions
     @IBAction func checkbtnCheckmarkClicked(_ sender: Any) {
-        btnCheckmarkPrivacy.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+        btnCheckmarkPrivacy.titleLabel?.font = UIFont.iGapFonticon(ofSize: 23)
         if isChecked {
             btnCheckmarkPrivacy.setTitle("NOT_CHECKED_ICON".Imagelocalized, for: .normal)
             btnCheckmarkPrivacy.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
@@ -405,7 +403,7 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
                 case let locationProtoResponse as IGPInfoLocationResponse:
                    let country = IGCountryInfo(responseProtoMessage: locationProtoResponse)
                    self.selectedCountry = country
-                    self.setSelectedCountry(self.selectedCountry!)
+                   self.setSelectedCountry(self.selectedCountry!)
                     
                 default:
                     break

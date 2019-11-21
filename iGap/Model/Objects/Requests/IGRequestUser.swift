@@ -617,16 +617,16 @@ class IGUserInfoRequest : IGRequest {
 }
 
 //MARK: -
-class IGUserGetDeleteTokenRequest : IGRequest {
-    class Generator : IGRequest.Generator{
+class IGUserGetDeleteTokenRequest: IGRequest {
+    
+    class Generator: IGRequest.Generator {
         class func generate() -> IGRequestWrapper {
             let userDeleteTokenRequestMessage = IGPUserGetDeleteToken()
             return IGRequestWrapper(message: userDeleteTokenRequestMessage, actionID: 118)
-            
         }
     }
     
-    class Handler : IGRequest.Handler{
+    class Handler: IGRequest.Handler {
         class func interpret(response responseProtoMessage:IGPUserGetDeleteTokenResponse) -> (resendDelay: Int32, codeDigitsLenght: String, tokenRegex: String) {
                    return (resendDelay: responseProtoMessage.igpResendDelay,
                            codeDigitsLenght: responseProtoMessage.igpTokenLength,
@@ -634,24 +634,25 @@ class IGUserGetDeleteTokenRequest : IGRequest {
         }
         override class func handlePush(responseProtoMessage: Message) {}
     }
+    
 }
 
 //MARK: -
-class IGUserDeleteRequest : IGRequest {
-    class Generator : IGRequest.Generator{
-        class func generate(token: String , reasen: IGPUserDelete.IGPReason) -> IGRequestWrapper {
+class IGUserDeleteRequest: IGRequest {
+    
+    class Generator: IGRequest.Generator {
+        class func generate(token: String, reasen: IGPUserDelete.IGPReason) -> IGRequestWrapper {
             var userDeleteRequestMessage = IGPUserDelete()
             userDeleteRequestMessage.igpToken = token
             userDeleteRequestMessage.igpReason = reasen
             return IGRequestWrapper(message: userDeleteRequestMessage, actionID: 119)
         }
-        
     }
     
-    class Handler : IGRequest.Handler{
+    class Handler: IGRequest.Handler {
         class func interpret(response responseProtoMessage:IGPUserDeleteResponse)  {
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.logoutAndShowRegisterViewController(mainRoot: true)
+            appDelegate.logoutAndShowRegisterViewController()
         }
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
@@ -660,14 +661,15 @@ class IGUserDeleteRequest : IGRequest {
             default:
                 break
             }
-
         }
     }
+    
 }
 
 //MARK: -
-class IGUserProfileSetSelfRemoveRequest : IGRequest {
-    class Generator : IGRequest.Generator{
+class IGUserProfileSetSelfRemoveRequest: IGRequest {
+    
+    class Generator: IGRequest.Generator {
         class func generate(selfRemove: Int32) -> IGRequestWrapper {
             var userprofileSetSelfRemove = IGPUserProfileSetSelfRemove()
             userprofileSetSelfRemove.igpSelfRemove = selfRemove
@@ -676,10 +678,10 @@ class IGUserProfileSetSelfRemoveRequest : IGRequest {
         
     }
     
-    class Handler : IGRequest.Handler{
-        class func interpret(response responseProtoMessage:IGPUserProfileSetSelfRemoveResponse){
+    class Handler: IGRequest.Handler {
+        class func interpret(response responseProtoMessage: IGPUserProfileSetSelfRemoveResponse) {
             let currentUserId = IGAppManager.sharedManager.userID()
-            let setSelfRemove : Int32 = responseProtoMessage.igpSelfRemove
+            let setSelfRemove: Int32 = responseProtoMessage.igpSelfRemove
             IGFactory.shared.updateUserSelfRemove(currentUserId!,selfRemove: setSelfRemove)
         }
         
@@ -692,24 +694,27 @@ class IGUserProfileSetSelfRemoveRequest : IGRequest {
             }
         }
     }
+    
 }
 
 //MARK: -
-class IGUserProfileGetSelfRemoveRequest : IGRequest {
-    class Generator : IGRequest.Generator{
+class IGUserProfileGetSelfRemoveRequest: IGRequest {
+    
+    class Generator: IGRequest.Generator {
         class func generate() -> IGRequestWrapper {
            let getSelfRemoveRequestMessage = IGPUserProfileGetSelfRemove()
-            return IGRequestWrapper(message : getSelfRemoveRequestMessage, actionID: 121)
+            return IGRequestWrapper(message: getSelfRemoveRequestMessage, actionID: 121)
         }
         
     }
-    class Handler : IGRequest.Handler{
+    class Handler: IGRequest.Handler {
         class func interpret(response responseProtoMessage:IGPUserProfileGetSelfRemoveResponse) {
             let currentUserId = IGAppManager.sharedManager.userID()
             let getSelfRemove : Int32 = responseProtoMessage.igpSelfRemove
             IGFactory.shared.updateUserSelfRemove(currentUserId!,selfRemove: getSelfRemove)
         }
     }
+    
 }
 
 //MARK: -

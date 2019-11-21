@@ -48,7 +48,7 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UI
         IGApiFavouriteChannels.shared.homeItems { (isSuccess, items) in
             if isSuccess {
                 self.items = items
-                self.tableView.reloadWithAnimation()
+                self.tableView.reloadData()
                 for item in items {
                     switch item.type {
                     case .ad:

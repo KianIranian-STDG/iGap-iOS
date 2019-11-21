@@ -33,6 +33,10 @@ class IGTabBarController: UITabBarController {
     
     private func initView() {
         
+        let tabBarItemApperance = UITabBarItem.appearance()
+    tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor(named:themeColor.labelGrayColor.rawValue)!, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.normal)
+    tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor(named: themeColor.tabbarLabelColor.rawValue)!, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.selected)
+        
         self.delegate = self
         
         self.tabBar.barTintColor = UIColor(named: themeColor.tabBarColor.rawValue)

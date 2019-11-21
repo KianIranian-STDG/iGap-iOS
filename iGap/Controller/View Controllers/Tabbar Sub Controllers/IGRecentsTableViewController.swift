@@ -339,17 +339,21 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         self.addRoomChangeNotificationBlock()
         
-        if IGAppManager.sharedManager.isUserLoggiedIn() {
+//        if IGAppManager.sharedManager.isUserLoggiedIn() {
             if IGRecentsTableViewController.needGetInfo {
+                IGHelperGetShareData.manageShareDate()
                 self.checkAppVersion()
+                self.checkPermission()
                 self.fetchRoomList()
+//                self.checkAppVersion()
+//                self.fetchRoomList()
             }
-        } else {
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(self.userDidLogin),
-                                                   name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
-                                                   object: nil)
-        }
+//        } else {
+//            NotificationCenter.default.addObserver(self,
+//                                                   selector: #selector(self.userDidLogin),
+//                                                   name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
+//                                                   object: nil)
+//        }
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(segueToChatNotificationReceived(_:)),

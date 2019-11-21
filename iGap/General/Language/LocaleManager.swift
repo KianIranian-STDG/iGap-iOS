@@ -32,7 +32,7 @@ public class LocaleManager: NSObject {
     @objc public static var updateHandler: () -> Void = {
         if !IGAppManager.sharedManager.isUserPreviouslyLoggedIn() {
             let storyboard: UIStoryboard = UIStoryboard(name: "Register", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "IGSplashNavigationController")
+            let vc = storyboard.instantiateViewController(withIdentifier: "IGIntroductionViewController")
             vc.modalPresentationStyle = .fullScreen
 
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
@@ -105,7 +105,7 @@ public class LocaleManager: NSObject {
      - Return: A dictionary that keys are language identifiers and values are localized language name
     */
     @objc public class var availableLocalizations: [String: String] {
-        let keys = Bundle.main.localizations
+        let keys = Bundle.main.localizations.sorted()
         let vals = keys.map({ Locale.userPreferred.localizedString(forIdentifier: $0) ?? $0 })
         return [String: String].init(zip(keys, vals), uniquingKeysWith: { v, _ in v })
     }

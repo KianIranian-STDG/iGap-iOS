@@ -14,12 +14,14 @@ import UIKit
 
 // IMPORTANT TODO - convert current class to builder
 class IGHelperAlert {
+    
     enum helperCustomAlertType : Int {
         case alert = 0
         case warning = 1
         case success = 2
         case question = 3
     }
+    
     private var actionDone: (() -> Void)?
     private var actionCancel: (() -> Void)?
     
@@ -29,7 +31,6 @@ class IGHelperAlert {
     var bgView : UIView!
     var maxHeightOfCustomAlert : CGFloat = (UIScreen.main.bounds.height - 100)
     let window = UIApplication.shared.keyWindow
-    
     
     
     func showAlert(data: IGStructAdditionalButton) {
@@ -43,7 +44,7 @@ class IGHelperAlert {
     }
     
     
-    func showForwardAlert(title: String, isForbidden: Bool = false, cancelForward: (() -> Void)? = nil, done: (() -> Void)? = nil){
+    func showForwardAlert(title: String, isForbidden: Bool = false, cancelForward: (() -> Void)? = nil, done: (() -> Void)? = nil) {
         DispatchQueue.main.async {
             
             let alertView = UIApplication.topViewController()
@@ -88,14 +89,12 @@ class IGHelperAlert {
     
     
     
-    
-    
     ///Custome Alert By Benjamin
     ///showCancelButton:  which is of Type Bool represent for showing cancel button or not - Default is True
     ///showDoneButton : which is of Type Bool represent for showing Done button or not - Default is True
     ///showIconView : which is of Type Bool is responsible for showing icon above alert or not - Default is True
     ///
-    func showCustomAlert(view: UIViewController? = nil,alertType: helperCustomAlertType! = helperCustomAlertType.alert,title: String? = nil,showIconView: Bool? = true,showDoneButton: Bool? = true,showCancelButton: Bool? = true,message: String!,doneText: String? = nil,cancelText: String? = nil, cancel: (() -> Void)? = nil, done: (() -> Void)? = nil){
+    func showCustomAlert(view: UIViewController? = nil, alertType: helperCustomAlertType! = helperCustomAlertType.alert, title: String? = nil, showIconView: Bool? = true, showDoneButton: Bool? = true, showCancelButton: Bool? = true, message: String!, doneText: String? = nil, cancelText: String? = nil, cancel: (() -> Void)? = nil, done: (() -> Void)? = nil) {
         DispatchQueue.main.async {
             var alertView = view
             if alertView == nil {
@@ -282,6 +281,8 @@ class IGHelperAlert {
             
         }
     }
+    
+    
     //MARK: - Development funcs
     
     @objc func didDoneGotTap() {

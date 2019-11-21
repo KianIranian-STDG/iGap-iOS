@@ -582,7 +582,7 @@ open class AKMaskField: UITextField, UITextFieldDelegate  {
                         
                         AKMaskFieldUtility
                             .replace(&maskText,
-                                     withString : _string.inPersianNumbersNew(),
+                                     withString : _string,
                                      inRange    : maskTextRange)
                         
                         

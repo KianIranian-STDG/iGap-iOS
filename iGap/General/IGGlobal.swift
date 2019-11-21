@@ -1934,6 +1934,7 @@ extension UIView {
             self.alpha = alpha
         })
     }
+    
 }
 
 extension UIApplication {

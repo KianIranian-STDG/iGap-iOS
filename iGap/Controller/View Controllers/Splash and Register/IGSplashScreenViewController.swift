@@ -12,16 +12,15 @@ import UIKit
 import Gifu
 import SnapKit
 
-class IGSplashScreenViewController: UIViewController {
+class IGSplashScreenViewController: BaseViewController {
     
-    @IBOutlet weak var gifImageView: GIFImageView!
+//    @IBOutlet weak var gifImageView: GIFImageView!
     @IBOutlet weak var pageControll: UIPageControl!
-    @IBOutlet weak var splashView: UIView!
-    @IBOutlet weak var languageView: UIView!
+//    @IBOutlet weak var splashView: UIView!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var skipButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
-//    var lang = ""
+
     var numberOfPages: Int = 4
     var pageIndex: Int = 0
     var titleStrs = [String]()
@@ -37,9 +36,7 @@ class IGSplashScreenViewController: UIViewController {
         startButton.removeUnderline()
         
         IGContactManager.importedContact = false
-        
-        self.navigationController?.isNavigationBarHidden = true
-        
+                
         addSwipegestureRecognizer()
         
         pageControll.numberOfPages = numberOfPages
@@ -53,47 +50,17 @@ class IGSplashScreenViewController: UIViewController {
         skipButton.layer.cornerRadius = 8
         skipButton.isHidden = true
         startButton.titleLabel?.font = UIFont.igFont(ofSize: 15)
-        titleStrs = [
-            IGStringsManager.IntroTitleOne.rawValue.localized,
-            IGStringsManager.IntroTitleTwo.rawValue.localized,
-            IGStringsManager.IntroTitleThree.rawValue.localized,
-            IGStringsManager.IntroTitleFour.rawValue.localized
-        ]
-        descriptions = [
-            IGStringsManager.IntroDescOne.rawValue.localized,
-            IGStringsManager.IntroDescTwo.rawValue.localized,
-            IGStringsManager.IntroDescThree.rawValue.localized,
-            IGStringsManager.IntroDescFour.rawValue.localized
-        ]
         
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_INSTALL_USER)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.languageView.isHidden = true
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.dismissLangModal),
-                                               name: NSNotification.Name(rawValue: kIGGoDissmissLangNotificationName),
-                                               object: nil)
-
-        if !LocaleManager.isLanguageSelected {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                self.gifImageView.fadeOut(0.5)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // Change `2.0` to the desired number of seconds.
-                    
-                    self.setView(view: self.languageView, hidden: false)
-                }
-            }
-        } else {
-            self.gifImageView.isHidden = true
-            self.languageView.isHidden = true
-            dismissLangModal()
-        }
         
+        dismissLangModal()
     }
     
-    @objc private func dismissLangModal() {
+    private func dismissLangModal() {
         startButton.setTitle(IGStringsManager.BtnSendCode.rawValue.localized, for: .normal)
         let images = ["ic_init_cominucation", "ic_init_nearby", "ic_init_iland", "ic_init_security"]
         
@@ -105,10 +72,10 @@ class IGSplashScreenViewController: UIViewController {
         ]
         
         descriptions = [
-            "You can have one-on-one or group chats and even create your own channel and add members in order to share information with millions of people.",
-            "Leave a new world around me. Around you, find your friends, entertainment centers, art, business and other and enjoy your moments ...",
-            "iLand! without limitation\nwith wonderful events as taking a taxi, pay bills and booking hotels and flights . Oh Also you can play games, watch films and listen to music",
-            "iGap attaches the utmost importance to your security and privacy using the individual encryption algorithms and guarantees a safe and secure connection between you, your friends and family."
+            IGStringsManager.IntroDescOne.rawValue.localized,
+            IGStringsManager.IntroDescTwo.rawValue.localized,
+            IGStringsManager.IntroDescThree.rawValue.localized,
+            IGStringsManager.IntroDescFour.rawValue.localized
         ]
         
         for i in 0..<numberOfPages {
@@ -157,27 +124,6 @@ class IGSplashScreenViewController: UIViewController {
                 desciptionLabel.alpha = 0.0
             }
         }
-        languageView.fadeIn(0.5)
-        hideLangView()
-    }
-    
-    func setView(view: UIView, hidden: Bool) {
-        UIView.transition(with: view, duration: 0.8, options: .transitionCrossDissolve, animations: {
-            view.isHidden = hidden
-        })
-    }
-    
-    func hideLangView() {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.languageView.isHidden = true
-            self.languageView.isUserInteractionEnabled = false
-        })
-        splashView.fadeOut(0.5)
-
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.isNavigationBarHidden = false
     }
     
     @IBAction func didTapOnSkipButton(_ sender: UIButton) {
@@ -185,8 +131,14 @@ class IGSplashScreenViewController: UIViewController {
     }
     
     @IBAction func didTapOnStartButton(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "showPhoneNumber", sender: self)
-    }    
+        
+//        UIView.animate(withDuration: 0.3, animations: {
+//            self.topView.frame.origin.y += self.view.frame.height
+//        }) { (completed) in
+//            RootVCSwitcher.updateRootVC(storyBoard: "Register", viewControllerID: "IGSplashNavigationController")
+//        }
+        self.performSegue(withIdentifier: "showLoginNavigation", sender: self)
+    }
     
     func addSwipegestureRecognizer() {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
@@ -228,4 +180,5 @@ class IGSplashScreenViewController: UIViewController {
             }
         }) { (completed) in }
     }
+    
 }

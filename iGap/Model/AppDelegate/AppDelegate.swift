@@ -39,133 +39,14 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     internal static var isDeprecatedClient : Bool = false
     internal static var appIsInBackground : Bool = false
     
-    // MARK: - Core Data stack
-    lazy var managedObjectContext: NSManagedObjectContext = {
-        let coordinator = self.persistentStoreCoordinator
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        managedObjectContext.persistentStoreCoordinator = coordinator
-        return managedObjectContext
-    }()
-    
-    lazy var managedObjectModel: NSManagedObjectModel = {
-        // The managed object model for the application.
-        let modelURL = Bundle.main.url(forResource: "Model", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOf: modelURL)!
-    }()
-    
-    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let applicationDocumentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask).first!
-        let url = applicationDocumentsDirectory.appendingPathComponent("CoreData.sqlite")
-        
-        do {
-            let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption:true]
-            
-            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: options)
-        } catch {
-            SMLog.SMPrint("Unresolved error \(error)")
-            abort()
-        }
-        
-        return coordinator
-    }()
-    
-    @available(iOS 10.0, *)
-    lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-         */
-        let container = NSPersistentContainer(name: "iGap")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
-    func clearAllFilesFromDirectory() {
-        
-        let fileManager = FileManager.default
-        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as NSURL
-        let documentsPath = documentsUrl.path
-        
-        do {
-            if let documentPathValue = documentsPath{
-                
-                let path = documentPathValue.replacingOccurrences(of: "file://", with: "")
-                let fileNames = try fileManager.contentsOfDirectory(atPath: "\(path)")
-                print("all files in cache: \(fileNames)")
-                
-                for fileName in fileNames {
-                    
-                    let tempPath = String(format: "%@/%@", path, fileName)
-                    
-                    //Check for specific file which you don't want to delete. For me .sqlite files
-//                    if !tempPath.contains(".sql") {
-//                        try fileManager.removeItem(atPath: tempPath)
-//                    }
-                }
-            }
-            
-        } catch {
-            print("Could not clear document directory \(error)")
-        }
-    }
-    
-    private func userdefaultsManagment() {
-        if (UserDefaults.standard.object(forKey: "silentPrivateChat") != nil) {
-            IGGlobal.isSilent = UserDefaults.standard.bool(forKey: "silentPrivateChat")
-
-        }
-//        if (UserDefaults.standard.object(forKey: "themeMode") != nil) {
-//            IGGlobal.themeMode = UserDefaults.standard.integer(forKey: "themeMode")
-//
-//        }
-
-        if IGGlobal.isKeyPresentInUserDefaults(key: "textMessagesFontSize")  {
-            fontDefaultSize = CGFloat(UserDefaults.standard.float(forKey: "textMessagesFontSize"))
-        } else {
-            fontDefaultSize = 15.0
-        }
-    }
-    
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         //checksetting defaults
         userdefaultsManagment()
-//        lastLang = SMLangUtil.loadLanguage()
-//        if SMLangUtil.loadLanguage() == "fa" {
-//            IGGlobal.languageFileName = "localizationsFa"
-//        } else {
-//            IGGlobal.languageFileName = "localizationsEn"
-//        }
-//        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
-//        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
-//        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
-
-//        if SMLangUtil.loadLanguage() == "fa" {
-//            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-//        } else {
-//            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-//        }
-        UIView.appearance().semanticContentAttribute = .forceLeftToRight
-        UITableView.appearance().semanticContentAttribute = LocaleManager.semantic
         
         LocaleManager.setup()
+        
+        UITableView.appearance().semanticContentAttribute = LocaleManager.semantic
+        UIView.appearance().semanticContentAttribute = .forceLeftToRight
         
         SMUserManager.clearKeychainOnFirstRun()
         SMUserManager.loadFromKeychain()
@@ -176,17 +57,21 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         _ = IGFactory.shared
         _ = IGCallEventListener.sharedManager // detect cellular call state
         
-        UITabBar.appearance().tintColor = UIColor.white
-        
-        let tabBarItemApperance = UITabBarItem.appearance()
-    tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor(named:themeColor.labelGrayColor.rawValue)!, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.normal)
-    tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor(named: themeColor.tabbarLabelColor.rawValue)!, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.selected)
+//        UITabBar.appearance().tintColor = UIColor.white
 
         UserDefaults.standard.setValue(false, forKey:"_UIConstraintBasedLayoutLogUnsatisfiable")
 
         pushNotification(application)
         detectBackground()
         IGGlobal.checkRealmFileSize()
+        
+        // select initial page if logged in or not
+        if IGAppManager.sharedManager.isUserPreviouslyLoggedIn() {
+            RootVCSwitcher.updateRootVC(storyBoard: "Main", viewControllerID: "MainTabBar")
+        } else {
+            logoutAndShowRegisterViewController()
+        }
+        
         
 //        ShortcutParser.shared.registerShortcuts()
         
@@ -269,19 +154,15 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        if !IGAppManager.sharedManager.isUserPreviouslyLoggedIn() {
-            logoutAndShowRegisterViewController()
+        // handle any deeplink
+        if IGAppManager.sharedManager.isUserLoggiedIn() {
+            self.checkDeepLink()
         } else {
-            // handle any deeplink
-            if IGAppManager.sharedManager.isUserLoggiedIn() {
-                self.checkDeepLink()
-            } else {
-                
-                NotificationCenter.default.addObserver(self,
-                    selector: #selector(self.checkDeepLink),
-                    name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
-                    object: nil)
-            }
+            
+            NotificationCenter.default.addObserver(self,
+                selector: #selector(self.checkDeepLink),
+                name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
+                object: nil)
         }
     }
     
@@ -382,19 +263,11 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         }
     }
     
-    func logoutAndShowRegisterViewController(mainRoot: Bool = false) {
+    func logoutAndShowRegisterViewController() {
         UIApplication.shared.unregisterForRemoteNotifications()
         
-        if mainRoot {
-            self.window?.rootViewController = UIStoryboard(name: "Main", bundle:nil).instantiateInitialViewController()
-        }
-        
         IGAppManager.sharedManager.clearDataOnLogout()
-        let storyboard: UIStoryboard = UIStoryboard(name: "Register", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "IGSplashNavigationController")
-        vc.modalPresentationStyle = .fullScreen
-
-        self.window?.rootViewController?.present(vc, animated: true, completion: nil)
+        RootVCSwitcher.updateRootVC(storyBoard: "Register", viewControllerID: "IGSplashViewController")
     }
     
     func goToSpash(mainRoot: Bool = false) {
@@ -405,7 +278,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         }
         
         let storyboard : UIStoryboard = UIStoryboard(name: "Register", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "IGSplashNavigationController")
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGIntroductionViewController")
         vc.modalPresentationStyle = .fullScreen
         self.window?.rootViewController?.present(vc, animated: true, completion: nil)
     }
@@ -452,8 +325,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
                     
                 }
                 
-            }
-            else {
+            } else {
                 let callAlert = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
                 let voiceCall = UIAlertAction(title: IGStringsManager.VoiceCall.rawValue.localized, style: .default, handler: { (action) in
                     self.showCallPage(userId: userId, isIncommmingCall: isIncommmingCall, sdp: sdp, type: IGPSignalingOffer.IGPType.voiceCalling, showAlert: false)
@@ -593,6 +465,106 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         let voipRegistry: PKPushRegistry = PKPushRegistry(queue: mainQueue)
         voipRegistry.delegate = self
         voipRegistry.desiredPushTypes = [PKPushType.voIP]
+    }
+    
+    // MARK: - Core Data stack
+    lazy var managedObjectContext: NSManagedObjectContext = {
+        let coordinator = self.persistentStoreCoordinator
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = coordinator
+        return managedObjectContext
+    }()
+    
+    lazy var managedObjectModel: NSManagedObjectModel = {
+        // The managed object model for the application.
+        let modelURL = Bundle.main.url(forResource: "Model", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOf: modelURL)!
+    }()
+    
+    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
+        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+        let applicationDocumentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask).first!
+        let url = applicationDocumentsDirectory.appendingPathComponent("CoreData.sqlite")
+        
+        do {
+            let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption:true]
+            
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: options)
+        } catch {
+            SMLog.SMPrint("Unresolved error \(error)")
+            abort()
+        }
+        
+        return coordinator
+    }()
+    
+    @available(iOS 10.0, *)
+    lazy var persistentContainer: NSPersistentContainer = {
+        /*
+         The persistent container for the application. This implementation
+         creates and returns a container, having loaded the store for the
+         application to it. This property is optional since there are legitimate
+         error conditions that could cause the creation of the store to fail.
+         */
+        let container = NSPersistentContainer(name: "iGap")
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                
+                /*
+                 Typical reasons for an error here include:
+                 * The parent directory does not exist, cannot be created, or disallows writing.
+                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
+                 * The device is out of space.
+                 * The store could not be migrated to the current model version.
+                 Check the error message to determine what the actual problem was.
+                 */
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
+    
+    func clearAllFilesFromDirectory() {
+        
+        let fileManager = FileManager.default
+        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as NSURL
+        let documentsPath = documentsUrl.path
+        
+        do {
+            if let documentPathValue = documentsPath{
+                
+                let path = documentPathValue.replacingOccurrences(of: "file://", with: "")
+                let fileNames = try fileManager.contentsOfDirectory(atPath: "\(path)")
+                print("all files in cache: \(fileNames)")
+                
+                for fileName in fileNames {
+                    
+                    let tempPath = String(format: "%@/%@", path, fileName)
+                    
+                    //Check for specific file which you don't want to delete. For me .sqlite files
+//                    if !tempPath.contains(".sql") {
+//                        try fileManager.removeItem(atPath: tempPath)
+//                    }
+                }
+            }
+            
+        } catch {
+            print("Could not clear document directory \(error)")
+        }
+    }
+    
+    private func userdefaultsManagment() {
+        if (UserDefaults.standard.object(forKey: "silentPrivateChat") != nil) {
+            IGGlobal.isSilent = UserDefaults.standard.bool(forKey: "silentPrivateChat")
+        }
+
+        if IGGlobal.isKeyPresentInUserDefaults(key: "textMessagesFontSize")  {
+            fontDefaultSize = CGFloat(UserDefaults.standard.float(forKey: "textMessagesFontSize"))
+        } else {
+            fontDefaultSize = 15.0
+        }
     }
     
 }

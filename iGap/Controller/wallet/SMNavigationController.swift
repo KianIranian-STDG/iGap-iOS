@@ -105,8 +105,6 @@ class SMNavigationController: UINavigationController, UINavigationControllerDele
         
         return story.instantiateViewController(withIdentifier: identifier)
     }
-
-    
 	
 	func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
 		

@@ -165,7 +165,6 @@
 		8EB4BBAC234B83A400BFA878 /* igap_receive_message_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8EB4BBAB234B83A400BFA878 /* igap_receive_message_sound.mp3 */; };
 		8EB887A32282A5F50069DDE3 /* IGMediaUserAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB887A22282A5F50069DDE3 /* IGMediaUserAvatar.swift */; };
 		8EBB455D2270202A00A52D88 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB455C2270202A00A52D88 /* BaseCollectionViewController.swift */; };
-		8EBB45602274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB455F2274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift */; };
 		8EBF54F822D9B60D00834E6A /* BeautifulBarChartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54ED22D9B60B00834E6A /* BeautifulBarChartPresenter.swift */; };
 		8EBF54F922D9B60D00834E6A /* DataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54EE22D9B60B00834E6A /* DataEntry.swift */; };
 		8EBF54FA22D9B60D00834E6A /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54EF22D9B60B00834E6A /* CALayerExtension.swift */; };
@@ -408,6 +407,8 @@
 		FA3B1C871E302CD500F194C4 /* IGProtoBuff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3B1C861E302CD500F194C4 /* IGProtoBuff.framework */; };
 		FA3C24B42332142D00848261 /* IGApiCharity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3C24B32332142D00848261 /* IGApiCharity.swift */; };
 		FA3C8E041E6D785800D94FBB /* IGClientActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3C8E031E6D785800D94FBB /* IGClientActionManager.swift */; };
+		FA3D05E82382A9B300A9EEC1 /* RootVCSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D05E72382A9B300A9EEC1 /* RootVCSwitcher.swift */; };
+		FA3D05EA2382B2E600A9EEC1 /* IGSplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D05E92382B2E600A9EEC1 /* IGSplashViewController.swift */; };
 		FA3D947C1E6AA9580087D368 /* IGRoomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D947B1E6AA9580087D368 /* IGRoomManager.swift */; };
 		FA401FA41E10F80500A50C5A /* IGLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA401FA31E10F80500A50C5A /* IGLabel.swift */; };
 		FA417E50212179C900B5FBCD /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA417E4E212179C900B5FBCD /* LocationCell.swift */; };
@@ -964,7 +965,6 @@
 		8EB4BBAB234B83A400BFA878 /* igap_receive_message_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = igap_receive_message_sound.mp3; sourceTree = "<group>"; };
 		8EB887A22282A5F50069DDE3 /* IGMediaUserAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMediaUserAvatar.swift; sourceTree = "<group>"; };
 		8EBB455C2270202A00A52D88 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
-		8EBB455F2274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRegisterChooseLanguageTableViewController.swift; sourceTree = "<group>"; };
 		8EBF54ED22D9B60B00834E6A /* BeautifulBarChartPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeautifulBarChartPresenter.swift; sourceTree = "<group>"; };
 		8EBF54EE22D9B60B00834E6A /* DataEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntry.swift; sourceTree = "<group>"; };
 		8EBF54EF22D9B60B00834E6A /* CALayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
@@ -1214,6 +1214,8 @@
 		FA3B1C861E302CD500F194C4 /* IGProtoBuff.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IGProtoBuff.framework; path = Carthage/Build/iOS/IGProtoBuff.framework; sourceTree = "<group>"; };
 		FA3C24B32332142D00848261 /* IGApiCharity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiCharity.swift; sourceTree = "<group>"; };
 		FA3C8E031E6D785800D94FBB /* IGClientActionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGClientActionManager.swift; sourceTree = "<group>"; };
+		FA3D05E72382A9B300A9EEC1 /* RootVCSwitcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootVCSwitcher.swift; sourceTree = "<group>"; };
+		FA3D05E92382B2E600A9EEC1 /* IGSplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSplashViewController.swift; sourceTree = "<group>"; };
 		FA3D947B1E6AA9580087D368 /* IGRoomManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRoomManager.swift; sourceTree = "<group>"; };
 		FA401FA31E10F80500A50C5A /* IGLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGLabel.swift; sourceTree = "<group>"; };
 		FA417E4E212179C900B5FBCD /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
@@ -2035,6 +2037,7 @@
 				8E96A30A225B4637007D8A77 /* Utils.swift */,
 				8E96A315225B74E2007D8A77 /* IGExtensions.swift */,
 				8E5FBCB2231E43400069D4F2 /* EFAutoScrollLabel.swift */,
+				FA3D05E72382A9B300A9EEC1 /* RootVCSwitcher.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2261,7 +2264,6 @@
 				FA8D056C20739C96007861E7 /* IGSettingAddContactViewController.swift */,
 				FA4F47B9214D1DA500ABE7A0 /* IGWallpaperPreview.swift */,
 				8E25A7C222674601004A5BC0 /* IGSettingChangeLanguageTableViewController.swift */,
-				8EBB455F2274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -2473,6 +2475,7 @@
 				FAEC02D61F439E47001EB4B6 /* IGRegistrationStepQrViewController.swift */,
 				FA7E9BD1226305CA00FB861D /* IGRepresentativeViewController.swift */,
 				8E5FBC0A23154D080069D4F2 /* IGRegisttrationStepSecurityQuestions.swift */,
+				FA3D05E92382B2E600A9EEC1 /* IGSplashViewController.swift */,
 			);
 			path = "Splash and Register";
 			sourceTree = "<group>";
@@ -3771,7 +3774,6 @@
 				4F9386F81EAE335200397C3B /* IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift in Sources */,
 				FAB91BBB22393F6000459595 /* IGRealmChannelExtra.swift in Sources */,
 				8E1F413922391CEE00910E30 /* CheckInternet.swift in Sources */,
-				8EBB45602274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift in Sources */,
 				8E96A327225C9182007D8A77 /* SMCardGradient.swift in Sources */,
 				8E96A312225B6DCC007D8A77 /* SMHistoryDetailTableViewController.swift in Sources */,
 				8E0BAEC022EC047200479682 /* IGRoomListtCell.swift in Sources */,
@@ -4006,6 +4008,7 @@
 				FA8F22501DD89C31005A90D1 /* IGRoomDraft.swift in Sources */,
 				FA9EE5BC221ECD2300BA7735 /* MoneyTransferCell.swift in Sources */,
 				8EC217C92259F59900105B5A /* SMIBAN.swift in Sources */,
+				FA3D05E82382A9B300A9EEC1 /* RootVCSwitcher.swift in Sources */,
 				FA03C19C2042945D008812E3 /* IGCall.swift in Sources */,
 				FAE07F042205A8B000BE3593 /* IGStickerSectionHeader.swift in Sources */,
 				FA0953521E1B97700043ED3F /* IGSettingChatFontSizeTableViewController.swift in Sources */,
@@ -4176,6 +4179,7 @@
 				8E3C6989236036E8001575BE /* PanModalPresentable+Defaults.swift in Sources */,
 				8E25A7C322674601004A5BC0 /* IGSettingChangeLanguageTableViewController.swift in Sources */,
 				FA85066C22670703002EEBF7 /* QRMainTabbarController.swift in Sources */,
+				FA3D05EA2382B2E600A9EEC1 /* IGSplashViewController.swift in Sources */,
 				FA63BAAD1DD70F09000B60AD /* IGRequestGroup.swift in Sources */,
 				FA85066922670703002EEBF7 /* SMBarcodeMainViewController.swift in Sources */,
 				FA97D44820174C2C0087BBD0 /* AbstractCell.swift in Sources */,

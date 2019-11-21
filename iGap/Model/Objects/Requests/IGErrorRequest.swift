@@ -263,7 +263,7 @@ class IGErrorRequest : IGRequest {
                 
             case .userLoginFailed:
                 DispatchQueue.main.async {
-                    (UIApplication.shared.delegate as! AppDelegate).logoutAndShowRegisterViewController(mainRoot: true)
+                    (UIApplication.shared.delegate as! AppDelegate).logoutAndShowRegisterViewController()
                     IGWebSocketManager.sharedManager.closeConnection()
                 }
                 break

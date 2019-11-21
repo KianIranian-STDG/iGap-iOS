@@ -93,7 +93,7 @@ class IGFinancialHistoryViewController: BaseViewController {
                         if response.igpTransaction.count > 0 {
                             self.transactions.append(contentsOf: response.igpTransaction)
                             if self.transactions.count < 14 {
-                                self.transactionsTableView.reloadWithAnimation()
+                                self.transactionsTableView.reloadData()
                             } else {
                                 self.transactionsTableView.reloadData()
                             }

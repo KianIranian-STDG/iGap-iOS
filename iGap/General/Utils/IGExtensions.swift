@@ -74,6 +74,7 @@ extension UITableView {
         }
     }
 }
+
 extension UIImage {
     func invertedImage() -> UIImage? {
         guard let cgImage = self.cgImage else { return nil }

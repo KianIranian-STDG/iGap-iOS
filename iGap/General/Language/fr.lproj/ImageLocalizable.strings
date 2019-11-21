@@ -7,5 +7,7 @@
 * The idea of the Kianiranian STDG - www.kianiranian.com
 * All rights reserved.
 */
-"APP_LOGO_ICON" = "";
+"APP_LOGO_ICON" = "";
+"NOT_CHECKED_ICON" = "";
+"CHECKED_ICON" = "";
 "SCAN_HOLDER_QR" = "scan_Holder_EN";

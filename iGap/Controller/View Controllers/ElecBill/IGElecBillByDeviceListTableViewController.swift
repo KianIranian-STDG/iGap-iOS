@@ -108,7 +108,7 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
 
                 if success {
                     self.myBillList = response?.data
-                    self.tableView.reloadWithAnimation()
+                    self.tableView.reloadData()
                 } else {
                 }
             })
