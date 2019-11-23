@@ -28,6 +28,9 @@ enum IGError: String {
     case setNickname    = "9"
     //MARK: User
     //in response to 100 (User Register)
+    
+    case floodRequest                           = "10.100"
+    
     case userRegisterBadPaylaod                 = "100"
     case userRegisterInvalidCountryCode         = "100.1"
     case userRegisterInvalidPhoneNumber         = "100.2"

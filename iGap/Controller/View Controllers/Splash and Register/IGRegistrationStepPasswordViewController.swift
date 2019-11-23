@@ -219,6 +219,8 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
                         DispatchQueue.main.async {
                             if errorCode == .timeout {
                                 self.loginUser(token: token)
+                            } else if errorCode == .floodRequest {
+                                IGWebSocketManager.sharedManager.closeConnection()
                             } else {
                                 self.hud.hide(animated: true)
                                 IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)

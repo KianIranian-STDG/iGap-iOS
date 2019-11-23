@@ -410,7 +410,9 @@ class IGAppManager: NSObject {
                     case .timeout:
                         self.login()
                         break
-                        
+                    case .floodRequest:
+                        IGWebSocketManager.sharedManager.closeConnection()
+                        break
                     case .userLoginFailed, .userLoginFailedOne, .userLoginFailedTwo, .userLoginFailedThree, .userLoginFaieldUserIsBlocked:
                         DispatchQueue.main.async {
                             let appDelegate = UIApplication.shared.delegate as! AppDelegate

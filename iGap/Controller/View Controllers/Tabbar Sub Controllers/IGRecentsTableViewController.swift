@@ -625,6 +625,12 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             switch errorCode {
             case .timeout:
                 self.fetchRoomList(offset: offset, limit: limit)
+                break
+                
+            case .floodRequest:
+                IGWebSocketManager.sharedManager.closeConnection()
+                break
+                
             default:
                 break
             }

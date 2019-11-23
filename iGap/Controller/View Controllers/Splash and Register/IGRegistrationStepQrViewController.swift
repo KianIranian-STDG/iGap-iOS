@@ -143,6 +143,8 @@ class IGRegistrationStepQrViewController: BaseViewController {
                             hud.hide(animated: true)
                             if errorCode == .timeout {
                                 self.loginUser(token: token)
+                            } else if errorCode == .floodRequest {
+                                IGWebSocketManager.sharedManager.closeConnection()
                             } else {
                                 IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                             }
