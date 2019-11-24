@@ -38,10 +38,8 @@ class IGStickerCell: UICollectionViewCell {
         IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token!, completion: { (file) -> Void in
             let cacheId = file.cacheID
             DispatchQueue.main.async {
-                if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
-                    if let image = IGStickerViewController.stickerImageDic[fileInfo.token!] {
-                        image.setSticker(for: fileInfo)
-                    }
+                if let stickerInfo = self.fetchStickerImage(cacheId: cacheId!){
+                    stickerInfo.image.setSticker(for: stickerInfo.file)
                 }
             }
         })
@@ -62,10 +60,8 @@ class IGStickerCell: UICollectionViewCell {
         IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token, completion: { (file) -> Void in
             let cacheId = file.cacheID
             DispatchQueue.main.async {
-                if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
-                    if let image = IGStickerViewController.stickerImageDic[fileInfo.token!] {
-                        image.setSticker(for: fileInfo)
-                    }
+                if let stickerInfo = self.fetchStickerImage(cacheId: cacheId!){
+                    stickerInfo.image.setSticker(for: stickerInfo.file)
                 }
             }
         })
@@ -81,13 +77,25 @@ class IGStickerCell: UICollectionViewCell {
         IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token, completion: { (file) -> Void in
             let cacheId = file.cacheID
             DispatchQueue.main.async {
-                if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
-                    if let image = IGStickerViewController.stickerImageDic[fileInfo.token!] {
-                        image.setSticker(for: fileInfo)
-                    }
+                if let stickerInfo = self.fetchStickerImage(cacheId: cacheId!){
+                    stickerInfo.image.setSticker(for: stickerInfo.file)
                 }
             }
         })
+    }
+    
+    /** Hint: Temporary solution
+     * sometimes sicker toolbar & sticker cell have two same files with same cacheId BUT with different token.
+     * now for show sticker in toolbar and sticker cell we check all files with this token in a loop.
+     * However, this loop only has two items.
+     */
+    private func fetchStickerImage(cacheId: String) -> (file: IGFile, image: UIImageView)? {
+        for file in IGDatabaseManager.shared.realm.objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId)) {
+            if let image = IGStickerViewController.stickerImageDic[file.token!] {
+                return (file, image)
+            }
+        }
+        return nil
     }
     
     /********************************/
