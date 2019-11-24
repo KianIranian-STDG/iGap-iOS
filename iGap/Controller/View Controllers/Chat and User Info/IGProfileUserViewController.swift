@@ -510,6 +510,9 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         }).error({ (errorCode , waitTime) in
             switch errorCode {
             case .timeout:
+                DispatchQueue.main.async {
+                    self.hud.hide(animated: true)
+                }
                 break
             default:
                 DispatchQueue.main.async {

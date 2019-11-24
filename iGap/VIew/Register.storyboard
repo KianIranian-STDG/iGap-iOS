@@ -897,7 +897,7 @@ Please wait 0:59</string>
                         <outlet property="skipButton" destination="yZn-fL-aOL" id="WkU-34-Eda"/>
                         <outlet property="startButton" destination="Fue-kT-Wyz" id="rW4-qK-Asb"/>
                         <outlet property="topView" destination="noy-pI-c1d" id="MZG-CJ-jWc"/>
-                        <segue destination="E7a-bn-JpQ" kind="show" identifier="showLoginNavigation" id="2Rm-k2-Dks"/>
+                        <segue destination="E7a-bn-JpQ" kind="presentation" identifier="showLoginNavigation" modalPresentationStyle="overFullScreen" id="2Rm-k2-Dks"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zKj-rx-EKL" sceneMemberID="firstResponder"/>
