@@ -6316,5 +6316,5 @@
 "remove_password" = "Remove Password";
 
 // New Strings
-"contacts_sending" = "Sending Contacts";
-"contacts_saving" = "Saving Contacts";
+"contacts_sending" = "Envoi de contacts";
+"contacts_saving" = "Enregistrer des contacts";

@@ -6695,5 +6695,5 @@ TODO:// translate */
 "remove_password" = "إزالة كلمة المرور";
 
 // New Strings
-"contacts_sending" = "Sending Contacts";
-"contacts_saving" = "Saving Contacts";
+"contacts_sending" = "إرسال جهات الاتصال";
+"contacts_saving" = "حفظ جهات الاتصال";
