@@ -146,14 +146,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         manageVoteActions()
         manageAttachment()
         manageAdditional()
+        manageAvatarPay()
         manageReturnToMessage()
         manageGustureRecognizers()
         showMultiSelect()
-        if finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue {
-            makeAvatarPay()
-        } else {
-            removeAvatarPay()
-        }
     }
     /*
      ******************************************************************
@@ -1100,16 +1096,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             return
         }
         
-        // TODO(Find Better Solution!!!) - fetch message from realm for avoid from get 'Cannot construct reference to unmanaged object, which can be passed across threads directly' error.
-        var attachment: IGFile! = IGRoomMessage.getMessageWithPrimaryKeyId(primaryKeyId: realmRoomMessage.primaryKeyId!)?.getFinalMessage().attachment
-        //if var attachment = finalRoomMessage.attachment , !(attachment.isInvalidated) {
-        if attachment != nil && !(attachment.isInvalidated) {
+        if var attachment = finalRoomMessage.attachment , !(attachment.isInvalidated) {
             if let attachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
                 self.attachment = attachmentVariableInCache.value
             } else {
-                self.attachment = attachment.detach()
-                let attachmentRef = ThreadSafeReference(to: attachment)
-                IGAttachmentManager.sharedManager.add(attachmentRef: attachmentRef)
+                //self.attachment = attachment.detach()
+                //let attachmentRef = ThreadSafeReference(to: attachment)
+                IGAttachmentManager.sharedManager.add(attachment: attachment)
                 if let variable = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
                     self.attachment = variable.value
                 } else {
@@ -1123,7 +1116,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                 
                 if let disposable = IGGlobal.dispoasDic[self.realmRoomMessage.id] {
                     IGGlobal.dispoasDic.removeValue(forKey: self.realmRoomMessage.id)
-                    disposable.dispose()
+                    disposable.dispose() 
                 }
                 let subscriber = variableInCache.asObservable().subscribe({ (event) in
                     DispatchQueue.main.async {
@@ -1219,6 +1212,20 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             
         } else {
             removeAdditionalView()
+        }
+    }
+    
+    /*
+    ******************************************************************
+    *************************** Avatar Pay ***************************
+    ******************************************************************
+    */
+    
+    private func manageAvatarPay(){
+        if finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue {
+            makeAvatarPay()
+        } else {
+            removeAvatarPay()
         }
     }
     

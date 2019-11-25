@@ -6551,7 +6551,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
                 
                 var delay: Double = 0
                 if self.messageLoader.hasUnread() || self.messageLoader.hasSavedState() {
-                    delay = 0
+                    delay = 1
                 }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
