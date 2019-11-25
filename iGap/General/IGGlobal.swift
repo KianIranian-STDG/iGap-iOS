@@ -380,6 +380,10 @@ class IGGlobal {
         return Int64(arc4random()) + (Int64(arc4random()) << 18)
     }
     
+    public class func fakeMessageId() -> Int64 {
+        return getCurrentMillis() + 100000000000000000 // 100000000000000000 is a fake random id for set this fake id bigger than main messageId
+    }
+    
     /* if device is iPad return "alert" style otherwise will be returned "actionSheet" style */
     public class func detectAlertStyle() -> UIAlertController.Style{
         if UIDevice.current.userInterfaceIdiom == .phone {

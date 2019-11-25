@@ -235,7 +235,9 @@ class IGRoomMessage: Object {
         self.status = IGRoomMessageStatus.sending
         self.temporaryId = IGGlobal.randomString(length: 64)
         self.primaryKeyId = IGGlobal.randomString(length: 64)
-        self.randomId = IGGlobal.randomId()
+        let fakeId = IGGlobal.fakeMessageId()
+        self.randomId = fakeId
+        self.id = fakeId
         // Hint: following code has crash
         //self.authorUser = IGRealmAuthorUser(IGAppManager.sharedManager.userID()!)
         let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)

@@ -218,7 +218,7 @@ class IGMessageLoader {
             direction = .up
         }
         
-        let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld AND statusRaw != %d AND statusRaw != %d", roomId, 0, IGRoomMessageStatus.sending.rawValue, IGRoomMessageStatus.failed.rawValue)
+        let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld", roomId, 0)
         resultsUp = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortPropertiesUp)
         
         var gapMessageId: Int64!
