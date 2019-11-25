@@ -1946,7 +1946,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             UIView.animate(withDuration: 0.5, animations: {
-                self.btnReturnToMessageAbs?.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+                self.btnReturnToMessageAbs?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             }) { (finished) in
                 UIView.animate(withDuration: 0.5, animations: {
                     self.btnReturnToMessageAbs?.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))

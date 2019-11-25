@@ -5315,7 +5315,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 UIView.transition(with: cell, duration: 0.5, animations: {
-                    cell.backgroundColor = UIColor.iGapGreen().withAlphaComponent(0.5)
+                    cell.backgroundColor = UIColor.iGapGreen().withAlphaComponent(0.3)
                 }, completion: { (completed) in
                     UIView.animate(withDuration: 0.5, animations: {
                         cell.backgroundColor = UIColor.clear

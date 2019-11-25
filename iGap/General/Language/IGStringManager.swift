@@ -525,7 +525,7 @@ enum IGStringsManager : String {
     case Reply = "replay"
     case Copy = "array_Copy"
     case Forward = "forward_item_dialog"
-    case Share = "Share"
+    case Share = "share_item_dialog"
     case UserReportedBefore = "E_10167"
     case ReportSent = "st_send_report"
     case Leave = "left"
