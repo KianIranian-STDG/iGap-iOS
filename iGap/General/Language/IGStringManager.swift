@@ -541,7 +541,7 @@ enum IGStringsManager : String {
     case Cloud = "chat_with_yourself"
     case ChatBG = "st_chatBackground"
     case BtnSet = "set"
-    case Add = "add"
+    case Add = "Add"
     case Shareto = "share_to"
     case SelectChat = "select_chat"
     case Bot = "bot"
