@@ -1,10 +1,12 @@
-//
-//  NamePictureCell.swift
-//  TableViewWithMultipleCellTypes
-//
-//  Created by Stanislav Ostrovskiy on 5/21/17.
-//  Copyright © 2017 Stanislav Ostrovskiy. All rights reserved.
-//
+/*
+* This is the source code of iGap for iOS
+* It is licensed under GNU AGPL v3.0
+* You should have received a copy of the license in this archive (see LICENSE).
+* Copyright © 2017 , iGap - www.iGap.net
+* iGap Messenger | Free, Fast and Secure instant messaging application
+* The idea of the Kianiranian STDG - www.kianiranian.com
+* All rights reserved.
+*/
 
 import UIKit
 
@@ -14,14 +16,10 @@ class SliderTypeThreeCell: UITableViewCell,UICollectionViewDelegate, UICollectio
     
     var timer = Timer()
     var photoCount: Int = 0
-//    var titleArray: [String] = []
-//    var imageArray: [UIImage] = []
     
     var isInnenr: Bool = false
-    // if is inner this variable will be set
-    var channelsListObj: [FavouriteChannelCategoryInfoChannel]?
-    // if is not inner this variable will be set
-    var categoryItem: FavouriteChannelHomeItem!
+    var channelsListObj: [FavouriteChannelCategoryInfoChannel]? // if is inner this variable will be set
+    var categoryItem: FavouriteChannelHomeItem! // if is not inner this variable will be set
 
     static var nib:UINib {
         return UINib(nibName: identifier, bundle: nil)

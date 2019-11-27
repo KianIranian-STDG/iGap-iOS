@@ -420,24 +420,21 @@ class AbstractDashboardCell: UICollectionViewCell {
         //Hint :- favouriteChannels Handler
         case .favoriteChannel:
             
-            if !(agreementSlug == "") {
-                if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
-                    
+            if !(agreementSlug == "") && (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
+                carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+            } else {
+                if !discoveryInfo.igpValue.isEmpty {
+                    let dashboard = IGFavouriteChannelsDashboardInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                    dashboard.categoryId = discoveryInfo.igpValue
+                    dashboard.hidesBottomBarWhenPushed = true
+                    UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                 } else {
                     let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                     dashboard.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated: true)
-                    return
                 }
-                
-            } else {
-                
-                let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-                dashboard.hidesBottomBarWhenPushed = true
-                UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated: true)
-                return
             }
+            return
 
         case .page:
             isDashboardInner = true

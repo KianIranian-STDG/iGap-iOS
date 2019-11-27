@@ -179,15 +179,9 @@
 		8EBF550522D9B65000834E6A /* DynamicTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF550422D9B65000834E6A /* DynamicTextLayer.swift */; };
 		8EBF550722D9B84900834E6A /* DashboardCell8.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF550622D9B84900834E6A /* DashboardCell8.xib */; };
 		8EBF550922D9B85400834E6A /* DahsboardCell8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF550822D9B85400834E6A /* DahsboardCell8.swift */; };
-		8EBF551322DC4B3200834E6A /* FavouriteDashboardCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF551222DC4B3200834E6A /* FavouriteDashboardCell1.swift */; };
-		8EBF551522DC4B4600834E6A /* FavouriteDashboardCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF551422DC4B4600834E6A /* FavouriteDashboardCell1.xib */; };
-		8EBF551822DC4D2600834E6A /* AbstractFavouriteDashboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF551722DC4D2600834E6A /* AbstractFavouriteDashboardCell.swift */; };
 		8EBF552022DCA8EF00834E6A /* IGFavouriteChannelsDashboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF551F22DCA8EF00834E6A /* IGFavouriteChannelsDashboardTableViewController.swift */; };
-		8EBF552322DCA95C00834E6A /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF552122DCA95C00834E6A /* ProfileModel.swift */; };
-		8EBF552422DCA95C00834E6A /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF552222DCA95C00834E6A /* ProfileViewModel.swift */; };
 		8EBF552722DCA9B000834E6A /* SliderTypeOneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF552522DCA9B000834E6A /* SliderTypeOneCell.xib */; };
 		8EBF552822DCA9B000834E6A /* SliderTypeOneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF552622DCA9B000834E6A /* SliderTypeOneCell.swift */; };
-		8EBF552A22DCAA9500834E6A /* ServerData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF552922DCAA9500834E6A /* ServerData.json */; };
 		8EBF552C22DCBAE900834E6A /* SliderTypeTwoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF552B22DCBAE900834E6A /* SliderTypeTwoCell.xib */; };
 		8EBF552E22DCBAFD00834E6A /* SliderTypeTwoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF552D22DCBAFD00834E6A /* SliderTypeTwoCell.swift */; };
 		8EBF553122DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF552F22DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.swift */; };
@@ -239,7 +233,6 @@
 		8ED68CB72377C2A500637C29 /* IGStructBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED68CB62377C2A500637C29 /* IGStructBill.swift */; };
 		8ED68CB92378165D00637C29 /* IGStructDeleteBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED68CB82378165D00637C29 /* IGStructDeleteBill.swift */; };
 		8ED97D7622E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED97D7522E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift */; };
-		8ED97D7822E2F7B300A0EB1F /* ServerDataInner.json in Resources */ = {isa = PBXBuildFile; fileRef = 8ED97D7722E2F7B300A0EB1F /* ServerDataInner.json */; };
 		8EE1BFC82281604D001A2867 /* IGSetUserNickNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */; };
 		8EE552D42364ADD1003A21FE /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE552D32364ADD1003A21FE /* UIImage+Gif.swift */; };
 		8EE552D62364B2C6003A21FE /* musicBarGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8EE552D52364B2C6003A21FE /* musicBarGif.gif */; };
@@ -979,15 +972,9 @@
 		8EBF550422D9B65000834E6A /* DynamicTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextLayer.swift; sourceTree = "<group>"; };
 		8EBF550622D9B84900834E6A /* DashboardCell8.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell8.xib; sourceTree = "<group>"; };
 		8EBF550822D9B85400834E6A /* DahsboardCell8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DahsboardCell8.swift; sourceTree = "<group>"; };
-		8EBF551222DC4B3200834E6A /* FavouriteDashboardCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteDashboardCell1.swift; sourceTree = "<group>"; };
-		8EBF551422DC4B4600834E6A /* FavouriteDashboardCell1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavouriteDashboardCell1.xib; sourceTree = "<group>"; };
-		8EBF551722DC4D2600834E6A /* AbstractFavouriteDashboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractFavouriteDashboardCell.swift; sourceTree = "<group>"; };
 		8EBF551F22DCA8EF00834E6A /* IGFavouriteChannelsDashboardTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFavouriteChannelsDashboardTableViewController.swift; sourceTree = "<group>"; };
-		8EBF552122DCA95C00834E6A /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
-		8EBF552222DCA95C00834E6A /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		8EBF552522DCA9B000834E6A /* SliderTypeOneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SliderTypeOneCell.xib; sourceTree = "<group>"; };
 		8EBF552622DCA9B000834E6A /* SliderTypeOneCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderTypeOneCell.swift; sourceTree = "<group>"; };
-		8EBF552922DCAA9500834E6A /* ServerData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ServerData.json; sourceTree = "<group>"; };
 		8EBF552B22DCBAE900834E6A /* SliderTypeTwoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SliderTypeTwoCell.xib; sourceTree = "<group>"; };
 		8EBF552D22DCBAFD00834E6A /* SliderTypeTwoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderTypeTwoCell.swift; sourceTree = "<group>"; };
 		8EBF552F22DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFavouriteChannelsDashboardCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1041,7 +1028,6 @@
 		8ED68CB62377C2A500637C29 /* IGStructBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructBill.swift; sourceTree = "<group>"; };
 		8ED68CB82378165D00637C29 /* IGStructDeleteBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructDeleteBill.swift; sourceTree = "<group>"; };
 		8ED97D7522E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFavouriteChannelsDashboardInnerTableViewController.swift; sourceTree = "<group>"; };
-		8ED97D7722E2F7B300A0EB1F /* ServerDataInner.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ServerDataInner.json; sourceTree = "<group>"; };
 		8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSetUserNickNameTableViewController.swift; sourceTree = "<group>"; };
 		8EE552D32364ADD1003A21FE /* UIImage+Gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
 		8EE552D52364B2C6003A21FE /* musicBarGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = musicBarGif.gif; sourceTree = "<group>"; };
@@ -1944,8 +1930,6 @@
 		8EBF551622DC4B4E00834E6A /* FavouriteChannels */ = {
 			isa = PBXGroup;
 			children = (
-				8EBF552922DCAA9500834E6A /* ServerData.json */,
-				8ED97D7722E2F7B300A0EB1F /* ServerDataInner.json */,
 				8EBF552622DCA9B000834E6A /* SliderTypeOneCell.swift */,
 				8EBF552522DCA9B000834E6A /* SliderTypeOneCell.xib */,
 				949E835D231EA6A500B6799E /* slideImageCVCell.swift */,
@@ -1954,10 +1938,6 @@
 				8EBF552B22DCBAE900834E6A /* SliderTypeTwoCell.xib */,
 				8EBF553322DCC9F700834E6A /* SliderTypeThreeCell.swift */,
 				8EBF553522DCCA0600834E6A /* SliderTypeThreeCell.xib */,
-				8EBF551222DC4B3200834E6A /* FavouriteDashboardCell1.swift */,
-				8EBF551422DC4B4600834E6A /* FavouriteDashboardCell1.xib */,
-				8EBF552122DCA95C00834E6A /* ProfileModel.swift */,
-				8EBF552222DCA95C00834E6A /* ProfileViewModel.swift */,
 				8EBF552F22DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.swift */,
 				8EBF553022DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.xib */,
 				940F9E6D231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.swift */,
@@ -2823,7 +2803,6 @@
 			children = (
 				8EBF551622DC4B4E00834E6A /* FavouriteChannels */,
 				FA7886C5223639E30006336F /* AbstractDashboardCell.swift */,
-				8EBF551722DC4D2600834E6A /* AbstractFavouriteDashboardCell.swift */,
 				FA99FF5E22352109009035DF /* DashboardCellUnknown.swift */,
 				FA842A3B225CA96F00E500A4 /* DashboardCellUnknown.xib */,
 				FA842A39225CA96A00E500A4 /* DashboardCell1.swift */,
@@ -3489,14 +3468,12 @@
 				943495C0231FBADC009854FE /* IGTransactionsTVCell.xib in Resources */,
 				8E2CCD0C237ED630000C3B3F /* ImageLocalizable.strings in Resources */,
 				8ECCA1F422B8F6DF00D3A734 /* multiForwardShareUsers.xib in Resources */,
-				8ED97D7822E2F7B300A0EB1F /* ServerDataInner.json in Resources */,
 				937455F91E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib in Resources */,
 				FA33063E1F445AE90096031A /* IRANSans_UltraLight.ttf in Resources */,
 				FA927E0620284DC100DF7145 /* GifCell.xib in Resources */,
 				8ECFB53C234A118A001233E9 /* igap_send_message_sound.mp3 in Resources */,
 				8E3C696A23602DDE001575BE /* MusicPlayer.storyboard in Resources */,
 				8E96A32F225C96C3007D8A77 /* RecieptView.xib in Resources */,
-				8EBF551522DC4B4600834E6A /* FavouriteDashboardCell1.xib in Resources */,
 				940F9E70231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.xib in Resources */,
 				8EBF553622DCCA0600834E6A /* SliderTypeThreeCell.xib in Resources */,
 				8ECC1828222F991F006E43E8 /* wallet.storyboard in Resources */,
@@ -3556,7 +3533,6 @@
 				94E74DC323238F8F001AB47C /* FinancialHistory.storyboard in Resources */,
 				FAA6971A23770CF2006810A4 /* TabBarLocalizable.strings in Resources */,
 				FAB0F9461FE956D1008F23EB /* Splash.gif in Resources */,
-				8EBF552A22DCAA9500834E6A /* ServerData.json in Resources */,
 				FAE1698F20E746DC008FE881 /* GoogleService-Info.plist in Resources */,
 				949E8360231EA6A500B6799E /* slideImageCVCell.xib in Resources */,
 				FAF796051DAA392F0030509B /* Assets.xcassets in Resources */,
@@ -3711,7 +3687,6 @@
 				D61B5DE6237D48B10060B9D9 /* LoadingView.swift in Sources */,
 				FAB0B87E232F5D59002E35AB /* DeepLinkNavigator.swift in Sources */,
 				8EE7FC9E225DF67200B6C2C3 /* NumberpadButton.swift in Sources */,
-				8EBF551822DC4D2600834E6A /* AbstractFavouriteDashboardCell.swift in Sources */,
 				FAA4E85B23124B110091199B /* IGForwardStruct.swift in Sources */,
 				D61B5DE4237D48B10060B9D9 /* LoadingViewable.swift in Sources */,
 				FAD57EE11E191DB000FC17D9 /* IGMessageLogCollectionViewCell.swift in Sources */,
@@ -3731,7 +3706,6 @@
 				8E96A321225C9074007D8A77 /* SMBottomButton.swift in Sources */,
 				FA0CC8091E5D7D4400556283 /* ActiveType.swift in Sources */,
 				8E0405C72371B9CE00516DEB /* IGStructBranchingInfo.swift in Sources */,
-				8EBF552322DCA95C00834E6A /* ProfileModel.swift in Sources */,
 				FA9F735A2127E589004418E5 /* EPContactsPicker.swift in Sources */,
 				8ECC1841222FFED2006E43E8 /* BaseRootTableViewController.swift in Sources */,
 				8EA8F3EB231F9E450099C4EF /* Extensions.swift in Sources */,
@@ -3896,7 +3870,6 @@
 				8EC217B62259DCF400105B5A /* SMEntity.swift in Sources */,
 				FA85066322670703002EEBF7 /* CardsCollectionViewCell.swift in Sources */,
 				8EE7FC93225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift in Sources */,
-				8EBF552422DCA95C00834E6A /* ProfileViewModel.swift in Sources */,
 				8E5FBC09231534BA0069D4F2 /* IGCountDownTimer.swift in Sources */,
 				8EEE896122ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift in Sources */,
 				FA2A506720ECABD9002C5322 /* IGFinancialServiceCharge.swift in Sources */,
@@ -4112,7 +4085,6 @@
 				FA42EF0E1E5C224F00CF8A32 /* CGSize.swift in Sources */,
 				8E9F076922659E1400E4CD17 /* SMSavedCardsAlertViewController.swift in Sources */,
 				FA35DA171DE0245600F171EE /* IGDatabaseManager.swift in Sources */,
-				8EBF551322DC4B3200834E6A /* FavouriteDashboardCell1.swift in Sources */,
 				8E3FC94E23705A5A003C9C6C /* IGStructInqueryBill.swift in Sources */,
 				FA4BD8A31DF2A53400CCB239 /* IGMusicViewController.swift in Sources */,
 				FA85066F22670738002EEBF7 /* chashoutCardTableViewController.swift in Sources */,

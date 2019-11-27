@@ -1,10 +1,3 @@
-//
-//  NamePictureCell.swift
-//  TableViewWithMultipleCellTypes
-//
-//  Created by Stanislav Ostrovskiy on 5/21/17.
-//  Copyright © 2017 Stanislav Ostrovskiy. All rights reserved.
-//
 
 import UIKit
 var CategoriesCounter = 0
@@ -19,9 +12,7 @@ class SliderTypeTwoCell: UITableViewCell, UICollectionViewDelegate, UICollection
     @IBOutlet weak var collectionHolderView : UIView!
     @IBOutlet weak var btnMore : UIButton!
     @IBOutlet weak var lblTitle : UILabel!
-//    var channelsDataArray : [FavouriteChannelsCategoryChannel] = []
-//    var titleArray : [String] = []
-//    var imageArray : [UIImage] = []
+    
     var channelItem: FavouriteChannelHomeItem!
     let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
 
@@ -75,7 +66,6 @@ class SliderTypeTwoCell: UITableViewCell, UICollectionViewDelegate, UICollection
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let collectionViewWidth = collectionView.bounds.width
-//        let collectionViewHeight = collectionView.bounds.height
         return CGSize(width: (collectionViewWidth/4.0) + 5 , height: (collectionViewWidth/4.0) + 10)
     }
     
@@ -101,6 +91,5 @@ class SliderTypeTwoCell: UITableViewCell, UICollectionViewDelegate, UICollection
         dashboard.categoryId = channelItem.id
         dashboard.hidesBottomBarWhenPushed = true
         UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
-        
     }
 }

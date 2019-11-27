@@ -20,15 +20,9 @@ class IGFavouriteChannelsDashboardCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-//        self.semanticContentAttribute = .forceLeftToRight
-        
-        // Initialization code
         self.backgroundColor = UIColor(named: themeColor.tableViewCell.rawValue)
         self.layer.cornerRadius = 14.0
-//        lbl.backgroundColor = .white
         self.contentView.layer.cornerRadius = 14.0
-//        self.contentView.layer.borderWidth = 1.0
-//        self.contentView.layer.borderColor = UIColor.white.cgColor
         self.contentView.layer.masksToBounds = true
         
         self.layer.shadowColor = UIColor.black.cgColor
@@ -37,8 +31,5 @@ class IGFavouriteChannelsDashboardCollectionViewCell: UICollectionViewCell {
 
         self.layer.shadowOpacity = 0.12
         self.layer.masksToBounds = false
-//        self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.contentView.layer.cornerRadius).cgPath
-        
     }
-
 }

@@ -1,10 +1,12 @@
-//
-//  NamePictureCell.swift
-//  TableViewWithMultipleCellTypes
-//
-//  Created by Stanislav Ostrovskiy on 5/21/17.
-//  Copyright © 2017 Stanislav Ostrovskiy. All rights reserved.
-//
+/*
+* This is the source code of iGap for iOS
+* It is licensed under GNU AGPL v3.0
+* You should have received a copy of the license in this archive (see LICENSE).
+* Copyright © 2017 , iGap - www.iGap.net
+* iGap Messenger | Free, Fast and Secure instant messaging application
+* The idea of the Kianiranian STDG - www.kianiranian.com
+* All rights reserved.
+*/
 
 import UIKit
 import SnapKit
@@ -13,7 +15,6 @@ import SDWebImage
 class SliderTypeOneCell: UITableViewCell {
 
     @IBOutlet weak var heightConstraintValue: NSLayoutConstraint!
-//    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var sliderCollectionView: UICollectionView!
     @IBOutlet weak var pageView: UIPageControl!
     @IBOutlet weak var backPageView: UIView!
@@ -160,14 +161,15 @@ extension SliderTypeOneCell: UICollectionViewDataSource, UICollectionViewDelegat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let pageIndex = scrollView.auk.currentPageIndex else { return }
         guard let selectedSlide = self.slides?[indexPath.item] else { return }
         SliderTypeOneCell.selectSlide(selectedSlide: selectedSlide)
     }
     
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        self.pageView.currentPage = indexPath.item
-//    }
+    /*
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        self.pageView.currentPage = indexPath.item
+    }
+    */
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         timer.invalidate()
