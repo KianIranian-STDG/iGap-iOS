@@ -217,7 +217,9 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
                                     }
                                 } else {
                                     IGGlobal.prgHide()
-                                    self.dismissView(roomId: getRoomProtoResponse.igpRoom.igpID)
+                                    DispatchQueue.main.async {
+                                        self.dismissView(roomId: getRoomProtoResponse.igpRoom.igpID)
+                                    }
                                 }
                             }
                         }).error({ (errorCode, waitTime) in
