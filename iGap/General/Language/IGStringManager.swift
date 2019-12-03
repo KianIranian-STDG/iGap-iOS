@@ -445,6 +445,7 @@ enum IGStringsManager : String {
     case SignMessages = "sign_message_title"
     case ShowChannelReactions = "show_channel_vote"
     case IntrestingChannel = "popular_channel"
+    case IgapNews = "news_mainTitle"
     case Draft = "txt_draft"
     case UnreadMessage = "unread_message"
     case DeletedMessage = "deleted_message"

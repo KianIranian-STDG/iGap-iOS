@@ -891,6 +891,22 @@ class AbstractDashboardCell: UICollectionViewCell {
             }
             break
             
+        case .news:
+            if !(agreementSlug == "") && (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
+                carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+            } else {
+                if !discoveryInfo.igpValue.isEmpty {
+                    let dashboard = IGNewsTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
+                    dashboard.hidesBottomBarWhenPushed = true
+                    UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
+                } else {
+                    let dashboard = IGNewsTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
+                        dashboard.hidesBottomBarWhenPushed = true
+                    UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated: true)
+                }
+            }
+            return
+
         default:
             return
         }

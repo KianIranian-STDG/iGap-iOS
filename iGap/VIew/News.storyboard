@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--News Table View Controller-->
+        <scene sceneID="HBZ-EY-9t0">
+            <objects>
+                <tableViewController storyboardIdentifier="IGNewsTableViewController" id="Xyb-kf-4Ty" customClass="IGNewsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="oK8-Nu-gOO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <outlet property="dataSource" destination="Xyb-kf-4Ty" id="8dd-nj-dFE"/>
+                            <outlet property="delegate" destination="Xyb-kf-4Ty" id="QRY-QF-n5Y"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="cG9-5V-mFg" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target">
+                        <barButtonItem key="backBarButtonItem" title=" " id="vL2-gt-lQ5"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cGc-e1-JZ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2872" y="-2756"/>
+        </scene>
+    </scenes>
+</document>
