@@ -152,6 +152,7 @@ class IGUserLoginRequest: IGRequest {
         class func intrepret(response responseProtoMessage: IGPUserLoginResponse) {
             AppDelegate.isUpdateAvailable = responseProtoMessage.igpUpdateAvailable
             AppDelegate.isDeprecatedClient = responseProtoMessage.igpDeprecatedClient
+            IGClientConditionRequest.allowSendClientCondition = true
             
             IGAppManager.sharedManager.setUserLoginSuccessful()
             IGAppManager.sharedManager.setAccessToken(accessToken: responseProtoMessage.igpAccessToken)

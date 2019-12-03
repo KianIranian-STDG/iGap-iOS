@@ -340,21 +340,19 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         self.addRoomChangeNotificationBlock()
         
-//        if IGAppManager.sharedManager.isUserLoggiedIn() {
+        if IGAppManager.sharedManager.isUserLoggiedIn() {
             if IGRecentsTableViewController.needGetInfo {
                 IGHelperGetShareData.manageShareDate()
                 self.checkAppVersion()
                 self.checkPermission()
                 self.fetchRoomList()
-//                self.checkAppVersion()
-//                self.fetchRoomList()
             }
-//        } else {
-//            NotificationCenter.default.addObserver(self,
-//                                                   selector: #selector(self.userDidLogin),
-//                                                   name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
-//                                                   object: nil)
-//        }
+        } else {
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(self.userDidLogin),
+                                                   name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
+                                                   object: nil)
+        }
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(segueToChatNotificationReceived(_:)),
@@ -604,9 +602,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     if getRoomListRequest.igpPagination.igpOffset == 0 { // is first page
                         IGFactory.shared.markRoomsAsDeleted(igpRooms: getRoomListResponse.igpRooms)
                         IGClientGetPromoteRequest.fetchPromotedRooms()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            IGClientConditionRequest.sendRequest(clientConditionRooms: clientConditionRooms!)
-                        }
+                        IGClientConditionRequest.sendRequest(clientConditionRooms: clientConditionRooms!)
                     }
                     
                     if getRoomListResponse.igpRooms.count != 0 {

@@ -709,9 +709,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if let messageId = self.deepLinkMessageId {
             // need to make 'IGMessageLoader' for first time
-            if messageLoader == nil {
-                messageLoader = IGMessageLoader(room: self.room!)
-            }
+            messageLoader = IGMessageLoader.getInstance(room: self.room!, forceNew: true)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.goToPosition(messageId: messageId)
             }
@@ -1031,7 +1029,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
      */
     private func startLoadMessage(){
         if messageLoader == nil {
-            messageLoader = IGMessageLoader(room: self.room!)
+            messageLoader = IGMessageLoader.getInstance(room: self.room!, forceNew: true)
         }
 
         let hasUnread = messageLoader.hasUnread()
@@ -6671,6 +6669,9 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     private func removeProgress(fakeMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection){
         DispatchQueue.main.async {
             if let cellPosition = IGMessageViewController.messageIdsStatic[(self.currentRoomId)!]?.firstIndex(of: fakeMessageId) {
+                if self.messages!.count <= cellPosition  {
+                    return
+                }
                 self.removeMessageArrayByPosition(cellPosition: cellPosition)
                 self.collectionView?.performBatchUpdates({
                     self.collectionView?.deleteItems(at: [IndexPath(row: cellPosition, section: 0)])

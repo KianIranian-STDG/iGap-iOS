@@ -20,6 +20,8 @@ import RealmSwift
  */
 class IGMessageLoader {
     
+    private static var messageLoaderIntances : [Int64:IGMessageLoader] = [:]
+    
     private var addToView = false // allow to message for add to recycler view or no
     private var topMore = true // more message exist in local for load in up direction (topMore default value is true for allowing that try load top message )
     private var bottomMore = false // more message exist in local for load in bottom direction
@@ -49,6 +51,7 @@ class IGMessageLoader {
     private var firstLoadUp = true // first load message to the up direction for load from local or from server. after load set this variable to false. now we use this variable for set delay at first time load message.
     private var firstLoadDown = true // first load message to the down direction for load from local or from server. after load set this variable to false. now we use this variable for set delay at first time load message.
     private var forceFirstLoadUp = false // if exist 'unread' or 'savedScrollMessageId' set this param true for allow scroll top to load up message from local or server
+    private var reachToBottom = false // when this value will be true, that we get error response (error 617) from server. this error code meanse not exist any message at the bottom of messageId. also when user send message before this value true, we change value to true even reponse from server for get history not received yet
     
     private var roomId: Int64 = 0
     private var roomType: IGRoom.IGType!
@@ -67,12 +70,22 @@ class IGMessageLoader {
     let sortPropertiesUp = [SortDescriptor(keyPath: "creationTime", ascending: false), SortDescriptor(keyPath: "id", ascending: false)]
     let sortPropertiesDown = [SortDescriptor(keyPath: "creationTime", ascending: false), SortDescriptor(keyPath: "id", ascending: true)]
     
-    init(room: IGRoom) {
+    private init(room: IGRoom) {
         self.roomId = room.id
         self.roomType = room.type
         setUnreadCount(unreadCount: room.unreadCount)
         setFirstUnreadMessage(firstUnreadMessage: room.firstUnreadMessage)
         setSavedScrollMessageId(savedScrollMessageId: room.savedScrollMessageId)
+    }
+    
+    /** if forceNew is true, make a new instance and override to the message loader instances dictionary */
+    public static func getInstance(room: IGRoom, forceNew: Bool) -> IGMessageLoader {
+        if forceNew || IGMessageLoader.messageLoaderIntances[room.id] == nil {
+            let messageLoader = IGMessageLoader(room: room)
+            IGMessageLoader.messageLoaderIntances[room.id] = messageLoader
+            return messageLoader
+        }
+        return IGMessageLoader.messageLoaderIntances[room.id]!
     }
     
     /*************************************************/
@@ -108,6 +121,10 @@ class IGMessageLoader {
     
     public func setForceFirstLoadUp(forceFirstLoadUp: Bool) {
         self.forceFirstLoadUp = forceFirstLoadUp
+    }
+    
+    public func setReachToBottom(reachToBottom: Bool) {
+        self.reachToBottom = reachToBottom
     }
     
     public func isShowingUnreadLayout() -> Bool {
@@ -147,6 +164,10 @@ class IGMessageLoader {
     
     public func isForceFirstLoadUp() -> Bool {
         return forceFirstLoadUp
+    }
+    
+    public func isReachToBottom() -> Bool {
+        return reachToBottom
     }
     
     /**
@@ -301,6 +322,12 @@ class IGMessageLoader {
                     }
                 }
             }
+            
+            /** Hint: when we try for fetch history for up direction, always send a request for down direction for insuring about finish bottom direction history*/
+            if direction == .up { // up direction just happen when we don't have saveState or unread
+                self.getOnlineMessage(oldMessageId: messageInfos[0].id, direction: .down, backgroundFetch: true, onMessageReceive: onMessageReceive)
+            }
+            
         } else {
             /** send request to server for get message.
              * if direction is DOWN check again realmRoomMessage for detection
@@ -442,14 +469,17 @@ class IGMessageLoader {
      * get message history from server
      *
      * @param oldMessageId if set oldMessageId=0 messages will be get from latest message that exist in server
+     * @param backgroundFetch if set true, message loader try for fetch room message history without show any progress
      */
-    private func getOnlineMessage(oldMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection, onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
+    private func getOnlineMessage(oldMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection, backgroundFetch: Bool = false, onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
         
         if ((direction == .up && !isWaitingForHistoryUpOnline && allowGetHistoryUp) || (direction == .down && !isWaitingForHistoryDownOnline && allowGetHistoryDown)) {
-            /**
-             * show progress when start for get history from server
-             */
-            manageProgress(state: .SHOW, direction: direction, messageId: oldMessageId, onMessageReceive: onMessageReceive)
+            
+            /** show progress when start for get history from server */
+            if !backgroundFetch {
+                manageProgress(state: .SHOW, direction: direction, messageId: oldMessageId, onMessageReceive: onMessageReceive)
+            }
+            
             if (!IGAppManager.sharedManager.isUserLoggiedIn()) {
                 getOnlineMessageAfterTimeOut(messageIdGetHistory: oldMessageId, direction: direction, onMessageReceive: onMessageReceive)
                 return
@@ -476,9 +506,7 @@ class IGMessageLoader {
                     return;
                  }
                  */
-                /**
-                 * hide progress received history
-                 */
+                /** hide progress received history */
                 self.manageProgress(state: .HIDE, direction: direction)
                 
                 var realmRoomMessages: Results<IGRoomMessage>!
@@ -1134,5 +1162,16 @@ class IGMessageLoader {
      */
     private func setGap(messageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection) {
         IGFactory.shared.setGap(messageId: messageId, direction: direction)
+    }
+    
+    /** when not received bottom dircetion error response for insuring that history of message
+     * is reached to the end, we set up direction gap for new sended message for insuring about
+     * fetch message later if exist into the server but client not yet received
+     */
+    public func setInsuringGap(messageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection){
+        if !self.reachToBottom {
+            self.reachToBottom = true
+            IGFactory.shared.setGap(messageId: messageId, direction: direction)
+        }
     }
 }

@@ -176,6 +176,9 @@ class IGMessageSender {
     
     //MARK: Send Next
     func sendNextPlainRequest(_ nextMessageTask: IGMessageSenderTask) {
+        
+        IGMessageLoader.getInstance(room: nextMessageTask.room, forceNew: false).setInsuringGap(messageId: nextMessageTask.message.id, direction: .up)
+        
         switch nextMessageTask.room.type {
         case .chat:
             IGChatSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
