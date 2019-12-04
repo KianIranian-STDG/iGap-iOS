@@ -131,8 +131,19 @@ class IGMessageLoader {
         return isShowLayoutUnreadMessage
     }
     
-    public func setDeepLinkMessageId(MessageId: Int64) {
-        self.savedScrollMessageId = MessageId
+    public func setDeepLinkMessageId(messageId: Int64) {
+        self.savedScrollMessageId = messageId
+    }
+    
+    public func setBiggestMessage(biggestMessage: IGRoomMessage) {
+        // if message is failed or sending don't set biggestMessageId
+        if IGRoomMessageStatus.fetchIGValue(biggestMessage.status) < IGRoomMessageStatus.fetchIGValue(IGRoomMessageStatus.sent) {
+            return
+        }
+        
+        if self.biggestMessageId < biggestMessage.id {
+            self.biggestMessageId = biggestMessage.id
+        }
     }
     
     /*************************************************/
@@ -168,6 +179,10 @@ class IGMessageLoader {
     
     public func isReachToBottom() -> Bool {
         return reachToBottom
+    }
+    
+    public func getBiggestMessageId() -> Int64 {
+         return self.biggestMessageId
     }
     
     /**

@@ -6535,6 +6535,13 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             return
         }
         
+        if direction == .down {
+            if self.messageLoader.getBiggestMessageId() != 0 && self.messageLoader.getBiggestMessageId() > realmRoomMessages[realmRoomMessages.count-1].id {
+                return
+            }
+            self.messageLoader.setBiggestMessage(biggestMessage: realmRoomMessages[realmRoomMessages.count-1])
+        }
+        
         if scrollToBottom && !self.messageLoader.allowAddToView() {
             // in this state (mabye all stats) when "scrollToBottom" is true, "realmRoomMessages" just has one item
             if let authorHash = realmRoomMessages[0].authorHash, authorHash == IGAppManager.sharedManager.authorHash() {
