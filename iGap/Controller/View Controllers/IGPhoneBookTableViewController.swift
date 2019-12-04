@@ -37,7 +37,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     var customHeaderView: UIView!
     var isInSearchMode : Bool = false
-    var searchController : UISearchController = {
+    lazy var searchController : UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
         searchController.searchBar.setValue(IGStringsManager.GlobalCancel.rawValue.localized, forKey: "cancelButtonText")
