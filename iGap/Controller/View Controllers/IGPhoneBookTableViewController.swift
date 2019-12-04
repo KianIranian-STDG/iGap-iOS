@@ -76,9 +76,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.initNavBarWithIgapIcon()
+        setNavigationItems()
         
         initRxSwiftObservers()
         initObserver()
@@ -108,7 +106,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setNavigationItems()
         initObserver()
     }
     
@@ -133,7 +130,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }
     
     private func setNavigationItems() {
-        if currentTabIndex == TabBarTab.Profile.rawValue {
+        if currentTabIndex == TabBarTab.Profile.rawValue || currentTabIndex == TabBarTab.Recent.rawValue {
             self.initNavigationBar(title: IGStringsManager.GlobalNew.rawValue.localized) { }
         } else {
             let navigationItem = self.navigationItem as! IGNavigationItem
@@ -239,7 +236,13 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             case .iGap:
                 connectionStatus = .iGap
                 IGAppManager.connectionStatusStatic = .iGap
-                self.setNavigationItems()
+                switch  currentTabIndex {
+                case TabBarTab.Recent.rawValue:
+                    let navItem = self.navigationItem as! IGNavigationItem
+                    navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: IGStringsManager.Phone.rawValue.localized)
+                default:
+                    self.setNavigationItems()
+                }
                 break
             }
         }
@@ -406,7 +409,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //if is from profile page
-        if currentTabIndex == TabBarTab.Profile.rawValue {
+        if currentTabIndex == TabBarTab.Profile.rawValue || currentTabIndex == TabBarTab.Recent.rawValue {
             return (self.contacts?.count ?? 0) + 2 // the number 2 is for two items in header bellow search bar
         } else {// if is from contactpage
             return self.contacts?.count ?? 0 //+ 1
@@ -415,7 +418,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //if is from profile page
-        if currentTabIndex == TabBarTab.Profile.rawValue {
+        if currentTabIndex == TabBarTab.Profile.rawValue || currentTabIndex == TabBarTab.Recent.rawValue {
             
             if indexPath.row == 0 {
                 let phoneBookCellTypeTwo = tableView.dequeueReusableCell(withIdentifier: "phoneBookCellTypeTwo", for: indexPath) as! phoneBookCellTypeTwo
@@ -445,7 +448,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if currentTabIndex == TabBarTab.Profile.rawValue {
+        if currentTabIndex == TabBarTab.Profile.rawValue || currentTabIndex == TabBarTab.Recent.rawValue {
             if indexPath.row == 0 {
                 return 50
             } else if indexPath.row == 1 {
@@ -460,13 +463,13 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var selectedIndexPath: Int = 0
-        if currentTabIndex == TabBarTab.Profile.rawValue {
+        if currentTabIndex == TabBarTab.Profile.rawValue || currentTabIndex == TabBarTab.Recent.rawValue {
             if indexPath.row  == 0 {
                 self.didTapOnNewChannel()
             } else if indexPath.row  == 1 {
                 self.didTapOnNewGroup()
             }
-            selectedIndexPath = indexPath.row - 2
+            return
         } else {
             selectedIndexPath = indexPath.row
         }
