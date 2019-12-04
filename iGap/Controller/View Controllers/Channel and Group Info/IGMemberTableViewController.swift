@@ -146,8 +146,12 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
             textField.backgroundColor = .clear
 
-            let imageV = textField.leftView as! UIImageView
-            imageV.image = nil
+            if let imageV = textField.leftView as? UIImageView {
+                imageV.image = nil
+            }
+            if let imageV = textField.rightView as? UIImageView {
+                imageV.image = nil
+            }
             if let backgroundview = textField.subviews.first {
                 backgroundview.backgroundColor = UIColor(named: themeColor.searchBarBackGroundColor.rawValue)
                 for view in backgroundview.subviews {

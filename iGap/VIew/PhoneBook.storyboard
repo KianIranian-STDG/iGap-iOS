@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="iGap_fontico.ttf">
-            <string>iGap_fontico</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="zhe-2t-YwN">
@@ -127,150 +122,16 @@
             </objects>
             <point key="canvasLocation" x="-3183" y="-186"/>
         </scene>
-        <!-- -->
-        <scene sceneID="yqf-TN-eUX">
-            <objects>
-                <viewController storyboardIdentifier="testVCViewController" id="B4K-ce-J87" customClass="testVCViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="vIA-CY-TDG">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XXL-Dh-9BO">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
-                                <connections>
-                                    <segue destination="1Zx-mK-WBW" kind="embed" id="bsT-wo-KHs"/>
-                                </connections>
-                            </containerView>
-                        </subviews>
-                        <color key="backgroundColor" name="IGBackGroundColor"/>
-                        <constraints>
-                            <constraint firstItem="4So-xe-tIt" firstAttribute="trailing" secondItem="XXL-Dh-9BO" secondAttribute="trailing" id="39k-yX-b6A"/>
-                            <constraint firstAttribute="bottom" secondItem="XXL-Dh-9BO" secondAttribute="bottom" id="EvE-Ui-NPk"/>
-                            <constraint firstItem="XXL-Dh-9BO" firstAttribute="leading" secondItem="4So-xe-tIt" secondAttribute="leading" id="d0g-kx-Fiw"/>
-                            <constraint firstItem="XXL-Dh-9BO" firstAttribute="top" secondItem="4So-xe-tIt" secondAttribute="top" id="zyu-6e-H60"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="4So-xe-tIt"/>
-                    </view>
-                    <navigationItem key="navigationItem" title=" " id="4Is-Bh-XLy" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target">
-                        <barButtonItem key="backBarButtonItem" title=" " id="PRg-3K-mvS"/>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kd3-l6-jpy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3184.057971014493" y="-857.14285714285711"/>
-        </scene>
-        <!--User Contacts Table View Controller-->
-        <scene sceneID="lXy-FU-Q8o">
-            <objects>
-                <tableViewController id="1Zx-mK-WBW" customClass="IGUserContactsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="S4U-fk-NxC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="IGBackGroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="IGUserContactsTableViewCell" rowHeight="80" id="fQk-Nt-lgI" customClass="IGUserContactsTableViewCell" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="80"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fQk-Nt-lgI" id="1KS-nW-ZXd">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="VCt-76-G74">
-                                            <rect key="frame" x="75" y="19.5" width="264" height="41"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ci1-Xy-4Y7" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="264" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" name="IGLabelColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LPd-Ao-O6k" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="20.5" width="264" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" name="IGLabelColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="LPd-Ao-O6k" secondAttribute="trailing" id="16j-fz-nzd"/>
-                                                <constraint firstAttribute="trailing" secondItem="ci1-Xy-4Y7" secondAttribute="trailing" id="AWe-Op-hek"/>
-                                                <constraint firstItem="LPd-Ao-O6k" firstAttribute="leading" secondItem="VCt-76-G74" secondAttribute="leading" id="MWJ-S4-jqf"/>
-                                                <constraint firstItem="ci1-Xy-4Y7" firstAttribute="leading" secondItem="VCt-76-G74" secondAttribute="leading" id="qzx-bh-7w4"/>
-                                            </constraints>
-                                        </stackView>
-                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W6q-KM-JrK" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="15" y="15" width="50" height="50"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="50" id="PL8-Ke-bv8"/>
-                                            </constraints>
-                                        </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOB-iI-K4M">
-                                            <rect key="frame" x="15" y="15" width="50" height="50"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="50" id="6YU-mv-0hU"/>
-                                                <constraint firstAttribute="height" constant="50" id="tcM-Ek-oQt"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="45"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="VCt-76-G74" secondAttribute="trailing" constant="55" id="CRt-Lm-7mb"/>
-                                        <constraint firstItem="VCt-76-G74" firstAttribute="centerY" secondItem="1KS-nW-ZXd" secondAttribute="centerY" id="GPU-Km-WyI"/>
-                                        <constraint firstItem="W6q-KM-JrK" firstAttribute="centerY" secondItem="1KS-nW-ZXd" secondAttribute="centerY" id="JJp-D1-DKy"/>
-                                        <constraint firstItem="VCt-76-G74" firstAttribute="leading" secondItem="iOB-iI-K4M" secondAttribute="trailing" constant="10" id="VA8-LJ-jBU"/>
-                                        <constraint firstItem="W6q-KM-JrK" firstAttribute="leading" secondItem="1KS-nW-ZXd" secondAttribute="leading" constant="15" id="XK9-ia-50V"/>
-                                        <constraint firstItem="iOB-iI-K4M" firstAttribute="centerY" secondItem="1KS-nW-ZXd" secondAttribute="centerY" id="fNJ-a8-npA"/>
-                                        <constraint firstItem="iOB-iI-K4M" firstAttribute="leading" secondItem="1KS-nW-ZXd" secondAttribute="leading" constant="15" id="h6Y-Dj-iqd"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="avatarIconLbl" destination="iOB-iI-K4M" id="bDK-NI-Gsg"/>
-                                    <outlet property="nameLbl" destination="ci1-Xy-4Y7" id="TBQ-7O-pUr"/>
-                                    <outlet property="phoneNumberLbl" destination="LPd-Ao-O6k" id="oev-by-IYf"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="1Zx-mK-WBW" id="Ed8-aG-OLs"/>
-                            <outlet property="delegate" destination="1Zx-mK-WBW" id="WTz-SF-ysc"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="X0d-VE-riG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2522" y="-858"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="7Tm-MP-Nm8">
-            <objects>
-                <navigationController id="44e-eA-Uep" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bPm-6x-Gzf" customClass="IGNavigationBar" customModule="iGap" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="B4K-ce-J87" kind="relationship" relationship="rootViewController" id="qTw-q9-MsT"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PJH-s3-3EW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-4029" y="-857"/>
-        </scene>
     </scenes>
     <resources>
         <namedColor name="IGBackGroundColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="IGLabelColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="IGTextFieldBackGround">
+        <namedColor name="IGLabelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="IGTextFieldBackGround">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

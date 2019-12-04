@@ -153,66 +153,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     
     private func showAlertOptions() {
         
-        if IGTabBarController.currentTabStatic == .Call {
-            
-            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-            
-            let newChat = UIAlertAction(title: IGStringsManager.NewCall.rawValue.localized, style: .default, handler: { (action) in
-                let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                createChat.forceCall = true
-                createChat.hidesBottomBarWhenPushed = true
-                self.navigationController!.pushViewController(createChat, animated: true)
-            })
-            
-            let clearCallLog = UIAlertAction(title: IGStringsManager.ClearHistory.rawValue.localized, style: .default, handler: { (action) in
-                if IGAppManager.sharedManager.userID() != nil {
-                    let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                    hud.mode = .indeterminate
-                    
-                    let sortProperties = [SortDescriptor(keyPath: "offerTime", ascending: false)]
-                    do {
-                        let realm = try Realm()
-                        guard let clearId = realm.objects(IGRealmCallLog.self).sorted(by: sortProperties).first?.id else {
-                            return
-                        }
-                        
-                        IGSignalingClearLogRequest.Generator.generate(clearId: clearId).success({ (protoResponse) in
-                            DispatchQueue.main.async {
-                                if let clearLogResponse = protoResponse as? IGPSignalingClearLogResponse {
-                                    IGSignalingClearLogRequest.Handler.interpret(response: clearLogResponse)
-                                    hud.hide(animated: true)
-                                }
-                            }
-                        }).error({ (errorCode, waitTime) in
-                            DispatchQueue.main.async {
-                                switch errorCode {
-                                case .timeout:
-
-                                        break
-                                default:
-                                    break
-                                }
-                                self.hud.hide(animated: true)
-                            }
-                        }).send()
-                        
-                    } catch _ as NSError {
-                        print("RLM EXEPTION ERR HAPPENDED IN SET DEFAULT NAVIGATION ITEM :",String(describing: self))
-                    }
-                    
-                }
-            })
-            
-            let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
-            
-            alertController.addAction(newChat)
-            alertController.addAction(clearCallLog)
-            alertController.addAction(cancel)
-            
-            self.present(alertController, animated: true, completion: nil)
-            return
-        }
-        
         let alertController = UIAlertController(title: nil, message: IGStringsManager.WhichTypeOfMessage.rawValue.localized, preferredStyle: IGGlobal.detectAlertStyle())
         let myCloud = UIAlertAction(title: IGStringsManager.Cloud.rawValue.localized, style: .default, handler: { (action) in
             if let userId = IGAppManager.sharedManager.userID() {
