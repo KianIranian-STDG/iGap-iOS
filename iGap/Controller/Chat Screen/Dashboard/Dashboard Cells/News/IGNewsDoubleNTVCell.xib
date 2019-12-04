@@ -47,6 +47,12 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpn-zA-e46">
+                                        <rect key="frame" x="0.0" y="0.0" width="201.5" height="182"/>
+                                        <connections>
+                                            <action selector="didTapOnNewsTwo:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="oTP-cp-IDg"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -54,7 +60,10 @@
                                     <constraint firstItem="U9m-Z7-cwc" firstAttribute="top" secondItem="aBf-Kf-t3D" secondAttribute="bottom" constant="5" id="2b6-zp-6F4"/>
                                     <constraint firstItem="U9m-Z7-cwc" firstAttribute="trailing" secondItem="aBf-Kf-t3D" secondAttribute="trailing" id="8gk-kU-b0N"/>
                                     <constraint firstItem="AyX-qh-MTg" firstAttribute="trailing" secondItem="U9m-Z7-cwc" secondAttribute="trailing" id="D4e-KP-eIj"/>
+                                    <constraint firstAttribute="trailing" secondItem="qpn-zA-e46" secondAttribute="trailing" id="HQj-jx-GEn"/>
                                     <constraint firstItem="aBf-Kf-t3D" firstAttribute="top" secondItem="UHl-ba-CUM" secondAttribute="bottom" id="Opj-aT-iw3"/>
+                                    <constraint firstAttribute="bottom" secondItem="qpn-zA-e46" secondAttribute="bottom" id="RQL-5Q-63R"/>
+                                    <constraint firstItem="qpn-zA-e46" firstAttribute="top" secondItem="ddc-Zr-fzE" secondAttribute="top" id="W73-mF-HaB"/>
                                     <constraint firstItem="UHl-ba-CUM" firstAttribute="trailing" secondItem="aBf-Kf-t3D" secondAttribute="trailing" id="XQ2-rb-d3c"/>
                                     <constraint firstAttribute="bottom" secondItem="AyX-qh-MTg" secondAttribute="bottom" constant="5" id="dY6-UQ-hrK"/>
                                     <constraint firstItem="AyX-qh-MTg" firstAttribute="top" secondItem="U9m-Z7-cwc" secondAttribute="bottom" constant="1" id="dZS-TX-rvj"/>
@@ -62,6 +71,7 @@
                                     <constraint firstItem="AyX-qh-MTg" firstAttribute="leading" secondItem="U9m-Z7-cwc" secondAttribute="leading" id="jM7-q1-EGV"/>
                                     <constraint firstItem="U9m-Z7-cwc" firstAttribute="leading" secondItem="aBf-Kf-t3D" secondAttribute="leading" id="lND-j5-sXN"/>
                                     <constraint firstItem="UHl-ba-CUM" firstAttribute="top" secondItem="ddc-Zr-fzE" secondAttribute="top" id="nie-qI-Ulz"/>
+                                    <constraint firstItem="qpn-zA-e46" firstAttribute="leading" secondItem="ddc-Zr-fzE" secondAttribute="leading" id="nwR-sj-Mgq"/>
                                     <constraint firstItem="UHl-ba-CUM" firstAttribute="leading" secondItem="aBf-Kf-t3D" secondAttribute="leading" id="oc6-GK-QKk"/>
                                     <constraint firstAttribute="trailing" secondItem="aBf-Kf-t3D" secondAttribute="trailing" constant="5" id="tr5-ZG-Yve"/>
                                 </constraints>
@@ -93,12 +103,19 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uKk-WI-nrO">
+                                        <rect key="frame" x="0.0" y="0.0" width="201.5" height="182"/>
+                                        <connections>
+                                            <action selector="didTapOnNewsOne:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="yd6-fi-Lrv"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="aJW-GD-FJ9" firstAttribute="top" secondItem="UG5-My-7BS" secondAttribute="bottom" constant="1" id="8ni-wX-Ggm"/>
                                     <constraint firstItem="0J3-c9-2bC" firstAttribute="top" secondItem="5qd-dX-nDa" secondAttribute="top" constant="20" id="B01-Uu-YHc"/>
                                     <constraint firstItem="8AW-s7-I6z" firstAttribute="leading" secondItem="0J3-c9-2bC" secondAttribute="leading" id="Cuo-kX-kTx"/>
+                                    <constraint firstItem="uKk-WI-nrO" firstAttribute="leading" secondItem="5qd-dX-nDa" secondAttribute="leading" id="I3R-ar-h3g"/>
                                     <constraint firstItem="aJW-GD-FJ9" firstAttribute="trailing" secondItem="UG5-My-7BS" secondAttribute="trailing" id="LcW-qa-NpU"/>
                                     <constraint firstItem="UG5-My-7BS" firstAttribute="leading" secondItem="0J3-c9-2bC" secondAttribute="leading" id="NUy-RE-l7S"/>
                                     <constraint firstItem="8AW-s7-I6z" firstAttribute="top" secondItem="5qd-dX-nDa" secondAttribute="top" id="NiV-7s-H4R"/>
@@ -106,8 +123,11 @@
                                     <constraint firstItem="8AW-s7-I6z" firstAttribute="trailing" secondItem="0J3-c9-2bC" secondAttribute="trailing" id="PzJ-bq-44i"/>
                                     <constraint firstItem="0J3-c9-2bC" firstAttribute="top" secondItem="8AW-s7-I6z" secondAttribute="bottom" id="TYi-D1-LVc"/>
                                     <constraint firstItem="0J3-c9-2bC" firstAttribute="leading" secondItem="5qd-dX-nDa" secondAttribute="leading" constant="5" id="XMU-jn-ksQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="uKk-WI-nrO" secondAttribute="bottom" id="YNL-tG-rXY"/>
                                     <constraint firstAttribute="trailing" secondItem="0J3-c9-2bC" secondAttribute="trailing" constant="5" id="bf5-Iv-ueu"/>
+                                    <constraint firstItem="uKk-WI-nrO" firstAttribute="top" secondItem="5qd-dX-nDa" secondAttribute="top" id="fbf-eV-xiH"/>
                                     <constraint firstItem="UG5-My-7BS" firstAttribute="top" secondItem="0J3-c9-2bC" secondAttribute="bottom" constant="5" id="p67-HL-5nD"/>
+                                    <constraint firstAttribute="trailing" secondItem="uKk-WI-nrO" secondAttribute="trailing" id="p6n-b0-xOh"/>
                                     <constraint firstItem="UG5-My-7BS" firstAttribute="trailing" secondItem="0J3-c9-2bC" secondAttribute="trailing" id="uzO-u8-P1C"/>
                                     <constraint firstAttribute="bottom" secondItem="aJW-GD-FJ9" secondAttribute="bottom" constant="5" id="zLC-ld-ThJ"/>
                                 </constraints>
@@ -126,6 +146,8 @@
             <connections>
                 <outlet property="bgView0" destination="5qd-dX-nDa" id="Kog-fM-GZ9"/>
                 <outlet property="bgView1" destination="ddc-Zr-fzE" id="mui-b6-boi"/>
+                <outlet property="btnNewsOne" destination="uKk-WI-nrO" id="SZ5-1G-Bs1"/>
+                <outlet property="btnNewsTwo" destination="qpn-zA-e46" id="LVp-rG-qZW"/>
                 <outlet property="imgView0" destination="0J3-c9-2bC" id="fjE-lz-0OX"/>
                 <outlet property="imgView1" destination="aBf-Kf-t3D" id="slq-9c-xxq"/>
                 <outlet property="lblAlias0" destination="aJW-GD-FJ9" id="jsd-LP-ZEX"/>

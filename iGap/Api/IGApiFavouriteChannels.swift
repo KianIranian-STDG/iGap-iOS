@@ -77,4 +77,8 @@ extension DataRequest {
     func responseCategoryInfo(queue: DispatchQueue? = nil, completionHandler: @escaping (Alamofire.AFDataResponse<FavouriteChannelCategoryInfo>) -> Void) -> Self {
         return responseDecodable(completionHandler: completionHandler)
     }
+    @discardableResult
+    func responseNewsByID(queue: DispatchQueue? = nil, completionHandler: @escaping (Alamofire.AFDataResponse<IGStructNewsInnerByID>) -> Void) -> Self {
+        return responseDecodable(completionHandler: completionHandler)
+    }
 }

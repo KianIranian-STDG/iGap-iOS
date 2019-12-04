@@ -888,6 +888,13 @@ extension Date {
         let dateString = self.localizedDate(showHour: showHour)
         return dateString.inLocalizedLanguage()
     }
+
+    func completeHumanReadableTimeWithSec(showHour: Bool = false) -> String {
+        let dayTimePeriodFormatter = DateFormatter()
+        dayTimePeriodFormatter.dateFormat = "dd MMM YYYY - HH:mm:ss"
+        let dateString = self.localizedDate(showHour: showHour)
+        return dateString.inLocalizedLanguage()
+    }
     
     func humanReadableForLastSeen() -> String {
         let differenctToNow = Date().timeIntervalSince1970 - self.timeIntervalSince1970
@@ -1627,6 +1634,17 @@ extension UISearchBar {
     
 }
 extension String {
+    
+    func checkTime() -> String {
+        var correctedDate : String = self
+        if correctedDate.contains("T") {
+            return correctedDate
+        } else {
+            correctedDate = correctedDate.replacingOccurrences(of: " ", with: "T")
+            correctedDate = correctedDate + "Z"
+            return correctedDate
+        }
+    }
     
     var isArabic: Bool {
         let predicate = NSPredicate(format: "SELF MATCHES %@", "(?s).*\\p{Arabic}.*")

@@ -27,7 +27,10 @@ class IGTripleNewsTVCell: UITableViewCell {
     var newsOne: [newsInner]!
     var newsTwo: [newsInner]!
     var newsThree: [newsInner]!
-    
+    var categoryIDOne : String! = "0"
+    var categoryIDTwo : String! = "0"
+    var categoryIDThree : String! = "0"
+
     
     override func awakeFromNib() {
         super.awakeFromNib()

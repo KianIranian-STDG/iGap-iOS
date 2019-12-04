@@ -140,7 +140,9 @@ class IGNewsTableViewController: UITableViewController, UIGestureRecognizerDeleg
             singleNews.newsOne = (item.news![0].news)
             //title of double news section
             singleNews.lblTitle0.text = (item.news![0].category)
-            
+            //pass categoryID
+            singleNews.categoryIDOne = (item.news![0].categoryId)
+
             //set cell data
             singleNews.setCellData()
             
@@ -152,9 +154,14 @@ class IGNewsTableViewController: UITableViewController, UIGestureRecognizerDeleg
             //pass array of news inner data
             doubleNews.newsOne = (item.news![0].news)
             doubleNews.newsTwo = (item.news![1].news)
+            //pass categoryID
+            doubleNews.categoryIDOne = (item.news![0].categoryId)
+            doubleNews.categoryIDTwo = (item.news![1].categoryId)
             //title of double news section
             doubleNews.lblTitle0.text = (item.news![0].category)
             doubleNews.lblTitle1.text = (item.news![1].category)
+            doubleNews.categoryOne = (item.news![0].category)
+            doubleNews.categoryTwo = (item.news![1].category)
             
             
             //set cell data
@@ -172,7 +179,11 @@ class IGNewsTableViewController: UITableViewController, UIGestureRecognizerDeleg
             tripleNews.lblTitleOne.text = (item.news![0].category)
             tripleNews.lblTitleTwo.text = (item.news![1].category)
             tripleNews.lblTitleThree.text = (item.news![2].category)
-            
+            //pass categoryID
+            tripleNews.categoryIDOne = (item.news![0].categoryId)
+            tripleNews.categoryIDTwo = (item.news![1].categoryId)
+            tripleNews.categoryIDThree = (item.news![2].categoryId)
+
             
             //set cell data
             tripleNews.setCellData()
@@ -214,6 +225,7 @@ class IGNewsTableViewController: UITableViewController, UIGestureRecognizerDeleg
         
         return cell
     }
+    
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         

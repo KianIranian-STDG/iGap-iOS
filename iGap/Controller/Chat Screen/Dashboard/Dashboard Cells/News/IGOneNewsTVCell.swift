@@ -19,6 +19,7 @@ class IGOneNewsTVCell: UITableViewCell {
 
 
         var newsOne: [newsInner]!
+        var categoryIDOne : String! = "0"
 
         override func awakeFromNib() {
             super.awakeFromNib()

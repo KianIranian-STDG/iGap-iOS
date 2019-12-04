@@ -35,17 +35,24 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rSZ-j4-JGY">
+                                        <rect key="frame" x="0.0" y="0.0" width="138.5" height="130"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="zPA-CP-iAW" firstAttribute="top" secondItem="HDb-g5-VaU" secondAttribute="top" id="9lT-ck-GpT"/>
                                     <constraint firstItem="jpu-Aq-ITb" firstAttribute="top" secondItem="zPA-CP-iAW" secondAttribute="bottom" id="Elv-du-T9M"/>
                                     <constraint firstItem="jpu-Aq-ITb" firstAttribute="top" secondItem="HDb-g5-VaU" secondAttribute="top" constant="20" id="GLg-PO-3dc"/>
+                                    <constraint firstAttribute="bottom" secondItem="rSZ-j4-JGY" secondAttribute="bottom" id="N47-7V-bdT"/>
                                     <constraint firstAttribute="trailing" secondItem="jpu-Aq-ITb" secondAttribute="trailing" constant="5" id="PHx-rB-mqo"/>
                                     <constraint firstItem="jpu-Aq-ITb" firstAttribute="leading" secondItem="HDb-g5-VaU" secondAttribute="leading" constant="5" id="Z4j-7V-lKZ"/>
                                     <constraint firstItem="zPA-CP-iAW" firstAttribute="leading" secondItem="jpu-Aq-ITb" secondAttribute="leading" id="cRH-X5-LE5"/>
+                                    <constraint firstItem="rSZ-j4-JGY" firstAttribute="top" secondItem="HDb-g5-VaU" secondAttribute="top" id="iI1-Gc-cy2"/>
                                     <constraint firstItem="zPA-CP-iAW" firstAttribute="trailing" secondItem="jpu-Aq-ITb" secondAttribute="trailing" id="kb3-3Q-jRV"/>
+                                    <constraint firstItem="rSZ-j4-JGY" firstAttribute="leading" secondItem="HDb-g5-VaU" secondAttribute="leading" id="n7d-Bw-t9q"/>
                                     <constraint firstAttribute="bottom" secondItem="jpu-Aq-ITb" secondAttribute="bottom" constant="10" id="nwA-Sk-ZpG"/>
+                                    <constraint firstAttribute="trailing" secondItem="rSZ-j4-JGY" secondAttribute="trailing" id="vfe-aK-bWL"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UC1-5w-TIG">
@@ -63,15 +70,22 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a82-7D-bhE">
+                                        <rect key="frame" x="0.0" y="0.0" width="138" height="130"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="KIX-4B-igN" firstAttribute="trailing" secondItem="Bdh-xi-ARO" secondAttribute="trailing" id="45I-Zv-ebr"/>
+                                    <constraint firstItem="a82-7D-bhE" firstAttribute="top" secondItem="UC1-5w-TIG" secondAttribute="top" id="8gJ-M2-b4R"/>
                                     <constraint firstAttribute="bottom" secondItem="Bdh-xi-ARO" secondAttribute="bottom" constant="10" id="9UU-TC-o0G"/>
+                                    <constraint firstItem="a82-7D-bhE" firstAttribute="leading" secondItem="UC1-5w-TIG" secondAttribute="leading" id="ALZ-9J-Pfv"/>
                                     <constraint firstAttribute="trailing" secondItem="Bdh-xi-ARO" secondAttribute="trailing" constant="5" id="N5u-tr-CBl"/>
+                                    <constraint firstAttribute="trailing" secondItem="a82-7D-bhE" secondAttribute="trailing" id="OYa-RP-FhB"/>
                                     <constraint firstItem="Bdh-xi-ARO" firstAttribute="top" secondItem="UC1-5w-TIG" secondAttribute="top" constant="20" id="Ptf-qJ-umZ"/>
                                     <constraint firstItem="KIX-4B-igN" firstAttribute="leading" secondItem="Bdh-xi-ARO" secondAttribute="leading" id="TRt-Kb-qi7"/>
                                     <constraint firstItem="Bdh-xi-ARO" firstAttribute="leading" secondItem="UC1-5w-TIG" secondAttribute="leading" constant="5" id="ZTl-Yk-a45"/>
+                                    <constraint firstAttribute="bottom" secondItem="a82-7D-bhE" secondAttribute="bottom" id="rox-dp-hAw"/>
                                     <constraint firstItem="KIX-4B-igN" firstAttribute="top" secondItem="UC1-5w-TIG" secondAttribute="top" id="wDQ-NY-saB"/>
                                     <constraint firstItem="Bdh-xi-ARO" firstAttribute="top" secondItem="KIX-4B-igN" secondAttribute="bottom" id="zuj-0C-Sda"/>
                                 </constraints>
@@ -91,6 +105,9 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KSw-N8-UeX">
+                                        <rect key="frame" x="0.0" y="0.0" width="138.5" height="130"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -98,10 +115,14 @@
                                     <constraint firstItem="Bah-10-D6B" firstAttribute="trailing" secondItem="R5j-jK-7D6" secondAttribute="trailing" id="B8h-1s-qzC"/>
                                     <constraint firstItem="R5j-jK-7D6" firstAttribute="top" secondItem="U7M-I2-wso" secondAttribute="top" constant="20" id="CMb-xQ-Qvy"/>
                                     <constraint firstAttribute="bottom" secondItem="R5j-jK-7D6" secondAttribute="bottom" constant="10" id="HWM-Gi-iaD"/>
+                                    <constraint firstItem="KSw-N8-UeX" firstAttribute="top" secondItem="U7M-I2-wso" secondAttribute="top" id="LjG-Mm-RQZ"/>
                                     <constraint firstAttribute="trailing" secondItem="R5j-jK-7D6" secondAttribute="trailing" constant="5" id="PMa-Ht-WX6"/>
                                     <constraint firstItem="R5j-jK-7D6" firstAttribute="top" secondItem="Bah-10-D6B" secondAttribute="bottom" id="PtN-lC-Jbu"/>
+                                    <constraint firstAttribute="bottom" secondItem="KSw-N8-UeX" secondAttribute="bottom" id="RpV-bq-RW9"/>
                                     <constraint firstItem="Bah-10-D6B" firstAttribute="leading" secondItem="R5j-jK-7D6" secondAttribute="leading" id="S0T-2k-c8l"/>
+                                    <constraint firstAttribute="trailing" secondItem="KSw-N8-UeX" secondAttribute="trailing" id="du1-fp-vwl"/>
                                     <constraint firstItem="Bah-10-D6B" firstAttribute="top" secondItem="U7M-I2-wso" secondAttribute="top" id="gHm-7A-BHQ"/>
+                                    <constraint firstItem="KSw-N8-UeX" firstAttribute="leading" secondItem="U7M-I2-wso" secondAttribute="leading" id="noD-Yj-NnU"/>
                                 </constraints>
                             </view>
                         </subviews>
