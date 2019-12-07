@@ -1,10 +1,12 @@
-//
-//  IGNewsSectionInnerTableViewController.swift
-//  iGap
-//
-//  Created by BenyaminMokhtarpour on 12/3/19.
-//  Copyright © 2019 Kianiranian STDG -www.kianiranian.com. All rights reserved.
-//
+/*
+* This is the source code of iGap for iOS
+* It is licensed under GNU AGPL v3.0
+* You should have received a copy of the license in this archive (see LICENSE).
+* Copyright © 2017 , iGap - www.iGap.net
+* iGap Messenger | Free, Fast and Secure instant messaging application
+* The idea of the Kianiranian STDG - www.kianiranian.com
+* All rights reserved.
+*/
 
 import UIKit
 import SnapKit
@@ -14,6 +16,7 @@ class IGNewsSectionInnerTableViewController: UITableViewController,UIGestureReco
     var category : String! = ""
     var currentPage: Int = 1
     var items = [contentsInnerNews]()
+    var topItem : contentsInnerNews!
     var TopHeaderImage : UIImageView!
     var TopHeaderLabel : UILabel!
     var TopHeaderId : String! = ""
@@ -72,7 +75,7 @@ class IGNewsSectionInnerTableViewController: UITableViewController,UIGestureReco
     @objc func handleTapOnTopHeader(_ sender: UITapGestureRecognizer? = nil) {
 
         print("TAPPED")
-        gotToNewsPage(articleID: items[0].id!)
+        gotToNewsPage(articleID: topItem.id!)
     }
 
     func initNavigationBar() {
@@ -95,6 +98,7 @@ class IGNewsSectionInnerTableViewController: UITableViewController,UIGestureReco
                         let url = URL(string: (self.items[0].image!))
                         self.TopHeaderImage.sd_setImage(with: url, placeholderImage: UIImage(named :"1"), completed: nil)
                         self.TopHeaderId = (self.items[0].id!)
+                        self.topItem = self.items[0]
                         self.items.removeFirst()
 
                     }
@@ -235,8 +239,9 @@ class IGNewsSectionInnerTableViewController: UITableViewController,UIGestureReco
         IGApiNews.shared.getNewsDetail(articleId: articleID) { (isSuccess, response) in
             SMLoading.hideLoadingPage()
             if isSuccess {
-                let newsDetail = IGNewsSectionInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
-            UIApplication.topViewController()!.navigationController!.pushViewController(newsDetail, animated: true)
+                let newsDetail = IGNewsDetailTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
+                newsDetail.item = response!
+                UIApplication.topViewController()!.navigationController!.pushViewController(newsDetail, animated: true)
 
             } else {
                 return

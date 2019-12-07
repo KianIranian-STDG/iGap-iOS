@@ -195,6 +195,14 @@
 		8EBF95E3225884EB00A1F7E4 /* SMUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF95E2225884EB00A1F7E4 /* SMUserManager.swift */; };
 		8EC0384A2396766500B525B5 /* IGStructNewsInnerByID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC038492396766500B525B5 /* IGStructNewsInnerByID.swift */; };
 		8EC0384C23978B1E00B525B5 /* IGStructNewsDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0384B23978B1E00B525B5 /* IGStructNewsDetail.swift */; };
+		8EC0384E2397915700B525B5 /* IGNewsDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0384D2397915700B525B5 /* IGNewsDetailTableViewController.swift */; };
+		8EC038502397EC1B00B525B5 /* IGStructNewsComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0384F2397EC1B00B525B5 /* IGStructNewsComment.swift */; };
+		8EC03852239B84F400B525B5 /* BottomModal.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EC03851239B84F400B525B5 /* BottomModal.storyboard */; };
+		8EC03854239B87AE00B525B5 /* IGThreeInputTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC03853239B87AE00B525B5 /* IGThreeInputTVController.swift */; };
+		8EC03856239B8C2E00B525B5 /* IGHelperBottomModals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC03855239B8C2E00B525B5 /* IGHelperBottomModals.swift */; };
+		8EC03858239BCAF700B525B5 /* IGStructPostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC03857239BCAF700B525B5 /* IGStructPostComment.swift */; };
+		8EC0385A239BE75000B525B5 /* IGNewsCommentTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC03859239BE75000B525B5 /* IGNewsCommentTVCell.swift */; };
+		8EC0385C239BF5E900B525B5 /* IGNewsCommentsTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0385B239BF5E900B525B5 /* IGNewsCommentsTVController.swift */; };
 		8EC217972258BD9E00105B5A /* SMSingleInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC217962258BD9E00105B5A /* SMSingleInputView.xib */; };
 		8EC217992258BDF400105B5A /* SMSingleInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC217982258BDF400105B5A /* SMSingleInputView.swift */; };
 		8EC217A02258C0ED00105B5A /* NSBundle+Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2179E2258C0EC00105B5A /* NSBundle+Language.m */; };
@@ -1004,6 +1012,14 @@
 		8EBF95E2225884EB00A1F7E4 /* SMUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMUserManager.swift; sourceTree = "<group>"; };
 		8EC038492396766500B525B5 /* IGStructNewsInnerByID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructNewsInnerByID.swift; sourceTree = "<group>"; };
 		8EC0384B23978B1E00B525B5 /* IGStructNewsDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructNewsDetail.swift; sourceTree = "<group>"; };
+		8EC0384D2397915700B525B5 /* IGNewsDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNewsDetailTableViewController.swift; sourceTree = "<group>"; };
+		8EC0384F2397EC1B00B525B5 /* IGStructNewsComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructNewsComment.swift; sourceTree = "<group>"; };
+		8EC03851239B84F400B525B5 /* BottomModal.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BottomModal.storyboard; sourceTree = "<group>"; };
+		8EC03853239B87AE00B525B5 /* IGThreeInputTVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGThreeInputTVController.swift; sourceTree = "<group>"; };
+		8EC03855239B8C2E00B525B5 /* IGHelperBottomModals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperBottomModals.swift; sourceTree = "<group>"; };
+		8EC03857239BCAF700B525B5 /* IGStructPostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructPostComment.swift; sourceTree = "<group>"; };
+		8EC03859239BE75000B525B5 /* IGNewsCommentTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNewsCommentTVCell.swift; sourceTree = "<group>"; };
+		8EC0385B239BF5E900B525B5 /* IGNewsCommentsTVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNewsCommentsTVController.swift; sourceTree = "<group>"; };
 		8EC217962258BD9E00105B5A /* SMSingleInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMSingleInputView.xib; sourceTree = "<group>"; };
 		8EC217982258BDF400105B5A /* SMSingleInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSingleInputView.swift; sourceTree = "<group>"; };
 		8EC2179D2258C0EC00105B5A /* NSBundle+Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+Language.h"; sourceTree = "<group>"; };
@@ -1842,6 +1858,9 @@
 				8E8ABDC32394F89600DE00DB /* IGNewsSliderTVCell.xib */,
 				8E8ABDBB2394F1E600DE00DB /* IGNewsTableViewController.swift */,
 				8EC94E0E239650D3003B3510 /* IGNewsSectionInnerTableViewController.swift */,
+				8EC0384D2397915700B525B5 /* IGNewsDetailTableViewController.swift */,
+				8EC03859239BE75000B525B5 /* IGNewsCommentTVCell.swift */,
+				8EC0385B239BF5E900B525B5 /* IGNewsCommentsTVController.swift */,
 				8EC94E102396686A003B3510 /* IGNewsSectionInnerTVCell.swift */,
 				8EC94DF623955B89003B3510 /* IGNewsDoubleNTVCell.swift */,
 				8EC94DF723955B89003B3510 /* IGNewsDoubleNTVCell.xib */,
@@ -1863,6 +1882,8 @@
 				8E8ABDC02394F2EA00DE00DB /* IGStructNewsMainPage.swift */,
 				8EC038492396766500B525B5 /* IGStructNewsInnerByID.swift */,
 				8EC0384B23978B1E00B525B5 /* IGStructNewsDetail.swift */,
+				8EC0384F2397EC1B00B525B5 /* IGStructNewsComment.swift */,
+				8EC03857239BCAF700B525B5 /* IGStructPostComment.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -2497,6 +2518,7 @@
 				FA77E0FC2261E9D4008D6D25 /* IGHelperNearby.swift */,
 				FA6C2DE622673B21005654AC /* IGHelperAlert.swift */,
 				8E3C6D22235C5FC300723E4A /* IGHelperMusicPlayer.swift */,
+				8EC03855239B8C2E00B525B5 /* IGHelperBottomModals.swift */,
 				FA6F310E22B8A90500DB942E /* IGHelperTracker.swift */,
 				FA5B41A422EDD67D001203D0 /* IGHelperMessageStatus.swift */,
 				FA87B94B22BFB46100200650 /* IGHelperMessage.swift */,
@@ -3238,6 +3260,7 @@
 				FAF796011DAA392F0030509B /* LaunchScreen.storyboard */,
 				FAF796031DAA392F0030509B /* Main.storyboard */,
 				8E0A799223951736001A7EB6 /* News.storyboard */,
+				8EC03851239B84F400B525B5 /* BottomModal.storyboard */,
 				FA0953061E1B87E40043ED3F /* IGSettingStoryboard.storyboard */,
 				FAA51753206A254200471EA0 /* profile.storyboard */,
 				8E8CA3AA236FFF2B000DA358 /* ElectroBill.storyboard */,
@@ -3279,6 +3302,7 @@
 				FAD530561E0BD6C300FE6C54 /* Custom Master Controllers */,
 				FA087B2C1DC4A27200E139FA /* View Controllers */,
 				8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */,
+				8EC03853239B87AE00B525B5 /* IGThreeInputTVController.swift */,
 				8E3C696D23602EB2001575BE /* Music.swift */,
 				8E3C696F23603096001575BE /* MusicCell.swift */,
 			);
@@ -3589,6 +3613,7 @@
 				8EB4BBAC234B83A400BFA878 /* igap_receive_message_sound.mp3 in Resources */,
 				8ECCA1EA22B7B1F000D3A734 /* SMSingleAmountInputView.xib in Resources */,
 				8EBF550722D9B84900834E6A /* DashboardCell8.xib in Resources */,
+				8EC03852239B84F400B525B5 /* BottomModal.storyboard in Resources */,
 				8EE7FCA0225DF67200B6C2C3 /* LNNumberpad.xib in Resources */,
 				FA927E02202841C900DF7145 /* VideoCell.xib in Resources */,
 				FA4BD8A41DF2A53400CCB239 /* IGMusicViewController.xib in Resources */,
@@ -3854,6 +3879,7 @@
 				FA85066B22670703002EEBF7 /* mainWalletViewController.swift in Sources */,
 				4FFCE2A01EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift in Sources */,
 				FA09538C1E1B97E20043ED3F /* IGMemberChooseBottomCollectionCell.swift in Sources */,
+				8EC03854239B87AE00B525B5 /* IGThreeInputTVController.swift in Sources */,
 				8E5495D322F03104001D30E1 /* customCardNumberTextField.swift in Sources */,
 				8EC0384C23978B1E00B525B5 /* IGStructNewsDetail.swift in Sources */,
 				FA5CFC4C21C7DC9600CC2B0D /* IGHelperPromote.swift in Sources */,
@@ -3937,6 +3963,7 @@
 				FA7F3736208605F00024F8BF /* IGMapNearbyDistanceTableViewController.swift in Sources */,
 				8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */,
 				8E599D732325322000D75376 /* IGSettingsDataAndStorageTableViewController.swift in Sources */,
+				8EC038502397EC1B00B525B5 /* IGStructNewsComment.swift in Sources */,
 				FAE6062921EB39DB00F03FFC /* SwiftModalWebVC.swift in Sources */,
 				8E3C6986236036E8001575BE /* PanModalHeight.swift in Sources */,
 				FA96A81A2053FC4F004369C7 /* IGLookAndFind.swift in Sources */,
@@ -4078,6 +4105,7 @@
 				FA63BAAF1DD70F21000B60AD /* IGRequestChannel.swift in Sources */,
 				FAB623EA229526D3006DEA00 /* CardToCardCell.swift in Sources */,
 				8EC217C82259F59900105B5A /* SMHistory.swift in Sources */,
+				8EC0385C239BF5E900B525B5 /* IGNewsCommentsTVController.swift in Sources */,
 				94E74DC523239727001AB47C /* IGFinancialHistoryDetailViewController.swift in Sources */,
 				4F9F3E6A1EBA0D91008E05C1 /* IGPushResponse.swift in Sources */,
 				8E8ABDBC2394F1E600DE00DB /* IGNewsTableViewController.swift in Sources */,
@@ -4127,6 +4155,7 @@
 				8E3C698C23603701001575BE /* PanModalPresentationDelegate.swift in Sources */,
 				FAE07EFE220599F500BE3593 /* IGStickerViewController.swift in Sources */,
 				FA9EE5B9221EC05500BA7735 /* IGRoomMessageWallet.swift in Sources */,
+				8EC03858239BCAF700B525B5 /* IGStructPostComment.swift in Sources */,
 				FA2A506920ECAC02002C5322 /* IGFinancialServiceBill.swift in Sources */,
 				8EEE896622AF6D0D0072383C /* customTextfield.swift in Sources */,
 				FA5E159F1E0FFFD800EC19A1 /* IGTappableView.swift in Sources */,
@@ -4156,6 +4185,7 @@
 				FA8F22541DD89C76005A90D1 /* IGGroupRoom.swift in Sources */,
 				FA7DE2732205BEC9008C8ECA /* IGStickerToolbar.swift in Sources */,
 				8E8D8E17225CCE6800039191 /* SMValidation.swift in Sources */,
+				8EC0385A239BE75000B525B5 /* IGNewsCommentTVCell.swift in Sources */,
 				FAD2B5821DFBF1ED007D6F87 /* IGProgress.swift in Sources */,
 				FA03C1A020429D46008812E3 /* RTCClient.swift in Sources */,
 				8E3C698E23603715001575BE /* PanModalPresentationController.swift in Sources */,
@@ -4272,6 +4302,7 @@
 				8E599D7C2325331C00D75376 /* TGPCamelLabels.swift in Sources */,
 				8E96A326225C9182007D8A77 /* SMGradientButton.swift in Sources */,
 				FA09536D1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionsTableViewController.swift in Sources */,
+				8EC0384E2397915700B525B5 /* IGNewsDetailTableViewController.swift in Sources */,
 				8EEE895A22A3CF360072383C /* DropdownItem.swift in Sources */,
 				FA99FF6822354031009035DF /* DashboardCell3.swift in Sources */,
 				FA927E0C20288A7E00DF7145 /* FileCell.swift in Sources */,
@@ -4293,6 +4324,7 @@
 				FAA4E859231247B00091199B /* IGHelperForward.swift in Sources */,
 				8EE7FCAA22619B5900B6C2C3 /* IGWalletSettingInnerTableViewController.swift in Sources */,
 				FAAC57D31DE2CE9F00A28058 /* IGDownloadManager.swift in Sources */,
+				8EC03856239B8C2E00B525B5 /* IGHelperBottomModals.swift in Sources */,
 				DF3EDEF64399AA713B2D0C2F /* IGRequestSignaling.swift in Sources */,
 				FA85066722670703002EEBF7 /* packetTableViewController.swift in Sources */,
 				FA96A8152053EBD1004369C7 /* IGRealmClientSearchUsername.swift in Sources */,

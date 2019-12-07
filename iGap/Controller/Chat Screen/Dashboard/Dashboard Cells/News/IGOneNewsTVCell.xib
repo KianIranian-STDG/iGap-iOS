@@ -50,6 +50,9 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0GV-4n-Dj5">
                                         <rect key="frame" x="0.0" y="0.0" width="435" height="130"/>
+                                        <connections>
+                                            <action selector="didTapOnNews:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="tFq-VT-iGg"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

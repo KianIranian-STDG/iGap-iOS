@@ -97,10 +97,12 @@ class IGHelperAlert {
     func showCustomAlert(view: UIViewController? = nil, alertType: helperCustomAlertType! = helperCustomAlertType.alert, title: String? = nil, showIconView: Bool? = true, showDoneButton: Bool? = true, showCancelButton: Bool? = true, message: String!, doneText: String? = nil, cancelText: String? = nil, cancel: (() -> Void)? = nil, done: (() -> Void)? = nil) {
         DispatchQueue.main.async {
             var alertView = view
+            
             if alertView == nil {
                 alertView = UIApplication.topViewController()
             }
             alertView?.view.layoutIfNeeded()
+            UIApplication.topViewController()?.view.endEditing(true)
             ///check if there's already one customAlert on screen remove it and creat a new one
             if self.customAlert != nil {
                 self.removeCustomAlertView()

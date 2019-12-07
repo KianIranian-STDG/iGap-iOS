@@ -142,6 +142,7 @@ class IGNewsTableViewController: UITableViewController, UIGestureRecognizerDeleg
             singleNews.lblTitle0.text = (item.news![0].category)
             //pass categoryID
             singleNews.categoryIDOne = (item.news![0].categoryId)
+            singleNews.categoryOne = (item.news![0].category)
 
             //set cell data
             singleNews.setCellData()
@@ -183,6 +184,9 @@ class IGNewsTableViewController: UITableViewController, UIGestureRecognizerDeleg
             tripleNews.categoryIDOne = (item.news![0].categoryId)
             tripleNews.categoryIDTwo = (item.news![1].categoryId)
             tripleNews.categoryIDThree = (item.news![2].categoryId)
+            tripleNews.categoryOne = (item.news![0].category)
+            tripleNews.categoryTwo = (item.news![1].category)
+            tripleNews.categoryThree = (item.news![2].category)
 
             
             //set cell data
@@ -198,7 +202,8 @@ class IGNewsTableViewController: UITableViewController, UIGestureRecognizerDeleg
             singleButton.btnOne.setTitleColor(UIColor.hexStringToUIColor(hex: item.buttons![0].colorTitr!), for: .normal)
             //set BGcolor of buttons
             singleButton.btnOne.backgroundColor = UIColor.hexStringToUIColor(hex: item.buttons![0].color!)
-            
+            singleButton.categoryOne = (item.buttons![0].title)
+
             cell = singleButton
             
         case .doubleButton:
@@ -212,7 +217,9 @@ class IGNewsTableViewController: UITableViewController, UIGestureRecognizerDeleg
             //set BGcolor of buttons
             doubleButtons.btnOne.backgroundColor = UIColor.hexStringToUIColor(hex: item.buttons![0].color!)
             doubleButtons.btnTwo.backgroundColor = UIColor.hexStringToUIColor(hex: item.buttons![1].color!)
-            
+            doubleButtons.categoryOne = (item.buttons![0].title)
+            doubleButtons.categoryTwo = (item.buttons![1].title)
+
             cell = doubleButtons
             
             

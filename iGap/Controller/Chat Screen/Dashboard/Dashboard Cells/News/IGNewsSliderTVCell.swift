@@ -99,50 +99,25 @@ class IGNewsSliderTVCell: UITableViewCell {
     }
     
     public static func selectSlide(selectedSlide: newsInner) {
-//        switch selectedSlide.actionType {
-//        case 3:
-////            IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: UIApplication.topViewController()!, username: selectedSlide.actionLink)
-//            break
-//
-//        case 4:
-//            // check if user has choosen in app browser then open browser in app else open safari
-////            if IGHelperPreferences.shared.readBoolean(key: IGHelperPreferences.keyInAppBrowser) {
-////                for ignoreLink in IGHelperOpenLink.ignoreLinks {
-////                    if selectedSlide.actionLink.contains(ignoreLink) {
-////                        UIApplication.shared.open(URL(string: selectedSlide.actionLink)!, options: [:], completionHandler: nil)
-////                        return
-////                    }
-////                }
-////                let swiftWebVC = SwiftWebVC(urlString: selectedSlide.actionLink)
-////                swiftWebVC.hidesBottomBarWhenPushed = true
-////                UIApplication.topNavigationController()?.pushViewController(swiftWebVC, animated: true)
-////            } else {
-////                UIApplication.shared.open(URL(string: selectedSlide.actionLink)!, options: [:], completionHandler: nil)
-////            }
-//            break
-//
-//        case 5:
-//            // open url in app without showing it to user
-////            let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
-////            iGapBrowser.url = selectedSlide.actionLink
-////            iGapBrowser.htmlString = nil
-////            iGapBrowser.hidesBottomBarWhenPushed = true
-////            UIApplication.topNavigationController()?.pushViewController(iGapBrowser, animated: true)
-//            break
-//
-//        case 12:
-////            let dashboard = IGFavouriteChannelsDashboardInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-////            dashboard.categoryId = selectedSlide.actionLink
-////            dashboard.hidesBottomBarWhenPushed = true
-////            UIApplication.topNavigationController()?.pushViewController(dashboard, animated: true)
-//            break
-//
-//        default:
-//            break
-//        }
+        let articleID = selectedSlide.contents?.id
+        gotToNewsPage(articleID: articleID!)
     }
     
 }
+private func gotToNewsPage(articleID: String) {
+    SMLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
+     IGApiNews.shared.getNewsDetail(articleId: articleID) { (isSuccess, response) in
+         SMLoading.hideLoadingPage()
+         if isSuccess {
+             let newsDetail = IGNewsDetailTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
+             newsDetail.item = response!
+             UIApplication.topViewController()!.navigationController!.pushViewController(newsDetail, animated: true)
+
+         } else {
+             return
+         }
+     }
+ }
 
 extension IGNewsSliderTVCell: UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -165,7 +140,7 @@ extension IGNewsSliderTVCell: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let selectedSlide = self.slides?[indexPath.item] else { return }
-//        IGNewsSliderTVCell.selectSlide(selectedSlide: selectedSlide)
+        IGNewsSliderTVCell.selectSlide(selectedSlide: selectedSlide)
     }
     
     /*

@@ -23,6 +23,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AR2-Na-8iR">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="40"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="didTapOnNewsOne:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Bof-e9-8Oo"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>

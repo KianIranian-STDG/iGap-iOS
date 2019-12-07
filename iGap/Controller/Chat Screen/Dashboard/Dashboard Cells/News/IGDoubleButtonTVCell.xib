@@ -23,10 +23,16 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kKa-3n-nMc">
                                 <rect key="frame" x="0.0" y="0.0" width="196.5" height="40"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="didTapOnNewsOne:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="6iQ-8q-nnt"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jIx-Y8-oqa">
                                 <rect key="frame" x="206.5" y="0.0" width="196.5" height="40"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="didTapOnNewsTwo:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="fAk-pz-7h4"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>

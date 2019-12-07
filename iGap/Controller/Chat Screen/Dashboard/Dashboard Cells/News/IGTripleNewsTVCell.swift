@@ -30,6 +30,9 @@ class IGTripleNewsTVCell: UITableViewCell {
     var categoryIDOne : String! = "0"
     var categoryIDTwo : String! = "0"
     var categoryIDThree : String! = "0"
+    var categoryOne : String! = ""
+    var categoryTwo : String! = ""
+    var categoryThree : String! = ""
 
     
     override func awakeFromNib() {
@@ -102,4 +105,30 @@ class IGTripleNewsTVCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    @IBAction func didTapOnNewsTwo(_ sender: UIButton) {
+        let newsInner = IGNewsSectionInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
+        
+        newsInner.categoryID = categoryIDTwo
+        newsInner.category = categoryTwo
+
+        UIApplication.topViewController()!.navigationController!.pushViewController(newsInner, animated: true)
+        
+    }
+    
+    @IBAction func didTapOnNewsOne(_ sender: UIButton) {
+        let newsInner = IGNewsSectionInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
+        
+        newsInner.categoryID = categoryIDOne
+        newsInner.category = categoryOne
+        UIApplication.topViewController()!.navigationController!.pushViewController(newsInner, animated: true)
+        
+    }
+    @IBAction func didTapOnNewsThree(_ sender: UIButton) {
+        let newsInner = IGNewsSectionInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
+        
+        newsInner.categoryID = categoryIDThree
+        newsInner.category = categoryThree
+        UIApplication.topViewController()!.navigationController!.pushViewController(newsInner, animated: true)
+        
+    }
 }

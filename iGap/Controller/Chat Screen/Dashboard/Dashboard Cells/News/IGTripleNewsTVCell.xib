@@ -37,6 +37,9 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rSZ-j4-JGY">
                                         <rect key="frame" x="0.0" y="0.0" width="138.5" height="130"/>
+                                        <connections>
+                                            <action selector="didTapOnNewsOne:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="GEy-y7-UNj"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -72,6 +75,9 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a82-7D-bhE">
                                         <rect key="frame" x="0.0" y="0.0" width="138" height="130"/>
+                                        <connections>
+                                            <action selector="didTapOnNewsTwo:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dXb-Pe-EJt"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -107,6 +113,9 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KSw-N8-UeX">
                                         <rect key="frame" x="0.0" y="0.0" width="138.5" height="130"/>
+                                        <connections>
+                                            <action selector="didTapOnNewsThree:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Lqu-7p-guB"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

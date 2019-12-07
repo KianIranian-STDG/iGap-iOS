@@ -414,7 +414,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                 
             }
         case .showAlert:
-            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: discoveryInfo.igpValue, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: nil, showIconView: false, showDoneButton: false, showCancelButton: true, message: discoveryInfo.igpValue, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
             return
         //Hint :- favouriteChannels Handler

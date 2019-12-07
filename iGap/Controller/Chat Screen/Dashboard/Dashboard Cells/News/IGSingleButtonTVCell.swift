@@ -13,6 +13,9 @@ import UIKit
 class IGSingleButtonTVCell: UITableViewCell {
 
     @IBOutlet weak var btnOne : UIButton!
+    var categoryIDOne : String! = "0"
+    var categoryOne : String! = ""
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -44,6 +47,15 @@ class IGSingleButtonTVCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    @IBAction func didTapOnNewsOne(_ sender: UIButton) {
+        let newsInner = IGNewsSectionInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
+        
+        newsInner.categoryID = categoryIDOne
+        newsInner.category = categoryOne
+        UIApplication.topViewController()!.navigationController!.pushViewController(newsInner, animated: true)
+        
     }
     
 }

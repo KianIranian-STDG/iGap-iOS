@@ -17,9 +17,12 @@ class IGApiNews: IGApiBase {
         
         case mainPageData
         case newsByID(page: String, perPage: String, serviceId: String)
+        case getNewsComments(page: String, perPage: String, articleId: String)
         case mostHitNewsByID(page: String, perPage: String, serviceId: String)
         case mostControversialNewsByID(page: String, perPage: String, serviceId: String)
         case getNewsDetail(articleId: String)
+        case setComment
+        
         var url: String {
             var urlString = IGApiNews.newsBaseUrl
             
@@ -41,6 +44,12 @@ class IGApiNews: IGApiBase {
             case .getNewsDetail(let articleId):
                                 urlString += "/getNews/igap/?articleId=\(articleId)"
                 break
+
+            case .getNewsComments(let page, let perPage, let articleId):
+                    urlString += "/getNewsComments/igap/?page=\(page)&perpage=\(perPage)&articleId=\(articleId)"
+
+            case .setComment:
+                        urlString += "/setComment/igap"
 
             }
             
@@ -259,6 +268,7 @@ class IGApiNews: IGApiBase {
             } else {
                 let json = try? JSON(data: response.data ?? Data())
                 
+                print(response)
 
                 switch response.result {
                 case .success(let value):
@@ -290,5 +300,115 @@ class IGApiNews: IGApiBase {
         }
     }
     
+    
+    //getInner  news Comments by newsID
+    
+    func getNewsComments(page: String, perPage: String, articleId: String, completion: @escaping ((_ success: Bool, _ categoryNews: [IGStructNewsComment]?) -> Void) ) {
+        
+        AF.request(Endpoint.getNewsComments(page: page, perPage: perPage, articleId: articleId).url, headers: self.getHeader()).responseData { (response) in
+            
+            if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                self.getNewsComments(page: page, perPage: perPage, articleId: articleId, completion: completion)
+            }) {
+            } else {
+                let json = try? JSON(data: response.data ?? Data())
+                
+                print(response)
+
+                switch response.result {
+                case .success(let value):
+                    do {
+                        let classData = try JSONDecoder().decode([IGStructNewsComment].self, from: value)
+                        completion(true, classData)
+                    } catch _ {
+                        completion(false, nil)
+                    }
+                    
+                case .failure(let error):
+                    guard let data = response.data else {
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                        completion(false, nil)
+                        return
+                    }
+                    let json = try? JSON(data: data)
+                    guard let message = json?["message"].string else {
+                        print(error.localizedDescription)
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                        completion(false, nil)
+                        return
+                    }
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: message, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                    completion(false, nil)
+                }
+            }
+        }
+    }
+    
+    
+    
+    ////////////////////////////ADD Comments////////////////////////////////
+    func postComment(articleid: String, comment: String  ,author : String, email: String = "", completion: @escaping ((_ success: Bool, _ response: IGStructPostComment?, _ errorMessage: String?) -> Void) ) {
+        let parameters: Parameters = ["articleid": articleid, "comment": comment, "author": author, "email": email]
+        
+        print(parameters)
+        
+        AF.request(Endpoint.setComment.url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.getHeader()).responseData { (response) in
+            
+            if self.needToRetryRequest(statusCode: response.response?.statusCode, completion: {
+                self.postComment(articleid: articleid, comment: comment, author: author, email: email, completion: completion)
+            }) {
+            } else {
+                
+                let json = try? JSON(data: response.data ?? Data())
+                
+                debugPrint("=========Response Headers=========")
+                debugPrint(response.response ?? "no headers")
+                debugPrint("=========Response Body=========")
+                debugPrint(json ?? "NO RESPONSE BODY")
+                
+                switch response.response?.statusCode {
+                case 200:
+                    
+                    switch response.result {
+                        
+                    case .success(let value):
+                        do {
+                            let classData = try JSONDecoder().decode(IGStructPostComment.self, from: value)
+                            completion(true, classData, nil)
+                        } catch let error {
+                            print(error.localizedDescription)
+                            guard json != nil, let message = json!["message"].string else {
+                                //                        IGHelperAlert.shared.showErrorAlert()
+                                completion(false, nil, IGStringsManager.GlobalTryAgain.rawValue.localized)
+                                return
+                            }
+
+                            completion(false, nil, message)
+                        }
+                        
+                    case .failure(let error):
+                        print("error: ", error.localizedDescription)
+                        guard json != nil, let message = json!["message"].string else {
+                            //                    IGHelperAlert.shared.showErrorAlert()
+                            completion(false, nil, IGStringsManager.GlobalTryAgain.rawValue.localized)
+                            return
+                        }
+
+                        completion(false, nil, message)
+                    }
+                    
+                default :
+                    guard json != nil, let message = json!["message"].string else {
+                        //                    IGHelperAlert.shared.showErrorAlert()
+                        completion(false, nil, IGStringsManager.GlobalTryAgain.rawValue.localized)
+                        return
+                    }
+        
+                    
+                    completion(false, nil, message)
+                }
+            }
+        }
+    }
     
 }

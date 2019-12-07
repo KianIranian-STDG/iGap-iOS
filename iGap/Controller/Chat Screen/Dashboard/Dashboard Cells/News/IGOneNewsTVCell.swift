@@ -20,6 +20,7 @@ class IGOneNewsTVCell: UITableViewCell {
 
         var newsOne: [newsInner]!
         var categoryIDOne : String! = "0"
+        var categoryOne : String! = ""
 
         override func awakeFromNib() {
             super.awakeFromNib()
@@ -79,4 +80,14 @@ class IGOneNewsTVCell: UITableViewCell {
             // Configure the view for the selected state
         }
         
+    @IBAction func didTapOnNews(_ sender: UIButton) {
+        let newsInner = IGNewsSectionInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
+        
+            newsInner.categoryID = categoryIDOne
+            newsInner.category = categoryOne
+
+        UIApplication.topViewController()!.navigationController!.pushViewController(newsInner, animated: true)
+        
+    }
+
     }

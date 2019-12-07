@@ -22,7 +22,7 @@ struct IGStructNewsDetail: Decodable {
     var introtext: String?
     var fulltext: String?
     var originalDate: String?
-    var publishedDate: String?
+    var publishDate: String?
     var viewNumber: String?
     var tags : String?
     var image: [newsImages]?
