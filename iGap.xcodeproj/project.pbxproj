@@ -21,7 +21,6 @@
 		8E0405C92371C7F000516DEB /* IGElecBillBranchingInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0405C82371C7F000516DEB /* IGElecBillBranchingInfoTableViewController.swift */; };
 		8E06F0592344A6CF00CE0536 /* IGProfileUsercellTypeRed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E06F0582344A6CF00CE0536 /* IGProfileUsercellTypeRed.swift */; };
 		8E098A7B2348B0B1008A40A9 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E098A7A2348B0B1008A40A9 /* Search.storyboard */; };
-		8E098A7D2348BDCD008A40A9 /* IGSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E098A7C2348BDCD008A40A9 /* IGSearchTableViewController.swift */; };
 		8E0A79912394FD86001A7EB6 /* IGApiNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A79902394FD86001A7EB6 /* IGApiNews.swift */; };
 		8E0A799323951736001A7EB6 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E0A799223951736001A7EB6 /* News.storyboard */; };
 		8E0BAEC022EC047200479682 /* IGRoomListtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BAEBF22EC047200479682 /* IGRoomListtCell.swift */; };
@@ -812,7 +811,6 @@
 		8E0405C82371C7F000516DEB /* IGElecBillBranchingInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGElecBillBranchingInfoTableViewController.swift; sourceTree = "<group>"; };
 		8E06F0582344A6CF00CE0536 /* IGProfileUsercellTypeRed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileUsercellTypeRed.swift; sourceTree = "<group>"; };
 		8E098A7A2348B0B1008A40A9 /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
-		8E098A7C2348BDCD008A40A9 /* IGSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSearchTableViewController.swift; sourceTree = "<group>"; };
 		8E0A79902394FD86001A7EB6 /* IGApiNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiNews.swift; sourceTree = "<group>"; };
 		8E0A799223951736001A7EB6 /* News.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = News.storyboard; sourceTree = "<group>"; };
 		8E0BAEBF22EC047200479682 /* IGRoomListtCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRoomListtCell.swift; sourceTree = "<group>"; };
@@ -2010,6 +2008,13 @@
 			path = Wallet;
 			sourceTree = "<group>";
 		};
+		8EC0385E239C0FAD00B525B5 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		8EC2179A2258BE0600105B5A /* wallet */ = {
 			isa = PBXGroup;
 			children = (
@@ -3183,6 +3188,7 @@
 				FAD744F121B940D400801D2E /* Share */,
 				FAF795EB1DAA330C0030509B /* Products */,
 				FAF985881E2E10EC00B26940 /* Frameworks */,
+				8EC0385E239C0FAD00B525B5 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -4144,7 +4150,6 @@
 				FA09538F1E1B97E20043ED3F /* SSRadioButtonController.swift in Sources */,
 				FA90B72A20B53EBC00043C89 /* MessageReceiveObserver.swift in Sources */,
 				9366D98C1E363C2500998BA3 /* IGSettingAboutWebViewViewController.swift in Sources */,
-				8E1CD971232CB628008D8758 /* customSearchBar.swift in Sources */,
 				8EC94E0423964092003B3510 /* IGTripleNewsTVCell.swift in Sources */,
 				FA0CC8071E5D7D4400556283 /* ActiveBuilder.swift in Sources */,
 				FA42EF0E1E5C224F00CF8A32 /* CGSize.swift in Sources */,
@@ -4168,7 +4173,6 @@
 				8E3C697F236036C1001575BE /* PanModalPresenter.swift in Sources */,
 				8ECCA1E822B7B1E200D3A734 /* SMSingleAmountInputView.swift in Sources */,
 				8E96A318225B757E007D8A77 /* SMLangUtil.swift in Sources */,
-				8E098A7D2348BDCD008A40A9 /* IGSearchTableViewController.swift in Sources */,
 				8E7C74E42395451E00286315 /* SliderImageWithTextCVCell.swift in Sources */,
 				8E599D8C2329EC5E00D75376 /* IGPhoneBookTableViewController.swift in Sources */,
 				FAA9DFBC1F4B1CD60076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTableViewController.swift in Sources */,
