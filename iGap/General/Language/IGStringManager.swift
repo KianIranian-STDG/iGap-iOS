@@ -49,6 +49,8 @@ enum IGStringsManager : String {
     case ContactDelete = "to_delete_contact"
     case Edit = "edit"
     
+    //MARK: -NEWS
+    
     //MARK: - VOTE
     case AlreadyVoted = "before_try"
     case MaximumPoll = "maximum_poll"

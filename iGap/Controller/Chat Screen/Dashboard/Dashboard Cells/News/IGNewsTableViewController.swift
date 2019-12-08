@@ -16,8 +16,8 @@ class IGNewsTableViewController: UITableViewController, UIGestureRecognizerDeleg
     // MARK: - Outlets
     // MARK: - Variables
     var items = [IGStructNewsMainPage]()
-    var deepLinkToken: String?
-    
+    var deepLinkID: String?
+    var deepLinkCategoryID : String?
     // MARK: - View LifeCycle
     
     private func initTVCells() {
@@ -76,13 +76,41 @@ class IGNewsTableViewController: UITableViewController, UIGestureRecognizerDeleg
             if isSuccess {
                 self.items = items!
                 self.tableView.reloadData()
+                if self.deepLinkID != nil {
+
+                    self.gotToNewsPageByDeepLink(articleID: self.deepLinkID!)
+                }
+                if self.deepLinkCategoryID != nil {
+                    self.goToCategoryPageByDeepLink(categoryID: self.deepLinkCategoryID!)
+                }
             }
             
             
         }
         
     }
-    
+    private func gotToNewsPageByDeepLink(articleID: String) {
+       SMLoading.showLoadingPage(viewcontroller: UIApplication.topViewController()!)
+        IGApiNews.shared.getNewsDetail(articleId: articleID) { (isSuccess, response) in
+            SMLoading.hideLoadingPage()
+            if isSuccess {
+                let newsDetail = IGNewsDetailTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
+                newsDetail.item = response!
+                newsDetail.deepLinkID = articleID
+                UIApplication.topViewController()!.navigationController!.pushViewController(newsDetail, animated: true)
+
+            } else {
+                return
+            }
+        }
+    }
+    private func goToCategoryPageByDeepLink(categoryID: String) {
+        let newsInner = IGNewsSectionInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
+        
+            newsInner.categoryID = categoryID
+        UIApplication.topViewController()!.navigationController!.pushViewController(newsInner, animated: true)
+        
+    }
     private func customiseView() {
         
     }
@@ -203,6 +231,7 @@ class IGNewsTableViewController: UITableViewController, UIGestureRecognizerDeleg
             //set BGcolor of buttons
             singleButton.btnOne.backgroundColor = UIColor.hexStringToUIColor(hex: item.buttons![0].color!)
             singleButton.categoryOne = (item.buttons![0].title)
+            singleButton.urlOne = (item.buttons![0].link)
 
             cell = singleButton
             
@@ -219,6 +248,8 @@ class IGNewsTableViewController: UITableViewController, UIGestureRecognizerDeleg
             doubleButtons.btnTwo.backgroundColor = UIColor.hexStringToUIColor(hex: item.buttons![1].color!)
             doubleButtons.categoryOne = (item.buttons![0].title)
             doubleButtons.categoryTwo = (item.buttons![1].title)
+            doubleButtons.urlOne = (item.buttons![0].link)
+            doubleButtons.urlTwo = (item.buttons![1].link)
 
             cell = doubleButtons
             

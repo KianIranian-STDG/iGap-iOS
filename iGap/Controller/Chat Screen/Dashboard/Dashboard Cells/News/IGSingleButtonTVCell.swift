@@ -14,8 +14,8 @@ class IGSingleButtonTVCell: UITableViewCell {
 
     @IBOutlet weak var btnOne : UIButton!
     var categoryIDOne : String! = "0"
-    var categoryOne : String! = ""
-
+    var categoryOne : String! = "0"
+    var urlOne : String?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -50,12 +50,9 @@ class IGSingleButtonTVCell: UITableViewCell {
     }
     
     @IBAction func didTapOnNewsOne(_ sender: UIButton) {
-        let newsInner = IGNewsSectionInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
-        
-        newsInner.categoryID = categoryIDOne
-        newsInner.category = categoryOne
-        UIApplication.topViewController()!.navigationController!.pushViewController(newsInner, animated: true)
-        
+        let finalUrl = URL(string: urlOne!)
+
+        DeepLinkManager.shared.handleDeeplink(url: finalUrl!)
     }
     
 }

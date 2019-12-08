@@ -21,6 +21,7 @@ enum DeeplinkType {
     case call
     case favouriteChannel(token: String?)
     case chatRoom(Messages)
+    case news(showDetail: Bool? = false,id: String)
 }
 
 class DeepLinkManager {

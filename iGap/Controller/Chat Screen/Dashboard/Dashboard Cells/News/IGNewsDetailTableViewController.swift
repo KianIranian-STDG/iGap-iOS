@@ -18,6 +18,7 @@ class IGNewsDetailTableViewController: UITableViewController,UIGestureRecognizer
     var topHeaderSeenIcon : UILabel!
     var topHeaderSeenCount : UILabel!
 
+
     var TopHeaderId : String! = ""
     
     @IBOutlet weak var viewTopHeader : UIView!
@@ -30,7 +31,8 @@ class IGNewsDetailTableViewController: UITableViewController,UIGestureRecognizer
     @IBOutlet weak var btnShare : UIButton!
     @IBOutlet weak var btnMoreComments : UIButton!
     @IBOutlet weak var btnComment : UIButton!
-    
+    var deepLinkID: String?
+
     
 
     override func viewDidLoad() {
@@ -183,7 +185,15 @@ class IGNewsDetailTableViewController: UITableViewController,UIGestureRecognizer
         if section == 0 {
             topHeaderDate = UILabel()
             v.addSubview(topHeaderDate)
-            v.backgroundColor = .white
+            let gradient = CAGradientLayer()
+            gradient.startPoint = CGPoint(x: 1.0, y: 0.0)
+            gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
+            let whiteColor = UIColor.black
+            gradient.colors = [whiteColor.withAlphaComponent(1.0).cgColor, whiteColor.withAlphaComponent(1.0), whiteColor.withAlphaComponent(0.0).cgColor]
+            gradient.locations = [NSNumber(value: 1.0),NSNumber(value: 0.7),NSNumber(value: 0.0)]
+            gradient.frame = v.bounds
+            v.layer.mask = gradient
+
             topHeaderDate.text = "date comes here"
             topHeaderDate.font = UIFont.igFont(ofSize: 12)
             topHeaderDate.textColor = .black

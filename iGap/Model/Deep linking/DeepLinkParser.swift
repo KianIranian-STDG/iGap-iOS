@@ -74,6 +74,13 @@ class DeepLinkParser {
             let orderId = self.getParameter(from: queryItems, param: "order_id") ?? ""
             return DeeplinkType.payment(message: message, status: status, orderId: orderId)
             
+        case "news":
+            if pathComponents.first == "showDetail" {
+                return DeeplinkType.news(showDetail: true, id: pathComponents.last!)
+            } else {
+                return DeeplinkType.news(showDetail: false, id: pathComponents.first!)
+            }
+            
         default:
             break
         }

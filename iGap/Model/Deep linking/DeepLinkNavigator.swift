@@ -75,6 +75,9 @@ class DeeplinkNavigator {
             self.redirectToFavouriteChannel(token: token)
             break
             
+        case .news(let showDetail, let id):
+            redirectToNews(showDetail: showDetail, id: id)
+            break
         }
     }
     
@@ -137,6 +140,24 @@ class DeeplinkNavigator {
             UIApplication.topViewController()!.navigationController!.pushViewController(favouriteChannelDashboard, animated: true)
         }
     }
+    
+    private func redirectToNews(showDetail: Bool? = false, id : String) {
+        if showDetail! {
+            let nvc = IGNewsTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
+            nvc.deepLinkID = id
+            nvc.hidesBottomBarWhenPushed = true
+            UIApplication.topViewController()!.navigationController!.pushViewController(nvc, animated: true)
+
+        } else {
+            let nvc = IGNewsTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
+            nvc.deepLinkCategoryID = id
+            nvc.hidesBottomBarWhenPushed = true
+            UIApplication.topViewController()!.navigationController!.pushViewController(nvc, animated: true)
+
+        }
+    }
+    
+
     
     private func redirectToChat(userName: String?, messageID: Int64?) {
         

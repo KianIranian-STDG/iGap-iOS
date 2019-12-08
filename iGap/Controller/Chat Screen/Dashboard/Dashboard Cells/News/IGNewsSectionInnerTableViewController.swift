@@ -13,7 +13,7 @@ import SnapKit
 
 class IGNewsSectionInnerTableViewController: UITableViewController,UIGestureRecognizerDelegate {
     var categoryID : String! = "0"
-    var category : String! = ""
+    var category : String! = "latestNews"
     var currentPage: Int = 1
     var items = [contentsInnerNews]()
     var topItem : contentsInnerNews!
@@ -88,7 +88,7 @@ class IGNewsSectionInnerTableViewController: UITableViewController,UIGestureReco
     //forced to get all the Data at once an not page by page
     private func getData() {
         SMLoading.showLoadingPage(viewcontroller: self)
-        IGApiNews.shared.getNewsByID(serviceId: categoryID, page: String(currentPage) , perPage: "999999999999") { (isSuccess, response) in
+        IGApiNews.shared.getNewsByID(serviceId: categoryID.inEnglishNumbersNew(), page: String(currentPage) , perPage: "999999999999") { (isSuccess, response) in
             SMLoading.hideLoadingPage()
             if isSuccess {
                 if (response?.content) != nil {

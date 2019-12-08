@@ -17,9 +17,11 @@ class IGDoubleButtonTVCell: UITableViewCell {
     
     var categoryIDOne : String! = "0"
     var categoryIDTwo : String! = "0"
-    var categoryOne : String! = ""
-    var categoryTwo : String! = ""
+    var categoryOne : String! = "0"
+    var categoryTwo : String! = "0"
 
+    var urlOne : String! = ""
+    var urlTwo : String! = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -57,22 +59,16 @@ class IGDoubleButtonTVCell: UITableViewCell {
         // Configure the view for the selected state
     }
     @IBAction func didTapOnNewsTwo(_ sender: UIButton) {
-        let newsInner = IGNewsSectionInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
-        
-        newsInner.categoryID = categoryIDTwo
-        newsInner.category = categoryTwo
-
-        UIApplication.topViewController()!.navigationController!.pushViewController(newsInner, animated: true)
-        
+        let finalUrl = URL(string: urlTwo!)
+        DeepLinkManager.shared.handleDeeplink(url: finalUrl!)
+        DeepLinkManager.shared.checkDeepLink()
     }
     
     @IBAction func didTapOnNewsOne(_ sender: UIButton) {
-        let newsInner = IGNewsSectionInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
-        
-        newsInner.categoryID = categoryIDOne
-        newsInner.category = categoryOne
-        UIApplication.topViewController()!.navigationController!.pushViewController(newsInner, animated: true)
-        
+        let finalUrl = URL(string: urlOne!)
+        DeepLinkManager.shared.handleDeeplink(url: finalUrl!)
+        DeepLinkManager.shared.checkDeepLink()
+
     }
     
 }
