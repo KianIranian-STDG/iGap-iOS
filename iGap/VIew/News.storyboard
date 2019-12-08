@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -101,7 +102,7 @@
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
-                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                            <color key="backgroundColor" name="IGTableViewCellColor"/>
                                             <constraints>
                                                 <constraint firstItem="dsX-GV-8xu" firstAttribute="trailing" secondItem="DH5-li-1Ah" secondAttribute="trailing" constant="5" id="BPQ-St-W9K"/>
                                                 <constraint firstItem="gqB-OC-TRj" firstAttribute="top" secondItem="RLB-p6-HJ8" secondAttribute="top" id="FC7-nr-Oji"/>
@@ -256,16 +257,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="N1I-Sd-Bps">
-                                                    <rect key="frame" x="10" y="0.0" width="394" height="99"/>
+                                                    <rect key="frame" x="10" y="0.0" width="394" height="89"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRn-AD-rAQ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="394" height="49.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="394" height="44.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kQ9-Xc-M12">
-                                                            <rect key="frame" x="0.0" y="49.5" width="394" height="49.5"/>
+                                                            <rect key="frame" x="0.0" y="44.5" width="394" height="44.5"/>
                                                             <state key="normal" title="Button"/>
                                                             <connections>
                                                                 <action selector="didTapOnMoreComments:" destination="AxL-7e-Gqa" eventType="touchUpInside" id="zZ7-da-amN"/>
@@ -277,21 +278,21 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="N1I-Sd-Bps" secondAttribute="trailing" constant="10" id="PAW-f0-fJQ"/>
                                                 <constraint firstItem="N1I-Sd-Bps" firstAttribute="leading" secondItem="79O-oY-yRh" secondAttribute="leading" constant="10" id="UFz-FZ-fuQ"/>
-                                                <constraint firstAttribute="bottom" secondItem="N1I-Sd-Bps" secondAttribute="bottom" id="e64-Gw-uMe"/>
+                                                <constraint firstAttribute="bottom" secondItem="N1I-Sd-Bps" secondAttribute="bottom" constant="10" id="e64-Gw-uMe"/>
                                                 <constraint firstItem="N1I-Sd-Bps" firstAttribute="top" secondItem="79O-oY-yRh" secondAttribute="top" id="ii1-ol-Sal"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" name="IGTableViewCellColor"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="5j8-Zv-rHR">
-                                        <rect key="frame" x="0.0" y="655" width="414" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="58" id="5j8-Zv-rHR">
+                                        <rect key="frame" x="0.0" y="655" width="414" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5j8-Zv-rHR" id="2sc-op-hfV">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="58"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PWA-gl-88W">
-                                                    <rect key="frame" x="10" y="0.0" width="394" height="44"/>
+                                                    <rect key="frame" x="10" y="0.0" width="394" height="48"/>
                                                     <color key="backgroundColor" red="0.71372549019607845" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="Button"/>
@@ -302,12 +303,12 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="PWA-gl-88W" secondAttribute="trailing" constant="10" id="5sp-u6-CL2"/>
-                                                <constraint firstAttribute="bottom" secondItem="PWA-gl-88W" secondAttribute="bottom" id="GAi-d8-DbM"/>
+                                                <constraint firstAttribute="bottom" secondItem="PWA-gl-88W" secondAttribute="bottom" constant="10" id="GAi-d8-DbM"/>
                                                 <constraint firstItem="PWA-gl-88W" firstAttribute="top" secondItem="2sc-op-hfV" secondAttribute="top" id="LqJ-ct-hN5"/>
                                                 <constraint firstItem="PWA-gl-88W" firstAttribute="leading" secondItem="2sc-op-hfV" secondAttribute="leading" constant="10" id="SQ1-sM-UgN"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.89794141049999998" green="0.89809560779999997" blue="0.89793163539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" name="IGTableViewCellColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -422,5 +423,8 @@
     <resources>
         <image name="1" width="1280" height="720"/>
         <image name="2" width="1080" height="1080"/>
+        <namedColor name="IGTableViewCellColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

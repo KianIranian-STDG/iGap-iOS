@@ -11,7 +11,7 @@ import UIKit
 class IGNewsDetailTableViewController: UITableViewController,UIGestureRecognizerDelegate {
     
     var categoryID : String! = "0"
-    var category : String! = ""
+    var category : String! = IGStringsManager.NewsDetail.rawValue.localized
     var currentPage: Int = 1
     var item = IGStructNewsDetail()
     var topHeaderDate : UILabel!
@@ -116,6 +116,7 @@ class IGNewsDetailTableViewController: UITableViewController,UIGestureRecognizer
 
     
     func initView() {
+        lblComments.textColor = UIColor(named : themeColor.labelColor.rawValue)
         lblComments.font = UIFont.igFont(ofSize: 15)
         lblComments.textAlignment = .center
         btnShare.setTitle(IGStringsManager.Share.rawValue.localized, for: .normal)
@@ -185,18 +186,12 @@ class IGNewsDetailTableViewController: UITableViewController,UIGestureRecognizer
         if section == 0 {
             topHeaderDate = UILabel()
             v.addSubview(topHeaderDate)
-            let gradient = CAGradientLayer()
-            gradient.startPoint = CGPoint(x: 1.0, y: 0.0)
-            gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
-            let whiteColor = UIColor.black
-            gradient.colors = [whiteColor.withAlphaComponent(1.0).cgColor, whiteColor.withAlphaComponent(1.0), whiteColor.withAlphaComponent(0.0).cgColor]
-            gradient.locations = [NSNumber(value: 1.0),NSNumber(value: 0.7),NSNumber(value: 0.0)]
-            gradient.frame = v.bounds
-            v.layer.mask = gradient
+          
+            v.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
 
             topHeaderDate.text = "date comes here"
             topHeaderDate.font = UIFont.igFont(ofSize: 12)
-            topHeaderDate.textColor = .black
+            topHeaderDate.textColor = UIColor(named: themeColor.labelColor.rawValue)
             topHeaderDate.textAlignment = .right
             topHeaderDate.translatesAutoresizingMaskIntoConstraints = false
 
@@ -241,10 +236,10 @@ class IGNewsDetailTableViewController: UITableViewController,UIGestureRecognizer
 
             let lbl = UILabel()
             v.addSubview(lbl)
-            v.backgroundColor = UIColor.hexStringToUIColor(hex: "E5E5E5")
+            v.backgroundColor = UIColor(named: themeColor.tableViewCell.rawValue)
             lbl.text = IGStringsManager.comments.rawValue.localized
             lbl.font = UIFont.igFont(ofSize: 15)
-            lbl.textColor = .black
+            lbl.textColor = UIColor(named: themeColor.labelColor.rawValue)
             lbl.textAlignment = .right
             lbl.translatesAutoresizingMaskIntoConstraints = false
 
@@ -267,6 +262,18 @@ class IGNewsDetailTableViewController: UITableViewController,UIGestureRecognizer
             return 20
         } else {
             return 0
+        }
+    }
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 1 {
+            let v = UIView()
+            v.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
+            return v
+        } else {
+            let v = UIView()
+            v.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
+            return v
+
         }
     }
     //MARK: UITableViewDataSource

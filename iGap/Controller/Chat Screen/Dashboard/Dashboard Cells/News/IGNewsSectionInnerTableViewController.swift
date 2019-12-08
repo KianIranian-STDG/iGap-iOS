@@ -193,12 +193,12 @@ class IGNewsSectionInnerTableViewController: UITableViewController,UIGestureReco
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let v = UIView(frame: CGRect.init(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 100))
 
-        v.backgroundColor = .white
+        v.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
         let segmentedControl = UISegmentedControl(frame: CGRect(x: 10, y: 5, width: tableView.frame.width - 20, height: 40))
 
         let font: [AnyHashable : Any] = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)]
         segmentedControl.setTitleTextAttributes(font as? [NSAttributedString.Key : Any], for: .normal)
-        segmentedControl.tintColor = UIColor.iGapGreen()
+        segmentedControl.tintColor = UIColor(named: themeColor.navigationFirstColor.rawValue)
         segmentedControl.insertSegment(withTitle: IGStringsManager.mostErgent.rawValue.localized, at: 0, animated: false)
         segmentedControl.insertSegment(withTitle: IGStringsManager.mostSeen.rawValue.localized, at: 1, animated: false)
         segmentedControl.insertSegment(withTitle: IGStringsManager.latestNews.rawValue.localized, at: 2, animated: false)
@@ -206,7 +206,8 @@ class IGNewsSectionInnerTableViewController: UITableViewController,UIGestureReco
 
         segmentedControl.selectedSegmentIndex = currentSegmentIndex
 
-        segmentedControl.backgroundColor = .white
+        segmentedControl.backgroundColor = UIColor(named: themeColor.tableViewCell.rawValue)
+
         segmentedControl.addTarget(self, action: #selector(self.segmentedControlValueChanged(_:)), for: .valueChanged)
 
         

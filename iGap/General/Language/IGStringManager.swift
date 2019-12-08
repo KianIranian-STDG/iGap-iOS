@@ -50,7 +50,7 @@ enum IGStringsManager : String {
     case Edit = "edit"
     
     //MARK: -NEWS
-    
+    case NewsDetail =  "news_details"
     //MARK: - VOTE
     case AlreadyVoted = "before_try"
     case MaximumPoll = "maximum_poll"
