@@ -41,6 +41,11 @@ class IGHelperMessage {
                     if (roomMessage.igpAuthor.hasIgpUser) {
                         let _ = IGRegisteredUser.needUpdateUser(userId: roomMessage.igpAuthor.igpUser.igpUserID, cacheId: roomMessage.igpAuthor.igpUser.igpCacheID)
                     }
+                    IGGlobal.playSound(isInChat : IGGlobal.isInChatPage,isSilent : IGGlobal.isSilent,isSendMessage: true)
+
+                } else {
+                    IGGlobal.playSound(isInChat : IGGlobal.isInChatPage,isSilent : IGGlobal.isSilent,isSendMessage: true)
+
                 }
                 
                 if let primaryKeyId = structMessageIdentity?.primaryKeyId {

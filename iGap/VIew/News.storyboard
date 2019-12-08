@@ -82,16 +82,16 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="DH5-li-1Ah">
-                                                    <rect key="frame" x="354" y="71" width="25" height="8.5"/>
+                                                    <rect key="frame" x="354" y="70" width="25" height="9.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19k" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ewO-dD-gVW">
-                                                            <rect key="frame" x="0.0" y="0.0" width="12.5" height="8.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="12.5" height="9.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="7"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🌣" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YiM-CH-Ovb">
-                                                            <rect key="frame" x="12.5" y="0.0" width="12.5" height="8.5"/>
+                                                            <rect key="frame" x="12.5" y="0.0" width="12.5" height="9.5"/>
                                                             <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="8"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>

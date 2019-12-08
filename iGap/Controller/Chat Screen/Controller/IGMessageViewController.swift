@@ -3035,7 +3035,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if currentAttachment != nil {
             ///play send sound
-            IGGlobal.playSound(isInChat : IGGlobal.isInChatPage,isSilent : IGGlobal.isSilent,isSendMessage: true)
             
             let messageText = messageTextView.text.substring(offset: MAX_TEXT_ATTACHMENT_LENGHT)
             
@@ -3095,7 +3094,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
         } else {
             ///play send sound
-            IGGlobal.playSound(isInChat : IGGlobal.isInChatPage,isSilent : IGGlobal.isSilent,isSendMessage: true)
+//            IGGlobal.playSound(isInChat : IGGlobal.isInChatPage,isSilent : IGGlobal.isSilent,isSendMessage: true)
             let messages = messageTextView.text.split(limit: MAX_TEXT_LENGHT)
             for i in 0..<messages.count {
                 DispatchQueue.main.asyncAfter(deadline: .now() + (Double(i) * 0.5)) {
@@ -6391,7 +6390,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     
     func onMessageRecieveInChatPage(roomId: Int64, message: IGPRoomMessage, roomType: IGPRoom.IGPType) {
         if roomType == .chat && self.currentRoomId == roomId {
-            IGGlobal.playSound(isInChat : IGGlobal.isInChatPage,isSilent : IGGlobal.isSilent,isSendMessage: false)
+//            IGGlobal.playSound(isInChat : IGGlobal.isInChatPage,isSilent : IGGlobal.isSilent,isSendMessage: false)
         }
         
         // if message is for another room shouldn't be add to current room
