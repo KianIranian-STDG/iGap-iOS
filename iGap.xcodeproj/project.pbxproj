@@ -319,11 +319,8 @@
 		94E74DC323238F8F001AB47C /* FinancialHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DC223238F8F001AB47C /* FinancialHistory.storyboard */; };
 		94E74DC523239727001AB47C /* IGFinancialHistoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E74DC423239727001AB47C /* IGFinancialHistoryDetailViewController.swift */; };
 		94E74DCA2323C798001AB47C /* TransactionInfoKeys.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */; };
-		D6045E9C23901007006AFE83 /* CardToCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6045E9B23901006006AFE83 /* CardToCardCell.xib */; };
 		D6081912234DF2D5009C2A38 /* IGRealmAuthorUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6062F9B234DF0CC0007EF53 /* IGRealmAuthorUser.swift */; };
 		D60FF283234091310012ECF2 /* IGPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60FF282234091310012ECF2 /* IGPlayer.swift */; };
-		D6118E47238E4DF100672188 /* IGMediaViewerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B07265237965C700BF4DDD /* IGMediaViewerCell.swift */; };
-		D6118E48238E4DF100672188 /* IGMediaViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D686A347237991E6007227B5 /* IGMediaViewer.swift */; };
 		D617C711234CC69300A59EB3 /* IGWriteFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D617C710234CC69300A59EB3 /* IGWriteFileManager.swift */; };
 		D61B5DDD237D40EB0060B9D9 /* ProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61B5DDC237D40EB0060B9D9 /* ProgressCell.swift */; };
 		D61B5DE4237D48B10060B9D9 /* LoadingViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61B5DE0237D48B00060B9D9 /* LoadingViewable.swift */; };
@@ -339,9 +336,15 @@
 		D62946352349E4BD00FB5A08 /* Stevia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62946342349E4BD00FB5A08 /* Stevia.framework */; };
 		D62946362349E4BD00FB5A08 /* Stevia.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D62946342349E4BD00FB5A08 /* Stevia.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D650DF22235DC7DE00780B5E /* UpdateMyRoleObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D650DF21235DC7DE00780B5E /* UpdateMyRoleObserver.swift */; };
+		D65179A3239B88B300557E5B /* IGMediaPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65179A2239B88B300557E5B /* IGMediaPager.swift */; };
+		D65179A5239B8C3400557E5B /* IGMediaPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65179A4239B8C3400557E5B /* IGMediaPagerCell.swift */; };
+		D65179A8239B8F6C00557E5B /* FSPagerView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D65179A7239B8F6C00557E5B /* FSPagerView.framework */; };
+		D65179A9239B8F6D00557E5B /* FSPagerView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D65179A7239B8F6C00557E5B /* FSPagerView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D65179AA239BA00900557E5B /* IGMediaPagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D65179A6239B8C8300557E5B /* IGMediaPagerCell.xib */; };
 		D651C04623800F3A0043F700 /* ProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D61B5DDE237D41510060B9D9 /* ProgressCell.xib */; };
 		D66129D02330FF9700BFAE7E /* IGStructMessageIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */; };
 		D6A89976236D8D920087215B /* IGHelperAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A89975236D8D920087215B /* IGHelperAvatar.swift */; };
+		D6CCCBF82392A1E10061F749 /* CardToCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */; };
 		D6EAF0742383D9B300D7F177 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */; };
 		DF3EDEF64399AA713B2D0C2F /* IGRequestSignaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */; };
 		FA03C19C2042945D008812E3 /* IGCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03C19B2042945D008812E3 /* IGCall.swift */; };
@@ -683,7 +686,6 @@
 		FAB4367322097B850073EEE1 /* IGStructSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4367222097B850073EEE1 /* IGStructSticker.swift */; };
 		FAB4367522098C7D0073EEE1 /* IGRealmSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4367422098C7D0073EEE1 /* IGRealmSticker.swift */; };
 		FAB623EA229526D3006DEA00 /* CardToCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB623E9229526D3006DEA00 /* CardToCardCell.swift */; };
-		FAB623EC22952727006DEA00 /* IGMediaViewerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB623EB229526D5006DEA00 /* IGMediaViewerCell.xib */; };
 		FAB7FF5321BFB39D0081FDBA /* VideoCallObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7FF5221BFB39D0081FDBA /* VideoCallObserver.swift */; };
 		FAB9064222B63F2600E81287 /* MessageOnChatReceiveObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB9064122B63F2600E81287 /* MessageOnChatReceiveObserver.swift */; };
 		FAB91BBB22393F6000459595 /* IGRealmChannelExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB91BBA22393F6000459595 /* IGRealmChannelExtra.swift */; };
@@ -795,6 +797,7 @@
 			files = (
 				D62946302349E1B800FB5A08 /* YPImagePicker.framework in Embed Frameworks */,
 				8E871888233CEE19004A5E56 /* RxRelay.framework in Embed Frameworks */,
+				D65179A9239B8F6D00557E5B /* FSPagerView.framework in Embed Frameworks */,
 				D62946362349E4BD00FB5A08 /* Stevia.framework in Embed Frameworks */,
 				D62946332349E43400FB5A08 /* PryntTrimmerView.framework in Embed Frameworks */,
 				FAA6C5DB2222BA800035D777 /* PecPayment.framework in Embed Frameworks */,
@@ -1149,7 +1152,6 @@
 		94E74DC223238F8F001AB47C /* FinancialHistory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FinancialHistory.storyboard; sourceTree = "<group>"; };
 		94E74DC423239727001AB47C /* IGFinancialHistoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFinancialHistoryDetailViewController.swift; sourceTree = "<group>"; };
 		94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = TransactionInfoKeys.stringsdict; sourceTree = "<group>"; };
-		D6045E9B23901006006AFE83 /* CardToCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CardToCardCell.xib; path = ../../../../../../Desktop/CardToCardCell.xib; sourceTree = "<group>"; };
 		D6062F9B234DF0CC0007EF53 /* IGRealmAuthorUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmAuthorUser.swift; sourceTree = "<group>"; };
 		D60FF282234091310012ECF2 /* IGPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPlayer.swift; sourceTree = "<group>"; };
 		D617C710234CC69300A59EB3 /* IGWriteFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGWriteFileManager.swift; sourceTree = "<group>"; };
@@ -1166,10 +1168,13 @@
 		D62946312349E43400FB5A08 /* PryntTrimmerView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PryntTrimmerView.framework; path = Carthage/Build/iOS/PryntTrimmerView.framework; sourceTree = "<group>"; };
 		D62946342349E4BD00FB5A08 /* Stevia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Stevia.framework; path = Carthage/Build/iOS/Stevia.framework; sourceTree = "<group>"; };
 		D650DF21235DC7DE00780B5E /* UpdateMyRoleObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMyRoleObserver.swift; sourceTree = "<group>"; };
+		D65179A2239B88B300557E5B /* IGMediaPager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMediaPager.swift; sourceTree = "<group>"; };
+		D65179A4239B8C3400557E5B /* IGMediaPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMediaPagerCell.swift; sourceTree = "<group>"; };
+		D65179A6239B8C8300557E5B /* IGMediaPagerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGMediaPagerCell.xib; sourceTree = "<group>"; };
+		D65179A7239B8F6C00557E5B /* FSPagerView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FSPagerView.framework; path = Carthage/Build/iOS/FSPagerView.framework; sourceTree = "<group>"; };
 		D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructMessageIdentity.swift; sourceTree = "<group>"; };
-		D686A347237991E6007227B5 /* IGMediaViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMediaViewer.swift; sourceTree = "<group>"; };
 		D6A89975236D8D920087215B /* IGHelperAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperAvatar.swift; sourceTree = "<group>"; };
-		D6B07265237965C700BF4DDD /* IGMediaViewerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMediaViewerCell.swift; sourceTree = "<group>"; };
+		D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardToCardCell.xib; sourceTree = "<group>"; };
 		DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRequestSignaling.swift; sourceTree = "<group>"; };
 		FA03C19B2042945D008812E3 /* IGCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCall.swift; sourceTree = "<group>"; };
 		FA03C19F20429D46008812E3 /* RTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCClient.swift; sourceTree = "<group>"; };
@@ -1531,7 +1536,6 @@
 		FAB4367222097B850073EEE1 /* IGStructSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructSticker.swift; sourceTree = "<group>"; };
 		FAB4367422098C7D0073EEE1 /* IGRealmSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmSticker.swift; sourceTree = "<group>"; };
 		FAB623E9229526D3006DEA00 /* CardToCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardToCardCell.swift; sourceTree = "<group>"; };
-		FAB623EB229526D5006DEA00 /* IGMediaViewerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGMediaViewerCell.xib; sourceTree = "<group>"; };
 		FAB798AD21A5681C0019FC92 /* Hero.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hero.framework; path = Carthage/Build/iOS/Hero.framework; sourceTree = "<group>"; };
 		FAB7FF5221BFB39D0081FDBA /* VideoCallObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCallObserver.swift; sourceTree = "<group>"; };
 		FAB8210D20D7D583003938BB /* Firebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
@@ -1683,6 +1687,7 @@
 				FAAD3C2421EA220C00B1420A /* FirebaseInstanceID.framework in Frameworks */,
 				FA9402AC2042D49D00D1A35C /* WebRTC.framework in Frameworks */,
 				FABE83AB20FDB43E00D94F01 /* Digger.framework in Frameworks */,
+				D65179A8239B8F6C00557E5B /* FSPagerView.framework in Frameworks */,
 				FA39EAA320D7BF7B001CFF77 /* Protobuf.framework in Frameworks */,
 				FA865C7220789C2600B9D585 /* MapKit.framework in Frameworks */,
 				FA98F83A204D41AB0070424E /* Cosmos.framework in Frameworks */,
@@ -2227,9 +2232,9 @@
 		D6B0725A23794B0100BF4DDD /* MediaViewer */ = {
 			isa = PBXGroup;
 			children = (
-				D686A347237991E6007227B5 /* IGMediaViewer.swift */,
-				D6B07265237965C700BF4DDD /* IGMediaViewerCell.swift */,
-				FAB623EB229526D5006DEA00 /* IGMediaViewerCell.xib */,
+				D65179A2239B88B300557E5B /* IGMediaPager.swift */,
+				D65179A4239B8C3400557E5B /* IGMediaPagerCell.swift */,
+				D65179A6239B8C8300557E5B /* IGMediaPagerCell.xib */,
 			);
 			path = MediaViewer;
 			sourceTree = "<group>";
@@ -3027,7 +3032,7 @@
 				FA7CD4A222958431002918AD /* PaymentCell.swift */,
 				FA7CD4A12295842E002918AD /* PaymentCell.xib */,
 				FAB623E9229526D3006DEA00 /* CardToCardCell.swift */,
-				D6045E9B23901006006AFE83 /* CardToCardCell.xib */,
+				D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */,
 				8E7F18F322F5679300A7A7DD /* TextCellCardToCard.swift */,
 				8E7F18F522F567B500A7A7DD /* TextCellCardToCard.xib */,
 				D61B5DDC237D40EB0060B9D9 /* ProgressCell.swift */,
@@ -3366,6 +3371,7 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D65179A7239B8F6C00557E5B /* FSPagerView.framework */,
 				D62946342349E4BD00FB5A08 /* Stevia.framework */,
 				D62946312349E43400FB5A08 /* PryntTrimmerView.framework */,
 				D629462E2349E1B700FB5A08 /* YPImagePicker.framework */,
@@ -3571,6 +3577,7 @@
 				8EA854A4239D5C3300C9442F /* IGClassicColors.xcassets in Resources */,
 				8E6E83A32342617400392F27 /* EditProfileChannelAndGroup.storyboard in Resources */,
 				945B127423251F8D00DBF2DA /* IGPaymentView.xib in Resources */,
+				D65179AA239BA00900557E5B /* IGMediaPagerCell.xib in Resources */,
 				FABA60F0221804E400FFBB5A /* stickerPublicKey.txt in Resources */,
 				FA6F312722B8E7D600DB942E /* trackingId.txt in Resources */,
 				FA99FF6522353401009035DF /* DashboardCell2.xib in Resources */,
@@ -3641,7 +3648,7 @@
 				FA99FF6D2235413B009035DF /* DashboardCell4.xib in Resources */,
 				8E1CD973232CF79A008D8758 /* PhoneBook.storyboard in Resources */,
 				FA15F0B323488BCA001E8158 /* iGap_fontico.ttf in Resources */,
-				D6045E9C23901007006AFE83 /* CardToCardCell.xib in Resources */,
+				D6CCCBF82392A1E10061F749 /* CardToCardCell.xib in Resources */,
 				8EB4BBAC234B83A400BFA878 /* igap_receive_message_sound.mp3 in Resources */,
 				8ECCA1EA22B7B1F000D3A734 /* SMSingleAmountInputView.xib in Resources */,
 				8EBF550722D9B84900834E6A /* DashboardCell8.xib in Resources */,
@@ -3761,6 +3768,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/PryntTrimmerView.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Stevia.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftEventBus.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/FSPagerView.framework",
 			);
 			name = "[RS] Copy Carthage Frameworks";
 			outputPaths = (
@@ -3790,8 +3798,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA61C7EC22E455850043547D /* iGSetEmailTableViewController.swift in Sources */,
-				D6118E47238E4DF100672188 /* IGMediaViewerCell.swift in Sources */,
-				D6118E48238E4DF100672188 /* IGMediaViewer.swift in Sources */,
 				D6081912234DF2D5009C2A38 /* IGRealmAuthorUser.swift in Sources */,
 				FA712AE5225DCCCC00FD78AA /* IGRealmDiscovery.swift in Sources */,
 				FA85066522670703002EEBF7 /* IGWalletCardDetailTableViewController.swift in Sources */,
@@ -3983,6 +3989,7 @@
 				8E3C69942360785E001575BE /* IGTagManager.swift in Sources */,
 				8E03174C2378482300D5A2B5 /* IGStructCompany.swift in Sources */,
 				FA76598422902ACE006322A3 /* INSPhotosDataSource.swift in Sources */,
+				D65179A5239B8C3400557E5B /* IGMediaPagerCell.swift in Sources */,
 				FAC0F08920F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift in Sources */,
 				8ED68CB52377BDC500637C29 /* IGElecBillTableViewCell.swift in Sources */,
 				FAEC476421F31B1B006C07A4 /* AdditionalObserver.swift in Sources */,
@@ -4308,6 +4315,7 @@
 				FA85066C22670703002EEBF7 /* QRMainTabbarController.swift in Sources */,
 				FA3D05EA2382B2E600A9EEC1 /* IGSplashViewController.swift in Sources */,
 				FA63BAAD1DD70F09000B60AD /* IGRequestGroup.swift in Sources */,
+				D65179A3239B88B300557E5B /* IGMediaPager.swift in Sources */,
 				FA85066922670703002EEBF7 /* SMBarcodeMainViewController.swift in Sources */,
 				FA97D44820174C2C0087BBD0 /* AbstractCell.swift in Sources */,
 				FAA9DFBE1F4B23390076A22F /* IGTwoStepVerification.swift in Sources */,

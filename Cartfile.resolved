@@ -1,3 +1,4 @@
+
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAnalyticsBinary.json" "5.15.0"
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseMessagingBinary.json" "5.15.0"
 github "Anakros/WebRTC" "63.11.20455"
@@ -34,3 +35,4 @@ github "HHK1/PryntTrimmerView" "4.0.0"
 github "Yummypets/YPImagePicker" "4.1.2"
 github "freshOS/Stevia" "4.6.0"
 github "cesarferreira/SwiftEventBus" "5.0.0"
+github "WenchaoD/FSPagerView" "0.8.3"

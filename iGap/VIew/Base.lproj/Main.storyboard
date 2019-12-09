@@ -3826,6 +3826,115 @@
             </objects>
             <point key="canvasLocation" x="-675.36231884057975" y="154.6875"/>
         </scene>
+        <!--Media Pager-->
+        <scene sceneID="yh8-dh-yNB">
+            <objects>
+                <viewController storyboardIdentifier="IGMediaPager" useStoryboardIdentifierAsRestorationIdentifier="YES" id="d2M-Z4-9Xf" customClass="IGMediaPager" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8dR-l9-cnv"/>
+                        <viewControllerLayoutGuide type="bottom" id="Rt5-W7-kbp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="E6h-6X-IWS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e89-DO-r2a">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gog-44-Iuk">
+                                        <rect key="frame" x="354" y="40" width="60" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="cvu-cB-zfA"/>
+                                            <constraint firstAttribute="width" constant="60" id="l0v-fY-GrT"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
+                                        <state key="normal" title="">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4S1-HB-P32">
+                                        <rect key="frame" x="0.0" y="40" width="60" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="1rX-7d-o8N"/>
+                                            <constraint firstAttribute="width" constant="60" id="pCT-f5-rFF"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
+                                        <state key="normal" title="">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnBack:" destination="d2M-Z4-9Xf" eventType="touchUpInside" id="Sk6-Ts-7bO"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xry-ob-rPg">
+                                        <rect key="frame" x="207" y="40" width="0.0" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="SZj-yg-VzM"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="gog-44-Iuk" secondAttribute="bottom" id="Huc-VF-BF0"/>
+                                    <constraint firstItem="4S1-HB-P32" firstAttribute="leading" secondItem="e89-DO-r2a" secondAttribute="leading" id="TMN-Mq-h2F"/>
+                                    <constraint firstAttribute="trailing" secondItem="gog-44-Iuk" secondAttribute="trailing" id="Xvy-tc-h4D"/>
+                                    <constraint firstAttribute="bottom" secondItem="4S1-HB-P32" secondAttribute="bottom" id="a16-wA-lKZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="Xry-ob-rPg" secondAttribute="bottom" id="e4V-fN-ccx"/>
+                                    <constraint firstAttribute="height" constant="100" id="ra2-SI-Rd2"/>
+                                    <constraint firstItem="Xry-ob-rPg" firstAttribute="centerX" secondItem="e89-DO-r2a" secondAttribute="centerX" id="y9x-IW-V6y"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M0G-Wg-NRF">
+                                <rect key="frame" x="0.0" y="696" width="414" height="200"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MHE-QN-57B">
+                                        <rect key="frame" x="10" y="10" width="394" height="156"/>
+                                        <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst.</string>
+                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="MHE-QN-57B" firstAttribute="leading" secondItem="M0G-Wg-NRF" secondAttribute="leading" constant="10" id="NRk-vg-Zty"/>
+                                    <constraint firstAttribute="height" constant="200" id="SSs-dt-JAF"/>
+                                    <constraint firstItem="MHE-QN-57B" firstAttribute="top" secondItem="M0G-Wg-NRF" secondAttribute="top" constant="10" id="YGx-Ti-xYN"/>
+                                    <constraint firstAttribute="trailing" secondItem="MHE-QN-57B" secondAttribute="trailing" constant="10" id="aIH-sF-uhq"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="e89-DO-r2a" firstAttribute="top" secondItem="E6h-6X-IWS" secondAttribute="top" id="3w4-JO-Hp1"/>
+                            <constraint firstItem="M0G-Wg-NRF" firstAttribute="leading" secondItem="E6h-6X-IWS" secondAttribute="leading" id="LwE-yB-8fz"/>
+                            <constraint firstItem="Rt5-W7-kbp" firstAttribute="top" secondItem="MHE-QN-57B" secondAttribute="bottom" id="SNN-K2-hwd"/>
+                            <constraint firstAttribute="trailing" secondItem="e89-DO-r2a" secondAttribute="trailing" id="WuU-1D-I8M"/>
+                            <constraint firstAttribute="bottom" secondItem="M0G-Wg-NRF" secondAttribute="bottom" id="bHO-b4-3e2"/>
+                            <constraint firstItem="e89-DO-r2a" firstAttribute="leading" secondItem="E6h-6X-IWS" secondAttribute="leading" id="chy-hU-lue"/>
+                            <constraint firstAttribute="trailing" secondItem="M0G-Wg-NRF" secondAttribute="trailing" id="lDD-KD-AuV"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bottomView" destination="M0G-Wg-NRF" id="Cab-ld-tgA"/>
+                        <outlet property="bottomViewHeight" destination="SSs-dt-JAF" id="kva-x8-Qsp"/>
+                        <outlet property="btnBack" destination="4S1-HB-P32" id="Nkj-Ud-m6b"/>
+                        <outlet property="btnShare" destination="gog-44-Iuk" id="wEc-gr-mpn"/>
+                        <outlet property="topView" destination="e89-DO-r2a" id="K2f-Rv-19h"/>
+                        <outlet property="topViewHeight" destination="ra2-SI-Rd2" id="g5f-ef-ET2"/>
+                        <outlet property="txtCount" destination="Xry-ob-rPg" id="6o5-oI-BtR"/>
+                        <outlet property="txtMessage" destination="MHE-QN-57B" id="wCo-94-8E8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cIG-SS-C9t" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="121.73913043478262" y="154.6875"/>
+        </scene>
     </scenes>
     <resources>
         <image name="IG_Blur_Call" width="640" height="1136"/>

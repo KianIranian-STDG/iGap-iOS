@@ -4707,7 +4707,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         /* if room was deleted close chat room */
-        if (self.room?.isInvalidated)! {
+        if (self.room?.isInvalidated)! || messages!.count <= indexPath.row {
             self.navigationController?.popViewController(animated: true)
             
             let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
@@ -5762,7 +5762,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
     func didTapOnAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell, imageView: IGImageView?) {
         
-        let mediaViewer = IGMediaViewer.instantiateFromAppStroryboard(appStoryboard: .Main)
+        let mediaViewer = IGMediaPager.instantiateFromAppStroryboard(appStoryboard: .Main)
         mediaViewer.hidesBottomBarWhenPushed = true
         mediaViewer.roomId = self.room?.id
         mediaViewer.messageId = cellMessage.id

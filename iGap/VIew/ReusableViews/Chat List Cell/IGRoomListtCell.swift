@@ -415,6 +415,9 @@ class IGRoomListtCell: BaseTableViewCell {
     
     private func setLastMessage(for room: IGRoom) {
         DispatchQueue.main.async {
+            if room.isInvalidated {
+                return
+            }
             self.lastMsgLabel.textAlignment = self.lastMsgLabel.localizedDirection
             
             if let draft = room.draft, (room.draft?.message != "" || room.draft?.replyTo != -1) {

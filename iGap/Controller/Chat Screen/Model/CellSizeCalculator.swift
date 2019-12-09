@@ -287,14 +287,21 @@ class CellSizeCalculator: NSObject {
             return cachedSize as! MediaViewerCellCalculatedSize
         }
         
+        let finalMessage = message.getFinalMessage()
+        
         var mediaHeight: CGSize!
         var messageHeight: CGSize!
         
-        if let file = message.attachment {
+        if let file = finalMessage.attachment {
             mediaHeight = fetchMediaViewerCellFrame(media: file)
         }
-        if let text = message.message {
+        if let text = finalMessage.message {
             messageHeight = CellSizeCalculator.bodyRect(text: text as NSString, width: CellSizeLimit.MediaViewerCellSize.MaxWidth)
+            if messageHeight.height > (CellSizeLimit.MediaViewerCellSize.MaxHeight/3) {
+                messageHeight.height = (CellSizeLimit.MediaViewerCellSize.MaxHeight/3)
+            }
+            
+            messageHeight.height = messageHeight.height + 10 //plus 10 is for UILabel padding into the view
         }
         
         let result: MediaViewerCellCalculatedSize = (mediaHeight, messageHeight)
@@ -373,7 +380,7 @@ class CellSizeCalculator: NSObject {
         return (room.type == .channel || (message.forwardedFrom?.channelExtra != nil))
     }
     
-    func fetchMediaFrame(media: IGFile) -> CGSize {
+    private func fetchMediaFrame(media: IGFile) -> CGSize {
         return mediaFrame(media: media,
                           maxWidth:  CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Attachment,
                           maxHeight: CellSizeLimit.ConstantSizes.Bubble.Height.Maximum.Attachment,
@@ -382,7 +389,7 @@ class CellSizeCalculator: NSObject {
         
     }
     
-    func fetchStickerFrame(media: IGFile) -> CGSize {
+    private func fetchStickerFrame(media: IGFile) -> CGSize {
         return mediaFrame(media: media,
                           maxWidth:  CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Sticker,
                           maxHeight: CellSizeLimit.ConstantSizes.Bubble.Height.Maximum.Attachment,
@@ -391,7 +398,7 @@ class CellSizeCalculator: NSObject {
         
     }
     
-    func fetchMediaViewerCellFrame(media: IGFile) -> CGSize {
+    private func fetchMediaViewerCellFrame(media: IGFile) -> CGSize {
         return mediaViewerCellFrame(media: media,
                           maxWidth:  CellSizeLimit.MediaViewerCellSize.MaxWidth,
                           maxHeight: CellSizeLimit.MediaViewerCellSize.MaxHeight)
@@ -424,7 +431,7 @@ class CellSizeCalculator: NSObject {
         }
     }
     
-    func mediaViewerCellFrame(media: IGFile, maxWidth: CGFloat, maxHeight: CGFloat) -> CGSize {
+    private func mediaViewerCellFrame(media: IGFile, maxWidth: CGFloat, maxHeight: CGFloat) -> CGSize {
         if media.width != 0 && media.height != 0 {
             var width = CGFloat(media.width)
             var height = CGFloat(media.height)
@@ -437,7 +444,7 @@ class CellSizeCalculator: NSObject {
             height = height * minRatio
             width = width * minRatio
             
-            return CGSize(width: width, height: height)
+            return CGSize(width: width.rounded(), height: height.rounded())
         } else {
             return CGSize(width: maxWidth, height: maxHeight)
         }
