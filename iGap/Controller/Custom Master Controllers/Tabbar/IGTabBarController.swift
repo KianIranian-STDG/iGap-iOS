@@ -34,18 +34,18 @@ class IGTabBarController: UITabBarController {
     private func initView() {
         
         let tabBarItemApperance = UITabBarItem.appearance()
-    tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor(named:themeColor.labelGrayColor.rawValue)!, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.normal)
-    tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor(named: themeColor.tabbarLabelColor.rawValue)!, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.selected)
+    tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): ThemeManager.currentTheme.LabelGrayColor, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.normal)
+    tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): ThemeManager.currentTheme.TabbarColorLabel, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.selected)
         
         self.delegate = self
         
-        self.tabBar.barTintColor = UIColor(named: themeColor.tabBarColor.rawValue)
-        self.tabBar.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        self.tabBar.barTintColor = ThemeManager.currentTheme.TabBarColor
+        self.tabBar.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         self.tabBar.layer.cornerRadius = abs(CGFloat(Int(12 * 100)) / 100)
         self.tabBar.clipsToBounds = true
         self.tabBar.layer.maskedCorners =  [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
-        self.view.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        self.view.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         
         setTabBarItems()
         self.selectedIndex = 2

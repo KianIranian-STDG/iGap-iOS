@@ -89,24 +89,24 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
     }
     
     private func initColors() {
-        btnAddEdit.backgroundColor = UIColor(named: themeColor.labelSecondColor.rawValue)
-        lblUserNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblBillNUmber.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblBillName.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitle.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        btnAddEdit.backgroundColor = ThemeManager.currentTheme.LabelSecondColor
+        lblUserNumber.textColor = ThemeManager.currentTheme.LabelColor
+        lblBillNUmber.textColor = ThemeManager.currentTheme.LabelColor
+        lblBillName.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitle.textColor = ThemeManager.currentTheme.LabelColor
         
-        tfUserNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        tfBillNUmber.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        tfBillName.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        tfUserNumber.textColor = ThemeManager.currentTheme.LabelColor
+        tfBillNUmber.textColor = ThemeManager.currentTheme.LabelColor
+        tfBillName.textColor = ThemeManager.currentTheme.LabelColor
         
-        tfUserNumber.layer.borderColor = UIColor(named: themeColor.labelColor.rawValue)?.cgColor
-        tfBillNUmber.layer.borderColor = UIColor(named: themeColor.labelColor.rawValue)?.cgColor
-        tfBillName.layer.borderColor = UIColor(named: themeColor.labelColor.rawValue)?.cgColor
+        tfUserNumber.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        tfBillNUmber.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        tfBillName.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
 
-        tfUserNumber.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        tfBillNUmber.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        tfBillName.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        btnAddEdit.setTitleColor(UIColor(named: themeColor.textFieldBackGround.rawValue), for: .normal)
+        tfUserNumber.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        tfBillNUmber.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        tfBillName.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        btnAddEdit.setTitleColor(ThemeManager.currentTheme.TextFieldBackGround, for: .normal)
 
     }
     

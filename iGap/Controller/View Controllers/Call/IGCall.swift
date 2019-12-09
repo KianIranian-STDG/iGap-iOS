@@ -115,7 +115,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         let gradient = CAGradientLayer()
         gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
         gradient.endPoint = CGPoint(x: 0.5, y: 3.0)
-        let whiteColor = UIColor(named: themeColor.backgroundColor.rawValue)!
+        let whiteColor = ThemeManager.currentTheme.BackGroundColor
         gradient.colors = [UIColor.clear.cgColor, whiteColor.cgColor, whiteColor.cgColor]
         gradient.locations = [NSNumber(value: 0.0), NSNumber(value: 0.2), NSNumber(value: 1.0)]
         gradient.frame = viewTransparent.frame
@@ -492,13 +492,13 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         //button.removeUnderline()
         button.backgroundColor = color
         
-        button.layer.shadowColor = UIColor(named: themeColor.labelGrayColor.rawValue)!.cgColor
+        button.layer.shadowColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
         button.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         button.layer.shadowRadius = 0.1
         button.layer.shadowOpacity = 0.1
         
         button.layer.borderWidth = 0.5
-        button.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)!.cgColor
+        button.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
         button.layer.masksToBounds = false
         button.layer.cornerRadius = button.frame.width / 2
     }

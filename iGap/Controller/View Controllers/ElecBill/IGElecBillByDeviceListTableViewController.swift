@@ -49,15 +49,15 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
         lblSelectCompany.textAlignment = lblSelectCompany.localizedDirection
     }
     private func initColors() {
-        self.tableView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-//        self.topViewHolder.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        lblSelectCompany.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        btnSearch.setTitleColor(UIColor(named: themeColor.textFieldBackGround.rawValue), for: .normal)
-        btnCompanyCodes.setTitleColor(UIColor(named: themeColor.labelSecondColor.rawValue), for: .normal)
-        lblEnterSerialNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        btnCompanyCodes.layer.borderColor = UIColor(named: themeColor.labelSecondColor.rawValue)?.cgColor
-        btnCompanyCodes.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        btnSearch.backgroundColor = UIColor(named: themeColor.labelSecondColor.rawValue)
+        self.tableView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+//        self.topViewHolder.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        lblSelectCompany.textColor = ThemeManager.currentTheme.LabelColor
+        btnSearch.setTitleColor(ThemeManager.currentTheme.TextFieldBackGround, for: .normal)
+        btnCompanyCodes.setTitleColor(ThemeManager.currentTheme.LabelSecondColor, for: .normal)
+        lblEnterSerialNumber.textColor = ThemeManager.currentTheme.LabelColor
+        btnCompanyCodes.layer.borderColor = ThemeManager.currentTheme.LabelSecondColor.cgColor
+        btnCompanyCodes.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        btnSearch.backgroundColor = ThemeManager.currentTheme.LabelSecondColor
 
 
     }
@@ -85,14 +85,14 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
     }
     
     private func customiseView() {
-        self.tableView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        self.tableView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         self.tableView.tableFooterView = UIView()
         self.tableView.semanticContentAttribute = self.semantic
         self.btnCompanyCodes.layer.cornerRadius = 8
         self.btnSearch.layer.cornerRadius = 15
         btnCompanyCodes.layer.borderWidth = 2
 //        self.topViewHolder.borderWidth = 0.5
-//        self.topViewHolder.layer.borderColor = UIColor(named: themeColor.labelColor.rawValue)?.cgColor
+//        self.topViewHolder.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
 
         
     }
@@ -156,8 +156,8 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
         self.view.addSubview(picker)
 
         toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 50))
-        toolBar.barTintColor = UIColor(named: themeColor.labelSecondColor.rawValue)
-        toolBar.tintColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        toolBar.barTintColor = ThemeManager.currentTheme.LabelSecondColor
+        toolBar.tintColor = ThemeManager.currentTheme.BackGroundColor
         toolBar.items = [UIBarButtonItem.init(title: "X", style: .done, target: self, action: #selector(onDoneButtonTapped))]
         self.view.addSubview(toolBar)
 

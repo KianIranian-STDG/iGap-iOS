@@ -32,7 +32,7 @@ class AnimateloadingView : UIView {
         isAnimating = false
     }
     func setUpAnimation(in layer: CALayer, size: CGSize) {
-        let color = UIColor.init(named: themeColor.progressColor.rawValue)!
+        let color = ThemeManager.currentTheme.ProgressColor
         let beginTime: Double = 0.5
         let strokeStartDuration: Double = 1.5
         let strokeEndDuration: Double = 1.1
@@ -78,7 +78,7 @@ class AnimateloadingView : UIView {
         )
 
         let backgroundView: UIView = UIView(frame: backgroundFrame)
-        backgroundView.backgroundColor = UIColor.init(named: themeColor.progressBackgroundColor.rawValue)
+        backgroundView.backgroundColor = ThemeManager.currentTheme.ProgressBackgroundColor
         backgroundView.layer.shadowColor = UIColor.black.cgColor
         backgroundView.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
         backgroundView.layer.shadowRadius = 5

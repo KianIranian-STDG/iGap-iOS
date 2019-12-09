@@ -104,7 +104,7 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
         defaultHeightSize = Int(cardCollectionView.frame.height)
         print(defaultHeightSize)
         defaultWidthSize = Int(cardCollectionView.frame.width)
-        self.tableView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        self.tableView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         DispatchQueue.main.async {
             SMLoading.hideLoadingPage()
         }

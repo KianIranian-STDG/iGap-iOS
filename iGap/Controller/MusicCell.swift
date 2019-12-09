@@ -35,7 +35,7 @@ class MusicCell : UITableViewCell {
     var musicTotalTime : Float = 0
     private let musicCoverHolder : UIView = {
         let holder = UIView()
-        holder.backgroundColor = UIColor(named : themeColor.labelGrayColor.rawValue)
+        holder.backgroundColor = ThemeManager.currentTheme.LabelGrayColor
         holder.layer.cornerRadius = 15
         holder.clipsToBounds = true
         return holder
@@ -45,7 +45,7 @@ class MusicCell : UITableViewCell {
         lbl.textColor = .black
         lbl.font = UIFont.systemFont(ofSize: 16)
         lbl.textAlignment = .left
-        lbl.backgroundColor = UIColor(named : themeColor.labelGrayColor.rawValue)
+        lbl.backgroundColor = ThemeManager.currentTheme.LabelGrayColor
         lbl.numberOfLines = 0
         return lbl
     }()
@@ -114,7 +114,7 @@ class MusicCell : UITableViewCell {
         //        addSubview(musicArtistLabel)
         musicCoverHolder.addSubview(musicCoverLabel)
         musicCoverHolder.addSubview(musicCover)
-        musicCoverHolder.backgroundColor = UIColor(named : themeColor.labelGrayColor.rawValue)
+        musicCoverHolder.backgroundColor = ThemeManager.currentTheme.LabelGrayColor
         
         makeMusicCoverHolder()
         makeMusicCoverLabel()
@@ -184,7 +184,7 @@ class MusicCell : UITableViewCell {
     }
     private func makeMusicCoverLabel() {
         musicCoverLabel.font = UIFont.iGapFonticon(ofSize: 30)
-        musicCoverLabel.backgroundColor = UIColor(named : themeColor.labelGrayColor.rawValue)
+        musicCoverLabel.backgroundColor = ThemeManager.currentTheme.LabelGrayColor
         musicCoverLabel.textAlignment = .center
         musicCoverLabel.numberOfLines = 0
         
@@ -215,12 +215,12 @@ class MusicCell : UITableViewCell {
     private func makeNameLabel() {
         musicNameLabel.numberOfLines = 1
         musicNameLabel.textAlignment = .left
-//        musicNameLabel.textColor = UIColor(named: themeColor.labelColor.rawValue)
+//        musicNameLabel.textColor = ThemeManager.currentTheme.LabelColor
         musicNameLabel.font = UIFont.igFont(ofSize: 13 , weight: .bold)
     }
     private func makeBtnDownload() {
         
-        btnDownload.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        btnDownload.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         btnDownload.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         btnDownload.setTitle("", for: .normal)
         btnDownload.translatesAutoresizingMaskIntoConstraints = false

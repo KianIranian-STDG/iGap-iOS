@@ -67,7 +67,7 @@ class IGMusicPlayerTableViewController: UITableViewController {
         initTableViewCell()
         
         tableView.tableHeaderView = headerView
-        headerView.backgroundColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
+        headerView.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         headerView.translatesAutoresizingMaskIntoConstraints = false
         headerView.heightAnchor.constraint(equalToConstant: CGFloat(headerHeight)).isActive = true
         headerView.widthAnchor.constraint(equalToConstant: self.tableView.frame.size.width).isActive = true
@@ -402,16 +402,16 @@ class IGMusicPlayerTableViewController: UITableViewController {
         btnShuffle.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         btnOrder.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         //color
-        btnPlay.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-        btnNext.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-        btnPrevius.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        btnPlay.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        btnNext.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        btnPrevius.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         //btnNext.setTitleColor(UIColor.lightGray, for: .normal)
         //btnPrevius.setTitleColor(UIColor.lightGray, for: .normal)
         btnOrder.setTitleColor(UIColor.lightGray, for: .normal)
         btnShuffle.setTitleColor(UIColor.lightGray, for: .normal)
         
-        btnShuffle.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
-        btnOrder.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
+        btnShuffle.setTitleColor(ThemeManager.currentTheme.LabelGrayColor, for: .normal)
+        btnOrder.setTitleColor(ThemeManager.currentTheme.LabelGrayColor, for: .normal)
         //play
         btnPlay.setTitle("🎗", for: .normal)
         btnNext.setTitle("🎘", for: .normal)
@@ -628,23 +628,23 @@ class IGMusicPlayerTableViewController: UITableViewController {
         lblMusicName.font = UIFont.igFont(ofSize: 13)
         tmpMusicCover.titleLabel?.font = UIFont.iGapFonticon(ofSize: 30)
         btnShare.titleLabel?.font = UIFont.iGapFonticon(ofSize: 30)
-        btnShare.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        btnShare.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         btnShare.setTitle("🎞", for: .normal)
         lblCurrentTime.textAlignment = .left
         lblMusicName.textAlignment = .left
         lblMusicArtist.textAlignment = .left
         lblMusicTotalTime.textAlignment = .right
         //        tmpMusicCover.setTitle("", for: .normal)
-        //        tmpMusicCover.setTitleColor(UIColor(named: themeColor.backgroundColor.rawValue), for: .normal)
-        tmpMusicCover.backgroundColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+        //        tmpMusicCover.setTitleColor(ThemeManager.currentTheme.BackGroundColor, for: .normal)
+        tmpMusicCover.backgroundColor = ThemeManager.currentTheme.LabelGrayColor
         musicSlider.setThumbImage(UIImage(named: "sliderThumb"), for: .normal)
         musicSlider.setThumbImage(UIImage(named: "sliderThumb"), for: .highlighted)
         musicSlider.tintColor = UIColor.iGapGreen()
         lblCurrentTime.adjustsFontSizeToFitWidth = true
         lblMusicTotalTime.adjustsFontSizeToFitWidth = true
         
-        lblCurrentTime.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
-        lblMusicTotalTime.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+        lblCurrentTime.textColor = ThemeManager.currentTheme.LabelGrayColor
+        lblMusicTotalTime.textColor = ThemeManager.currentTheme.LabelGrayColor
         //labels constraints
         lblCurrentTime.translatesAutoresizingMaskIntoConstraints = false
         lblCurrentTime.bottomAnchor.constraint(equalTo: buttonStack.topAnchor, constant: 5).isActive = true

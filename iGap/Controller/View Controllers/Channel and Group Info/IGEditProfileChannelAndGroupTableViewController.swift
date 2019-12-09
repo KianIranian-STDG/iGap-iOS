@@ -646,7 +646,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 switch protoResponse {
                 case let usernameResponse as IGPChannelCheckUsernameResponse :
                     if usernameResponse.igpStatus == IGPChannelCheckUsernameResponse.IGPStatus.available {
-                        self.tfChannelLink.textColor = UIColor(named: themeColor.labelColor.rawValue)
+                        self.tfChannelLink.textColor = ThemeManager.currentTheme.LabelColor
                         if self.room!.type == .channel {
                             if self.room?.channelRoom?.type == .publicRoom {
                                 self.convertToPublic = true
@@ -774,9 +774,9 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         tfDescriptionOfRoom.font = UIFont.igFont(ofSize: 15)
         tfChannelLink.font = UIFont.igFont(ofSize: 15)
         //Color
-        lblSignMessage.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblChannelType.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblChannelReaction.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        lblSignMessage.textColor = ThemeManager.currentTheme.LabelColor
+        lblChannelType.textColor = ThemeManager.currentTheme.LabelColor
+        lblChannelReaction.textColor = ThemeManager.currentTheme.LabelColor
         //Direction Handler
         lblSignMessage.textAlignment = lblSignMessage.localizedDirection
         lblChannelType.textAlignment = lblSignMessage.localizedDirection

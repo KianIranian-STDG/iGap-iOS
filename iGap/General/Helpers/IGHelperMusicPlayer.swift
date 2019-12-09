@@ -335,7 +335,7 @@ class IGHelperMusicPlayer {
     }
     private func createMainView() -> UIView {
         let view = UIView()
-        view.backgroundColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
+        view.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         //        view.backgroundColor = .red
         view.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
@@ -358,7 +358,7 @@ class IGHelperMusicPlayer {
         default:
             break
         }
-        btn.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        btn.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         btn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.heightAnchor.constraint(equalToConstant: 35).isActive = true
@@ -369,7 +369,7 @@ class IGHelperMusicPlayer {
     
     private func createCloseButton(btn: UIButton!,view:UIView!)  {
         btn.setTitle("🌩", for: .normal)
-        btn.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+        btn.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         btn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.heightAnchor.constraint(equalToConstant: 35).isActive = true
@@ -384,8 +384,8 @@ class IGHelperMusicPlayer {
         topBorder.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
         topBorder.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
         topBorder.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
-        topBorder.backgroundColor = UIColor(named: themeColor.labelGrayColor.rawValue)
-        bottomBorder.backgroundColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+        topBorder.backgroundColor = ThemeManager.currentTheme.LabelGrayColor
+        bottomBorder.backgroundColor = ThemeManager.currentTheme.LabelGrayColor
         bottomBorder.translatesAutoresizingMaskIntoConstraints = false
         bottomBorder.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
         bottomBorder.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
@@ -411,7 +411,7 @@ class IGHelperMusicPlayer {
         songName.tag = 707
         songName.textAlignment = .center
         songName.font = UIFont.igFont(ofSize: 10 , weight: .bold)
-        songName.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        songName.textColor = ThemeManager.currentTheme.LabelColor
         songName.translatesAutoresizingMaskIntoConstraints = false
         songName.topAnchor.constraint(equalTo: view.topAnchor, constant: 5).isActive = true
         songName.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 45).isActive = true
@@ -421,7 +421,7 @@ class IGHelperMusicPlayer {
         singerName.tag = 708
         singerName.textAlignment = .center
         singerName.font = UIFont.igFont(ofSize: 10,weight : .light)
-        singerName.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        singerName.textColor = ThemeManager.currentTheme.LabelColor
         singerName.translatesAutoresizingMaskIntoConstraints = false
         singerName.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5).isActive = true
         singerName.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 45).isActive = true

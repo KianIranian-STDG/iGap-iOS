@@ -144,11 +144,11 @@ extension IGFinancialHistoryViewController: UICollectionViewDataSource, UICollec
         cell.transform = self.transform
         
         if indexPath.item == selectedIndex {
-            cell.backgroundColor = UIColor(named: themeColor.transactionsCVSelectedColor.rawValue)
+            cell.backgroundColor = ThemeManager.currentTheme.TransactionsCVSelectedColor
             label.textColor = UIColor.white
         } else {
-            cell.backgroundColor = UIColor(named: themeColor.transactionsCVColor.rawValue)
-            label.textColor = UIColor(named: themeColor.transactionLabelColor.rawValue)
+            cell.backgroundColor = ThemeManager.currentTheme.TransactionsCVColor
+            label.textColor = ThemeManager.currentTheme.LabelFinancialServiceColor
         }
         
         return cell
@@ -186,7 +186,7 @@ extension IGFinancialHistoryViewController: UICollectionViewDataSource, UICollec
         
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         let label = cell.viewWithTag(110) as! UILabel
-        cell.backgroundColor = UIColor(named: themeColor.transactionsCVSelectedColor.rawValue)
+        cell.backgroundColor = ThemeManager.currentTheme.TransactionsCVSelectedColor
         label.textColor = UIColor.white
         
         selectedIndex = indexPath.item
@@ -206,18 +206,18 @@ extension IGFinancialHistoryViewController: UICollectionViewDataSource, UICollec
         
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         let label = cell.viewWithTag(110) as! UILabel
-        cell.backgroundColor = UIColor(named: themeColor.transactionsCVColor.rawValue)
-        label.textColor = UIColor(named: themeColor.transactionLabelColor.rawValue)
+        cell.backgroundColor = ThemeManager.currentTheme.TransactionsCVColor
+        label.textColor = ThemeManager.currentTheme.LabelFinancialServiceColor
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let label = cell.viewWithTag(110) as! UILabel
         if indexPath.item == selectedIndex {
-            cell.backgroundColor = UIColor(named: themeColor.transactionsCVSelectedColor.rawValue)
+            cell.backgroundColor = ThemeManager.currentTheme.TransactionsCVSelectedColor
             label.textColor = UIColor.white
         } else {
-            cell.backgroundColor = UIColor(named: themeColor.transactionsCVColor.rawValue)
-            label.textColor = UIColor(named: themeColor.transactionLabelColor.rawValue)
+            cell.backgroundColor = ThemeManager.currentTheme.TransactionsCVColor
+            label.textColor = ThemeManager.currentTheme.LabelFinancialServiceColor
         }
     }
 }

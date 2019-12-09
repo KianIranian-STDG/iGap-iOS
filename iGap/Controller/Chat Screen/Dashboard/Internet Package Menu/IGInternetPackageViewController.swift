@@ -145,7 +145,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
             //btn.removeUnderline()
             btn.layer.cornerRadius = 5
             btn.layer.borderWidth = 0.2
-            btn.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
+            btn.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
         }
     }
     

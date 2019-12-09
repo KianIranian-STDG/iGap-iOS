@@ -153,6 +153,10 @@
 		8E96A32F225C96C3007D8A77 /* RecieptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E96A32D225C96C3007D8A77 /* RecieptView.xib */; };
 		8E9B6FBB2337458D002C6431 /* IGProfileChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9B6FBA2337458D002C6431 /* IGProfileChannelViewController.swift */; };
 		8E9F076922659E1400E4CD17 /* SMSavedCardsAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9F076822659E1400E4CD17 /* SMSavedCardsAlertViewController.swift */; };
+		8EA8549E239D59A000C9442F /* IGThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8549D239D59A000C9442F /* IGThemeManager.swift */; };
+		8EA854A0239D59E300C9442F /* IGThemeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8549F239D59E300C9442F /* IGThemeProtocol.swift */; };
+		8EA854A2239D5A8B00C9442F /* IGClassicTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA854A1239D5A8B00C9442F /* IGClassicTheme.swift */; };
+		8EA854A4239D5C3300C9442F /* IGClassicColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EA854A3239D5C3300C9442F /* IGClassicColors.xcassets */; };
 		8EA8F3DE231F9E1D0099C4EF /* MBCircularProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3DD231F9E1D0099C4EF /* MBCircularProgressBarView.m */; };
 		8EA8F3DF231F9E1D0099C4EF /* MBCircularProgressBarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3DC231F9E1D0099C4EF /* MBCircularProgressBarLayer.m */; };
 		8EA8F3E9231F9E450099C4EF /* UICircularProgressRingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3E6231F9E440099C4EF /* UICircularProgressRingDelegate.swift */; };
@@ -967,6 +971,10 @@
 		8E96A32D225C96C3007D8A77 /* RecieptView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecieptView.xib; sourceTree = "<group>"; };
 		8E9B6FBA2337458D002C6431 /* IGProfileChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileChannelViewController.swift; sourceTree = "<group>"; };
 		8E9F076822659E1400E4CD17 /* SMSavedCardsAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSavedCardsAlertViewController.swift; sourceTree = "<group>"; };
+		8EA8549D239D59A000C9442F /* IGThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGThemeManager.swift; sourceTree = "<group>"; };
+		8EA8549F239D59E300C9442F /* IGThemeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGThemeProtocol.swift; sourceTree = "<group>"; };
+		8EA854A1239D5A8B00C9442F /* IGClassicTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGClassicTheme.swift; sourceTree = "<group>"; };
+		8EA854A3239D5C3300C9442F /* IGClassicColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = IGClassicColors.xcassets; sourceTree = "<group>"; };
 		8EA8F3DA231F9E1C0099C4EF /* MBCircularProgressBarLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBCircularProgressBarLayer.h; sourceTree = "<group>"; };
 		8EA8F3DB231F9E1C0099C4EF /* MBCircularProgressBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBCircularProgressBarView.h; sourceTree = "<group>"; };
 		8EA8F3DC231F9E1D0099C4EF /* MBCircularProgressBarLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBCircularProgressBarLayer.m; sourceTree = "<group>"; };
@@ -1845,6 +1853,10 @@
 			isa = PBXGroup;
 			children = (
 				8E83CAA123408E8600A8CF65 /* ThemeColors.swift */,
+				8EA8549D239D59A000C9442F /* IGThemeManager.swift */,
+				8EA8549F239D59E300C9442F /* IGThemeProtocol.swift */,
+				8EA854A1239D5A8B00C9442F /* IGClassicTheme.swift */,
+				8EA854A3239D5C3300C9442F /* IGClassicColors.xcassets */,
 			);
 			path = "Theme Manager";
 			sourceTree = "<group>";
@@ -3539,6 +3551,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E1865392323A10400D8BCA9 /* ChannelAndSettings.storyboard in Resources */,
+				8EA854A4239D5C3300C9442F /* IGClassicColors.xcassets in Resources */,
 				8E6E83A32342617400392F27 /* EditProfileChannelAndGroup.storyboard in Resources */,
 				945B127423251F8D00DBF2DA /* IGPaymentView.xib in Resources */,
 				FABA60F0221804E400FFBB5A /* stickerPublicKey.txt in Resources */,
@@ -3792,6 +3805,7 @@
 				D61B5DE6237D48B10060B9D9 /* LoadingView.swift in Sources */,
 				FAB0B87E232F5D59002E35AB /* DeepLinkNavigator.swift in Sources */,
 				8EE7FC9E225DF67200B6C2C3 /* NumberpadButton.swift in Sources */,
+				8EA8549E239D59A000C9442F /* IGThemeManager.swift in Sources */,
 				FAA4E85B23124B110091199B /* IGForwardStruct.swift in Sources */,
 				D61B5DE4237D48B10060B9D9 /* LoadingViewable.swift in Sources */,
 				FAD57EE11E191DB000FC17D9 /* IGMessageLogCollectionViewCell.swift in Sources */,
@@ -4064,6 +4078,7 @@
 				8ED68CB72377C2A500637C29 /* IGStructBill.swift in Sources */,
 				FAD959051F48AD8600FBD306 /* MTBBarcodeScanner.m in Sources */,
 				8E3C696E23602EB2001575BE /* Music.swift in Sources */,
+				8EA854A2239D5A8B00C9442F /* IGClassicTheme.swift in Sources */,
 				8EC217A92259B90F00105B5A /* walletModalViewController.swift in Sources */,
 				FA42EF081E5C224F00CF8A32 /* AnimatedFrame.swift in Sources */,
 				FA712AE0225DC5AE00FD78AA /* DashboardCell7.swift in Sources */,
@@ -4151,6 +4166,7 @@
 				8EA8F3ED231F9E450099C4EF /* UICircularRing.swift in Sources */,
 				FA0953561E1B97700043ED3F /* IGSettingChatTableViewController.swift in Sources */,
 				943495BC231FB217009854FE /* IGFinancialHistoryViewController.swift in Sources */,
+				8EA854A0239D59E300C9442F /* IGThemeProtocol.swift in Sources */,
 				FAD5808F1DDC5C1900A242DE /* IGMessageGeneralCollectionViewCell.swift in Sources */,
 				8E3C698C23603701001575BE /* PanModalPresentationDelegate.swift in Sources */,
 				FAE07EFE220599F500BE3593 /* IGStickerViewController.swift in Sources */,

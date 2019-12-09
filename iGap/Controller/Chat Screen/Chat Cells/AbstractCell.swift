@@ -244,7 +244,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
 
         if finalRoomMessage.message != nil && finalRoomMessage.message != "" {
             txtMessageAbs?.isHidden = false
-            txtMessageAbs?.textColor = UIColor(named: themeColor.messageTextColor.rawValue)
+            txtMessageAbs?.textColor = ThemeManager.currentTheme.MessageTextColor
 
             txtMessageHeightConstraintAbs?.constant = messageSizes.bubbleSize.height
 
@@ -1941,7 +1941,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             btnReturnToMessageAbs.layer.shadowOpacity = 0.15
             btnReturnToMessageAbs.layer.borderWidth = 0.2
             btnReturnToMessageAbs.layer.borderColor = #colorLiteral(red: 0.4477736669, green: 0.4477736669, blue: 0.4477736669, alpha: 1)
-            btnReturnToMessageAbs.backgroundColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
+            btnReturnToMessageAbs.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {

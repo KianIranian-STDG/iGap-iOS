@@ -106,8 +106,8 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
                 //btn.removeUnderline()
                 btn.layer.cornerRadius = 5
                 btn.layer.borderWidth = 0.4
-                btn.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
-                btn.layer.backgroundColor = UIColor(named: themeColor.buttonBGColor.rawValue)?.cgColor
+                btn.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
+                btn.layer.backgroundColor = ThemeManager.currentTheme.ButtonBGColor.cgColor
                 btn.isEnabled = true
             }
         } else {
@@ -126,7 +126,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
         for edt in editTexts {
             edt.layer.cornerRadius = 5
             edt.layer.borderWidth = 0.5
-            edt.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
+            edt.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
         }
     }
     
@@ -137,7 +137,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
             if grayLine {
                 txt.layer.borderColor = UIColor.gray.cgColor
             } else {
-                txt.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
+                txt.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
             }
         }
     }
@@ -147,11 +147,11 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
         for view in views {
             view.layer.cornerRadius = 5
             view.layer.borderWidth = 0.3
-            view.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
+            view.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
             
             if enable {
                 view.isHidden = false
-                view.layer.backgroundColor = UIColor(named: themeColor.selectedChannelsCellBGColor.rawValue)?.cgColor
+                view.layer.backgroundColor = ThemeManager.currentTheme.CellSelectedChannelBGColor.cgColor
             } else {
                 view.isHidden = true
 //                view.layer.backgroundColor = #colorLiteral(red: 0.5, green: 0.5, blue: 0.5, alpha: 1).cgColor

@@ -45,8 +45,8 @@ class IGMapNearbyDistanceTableViewController: BaseTableViewController {
         
         self.tableView.register(IGMapNearbyDistanceCell.nib(), forCellReuseIdentifier: IGMapNearbyDistanceCell.cellReuseIdentifier())
         self.tableView.tableFooterView = UIView()
-        self.tableView.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
-        self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.tableView.tableHeaderView?.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         
         self.notificationToken = nearbyDistanceList!.observe { (changes: RealmCollectionChange) in
             switch changes {

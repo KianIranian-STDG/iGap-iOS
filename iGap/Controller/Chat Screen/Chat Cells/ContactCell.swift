@@ -73,7 +73,7 @@ class ContactCell: AbstractCell {
             if hasEmail() {
                 addEmailView()
                 emailIconLbl?.text = "🖂"
-                emailIconLbl?.textColor = UIColor(named: themeColor.messageTextColor.rawValue)
+                emailIconLbl?.textColor = ThemeManager.currentTheme.MessageTextColor
                 emailsLabel?.textColor = UIColor.dialogueBoxInfo()
             } else {
                 removeEmailView()
@@ -86,14 +86,14 @@ class ContactCell: AbstractCell {
             if hasEmail() {
                 addEmailView()
                 emailIconLbl?.text = "🖂"
-                emailIconLbl?.textColor = UIColor(named: themeColor.messageTextColor.rawValue)
-                emailsLabel?.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+                emailIconLbl?.textColor = ThemeManager.currentTheme.MessageTextColor
+                emailsLabel?.textColor = ThemeManager.currentTheme.LabelGrayColor
             } else {
                 removeEmailView()
             }
             avatarImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
             phoneIconLbl?.text = ""
-            phoneIconLbl?.textColor = UIColor(named: themeColor.messageTextColor.rawValue)
+            phoneIconLbl?.textColor = ThemeManager.currentTheme.MessageTextColor
             nameLabel?.textColor = UIColor.dialogueBoxInfo()
             phonesLabel?.textColor = UIColor.dialogueBoxInfo()
         }
@@ -151,7 +151,7 @@ class ContactCell: AbstractCell {
         if btnCall == nil {
             btnCall = UIButton()
             btnCall.setTitle(IGStringsManager.CALL.rawValue.localized, for: UIControl.State.normal)
-            manageContactButtonView(btn: btnCall, color: UIColor(named: themeColor.labelGrayColor.rawValue)!)
+            manageContactButtonView(btn: btnCall, color: ThemeManager.currentTheme.LabelGrayColor)
             mainBubbleViewAbs.addSubview(btnCall)
         }
         

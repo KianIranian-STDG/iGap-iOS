@@ -472,7 +472,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         initDelegatesNewChatView()
         
         let attributes = [
-            NSAttributedString.Key.foregroundColor : UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue) ?? #colorLiteral(red: 0.6784313725, green: 0.6784313725, blue: 0.6784313725, alpha: 1),
+            NSAttributedString.Key.foregroundColor : ThemeManager.currentTheme.TextFieldPlaceHolderColor ?? #colorLiteral(red: 0.6784313725, green: 0.6784313725, blue: 0.6784313725, alpha: 1),
             NSAttributedString.Key.font : UIFont.igFont(ofSize: 13) // Note the !
         ]
         self.removeHideKeyboardWhenTappedAround()
@@ -669,7 +669,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         
-        let bgColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
+        let bgColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         
         self.view.backgroundColor = bgColor
         self.view.superview?.backgroundColor = bgColor
@@ -689,7 +689,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         scrollToBottomContainerView.layer.shadowOffset = CGSize(width: 0, height: 0)
         scrollToBottomContainerView.layer.shadowRadius = 4.0
         scrollToBottomContainerView.layer.shadowOpacity = 0.15
-        scrollToBottomContainerView.backgroundColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
+        scrollToBottomContainerView.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         scrollToBottomContainerView.layer.borderWidth = 0.2
         scrollToBottomContainerView.layer.borderColor = #colorLiteral(red: 0.4477736669, green: 0.4477736669, blue: 0.4477736669, alpha: 1)
         scrollToBottomContainerView.isHidden = true
@@ -1739,17 +1739,17 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     private func initColorSetNewChatView() {
-        self.holderMessageTextView.backgroundColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
-        self.btnAttachmentNew.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-        self.btnSend.setTitleColor(UIColor(named: themeColor.backgroundColor.rawValue), for: .normal)
-        self.btnSend.backgroundColor = UIColor(named: themeColor.labelColor.rawValue)
-        self.btnMoney.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-        self.btnTrash.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-        self.btnAttachmentNew.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-        self.btnShare.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-        self.btnMic.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
-        self.btnSticker.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
-        self.lblPlaceHolder.textColor = UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue)
+        self.holderMessageTextView.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
+        self.btnAttachmentNew.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        self.btnSend.setTitleColor(ThemeManager.currentTheme.BackGroundColor, for: .normal)
+        self.btnSend.backgroundColor = ThemeManager.currentTheme.LabelColor
+        self.btnMoney.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        self.btnTrash.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        self.btnAttachmentNew.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        self.btnShare.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        self.btnMic.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        self.btnSticker.setTitleColor(ThemeManager.currentTheme.LabelGrayColor, for: .normal)
+        self.lblPlaceHolder.textColor = ThemeManager.currentTheme.TextFieldPlaceHolderColor
         
     }
     ///setting fonts in here
@@ -1971,7 +1971,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     ///Handle single tap on Long tap on record Button to show an alert(pop alert) above message text view and inform the user to long press on record button in order to record a voice
     @IBAction func didTapOnMicButton(_ sender: UIButton) {
-        sender.backgroundColor = UIColor(named: themeColor.labelColor.rawValue)
+        sender.backgroundColor = ThemeManager.currentTheme.LabelColor
         sender.titleLabel!.textColor = UIColor.red
         
         sender.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
@@ -1984,9 +1984,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             sender.layoutIfNeeded()
         }, completion: { (completed) in
             sender.titleLabel!.textColor = UIColor.red
-            sender.titleLabel!.textColor = UIColor(named:themeColor.labelColor.rawValue)
+            sender.titleLabel!.textColor = ThemeManager.currentTheme.LabelColor
             
-            sender.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+            sender.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
             
         })
         
@@ -3844,7 +3844,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let documentPicker: UIDocumentPickerViewController = UIDocumentPickerViewController(documentTypes: documentPickerIdentifiers, in: UIDocumentPickerMode.import)
         documentPicker.delegate = self
         documentPicker.modalPresentationStyle = UIModalPresentationStyle.fullScreen
-        UINavigationBar.appearance(whenContainedInInstancesOf: [UIDocumentBrowserViewController.self]).tintColor = UIColor.init(named: themeColor.labelColor.rawValue)
+        UINavigationBar.appearance(whenContainedInInstancesOf: [UIDocumentBrowserViewController.self]).tintColor = ThemeManager.currentTheme.LabelColor
         self.present(documentPicker, animated: true, completion: nil)
     }
     
@@ -4108,7 +4108,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if webViewProgressbar == nil {
             webViewProgressbar = UIActivityIndicatorView()
             webViewProgressbar.hidesWhenStopped = true
-            webViewProgressbar.color = UIColor(named: themeColor.labelGrayColor.rawValue)
+            webViewProgressbar.color = ThemeManager.currentTheme.LabelGrayColor
         }
         webView.addSubview(webViewProgressbar)
         
@@ -4410,7 +4410,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let bouncingViewFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
         bouncingViewWhileRecord = UIView(frame: bouncingViewFrame)
         bouncingViewWhileRecord?.layer.cornerRadius = CGFloat(50)
-        bouncingViewWhileRecord?.backgroundColor = UIColor(named: themeColor.navigationSecondColor.rawValue)
+        bouncingViewWhileRecord?.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
         bouncingViewWhileRecord?.alpha = 0.2
         self.view.addSubview(bouncingViewWhileRecord!)
         bouncingViewWhileRecord?.snp.makeConstraints { (make) -> Void in
@@ -4634,7 +4634,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 let markdown = MarkdownParser()
                 markdown.enabledElements = MarkdownParser.EnabledElements.bold
                 self.lblReplyBody.attributedText = markdown.parse(textMessage!)
-                self.lblReplyBody.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+                self.lblReplyBody.textColor = ThemeManager.currentTheme.LabelGrayColor
                 self.lblReplyBody.font = UIFont.igFont(ofSize: 11.0)
             }
             
@@ -4815,7 +4815,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if segue.identifier == "showSticker" {
             if #available(iOS 10.0, *) {
                 let stickerViewController = segue.destination as! IGStickerViewController
-                //                stickerViewController.backGroundColor = UIColor(named: themeColor.tableViewCell.rawValue)
+                //                stickerViewController.backGroundColor = ThemeManager.currentTheme.TableViewCellColor
                 stickerViewController.stickerPageType = self.stickerPageType
                 stickerViewController.stickerGroupId = self.stickerGroupId
             }

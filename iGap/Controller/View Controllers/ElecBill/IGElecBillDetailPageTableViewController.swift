@@ -78,12 +78,12 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     
     private func customiseView() {
         self.topViewHolder.borderWidth = 0.5
-        self.topViewHolder.layer.borderColor = UIColor(named: themeColor.labelColor.rawValue)?.cgColor
-        btnDetailBranch.layer.borderColor = UIColor(named: themeColor.labelSecondColor.rawValue)?.cgColor
+        self.topViewHolder.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        btnDetailBranch.layer.borderColor = ThemeManager.currentTheme.LabelSecondColor.cgColor
         btnDetailBranch.layer.borderWidth = 2
-        btnAddToMyBills.layer.borderColor = UIColor(named: themeColor.labelSecondColor.rawValue)?.cgColor
+        btnAddToMyBills.layer.borderColor = ThemeManager.currentTheme.LabelSecondColor.cgColor
         btnAddToMyBills.layer.borderWidth = 2
-        btnPDFofBill.layer.borderColor = UIColor(named: themeColor.labelSecondColor.rawValue)?.cgColor
+        btnPDFofBill.layer.borderColor = ThemeManager.currentTheme.LabelSecondColor.cgColor
         btnPDFofBill.layer.borderWidth = 2
 
         btnPay.layer.cornerRadius = 15
@@ -127,25 +127,25 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     }
     
     private func initColors() {
-        self.tableView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        self.topViewHolder.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        btnPay.setTitleColor(UIColor(named: themeColor.textFieldBackGround.rawValue), for: .normal)
-        btnDetailBranch.setTitleColor(UIColor(named: themeColor.labelSecondColor.rawValue), for: .normal)
-        btnAddToMyBills.setTitleColor(UIColor(named: themeColor.labelSecondColor.rawValue), for: .normal)
-        btnPDFofBill.setTitleColor(UIColor(named: themeColor.labelSecondColor.rawValue), for: .normal)
+        self.tableView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        self.topViewHolder.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        btnPay.setTitleColor(ThemeManager.currentTheme.TextFieldBackGround, for: .normal)
+        btnDetailBranch.setTitleColor(ThemeManager.currentTheme.LabelSecondColor, for: .normal)
+        btnAddToMyBills.setTitleColor(ThemeManager.currentTheme.LabelSecondColor, for: .normal)
+        btnPDFofBill.setTitleColor(ThemeManager.currentTheme.LabelSecondColor, for: .normal)
         
-        btnPay.backgroundColor = UIColor(named: themeColor.labelSecondColor.rawValue)
-        btnDetailBranch.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        btnAddToMyBills.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        btnPDFofBill.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        lblTTlBillNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTTlBillPayNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTTlBillPayDate.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTTlBillPayAmount.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataBillNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataBillPayDate.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataBillPayAmount.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataBillPayNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        btnPay.backgroundColor = ThemeManager.currentTheme.LabelSecondColor
+        btnDetailBranch.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        btnAddToMyBills.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        btnPDFofBill.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        lblTTlBillNumber.textColor = ThemeManager.currentTheme.LabelColor
+        lblTTlBillPayNumber.textColor = ThemeManager.currentTheme.LabelColor
+        lblTTlBillPayDate.textColor = ThemeManager.currentTheme.LabelColor
+        lblTTlBillPayAmount.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataBillNumber.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataBillPayDate.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataBillPayAmount.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataBillPayNumber.textColor = ThemeManager.currentTheme.LabelColor
 
     }
     

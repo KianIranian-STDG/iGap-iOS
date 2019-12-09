@@ -57,8 +57,8 @@ class IGProfileUserCell: BaseTableViewCell {
     override func prepareForReuse() {
         lblActionName.text = nil
         lblActionDetail.text = nil
-        lblActionDetail.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblActionName.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        lblActionDetail.textColor = ThemeManager.currentTheme.LabelColor
+        lblActionName.textColor = ThemeManager.currentTheme.LabelColor
         
     }
 

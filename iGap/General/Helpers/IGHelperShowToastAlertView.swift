@@ -33,12 +33,12 @@ class IGHelperShowToastAlertView {
             }
             self.popView = UIView()
             self.popView.tag = 202
-            self.popView.backgroundColor = UIColor(named : themeColor.backgroundColor.rawValue)
+            self.popView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
             self.popView.layer.cornerRadius = 10
             
             switch type {
             case .alert :
-                self.popView.layer.borderColor = (UIColor(named : themeColor.labelColor.rawValue)?.cgColor)
+                self.popView.layer.borderColor = (ThemeManager.currentTheme.LabelColor.cgColor)
             case .success :
                 self.popView.layer.borderColor = (UIColor.iGapGreen().cgColor)
             default :
@@ -66,8 +66,8 @@ class IGHelperShowToastAlertView {
             
             let lblMessage = UILabel()
             let lblIcon = UILabel()
-            lblIcon.textColor = UIColor(named : themeColor.labelColor.rawValue)
-            lblMessage.textColor = UIColor(named : themeColor.labelColor.rawValue)
+            lblIcon.textColor = ThemeManager.currentTheme.LabelColor
+            lblMessage.textColor = ThemeManager.currentTheme.LabelColor
             lblIcon.font = UIFont.iGapFonticon(ofSize: 20)
             lblIcon.textAlignment = .center
             lblMessage.textAlignment = lblMessage.localizedDirection

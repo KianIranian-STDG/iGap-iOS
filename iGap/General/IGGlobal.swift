@@ -469,7 +469,7 @@ extension UITableView {
     func setEmptyMessage(_ message: String) {
         let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
         messageLabel.text = message
-        messageLabel.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        messageLabel.textColor = ThemeManager.currentTheme.LabelColor
         messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center;
         messageLabel.font = UIFont.igFont(ofSize: 20)
@@ -526,13 +526,13 @@ extension UIColor {
     }
     
     class func dialogueBoxOutgoing() -> UIColor {
-        return UIColor(named: themeColor.sendMessageBubleBGColor.rawValue) ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        return ThemeManager.currentTheme.SendMessageBubleBGColor ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     class func helperWindowViewColor() -> UIColor {
-        return UIColor(named: themeColor.modalViewBackgroundColor.rawValue) ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        return ThemeManager.currentTheme.ModalViewBackgroundColor ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     class func helperWindowViewBorderColor() -> UIColor {
-        return UIColor(named: themeColor.labelGrayColor.rawValue) ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        return ThemeManager.currentTheme.LabelGrayColor ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
     class func dialogueBoxIncomming() -> UIColor {
@@ -543,7 +543,7 @@ extension UIColor {
         return #colorLiteral(red: 0.6156862745, green: 0.7803921569, blue: 0.337254902, alpha: 0.3)
     }
     class func tabbarBGColor() -> UIColor {
-        return UIColor(named: themeColor.tabBarColor.rawValue) ?? #colorLiteral(red: 0.9176470588, green: 0.9176470588, blue: 0.9294117647, alpha: 0.9)
+        return ThemeManager.currentTheme.TabBarColor ?? #colorLiteral(red: 0.9176470588, green: 0.9176470588, blue: 0.9294117647, alpha: 0.9)
     }
     
     class func forwardBoxOutgoign() -> UIColor {
@@ -598,7 +598,7 @@ extension UIColor {
     }
     
     class func messageText() -> UIColor {
-        return UIColor(named: themeColor.messageTextColor.rawValue) ?? #colorLiteral(red: 0.1725490196, green: 0.2117647059, blue: 0.2470588235, alpha: 1)
+        return ThemeManager.currentTheme.MessageTextColor ?? #colorLiteral(red: 0.1725490196, green: 0.2117647059, blue: 0.2470588235, alpha: 1)
     }
     
     class func dialogueBoxInfo() -> UIColor { // filename, contact, ...
@@ -606,11 +606,11 @@ extension UIColor {
     }
     
     class func logBackground() -> UIColor { // filename, contact, ...
-        return UIColor(named: themeColor.messageLogCellBGColor.rawValue) ?? #colorLiteral(red: 0.6588235294, green: 0.6588235294, blue: 0.6588235294, alpha: 1)
+        return ThemeManager.currentTheme.MessageLogCellBGColor ?? #colorLiteral(red: 0.6588235294, green: 0.6588235294, blue: 0.6588235294, alpha: 1)
     }
     
     class func unreadBackground() -> UIColor { // filename, contact, ...
-        return UIColor(named: themeColor.messageUnreadCellBGColor.rawValue) ?? UIColor.iGapMainColor()
+        return ThemeManager.currentTheme.MessageUnreadCellBGColor ?? UIColor.iGapMainColor()
     }
     
     class func pinnedChats() -> UIColor {
@@ -630,11 +630,11 @@ extension UIColor {
     }
     
     class func sticker() -> UIColor {
-        return UIColor(named: themeColor.tableViewBackground.rawValue) ?? #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 1, alpha: 1)
+        return ThemeManager.currentTheme.TableViewBackgroundColor ?? #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 1, alpha: 1)
     }
     
     class func stickerToolbar() -> UIColor {
-        return UIColor(named: themeColor.modalViewBackgroundColor.rawValue) ?? #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 1, alpha: 1)
+        return ThemeManager.currentTheme.ModalViewBackgroundColor ?? #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 1, alpha: 1)
     }
     
     class func stickerToolbarSelected() -> UIColor {
@@ -665,7 +665,7 @@ extension UIColor {
         return #colorLiteral(red: 0.4078431373, green: 0.4078431373, blue: 0.4078431373, alpha: 0.9)
     }
     class func iGapDarkGray() -> UIColor {
-        return UIColor(named: themeColor.labelGrayColor.rawValue) ?? #colorLiteral(red: 0.1215686275, green: 0.1294117647, blue: 0.1411764706, alpha: 0.9)
+        return ThemeManager.currentTheme.LabelGrayColor ?? #colorLiteral(red: 0.1215686275, green: 0.1294117647, blue: 0.1411764706, alpha: 0.9)
     }
     
     class func failedColor() -> UIColor {
@@ -764,7 +764,7 @@ extension UIColor {
     
     class func chatBubbleBackground(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return  UIColor(named: themeColor.receiveMessageBubleBGColor.rawValue) ?? .white
+            return  ThemeManager.currentTheme.ReceiveMessageBubleBGColor ?? .white
         } else {
             return UIColor.dialogueBoxOutgoing()
         }
@@ -780,7 +780,7 @@ extension UIColor {
     
     //MARK: MessageCVCell Time
     class func chatTimeTextColor() -> UIColor {
-        return UIColor(named: themeColor.messageTimeLabelColor.rawValue) ?? #colorLiteral(red: 0.4117647059, green: 0.4823529412, blue: 0.5294117647, alpha: 1)
+        return ThemeManager.currentTheme.MessageTimeLabelColor ?? #colorLiteral(red: 0.4117647059, green: 0.4823529412, blue: 0.5294117647, alpha: 1)
     }
     
     //MARK: MessageCVCell Forward

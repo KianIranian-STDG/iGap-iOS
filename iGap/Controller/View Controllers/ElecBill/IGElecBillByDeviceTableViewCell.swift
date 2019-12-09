@@ -47,7 +47,7 @@ class IGElecBillByDeviceTableViewCell: BaseTableViewCell {
     
     private func customiseView() {
         self.topViewHolder.borderWidth = 0.5
-        self.topViewHolder.layer.borderColor = UIColor(named: themeColor.labelColor.rawValue)?.cgColor
+        self.topViewHolder.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
         
         self.semanticContentAttribute = self.semantic
         self.stackHolder.semanticContentAttribute = self.semantic
@@ -76,14 +76,14 @@ class IGElecBillByDeviceTableViewCell: BaseTableViewCell {
     }
     
     private func initColors() {
-        self.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        self.topViewHolder.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        lblTTlBillNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTTlCustomerAddress.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTTlCustomerName.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataBillNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataCustomerName.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataCustomerAddress.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        self.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        self.topViewHolder.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        lblTTlBillNumber.textColor = ThemeManager.currentTheme.LabelColor
+        lblTTlCustomerAddress.textColor = ThemeManager.currentTheme.LabelColor
+        lblTTlCustomerName.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataBillNumber.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataCustomerName.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataCustomerAddress.textColor = ThemeManager.currentTheme.LabelColor
     }
     
     private func initAlignments() {

@@ -27,7 +27,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
     let width = CGFloat(0.8)
     var invitedLink : String?
     var igpRoom : IGPRoom!
-    let borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)!
+    let borderColor = ThemeManager.currentTheme.LabelGrayColor
     var defaultImage = UIImage()
 
     override func viewDidLoad() {
@@ -161,7 +161,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
     func roundUserImage(_ roundView:UIView){
         roundView.layer.borderWidth = 0
         roundView.layer.masksToBounds = true
-        let borderUserImageColor = UIColor(named: themeColor.labelGrayColor.rawValue)!
+        let borderUserImageColor = ThemeManager.currentTheme.LabelGrayColor
         roundView.layer.borderColor = borderUserImageColor.cgColor
         roundView.layer.cornerRadius = roundView.frame.size.height/2
         roundView.clipsToBounds = true
@@ -208,7 +208,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
                 action.setValue(removeColor, forKey: "titleTextColor")
             }
         }
-        optionMenu.view.tintColor = UIColor(named: themeColor.labelGrayColor.rawValue)!
+        optionMenu.view.tintColor = ThemeManager.currentTheme.LabelGrayColor
 
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
             optionMenu.addAction(cameraOption)} else {

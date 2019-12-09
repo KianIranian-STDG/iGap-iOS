@@ -37,7 +37,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
 
         gradient.frame = defaultNavigationBarFrame
-        gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+        gradient.colors = [ThemeManager.currentTheme.NavigationFirstColor.cgColor, ThemeManager.currentTheme.NavigationSecondColor.cgColor]
         gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
         
@@ -153,7 +153,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 imageV.image = nil
             }
             if let backgroundview = textField.subviews.first {
-                backgroundview.backgroundColor = UIColor(named: themeColor.searchBarBackGroundColor.rawValue)
+                backgroundview.backgroundColor = ThemeManager.currentTheme.SearchBarBackGroundColor
                 for view in backgroundview.subviews {
                     view.backgroundColor = .clear
                 }
@@ -185,7 +185,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
         
         gradient.frame = defaultNavigationBarFrame
-        gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+        gradient.colors = [ThemeManager.currentTheme.NavigationFirstColor.cgColor, ThemeManager.currentTheme.NavigationSecondColor.cgColor]
         gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
         

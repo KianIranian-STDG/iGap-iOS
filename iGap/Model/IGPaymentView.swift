@@ -101,7 +101,7 @@ class IGPaymentView: UIView {
         parentView.bringSubviewToFront(self)
         
         self.topIconLbl.text = ""
-        self.topIconLbl.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        self.topIconLbl.textColor = ThemeManager.currentTheme.LabelColor
         
         self.titleLbl.text = title
         if let apiTitle = payment.info.product?.title {

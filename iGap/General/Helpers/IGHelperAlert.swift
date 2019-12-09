@@ -190,8 +190,9 @@ class IGHelperAlert {
                         self.iconView.addSubview(lblIcon)
                         self.setConstraintsToLabelInIconView(label: lblIcon, iconView: self.iconView)
                     }
-                    borderView.backgroundColor = UIColor(named : themeColor.customAlertBorderColor.rawValue)
-                    borderCenterView.backgroundColor = UIColor(named : themeColor.customAlertBorderColor.rawValue)
+
+                    borderView.backgroundColor = ThemeManager.currentTheme.CustomAlertBorderColor
+                    borderCenterView.backgroundColor = ThemeManager.currentTheme.CustomAlertBorderColor
                     self.customAlert.addSubview(borderView)
                     if showDoneButton! , showCancelButton! {
                         self.customAlert.addSubview(borderCenterView)
@@ -209,7 +210,7 @@ class IGHelperAlert {
                     btnDone.setTitle(doneText, for: .normal)
                     btnCancel.setTitle(cancelText, for: .normal)
                     btnCancel.setTitleColor(UIColor.iGapRed(), for: .normal)
-                    btnDone.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+                    btnDone.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
                     stackButtons.addArrangedSubview(btnCancel)
                     stackButtons.addArrangedSubview(btnDone)
                     if showDoneButton! && showCancelButton! {
@@ -248,8 +249,8 @@ class IGHelperAlert {
                     messageLabel.numberOfLines = 0
 //                    messageLabel.adjustsFontSizeToFitWidth = true
                     messageLabel.font = UIFont.igFont(ofSize: 14)
-                    titleLabel.textColor = UIColor(named: themeColor.labelColor.rawValue)
-                    messageLabel.textColor = UIColor(named: themeColor.labelColor.rawValue)
+                    titleLabel.textColor = ThemeManager.currentTheme.LabelColor
+                    messageLabel.textColor = ThemeManager.currentTheme.LabelColor
                     messageLabel.text = message
                     messageLabel.textAlignment = .center
                     messageLabel.sizeToFit()
@@ -326,13 +327,13 @@ class IGHelperAlert {
     private func creatCustomAlertView() -> UIView {
         let view = UIView()
         view.tag = 303
-        view.backgroundColor = UIColor(named : themeColor.customAlertBGColor.rawValue)
+        view.backgroundColor = ThemeManager.currentTheme.CustomAlertBGColor
         view.layer.cornerRadius = 15
         return view
     }
     private func creatIconView() -> UIView {
         let view = UIView()
-        view.backgroundColor = UIColor(named : themeColor.customAlertBGColor.rawValue)
+        view.backgroundColor = ThemeManager.currentTheme.CustomAlertBGColor
         view.layer.cornerRadius = 30
         view.layer.borderWidth = 5.0
         return view

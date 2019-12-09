@@ -181,7 +181,7 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
             }
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
             containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
-            containerView.textLabel?.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+            containerView.textLabel?.textColor = ThemeManager.currentTheme.LabelGrayColor
         }
         else {
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)

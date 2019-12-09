@@ -111,15 +111,15 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
             //btn.removeUnderline()
             btn.layer.cornerRadius = 5
             btn.layer.borderWidth = 0.2
-            btn.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
+            btn.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
         }
     }
     
     private func ButtonViewActivate(button: UIButton, isEnable: Bool){
         
         if isEnable {
-            button.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
-            button.layer.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)?.cgColor
+            button.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
+            button.layer.backgroundColor = ThemeManager.currentTheme.BackGroundColor.cgColor
         } else {
             button.layer.borderColor = UIColor.gray.cgColor
             button.layer.backgroundColor = UIColor.gray.cgColor

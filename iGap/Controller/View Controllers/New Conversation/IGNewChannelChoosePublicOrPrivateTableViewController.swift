@@ -55,7 +55,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
         channelLinkTextField.isUserInteractionEnabled = false
         
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        tableView.sectionIndexBackgroundColor = UIColor(named: themeColor.labelColor.rawValue)
+        tableView.sectionIndexBackgroundColor = ThemeManager.currentTheme.LabelColor
         tableView.contentInset = UIEdgeInsets.init(top: -1.0, left: 0, bottom: 0, right: 0)
         
         privateChannelCell.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -191,7 +191,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
                 switch protoResponse {
                 case let usernameResponse as IGPChannelCheckUsernameResponse :
                     if usernameResponse.igpStatus == IGPChannelCheckUsernameResponse.IGPStatus.available {
-                        self.channelLinkTextField.textColor = UIColor(named: themeColor.labelColor.rawValue)
+                        self.channelLinkTextField.textColor = ThemeManager.currentTheme.LabelColor
                     } else {
                         self.channelLinkTextField.textColor = UIColor.red
                     }
@@ -231,7 +231,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
         } else if radioButtonController?.selectedButton() == privateChannel {
             channelLinkTextField.leftView = nil
             channelLinkTextField.text = invitedLink
-            channelLinkTextField.textColor = UIColor(named: themeColor.labelColor.rawValue)
+            channelLinkTextField.textColor = ThemeManager.currentTheme.LabelColor
             channelLinkTextField.isUserInteractionEnabled = false
             lblFooter.text = IGStringsManager.NewChannelPrivateFooterHint.rawValue.localized
 

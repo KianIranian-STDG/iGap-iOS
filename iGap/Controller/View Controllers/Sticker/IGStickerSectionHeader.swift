@@ -129,7 +129,7 @@ class IGStickerSectionHeader: UICollectionReusableView {
             
             if isAddStickerPage {
                 txtStickerTitle.font = UIFont.igFont(ofSize: 15, weight: .bold)
-                txtStickerTitle.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+                txtStickerTitle.textColor = ThemeManager.currentTheme.LabelGrayColor
                 
                 txtStickerTitle.snp.makeConstraints { (make) in
                     make.left.equalTo(mainView.snp.left).offset(10)

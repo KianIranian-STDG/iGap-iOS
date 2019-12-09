@@ -92,7 +92,7 @@ class IGSplashScreenViewController: BaseViewController {
             
             let titleLbl = UILabel(frame: CGRect.zero)
             titleLbl.text = titleStrs[i]
-            titleLbl.textColor = UIColor(named: themeColor.labelColor.rawValue)
+            titleLbl.textColor = ThemeManager.currentTheme.LabelColor
             titleLbl.font = UIFont.igFont(ofSize: 17, weight: .bold)
             titleLbl.textAlignment = .center
             titleLbl.numberOfLines = 1
@@ -106,7 +106,7 @@ class IGSplashScreenViewController: BaseViewController {
             
             let desciptionLabel = UILabel(frame: CGRect.zero)
             desciptionLabel.text = descriptions[i]
-            desciptionLabel.textColor = UIColor(named: themeColor.labelColor.rawValue)
+            desciptionLabel.textColor = ThemeManager.currentTheme.LabelColor
             desciptionLabel.font = UIFont.igFont(ofSize: 17)
             desciptionLabel.textAlignment = .center
             desciptionLabel.numberOfLines = 0

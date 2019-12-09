@@ -52,7 +52,7 @@ class IGContactListTableViewController: UITableViewController, UISearchResultsUp
     override func viewDidLoad() {
         super.viewDidLoad()
         IGContactListTableViewController.callDelegate = self
-        self.tableView.sectionIndexBackgroundColor = UIColor(named: themeColor.tableViewCell.rawValue)
+        self.tableView.sectionIndexBackgroundColor = ThemeManager.currentTheme.TableViewCellColor
 //        self.tableView.contentInset.top = 15.0
         self.tableView.sectionIndexBackgroundColor = .clear
         

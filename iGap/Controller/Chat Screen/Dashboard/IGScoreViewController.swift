@@ -67,7 +67,7 @@ class IGScoreViewController: BaseViewController {
         progreccCIrcular.innerRingWidth = 7.0
         progreccCIrcular.outerRingColor = UIColor.iGapDarkYellow()
         progreccCIrcular.outerRingWidth = 1.0
-        progreccCIrcular.fontColor = UIColor(named: themeColor.labelColor.rawValue)!
+        progreccCIrcular.fontColor = ThemeManager.currentTheme.LabelColor
         
         progreccCIrcularRank.maxValue = ranMax!
         progreccCIrcularRank.style = .bordered(width: 2.0, color: UIColor.clear)
@@ -75,7 +75,7 @@ class IGScoreViewController: BaseViewController {
         progreccCIrcularRank.innerRingWidth = 7.0
         progreccCIrcularRank.outerRingColor = UIColor.iGapPurple()
         progreccCIrcularRank.outerRingWidth = 1.0
-        progreccCIrcularRank.fontColor = UIColor(named: themeColor.labelColor.rawValue)!
+        progreccCIrcularRank.fontColor = ThemeManager.currentTheme.LabelColor
     }
     
     func addScoreListItems(array : [IGProtoBuff.IGPUserIVandGetScoreResponse.IGPIVandScore]? = nil) {

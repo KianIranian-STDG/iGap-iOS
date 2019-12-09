@@ -250,7 +250,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
     func initGradientView() {
         let gradient = CAGradientLayer()
         gradient.frame = viewBG.frame
-        gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+        gradient.colors = [ThemeManager.currentTheme.NavigationFirstColor.cgColor, ThemeManager.currentTheme.NavigationSecondColor.cgColor]
         gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
         viewBG.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))

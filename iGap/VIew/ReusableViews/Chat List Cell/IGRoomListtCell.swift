@@ -23,7 +23,7 @@ class IGRoomListtCell: BaseTableViewCell {
     var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 14,weight: .bold)
-        label.textColor = UIColor(named: themeColor.TVCellTitleColor.rawValue)
+        label.textColor = ThemeManager.currentTheme.TVCellTitleColor
         label.textAlignment = label.localizedDirection
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -31,7 +31,7 @@ class IGRoomListtCell: BaseTableViewCell {
     var timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 13,weight: .light)
-        label.textColor = UIColor(named: themeColor.TVCellTitleColor.rawValue)
+        label.textColor = ThemeManager.currentTheme.TVCellTitleColor
         label.textAlignment = NSTextAlignment.center
         label.text = label.text?.inLocalizedLanguage()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +40,7 @@ class IGRoomListtCell: BaseTableViewCell {
     var lastMsgLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 13, weight: .light)
-        label.textColor = UIColor(named: themeColor.TVCellTitleColor.rawValue)
+        label.textColor = ThemeManager.currentTheme.TVCellTitleColor
         label.textAlignment = label.localizedDirection
         label.text = ""
         label.text = label.text?.inLocalizedLanguage()
@@ -112,7 +112,7 @@ class IGRoomListtCell: BaseTableViewCell {
     var muteLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.iGapFonticon(ofSize: 16)
-        label.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+        label.textColor = ThemeManager.currentTheme.LabelGrayColor
         label.text = ""
         label.clipsToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -163,12 +163,12 @@ class IGRoomListtCell: BaseTableViewCell {
             
             //
             if item.pinId > 0 {
-                self.contentView.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
+                self.contentView.backgroundColor = ThemeManager.currentTheme.RecentTVCellColor
                 bgImage.isHidden = false
                 bgPinTagImage.isHidden = false
 
             } else {
-                self.contentView.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
+                self.contentView.backgroundColor = ThemeManager.currentTheme.RecentTVCellColor
                 bgImage.isHidden = true
                 bgPinTagImage.isHidden = true
 

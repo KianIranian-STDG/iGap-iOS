@@ -49,7 +49,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
 
         gradient.frame = defaultNavigationBarFrame
-        gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+        gradient.colors = [ThemeManager.currentTheme.NavigationFirstColor.cgColor, ThemeManager.currentTheme.NavigationSecondColor.cgColor]
         gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
         
@@ -83,7 +83,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         
         self.tableView.bounces = false
         self.tableView.contentOffset = CGPoint(x: 0, y: 55)
-        self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
+        self.tableView.tableHeaderView?.backgroundColor = ThemeManager.currentTheme.RecentTVCellColor
         self.tableView.tableFooterView = makeFooterView()
         if #available(iOS 11.0, *) {
             self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
@@ -286,7 +286,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     private func makeFooterView() -> UIView {
         txtFooter = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 70.0))
-        txtFooter.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+        txtFooter.textColor = ThemeManager.currentTheme.LabelGrayColor
         txtFooter.font = UIFont.igFont(ofSize: 16)
         txtFooter.textAlignment = .center
         txtFooter.backgroundColor = .clear
@@ -532,7 +532,7 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
         let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
 
         gradient.frame = defaultNavigationBarFrame
-        gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+        gradient.colors = [ThemeManager.currentTheme.NavigationFirstColor.cgColor, ThemeManager.currentTheme.NavigationSecondColor.cgColor]
         gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
         
@@ -546,7 +546,7 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
             textField.backgroundColor = .clear
 
             if let backgroundview = textField.subviews.first {
-                backgroundview.backgroundColor = UIColor(named: themeColor.searchBarBackGroundColor.rawValue)
+                backgroundview.backgroundColor = ThemeManager.currentTheme.SearchBarBackGroundColor
                 for view in backgroundview.subviews {
                     view.backgroundColor = .clear
                 }

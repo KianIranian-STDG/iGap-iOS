@@ -70,7 +70,7 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        lblCurrency.backgroundColor = UIColor(named: themeColor.navigationSecondColor.rawValue)
+        lblCurrency.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
         lblCurrency.textColor = .white
         QRHolder.image = UIImage(named: "SCAN_HOLDER_QR".Imagelocalized)
 

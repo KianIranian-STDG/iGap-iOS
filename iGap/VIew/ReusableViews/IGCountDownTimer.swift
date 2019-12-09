@@ -82,7 +82,7 @@ public class IGCountdownTimer: UIView {
         
         layer.cornerRadius = frame.width / 2
         clipsToBounds = true
-        self.backgroundColor = UIColor(named: themeColor.splashBackgroundColor.rawValue)
+        self.backgroundColor = ThemeManager.currentTheme.SplashBackgroundColor
     }
     
     required public init?(coder aDecoder: NSCoder) {

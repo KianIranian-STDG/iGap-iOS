@@ -92,7 +92,7 @@ class IGHelperMediaPicker {
         if let navigationBar = picker.navigationController?.navigationBar {
             var updatedFrame = navigationBar.bounds
             updatedFrame.size.height += navigationBar.frame.origin.y
-            let gradientLayer = CAGradientLayer(frame: updatedFrame, colors: [UIColor(named: themeColor.navigationFirstColor.rawValue)!, UIColor(named: themeColor.navigationSecondColor.rawValue)!], startPoint: .centerLeft, endPoint: .centerRight)
+            let gradientLayer = CAGradientLayer(frame: updatedFrame, colors: [ThemeManager.currentTheme.NavigationFirstColor, ThemeManager.currentTheme.NavigationSecondColor], startPoint: .centerLeft, endPoint: .centerRight)
             navigationBar.isTranslucent = false
             navigationBar.setBackgroundImage(gradientLayer.createGradientImage(), for: UIBarMetrics.default)
         }

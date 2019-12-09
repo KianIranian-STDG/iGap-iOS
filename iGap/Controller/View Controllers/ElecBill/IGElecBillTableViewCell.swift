@@ -57,7 +57,7 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
     
     private func customiseView() {
         self.topViewHolder.borderWidth = 0.5
-        self.topViewHolder.layer.borderColor = UIColor(named: themeColor.labelColor.rawValue)?.cgColor
+        self.topViewHolder.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
         btnPay.layer.cornerRadius = 15
         btnDetail.layer.cornerRadius = 15
         
@@ -102,25 +102,25 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
     }
     
     private func initColors() {
-        self.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        self.topViewHolder.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        btnPay.setTitleColor(UIColor(named: themeColor.textFieldBackGround.rawValue), for: .normal)
-        btnDetail.setTitleColor(UIColor(named: themeColor.textFieldBackGround.rawValue), for: .normal)
+        self.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        self.topViewHolder.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        btnPay.setTitleColor(ThemeManager.currentTheme.TextFieldBackGround, for: .normal)
+        btnDetail.setTitleColor(ThemeManager.currentTheme.TextFieldBackGround, for: .normal)
         btnDelete.setTitleColor(UIColor.iGapRed(), for: .normal)
-        btnEdite.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
+        btnEdite.setTitleColor(ThemeManager.currentTheme.LabelGrayColor, for: .normal)
         
-        btnPay.backgroundColor = UIColor(named: themeColor.labelSecondColor.rawValue)
-        btnDetail.backgroundColor = UIColor(named: themeColor.labelSecondColor.rawValue)
+        btnPay.backgroundColor = ThemeManager.currentTheme.LabelSecondColor
+        btnDetail.backgroundColor = ThemeManager.currentTheme.LabelSecondColor
         
-        lblBillName.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTTlBillNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTTlBillPayNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTTlBillPayDate.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTTlBillPayAmount.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataBillNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataBillPayDate.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataBillPayAmount.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataBillPayNumber.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        lblBillName.textColor = ThemeManager.currentTheme.LabelColor
+        lblTTlBillNumber.textColor = ThemeManager.currentTheme.LabelColor
+        lblTTlBillPayNumber.textColor = ThemeManager.currentTheme.LabelColor
+        lblTTlBillPayDate.textColor = ThemeManager.currentTheme.LabelColor
+        lblTTlBillPayAmount.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataBillNumber.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataBillPayDate.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataBillPayAmount.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataBillPayNumber.textColor = ThemeManager.currentTheme.LabelColor
     }
     
     private func initAlignments() {

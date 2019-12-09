@@ -49,7 +49,7 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
         initDetails()
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
 
-        self.tableView.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         
         tableView.tableFooterView = UIView()
     }

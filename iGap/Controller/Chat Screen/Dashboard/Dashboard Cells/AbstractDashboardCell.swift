@@ -110,7 +110,7 @@ class AbstractDashboardCell: UICollectionViewCell {
         view?.layer.shadowRadius = 1
         view?.layer.shadowColor = UIColor.gray.cgColor
         view?.layer.shadowOpacity = 0.4
-        view?.backgroundColor = UIColor(named: themeColor.dashboardCellBackgroundColor.rawValue)
+        view?.backgroundColor = ThemeManager.currentTheme.DashboardCellBackgroundColor
         
         img.layer.cornerRadius = IGDashboardViewController.itemCorner
         img.layer.masksToBounds = true

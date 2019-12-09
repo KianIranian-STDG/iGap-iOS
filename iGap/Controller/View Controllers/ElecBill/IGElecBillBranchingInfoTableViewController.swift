@@ -185,45 +185,45 @@ class IGElecBillBranchingInfoTableViewController: BaseTableViewController {
     }
     
     private func initColors() {
-        self.tableView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        self.tableView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
 
-        lblTitleRow0.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitleRow1.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitleRow2.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitleRow3.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitleRow4.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitleRow5.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitleRow6.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitleRow7.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitleRow8.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitleRow9.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitleRow10.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitleRow11.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitleRow12.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitleRow13.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitleRow14.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitleRow15.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitleRow16.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblTitleRow17.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        lblTitleRow0.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitleRow1.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitleRow2.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitleRow3.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitleRow4.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitleRow5.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitleRow6.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitleRow7.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitleRow8.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitleRow9.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitleRow10.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitleRow11.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitleRow12.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitleRow13.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitleRow14.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitleRow15.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitleRow16.textColor = ThemeManager.currentTheme.LabelColor
+        lblTitleRow17.textColor = ThemeManager.currentTheme.LabelColor
 
-        lblDataRow0.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataRow1.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataRow2.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataRow3.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataRow4.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataRow5.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataRow6.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataRow7.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataRow8.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataRow9.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataRow10.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataRow11.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataRow12.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataRow13.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataRow14.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataRow15.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataRow16.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblDataRow17.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        lblDataRow0.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataRow1.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataRow2.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataRow3.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataRow4.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataRow5.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataRow6.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataRow7.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataRow8.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataRow9.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataRow10.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataRow11.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataRow12.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataRow13.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataRow14.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataRow15.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataRow16.textColor = ThemeManager.currentTheme.LabelColor
+        lblDataRow17.textColor = ThemeManager.currentTheme.LabelColor
     }
     
     private func initAlignments() {

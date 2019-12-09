@@ -112,8 +112,8 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
             //btn.removeUnderline()
             btn.layer.cornerRadius = 5
             btn.layer.borderWidth = 1
-            btn.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
-            btn.layer.backgroundColor = UIColor(named: themeColor.buttonBGColor.rawValue)?.cgColor
+            btn.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
+            btn.layer.backgroundColor = ThemeManager.currentTheme.ButtonBGColor.cgColor
         }
     }
     
@@ -121,7 +121,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
         for edt in editTexts {
             edt.layer.cornerRadius = 5
             edt.layer.borderWidth = 1
-            edt.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
+            edt.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
         }
     }
     
@@ -132,7 +132,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerc
             if grayLine {
                 txt.layer.borderColor = UIColor.gray.cgColor
             } else {
-                txt.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
+                txt.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
             }
         }
     }

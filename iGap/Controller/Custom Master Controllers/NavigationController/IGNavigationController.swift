@@ -49,7 +49,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
     
     private func setNavigationGradient() {
         if let navigationBar = self.navigationBar as? IGNavigationBar {
-            navigationBar.setGradientBackground(colors: [UIColor(named: themeColor.navigationFirstColor.rawValue)!, UIColor(named: themeColor.navigationSecondColor.rawValue)!], startPoint: .centerLeft, endPoint: .centerRight)
+            navigationBar.setGradientBackground(colors: [ThemeManager.currentTheme.NavigationFirstColor, ThemeManager.currentTheme.NavigationSecondColor], startPoint: .centerLeft, endPoint: .centerRight)
         }
     }
 

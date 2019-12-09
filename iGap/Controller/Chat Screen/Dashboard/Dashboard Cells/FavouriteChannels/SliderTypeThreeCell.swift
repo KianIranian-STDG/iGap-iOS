@@ -65,7 +65,7 @@ class SliderTypeThreeCell: UITableViewCell,UICollectionViewDelegate, UICollectio
             cell.imgBG.sd_setImage(with: url, completed: nil)
         }
         
-        cell.contentView.backgroundColor = UIColor(named: themeColor.backGroundGrayColor.rawValue)
+        cell.contentView.backgroundColor = ThemeManager.currentTheme.BackGroundGrayColor
         
         let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
         cell.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)

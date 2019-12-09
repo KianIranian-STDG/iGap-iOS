@@ -205,7 +205,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if let navigationBar = self.navigationController?.navigationBar as? IGNavigationBar {
-            navigationBar.setGradientBackground(colors: [UIColor(named: themeColor.navigationFirstColor.rawValue)!, UIColor(named: themeColor.navigationSecondColor.rawValue)!], startPoint: .centerLeft, endPoint: .centerRight)
+            navigationBar.setGradientBackground(colors: [ThemeManager.currentTheme.NavigationFirstColor, ThemeManager.currentTheme.NavigationSecondColor], startPoint: .centerLeft, endPoint: .centerRight)
         }
     }
     
@@ -346,8 +346,8 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         lblUserName.text = IGStringsManager.Username.rawValue.localized
         lblBioInner.text = IGStringsManager.Bio.rawValue.localized
         lblReferralInner.text = IGStringsManager.Referral.rawValue.localized
-        lblBioInner.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
-        lblReferralInner.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+        lblBioInner.textColor = ThemeManager.currentTheme.LabelGrayColor
+        lblReferralInner.textColor = ThemeManager.currentTheme.LabelGrayColor
 
         btnName.setTitle(IGStringsManager.FirstName.rawValue.localized, for: .normal)
         lblCloud.text = IGStringsManager.Cloud.rawValue.localized

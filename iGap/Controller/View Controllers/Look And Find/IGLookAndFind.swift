@@ -33,7 +33,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         if let searchBarCancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
             searchBarCancelButton.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
             searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14, weight: .bold)
-            searchBarCancelButton.tintColor = UIColor(named: themeColor.labelColor.rawValue)
+            searchBarCancelButton.tintColor = ThemeManager.currentTheme.LabelColor
         }
         
         searchBar.delegate = self
@@ -41,9 +41,9 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        tableView.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
-        tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
-        self.view.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
+        tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        tableView.tableHeaderView?.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.view.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         
         IGHelperView.makeSearchView(searchBar: searchBar)
         
@@ -57,7 +57,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let attributes:[NSAttributedString.Key:Any] = [
-            NSAttributedString.Key.foregroundColor : UIColor(named: themeColor.labelColor.rawValue),
+            NSAttributedString.Key.foregroundColor : ThemeManager.currentTheme.LabelColor,
             NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)
         ]
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)

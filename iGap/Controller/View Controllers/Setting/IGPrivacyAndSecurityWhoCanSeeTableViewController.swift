@@ -119,7 +119,7 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController 
             let containerView = view as! UITableViewHeaderFooterView
             containerView.textLabel!.text = headerText
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+            containerView.textLabel?.textColor = ThemeManager.currentTheme.LabelGrayColor
             containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
         }
     }

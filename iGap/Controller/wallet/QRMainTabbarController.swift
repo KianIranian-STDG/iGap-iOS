@@ -22,7 +22,7 @@ class QRMainTabbarController: UITabBarController {
         
         override func viewDidLoad() {
             super.viewDidLoad()
-            self.tabBar.barTintColor = UIColor(named: themeColor.navigationSecondColor.rawValue)
+            self.tabBar.barTintColor = ThemeManager.currentTheme.NavigationSecondColor
             tabBar.items![0].title = IGStringsManager.QrCodeScanner.rawValue.localized
             tabBar.items![1].title = IGStringsManager.MyQr.rawValue.localized
         }
@@ -48,7 +48,7 @@ class QRMainTabbarController: UITabBarController {
         func selectedItemTitleMustbeBold(){
             for item in tabBar.items!{
                 if #available(iOS 10.0, *) {
-                    item.badgeColor = UIColor(named: themeColor.tabbarLabelColor.rawValue)
+                    item.badgeColor = ThemeManager.currentTheme.TabbarColorLabel
                 }
                 if tabBar.selectedItem == item {
                     setCurrentTab(tag: (tabBar.selectedItem?.tag)!)

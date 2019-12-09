@@ -42,7 +42,7 @@ class IGElecBillMyBillListTableViewController: BaseTableViewController {
     }
     
     private func customiseView() {
-        self.tableView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        self.tableView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         self.tableView.tableFooterView = UIView()
         self.tableView.semanticContentAttribute = self.semantic
         
@@ -53,9 +53,9 @@ class IGElecBillMyBillListTableViewController: BaseTableViewController {
         let btn = UIButton()
         btn.layer.cornerRadius = 15
         btn.setTitle(IGStringsManager.BillAddMode.rawValue.localized, for: .normal)
-        btn.setTitleColor(UIColor(named: themeColor.labelSecondColor.rawValue), for: .normal)
-        btn.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        btn.layer.borderColor = UIColor(named: themeColor.labelSecondColor.rawValue)?.cgColor
+        btn.setTitleColor(ThemeManager.currentTheme.LabelSecondColor, for: .normal)
+        btn.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        btn.layer.borderColor = ThemeManager.currentTheme.LabelSecondColor.cgColor
         btn.layer.borderWidth = 2.0
         btn.titleLabel!.font = UIFont.igFont(ofSize: 15)
         headerView.addSubview(btn)
@@ -71,7 +71,7 @@ class IGElecBillMyBillListTableViewController: BaseTableViewController {
             make.left.equalTo(headerView.snp.left).offset(10)
             make.right.equalTo(headerView.snp.right).offset(-10)
         }
-        headerView.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
+        headerView.backgroundColor = ThemeManager.currentTheme.RecentTVCellColor
         
         return headerView
     }

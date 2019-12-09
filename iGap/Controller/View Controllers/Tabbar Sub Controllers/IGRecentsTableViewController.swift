@@ -41,7 +41,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
 
         gradient.frame = defaultNavigationBarFrame
-        gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+        gradient.colors = [ThemeManager.currentTheme.NavigationFirstColor.cgColor, ThemeManager.currentTheme.NavigationSecondColor.cgColor]
         gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
         
@@ -66,7 +66,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
 
         gradient.frame = defaultNavigationBarFrame
-        gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+        gradient.colors = [ThemeManager.currentTheme.NavigationFirstColor.cgColor, ThemeManager.currentTheme.NavigationSecondColor.cgColor]
         gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
         
@@ -264,9 +264,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             print("RLM EXEPTION ERR HAPPENDED IN VIEWDIDLOAD:",String(describing: self))
         }
         self.tableView.tableFooterView = UIView()
-        self.tableView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        self.view.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
+        self.tableView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        self.view.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        self.tableView.tableHeaderView?.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
             self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
@@ -1380,7 +1380,7 @@ extension IGRecentsTableViewController {
             textField.backgroundColor = .clear
 
             if let backgroundview = textField.subviews.first {
-                backgroundview.backgroundColor = UIColor(named: themeColor.searchBarBackGroundColor.rawValue)
+                backgroundview.backgroundColor = ThemeManager.currentTheme.SearchBarBackGroundColor
                 for view in backgroundview.subviews {
                     view.backgroundColor = .clear
                 }

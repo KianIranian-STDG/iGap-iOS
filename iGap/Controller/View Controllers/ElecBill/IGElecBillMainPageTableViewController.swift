@@ -54,11 +54,11 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
     
     private func customiseView() {
         self.topViewHolder.borderWidth = 0.5
-        self.topViewHolder.layer.borderColor = UIColor(named: themeColor.labelColor.rawValue)?.cgColor
+        self.topViewHolder.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
         self.btnMyBills.layer.borderWidth = 2
-        self.btnMyBills.layer.borderColor = UIColor(named: themeColor.labelSecondColor.rawValue)?.cgColor
+        self.btnMyBills.layer.borderColor = ThemeManager.currentTheme.LabelSecondColor.cgColor
         self.btnSearchBills.layer.borderWidth = 2
-        self.btnSearchBills.layer.borderColor = UIColor(named: themeColor.labelSecondColor.rawValue)?.cgColor
+        self.btnSearchBills.layer.borderColor = ThemeManager.currentTheme.LabelSecondColor.cgColor
         self.btnMyBills.layer.cornerRadius = 15
         self.btnSearchBills.layer.cornerRadius = 15
         self.btnQueryTopHolder.layer.cornerRadius = 15
@@ -73,7 +73,7 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
         lblTopHolder.font = UIFont.igFont(ofSize: 15, weight: .bold)
         tfBillIdNumber.font = UIFont.igFont(ofSize: 15)
         let attributes = [
-            NSAttributedString.Key.foregroundColor: UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue),
+            NSAttributedString.Key.foregroundColor: ThemeManager.currentTheme.TextFieldPlaceHolderColor,
             NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)]
         tfBillIdNumber.attributedPlaceholder = NSAttributedString(string: IGStringsManager.ElecBillID.rawValue.localized, attributes:attributes as [NSAttributedString.Key : Any])
     }
@@ -87,16 +87,16 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
     }
     
     private func initColors() {
-        self.tableView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        self.topViewHolder.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        lblTopHolder.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        btnScanBarcode.setTitleColor(UIColor(named: themeColor.labelGrayColor.rawValue), for: .normal)
-        btnQueryTopHolder.setTitleColor(UIColor(named: themeColor.textFieldBackGround.rawValue), for: .normal)
-        btnMyBills.setTitleColor(UIColor(named: themeColor.labelSecondColor.rawValue), for: .normal)
-        btnSearchBills.setTitleColor(UIColor(named: themeColor.labelSecondColor.rawValue), for: .normal)
-        self.btnSearchBills.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        self.btnMyBills.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
-        self.btnQueryTopHolder.backgroundColor = UIColor(named: themeColor.labelSecondColor.rawValue)
+        self.tableView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        self.topViewHolder.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        lblTopHolder.textColor = ThemeManager.currentTheme.LabelColor
+        btnScanBarcode.setTitleColor(ThemeManager.currentTheme.LabelGrayColor, for: .normal)
+        btnQueryTopHolder.setTitleColor(ThemeManager.currentTheme.TextFieldBackGround, for: .normal)
+        btnMyBills.setTitleColor(ThemeManager.currentTheme.LabelSecondColor, for: .normal)
+        btnSearchBills.setTitleColor(ThemeManager.currentTheme.LabelSecondColor, for: .normal)
+        self.btnSearchBills.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        self.btnMyBills.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        self.btnQueryTopHolder.backgroundColor = ThemeManager.currentTheme.LabelSecondColor
     }
     
     private func initAlignments() {

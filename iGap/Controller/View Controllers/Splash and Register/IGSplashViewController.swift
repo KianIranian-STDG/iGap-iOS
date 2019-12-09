@@ -35,7 +35,7 @@ class IGSplashViewController: UIViewController {
         selectLanguageTV.layer.masksToBounds = true
         selectLanguageTV.layer.cornerRadius = 8
         selectLanguageTV.layer.borderWidth = 1
-        selectLanguageTV.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
+        selectLanguageTV.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
     }
 
 }

@@ -171,7 +171,7 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
         btnCheckmarkPrivacy.titleLabel?.font = UIFont.iGapFonticon(ofSize: 23)
         if isChecked {
             btnCheckmarkPrivacy.setTitle("NOT_CHECKED_ICON".Imagelocalized, for: .normal)
-            btnCheckmarkPrivacy.setTitleColor(UIColor(named: themeColor.labelColor.rawValue), for: .normal)
+            btnCheckmarkPrivacy.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         }
         else {
             btnCheckmarkPrivacy.setTitle("CHECKED_ICON".Imagelocalized, for: .normal)

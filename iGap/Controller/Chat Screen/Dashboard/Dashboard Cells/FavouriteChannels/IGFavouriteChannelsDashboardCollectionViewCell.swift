@@ -20,7 +20,7 @@ class IGFavouriteChannelsDashboardCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.backgroundColor = UIColor(named: themeColor.tableViewCell.rawValue)
+        self.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
         self.layer.cornerRadius = 14.0
         self.contentView.layer.cornerRadius = 14.0
         self.contentView.layer.masksToBounds = true

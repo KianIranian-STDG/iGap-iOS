@@ -23,7 +23,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     var groupAvatarAttachment: IGFile!
     var getRoomResponseID : Int64?
     let width = CGFloat(0.5)
-    let borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)!
+    let borderColor = ThemeManager.currentTheme.LabelGrayColor
     var mode : String?
     var roomId : Int64?
     var selectedUsersToCreateGroup = [IGRegisteredUser]()
@@ -74,7 +74,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     func roundUserImage(_ roundView:UIView){
         roundView.layer.borderWidth = 0
         roundView.layer.masksToBounds = true
-        let borderUserImageColor = UIColor(named: themeColor.labelGrayColor.rawValue)!
+        let borderUserImageColor = ThemeManager.currentTheme.LabelGrayColor
         roundView.layer.borderColor = borderUserImageColor.cgColor
         roundView.layer.cornerRadius = roundView.frame.size.height/2
         roundView.clipsToBounds = true

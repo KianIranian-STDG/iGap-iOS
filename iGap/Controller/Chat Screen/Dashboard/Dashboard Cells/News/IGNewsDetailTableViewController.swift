@@ -116,7 +116,7 @@ class IGNewsDetailTableViewController: UITableViewController,UIGestureRecognizer
 
     
     func initView() {
-        lblComments.textColor = UIColor(named : themeColor.labelColor.rawValue)
+        lblComments.textColor = ThemeManager.currentTheme.LabelColor
         lblComments.font = UIFont.igFont(ofSize: 15)
         lblComments.textAlignment = .center
         btnShare.setTitle(IGStringsManager.Share.rawValue.localized, for: .normal)
@@ -187,11 +187,11 @@ class IGNewsDetailTableViewController: UITableViewController,UIGestureRecognizer
             topHeaderDate = UILabel()
             v.addSubview(topHeaderDate)
           
-            v.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
+            v.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
 
             topHeaderDate.text = "date comes here"
             topHeaderDate.font = UIFont.igFont(ofSize: 12)
-            topHeaderDate.textColor = UIColor(named: themeColor.labelColor.rawValue)
+            topHeaderDate.textColor = ThemeManager.currentTheme.LabelColor
             topHeaderDate.textAlignment = .right
             topHeaderDate.translatesAutoresizingMaskIntoConstraints = false
 
@@ -236,10 +236,10 @@ class IGNewsDetailTableViewController: UITableViewController,UIGestureRecognizer
 
             let lbl = UILabel()
             v.addSubview(lbl)
-            v.backgroundColor = UIColor(named: themeColor.tableViewCell.rawValue)
+            v.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
             lbl.text = IGStringsManager.comments.rawValue.localized
             lbl.font = UIFont.igFont(ofSize: 15)
-            lbl.textColor = UIColor(named: themeColor.labelColor.rawValue)
+            lbl.textColor = ThemeManager.currentTheme.LabelColor
             lbl.textAlignment = .right
             lbl.translatesAutoresizingMaskIntoConstraints = false
 
@@ -267,11 +267,11 @@ class IGNewsDetailTableViewController: UITableViewController,UIGestureRecognizer
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == 1 {
             let v = UIView()
-            v.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
+            v.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
             return v
         } else {
             let v = UIView()
-            v.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
+            v.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
             return v
 
         }

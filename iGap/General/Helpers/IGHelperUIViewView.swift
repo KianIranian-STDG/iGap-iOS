@@ -71,7 +71,7 @@ class IGHelperUIViewView {
         //BG view
         let backView = UIViewX()
         backView.tag = 100
-        backView.backgroundColor = UIColor(named: themeColor.navigationSecondColor.rawValue)
+        backView.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
         window.addSubview(backView)
         //constraints
         backView.translatesAutoresizingMaskIntoConstraints = false
