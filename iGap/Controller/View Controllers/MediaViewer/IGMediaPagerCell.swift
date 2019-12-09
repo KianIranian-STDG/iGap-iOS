@@ -11,12 +11,20 @@
 import UIKit
 import SnapKit
 import FSPagerView
+import AVKit
 
 class IGMediaPagerCell: FSPagerViewCell {
 
-    var imgMedia: IGImageView!
-    var progress: IGProgress!
-    
+    // Global View
+    private var imgMedia: IGImageView!
+    private var progress: IGProgress!
+    // Video Info View
+    private var viewVideoInfo: UIView!
+    private var txtVideoInfo: UILabel!
+    private var txtVideoIcon: UILabel!
+    private var txtVideoPlay: UILabel!
+
+    private var finalRoomMessage: IGRoomMessage!
     private var attachment: IGFile!
     
     class func nib() -> UINib {
@@ -31,11 +39,15 @@ class IGMediaPagerCell: FSPagerViewCell {
         super.awakeFromNib()
     }
     
+    // MARK:- Intialize Item
     public func setMessageItem(message: IGRoomMessage, size: MediaViewerCellCalculatedSize) {
-        let finalMessage = message.getFinalMessage()
-        attachment = finalMessage.attachment
+        finalRoomMessage = message.getFinalMessage()
+        attachment = finalRoomMessage.attachment
         
         makeView(size: size)
+        if finalRoomMessage.type == .video || finalRoomMessage.type == .videoAndText {
+            makeVideoInfo()
+        }
         
         if let attachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
             self.attachment = attachmentVariableInCache.value
@@ -48,8 +60,8 @@ class IGMediaPagerCell: FSPagerViewCell {
         
         /* Rx Start */
         if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
-            if let disposable = IGGlobal.dispoasDic[finalMessage.id] {
-                IGGlobal.dispoasDic.removeValue(forKey: finalMessage.id)
+            if let disposable = IGGlobal.dispoasDic[finalRoomMessage.id] {
+                IGGlobal.dispoasDic.removeValue(forKey: finalRoomMessage.id)
                 disposable.dispose()
             }
             let subscriber = variableInCache.asObservable().subscribe({ (event) in
@@ -57,7 +69,7 @@ class IGMediaPagerCell: FSPagerViewCell {
                     self.showMedia()
                 }
             })
-            IGGlobal.dispoasDic[finalMessage.id] = subscriber
+            IGGlobal.dispoasDic[finalRoomMessage.id] = subscriber
         }
     }
     
@@ -67,22 +79,30 @@ class IGMediaPagerCell: FSPagerViewCell {
     
     private func showMedia(){
         let fileExist = IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size)
-        if !fileExist {
+        if fileExist {
+            if self.finalRoomMessage.type == .video || self.finalRoomMessage.type == .videoAndText {
+                makeVideoPlayView()
+            }
+        } else {
             progress.isHidden = false
             progress.delegate = self
         }
         progress?.setState(attachment.status)
-        if attachment.status == .downloading || attachment.status == .uploading {
+        if attachment.status == .downloading {
             progress?.setPercentage(attachment.downloadUploadPercent)
+        } else {
+            progress?.setFileType(.download)
         }
         imgMedia.setThumbnail(for: attachment, showMain: false)
     }
     
-    
+    // MARK:- View Maker
     private func makeView(size: MediaViewerCellCalculatedSize){
         
         imgMedia?.removeFromSuperview()
         progress?.removeFromSuperview()
+        viewVideoInfo?.removeFromSuperview()
+        txtVideoPlay?.removeFromSuperview()
         
         imgMedia = IGImageView()
         self.addSubview(imgMedia)
@@ -102,6 +122,82 @@ class IGMediaPagerCell: FSPagerViewCell {
             make.center.equalTo(imgMedia.snp.center)
             make.width.equalTo(60)
             make.height.equalTo(60)
+        }
+    }
+    
+    private func makeVideoInfo(){
+        
+        viewVideoInfo = UIView()
+        viewVideoInfo.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        viewVideoInfo.layer.cornerRadius = 10
+        viewVideoInfo.layer.borderWidth = 1
+        viewVideoInfo.layer.borderColor = UIColor.chatBubbleBorderColor().cgColor
+        self.addSubview(viewVideoInfo)
+        
+        txtVideoIcon = UILabel()
+        txtVideoIcon.textColor = UIColor.white
+        txtVideoIcon.font = UIFont.iGapFonticon(ofSize: 16)
+        txtVideoIcon.text = ""
+        viewVideoInfo.addSubview(txtVideoIcon)
+        
+        txtVideoInfo = UILabel()
+        txtVideoInfo.textColor = UIColor.white
+        txtVideoInfo.font = UIFont.igFont(ofSize: 10)
+        viewVideoInfo.addSubview(txtVideoInfo)
+        
+        viewVideoInfo?.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.snp.centerX)
+            make.centerY.equalTo(self.snp.centerY).offset(40) // play view height is 60, so for set this view top of play or download icon and for avoid from check with both these views
+            make.height.equalTo(20)
+            make.width.greaterThanOrEqualTo(40)
+        }
+        
+        txtVideoIcon?.snp.makeConstraints { (make) in
+            make.leading.equalTo(viewVideoInfo.snp.leading).offset(4)
+            make.centerY.equalTo(viewVideoInfo.snp.centerY)
+        }
+        
+        txtVideoInfo?.snp.makeConstraints { (make) in
+            make.leading.equalTo(txtVideoIcon.snp.trailing).offset(3)
+            make.trailing.equalTo(viewVideoInfo.snp.trailing).offset(-4)
+            make.centerY.equalTo(viewVideoInfo.snp.centerY)
+        }
+        
+        let time : String! = IGAttachmentManager.sharedManager.convertFileTime(seconds: Int((finalRoomMessage.attachment?.duration)!))
+        txtVideoInfo.text = "\(time!) (\(IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: (finalRoomMessage.attachment?.size)!)))"
+    }
+    
+    private func makeVideoPlayView(){
+        txtVideoPlay = UILabel()
+        txtVideoPlay.font = UIFont.iGapFonticon(ofSize: 40)
+        txtVideoPlay.textAlignment = NSTextAlignment.center
+        txtVideoPlay.text = ""
+        txtVideoPlay.textColor = UIColor.white
+        txtVideoPlay.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        txtVideoPlay.layer.masksToBounds = true
+        txtVideoPlay.layer.cornerRadius = 27.5
+        self.addSubview(txtVideoPlay)
+        
+        txtVideoPlay?.snp.makeConstraints { (make) in
+            make.width.equalTo(55)
+            make.height.equalTo(55)
+            make.centerX.equalTo(imgMedia.snp.centerX)
+            make.centerY.equalTo(imgMedia.snp.centerY)
+        }
+        
+        let tapOnView = UITapGestureRecognizer(target: self, action: #selector(didTapOnPlay(_:)))
+        txtVideoPlay.addGestureRecognizer(tapOnView)
+        txtVideoPlay.isUserInteractionEnabled = true
+    }
+    
+    // MARK:- User Actions
+    @objc func didTapOnPlay(_ gestureRecognizer: UITapGestureRecognizer) {
+        if let path = self.attachment.path() {
+            let player = AVPlayer(url: path)
+            let avController = AVPlayerViewController()
+            avController.player = player
+            player.play()
+            UIApplication.topViewController()?.present(avController, animated: true, completion: nil)
         }
     }
 }

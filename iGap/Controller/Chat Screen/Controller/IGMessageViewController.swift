@@ -5766,7 +5766,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         mediaViewer.hidesBottomBarWhenPushed = true
         mediaViewer.roomId = self.room?.id
         mediaViewer.messageId = cellMessage.id
-        mediaViewer.mediaViewerType = .image
+        mediaViewer.mediaPagerType = .imageAndVideo
         self.navigationController!.pushViewController(mediaViewer, animated: false)
         return
         
