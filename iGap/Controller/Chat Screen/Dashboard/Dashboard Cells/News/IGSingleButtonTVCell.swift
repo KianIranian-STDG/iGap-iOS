@@ -53,6 +53,8 @@ class IGSingleButtonTVCell: UITableViewCell {
         let finalUrl = URL(string: urlOne!)
 
         DeepLinkManager.shared.handleDeeplink(url: finalUrl!)
+        DeepLinkManager.shared.checkDeepLink()
+
     }
     
 }

@@ -896,9 +896,10 @@ class AbstractDashboardCell: UICollectionViewCell {
                 carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
             } else {
                 if !discoveryInfo.igpValue.isEmpty {
-                    let dashboard = IGNewsTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
-                    dashboard.hidesBottomBarWhenPushed = true
-                    UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
+                    let finalUrl = URL(string: discoveryInfo.igpValue)
+
+                    DeepLinkManager.shared.handleDeeplink(url: finalUrl!)
+                    DeepLinkManager.shared.checkDeepLink()
                 } else {
                     let dashboard = IGNewsTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
                         dashboard.hidesBottomBarWhenPushed = true
