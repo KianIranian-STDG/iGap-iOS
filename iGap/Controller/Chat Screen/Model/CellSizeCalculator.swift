@@ -12,10 +12,12 @@ import UIKit
 import IGProtoBuff
 
 typealias MessageCalculatedSize = (bubbleSize: CGSize, messageAttachmentHeight: CGFloat, additionalHeight: CGFloat)
+typealias MediaViewerCellCalculatedSize = (mediaSize: CGSize, messageHeight: CGSize)
 
 class CellSizeCalculator: NSObject {
     
     private var cache : NSCache<NSString, AnyObject>
+    private var mediaViewerCache : NSCache<NSString, AnyObject>
     private static let EXTRA_HEIGHT_RTL_OR_VOTE = 20
     public static let IMG_REPLY_DEFAULT_HEIGHT = 30
     internal static let RTL_OFFSET = -(EXTRA_HEIGHT_RTL_OR_VOTE - 7)
@@ -26,6 +28,10 @@ class CellSizeCalculator: NSObject {
         cache = NSCache()
         cache.countLimit = 200
         cache.name = "im.igap.cache.CellSizeCalculator"
+        
+        mediaViewerCache = NSCache()
+        mediaViewerCache.countLimit = 200
+        mediaViewerCache.name = "im.igap.cache.CellSizeCalculator"
     }
     
     class func messageBodyTextViewFont() -> UIFont {
@@ -273,6 +279,29 @@ class CellSizeCalculator: NSObject {
         return result
     }
     
+    func mediaViewerCellSize(message: IGRoomMessage) -> MediaViewerCellCalculatedSize {
+        
+        let cacheKey = "\(String(describing: message.id))" as NSString
+        let cachedSize = mediaViewerCache.object(forKey: cacheKey)
+        if cachedSize != nil {
+            return cachedSize as! MediaViewerCellCalculatedSize
+        }
+        
+        var mediaHeight: CGSize!
+        var messageHeight: CGSize!
+        
+        if let file = message.attachment {
+            mediaHeight = fetchMediaViewerCellFrame(media: file)
+        }
+        if let text = message.message {
+            messageHeight = CellSizeCalculator.bodyRect(text: text as NSString, width: CellSizeLimit.MediaViewerCellSize.MaxWidth)
+        }
+        
+        let result: MediaViewerCellCalculatedSize = (mediaHeight, messageHeight)
+        mediaViewerCache.setObject(result as AnyObject, forKey: cacheKey)
+        return result
+    }
+    
     func getAdditional(roomMessage: IGRoomMessage) -> String? {
         if let additionalData = roomMessage.additional?.data, roomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue {
             return additionalData
@@ -289,7 +318,7 @@ class CellSizeCalculator: NSObject {
         return [convertFromNSAttributedStringKey(NSAttributedString.Key.font): computeSizeFont(), convertFromNSAttributedStringKey(NSAttributedString.Key.paragraphStyle): paragraph]
     }
     
-    class func bodyRect(text: NSString, width:CGFloat=CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text, isEdited: Bool, extraHeight: Bool) -> CGSize {
+    class func bodyRect(text: NSString, width:CGFloat=CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text, isEdited: Bool = false, extraHeight: Bool = false) -> CGSize {
         
         let fakeMinusWidth: CGFloat = 20
         var maxWidth = width
@@ -362,6 +391,12 @@ class CellSizeCalculator: NSObject {
         
     }
     
+    func fetchMediaViewerCellFrame(media: IGFile) -> CGSize {
+        return mediaViewerCellFrame(media: media,
+                          maxWidth:  CellSizeLimit.MediaViewerCellSize.MaxWidth,
+                          maxHeight: CellSizeLimit.MediaViewerCellSize.MaxHeight)
+    }
+    
     func mediaFrame(media: IGFile, maxWidth: CGFloat, maxHeight: CGFloat, minWidth: CGFloat, minHeight: CGFloat) -> CGSize {
         if media.width != 0 && media.height != 0 {
             var width = CGFloat(media.width)
@@ -386,6 +421,25 @@ class CellSizeCalculator: NSObject {
             return CGSize(width: width, height: height)
         } else {
             return CGSize(width: minWidth, height: minHeight)
+        }
+    }
+    
+    func mediaViewerCellFrame(media: IGFile, maxWidth: CGFloat, maxHeight: CGFloat) -> CGSize {
+        if media.width != 0 && media.height != 0 {
+            var width = CGFloat(media.width)
+            var height = CGFloat(media.height)
+            
+            let heightRatio = maxHeight / height
+            let widthRatio = maxWidth / width
+            
+            let minRatio = min(heightRatio, widthRatio)
+            
+            height = height * minRatio
+            width = width * minRatio
+            
+            return CGSize(width: width, height: height)
+        } else {
+            return CGSize(width: maxWidth, height: maxHeight)
         }
     }
     

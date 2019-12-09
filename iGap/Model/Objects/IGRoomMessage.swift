@@ -647,7 +647,7 @@ class IGRoomMessage: Object {
                         room.lastMessage?.previousMessageId = lastMessage.id
                     }
                     // filter lastMessage & pinMessage for avoid from delete message
-                    let allMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "roomId == %lld AND id != %lld AND id != %lld", roomId, (room.lastMessage?.id ?? 0), (room.pinMessage?.id ?? 0)))
+                    let allMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "roomId == %lld AND (id != %lld AND id != %lld OR statusRaw < %d)", roomId, (room.lastMessage?.id ?? 0), (room.pinMessage?.id ?? 0), IGRoomMessageStatus.sent.rawValue))
                     IGDatabaseManager.shared.realm.delete(allMessages)
                 }
             }

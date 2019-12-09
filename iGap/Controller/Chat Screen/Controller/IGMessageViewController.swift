@@ -5761,6 +5761,15 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     }
     
     func didTapOnAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell, imageView: IGImageView?) {
+        
+        let mediaViewer = IGMediaViewer.instantiateFromAppStroryboard(appStoryboard: .Main)
+        mediaViewer.hidesBottomBarWhenPushed = true
+        mediaViewer.roomId = self.room?.id
+        mediaViewer.messageId = cellMessage.id
+        mediaViewer.mediaViewerType = .image
+        self.navigationController!.pushViewController(mediaViewer, animated: false)
+        return
+        
         UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions(rawValue: UInt(0.3)), animations: {
             self.view.layoutIfNeeded()
         }, completion: { (completed) in

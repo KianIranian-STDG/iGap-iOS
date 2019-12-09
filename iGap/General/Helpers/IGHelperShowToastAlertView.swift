@@ -96,24 +96,17 @@ class IGHelperShowToastAlertView {
             
             
             //creat message label
-            
             lblMessage.translatesAutoresizingMaskIntoConstraints = false
             lblMessage.rightAnchor.constraint(equalTo: lblIcon.leftAnchor, constant: -10).isActive = true
             lblMessage.leftAnchor.constraint(equalTo: self.popView.leftAnchor, constant: 10).isActive = true
             lblMessage.centerYAnchor.constraint(equalTo: self.popView.centerYAnchor, constant: 0).isActive = true
             lblMessage.heightAnchor.constraint(equalToConstant: 40).isActive = true
             
-            
-            
-            
-            
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { // Change `time` to the desired number of seconds.
-                
                 self.removeAutomatically(view: alertView)
-                
             }
             
-            
+            alertView!.view.bringSubviewToFront(self.popView)
         }
         
     }

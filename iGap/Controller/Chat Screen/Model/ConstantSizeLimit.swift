@@ -18,7 +18,10 @@ class CellSizeLimit: NSObject {
     
     private init(roomId: Int64 = -1) {
         
-        let width = IGGlobal.fetchUIScreen().width
+        let screenSize = IGGlobal.fetchUIScreen()
+        let width = screenSize.width
+        let height = screenSize.height
+        
         let extraSize : CGFloat = 80
         
         let maximumTextWidth = ConstantSizes.Bubble.Width.Maximum.Text + extraSize
@@ -42,6 +45,9 @@ class CellSizeLimit: NSObject {
             ConstantSizes.Bubble.Width.Minimum.Text = 80
             ConstantSizes.Bubble.Width.Minimum.Attachment = 80
         }
+        
+        MediaViewerCellSize.MaxHeight = height
+        MediaViewerCellSize.MaxWidth = width
     }
     
     struct ConstantSizes {
@@ -137,6 +143,11 @@ class CellSizeLimit: NSObject {
             static let Width: CGFloat = 220.0
             static let Height: CGFloat = 300.0
         }
+    }
+    
+    struct MediaViewerCellSize {
+        static var MaxHeight: CGFloat!
+        static var MaxWidth: CGFloat!
     }
     
     private struct ChannelConstantSizes {

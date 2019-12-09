@@ -49,7 +49,7 @@ class IGAppManager: NSObject {
     private var _walletActive: Bool = false
     private var _AccessToken: String!
 
-    public let LOAD_ROOM_LIMIT = 15
+    public let LOAD_ROOM_LIMIT = 100
     
     private override init() {
         connectionStatus = Variable(.waitingForNetwork)
@@ -370,7 +370,6 @@ class IGAppManager: NSObject {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
                 if let session = IGDatabaseManager.shared.realm.objects(IGSessionInfo.self).first {
-                    print("WWW || set accessToken: \(accessToken)")
                     session.accessToken = accessToken
                 }
             }

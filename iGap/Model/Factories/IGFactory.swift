@@ -574,11 +574,10 @@ class IGFactory: NSObject {
                         room.lastMessage = nil
                     }
                     
-                    //delete all messageId that is lower than clearId
-                    let messagePredicate = NSPredicate(format: "roomId = %lld AND id <= %lld", roomID, clearID)
+                    //Query Explain: delete all messageId that is lower than clearId OR message status raw value is lower than 'sent' status (this means message is unknown, failed or sending)
+                    let messagePredicate = NSPredicate(format: "roomId = %lld AND (id <= %lld OR statusRaw < %d) ", roomID, clearID, IGRoomMessageStatus.sent.rawValue)
                     IGDatabaseManager.shared.realm.delete(IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(messagePredicate))
                 }
-                
             }
         }
     }

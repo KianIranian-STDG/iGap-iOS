@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -3733,6 +3734,97 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="keA-Df-Kt2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1145" y="-1544"/>
+        </scene>
+        <!--Media Viewer-->
+        <scene sceneID="Nbf-uw-H5c">
+            <objects>
+                <viewController storyboardIdentifier="IGMediaViewer" useStoryboardIdentifierAsRestorationIdentifier="YES" id="s01-eY-HDu" customClass="IGMediaViewer" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LaW-yV-KqG"/>
+                        <viewControllerLayoutGuide type="bottom" id="BVr-XV-0pf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TYN-op-7DV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsVerticalScrollIndicator="NO" indicatorStyle="black" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="GfC-Ai-eWd">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wWe-lC-KEr">
+                                    <size key="itemSize" width="413" height="818"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="" id="Yau-YI-lFw">
+                                        <rect key="frame" x="0.0" y="0.0" width="413" height="818"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="L6P-YV-yi2">
+                                            <rect key="frame" x="0.0" y="0.0" width="413" height="818"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <size key="customSize" width="413" height="818"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="s01-eY-HDu" id="Dio-Zw-1Rk"/>
+                                    <outlet property="delegate" destination="s01-eY-HDu" id="x60-2C-nFZ"/>
+                                </connections>
+                            </collectionView>
+                            <view alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fNy-fd-tbM">
+                                <rect key="frame" x="0.0" y="44" width="414" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLJ-qW-BlG">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="wep-x8-ECf"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
+                                        <state key="normal" title="">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnClose:" destination="s01-eY-HDu" eventType="touchUpInside" id="SQc-dv-bdT"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O2I-b9-viS">
+                                        <rect key="frame" x="360" y="15" width="46" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="btnShare:" destination="s01-eY-HDu" eventType="touchUpInside" id="iLM-x4-d0K"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="GLJ-qW-BlG" firstAttribute="leading" secondItem="fNy-fd-tbM" secondAttribute="leading" id="2on-wk-aU1"/>
+                                    <constraint firstItem="GLJ-qW-BlG" firstAttribute="top" secondItem="fNy-fd-tbM" secondAttribute="top" id="5eF-LY-UXc"/>
+                                    <constraint firstAttribute="height" constant="60" id="MpP-IA-B3i"/>
+                                    <constraint firstAttribute="bottom" secondItem="GLJ-qW-BlG" secondAttribute="bottom" id="tDU-ue-n5f"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="fNy-fd-tbM" secondAttribute="trailing" constant="-20" id="14v-qd-Bgh"/>
+                            <constraint firstItem="fNy-fd-tbM" firstAttribute="top" secondItem="LaW-yV-KqG" secondAttribute="bottom" id="LZy-hJ-4dc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="GfC-Ai-eWd" secondAttribute="trailing" constant="-20" id="OLI-vZ-Zmx"/>
+                            <constraint firstItem="BVr-XV-0pf" firstAttribute="top" secondItem="GfC-Ai-eWd" secondAttribute="bottom" id="OeN-zR-YpR"/>
+                            <constraint firstItem="GfC-Ai-eWd" firstAttribute="top" secondItem="LaW-yV-KqG" secondAttribute="bottom" id="bmv-Bz-Rgy"/>
+                            <constraint firstItem="fNy-fd-tbM" firstAttribute="leading" secondItem="TYN-op-7DV" secondAttribute="leadingMargin" constant="-20" id="ehR-lv-cFE"/>
+                            <constraint firstItem="GfC-Ai-eWd" firstAttribute="leading" secondItem="TYN-op-7DV" secondAttribute="leadingMargin" constant="-20" id="gS4-6J-re9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="wWe-lC-KEr" id="XZK-tR-Ono"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E2X-dm-RRf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-675.36231884057975" y="154.6875"/>
         </scene>
     </scenes>
     <resources>

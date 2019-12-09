@@ -530,3 +530,9 @@ enum ProgressState {
     case HIDE
 }
 
+enum MediaViewerType {
+    case image
+    case video
+    case imageAndVideo
+}
+
