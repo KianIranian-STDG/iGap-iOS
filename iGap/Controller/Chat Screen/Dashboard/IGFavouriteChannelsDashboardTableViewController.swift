@@ -49,6 +49,9 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UI
             if isSuccess {
                 self.items = items
                 self.tableView.reloadData()
+                
+                // check if deep link is available, if so check the deep link token and open desired page
+                guard self.deepLinkToken != nil else { return }
                 for item in items {
                     switch item.type {
                     case .ad:

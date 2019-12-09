@@ -6679,4 +6679,4 @@ Page 4 introduce app */
 "contacts_sending" = "درحال ارسال مخاطبین";
 "contacts_saving" = "درحال ذخیره سازی مخاطبین";
 "news_details" = "متن خبر";
-
+"max_pins_alert" = "متأسفانه شما فقط می‌توانید تا ۵ گفتگو به بالای صفحه سنجاق کنید.";

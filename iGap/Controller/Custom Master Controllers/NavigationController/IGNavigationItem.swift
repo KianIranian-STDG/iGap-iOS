@@ -339,7 +339,7 @@ class IGNavigationItem: UINavigationItem {
             if IGGlobal.shouldMultiSelect {
                 self.delegate?.diselect()
             } else {
-                if numberOfPages == 2  {
+                if numberOfPages == 2 {
                     IGGlobal.shouldMultiSelect = false
                     isDashboardInner = false
                     currentPageName = ""

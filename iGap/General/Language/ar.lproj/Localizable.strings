@@ -6698,3 +6698,4 @@ TODO:// translate */
 "contacts_sending" = "إرسال جهات الاتصال";
 "contacts_saving" = "حفظ جهات الاتصال";
 "news_details" = "متن خبر";
+"max_pins_alert" = "المعذرة، لا یمکنک تثبیت أکثر من ۵ محاداثات بالأعلی.";

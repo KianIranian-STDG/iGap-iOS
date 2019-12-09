@@ -176,6 +176,9 @@ public class LocaleManager: NSObject {
         }
         Locale.cachePreffered = nil
         UIView.appearance().semanticContentAttribute = .forceLeftToRight
+//        UINavigationController.appearance().semanticContentAttribute = .forceLeftToRight
+        
+        UINavigationBar.appearance().semanticContentAttribute = .forceLeftToRight
         UITableView.appearance().semanticContentAttribute = semantic
         UISwitch.appearance().semanticContentAttribute = semantic
         

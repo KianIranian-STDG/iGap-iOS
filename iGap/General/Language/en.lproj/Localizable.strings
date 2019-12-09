@@ -6669,4 +6669,5 @@ TODO:// complete */
 "contacts_sending" = "Sending Contacts";
 "contacts_saving" = "Saving Contacts";
 "news_details" = "News Detail";
+"max_pins_alert" = "Sorry, you can pin no more than 5 chats to the top.";
 

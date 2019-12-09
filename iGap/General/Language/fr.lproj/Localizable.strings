@@ -6319,3 +6319,4 @@
 "contacts_sending" = "Envoi de contacts";
 "contacts_saving" = "Enregistrer des contacts";
 "news_details" = "News Detail";
+"max_pins_alert" = "Vous ne pouvez pas épingler plus de 5 échanges.";

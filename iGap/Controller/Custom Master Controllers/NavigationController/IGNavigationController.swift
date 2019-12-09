@@ -15,7 +15,8 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationBar.topItem?.backBarButtonItem?.setTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: 50), for: UIBarMetrics.default)
+        
+        self.view.semanticContentAttribute = .forceLeftToRight
         setNavigationGradient()
         configNavigationBar()
     }

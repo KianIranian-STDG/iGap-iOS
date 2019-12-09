@@ -142,6 +142,7 @@ enum IGStringsManager : String {
     case SecurityQOne = "password_Question_title_one"
     case SecurityQTwo = "password_Question_title_two"
     case AnswerEmpty = "mpl_transaction_empty"
+    
     //MARK: - Creat Room StoryBoard
     case ChannelInfo = "channel_info"
     case ManageMembers = "show_member"
@@ -559,6 +560,7 @@ enum IGStringsManager : String {
     case Bot = "bot"
     case HeyJoinIgap = "invitation_message"
     case AddSticker = "add_sticker"
+    case MaxPinAlert = "max_pins_alert"
     
     //MARK: -Setting
     case Gender = "st_Gander"

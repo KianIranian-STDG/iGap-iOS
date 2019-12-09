@@ -71,14 +71,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var holderTextBox: UIView!
     @IBOutlet weak var holderMultiSelect: UIView!
     @IBOutlet weak var holderMusicPlayer: UIView!
-    @IBOutlet weak var holderMusicPlayerHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var floatingDateTopConstraints: NSLayoutConstraint!
 
-    //musicplayer variables
-    var singerName : String! = ""
-    var songName : String! = ""
-    var songTimer : Float! = 0.0
-    ///
     @IBOutlet weak var lblFileType: UILabel!
     @IBOutlet weak var lblActionType: UILabel!
     @IBOutlet weak var lblFirstInStack: UILabel!
@@ -86,8 +79,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var lblThirdInStack: UILabel!
     @IBOutlet weak var lblFileSize: UILabel!
     
-    @IBOutlet weak var lblReplyName : UILabel!
-    @IBOutlet weak var lblReplyBody : UILabel!
+    @IBOutlet weak var lblReplyName: UILabel!
+    @IBOutlet weak var lblReplyBody: UILabel!
     
     @IBOutlet weak var imgAttachmentImage: UIImageView!
     @IBOutlet weak var btnCloseTopBar: UIButton!
@@ -107,7 +100,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var btnForward: UIButton!
     @IBOutlet weak var btnTrash: UIButton!
     @IBOutlet weak var holderMessageTextView: UIView!
-    @IBOutlet weak var messageCollectionBottomCollectionConstrains: NSLayoutConstraint!
 
     @IBOutlet weak var btnStickerWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageTextViewBottomConstraint: NSLayoutConstraint!
@@ -119,6 +111,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private var textViewOldState: TextViewOldState = .EMPTY
     private var beforeMessageLineCount: CGFloat = -1
 
+    //musicplayer variables
+    var singerName: String! = ""
+    var songName: String! = ""
+    var songTimer: Float! = 0.0
     
     var MoneyTransactionModal : SMMoneyTransactionOptions!
     var MoneyInputModal : SMSingleAmountInputView!
@@ -137,52 +133,18 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     public var deepLinkMessageId: Int64?
     
     var dismissBtn : UIButton!
-    @IBOutlet weak var pinnedMessageView: UIView!
     @IBOutlet weak var txtPinnedMessage: UILabel!
     @IBOutlet weak var collectionView: IGMessageCollectionView!
-    @IBOutlet weak var inputBarContainerView: UIView!
     
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var inputTextViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var inputBarHeightContainerConstraint: NSLayoutConstraint!
-    @IBOutlet weak var inputBarHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var inputBarView: UIView!
-    @IBOutlet weak var inputBarBackgroundView: UIView!
-    @IBOutlet weak var inputBarLeftView: UIView!
-    @IBOutlet weak var inputBarRightiew: UIView!
-    @IBOutlet weak var inputBarViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var joinButton: UIButton!
-    @IBOutlet weak var inputBarRecordButton: UIButton!
     @IBOutlet weak var btnScrollToBottom: UIButton!
-    @IBOutlet weak var inputBarSendButton: UIButton!
-    @IBOutlet weak var inputBarShareButton: UIButton!
-    @IBOutlet weak var inputBarDeleteButton: UIButton!
-    @IBOutlet weak var inputBarForwardButton: UIButton!
-    @IBOutlet weak var inputBarMoneyTransferButton: UIButton!
-    @IBOutlet weak var btnCancelReplyOrForward: UIButton!
-    @IBOutlet weak var btnDeleteSelectedAttachment: UIButton!
     @IBOutlet weak var btnClosePin: UIButton!
-    @IBOutlet weak var btnAttachment: UIButton!
     @IBOutlet weak var lblSelectedMessages: UILabel!
     @IBOutlet weak var inputBarRecordTimeLabel: UILabel!
-    @IBOutlet weak var inputBarRecordView: UIView!
     @IBOutlet weak var inputBarRecodingBlinkingView: UIView!
-    @IBOutlet weak var inputBarRecordRightView: UIView!
-    @IBOutlet weak var inputBarRecordViewLeftConstraint: NSLayoutConstraint!
-    @IBOutlet weak var RightBarConstraints: NSLayoutConstraint!
-    @IBOutlet weak var inputBarAttachmentView: UIView!
-    @IBOutlet weak var inputBarAttachmentViewThumnailImageView: UIImageView!
-    @IBOutlet weak var inputBarAttachmentViewFileNameLabel: UILabel!
-    @IBOutlet weak var inputBarAttachmentViewFileSizeLabel: UILabel!
-    @IBOutlet weak var inputBarAttachmentViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var inputBarOriginalMessageView: UIView!
-    @IBOutlet weak var inputBarOriginalMessageViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var inputBarOriginalMessageViewSenderNameLabel: UILabel!
-    @IBOutlet weak var inputBarOriginalMessageViewBodyTextLabel: UILabel!
     @IBOutlet weak var scrollToBottomContainerView: UIView!
-    @IBOutlet weak var scrollToBottomContainerViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var chatBackground: UIImageView!
-    @IBOutlet weak var txtSticker: UILabel!
     @IBOutlet weak var floatingDateView: UIView!
     @IBOutlet weak var txtFloatingDate: UILabel!
     var previousRect = CGRect.zero
@@ -444,11 +406,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if self.selectedMessages.count > 0 {
             lblSelectedMessages.text = String(self.selectedMessages.count).inLocalizedLanguage() + " " + IGStringsManager.Selected.rawValue.localized
-            inputBarDeleteButton.setTitleColor(UIColor.iGapDarkGray(), for: .normal)
-            inputBarDeleteButton.isEnabled = true
-            
-            inputBarForwardButton.setTitleColor(UIColor.iGapDarkGray(), for: .normal)
-            inputBarForwardButton.isEnabled = true
         }
         else {
             lblSelectedMessages.text = ""
@@ -478,12 +435,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.removeHideKeyboardWhenTappedAround()
         initChangeLanguegeNewChatView()
         
-        inputBarMoneyTransferButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 19)
         
         self.removeHideKeyboardWhenTappedAround()
+        
+        holderMusicPlayer.isHidden = true
+        joinButton.isHidden = true
 
         if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
-            RightBarConstraints.constant = 38
             btnMoney.isHidden = true
         } else {
             if isBotRoom() {
@@ -497,9 +455,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.btnStickerWidthConstraint.constant = 25.0
             }
         }
-        tmpUserID  =  self.room?.chatRoom?.peer?.id
+        tmpUserID = self.room?.chatRoom?.peer?.id
+        
         switch self.room!.type {
-            
         case .chat:
             if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
                 self.btnMoney.isHidden = true
@@ -509,47 +467,38 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     
                 }
                 else if (IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
-                    if isBotRoom(){
+                    if isBotRoom() {
                         self.btnMoney.isHidden = true
-                        self.RightBarConstraints.constant = 38
                         self.isCardToCardRequestEnable = false
                     }
                     else {
                         self.btnMoney.isHidden = false
-                        self.RightBarConstraints.constant = 70
                         self.isCardToCardRequestEnable = true
                         self.manageCardToCardInputBar()
                     }
-                }
-                else {
-                    if isBotRoom(){
-                        messageCollectionBottomCollectionConstrains.constant = 50
-
+                } else {
+                    if isBotRoom() {
+//                        self.mainHolder.isHidden = false
                         self.btnMoney.isHidden = true
-                        self.RightBarConstraints.constant = 38
-                    }
-                    else {
-                        messageCollectionBottomCollectionConstrains.constant = 0.0
+                    } else {
+//                        self.mainHolder.isHidden = false
                         self.btnMoney.isHidden = false
-                        self.RightBarConstraints.constant = 70
                     }
                 }
             }
             
         case .channel:
-            messageCollectionBottomCollectionConstrains.constant = 50
+//            self.mainHolder.isHidden = false
             self.btnMoney.isHidden = true
-            self.RightBarConstraints.constant = 38
 
         default:
             self.btnMoney.isHidden = true
-            self.RightBarConstraints.constant = 38
             
         }
         IGMessageViewController.messageIdsStatic[(self.room?.id)!] = []
         txtFloatingDate.font = UIFont.igFont(ofSize: 15)
         
-        removeButtonsUnderline(buttons: [btnMic, btnScrollToBottom, inputBarSendButton, btnMoney, btnCancelReplyOrForward, btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
+        removeButtonsUnderline(buttons: [btnMic, btnScrollToBottom, btnMoney, btnClosePin])
         
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
             DispatchQueue.main.async {
@@ -618,7 +567,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 joinButton.isHidden = false
             } else {
                 mainHolder.isHidden = true
-                collectionViewTopInsetOffset = -54.0 + 8.0
+                collectionViewTopInsetOffset = 8.0
             }
         }
         
@@ -716,24 +665,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         } else {
             startLoadMessage()
         }
-        initiconFonts()
         eventBusInitialiser()
         holderMusicPlayer.backgroundColor = .clear
         if IGGlobal.shouldShowTopBarPlayer {
-            let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
-            var defaultValue : CGFloat = 20
+            let value = collectionViewTopInsetOffset
+            var defaultValue: CGFloat = 20
+            
+            defaultValue = 60
+            self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
 
-            if !(pinnedMessageView.isHidden) {
-                defaultValue = 112
-                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
-            } else {
-                defaultValue = 60
-                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
-            }
-
-            floatingDateTopConstraints.constant = defaultValue
             self.createTopMusicPlayer()
-
         }
     }
     
@@ -760,29 +701,19 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         manageDraft()
         
         notification(register: true)
-        inputTextViewHeightConstraint.constant = 34.0
         if IGGlobal.shouldShowTopBarPlayer {
-            let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
+            let value = collectionViewTopInsetOffset
             var defaultValue : CGFloat = 20
             
-            if !(pinnedMessageView.isHidden) {
-                defaultValue = 112
-                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
-            } else {
-                defaultValue = 60
-                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
-            }
+            defaultValue = 60
+            self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
             
-            floatingDateTopConstraints.constant = defaultValue
             self.createTopMusicPlayer()
-            
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
-        inputBarMoneyTransferButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 19)
         
         if self.room!.isInvalidated {
             self.navigationController?.popViewController(animated: true)
@@ -909,59 +840,36 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 
     @objc func updateLabelsData(singerName: String!,songName: String!) {
         if IGGlobal.shouldShowTopBarPlayer {
-            let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
-            var defaultValue : CGFloat = 20
-
-            if !(pinnedMessageView.isHidden) {
-                defaultValue = 112
-                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
-            } else {
-                defaultValue = 60
-                self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
-            }
-
-            floatingDateTopConstraints.constant = defaultValue
-            self.createTopMusicPlayer()
+            let value = collectionViewTopInsetOffset
+            let defaultValue: CGFloat = 60
             
+            self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
 
+            self.createTopMusicPlayer()
         }
     }
+    
     private func hideMusicTopPlayerWithAnimation() {
         IGGlobal.shouldShowTopBarPlayer = false
-        holderMusicPlayerHeightConstraint.constant = 0
+        holderMusicPlayer.isHidden = true
         IGPlayer.shared.stopMedia()
-        let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
-        var defaultValue : CGFloat = 20
-
-        if !(pinnedMessageView.isHidden) {
-            defaultValue = 70
-            self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
-        } else {
-            defaultValue = 20
-            self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
-        }
-        floatingDateTopConstraints.constant = defaultValue
+        let value = collectionViewTopInsetOffset
+        let defaultValue: CGFloat = 20
+        self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
 
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
-
     }
+    
     private func showMusicTopPlayerWithAnimation() {
         IGGlobal.shouldShowTopBarPlayer = true
-        holderMusicPlayerHeightConstraint.constant = 40.0
-        let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
-        var defaultValue : CGFloat = 20
+        holderMusicPlayer.isHidden = false
+        let value = collectionViewTopInsetOffset
+        let defaultValue: CGFloat = 60
 
-        if !(pinnedMessageView.isHidden) {
-            defaultValue = 112
-            self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
-        } else {
-            defaultValue = 60
-            self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
-        }
+        self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
 
-        floatingDateTopConstraints.constant = defaultValue
         UIView.animate(withDuration: 0.0) {
             self.view.layoutIfNeeded()
         }
@@ -973,11 +881,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 
             if IGGlobal.isAlreadyOpen == false {
 
-            holderMusicPlayerHeightConstraint.constant = 40.0
-            
-            if holderMusicPlayer.subviews.count > 0 {
-                holderMusicPlayer.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-            }
+                holderMusicPlayer.isHidden = false
+                
+                if holderMusicPlayer.subviews.count > 0 {
+                    holderMusicPlayer.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+                }
                 addMusicPlayerToHolder() // add musicPlayer to holder
             }
         }
@@ -1004,25 +912,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         IGGlobal.isAlreadyOpen = !IGGlobal.isAlreadyOpen
     }
     
-    private func initiconFonts() {
-        txtSticker.font = UIFont.iGapFonticon(ofSize: 25)
-        btnAttachment.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
-        inputBarDeleteButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
-        inputBarForwardButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
-        inputBarMoneyTransferButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
-        inputBarRecordButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
-        inputBarSendButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
-        inputBarShareButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
-        
-        txtSticker.text = ""
-        inputBarShareButton.setTitle("", for: .normal)
-        inputBarSendButton.setTitle("", for: .normal)
-        inputBarRecordButton.setTitle("", for: .normal)
-        inputBarMoneyTransferButton.setTitle("", for: .normal)
-        btnAttachment.setTitle("", for: .normal)
-        inputBarDeleteButton.setTitle("", for: .normal)
-        inputBarForwardButton.setTitle("", for: .normal)
-    }
     /* reason of "manageForward" bool
      * sometimes startLoadMessage call from another state so will be send forwarded message twice
      * currentlly for manage this state just should be manage forward from one state
@@ -1163,8 +1052,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             if let MoneyInput = MoneyInputModal {
                 self.view.addSubview(MoneyInput)
                 UIView.animate(withDuration: 0.3) {
-                    //                    self.messageTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-                    
                     if MoneyInput.frame.origin.y < self.view.frame.size.height {
                         MoneyInput.frame = CGRect(x: 0, y: self.view.frame.height - MoneyInput.frame.height - 45, width: self.view.frame.width, height: MoneyInput.frame.height)
                     }
@@ -1245,11 +1132,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
     }
     
-    @objc func tapOnMainView(sender : UITapGestureRecognizer) {
+    @objc func tapOnMainView(sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
     }
     
-    private func getFavoriteMenu(){
+    private func getFavoriteMenu() {
         IGClientGetFavoriteMenuRequest.Generator.generate().success ({ (responseProtoMessage) in
             if let favoriteResponse = responseProtoMessage as? IGPClientGetFavoriteMenuResponse {
                 DispatchQueue.main.async {
@@ -1450,7 +1337,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         return false
     }
     
-    private func makeKeyboardButton(){
+    private func makeKeyboardButton() {
         
         if btnChangeKeyboard != nil {
             return
@@ -1461,25 +1348,21 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         btnChangeKeyboard.addTarget(self, action: #selector(onKeyboardChangeClick), for: .touchUpInside)
         btnChangeKeyboard.titleLabel?.font = UIFont.iGapFonticon(ofSize: 18.0)
         btnChangeKeyboard.setTitleColor(UIColor.iGapColor(), for: UIControl.State.normal)
-        btnChangeKeyboard.backgroundColor = inputBarLeftView.backgroundColor
         btnChangeKeyboard.layer.masksToBounds = false
         btnChangeKeyboard.layer.cornerRadius = 5.0
         self.view.addSubview(btnChangeKeyboard)
         
         btnChangeKeyboard.snp.makeConstraints { (make) in
-            make.right.equalTo(inputBarRightiew.snp.left)
-            make.centerY.equalTo(inputBarRightiew.snp.centerY)
             make.width.equalTo(33)
             make.height.equalTo(33)
         }
         
         messageTextView.snp.makeConstraints { (make) in
             make.right.equalTo(btnChangeKeyboard.snp.left)
-            make.left.equalTo(inputBarLeftView.snp.right)
         }
     }
     
-    private func removeKeyboardButton(){
+    private func removeKeyboardButton() {
         
         if btnChangeKeyboard == nil {
             return
@@ -1489,12 +1372,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         btnChangeKeyboard.isHidden = true
         btnChangeKeyboard = nil
         messageTextView.snp.makeConstraints { (make) in
-            make.right.equalTo(inputBarRightiew.snp.left)
-            make.left.equalTo(inputBarLeftView.snp.right)
+            make.right.equalTo(self.view.snp.left)
+            make.left.equalTo(self.view.snp.right)
         }
     }
     
-    private func manageKeyboard(firstEnter: Bool = false){
+    private func manageKeyboard(firstEnter: Bool = false) {
         if !isBotRoom() {return}
         
         if !self.joinButton.isHidden {
@@ -1712,7 +1595,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         initColorSetNewChatView()
         self.btnMic.isHidden = false
         self.btnMoney.isHidden = false
-        self.btnAttachment.isHidden = false
         
         self.btnSend.isHidden = true
         self.btnShare.isHidden = true
@@ -1907,15 +1789,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             btnForward.isHidden = true
         }
     }
-    ///Handle Show hide of attachment button
-    func handleShowHideAttachmentButton(shouldShow : Bool!) {
-        if shouldShow {
-            
-            btnAttachment.isHidden = false
-        } else {
-            btnAttachment.isHidden = true
-        }
-    }
+
     ///Handle Show hide of Send button
     func handleShowHideSendButton(shouldShow : Bool!) {
         
@@ -1975,7 +1849,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         sender.titleLabel!.textColor = UIColor.red
         
         sender.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-        IGHelperShowToastAlertView.shared.showPopAlert(view: self,innerView: holderMessageTextView, message: IGStringsManager.LongPressToRecord.rawValue.localized, time: 2.0, type: .alert)
+        IGHelperShowToastAlertView.shared.showPopAlert(view: self, innerView: holderMessageTextView, message: IGStringsManager.LongPressToRecord.rawValue.localized, time: 2.0, type: .alert)
         
         UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
             sender.transform = CGAffineTransform.identity
@@ -2098,7 +1972,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
     }
     
-    
     func diselect() {
         IGGlobal.shouldMultiSelect = false
         self.showMultiSelectUI(state: false)
@@ -2135,10 +2008,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 } catch {
                     print(error)
                 }
-            }}.resume()
+        }}.resume()
     }
-    
-    
     
     func screenView() {
         close()
@@ -2256,42 +2127,36 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
             
             self.btnMic.isHidden = true
+            
             switch self.room!.type {
             case .chat:
                 if self.isBotRoom() {
                     self.btnMoney.isHidden = true
-                    self.RightBarConstraints.constant = 38
-                    
                 }
                 else {
                     self.btnMoney.isHidden = true
-                    self.RightBarConstraints.constant = 38
-                    
                 }
                 self.view.layoutIfNeeded()
                 
                 break
-            default :
+            default:
                 self.btnMoney.isHidden = true
-                self.RightBarConstraints.constant = 38
                 self.view.layoutIfNeeded()
-                
             }
+            
             self.view.layoutIfNeeded()
             self.btnSend.isHidden = false
             self.btnMoney.isHidden = true
+            
             switch self.room!.type {
             case .chat:
                 self.btnMoney.isHidden = true
-                self.RightBarConstraints.constant = 38
                 self.view.layoutIfNeeded()
                 
                 break
-            default :
+            default:
                 self.btnMoney.isHidden = true
-                self.RightBarConstraints.constant = 38
                 self.view.layoutIfNeeded()
-                
             }
             
             
@@ -2311,15 +2176,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             switch self.room!.type {
             case .chat:
                 self.btnMoney.isHidden = true
-                self.RightBarConstraints.constant = 38
                 self.view.layoutIfNeeded()
                 
                 break
             default :
                 self.btnMoney.isHidden = true
-                self.RightBarConstraints.constant = 38
                 self.view.layoutIfNeeded()
-                
             }
             self.view.layoutIfNeeded()
             
@@ -2328,28 +2190,21 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.btnMoney.isHidden = false
             switch self.room!.type {
             case .chat:
-                if self.isBotRoom(){
+                if self.isBotRoom() {
                     self.btnMoney.isHidden = true
-                    self.RightBarConstraints.constant = 38
-                    
                 }
                 else {
                     self.btnMoney.isHidden = false
-                    self.RightBarConstraints.constant = 70
-                    
                 }
                 self.view.layoutIfNeeded()
                 
                 break
             default :
                 self.btnMoney.isHidden = true
-                self.RightBarConstraints.constant = 38
                 self.view.layoutIfNeeded()
-                
             }
+            
             self.view.layoutIfNeeded()
-            
-            
             
             if self.isBotRoom() {
                 self.btnSticker.isHidden = true
@@ -2401,7 +2256,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     ///the top offset is managed based on height of pin and topPlayer
 
     private func collectionViewOffsetManager(mode : messageMainTopViewState!) {
-        let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
+        let value = collectionViewTopInsetOffset
         var defaultValue : CGFloat = 20
         switch mode {
         case .withBoth :
@@ -2566,17 +2421,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     if let MoneyInput = MoneyInputModal {
                         self.view.addSubview(MoneyInput)
                         UIView.animate(withDuration: 0.3) {
-                            //                    self.messageTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-                            
                             if MoneyInput.frame.origin.y < self.view.frame.size.height {
                                 MoneyInput.frame = CGRect(x: 0, y: self.view.frame.height - MoneyInput.frame.height - 45, width: self.view.frame.width, height: MoneyInput.frame.height)
                             }
                         }
                     }
-                    
-                    
-                }
-                else if CardToCardModalIsActive {
+                } else if CardToCardModalIsActive {
                          if let CardInput = CardToCardModal {
                              self.view.addSubview(CardInput)
                              UIView.animate(withDuration: 0.3) {
@@ -2587,19 +2437,19 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                          }
                          
                          
-                     }
-                    else if MoneyTransactionModalIsActive {
-                             if let moneyTransactionModal = MoneyTransactionModal {
-                                 self.view.addSubview(moneyTransactionModal)
-                                 UIView.animate(withDuration: 0.3) {
-                                     if moneyTransactionModal.frame.origin.y < self.view.frame.size.height {
-                                         moneyTransactionModal.frame = CGRect(x: 0, y: self.view.frame.height - moneyTransactionModal.frame.height - 45, width: self.view.frame.width, height: moneyTransactionModal.frame.height)
-                                     }
+                }
+                else if MoneyTransactionModalIsActive {
+                         if let moneyTransactionModal = MoneyTransactionModal {
+                             self.view.addSubview(moneyTransactionModal)
+                             UIView.animate(withDuration: 0.3) {
+                                 if moneyTransactionModal.frame.origin.y < self.view.frame.size.height {
+                                     moneyTransactionModal.frame = CGRect(x: 0, y: self.view.frame.height - moneyTransactionModal.frame.height - 45, width: self.view.frame.width, height: moneyTransactionModal.frame.height)
                                  }
                              }
-                             
-                             
                          }
+                         
+                         
+                }
                 else if MultiShareModalIsActive {
                     if let MultiShare = forwardModal {
                         self.view.addSubview(MultiShare)
@@ -2613,7 +2463,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     
                 }
                 self.messageTextViewBottomConstraint.constant =  0
-                UIView.animate(withDuration: 0.5){
+                UIView.animate(withDuration: 0.5) {
                     self.view.layoutIfNeeded()
                 }
                 
@@ -2647,19 +2497,19 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                                 
                             }
                         }
-                    }
-                    else if MoneyTransactionModalIsActive {
-                            if let moneyTransactionModal = MoneyTransactionModal {
-                                window.addSubview(moneyTransactionModal)
-                                UIView.animate(withDuration: 0.3) {
-                                    
-                                    var frame = moneyTransactionModal.frame
-                                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
-                                    moneyTransactionModal.frame = frame
-                                    
-                                }
+                }
+                else if MoneyTransactionModalIsActive {
+                        if let moneyTransactionModal = MoneyTransactionModal {
+                            window.addSubview(moneyTransactionModal)
+                            UIView.animate(withDuration: 0.3) {
+                                
+                                var frame = moneyTransactionModal.frame
+                                frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
+                                moneyTransactionModal.frame = frame
+                                
                             }
                         }
+                }
                 else if MultiShareModalIsActive {
                     if let MultiShare = forwardModal {
                         window.addSubview(MultiShare)
@@ -2677,24 +2527,22 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     if MoneyInputModal != nil {
                         self.hideMoneyInputModal()
                     }
-                    
                     if CardToCardModal != nil {
                         self.hideCardToCardModal()
                     }
-                    
                     if forwardModal != nil {
-                         self.hideMultiShareModal()
-                     }
+                        self.hideMultiShareModal()
+                    }
                     if MoneyTransactionModal != nil {
-                         self.hideMoneyTransactionModal()
-                     }
+                        self.hideMoneyTransactionModal()
+                    }
                 }
                 self.view.layoutIfNeeded()
-
             }
             
             UIView.animate(withDuration: animationDuration, delay: 0.0, options: UIView.AnimationOptions(rawValue: UInt(animationCurveOption)), animations: {
                 self.messageTextViewBottomConstraint.constant = bottomConstraint
+//                self.view.frame.origin.y -= bottomConstraint
                 self.view.layoutIfNeeded()
             }, completion: { (completed) in
                 
@@ -2703,26 +2551,26 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     func setCollectionViewInset(withDuration: TimeInterval = 0.2) {
-        let value = mainHolder.frame.size.height + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
+        let value = collectionViewTopInsetOffset
         manageCollectionViewBottom(value: value)
     }
     private func manageCollectionViewBottom(withDuration: TimeInterval = 0.2,value: CGFloat? = 0) {
         UIView.animate(withDuration: withDuration, animations: {
-          if self.isBotRoom() {
-            self.collectionView.contentInset = UIEdgeInsets.init(top: value!, left: 0, bottom: 20, right: 0)
-               } else {
-                    if self.room?.type == .chat {
-                        self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
-                    } else if self.room?.type == .group {
-                        self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
+            if self.isBotRoom() {
+                self.collectionView.contentInset = UIEdgeInsets.init(top: value!, left: 0, bottom: 20, right: 0)
+            } else {
+                if self.room?.type == .chat {
+                    self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
+                } else if self.room?.type == .group {
+                    self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
+                } else {
+                    if self.room?.channelRoom?.role == .admin || self.room?.channelRoom?.role == .owner || self.room?.channelRoom?.role == .moderator {
+                        self.collectionView.contentInset = UIEdgeInsets.init(top: value!, left: 0, bottom: 20, right: 0)
                     } else {
-                        if self.room?.channelRoom?.role == .admin || self.room?.channelRoom?.role == .owner || self.room?.channelRoom?.role == .moderator {
-                            self.collectionView.contentInset = UIEdgeInsets.init(top: value!, left: 0, bottom: 20, right: 0)
-                        } else {
-                            self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
-                        }
+                        self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
                     }
-               }
+                }
+           }
         }, completion: { (completed) in
             
         })
@@ -2763,12 +2611,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     if let groupPinMessage = protoResponse as? IGPGroupPinMessageResponse {
                         if groupPinMessage.hasIgpPinnedMessage {
                             self.txtPinnedMessage.text = IGRoomMessage.detectPinMessageProto(message: groupPinMessage.igpPinnedMessage)
-                            self.pinnedMessageView.isHidden = false
-                            self.collectionView.contentInset.bottom = self.pinnedMessageView.frame.size.height
+                            self.stackTopViews.isHidden = false
                         } else {
-                            self.pinnedMessageView.isHidden = true
-                            self.collectionView.contentInset.bottom = 0
-                            
+                            self.stackTopViews.isHidden = true
                         }
                         IGGroupPinMessageRequest.Handler.interpret(response: groupPinMessage)
                     }
@@ -2785,7 +2630,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         })
         
         let unpinJustForMe = UIAlertAction(title: titleMe, style: .default, handler: { (action) in
-            self.pinnedMessageView.isHidden = true
+//            self.pinnedMessageView.isHidden = true
+            self.stackTopViews.isHidden = true
             IGFactory.shared.roomPinMessage(roomId: (self.room?.id)!)
         })
         
@@ -2816,11 +2662,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     if let channelPinMessage = protoResponse as? IGPChannelPinMessageResponse {
                         if channelPinMessage.hasIgpPinnedMessage {
                             self.txtPinnedMessage.text = IGRoomMessage.detectPinMessageProto(message: channelPinMessage.igpPinnedMessage)
-                            self.pinnedMessageView.isHidden = false
-                            self.collectionView.contentInset.bottom = self.pinnedMessageView.frame.size.height
+                            self.stackTopViews.isHidden = false
                         } else {
-                            self.pinnedMessageView.isHidden = true
-                            self.collectionView.contentInset.bottom = 0
+                            self.stackTopViews.isHidden = true
                         }
                         IGChannelPinMessageRequest.Handler.interpret(response: channelPinMessage)
                     }
@@ -2837,7 +2681,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         })
         
         let unpinJustForMe = UIAlertAction(title: titleMe, style: .default, handler: { (action) in
-            self.pinnedMessageView.isHidden = true
+//            self.pinnedMessageView.isHidden = true
+            self.stackTopViews.isHidden = true
             IGFactory.shared.roomPinMessage(roomId: (self.room?.id)!)
         })
         
@@ -2932,20 +2777,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     @objc func didTapOnInputTextView() {
-        //        messageTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-        
         disableStickerView(delay: 0.0, openKeyboard: true)
     }
+    
     @objc func didTapOnDissmissView() {
         if forwardModal != nil {
             
             hideMultiShareModal()
             self.view.endEditing(true)
-            
         }
-        
     }
-    
     
     @IBAction func didTapOnPickSticker(_ sender: UIButton) {
         if self.isStickerKeyboard {
@@ -2966,10 +2807,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.channelPin()
             return
         } else {
-            self.pinnedMessageView.isHidden = true
+            self.stackTopViews.isHidden = true
             IGFactory.shared.roomPinMessage(roomId: (self.room?.id)!)
-            self.collectionView.contentInset.bottom = 0
-            
         }
     }
     
@@ -3773,9 +3612,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let pathOnDisk = documents + "/" + randomString + filename
         try! FileManager.default.copyItem(atPath: mediaUrl.path, toPath: pathOnDisk)
         
-        self.inputBarAttachmentViewThumnailImageView.image = uiImage
-        self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
-        self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
         self.didSelectAttachment(attachment)
     }
     
@@ -3813,11 +3649,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         DispatchQueue.main.async {
             self.saveAttachmentToLocalStorage(data: imgData!, fileNameOnDisk: fileNameOnDisk)
         }
-        
-        self.inputBarAttachmentViewThumnailImageView.image = attachment.attachedImage
-        self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
-        self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
-        
+                
         self.didSelectAttachment(attachment)
     }
     
@@ -4300,7 +4132,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                         }
                         self.joinButton.isHidden = true
                         self.hud.hide(animated: true)
-                        self.collectionViewTopInsetOffset = -54.0 + 8.0
+                        self.collectionViewTopInsetOffset = 8.0
                     default:
                         break
                     }
@@ -4451,9 +4283,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.holderRecordView.isHidden = true
                 self.holderRecordView.layoutIfNeeded()
             },completion: nil)
-            
-            self.inputBarLeftView.isHidden = false
-            
+                        
             //animation
             self.inputBarRecodingBlinkingView.pop_removeAllAnimations()
             self.bouncingViewWhileRecord?.removeFromSuperview()
@@ -5356,12 +5186,8 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
             
             if self.selectedMessages.count > 0 {
                 lblSelectedMessages.text = String(self.selectedMessages.count).inLocalizedLanguage() + " " + IGStringsManager.Selected.rawValue.localized
-                inputBarDeleteButton.setTitleColor(UIColor.iGapDarkGray(), for: .normal)
-                inputBarDeleteButton.isEnabled = true
             } else {
                 lblSelectedMessages.text = ""
-                inputBarDeleteButton.setTitleColor(UIColor.iGapGray(), for: .normal)
-                inputBarDeleteButton.isEnabled = false
             }
             self.collectionView.reloadItems(at: [indexPath])
             
@@ -5406,13 +5232,13 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         if scrollView.contentOffset.y > 100 {
             self.scrollToBottomContainerView.isHidden = false
         } else {
-            if isBotRoom() && IGHelperDoctoriGap.isDoctoriGapRoom(room: room!) {
-                scrollToBottomContainerViewConstraint.constant = CGFloat(DOCTOR_BOT_HEIGHT)
-            } else {
-                if room!.isReadOnly {
-                    scrollToBottomContainerViewConstraint.constant = -40
-                }
-            }
+//            if isBotRoom() && IGHelperDoctoriGap.isDoctoriGapRoom(room: room!) {
+//                scrollToBottomContainerViewConstraint.constant = CGFloat(DOCTOR_BOT_HEIGHT)
+//            } else {
+//                if room!.isReadOnly {
+//                    scrollToBottomContainerViewConstraint.constant = -40
+//                }
+//            }
             self.scrollToBottomContainerView.isHidden = true
         }
     }
@@ -5536,10 +5362,12 @@ extension IGMessageViewController: UITextViewDelegate {
     func managePinnedMessage(){
         if room?.pinMessage != nil && room?.pinMessage?.id != room?.deletedPinMessageId {
             txtPinnedMessage.text = IGRoomMessage.detectPinMessage(message: (room?.pinMessage)!)
-            pinnedMessageView.isHidden = false
+//            pinnedMessageView.isHidden = false
+            self.stackTopViews.isHidden = false
             
         } else {
-            pinnedMessageView.isHidden = true
+//            pinnedMessageView.isHidden = true
+            self.stackTopViews.isHidden = true
         }
     }
 }
@@ -5934,10 +5762,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
     func didTapOnAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell, imageView: IGImageView?) {
         UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions(rawValue: UInt(0.3)), animations: {
-            self.inputBarViewBottomConstraint.constant = 0.0
             self.view.layoutIfNeeded()
         }, completion: { (completed) in
-            self.inputBarViewBottomConstraint.constant = 0.0
             self.view.layoutIfNeeded()
             
         })

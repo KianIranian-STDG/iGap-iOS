@@ -608,10 +608,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         var muteTitle = IGStringsManager.UnMute.rawValue.localized
         if room.mute == IGRoom.IGRoomMute.mute {
             muteTitle = IGStringsManager.UnMute.rawValue.localized
-        }
-        else {
+        } else {
             muteTitle = IGStringsManager.Mute.rawValue.localized
-            
         }
         
         var pinTitle = IGStringsManager.Pin.rawValue.localized
@@ -639,11 +637,15 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             boolValue(true) // pass true if you want the handler to allow the action
 
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalNoNetwork.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalNoNetwork.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             } else {
-                self.pinRoom(room: room)
+                // check number of pined rooms limitation
+                if self.rooms?.filter({ IGRoom.isPin(roomId: $0.id) }).count ?? 0 < 5 {
+                    self.pinRoom(room: room)
+                } else {
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: false, message: IGStringsManager.MaxPinAlert.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized)
+                }
             }
-            
         }
         btnPinSwipeCell.backgroundColor = UIColor.swipeBlueGray()
         
@@ -1018,6 +1020,7 @@ extension IGRecentsTableViewController {
     }
     
     func pinRoom(room: IGRoom) {
+        
         let roomId = room.id
         var pin = true
         if room.pinId > 0 {
