@@ -137,7 +137,7 @@ class IGMediaPagerCell: FSPagerViewCell {
         txtVideoIcon = UILabel()
         txtVideoIcon.textColor = UIColor.white
         txtVideoIcon.font = UIFont.iGapFonticon(ofSize: 16)
-        txtVideoIcon.text = ""
+        txtVideoIcon.text = ""
         viewVideoInfo.addSubview(txtVideoIcon)
         
         txtVideoInfo = UILabel()

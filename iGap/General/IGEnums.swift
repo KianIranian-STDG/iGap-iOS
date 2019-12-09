@@ -531,6 +531,7 @@ enum ProgressState {
 }
 
 enum MediaPagerType {
+    case avatar
     case image
     case video
     case imageAndVideo

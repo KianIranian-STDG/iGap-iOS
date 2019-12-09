@@ -37,8 +37,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchMedia()
-        print("KKK || messageId: \(messageId)   ***   mediaPagerType: \(mediaPagerType)")
-        
+        btnShare.isHidden = true
         let pagerView = FSPagerView(frame: self.view.frame)
         pagerView.dataSource = self
         pagerView.delegate = self
@@ -46,9 +45,6 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         pagerView.fadeOut(0)
         pagerView.register(IGMediaPagerCell.nib(), forCellWithReuseIdentifier: IGMediaPagerCell.cellReuseIdentifier())
         self.view.addSubview(pagerView)
-        
-        //let tapOnView = UITapGestureRecognizer(target: self, action: #selector(didTapOnView(_:)))
-        //pagerView.addGestureRecognizer(tapOnView)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             pagerView.scrollToItem(at: self.startIndex, animated: false)
@@ -81,18 +77,6 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     
-    @objc func didTapOnView(_ gestureRecognizer: UITapGestureRecognizer) {
-        if showItemInfoLayout {
-            showItemInfoLayout = false
-            self.topView.fadeOut(0.3)
-            self.bottomView.fadeOut(0.3)
-        } else {
-            showItemInfoLayout = true
-            self.topView.fadeIn(0.3)
-            manageCurrentMedia(time: 0.3)
-        }
-    }
-    
     private func fetchMedia(){
         
         let sortProperties = [SortDescriptor(keyPath: "id", ascending: true)]
@@ -110,7 +94,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
             
         } else if mediaPagerType == .video { // user for share media video type
             mediaPredicate = NSPredicate(format: "roomId = %lld AND (typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d)", roomId, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue)
-            currentMediaPredicate = NSPredicate(format: "roomId = %lld AND id =< %lld AND (typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d)", roomId, messageId, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue)
+            currentMediaPredicate = NSPredicate(format: "roomId = %lld AND id =< %lld AND (typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d)", roomId, messageId, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue)
         }
         
         let mediaListResult = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(mediaPredicate).sorted(by: sortProperties)

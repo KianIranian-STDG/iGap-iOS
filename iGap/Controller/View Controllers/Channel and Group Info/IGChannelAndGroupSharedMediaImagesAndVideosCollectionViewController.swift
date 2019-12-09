@@ -132,36 +132,17 @@ class IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController: UICol
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if sharedMedia[indexPath.row].type == .image || sharedMedia[indexPath.row].type == .imageAndText {
-            let cell = collectionView.cellForItem(at: indexPath) as! IGChannelAndGroupInfoSharedMediaImagesAndVideosCollectionViewCell
-
-            var photos: [INSPhotoViewable] = Array(self.sharedMedia.map { (message) -> IGMedia in
-                return IGMedia(message: message, forwardedMedia: false)
-            })
-            
-            let currentPhoto = photos[indexPath.row]
-            let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: cell)
-            galleryPreview.referenceViewForPhotoWhenDismissingHandler = { photo in
-                if let index = photos.firstIndex(where: {$0 === photo}) {
-                    let indexPath = IndexPath(row: index, section: 0)
-                    if let cell = collectionView.cellForItem(at: indexPath) {
-                        return cell as! IGChannelAndGroupInfoSharedMediaImagesAndVideosCollectionViewCell
-                    }
-                    return nil
-                }
-                return nil
-            }
-            present(galleryPreview, animated: true, completion: nil)
-        } else if sharedMedia[indexPath.row].type == .video || sharedMedia[indexPath.row].type == .videoAndText {
-            if let path = sharedMedia[indexPath.row].attachment?.path() {
-                let player = AVPlayer(url: path)
-                let avController = AVPlayerViewController()
-                avController.player = player
-                player.play()
-                present(avController, animated: true, completion: nil)
-                
-            }
+        var mediaPagerType: MediaPagerType = .image
+        if sharedMedia[indexPath.row].type == .video || sharedMedia[indexPath.row].type == .videoAndText {
+            mediaPagerType = .video
         }
+        
+        let mediaViewer = IGMediaPager.instantiateFromAppStroryboard(appStoryboard: .Main)
+        mediaViewer.hidesBottomBarWhenPushed = true
+        mediaViewer.roomId = self.room?.id
+        mediaViewer.messageId = sharedMedia[indexPath.row].id
+        mediaViewer.mediaPagerType = mediaPagerType
+        self.navigationController!.pushViewController(mediaViewer, animated: false)
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {

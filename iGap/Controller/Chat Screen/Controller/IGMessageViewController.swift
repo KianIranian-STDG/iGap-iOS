@@ -5762,25 +5762,15 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
     func didTapOnAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell, imageView: IGImageView?) {
         
-        let mediaViewer = IGMediaPager.instantiateFromAppStroryboard(appStoryboard: .Main)
-        mediaViewer.hidesBottomBarWhenPushed = true
-        mediaViewer.roomId = self.room?.id
-        mediaViewer.messageId = cellMessage.id
-        mediaViewer.mediaPagerType = .imageAndVideo
-        self.navigationController!.pushViewController(mediaViewer, animated: false)
-        return
-        
         UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions(rawValue: UInt(0.3)), animations: {
             self.view.layoutIfNeeded()
         }, completion: { (completed) in
             self.view.layoutIfNeeded()
             
         })
+        
         var finalMessage = cellMessage
-        var roomMessageLists = self.messagesWithMedia
         if cellMessage.forwardedFrom != nil {
-            //roomMessageLists = self.messagesWithForwardedMedia
-            roomMessageLists = self.messagesWithMedia
             finalMessage = cellMessage.forwardedFrom!
         }
         
@@ -5814,7 +5804,14 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
         switch finalMessage.type {
         case .image, .imageAndText:
-            break
+            let mediaViewer = IGMediaPager.instantiateFromAppStroryboard(appStoryboard: .Main)
+            mediaViewer.hidesBottomBarWhenPushed = true
+            mediaViewer.roomId = self.room?.id
+            mediaViewer.messageId = cellMessage.id
+            mediaViewer.mediaPagerType = .imageAndVideo
+            self.navigationController!.pushViewController(mediaViewer, animated: false)
+            return
+            
         case .video, .videoAndText:
             if let path = attachment.path() {
                 let player = AVPlayer(url: path)
@@ -5841,31 +5838,6 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         default:
             return
         }
-        
-        let thisMessageInSharedMediaResult = roomMessageLists.filter("id == \(cellMessage.id)")
-        var indexOfThis = 0
-        if let this = thisMessageInSharedMediaResult.first {
-            indexOfThis = roomMessageLists.firstIndex(of: this)!
-        }
-        
-        let photos: [INSPhotoViewable] = Array(roomMessageLists.map { (message) -> IGMedia in
-            return IGMedia(message: message, forwardedMedia: false)
-        })
-        
-        sizesArray.removeAll()
-        indexOfVideos.removeAll()
-        
-        for element in roomMessageLists {
-            indexOfVideos.append((element.typeRaw))
-        }
-        
-        let currentPhoto = photos[indexOfThis]
-        
-        let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: imageView)
-        galleryPreview.referenceViewForPhotoWhenDismissingHandler = { photo in
-            return imageView
-        }
-        present(galleryPreview, animated: true, completion: nil)
     }
     
     func didTapOnForwardedAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
