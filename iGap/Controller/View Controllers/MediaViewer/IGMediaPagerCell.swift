@@ -83,11 +83,13 @@ class IGMediaPagerCell: FSPagerViewCell {
             if self.finalRoomMessage.type == .video || self.finalRoomMessage.type == .videoAndText {
                 makeVideoPlayView()
             }
+            progress?.setState(attachment.status)
+            progress.isHidden = true
         } else {
             progress.isHidden = false
             progress.delegate = self
+            progress?.setState(attachment.status)
         }
-        progress?.setState(attachment.status)
         if attachment.status == .downloading {
             progress?.setPercentage(attachment.downloadUploadPercent)
         } else {

@@ -3595,8 +3595,6 @@
 				FA9EE5BD221ECD7100BA7735 /* MoneyTransferCell.xib in Resources */,
 				FA33063C1F445AE80096031A /* IRANSans_Light.ttf in Resources */,
 				8E7C74E52395451E00286315 /* SliderImageWithTextCVCell.xib in Resources */,
-				FAB623EC22952727006DEA00 /* CardToCardCell.xib in Resources */,
-				FAB623EC22952727006DEA00 /* IGMediaViewerCell.xib in Resources */,
 				FA7CD4A422959020002918AD /* PaymentCell.xib in Resources */,
 				FA80F5A0204ABC5900F0EE74 /* tone.mp3 in Resources */,
 				FA5656B9204AB18F00DB46F0 /* igap_noresponse.mp3 in Resources */,
@@ -4647,7 +4645,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 522;
+				CURRENT_PROJECT_VERSION = 523;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = MBL7BDXS99;
 				ENABLE_BITCODE = NO;
@@ -4693,7 +4691,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 522;
+				CURRENT_PROJECT_VERSION = 523;
 				DEVELOPMENT_TEAM = MBL7BDXS99;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
