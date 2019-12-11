@@ -5769,6 +5769,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             
         })
         
+        if cellMessage.status == .sending || cellMessage.status == .failed {
+            return
+        }
+        
         var finalMessage = cellMessage
         if cellMessage.forwardedFrom != nil {
             finalMessage = cellMessage.forwardedFrom!
