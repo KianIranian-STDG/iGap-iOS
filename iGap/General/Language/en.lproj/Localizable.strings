@@ -6663,6 +6663,8 @@ TODO:// complete */
 "around" = "About";
 "meter" = "meter";
 "chat_preview_sample" = "it's morning in Tehran 😍";
+"chat_preview_sample2" = "Is it morning or night in there ?🤔";
+
 "keep_media_footer" = "All The images,videos and Audios that you did not have access in the period will be deleted.";
 "send_message_sound_alert" = "Send Message Sound Alert";
 "verify_password" = "Verify Password";
@@ -6674,3 +6676,7 @@ TODO:// complete */
 "news_details" = "News Detail";
 "max_pins_alert" = "Sorry, you can pin no more than 5 chats to the top.";
 
+"Theme_Classic_Text" = "Classic";
+"Theme_Day_Text" = "Day";
+"Theme_Night_Text" = "Night";
+"Theme_Icon_Appp" = "App Icon";

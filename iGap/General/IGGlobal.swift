@@ -41,9 +41,10 @@ let IGNotificationPushTwoStepVerification = Notification(name: Notification.Name
 let orangeGradientLocation = [0.0, 1.0]
 
 enum themeMode : Int {
-    case dark = 0
-    case light = 1
-    case any = 2
+    case night = 0
+    case day = 1
+    case classic = 2
+    case any = 3
 }
 enum songMainState : Int {
     case ended = 0

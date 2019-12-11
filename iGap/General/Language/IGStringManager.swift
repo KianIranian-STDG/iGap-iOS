@@ -593,6 +593,7 @@ enum IGStringsManager : String {
     case ManageStorage = "manage_spacing"
     case TextSize = "st_title_message_textSize"
     case ChatSample = "chat_preview_sample"
+    case ChatSample2 = "chat_preview_sample2"
     case ChangeLang = "change_language_title"
     case Logout = "logout"
     case ChatSettings = "chat_setting"
@@ -739,6 +740,12 @@ enum IGStringsManager : String {
     case BankEtebariTosee = "bank_etebari_tosee"
     case BankMelal = "bank_etebari_asgarieh"
     case PaygearCard = "paygear_card"
+    
+    //Theme
+    case ClassicTheme = "Theme_Classic_Text"
+    case DayTheme = "Theme_Day_Text"
+    case NightTheme = "Theme_Night_Text"
+    case AppIcon = "Theme_Icon_Appp"
 
 }
 

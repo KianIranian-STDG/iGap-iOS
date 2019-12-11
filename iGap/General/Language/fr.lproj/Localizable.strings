@@ -6313,6 +6313,7 @@
 "around" = "About";
 "meter" = "meter";
 "chat_preview_sample" = "it's morning in Tehran 😍";
+"chat_preview_sample2" = "Is it morning or night in there ?🤔";
 "keep_media_footer" = "All The images,videos and Audios that you did not have access in the period will be deleted.";
 "send_message_sound_alert" = "Send Message Sound Alert";
 "verify_password" = "Verify Password";
@@ -6323,3 +6324,7 @@
 "contacts_saving" = "Enregistrer des contacts";
 "news_details" = "News Detail";
 "max_pins_alert" = "Vous ne pouvez pas épingler plus de 5 échanges.";
+"Theme_Classic_Text" = "Classique";
+"Theme_Day_Text" = "journée";
+"Theme_Night_Text" = "Nuit";
+"Theme_Icon_Appp" = "icône de l'application";
