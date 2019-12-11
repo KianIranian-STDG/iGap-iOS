@@ -407,7 +407,7 @@ class IGAppManager: NSObject {
                     self.isTryingToLoginUser = false
                     switch errorCode {
                     case .timeout:
-                        self.login()
+                        IGWebSocketManager.sharedManager.closeConnection()//self.login()
                         break
                     case .floodRequest:
                         IGWebSocketManager.sharedManager.closeConnection()

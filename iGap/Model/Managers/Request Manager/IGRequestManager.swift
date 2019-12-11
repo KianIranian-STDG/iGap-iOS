@@ -456,7 +456,8 @@ class IGRequestManager {
     static let sharedManager = IGRequestManager()
     
     let disposeBag = DisposeBag()
-    private let TIME_OUT: Int64  = 15 //sencond
+    private let TIME_OUT: Int64  = 10 //sencond
+    private let TIME_OUT_LOGIN: Int64  = 15 //sencond
     private var queuedRequests   = [String : IGRequestWrapper]()
     private var pendingRequests  = [String : IGRequestWrapper]()
     private var resolvedRequests = [String : IGRequestWrapper]()
@@ -622,7 +623,13 @@ class IGRequestManager {
         //check if request is still pending
         self.syncroniseQueue.async(flags: .barrier) {
             for requestWrapper in self.pendingRequests.values {
-                if let indexOfRequest = self.pendingRequests.index(forKey: requestWrapper.id), self.isTimedOut(requestTime: requestWrapper.time){
+                
+                var timeOut = self.TIME_OUT
+                if requestWrapper.actionId == 102 {
+                    timeOut = self.TIME_OUT_LOGIN
+                }
+                
+                if let indexOfRequest = self.pendingRequests.index(forKey: requestWrapper.id), self.isTimedOut(requestTime: requestWrapper.time, config: timeOut){
                     self.resolvedRequests[requestWrapper.id] = requestWrapper
                     self.pendingRequests.remove(at: indexOfRequest)
                     if let error = requestWrapper.error {
@@ -635,9 +642,9 @@ class IGRequestManager {
         }
     }
     
-    private func isTimedOut(requestTime: Int64) -> Bool {
+    private func isTimedOut(requestTime: Int64, config: Int64) -> Bool {
         let timeDifference = IGGlobal.getCurrentMillis() - requestTime
-        if timeDifference >= (self.TIME_OUT*1000) {
+        if timeDifference >= (config * 1000) {
             return true
         }
         return false
