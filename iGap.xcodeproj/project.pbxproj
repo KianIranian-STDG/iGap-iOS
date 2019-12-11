@@ -2064,13 +2064,6 @@
 			path = Wallet;
 			sourceTree = "<group>";
 		};
-		8EC0385E239C0FAD00B525B5 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		8EC2179A2258BE0600105B5A /* wallet */ = {
 			isa = PBXGroup;
 			children = (
@@ -3256,7 +3249,6 @@
 				FAD744F121B940D400801D2E /* Share */,
 				FAF795EB1DAA330C0030509B /* Products */,
 				FAF985881E2E10EC00B26940 /* Frameworks */,
-				8EC0385E239C0FAD00B525B5 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
