@@ -31,13 +31,10 @@ class IGMapNearbyDistanceTableViewController: BaseTableViewController {
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
-        let realm = try! Realm()
-        let allNearbyUsers = try! Realm().objects(IGRealmMapNearbyDistance.self)
-        if !allNearbyUsers.isEmpty {
-            IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                try! IGDatabaseManager.shared.realm.write {
-                    realm.delete(allNearbyUsers)
-                }
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                let allNearbyUsers = IGDatabaseManager.shared.realm.objects(IGRealmMapNearbyDistance.self)
+                IGDatabaseManager.shared.realm.delete(allNearbyUsers)
             }
         }
         

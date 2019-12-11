@@ -104,8 +104,6 @@ class IGRoomMessageMoneyTransfer: Object {
         moneyTransfer.cardNumber = igpRoomMessageWallet.igpMoneyTransfer.igpCardNumber
         moneyTransfer.rrn = igpRoomMessageWallet.igpMoneyTransfer.igpRrn
         moneyTransfer.desc = igpRoomMessageWallet.igpMoneyTransfer.igpDescription
-        print("DDD || igpRoomMessageWallet: \(igpRoomMessageWallet)")
-        print("DDD || igpDescription: \(igpRoomMessageWallet.igpMoneyTransfer.igpDescription)")
         return moneyTransfer
     }
     
