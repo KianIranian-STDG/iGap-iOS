@@ -543,6 +543,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         IGFactory.shared.markRoomsAsDeleted(igpRooms: getRoomListResponse.igpRooms)
                         IGClientGetPromoteRequest.fetchPromotedRooms()
                         IGClientConditionRequest.sendRequest(clientConditionRooms: clientConditionRooms!)
+                        if getRoomListResponse.igpRooms.count == 0 {
+                            print("AAA || Warning! -------- Offset & Count is ZERO")
+                        }
                     }
                     
                     if getRoomListResponse.igpRooms.count != 0 {
@@ -552,7 +555,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     } else {
                         self.allRoomsFetched = true
                         self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse, removeDeleted: true)
-                        IGFactory.shared.removeDeletedRooms()
                         //IGFactory.shared.deleteShareInfo()
                     }
                 }
@@ -1412,7 +1414,7 @@ extension IGRecentsTableViewController {
 }
 
 
-
+/*
 extension IGRecentsTableViewController {
     func loadMoreRooms() {
         if !isLoadingMoreRooms && numberOfRoomFetchedInLastRequest % IGAppManager.sharedManager.LOAD_ROOM_LIMIT == 0 {
@@ -1432,6 +1434,7 @@ extension IGRecentsTableViewController {
         }
     }
 }
+*/
 
 //MARK: SEARCH BAR DELEGATE
 extension IGRecentsTableViewController: UISearchBarDelegate/*, UISearchResultsUpdating*/ {

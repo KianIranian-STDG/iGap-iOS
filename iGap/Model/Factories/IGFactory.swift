@@ -1118,6 +1118,7 @@ class IGFactory: NSObject {
         self.doFactoryTask(task: task)
     }
 
+    /*
     func removeDeletedRooms(){
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
@@ -1125,6 +1126,7 @@ class IGFactory: NSObject {
             }
         }
     }
+    */
 
     /* clear share info if "isParticipant == false" */
     func deleteShareInfo(removeRoom: Bool = true){
