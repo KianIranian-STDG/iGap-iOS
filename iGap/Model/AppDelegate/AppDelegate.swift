@@ -284,14 +284,16 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     }
     
     func showRegistrationSetpProfileInfo() {
-        let storyboard : UIStoryboard = UIStoryboard(name: "Register", bundle: nil)
-        let setNicknameVC = storyboard.instantiateViewController(withIdentifier: "RegistrationStepProfileInfo")
-        setNicknameVC.modalPresentationStyle = .fullScreen
+        DispatchQueue.main.async {
+            let storyboard : UIStoryboard = UIStoryboard(name: "Register", bundle: nil)
+            let setNicknameVC = storyboard.instantiateViewController(withIdentifier: "RegistrationStepProfileInfo")
+            setNicknameVC.modalPresentationStyle = .fullScreen
 
-        let navigationBar = UINavigationController(rootViewController: setNicknameVC)
-        self.window?.rootViewController?.present(navigationBar, animated: true, completion: {
-            self.isNeedToSetNickname = false
-        })
+            let navigationBar = UINavigationController(rootViewController: setNicknameVC)
+            self.window?.rootViewController?.present(navigationBar, animated: true, completion: {
+                self.isNeedToSetNickname = false
+            })
+        }
     }
     
     func showCallPage(userId: Int64 ,userName: String? = nil, isIncommmingCall: Bool = true, sdp: String? = nil, type:IGPSignalingOffer.IGPType = .voiceCalling, mode:String? = nil, showAlert: Bool = true){
