@@ -20,29 +20,21 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g2o-f2-qJm">
                         <rect key="frame" x="5" y="5" width="263" height="99"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X4p-9X-xOV">
-                        <rect key="frame" x="5" y="114" width="263" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X4p-9X-xOV">
+                        <rect key="frame" x="5" y="109" width="263" height="46"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tm1-Og-8M4">
-                        <rect key="frame" x="5" y="137" width="263" height="14.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="X4p-9X-xOV" firstAttribute="top" secondItem="g2o-f2-qJm" secondAttribute="bottom" constant="10" id="44b-fo-awq"/>
+                <constraint firstItem="X4p-9X-xOV" firstAttribute="top" secondItem="g2o-f2-qJm" secondAttribute="bottom" constant="5" id="44b-fo-awq"/>
                 <constraint firstItem="g2o-f2-qJm" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.6" id="6Ld-WV-7r4"/>
                 <constraint firstAttribute="trailing" secondItem="g2o-f2-qJm" secondAttribute="trailing" constant="5" id="E89-IO-1h1"/>
+                <constraint firstAttribute="bottom" secondItem="X4p-9X-xOV" secondAttribute="bottom" constant="10" id="Jk2-KY-qiF"/>
                 <constraint firstItem="g2o-f2-qJm" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="RP6-As-NRk"/>
-                <constraint firstItem="tm1-Og-8M4" firstAttribute="trailing" secondItem="X4p-9X-xOV" secondAttribute="trailing" id="STG-pn-WUP"/>
-                <constraint firstItem="tm1-Og-8M4" firstAttribute="leading" secondItem="X4p-9X-xOV" secondAttribute="leading" id="dVd-X9-wBI"/>
                 <constraint firstItem="X4p-9X-xOV" firstAttribute="trailing" secondItem="g2o-f2-qJm" secondAttribute="trailing" id="icu-89-cS2"/>
-                <constraint firstItem="tm1-Og-8M4" firstAttribute="top" secondItem="X4p-9X-xOV" secondAttribute="bottom" constant="5" id="jVH-Vy-DEI"/>
                 <constraint firstItem="g2o-f2-qJm" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="pep-wG-zNg"/>
                 <constraint firstItem="X4p-9X-xOV" firstAttribute="leading" secondItem="g2o-f2-qJm" secondAttribute="leading" id="vnf-Qv-WJc"/>
             </constraints>
@@ -50,7 +42,6 @@
             <size key="customSize" width="273" height="165"/>
             <connections>
                 <outlet property="imageView" destination="g2o-f2-qJm" id="Bn9-2M-WBt"/>
-                <outlet property="lblAlias" destination="tm1-Og-8M4" id="nYd-Yx-2kM"/>
                 <outlet property="lblTitle" destination="X4p-9X-xOV" id="Ldz-tM-qJ7"/>
             </connections>
             <point key="canvasLocation" x="299.27536231884062" y="98.102678571428569"/>

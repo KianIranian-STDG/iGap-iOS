@@ -132,9 +132,9 @@ extension IGNewsSliderTVCell: UICollectionViewDataSource, UICollectionViewDelega
         cell.imageView.sd_setImage(with: url, placeholderImage: UIImage(named :"1"), completed: nil)
         cell.backgroundColor = UIColor.hexStringToUIColor(hex: slide.color!)
         cell.lblTitle.textColor = UIColor.hexStringToUIColor(hex: slide.colorTitr!)
-        cell.lblAlias.textColor = UIColor.black
+//        cell.lblAlias.textColor = UIColor.black
         cell.lblTitle.text = slide.contents?.titr
-        cell.lblAlias.text = slide.contents?.lead
+//        cell.lblAlias.text = slide.contents?.lead
         return cell
     }
     

@@ -65,10 +65,20 @@ class IGOneNewsTVCell: UITableViewCell {
             //set Color of double news Titles
             lblTitle0.textColor = UIColor.hexStringToUIColor(hex: newsOne[0].colorTitr!)
             lblTitleTwo0.textColor = UIColor.hexStringToUIColor(hex: newsOne[0].colorTitr!)
+            lblAlias0.textColor = UIColor.hexStringToUIColor(hex: newsOne[0].colorRooTitr!)
             //set text of double news RooTitr
-            lblTitleTwo0.text = newsOne[0].contents?.rootitr
-            //set text of double news Alias
-            lblAlias0.text = newsOne[0].contents?.titr
+            if newsOne[0].contents?.titr == nil || newsOne[0].contents?.titr == "" {
+                lblTitleTwo0.isHidden = true
+                //set text of double news Alias
+                lblAlias0.text = newsOne[0].contents?.lead
+
+            } else {
+                lblTitleTwo0.isHidden = false
+                lblTitleTwo0.text = newsOne[0].contents?.titr
+                //set text of double news Alias
+                lblAlias0.text = newsOne[0].contents?.lead
+
+            }
 
 
 

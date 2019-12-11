@@ -31,7 +31,7 @@ class SliderImageWithTextCVCell: UICollectionViewCell {
         initAlignments()
     }
     func initView() {
-        lblAlias.font = UIFont.igFont(ofSize: 12)
+//        lblAlias.font = UIFont.igFont(ofSize: 12)
         lblTitle.font = UIFont.igFont(ofSize: 15)
         imageView.layer.cornerRadius = 5
     }
@@ -39,9 +39,9 @@ class SliderImageWithTextCVCell: UICollectionViewCell {
         let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
        imageView.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
        lblTitle.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
-        lblAlias.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
-        lblTitle.textAlignment = lblTitle.localizedDirection
-        lblAlias.textAlignment = lblAlias.localizedDirection
+//        lblAlias.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
+        lblTitle.textAlignment = .center
+//        lblAlias.textAlignment = lblAlias.localizedDirection
 
 
     }

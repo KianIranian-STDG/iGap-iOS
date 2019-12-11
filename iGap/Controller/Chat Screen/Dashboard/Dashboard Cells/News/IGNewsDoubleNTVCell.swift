@@ -51,13 +51,13 @@ class IGNewsDoubleNTVCell: UITableViewCell {
     private func initView() {
         lblAlias0.font = UIFont.igFont(ofSize: 12)
         lblTitle0.font = UIFont.igFont(ofSize: 12)
-        lblTitleTwo0.font = UIFont.igFont(ofSize: 12)
+//        lblTitleTwo0.font = UIFont.igFont(ofSize: 12)
         imgView0.layer.cornerRadius = 5
         bgView0.layer.cornerRadius = 5
         
         lblAlias1.font = UIFont.igFont(ofSize: 12)
         lblTitle1.font = UIFont.igFont(ofSize: 12)
-        lblTitleTwo1.font = UIFont.igFont(ofSize: 12)
+//        lblTitleTwo1.font = UIFont.igFont(ofSize: 12)
         imgView1.layer.cornerRadius = 5
         bgView1.layer.cornerRadius = 5
         initAlignments()
@@ -66,18 +66,18 @@ class IGNewsDoubleNTVCell: UITableViewCell {
         let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
         imgView0.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         lblTitle0.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
-        lblTitleTwo0.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
+//        lblTitleTwo0.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         lblAlias0.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         lblTitle0.textAlignment = lblTitle0.localizedDirection
-        lblTitleTwo0.textAlignment = lblTitle0.localizedDirection
+//        lblTitleTwo0.textAlignment = lblTitle0.localizedDirection
         lblAlias0.textAlignment = lblAlias0.localizedDirection
         
         imgView1.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         lblTitle1.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
-        lblTitleTwo1.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
+//        lblTitleTwo1.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         lblAlias1.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         lblTitle1.textAlignment = lblTitle1.localizedDirection
-        lblTitleTwo1.textAlignment = lblTitle1.localizedDirection
+//        lblTitleTwo1.textAlignment = lblTitle1.localizedDirection
         lblAlias1.textAlignment = lblAlias1.localizedDirection
         
     }
@@ -94,11 +94,13 @@ class IGNewsDoubleNTVCell: UITableViewCell {
         //set Color of double news Titles
         lblTitle0.textColor = UIColor.hexStringToUIColor(hex: newsOne[0].colorTitr!)
         lblTitle1.textColor = UIColor.hexStringToUIColor(hex: newsTwo[0].colorTitr!)
-        lblTitleTwo0.textColor = UIColor.hexStringToUIColor(hex: newsOne[0].colorTitr!)
-        lblTitleTwo1.textColor = UIColor.hexStringToUIColor(hex: newsTwo[0].colorTitr!)
+        lblAlias0.textColor = UIColor.hexStringToUIColor(hex: newsOne[0].colorTitr!)
+        lblAlias1.textColor = UIColor.hexStringToUIColor(hex: newsTwo[0].colorTitr!)
+//        lblTitleTwo0.textColor = UIColor.hexStringToUIColor(hex: newsOne[0].colorTitr!)
+//        lblTitleTwo1.textColor = UIColor.hexStringToUIColor(hex: newsTwo[0].colorTitr!)
         //set text of double news RooTitr
-        lblTitleTwo0.text = newsOne[0].contents?.rootitr
-        lblTitleTwo1.text = newsTwo[0].contents?.rootitr
+//        lblTitleTwo0.text = newsOne[0].contents?.rootitr
+//        lblTitleTwo1.text = newsTwo[0].contents?.rootitr
         //set text of double news Alias
         lblAlias0.text = newsOne[0].contents?.titr
         lblAlias1.text = newsTwo[0].contents?.titr
