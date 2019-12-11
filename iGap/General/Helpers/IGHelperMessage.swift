@@ -94,6 +94,8 @@ class IGHelperMessage {
                         }
                     }
                 }
+                
+                IGDatabaseManager.shared.realm.add(realmRoomMessage!, update: .modified)
             }
             
             if (sender) {
