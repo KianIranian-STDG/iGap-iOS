@@ -537,3 +537,8 @@ enum MediaPagerType {
     case imageAndVideo
 }
 
+enum GroupCreateMode {
+    case newGroup
+    case convertChatToGroup
+}
+

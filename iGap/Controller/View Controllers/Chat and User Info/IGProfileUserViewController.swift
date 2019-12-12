@@ -73,12 +73,8 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
 
         if #available(iOS 13.0, *) {
             if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true {
-                // appearance has changed
-                // Update your user interface based on the appearance
                 self.initGradientView()
             }
-        } else {
-            // Fallback on earlier versions
         }
     }
     
@@ -99,8 +95,6 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        let navigationControllerr = self.navigationController as! IGNavigationController
-//        navigationControllerr.navigationBar.isHidden = false
     }
     
     
@@ -258,7 +252,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     
     //MARK: - Show Avatar
     func showAvatar(avatar : IGAvatar) {
-        var photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMedia in
+        let photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMedia in
             return IGMedia(avatar: avatar)
         }
         
@@ -272,7 +266,6 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         let downloadViewFrame = self.view.bounds
         downloadIndicatorMainView.backgroundColor = UIColor.white
         downloadIndicatorMainView.frame = downloadViewFrame
-        let andicatorViewFrame = CGRect(x: view.bounds.midX, y: view.bounds.midY,width: 50 , height: 50)
         
         let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: avatarView)//, deleteView: deleteView, downloadView: downloadIndicatorMainView)
         galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
@@ -629,6 +622,17 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             }
         }).send()
     }
+    
+    //MARK: -Convert to Group
+    private func convertToGroup(){
+        let createGroup = IGCreateNewGroupTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
+        let groupMembers: [IGRegisteredUser] = [user!, IGRegisteredUser.getUserInfo(id: IGAppManager.sharedManager.userID()!)!]
+        createGroup.selectedUsersToCreateGroup = groupMembers
+        createGroup.mode = .convertChatToGroup
+        createGroup.roomId = self.room!.id
+        createGroup.hidesBottomBarWhenPushed = true
+        self.navigationController!.pushViewController(createGroup, animated: true)
+    }
 
     //MARK: -Scroll View Delegate and DataS ource
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -636,9 +640,6 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         let height = min(max(y,headerViewMinHeight),headerViewMaxHeight)
         let range = height / headerViewMaxHeight
 
-//        let btnChatWithRange = ((range * headerViewMinHeight) - headerViewMinHeight) * -1
-//        let btnChatWithHeight = (self.btnChatWith.frame.size.height)/2 + 2.5
-//        btnChatWithMiddleConstraint.constant = min(btnChatWithHeight, btnChatWithRange)
         heightConstraints.constant = height
         let scaledTransform = originalTransform.scaledBy(x: max(0.7,range), y: max(0.7,range))
         let scaledAndTranslatedTransform = scaledTransform.translatedBy(x: 0, y: 0)
@@ -697,7 +698,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
             self.performSegue(withIdentifier: "showSharedMadiaPage", sender: self)
             break
         case 3 :
-            self.performSegue(withIdentifier: "showCreateGroupPage", sender: self)
+            convertToGroup()
             break
         case 4 :
             switch indexPath.row {
@@ -725,7 +726,6 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "IGProfileUserCell", for: indexPath as IndexPath) as! IGProfileUserCell
-        let cellTwo = tableView.dequeueReusableCell(withIdentifier: "IGProfileUSerCellTypeTwo", for: indexPath as IndexPath) as! IGProfileUSerCellTypeTwo
         switch indexPath.section {
         case 0:
             switch indexPath.row {
@@ -874,8 +874,5 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         default:
             return 0
         }
-
     }
-
-    
 }

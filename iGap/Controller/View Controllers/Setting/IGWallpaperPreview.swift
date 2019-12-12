@@ -104,10 +104,9 @@ class IGWallpaperPreview: UIViewController, UIGestureRecognizerDelegate {
             }
             ***/
 
-            self.downloadIndicator.setPercentage(0.0)
-            self.downloadIndicator.setFileType(.download)
-            self.downloadIndicator.clipsToBounds = true
             self.downloadIndicator.setState(.downloading)
+            self.downloadIndicator.setPercentage(0.0)
+            self.downloadIndicator.clipsToBounds = true
             
             IGDownloadManager.sharedManager.download(file: wallpaperFile!, previewType: .originalFile, completion: { (attachment) -> Void in
                 self.allowSetWallpaper = true

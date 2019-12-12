@@ -24,7 +24,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     var getRoomResponseID : Int64?
     let width = CGFloat(0.5)
     let borderColor = ThemeManager.currentTheme.LabelGrayColor
-    var mode : String?
+    var mode : GroupCreateMode = .newGroup
     var roomId : Int64?
     var selectedUsersToCreateGroup = [IGRegisteredUser]()
     var defualtImage = UIImage()
@@ -59,7 +59,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         navigationItem.rightViewContainer?.addAction {
-            if self.mode == "Convert Chat To Group" {
+            if self.mode == .convertChatToGroup {
                 self.requestToConvertChatToGroup()
             } else {
                 self.requestToCreateGroup()

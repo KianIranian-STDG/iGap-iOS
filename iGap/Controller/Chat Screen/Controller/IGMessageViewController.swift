@@ -763,7 +763,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         notificationToken?.invalidate()
         self.view.endEditing(true)
-        IGRecentsTableViewController.visibleChat[(room?.id)!] = false
+        if !room!.isInvalidated {
+            IGRecentsTableViewController.visibleChat[(room?.id)!] = false
+        }
         IGAppManager.sharedManager.currentMessagesNotificationToekn = nil
         self.sendCancelTyping()
         self.sendCancelRecoringVoice()
@@ -6341,7 +6343,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     
     /* scroll to bottom as default for send message (Text Message/File Message) */
     func addChatItem(realmRoomMessages: [IGRoomMessage], direction: IGPClientGetRoomHistory.IGPDirection, scrollToBottom: Bool = true){
-        if realmRoomMessages.count == 0 {
+        if realmRoomMessages.count == 0 || self.room!.isInvalidated {
             return
         }
         

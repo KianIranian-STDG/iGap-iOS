@@ -189,7 +189,7 @@ class IGMemberAddOrUpdateState: BaseViewController {
                         tmp.append(self.baseUser!)
                     }
                     createGroup.selectedUsersToCreateGroup = tmp
-                    createGroup.mode = self.mode
+                    createGroup.mode = .newGroup
                     createGroup.roomId = self.roomID
                     createGroup.hidesBottomBarWhenPushed = true
                     self.navigationController!.pushViewController(createGroup, animated: true)
@@ -208,7 +208,7 @@ class IGMemberAddOrUpdateState: BaseViewController {
                 })
                 let destinationVC = segue.destination as! IGCreateNewGroupTableViewController
                 destinationVC.selectedUsersToCreateGroup = selectedUsersToCreateGroup
-                destinationVC.mode = mode
+                destinationVC.mode = .newGroup
                 destinationVC.roomId = roomID
             }
         }
