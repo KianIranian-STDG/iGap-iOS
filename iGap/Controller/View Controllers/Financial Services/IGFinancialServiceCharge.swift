@@ -330,7 +330,6 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
                 
                 if success {
                     guard let token = token else { return }
-                    print("Success: " + token)
                     IGApiPayment.shared.orderCheck(token: token, completion: { (success, payment, errorMessage) in
                         IGGlobal.prgHide()
                         let paymentView = IGPaymentView.sharedInstance

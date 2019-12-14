@@ -145,10 +145,11 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate, BillMerch
     }
     
     private func fetchBillInfo(billInfo: String, setText: Bool = true){
-        
-        if IGFinancialServiceBill.isTrafficOffenses {
+        if IGFinancialServiceBill.isTrafficOffenses || billInfo.count < 14 || !billInfo.isNumber {
             return
         }
+        
+        let billInfo = billInfo.inEnglishNumbersNew()
         
         billId = billInfo[0..<13]
         payId = billInfo[13..<30]
