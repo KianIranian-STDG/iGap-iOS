@@ -37,7 +37,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchMedia()
-        btnShare.isHidden = true
+        
         let pagerView = FSPagerView(frame: self.view.frame)
         pagerView.dataSource = self
         pagerView.delegate = self
@@ -151,6 +151,9 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         self.navigationController?.popViewController(animated: false)
     }
     
+    @IBAction func btnShare(_ sender: UIButton) {
+        IGHelperPopular.shareAttachment(url: mediaList[currentIndex].attachment?.path(), viewController: self)
+    }
     
     // MARK:- FSPagerView
     
