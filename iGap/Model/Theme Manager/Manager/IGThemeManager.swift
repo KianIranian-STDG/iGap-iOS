@@ -15,7 +15,10 @@ class ThemeManager {
 }
 
 class DayColorSetManager {
-    static var currentColorSet : DayColorSetProtocol = BlueColorSet()
+    static var currentColorSet : DayNightColorSetProtocol = BlueColorSet()
+}
+class NightColorSetManager {
+    static var currentColorSet : DayNightColorSetProtocol = BlueColorSet()
 }
 class DefaultColorSetManager {
     static var currentColorSet : DefaultColorSetProtocol = DefaultColorSet()

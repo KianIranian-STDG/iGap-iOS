@@ -36,12 +36,15 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
     @IBOutlet weak var collectionThemes : UICollectionView!
     @IBOutlet weak var collectionAppIcons : UICollectionView!
     @IBOutlet weak var collectionColorSets : UICollectionView!
+    var indexPathAppIcon : IndexPath = IndexPath(item : 0, section: 0)
+    var indexPathDark : IndexPath = IndexPath(item : 0, section: 0)
+    var indexPathLight : IndexPath = IndexPath(item : 0, section: 0)
     var userDefaults = UserDefaults.standard
     
     var themeTypes = [IGStringsManager.ClassicTheme.rawValue.localized,IGStringsManager.DayTheme.rawValue.localized,IGStringsManager.NightTheme.rawValue.localized]
     var colorSets : [UIColor] = [UIColor(named: "BlueColorSet")!,UIColor(named: "TurquoiseColorSet")!,UIColor(named: "GreenColorSet")!,UIColor(named: "PinkColorSet")!,UIColor(named: "OrangeColorSet")!,UIColor(named: "PurpleColorSet")!,UIColor(named: "RedColorSet")!,UIColor(named: "GoldColorSet")!,UIColor(named: "LightGrayColorSet")!,UIColor(named: "BlackColorSet")!]
-    var appIcons : [UIImage] = [UIImage(named: "AppIconOne")!,UIImage(named: "AppIconTwo")!,UIImage(named: "AppIconThree")!,UIImage(named: "AppIconFour")!,UIImage(named: "AppIconFive")!,UIImage(named: "AppIconSix")!]
-    var appIconsNames : [String] = ["AppIconOne","AppIconTwo","AppIconThree","AppIconFour","AppIconFive","AppIconSix"]
+    var appIcons : [UIImage] = [UIImage(named: "AppIconOne")!,UIImage(named: "AppIconTwo")!,UIImage(named: "AppIconThree")!,UIImage(named: "AppIconFour")!,UIImage(named: "AppIconFive")!,UIImage(named: "AppIconSix")!,UIImage(named: "AppIconSeven")!]
+    var appIconsNames : [String] = ["AppIconOne","AppIconTwo","AppIconThree","AppIconFour","AppIconFive","AppIconSix","AppIconSeven"]
     var isClassicTheme : Bool = true
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,117 +79,170 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         selectTheme()
         
     }
-    private func changeTheme(themeType: String!) {
-        SwiftEventBus.post("ChangeTheme",sender: themeType)
+    private func changeTheme(theme: String!) {
+//        SwiftEventBus.post("ChangeTheme",sender: themeType)
+        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+        switch theme {
+        case "IGAPClassic" :
+            ThemeManager.currentTheme = ClassicTheme()
+            initTheme(currentTheme: theme)
+
+        case "IGAPDay" :
+            ThemeManager.currentTheme = DayTheme()
+            initTheme(currentTheme: theme, currentColorSet: currentColorSetLight)
+            
+        case "IGAPNight" :
+            ThemeManager.currentTheme = NightTheme()
+            initTheme(currentTheme: theme, currentColorSet: currentColorSetDark)
+            
+        default: break
+        }
     }
     private func selectTheme() {
+        let currentAppIcon = UserDefaults.standard.integer(forKey: "CurrentAppIcon") ?? 6
         let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
         let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
         let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
-        switch currentColorSetDark {
-        case "IGAPBlue" :
-            let indexPath = IndexPath(item: 0, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPTorquoise" :
-            let indexPath = IndexPath(item: 1, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPGreen" :
-            let indexPath = IndexPath(item: 2, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPPink" :
-            let indexPath = IndexPath(item: 3, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPOrange" :
-            let indexPath = IndexPath(item: 4, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPPurple" :
-            let indexPath = IndexPath(item: 5, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPRed" :
-            let indexPath = IndexPath(item: 6, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPGold" :
-            let indexPath = IndexPath(item: 7, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPLightGray" :
-            let indexPath = IndexPath(item: 8, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPBW" :
-            let indexPath = IndexPath(item: 9, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-        default: break
-        }
+        print("CURRENT COLOR SET FOR DARK",currentColorSetDark,"\n","CURRENT INDEX DARK IS",indexPathDark)
+        print("CURRENT COLOR SET FOR LIGHT",currentColorSetLight,"\n","CURRENT INDEX LIGHT IS",indexPathLight)
         switch currentColorSetLight {
-        case "IGAPBlue" :
-            let indexPath = IndexPath(item: 0, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPTorquoise" :
-            let indexPath = IndexPath(item: 1, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPGreen" :
-            let indexPath = IndexPath(item: 2, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPPink" :
-            let indexPath = IndexPath(item: 3, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPOrange" :
-            let indexPath = IndexPath(item: 4, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPPurple" :
-            let indexPath = IndexPath(item: 5, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPRed" :
-            let indexPath = IndexPath(item: 6, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPGold" :
-            let indexPath = IndexPath(item: 7, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPLightGray" :
-            let indexPath = IndexPath(item: 8, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-            
-        case "IGAPBW" :
-            let indexPath = IndexPath(item: 9, section: 0)
-            self.collectionColorSets.selectItem(at: indexPath, animated: true, scrollPosition: [])
-            break
-        default: break
+             case "IGAPBlue" :
+                 indexPathLight = IndexPath(item: 0, section: 0)
+                 self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
+
+             case "IGAPTorquoise" :
+                 indexPathLight = IndexPath(item: 1, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
+
+
+             case "IGAPGreen" :
+                 indexPathLight = IndexPath(item: 2, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
+
+
+             case "IGAPPink" :
+                 indexPathLight = IndexPath(item: 3, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
+
+
+             case "IGAPOrange" :
+                 indexPathLight = IndexPath(item: 4, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
+
+
+             case "IGAPPurple" :
+                 indexPathLight = IndexPath(item: 5, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
+
+
+             case "IGAPRed" :
+                 indexPathLight = IndexPath(item: 6, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
+
+
+             case "IGAPGold" :
+                 indexPathLight = IndexPath(item: 7, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
+
+
+             case "IGAPLightGray" :
+                 indexPathLight = IndexPath(item: 8, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
+
+
+             case "IGAPBW" :
+                 indexPathLight = IndexPath(item: 9, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
+
+        default : break
+             
+         }
+        switch currentColorSetDark {
+             case "IGAPBlue" :
+                 indexPathDark = IndexPath(item: 0, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
+
+             case "IGAPTorquoise" :
+                 indexPathDark = IndexPath(item: 1, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
+
+             case "IGAPGreen" :
+                 indexPathDark = IndexPath(item: 2, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
+
+             case "IGAPPink" :
+                 indexPathDark = IndexPath(item: 3, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
+
+             case "IGAPOrange" :
+                 indexPathDark = IndexPath(item: 4, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
+
+             case "IGAPPurple" :
+                 indexPathDark = IndexPath(item: 5, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
+
+             case "IGAPRed" :
+                 indexPathDark = IndexPath(item: 6, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
+
+             case "IGAPGold" :
+                 indexPathDark = IndexPath(item: 7, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
+
+             case "IGAPLightGray" :
+                 indexPathDark = IndexPath(item: 8, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
+
+             case "IGAPBW" :
+                 indexPathDark = IndexPath(item: 9, section: 0)
+            self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
+
+        default : break
+             
+         }
+        switch currentAppIcon {
+            case 0 :
+                indexPathAppIcon = IndexPath(item: 0, section: 0)
+                self.collectionColorSets.selectItem(at: indexPathAppIcon, animated: true, scrollPosition: [])
+
+
+            case 1 :
+                indexPathAppIcon = IndexPath(item: 1, section: 0)
+                self.collectionColorSets.selectItem(at: indexPathAppIcon, animated: true, scrollPosition: [])
+
+
+            case 2 :
+                indexPathAppIcon = IndexPath(item: 2, section: 0)
+                self.collectionColorSets.selectItem(at: indexPathAppIcon, animated: true, scrollPosition: [])
+
+
+            case 3 :
+                indexPathAppIcon = IndexPath(item: 3, section: 0)
+                self.collectionColorSets.selectItem(at: indexPathAppIcon, animated: true, scrollPosition: [])
+
+
+            case 4 :
+                indexPathAppIcon = IndexPath(item: 4, section: 0)
+                self.collectionColorSets.selectItem(at: indexPathAppIcon, animated: true, scrollPosition: [])
+
+
+            case 5 :
+                indexPathAppIcon = IndexPath(item: 5, section: 0)
+                self.collectionColorSets.selectItem(at: indexPathAppIcon, animated: true, scrollPosition: [])
+
+
+            case 6 :
+                indexPathAppIcon = IndexPath(item: 6, section: 0)
+                self.collectionColorSets.selectItem(at: indexPathAppIcon, animated: true, scrollPosition: [])
+            default : break
+
         }
+        print("CURRENT COLOR SET FOR DARK2",currentColorSetDark,"\n","CURRENT INDEX DARK IS",indexPathDark)
+        print("CURRENT COLOR SET FOR LIGHT2",currentColorSetLight,"\n","CURRENT INDEX LIGHT IS",indexPathLight)
+
         switch currentTheme {
             
         case "IGAPClassic" :
@@ -403,6 +459,20 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         }
     }
     
+    private func initTheme(currentTheme : String = "IGAPClassic", currentColorSet: String = "IGAPBlue") {
+        
+        self.tableView.cellForRow(at: IndexPath(item: 0, section: 0))?.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+        self.lblMaxA.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblMinA.textColor = ThemeManager.currentTheme.LabelColor
+        self.oneTo10Slider.tintColor = ThemeManager.currentTheme.SliderTintColor
+        self.viewMessagePreview.backgroundColor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor
+        self.lblMessagePreview.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+        self.messageTimePreview.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+        self.messageStatusPreview.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
+    }
+    
 }
 
 /// MARK: - collectionView delegate and datasource
@@ -430,37 +500,70 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
                 cell.viewBG.backgroundColor = DefaultColorSet().SettingClassicBG
                 cell.viewSender.backgroundColor = UIColor.chatBubbleBackground(isIncommingMessage: false)
                 cell.viewReciever.backgroundColor = UIColor.chatBubbleBackground(isIncommingMessage: true)
+                
                 if current == "IGAPClassic" {
-                    cell.viewBG.layer.borderColor = UIColor.iGapGreen().cgColor
+                    cell.viewBG.layer.borderColor = ThemeManager.currentTheme.BorderColor.cgColor
+                    cell.viewReciever.backgroundColor = DefaultColorSet().SettingDayReceiveBubble
+
+                } else if current == "IGAPDay" {
+                    cell.viewBG.layer.borderColor = UIColor.hexStringToUIColor(hex: "dedede").cgColor
+                    cell.viewReciever.backgroundColor = DayColorSetManager.currentColorSet.SettingDayReceiveBubble
+
+                    
                 } else {
                     cell.viewBG.layer.borderColor = UIColor.hexStringToUIColor(hex: "dedede").cgColor
-                    
+                    cell.viewReciever.backgroundColor = NightColorSetManager.currentColorSet.SettingDayReceiveBubble
+
+
                 }
                 
             case 1:
                 cell.viewBG.backgroundColor = .white
                 cell.viewSender.backgroundColor = UIColor.chatBubbleBackground(isIncommingMessage: false)
                 
-                cell.viewReciever.backgroundColor = DayColorSetManager.currentColorSet.SettingDayReceiveBubble
-                if current == "IGAPDay" {
-                    cell.viewBG.layer.borderColor = UIColor.iGapGreen().cgColor
-                } else {
-                    cell.viewBG.layer.borderColor = UIColor.hexStringToUIColor(hex: "dedede").cgColor
-                    
-                }
+                if current == "IGAPClassic" {
+                       cell.viewBG.layer.borderColor = ThemeManager.currentTheme.BorderColor.cgColor
+                       cell.viewReciever.backgroundColor = DefaultColorSet().SettingDayReceiveBubble
+
+                   } else if current == "IGAPDay" {
+                       cell.viewBG.layer.borderColor = UIColor.hexStringToUIColor(hex: "dedede").cgColor
+                       cell.viewReciever.backgroundColor = DayColorSetManager.currentColorSet.SettingDayReceiveBubble
+
+                       
+                   } else {
+                       cell.viewBG.layer.borderColor = UIColor.hexStringToUIColor(hex: "dedede").cgColor
+                       cell.viewReciever.backgroundColor = NightColorSetManager.currentColorSet.SettingDayReceiveBubble
+
+
+                   }
             case 2:
                 cell.viewBG.backgroundColor = .black
                 cell.viewSender.backgroundColor = UIColor.chatBubbleBackground(isIncommingMessage: false)
                 
                 cell.viewReciever.backgroundColor = DayColorSetManager.currentColorSet.SettingDayReceiveBubble
-                if current == "IGAPNight" {
-                    cell.viewBG.layer.borderColor = UIColor.iGapGreen().cgColor
-                } else {
-                    cell.viewBG.layer.borderColor = UIColor.hexStringToUIColor(hex: "dedede").cgColor
-                    
-                }
+                if current == "IGAPClassic" {
+                       cell.viewBG.layer.borderColor = ThemeManager.currentTheme.BorderColor.cgColor
+                       cell.viewReciever.backgroundColor = DefaultColorSet().SettingDayReceiveBubble
+
+                   } else if current == "IGAPDay" {
+                       cell.viewBG.layer.borderColor = UIColor.hexStringToUIColor(hex: "dedede").cgColor
+                       cell.viewReciever.backgroundColor = DayColorSetManager.currentColorSet.SettingDayReceiveBubble
+
+                       
+                   } else {
+                       cell.viewBG.layer.borderColor = UIColor.hexStringToUIColor(hex: "dedede").cgColor
+                       cell.viewReciever.backgroundColor = NightColorSetManager.currentColorSet.SettingDayReceiveBubble
+
+
+                   }
             default :
-                cell.viewBG.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+                cell.viewBG.layer.borderColor = ThemeManager.currentTheme.BorderColor.cgColor
+                cell.viewReciever.backgroundColor = DefaultColorSet().SettingDayReceiveBubble
+
+                cell.viewBG.backgroundColor = DefaultColorSet().SettingClassicBG
+                cell.viewSender.backgroundColor = UIColor.chatBubbleBackground(isIncommingMessage: false)
+                cell.viewReciever.backgroundColor = UIColor.chatBubbleBackground(isIncommingMessage: true)
+
                 
             }
             return cell
@@ -469,7 +572,12 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "IGAppIconsCVCell", for: indexPath) as! IGAppIconsCVCell
             
             cell.imgIcon.image = appIcons[indexPath.item]
-            cell.lblbIconName.text = "Name"
+            switch indexPath.item {
+            case indexPathAppIcon.item :
+                cell.viewColorOuter.layer.borderWidth = 2
+            default :
+                cell.viewColorOuter.layer.borderWidth = 0
+            }
             return cell
             
         } else {
@@ -481,234 +589,26 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
 
             cell.viewColorInner.backgroundColor = colorSets[indexPath.item]
             cell.viewColorOuter.backgroundColor = colorSets[indexPath.item]
-            cell.viewColorInner.layer.borderColor = colorSets[indexPath.item].cgColor
-            
+
             if currentTheme == "IGAPDay" {
-
                 switch indexPath.item {
-                    
-                case 0 :
-                    
-                    switch currentColorSetLight {
-                    case "IGAPBlue" :
+                    case indexPathLight.item :
                         cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                        
-                    default: break
-                    }
-                    break
-                case 1 :
-                    
-                    switch currentColorSetLight {
-                    case "IGAPTorquoise" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                    default: break
-                        
-                    }
-                    break
-                case 2 :
-                    
-                    switch currentColorSetLight {
-                        
-                    case "IGAPGreen" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                        
-                        
-                    default: break
-                    }
-                    break
-                case 3 :
-                    
-                    switch currentColorSetLight {
-                        
-                    case "IGAPPink" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                        
-                        
-                    default: break
-                    }
-                    break
-                case 4 :
-                    
-                    switch currentColorSetLight {
-                    case "IGAPOrange" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                        
-                    default: break
-                    }
-                    break
-                case 5 :
-                    
-                    switch currentColorSetLight {
-                        
-                    case "IGAPPurple" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                        
-                        
-                    default: break
-                    }
-                    break
-                case 6 :
-                    
-                    switch currentColorSetLight {
-                        
-                    case "IGAPRed" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                        
-                    default: break
-                    }
-                    break
-                case 7 :
-                    
-                    switch currentColorSetLight {
-                    case "IGAPGold" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                    default: break
-                    }
-                    break
-                case 8 :
-                    
-                    switch currentColorSetLight {
-                    case "IGAPLightGray" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                        
-                    default: break
-                    }
-                    break
-                case 9 :
-                    
-                    switch currentColorSetLight {
-                    case "IGAPBW" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                    default: break
-                    }
-                    break
-                default: break
+                    default:
+                        cell.viewColorInner.layer.borderColor = colorSets[indexPath.item].cgColor
                 }
-            } else if currentTheme == "IGAPDark" {
 
+            } else if currentTheme == "IGAPNight" {
                 switch indexPath.item {
-                    
-                case 0 :
-                    
-                    switch currentColorSetDark {
-                    case "IGAPBlue" :
+                    case indexPathDark.item :
                         cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                        
-                    default: break
-                    }
-                    break
-                case 1 :
-                    
-                    switch currentColorSetDark {
-                    case "IGAPTorquoise" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                    default: break
-                        
-                    }
-                    break
-                case 2 :
-                    
-                    switch currentColorSetDark {
-                        
-                    case "IGAPGreen" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                        
-                        
-                    default: break
-                    }
-                    break
-                case 3 :
-                    
-                    switch currentColorSetDark {
-                        
-                    case "IGAPPink" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                        
-                        
-                    default: break
-                    }
-                    break
-                case 4 :
-                    
-                    switch currentColorSetDark {
-                    case "IGAPOrange" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                        
-                    default: break
-                    }
-                    break
-                case 5 :
-                    
-                    switch currentColorSetDark {
-                        
-                    case "IGAPPurple" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                        
-                        
-                    default: break
-                    }
-                    break
-                case 6 :
-                    
-                    switch currentColorSetDark {
-                        
-                    case "IGAPRed" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                        
-                    default: break
-                    }
-                    break
-                case 7 :
-                    
-                    switch currentColorSetDark {
-                    case "IGAPGold" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                    default: break
-                    }
-                    break
-                case 8 :
-                    
-                    switch currentColorSetDark {
-                    case "IGAPLightGray" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                        
-                    default: break
-                    }
-                    break
-                case 9 :
-                    
-                    switch currentColorSetDark {
-                    case "IGAPBW" :
-                        cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
-                        break
-                    default: break
-                    }
-                    break
-                default: break
+                    default:
+                        cell.viewColorInner.layer.borderColor = colorSets[indexPath.item].cgColor
                 }
-            } else {
-                
+
             }
-            
+
+
             
             return cell
             
@@ -722,21 +622,30 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
         if collectionView == collectionThemes {
             let cell = collectionView.cellForItem(at: indexPath) as! IGThemeCVCell
             cell.viewBG.layer.borderColor = UIColor.iGapGreen().cgColor
-            
+            let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight")
+            let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark")
+
             switch indexPath.item {
             case 0 :
                 self.tableView.beginUpdates()
                 UserDefaults.standard.set("IGAPClassic", forKey: "CurrentTheme")
                 print("CURRENT THEME IS :","Classic")
                 isClassicTheme = true
+                self.collectionColorSets.reloadData()
                 self.tableView.endUpdates()
+                ThemeManager.currentTheme = ClassicTheme()
+                initTheme(currentTheme: "IGAPClassic", currentColorSet: "IGAPDefaultColor")
                 
             case 1 :
                 self.tableView.beginUpdates()
                 UserDefaults.standard.set("IGAPDay", forKey: "CurrentTheme")
                 print("CURRENT THEME IS :","Day")
                 isClassicTheme = false
+                self.collectionColorSets.reloadData()
                 self.tableView.endUpdates()
+                ThemeManager.currentTheme = DayTheme()
+                initTheme(currentTheme: "IGAPDay", currentColorSet: currentColorSetLight!)
+
                 
                 
             case 2 :
@@ -744,16 +653,25 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
                 UserDefaults.standard.set("IGAPNight", forKey: "CurrentTheme")
                 print("CURRENT THEME IS :","NIGHT")
                 isClassicTheme = false
+                self.collectionColorSets.reloadData()
                 self.tableView.endUpdates()
+                ThemeManager.currentTheme = NightTheme()
+                initTheme(currentTheme: "IGAPNight", currentColorSet: currentColorSetDark!)
+
                 
             default :
                 break
             }
+//            self.selectTheme()
         } else if collectionView == collectionAppIcons {
             guard let cell = collectionView.cellForItem(at: indexPath) as? IGAppIconsCVCell else { return }
             cell.viewColorOuter.layer.borderColor = UIColor.iGapGreen().cgColor
             cell.viewColorOuter.layer.borderWidth = 2
             self.changeIcon(to: appIconsNames[indexPath.item])
+            UserDefaults.standard.set(indexPath.item, forKey: "CurrentAppIcon")
+            indexPathAppIcon = IndexPath(item: indexPath.item, section: 0)
+            collectionView.reloadData()
+
             
             
             
@@ -762,22 +680,49 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
             cell.viewColorInner.layer.borderColor = UIColor.white.cgColor
             let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
             
+            
             switch indexPath.item {
             case 0 :
                 if currentTheme == "IGAPDay" {
                     UserDefaults.standard.set("IGAPBlue", forKey: "CurrentColorSetLight")
+                    indexPathLight = IndexPath(item: 0, section: 0)
+                    
+                    DayColorSetManager.currentColorSet = BlueColorSet()
+                    ThemeManager.currentTheme = DayTheme()
+
+                    initTheme(currentTheme: "IGAPDay", currentColorSet: "IGAPBlue")
+                    
                     
                 } else if currentTheme == "IGAPNight" {
                     UserDefaults.standard.set("IGAPBlue", forKey: "CurrentColorSetDark")
+                    indexPathDark = IndexPath(item: 0, section: 0)
+                    NightColorSetManager.currentColorSet = BlueColorSet()
+                    ThemeManager.currentTheme = NightTheme()
+
+                    initTheme(currentTheme: "IGAPNight", currentColorSet: "IGAPBlue")
+
+
                 }
                 print("CURRENT COLORSET IS :","BLUE")
                 
             case 1 :
                 if currentTheme == "IGAPDay" {
                     UserDefaults.standard.set("IGAPTorquoise", forKey: "CurrentColorSetLight")
-                    
+                    indexPathLight = IndexPath(item: 1, section: 0)
+                    DayColorSetManager.currentColorSet = TorquoiseColorSet()
+                    ThemeManager.currentTheme = DayTheme()
+
+                    initTheme(currentTheme: "IGAPDay", currentColorSet: "IGAPTorquoise")
+
+
                 } else if currentTheme == "IGAPNight" {
                     UserDefaults.standard.set("IGAPTorquoise", forKey: "CurrentColorSetDark")
+                    indexPathDark = IndexPath(item: 1, section: 0)
+                    NightColorSetManager.currentColorSet = TorquoiseColorSet()
+                    ThemeManager.currentTheme = NightTheme()
+
+                    initTheme(currentTheme: "IGAPNight", currentColorSet: "IGAPTorquoise")
+
                 }
                 
                 print("CURRENT COLORSET IS :","TORQUOISE")
@@ -785,23 +730,49 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
             case 2 :
                 if currentTheme == "IGAPDay" {
                     UserDefaults.standard.set("IGAPGreen", forKey: "CurrentColorSetLight")
+                    indexPathLight = IndexPath(item: 2, section: 0)
+                    DayColorSetManager.currentColorSet = GreenColorSet()
+                    ThemeManager.currentTheme = DayTheme()
+
+                    initTheme(currentTheme: "IGAPDay", currentColorSet: "IGAPGreen")
+
                     
                 } else if currentTheme == "IGAPNight" {
                     UserDefaults.standard.set("IGAPGreen", forKey: "CurrentColorSetDark")
+                    indexPathDark = IndexPath(item: 2, section: 0)
+                    NightColorSetManager.currentColorSet = GreenColorSet()
+                    ThemeManager.currentTheme = NightTheme()
+
+                    initTheme(currentTheme: "IGAPNight", currentColorSet: "IGAPGreen")
+
                 }
                 
                 print("CURRENT COLORSET IS :","GREEN")
                 
             case 3 :
-                UserDefaults.standard.set("IGAPPink", forKey: "CurrentColorSetDark")
+                if currentTheme == "IGAPDay" {
+                             UserDefaults.standard.set("IGAPPink", forKey: "CurrentColorSetLight")
+                             indexPathLight = IndexPath(item: 3, section: 0)
+
+                             
+                         } else if currentTheme == "IGAPNight" {
+                             UserDefaults.standard.set("IGAPPink", forKey: "CurrentColorSetDark")
+                             indexPathDark = IndexPath(item: 3, section: 0)
+
+                         }
+                
                 print("CURRENT COLORSET IS :","PINK")
+                
                 
             case 4 :
                 if currentTheme == "IGAPDay" {
                     UserDefaults.standard.set("IGAPOrange", forKey: "CurrentColorSetLight")
-                    
+                    indexPathLight = IndexPath(item: 4, section: 0)
+
                 } else if currentTheme == "IGAPNight" {
                     UserDefaults.standard.set("IGAPOrange", forKey: "CurrentColorSetDark")
+                    indexPathDark = IndexPath(item: 4, section: 0)
+
                 }
                 
                 print("CURRENT COLORSET IS :","ORANGE")
@@ -809,9 +780,13 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
             case 5 :
                 if currentTheme == "IGAPDay" {
                     UserDefaults.standard.set("IGAPPurple", forKey: "CurrentColorSetLight")
+                    indexPathLight = IndexPath(item: 5, section: 0)
+
                     
                 } else if currentTheme == "IGAPNight" {
                     UserDefaults.standard.set("IGAPPurple", forKey: "CurrentColorSetDark")
+                     indexPathDark = IndexPath(item: 5, section: 0)
+
                 }
                 
                 print("CURRENT COLORSET IS :","PURPLE")
@@ -820,9 +795,13 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
                 print("CURRENT COLORSET IS :","RED")
                 if currentTheme == "IGAPDay" {
                     UserDefaults.standard.set("IGAPRed", forKey: "CurrentColorSetLight")
+                    indexPathLight = IndexPath(item: 6, section: 0)
+
                     
                 } else if currentTheme == "IGAPNight" {
                     UserDefaults.standard.set("IGAPRed", forKey: "CurrentColorSetDark")
+                    indexPathDark = IndexPath(item: 6, section: 0)
+
                 }
                 
                 
@@ -830,9 +809,13 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
                 print("CURRENT COLORSET IS :","GOLD")
                 if currentTheme == "IGAPDay" {
                     UserDefaults.standard.set("IGAPGold", forKey: "CurrentColorSetLight")
+                    indexPathLight = IndexPath(item: 7, section: 0)
+
                     
                 } else if currentTheme == "IGAPNight" {
                     UserDefaults.standard.set("IGAPGold", forKey: "CurrentColorSetDark")
+                    indexPathDark = IndexPath(item: 7, section: 0)
+
                 }
                 
                 
@@ -840,17 +823,25 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
                 print("CURRENT COLORSET IS :","LIGHTGRAY")
                 if currentTheme == "IGAPDay" {
                     UserDefaults.standard.set("IGAPLightGray", forKey: "CurrentColorSetLight")
+                    indexPathLight = IndexPath(item: 8, section: 0)
+
                     
                 } else if currentTheme == "IGAPNight" {
                     UserDefaults.standard.set("IGAPLightGray", forKey: "CurrentColorSetDark")
+                    indexPathDark = IndexPath(item: 8, section: 0)
+
                 }
             case 9 :
                 print("CURRENT COLORSET IS :","BW")
                 if currentTheme == "IGAPDay" {
                     UserDefaults.standard.set("IGAPBW", forKey: "CurrentColorSetLight")
+                    indexPathLight = IndexPath(item: 9, section: 0)
+
                     
                 } else if currentTheme == "IGAPNight" {
                     UserDefaults.standard.set("IGAPBW", forKey: "CurrentColorSetDark")
+                    indexPathDark = IndexPath(item: 9, section: 0)
+
                 }
                 
                 
@@ -858,21 +849,19 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
             default :
                 break
             }
-            
+            print("||||||||||||",indexPathLight.item,"||||||||||||")
+            print("||||||||||||",indexPathDark.item,"||||||||||||")
+            collectionView.reloadData()
         }
         
         
         
     }
     private func changeIcon(to iconName: String) {
-        // 1
         guard UIApplication.shared.supportsAlternateIcons else {
             return
         }
-        
-        // 2
         UIApplication.shared.setAlternateIconName(iconName, completionHandler: { (error) in
-            // 3
             if let error = error {
                 print("App icon failed to change due to \(error.localizedDescription)")
             } else {
@@ -880,6 +869,7 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
             }
         })
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         

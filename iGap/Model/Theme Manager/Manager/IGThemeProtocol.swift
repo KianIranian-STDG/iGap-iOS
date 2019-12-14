@@ -56,6 +56,7 @@ protocol ThemeProtocol {
     var CustomAlertBorderColor : UIColor { get }
     var MessageLogCellBGColor : UIColor { get }
     var MessageTextColor : UIColor { get }
+    var MessageTextReceiverColor : UIColor { get }
     var MessageTimeLabelColor : UIColor { get }
     var MessageUnreadCellBGColor : UIColor { get }
     var ReceiveMessageBubleBGColor : UIColor { get }

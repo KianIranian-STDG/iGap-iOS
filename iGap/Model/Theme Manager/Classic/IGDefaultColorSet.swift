@@ -35,7 +35,8 @@ class DefaultColorSet: DefaultColorSetProtocol {
     var MessageLogCellBGColor: UIColor = UIColor(named: "IGMessageLogCellBGColor")!
     
     var MessageTextColor: UIColor = UIColor(named: "IGMessageTextColor")!
-    
+    var MessageTextReceiverColor: UIColor = UIColor(named: "IGMessageReceiverTextColor")!
+
     var MessageTimeLabelColor: UIColor = UIColor(named: "IGMessageTimeLabelColor")!
             
     var SendMessageBubleBGColor: UIColor = UIColor(named: "IGSendMessageBubleBGColor")!

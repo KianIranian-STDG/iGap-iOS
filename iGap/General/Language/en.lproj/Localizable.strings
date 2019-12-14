@@ -6663,7 +6663,7 @@ TODO:// complete */
 "around" = "About";
 "meter" = "meter";
 "chat_preview_sample" = "it's morning in Tehran 😍";
-"chat_preview_sample2" = "Is it morning or night in there ?🤔";
+"chat_preview_sample2" = "Is it night ?🤔";
 
 "keep_media_footer" = "All The images,videos and Audios that you did not have access in the period will be deleted.";
 "send_message_sound_alert" = "Send Message Sound Alert";

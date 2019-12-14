@@ -35,6 +35,8 @@ class ClassicTheme: ThemeProtocol {
     var MessageLogCellBGColor: UIColor = DefaultColorSet().MessageLogCellBGColor
     
     var MessageTextColor: UIColor = DefaultColorSet().MessageTextColor
+    var MessageTextReceiverColor: UIColor = DefaultColorSet().MessageTextReceiverColor
+    
     
     var MessageTimeLabelColor: UIColor = DefaultColorSet().MessageTimeLabelColor
     

@@ -10,7 +10,7 @@
 
 import UIKit
 
-class TorquoiseColorSet: DayColorSetProtocol {
+class TorquoiseColorSet: DayNightColorSetProtocol {
 
     
     
@@ -37,7 +37,8 @@ class TorquoiseColorSet: DayColorSetProtocol {
     var MessageLogCellBGColor: UIColor = UIColor(named: "IGMessageLogCellBGColor")!
     
     var MessageTextColor: UIColor = UIColor(named: "IGMessageTextColor")!
-    
+    var MessageTextReceiverColor: UIColor = .white
+
     var MessageTimeLabelColor: UIColor = UIColor(named: "IGMessageTimeLabelColor")!
             
     var SendMessageBubleBGColor: UIColor = UIColor(named: "IGSendMessageBubleBGColor")!
@@ -82,35 +83,34 @@ class TorquoiseColorSet: DayColorSetProtocol {
     
     //change by Color Set
 
-    var SettingDayReceiveBubble: UIColor = UIColor(named: "SettingDayReceiveBubbleTorquoise")!
-    
-    var SliderTintColor: UIColor = UIColor(named: "SliderTintColorTorquoise")!
+    var SettingDayReceiveBubble: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
+    var SliderTintColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
         
-    var CheckStatusColor: UIColor = UIColor(named: "CheckStatusColorTorquoise")!
+    var CheckStatusColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
     
-    var MessageCountColor: UIColor = UIColor(named: "MessageCountColorTorquoise")!
+    var MessageCountColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
     
-    var TabBarColor: UIColor = UIColor(named: "TabBarColorTorquoise")!
+    var TabBarColor: UIColor = UIColor.hexStringToUIColor(hex: "EAEAEC")
 
-    var TabBarTextColor: UIColor = UIColor(named: "TabBarTextColorTorquoise")!
+    var TabBarTextColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
 
-    var NavigationFirstColor: UIColor = UIColor(named: "NavigationFirstColorTorquoise")!
+    var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
     
-    var NavigationSecondColor: UIColor = UIColor(named: "NavigationSecondColorTorquoise")!
+    var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "6D9FEB")
 
-    var NavigationButtonTextColor: UIColor = UIColor(named: "NavigationButtonTextColorTorquoise")!
+    var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ReceiveMessageBubleBGColor: UIColor = UIColor(named: "ReceiveMessageBubleBGColorTorquoise")!
+    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
 
-    var MessageUnreadCellBGColor: UIColor = UIColor(named: "MessageUnreadCellBGColorTorquoise")!
+    var MessageUnreadCellBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
 
-    var ButtonTextColor: UIColor = UIColor(named: "ButtonTextColorTorquoise")!
+    var ButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ButtonBGColor: UIColor = UIColor(named: "ButtonBGColorTorquoise")!
+    var ButtonBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
 
-    var BorderCustomColor: UIColor = UIColor(named: "BorderCustomColorTorquoise")!
+    var BorderCustomColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
 
-    var BorderColor: UIColor = UIColor(named: "BorderColorTorquoise")!
+    var BorderColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
 
     
     

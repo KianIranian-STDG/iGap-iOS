@@ -10,7 +10,7 @@
 
 import UIKit
 
-class BlueColorSet: DayColorSetProtocol {
+class BlueColorSet: DayNightColorSetProtocol {
 
     
     
@@ -37,7 +37,7 @@ class BlueColorSet: DayColorSetProtocol {
     var MessageLogCellBGColor: UIColor = UIColor(named: "IGMessageLogCellBGColor")!
     
     var MessageTextColor: UIColor = UIColor(named: "IGMessageTextColor")!
-    
+    var MessageTextReceiverColor: UIColor = .white
     var MessageTimeLabelColor: UIColor = UIColor(named: "IGMessageTimeLabelColor")!
             
     var SendMessageBubleBGColor: UIColor = UIColor(named: "IGSendMessageBubleBGColor")!
@@ -84,33 +84,33 @@ class BlueColorSet: DayColorSetProtocol {
     
     var SettingDayReceiveBubble: UIColor = UIColor(named: "SettingDayReceiveBubbleBlue")!
     
-    var SliderTintColor: UIColor = UIColor(named: "SliderTintColorBlue")!
+    var SliderTintColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
         
-    var CheckStatusColor: UIColor = UIColor(named: "CheckStatusColorBlue")!
+    var CheckStatusColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
     
-    var MessageCountColor: UIColor = UIColor(named: "MessageCountColorBlue")!
+    var MessageCountColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
     
-    var TabBarColor: UIColor = UIColor(named: "TabBarColorBlue")!
+    var TabBarColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
 
-    var TabBarTextColor: UIColor = UIColor(named: "TabbarTextColorBlue")!
+    var TabBarTextColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
 
-    var NavigationFirstColor: UIColor = UIColor(named: "NavigationFirstColorBlue")!
+    var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
     
-    var NavigationSecondColor: UIColor = UIColor(named: "NavigationSecondColorBlue")!
+    var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
 
-    var NavigationButtonTextColor: UIColor = UIColor(named: "NavigationButtonTextColorBlue")!
+    var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
 
-    var ReceiveMessageBubleBGColor: UIColor = UIColor(named: "ReceiveMessageBubleBGColorBlue")!
+    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
 
-    var MessageUnreadCellBGColor: UIColor = UIColor(named: "MessageUnreadCellBGColorBlue")!
+    var MessageUnreadCellBGColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
 
-    var ButtonTextColor: UIColor = UIColor(named: "ButtonTextColorBlue")!
+    var ButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
 
-    var ButtonBGColor: UIColor = UIColor(named: "ButtonBGColorBlue")!
+    var ButtonBGColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
 
-    var BorderCustomColor: UIColor = UIColor(named: "BorderCustomColorBlue")!
+    var BorderCustomColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
 
-    var BorderColor: UIColor = UIColor(named: "BorderColorBlue")!
+    var BorderColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
 
     
     

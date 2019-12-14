@@ -6560,7 +6560,7 @@ kay*****@gm**.com</string>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="21:51" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OAc-Ik-Hpo">
                                                             <rect key="frame" x="236.33333333333331" y="38.666666666666657" width="27.666666666666686" height="17.333333333333329"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="11"/>
-                                                            <color key="textColor" name="IGMessageTimeLabelColor"/>
+                                                            <color key="textColor" name="IGMessageReceiverTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5S-qO-h8O">
@@ -6570,13 +6570,13 @@ kay*****@gm**.com</string>
                                                                 <constraint firstAttribute="height" constant="20" id="dJe-Mj-pT6"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="16"/>
-                                                            <color key="textColor" red="0.25490196079999999" green="0.69019607839999997" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="textColor" name="IGMessageReceiverTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="it's morning in Tehran " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="erE-yU-c3w">
                                                             <rect key="frame" x="15" y="5.0000000000000018" width="274" height="28.666666666666671"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="12"/>
-                                                            <color key="textColor" name="IGMessageTextColor"/>
+                                                            <color key="textColor" name="IGMessageReceiverTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -6618,7 +6618,7 @@ kay*****@gm**.com</string>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ptu-Ob-6j7">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="T82-21-wLT">
                                                         <size key="itemSize" width="114" height="108"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -6654,12 +6654,15 @@ kay*****@gm**.com</string>
                                                                         </subviews>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="trailing" secondItem="77Q-mJ-p94" secondAttribute="trailing" constant="20" id="Odr-Ki-LZz"/>
-                                                                            <constraint firstItem="2Up-FS-Uy2" firstAttribute="top" secondItem="CYt-ez-BLi" secondAttribute="top" constant="8" id="jSE-yj-lrG"/>
-                                                                            <constraint firstItem="2Up-FS-Uy2" firstAttribute="leading" secondItem="CYt-ez-BLi" secondAttribute="leading" constant="20" id="mp0-34-haR"/>
-                                                                            <constraint firstAttribute="bottom" secondItem="77Q-mJ-p94" secondAttribute="bottom" constant="8" id="sdY-bK-mEb"/>
-                                                                            <constraint firstAttribute="trailing" secondItem="2Up-FS-Uy2" secondAttribute="trailing" constant="8" id="tJw-Hj-3vh"/>
-                                                                            <constraint firstItem="77Q-mJ-p94" firstAttribute="leading" secondItem="CYt-ez-BLi" secondAttribute="leading" constant="8" id="uY2-88-heg"/>
+                                                                            <constraint firstItem="77Q-mJ-p94" firstAttribute="leading" secondItem="CYt-ez-BLi" secondAttribute="leading" constant="8" id="0Mt-3n-hhB"/>
+                                                                            <constraint firstItem="2Up-FS-Uy2" firstAttribute="leading" secondItem="CYt-ez-BLi" secondAttribute="leading" constant="20" id="35D-Sd-JFk"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="77Q-mJ-p94" secondAttribute="trailing" constant="20" id="WYj-QF-J8K"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="2Up-FS-Uy2" secondAttribute="trailing" constant="8" id="Z8x-DC-oxJ"/>
+                                                                            <constraint firstItem="77Q-mJ-p94" firstAttribute="top" secondItem="CYt-ez-BLi" secondAttribute="top" constant="45" id="fI3-fW-NqP"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="2Up-FS-Uy2" secondAttribute="bottom" constant="45" id="j4i-Hc-fZK"/>
+                                                                            <constraint firstAttribute="width" constant="94" id="k1n-1t-Gvj"/>
+                                                                            <constraint firstItem="2Up-FS-Uy2" firstAttribute="top" secondItem="CYt-ez-BLi" secondAttribute="top" constant="8" id="qZk-fL-8qu"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="77Q-mJ-p94" secondAttribute="bottom" constant="8" id="yYr-UR-NIb"/>
                                                                         </constraints>
                                                                     </view>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XMa-yY-5zx">
@@ -6670,12 +6673,11 @@ kay*****@gm**.com</string>
                                                                     </label>
                                                                 </subviews>
                                                                 <constraints>
-                                                                    <constraint firstItem="CYt-ez-BLi" firstAttribute="leading" secondItem="klL-6J-qYT" secondAttribute="leading" constant="10" id="32z-ZA-Tiy"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="CYt-ez-BLi" secondAttribute="bottom" constant="25" id="V5e-6i-FFm"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="XMa-yY-5zx" secondAttribute="bottom" id="Cdl-oB-vNI"/>
+                                                                    <constraint firstItem="CYt-ez-BLi" firstAttribute="top" secondItem="klL-6J-qYT" secondAttribute="top" constant="10" id="LaO-Ir-59c"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="CYt-ez-BLi" secondAttribute="bottom" constant="25" id="Lwg-ij-gSL"/>
+                                                                    <constraint firstItem="CYt-ez-BLi" firstAttribute="centerX" secondItem="XMa-yY-5zx" secondAttribute="centerX" id="Nc9-FQ-qOo"/>
                                                                     <constraint firstItem="XMa-yY-5zx" firstAttribute="centerX" secondItem="klL-6J-qYT" secondAttribute="centerX" id="aHr-Et-out"/>
-                                                                    <constraint firstItem="CYt-ez-BLi" firstAttribute="top" secondItem="klL-6J-qYT" secondAttribute="top" constant="10" id="bz0-7X-3xb"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="CYt-ez-BLi" secondAttribute="trailing" constant="10" id="nGd-6s-gfv"/>
-                                                                    <constraint firstItem="XMa-yY-5zx" firstAttribute="top" secondItem="CYt-ez-BLi" secondAttribute="bottom" constant="5" id="wTJ-Eh-5Zk"/>
                                                                 </constraints>
                                                             </collectionViewCellContentView>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -6688,10 +6690,6 @@ kay*****@gm**.com</string>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
-                                                    <connections>
-                                                        <outlet property="dataSource" destination="mWX-TF-pjE" id="aIY-11-CED"/>
-                                                        <outlet property="delegate" destination="mWX-TF-pjE" id="QMI-ks-DR4"/>
-                                                    </connections>
                                                 </collectionView>
                                             </subviews>
                                             <constraints>
@@ -6929,7 +6927,7 @@ kay*****@gm**.com</string>
                     <connections>
                         <outlet property="collectionAppIcons" destination="eL1-iG-n3L" id="E28-iM-RMT"/>
                         <outlet property="collectionColorSets" destination="EQ7-G0-d2F" id="Xne-eR-vLU"/>
-                        <outlet property="collectionThemes" destination="ptu-Ob-6j7" id="zCD-dy-DhJ"/>
+                        <outlet property="collectionThemes" destination="ptu-Ob-6j7" id="YTT-vJ-mVA"/>
                         <outlet property="lblChatBG" destination="BIn-A5-mw8" id="JNP-g3-mnh"/>
                         <outlet property="lblInAppBrowser" destination="MOK-jh-0ZG" id="axv-wE-DtI"/>
                         <outlet property="lblMaxA" destination="1zb-p9-10R" id="yrG-f4-nf6"/>
@@ -6991,13 +6989,16 @@ AQAAAAAAAABBAAAAAAAAAAAAAAAAAAACCw
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGButtonBGColor">
-            <color red="0.25499999523162842" green="0.6940000057220459" blue="0.125" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.25490196078431371" green="0.69411764705882351" blue="0.12549019607843137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGLabelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGLabelGrayColor">
             <color white="0.33300000429153442" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+        <namedColor name="IGMessageReceiverTextColor">
+            <color red="0.17299999296665192" green="0.21199999749660492" blue="0.24699999392032623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGMessageTextColor">
             <color red="0.17299999296665192" green="0.21199999749660492" blue="0.24699999392032623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

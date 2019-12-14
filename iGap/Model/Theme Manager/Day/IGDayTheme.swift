@@ -35,7 +35,8 @@ class DayTheme: ThemeProtocol {
     var MessageLogCellBGColor: UIColor = DayColorSetManager.currentColorSet.MessageLogCellBGColor
     
     var MessageTextColor: UIColor = DayColorSetManager.currentColorSet.MessageTextColor
-    
+    var MessageTextReceiverColor: UIColor = DayColorSetManager.currentColorSet.MessageTextReceiverColor
+
     var MessageTimeLabelColor: UIColor = DayColorSetManager.currentColorSet.MessageTimeLabelColor
             
     var SendMessageBubleBGColor: UIColor = DayColorSetManager.currentColorSet.SendMessageBubleBGColor

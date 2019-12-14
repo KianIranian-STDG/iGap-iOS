@@ -10,7 +10,7 @@
 
 import UIKit
 
-class GreenColorSet: DayColorSetProtocol {
+class GreenColorSet: DayNightColorSetProtocol {
 
     
     
@@ -37,7 +37,8 @@ class GreenColorSet: DayColorSetProtocol {
     var MessageLogCellBGColor: UIColor = UIColor(named: "IGMessageLogCellBGColor")!
     
     var MessageTextColor: UIColor = UIColor(named: "IGMessageTextColor")!
-    
+    var MessageTextReceiverColor: UIColor = .white
+
     var MessageTimeLabelColor: UIColor = UIColor(named: "IGMessageTimeLabelColor")!
             
     var SendMessageBubleBGColor: UIColor = UIColor(named: "IGSendMessageBubleBGColor")!
