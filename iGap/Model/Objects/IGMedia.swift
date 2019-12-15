@@ -76,6 +76,11 @@ class IGMedia: INSPhotoViewable, Equatable {
             completion(image, nil)
             return
         }
+        
+        if file == nil {
+            return
+        }
+        
         imageSize = file?.size
         currentSize = nil
         currentSize = imageSize

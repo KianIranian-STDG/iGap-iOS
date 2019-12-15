@@ -433,6 +433,9 @@ public class IGFile: Object {
     }
     
     public func path() -> URL? {
+        if self.isInvalidated {
+            return nil
+        }
         let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         if let fileNameOnDisk = self.fileNameOnDisk {
             return NSURL(fileURLWithPath: documents).appendingPathComponent(fileNameOnDisk)

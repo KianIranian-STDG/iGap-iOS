@@ -681,6 +681,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if self.room!.isInvalidated {
+            self.navigationController?.popViewController(animated: true)
+        }
+        
         IGGlobal.isInChatPage = true
         IGMessageViewController.messageViewControllerObserver = self
         IGMessageViewController.additionalObserver = self
@@ -1918,6 +1922,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     // MARK: - TextView Development Delegate funcs
     
     func textViewDidChange(_ textView: UITextView) {
+        
+        if room!.isInvalidated {
+            return
+        }
         
         if allowSendTyping() {
             self.sendTyping()
@@ -3395,29 +3403,25 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     func hideMultiShareModal() {
         self.MultiShareModalIsActive = false
-        
         if forwardModal != nil {
             self.dissmissViewBG.removeFromSuperview()
-            //            self.blurEffectView.removeFromSuperview()
             UIView.animate(withDuration: 0.3, animations: {
                 self.forwardModal.frame.origin.y = self.view.frame.height
             }) { (true) in
             }
-            
-            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
-                self.forwardModal.removeFromSuperview()
-                self.forwardModal = nil
-                if self.dismissBtn != nil {
-                    self.dismissBtn.removeFromSuperview()
+                if self.forwardModal != nil {
+                    self.forwardModal.removeFromSuperview()
+                    self.forwardModal = nil
+                    if self.dismissBtn != nil {
+                        self.dismissBtn.removeFromSuperview()
+                    }
                 }
             }
-            
         }
         forwardModal.searchBar.endEditing(true)
-        
-        
     }
+    
     @objc func handleGesture(gesture: UITapGestureRecognizer) {
         // handling code
         if MoneyTransactionModal != nil {
@@ -4680,6 +4684,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 extension IGMessageViewController: IGMessageCollectionViewDataSource {
     
     private func getMessageType(message: IGRoomMessage) -> IGRoomMessageType {
+        if message.isInvalidated {
+            return IGRoomMessageType.unknown
+        }
+        
         var finalMessage = message
         if let forward = message.forwardedFrom {
             finalMessage = forward
@@ -5458,6 +5466,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
     private func manageSendedMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
         
+        if self.room!.isInvalidated {
+            return
+        }
+        
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let copy = UIAlertAction(title: IGStringsManager.Copy.rawValue.localized, style: .default, handler: { (action) in
             self.copyMessage(cellMessage)
@@ -5803,7 +5815,13 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             attachmetVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: finalMessage.attachment!.cacheID!)
         }
         
-        let attachment = attachmetVariableInCache!.value
+        var attachment: IGFile!
+        if attachmetVariableInCache == nil {
+            attachment = attachmetVariableInCache!.value
+        } else {
+            attachment = finalMessage.attachment
+        }
+        
         if attachment.status != .ready && !IGGlobal.isFileExist(path: finalMessage.attachment?.path(), fileSize: (finalMessage.attachment?.size)!) {
             return
         }
@@ -6320,8 +6338,10 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             DispatchQueue.main.async {
                 for indexPath in self.collectionView.indexPathsForVisibleItems {
                     if let cell = self.collectionView.cellForItem(at: indexPath) as? AbstractCell {
-                        if let peerId = cell.realmRoomMessage.authorUser?.userId, userInfo.igpID == peerId {
-                            self.updateItem(cellPosition: indexPath.row)
+                        if !cell.realmRoomMessage.isInvalidated && !cell.realmRoomMessage.authorUser!.isInvalidated {
+                            if let peerId = cell.realmRoomMessage.authorUser?.userId, userInfo.igpID == peerId {
+                                self.updateItem(cellPosition: indexPath.row)
+                            }
                         }
                     }
                 }

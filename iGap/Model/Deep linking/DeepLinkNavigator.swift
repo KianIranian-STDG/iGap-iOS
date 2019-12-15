@@ -208,7 +208,7 @@ class DeeplinkNavigator {
     
     private func displayAlert(title: String) {
         alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        let okButton = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        let okButton = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
         alertController.addAction(okButton)
         if let vc = UIApplication.shared.keyWindow?.rootViewController {
             if vc.presentedViewController != nil {

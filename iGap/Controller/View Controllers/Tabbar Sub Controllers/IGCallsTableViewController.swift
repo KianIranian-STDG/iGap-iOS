@@ -528,23 +528,18 @@ extension IGCallsTableViewController: UICollectionViewDataSource, UICollectionVi
 
         switch callTypes[indexPath.item] {
         case .all:
-            print("|||||TAPPED btnAll|||||")
             currentMode = .all
             break
         case .canceled:
-            print("|||||TAPPED btnCanceled|||||")
             currentMode = .canceled
             break
         case .incoming:
-            print("|||||TAPPED btnIncomming|||||")
             currentMode = .incoming
             break
         case .missed:
-            print("|||||TAPPED btnMissed|||||")
             currentMode = .missed
             break
         case .outgoing:
-            print("|||||TAPPED btnOutgoing|||||")
             currentMode = .outgoing
             
             break
@@ -553,12 +548,9 @@ extension IGCallsTableViewController: UICollectionViewDataSource, UICollectionVi
         }
         
         updateObserver(mode: currentMode)
-//        self.tableView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-//        IGRequestManager.sharedManager.cancelRequest(identity: "\(callTypes[indexPath.item])")
-        
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         let label = cell.viewWithTag(110) as! UILabel
         cell.backgroundColor = ThemeManager.currentTheme.TransactionsCVColor

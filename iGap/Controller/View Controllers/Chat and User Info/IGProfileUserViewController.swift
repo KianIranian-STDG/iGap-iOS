@@ -327,8 +327,10 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                 }
                 
             }).error({ (errorCode, waitTime) in
-                IGGlobal.prgHide()
-                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
+                DispatchQueue.main.async {
+                    IGGlobal.prgHide()
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
+                }
             }).send()
         }
         

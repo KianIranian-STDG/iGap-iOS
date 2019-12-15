@@ -118,8 +118,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
             return
         }
         
-        self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        self.hud.mode = .indeterminate
+        IGGlobal.prgShow()
         
         if let password = passwordTextField.text?.inEnglishNumbersNew() {
             IGUserTwoStepVerificationVerifyPasswordRequest.Generator.generate(password: password).success({ (verifyPasswordReponse) in
@@ -135,6 +134,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
                     }
                 }
             }).error({ (errorCode, waitTime) in
+                IGGlobal.prgHide()
                 var errorTitle = ""
                 var errorBody = ""
                 switch errorCode {
@@ -187,6 +187,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
                     IGAppManager.sharedManager.isUserLoggedIn.value = true
                     
                     IGUserInfoRequest.Generator.generate(userID: IGAppManager.sharedManager.userID()!).success({ (protoResponse) in
+                        IGGlobal.prgHide()
                         DispatchQueue.main.async {
                             switch protoResponse {
                             case let userInfoResponse as IGPUserInfoResponse:
@@ -196,33 +197,19 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
                             default:
                                 break
                             }
-                            self.hud.hide(animated: true)
-//                            self.dismiss(animated: true, completion: {
-//                                IGAppManager.sharedManager.setUserLoginSuccessful()
-//                            })
                             
                             RootVCSwitcher.updateRootVC(storyBoard: "Main", viewControllerID: "MainTabBar")
                             IGAppManager.sharedManager.setUserLoginSuccessful()
                             
-//                            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//                            let vc = storyboard.instantiateViewController(withIdentifier: "MainTabBar")
-//                            vc.modalPresentationStyle = .fullScreen
-//
-//                            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-//                                if let window = appDelegate.window {
-//                                    window.rootViewController?.present(vc, animated: true, completion: nil)
-//                                    IGAppManager.sharedManager.setUserLoginSuccessful()
-//                                }
-//                            }
                         }
                     }).error({ (errorCode, waitTime) in
+                        IGGlobal.prgHide()
                         DispatchQueue.main.async {
                             if errorCode == .timeout {
                                 self.loginUser(token: token)
                             } else if errorCode == .floodRequest {
                                 IGWebSocketManager.sharedManager.closeConnection()
                             } else {
-                                self.hud.hide(animated: true)
                                 IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                             }
                         }
@@ -234,7 +221,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
             }
         }).error({ (errorCode, waitTime) in
             DispatchQueue.main.async {
-                self.hud.hide(animated: true)
+                IGGlobal.prgHide()
                 IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             }
         }).send()
@@ -247,7 +234,6 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
             preferredStyle: .actionSheet
         )
         
-//        let cancel = UIAlertAction(title: IGStringsManager.GLOBAL_CANCEL.localized, style: .default, handler: nil)
         let cancel = UIAlertAction(title: NSLocalizedString(IGStringsManager.GlobalCancel.rawValue, comment: ""), style: .default, handler: nil)
         let email = UIAlertAction(title: IGStringsManager.Email.rawValue.localized, style: .default, handler: { _ in
             

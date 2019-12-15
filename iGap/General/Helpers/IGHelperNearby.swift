@@ -58,7 +58,7 @@ class IGHelperNearby {
         let ok = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (action) in
             let mapVC = IGMap.instantiateFromAppStroryboard(appStoryboard: .Main)
             mapVC.hidesBottomBarWhenPushed = true
-            UIApplication.topViewController()?.navigationController!.pushViewController(mapVC, animated: true)
+            UIApplication.topViewController()?.navigationController?.pushViewController(mapVC, animated: true)
         })
         option.addAction(ok)
         UIApplication.topViewController()?.present(option, animated: true, completion: {})

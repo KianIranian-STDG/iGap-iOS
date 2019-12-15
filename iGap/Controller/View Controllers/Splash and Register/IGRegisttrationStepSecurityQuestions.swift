@@ -81,70 +81,66 @@ class IGRegisttrationStepSecurityQuestions: UIViewController,UIGestureRecognizer
     //actions
     @IBAction func didTapOnSubmit(_ sender: Any) {
         if (tfSecQOne.text == "" || tfSecQOne.text!.isEmpty) || (tfSecQTwo.text == "" || tfSecQTwo.text!.isEmpty) {
-//            IGHelperAlert.shared.showAlert(view: self,message: IGStringsManager.RGP_MSG_ANSWERS_WAS_EMPTY.localized)
             
-//            IGHelperAlert.shared.showAlert(view: self,message: IGStringsManager.RGP_MSG_ANSWERS_WAS_WRONG)
-
         } else {
-            
-                IGUserTwoStepVerificationRecoverPasswordByAnswersRequest.Generator.generate(answerOne: tfSecQOne.text!, answerTwo: tfSecQTwo.text!).success({ (UserTwoStepVerificationRecoverPasswordByAnswersResponse) in
-                    DispatchQueue.main.async {
-                        switch UserTwoStepVerificationRecoverPasswordByAnswersResponse {
-                        case let UserTwoStepVerificationRecoverPasswordByAnswersResponse as IGPUserTwoStepVerificationRecoverPasswordByAnswersResponse:
-                            let interpretedResponse = IGUserTwoStepVerificationRecoverPasswordByAnswersRequest.Handler.interpret(response: UserTwoStepVerificationRecoverPasswordByAnswersResponse)
-                            IGAppManager.sharedManager.save(token: interpretedResponse)
-                            self.loginUser(token: interpretedResponse)
-                            
-                        default:
-                            break
-                        }
-                    }
-                }).error({ (errorCode, waitTime) in
-                    var errorTitle = ""
-                    var errorBody = ""
-                    switch errorCode {
-                    case .userTwoStepVerificationVerifyPasswordBadPayload :
-                        errorTitle = "Error"
-                        errorBody = "Invalid payload"
-                        break
-                    case .userTwoStepVerificationVerifyPasswordInternalServerError :
-                        errorTitle = "Error"
-                        errorBody = "Inernal server error. Try agian later and if problem persists contact iGap support."
-                        break
-                    case .userTwoStepVerificationVerifyPasswordMaxTryLock :
-                        errorTitle = ""
-                        errorBody = "Too many failed password verification attempt."
-                        break
-                    case .userTwoStepVerificationVerifyPasswordInvalidPassword :
-                        errorTitle = "Invalid Code"
-                        errorBody = "The password you entered is not valid. Verify the password and try again."
-                        break
-                    case .timeout:
-                        errorTitle = "Timeout"
-                        errorBody = "Please try again later."
-                        break
-                    default:
-                        errorTitle = "Unknown error"
-                        errorBody = "An error occured. Please try again later.\nCode \(errorCode)"
-                        break
-                    }
-                    if waitTime != nil &&  waitTime != 0 {
-                        errorBody += "\nPlease try again in \(waitTime!) seconds."
-                    }
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: errorTitle, message: errorBody, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.hud.hide(animated: true)
-                        self.present(alert, animated: true, completion: nil)
+            IGGlobal.prgShow()
+            IGUserTwoStepVerificationRecoverPasswordByAnswersRequest.Generator.generate(answerOne: tfSecQOne.text!, answerTwo: tfSecQTwo.text!).success({ (UserTwoStepVerificationRecoverPasswordByAnswersResponse) in
+                DispatchQueue.main.async {
+                    switch UserTwoStepVerificationRecoverPasswordByAnswersResponse {
+                    case let UserTwoStepVerificationRecoverPasswordByAnswersResponse as IGPUserTwoStepVerificationRecoverPasswordByAnswersResponse:
+                        let interpretedResponse = IGUserTwoStepVerificationRecoverPasswordByAnswersRequest.Handler.interpret(response: UserTwoStepVerificationRecoverPasswordByAnswersResponse)
+                        IGAppManager.sharedManager.save(token: interpretedResponse)
+                        self.loginUser(token: interpretedResponse)
                         
+                    default:
+                        break
                     }
+                }
+            }).error({ (errorCode, waitTime) in
+                IGGlobal.prgHide()
+                var errorTitle = ""
+                var errorBody = ""
+                switch errorCode {
+                case .userTwoStepVerificationVerifyPasswordBadPayload :
+                    errorTitle = "Error"
+                    errorBody = "Invalid payload"
+                    break
+                case .userTwoStepVerificationVerifyPasswordInternalServerError :
+                    errorTitle = "Error"
+                    errorBody = "Inernal server error. Try agian later and if problem persists contact iGap support."
+                    break
+                case .userTwoStepVerificationVerifyPasswordMaxTryLock :
+                    errorTitle = ""
+                    errorBody = "Too many failed password verification attempt."
+                    break
+                case .userTwoStepVerificationVerifyPasswordInvalidPassword :
+                    errorTitle = "Invalid Code"
+                    errorBody = "The password you entered is not valid. Verify the password and try again."
+                    break
+                case .timeout:
+                    errorTitle = "Timeout"
+                    errorBody = "Please try again later."
+                    break
+                default:
+                    errorTitle = "Unknown error"
+                    errorBody = "An error occured. Please try again later.\nCode \(errorCode)"
+                    break
+                }
+                if waitTime != nil &&  waitTime != 0 {
+                    errorBody += "\nPlease try again in \(waitTime!) seconds."
+                }
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: errorTitle, message: errorBody, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.hud.hide(animated: true)
+                    self.present(alert, animated: true, completion: nil)
                     
-                }).send()
-
-            
+                }
+                
+            }).send()
         }
-}
+    }
     
     fileprivate func loginUser(token: String) {
         IGUserLoginRequest.Generator.generate(token: token).success({ (protoResponse) in
@@ -155,6 +151,7 @@ class IGRegisttrationStepSecurityQuestions: UIViewController,UIGestureRecognizer
                     IGAppManager.sharedManager.isUserLoggedIn.value = true
                     
                     IGUserInfoRequest.Generator.generate(userID: IGAppManager.sharedManager.userID()!).success({ (protoResponse) in
+                        IGGlobal.prgHide()
                         DispatchQueue.main.async {
                             switch protoResponse {
                             case let userInfoResponse as IGPUserInfoResponse:
@@ -164,26 +161,13 @@ class IGRegisttrationStepSecurityQuestions: UIViewController,UIGestureRecognizer
                             default:
                                 break
                             }
-                            self.hud.hide(animated: true)
-//                            self.dismiss(animated: true, completion: {
-//                                IGAppManager.sharedManager.setUserLoginSuccessful()
-//                            })
                             
                             RootVCSwitcher.updateRootVC(storyBoard: "Main", viewControllerID: "MainTabBar")
                             IGAppManager.sharedManager.setUserLoginSuccessful()
                             
-//                            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//                            let vc = storyboard.instantiateViewController(withIdentifier: "MainTabBar")
-//                            vc.modalPresentationStyle = .fullScreen
-//
-//                            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-//                                if let window = appDelegate.window {
-//                                    IGAppManager.sharedManager.setUserLoginSuccessful()
-//                                    window.rootViewController?.present(vc, animated: true, completion: nil)
-//                                }
-                            //                            }
                         }
                     }).error({ (errorCode, waitTime) in
+                        IGGlobal.prgHide()
                         DispatchQueue.main.async {
                             if errorCode == .timeout {
                                 self.loginUser(token: token)
@@ -202,11 +186,9 @@ class IGRegisttrationStepSecurityQuestions: UIViewController,UIGestureRecognizer
             }
         }).error({ (errorCode, waitTime) in
             DispatchQueue.main.async {
-                self.hud.hide(animated: true)
+                IGGlobal.prgHide()
                 IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             }
         }).send()
     }
-
-
 }

@@ -200,13 +200,15 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
                         IGClientGetRoomRequest.Generator.generate(roomId: groupCreateRespone.igpRoomID).success({ (protoResponse) in
                             if let getRoomProtoResponse = protoResponse as? IGPClientGetRoomResponse {
                                 IGClientGetRoomRequest.Handler.interpret(response: getRoomProtoResponse)
-                                for member in self.selectedUsersToCreateGroup {
-                                    IGGroupAddMemberRequest.Generator.generate(userID: member.id, group: IGRoom(igpRoom:getRoomProtoResponse.igpRoom)).success({ (protoResponse) in
-                                        if let groupAddMemberResponse = protoResponse as? IGPGroupAddMemberResponse {
-                                            let _ = IGGroupAddMemberRequest.Handler.interpret(response: groupAddMemberResponse)
-                                        }
-                                    }).error({ (errorCode, waitTime) in
-                                    }).send()
+                                DispatchQueue.main.async {
+                                    for member in self.selectedUsersToCreateGroup {
+                                        IGGroupAddMemberRequest.Generator.generate(userID: member.id, group: IGRoom(igpRoom:getRoomProtoResponse.igpRoom)).success({ (protoResponse) in
+                                            if let groupAddMemberResponse = protoResponse as? IGPGroupAddMemberResponse {
+                                                let _ = IGGroupAddMemberRequest.Handler.interpret(response: groupAddMemberResponse)
+                                            }
+                                        }).error({ (errorCode, waitTime) in
+                                        }).send()
+                                    }
                                 }
                                 
                                 if self.groupAvatarImage.image != nil, self.groupAvatarImage.image != self.defualtImage {

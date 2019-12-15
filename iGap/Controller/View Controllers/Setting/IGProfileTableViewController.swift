@@ -546,7 +546,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     func fetchUserInfo() {
         let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
         userInDb = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(predicate).first
-        if userAvatarView.avatarImageView?.image == nil {
+        if userAvatarView.avatarImageView != nil && userAvatarView.avatarImageView?.image == nil {
             userAvatarView.setUser(userInDb, showMainAvatar: true)
         }
         user = userInDb

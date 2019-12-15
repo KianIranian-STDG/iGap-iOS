@@ -767,11 +767,10 @@ class IGNavigationItem: UINavigationItem {
                 if room.currenctActionsByUsers.first?.value.1 != .typing {
                     setLastSeenLabelForUser(peer, room: room)
                 }
-            } else if let groupRoom = room.groupRoom {
-                
+            } else if let groupRoom = room.groupRoom, !groupRoom.isInvalidated {
                 self.centerViewSubLabel!.text = "\(groupRoom.participantCount) " + IGStringsManager.Member.rawValue.localized
                 
-            } else if let channelRoom = room.channelRoom {
+            } else if let channelRoom = room.channelRoom, !channelRoom.isInvalidated {
                 self.centerViewSubLabel!.text = "\(channelRoom.participantCount) " + IGStringsManager.Member.rawValue.localized
             }
         }

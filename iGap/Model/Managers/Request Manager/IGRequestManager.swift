@@ -447,7 +447,7 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
 var unsecureResponseActionID : [Int] = [30001,30002,30003]
 
 //login is not required for these methods
-var actionIdOfMethodsThatCanBeSentWithoutBeingLoggedIn : [Int] = [2, 100, 101, 102,131,132, 500, 501, 502, 503, 802, 201, 310, 410, 700, 701, 702, 703]
+var actionIdOfMethodsThatCanBeSentWithoutBeingLoggedIn : [Int] = [2, 100, 101, 102,131,132, 138, 139, 140, 500, 501, 502, 503, 802]
 var waitingListActionId : [Int] = []//currently not exist any waiting actionId
 
 
