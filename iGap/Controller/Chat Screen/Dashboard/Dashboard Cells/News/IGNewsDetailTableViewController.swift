@@ -200,8 +200,13 @@ class IGNewsDetailTableViewController: UITableViewController,UIGestureRecognizer
             topHeaderDate.widthAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width)/3).isActive = true
             let dateFormatter = ISO8601DateFormatter()
             let date = dateFormatter.date(from: item.publishDate!.checkTime())
-            self.topHeaderDate.text = date!.completeHumanReadableTime(showHour: true)
+            let tmpArray = item.publishDate!.components(separatedBy: " ")
 
+            let tmpDate = date!.completeHumanReadableTime(showHour: true) ?? "..."
+            let array = tmpDate.components(separatedBy: " - ")
+            print("||||CHECK DATE ARRAY||||||",array[0])
+            print("||||CHECK DATE ARRAY2||||||",tmpArray[1])
+            self.topHeaderDate.text = array[0].inLocalizedLanguage() + " | "  + tmpArray[1].inLocalizedLanguage()
             
 
             topHeaderSeenIcon = UILabel()

@@ -53,8 +53,14 @@ class IGNewsCommentTVCell: UITableViewCell {
         
         let dateFormatter = ISO8601DateFormatter()
         let date = dateFormatter.date(from: item.commentDate!.checkTime())
-        self.lblDate.text = date!.completeHumanReadableTime(showHour: true) ?? "..."
-        
+        let tmpArray = item.commentDate!.components(separatedBy: " ")
+
+        let tmpDate = date!.completeHumanReadableTime(showHour: true) ?? "..."
+        let array = tmpDate.components(separatedBy: " - ")
+        print("||||CHECK DATE ARRAY||||||",array[0])
+        print("||||CHECK DATE ARRAY2||||||",tmpArray[1])
+        self.lblDate.text = array[0].inLocalizedLanguage() + " | "  + tmpArray[1].inLocalizedLanguage()
+
         self.lblAuthor.text = ": " + item.userName!
         self.lblComment.text = item.commentContent!
     }

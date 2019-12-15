@@ -267,7 +267,13 @@ class IGNewsSectionInnerTableViewController: UITableViewController,UIGestureReco
         cell.lblAgency.textColor = UIColor.hexStringToUIColor(hex: "b60000")
         let dateFormatter = ISO8601DateFormatter()
         let date = dateFormatter.date(from: item.date!.checkTime())
-        cell.lblDate.text = date!.completeHumanReadableTime(showHour: true) ?? "..."
+        let tmpArray = item.date!.components(separatedBy: " ")
+
+        let tmpDate = date!.completeHumanReadableTime(showHour: true) ?? "..."
+        let array = tmpDate.components(separatedBy: " - ")
+        print("||||CHECK DATE ARRAY||||||",array[0])
+        print("||||CHECK DATE ARRAY2||||||",tmpArray[1])
+        cell.lblDate.text = array[0].inLocalizedLanguage() + " | " + tmpArray[1].inLocalizedLanguage()
         cell.lblAlias.text = item.title
         cell.lblSeenCount.text = item.views?.inLocalizedLanguage()
         return cell

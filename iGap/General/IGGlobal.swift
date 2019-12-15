@@ -888,6 +888,18 @@ extension Date {
         let dateString = self.localizedDate(showHour: showHour)
         return dateString.inLocalizedLanguage()
     }
+    func completeOnlyDate(showHour: Bool = false) -> String {
+        let dayTimePeriodFormatter = DateFormatter()
+        dayTimePeriodFormatter.dateFormat = "YYYY-mm-dd"
+        let dateString = self.localizedDate(showHour: showHour)
+        return dateString.inLocalizedLanguage()
+    }
+    func CustomeCompleteHumanReadableTime(showHour: Bool = false) -> String {
+        let dayTimePeriodFormatter = DateFormatter()
+        dayTimePeriodFormatter.dateFormat = "yyyy-MM-ddTHH:mm:ssZ"
+        let dateString = self.localizedDate(showHour: showHour)
+        return dateString.inLocalizedLanguage()
+    }
 
     func completeHumanReadableTimeWithSec(showHour: Bool = false) -> String {
         let dayTimePeriodFormatter = DateFormatter()
