@@ -90,9 +90,9 @@ class BlueColorSet: DayNightColorSetProtocol {
     
     var MessageCountColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
     
-    var TabBarColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
+    var TabBarColor: UIColor = UIColor.hexStringToUIColor(hex: "EAEAEC")
 
-    var TabBarTextColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
+    var TabBarTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
     
@@ -111,11 +111,21 @@ class BlueColorSet: DayNightColorSetProtocol {
     var BorderCustomColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
 
     var BorderColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
+    
+    var BadgeColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
 
+    //tabbarIcons
+
+    var TabIconContacts: UIImage = UIImage(named: "igContactListBlueLight")!
     
+    var TabIconCallList: UIImage = UIImage(named: "igCallListBlueLight")!
     
+    var TabIconRoomList: UIImage = UIImage(named: "igRoomListBlueLight")!
     
+    var TabIconRoomIland: UIImage = UIImage(named: "igIlandBlueLight")!
     
+    var TabIconRoomSettings: UIImage = UIImage(named: "igSettingBlueLight")!
+
     
     
     
@@ -165,3 +175,4 @@ class BlueColorSet: DayNightColorSetProtocol {
     
     
 }
+

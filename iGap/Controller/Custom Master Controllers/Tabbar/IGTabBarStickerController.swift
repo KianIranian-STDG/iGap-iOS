@@ -77,7 +77,7 @@ class IGTabBarStickerController: UITabBarController, UIGestureRecognizerDelegate
     func selectedItemTitleMustbeBold(){
         for item in tabBar.items!{
             if #available(iOS 10.0, *) {
-                item.badgeColor = UIColor.unreadLable()
+                item.badgeColor = ThemeManager.currentTheme.BadgeColor
             }
             if tabBar.selectedItem == item {
                 let selectedTitleFont = UIFont.igFont(ofSize: 15, weight: .bold)

@@ -98,13 +98,16 @@ class IGRoomListtCell: BaseTableViewCell {
     
     var bgPinTagImage: UIImageView = {
         let img = UIImageView()
-        
+
         img.translatesAutoresizingMaskIntoConstraints = true // enable autolayout
         if Locale.userPreferred.languageCode == SMLangUtil.SMLanguage.English.rawValue {
-            img.image = UIImage(named:"bgCellPinTag")
+            img.image = UIImage(named:"bgCellPinTag-Default")
+
         } else {
-            let tmpImg = UIImage(named:"bgCellPinTag")
+            let tmpImg = UIImage(named:"bgCellPinTag-Default")
             img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+            
         }
         return img
     }()
@@ -246,7 +249,7 @@ class IGRoomListtCell: BaseTableViewCell {
                 
             case .unmute:
                 self.muteLabel.isHidden = true
-                unreadView.backgroundColor = UIColor.unreadLable()
+                unreadView.backgroundColor = ThemeManager.currentTheme.BadgeColor
                 
             case .mute:
                 self.muteLabel.isHidden = false
@@ -325,7 +328,161 @@ class IGRoomListtCell: BaseTableViewCell {
             }
             
             //end
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            let img = UIImageView()
+            let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+            let currentThemeColorLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+            let currentThemeColorDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+
+            img.translatesAutoresizingMaskIntoConstraints = true // enable autolayout
+            if Locale.userPreferred.languageCode == SMLangUtil.SMLanguage.English.rawValue {
+                img.image = UIImage(named:"bgCellPinTag-Default")
+
+                switch currentTheme {
+                case "IGAPClassic" :
+                    img.image = UIImage(named:"bgCellPinTag-Default")
+                case "IGAPDay" :
+                    if currentThemeColorLight == "IGAPBlue" {
+                        img.image = UIImage(named:"bgCellPinTag-Blue")
+                    } else if currentThemeColorLight == "IGAPTorquoise" {
+                        img.image = UIImage(named:"bgCellPinTag-Torquoise")
+                    } else if currentThemeColorLight == "IGAPGreen" {
+                        img.image = UIImage(named:"bgCellPinTag-Green")
+                    } else if currentThemeColorLight == "IGAPPink" {
+                        img.image = UIImage(named:"bgCellPinTag-Pink")
+                    }  else if currentThemeColorLight == "IGAPOrange" {
+                        img.image = UIImage(named:"bgCellPinTag-Orange")
+                    }  else if currentThemeColorLight == "IGAPPurple" {
+                        img.image = UIImage(named:"bgCellPinTag-Purple")
+                    } else if currentThemeColorLight == "IGAPRed" {
+                        img.image = UIImage(named:"bgCellPinTag-Red")
+                    } else if currentThemeColorLight == "IGAPGold" {
+                        img.image = UIImage(named:"bgCellPinTag-Gold")
+                    } else {
+                        img.image = UIImage(named:"bgCellPinTag-LightGray")
+                    }
+                    
+                case "IGAPDark" :
+                    if currentThemeColorDark == "IGAPBlue" {
+                        img.image = UIImage(named:"bgCellPinTag-Blue")
+                    } else if currentThemeColorDark == "IGAPTorquoise" {
+                        img.image = UIImage(named:"bgCellPinTag-Torquoise")
+                    } else if currentThemeColorDark == "IGAPGreen" {
+                        img.image = UIImage(named:"bgCellPinTag-Green")
+                    } else if currentThemeColorDark == "IGAPPink" {
+                        img.image = UIImage(named:"bgCellPinTag-Pink")
+                    }  else if currentThemeColorDark == "IGAPOrange" {
+                        img.image = UIImage(named:"bgCellPinTag-Orange")
+                    }  else if currentThemeColorDark == "IGAPPurple" {
+                        img.image = UIImage(named:"bgCellPinTag-Purple")
+                    } else if currentThemeColorDark == "IGAPRed" {
+                        img.image = UIImage(named:"bgCellPinTag-Red")
+                    } else if currentThemeColorDark == "IGAPGold" {
+                        img.image = UIImage(named:"bgCellPinTag-Gold")
+                    } else {
+                        img.image = UIImage(named:"bgCellPinTag-LightGray")
+                    }
+                default : break
+                }
+            } else {
+                
+                switch currentTheme {
+                case "IGAPClassic" :
+                    let tmpImg = UIImage(named:"bgCellPinTag-Default")
+                    img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                case "IGAPDay" :
+                    if currentThemeColorLight == "IGAPBlue" {
+                        let tmpImg = UIImage(named:"bgCellPinTag-Blue")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    } else if currentThemeColorLight == "IGAPTorquoise" {
+                        let tmpImg = UIImage(named:"bgCellPinTag-Torquoise")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    } else if currentThemeColorLight == "IGAPGreen" {
+                        let tmpImg = UIImage(named:"bgCellPinTag-Green")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    } else if currentThemeColorLight == "IGAPPink" {
+                        let tmpImg = UIImage(named:"bgCellPinTag-Pink")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    }  else if currentThemeColorLight == "IGAPOrange" {
+                        let tmpImg = UIImage(named:"bgCellPinTag-Orange")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    }  else if currentThemeColorLight == "IGAPPurple" {
+                        let tmpImg = UIImage(named:"bgCellPinTag-Purple")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    } else if currentThemeColorLight == "IGAPRed" {
+                        let tmpImg = UIImage(named:"bgCellPinTag-Red")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    } else if currentThemeColorLight == "IGAPGold" {
+                        let tmpImg = UIImage(named:"bgCellPinTag-Gold")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    } else {
+                        let tmpImg = UIImage(named:"bgCellPinTag-LightGray")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    }
+                    
+                case "IGAPDark" :
+                    if currentThemeColorDark == "IGAPBlue" {
+                        let tmpImg = UIImage(named:"bgCellPinTag-Blue")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    } else if currentThemeColorDark == "IGAPTorquoise" {
+                        let tmpImg = UIImage(named:"bgCellPinTag-Torquoise")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    } else if currentThemeColorDark == "IGAPGreen" {
+                        let tmpImg = UIImage(named:"bgCellPinTag-Green")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    } else if currentThemeColorDark == "IGAPPink" {
+                        let tmpImg = UIImage(named:"bgCellPinTag-Pink")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    }  else if currentThemeColorDark == "IGAPOrange" {
+                        let tmpImg = UIImage(named:"bgCellPinTag-Orange")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    }  else if currentThemeColorDark == "IGAPPurple" {
+                        let tmpImg = UIImage(named:"bgCellPinTag-Purple")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    } else if currentThemeColorDark == "IGAPRed" {
+                        let tmpImg = UIImage(named:"bgCellPinTag-Red")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    } else if currentThemeColorDark == "IGAPGold" {
+                        let tmpImg = UIImage(named:"bgCellPinTag-Gold")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    } else {
+                        let tmpImg = UIImage(named:"bgCellPinTag-LightGray")
+                        img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+                    }
+                default : break
+                }
+            }
+            self.bgPinTagImage.image = img.image
         }
+        
     }
     
     

@@ -396,7 +396,7 @@ class IGHelperMusicPlayer {
     }
     private func createProgressView(pv:UIProgressView!,view: UIView!,bottomBorder:UIView!) {
         pv.progress = 0.0
-        pv.progressTintColor = UIColor.iGapGreen()
+        pv.progressTintColor = ThemeManager.currentTheme.SliderTintColor
         pv.progressViewStyle = .bar
         
         pv.translatesAutoresizingMaskIntoConstraints = false

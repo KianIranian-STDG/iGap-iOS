@@ -244,7 +244,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
 
         if finalRoomMessage.message != nil && finalRoomMessage.message != "" {
             txtMessageAbs?.isHidden = false
-            txtMessageAbs?.textColor = ThemeManager.currentTheme.MessageTextColor
+            if isIncommingMessage {
+                txtMessageAbs?.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
+            } else {
+                txtMessageAbs?.textColor = ThemeManager.currentTheme.MessageTextColor
+            }
 
             txtMessageHeightConstraintAbs?.constant = messageSizes.bubbleSize.height
 
@@ -421,6 +426,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             makeTime(statusExist: statusExist)
             txtTimeAbs?.text = time.convertToHumanReadable()
         }
+        if isIncommingMessage {
+            txtTimeAbs.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
+        } else {
+            txtTimeAbs.textColor = UIColor.chatTimeTextColor()
+        }
+
     }
     
     /*
@@ -449,22 +461,39 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         switch realmRoomMessage.status {
         case .sending:
             txtStatusAbs.text = ""
-            txtStatusAbs.textColor = UIColor.messageText()
+            if isIncommingMessage {
+                txtStatusAbs.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            } else {
+                txtStatusAbs.textColor = UIColor.messageText()
+            }
             txtStatusAbs.backgroundColor = UIColor.clear
             break
         case .sent:
             txtStatusAbs.text = ""
-            txtStatusAbs.textColor = UIColor.messageText()
+            if isIncommingMessage {
+                txtStatusAbs.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            } else {
+                txtStatusAbs.textColor = UIColor.messageText()
+            }
             txtStatusAbs.backgroundColor = UIColor.clear
             break
         case .delivered:
             txtStatusAbs.text = ""
-            txtStatusAbs.textColor = UIColor.messageText()
+            if isIncommingMessage {
+                txtStatusAbs.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            } else {
+                txtStatusAbs.textColor = UIColor.messageText()
+            }
             txtStatusAbs.backgroundColor = UIColor.clear
             break
         case .seen,.listened:
             txtStatusAbs.text = ""
-            txtStatusAbs.textColor = UIColor.seenColor()
+            if isIncommingMessage {
+                txtStatusAbs.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            } else {
+                txtStatusAbs.textColor = UIColor.seenColor()
+            }
+
             txtStatusAbs.backgroundColor = UIColor.clear
             break
         case .failed, .unknown:
@@ -651,11 +680,33 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         }
         txtMessage?.font = UIFont.igFont(ofSize: fontDefaultSize)
         txtMessage?.customize {(lable) in
-            lable.hashtagColor = UIColor.iGapLink()
-            lable.mentionColor = UIColor.iGapLink()
-            lable.URLColor = UIColor.iGapLink()
-            lable.botColor = UIColor.iGapLink()
-            lable.EmailColor = UIColor.iGapLink()
+            if isIncommingMessage {
+                lable.EmailColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            } else {
+                lable.EmailColor = UIColor.iGapLink()
+            }
+            if isIncommingMessage {
+                lable.hashtagColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            } else {
+                lable.hashtagColor = UIColor.iGapLink()
+            }
+            if isIncommingMessage {
+                lable.mentionColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            } else {
+                lable.mentionColor = UIColor.iGapLink()
+            }
+            if isIncommingMessage {
+                lable.URLColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            } else {
+                lable.URLColor = UIColor.iGapLink()
+            }
+            if isIncommingMessage {
+                lable.botColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            } else {
+                lable.botColor = UIColor.iGapLink()
+            }
+
+            
 
             if !IGGlobal.shouldMultiSelect {
                 lable.handleURLTap { url in
@@ -1613,7 +1664,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         if txtTimeAbs == nil {
             txtTimeAbs = UILabel()
             txtTimeAbs.font = UIFont.igFont(ofSize: 11.0)
-            txtTimeAbs.textColor = UIColor.chatTimeTextColor()
+            if isIncommingMessage {
+                txtTimeAbs.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
+            } else {
+                txtTimeAbs.textColor = UIColor.chatTimeTextColor()
+            }
             mainBubbleViewAbs.addSubview(txtTimeAbs)
         }
         
@@ -1643,7 +1699,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             txtEditedAbs = UILabel()
             txtEditedAbs.text = IGStringsManager.Edited.rawValue.localized
             txtEditedAbs.font = UIFont.igFont(ofSize: 9.0)
-            txtEditedAbs.textColor = UIColor.chatTimeTextColor()
+            if isIncommingMessage {
+                txtEditedAbs.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            } else {
+                txtEditedAbs.textColor = UIColor.chatTimeTextColor()
+            }
             mainBubbleViewAbs.addSubview(txtEditedAbs)
         }
         

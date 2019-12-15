@@ -92,7 +92,7 @@ class AudioCell: AbstractCell {
             btnPlayAbs = UIButton()
             btnPlayAbs.tag = 808
             btnPlayAbs.titleLabel?.font = UIFont.iGapFonticon(ofSize: 55)
-            btnPlayAbs.setTitleColor(UIColor.iGapBlue(), for: UIControl.State.normal)
+            btnPlayAbs.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: UIControl.State.normal)
             mainBubbleViewAbs.addSubview(btnPlayAbs)
         }
         
@@ -122,7 +122,23 @@ class AudioCell: AbstractCell {
             mainBubbleViewAbs.addSubview(txtAudioTime)
         }
     }
-    
+        private func initTheme() {
+            if isIncommingMessage {
+                txtAudioName.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+                txtAudioTime.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+                btnPlayAbs.setTitleColor(ThemeManager.currentTheme.MessageTextReceiverColor, for: .normal)
+    //            sliderVoice.thumbTintColor = ThemeManager.currentTheme.MessageTextReceiverColor
+                sliderAudio.tintColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
+            } else {
+                txtAudioName.textColor = UIColor.dialogueBoxInfo()
+                txtAudioTime.textColor = UIColor.dialogueBoxInfo()
+                btnPlayAbs.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: UIControl.State.normal)
+                sliderAudio.tintColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            }
+
+        }
+
     private func manageAudioViewPosition(){
        btnPlayAbs.snp.makeConstraints { (make) in
            

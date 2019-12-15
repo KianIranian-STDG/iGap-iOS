@@ -22,13 +22,14 @@ import messages
 import maincore
 import PushKit
 import CallKit
+import SwiftEventBus
 
 
 @UIApplicationMain
 class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate , PKPushRegistryDelegate, CXProviderDelegate {
- 
+    
     var timer = Timer()
-
+    
     var window: UIWindow?
     var isNeedToSetNickname : Bool = true
     internal static var userIdRegister: Int64?
@@ -57,10 +58,10 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         _ = IGFactory.shared
         _ = IGCallEventListener.sharedManager // detect cellular call state
         
-//        UITabBar.appearance().tintColor = UIColor.white
-
+        //        UITabBar.appearance().tintColor = UIColor.white
+        
         UserDefaults.standard.setValue(false, forKey:"_UIConstraintBasedLayoutLogUnsatisfiable")
-
+        
         pushNotification(application)
         detectBackground()
         IGGlobal.checkRealmFileSize()
@@ -73,10 +74,10 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         }
         
         
-//        ShortcutParser.shared.registerShortcuts()
+        //        ShortcutParser.shared.registerShortcuts()
         
-//        let x : [AnyHashable: Any] = ["deepLink": "discovery/3/311"]
-//        DeepLinkManager.shared.handleRemoteNotification(x)
+        //        let x : [AnyHashable: Any] = ["deepLink": "discovery/3/311"]
+        //        DeepLinkManager.shared.handleRemoteNotification(x)
         
         return true
     }
@@ -85,7 +86,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         
         DeepLinkManager.shared.handleShortcut(item: shortcutItem)
     }
-
+    
     func realmConfig() {
         let config = Realm.Configuration (
             // Share
@@ -102,7 +103,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
                     
                 }
                 
-            }
+        }
         )
         Realm.Configuration.defaultConfiguration = config
         compactRealm()
@@ -128,7 +129,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     func applicationWillResignActive(_ application: UIApplication) {
         
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         AppDelegate.appIsInBackground = true
         IGAppManager.sharedManager.setUserUpdateStatus(status: .exactly)
@@ -137,7 +138,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         IGContactManager.syncedPhoneBookContact = false
         IGContactManager.importedContact = false
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
         AppDelegate.appIsInBackground = false
         if IGAppManager.sharedManager.isUserLoggiedIn() {
@@ -152,7 +153,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             NSLog("%@", "FailedHandler")
         })
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         // handle any deeplink
         if IGAppManager.sharedManager.isUserLoggiedIn() {
@@ -160,9 +161,9 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         } else {
             
             NotificationCenter.default.addObserver(self,
-                selector: #selector(self.checkDeepLink),
-                name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
-                object: nil)
+                                                   selector: #selector(self.checkDeepLink),
+                                                   name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
+                                                   object: nil)
         }
     }
     
@@ -170,7 +171,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName), object: nil)
         DeepLinkManager.shared.checkDeepLink()
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
         if #available(iOS 10.0, *) {
             self.saveContext()
@@ -199,10 +200,10 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
             application.registerUserNotificationSettings(settings)
         }
-
+        
         application.registerForRemoteNotifications()
         self.voipRegistration()
-
+        
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -220,7 +221,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             application.applicationIconBadgeNumber = unreadCount
         }
         print(userInfo)
-
+        
         switch UIApplication.shared.applicationState {
         case .active:
             //app is currently active, can update badges count here
@@ -413,7 +414,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         }
         return true
     }
-
+    
     // MARK: - Core Data Saving support
     @available(iOS 10.0, *)
     func saveContext () {
@@ -546,9 +547,9 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
                     let tempPath = String(format: "%@/%@", path, fileName)
                     
                     //Check for specific file which you don't want to delete. For me .sqlite files
-//                    if !tempPath.contains(".sql") {
-//                        try fileManager.removeItem(atPath: tempPath)
-//                    }
+                    //                    if !tempPath.contains(".sql") {
+                    //                        try fileManager.removeItem(atPath: tempPath)
+                    //                    }
                 }
             }
             
@@ -561,23 +562,142 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         if (UserDefaults.standard.object(forKey: "silentPrivateChat") != nil) {
             IGGlobal.isSilent = UserDefaults.standard.bool(forKey: "silentPrivateChat")
         }
-
         if IGGlobal.isKeyPresentInUserDefaults(key: "textMessagesFontSize")  {
             fontDefaultSize = CGFloat(UserDefaults.standard.float(forKey: "textMessagesFontSize"))
         } else {
             fontDefaultSize = 15.0
         }
+        manageTheme()
     }
+    private func manageColorSet(mode: String = "IGAPClassic") {
+        let currentColorSet = UserDefaults.standard.string(forKey: "CurrentColorSet") ?? "IGAPDefaultColor"
+        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+        if mode == "IGAPClassic" {
+            switch currentColorSet {
+            default:
+                DefaultColorSetManager.currentColorSet = DefaultColorSet()
+                SwiftEventBus.post("initTheme")
+                break
+            }
+            
+        } else if mode == "IGAPDay" {
+            
+            switch currentColorSetLight {
+            case "IGAPBlue" :
+                DayColorSetManager.currentColorSet = BlueColorSet()
+                break
+            case "IGAPTorquoise" :
+                DayColorSetManager.currentColorSet = TorquoiseColorSet()
+                break
+                
+            case "IGAPGreen" :
+                DayColorSetManager.currentColorSet = GreenColorSet()
+                break
+                
+            case "IGAPPink" :
+                DayColorSetManager.currentColorSet = PinkColorSet()
+                break
+                
+            case "IGAPOrange" :
+                DayColorSetManager.currentColorSet = OrangeColorSet()
+                break
+                
+            case "IGAPPurple" :
+                DayColorSetManager.currentColorSet = PurpleColorSet()
+                break
+                
+            case "IGAPRed" :
+                DayColorSetManager.currentColorSet = RedColorSet()
+                break
+                
+            case "IGAPGold" :
+                DayColorSetManager.currentColorSet = GoldColorSet()
+                break
+                
+            case "IGAPLightGray" :
+                DayColorSetManager.currentColorSet = LightGrayColorSet()
+                break
+                
+            default: break
+            }
+            SwiftEventBus.post("initTheme")
+
+        } else {
+            
+            switch currentColorSetDark {
+            case "IGAPBlue" :
+                NightColorSetManager.currentColorSet = BlueColorSet()
+                break
+            case "IGAPTorquoise" :
+                NightColorSetManager.currentColorSet = TorquoiseColorSet()
+                break
+                
+            case "IGAPGreen" :
+                NightColorSetManager.currentColorSet = GreenColorSet()
+                break
+                
+            case "IGAPPink" :
+                NightColorSetManager.currentColorSet = PinkColorSetNight()
+                break
+                
+            case "IGAPOrange" :
+                NightColorSetManager.currentColorSet = OrangeColorSet()
+                break
+                
+            case "IGAPPurple" :
+                NightColorSetManager.currentColorSet = PurpleColorSet()
+                break
+                
+            case "IGAPRed" :
+                NightColorSetManager.currentColorSet = RedColorSet()
+                break
+                
+            case "IGAPGold" :
+                NightColorSetManager.currentColorSet = GoldColorSet()
+                break
+                
+            case "IGAPLightGray" :
+                NightColorSetManager.currentColorSet = LightGrayColorSet()
+                break
+                
+            default: break
+            }
+            SwiftEventBus.post("initTheme")
+
+        }
+    }
+    private func manageTheme() {
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+        
+        switch currentTheme {
+        case "IGAPClassic" :
+            ThemeManager.currentTheme = ClassicTheme()
+            manageColorSet(mode: "IGAPClassic")
+        case "IGAPDay" :
+            ThemeManager.currentTheme = DayTheme()
+            manageColorSet(mode: "IGAPDay")
+        case "IGAPNight" :
+            ThemeManager.currentTheme = NightTheme()
+            manageColorSet(mode: "IGAPNight")
+
+        default:
+            ThemeManager.currentTheme = ClassicTheme()
+            manageColorSet(mode: "IGAPClassic")
+        }
+        
+    }
+    
     
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
-	guard let input = input else { return nil }
-	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+    guard let input = input else { return nil }
+    return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
-	return input.rawValue
+    return input.rawValue
 }

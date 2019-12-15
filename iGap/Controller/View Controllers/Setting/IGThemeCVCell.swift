@@ -36,7 +36,7 @@ class IGThemeCVCell: UICollectionViewCell {
         viewReciever.roundCorners(corners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner], radius: 5.0)        
         
         viewBG.layer.borderColor = UIColor.hexStringToUIColor(hex: "dedede").cgColor
-        viewBG.layer.borderWidth = 2
+        viewBG.layer.borderWidth = 0
 
         
 

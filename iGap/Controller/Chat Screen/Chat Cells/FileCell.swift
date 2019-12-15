@@ -42,8 +42,20 @@ class FileCell: AbstractCell {
         super.setMessage(message, room: room, isIncommingMessage: isIncommingMessage, shouldShowAvatar: shouldShowAvatar, messageSizes: messageSizes, isPreviousMessageFromSameSender: isPreviousMessageFromSameSender, isNextMessageFromSameSender: isNextMessageFromSameSender)
         manageFileViewPosition()
         setFile()
+        initTheme()
     }
-    
+    private func initTheme() {
+        if isIncommingMessage {
+            txtFileName.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            txtFileSize.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
+        } else {
+            txtFileName.textColor = UIColor.dialogueBoxInfo()
+            txtFileSize.textColor = UIColor.dialogueBoxInfo()
+
+        }
+
+    }
     private func initializeView(){
         
         /********** view **********/
@@ -90,7 +102,7 @@ class FileCell: AbstractCell {
         
         if txtFileName == nil {
             txtFileName = UILabel()
-            txtFileName.textColor = UIColor.dialogueBoxInfo()
+                txtFileName.textColor = UIColor.dialogueBoxInfo()
             txtFileName.font = UIFont.igFont(ofSize: 13)
             txtFileName.lineBreakMode = .byTruncatingMiddle
             txtFileName.numberOfLines = 1
@@ -100,7 +112,7 @@ class FileCell: AbstractCell {
         
         if txtFileSize == nil {
             txtFileSize = UILabel()
-            txtFileSize.textColor = UIColor.dialogueBoxInfo()
+                txtFileSize.textColor = UIColor.dialogueBoxInfo()
             txtFileSize.font = UIFont.igFont(ofSize: 13)
             txtFileSize.numberOfLines = 0
             txtFileSize.textAlignment = .left

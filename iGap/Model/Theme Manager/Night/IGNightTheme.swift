@@ -114,9 +114,21 @@ class NightTheme: ThemeProtocol {
 
     var BorderColor: UIColor = NightColorSetManager.currentColorSet.BorderColor
 
+    var BadgeColor: UIColor = NightColorSetManager.currentColorSet.BadgeColor
+
     
+    //tabbarIcons
+
+    var TabIconContacts: UIImage = NightColorSetManager.currentColorSet.TabIconContacts
     
+    var TabIconCallList: UIImage = NightColorSetManager.currentColorSet.TabIconCallList
     
+    var TabIconRoomList: UIImage = NightColorSetManager.currentColorSet.TabIconRoomList
+    
+    var TabIconRoomIland: UIImage = NightColorSetManager.currentColorSet.TabIconRoomIland
+    
+    var TabIconRoomSettings: UIImage = NightColorSetManager.currentColorSet.TabIconRoomSettings
+
     
     
     

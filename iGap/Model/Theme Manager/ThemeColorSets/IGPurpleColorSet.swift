@@ -83,38 +83,50 @@ class PurpleColorSet: DayNightColorSetProtocol {
     
     //change by Color Set
     
-    var SettingDayReceiveBubble: UIColor = UIColor(named: "SettingDayReceiveBubblePurple")!
-    
-    var SliderTintColor: UIColor = UIColor(named: "SliderTintColorPurple")!
+    var SettingDayReceiveBubble: UIColor = UIColor.hexStringToUIColor(hex: "8C71EB")
+    var SliderTintColor: UIColor = UIColor.hexStringToUIColor(hex: "8C71EB")
         
-    var CheckStatusColor: UIColor = UIColor(named: "CheckStatusColorPurple")!
+    var CheckStatusColor: UIColor = UIColor.hexStringToUIColor(hex: "8C71EB")
     
-    var MessageCountColor: UIColor = UIColor(named: "MessageCountColorPurple")!
+    var MessageCountColor: UIColor = UIColor.hexStringToUIColor(hex: "8C71EB")
     
-    var TabBarColor: UIColor = UIColor(named: "TabBarColorPurple")!
+    var TabBarColor: UIColor = UIColor.hexStringToUIColor(hex: "EAEAEC")
 
-    var TabBarTextColor: UIColor = UIColor(named: "TabBarTextColorPurple")!
+    var TabBarTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var NavigationFirstColor: UIColor = UIColor(named: "NavigationFirstColorPurple")!
+    var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "8C71EB")
     
-    var NavigationSecondColor: UIColor = UIColor(named: "NavigationSecondColorPurple")!
+    var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "8B4BEB")
 
-    var NavigationButtonTextColor: UIColor = UIColor(named: "NavigationButtonTextColorPurple")!
+    var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ReceiveMessageBubleBGColor: UIColor = UIColor(named: "ReceiveMessageBubleBGColorPurple")!
+    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "8C71EB")
 
-    var MessageUnreadCellBGColor: UIColor = UIColor(named: "MessageUnreadCellBGColorPurple")!
+    var MessageUnreadCellBGColor: UIColor = UIColor.hexStringToUIColor(hex: "8C71EB")
 
-    var ButtonTextColor: UIColor = UIColor(named: "ButtonTextColorPurple")!
+    var ButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ButtonBGColor: UIColor = UIColor(named: "ButtonBGColorPurple")!
+    var ButtonBGColor: UIColor = UIColor.hexStringToUIColor(hex: "8C71EB")
 
-    var BorderCustomColor: UIColor = UIColor(named: "BorderCustomColorPurple")!
+    var BorderCustomColor: UIColor = UIColor.hexStringToUIColor(hex: "8C71EB")
 
-    var BorderColor: UIColor = UIColor(named: "BorderColorPurple")!
+    var BorderColor: UIColor = UIColor.hexStringToUIColor(hex: "8C71EB")
 
+    var BadgeColor: UIColor = UIColor.hexStringToUIColor(hex: "8C71EB")
+
+    //tabbarIcons
+
+    var TabIconContacts: UIImage = UIImage(named: "igContactListPurpleLight")!
     
+    var TabIconCallList: UIImage = UIImage(named: "igCallListPurpleLight")!
     
+    var TabIconRoomList: UIImage = UIImage(named: "igRoomListPurpleLight")!
+    
+    var TabIconRoomIland: UIImage = UIImage(named: "igIlandPurpleLight")!
+    
+    var TabIconRoomSettings: UIImage = UIImage(named: "igSettingPurpleLight")!
+
+
     
     
     

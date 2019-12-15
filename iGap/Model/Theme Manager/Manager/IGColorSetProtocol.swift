@@ -88,6 +88,13 @@ protocol DefaultColorSetProtocol {
     var TVCellIconColor : UIColor { get }
     var TVCellTitleColor : UIColor { get }
     var SettingClassicBG : UIColor { get }
+    //******TABICONS*******//
+    var TabIconContacts : UIImage { get }
+    var TabIconCallList : UIImage { get }
+    var TabIconRoomList : UIImage { get }
+    var TabIconRoomIland : UIImage { get }
+    var TabIconRoomSettings : UIImage { get }
+
 
 }
 
@@ -181,7 +188,13 @@ protocol DayNightColorSetProtocol {
     //*****Other*********//
     var CheckStatusColor : UIColor { get }
     var MessageCountColor : UIColor { get }
-
+    var BadgeColor : UIColor { get }
+    //******TABICONS*******//
+    var TabIconContacts : UIImage { get }
+    var TabIconCallList : UIImage { get }
+    var TabIconRoomList : UIImage { get }
+    var TabIconRoomIland : UIImage { get }
+    var TabIconRoomSettings : UIImage { get }
 
 }
 
@@ -277,3 +290,6 @@ protocol NightColorSetProtocol {
 
 
 }
+
+
+

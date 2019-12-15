@@ -10,6 +10,7 @@
 
 import UIKit
 import SnapKit
+import SwiftEventBus
 
 class IGNavigationController: UINavigationController, UINavigationBarDelegate {
 
@@ -17,10 +18,134 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
         super.viewDidLoad()
         
         self.view.semanticContentAttribute = .forceLeftToRight
+//        self.navigationBar.topItem?.backBarButtonItem?.setTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: 50), for: UIBarMetrics.default)
+        manageTheme()
         setNavigationGradient()
+        
         configNavigationBar()
+        SwiftEventBus.onMainThread(self, name: "initTheme") { result in
+            self.setNavigationGradient()
+
+        }
     }
-    
+    private func manageColorSet(mode: String = "IGAPClassic") {
+        let currentColorSet = UserDefaults.standard.string(forKey: "CurrentColorSet") ?? "IGAPDefaultColor"
+        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+        if mode == "IGAPClassic" {
+            switch currentColorSet {
+            default:
+                DefaultColorSetManager.currentColorSet = DefaultColorSet()
+                SwiftEventBus.post("initTheme")
+                break
+            }
+            
+        } else if mode == "IGAPDay" {
+            
+            switch currentColorSetLight {
+            case "IGAPBlue" :
+                DayColorSetManager.currentColorSet = BlueColorSet()
+                break
+            case "IGAPTorquoise" :
+                DayColorSetManager.currentColorSet = TorquoiseColorSet()
+                break
+                
+            case "IGAPGreen" :
+                DayColorSetManager.currentColorSet = GreenColorSet()
+                break
+                
+            case "IGAPPink" :
+                DayColorSetManager.currentColorSet = PinkColorSet()
+                break
+                
+            case "IGAPOrange" :
+                DayColorSetManager.currentColorSet = OrangeColorSet()
+                break
+                
+            case "IGAPPurple" :
+                DayColorSetManager.currentColorSet = PurpleColorSet()
+                break
+                
+            case "IGAPRed" :
+                DayColorSetManager.currentColorSet = RedColorSet()
+                break
+                
+            case "IGAPGold" :
+                DayColorSetManager.currentColorSet = GoldColorSet()
+                break
+                
+            case "IGAPLightGray" :
+                DayColorSetManager.currentColorSet = LightGrayColorSet()
+                break
+                
+            default: break
+            }
+            SwiftEventBus.post("initTheme")
+
+        } else {
+            
+            switch currentColorSetDark {
+            case "IGAPBlue" :
+                NightColorSetManager.currentColorSet = BlueColorSet()
+                break
+            case "IGAPTorquoise" :
+                NightColorSetManager.currentColorSet = TorquoiseColorSet()
+                break
+                
+            case "IGAPGreen" :
+                NightColorSetManager.currentColorSet = GreenColorSet()
+                break
+                
+            case "IGAPPink" :
+                NightColorSetManager.currentColorSet = PinkColorSet()
+                break
+                
+            case "IGAPOrange" :
+                NightColorSetManager.currentColorSet = OrangeColorSet()
+                break
+                
+            case "IGAPPurple" :
+                NightColorSetManager.currentColorSet = PurpleColorSet()
+                break
+                
+            case "IGAPRed" :
+                NightColorSetManager.currentColorSet = RedColorSet()
+                break
+                
+            case "IGAPGold" :
+                NightColorSetManager.currentColorSet = GoldColorSet()
+                break
+                
+            case "IGAPLightGray" :
+                NightColorSetManager.currentColorSet = LightGrayColorSet()
+                break
+                
+            default: break
+            }
+            SwiftEventBus.post("initTheme")
+
+        }
+    }
+    private func manageTheme() {
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+        
+        switch currentTheme {
+        case "IGAPClassic" :
+            ThemeManager.currentTheme = ClassicTheme()
+            manageColorSet(mode: "IGAPClassic")
+        case "IGAPDay" :
+            ThemeManager.currentTheme = DayTheme()
+            manageColorSet(mode: "IGAPDay")
+        case "IGAPNight" :
+            ThemeManager.currentTheme = NightTheme()
+            manageColorSet(mode: "IGAPNight")
+
+        default:
+            ThemeManager.currentTheme = ClassicTheme()
+            manageColorSet(mode: "IGAPClassic")
+        }
+        
+    }
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 

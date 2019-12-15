@@ -239,8 +239,18 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         return true
     }
     
+    private func initTheme() {
+        setTabbarBadge()
+        setSearchBarGradient()
+        initialiseSearchBar()
+        self.tableView.reloadData() //in order to update unread count color of each cell
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+            SwiftEventBus.onMainThread(self, name: "initTheme") { result in
+                self.initTheme()
+            }
         isfromPacket = false
         
         let navigationItem = self.navigationItem as! IGNavigationItem
@@ -1410,6 +1420,7 @@ extension IGRecentsTableViewController {
                 placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15, weight: .bold)
             }
         }
+        self.setSearchBarGradient()
     }
 }
 

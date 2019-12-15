@@ -83,38 +83,50 @@ class LightGrayColorSet: DayNightColorSetProtocol {
     
     //change by Color Set
     
-    var SettingDayReceiveBubble: UIColor = UIColor(named: "SettingDayReceiveBubbleLightGray")!
-    
-    var SliderTintColor: UIColor = UIColor(named: "SliderTintColorLightGray")!
+    var SettingDayReceiveBubble: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
+    var SliderTintColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
         
-    var CheckStatusColor: UIColor = UIColor(named: "CheckStatusColorLightGray")!
+    var CheckStatusColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
     
-    var MessageCountColor: UIColor = UIColor(named: "MessageCountColorLightGray")!
+    var MessageCountColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
     
-    var TabBarColor: UIColor = UIColor(named: "TabBarColorLightGray")!
+    var TabBarColor: UIColor = UIColor.hexStringToUIColor(hex: "EAEAEC")
 
-    var TabBarTextColor: UIColor = UIColor(named: "TabBarTextColorLightGray")!
+    var TabBarTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var NavigationFirstColor: UIColor = UIColor(named: "NavigationFirstColorLightGray")!
+    var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
     
-    var NavigationSecondColor: UIColor = UIColor(named: "NavigationSecondColorLightGray")!
+    var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "6D6E88")
 
-    var NavigationButtonTextColor: UIColor = UIColor(named: "NavigationButtonTextColorLightGray")!
+    var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ReceiveMessageBubleBGColor: UIColor = UIColor(named: "ReceiveMessageBubleBGColorLightGray")!
+    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
 
-    var MessageUnreadCellBGColor: UIColor = UIColor(named: "MessageUnreadCellBGColorLightGray")!
+    var MessageUnreadCellBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
 
-    var ButtonTextColor: UIColor = UIColor(named: "ButtonTextColorLightGray")!
+    var ButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ButtonBGColor: UIColor = UIColor(named: "ButtonBGColorLightGray")!
+    var ButtonBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
 
-    var BorderCustomColor: UIColor = UIColor(named: "BorderCustomColorLightGray")!
+    var BorderCustomColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
 
-    var BorderColor: UIColor = UIColor(named: "BorderColorLightGray")!
+    var BorderColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
 
+    var BadgeColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
+
+    //tabbarIcons
+
+    var TabIconContacts: UIImage = UIImage(named: "igContactListLightGrayLight")!
     
+    var TabIconCallList: UIImage = UIImage(named: "igCallListLightGrayLight")!
     
+    var TabIconRoomList: UIImage = UIImage(named: "igRoomListLightGrayLight")!
+    
+    var TabIconRoomIland: UIImage = UIImage(named: "igIlandLightGrayLight")!
+    
+    var TabIconRoomSettings: UIImage = UIImage(named: "igSettingLightGrayLight")!
+
+
     
     
     

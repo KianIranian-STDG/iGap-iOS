@@ -704,6 +704,7 @@ extension UIColor {
     
     //MARK: General Colors
     class func organizationalColor() -> UIColor { // iGap Color
+        
         return iGapDarkGreenColor()
     }
     
@@ -787,7 +788,7 @@ extension UIColor {
     //MARK: MessageCVCell Forward
     class func chatForwardedFromViewBackgroundColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return UIColor.forwardBoxIncomming()
+            return ThemeManager.currentTheme.MessageTextReceiverColor
         } else {
             return UIColor.forwardBoxOutgoign()
         }
@@ -829,14 +830,14 @@ extension UIColor {
     //MARK: MessageCVCell Reply
     class func chatReplyToBackgroundColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return UIColor.replyBoxIncomming()
+            return ThemeManager.currentTheme.MessageTextReceiverColor
         } else {
             return UIColor.replyBoxOutgoing()
         }
     }
     
     class func chatReplyToIndicatorViewColor(isIncommingMessage: Bool) -> UIColor {
-        return UIColor(red: 251/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1.0)
+        return ThemeManager.currentTheme.ReceiveMessageBubleBGColor
         /*
         if isIncommingMessage {
             return UIColor.replyBoxTitleIncomming()
@@ -847,7 +848,7 @@ extension UIColor {
     }
     
     class func chatForwardToIndicatorViewColor(isIncommingMessage: Bool) -> UIColor {
-        return UIColor(red: 251/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1.0)
+        return ThemeManager.currentTheme.ReceiveMessageBubleBGColor
     }
     
     class func chatReplyToUsernameLabelTextColor(isIncommingMessage: Bool) -> UIColor {
@@ -1071,7 +1072,34 @@ extension NSCache {
 }
 
 var imagesMap = Dictionary<String, UIImageView>()
+extension UIImage {
+    
+  func tintedWithLinearGradientColors(colorsArr: [CGColor]) -> UIImage {
+      UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale);
+      guard let context = UIGraphicsGetCurrentContext() else {
+          return UIImage()
+      }
+      context.translateBy(x: 0, y: self.size.height)
+      context.scaleBy(x: 1, y: -1)
 
+      context.setBlendMode(.normal)
+      let rect = CGRect.init(x: 0, y: 0, width: size.width, height: size.height)
+
+      // Create gradient
+      let colors = colorsArr as CFArray
+      let space = CGColorSpaceCreateDeviceRGB()
+      let gradient = CGGradient(colorsSpace: space, colors: colors, locations: nil)
+
+      // Apply gradient
+      context.clip(to: rect, mask: self.cgImage!)
+      context.drawLinearGradient(gradient!, start: CGPoint(x: 0, y: 0), end: CGPoint(x: 0, y: self.size.height), options: .drawsAfterEndLocation)
+      let gradientImage = UIGraphicsGetImageFromCurrentImageContext()
+      UIGraphicsEndImageContext()
+
+      return gradientImage!
+  }
+
+}
 //MARK: -
 extension UIView {
     

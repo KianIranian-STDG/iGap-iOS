@@ -115,9 +115,22 @@ class DefaultColorSet: DefaultColorSetProtocol {
 
     var BorderColor: UIColor = UIColor(named: "BorderColorDefault")!
 
+    var BadgeColor: UIColor = UIColor(named: "BadgeColorDefault")!
+
 
     
+    //tabbarIcons
+
+    var TabIconContacts: UIImage = UIImage(named: "ig-Phone-Book-on_25")!
     
+    var TabIconCallList: UIImage = UIImage(named: "ig-Call-List-on_25")!
+    
+    var TabIconRoomList: UIImage = UIImage(named: "ig-Room-List-on_25")!
+    
+    var TabIconRoomIland: UIImage = UIImage(named: "ig-Discovery-on_25")!
+    
+    var TabIconRoomSettings: UIImage = UIImage(named: "ig-Settings-on_25")!
+
     
     
     

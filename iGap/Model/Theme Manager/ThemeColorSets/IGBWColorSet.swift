@@ -83,35 +83,47 @@ class BWColorSet: DayNightColorSetProtocol {
     
     //change by Color Set
     
-    var SettingDayReceiveBubble: UIColor = UIColor(named: "SettingDayReceiveBubbleBW")!
-    
-    var SliderTintColor: UIColor = UIColor(named: "SliderTintColorBW")!
+    var SettingDayReceiveBubble: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
+    var SliderTintColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
         
-    var CheckStatusColor: UIColor = UIColor(named: "CheckStatusColorBW")!
+    var CheckStatusColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
     
-    var MessageCountColor: UIColor = UIColor(named: "MessageCountColorBW")!
+    var MessageCountColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
     
-    var TabBarColor: UIColor = UIColor(named: "TabBarColorBW")!
+    var TabBarColor: UIColor = UIColor.hexStringToUIColor(hex: "EAEAEC")
 
-    var TabBarTextColor: UIColor = UIColor(named: "TabBarTextColorBW")!
+    var TabBarTextColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
 
-    var NavigationFirstColor: UIColor = UIColor(named: "NavigationFirstColorBW")!
+    var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
     
-    var NavigationSecondColor: UIColor = UIColor(named: "NavigationSecondColorBW")!
+    var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "6D6E88")
 
-    var NavigationButtonTextColor: UIColor = UIColor(named: "NavigationButtonTextColorBW")!
+    var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ReceiveMessageBubleBGColor: UIColor = UIColor(named: "ReceiveMessageBubleBGColorBW")!
+    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
 
-    var MessageUnreadCellBGColor: UIColor = UIColor(named: "MessageUnreadCellBGColorBW")!
+    var MessageUnreadCellBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
 
-    var ButtonTextColor: UIColor = UIColor(named: "ButtonTextColorBW")!
+    var ButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ButtonBGColor: UIColor = UIColor(named: "ButtonBGColorBW")!
+    var ButtonBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
 
-    var BorderCustomColor: UIColor = UIColor(named: "BorderCustomColorBW")!
+    var BorderCustomColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
 
-    var BorderColor: UIColor = UIColor(named: "BorderColorBW")!
+    var BorderColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
+    var BadgeColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
+
+    //tabbarIcons
+
+    var TabIconContacts: UIImage = UIImage(named: "ig-Phone-Book-on_25")!
+    
+    var TabIconCallList: UIImage = UIImage(named: "ig-Call-List-on_25")!
+    
+    var TabIconRoomList: UIImage = UIImage(named: "ig-Room-List-on_25")!
+    
+    var TabIconRoomIland: UIImage = UIImage(named: "ig-Discovery-on_25")!
+    
+    var TabIconRoomSettings: UIImage = UIImage(named: "ig-Settings-on_25")!
 
     
     

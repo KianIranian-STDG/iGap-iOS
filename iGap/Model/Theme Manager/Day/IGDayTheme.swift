@@ -113,8 +113,20 @@ class DayTheme: ThemeProtocol {
     var BorderCustomColor: UIColor = DayColorSetManager.currentColorSet.BorderCustomColor
 
     var BorderColor: UIColor = DayColorSetManager.currentColorSet.BorderColor
+    var BadgeColor: UIColor = DayColorSetManager.currentColorSet.BadgeColor
 
+    //tabbarIcons
+
+    var TabIconContacts: UIImage = DayColorSetManager.currentColorSet.TabIconContacts
     
+    var TabIconCallList: UIImage = DayColorSetManager.currentColorSet.TabIconCallList
+    
+    var TabIconRoomList: UIImage = DayColorSetManager.currentColorSet.TabIconRoomList
+    
+    var TabIconRoomIland: UIImage = DayColorSetManager.currentColorSet.TabIconRoomIland
+    
+    var TabIconRoomSettings: UIImage = DayColorSetManager.currentColorSet.TabIconRoomSettings
+
     
     
     

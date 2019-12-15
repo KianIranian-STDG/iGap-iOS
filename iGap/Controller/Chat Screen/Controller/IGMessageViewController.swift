@@ -428,7 +428,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         initAlignmentsNewChatView()
         initChangeLanguegeNewChatView()
         initDelegatesNewChatView()
-        
+        SwiftEventBus.onMainThread(self, name: "initTheme") { result in
+            self.initTheme()
+        }
+
         let attributes = [
             NSAttributedString.Key.foregroundColor: ThemeManager.currentTheme.TextFieldPlaceHolderColor ?? #colorLiteral(red: 0.6784313725, green: 0.6784313725, blue: 0.6784313725, alpha: 1),
             NSAttributedString.Key.font: UIFont.igFont(ofSize: 13) // Note the !
@@ -755,7 +758,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         IGHelperGetMessageState.shared.clearMessageViews()
     }
     
-    
+    private func initTheme() {}
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         IGGlobal.isInChatPage = false

@@ -114,9 +114,20 @@ class ClassicTheme: ThemeProtocol {
 
     var BorderColor: UIColor = DefaultColorSet().BorderColor
 
+    var BadgeColor : UIColor = DefaultColorSet().BadgeColor
     
+    //tabbarIcons
+
+    var TabIconContacts: UIImage = DefaultColorSet().TabIconContacts
     
+    var TabIconCallList: UIImage = DefaultColorSet().TabIconCallList
     
+    var TabIconRoomList: UIImage = DefaultColorSet().TabIconRoomList
+    
+    var TabIconRoomIland: UIImage = DefaultColorSet().TabIconRoomIland
+    
+    var TabIconRoomSettings: UIImage = DefaultColorSet().TabIconRoomSettings
+
     
     
     

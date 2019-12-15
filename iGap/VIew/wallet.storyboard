@@ -3450,7 +3450,7 @@
         <image name="scan_Holder" width="512" height="512"/>
         <image name="scan_qr-code_25" width="25" height="25"/>
         <namedColor name="IGBackGroundColor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGLabelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3459,7 +3459,7 @@
             <color white="0.33300000429153442" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
         <namedColor name="IGMessageUnreadCellBGColor">
-            <color red="0.61568627450980395" green="0.7803921568627451" blue="0.33725490196078434" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20800000429153442" green="0.21199999749660492" blue="0.22400000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGModalViewBackgroundColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -83,38 +83,50 @@ class GoldColorSet: DayNightColorSetProtocol {
     
     //change by Color Set
     
-    var SettingDayReceiveBubble: UIColor = UIColor(named: "SettingDayReceiveBubbleGold")!
-    
-    var SliderTintColor: UIColor = UIColor(named: "SliderTintColorGold")!
+    var SettingDayReceiveBubble: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
+    var SliderTintColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
         
-    var CheckStatusColor: UIColor = UIColor(named: "CheckStatusColorGold")!
+    var CheckStatusColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
     
-    var MessageCountColor: UIColor = UIColor(named: "MessageCountColorGold")!
+    var MessageCountColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
     
-    var TabBarColor: UIColor = UIColor(named: "TabBarColorGold")!
+    var TabBarColor: UIColor = UIColor.hexStringToUIColor(hex: "EAEAEC")
 
-    var TabBarTextColor: UIColor = UIColor(named: "TabBarTextColorGold")!
+    var TabBarTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var NavigationFirstColor: UIColor = UIColor(named: "NavigationFirstColorGold")!
+    var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
     
-    var NavigationSecondColor: UIColor = UIColor(named: "NavigationSecondColorGold")!
+    var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "D49829")
 
-    var NavigationButtonTextColor: UIColor = UIColor(named: "NavigationButtonTextColorGold")!
+    var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ReceiveMessageBubleBGColor: UIColor = UIColor(named: "ReceiveMessageBubleBGColorGold")!
+    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
 
-    var MessageUnreadCellBGColor: UIColor = UIColor(named: "MessageUnreadCellBGColorGold")!
+    var MessageUnreadCellBGColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
 
-    var ButtonTextColor: UIColor = UIColor(named: "ButtonTextColorGold")!
+    var ButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ButtonBGColor: UIColor = UIColor(named: "ButtonBGColorGold")!
+    var ButtonBGColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
 
-    var BorderCustomColor: UIColor = UIColor(named: "BorderCustomColorGold")!
+    var BorderCustomColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
 
-    var BorderColor: UIColor = UIColor(named: "BorderColorGold")!
+    var BorderColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
 
+    var BadgeColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
+
+    //tabbarIcons
+
+    var TabIconContacts: UIImage = UIImage(named: "igContactListGoldLight")!
     
+    var TabIconCallList: UIImage = UIImage(named: "igCallListGoldLight")!
     
+    var TabIconRoomList: UIImage = UIImage(named: "igRoomListGoldLight")!
+    
+    var TabIconRoomIland: UIImage = UIImage(named: "igIlandGoldLight")!
+    
+    var TabIconRoomSettings: UIImage = UIImage(named: "igSettingGoldLight")!
+
+
     
     
     

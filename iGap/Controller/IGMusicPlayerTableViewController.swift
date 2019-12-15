@@ -639,7 +639,7 @@ class IGMusicPlayerTableViewController: UITableViewController {
         tmpMusicCover.backgroundColor = ThemeManager.currentTheme.LabelGrayColor
         musicSlider.setThumbImage(UIImage(named: "sliderThumb"), for: .normal)
         musicSlider.setThumbImage(UIImage(named: "sliderThumb"), for: .highlighted)
-        musicSlider.tintColor = UIColor.iGapGreen()
+        musicSlider.tintColor = ThemeManager.currentTheme.SliderTintColor
         lblCurrentTime.adjustsFontSizeToFitWidth = true
         lblMusicTotalTime.adjustsFontSizeToFitWidth = true
         

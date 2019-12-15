@@ -27,10 +27,152 @@ class IGTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        manageTheme()
         initView()
+        SwiftEventBus.onMainThread(self, name: "initTheme") { result in
+            self.initTheme()
+        }
     }
-    
+    private func manageColorSet(mode: String = "IGAPClassic") {
+        let currentColorSet = UserDefaults.standard.string(forKey: "CurrentColorSet") ?? "IGAPDefaultColor"
+        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+        if mode == "IGAPClassic" {
+            switch currentColorSet {
+            default:
+                DefaultColorSetManager.currentColorSet = DefaultColorSet()
+                SwiftEventBus.post("initTheme")
+                break
+            }
+            
+        } else if mode == "IGAPDay" {
+            
+            switch currentColorSetLight {
+            case "IGAPBlue" :
+                DayColorSetManager.currentColorSet = BlueColorSet()
+                break
+            case "IGAPTorquoise" :
+                DayColorSetManager.currentColorSet = TorquoiseColorSet()
+                break
+                
+            case "IGAPGreen" :
+                DayColorSetManager.currentColorSet = GreenColorSet()
+                break
+                
+            case "IGAPPink" :
+                DayColorSetManager.currentColorSet = PinkColorSet()
+                break
+                
+            case "IGAPOrange" :
+                DayColorSetManager.currentColorSet = OrangeColorSet()
+                break
+                
+            case "IGAPPurple" :
+                DayColorSetManager.currentColorSet = PurpleColorSet()
+                break
+                
+            case "IGAPRed" :
+                DayColorSetManager.currentColorSet = RedColorSet()
+                break
+                
+            case "IGAPGold" :
+                DayColorSetManager.currentColorSet = GoldColorSet()
+                break
+                
+            case "IGAPLightGray" :
+                DayColorSetManager.currentColorSet = LightGrayColorSet()
+                break
+                
+            default: break
+            }
+            SwiftEventBus.post("initTheme")
+
+        } else {
+            
+            switch currentColorSetDark {
+            case "IGAPBlue" :
+                NightColorSetManager.currentColorSet = BlueColorSet()
+                break
+            case "IGAPTorquoise" :
+                NightColorSetManager.currentColorSet = TorquoiseColorSet()
+                break
+                
+            case "IGAPGreen" :
+                NightColorSetManager.currentColorSet = GreenColorSet()
+                break
+                
+            case "IGAPPink" :
+                NightColorSetManager.currentColorSet = PinkColorSet()
+                break
+                
+            case "IGAPOrange" :
+                NightColorSetManager.currentColorSet = OrangeColorSet()
+                break
+                
+            case "IGAPPurple" :
+                NightColorSetManager.currentColorSet = PurpleColorSet()
+                break
+                
+            case "IGAPRed" :
+                NightColorSetManager.currentColorSet = RedColorSet()
+                break
+                
+            case "IGAPGold" :
+                NightColorSetManager.currentColorSet = GoldColorSet()
+                break
+                
+            case "IGAPLightGray" :
+                NightColorSetManager.currentColorSet = LightGrayColorSet()
+                break
+                
+            default: break
+            }
+            SwiftEventBus.post("initTheme")
+
+        }
+    }
+    private func manageTheme() {
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+        
+        switch currentTheme {
+        case "IGAPClassic" :
+            ThemeManager.currentTheme = ClassicTheme()
+            manageColorSet(mode: "IGAPClassic")
+        case "IGAPDay" :
+            ThemeManager.currentTheme = DayTheme()
+            manageColorSet(mode: "IGAPDay")
+        case "IGAPNight" :
+            ThemeManager.currentTheme = NightTheme()
+            manageColorSet(mode: "IGAPNight")
+
+        default:
+            ThemeManager.currentTheme = ClassicTheme()
+            manageColorSet(mode: "IGAPClassic")
+        }
+        
+    }
+    private func initTheme() {
+        let tabBarItemApperance = UITabBarItem.appearance()
+        tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): ThemeManager.currentTheme.TabBarTextColor, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.normal)
+        tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): ThemeManager.currentTheme.TabbarColorLabel, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.selected)
+            self.tabBar.barTintColor = ThemeManager.currentTheme.TabBarColor
+            self.tabBar.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+            self.view.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+
+            setTabBarItems()
+        
+        for item in tabBar.items! {
+            if #available(iOS 10.0, *) {
+                item.badgeColor = ThemeManager.currentTheme.BadgeColor
+                item.badgeValue = item.badgeValue?.inLocalizedLanguage()
+                item.setBadgeTextAttributes([
+                    NSAttributedString.Key.foregroundColor: UIColor.white,
+                    NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)
+                ], for: .normal)
+            }
+        }
+
+    }
     private func initView() {
         
         let tabBarItemApperance = UITabBarItem.appearance()
@@ -49,6 +191,7 @@ class IGTabBarController: UITabBarController {
         
         setTabBarItems()
         self.selectedIndex = 2
+        
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -70,7 +213,7 @@ class IGTabBarController: UITabBarController {
         
         for item in tabBar.items! {
             if #available(iOS 10.0, *) {
-                item.badgeColor = UIColor.unreadLable()
+                item.badgeColor = ThemeManager.currentTheme.BadgeColor
                 item.badgeValue = item.badgeValue?.inLocalizedLanguage()
                 item.setBadgeTextAttributes([
                     NSAttributedString.Key.foregroundColor: UIColor.white,
@@ -83,7 +226,7 @@ class IGTabBarController: UITabBarController {
     public func selectTabBar(tabBar: UITabBar, didSelect item: TabBarTab) {
         for item in tabBar.items! {
             if #available(iOS 10.0, *) {
-                item.badgeColor = UIColor.unreadLable()
+                item.badgeColor = ThemeManager.currentTheme.BadgeColor
             }
         }
         
@@ -111,17 +254,22 @@ class IGTabBarController: UITabBarController {
     }
     
     func setTabBarItems() {
+        manageTabbarIcons()
+    }
+    
+    private func manageTabbarIcons() {
         let myTabBarItem1 = (self.tabBar.items?[0])! as UITabBarItem
         myTabBarItem1.image = UIImage(named: "ig-Phone-Book-Off_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        myTabBarItem1.selectedImage = UIImage(named: "ig-Phone-Book-on_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        myTabBarItem1.selectedImage = ThemeManager.currentTheme.TabIconContacts.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         myTabBarItem1.title = "TAB_PHONEBOOK".Tablocalized
         myTabBarItem1.tag = 0
         myTabBarItem1.imageInsets = UIEdgeInsets(top: -8, left: 0, bottom: 0, right: 0)
         myTabBarItem1.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -10)
         
+        
         let myTabBarItem2 = (self.tabBar.items?[1])! as UITabBarItem
         myTabBarItem2.image = UIImage(named: "ig-Call-List_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        myTabBarItem2.selectedImage = UIImage(named: "ig-Call-List-on_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        myTabBarItem2.selectedImage = ThemeManager.currentTheme.TabIconCallList.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         myTabBarItem2.title = "TAB_CALL_LIST".Tablocalized
         myTabBarItem2.tag = 1
         myTabBarItem2.imageInsets = UIEdgeInsets(top: -8, left: 0, bottom: 0, right: 0)
@@ -129,7 +277,7 @@ class IGTabBarController: UITabBarController {
         
         let myTabBarItem3 = (self.tabBar.items?[2])! as UITabBarItem
         myTabBarItem3.image = UIImage(named: "ig-Room-List-Off_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        myTabBarItem3.selectedImage = UIImage(named: "ig-Room-List-on_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        myTabBarItem3.selectedImage = ThemeManager.currentTheme.TabIconRoomList.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         myTabBarItem3.title = "TAB_CHAT".Tablocalized
         myTabBarItem3.tag = 2
         myTabBarItem3.imageInsets = UIEdgeInsets(top: -8, left: 0, bottom: 0, right: 0)
@@ -137,7 +285,7 @@ class IGTabBarController: UITabBarController {
         
         let myTabBarItem4 = (self.tabBar.items?[3])! as UITabBarItem
         myTabBarItem4.image = UIImage(named: "ig-Dashboard-off_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        myTabBarItem4.selectedImage = UIImage(named: "ig-Discovery-on_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        myTabBarItem4.selectedImage = ThemeManager.currentTheme.TabIconRoomIland.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         myTabBarItem4.title = "TAB_DISCOVERY".Tablocalized
         myTabBarItem4.tag = 3
         myTabBarItem4.imageInsets = UIEdgeInsets(top: -8, left: 0, bottom: 0, right: 0)
@@ -145,14 +293,13 @@ class IGTabBarController: UITabBarController {
         
         let myTabBarItem5 = (self.tabBar.items?[4])! as UITabBarItem
         myTabBarItem5.image = UIImage(named: "ig-Settings-off_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        myTabBarItem5.selectedImage = UIImage(named: "ig-Settings-on_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        myTabBarItem5.selectedImage = ThemeManager.currentTheme.TabIconRoomSettings.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         myTabBarItem5.title = "TAB_PROFILE".Tablocalized
         myTabBarItem5.tag = 4
         myTabBarItem5.imageInsets = UIEdgeInsets(top: -8, left: 0, bottom: 0, right: 0)
         myTabBarItem5.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -10)
+
     }
-    
-    
     private func setCurrent(tab: TabBarTab) {
         switch tab {
         case .Contact:

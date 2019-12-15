@@ -521,7 +521,7 @@ extension IGCallsTableViewController: UICollectionViewDataSource, UICollectionVi
 
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         let label = cell.viewWithTag(110) as! UILabel
-        cell.backgroundColor = ThemeManager.currentTheme.TransactionsCVSelectedColor
+        cell.backgroundColor = ThemeManager.currentTheme.SliderTintColor
         label.textColor = UIColor.white
 
         selectedIndex = indexPath.item
@@ -560,7 +560,7 @@ extension IGCallsTableViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let label = cell.viewWithTag(110) as! UILabel
         if indexPath.item == selectedIndex {
-            cell.backgroundColor = ThemeManager.currentTheme.TransactionsCVSelectedColor
+            cell.backgroundColor = ThemeManager.currentTheme.SliderTintColor
             label.textColor = UIColor.white
         } else {
             cell.backgroundColor = ThemeManager.currentTheme.TransactionsCVColor

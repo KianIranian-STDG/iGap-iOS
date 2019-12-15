@@ -92,7 +92,7 @@ class TorquoiseColorSet: DayNightColorSetProtocol {
     
     var TabBarColor: UIColor = UIColor.hexStringToUIColor(hex: "EAEAEC")
 
-    var TabBarTextColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
+    var TabBarTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
     
@@ -111,8 +111,20 @@ class TorquoiseColorSet: DayNightColorSetProtocol {
     var BorderCustomColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
 
     var BorderColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
+    var BadgeColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
 
+    //tabbarIcons
+
+    var TabIconContacts: UIImage = UIImage(named: "igContactListTorquoiseLight")!
     
+    var TabIconCallList: UIImage = UIImage(named: "igCallListTorquoiseLight")!
+    
+    var TabIconRoomList: UIImage = UIImage(named: "igRoomListTorquoiseLight")!
+    
+    var TabIconRoomIland: UIImage = UIImage(named: "igIlandTorquoiseLight")!
+    
+    var TabIconRoomSettings: UIImage = UIImage(named: "igSettingTorquoiseLight")!
+
     
     
     

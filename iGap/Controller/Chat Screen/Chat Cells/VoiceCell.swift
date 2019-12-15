@@ -40,8 +40,22 @@ class VoiceCell: AbstractCell {
         setVoice()
         voiceGustureRecognizers()
         checkPlayerState()
+        initTheme()
     }
-    
+    private func initTheme() {
+        if isIncommingMessage {
+            txtVoiceTime.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            btnPlayAbs.setTitleColor(ThemeManager.currentTheme.MessageTextReceiverColor, for: .normal)
+//            sliderVoice.thumbTintColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            sliderVoice.tintColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
+        } else {
+            txtVoiceTime.textColor = UIColor.dialogueBoxInfo()
+            btnPlayAbs.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: UIControl.State.normal)
+            sliderVoice.tintColor = ThemeManager.currentTheme.MessageTextReceiverColor
+        }
+
+    }
     private func initializeView(){
         /********** view **********/
         mainBubbleViewAbs = mainBubbleView
@@ -74,7 +88,7 @@ class VoiceCell: AbstractCell {
         if btnPlayAbs == nil {
             btnPlayAbs = UIButton()
             btnPlayAbs.titleLabel?.font = UIFont.iGapFonticon(ofSize: 50)
-            btnPlayAbs.setTitleColor(UIColor.iGapBlue(), for: UIControl.State.normal)
+            btnPlayAbs.setTitleColor(ThemeManager.currentTheme.MessageTextReceiverColor, for: UIControl.State.normal)
             mainBubbleViewAbs.addSubview(btnPlayAbs)
         }
         
@@ -149,7 +163,7 @@ class VoiceCell: AbstractCell {
             sliderVoice.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .focused)
             sliderVoice.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .selected)
             sliderVoice.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .highlighted)
-            sliderVoice.minimumTrackTintColor = UIColor.organizationalColor()
+            sliderVoice.minimumTrackTintColor = ThemeManager.currentTheme.MessageTextReceiverColor
             sliderVoice.maximumTrackTintColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
             btnPlayAbs.setTitle("", for: UIControl.State.normal)
         } else {
@@ -157,8 +171,8 @@ class VoiceCell: AbstractCell {
             sliderVoice.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .focused)
             sliderVoice.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .selected)
             sliderVoice.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .highlighted)
-            sliderVoice.minimumTrackTintColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1.0)
-            sliderVoice.maximumTrackTintColor = UIColor(red: 22.0/255.0, green: 91.0/255.0, blue: 88.0/255.0, alpha: 1.0)
+            sliderVoice.maximumTrackTintColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1.0)
+            sliderVoice.minimumTrackTintColor = UIColor(red: 22.0/255.0, green: 91.0/255.0, blue: 88.0/255.0, alpha: 1.0)
             btnPlayAbs.setTitle("", for: UIControl.State.normal)
         }
         
