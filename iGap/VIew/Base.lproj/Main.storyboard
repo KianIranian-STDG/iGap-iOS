@@ -3760,6 +3760,9 @@
                                         <state key="normal" title="">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="btnShare:" destination="d2M-Z4-9Xf" eventType="touchUpInside" id="EfX-ZT-flx"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4S1-HB-P32">
                                         <rect key="frame" x="0.0" y="40" width="60" height="60"/>

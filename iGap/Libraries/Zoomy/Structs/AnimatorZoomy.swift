@@ -1,0 +1,28 @@
+import UIKit
+
+/// Can perform animations with different options
+public struct AnimatorZoomy {
+    
+    // MARK: Public properties
+    public let duration: TimeInterval
+    public let delay: TimeInterval
+    public let options: UIView.AnimationOptions
+    
+    // MARK: Initializers
+    public init(duration: TimeInterval = 0.5, delay: TimeInterval = 0, options: UIView.AnimationOptions = .curveEaseInOut) {
+        self.duration = duration
+        self.delay = delay
+        self.options = options
+    }
+}
+
+extension AnimatorZoomy: CanAnimate {
+    public func animate(_ animations: @escaping () -> (), completion: (() -> ())?) {
+        UIView.animate(withDuration: duration,
+                       delay: delay,
+                       options: options,
+                       animations: animations) { _ in
+                        completion?()
+        }
+    }
+}
