@@ -33,7 +33,12 @@ class IGFinancialHistoryViewController: BaseViewController {
         
         self.getData(type: selectedType, offset: 0, limit: 15)
     }
-    
+    private func initTheme() {
+        self.transactionTypesCollectionView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.transactionsTableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        
+    }
+
     override func viewDidLayoutSubviews() {
         if isFirstLoad {
             let firstIndex = IndexPath(item: 0, section: 0)

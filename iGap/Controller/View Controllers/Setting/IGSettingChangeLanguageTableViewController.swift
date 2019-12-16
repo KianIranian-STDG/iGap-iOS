@@ -9,6 +9,7 @@
  */
 
 import UIKit
+import SwiftEventBus
 
 class IGSettingChangeLanguageTableViewController: BaseTableViewController {
     
@@ -20,7 +21,7 @@ class IGSettingChangeLanguageTableViewController: BaseTableViewController {
         initNavigationBar()
         languagesArray = Array(LocaleManager.availableLocalizations.filter({ $0.key != "Base" })).sorted(by: { $0.key < $1.key })
     }
-    
+    private func initTheme() {}
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.ChangeLang.rawValue.localized)
@@ -39,7 +40,11 @@ class IGSettingChangeLanguageTableViewController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return languagesArray.count
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "LangCell", for: indexPath) as? LanguageCell else {
             return LanguageCell()

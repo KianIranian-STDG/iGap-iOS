@@ -10,7 +10,7 @@
 
 import UIKit
 
-class IGSettingsDataAndStorageUsageTableViewController: UITableViewController,UIGestureRecognizerDelegate {
+class IGSettingsDataAndStorageUsageTableViewController: BaseTableViewController {
 
     @IBOutlet weak var lblKeepMedia : UILabel!
     @IBOutlet weak var lblKeepMediaTime : UILabel!
@@ -22,7 +22,13 @@ class IGSettingsDataAndStorageUsageTableViewController: UITableViewController,UI
         initChangeLang()
         // MARK: - Initialize Default NavigationBar
         initDefaultNav()
+        initTheme()
 
+    }
+    private func initTheme() {
+        lblCleaCache.textColor = ThemeManager.currentTheme.LabelColor
+        lblKeepMedia.textColor = ThemeManager.currentTheme.LabelColor
+        lblKeepMediaTime.textColor = ThemeManager.currentTheme.LabelColor
     }
     func initChangeLang() {
         // MARK: - Section 0
@@ -44,6 +50,10 @@ class IGSettingsDataAndStorageUsageTableViewController: UITableViewController,UI
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 2
+    }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

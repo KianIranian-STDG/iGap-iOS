@@ -10,7 +10,7 @@
 
 import UIKit
 
-class IGNewsCommentsTVController: UITableViewController,UIGestureRecognizerDelegate {
+class IGNewsCommentsTVController: BaseTableViewController {
 
     var items = [IGStructNewsComment]()
     var articleID : String = ""
@@ -56,6 +56,11 @@ class IGNewsCommentsTVController: UITableViewController,UIGestureRecognizerDeleg
         cell.setCellData()
         return cell
     }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     private func getComments() {
         SMLoading.showLoadingPage(viewcontroller: self)
         IGApiNews.shared.getNewsComments(page: "1", perPage: "9999999999" , articleId: articleID) { (isSuccess, response) in

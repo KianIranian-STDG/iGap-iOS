@@ -124,6 +124,11 @@ class IGWallpaperPreview: UIViewController, UIGestureRecognizerDelegate {
             allowSetWallpaper = true
             self.downloadIndicator.setState(.ready)
         }
+        initTheme()
+    }
+    private func initTheme() {
+        self.btnSet.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        self.btnCancel.backgroundColor = ThemeManager.currentTheme.SliderTintColor
     }
     
     private func initNavigationBar(){

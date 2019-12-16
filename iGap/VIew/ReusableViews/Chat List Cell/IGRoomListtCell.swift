@@ -484,6 +484,7 @@ class IGRoomListtCell: BaseTableViewCell {
             self.nameLabel.textColor = ThemeManager.currentTheme.TVCellTitleColor
             self.timeLabel.textColor = ThemeManager.currentTheme.TVCellTitleColor
             self.lastMsgLabel.textColor = ThemeManager.currentTheme.TVCellTitleColor
+            self.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
         }
         
     }

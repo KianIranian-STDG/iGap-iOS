@@ -26,8 +26,15 @@ class IGSettingChatWallpaperTableViewController: BaseTableViewController, UINavi
         super.viewDidLoad()
         initNavigationBar()
 //        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
+        initTheme()
     }
     
+    private func initTheme() {
+        lblWallpaperLibrary.textColor = ThemeManager.currentTheme.LabelColor
+        lblSolidColors.textColor = ThemeManager.currentTheme.LabelColor
+        lblPhotos.textColor = ThemeManager.currentTheme.LabelColor
+        lblReset.textColor = ThemeManager.currentTheme.LabelColor
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         lblReset.text = IGStringsManager.Reset.rawValue.localized
@@ -57,7 +64,11 @@ class IGSettingChatWallpaperTableViewController: BaseTableViewController, UINavi
         }
         return numberOfRows
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             switch indexPath.row {

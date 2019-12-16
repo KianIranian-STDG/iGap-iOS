@@ -45,8 +45,12 @@ class IGNewsSliderTVCell: UITableViewCell {
         sliderCollectionView.layer.cornerRadius = 5
         
         backPageView.layer.cornerRadius = 8
+        self.initTheme()
     }
-    
+    private func initTheme() {
+        self.sliderCollectionView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+    }
+
     private func computeHeight(scale: String) -> CGFloat {
         let split = scale.split(separator: ":")
         let heightScale = NumberFormatter().number(from: split[1].description)

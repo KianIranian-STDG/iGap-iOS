@@ -49,8 +49,12 @@ class IGFavouriteChannelSlideTVCell: BaseTableViewCell {
         collectionView.isPagingEnabled = true
         self.collectionView.transform = self.isRTL ? CGAffineTransform(scaleX: -1, y: 1) : CGAffineTransform.identity
         self.pageControl.transform = self.isRTL ? CGAffineTransform(scaleX: -1, y: 1) : CGAffineTransform.identity
+        self.initTheme()
     }
-    
+    private func initTheme() {
+        self.collectionView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+    }
+
     @objc func slideshowTick(_ timer: Timer) {
         var page = collectionView.frame.size.width > 0 ? Int(collectionView.contentOffset.x / collectionView.frame.size.width) : 0
 

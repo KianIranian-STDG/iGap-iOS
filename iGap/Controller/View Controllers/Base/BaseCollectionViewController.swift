@@ -19,6 +19,7 @@ class BaseCollectionViewController: UICollectionViewController {
         
         self.hideKeyboardWhenTappedAround()
         let _ : String = SMLangUtil.loadLanguage()
+        self.collectionView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
     }
     
 //    public func setDirectionManually(direction: UISemanticContentAttribute)  {

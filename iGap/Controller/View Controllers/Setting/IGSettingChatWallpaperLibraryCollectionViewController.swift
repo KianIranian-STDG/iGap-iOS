@@ -115,6 +115,7 @@ class IGSettingChatWallpaperLibraryCollectionViewController: UICollectionViewCon
                 IGGlobal.prgHide()
             }).send()
         }
+        self.collectionView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
     }
     
     private func appendLocalColors(){

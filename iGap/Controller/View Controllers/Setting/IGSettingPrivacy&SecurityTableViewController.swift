@@ -26,7 +26,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     @IBOutlet weak var lblTwoStepTitle: UILabel!
     @IBOutlet weak var lblHint: UILabel!
     
-    @IBOutlet weak var AlloLoginSwitch: UISwitch!
+    @IBOutlet  var arrayLabels: [UILabel]!
     @IBOutlet weak var whoCanSeeProfilePhotoLabel: UILabel!
     @IBOutlet weak var whoCanAddingMeToChannelLabel: UILabel!
     @IBOutlet weak var numberOfBlockedContacts: UILabel!
@@ -43,6 +43,33 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     @IBOutlet weak var selfDestructionLabel : UILabel!
     @IBOutlet weak var lblPasscode : UILabel!
     
+    private func initTheme() {
+        self.lblBlockedUserTitle.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblLastSeenTitle.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblProfilePhotoTitle.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblGroupsTitle.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblChannelsTitle.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblCallTitle.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblVideoCallTitle.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblActiveSessionsTitle.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblTwoStepTitle.textColor = ThemeManager.currentTheme.LabelColor
+        self.whoCanSeeProfilePhotoLabel.textColor = ThemeManager.currentTheme.LabelGrayColor
+        self.whoCanAddingMeToChannelLabel.textColor = ThemeManager.currentTheme.LabelGrayColor
+        self.numberOfBlockedContacts.textColor = ThemeManager.currentTheme.LabelGrayColor
+        self.whoCanSeeLastSeenLabel.textColor = ThemeManager.currentTheme.LabelGrayColor
+        self.whoCanAddingToGroupLabel.textColor = ThemeManager.currentTheme.LabelGrayColor
+        self.whoCanCallMe.textColor = ThemeManager.currentTheme.LabelGrayColor
+        self.whoCanVideoCallMe.textColor = ThemeManager.currentTheme.LabelGrayColor
+        self.lblIfAway.textColor = ThemeManager.currentTheme.LabelColor
+        self.selfDestructionLabel.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblSecretChatLink.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblClearPayments.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblSyncContacts.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblDeleteSyncedContacts.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblDeleteAllCloud.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblPasscode.textColor = ThemeManager.currentTheme.LabelColor
+
+    }
     
     
     var selectedIndexPath : IndexPath!
@@ -114,8 +141,8 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         
         showPrivacyInfo()
         requestToGetUserPrivacy()
+        initTheme()
     }
-    
     
     
     func getSelfRemove() {
@@ -630,7 +657,10 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         
     }
     
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         let containerFooterView = view as! UITableViewHeaderFooterView
         containerFooterView.textLabel?.textAlignment = containerFooterView.textLabel!.localizedDirection

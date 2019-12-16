@@ -81,6 +81,10 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
         manageView()
         
         self.usersCollectionView.register(UINib(nibName:"multiForwardShareUsers", bundle: nil), forCellWithReuseIdentifier: cellIdentifier)
+        initTheme()
+    }
+    private func initTheme() {
+        self.usersCollectionView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
     }
 
     private func manageView(){

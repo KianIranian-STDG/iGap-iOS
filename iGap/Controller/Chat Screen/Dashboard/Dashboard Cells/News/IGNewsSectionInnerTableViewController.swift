@@ -11,7 +11,7 @@
 import UIKit
 import SnapKit
 
-class IGNewsSectionInnerTableViewController: UITableViewController,UIGestureRecognizerDelegate {
+class IGNewsSectionInnerTableViewController: BaseTableViewController {
     var categoryID : String! = "0"
     var category : String! = "latestNews"
     var currentPage: Int = 1
@@ -31,7 +31,14 @@ class IGNewsSectionInnerTableViewController: UITableViewController,UIGestureReco
         
         getData()
         initNavigationBar()
+        initTheme()
     }
+    private func initTheme() {
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        TopHeaderLabel.textColor = ThemeManager.currentTheme.LabelColor
+
+    }
+
     private func makeTopHeader() -> UIView {
         let header = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 300))
         header.backgroundColor = .red
@@ -196,8 +203,12 @@ class IGNewsSectionInnerTableViewController: UITableViewController,UIGestureReco
         v.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         let segmentedControl = UISegmentedControl(frame: CGRect(x: 10, y: 5, width: tableView.frame.width - 20, height: 40))
 
-        let font: [AnyHashable : Any] = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)]
-        segmentedControl.setTitleTextAttributes(font as? [NSAttributedString.Key : Any], for: .normal)
+        // selected option color
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: ThemeManager.currentTheme.ButtonTextColor,NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)], for: .selected)
+
+        // color of other options
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: ThemeManager.currentTheme.LabelColor,NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)], for: .normal)
+
         segmentedControl.tintColor = ThemeManager.currentTheme.NavigationFirstColor
         segmentedControl.insertSegment(withTitle: IGStringsManager.mostErgent.rawValue.localized, at: 0, animated: false)
         segmentedControl.insertSegment(withTitle: IGStringsManager.mostSeen.rawValue.localized, at: 1, animated: false)
@@ -284,6 +295,10 @@ class IGNewsSectionInnerTableViewController: UITableViewController,UIGestureReco
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let aricleID = items[indexPath.row].id
         gotToNewsPage(articleID: aricleID!)
+    }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
     }
 
 

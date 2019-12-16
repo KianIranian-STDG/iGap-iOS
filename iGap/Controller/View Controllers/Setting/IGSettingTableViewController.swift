@@ -15,6 +15,8 @@ import RxRealm
 import RxSwift
 import Gifu
 import MapKit
+import SwiftEventBus
+
 public var currentSize : Int!
 public var currentIndexOfImage : Int!
 public var sizesArray = [Int?]()
@@ -24,6 +26,7 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
     
     @IBOutlet weak var switchInAppBrowser: UISwitch!
     
+    @IBOutlet  var iconArray: [UILabel]!
     @IBOutlet weak var lblNotificationSounds: UILabel!
     @IBOutlet weak var lblPrivacyPolicy: UILabel!
     @IBOutlet weak var lblDataStorage: UILabel!
@@ -52,8 +55,24 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         
         tableView.tableFooterView = UIView()
-    }
-    
+            SwiftEventBus.onMainThread(self, name: "initTheme") { result in
+                self.initTheme()
+            }
+
+            initTheme()
+        }
+        private func initTheme() {
+            lblLogOut.textColor = ThemeManager.currentTheme.LabelColor
+            lblChangeLang.textColor = ThemeManager.currentTheme.LabelColor
+            lblDataStorage.textColor = ThemeManager.currentTheme.LabelColor
+            lblChatSettings.textColor = ThemeManager.currentTheme.LabelColor
+            lblPrivacyPolicy.textColor = ThemeManager.currentTheme.LabelColor
+            lblNotificationSounds.textColor = ThemeManager.currentTheme.LabelColor
+            for icon in iconArray {
+                icon.textColor = ThemeManager.currentTheme.LabelColor
+            }
+        }
+
     func initDetails() {
         
         self.clearsSelectionOnViewWillAppear = true
@@ -155,7 +174,11 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
             return 0
         }
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         return super.tableView(tableView, cellForRowAt: indexPath)

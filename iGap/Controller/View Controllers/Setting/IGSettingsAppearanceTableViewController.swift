@@ -339,8 +339,8 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
             lblMaxA.font = UIFont.systemFont(ofSize: 12)
             viewMessagePreview2.roundCorners(corners: [.layerMinXMaxYCorner,.layerMinXMinYCorner,.layerMaxXMaxYCorner], radius: 15.0)
         }
-        viewMessagePreview2.backgroundColor = UIColor.chatBubbleBackground(isIncommingMessage: false)
-        
+        self.viewMessagePreview2.backgroundColor = ThemeManager.currentTheme.SendMessageBubleBGColor
+
         
         //sample2
         if self.isRTL {
@@ -375,7 +375,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         self.lblChatBG.textColor = ThemeManager.currentTheme.LabelColor
         self.lblInAppBrowser.textColor = ThemeManager.currentTheme.LabelColor
         self.lblStickers.textColor = ThemeManager.currentTheme.LabelColor
-        self.switchInAppBrowser.tintColor = ThemeManager.currentTheme.SliderTintColor
+        self.switchInAppBrowser.onTintColor = ThemeManager.currentTheme.SliderTintColor
         self.lblMessagePreview2.textColor = ThemeManager.currentTheme.LabelColor
         self.messageTimePreview2.textColor = ThemeManager.currentTheme.LabelColor
         self.messageStatusPreview2.textColor = ThemeManager.currentTheme.LabelColor
@@ -545,7 +545,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         self.messageStatusPreview2.textColor = ThemeManager.currentTheme.LabelColor
         self.messageStatusPreview.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
         self.messageStatusPreview3.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
-        self.switchInAppBrowser.tintColor = ThemeManager.currentTheme.SliderTintColor
+        self.switchInAppBrowser.onTintColor = ThemeManager.currentTheme.SliderTintColor
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
         self.collectionThemes.reloadData()

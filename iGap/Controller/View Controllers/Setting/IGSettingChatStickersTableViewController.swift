@@ -11,7 +11,7 @@
 import UIKit
 //import LGSemiModalNavController
 
-class IGSettingChatStickersTableViewController: UITableViewController {
+class IGSettingChatStickersTableViewController: BaseTableViewController {
     
     var collectionView : UICollectionView?{
         didSet{
@@ -48,6 +48,10 @@ class IGSettingChatStickersTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             showStcikers(indexpath: indexPath)
         }
+   override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+           cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+       }
     func setupEditBarButton(){
         let editButton = UIButton()
         editButton.frame = CGRect(x: 8, y: 0, width: 60, height: 60)

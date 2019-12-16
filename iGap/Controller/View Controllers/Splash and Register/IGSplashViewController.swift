@@ -68,7 +68,8 @@ extension IGSplashViewController: UITableViewDelegate, UITableViewDataSource {
         let language = languagesArray[indexPath.row]
         cell.langIsoCodeLbl.text = language.key.uppercased()
         cell.langNameLbl.text = language.value
-        
+        cell.langNameLbl.textColor = ThemeManager.currentTheme.LabelColor
+        cell.langIsoCodeLbl.textColor = ThemeManager.currentTheme.LabelColor
         return cell
     }
     

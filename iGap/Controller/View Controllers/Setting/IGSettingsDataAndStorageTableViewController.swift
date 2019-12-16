@@ -30,9 +30,19 @@ class IGSettingsDataAndStorageTableViewController: BaseTableViewController {
         // MARK: - Initialize Default NavigationBar
         initDefaultNav()
         
-        
+        initTheme()
     }
-    
+    private func initTheme() {
+        self.lblGifs.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblStorageUsage.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblDataUsage.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblWhenUsingMobileData.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblWhenConnectedToWIFI.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblResetAutoDownload.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblVideos.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblUseLessData.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblProxySettings.textColor = ThemeManager.currentTheme.LabelColor
+    }
     func initChangeLang() {
         // MARK: - Section 0
         lblStorageUsage.text = IGStringsManager.ManageStorage.rawValue.localized
@@ -96,7 +106,11 @@ class IGSettingsDataAndStorageTableViewController: BaseTableViewController {
         }
     }
     
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let containerHeaderView = view as! UITableViewHeaderFooterView
         

@@ -13,6 +13,7 @@ import IGProtoBuff
 import SwiftProtobuf
 import RealmSwift
 import MBProgressHUD
+import SwiftEventBus
 
 class IGCallsTableViewController: BaseTableViewController {
     
@@ -58,7 +59,7 @@ class IGCallsTableViewController: BaseTableViewController {
         
         self.tableView.register(IGCallListTableViewCell.nib(), forCellReuseIdentifier: IGCallListTableViewCell.cellReuseIdentifier())
         self.tableView.tableFooterView = UIView()
-        self.tableView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+//        self.tableView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         self.view.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         self.tableView.tableHeaderView?.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         
@@ -84,8 +85,17 @@ class IGCallsTableViewController: BaseTableViewController {
         }, onDisposed: {
             
         }).disposed(by: disposeBag)
-    }
-    
+            SwiftEventBus.onMainThread(self, name: "initTheme") { result in
+                self.initTheme()
+
+            }
+        initTheme()
+        }
+
+        private func initTheme() {
+            self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        }
+
     override func viewWillAppear(_ animated: Bool) {
         initNavigationBar()
     }

@@ -31,13 +31,17 @@ class IGScoreHistoryViewController: BaseViewController, UICollectionViewDelegate
         manageShowActivties(isFirst: true)
         btnScan.setTitle(IGStringsManager.QrCodeScanner.rawValue.localized, for: .normal)
         btnScan.titleLabel!.font = UIFont.igFont(ofSize: 15)
+        self.initTheme()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         getHistory()
     }
-    
+    private func initTheme() {
+        self.collectionView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+    }
+
     @IBAction func btnScan(_ sender: UIButton) {
     }
     

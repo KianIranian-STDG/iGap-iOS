@@ -43,6 +43,34 @@ class IGSettingsNotificationsTableViewController: UITableViewController,UIGestur
         initNavigationBar()
         initChangeStrings()
         initSwitched()
+        initTheme()
+    }
+    private func initTheme() {
+        self.lblPrivateCHats.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblGroups.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblChannels.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblMUtedChats.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblEnabled.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblCountUnread.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblInAppSounds.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblInAppVibrate.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblInAppPreview.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblJoint.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblReset.textColor = ThemeManager.currentTheme.LabelColor
+
+        self.switchPrivateChats.onTintColor = ThemeManager.currentTheme.SliderTintColor
+        self.switchGroups.onTintColor = ThemeManager.currentTheme.SliderTintColor
+        self.switchChannels.onTintColor = ThemeManager.currentTheme.SliderTintColor
+        self.switchEnabled.onTintColor = ThemeManager.currentTheme.SliderTintColor
+        self.switchIncludeMuted.onTintColor = ThemeManager.currentTheme.SliderTintColor
+        self.switchCountUnread.onTintColor = ThemeManager.currentTheme.SliderTintColor
+        self.switchInAppSounds.onTintColor = ThemeManager.currentTheme.SliderTintColor
+        self.switchInAppVibrate.onTintColor = ThemeManager.currentTheme.SliderTintColor
+        self.switchInAppPreview.onTintColor = ThemeManager.currentTheme.SliderTintColor
+        self.switchJoint.onTintColor = ThemeManager.currentTheme.SliderTintColor
+
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        
         
     }
     private func initSwitched() {
@@ -101,6 +129,10 @@ class IGSettingsNotificationsTableViewController: UITableViewController,UIGestur
             containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedDirection)!
         }
         
+    }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
     }
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         let containerFooterView = view as! UITableViewHeaderFooterView

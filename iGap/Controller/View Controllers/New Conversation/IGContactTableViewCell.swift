@@ -24,6 +24,7 @@ class IGContactTableViewCell: UITableViewCell {
         super.awakeFromNib()
         contactNameLable.textAlignment = contactNameLable.localizedDirection
         contactPhoneNumber.textAlignment = contactPhoneNumber.localizedDirection
+        self.contentView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
 
     }
     
@@ -71,6 +72,10 @@ class IGContactTableViewCell: UITableViewCell {
 
         userAvatarView.setUser(user)
         self.userRegister = user
+        self.contentView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        contactNameLable.textColor = ThemeManager.currentTheme.LabelColor
+        contactPhoneNumber.textColor = ThemeManager.currentTheme.LabelColor
+
     }
     
     override func prepareForReuse() {

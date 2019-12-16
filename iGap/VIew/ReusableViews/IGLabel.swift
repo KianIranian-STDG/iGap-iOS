@@ -15,5 +15,6 @@ public class IGLabel: UILabel {
     override public func awakeFromNib() {
         super.awakeFromNib()
         self.font = UIFont(name: "IRANSans", size: self.font.pointSize)
+        self.textColor = ThemeManager.currentTheme.LabelColor
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IGNewsDetailTableViewController: UITableViewController,UIGestureRecognizerDelegate {
+class IGNewsDetailTableViewController: BaseTableViewController {
     
     var categoryID : String! = "0"
     var category : String! = IGStringsManager.NewsDetail.rawValue.localized
@@ -48,6 +48,10 @@ class IGNewsDetailTableViewController: UITableViewController,UIGestureRecognizer
         getData()
         getComments()
         initView()
+        initTheme()
+    }
+    private func initTheme() {
+        lblFullText.textColor = ThemeManager.currentTheme.LabelColor
     }
     private func initTopHeader() {
         viewTopHeader.backgroundColor = UIColor.hexStringToUIColor(hex: "b60000")
@@ -58,11 +62,11 @@ class IGNewsDetailTableViewController: UITableViewController,UIGestureRecognizer
         lblFullTextTopHeader.font = UIFont.igFont(ofSize: 13)
         lblFullText.font = UIFont.igFont(ofSize: 15)
 
-        lblFullTextTopHeader.textAlignment = lblFullTextTopHeader.localizedDirection
-        lblTitleTopHeader.textAlignment = lblTitleTopHeader.localizedDirection
+        lblFullTextTopHeader.textAlignment = .right
+        lblTitleTopHeader.textAlignment = .right
         imgAgencyTopHeader.layer.cornerRadius = 5
         imgMainTopHeader.layer.cornerRadius = 5
-        lblFullText.textAlignment = lblFullText.localizedDirection
+        lblFullText.textAlignment = .right
     }
     
     func getData() {
@@ -179,7 +183,13 @@ class IGNewsDetailTableViewController: UITableViewController,UIGestureRecognizer
     
     
     
+    
     //MARK: UITableViewDelegate
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let v = UIView(frame: CGRect.init(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 100))
 

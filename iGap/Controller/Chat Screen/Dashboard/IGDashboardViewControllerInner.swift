@@ -62,6 +62,11 @@ class IGDashboardViewControllerInner: BaseViewController, UICollectionViewDelega
         }
         
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_DISCOVERY_PAGE)
+        self.initTheme()
+    }
+    
+    private func initTheme() {
+        self.collectionView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -34,6 +34,7 @@ class IGNewsSectionInnerTVCell: BaseTableViewCell {
         
         lblSeenCount.textColor = .white
         initAlignments()
+//        self.bgView.backgroundColor = .white
     }
     private func initAlignments() {
 //        let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
@@ -42,10 +43,10 @@ class IGNewsSectionInnerTVCell: BaseTableViewCell {
 //        lblAlias.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
 //        lblDate.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
 //        lblAgency.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
-        lblSeenCount.textAlignment = lblSeenCount.localizedDirection
-        lblAgency.textAlignment = lblAgency.localizedDirection
+        lblSeenCount.textAlignment = .right
+        lblAgency.textAlignment = .right
         lblDate.textAlignment = .left
-        lblAlias.textAlignment = lblAlias.localizedDirection
+        lblAlias.textAlignment = .right
         
     }
     func setCellData() {

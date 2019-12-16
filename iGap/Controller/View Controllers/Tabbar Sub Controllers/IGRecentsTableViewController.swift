@@ -243,6 +243,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         setTabbarBadge()
         setSearchBarGradient()
         initialiseSearchBar()
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         self.tableView.reloadData() //in order to update unread count color of each cell
     }
     override func viewDidLoad() {
@@ -274,7 +275,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             print("RLM EXEPTION ERR HAPPENDED IN VIEWDIDLOAD:",String(describing: self))
         }
         self.tableView.tableFooterView = UIView()
-        self.tableView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+//        self.tableView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         self.view.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         self.tableView.tableHeaderView?.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         

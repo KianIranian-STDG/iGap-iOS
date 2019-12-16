@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import SwiftEventBus
 
 class IGThreeInputTVController: BaseTableViewController {
 
@@ -43,6 +44,24 @@ class IGThreeInputTVController: BaseTableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        initTheme()
+        
+    }
+    private func initTheme() {
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        lblFirstRow.textColor = ThemeManager.currentTheme.LabelColor
+        lblThirdRow.textColor = ThemeManager.currentTheme.LabelColor
+        lblSecondRow.textColor = ThemeManager.currentTheme.LabelColor
+        
+        tfFirstRow.textColor = ThemeManager.currentTheme.LabelColor
+        tfSecondRow.textColor = ThemeManager.currentTheme.LabelColor
+        tfThirdRow.textColor = ThemeManager.currentTheme.LabelColor
+        //borders color set
+        tfFirstRow.backgroundColor = ThemeManager.currentTheme.TextFieldBackGround
+        tfSecondRow.backgroundColor = ThemeManager.currentTheme.TextFieldBackGround
+        tfThirdRow.backgroundColor = ThemeManager.currentTheme.TextFieldBackGround
+        btnSubmit.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+
     }
     private func fetchUSerInfo() {
         let realm = try! Realm()
@@ -210,6 +229,11 @@ class IGThreeInputTVController: BaseTableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
 
 }
 

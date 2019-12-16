@@ -242,7 +242,7 @@ class BlueColorSetNight: NightColorSetProtocol {
     var TableViewCellColor: UIColor = UIColor(named: "IGTableViewCellColorNight")!
     
     var TextFieldBackGround: UIColor = UIColor(named: "IGTextFieldBackGroundNight")!
-    
+
     var TextFieldPlaceHolderColor: UIColor = UIColor(named: "IGTextFieldPlaceHolderColorNight")!
     
     var TVCellIconColor: UIColor = UIColor(named: "IGTVCellIconColorNight")!

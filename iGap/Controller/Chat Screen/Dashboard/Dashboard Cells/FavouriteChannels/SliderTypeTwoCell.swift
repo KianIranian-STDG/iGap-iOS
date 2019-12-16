@@ -35,8 +35,11 @@ class SliderTypeTwoCell: UITableViewCell, UICollectionViewDelegate, UICollection
         self.collectionView.delegate = self
         
         self.lblTitle.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
+        self.initTheme()
     }
-    
+    private func initTheme() {
+        self.collectionView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+    }
     override func prepareForReuse() {
         super.prepareForReuse()
     }

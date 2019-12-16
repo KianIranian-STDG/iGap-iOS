@@ -16,6 +16,7 @@ import RxSwift
 import Gifu
 import MapKit
 import YPImagePicker
+import SwiftEventBus
 
 class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDelegate, UITextFieldDelegate {
     
@@ -53,14 +54,15 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     var tmpEmail: String = ""
 
     private var goToSettings : Bool! = false
+    @IBOutlet var iconArray: [UILabel]!
     @IBOutlet weak var stack0: UIStackView!
     @IBOutlet weak var stack1: UIStackView!
     @IBOutlet weak var stack3: UIStackView!
-    @IBOutlet weak var btnName: UIButton!
+    @IBOutlet weak var lblNameTop: UILabel!
     @IBOutlet weak var btnCountryCode: UIButton!
     @IBOutlet weak var btnUsername: UIButton!
     @IBOutlet weak var lblTel: UILabel!
-    @IBOutlet weak var lblBio: UILabel!
+    @IBOutlet weak var viewTop: UIView!
     @IBOutlet weak var viewBackgroundImage: UIView!
     @IBOutlet weak var lblChoosenLanguage: IGLabel!
     @IBOutlet weak var imgBackgroundImage: UIImageView!
@@ -145,8 +147,45 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         }, onDisposed: {
             
         }).disposed(by: disposeBag)
+        SwiftEventBus.onMainThread(self, name: "initTheme") { result in
+            self.initTheme()
+        }
+
+        initTheme()
     }
-    
+    private func initTheme() {
+        lblQR.textColor = ThemeManager.currentTheme.LabelColor
+        lblFaq.textColor = ThemeManager.currentTheme.LabelColor
+        lblNew.textColor = ThemeManager.currentTheme.LabelColor
+        lblTel.textColor = ThemeManager.currentTheme.LabelColor
+        lblCloud.textColor = ThemeManager.currentTheme.LabelColor
+        lblName.textColor = ThemeManager.currentTheme.LabelColor
+        lblScore.textColor = ThemeManager.currentTheme.LabelColor
+        lblBioTop.textColor = ThemeManager.currentTheme.LabelColor
+        lblCredit.textColor = ThemeManager.currentTheme.LabelColor
+        lblNearby.textColor = ThemeManager.currentTheme.LabelColor
+        lblInviteF.textColor = ThemeManager.currentTheme.LabelColor
+        lblNameTop.textColor = ThemeManager.currentTheme.LabelColor
+        lblSetting.textColor = ThemeManager.currentTheme.LabelColor
+        lblBioInner.textColor = ThemeManager.currentTheme.LabelColor
+        lblUserName.textColor = ThemeManager.currentTheme.LabelColor
+        lblMenGender.textColor = ThemeManager.currentTheme.LabelColor
+        lblEmailInner.textColor = ThemeManager.currentTheme.LabelColor
+        lblGenderInner.textColor = ThemeManager.currentTheme.LabelColor
+        lblMoneyAmount.textColor = ThemeManager.currentTheme.LabelColor
+        lblScoreAmount.textColor = ThemeManager.currentTheme.LabelColor
+        lblWomenGender.textColor = ThemeManager.currentTheme.LabelColor
+        lblReferralInner.textColor = ThemeManager.currentTheme.LabelColor
+        checkUpdateLbl.textColor = ThemeManager.currentTheme.LabelColor
+        versionTitleLbl.textColor = ThemeManager.currentTheme.LabelColor
+        for icon in iconArray {
+            icon.textColor = ThemeManager.currentTheme.LabelColor
+        }
+        btnWomenGender.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        btnMenGender.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        self.viewTop.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.tableView.reloadData()
+    }
     override func viewWillAppear(_ animated: Bool)  {
         super.viewWillAppear(animated)
         self.initNavBar()
@@ -349,7 +388,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         lblBioInner.textColor = ThemeManager.currentTheme.LabelGrayColor
         lblReferralInner.textColor = ThemeManager.currentTheme.LabelGrayColor
 
-        btnName.setTitle(IGStringsManager.FirstName.rawValue.localized, for: .normal)
+        lblNameTop.text = IGStringsManager.FirstName.rawValue
         lblCloud.text = IGStringsManager.Cloud.rawValue.localized
         lblSetting.text = IGStringsManager.Settings.rawValue.localized
         lblNew.text = IGStringsManager.GlobalNew.rawValue.localized
@@ -374,8 +413,8 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     
     func textManagment() {
         lblBioTop.text = (userInDb.bio)
-        btnName.setTitle((userInDb.displayName), for: .normal)
-        btnName.titleLabel?.font = UIFont.igFont(ofSize: 14)
+        lblNameTop.text = (userInDb.displayName)
+        lblNameTop.font = UIFont.igFont(ofSize: 14)
         btnUsername.setTitle((userInDb.username), for: .normal)
         btnUsername.titleLabel?.font = UIFont.igFont(ofSize: 14)
         lblTel.text = String(userInDb.phone).inLocalizedLanguage()
@@ -1299,7 +1338,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 default:
                     break
                 }
-                self.btnName.setTitle((current), for: .normal)
+                self.lblNameTop.text = current
             }
 
         }).error ({ (errorCode, waitTime) in
@@ -1422,7 +1461,11 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             }
         }).send()
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+
+    }
+
      override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.selectionStyle = UITableViewCell.SelectionStyle.none

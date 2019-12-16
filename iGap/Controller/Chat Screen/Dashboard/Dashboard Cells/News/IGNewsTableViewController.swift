@@ -10,7 +10,7 @@
 
 import UIKit
 
-class IGNewsTableViewController: UITableViewController, UIGestureRecognizerDelegate {
+class IGNewsTableViewController: BaseTableViewController {
     
     
     // MARK: - Outlets
@@ -147,7 +147,11 @@ class IGNewsTableViewController: UITableViewController, UIGestureRecognizerDeleg
         }
         return items.count
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var cell: UITableViewCell!

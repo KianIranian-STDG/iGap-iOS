@@ -50,9 +50,9 @@ class IGOneNewsTVCell: UITableViewCell {
                 lblTitle0.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
                 lblTitleTwo0.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
                 lblAlias0.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
-                lblTitle0.textAlignment = lblTitle0.localizedDirection
-                lblTitleTwo0.textAlignment = lblTitle0.localizedDirection
-                lblAlias0.textAlignment = lblAlias0.localizedDirection
+            lblTitle0.textAlignment = .right
+            lblTitleTwo0.textAlignment = .right
+            lblAlias0.textAlignment = .right
 
 
         }

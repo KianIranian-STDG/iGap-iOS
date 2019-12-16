@@ -102,7 +102,11 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController 
             }
         }
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+            cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+        }
+
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return lastSeenFooterText
     }

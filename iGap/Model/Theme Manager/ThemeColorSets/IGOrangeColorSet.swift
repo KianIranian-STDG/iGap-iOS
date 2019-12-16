@@ -185,72 +185,72 @@ class OrangeColorSetNight: NightColorSetProtocol {
 
     
     
-    var TVCellTitleColor: UIColor  = UIColor(named: "IGTVCellTitleColor")!
+    var TVCellTitleColor: UIColor  = UIColor(named: "IGTVCellTitleColorNight")!
     
-    var CellFavouriteChannellBGColor: UIColor = UIColor(named: "CellFavouriteChannellBGColor")!
+    var CellFavouriteChannellBGColor: UIColor = UIColor(named: "CellFavouriteChannellBGColorNight")!
     
-    var CellSelectedChannelBGColor: UIColor = UIColor(named: "CellSelectedChannelBGColor")!
+    var CellSelectedChannelBGColor: UIColor = UIColor(named: "CellSelectedChannelBGColorNight")!
         
-    var ProgressMainColor: UIColor = UIColor(named: "ProgressMainColor")!
+    var ProgressMainColor: UIColor = UIColor(named: "ProgressMainColorNight")!
     
-    var ProgressBackgroundMainColor: UIColor = UIColor(named: "ProgressBackgroundMainColor")!
+    var ProgressBackgroundMainColor: UIColor = UIColor(named: "ProgressBackgroundMainColorNight")!
     
-    var TransactionsCVColor: UIColor = UIColor(named: "IGTransactionsCVColor")!
+    var TransactionsCVColor: UIColor = UIColor(named: "IGTransactionsCVColorNight")!
     
-    var TransactionsCVSelectedColor: UIColor = UIColor(named: "IGTransactionsCVSelectedColor")!
+    var TransactionsCVSelectedColor: UIColor = UIColor(named: "IGTransactionsCVSelectedColorNight")!
     
-    var LabelFinancialServiceColor: UIColor = UIColor(named: "LabelFinancialServiceColor")!
+    var LabelFinancialServiceColor: UIColor = UIColor(named: "LabelFinancialServiceColorNight")!
     
-    var CustomAlertBGColor: UIColor = UIColor(named: "IGCustomAlertBGColor")!
+    var CustomAlertBGColor: UIColor = UIColor(named: "IGCustomAlertBGColorNight")!
     
-    var CustomAlertBorderColor: UIColor = UIColor(named: "IGCustomAlertBorderColor")!
+    var CustomAlertBorderColor: UIColor = UIColor(named: "IGCustomAlertBorderColorNight")!
     
-    var MessageLogCellBGColor: UIColor = UIColor(named: "IGMessageLogCellBGColor")!
+    var MessageLogCellBGColor: UIColor = UIColor(named: "IGMessageLogCellBGColorNight")!
     
-    var MessageTextColor: UIColor = UIColor(named: "IGMessageTextColor")!
+    var MessageTextColor: UIColor = UIColor(named: "IGMessageTextColorNight")!
     var MessageTextReceiverColor: UIColor = .white
 
-    var MessageTimeLabelColor: UIColor = UIColor(named: "IGMessageTimeLabelColor")!
+    var MessageTimeLabelColor: UIColor = UIColor(named: "IGMessageTimeLabelColorNight")!
             
-    var SendMessageBubleBGColor: UIColor = UIColor(named: "IGSendMessageBubleBGColor")!
+    var SendMessageBubleBGColor: UIColor = UIColor(named: "IGSendMessageBubleBGColorNight")!
         
-    var BackGroundColor: UIColor = UIColor(named: "IGBackGroundColor")!
+    var BackGroundColor: UIColor = UIColor(named: "IGBackGroundColorNight")!
     
-    var BackGroundGrayColor: UIColor = UIColor(named: "IGBackGroundGrayColor")!
+    var BackGroundGrayColor: UIColor = UIColor(named: "IGBackGroundGrayColorNight")!
             
-    var DashboardCellBackgroundColor: UIColor = UIColor(named: "IGDashboardCellBackgroundColor")!
+    var DashboardCellBackgroundColor: UIColor = UIColor(named: "IGDashboardCellBackgroundColorNight")!
     
     var LabelColor: UIColor = UIColor(named: "IGLabelColorNight")!
 
-    var LabelGrayColor: UIColor = UIColor(named: "IGLabelGrayColor")!
+    var LabelGrayColor: UIColor = UIColor(named: "IGLabelGrayColorNight")!
     
-    var LabelSecondColor: UIColor = UIColor(named: "IGLabelSecondColor")!
+    var LabelSecondColor: UIColor = UIColor(named: "IGLabelSecondColorNight")!
     
-    var ModalViewBackgroundColor: UIColor = UIColor(named: "IGModalViewBackgroundColor")!
+    var ModalViewBackgroundColor: UIColor = UIColor(named: "IGModalViewBackgroundColorNight")!
     
-    var ProgressBackgroundColor: UIColor = UIColor(named: "IGProgressBackgroundColor")!
+    var ProgressBackgroundColor: UIColor = UIColor(named: "IGProgressBackgroundColorNight")!
     
-    var ProgressColor: UIColor = UIColor(named: "IGProgressColor")!
+    var ProgressColor: UIColor = UIColor(named: "IGProgressColorNight")!
     
-    var RecentTVCellColor: UIColor = UIColor(named: "IGRecentTVCellColor")!
+    var RecentTVCellColor: UIColor = UIColor(named: "IGRecentTVCellColorNight")!
     
-    var SearchBarBackGroundColor: UIColor = UIColor(named: "IGSearchBarBackGroundColor")!
+    var SearchBarBackGroundColor: UIColor = UIColor(named: "IGSearchBarBackGroundColorNight")!
     
-    var SplashBackgroundColor: UIColor = UIColor(named: "IGSplashBackgroundColor")!
+    var SplashBackgroundColor: UIColor = UIColor(named: "IGSplashBackgroundColorNight")!
         
-    var TabbarColorLabel: UIColor = UIColor(named: "IGTabbarColorLabel")!
+    var TabbarColorLabel: UIColor = UIColor(named: "IGTabbarColorLabelNight")!
     
     var TableViewBackgroundColor: UIColor = UIColor(named: "IGTableViewBackgroundColorNight")!
     
     var TableViewCellColor: UIColor = UIColor(named: "IGTableViewCellColorNight")!
     
-    var TextFieldBackGround: UIColor = UIColor(named: "IGTextFieldBackGround")!
+    var TextFieldBackGround: UIColor = UIColor(named: "IGTextFieldBackGroundNight")!
     
-    var TextFieldPlaceHolderColor: UIColor = UIColor(named: "IGTextFieldPlaceHolderColor")!
+    var TextFieldPlaceHolderColor: UIColor = UIColor(named: "IGTextFieldPlaceHolderColorNight")!
     
-    var TVCellIconColor: UIColor = UIColor(named: "IGTVCellIconColor")!
+    var TVCellIconColor: UIColor = UIColor(named: "IGTVCellIconColorNight")!
     
-    var IGTVCellTitleColor: UIColor = UIColor(named: "IGTVCellTitleColor")!
+    var IGTVCellTitleColor: UIColor = UIColor(named: "IGTVCellTitleColorNight")!
     
     //change by Color Set
     

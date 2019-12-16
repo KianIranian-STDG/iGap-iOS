@@ -80,8 +80,12 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         }, onDisposed: {
             
         }).disposed(by: disposeBag)
+        self.initTheme()
     }
-    
+    private func initTheme() {
+        self.collectionView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         IGDashboardViewController.discoveryObserver = self
         let navigationControllerr = self.navigationController as! IGNavigationController

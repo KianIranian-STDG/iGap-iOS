@@ -19,7 +19,10 @@ class phoneBookCellTypeTwo: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         lblText.textAlignment = lblText.localizedDirection
+        lblText.textColor = ThemeManager.currentTheme.LabelColor
+        lblIcon.textColor = ThemeManager.currentTheme.LabelColor
         lblIcon.textAlignment = .center
         lblIcon.font = UIFont.iGapFonticon(ofSize: 25)
+        self.contentView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
     }
 }

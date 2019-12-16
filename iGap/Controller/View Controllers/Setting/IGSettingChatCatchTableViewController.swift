@@ -11,7 +11,7 @@
 import UIKit
 
 
-class IGSettingChatCatchTableViewController: UITableViewController {
+class IGSettingChatCatchTableViewController: BaseTableViewController {
 
     let contactsAndGroup = ["BB Group Chat","AA Channel","john smith"]
     let contactUserImage = ["boy","chat","face.jpg"]
@@ -34,7 +34,11 @@ class IGSettingChatCatchTableViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRow : Int = 0
         switch section {

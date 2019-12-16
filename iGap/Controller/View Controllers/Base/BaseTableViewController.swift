@@ -49,7 +49,33 @@ class BaseTableViewController: UITableViewController, UIGestureRecognizerDelegat
 //        }
 
         self.hideKeyboardWhenTappedAround()
+//        listSubviewsOfView(view: self.view)
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+
     }
+     func listSubviewsOfView(view:UIView){
+
+        // Get the subviews of the view
+        var subviews = view.subviews
+
+        // Return if there are no subviews
+        if subviews.count == 0 {
+            return
+        }
+        let labels = subviews.flatMap { $0 as? UILabel }
+        let btns = subviews.flatMap { $0 as? UIButton }
+
+        for lbl in labels {
+            lbl.textColor = ThemeManager.currentTheme.LabelColor
+        }
+        
+        for subview in subviews{
+
+            // List the subviews of subview
+            listSubviewsOfView(view: subview as! UIView)
+        }
+    }
+
     
 //    public func setDirectionManually(direction: UISemanticContentAttribute)  {
 //        UIView.appearance().semanticContentAttribute = direction

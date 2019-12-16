@@ -34,6 +34,29 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
     @IBOutlet weak var txtDocuments: UILabel!
     @IBOutlet weak var txtStickers: UILabel!
     
+    private func initTheme() {
+        lblStickers.textColor = ThemeManager.currentTheme.LabelColor
+        lblDocuments.textColor = ThemeManager.currentTheme.LabelColor
+        lblVoices.textColor = ThemeManager.currentTheme.LabelColor
+        lblAudios.textColor = ThemeManager.currentTheme.LabelColor
+        lblVideos.textColor = ThemeManager.currentTheme.LabelColor
+        lblGifs.textColor = ThemeManager.currentTheme.LabelColor
+        lblImages.textColor = ThemeManager.currentTheme.LabelColor
+        lblClearData.textColor = ThemeManager.currentTheme.LabelColor
+        filesSizeLabel.textColor = ThemeManager.currentTheme.LabelColor
+        VideosSizeLabel.textColor = ThemeManager.currentTheme.LabelColor
+        audioAndVoicesSizeLabel.textColor = ThemeManager.currentTheme.LabelColor
+        imagesAndGIFsSize.textColor = ThemeManager.currentTheme.LabelColor
+        txtImages.textColor = ThemeManager.currentTheme.LabelColor
+        txtGIFs.textColor = ThemeManager.currentTheme.LabelColor
+        txtAudios.textColor = ThemeManager.currentTheme.LabelColor
+        txtVoices.textColor = ThemeManager.currentTheme.LabelColor
+        txtVideos.textColor = ThemeManager.currentTheme.LabelColor
+        txtDocuments.textColor = ThemeManager.currentTheme.LabelColor
+        txtStickers.textColor = ThemeManager.currentTheme.LabelColor
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+    }
+
     var selectedRows: [Int] = []
     var selectedSize: Int64 = 0
     var imagesSize: Int64 = 0
@@ -83,7 +106,9 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
                 }
             }
         }
+        initTheme()
     }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         lblDocuments.text = IGStringsManager.Documents.rawValue.localized
@@ -107,7 +132,11 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRows = 0
         switch section {

@@ -31,12 +31,16 @@ class SliderTypeThreeCell: UITableViewCell,UICollectionViewDelegate, UICollectio
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.initTheme()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
     }
-    
+    private func initTheme() {
+        self.collectionView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isInnenr {
             return channelsListObj?.count ?? 0

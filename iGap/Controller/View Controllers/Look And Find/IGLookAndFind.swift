@@ -52,8 +52,11 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         }
 //        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
 
+        initTheme()
     }
-    
+    private func initTheme() {
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let attributes:[NSAttributedString.Key:Any] = [
@@ -346,7 +349,10 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
             IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!, user: searchResult.user, room: room, roomType: tmpType)
         }
     }
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+           cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+       }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if self.findResult[indexPath.row].isHeader {
             return 30.0

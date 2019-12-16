@@ -10,7 +10,7 @@
 
 import UIKit
 
-class IGSettingChatWhenDownloadDataTableViewController: UITableViewController {
+class IGSettingChatWhenDownloadDataTableViewController: BaseTableViewController {
 
     @IBOutlet weak var wiFiCell: UITableViewCell!
     @IBOutlet weak var CellularCell: UITableViewCell!
@@ -31,6 +31,11 @@ class IGSettingChatWhenDownloadDataTableViewController: UITableViewController {
         }
         return numberOfRows
     }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
          if let cell = tableView.cellForRow(at: indexPath) {
         if cell.accessoryType == .checkmark {

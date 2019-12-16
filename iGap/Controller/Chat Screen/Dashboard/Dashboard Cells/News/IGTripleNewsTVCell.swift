@@ -69,9 +69,9 @@ class IGTripleNewsTVCell: UITableViewCell {
         lblTitleOne.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         lblTitleTwo.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         lblTitleThree.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
-        lblTitleOne.textAlignment = lblTitleOne.localizedDirection
-        lblTitleTwo.textAlignment = lblTitleTwo.localizedDirection
-        lblTitleThree.textAlignment = lblTitleThree.localizedDirection
+        lblTitleOne.textAlignment = .right
+        lblTitleTwo.textAlignment = .right
+        lblTitleThree.textAlignment = .right
         
         
     }

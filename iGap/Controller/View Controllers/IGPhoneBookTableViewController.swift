@@ -15,6 +15,7 @@ import RealmSwift
 import MBProgressHUD
 import SnapKit
 import RxSwift
+import SwiftEventBus
 
 class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContactListObserver {
 
@@ -97,8 +98,18 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
+        SwiftEventBus.onMainThread(self, name: "initTheme") { result in
+            self.initTheme()
+
+        }
+        initTheme()
     }
 
+    private func initTheme() {
+        self.txtInviteContact.textColor = ThemeManager.currentTheme.LabelColor
+        self.txtFooter.textColor = ThemeManager.currentTheme.LabelColor
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         isInSearchMode = false
@@ -263,6 +274,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             txtInviteContact = UILabel()
             txtInviteContact.font = UIFont.igFont(ofSize: 18, weight: .regular)
             txtInviteContact.textAlignment = self.TextAlignment
+            txtInviteContact.textColor = ThemeManager.currentTheme.LabelColor
             customHeaderView.addSubview(txtInviteContact)
             txtInviteContact.snp.makeConstraints { (make) in
 //                make.centerX.equalTo(customHeaderView.snp.centerX)
@@ -286,7 +298,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     private func makeFooterView() -> UIView {
         txtFooter = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 70.0))
-        txtFooter.textColor = ThemeManager.currentTheme.LabelGrayColor
+        txtFooter.textColor = ThemeManager.currentTheme.LabelColor
         txtFooter.font = UIFont.igFont(ofSize: 16)
         txtFooter.textAlignment = .center
         txtFooter.backgroundColor = .clear
