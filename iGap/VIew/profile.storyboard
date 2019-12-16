@@ -160,19 +160,19 @@
                                 <rect key="frame" x="125" y="50" width="166" height="23.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="atv-wh-4vz">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="atv-wh-4vz">
                                 <rect key="frame" x="259" y="77.5" width="32" height="20.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="og4-qC-38v">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="og4-qC-38v">
                                 <rect key="frame" x="259" y="104" width="32" height="20.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" name="IGLabelColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EiC-JQ-pge">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EiC-JQ-pge">
                                 <rect key="frame" x="259" y="128.5" width="32" height="20.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" name="IGLabelColor"/>
@@ -1230,12 +1230,12 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFE-OW-vsW">
-                                <rect key="frame" x="100" y="71.5" width="189" height="20.5"/>
+                                <rect key="frame" x="257.5" y="71.5" width="31.5" height="20.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KpO-6N-qAL">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KpO-6N-qAL">
                                 <rect key="frame" x="257" y="108" width="32" height="20.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" name="IGLabelColor"/>
@@ -1255,7 +1255,6 @@
                             <constraint firstItem="C1A-As-AMy" firstAttribute="trailing" secondItem="7kU-cG-63g" secondAttribute="trailing" id="ZID-mJ-l6v"/>
                             <constraint firstItem="C1A-As-AMy" firstAttribute="trailing" secondItem="cbZ-kb-XeE" secondAttribute="trailing" constant="15" id="c4Q-ud-ZdS"/>
                             <constraint firstItem="cbZ-kb-XeE" firstAttribute="centerY" secondItem="g0e-bi-dMH" secondAttribute="bottom" id="grb-gV-zNg"/>
-                            <constraint firstItem="qFE-OW-vsW" firstAttribute="leading" secondItem="C1A-As-AMy" secondAttribute="leading" constant="100" id="mIb-MY-R4A"/>
                             <constraint firstItem="cbZ-kb-XeE" firstAttribute="leading" secondItem="KpO-6N-qAL" secondAttribute="trailing" constant="10" id="vm1-ro-xP7"/>
                             <constraint firstItem="cbZ-kb-XeE" firstAttribute="leading" secondItem="qFE-OW-vsW" secondAttribute="trailing" constant="10" id="wrK-F1-VJV"/>
                             <constraint firstAttribute="bottom" secondItem="A4d-LF-1Fb" secondAttribute="bottom" id="wy7-a5-FK5"/>
@@ -1460,12 +1459,12 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="loU-Jx-2vz">
-                                <rect key="frame" x="100" y="71.5" width="189" height="20.5"/>
+                                <rect key="frame" x="257.5" y="71.5" width="31.5" height="20.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofs-j1-gVt">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofs-j1-gVt">
                                 <rect key="frame" x="257" y="108" width="32" height="20.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" name="IGLabelColor"/>
@@ -1484,7 +1483,6 @@
                             <constraint firstItem="U7A-8c-unS" firstAttribute="trailing" secondItem="NVb-6R-hFm" secondAttribute="trailing" constant="15" id="TNm-kh-eHG"/>
                             <constraint firstItem="wmR-x6-jaY" firstAttribute="trailing" secondItem="U7A-8c-unS" secondAttribute="trailing" id="VoP-WF-qxC"/>
                             <constraint firstItem="U7A-8c-unS" firstAttribute="trailing" secondItem="N8c-SR-Edq" secondAttribute="trailing" id="euE-Da-VE4"/>
-                            <constraint firstItem="loU-Jx-2vz" firstAttribute="leading" secondItem="U7A-8c-unS" secondAttribute="leading" constant="100" id="kTk-RZ-TEW"/>
                             <constraint firstItem="NVb-6R-hFm" firstAttribute="leading" secondItem="ofs-j1-gVt" secondAttribute="trailing" constant="10" id="rHR-5k-7as"/>
                             <constraint firstItem="wmR-x6-jaY" firstAttribute="top" secondItem="xMJ-CS-BC9" secondAttribute="top" id="sYK-ly-FZb"/>
                             <constraint firstItem="kn0-wu-jsu" firstAttribute="top" secondItem="xMJ-CS-BC9" secondAttribute="top" id="smT-p4-IBr"/>

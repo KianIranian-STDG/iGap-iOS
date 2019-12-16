@@ -144,6 +144,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var inputBarRecordTimeLabel: UILabel!
     @IBOutlet weak var inputBarRecodingBlinkingView: UIView!
     @IBOutlet weak var scrollToBottomContainerView: UIView!
+    @IBOutlet weak var scrollToBottomBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var chatBackground: UIImageView!
     @IBOutlet weak var floatingDateView: UIView!
     @IBOutlet weak var txtFloatingDate: UILabel!
@@ -429,8 +430,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         initDelegatesNewChatView()
         
         let attributes = [
-            NSAttributedString.Key.foregroundColor : ThemeManager.currentTheme.TextFieldPlaceHolderColor ?? #colorLiteral(red: 0.6784313725, green: 0.6784313725, blue: 0.6784313725, alpha: 1),
-            NSAttributedString.Key.font : UIFont.igFont(ofSize: 13) // Note the !
+            NSAttributedString.Key.foregroundColor: ThemeManager.currentTheme.TextFieldPlaceHolderColor ?? #colorLiteral(red: 0.6784313725, green: 0.6784313725, blue: 0.6784313725, alpha: 1),
+            NSAttributedString.Key.font: UIFont.igFont(ofSize: 13) // Note the !
         ]
         self.removeHideKeyboardWhenTappedAround()
         initChangeLanguegeNewChatView()
@@ -575,6 +576,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             btnSticker.isHidden = true
             if IGHelperDoctoriGap.isDoctoriGapRoom(room: room!) {
                 self.getFavoriteMenu()
+                self.scrollToBottomBottomConstraint.constant = -50
+            } else {
+                self.scrollToBottomBottomConstraint.constant = -10
             }
             
             let predicate = NSPredicate(format: "roomId = %lld AND (id >= %lld OR statusRaw == %d OR statusRaw == %d) AND isDeleted == false AND id != %lld" , self.room!.id, lastId ,0 ,1 ,0)
@@ -1218,8 +1222,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     private func makeDoctorBotButtonView(parent: UIView, result: IGPFavorite){
-        let text : String = result.igpName
-        
+        let text: String = result.igpName
         
         let textColor : UIColor = UIColor.hexStringToUIColor(hex: "#\(result.igpTextcolor)")
         let backgroundColor : UIColor = UIColor.hexStringToUIColor(hex: "#\(result.igpBgcolor)")
@@ -1307,7 +1310,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     @objc func onDoctorBotClick(sender: UIButton!) {
-        let value : String! = detectBotValue(name: sender.titleLabel?.text!)
+        let value: String! = detectBotValue(name: sender.titleLabel?.text!)
         
         if value.starts(with: "$financial") {
             IGHelperFinancial.getInstance(viewController: self).manageFinancialServiceChoose()

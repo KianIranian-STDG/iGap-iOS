@@ -30,8 +30,7 @@ class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
         return IGHelperFinancial(viewController)
     }
     
-    func manageFinancialServiceChoose(){
-        
+    func manageFinancialServiceChoose() {
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_FINANCIAL_SERVICES)
         
         var viewController: UIViewController! = self.uiViewController
