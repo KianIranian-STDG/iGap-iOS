@@ -85,7 +85,12 @@ class IGMediaPagerCell: FSPagerViewCell {
             }
             progress?.setState(attachment.status)
             progress.isHidden = true
-            UIApplication.topViewController()?.addZoombehavior(for: imgMedia)
+            
+            let settings = Settings.defaultSettings
+                .with(actionOnDoubleTapImageView: Action.zoomIn)
+                .with(actionOnDoubleTapOverlay: Action.dismissOverlay)
+            
+            UIApplication.topViewController()?.addZoombehavior(for: imgMedia, below: self, settings: settings)
         } else {
             progress.isHidden = false
             progress.delegate = self
