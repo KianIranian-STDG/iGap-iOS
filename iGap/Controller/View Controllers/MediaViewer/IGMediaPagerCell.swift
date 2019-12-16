@@ -90,7 +90,7 @@ class IGMediaPagerCell: FSPagerViewCell {
                 .with(actionOnDoubleTapImageView: Action.zoomIn)
                 .with(actionOnDoubleTapOverlay: Action.dismissOverlay)
             
-            UIApplication.topViewController()?.addZoombehavior(for: imgMedia, below: self, settings: settings)
+            UIApplication.topViewController()?.addZoombehavior(for: imgMedia, in: self, settings: settings)
         } else {
             progress.isHidden = false
             progress.delegate = self
