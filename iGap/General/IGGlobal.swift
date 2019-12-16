@@ -527,7 +527,7 @@ extension UIColor {
     }
     
     class func dialogueBoxOutgoing() -> UIColor {
-        return ThemeManager.currentTheme.SendMessageBubleBGColor ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        return ThemeManager.currentTheme.SendMessageBubleBGColor ?? #colorLiteral(red: 0.8980392157, green: 0.8980392157, blue: 0.8980392157, alpha: 1)
     }
     class func helperWindowViewColor() -> UIColor {
         return ThemeManager.currentTheme.ModalViewBackgroundColor ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)

@@ -131,6 +131,9 @@ class DefaultColorSet: DefaultColorSetProtocol {
     
     var TabIconRoomSettings: UIImage = UIImage(named: "ig-Settings-on_25")!
 
+    //ChatBG
+    var ChatBG: UIImage = UIImage(named: "iGap-Chat-BG-V")!
+
     
     
     

@@ -481,6 +481,9 @@ class IGRoomListtCell: BaseTableViewCell {
                 }
             }
             self.bgPinTagImage.image = img.image
+            self.nameLabel.textColor = ThemeManager.currentTheme.TVCellTitleColor
+            self.timeLabel.textColor = ThemeManager.currentTheme.TVCellTitleColor
+            self.lastMsgLabel.textColor = ThemeManager.currentTheme.TVCellTitleColor
         }
         
     }

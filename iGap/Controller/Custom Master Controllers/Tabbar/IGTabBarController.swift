@@ -91,38 +91,38 @@ class IGTabBarController: UITabBarController {
             
             switch currentColorSetDark {
             case "IGAPBlue" :
-                NightColorSetManager.currentColorSet = BlueColorSet()
+                NightColorSetManager.currentColorSet = BlueColorSetNight()
                 break
             case "IGAPTorquoise" :
-                NightColorSetManager.currentColorSet = TorquoiseColorSet()
+                NightColorSetManager.currentColorSet = TorquoiseColorSetNight()
                 break
                 
             case "IGAPGreen" :
-                NightColorSetManager.currentColorSet = GreenColorSet()
+                NightColorSetManager.currentColorSet = GreenColorSetNight()
                 break
                 
             case "IGAPPink" :
-                NightColorSetManager.currentColorSet = PinkColorSet()
+                NightColorSetManager.currentColorSet = PinkColorSetNight()
                 break
                 
             case "IGAPOrange" :
-                NightColorSetManager.currentColorSet = OrangeColorSet()
+                NightColorSetManager.currentColorSet = OrangeColorSetNight()
                 break
                 
             case "IGAPPurple" :
-                NightColorSetManager.currentColorSet = PurpleColorSet()
+                NightColorSetManager.currentColorSet = PurpleColorSetNight()
                 break
                 
             case "IGAPRed" :
-                NightColorSetManager.currentColorSet = RedColorSet()
+                NightColorSetManager.currentColorSet = RedColorSetNight()
                 break
                 
             case "IGAPGold" :
-                NightColorSetManager.currentColorSet = GoldColorSet()
+                NightColorSetManager.currentColorSet = GoldColorSetNight()
                 break
                 
             case "IGAPLightGray" :
-                NightColorSetManager.currentColorSet = LightGrayColorSet()
+                NightColorSetManager.currentColorSet = LightGrayColorSetNight()
                 break
                 
             default: break
@@ -153,11 +153,12 @@ class IGTabBarController: UITabBarController {
     }
     private func initTheme() {
         let tabBarItemApperance = UITabBarItem.appearance()
-        tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): ThemeManager.currentTheme.TabBarTextColor, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.normal)
+        tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): ThemeManager.currentTheme.LabelGrayColor, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.normal)
         tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): ThemeManager.currentTheme.TabbarColorLabel, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.selected)
-            self.tabBar.barTintColor = ThemeManager.currentTheme.TabBarColor
-            self.tabBar.backgroundColor = ThemeManager.currentTheme.BackGroundColor
-            self.view.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        self.tabBar.barTintColor = ThemeManager.currentTheme.TabBarColor
+        self.tabBar.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.view.backgroundColor =  ThemeManager.currentTheme.TableViewBackgroundColor
+
 
             setTabBarItems()
         
@@ -182,12 +183,12 @@ class IGTabBarController: UITabBarController {
         self.delegate = self
         
         self.tabBar.barTintColor = ThemeManager.currentTheme.TabBarColor
-        self.tabBar.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        self.tabBar.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         self.tabBar.layer.cornerRadius = abs(CGFloat(Int(12 * 100)) / 100)
         self.tabBar.clipsToBounds = true
         self.tabBar.layer.maskedCorners =  [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
-        self.view.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        self.view.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         
         setTabBarItems()
         self.selectedIndex = 2

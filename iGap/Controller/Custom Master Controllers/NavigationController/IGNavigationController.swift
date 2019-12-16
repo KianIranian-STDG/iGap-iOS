@@ -86,38 +86,38 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
             
             switch currentColorSetDark {
             case "IGAPBlue" :
-                NightColorSetManager.currentColorSet = BlueColorSet()
+                NightColorSetManager.currentColorSet = BlueColorSetNight()
                 break
             case "IGAPTorquoise" :
-                NightColorSetManager.currentColorSet = TorquoiseColorSet()
+                NightColorSetManager.currentColorSet = TorquoiseColorSetNight()
                 break
                 
             case "IGAPGreen" :
-                NightColorSetManager.currentColorSet = GreenColorSet()
+                NightColorSetManager.currentColorSet = GreenColorSetNight()
                 break
                 
             case "IGAPPink" :
-                NightColorSetManager.currentColorSet = PinkColorSet()
+                NightColorSetManager.currentColorSet = PinkColorSetNight()
                 break
                 
             case "IGAPOrange" :
-                NightColorSetManager.currentColorSet = OrangeColorSet()
+                NightColorSetManager.currentColorSet = OrangeColorSetNight()
                 break
                 
             case "IGAPPurple" :
-                NightColorSetManager.currentColorSet = PurpleColorSet()
+                NightColorSetManager.currentColorSet = PurpleColorSetNight()
                 break
                 
             case "IGAPRed" :
-                NightColorSetManager.currentColorSet = RedColorSet()
+                NightColorSetManager.currentColorSet = RedColorSetNight()
                 break
                 
             case "IGAPGold" :
-                NightColorSetManager.currentColorSet = GoldColorSet()
+                NightColorSetManager.currentColorSet = GoldColorSetNight()
                 break
                 
             case "IGAPLightGray" :
-                NightColorSetManager.currentColorSet = LightGrayColorSet()
+                NightColorSetManager.currentColorSet = LightGrayColorSetNight()
                 break
                 
             default: break

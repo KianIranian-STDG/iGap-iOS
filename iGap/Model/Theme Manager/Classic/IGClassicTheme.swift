@@ -128,7 +128,9 @@ class ClassicTheme: ThemeProtocol {
     
     var TabIconRoomSettings: UIImage = DefaultColorSet().TabIconRoomSettings
 
-    
+    //ChatBG
+    var ChatBG: UIImage = DefaultColorSet().ChatBG
+
     
     
     

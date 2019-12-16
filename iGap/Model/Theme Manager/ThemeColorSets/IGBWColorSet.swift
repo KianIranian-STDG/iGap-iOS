@@ -176,5 +176,7 @@ class BWColorSet: DayNightColorSetProtocol {
     
     var TabbarTitleTextColor: UIColor = .black
     
-    
+    //ChatBG
+    var ChatBG: UIImage = UIImage(named: "iGap-Chat-BG-D")!
+
 }

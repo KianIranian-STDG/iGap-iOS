@@ -1548,7 +1548,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             if IGGlobal.hasBigScreen() {
                 chatBackground.image = UIImage(named: "iGap-Chat-BG-H")
             } else {
-                chatBackground.image = UIImage(named: "iGap-Chat-BG-V")
+                chatBackground.image = ThemeManager.currentTheme.ChatBG
             }
         }
     }

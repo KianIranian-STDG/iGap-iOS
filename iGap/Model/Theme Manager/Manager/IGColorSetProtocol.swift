@@ -94,6 +94,10 @@ protocol DefaultColorSetProtocol {
     var TabIconRoomList : UIImage { get }
     var TabIconRoomIland : UIImage { get }
     var TabIconRoomSettings : UIImage { get }
+    //******ChatBG*******//
+    var ChatBG : UIImage { get }
+
+
 
 
 }
@@ -195,6 +199,8 @@ protocol DayNightColorSetProtocol {
     var TabIconRoomList : UIImage { get }
     var TabIconRoomIland : UIImage { get }
     var TabIconRoomSettings : UIImage { get }
+    //******ChatBG*******//
+    var ChatBG : UIImage { get }
 
 }
 
@@ -240,6 +246,8 @@ protocol NightColorSetProtocol {
     var CustomAlertBorderColor : UIColor { get }
     var MessageLogCellBGColor : UIColor { get }
     var MessageTextColor : UIColor { get }
+    var MessageTextReceiverColor : UIColor { get }
+
     var MessageTimeLabelColor : UIColor { get }
     var MessageUnreadCellBGColor : UIColor { get }
     var ReceiveMessageBubleBGColor : UIColor { get }
@@ -287,7 +295,15 @@ protocol NightColorSetProtocol {
     //*****Other*********//
     var CheckStatusColor : UIColor { get }
     var MessageCountColor : UIColor { get }
-
+    var BadgeColor : UIColor { get }
+    //******TABICONS*******//
+    var TabIconContacts : UIImage { get }
+    var TabIconCallList : UIImage { get }
+    var TabIconRoomList : UIImage { get }
+    var TabIconRoomIland : UIImage { get }
+    var TabIconRoomSettings : UIImage { get }
+    //******ChatBG*******//
+    var ChatBG : UIImage { get }
 
 }
 

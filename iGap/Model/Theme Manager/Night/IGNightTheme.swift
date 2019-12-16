@@ -35,6 +35,7 @@ class NightTheme: ThemeProtocol {
     var MessageLogCellBGColor: UIColor = NightColorSetManager.currentColorSet.MessageLogCellBGColor
     
     var MessageTextColor: UIColor = NightColorSetManager.currentColorSet.MessageTextColor
+    
     var MessageTextReceiverColor: UIColor = NightColorSetManager.currentColorSet.MessageTextReceiverColor
 
     var MessageTimeLabelColor: UIColor = NightColorSetManager.currentColorSet.MessageTimeLabelColor
@@ -129,8 +130,9 @@ class NightTheme: ThemeProtocol {
     
     var TabIconRoomSettings: UIImage = NightColorSetManager.currentColorSet.TabIconRoomSettings
 
-    
-    
+    //ChatBG
+    var ChatBG: UIImage = NightColorSetManager.currentColorSet.ChatBG
+
     
     
     

@@ -6484,6 +6484,7 @@ kay*****@gm**.com</string>
                                                 <constraint firstAttribute="bottom" secondItem="525-0e-W0g" secondAttribute="bottom" constant="2" id="v3h-Zc-RZI"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="IGTableViewCellColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="K2R-jm-fHA">
                                         <rect key="frame" x="0.0" y="83.666667938232422" width="414" height="44"/>
@@ -6504,6 +6505,7 @@ kay*****@gm**.com</string>
                                                 <constraint firstItem="BIn-A5-mw8" firstAttribute="top" secondItem="pD2-MD-Uvb" secondAttribute="topMargin" constant="2" id="wIi-lg-11Y"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="IGTableViewCellColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="327" id="JjK-3G-Lnr">
                                         <rect key="frame" x="0.0" y="127.66666793823242" width="414" height="327"/>
@@ -6512,8 +6514,13 @@ kay*****@gm**.com</string>
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="327"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="foV-Wx-onR">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="327"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iGap-Chat-BG-V" translatesAutoresizingMaskIntoConstraints="NO" id="R69-Ag-O6l">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="327"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uY4-dy-lNR">
                                                     <rect key="frame" x="80" y="26" width="304" height="66"/>
@@ -6690,13 +6697,17 @@ kay*****@gm**.com</string>
                                             <constraints>
                                                 <constraint firstItem="R69-Ag-O6l" firstAttribute="leading" secondItem="R4X-Gp-aLU" secondAttribute="leading" id="1TN-Zz-CYw"/>
                                                 <constraint firstAttribute="bottom" secondItem="R69-Ag-O6l" secondAttribute="bottom" id="4za-yf-WWh"/>
+                                                <constraint firstItem="foV-Wx-onR" firstAttribute="leading" secondItem="R4X-Gp-aLU" secondAttribute="leading" id="5NF-fG-eho"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="L8Y-V9-adt" secondAttribute="trailing" constant="60" id="6pr-0g-CIM"/>
                                                 <constraint firstItem="rFz-ev-lWP" firstAttribute="centerY" secondItem="R4X-Gp-aLU" secondAttribute="centerY" id="CK3-k7-72j"/>
                                                 <constraint firstItem="R69-Ag-O6l" firstAttribute="top" secondItem="R4X-Gp-aLU" secondAttribute="top" id="KEW-ul-wQt"/>
                                                 <constraint firstItem="L8Y-V9-adt" firstAttribute="leading" secondItem="R4X-Gp-aLU" secondAttribute="leadingMargin" constant="10" id="P2Z-5m-Zcq"/>
+                                                <constraint firstAttribute="bottom" secondItem="foV-Wx-onR" secondAttribute="bottom" id="PZt-Wo-6jr"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="uY4-dy-lNR" secondAttribute="trailing" constant="10" id="Qdj-eG-tRS"/>
                                                 <constraint firstAttribute="trailing" secondItem="R69-Ag-O6l" secondAttribute="trailing" id="R25-Rl-rFS"/>
+                                                <constraint firstItem="foV-Wx-onR" firstAttribute="top" secondItem="R4X-Gp-aLU" secondAttribute="top" id="Sxw-mY-Nci"/>
                                                 <constraint firstItem="rFz-ev-lWP" firstAttribute="leading" secondItem="R4X-Gp-aLU" secondAttribute="leadingMargin" constant="10" id="ZxX-Gz-OVG"/>
+                                                <constraint firstAttribute="trailing" secondItem="foV-Wx-onR" secondAttribute="trailing" id="aTa-aW-RcN"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="uY4-dy-lNR" secondAttribute="trailing" constant="10" id="mMN-Jg-fi0"/>
                                                 <constraint firstItem="uY4-dy-lNR" firstAttribute="top" secondItem="R4X-Gp-aLU" secondAttribute="topMargin" constant="15" id="nTS-Ta-0BO"/>
                                                 <constraint firstItem="L8Y-V9-adt" firstAttribute="top" secondItem="rFz-ev-lWP" secondAttribute="bottom" constant="10" id="s3Z-bV-t3k"/>
@@ -6801,6 +6812,7 @@ kay*****@gm**.com</string>
                                                 <constraint firstItem="ptu-Ob-6j7" firstAttribute="centerY" secondItem="xvM-fa-JHY" secondAttribute="centerY" id="Zhk-Vg-q17"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="IGTableViewCellColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="50" id="Qid-CL-MVw">
                                         <rect key="frame" x="0.0" y="562.66666793823242" width="414" height="50"/>
@@ -6870,6 +6882,7 @@ kay*****@gm**.com</string>
                                                 <constraint firstItem="EQ7-G0-d2F" firstAttribute="leading" secondItem="Is5-pA-HAg" secondAttribute="leading" id="nnI-La-E8z"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="IGTableViewCellColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -6903,19 +6916,16 @@ kay*****@gm**.com</string>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h4b-GN-R7O">
-                                                                        <rect key="frame" x="20" y="10" width="60" height="60"/>
+                                                                        <rect key="frame" x="20" y="20" width="60" height="60"/>
                                                                         <subviews>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bzX-6J-c4j">
+                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bzX-6J-c4j">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             </imageView>
                                                                         </subviews>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="trailing" secondItem="bzX-6J-c4j" secondAttribute="trailing" id="T16-lx-GzW"/>
                                                                             <constraint firstAttribute="width" constant="60" id="Ulr-BX-Mh2"/>
-                                                                            <constraint firstAttribute="bottom" secondItem="bzX-6J-c4j" secondAttribute="bottom" id="VCx-ki-5La"/>
-                                                                            <constraint firstItem="bzX-6J-c4j" firstAttribute="top" secondItem="h4b-GN-R7O" secondAttribute="top" id="ZDP-D9-RHm"/>
-                                                                            <constraint firstItem="bzX-6J-c4j" firstAttribute="leading" secondItem="h4b-GN-R7O" secondAttribute="leading" id="lbC-ch-aMV"/>
                                                                             <constraint firstAttribute="height" constant="60" id="tsQ-Dj-NME"/>
                                                                         </constraints>
                                                                     </view>
@@ -6931,11 +6941,11 @@ kay*****@gm**.com</string>
                                                                     </view>
                                                                 </subviews>
                                                                 <constraints>
-                                                                    <constraint firstItem="h4b-GN-R7O" firstAttribute="top" secondItem="w8h-LZ-YYT" secondAttribute="top" constant="10" id="5bF-dO-PnK"/>
                                                                     <constraint firstItem="SGT-9z-OTK" firstAttribute="centerX" secondItem="w8h-LZ-YYT" secondAttribute="centerX" id="AQe-Hg-dfG"/>
                                                                     <constraint firstAttribute="bottom" secondItem="4YO-6O-LIr" secondAttribute="bottom" constant="5" id="ITB-nD-fSd"/>
                                                                     <constraint firstAttribute="trailing" secondItem="4YO-6O-LIr" secondAttribute="trailing" constant="5" id="LaC-Jj-2Cz"/>
                                                                     <constraint firstItem="4YO-6O-LIr" firstAttribute="top" secondItem="w8h-LZ-YYT" secondAttribute="top" constant="5" id="gJE-I9-qkT"/>
+                                                                    <constraint firstItem="h4b-GN-R7O" firstAttribute="centerY" secondItem="w8h-LZ-YYT" secondAttribute="centerY" id="hYm-E8-m4S"/>
                                                                     <constraint firstItem="4YO-6O-LIr" firstAttribute="leading" secondItem="w8h-LZ-YYT" secondAttribute="leading" constant="5" id="ja3-GM-sas"/>
                                                                     <constraint firstAttribute="bottom" secondItem="SGT-9z-OTK" secondAttribute="bottom" constant="10" id="ujG-Mc-UB6"/>
                                                                     <constraint firstItem="h4b-GN-R7O" firstAttribute="centerX" secondItem="w8h-LZ-YYT" secondAttribute="centerX" id="vMC-uw-9nP"/>
@@ -7027,6 +7037,8 @@ kay*****@gm**.com</string>
                     </tableView>
                     <navigationItem key="navigationItem" title="Notifications" id="o3M-wG-hdA" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
+                        <outlet property="IMGMainBG" destination="R69-Ag-O6l" id="q2k-8p-240"/>
+                        <outlet property="ViewMainBG" destination="foV-Wx-onR" id="ipu-As-y88"/>
                         <outlet property="btnPlayPreview3" destination="23u-Xv-x9o" id="yo6-Gi-rab"/>
                         <outlet property="collectionAppIcons" destination="eL1-iG-n3L" id="E28-iM-RMT"/>
                         <outlet property="collectionColorSets" destination="EQ7-G0-d2F" id="Xne-eR-vLU"/>
@@ -7100,7 +7112,7 @@ AQAAAAAAAABBAAAAAAAAAAAAAAAAAAACCw
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGButtonBGColor">
-            <color red="0.25490196078431371" green="0.69411764705882351" blue="0.12549019607843137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.25499999523162842" green="0.6940000057220459" blue="0.125" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGLabelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -7118,13 +7130,13 @@ AQAAAAAAAABBAAAAAAAAAAAAAAAAAAACCw
             <color red="0.41200000047683716" green="0.48199999332427979" blue="0.52899998426437378" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGNavigationSecondColor">
-            <color red="0.25490196078431371" green="0.69019607843137254" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.25499999523162842" green="0.6940000057220459" blue="0.125" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGSelectedChannelsCellBGColor">
             <color red="0.8901960784313725" green="0.8901960784313725" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGSendMessageBubleBGColor">
-            <color red="0.94900000095367432" green="1" blue="0.92199999094009399" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.90588235294117647" green="0.91764705882352937" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGTableViewBackgroundColor">
             <color red="0.94900000095367432" green="0.94900000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

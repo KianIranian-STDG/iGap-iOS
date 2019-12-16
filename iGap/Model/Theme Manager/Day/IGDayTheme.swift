@@ -127,7 +127,9 @@ class DayTheme: ThemeProtocol {
     
     var TabIconRoomSettings: UIImage = DayColorSetManager.currentColorSet.TabIconRoomSettings
 
-    
+    //ChatBG
+    var ChatBG: UIImage = DayColorSetManager.currentColorSet.ChatBG
+
     
     
     

@@ -111,5 +111,7 @@ protocol ThemeProtocol {
     var TabIconRoomList : UIImage { get }
     var TabIconRoomIland : UIImage { get }
     var TabIconRoomSettings : UIImage { get }
+    //******ChatBG*******//
+    var ChatBG : UIImage { get }
 
 }

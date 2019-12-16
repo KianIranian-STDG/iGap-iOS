@@ -25,6 +25,8 @@ class IGAppIconsCVCell: UICollectionViewCell {
         viewColorInner.clipsToBounds = true
         lblbIconName.font = UIFont.igFont(ofSize: 12)
         viewColorOuter.layer.borderWidth = 0
+        self.viewColorOuter.layer.borderColor = ThemeManager.currentTheme.SliderTintColor.cgColor
+
 
     }
 }

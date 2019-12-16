@@ -28,6 +28,8 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
     @IBOutlet weak var messageStatusPreview : UILabel!
     @IBOutlet weak var messageTimePreview : UILabel!
     @IBOutlet weak var viewMessagePreview : UIView!
+    @IBOutlet weak var ViewMainBG : UIView!
+    @IBOutlet weak var IMGMainBG : UIImageView!
     //2
     @IBOutlet weak var lblMessagePreview2 : UILabel!
     @IBOutlet weak var messageStatusPreview2 : UILabel!
@@ -69,7 +71,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         self.collectionAppIcons.delegate = self
         self.collectionAppIcons.dataSource = self
         self.tableView.semanticContentAttribute = self.semantic
-        self.oneTo10Slider.semanticContentAttribute = self.semantic
+        self.oneTo10Slider.semanticContentAttribute = .forceLeftToRight
         // MARK: - Change Strings based On Language
         initChangeLang()
         // MARK: - Initialize Default NavigationBar
@@ -94,7 +96,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         self.btnPlayPreview3.setTitleColor(ThemeManager.currentTheme.MessageTextReceiverColor, for: .normal)
         self.sliderPreview3.tintColor = ThemeManager.currentTheme.MessageTextReceiverColor
         self.sliderPreview3.thumbTintColor = ThemeManager.currentTheme.MessageTextReceiverColor
-
+//        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         
     }
     private func changeTheme(theme: String!) {
@@ -269,6 +271,8 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
             indexPathTheme = IndexPath(item: 0, section: 0)
             self.collectionThemes.selectItem(at: indexPathTheme, animated: true, scrollPosition: [])
             ThemeManager.currentTheme = ClassicTheme()
+//            IMGMainBG.alpha = 1.0
+            ViewMainBG.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
             break
             
         case "IGAPDay" :
@@ -277,6 +281,8 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
             indexPathTheme = IndexPath(item: 1, section: 0)
             self.collectionThemes.selectItem(at: indexPathTheme, animated: true, scrollPosition: [])
             ThemeManager.currentTheme = DayTheme()
+//            IMGMainBG.alpha = 0.0
+            ViewMainBG.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
 
             
             break
@@ -286,6 +292,8 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
             indexPathTheme = IndexPath(item: 2, section: 0)
             self.collectionThemes.selectItem(at: indexPathTheme, animated: true, scrollPosition: [])
             ThemeManager.currentTheme = NightTheme()
+//            IMGMainBG.alpha = 0.0
+            ViewMainBG.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
 
             
             break
@@ -320,15 +328,15 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
     }
     func initView() {
         if self.isRTL {
-            lblMinA.font = UIFont.systemFont(ofSize: 20)
-            lblMaxA.font = UIFont.systemFont(ofSize: 12)
+            lblMinA.font = UIFont.systemFont(ofSize: 12)
+            lblMaxA.font = UIFont.systemFont(ofSize: 20)
             viewMessagePreview2.layer.cornerRadius = 15.0
             viewMessagePreview2.roundCorners(corners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner], radius: 15.0)
 
             
         } else {
-            lblMinA.font = UIFont.systemFont(ofSize: 12)
-            lblMaxA.font = UIFont.systemFont(ofSize: 20)
+            lblMinA.font = UIFont.systemFont(ofSize: 20)
+            lblMaxA.font = UIFont.systemFont(ofSize: 12)
             viewMessagePreview2.roundCorners(corners: [.layerMinXMaxYCorner,.layerMinXMinYCorner,.layerMaxXMaxYCorner], radius: 15.0)
         }
         viewMessagePreview2.backgroundColor = UIColor.chatBubbleBackground(isIncommingMessage: false)
@@ -357,7 +365,30 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         } else {
             switchInAppBrowser.isOn = false
         }
+        initThemeView()
+        
+    }
+    private func initThemeView() {
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.lblMaxA.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblMinA.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblChatBG.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblInAppBrowser.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblStickers.textColor = ThemeManager.currentTheme.LabelColor
+        self.switchInAppBrowser.tintColor = ThemeManager.currentTheme.SliderTintColor
+        self.lblMessagePreview2.textColor = ThemeManager.currentTheme.LabelColor
+        self.messageTimePreview2.textColor = ThemeManager.currentTheme.LabelColor
+        self.messageStatusPreview2.textColor = ThemeManager.currentTheme.LabelColor
+        self.messageTimePreview3.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+        self.messageStatusPreview3.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+        self.messageTimePlayPreview3.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
+        self.lblMessagePreview.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+        self.messageStatusPreview.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+        self.messageTimePreview.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+        self.IMGMainBG.image = ThemeManager.currentTheme.ChatBG
+
+
     }
     @objc func valueChanged(_ sender: TGPDiscreteSlider, event:UIEvent) {
         print("valueChanged", Double(sender.value))
@@ -434,9 +465,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         let containerFooterView = view as! UITableViewHeaderFooterView
         containerFooterView.textLabel?.textAlignment = containerFooterView.textLabel!.localizedDirection
         switch section {
-        case 0  :
-            containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15)
-        case 1 :
+        case 1,2  :
             containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15)
         default :
             break
@@ -506,16 +535,22 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         self.sliderPreview3.thumbTintColor = ThemeManager.currentTheme.MessageTextReceiverColor
         self.viewMessagePreview.backgroundColor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor
         self.viewMessagePreview3.backgroundColor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor
+        self.viewMessagePreview2.backgroundColor = ThemeManager.currentTheme.SendMessageBubleBGColor
         self.lblMessagePreview.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
         self.messageTimePlayPreview3.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
         self.messageTimePreview.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
         self.messageTimePreview3.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+        self.lblMessagePreview2.textColor = ThemeManager.currentTheme.LabelColor
+        self.messageTimePreview2.textColor = ThemeManager.currentTheme.LabelColor
+        self.messageStatusPreview2.textColor = ThemeManager.currentTheme.LabelColor
         self.messageStatusPreview.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
         self.messageStatusPreview3.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+        self.switchInAppBrowser.tintColor = ThemeManager.currentTheme.SliderTintColor
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
         self.collectionThemes.reloadData()
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        initThemeView()
         self.tableView.reloadData()
         SwiftEventBus.post("initTheme", sender: "IGAPClassic")
     }
@@ -542,6 +577,7 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
             
             cell.lblThemeName.text = themeTypes[indexPath.item]
             cell.viewBG.backgroundColor = bgArray[indexPath.item]
+            cell.lblThemeName.textColor = ThemeManager.currentTheme.LabelColor
 
             switch indexPath.item {
             case indexPathTheme.item :
@@ -562,9 +598,12 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "IGAppIconsCVCell", for: indexPath) as! IGAppIconsCVCell
             
             cell.imgIcon.image = appIcons[indexPath.item]
+            cell.viewColorOuter.layer.borderColor = ThemeManager.currentTheme.SliderTintColor.cgColor
+
             switch indexPath.item {
             case indexPathAppIcon.item :
                 cell.viewColorOuter.layer.borderWidth = 2
+                
             default :
                 cell.viewColorOuter.layer.borderWidth = 0
             }
@@ -625,6 +664,9 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
                 self.tableView.endUpdates()
                 ThemeManager.currentTheme = ClassicTheme()
                 initTheme(currentTheme: "IGAPClassic", currentColorSet: "IGAPDefaultColor")
+//                IMGMainBG.alpha = 1.0
+                ViewMainBG.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
                 
             case 1 :
                 self.tableView.beginUpdates()
@@ -635,6 +677,9 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
                 self.tableView.endUpdates()
                 ThemeManager.currentTheme = DayTheme()
                 initTheme(currentTheme: "IGAPDay", currentColorSet: currentColorSetLight)
+//                IMGMainBG.alpha = 0.0
+                ViewMainBG.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
                 
                 
                 
@@ -647,6 +692,8 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
                 self.tableView.endUpdates()
                 ThemeManager.currentTheme = NightTheme()
                 initTheme(currentTheme: "IGAPNight", currentColorSet: currentColorSetDark)
+//                IMGMainBG.alpha = 0.0
+                ViewMainBG.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
 
                 
             default :
@@ -690,7 +737,7 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
                 } else if currentTheme == "IGAPNight" {
                     UserDefaults.standard.set("IGAPBlue", forKey: "CurrentColorSetDark")
                     indexPathDark = IndexPath(item: 0, section: 0)
-                    NightColorSetManager.currentColorSet = BlueColorSet()
+                    NightColorSetManager.currentColorSet = BlueColorSetNight()
                     ThemeManager.currentTheme = NightTheme()
                     
                     initTheme(currentTheme: "IGAPNight", currentColorSet: "IGAPBlue")
@@ -712,7 +759,7 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
                 } else if currentTheme == "IGAPNight" {
                     UserDefaults.standard.set("IGAPTorquoise", forKey: "CurrentColorSetDark")
                     indexPathDark = IndexPath(item: 1, section: 0)
-                    NightColorSetManager.currentColorSet = TorquoiseColorSet()
+                    NightColorSetManager.currentColorSet = TorquoiseColorSetNight()
                     ThemeManager.currentTheme = NightTheme()
                     
                     initTheme(currentTheme: "IGAPNight", currentColorSet: "IGAPTorquoise")
@@ -734,7 +781,7 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
                 } else if currentTheme == "IGAPNight" {
                     UserDefaults.standard.set("IGAPGreen", forKey: "CurrentColorSetDark")
                     indexPathDark = IndexPath(item: 2, section: 0)
-                    NightColorSetManager.currentColorSet = GreenColorSet()
+                    NightColorSetManager.currentColorSet = GreenColorSetNight()
                     ThemeManager.currentTheme = NightTheme()
                     
                     initTheme(currentTheme: "IGAPNight", currentColorSet: "IGAPGreen")
@@ -775,7 +822,7 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
                 } else if currentTheme == "IGAPNight" {
                     UserDefaults.standard.set("IGAPOrange", forKey: "CurrentColorSetDark")
                     indexPathDark = IndexPath(item: 4, section: 0)
-                    NightColorSetManager.currentColorSet = OrangeColorSet()
+                    NightColorSetManager.currentColorSet = OrangeColorSetNight()
                     ThemeManager.currentTheme = NightTheme()
                     initTheme(currentTheme: "IGAPNight", currentColorSet: "IGAPOrange")
                     
@@ -795,7 +842,7 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
                 } else if currentTheme == "IGAPNight" {
                     UserDefaults.standard.set("IGAPPurple", forKey: "CurrentColorSetDark")
                     indexPathDark = IndexPath(item: 5, section: 0)
-                    NightColorSetManager.currentColorSet = PurpleColorSet()
+                    NightColorSetManager.currentColorSet = PurpleColorSetNight()
                     ThemeManager.currentTheme = NightTheme()
                     initTheme(currentTheme: "IGAPNight", currentColorSet: "IGAPPurple")
 
@@ -816,7 +863,7 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
                 } else if currentTheme == "IGAPNight" {
                     UserDefaults.standard.set("IGAPRed", forKey: "CurrentColorSetDark")
                     indexPathDark = IndexPath(item: 6, section: 0)
-                    NightColorSetManager.currentColorSet = RedColorSet()
+                    NightColorSetManager.currentColorSet = RedColorSetNight()
                     ThemeManager.currentTheme = NightTheme()
                     initTheme(currentTheme: "IGAPNight", currentColorSet: "IGAPRed")
 
@@ -836,7 +883,7 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
                 } else if currentTheme == "IGAPNight" {
                     UserDefaults.standard.set("IGAPGold", forKey: "CurrentColorSetDark")
                     indexPathDark = IndexPath(item: 7, section: 0)
-                    NightColorSetManager.currentColorSet = GoldColorSet()
+                    NightColorSetManager.currentColorSet = GoldColorSetNight()
                     ThemeManager.currentTheme = NightTheme()
                     initTheme(currentTheme: "IGAPNight", currentColorSet: "IGAPGold")
 
@@ -856,30 +903,11 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
                 } else if currentTheme == "IGAPNight" {
                     UserDefaults.standard.set("IGAPLightGray", forKey: "CurrentColorSetDark")
                     indexPathDark = IndexPath(item: 8, section: 0)
-                    NightColorSetManager.currentColorSet = LightGrayColorSet()
+                    NightColorSetManager.currentColorSet = LightGrayColorSetNight()
                     ThemeManager.currentTheme = NightTheme()
                     initTheme(currentTheme: "IGAPNight", currentColorSet: "IGAPLightGray")
 
                 }
-            case 9 :
-                print("CURRENT COLORSET IS :","BW")
-                if currentTheme == "IGAPDay" {
-                    UserDefaults.standard.set("IGAPBW", forKey: "CurrentColorSetLight")
-                    indexPathLight = IndexPath(item: 9, section: 0)
-                    DayColorSetManager.currentColorSet = OrangeColorSet()
-                    ThemeManager.currentTheme = DayTheme()
-                    initTheme(currentTheme: "IGAPDay", currentColorSet: "IGAPBW")
-
-                    
-                } else if currentTheme == "IGAPNight" {
-                    UserDefaults.standard.set("IGAPBW", forKey: "CurrentColorSetDark")
-                    indexPathDark = IndexPath(item: 9, section: 0)
-                    NightColorSetManager.currentColorSet = OrangeColorSet()
-                    ThemeManager.currentTheme = NightTheme()
-                    initTheme(currentTheme: "IGAPNight", currentColorSet: "IGAPBW")
-
-                }
-                
                 
                 
             default :
