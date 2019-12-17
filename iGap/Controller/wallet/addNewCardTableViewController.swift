@@ -25,6 +25,23 @@ class addNewCardTableViewController: BaseTableViewController , UITextFieldDelega
         super.viewDidLoad()
         initView()
         initNavigationBar()
+        initTheme()
+    }
+    private func initTheme() {
+        btnSave.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        lblMonth.textColor = ThemeManager.currentTheme.LabelColor
+        lblYear.textColor = ThemeManager.currentTheme.LabelColor
+        lblcardNum.textColor = ThemeManager.currentTheme.LabelColor
+        cardTextField.placeHolderColor = ThemeManager.currentTheme.LabelGrayColor
+        mounthTextField.placeHolderColor = ThemeManager.currentTheme.LabelGrayColor
+        yearTextField.placeHolderColor = ThemeManager.currentTheme.LabelGrayColor
+
+//        cardTextField.textColor = ThemeManager.currentTheme.LabelColor
+//        mounthTextField.textColor = ThemeManager.currentTheme.LabelColor
+//        yearTextField.textColor = ThemeManager.currentTheme.LabelColor
+        
+        
+        
     }
     override func viewWillAppear(_ animated: Bool) {
        super.viewWillAppear(animated)
@@ -106,6 +123,11 @@ class addNewCardTableViewController: BaseTableViewController , UITextFieldDelega
 
         }
     }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var newStr = string
         

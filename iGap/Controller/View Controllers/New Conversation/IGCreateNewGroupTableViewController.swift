@@ -45,8 +45,16 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         changeImageBtn.clipsToBounds = true
         
         roundUserImage(groupAvatarImage)
+        initTheme()
     }
-    
+    private func initTheme() {
+        descriptionTextField.textColor = ThemeManager.currentTheme.LabelColor
+        groupNameTextField.textColor = ThemeManager.currentTheme.LabelColor
+        descriptionTextField.placeHolderColor = ThemeManager.currentTheme.LabelColor
+        groupNameTextField.placeHolderColor = ThemeManager.currentTheme.LabelColor
+
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         groupNameTextField.becomeFirstResponder()
@@ -153,7 +161,11 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRows : Int = 0
         switch section {

@@ -35,10 +35,15 @@ class IGScoreHistoryCell: UICollectionViewCell {
             txtScoreIcon.textColor = UIColor.iGapGray()
         } else if activity.igpScore > 0 { // score up
             txtScoreIcon.text = ""
-            txtScoreIcon.textColor = UIColor.iGapGreen()
+            txtScoreIcon.textColor = ThemeManager.currentTheme.SliderTintColor
         } else if activity.igpScore < 0 { // score down
             txtScoreIcon.text = ""
             txtScoreIcon.textColor = UIColor.iGapRed()
         }
+        
+//        txtScoreIcon.textColor = ThemeManager.currentTheme.LabelColor
+        txtScoreNumber.textColor = ThemeManager.currentTheme.LabelColor
+        txtTime.textColor = ThemeManager.currentTheme.LabelColor
+        txtTitle.textColor = ThemeManager.currentTheme.LabelColor
     }
 }

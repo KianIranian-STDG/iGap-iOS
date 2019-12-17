@@ -389,9 +389,12 @@ class IGPlayer {
             player.play(index: 0, from: files)
             flag = false
             updateSliderValue()
-            if !(IGGlobal.isAlreadyOpen) {
-                SwiftEventBus.post(EventBusManager.showTopMusicPlayer,sender: MusicFile(songName: songName, singerName: singerName, songTime: songTime, currentTime: 0.0))
-                IGGlobal.isAlreadyOpen = !IGGlobal.isAlreadyOpen
+            if !(IGGlobal.isVoice) {
+
+                if !(IGGlobal.isAlreadyOpen) {
+                    SwiftEventBus.post(EventBusManager.showTopMusicPlayer,sender: MusicFile(songName: songName, singerName: singerName, songTime: songTime, currentTime: 0.0))
+                    IGGlobal.isAlreadyOpen = !IGGlobal.isAlreadyOpen
+                }
             }
         }
     }

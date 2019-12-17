@@ -165,7 +165,7 @@ enum IGStringsManager : String {
     case NewChannel = "new_channel"
     case ChannelName = "channel_name"
     case NewChat = "New_Chat"
-    case NewCall = "New_Call"
+    case NewCall = "new_call"
     case NewChannelHint = "new_channel_hint"
     case Desc = "desc"
     case CreateGroup = "New_Group"

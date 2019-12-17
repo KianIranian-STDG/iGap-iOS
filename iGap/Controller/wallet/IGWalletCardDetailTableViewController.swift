@@ -33,6 +33,13 @@ class IGWalletCardDetailTableViewController: BaseTableViewController {
         super.viewDidLoad()
 
         initView()
+        initTheme()
+    }
+    private func initTheme() {
+        lblCardDefaultTitle.textColor = ThemeManager.currentTheme.LabelColor
+        btnRemove.backgroundColor = UIColor.iGapRed()
+        btnAmount.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        switchDefaultCard.onTintColor = ThemeManager.currentTheme.SliderTintColor
     }
 
     override func viewWillAppear(_ animated: Bool) {

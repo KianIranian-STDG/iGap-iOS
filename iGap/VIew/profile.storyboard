@@ -766,6 +766,18 @@
                         <outlet property="sizeOfSharedLinksLabel" destination="YQC-MO-SY1" id="0DY-MU-b7t"/>
                         <outlet property="sizeOfSharedVideos" destination="w64-fA-Sej" id="94f-oS-fMk"/>
                         <outlet property="sizeOfSharedVoice" destination="1JF-iq-ggG" id="1KN-cf-X3g"/>
+                        <outletCollection property="lblArray" destination="fvB-59-doJ" collectionClass="NSMutableArray" id="Xst-Ua-ACQ"/>
+                        <outletCollection property="lblArray" destination="Ve2-d7-DVn" collectionClass="NSMutableArray" id="C8V-hr-udS"/>
+                        <outletCollection property="lblArray" destination="eZi-dB-u4C" collectionClass="NSMutableArray" id="hJb-tO-GyZ"/>
+                        <outletCollection property="lblArray" destination="Skn-yQ-7Ey" collectionClass="NSMutableArray" id="YXJ-4S-y3G"/>
+                        <outletCollection property="lblArray" destination="lYf-dM-aHH" collectionClass="NSMutableArray" id="g4g-bz-64f"/>
+                        <outletCollection property="lblArray" destination="KHs-qm-08Q" collectionClass="NSMutableArray" id="0ep-Fx-0Du"/>
+                        <outletCollection property="lblDetailsArray" destination="IkF-Q1-Ptm" collectionClass="NSMutableArray" id="fmh-vk-vso"/>
+                        <outletCollection property="lblDetailsArray" destination="CxC-ED-Gdd" collectionClass="NSMutableArray" id="JHc-je-bDN"/>
+                        <outletCollection property="lblDetailsArray" destination="w64-fA-Sej" collectionClass="NSMutableArray" id="pFi-BV-EC4"/>
+                        <outletCollection property="lblDetailsArray" destination="W0I-xt-2kr" collectionClass="NSMutableArray" id="SnG-9a-glx"/>
+                        <outletCollection property="lblDetailsArray" destination="1JF-iq-ggG" collectionClass="NSMutableArray" id="MV5-pr-3AT"/>
+                        <outletCollection property="lblDetailsArray" destination="YQC-MO-SY1" collectionClass="NSMutableArray" id="4Ny-bW-Cx4"/>
                         <segue destination="887-0H-PEI" kind="show" identifier="showImagesAndVideoSharedMediaCollection" id="cQq-Kf-WRT"/>
                         <segue destination="rgg-Hn-CMG" kind="show" identifier="showLinksAndAudioSharedMediaTableview" id="0yF-KV-2Q7"/>
                     </connections>
@@ -1271,6 +1283,7 @@
                         <outlet property="memberCountLabel" destination="KpO-6N-qAL" id="cHo-bG-5W4"/>
                         <outlet property="tableView" destination="A4d-LF-1Fb" id="PwT-Te-STA"/>
                         <outlet property="viewBG" destination="g0e-bi-dMH" id="4H0-pu-AhE"/>
+                        <outlet property="viewBGTwo" destination="7kU-cG-63g" id="3FZ-SE-cmd"/>
                         <segue destination="grv-rH-Zr3" kind="show" identifier="showGroupSharedMediaSetting" id="q09-lR-4pS"/>
                         <segue destination="ucf-sx-4wP" kind="show" identifier="showGroupMemberSetting" id="TNb-0G-evg"/>
                         <segue destination="eZI-bz-A5f" kind="show" identifier="showContactToAddMember" id="dNm-aC-Qqb"/>
@@ -1501,6 +1514,7 @@
                         <outlet property="heightConstraints" destination="zc7-Pf-LA7" id="3Ad-fQ-MYO"/>
                         <outlet property="tableView" destination="wmR-x6-jaY" id="K7E-qc-8IJ"/>
                         <outlet property="viewBG" destination="kn0-wu-jsu" id="giw-Rm-Dbh"/>
+                        <outlet property="viewBGTwo" destination="N8c-SR-Edq" id="sAQ-zb-hz6"/>
                         <segue destination="grv-rH-Zr3" kind="show" identifier="showGroupSharedMediaSetting" id="Nrj-27-Vlk"/>
                         <segue destination="ucf-sx-4wP" kind="show" identifier="showChannelInfoSetMembers" id="I8C-d5-Dg9"/>
                     </connections>
@@ -1541,15 +1555,15 @@
             <color red="0.72500002384185791" green="0.88599997758865356" blue="0.2669999897480011" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGTableViewBackgroundColor">
-            <color red="0.94900000095367432" green="0.94900000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94509803921568625" green="0.94509803921568625" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGTableViewCellColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="k5K-AS-4bs"/>
-        <segue reference="I8C-d5-Dg9"/>
+        <segue reference="q09-lR-4pS"/>
+        <segue reference="TNb-0G-evg"/>
         <segue reference="dNm-aC-Qqb"/>
     </inferredMetricsTieBreakers>
 </document>

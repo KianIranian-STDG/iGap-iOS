@@ -104,8 +104,13 @@ class IGMemberAddOrUpdateState: BaseViewController {
         self.selectedContactsView.addSubview(collectionView)
         self.contactViewBottomConstraizt.constant = -self.contactViewHeightConstraint.constant
         setNavigationItem()
+        initTheme()
     }
-    
+    private func initTheme() {
+        self.contactsTableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        collectionView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let navigationControllerr = self.navigationController as! IGNavigationController
@@ -487,7 +492,11 @@ extension IGMemberAddOrUpdateState : UITableViewDelegate {
             })
         }
     }
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         if tableView.isEditing == true{
             if selectedUsers.count > 0 {

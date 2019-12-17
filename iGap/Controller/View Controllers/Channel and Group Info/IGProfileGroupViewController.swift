@@ -62,7 +62,8 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
     @IBOutlet weak var displayNameLabel: UILabel!
     @IBOutlet weak var memberCountLabel: UILabel!
     @IBOutlet weak var heightConstraints: NSLayoutConstraint!
-    
+    @IBOutlet weak var viewBGTwo: UIView!
+
     //MARK: -ViewController Initialisers
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,9 +80,14 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         displayNameLabel.textColor = .white
         displayNameLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
         memberCountLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
-        
+        initTheme()
     }
-    
+    private func initTheme() {
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.viewBGTwo.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        memberCountLabel.textColor = ThemeManager.currentTheme.LabelColor
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -1508,10 +1514,17 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
             return 0
         }
     }
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     //MARK: -Header and Footer
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let containerFooterView = view as! UITableViewHeaderFooterView
+        containerFooterView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        containerFooterView.textLabel?.textColor = ThemeManager.currentTheme.LabelColor
+
         containerFooterView.textLabel?.textAlignment = containerFooterView.textLabel!.localizedDirection
         switch section {
         default :

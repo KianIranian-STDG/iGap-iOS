@@ -46,6 +46,15 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         self.tableView.tableHeaderView?.semanticContentAttribute = self.semantic
         descriptionTextField.textAlignment = self.TextAlignment
         channelnameTextField.textAlignment = self.TextAlignment
+        initTheme()
+    }
+    private func initTheme() {
+        lblFooter.textColor = ThemeManager.currentTheme.LabelColor
+        descriptionTextField.textColor = ThemeManager.currentTheme.LabelColor
+        channelnameTextField.textColor = ThemeManager.currentTheme.LabelColor
+        descriptionTextField.placeHolderColor = ThemeManager.currentTheme.LabelColor
+        channelnameTextField.placeHolderColor = ThemeManager.currentTheme.LabelColor
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -165,6 +174,10 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         roundView.layer.borderColor = borderUserImageColor.cgColor
         roundView.layer.cornerRadius = roundView.frame.size.height/2
         roundView.clipsToBounds = true
+    }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
     }
 
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {

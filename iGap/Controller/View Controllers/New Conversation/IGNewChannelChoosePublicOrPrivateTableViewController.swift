@@ -63,7 +63,22 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
         
         initView()
         setNavigation()
+        initTheme()
     }
+    
+    private func initTheme() {
+        lblFooter.textColor = ThemeManager.currentTheme.LabelColor
+        lblPublicChannelDesc.textColor = ThemeManager.currentTheme.LabelColor
+        lblPublicChannel.textColor = ThemeManager.currentTheme.LabelColor
+        lblFooter.textColor = ThemeManager.currentTheme.LabelColor
+        lblPrivateChannelDesc.textColor = ThemeManager.currentTheme.LabelColor
+        lblPrivateChannel.textColor = ThemeManager.currentTheme.LabelColor
+        lblChannelLink.textColor = ThemeManager.currentTheme.LabelColor
+        channelLinkTextField.textColor = ThemeManager.currentTheme.LabelColor
+        channelLinkTextField.placeHolderColor = ThemeManager.currentTheme.LabelColor
+        
+    }
+
     private func initView() {
         lblPublicChannel.text = IGStringsManager.PublicChannel.rawValue.localized
         lblPrivateChannel.text = IGStringsManager.PrivateChannel.rawValue.localized
@@ -260,7 +275,11 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
         }
         return numberOfRows
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             if indexPath.row == 0 {

@@ -27,7 +27,7 @@
 		8E0BAEC222EC11C500479682 /* roomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BAEC122EC11C500479682 /* roomItem.swift */; };
 		8E1865392323A10400D8BCA9 /* ChannelAndSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E1865382323A10400D8BCA9 /* ChannelAndSettings.storyboard */; };
 		8E1CD973232CF79A008D8758 /* PhoneBook.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E1CD972232CF79A008D8758 /* PhoneBook.storyboard */; };
-		8E1CD97A232D0ED1008D8758 /* testVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1CD979232D0ED1008D8758 /* testVCViewController.swift */; };
+		8E1CD97A232D0ED1008D8758 /* inviteFreindsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1CD979232D0ED1008D8758 /* inviteFreindsVC.swift */; };
 		8E1F413422391A6F00910E30 /* FRHyperLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1F413222391A6F00910E30 /* FRHyperLabel.m */; };
 		8E1F413522391A6F00910E30 /* KPDropMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1F413322391A6F00910E30 /* KPDropMenu.m */; };
 		8E1F413922391CEE00910E30 /* CheckInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1F413822391CEE00910E30 /* CheckInternet.swift */; };
@@ -917,7 +917,7 @@
 		8E0BAEC122EC11C500479682 /* roomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = roomItem.swift; sourceTree = "<group>"; };
 		8E1865382323A10400D8BCA9 /* ChannelAndSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChannelAndSettings.storyboard; sourceTree = "<group>"; };
 		8E1CD972232CF79A008D8758 /* PhoneBook.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PhoneBook.storyboard; sourceTree = "<group>"; };
-		8E1CD979232D0ED1008D8758 /* testVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testVCViewController.swift; sourceTree = "<group>"; };
+		8E1CD979232D0ED1008D8758 /* inviteFreindsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inviteFreindsVC.swift; sourceTree = "<group>"; };
 		8E1F413022391A6F00910E30 /* KPDropMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPDropMenu.h; sourceTree = "<group>"; };
 		8E1F413122391A6F00910E30 /* FRHyperLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRHyperLabel.h; sourceTree = "<group>"; };
 		8E1F413222391A6F00910E30 /* FRHyperLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRHyperLabel.m; sourceTree = "<group>"; };
@@ -2843,7 +2843,7 @@
 				FA42EF021E5C224F00CF8A32 /* CGSize.swift */,
 				FA42EF031E5C224F00CF8A32 /* UIImage.swift */,
 				FA42EF041E5C224F00CF8A32 /* UIImageView.swift */,
-				8E1CD979232D0ED1008D8758 /* testVCViewController.swift */,
+				8E1CD979232D0ED1008D8758 /* inviteFreindsVC.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -4533,8 +4533,12 @@
 				FA03C19C2042945D008812E3 /* IGCall.swift in Sources */,
 				FAE07F042205A8B000BE3593 /* IGStickerSectionHeader.swift in Sources */,
 				FA0953521E1B97700043ED3F /* IGSettingChatFontSizeTableViewController.swift in Sources */,
+<<<<<<< HEAD
 				8E1CD97A232D0ED1008D8758 /* testVCViewController.swift in Sources */,
 				D67E986023A679AB003C1516 /* ImageZoomControllerSettings.swift in Sources */,
+=======
+				8E1CD97A232D0ED1008D8758 /* inviteFreindsVC.swift in Sources */,
+>>>>>>> 5f69f6d3... changes :
 				FA63BAA51DD70DD0000B60AD /* IGRequest.swift in Sources */,
 				8EBF54F922D9B60D00834E6A /* DataEntry.swift in Sources */,
 				FA9F73562127E589004418E5 /* EPConstants.swift in Sources */,

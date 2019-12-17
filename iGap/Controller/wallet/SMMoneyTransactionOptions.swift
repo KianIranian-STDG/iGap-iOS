@@ -19,6 +19,7 @@ class SMMoneyTransactionOptions: UIView {
     @IBOutlet var btnCardToCardTransfer: UIButton!
     @IBOutlet var btnWallet: UIButton!
     @IBOutlet var btnCard: UIButton!
+    @IBOutlet weak var lblTop: UILabel!
     @IBOutlet var containerView: UIView!
 
     /// Load view from nib file
@@ -33,12 +34,17 @@ class SMMoneyTransactionOptions: UIView {
         self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
 
         initiconFonts()
+        self.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
     }
     
     private func initiconFonts() {
         btnWallet.titleLabel?.font = UIFont.iGapFonticon(ofSize: 28)
         btnCard.titleLabel?.font = UIFont.iGapFonticon(ofSize: 28)
-
+        btnCard.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        btnWallet.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        btnCardToCardTransfer.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        btnWalletTransfer.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        lblTop.textColor = ThemeManager.currentTheme.LabelColor
         btnWallet.setTitle("", for: .normal)
         btnCard.setTitle("", for: .normal)
     }

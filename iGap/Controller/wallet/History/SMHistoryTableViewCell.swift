@@ -33,6 +33,13 @@ class SMHistoryTableViewCell: UITableViewCell {
         amountLabel.textAlignment = amountLabel.localizedDirection
         currencyLabel.textAlignment = currencyLabel.localizedDirection
         
+        
+        titleLabel.textColor = ThemeManager.currentTheme.LabelColor
+        descLabel.textColor = ThemeManager.currentTheme.LabelColor
+        timeLabel.textColor = ThemeManager.currentTheme.LabelColor
+        amountLabel.textColor = ThemeManager.currentTheme.LabelColor
+        currencyLabel.textColor = ThemeManager.currentTheme.LabelColor
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -96,7 +96,7 @@ class BlueColorSet: DayNightColorSetProtocol {
 
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
     
-    var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
+    var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "4529F8")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
 
@@ -265,7 +265,7 @@ class BlueColorSetNight: NightColorSetProtocol {
 
     var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
     
-    var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
+    var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "4529F8")
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "4579FA")
 

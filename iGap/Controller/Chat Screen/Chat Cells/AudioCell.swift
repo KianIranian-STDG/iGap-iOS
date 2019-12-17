@@ -52,6 +52,11 @@ class AudioCell: AbstractCell {
               self.stopButtonPlayForRow()
               
           }
+        if isIncommingMessage {
+            btnPlayAbs.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        } else {
+            btnPlayAbs.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: .normal)
+        }
     }
     private func stopButtonPlayForRow() {
         let btns = self.mainBubbleViewAbs.subviews.flatMap { $0 as? UIButton }

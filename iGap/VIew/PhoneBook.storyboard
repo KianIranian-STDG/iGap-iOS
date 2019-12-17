@@ -8,6 +8,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="iGap_fontico.ttf">
+            <string>iGap_fontico</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="zhe-2t-YwN">
@@ -121,6 +126,140 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dWm-5H-AuS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3183" y="-186"/>
+        </scene>
+        <!-- -->
+        <scene sceneID="x5S-mv-KEJ">
+            <objects>
+                <viewController storyboardIdentifier="inviteFreindsVC" id="oLg-Ed-29M" customClass="inviteFreindsVC" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wdv-ch-8xy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4rF-bl-qIo">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <connections>
+                                    <segue destination="eCW-Av-eOd" kind="embed" id="hho-dj-3M3"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" name="IGBackGroundColor"/>
+                        <constraints>
+                            <constraint firstItem="4rF-bl-qIo" firstAttribute="top" secondItem="MQz-ir-Zcf" secondAttribute="top" id="JRp-Yh-QeG"/>
+                            <constraint firstItem="MQz-ir-Zcf" firstAttribute="trailing" secondItem="4rF-bl-qIo" secondAttribute="trailing" id="oqB-R4-Q1B"/>
+                            <constraint firstItem="4rF-bl-qIo" firstAttribute="leading" secondItem="MQz-ir-Zcf" secondAttribute="leading" id="w11-aa-AqS"/>
+                            <constraint firstAttribute="bottom" secondItem="4rF-bl-qIo" secondAttribute="bottom" id="xc0-Yn-xq5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="MQz-ir-Zcf"/>
+                    </view>
+                    <navigationItem key="navigationItem" title=" " id="and-8s-X9N" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target">
+                        <barButtonItem key="backBarButtonItem" title=" " id="WBg-hy-bvY"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mIO-nd-E9u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3184.057971014493" y="-857.14285714285711"/>
+        </scene>
+        <!--User Contacts Table View Controller-->
+        <scene sceneID="aCQ-I3-UR8">
+            <objects>
+                <tableViewController id="eCW-Av-eOd" customClass="IGUserContactsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="HAD-b2-aKW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" name="IGBackGroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="IGUserContactsTableViewCell" rowHeight="80" id="JPl-Ni-3rq" customClass="IGUserContactsTableViewCell" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JPl-Ni-3rq" id="7zd-Mz-xFN">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="QN7-Ko-ATE">
+                                            <rect key="frame" x="75" y="19.5" width="264" height="41"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qja-vq-YKe" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="264" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QA5-0G-IlU" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="20.5" width="264" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="QA5-0G-IlU" secondAttribute="trailing" id="1Wy-gr-WO2"/>
+                                                <constraint firstItem="Qja-vq-YKe" firstAttribute="leading" secondItem="QN7-Ko-ATE" secondAttribute="leading" id="JuT-FZ-R93"/>
+                                                <constraint firstAttribute="trailing" secondItem="Qja-vq-YKe" secondAttribute="trailing" id="QKQ-98-tiI"/>
+                                                <constraint firstItem="QA5-0G-IlU" firstAttribute="leading" secondItem="QN7-Ko-ATE" secondAttribute="leading" id="rrJ-KT-ahe"/>
+                                            </constraints>
+                                        </stackView>
+                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cAf-o7-x2r" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
+                                            <rect key="frame" x="15" y="15" width="50" height="50"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="3yN-wB-PcX"/>
+                                            </constraints>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xww-0V-Bz4">
+                                            <rect key="frame" x="15" y="15" width="50" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="5KN-gQ-lKe"/>
+                                                <constraint firstAttribute="height" constant="50" id="Vge-g5-Nze"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="45"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="xww-0V-Bz4" firstAttribute="centerY" secondItem="7zd-Mz-xFN" secondAttribute="centerY" id="ETh-Rq-WxO"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="QN7-Ko-ATE" secondAttribute="trailing" constant="55" id="G0v-Oa-6vn"/>
+                                        <constraint firstItem="cAf-o7-x2r" firstAttribute="leading" secondItem="7zd-Mz-xFN" secondAttribute="leading" constant="15" id="SdK-rA-V4W"/>
+                                        <constraint firstItem="xww-0V-Bz4" firstAttribute="leading" secondItem="7zd-Mz-xFN" secondAttribute="leading" constant="15" id="m76-2e-HfC"/>
+                                        <constraint firstItem="QN7-Ko-ATE" firstAttribute="centerY" secondItem="7zd-Mz-xFN" secondAttribute="centerY" id="udS-ZO-GwS"/>
+                                        <constraint firstItem="cAf-o7-x2r" firstAttribute="centerY" secondItem="7zd-Mz-xFN" secondAttribute="centerY" id="xFz-cU-vRl"/>
+                                        <constraint firstItem="QN7-Ko-ATE" firstAttribute="leading" secondItem="xww-0V-Bz4" secondAttribute="trailing" constant="10" id="xdY-WO-hFL"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="avatarIconLbl" destination="xww-0V-Bz4" id="YRW-gt-zSo"/>
+                                    <outlet property="nameLbl" destination="Qja-vq-YKe" id="DRs-4U-tVj"/>
+                                    <outlet property="phoneNumberLbl" destination="QA5-0G-IlU" id="Hi1-Zi-9b9"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="eCW-Av-eOd" id="i34-vy-CgK"/>
+                            <outlet property="delegate" destination="eCW-Av-eOd" id="CzB-Wm-cj9"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R9S-c6-8GN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2426" y="-887"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="yU9-C7-K5F">
+            <objects>
+                <navigationController id="hd8-MW-gGR" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="U3I-PL-m94" customClass="IGNavigationBar" customModule="iGap" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="oLg-Ed-29M" kind="relationship" relationship="rootViewController" id="oKV-Jc-IWC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V0D-gn-Xbe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4029" y="-857"/>
         </scene>
     </scenes>
     <resources>

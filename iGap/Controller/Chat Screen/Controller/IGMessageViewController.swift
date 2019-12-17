@@ -406,7 +406,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         if self.selectedMessages.count > 0 {
+<<<<<<< HEAD
             lblSelectedMessages.text = String(self.selectedMessages.count).inLocalizedLanguage() + " " + IGStringsManager.Selected.rawValue.localized
+=======
+            lblSelectedMessages.text = String(self.selectedMessages.count).inLocalizedLanguage() + "  " + IGStringsManager.Selected.rawValue.localized
+            inputBarDeleteButton.setTitleColor(UIColor.iGapDarkGray(), for: .normal)
+            inputBarDeleteButton.isEnabled = true
+            
+            inputBarForwardButton.setTitleColor(UIColor.iGapDarkGray(), for: .normal)
+            inputBarForwardButton.isEnabled = true
+>>>>>>> 5f69f6d3... changes :
         }
         else {
             lblSelectedMessages.text = ""
@@ -758,7 +767,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         IGHelperGetMessageState.shared.clearMessageViews()
     }
     
-    private func initTheme() {}
+    private func initTheme() {
+//        self.holderMultiSelect.backgroundColor =
+        lblSelectedMessages.textColor = ThemeManager.currentTheme.LabelColor
+        joinButton.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+    }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

@@ -58,10 +58,21 @@ class IGMemberChoose: UITableViewCell {
             break
         }
         userAvatarView.setUser(user.registredUser)
+        self.contactNameLabel.textColor = ThemeManager.currentTheme.LabelColor
+        self.lastSeenStatusLabel.textColor = ThemeManager.currentTheme.LabelColor
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        if selected {
+            self.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+            self.contactNameLabel.textColor = ThemeManager.currentTheme.LabelGrayColor
+            self.lastSeenStatusLabel.textColor = ThemeManager.currentTheme.LabelGrayColor
+
+        } else {
+            self.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+        }
+
     }
 
 }

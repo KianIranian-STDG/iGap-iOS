@@ -49,6 +49,10 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         }
         getMerChantCards()
 
+        lblFirstRow.textColor = ThemeManager.currentTheme.LabelColor
+        lblSecondRow.textColor = ThemeManager.currentTheme.LabelColor
+        lblThirdRow.textColor = ThemeManager.currentTheme.LabelColor
+        btnSubmit.backgroundColor = ThemeManager.currentTheme.SliderTintColor
     }
     func getMerChantCards(){
         SMLoading.showLoadingPage(viewcontroller: self)

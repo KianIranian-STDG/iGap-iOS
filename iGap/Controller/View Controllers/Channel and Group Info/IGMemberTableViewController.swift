@@ -487,7 +487,11 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         
         self.present(alertController, animated: true, completion: nil)
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     func kickAlert(title: String, message: String, alertClouser: @escaping ((_ state :AlertState) -> Void)){
         let option = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let ok = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .destructive, handler: { (action) in

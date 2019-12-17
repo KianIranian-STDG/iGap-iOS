@@ -67,9 +67,11 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         navigationController.interactivePopGestureRecognizer?.delegate = self
 
         initView()
+        initTheme()
     }
     private func initTheme() {
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.viewBGTwo.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         usernameLabel.textColor = ThemeManager.currentTheme.LabelColor
         phoneNumberLabel.textColor = ThemeManager.currentTheme.LabelColor
         btnChatWith.backgroundColor = ThemeManager.currentTheme.SliderTintColor

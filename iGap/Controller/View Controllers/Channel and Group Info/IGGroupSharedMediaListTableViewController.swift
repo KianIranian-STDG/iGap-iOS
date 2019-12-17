@@ -28,6 +28,8 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
     @IBOutlet weak var lblFiles: UILabel!
     @IBOutlet weak var lblVoices: UILabel!
     @IBOutlet weak var lblLinks: UILabel!
+    @IBOutlet  var lblArray: [UILabel]!
+    @IBOutlet  var lblDetailsArray: [UILabel]!
 
     var selectedRowNum : Int!
     var room: IGRoom?
@@ -49,6 +51,15 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
         getCountOfVoices()
         getCountOfLinks()
         getCountOfSahredMediaFiles()
+        initTheme()
+    }
+    private func initTheme() {
+        for lbl in lblArray {
+              lbl.textColor = ThemeManager.currentTheme.LabelColor
+          }
+        for lbl in lblDetailsArray {
+              lbl.textColor = ThemeManager.currentTheme.LabelGrayColor
+          }
     }
     
     private func initNavigation(){
@@ -269,7 +280,11 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
             }).send()
         }
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     func getCountOfFile() {
         
         if let selectedRoom = room {

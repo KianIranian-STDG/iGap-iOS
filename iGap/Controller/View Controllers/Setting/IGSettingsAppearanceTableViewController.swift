@@ -549,7 +549,9 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
         self.collectionThemes.reloadData()
+        self.collectionColorSets.reloadData()
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        
         initThemeView()
         self.tableView.reloadData()
         SwiftEventBus.post("initTheme", sender: "IGAPClassic")
@@ -649,11 +651,16 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if collectionView == collectionThemes {
+            
+            
             let cell = collectionView.cellForItem(at: indexPath) as! IGThemeCVCell
 //            cell.viewBG.layer.borderColor = UIColor.iGapGreen().cgColor
             let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
             let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
             
+            print("CURRENT COLOR SET FOR DARK CHECK",currentColorSetDark,"\n","CURRENT INDEX DARK IS",indexPathDark)
+            print("CURRENT COLOR SET FOR LIGHT CHECK",currentColorSetLight,"\n","CURRENT INDEX LIGHT IS",indexPathLight)
+
             switch indexPath.item {
             case 0 :
                 self.tableView.beginUpdates()

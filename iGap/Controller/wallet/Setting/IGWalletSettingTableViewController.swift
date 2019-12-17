@@ -17,6 +17,8 @@ class IGWalletSettingTableViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initNavigationBar()
+        lblChangePassCode.textColor = ThemeManager.currentTheme.LabelColor
+        lblRessetPassCode.textColor = ThemeManager.currentTheme.LabelColor
     }
     // MARK : - init View elements
     func initNavigationBar(){
@@ -37,6 +39,11 @@ class IGWalletSettingTableViewController: BaseTableViewController {
         // #warning Incomplete implementation, return the number of rows
         return 2
     }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if currentRole == "paygearuser" {

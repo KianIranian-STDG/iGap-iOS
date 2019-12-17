@@ -110,7 +110,8 @@ class SMBarcodeMainViewController: BaseViewController, HandleReciept, HandleGift
         else {
             initCards()
         }
-       
+        lblCurrency.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        
     }
 
 

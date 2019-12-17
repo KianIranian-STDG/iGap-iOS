@@ -32,7 +32,15 @@ class chargeWalletTableViewController: BaseTableViewController,UITextFieldDelega
         initDelegates ()
         initView()
 //        tfAmount.addTarget(self, action: #selector(myTextFieldDidChange), for: .editingChanged)
-
+        initTheme()
+    }
+    private func initTheme() {
+        lblEnterChargePriceTitle.textColor = ThemeManager.currentTheme.LabelColor
+        cashableBalanceLabel.textColor = ThemeManager.currentTheme.LabelColor
+        cashableAmountLabel.textColor = ThemeManager.currentTheme.LabelColor
+        amountTitleLabel.textColor = ThemeManager.currentTheme.LabelColor
+        balanceLabel.textColor = ThemeManager.currentTheme.LabelColor
+        btnSubmit.backgroundColor = ThemeManager.currentTheme.SliderTintColor
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -71,7 +79,11 @@ class chargeWalletTableViewController: BaseTableViewController,UITextFieldDelega
         self.tfAmount.delegate = self
     }
     // MARK: - Table view data source
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1

@@ -130,10 +130,11 @@ class SMHistoryTableViewController: BaseTableViewController {
 //        SMLoading.hideLoadingPage()
 		self.rowData = his as? [PAY_obj_history]
 		if self.rowData?.count == 0 {
-			self.placeHolderLabel.text = IGStringsManager.GlobalNoHistory.rawValue.localized
+//			self.placeHolderLabel.text = IGStringsManager.GlobalNoHistory.rawValue.localized
+            self.tableView.setEmptyMessage(IGStringsManager.GlobalNoHistory.rawValue.localized)
 		}
 		else{
-			self.placeHolderLabel.frame.size = CGSize.init(width: self.placeHolderLabel.frame.width, height: 0 )
+//			self.placeHolderLabel.frame.size = CGSize.init(width: self.placeHolderLabel.frame.width, height: 0 )
 		}
 		self.tableView.reloadData()
 	}
@@ -145,6 +146,7 @@ class SMHistoryTableViewController: BaseTableViewController {
 		SMLog.SMPrint(err)
 //        SMLoading.hideLoadingPage()
 	}
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -214,6 +216,8 @@ class SMHistoryTableViewController: BaseTableViewController {
 	
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
 		let lastElement = rowData!.count - 1
 		if !loadingData && hasMoreData && indexPath.row == lastElement  {
 			indicator.startAnimating()

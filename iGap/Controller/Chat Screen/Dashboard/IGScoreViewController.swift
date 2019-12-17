@@ -48,8 +48,11 @@ class IGScoreViewController: BaseViewController {
         customizeView()
         btnSeeRecords.setTitle(IGStringsManager.ScanBarcode.rawValue.localized, for: .normal)
         initCircularProgressBar()
+        initTheme()
     }
-    
+    private func initTheme() {
+        btnSeeRecords.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+    }
     private func addTotalPlaceLabel(text: Int32!) {
         lblMaxRank.font = UIFont.igFont(ofSize: 10,weight: .bold)
         lblMaxRank.textAlignment = .center
@@ -133,7 +136,7 @@ class IGScoreViewController: BaseViewController {
                     btnScore.backgroundColor = UIColor.iGapRed()
                     btnScore.setTitle(String(item.igpScore).inLocalizedLanguage(), for: .normal)
                 } else {
-                    btnScore.backgroundColor = UIColor.iGapBars()
+                    btnScore.backgroundColor = ThemeManager.currentTheme.SliderTintColor
                     btnScore.setTitle("+" + String(item.igpScore).inLocalizedLanguage(), for: .normal)
                 }
                 
@@ -141,6 +144,7 @@ class IGScoreViewController: BaseViewController {
                 btnScore.titleLabel?.font = UIFont.igFont(ofSize: 15,weight: .bold)
                 lbl.font = UIFont.igFont(ofSize: 14,weight: .bold)
                 lbl.textAlignment = lbl.localizedDirection
+                lbl.textColor = ThemeManager.currentTheme.LabelColor
                 if self.isRTL {
                     lbl.text = item.igpFaName
                 } else {

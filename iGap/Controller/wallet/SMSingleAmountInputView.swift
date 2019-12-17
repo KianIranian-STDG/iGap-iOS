@@ -39,8 +39,15 @@ class SMSingleAmountInputView: UIView {
         
         infoLbl.text = IGStringsManager.Amount.rawValue.localized
         self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
+        initTheme()
 
         
+    }
+    private func initTheme() {
+        self.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
+        infoLbl.textColor = ThemeManager.currentTheme.LabelColor
+        inputTF.textColor = ThemeManager.currentTheme.LabelColor
+        inputTF.placeHolderColor = ThemeManager.currentTheme.LabelColor
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch? = touches.first

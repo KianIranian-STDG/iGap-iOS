@@ -95,9 +95,9 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
         super.viewDidLoad()
         
         isfromPacket = false
-        btnCashout.backgroundColor = .iGapDarkGreenColor()
-        btnCharge.backgroundColor = .iGapDarkGreenColor()
-        recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
+        btnCashout.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        btnCharge.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        recoverPassBtn.backgroundColor = ThemeManager.currentTheme.SliderTintColor
         btnCashout.isUserInteractionEnabled = true
 
         initNavigationBar()
@@ -114,6 +114,9 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
         btnQrCodeScan.isHidden = true
         
         self.setupUI()
+        mainAmountView.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
+        amountsView.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -149,9 +152,9 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
         getMerchantData()
         initChangeLanguage()
         IGRequestWalletGetAccessToken.sendRequest()
-        btnCashout.backgroundColor = .iGapDarkGreenColor()
-        btnCharge.backgroundColor = .iGapDarkGreenColor()
-        recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
+        btnCashout.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        btnCharge.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        recoverPassBtn.backgroundColor = ThemeManager.currentTheme.SliderTintColor
     }
     
     @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
@@ -759,14 +762,14 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                     if (lblCurrency.text)?.inEnglishNumbersNew() == "0" {
                         btnCashout.isEnabled = false
                         btnCashout.backgroundColor = .iGapGray()
-                        btnCharge.backgroundColor = .iGapDarkGreenColor()
-                        recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
+                        btnCharge.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+                        recoverPassBtn.backgroundColor = ThemeManager.currentTheme.SliderTintColor
                         btnCashout.isUserInteractionEnabled = false
                     } else {
                         btnCashout.isEnabled = true
-                        btnCashout.backgroundColor = .iGapDarkGreenColor()
-                        btnCharge.backgroundColor = .iGapDarkGreenColor()
-                        recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
+                        btnCashout.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+                        btnCharge.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+                        recoverPassBtn.backgroundColor = ThemeManager.currentTheme.SliderTintColor
                         btnCashout.isUserInteractionEnabled = true
                     }
 
@@ -1014,15 +1017,15 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
                 if tmp?.inEnglishNumbersNew() == "0" {
                     btnCashout.isEnabled = false
                     btnCashout.backgroundColor = .iGapGray()
-                    btnCharge.backgroundColor = .iGapDarkGreenColor()
-                    recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
+                    btnCharge.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+                    recoverPassBtn.backgroundColor = ThemeManager.currentTheme.SliderTintColor
 
                     btnCashout.isUserInteractionEnabled = false
                 } else {
                     btnCashout.isEnabled = true
-                    btnCashout.backgroundColor = .iGapDarkGreenColor()
-                    btnCharge.backgroundColor = .iGapDarkGreenColor()
-                    recoverPassBtn.backgroundColor = .iGapDarkGreenColor()
+                    btnCashout.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+                    btnCharge.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+                    recoverPassBtn.backgroundColor = ThemeManager.currentTheme.SliderTintColor
                     btnCashout.isUserInteractionEnabled = true
                 }
                 NotificationCenter.default.post(name: Notification.Name(SMConstants.notificationHistoryMerchantUpdate), object: nil,

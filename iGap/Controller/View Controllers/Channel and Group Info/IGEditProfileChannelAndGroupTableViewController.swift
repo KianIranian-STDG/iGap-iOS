@@ -41,7 +41,6 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     @IBOutlet weak var tfDescriptionOfRoom : UITextField!
     @IBOutlet weak var avatarRoom : IGAvatarView!
     
-    
     // MARK: - ViewController initializers
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,18 +50,18 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         tfChannelLink.delegate = self
         getData()
         
-        var title : String = "CHANNEL_TITLE"
+        var title : String = IGStringsManager.Edit.rawValue.localized
         if room!.type == .channel {
-            title = "CHANNEL_TITLE"
+            title = IGStringsManager.Edit.rawValue.localized
             self.tfDescriptionOfRoom.placeholder = IGStringsManager.ChannelDesc.rawValue.localized
             self.tfNameOfRoom.placeholder = IGStringsManager.ChannelName.rawValue.localized
 
         } else {
-            title = "GROUP_TITLE"
+            title = IGStringsManager.Edit.rawValue.localized
             self.tfDescriptionOfRoom.placeholder = IGStringsManager.GroupDesc.rawValue.localized
             self.tfNameOfRoom.placeholder = IGStringsManager.GroupName.rawValue.localized
         }
-        self.initNavigationBar(title: title.localized,rightItemText: "", iGapFont: true) {
+        self.initNavigationBar(title: title,rightItemText: "", iGapFont: true) {
             if self.room?.type == .channel {
                 self.RequestSequenceChannel()
             } else {
@@ -70,8 +69,43 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             }
         }
         initView()
+        initTheme()
     }
     
+    private func initTheme() {
+        lblSignMessage.textColor = ThemeManager.currentTheme.LabelColor
+        lblChannelReaction.textColor = ThemeManager.currentTheme.LabelColor
+        lblChannelType.textColor = ThemeManager.currentTheme.LabelColor
+        tfChannelLink.textColor = ThemeManager.currentTheme.LabelColor
+        tfNameOfRoom.textColor = ThemeManager.currentTheme.LabelColor
+        tfDescriptionOfRoom.textColor = ThemeManager.currentTheme.LabelColor
+
+        tfChannelLink.backgroundColor = .clear
+        tfNameOfRoom.backgroundColor = .clear
+        tfDescriptionOfRoom.backgroundColor = .clear
+
+        tfChannelLink.layer.cornerRadius = 10
+        tfNameOfRoom.layer.cornerRadius = 10
+        tfDescriptionOfRoom.layer.cornerRadius = 10
+
+        tfChannelLink.layer.borderWidth = 1
+        tfNameOfRoom.layer.borderWidth = 1
+        tfDescriptionOfRoom.layer.borderWidth = 1
+
+        tfChannelLink.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        tfNameOfRoom.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        tfDescriptionOfRoom.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+
+        tfChannelLink.placeHolderColor = ThemeManager.currentTheme.LabelColor
+        tfNameOfRoom.placeHolderColor = ThemeManager.currentTheme.LabelColor
+        tfDescriptionOfRoom.placeHolderColor = ThemeManager.currentTheme.LabelColor
+
+        switchSignMessage.onTintColor = ThemeManager.currentTheme.SliderTintColor
+        switchChannelReaction.onTintColor = ThemeManager.currentTheme.SliderTintColor
+
+        
+        
+    }
     // MARK: - Development Funcs
     func RequestSequenceChannel(){
         
@@ -249,6 +283,11 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             
         }
     }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     //Mark: - change channel Description
     func changeChannelDescription() {
         

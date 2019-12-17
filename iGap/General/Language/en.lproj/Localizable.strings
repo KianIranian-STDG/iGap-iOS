@@ -1580,7 +1580,7 @@ TODO:// complete */
 "video_selected_for_send" = "selected video";
 
 /*  */
-"multi_video_selected_for_send" = "\"selected";
+"multi_video_selected_for_send" = "Message selected";
 
 /*  */
 "audio_selected_for_send" = "selected audio";

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class testVCViewController: BaseViewController {
+class inviteFreindsVC: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

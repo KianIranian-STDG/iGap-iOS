@@ -60,6 +60,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
     @IBOutlet weak var channelUserCountLabel: UILabel!
     @IBOutlet weak var heightConstraints: NSLayoutConstraint!
     @IBOutlet weak var viewBG: UIView!
+    @IBOutlet weak var viewBGTwo: UIView!
 
     //MARK: -ViewController Initialisers
     override func viewDidLoad() {
@@ -83,8 +84,14 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                      
 //        requestToGetRoom()
 
+        initTheme()
     }
-    
+    private func initTheme() {
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.viewBGTwo.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        channelUserCountLabel.textColor = ThemeManager.currentTheme.LabelColor
+    }
+
     func channelFirstInitialiser() {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
@@ -431,7 +438,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
             isVerified = false
         }
         channelNameLabelTitle.text = room?.title
-        channelNameLabelTitle.textAlignment = channelNameLabelTitle.localizedDirection
+        channelNameLabelTitle.textAlignment = .right
         if let channelRoom = room {
             channelImage.setRoom(channelRoom)
         }
@@ -1526,10 +1533,17 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         }
 
     }
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     //MARK: -Header and Footer
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let containerFooterView = view as! UITableViewHeaderFooterView
+        containerFooterView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        containerFooterView.textLabel?.textColor = ThemeManager.currentTheme.LabelColor
+
         containerFooterView.textLabel?.textAlignment = containerFooterView.textLabel!.localizedDirection
         switch section {
         default :

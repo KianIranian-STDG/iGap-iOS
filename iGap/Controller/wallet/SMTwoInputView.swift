@@ -44,6 +44,22 @@ class SMTwoInputView: UIView {
 //        infoLblOne.text = IGStringsManager.Amount.rawValue.localized
         closeBtn.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
         self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
+        initTheme()
+    }
+    private func initTheme() {
+        self.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
+        closeBtn.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        confirmBtn.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        infoLblOne.textColor = ThemeManager.currentTheme.LabelColor
+        confirmBtn.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        
+        inputTFOne.placeHolderColor = ThemeManager.currentTheme.LabelColor
+        inputTFTwo.placeHolderColor = ThemeManager.currentTheme.LabelColor
+        inputTFThree.placeHolderColor = ThemeManager.currentTheme.LabelColor
+
+        inputTFOne.textColor = ThemeManager.currentTheme.LabelColor
+        inputTFTwo.textColor = ThemeManager.currentTheme.LabelColor
+        inputTFThree.textColor = ThemeManager.currentTheme.LabelColor
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
