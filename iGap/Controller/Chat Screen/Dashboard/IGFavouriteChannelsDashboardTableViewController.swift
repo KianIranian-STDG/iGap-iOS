@@ -12,7 +12,7 @@ import UIKit
 import Alamofire
 import MBProgressHUD
 
-class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UIGestureRecognizerDelegate {
+class IGFavouriteChannelsDashboardTableViewController: BaseTableViewController {
     
     var items = [FavouriteChannelHomeItem]()
     var deepLinkToken: String?
@@ -102,7 +102,11 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UI
         }
         return items.count
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var cell: UITableViewCell!

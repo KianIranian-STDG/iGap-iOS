@@ -76,6 +76,8 @@ class IGContactTableViewCell: UITableViewCell {
         contactNameLable.textColor = ThemeManager.currentTheme.LabelColor
         contactPhoneNumber.textColor = ThemeManager.currentTheme.LabelColor
 
+        btnCall.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        btnVideoCall.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
     }
     
     override func prepareForReuse() {

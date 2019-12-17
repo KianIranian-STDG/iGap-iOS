@@ -244,6 +244,10 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
         self.navigationController!.pushViewController(billDataVC, animated:true)
 
     }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
 
     /*
      override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

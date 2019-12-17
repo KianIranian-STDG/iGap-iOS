@@ -24,7 +24,8 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
     @IBOutlet weak var btnChargeType: UIButton!
     @IBOutlet weak var btnPrice: UIButton!
     @IBOutlet weak var btnBuy: UIButton!
-    
+    @IBOutlet weak var switchButton: UISwitch!
+
     let PHONE_LENGTH = 11
     var latestPhoneNumber = ""
     
@@ -89,6 +90,24 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         initNavigationBar(title: IGStringsManager.ChargeSimCard.rawValue.localized) {}
         manageButtonsView(buttons: [btnOperator,btnChargeType,btnPrice,btnBuy])
         ButtonViewActivate(button: btnOperator, isEnable: false)
+        self.initTheme()
+    }
+    private func initTheme() {
+        txtOperatorTransport.textColor = ThemeManager.currentTheme.LabelColor
+        edtPhoneNubmer.backgroundColor = .white
+        btnOperator.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        btnBuy.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        btnPrice.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        btnChargeType.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+
+
+        btnChargeType.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        btnBuy.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        btnPrice.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        btnOperator.backgroundColor = UIColor.gray
+        self.view.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.edtPhoneNubmer.layer.borderColor = UIColor.gray.cgColor
+        switchButton.onTintColor = ThemeManager.currentTheme.SliderTintColor
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -96,7 +115,6 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
     }
     func initCHangeLang() {
         txtOperatorTransport.text = IGStringsManager.PortedSubsDisable.rawValue.localized
-        txtOperatorTransport.textColor = UIColor.gray
 
         edtPhoneNubmer.placeholder = IGStringsManager.MobileNumber.rawValue.localized
         self.btnPrice.setTitle(IGStringsManager.ChargePrice.rawValue.localized, for: UIControl.State.normal)
@@ -196,11 +214,11 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         if sender.isOn {
             operatorTransport = true
             txtOperatorTransport.text = IGStringsManager.PortedSubsEnable.rawValue.localized
-            txtOperatorTransport.textColor = UIColor.iGapDarkGreenColor()
+            txtOperatorTransport.textColor = ThemeManager.currentTheme.SliderTintColor
         } else {
             operatorTransport = false
             txtOperatorTransport.text = IGStringsManager.PortedSubsDisable.rawValue.localized
-            txtOperatorTransport.textColor = UIColor.gray
+            txtOperatorTransport.textColor = ThemeManager.currentTheme.LabelColor
             
             if operatorTypeBackup != nil {
                 operatorType = operatorTypeBackup

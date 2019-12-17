@@ -15,7 +15,7 @@ import MBProgressHUD
 import IGProtoBuff
 import MGSwipeTableCell
 
-class IGSettingContactsTableViewController: UITableViewController, UISearchResultsUpdating, UIGestureRecognizerDelegate, IGCallFromContactListObserver {
+class IGSettingContactsTableViewController: BaseTableViewController, UISearchResultsUpdating, IGCallFromContactListObserver {
     
     class User:NSObject {
         let registredUser: IGRegisteredUser
@@ -379,7 +379,10 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
     func updateSearchResults(for searchController: UISearchController) {
         self.tableView.reloadData()
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+
+    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if resultSearchController.isActive == false {
             if indexPath.section == 0 && indexPath.row == 0 {

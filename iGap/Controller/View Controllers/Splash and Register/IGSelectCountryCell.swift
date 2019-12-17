@@ -19,10 +19,13 @@ class IGSelectCountryCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
     }
     
     func setSearchResult(country: IGCountry) {
         txtCountry.text = country.localizedName
         txtCountryCode.text = country.phoneCode
+        txtCountry.textColor = ThemeManager.currentTheme.LabelColor
+        txtCountryCode.textColor = ThemeManager.currentTheme.LabelColor
     }
 }

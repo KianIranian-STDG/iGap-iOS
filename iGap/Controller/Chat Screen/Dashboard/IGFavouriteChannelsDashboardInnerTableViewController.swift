@@ -11,7 +11,7 @@
 import UIKit
 import SwiftyJSON
 
-class IGFavouriteChannelsDashboardInnerTableViewController: UITableViewController, UIGestureRecognizerDelegate {
+class IGFavouriteChannelsDashboardInnerTableViewController: BaseTableViewController {
     
     var categoryId: String!
     
@@ -114,7 +114,11 @@ class IGFavouriteChannelsDashboardInnerTableViewController: UITableViewControlle
             }
         }
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if showSlider {

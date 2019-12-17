@@ -14,7 +14,7 @@ import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
 
-class IGContactListTableViewController: UITableViewController, UISearchResultsUpdating, UIGestureRecognizerDelegate, IGCallFromContactListObserver {
+class IGContactListTableViewController: BaseTableViewController, UISearchResultsUpdating, IGCallFromContactListObserver {
     
     var contacts = try! Realm().objects(IGRegisteredUser.self).filter("isInContacts == 1").sorted(byKeyPath: "displayName", ascending: true)
     var contactSections: [Section]?
@@ -22,7 +22,7 @@ class IGContactListTableViewController: UITableViewController, UISearchResultsUp
     var resultSearchController = UISearchController()
     var sections : [Section]!
     var forceCall: Bool = false
-    var pageName : String! = "NEW_CALL"
+    var pageName : String! = IGStringsManager.NewCall.rawValue.localized
     private var lastContentOffset: CGFloat = 0
     var navigationControll : IGNavigationController!
     

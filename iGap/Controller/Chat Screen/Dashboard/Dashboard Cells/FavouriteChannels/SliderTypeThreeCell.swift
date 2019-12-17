@@ -38,7 +38,7 @@ class SliderTypeThreeCell: UITableViewCell,UICollectionViewDelegate, UICollectio
         super.prepareForReuse()
     }
     private func initTheme() {
-        self.collectionView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.collectionView.backgroundColor = .clear
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -69,7 +69,7 @@ class SliderTypeThreeCell: UITableViewCell,UICollectionViewDelegate, UICollectio
             cell.imgBG.sd_setImage(with: url, completed: nil)
         }
         
-        cell.contentView.backgroundColor = ThemeManager.currentTheme.BackGroundGrayColor
+//        cell.contentView.backgroundColor = ThemeManager.currentTheme.BackGroundGrayColor
         
         let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
         cell.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)

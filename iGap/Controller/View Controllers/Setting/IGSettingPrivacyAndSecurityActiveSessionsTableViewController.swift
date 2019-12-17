@@ -12,7 +12,7 @@ import UIKit
 import MBProgressHUD
 import IGProtoBuff
 
-class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewController, UIGestureRecognizerDelegate {
+class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: BaseTableViewController {
     
     var selectedSession: IGSession?
     var currentSession: IGSession?
@@ -133,7 +133,11 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
         }
         return heightOfheader
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let containerView = view as! UITableViewHeaderFooterView
 

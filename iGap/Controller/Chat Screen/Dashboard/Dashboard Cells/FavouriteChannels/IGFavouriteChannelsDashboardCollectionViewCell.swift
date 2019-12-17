@@ -14,13 +14,16 @@ class IGFavouriteChannelsDashboardCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var imgBG : UIImageView!
     @IBOutlet weak var lbl : UILabel!
-    
+    @IBOutlet weak var lblHolder : UIView!
+
     var isInner: Bool = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+        self.backgroundColor = .lightGray
+        self.lblHolder.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.lbl.textColor = ThemeManager.currentTheme.LabelColor
         self.layer.cornerRadius = 14.0
         self.contentView.layer.cornerRadius = 14.0
         self.contentView.layer.masksToBounds = true
@@ -31,5 +34,6 @@ class IGFavouriteChannelsDashboardCollectionViewCell: UICollectionViewCell {
 
         self.layer.shadowOpacity = 0.12
         self.layer.masksToBounds = false
+        
     }
 }

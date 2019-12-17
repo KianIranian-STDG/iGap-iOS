@@ -218,7 +218,7 @@ extension IGFinancialHistoryViewController: UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let label = cell.viewWithTag(110) as! UILabel
         if indexPath.item == selectedIndex {
-            cell.backgroundColor = ThemeManager.currentTheme.TransactionsCVSelectedColor
+            cell.backgroundColor = ThemeManager.currentTheme.SliderTintColor
             label.textColor = UIColor.white
         } else {
             cell.backgroundColor = ThemeManager.currentTheme.TransactionsCVColor
@@ -283,6 +283,8 @@ extension IGFinancialHistoryViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
         if transactions.count < 14 {
             return
         }
@@ -301,4 +303,5 @@ extension IGFinancialHistoryViewController: UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
+    
 }

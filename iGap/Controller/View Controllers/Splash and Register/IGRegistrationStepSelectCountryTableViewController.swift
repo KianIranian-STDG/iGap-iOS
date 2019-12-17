@@ -48,6 +48,8 @@ class IGRegistrationStepSelectCountryTableViewController: UIViewController, UITa
         searchBar.delegate = self
         listOfCountries = IGCountry.getSortedListOfCountriesWithPhone()
         self.createDataSetForTableview(countries: listOfCountries)
+        searchBar.barTintColor = ThemeManager.currentTheme.SliderTintColor
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -57,7 +59,10 @@ class IGRegistrationStepSelectCountryTableViewController: UIViewController, UITa
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dictionaryOfSectionedCountries[sortedListOfKeys[section]]!.count
     }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
 
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: IGSelectCountryCell = self.tableView.dequeueReusableCell(withIdentifier: "countryCell", for: indexPath) as! IGSelectCountryCell
         let countriesInThisSection = dictionaryOfSectionedCountries[sortedListOfKeys[indexPath.section]]

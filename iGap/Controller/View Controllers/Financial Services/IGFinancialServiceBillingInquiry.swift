@@ -61,6 +61,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
         manageButtonsView(buttons: [btnPayment,btnPaymentMid], enable: false)
         manageTextsView(labels: [txtLastTerm,txtMidTerm], grayLine: true)
         manageTextsView(labels: [txtBillingID,txtPaymentCode,txtAmount,txtBillingIDMid,txtPaymentCodeMid,txtAmountMid])
+//        self.view.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
     }
     
     override func viewWillAppear(_ animated: Bool) {

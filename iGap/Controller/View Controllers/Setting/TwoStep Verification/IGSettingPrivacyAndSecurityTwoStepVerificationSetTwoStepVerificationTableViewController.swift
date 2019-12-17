@@ -23,7 +23,8 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
     @IBOutlet weak var answer2TextField: UITextField!
     @IBOutlet weak var hintTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
-    
+    @IBOutlet  var textfieldsArray: [UITextField]!
+
     @IBOutlet weak var lblPass: UILabel!
     @IBOutlet weak var lblVerify: UILabel!
     @IBOutlet weak var lblQ1: UILabel!
@@ -47,7 +48,20 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
         navigationItem.rightViewContainer?.addAction {
             self.setPassword()
         }
+        initTheme()
     }
+    
+    func initTheme() {
+        
+
+        for tf in textfieldsArray {
+            tf.textColor = ThemeManager.currentTheme.LabelColor
+            tf.placeHolderColor = ThemeManager.currentTheme.TextFieldPlaceHolderColor
+        }
+                
+    }
+    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         lblPass.text = IGStringsManager.Password.rawValue.localized
@@ -172,6 +186,11 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
         }
         
     }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         let containerFooterView = view as! UITableViewHeaderFooterView
         
@@ -192,7 +211,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 0 :
-            return 60
+            return 80
         case 1 :
             return 10
         default :

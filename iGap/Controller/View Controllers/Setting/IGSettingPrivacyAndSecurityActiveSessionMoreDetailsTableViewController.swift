@@ -160,7 +160,11 @@ class IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController: Ba
             
         }
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     func logOutCurrentSession(){
         IGGlobal.prgShow()
         IGUserSessionLogoutRequest.Generator.genarete().success({ (protoResponse) in

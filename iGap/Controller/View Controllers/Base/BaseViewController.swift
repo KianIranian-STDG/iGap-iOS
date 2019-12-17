@@ -43,6 +43,7 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
 
 //        self.hideKeyboardWhenTappedAround()
+        self.view.backgroundColor = ThemeManager.currentTheme.BackGroundColor
     }
     
     func initNavigationBar(title: String? = nil, rightItemText: String? = nil, iGapFont: Bool = false, rightAction: @escaping () -> ()) {

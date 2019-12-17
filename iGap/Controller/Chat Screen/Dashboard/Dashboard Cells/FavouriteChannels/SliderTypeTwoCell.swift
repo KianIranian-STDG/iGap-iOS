@@ -2,7 +2,7 @@
 import UIKit
 var CategoriesCounter = 0
 
-class SliderTypeTwoCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class SliderTypeTwoCell: BaseTableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     var timer = Timer()
     var photoCount:Int = 0
@@ -39,6 +39,11 @@ class SliderTypeTwoCell: UITableViewCell, UICollectionViewDelegate, UICollection
     }
     private func initTheme() {
         self.collectionView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.mainView.backgroundColor = ThemeManager.currentTheme.CellSelectedChannelBGColor
+        self.collectionHolderView.backgroundColor = ThemeManager.currentTheme.CellFavouriteChannellBGColor
+        self.btnMore.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        self.lblTitle.textColor = ThemeManager.currentTheme.LabelColor
+        
     }
     override func prepareForReuse() {
         super.prepareForReuse()

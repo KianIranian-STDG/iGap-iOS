@@ -78,7 +78,11 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return blockedUsers.count + 1
     }
@@ -88,8 +92,9 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
         let lastRowIndex = self.tableView.numberOfRows(inSection: 0) - 1
         if indexPath.row == lastRowIndex {
             cell.blockedContactName.text = IGStringsManager.BlockUser.rawValue.localized
-            cell.blockedContactName.textColor = UIColor.organizationalColor()
+            cell.blockedContactName.textColor = UIColor.red
             cell.accessoryType = UITableViewCell.AccessoryType.none
+            
         } else {
             cell.blockedContactName.text = blockedUsers[indexPath.row].displayName
         }

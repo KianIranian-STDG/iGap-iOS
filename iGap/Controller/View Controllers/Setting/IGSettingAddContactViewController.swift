@@ -38,6 +38,7 @@ class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepS
         btnChooseCountry.layer.cornerRadius = 15.0
         btnChooseCountry.titleLabel?.font = UIFont.igFont(ofSize: 20)
         navInit()
+        btnChooseCountry.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -76,8 +77,28 @@ class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepS
         btnChooseCountry.layer.borderColor = UIColor.iGapColor().cgColor
         
         txtCountryCode.layer.cornerRadius = 5
+        tfPhoneNUmber.layer.cornerRadius = 5
         txtCountryCode.layer.borderWidth = 1
         txtCountryCode.layer.borderColor = UIColor.iGapColor().cgColor
+        txtCountryCode.textColor = ThemeManager.currentTheme.LabelColor
+        edtLastName.backgroundColor = .clear
+        edtFirstName.backgroundColor = .clear
+        tfPhoneNUmber.backgroundColor = .clear
+        edtLastName.placeHolderColor = ThemeManager.currentTheme.LabelGrayColor
+        edtFirstName.placeHolderColor = ThemeManager.currentTheme.LabelGrayColor
+        edtLastName.textColor = ThemeManager.currentTheme.LabelColor
+        edtFirstName.textColor = ThemeManager.currentTheme.LabelColor
+        tfPhoneNUmber.textColor = ThemeManager.currentTheme.LabelColor
+
+        tfPhoneNUmber.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
+        edtFirstName.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
+        edtLastName.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
+        edtFirstName.layer.cornerRadius = 5.0
+        edtLastName.layer.cornerRadius = 5.0
+        edtFirstName.layer.borderWidth = 1.0
+        tfPhoneNUmber.layer.borderWidth = 1.0
+        edtLastName.layer.borderWidth = 1.0
+
     }
     
     private func addContact(){

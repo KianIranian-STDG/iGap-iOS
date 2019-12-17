@@ -68,9 +68,11 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
             lblChatSettings.textColor = ThemeManager.currentTheme.LabelColor
             lblPrivacyPolicy.textColor = ThemeManager.currentTheme.LabelColor
             lblNotificationSounds.textColor = ThemeManager.currentTheme.LabelColor
+            self.tableView.reloadData()
             for icon in iconArray {
                 icon.textColor = ThemeManager.currentTheme.LabelColor
             }
+            self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         }
 
     func initDetails() {
@@ -175,7 +177,7 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
         }
     }
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
 
     }
 

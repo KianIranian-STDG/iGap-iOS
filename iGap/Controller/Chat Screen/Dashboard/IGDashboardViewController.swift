@@ -11,6 +11,7 @@
 import UIKit
 import IGProtoBuff
 import MapKit
+import SwiftEventBus
 
 var isDashboardInner: Bool! = false
 
@@ -80,10 +81,15 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         }, onDisposed: {
             
         }).disposed(by: disposeBag)
+        SwiftEventBus.onMainThread(self, name: "initTheme") { result in
+            self.initTheme()
+        }
+
         self.initTheme()
     }
     private func initTheme() {
         self.collectionView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.collectionView.reloadData()
     }
 
     override func viewWillAppear(_ animated: Bool) {

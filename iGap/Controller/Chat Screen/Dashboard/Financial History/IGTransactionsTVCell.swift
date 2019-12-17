@@ -20,6 +20,14 @@ class IGTransactionsTVCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        initTheme()
+        
+    }
+    private func initTheme() {
+        titleLbl.textColor = ThemeManager.currentTheme.LabelColor
+        dateLbl.textColor = ThemeManager.currentTheme.LabelColor
+        timeLbl.textColor = ThemeManager.currentTheme.LabelColor
+        tokenLbl.textColor = ThemeManager.currentTheme.LabelColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

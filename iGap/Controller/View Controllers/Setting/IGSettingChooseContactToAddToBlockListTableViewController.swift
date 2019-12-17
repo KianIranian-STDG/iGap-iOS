@@ -14,7 +14,7 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGSettingChooseContactToAddToBlockListTableViewController: UITableViewController , UISearchResultsUpdating ,UINavigationControllerDelegate , UIGestureRecognizerDelegate {
+class IGSettingChooseContactToAddToBlockListTableViewController: BaseTableViewController , UISearchResultsUpdating ,UINavigationControllerDelegate  {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -65,6 +65,7 @@ class IGSettingChooseContactToAddToBlockListTableViewController: UITableViewCont
         }
         
         sections = fillContacts()
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
     }
     
     private func setNavigationItem(){
@@ -115,7 +116,11 @@ class IGSettingChooseContactToAddToBlockListTableViewController: UITableViewCont
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.sections[section].users.count
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
         let contactsCell = tableView.dequeueReusableCell(withIdentifier: "ChooseContactToBlockedCell", for: indexPath) as! IGSettingChooseContactToAddToBlockListTableViewCell

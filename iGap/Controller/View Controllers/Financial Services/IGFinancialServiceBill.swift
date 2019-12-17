@@ -60,6 +60,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate, BillMerch
                 }
             }
         }
+        self.txtAmount.textColor = ThemeManager.currentTheme.LabelColor
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -132,7 +133,7 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate, BillMerch
             if grayLine {
                 txt.layer.borderColor = UIColor.gray.cgColor
             } else {
-                txt.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
+                txt.layer.borderColor = UIColor.gray.cgColor
             }
         }
     }

@@ -170,7 +170,8 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     private func validaatePhoneNUmber(phone : Int64!) -> String {
         let str = String(phone)
         if str.starts(with: "98") {
-            return str.replacingOccurrences(of: "98", with: "0")
+            var tmp = str.dropFirst(2)
+            return "0" + tmp
         } else if str.starts(with: "09") {
             return str
         } else {
@@ -280,6 +281,11 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
             
         }
     }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     /*********************************************************/
     /*************** Overrided Payment Mehtods ***************/
     /*********************************************************/

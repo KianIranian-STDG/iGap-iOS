@@ -165,7 +165,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         lblCredit.textColor = ThemeManager.currentTheme.LabelColor
         lblNearby.textColor = ThemeManager.currentTheme.LabelColor
         lblInviteF.textColor = ThemeManager.currentTheme.LabelColor
-        lblNameTop.textColor = ThemeManager.currentTheme.LabelColor
+        lblNameTop.textColor = .white
         lblSetting.textColor = ThemeManager.currentTheme.LabelColor
         lblBioInner.textColor = ThemeManager.currentTheme.LabelColor
         lblUserName.textColor = ThemeManager.currentTheme.LabelColor
@@ -184,6 +184,8 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         btnWomenGender.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         btnMenGender.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         self.viewTop.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+
         self.tableView.reloadData()
     }
     override func viewWillAppear(_ animated: Bool)  {
