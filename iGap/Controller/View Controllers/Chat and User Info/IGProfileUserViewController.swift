@@ -41,6 +41,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var avatarView: IGAvatarView!
     @IBOutlet weak var viewBG: UIView!
+    @IBOutlet weak var viewBGTwo: UIView!
     @IBOutlet weak var btnChatWith: UIButtonX!
 
     @IBOutlet weak var displayNameLabel: EFAutoScrollLabel!
@@ -66,6 +67,12 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         navigationController.interactivePopGestureRecognizer?.delegate = self
 
         initView()
+    }
+    private func initTheme() {
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        usernameLabel.textColor = ThemeManager.currentTheme.LabelColor
+        phoneNumberLabel.textColor = ThemeManager.currentTheme.LabelColor
+        btnChatWith.backgroundColor = ThemeManager.currentTheme.SliderTintColor
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -658,6 +665,10 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     func numberOfSections(in tableView: UITableView) -> Int {
         return 5
     }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -818,10 +829,14 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         }
 
     }
+
+    
     //MARK: -Header and Footer
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let containerFooterView = view as! UITableViewHeaderFooterView
+        containerFooterView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         containerFooterView.textLabel?.textAlignment = containerFooterView.textLabel!.localizedDirection
+        containerFooterView.textLabel?.textColor = ThemeManager.currentTheme.LabelColor
         switch section {
         case 0 :
             containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15,weight: .bold)

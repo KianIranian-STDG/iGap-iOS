@@ -316,9 +316,9 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }
     
     private func inviteContact() {
-        let vc = testVCViewController.instantiateFromAppStroryboard(appStoryboard: .PhoneBook)
-        vc.hidesBottomBarWhenPushed = true
-        self.navigationController!.pushViewController(vc, animated: true)
+//        let vc = testVCViewController.instantiateFromAppStroryboard(appStoryboard: .PhoneBook)
+//        vc.hidesBottomBarWhenPushed = true
+//        self.navigationController!.pushViewController(vc, animated: true)
     }
     
     func call(user: IGRegisteredUser,mode: String) {

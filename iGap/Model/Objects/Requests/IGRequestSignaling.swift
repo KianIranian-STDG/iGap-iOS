@@ -290,7 +290,7 @@ class IGSignalingClearLogRequest : IGRequest {
     class Generator : IGRequest.Generator{
         class func generate(clearId: Int64? = nil , logIDArray : [Int64]? = nil) -> IGRequestWrapper {
             var clearLogRequestMessage = IGPSignalingClearLog()
-            if logIDArray != nil && logIDArray!.count > 0 {
+            if logIDArray?.count ?? 0 > 0 , logIDArray != nil {
                 for elemnt in logIDArray! {
                     clearLogRequestMessage.igpLogID.append(elemnt)
                 }

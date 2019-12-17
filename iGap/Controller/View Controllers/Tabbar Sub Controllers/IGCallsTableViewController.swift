@@ -93,7 +93,11 @@ class IGCallsTableViewController: BaseTableViewController {
         }
 
         private func initTheme() {
+            self.tableView.reloadData()
             self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+            self.transactionTypesCollectionView.backgroundColor = .clear
+            self.tableView!.setEmptyMessage(IGStringsManager.GlobalNoHistory.rawValue.localized)
+
         }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -376,6 +380,7 @@ class IGCallsTableViewController: BaseTableViewController {
 //    }
     private func sendClearOneRowRequest(rowID: Int64!) {
 
+        print(rowID)
         SMLoading.showLoadingPage(viewcontroller: self)
         IGSignalingClearLogRequest.Generator.generate(logIDArray: [rowID]).success({ (protoResponse) in
             DispatchQueue.main.async {

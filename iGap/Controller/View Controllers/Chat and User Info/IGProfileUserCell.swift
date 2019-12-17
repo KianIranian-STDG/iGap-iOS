@@ -41,6 +41,9 @@ class IGProfileUserCell: BaseTableViewCell {
         lblActionDetail.textAlignment = lblActionDetail.localizedDirectionDescriptions
         lblActionDetail.font = UIFont.igFont(ofSize: 15)
         lblActionName.font = UIFont.igFont(ofSize: 15)
+        lblActionDetail.textColor = ThemeManager.currentTheme.LabelColor
+        lblActionName.textColor = ThemeManager.currentTheme.LabelColor
+
 
     }
     private func changedInitLabels() {

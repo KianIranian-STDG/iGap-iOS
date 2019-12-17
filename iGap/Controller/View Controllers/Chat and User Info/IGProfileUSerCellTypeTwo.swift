@@ -32,6 +32,9 @@ class IGProfileUSerCellTypeTwo: UITableViewCell {
     private func defaultInitLabels() {
         lblActionName.textAlignment = lblActionName.localizedDirection
         lblActionName.font = UIFont.igFont(ofSize: 15)
+        lblActionName.textColor = ThemeManager.currentTheme.LabelColor
+        lblActionDetail.onTintColor = ThemeManager.currentTheme.SliderTintColor
+
     }
     
     @IBAction func muteSwitchTapped(_ sender: UISwitch) {

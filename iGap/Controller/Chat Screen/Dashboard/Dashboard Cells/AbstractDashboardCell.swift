@@ -310,10 +310,10 @@ class AbstractDashboardCell: UICollectionViewCell {
         switch actionType {
         case .none:
             return
-        case .inviteFriend :
-            let vc = testVCViewController.instantiateFromAppStroryboard(appStoryboard: .PhoneBook)
-            vc.hidesBottomBarWhenPushed = true
-            UIApplication.topViewController()?.navigationController!.pushViewController(vc, animated: true)
+        case .inviteFriend : break
+//            let vc = testVCViewController.instantiateFromAppStroryboard(appStoryboard: .PhoneBook)
+//            vc.hidesBottomBarWhenPushed = true
+//            UIApplication.topViewController()?.navigationController!.pushViewController(vc, animated: true)
 
         case .joinLink:
             if !(agreementSlug == "") {
