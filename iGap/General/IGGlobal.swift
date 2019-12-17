@@ -643,6 +643,10 @@ extension UIColor {
         return UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
     }
     
+    class func statusBackgroundLayout() -> UIColor {
+        return UIColor(red: 0/255.0, green: 24/255.0, blue: 25/255.0, alpha: 0.2)
+    }
+    
     class func iGapRed() -> UIColor {
         return failedColor()
     }

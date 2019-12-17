@@ -29,6 +29,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
     var viewInfoVideoAbs: UIView!
     var viewSenderNameAbs: UIView!
     var additionalViewAbs: UIView!
+    var statusBackgroundViewAbs: UIView!
     
     var txtSenderNameAbs: UILabel!
     var txtStatusAbs: UILabel!
@@ -139,7 +140,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         manageReceivedOrIncommingMessage()
         manageReply()
         manageForward()
-        manageEdit()
         manageTextMessage()
         manageViewPosition()
         manageLink()
@@ -506,6 +506,34 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         }
     }
     
+    /** add background layout for message status and time if needed */
+    private func manageStatusBackgroundLayout() {
+        if finalRoomMessage.type == .sticker || finalRoomMessage.additional?.dataType == AdditionalType.STICKER.rawValue {
+            makeStatusBackground()
+            
+            if txtStatusAbs != nil {
+                if realmRoomMessage.status == .sending || realmRoomMessage.status == .sent || realmRoomMessage.status == .delivered {
+                    txtStatusAbs?.textColor = UIColor.white
+                }
+                mainBubbleViewAbs.bringSubviewToFront(txtStatusAbs)
+            }
+            
+            if txtTimeAbs != nil {
+                txtTimeAbs?.textColor = UIColor.white
+                mainBubbleViewAbs.bringSubviewToFront(txtTimeAbs)
+            }
+            
+            if txtEditedAbs != nil {
+                txtEditedAbs?.textColor = UIColor.white
+                mainBubbleViewAbs.bringSubviewToFront(txtEditedAbs)
+            }
+            
+        } else {
+            txtTimeAbs?.textColor = UIColor.chatTimeTextColor()
+            txtEditedAbs?.textColor = UIColor.chatTimeTextColor()
+        }
+    }
+    
     /*
      ******************************************************************
      *************************** Set Avatar ***************************
@@ -578,6 +606,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             manageTime(statusExist: true)
             manageMessageStatus()
         }
+        
+        manageEdit()
+        manageStatusBackgroundLayout()
     }
     
     private func manageCellBubble() {
@@ -1563,14 +1594,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             }
             
             txtReplyDisplayNameAbs.snp.makeConstraints { (make) in
-                make.leading.equalTo(replyViewAbs.snp.leading)
+                make.leading.equalTo(replyViewAbs.snp.leading).offset(8)
                 make.trailing.equalTo(replyLineViewAbs.snp.leading).offset(-8)
                 make.top.equalTo(replyLineViewAbs.snp.top)
                 make.height.equalTo(14)
             }
             
             txtReplyMessageAbs.snp.makeConstraints { (make) in
-                make.leading.equalTo(replyViewAbs.snp.leading)
+                make.leading.equalTo(replyViewAbs.snp.leading).offset(8)
                 make.trailing.equalTo(replyLineViewAbs.snp.leading).offset(-8)
                 make.bottom.equalTo(replyLineViewAbs.snp.bottom)
                 make.height.equalTo(17)
@@ -1663,10 +1694,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
     private func makeTime(statusExist: Bool){
         if txtTimeAbs == nil {
             txtTimeAbs = UILabel()
-            txtTimeAbs.font = UIFont.igFont(ofSize: 11.0)
+            txtTimeAbs.font = UIFont.igFont(ofSize: 11.0, weight: .medium)
             if isIncommingMessage {
                 txtTimeAbs.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
-
             } else {
                 txtTimeAbs.textColor = UIColor.chatTimeTextColor()
             }
@@ -1718,6 +1748,39 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
     private func removeEdit(){
         txtEditedAbs?.removeFromSuperview()
         txtEditedAbs = nil
+    }
+    
+    
+    
+    private func makeStatusBackground(){
+        statusBackgroundViewAbs?.removeFromSuperview()
+        statusBackgroundViewAbs = nil
+        
+        if statusBackgroundViewAbs == nil {
+            statusBackgroundViewAbs = UIView()
+            statusBackgroundViewAbs.backgroundColor = UIColor.statusBackgroundLayout()
+            statusBackgroundViewAbs.layer.masksToBounds = false
+            statusBackgroundViewAbs.layer.cornerRadius = self.cornerRadius
+            statusBackgroundViewAbs.layer.shadowColor = UIColor.black.cgColor
+            statusBackgroundViewAbs.layer.shadowRadius = 0.1
+            statusBackgroundViewAbs.layer.shadowOpacity = 0.2
+            mainBubbleViewAbs.addSubview(statusBackgroundViewAbs)
+        }
+        
+        statusBackgroundViewAbs.snp.makeConstraints { (make) in
+            if isIncommingMessage {
+                make.trailing.equalTo(txtTimeAbs.snp.trailing).offset(0)
+            } else {
+                make.trailing.equalTo(txtStatusAbs.snp.trailing).offset(10)
+            }
+            if finalRoomMessage.isEdited {
+                make.leading.equalTo(txtEditedAbs.snp.leading).offset(-10)
+            } else {
+                make.leading.equalTo(txtTimeAbs.snp.leading).offset(-10)
+            }
+            make.centerY.equalTo(txtTimeAbs.snp.centerY)
+            make.height.equalTo(22)
+        }
     }
     
     
