@@ -131,46 +131,54 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         case "IGAPBlue" :
             indexPathLight = IndexPath(item: 0, section: 0)
             self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
-            
+            DayColorSetManager.currentColorSet = BlueColorSet()
         case "IGAPTorquoise" :
             indexPathLight = IndexPath(item: 1, section: 0)
             self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
-            
+            DayColorSetManager.currentColorSet = TorquoiseColorSet()
+
             
         case "IGAPGreen" :
             indexPathLight = IndexPath(item: 2, section: 0)
             self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
-            
+            DayColorSetManager.currentColorSet = GreenColorSet()
+
             
         case "IGAPPink" :
             indexPathLight = IndexPath(item: 3, section: 0)
             self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
-            
+            DayColorSetManager.currentColorSet = PinkColorSet()
+
             
         case "IGAPOrange" :
             indexPathLight = IndexPath(item: 4, section: 0)
             self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
-            
+            DayColorSetManager.currentColorSet = OrangeColorSet()
+
             
         case "IGAPPurple" :
             indexPathLight = IndexPath(item: 5, section: 0)
             self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
-            
+            DayColorSetManager.currentColorSet = PurpleColorSet()
+
             
         case "IGAPRed" :
             indexPathLight = IndexPath(item: 6, section: 0)
             self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
-            
+            DayColorSetManager.currentColorSet = RedColorSet()
+
             
         case "IGAPGold" :
             indexPathLight = IndexPath(item: 7, section: 0)
             self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
-            
+            DayColorSetManager.currentColorSet = GoldColorSet()
+
             
         case "IGAPLightGray" :
             indexPathLight = IndexPath(item: 8, section: 0)
             self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
-            
+            DayColorSetManager.currentColorSet = LightGrayColorSet()
+
             
         case "IGAPBW" :
             indexPathLight = IndexPath(item: 9, section: 0)
@@ -183,39 +191,49 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         case "IGAPBlue" :
             indexPathDark = IndexPath(item: 0, section: 0)
             self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
-            
+            NightColorSetManager.currentColorSet = BlueColorSetNight()
+
         case "IGAPTorquoise" :
             indexPathDark = IndexPath(item: 1, section: 0)
             self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
-            
+            NightColorSetManager.currentColorSet = TorquoiseColorSetNight()
+
         case "IGAPGreen" :
             indexPathDark = IndexPath(item: 2, section: 0)
             self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
+            NightColorSetManager.currentColorSet = GreenColorSetNight()
+
             
         case "IGAPPink" :
             indexPathDark = IndexPath(item: 3, section: 0)
             self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
-            
+            NightColorSetManager.currentColorSet = PinkColorSetNight()
+
         case "IGAPOrange" :
             indexPathDark = IndexPath(item: 4, section: 0)
             self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
-            
+            NightColorSetManager.currentColorSet = OrangeColorSetNight()
+
         case "IGAPPurple" :
             indexPathDark = IndexPath(item: 5, section: 0)
             self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
-            
+            NightColorSetManager.currentColorSet = PurpleColorSetNight()
+
         case "IGAPRed" :
             indexPathDark = IndexPath(item: 6, section: 0)
             self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
-            
+            NightColorSetManager.currentColorSet = RedColorSetNight()
+
         case "IGAPGold" :
             indexPathDark = IndexPath(item: 7, section: 0)
             self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
-            
+            NightColorSetManager.currentColorSet = GoldColorSetNight()
+
         case "IGAPLightGray" :
             indexPathDark = IndexPath(item: 8, section: 0)
             self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
-            
+            NightColorSetManager.currentColorSet = LightGrayColorSetNight()
+
         case "IGAPBW" :
             indexPathDark = IndexPath(item: 9, section: 0)
             self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
