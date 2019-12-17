@@ -1147,6 +1147,18 @@ extension UIView {
         self.layer.add(animation, forKey: "shake")
     }
     
+    func addConstraintsWithFormat(_ format: String, views: UIView...) {
+        var viewsDictionary = [String: UIView]()
+        for (index, view) in views.enumerated() {
+            let key = "v\(index)"
+            view.translatesAutoresizingMaskIntoConstraints = false
+            viewsDictionary[key] = view
+        }
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: viewsDictionary))
+    }
+
+    
 }
 extension UIImageView {
     func setThumbnail(for attachment:IGFile, showMain: Bool = false) {
