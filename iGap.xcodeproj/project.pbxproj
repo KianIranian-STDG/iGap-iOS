@@ -4533,12 +4533,8 @@
 				FA03C19C2042945D008812E3 /* IGCall.swift in Sources */,
 				FAE07F042205A8B000BE3593 /* IGStickerSectionHeader.swift in Sources */,
 				FA0953521E1B97700043ED3F /* IGSettingChatFontSizeTableViewController.swift in Sources */,
-<<<<<<< HEAD
-				8E1CD97A232D0ED1008D8758 /* testVCViewController.swift in Sources */,
+                8E1CD97A232D0ED1008D8758 /* inviteFreindsVC.swift in Sources */,
 				D67E986023A679AB003C1516 /* ImageZoomControllerSettings.swift in Sources */,
-=======
-				8E1CD97A232D0ED1008D8758 /* inviteFreindsVC.swift in Sources */,
->>>>>>> 5f69f6d3... changes :
 				FA63BAA51DD70DD0000B60AD /* IGRequest.swift in Sources */,
 				8EBF54F922D9B60D00834E6A /* DataEntry.swift in Sources */,
 				FA9F73562127E589004418E5 /* EPConstants.swift in Sources */,

@@ -406,16 +406,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         if self.selectedMessages.count > 0 {
-<<<<<<< HEAD
-            lblSelectedMessages.text = String(self.selectedMessages.count).inLocalizedLanguage() + " " + IGStringsManager.Selected.rawValue.localized
-=======
             lblSelectedMessages.text = String(self.selectedMessages.count).inLocalizedLanguage() + "  " + IGStringsManager.Selected.rawValue.localized
-            inputBarDeleteButton.setTitleColor(UIColor.iGapDarkGray(), for: .normal)
-            inputBarDeleteButton.isEnabled = true
-            
-            inputBarForwardButton.setTitleColor(UIColor.iGapDarkGray(), for: .normal)
-            inputBarForwardButton.isEnabled = true
->>>>>>> 5f69f6d3... changes :
         }
         else {
             lblSelectedMessages.text = ""
