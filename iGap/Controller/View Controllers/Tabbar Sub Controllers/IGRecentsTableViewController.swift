@@ -652,12 +652,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalNoNetwork.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             } else {
-                // check number of pined rooms limitation
-                if self.rooms?.filter({ IGRoom.isPin(roomId: $0.id) }).count ?? 0 < 5 {
-                    self.pinRoom(room: room)
-                } else {
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: false, message: IGStringsManager.MaxPinAlert.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized)
-                }
+                self.pinRoom(room: room)
             }
         }
         btnPinSwipeCell.backgroundColor = UIColor.swipeBlueGray()
@@ -1039,6 +1034,17 @@ extension IGRecentsTableViewController {
         if room.pinId > 0 {
             pin = false
         }
+        
+        if pin {
+            // check number of pined rooms limitation
+            if self.rooms?.filter({
+                IGRoom.isPin(roomId: $0.id)
+            }).count ?? 0 >= 5 {
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: false, message: IGStringsManager.MaxPinAlert.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized)
+            }
+            return
+        }
+        
         
         self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
         self.hud.mode = .indeterminate
