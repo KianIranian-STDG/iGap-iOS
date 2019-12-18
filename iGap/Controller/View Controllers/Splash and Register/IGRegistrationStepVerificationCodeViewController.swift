@@ -15,7 +15,8 @@ import MBProgressHUD
 import maincore
 
 class IGRegistrationStepVerificationCodeViewController: BaseViewController {
-
+    
+    @IBOutlet weak var scrollViewMain: UIScrollView!
     @IBOutlet weak var countdownTimer: IGCountdownTimer!
     @IBOutlet weak var codeTextField: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
@@ -40,6 +41,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initView()
         initTimer()
         codeTextField.delegate = self
         self.hideKeyboardWhenTappedAround()
@@ -53,38 +55,73 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 
     }
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if UIDevice.current.hasNotch {
-
-            } else {
-                switch UIDevice().type {
-                case .iPhone5,.iPhone5S,.iPhoneSE:
-                    self.topMargin.constant -= keyboardSize.height
-                case .iPhone6,.iPhone6S :
-                    self.topMargin.constant -= (keyboardSize.height)/2
-                default:
-                    break
-                }
-            }
+    
+    
+    private func initView() {
+        
+        scrollViewMain.contentSize = CGSize(width: view.frame.width, height: retrySendingCodeLabel.frame.maxY + 20)
+        
+    }
+    
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//            if UIDevice.current.hasNotch {
+//
+//            } else {
+//                switch UIDevice().type {
+//                case .iPhone5,.iPhone5S,.iPhoneSE:
+//                    self.topMargin.constant -= keyboardSize.height
+//                case .iPhone6,.iPhone6S :
+//                    self.topMargin.constant -= (keyboardSize.height)/2
+//                default:
+//                    break
+//                }
+//            }
 //            self.topMargin.constant = 10
+//
+//        }
+//    }
 
+//    @objc func keyboardWillHide(notification: NSNotification) {
+//        self.topMargin.constant = 10
+//    }
+
+    
+    // MARK: - Keyboard Observer Action
+    @objc private func keyboardWillShowAction(notif: Notification) {
+        
+        if let keyboardSize = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            let keyboardHeight = keyboardSize.height
+            scrollViewMain.contentSize.height += keyboardHeight
         }
+        scrollToBottom()
     }
-
-    @objc func keyboardWillHide(notification: NSNotification) {
-        self.topMargin.constant = 10
+    
+    @objc private func keyboardWillHideAction(notif: Notification) {
+        scrollViewMain.contentSize = CGSize(width: view.frame.width, height: retrySendingCodeLabel.frame.maxY + 20)
     }
-
+    
+    private func scrollToBottom() {
+        
+        let bottomOffset = CGPoint(x: 0, y: scrollViewMain.contentSize.height - scrollViewMain.bounds.size.height + scrollViewMain.contentInset.bottom)
+        scrollViewMain.setContentOffset(bottomOffset, animated: true)
+        
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        self.codeTextField.becomeFirstResponder()
         setTitleText(verificationMethod: verificationMethod!)
         updateCountDown()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowAction), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideAction), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
     
     func initTimer() {
@@ -123,6 +160,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
     
     func didTapOnNext() {
 
+        view.endEditing(true)
         if let code = codeTextField.text?.inEnglishNumbersNew() {
             if IGGlobal.matches(for: self.codeRegex!, in: code) {
                 verifyUser()
@@ -382,7 +420,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
                                 IGAppManager.sharedManager.setUserLoginSuccessful()
                                 
 //                                let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//                                let vc = storyboard.instantiateViewController(withIdentifier: "MainTabBar")
+//                                let vc = storyboard.instantiateViewController(withIdentifier.story: "MainTabBar")
 //                                vc.modalPresentationStyle = .fullScreen
 //
 //                                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
