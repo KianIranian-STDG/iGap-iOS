@@ -4062,6 +4062,118 @@
             </objects>
             <point key="canvasLocation" x="-1145" y="-1544"/>
         </scene>
+        <!--Media Pager-->
+        <scene sceneID="cTO-rS-wld">
+            <objects>
+                <viewController storyboardIdentifier="IGMediaPager" useStoryboardIdentifierAsRestorationIdentifier="YES" id="f2j-q9-tqS" customClass="IGMediaPager" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="d4D-ws-jqw"/>
+                        <viewControllerLayoutGuide type="bottom" id="X00-YE-cc0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zjh-J0-GhX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nm5-oh-sb4">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tsS-Ls-iZB">
+                                        <rect key="frame" x="354" y="40" width="60" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="0bk-Zs-exS"/>
+                                            <constraint firstAttribute="height" constant="60" id="Hb3-ee-T1T"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
+                                        <state key="normal" title="">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnShare:" destination="f2j-q9-tqS" eventType="touchUpInside" id="sII-4j-4d0"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HZ3-LC-W6e">
+                                        <rect key="frame" x="0.0" y="40" width="60" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="X02-PH-BnN"/>
+                                            <constraint firstAttribute="height" constant="60" id="jdZ-VS-twc"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
+                                        <state key="normal" title="">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnBack:" destination="f2j-q9-tqS" eventType="touchUpInside" id="Z0v-AE-0Ek"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7nF-uI-73l">
+                                        <rect key="frame" x="207" y="40" width="0.0" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="A2G-cJ-HBy"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="7nF-uI-73l" firstAttribute="centerX" secondItem="nm5-oh-sb4" secondAttribute="centerX" id="5zq-5N-Flx"/>
+                                    <constraint firstAttribute="bottom" secondItem="HZ3-LC-W6e" secondAttribute="bottom" id="SdI-IJ-MWW"/>
+                                    <constraint firstAttribute="height" constant="100" id="VHi-xD-v6c"/>
+                                    <constraint firstAttribute="bottom" secondItem="7nF-uI-73l" secondAttribute="bottom" id="ZPq-lY-zFM"/>
+                                    <constraint firstAttribute="trailing" secondItem="tsS-Ls-iZB" secondAttribute="trailing" id="g8F-5j-waJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="tsS-Ls-iZB" secondAttribute="bottom" id="jzj-ly-jC0"/>
+                                    <constraint firstItem="HZ3-LC-W6e" firstAttribute="leading" secondItem="nm5-oh-sb4" secondAttribute="leading" id="mOw-gH-gKH"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MkA-tr-cWP">
+                                <rect key="frame" x="0.0" y="696" width="414" height="200"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piS-ga-ovf">
+                                        <rect key="frame" x="10" y="10" width="394" height="156"/>
+                                        <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst.</string>
+                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="piS-ga-ovf" firstAttribute="top" secondItem="MkA-tr-cWP" secondAttribute="top" constant="10" id="3X6-oQ-p0Q"/>
+                                    <constraint firstItem="piS-ga-ovf" firstAttribute="leading" secondItem="MkA-tr-cWP" secondAttribute="leading" constant="10" id="IyW-Ff-uoy"/>
+                                    <constraint firstAttribute="height" constant="200" id="aI9-na-M4l"/>
+                                    <constraint firstAttribute="trailing" secondItem="piS-ga-ovf" secondAttribute="trailing" constant="10" id="jBn-1i-hBD"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="X00-YE-cc0" firstAttribute="top" secondItem="piS-ga-ovf" secondAttribute="bottom" id="4an-PC-EaV"/>
+                            <constraint firstItem="MkA-tr-cWP" firstAttribute="leading" secondItem="zjh-J0-GhX" secondAttribute="leading" id="AdW-wS-4b9"/>
+                            <constraint firstItem="nm5-oh-sb4" firstAttribute="leading" secondItem="zjh-J0-GhX" secondAttribute="leading" id="EN3-hq-j8r"/>
+                            <constraint firstItem="nm5-oh-sb4" firstAttribute="top" secondItem="zjh-J0-GhX" secondAttribute="top" id="MpZ-4o-Dbb"/>
+                            <constraint firstAttribute="bottom" secondItem="MkA-tr-cWP" secondAttribute="bottom" id="T7k-bN-ezt"/>
+                            <constraint firstAttribute="trailing" secondItem="nm5-oh-sb4" secondAttribute="trailing" id="UOc-pV-7r8"/>
+                            <constraint firstAttribute="trailing" secondItem="MkA-tr-cWP" secondAttribute="trailing" id="rvG-hC-Owy"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bottomView" destination="MkA-tr-cWP" id="FZc-SC-T40"/>
+                        <outlet property="bottomViewHeight" destination="aI9-na-M4l" id="di3-sk-ytb"/>
+                        <outlet property="btnBack" destination="HZ3-LC-W6e" id="e2k-LZ-qJT"/>
+                        <outlet property="btnShare" destination="tsS-Ls-iZB" id="epY-mc-TuY"/>
+                        <outlet property="topView" destination="nm5-oh-sb4" id="Kc4-am-BEs"/>
+                        <outlet property="topViewHeight" destination="VHi-xD-v6c" id="1Eo-Kw-6VC"/>
+                        <outlet property="txtCount" destination="7nF-uI-73l" id="QWh-Bn-odb"/>
+                        <outlet property="txtMessage" destination="piS-ga-ovf" id="jSB-YF-oWP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eHy-og-hpt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-312" y="155"/>
+        </scene>
     </scenes>
     <resources>
         <image name="IG_Blur_Call" width="640" height="1136"/>
