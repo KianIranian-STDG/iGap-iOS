@@ -1758,7 +1758,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         
         if statusBackgroundViewAbs == nil {
             statusBackgroundViewAbs = UIView()
-            statusBackgroundViewAbs.backgroundColor = UIColor.statusBackgroundLayout()
+            statusBackgroundViewAbs.backgroundColor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor
             statusBackgroundViewAbs.layer.masksToBounds = false
             statusBackgroundViewAbs.layer.cornerRadius = self.cornerRadius
             statusBackgroundViewAbs.layer.shadowColor = UIColor.black.cgColor

@@ -850,13 +850,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=". . ." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-iX-P27">
-                                <rect key="frame" x="195.33333333333334" y="680" width="23.666666666666657" height="20"/>
+                                <rect key="frame" x="194.66666666666666" y="673.33333333333337" width="25" height="26.666666666666629"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <color key="textColor" name="IGLabelColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="...." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t1p-d4-xse">
-                                <rect key="frame" x="197.66666666666666" y="650" width="19" height="20"/>
+                                <rect key="frame" x="197.33333333333334" y="636.66666666666663" width="19.333333333333343" height="26.666666666666629"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <color key="textColor" name="IGLabelColor"/>
                                 <nil key="highlightedColor"/>
@@ -1160,21 +1160,21 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="30" height="38"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aEG-Ic-xrU">
-                                                                <rect key="frame" x="0.0" y="0.0" width="30" height="38"/>
+                                                                <rect key="frame" x="0.0" y="1" width="30" height="36"/>
                                                                 <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="24"/>
                                                                 <state key="normal">
                                                                     <color key="titleColor" name="IGButtonTextColor"/>
                                                                 </state>
                                                             </button>
                                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXn-uZ-OLO">
-                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="38"/>
+                                                                <rect key="frame" x="0.0" y="2" width="0.0" height="34"/>
                                                                 <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="22"/>
                                                                 <state key="normal">
                                                                     <color key="titleColor" name="IGButtonTextColor"/>
                                                                 </state>
                                                             </button>
                                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8DA-hv-jGN">
-                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="38"/>
+                                                                <rect key="frame" x="0.0" y="2" width="0.0" height="34"/>
                                                                 <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="22"/>
                                                                 <state key="normal">
                                                                     <color key="titleColor" name="IGButtonTextColor"/>
@@ -1449,13 +1449,13 @@
                                                 <rect key="frame" x="50" y="0.0" width="321" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWN-kt-B2V">
-                                                        <rect key="frame" x="0.0" y="0.0" width="321" height="34.666666666666664"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="321" height="29.333333333333332"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labelsfsfsdfsfsdfsdfsdfdfsfd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DIZ-kN-38W">
-                                                        <rect key="frame" x="0.0" y="34.666666666666629" width="321" height="15.333333333333336"/>
+                                                        <rect key="frame" x="0.0" y="29.333333333333371" width="321" height="20.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1518,22 +1518,22 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="qTg-dO-DAl">
-                                                <rect key="frame" x="50" y="0.0" width="281" height="50"/>
+                                                <rect key="frame" x="50" y="0.0" width="281.33333333333331" height="50"/>
                                                 <subviews>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NBi-ij-8iC">
-                                                        <rect key="frame" x="0.0" y="0.0" width="165" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="169.66666666666666" height="0.0"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labelsfsfsdfsfsdfsdfsdfdfsfd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0eX-5X-VH3">
-                                                        <rect key="frame" x="0.0" y="0.0" width="165" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="169.66666666666666" height="0.0"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lLs-2z-FQH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="165" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="169.66666666666666" height="0.0"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1553,7 +1553,7 @@
                                                 </connections>
                                             </button>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xDo-2r-kGN">
-                                                <rect key="frame" x="339" y="0.0" width="32" height="50"/>
+                                                <rect key="frame" x="339.33333333333331" y="0.0" width="31.666666666666686" height="50"/>
                                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1638,7 +1638,7 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="50"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yTB-P6-xqf">
-                                                                                <rect key="frame" x="-18.333333333333329" y="16.333333333333371" width="37" height="17.666666666666671"/>
+                                                                                <rect key="frame" x="-18" y="13.333333333333373" width="36.333333333333336" height="23.666666666666671"/>
                                                                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1830,7 +1830,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GFl-jP-UWC" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                        <rect key="frame" x="107" y="15.666666666666631" width="20" height="18.666666666666671"/>
+                                                        <rect key="frame" x="107" y="17" width="20" height="16"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="20" id="mNr-vC-mR6"/>
                                                         </constraints>
@@ -1839,7 +1839,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0xP-Py-NoP" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                        <rect key="frame" x="5" y="18" width="49" height="14"/>
+                                                        <rect key="frame" x="5" y="15.666666666666629" width="49" height="19"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="49" id="AWa-29-hd6"/>
                                                         </constraints>
@@ -1913,7 +1913,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pinned message test text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfO-SB-YDv">
-                                                <rect key="frame" x="19" y="30.666666666666671" width="345" height="16.333333333333329"/>
+                                                <rect key="frame" x="19" y="25" width="345" height="22"/>
                                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                 <color key="textColor" name="IGLabelGrayColor"/>
                                                 <nil key="highlightedColor"/>
@@ -2022,14 +2022,10 @@
                     <navigationItem key="navigationItem" title="Title" id="yRi-nN-wYI" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="RightBarConstraints" destination="Fk5-7Q-M7C" id="NK3-Ox-k0R"/>
-                        <outlet property="btnAttachment" destination="aEG-Ic-xrU" id="R2y-Os-ixH"/>
                         <outlet property="btnAttachmentNew" destination="TmN-rk-uhm" id="ukd-yq-3uv"/>
-                        <outlet property="btnCancelReplyOrForward" destination="pFr-44-9aA" id="UhW-bI-JnR"/>
                         <outlet property="btnClosePin" destination="grH-pt-p4x" id="q2A-FT-LNb"/>
                         <outlet property="btnCloseReplyBar" destination="reJ-AG-JXQ" id="6Px-Eg-4Cb"/>
                         <outlet property="btnCloseTopBar" destination="xsM-bd-vfU" id="zsC-DY-c7g"/>
-                        <outlet property="btnDeleteSelectedAttachment" destination="IvY-L2-6Iw" id="fy8-mA-1E9"/>
                         <outlet property="btnForward" destination="5YY-II-PI9" id="yay-4X-Z7K"/>
                         <outlet property="btnMic" destination="ZsV-uA-l5S" id="EUS-R6-1yJ"/>
                         <outlet property="btnMicInner" destination="dfs-za-NBn" id="hu9-Wk-Gf6"/>
@@ -2042,46 +2038,17 @@
                         <outlet property="btnTrash" destination="FkX-fc-CcQ" id="sBw-x7-hcj"/>
                         <outlet property="chatBackground" destination="PLh-MM-IK9" id="kmi-ka-fIy"/>
                         <outlet property="collectionView" destination="9G6-WI-YVj" id="W5s-J5-lty"/>
-                        <outlet property="floatingDateTopConstraints" destination="WTm-s5-eRf" id="dl7-wO-vqv"/>
                         <outlet property="floatingDateView" destination="dyh-H7-OPt" id="Pat-k4-gtU"/>
                         <outlet property="holderAttachmentBar" destination="goW-Lg-W3d" id="ESn-oK-FR3"/>
                         <outlet property="holderMessageTextView" destination="v3P-BK-RQY" id="riF-N4-OQ6"/>
                         <outlet property="holderMultiSelect" destination="kSq-0Y-NlN" id="2N0-dH-Wqm"/>
                         <outlet property="holderMusicPlayer" destination="jME-kX-MJ0" id="L8H-k6-NGz"/>
-                        <outlet property="holderMusicPlayerHeightConstraint" destination="oAh-4r-ww2" id="eQl-oo-dKh"/>
                         <outlet property="holderRecordView" destination="urJ-PG-Uzl" id="jn5-Kd-7n7"/>
                         <outlet property="holderReplyBar" destination="wlI-ch-mHJ" id="zvb-pl-bf2"/>
                         <outlet property="holderTextBox" destination="AtU-aY-koK" id="Xub-Oe-bRh"/>
                         <outlet property="imgAttachmentImage" destination="KDh-5F-S6i" id="9n7-nH-u2Q"/>
-                        <outlet property="inputBarAttachmentView" destination="GKD-aB-Nez" id="LxL-aF-CLm"/>
-                        <outlet property="inputBarAttachmentViewBottomConstraint" destination="xTp-jF-6fO" id="CZc-Vr-QBz"/>
-                        <outlet property="inputBarAttachmentViewFileNameLabel" destination="fh1-j5-GnE" id="dBl-mz-1tw"/>
-                        <outlet property="inputBarAttachmentViewFileSizeLabel" destination="ajG-7M-bRf" id="GIt-Ey-hIE"/>
-                        <outlet property="inputBarAttachmentViewThumnailImageView" destination="CCl-SO-FOd" id="7VT-Jd-awH"/>
-                        <outlet property="inputBarBackgroundView" destination="gfk-FX-lPd" id="6q3-uS-Y1d"/>
-                        <outlet property="inputBarContainerView" destination="4eQ-gi-PNj" id="SdF-6w-oQc"/>
-                        <outlet property="inputBarDeleteButton" destination="jXn-uZ-OLO" id="ZZ1-GK-Tks"/>
-                        <outlet property="inputBarForwardButton" destination="8DA-hv-jGN" id="KLL-EI-H3R"/>
-                        <outlet property="inputBarHeightConstraint" destination="rzN-sF-8pZ" id="M8R-V6-UtN"/>
-                        <outlet property="inputBarHeightContainerConstraint" destination="kQj-k2-k9z" id="kW4-lk-7EK"/>
-                        <outlet property="inputBarLeftView" destination="hI3-wW-ErK" id="tsn-uz-XJG"/>
-                        <outlet property="inputBarMoneyTransferButton" destination="Dgh-FS-H7F" id="YXU-nv-XX5"/>
-                        <outlet property="inputBarOriginalMessageView" destination="E41-Xs-Ose" id="7Vv-kc-7bT"/>
-                        <outlet property="inputBarOriginalMessageViewBodyTextLabel" destination="rUv-eg-9V4" id="20a-db-xIX"/>
-                        <outlet property="inputBarOriginalMessageViewBottomConstraint" destination="eli-ge-EGI" id="aLG-hb-hTC"/>
-                        <outlet property="inputBarOriginalMessageViewSenderNameLabel" destination="Rbu-e1-khD" id="8El-KA-giy"/>
                         <outlet property="inputBarRecodingBlinkingView" destination="HZt-jn-lqx" id="cQc-iR-vCv"/>
-                        <outlet property="inputBarRecordButton" destination="aWE-Ym-D0e" id="aUc-7h-uke"/>
-                        <outlet property="inputBarRecordRightView" destination="Jdp-hz-zaS" id="dry-e8-es9"/>
                         <outlet property="inputBarRecordTimeLabel" destination="0xP-Py-NoP" id="1WK-kO-5rF"/>
-                        <outlet property="inputBarRecordView" destination="oQj-74-6dV" id="Mrw-F4-wsS"/>
-                        <outlet property="inputBarRecordViewLeftConstraint" destination="Ym6-fk-ya6" id="yNC-Ra-njp"/>
-                        <outlet property="inputBarRightiew" destination="84p-pD-00v" id="rP8-hi-IOa"/>
-                        <outlet property="inputBarSendButton" destination="JfN-2p-VQo" id="Car-If-StI"/>
-                        <outlet property="inputBarShareButton" destination="agU-js-JDV" id="VAV-UD-7Tv"/>
-                        <outlet property="inputBarView" destination="f1F-hm-WrH" id="n4X-Kk-jjx"/>
-                        <outlet property="inputBarViewBottomConstraint" destination="l9j-I8-pUw" id="9nC-iT-dAP"/>
-                        <outlet property="inputTextViewHeightConstraint" destination="i0G-sC-VLl" id="O1Y-ij-3h7"/>
                         <outlet property="joinButton" destination="uLc-FX-WjP" id="gTz-2h-Ury"/>
                         <outlet property="lblActionType" destination="KPH-rJ-BEy" id="1TS-Ba-YtO"/>
                         <outlet property="lblCenterIcon" destination="GFl-jP-UWC" id="EHX-OY-xKq"/>
@@ -2097,18 +2064,14 @@
                         <outlet property="lblThirdInStack" destination="lLs-2z-FQH" id="293-zx-byq"/>
                         <outlet property="mainHolder" destination="LOj-Lj-q1z" id="d3b-dP-JH6"/>
                         <outlet property="mainView" destination="ziz-lj-PYe" id="dTw-Uu-Ri1"/>
-                        <outlet property="messageCollectionBottomCollectionConstrains" destination="bg0-rO-guD" id="EGq-vb-Qtg"/>
                         <outlet property="messageTextView" destination="Jn5-uz-PAc" id="XDo-Ak-q1n"/>
                         <outlet property="messageTextViewBottomConstraint" destination="dnY-6v-WBy" id="S4d-E1-mxO"/>
                         <outlet property="messageTextViewHeightConstraint" destination="nOg-ey-wtq" id="VM5-is-SUg"/>
-                        <outlet property="pinnedMessageView" destination="gI9-RR-rF9" id="bFj-zu-R1g"/>
                         <outlet property="scrollToBottomContainerView" destination="5mR-SM-BTR" id="Xvj-fw-UgO"/>
-                        <outlet property="scrollToBottomContainerViewConstraint" destination="Obr-Bc-Azv" id="WAk-s1-O8N"/>
                         <outlet property="stackMessageView" destination="Rgo-Uz-CMo" id="M3s-xR-19P"/>
                         <outlet property="stackTopViews" destination="TPG-e4-S3m" id="B6G-B2-aqg"/>
                         <outlet property="txtFloatingDate" destination="lfs-sg-eWx" id="R9Y-Bt-5D8"/>
                         <outlet property="txtPinnedMessage" destination="OfO-SB-YDv" id="Yhx-Wj-P13"/>
-                        <outlet property="txtSticker" destination="5nb-Dt-CKY" id="EXb-kI-qUU"/>
                         <segue destination="u0S-Sh-Wik" kind="show" identifier="showReportPage" id="jRj-hY-oEr"/>
                         <segue destination="S3I-yk-3Ak" kind="show" identifier="showLocationViewController" id="rg6-Tr-vEo"/>
                         <segue destination="Wmx-fA-ZCJ" kind="show" identifier="showSticker" id="r1k-fE-0FE"/>
@@ -2523,7 +2486,7 @@
                                                             <rect key="frame" x="133.33333333333334" y="0.0" width="127.33333333333334" height="58"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4sG-cm-E7r">
-                                                                    <rect key="frame" x="46.333333333333314" y="0.0" width="35" height="29"/>
+                                                                    <rect key="frame" x="48.666666666666657" y="0.0" width="30" height="29"/>
                                                                     <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
                                                                     <state key="normal" title="">
                                                                         <color key="titleColor" name="IGLabelGrayColor"/>
@@ -2541,7 +2504,7 @@
                                                             <rect key="frame" x="266.66666666666669" y="0.0" width="127.33333333333331" height="58"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="woP-oI-ppG">
-                                                                    <rect key="frame" x="46.333333333333314" y="0.0" width="35" height="29"/>
+                                                                    <rect key="frame" x="48.666666666666629" y="0.0" width="30" height="29"/>
                                                                     <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
                                                                     <state key="normal" title="">
                                                                         <color key="titleColor" name="IGLabelGrayColor"/>
@@ -2640,16 +2603,16 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="o32-lY-OJv">
-                                                            <rect key="frame" x="63.000000000000007" y="9.9999999999999982" width="80.666666666666686" height="29.333333333333329"/>
+                                                            <rect key="frame" x="65" y="10" width="76.666666666666686" height="25"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="7kb-TF-t5Y">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="29" height="29.333333333333332"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
                                                                     <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
                                                                     <color key="textColor" name="IGLabelGrayColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="p1U-b3-gnT" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                                    <rect key="frame" x="37" y="5.6666666666666661" width="43.666666666666657" height="18"/>
+                                                                    <rect key="frame" x="33" y="3.6666666666666661" width="43.666666666666657" height="18"/>
                                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                                                     <color key="textColor" name="IGLabelGrayColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -2675,16 +2638,16 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hV0-li-TCq">
-                                                            <rect key="frame" x="63.666666666666657" y="9.9999999999999982" width="79" height="29.333333333333329"/>
+                                                            <rect key="frame" x="65.666666666666657" y="10" width="75" height="25"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="LxP-jt-1eN">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="29" height="29.333333333333332"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
                                                                     <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
                                                                     <color key="textColor" name="IGLabelGrayColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Nsw-1a-vF5" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                                    <rect key="frame" x="37" y="5.6666666666666661" width="42" height="18"/>
+                                                                    <rect key="frame" x="33" y="3.6666666666666661" width="42" height="18"/>
                                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                                                     <color key="textColor" name="IGLabelGrayColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -2763,13 +2726,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Zhc-oc-kpD" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="55.666666666666657" y="12.333333333333334" width="97" height="19.333333333333329"/>
+                                                    <rect key="frame" x="53" y="12.333333333333334" width="97" height="19.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" name="IGTVCellTitleColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="72C-Wi-Lga">
-                                                    <rect key="frame" x="26" y="12" width="19.666666666666671" height="20"/>
+                                                    <rect key="frame" x="26" y="13.666666666666664" width="17" height="17"/>
                                                     <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2793,13 +2756,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QRcode Scanner" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="xOh-3n-c03" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="55.666666666666657" y="12.333333333333334" width="122" height="19.333333333333329"/>
+                                                    <rect key="frame" x="53" y="12.333333333333334" width="122" height="19.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" name="IGTVCellTitleColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="7zU-yo-jtS">
-                                                    <rect key="frame" x="26" y="12" width="19.666666666666671" height="20"/>
+                                                    <rect key="frame" x="26" y="13.666666666666664" width="17" height="17"/>
                                                     <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2823,13 +2786,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nearby" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="6B9-cx-EV1" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="55.666666666666657" y="12.333333333333334" width="52.333333333333343" height="19.333333333333329"/>
+                                                    <rect key="frame" x="53" y="12.333333333333334" width="52.333333333333343" height="19.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" name="IGTVCellTitleColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="L6S-yb-BFk">
-                                                    <rect key="frame" x="26" y="12" width="19.666666666666671" height="20"/>
+                                                    <rect key="frame" x="26" y="13.666666666666664" width="17" height="17"/>
                                                     <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2853,13 +2816,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FAQ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="sEc-hF-gaj" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="55.666666666666664" y="12.333333333333334" width="30.333333333333336" height="19.333333333333329"/>
+                                                    <rect key="frame" x="53.000000000000007" y="12.333333333333334" width="30.333333333333336" height="19.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" name="IGTVCellTitleColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="f8e-mW-A6h">
-                                                    <rect key="frame" x="26" y="12" width="19.666666666666671" height="20"/>
+                                                    <rect key="frame" x="26" y="13.666666666666664" width="17" height="17"/>
                                                     <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -3098,7 +3061,7 @@
                                                     </connections>
                                                 </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMQ-x6-ofX" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="206" y="6" width="45" height="32"/>
+                                                    <rect key="frame" x="206" y="2.6666666666666679" width="45" height="39"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="45" id="eWb-xs-U2O"/>
                                                     </constraints>
@@ -3348,7 +3311,7 @@
                                 <rect key="frame" x="20" y="44" width="374" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qci-pu-DXq">
-                                        <rect key="frame" x="15.999999999999996" y="14.666666666666664" width="41.666666666666657" height="21"/>
+                                        <rect key="frame" x="16.000000000000004" y="14.666666666666664" width="41.333333333333343" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="A2w-CU-fs7"/>
                                         </constraints>
@@ -3376,16 +3339,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="hWi-uf-JxK">
-                                                    <rect key="frame" x="75" y="22.000000000000004" width="279" height="36.333333333333343"/>
+                                                    <rect key="frame" x="75" y="15.666666666666668" width="279" height="48.666666666666657"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XDc-8R-cJt" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="279" height="20"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XDc-8R-cJt" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="279" height="26.666666666666668"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                             <color key="textColor" name="IGLabelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NmX-rv-Bkb" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="20" width="279" height="16.333333333333329"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NmX-rv-Bkb" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="26.666666666666671" width="279" height="22"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                             <color key="textColor" name="IGLabelColor"/>
                                                             <nil key="highlightedColor"/>
@@ -3554,16 +3517,16 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Gvu-lX-n2S">
-                                            <rect key="frame" x="75" y="22.000000000000004" width="319" height="36.333333333333343"/>
+                                            <rect key="frame" x="75" y="15.666666666666668" width="319" height="48.666666666666657"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C35-ok-BQU" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="319" height="20"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="319" height="26.666666666666668"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jDF-Vb-f9O" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="20" width="319" height="16.333333333333329"/>
+                                                    <rect key="frame" x="0.0" y="26.666666666666671" width="319" height="22"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
@@ -4130,7 +4093,7 @@
             <color red="0.72500002384185791" green="0.88599997758865356" blue="0.2669999897480011" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGNavigationSecondColor">
-            <color red="0.25499999523162842" green="0.6940000057220459" blue="0.125" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.25490196078431371" green="0.69019607843137254" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGRecentTVCellColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
