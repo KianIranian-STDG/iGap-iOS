@@ -24,10 +24,12 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     private let FETCH_MEMBER_LIMIT: Int32 = 20
     private var realmNotificationToken: NotificationToken?
     private var realmMembers: Results<IGRealmMember>!
+    private var allRealmMembers: Results<IGRealmMember>!
     private var allowFetchMore = false
     private var fetchedMember = false // if one time or more than fetched member from server and received response
     public static var updateMyRoleObserver: UpdateMyRoleObserver!
-
+    
+    var isInSearchMode : Bool = false
     var searchController : UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
@@ -117,6 +119,11 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
         }
         
         setNavigationItem()
+        
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -305,6 +312,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                         self.allowFetchMore = true
                     }
                     IGGroupGetMemberListRequest.Handler.interpret(response: getGroupMemberList, roomId: self.roomId)
+                    self.allRealmMembers = self.realmMembers
                 }
             }).error ({ (errorCode, waitTime) in
                 IGGlobal.prgHide()
@@ -328,6 +336,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                             self.manageEmptyMessage()
                         }
                         IGChannelGetMemberListRequest.Handler.interpret(response: getChannelMemberList, roomId: self.roomId)
+                        self.allRealmMembers = self.realmMembers
                     }
                 }
             }).error ({ (errorCode, waitTime) in
@@ -803,4 +812,43 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
             destinationTv.room = room
         }
     }
+    
+}
+
+// MARK:- Search Controller Extension
+extension IGMemberTableViewController: UISearchResultsUpdating, UISearchBarDelegate {
+
+    func updateSearchResults(for searchController: UISearchController) {
+
+        guard let searchString = searchController.searchBar.text else { return }
+
+        self.realmNotificationToken?.invalidate()
+        let predicate = NSPredicate(format: "self.user.displayName CONTAINS[c] %@", searchString)
+        if !searchString.isEmpty {
+            realmMembers = allRealmMembers.filter(predicate).sorted(byKeyPath: "user.displayName", ascending: true)
+            isInSearchMode = true
+            tableView.reloadData()
+        } else {
+            realmMembers = allRealmMembers
+            tableView.reloadData()
+        }
+
+    }
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.tableView.reloadData()
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        realmMembers = allRealmMembers
+        isInSearchMode = false
+        self.tableView.reloadData()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.tableView.reloadData()
+        isInSearchMode = true
+        searchController.searchBar.resignFirstResponder()
+    }
+
 }

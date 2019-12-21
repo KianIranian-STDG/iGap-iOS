@@ -26,11 +26,13 @@ class IGMemberAddOrUpdateState: BaseViewController {
 
     class User: NSObject {
         let registredUser: IGRegisteredUser
-        @objc let name: String
+        @objc var name: String
         var section:Int?
+        let id: Int64
         init(registredUser: IGRegisteredUser){
             self.registredUser = registredUser
             self.name = registredUser.displayName
+            self.id = registredUser.id
         }
     }
     
@@ -52,7 +54,9 @@ class IGMemberAddOrUpdateState: BaseViewController {
     var contactTableSelectedIndexPath : IndexPath?
     var room: IGRoom?
     var hud = MBProgressHUD()
-    var contacts = try! Realm().objects(IGRegisteredUser.self).filter("isInContacts == 1")
+    var contacts : Results<IGRegisteredUser>!
+    var allContacts = try! Realm().objects(IGRegisteredUser.self).filter("isInContacts == 1") {
+    }
     var contactSections: [Section]?
     let collation = UILocalizedIndexedCollation.current()
     var doneActionsCount: Int = 0
@@ -84,8 +88,49 @@ class IGMemberAddOrUpdateState: BaseViewController {
         }
         
         self.contactSections = sections
+        
+        for sec in contactSections! {
+            print(sec.users.count)
+        }
+        
         return self.contactSections!
     }
+    
+    var isInSearchMode : Bool = false
+    var searchController : UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = ""
+        searchController.searchBar.setValue(IGStringsManager.GlobalCancel.rawValue.localized, forKey: "cancelButtonText")
+        
+        let gradient = CAGradientLayer()
+        let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
+
+        gradient.frame = defaultNavigationBarFrame
+        gradient.colors = [ThemeManager.currentTheme.NavigationFirstColor.cgColor, ThemeManager.currentTheme.NavigationSecondColor.cgColor]
+        gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
+        gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
+        
+        searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+        searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
+                searchBarCancelButton.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
+                searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
+                searchBarCancelButton.tintColor = UIColor.white
+            }
+            
+            if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
+                placeHolderInsideSearchField.textColor = UIColor.white
+                placeHolderInsideSearchField.textAlignment = .center
+                placeHolderInsideSearchField.text = IGStringsManager.SearchPlaceHolder.rawValue.localized
+                if let backgroundview = textField.subviews.first {
+                    placeHolderInsideSearchField.center = backgroundview.center
+                }
+                placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15,weight: .bold)
+            }
+        }
+        return searchController
+    }()
     
     func dismmisDelegate(){
         self.dismiss(animated: true, completion: nil)
@@ -93,6 +138,7 @@ class IGMemberAddOrUpdateState: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        contacts = allContacts
         self.roomID = self.room?.id
         contactsTableView.delegate = self
         contactsTableView.dataSource = self
@@ -103,8 +149,23 @@ class IGMemberAddOrUpdateState: BaseViewController {
         self.contactsTableView.sectionIndexBackgroundColor = UIColor.clear
         self.selectedContactsView.addSubview(collectionView)
         self.contactViewBottomConstraizt.constant = -self.contactViewHeightConstraint.constant
+        if #available(iOS 11.0, *) {
+            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
+            if contactsTableView.tableHeaderView == nil {
+                contactsTableView.tableHeaderView = searchController.searchBar
+            }
+        } else {
+            contactsTableView.tableHeaderView = searchController.searchBar
+        }
         setNavigationItem()
         initTheme()
+        
+        
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        
+        
     }
     private func initTheme() {
         self.contactsTableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
@@ -115,8 +176,8 @@ class IGMemberAddOrUpdateState: BaseViewController {
         super.viewWillAppear(animated)
         let navigationControllerr = self.navigationController as! IGNavigationController
         navigationControllerr.navigationBar.isHidden = false
-        let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.searchController = nil
+//        let navigationItem = self.navigationItem as! IGNavigationItem
+//        navigationItem.searchController = nil
     }
     
     private func setNavigationItem(){
@@ -494,7 +555,18 @@ extension IGMemberAddOrUpdateState : UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
-
+        
+        let user = self.sections[indexPath.section].users[indexPath.row]
+        
+        if selectedUsers.contains(where: { (u) -> Bool in
+                    return u.id == user.id
+                }) {
+                    tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                }else {
+                    tableView.deselectRow(at: indexPath, animated: false)
+                }
+        
+        
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -546,6 +618,7 @@ extension IGMemberAddOrUpdateState : UITableViewDataSource {
         let contactsCell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath) as! IGMemberChoose
         contactsCell.lastSeenStatusLabel.textAlignment = self.TextAlignment
         let user = self.sections[indexPath.section].users[indexPath.row]
+        
         contactsCell.user = user
         cell = contactsCell
         cell.separatorInset = UIEdgeInsets(top: 0, left: 94.0, bottom: 0, right: 0)
@@ -570,6 +643,14 @@ extension IGMemberAddOrUpdateState : UICollectionViewDataSource {
         cell.user = selectedUsers[indexPath.row]
         cell.cellDelegate = self
         collectionIndexPath = indexPath
+        if collectionView.numberOfItems(inSection: 0) == 0 {
+            
+            self.contactViewBottomConstraizt.constant = 0
+            UIView.animate(withDuration: 0.2, animations: {
+                self.selectedContactsView.alpha = 0
+                self.view.layoutIfNeeded()
+            })
+        }
         return cell
     }
 }
@@ -597,3 +678,40 @@ extension IGMemberAddOrUpdateState: IGDeleteSelectedCellDelegate {
     }
 }
 
+// MARK:- Search Controller Extension
+extension IGMemberAddOrUpdateState: UISearchResultsUpdating, UISearchBarDelegate {
+
+    func updateSearchResults(for searchController: UISearchController) {
+
+        guard let searchString = searchController.searchBar.text else { return }
+        contactSections = nil
+
+        let predicate = NSPredicate(format: "self.displayName CONTAINS[c] %@", searchString)
+        if !searchString.isEmpty {
+            contacts = allContacts.filter(predicate).sorted(byKeyPath: "displayName", ascending: true)
+            isInSearchMode = true
+            contactsTableView.reloadData()
+        } else {
+            contacts = allContacts
+            contactsTableView.reloadData()
+        }
+
+    }
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.contactsTableView.reloadData()
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        contacts = allContacts
+        isInSearchMode = false
+        self.contactsTableView.reloadData()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.contactsTableView.reloadData()
+        isInSearchMode = true
+        searchController.searchBar.resignFirstResponder()
+    }
+
+}
