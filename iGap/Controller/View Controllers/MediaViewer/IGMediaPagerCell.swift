@@ -25,6 +25,7 @@ class IGMediaPagerCell: FSPagerViewCell {
     private var txtVideoPlay: UILabel!
 
     private var finalRoomMessage: IGRoomMessage!
+    private var finalAvatar: IGAvatar!
     private var attachment: IGFile!
     
     class func nib() -> UINib {
@@ -43,11 +44,22 @@ class IGMediaPagerCell: FSPagerViewCell {
     public func setMessageItem(message: IGRoomMessage, size: MediaViewerCellCalculatedSize) {
         finalRoomMessage = message.getFinalMessage()
         attachment = finalRoomMessage.attachment
+        manageMedia(file: attachment, cacheId: finalRoomMessage.id, size: size)
         
-        makeView(size: size)
         if finalRoomMessage.type == .video || finalRoomMessage.type == .videoAndText {
             makeVideoInfo()
         }
+    }
+    
+    public func setAvatarItem(avatar: IGAvatar, size: MediaViewerCellCalculatedSize) {
+        finalAvatar = avatar
+        attachment = avatar.file
+        manageMedia(file: avatar.file!, cacheId: avatar.id, size: size)
+    }
+    
+    private func manageMedia(file: IGFile, cacheId: Int64, size: MediaViewerCellCalculatedSize) {
+        attachment = file
+        makeView(size: size)
         
         if let attachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
             self.attachment = attachmentVariableInCache.value
@@ -60,8 +72,8 @@ class IGMediaPagerCell: FSPagerViewCell {
         
         /* Rx Start */
         if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
-            if let disposable = IGGlobal.dispoasDic[finalRoomMessage.id] {
-                IGGlobal.dispoasDic.removeValue(forKey: finalRoomMessage.id)
+            if let disposable = IGGlobal.dispoasDic[cacheId] {
+                IGGlobal.dispoasDic.removeValue(forKey: cacheId)
                 disposable.dispose()
             }
             let subscriber = variableInCache.asObservable().subscribe({ (event) in
@@ -69,28 +81,23 @@ class IGMediaPagerCell: FSPagerViewCell {
                     self.showMedia()
                 }
             })
-            IGGlobal.dispoasDic[finalRoomMessage.id] = subscriber
+            IGGlobal.dispoasDic[cacheId] = subscriber
         }
-    }
-    
-    public func setAvatarItem(message: IGRoomMessage, size: MediaViewerCellCalculatedSize) {
-        imgMedia.setThumbnaill(for: message.attachment!)
     }
     
     private func showMedia(){
         let fileExist = IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size)
         if fileExist {
-            if self.finalRoomMessage.type == .video || self.finalRoomMessage.type == .videoAndText {
-                makeVideoPlayView()
-            }
             progress?.setState(attachment.status)
             progress.isHidden = true
             
-            let settings = Settings.defaultSettings
-                .with(actionOnDoubleTapImageView: Action.zoomIn)
-                .with(actionOnDoubleTapOverlay: Action.dismissOverlay)
-            
-            UIApplication.topViewController()?.addZoombehavior(for: imgMedia, in: self, settings: settings)
+            if (finalRoomMessage != nil && (finalRoomMessage.type == .image || finalRoomMessage.type == .imageAndText)) || (finalAvatar != nil) {
+                let settings = Settings.defaultSettings
+                    .with(actionOnDoubleTapImageView: Action.zoomIn)
+                    .with(actionOnDoubleTapOverlay: Action.dismissOverlay)
+                
+                UIApplication.topViewController()?.addZoombehavior(for: imgMedia, in: self, settings: settings)
+            }
         } else {
             progress.isHidden = false
             progress.delegate = self
@@ -101,7 +108,12 @@ class IGMediaPagerCell: FSPagerViewCell {
         } else {
             progress?.setFileType(.download)
         }
-        imgMedia.setThumbnail(for: attachment, showMain: false)
+        
+        if finalAvatar != nil {
+            imgMedia.setAvatar(avatar: attachment, type: .smallThumbnail)
+        } else {
+            imgMedia.setThumbnail(for: attachment, showMain: false)
+        }
     }
     
     // MARK:- View Maker

@@ -264,7 +264,6 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
     
     func groupFirstInitialiser() {
         requestToGetRoom()
-        requestToGetAvatarList()
         myRole = room?.groupRoom?.role
         showGroupInfo()
         
@@ -296,9 +295,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
     
     @objc func handleTap(recognizer:UITapGestureRecognizer) {
         if recognizer.state == .ended {
-            if let userAvatar = room?.groupRoom?.avatar {
-                showAvatar( avatar: userAvatar)
-            }
+            showAvatar()
         }
     }
     
@@ -307,54 +304,17 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
     var lastIndex: Array<Any>.Index?
     var currentAvatarId: Int64?
     var timer = Timer()
-    func showAvatar(avatar : IGAvatar) {
-        let photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMedia in
-            return IGMedia(avatar: avatar)
-        }
-        
-        if photos.count == 0 {
-            return
-        }
-        avatarPhotos = photos
-        let currentPhoto = photos[0]
-        
-        let downloadIndicatorMainView = UIView()
-        let downloadViewFrame = self.view.bounds
-        downloadIndicatorMainView.backgroundColor = UIColor.white
-        downloadIndicatorMainView.frame = downloadViewFrame
-        
-        let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: avatarView)//, deleteView: deleteView, downloadView: downloadIndicatorMainView)
-        galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
-            return self?.avatarView
-        }
-        galleryPhotos = galleryPreview
-        present(galleryPreview, animated: true, completion: nil)
-    }
     
-    func requestToGetAvatarList() {
-        if let currentRoomID = room?.id {
-            IGGroupAvatarGetListRequest.Generator.generate(roomId: currentRoomID).success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let groupAvatarGetListResponse as IGPGroupAvatarGetListResponse:
-                        let responseAvatars = IGGroupAvatarGetListRequest.Handler.interpret(response: groupAvatarGetListResponse)
-                        self.avatars = responseAvatars
-                    default:
-                        break
-                    }
-                }
-            }).error ({ (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
-                    break
-                default:
-                    break
-                }
-                
-            }).send()
+    func showAvatar() {
+        if IGAvatar.hasAvatar(ownerId: room!.id) {
+            let mediaPager = IGMediaPager.instantiateFromAppStroryboard(appStoryboard: .Main)
+            mediaPager.hidesBottomBarWhenPushed = true
+            mediaPager.ownerId = self.room!.id
+            mediaPager.mediaPagerType = .avatar
+            mediaPager.avatarType = .group
+            self.navigationController!.pushViewController(mediaPager, animated: false)
         }
     }
-    
     
     func showGroupInfo() {
         if !(room!.isInvalidated) {

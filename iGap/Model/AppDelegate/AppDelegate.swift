@@ -90,21 +90,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     
     func realmConfig() {
         let config = Realm.Configuration (
-            // Share
-            // fileURL: fileURL,
-            
-            schemaVersion: 43,//HINT: change schemaVersion in 'ShareConfig'
-            
-            /**
-             * Set the block which will be called automatically when opening a Realm with a schema version lower than the one set above
-             **/
-            migrationBlock: { migration, oldSchemaVersion in
-                if (oldSchemaVersion < 37) {
-                    // Nothing to do!
-                    
-                }
-                
-        }
+            schemaVersion: 44//HINT: change schemaVersion in 'ShareConfig'
         )
         Realm.Configuration.defaultConfiguration = config
         compactRealm()

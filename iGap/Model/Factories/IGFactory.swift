@@ -912,18 +912,6 @@ class IGFactory: NSObject {
         }).execute()
     }
 
-    func updateUserAvatar(_ userId: Int64, igpAvatar: IGPAvatar) {
-        IGDatabaseManager.shared.perfrmOnDatabaseThread {
-            let avatar = IGAvatar(igpAvatar: igpAvatar)
-            let predicate = NSPredicate(format: "id = %lld", userId)
-            if let userInDb = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(predicate).first {
-                try! IGDatabaseManager.shared.realm.write {
-                    userInDb.avatar = avatar
-                }
-            }
-        }
-    }
-
     func updateUserPrivacy(_ igPrivacyType: IGPrivacyType , igPrivacyLevel: IGPrivacyLevel) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
@@ -1479,30 +1467,6 @@ class IGFactory: NSObject {
             if let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
                 try! IGDatabaseManager.shared.realm.write {
                     room.isParticipant = isParticipant
-                }
-            }
-        }
-    }
-
-    func updateGroupAvatar(_ roomId: Int64, igpAvatar: IGPAvatar) {
-        IGDatabaseManager.shared.perfrmOnDatabaseThread {
-            let avatar = IGAvatar(igpAvatar: igpAvatar)
-            let predicate = NSPredicate(format: "id = %lld", roomId)
-            if let roomInDb = try! Realm().objects(IGGroupRoom.self).filter(predicate).first {
-                try! IGDatabaseManager.shared.realm.write {
-                    roomInDb.avatar = avatar
-                }
-            }
-        }
-    }
-
-    func updateChannelAvatar(_ roomId: Int64, igpAvatar: IGPAvatar) {
-        IGDatabaseManager.shared.perfrmOnDatabaseThread {
-            let avatar = IGAvatar(igpAvatar: igpAvatar)
-            let predicate = NSPredicate(format: "id = %lld", roomId)
-            if let roomInDb = try! Realm().objects(IGChannelRoom.self).filter(predicate).first {
-                try! IGDatabaseManager.shared.realm.write {
-                    roomInDb.avatar = avatar
                 }
             }
         }

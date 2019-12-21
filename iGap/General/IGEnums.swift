@@ -502,12 +502,12 @@ enum TextViewOldState: Int {
     case FULL = 1
 }
 
-enum AvatarAddRequestType: Int {
+enum AvatarType: Int {
     case user = 0
     case group = 1
     case channel = 2
     
-    static func fromIG(_ type: IGRoom.IGType) -> AvatarAddRequestType {
+    static func fromIG(_ type: IGRoom.IGType) -> AvatarType {
         switch type {
         case .chat:
             return .user

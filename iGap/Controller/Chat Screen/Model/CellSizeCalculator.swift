@@ -27,11 +27,11 @@ class CellSizeCalculator: NSObject {
     private override init() {
         cache = NSCache()
         cache.countLimit = 200
-        cache.name = "im.igap.cache.CellSizeCalculator"
+        cache.name = "im.igap.cache.CellSizeCalculator.Messaging"
         
         mediaViewerCache = NSCache()
         mediaViewerCache.countLimit = 200
-        mediaViewerCache.name = "im.igap.cache.CellSizeCalculator"
+        mediaViewerCache.name = "im.igap.cache.CellSizeCalculator.MediaPager"
     }
     
     class func messageBodyTextViewFont() -> UIFont {
@@ -279,23 +279,35 @@ class CellSizeCalculator: NSObject {
         return result
     }
     
-    func mediaViewerCellSize(message: IGRoomMessage) -> MediaViewerCellCalculatedSize {
+    func mediaPagerCellSize(message: IGRoomMessage? = nil, avatar: IGAvatar? = nil) -> MediaViewerCellCalculatedSize {
         
-        let cacheKey = "\(String(describing: message.id))" as NSString
+        var cacheId: Int64!
+        var file: IGFile!
+        var messageText: String!
+        
+        if message != nil {
+            cacheId = message!.id
+            file = message!.getFinalMessage().attachment
+            messageText = message!.getFinalMessage().message
+        } else {
+            cacheId = avatar!.id
+            file = avatar!.file
+        }
+        
+        let cacheKey = "\(String(describing: cacheId))" as NSString
         let cachedSize = mediaViewerCache.object(forKey: cacheKey)
         if cachedSize != nil {
             return cachedSize as! MediaViewerCellCalculatedSize
         }
         
-        let finalMessage = message.getFinalMessage()
-        
         var mediaHeight: CGSize!
-        var messageHeight: CGSize!
+        var messageHeight: CGSize = CGSize(width: 0, height: 0)
         
-        if let file = finalMessage.attachment {
+        if file != nil {
             mediaHeight = fetchMediaViewerCellFrame(media: file)
         }
-        if let text = finalMessage.message {
+        
+        if let text = messageText {
             messageHeight = CellSizeCalculator.bodyRect(text: text as NSString, width: CellSizeLimit.MediaViewerCellSize.MaxWidth)
             if messageHeight.height > (CellSizeLimit.MediaViewerCellSize.MaxHeight/3) {
                 messageHeight.height = (CellSizeLimit.MediaViewerCellSize.MaxHeight/3)
@@ -399,6 +411,9 @@ class CellSizeCalculator: NSObject {
     }
     
     private func fetchMediaViewerCellFrame(media: IGFile) -> CGSize {
+        if CellSizeLimit.MediaViewerCellSize.MaxWidth == nil {
+            _ = CellSizeLimit.updateValues()
+        }
         return mediaViewerCellFrame(media: media,
                           maxWidth:  CellSizeLimit.MediaViewerCellSize.MaxWidth,
                           maxHeight: CellSizeLimit.MediaViewerCellSize.MaxHeight)

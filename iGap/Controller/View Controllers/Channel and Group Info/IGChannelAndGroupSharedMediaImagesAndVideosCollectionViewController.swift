@@ -137,12 +137,12 @@ class IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController: UICol
             mediaPagerType = .video
         }
         
-        let mediaViewer = IGMediaPager.instantiateFromAppStroryboard(appStoryboard: .Main)
-        mediaViewer.hidesBottomBarWhenPushed = true
-        mediaViewer.roomId = self.room?.id
-        mediaViewer.messageId = sharedMedia[indexPath.row].id
-        mediaViewer.mediaPagerType = mediaPagerType
-        self.navigationController!.pushViewController(mediaViewer, animated: false)
+        let mediaPager = IGMediaPager.instantiateFromAppStroryboard(appStoryboard: .Main)
+        mediaPager.hidesBottomBarWhenPushed = true
+        mediaPager.ownerId = self.room?.id
+        mediaPager.messageId = sharedMedia[indexPath.row].id
+        mediaPager.mediaPagerType = mediaPagerType
+        self.navigationController!.pushViewController(mediaPager, animated: false)
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {

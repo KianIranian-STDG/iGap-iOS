@@ -617,7 +617,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         let shadowOffset: CGFloat = 0.5
         mainBubbleViewAbs.layer.cornerRadius = cornerRadius
         mainBubbleViewAbs.layer.shadowColor = UIColor.darkGray.cgColor
-        mainBubbleViewAbs.layer.shadowRadius = 0.1
+        mainBubbleViewAbs.layer.shadowRadius = 0.4
         mainBubbleViewAbs.layer.shadowOpacity = 0.2
         mainBubbleViewAbs.layer.masksToBounds = false
         
@@ -1240,11 +1240,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                 if attachment.type == .gif {
                     attachment.loadData()
                     if let data = attachment.data {
-                        imgMediaAbs.prepareForAnimation(withGIFData: data)
-                        imgMediaAbs.startAnimatingGIF()
+                        imgMediaAbs?.prepareForAnimation(withGIFData: data)
+                        imgMediaAbs?.startAnimatingGIF()
                     }
                 } else if attachment.type == .image {
-                    imgMediaAbs.setThumbnail(for: attachment)
+                    imgMediaAbs?.setThumbnail(for: attachment)
                 }
                 return
             }

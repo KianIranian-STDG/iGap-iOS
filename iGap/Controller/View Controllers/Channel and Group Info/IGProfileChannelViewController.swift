@@ -79,10 +79,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
-        requestToGetAvatarList()
         signMessageIndexPath = IndexPath(row: 2, section: 1)
-                     
-//        requestToGetRoom()
 
         initTheme()
     }
@@ -102,7 +99,6 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
 
         
         requestToGetRoom()
-        requestToGetAvatarList()
         myRole = room?.channelRoom?.role
         showChannelInfo()
         
@@ -290,55 +286,17 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
     
     @objc func handleTap(recognizer: UITapGestureRecognizer) {
         if recognizer.state == .ended {
-            if let userAvatar = room?.channelRoom?.avatar {
-                showAvatar( avatar: userAvatar)
-            }
+            showAvatar()
         }
     }
-    func showAvatar(avatar: IGAvatar) {
-        let photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMedia in
-            return IGMedia(avatar: avatar)
-        }
-        if photos.count == 0 {
-            return
-        }
-        avatarPhotos = photos
-        let currentPhoto = photos[0]
-        
-        let downloadIndicatorMainView = UIView()
-        let downloadViewFrame = self.view.bounds
-        downloadIndicatorMainView.backgroundColor = UIColor.white
-        downloadIndicatorMainView.frame = downloadViewFrame
-        
-        let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: channelImage)//, deleteView: deleteView, downloadView: downloadIndicatorMainView)
-        galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
-            return self?.channelImage
-        }
-        galleryPhotos = galleryPreview
-        present(galleryPreview, animated: true, completion: nil)
-    }
-    
-    func requestToGetAvatarList() {
-        if let currentRoomID = room?.id {
-            IGChannelAvatarGetListRequest.Generator.generate(roomId: currentRoomID).success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let channelAvatarGetListResponse as IGPChannelAvatarGetListResponse:
-                        let responseAvatars = IGChannelAvatarGetListRequest.Handler.interpret(response: channelAvatarGetListResponse)
-                        self.avatars = responseAvatars
-                    default:
-                        break
-                    }
-                }
-            }).error ({ (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
-                    break
-                default:
-                    break
-                }
-                
-            }).send()
+    func showAvatar() {
+        if IGAvatar.hasAvatar(ownerId: room!.id) {
+            let mediaPager = IGMediaPager.instantiateFromAppStroryboard(appStoryboard: .Main)
+            mediaPager.hidesBottomBarWhenPushed = true
+            mediaPager.ownerId = self.room!.id
+            mediaPager.mediaPagerType = .avatar
+            mediaPager.avatarType = .channel
+            self.navigationController!.pushViewController(mediaPager, animated: false)
         }
     }
     

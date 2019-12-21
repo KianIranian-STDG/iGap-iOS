@@ -340,17 +340,17 @@ class IGChannelSendMessageRequest: IGRequest {
 
 class IGChannelAddAvatarRequest: IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate (attachment: IGFile , roomId: Int64) -> IGRequestWrapper {
+        class func generate (attachment: IGFile, roomId: Int64, completion: @escaping (_ avatar: IGFile) -> Void) -> IGRequestWrapper {
             var channelAddAvatarMessage = IGPChannelAvatarAdd()
             channelAddAvatarMessage.igpRoomID = roomId
             channelAddAvatarMessage.igpAttachment = attachment.token!
-            return IGRequestWrapper(message: channelAddAvatarMessage, actionID: 412, identity: attachment)
+            return IGRequestWrapper(message: channelAddAvatarMessage, actionID: 412, identity: (attachment, completion))
         }
     }
     
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage:IGPChannelAvatarAddResponse) {
-            IGFactory.shared.updateChannelAvatar(responseProtoMessage.igpRoomID, igpAvatar: responseProtoMessage.igpAvatar)
+            _ = IGAvatar.putOrUpdate(igpAvatar: responseProtoMessage.igpAvatar, ownerId: responseProtoMessage.igpRoomID)
         }
         override class func handlePush(responseProtoMessage: Message) {
             if let channelAvatarResponse = responseProtoMessage as? IGPChannelAvatarAddResponse {
@@ -371,7 +371,9 @@ class IGChannelAvatarDeleteRequest : IGRequest {
     }
     
     class Handler : IGRequest.Handler {
-        class func interpret(response: IGPChannelAvatarDeleteResponse) {}
+        class func interpret(response: IGPChannelAvatarDeleteResponse) {
+            IGAvatar.deleteAvatar(avatarId: response.igpID)
+        }
         
         override class func handlePush(responseProtoMessage: Message) {
             if let response = responseProtoMessage as? IGPChannelAvatarDeleteResponse {
@@ -392,13 +394,8 @@ class IGChannelAvatarGetListRequest : IGRequest {
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response: IGPChannelAvatarGetListResponse) -> [IGAvatar] {
-            var avatars = [IGAvatar]()
-            for igpAvatar in response.igpAvatar {
-                let avatar = IGAvatar(igpAvatar: igpAvatar)
-                avatars.append(avatar)
-            }
-            return avatars
+        class func interpret(response: IGPChannelAvatarGetListResponse, roomId: Int64) {
+            IGAvatar.addAvatarList(ownerId: roomId, avatars: response.igpAvatar)
         }
     }
 }

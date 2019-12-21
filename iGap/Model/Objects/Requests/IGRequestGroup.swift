@@ -379,17 +379,17 @@ class IGGroupUpdateStatusRequest : IGRequest {
 
 class IGGroupAvatarAddRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate (attachment: IGFile , roomId: Int64) -> IGRequestWrapper {
+        class func generate (attachment: IGFile, roomId: Int64, completion: @escaping (_ avatar: IGFile) -> Void) -> IGRequestWrapper {
             var groupAddAvatarMessage = IGPGroupAvatarAdd()
             groupAddAvatarMessage.igpRoomID = roomId
             groupAddAvatarMessage.igpAttachment = attachment.token!
-            return IGRequestWrapper(message: groupAddAvatarMessage, actionID: 312, identity: attachment)
+            return IGRequestWrapper(message: groupAddAvatarMessage, actionID: 312, identity: (attachment, completion))
         }
     }
     
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage:IGPGroupAvatarAddResponse) {
-            IGFactory.shared.updateGroupAvatar(responseProtoMessage.igpRoomID, igpAvatar: responseProtoMessage.igpAvatar)
+            _ = IGAvatar.putOrUpdate(igpAvatar: responseProtoMessage.igpAvatar, ownerId: responseProtoMessage.igpRoomID)
         }
         override class func handlePush(responseProtoMessage: Message) {
             if let groupAvatarResponse = responseProtoMessage as? IGPGroupAvatarAddResponse {
@@ -410,7 +410,9 @@ class IGGroupAvatarDeleteRequest : IGRequest {
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response: IGPGroupAvatarDeleteResponse) {}
+        class func interpret(response: IGPGroupAvatarDeleteResponse) {
+            IGAvatar.deleteAvatar(avatarId: response.igpID)
+        }
         
         override class func handlePush(responseProtoMessage: Message) {
             if let response = responseProtoMessage as? IGPGroupAvatarDeleteResponse {
@@ -431,17 +433,10 @@ class IGGroupAvatarGetListRequest : IGRequest {
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response: IGPGroupAvatarGetListResponse) -> [IGAvatar] {
-            var avatars = [IGAvatar]()
-            for igpAvatar in response.igpAvatar {
-                let avatar = IGAvatar(igpAvatar: igpAvatar)
-                avatars.append(avatar)
-            }
-            return avatars
-
+        class func interpret(response: IGPGroupAvatarGetListResponse, roomId: Int64)  {
+            IGAvatar.addAvatarList(ownerId: roomId, avatars: response.igpAvatar)
         }
     }
-    
 }
 
 class IGGroupUpdateDraftRequest : IGRequest {

@@ -146,7 +146,6 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     //MARK: -Avatar Sequence
     func initAvatarView() {
         if user != nil {
-            requestToGetAvatarList()
             self.avatarView.setUser(user!, showMainAvatar: true)
             self.displayNameLabel.text = user!.displayName
             self.displayNameLabel.textAlignment = displayNameLabel.localizedDirection
@@ -225,63 +224,24 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                 self.avatarView.transform = CGAffineTransform.identity
             }, completion: nil)
     }
-    //MARK: -Avatar List Request
-    func requestToGetAvatarList() {
-        if let currentUserId = user?.id {
-            IGUserAvatarGetListRequest.Generator.generate(userId: currentUserId).success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let UserAvatarGetListoResponse as IGPUserAvatarGetListResponse:
-                        let responseAvatars = IGUserAvatarGetListRequest.Handler.interpret(response: UserAvatarGetListoResponse, userId: currentUserId)
-                        self.avatars = responseAvatars
-                        
-                    default:
-                        break
-                    }
-                }
-            }).error ({ (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
-                    break
-                default:
-                    break
-                }
-                
-            }).send()
-        }
-    }
+    
     //MARK: - Avatar Tap Handler
     @objc func handleTap(recognizer:UITapGestureRecognizer) {
         if recognizer.state == .ended {
-            if let userAvatar = user?.avatar {
-                showAvatar(avatar: userAvatar)
-            }
+            showAvatar()
         }
     }
     
     //MARK: - Show Avatar
-    func showAvatar(avatar : IGAvatar) {
-        let photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMedia in
-            return IGMedia(avatar: avatar)
+    func showAvatar() {
+        if IGAvatar.hasAvatar(ownerId: self.user!.id) {
+            let mediaPager = IGMediaPager.instantiateFromAppStroryboard(appStoryboard: .Main)
+            mediaPager.hidesBottomBarWhenPushed = true
+            mediaPager.ownerId = self.user?.id
+            mediaPager.mediaPagerType = .avatar
+            mediaPager.avatarType = .user
+            self.navigationController!.pushViewController(mediaPager, animated: false)
         }
-        
-        if(photos.count == 0){
-            return
-        }
-        
-        avatarPhotos = photos
-        let currentPhoto = photos[0]
-        let downloadIndicatorMainView = UIView()
-        let downloadViewFrame = self.view.bounds
-        downloadIndicatorMainView.backgroundColor = UIColor.white
-        downloadIndicatorMainView.frame = downloadViewFrame
-        
-        let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: avatarView)//, deleteView: deleteView, downloadView: downloadIndicatorMainView)
-        galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
-            return self?.avatarView
-        }
-        galleryPhotos = galleryPreview
-        present(galleryPreview, animated: true, completion: nil)
     }
     //MARK: - Creat Chat With User
     func createChat() {

@@ -76,9 +76,13 @@ class IGAvatarView: UIView {
         self.initialLettersLabel!.text = user.initials
         let color = UIColor.hexStringToUIColor(hex: user.color)
         self.initialLettersView!.backgroundColor = color
-        if let avatar = user.avatar {
-            self.avatarImageView!.setImage(avatar: avatar.file!, showMain: showMainAvatar)
+        
+        if let avatar = IGAvatar.getLastAvatar(ownerId: user.id), let avatarFile = avatar.file {
+            self.avatarImageView!.setAvatar(avatar: avatarFile)
+        } else if let avatar = user.avatar {
+            self.avatarImageView!.setAvatar(avatar: avatar.file!)
         }
+        
         if self.frame.size.width < 40 {
             self.initialLettersLabel!.font = UIFont.igFont(ofSize: 10.0)
         } else if self.frame.size.width < 60 {
@@ -100,19 +104,26 @@ class IGAvatarView: UIView {
         let color = UIColor.hexStringToUIColor(hex: room.colorString)
         self.initialLettersView!.backgroundColor = color
         
-        switch room.type {
-        case .chat:
-            if let avatar = room.chatRoom?.peer?.avatar {
-                self.avatarImageView!.setImage(avatar: avatar.file!, showMain: showMainAvatar)
-                
+        var ownerId: Int64 = room.id
+        if room.type == .chat {
+            ownerId = (room.chatRoom?.peer!.id)!
+        }
+        
+        if let avatar = IGAvatar.getLastAvatar(ownerId: ownerId), let avatarFile = avatar.file {
+            self.avatarImageView!.setAvatar(avatar: avatarFile)
+            
+        } else { /// HINT: old version dosen't have owernId so currently we have to check this state
+            var file: IGFile?
+            if room.type == .chat, let avatar = room.chatRoom?.peer?.avatar?.file {
+                file = avatar
+            } else if room.type == .group, let avatar = room.groupRoom?.avatar?.file {
+                file = avatar
+            } else if room.type == .channel, let avatar = room.channelRoom?.avatar?.file {
+                file = avatar
             }
-        case .group:
-            if let avatar = room.groupRoom?.avatar {
-                self.avatarImageView!.setImage(avatar: avatar.file!, showMain: showMainAvatar)
-            }
-        case .channel:
-            if let avatar = room.channelRoom?.avatar {
-                self.avatarImageView!.setImage(avatar: avatar.file!, showMain: showMainAvatar)
+            
+            if file != nil {
+                self.avatarImageView!.setAvatar(avatar: file!)
             }
         }
 

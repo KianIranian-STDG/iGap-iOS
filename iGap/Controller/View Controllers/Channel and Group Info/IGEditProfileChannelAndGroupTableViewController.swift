@@ -891,12 +891,12 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     }
     
     private func pickImage(screens: [YPPickerScreen]){
-        IGHelperAvatar.shared.pickAndUploadAvatar(roomId: self.room!.id, type: AvatarAddRequestType.fromIG(self.room!.type), screens: screens) { (file) in
+        IGHelperAvatar.shared.pickAndUploadAvatar(roomId: self.room!.id, type: AvatarType.fromIG(self.room!.type), screens: screens) { (file) in
             DispatchQueue.main.async {
                 if let image = file.attachedImage {
                     self.avatarRoom.avatarImageView?.image = image
                 } else {
-                    self.avatarRoom.avatarImageView?.setImage(avatar: file)
+                    self.avatarRoom.avatarImageView?.setAvatar(avatar: file)
                 }
             }
         }
@@ -913,7 +913,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             avatarId = groupAvatarId
         }
         
-        IGHelperAvatar.shared.delete(avatarId: avatarId, type: AvatarAddRequestType.fromIG(self.room!.type)) {
+        IGHelperAvatar.shared.delete(avatarId: avatarId, type: AvatarType.fromIG(self.room!.type)) {
             DispatchQueue.main.async {
                 self.avatarRoom.avatarImageView!.image = nil
             }

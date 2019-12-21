@@ -41,11 +41,14 @@ class IGHelperMessage {
                     if (roomMessage.igpAuthor.hasIgpUser) {
                         let _ = IGRegisteredUser.needUpdateUser(userId: roomMessage.igpAuthor.igpUser.igpUserID, cacheId: roomMessage.igpAuthor.igpUser.igpCacheID)
                     }
-                    IGGlobal.playSound(isInChat : IGGlobal.isInChatPage,isSilent : IGGlobal.isSilent,isSendMessage: true)
-
+                    
+                    if let visibleChat = IGRecentsTableViewController.visibleChat[roomId], visibleChat == true {
+                        IGGlobal.playSound(isInChat: IGGlobal.isInChatPage, isSilent: IGGlobal.isSilent, isSendMessage: false)
+                    }
                 } else {
-                    IGGlobal.playSound(isInChat : IGGlobal.isInChatPage,isSilent : IGGlobal.isSilent,isSendMessage: true)
-
+                    if let visibleChat = IGRecentsTableViewController.visibleChat[roomId], visibleChat == true {
+                        IGGlobal.playSound(isInChat: IGGlobal.isInChatPage, isSilent: IGGlobal.isSilent, isSendMessage: true)
+                    }
                 }
                 
                 if let primaryKeyId = structMessageIdentity?.primaryKeyId {

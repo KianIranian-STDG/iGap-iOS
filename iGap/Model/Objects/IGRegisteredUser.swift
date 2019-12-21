@@ -145,7 +145,7 @@ class IGRegisteredUser: Object {
         self.isDeleted = igpUser.igpDeleted
         self.isMutual = igpUser.igpMutual
         if igpUser.hasIgpAvatar{
-            self.avatar = IGAvatar(igpAvatar: igpUser.igpAvatar)//.detach()
+            self.avatar = IGAvatar(igpAvatar: igpUser.igpAvatar, ownerId: igpUser.igpID)//.detach()
         }
         
         self.isVerified = igpUser.igpVerified
@@ -188,7 +188,7 @@ class IGRegisteredUser: Object {
         user.bio = igpUser.igpBio
 
         if igpUser.hasIgpAvatar {
-            user.avatar = IGAvatar.putOrUpdate(realm: realmFinal, igpAvatar: igpUser.igpAvatar)
+            user.avatar = IGAvatar.putOrUpdateAndManageDelete(ownerId: igpUser.igpID, igpAvatar: igpUser.igpAvatar)
         }
         return user
     }

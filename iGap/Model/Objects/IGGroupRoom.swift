@@ -114,7 +114,7 @@ class IGGroupRoom: Object {
         self.roomDescription = igpGroupRoom.igpDescription
         self.avatarCount = igpGroupRoom.igpAvatarCount
         if igpGroupRoom.hasIgpAvatar {
-            self.avatar = IGAvatar(igpAvatar: igpGroupRoom.igpAvatar)
+            self.avatar = IGAvatar(igpAvatar: igpGroupRoom.igpAvatar, ownerId: id)
         }
         if igpGroupRoom.hasIgpPrivateExtra {
             self.privateExtra = IGGroupPrivateExtra(igpPrivateExtra: igpGroupRoom.igpPrivateExtra, id: id)
@@ -145,7 +145,7 @@ class IGGroupRoom: Object {
         groupRoom.avatarCount = igpGroupRoom.igpAvatarCount
         
         if igpGroupRoom.hasIgpAvatar {
-            groupRoom.avatar = IGAvatar.putOrUpdate(realm: realm, igpAvatar: igpGroupRoom.igpAvatar)
+            groupRoom.avatar = IGAvatar.putOrUpdateAndManageDelete(ownerId: id, igpAvatar: igpGroupRoom.igpAvatar)
         }
         if igpGroupRoom.hasIgpPrivateExtra {
             groupRoom.privateExtra = IGGroupPrivateExtra.putOrUpdate(realm: realm, igpPrivateExtra: igpGroupRoom.igpPrivateExtra, id: id)

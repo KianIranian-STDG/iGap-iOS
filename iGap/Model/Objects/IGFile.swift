@@ -280,7 +280,7 @@ public class IGFile: Object {
         self.name = cacheID
     }
     
-    static func putOrUpdate(realm: Realm, igpFile : IGPFile, fileType: IGFile.FileType, enableCache: Bool = false) -> IGFile {
+    static func putOrUpdate(realm: Realm = IGDatabaseManager.shared.realm, igpFile : IGPFile, fileType: IGFile.FileType, enableCache: Bool = false) -> IGFile {
         
         if enableCache, let file = IGGlobal.importedFileDic[igpFile.igpCacheID], !file.isInvalidated {
             //return file

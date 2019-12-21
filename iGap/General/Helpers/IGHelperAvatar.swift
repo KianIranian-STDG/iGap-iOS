@@ -19,13 +19,13 @@ class IGHelperAvatar {
     
     //MARK:- Upload & Add Avatar
     /**
-     Pick avatar then upload to server and finally send add avatar request according to type of 'avatarAddRequestType'
+     Pick avatar then upload to server and finally send add avatar request according to type of 'AvatarType'
      - Parameter roomId: if 'type' is not user so don't need to set roomId otherwise set group or channel roomId
      - Parameter type: type of add avatar request for group , channel or user
      - Parameter screens: type of pick image (capture image or choose from gallery)
      - Parameter completion: return final result after than finished upload and add avatar request
      */
-    public func pickAndUploadAvatar(roomId: Int64 = 0, type: AvatarAddRequestType, screens: [YPPickerScreen], completion: @escaping (_ avatar: IGFile)->Void) {
+    public func pickAndUploadAvatar(roomId: Int64 = 0, type: AvatarType, screens: [YPPickerScreen], completion: @escaping (_ avatar: IGFile)->Void) {
         IGHelperMediaPicker.shared.setScreens(screens).pick { mediaItems in
             if let imageInfo = mediaItems.singlePhoto, mediaItems.count == 1 {
                 let avatar = self.makeAvatarFile(photo: imageInfo)
@@ -41,14 +41,14 @@ class IGHelperAvatar {
      - Parameter file: avatar file
      - Parameter completion: return final result after than finished upload
      */
-    public func upload(roomId: Int64, type: AvatarAddRequestType, file: IGFile, completion: @escaping (_ avatar: IGFile)->Void) {
+    public func upload(roomId: Int64 = 0, type: AvatarType, file: IGFile, completion: @escaping (_ avatar: IGFile)->Void) {
         IGGlobal.prgShow()
         IGUploadManager.sharedManager.upload(file: file, start: {
             
         }, progress: { (progress) in
             
         }, completion: { (uploadTask) in
-            self.add(roomId: roomId, file: uploadTask.file, type: type, completion: completion)
+            self.add(ownerId: roomId, file: uploadTask.file, type: type, completion: completion)
         }, failure: {
             IGGlobal.prgHide()
         })
@@ -56,17 +56,17 @@ class IGHelperAvatar {
     
     /**
      Send add request avatar and set avatar file for user, group or channel
-     - Parameter roomId: if 'type' is not user so don't need to set roomId otherwise set group or channel roomId
+     - Parameter ownerId: if 'type' is not user so don't need to set ownerId otherwise set group or channel roomId
      - Parameter type: type of add avatar request for group , channel or user
      - Parameter completion: return final result after than finished add avatar
      */
-    public func add(roomId: Int64, file: IGFile, type: AvatarAddRequestType, completion: @escaping (_ avatar: IGFile)->Void) {
+    public func add(ownerId: Int64, file: IGFile, type: AvatarType, completion: @escaping (_ avatar: IGFile) -> Void) {
         if type == .user {
-            IGUserAvatarAddRequest.Generator.generate(attachment: file).successPowerful({ (protoResponse, requestWrapper) in
-                if let file = requestWrapper.identity as? IGFile {
+            IGUserAvatarAddRequest.Generator.generate(attachment: file, completion: completion).successPowerful({ (protoResponse, requestWrapper) in
+                if let identity = requestWrapper.identity as? (file: IGFile, completion: (_ avatar: IGFile) -> Void) {
                     if let avatarAddResponse = protoResponse as? IGPUserAvatarAddResponse {
                         IGUserAvatarAddRequest.Handler.interpret(response: avatarAddResponse)
-                        completion(file)
+                        identity.completion(identity.file)
                     }
                 }
                 IGGlobal.prgHide()
@@ -75,11 +75,11 @@ class IGHelperAvatar {
             }).send()
             
         } else if type == .group {
-            IGGroupAvatarAddRequest.Generator.generate(attachment: file, roomId: roomId).successPowerful({ (protoResponse, requestWrapper) in
-                if let file = requestWrapper.identity as? IGFile {
-                    if let groupAvatarAddResponse = protoResponse as? IGPGroupAvatarAddResponse {
-                        IGGroupAvatarAddRequest.Handler.interpret(response: groupAvatarAddResponse)
-                        completion(file)
+            IGGroupAvatarAddRequest.Generator.generate(attachment: file, roomId: ownerId, completion: completion).successPowerful({ (protoResponse, requestWrapper) in
+                if let identity = requestWrapper.identity as? (file: IGFile, completion: (_ avatar: IGFile) -> Void) {
+                    if let avatarAddResponse = protoResponse as? IGPGroupAvatarAddResponse {
+                        IGGroupAvatarAddRequest.Handler.interpret(response: avatarAddResponse)
+                        identity.completion(identity.file)
                     }
                 }
                 IGGlobal.prgHide()
@@ -88,11 +88,11 @@ class IGHelperAvatar {
             }).send()
             
         } else if type == .channel {
-            IGChannelAddAvatarRequest.Generator.generate(attachment: file, roomId: roomId).successPowerful({ (protoResponse, requestWrapper) in
-                if let file = requestWrapper.identity as? IGFile {
+            IGChannelAddAvatarRequest.Generator.generate(attachment: file, roomId: ownerId, completion: completion).successPowerful({ (protoResponse, requestWrapper) in
+                if let identity = requestWrapper.identity as? (file: IGFile, completion: (_ avatar: IGFile) -> Void) {
                     if let avatarAddResponse = protoResponse as? IGPChannelAvatarAddResponse {
                         IGChannelAddAvatarRequest.Handler.interpret(response: avatarAddResponse)
-                        completion(file)
+                        identity.completion(identity.file)
                     }
                 }
                 IGGlobal.prgHide()
@@ -103,6 +103,40 @@ class IGHelperAvatar {
     }
     
     
+    /**
+    get list of avatars for user, group or channel
+    - Parameter ownerId: if 'type' is not user so don't need to set ownerId otherwise set group or channel roomId
+    - Parameter type: type of add avatar request for group , channel or user
+    - Parameter completion: return final result after than finished add avatar
+    */
+    public func getList(ownerId: Int64, type: AvatarType){
+        if type == .user {
+            IGUserAvatarGetListRequest.Generator.generate(userId: ownerId).success({ (protoResponse) in
+                if let UserAvatarGetListoResponse  = protoResponse as? IGPUserAvatarGetListResponse {
+                    IGUserAvatarGetListRequest.Handler.interpret(response: UserAvatarGetListoResponse, userId: ownerId)
+                }
+            }).error ({ (errorCode, waitTime) in
+                self.getList(ownerId: ownerId, type: type)
+            }).send()
+        } else if type == .group {
+            IGGroupAvatarGetListRequest.Generator.generate(roomId: ownerId).successPowerful({ (protoResponse, requestWrapper) in
+                if let requestGetAvatarList = requestWrapper.message as? IGPGroupAvatarGetList ,let groupAvatarGetListResponse = protoResponse as? IGPGroupAvatarGetListResponse {
+                    IGGroupAvatarGetListRequest.Handler.interpret(response: groupAvatarGetListResponse, roomId: requestGetAvatarList.igpRoomID)
+                }
+            }).error ({ (errorCode, waitTime) in
+                self.getList(ownerId: ownerId, type: type)
+            }).send()
+        } else if type == .channel {
+            IGChannelAvatarGetListRequest.Generator.generate(roomId: ownerId).successPowerful({ (protoResponse, requestWrapper) in
+                if let requestGetAvatarList = requestWrapper.message as? IGPChannelAvatarGetList ,let channelAvatarGetListResponse = protoResponse as? IGPChannelAvatarGetListResponse {
+                    IGChannelAvatarGetListRequest.Handler.interpret(response: channelAvatarGetListResponse, roomId: requestGetAvatarList.igpRoomID)
+                }
+            }).error ({ (errorCode, waitTime) in
+                self.getList(ownerId: ownerId, type: type)
+            }).send()
+        }
+    }
+    
     
     //MARK:- Delete Avatar
     /**
@@ -112,7 +146,7 @@ class IGHelperAvatar {
      - Parameter type: type of add avatar request for group , channel or user
      - Parameter completion: return final result after than finished add avatar
      */
-    public func delete(roomId: Int64 = 0, avatarId: Int64, type: AvatarAddRequestType, completion: @escaping () -> Void) {
+    public func delete(roomId: Int64 = 0, avatarId: Int64, type: AvatarType, completion: @escaping () -> Void) {
         IGGlobal.prgShow()
         if type == .user {
             IGUserAvatarDeleteRequest.Generator.generate(avatarId: avatarId).success({ (protoResponse) in
@@ -151,7 +185,7 @@ class IGHelperAvatar {
     
     
     
-    //MARK:- Avatar File
+    //MARK:- Make Avatar File
     /**
      make 'IGFile' from 'YPMediaPhoto'
      */

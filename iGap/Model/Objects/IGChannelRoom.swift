@@ -106,7 +106,7 @@ class IGChannelRoom: Object {
         self.roomDescription = igpChannelRoom.igpDescription
         self.avatarCount = igpChannelRoom.igpAvatarCount
         if igpChannelRoom.hasIgpAvatar{
-            self.avatar = IGAvatar(igpAvatar: igpChannelRoom.igpAvatar)
+            self.avatar = IGAvatar(igpAvatar: igpChannelRoom.igpAvatar, ownerId: id)
         }
         if igpChannelRoom.hasIgpPrivateExtra {
             self.privateExtra = IGChannelPrivateExtra(igpPrivateExtra: igpChannelRoom.igpPrivateExtra, id: id)
@@ -141,7 +141,7 @@ class IGChannelRoom: Object {
         channelRoom.isVerified = igpChannelRoom.igpVerified
         
         if igpChannelRoom.hasIgpAvatar{
-            channelRoom.avatar = IGAvatar.putOrUpdate(realm: realm, igpAvatar: igpChannelRoom.igpAvatar)
+            channelRoom.avatar = IGAvatar.putOrUpdateAndManageDelete(ownerId: id, igpAvatar: igpChannelRoom.igpAvatar)
         }
         if igpChannelRoom.hasIgpPrivateExtra {
             channelRoom.privateExtra = IGChannelPrivateExtra.putOrUpdate(realm: realm, igpPrivateExtra: igpChannelRoom.igpPrivateExtra, id: id)

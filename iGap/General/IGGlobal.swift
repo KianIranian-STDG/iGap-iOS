@@ -1321,7 +1321,7 @@ extension UIImageView {
         }
     }
     
-    func setImage(avatar: IGFile, showMain: Bool = false) {
+    func setAvatar(avatar: IGFile, type: IGFile.PreviewType = IGFile.PreviewType.largeThumbnail) {
         
         // remove imageview from download list on t on cell reuse
         DispatchQueue.main.async {
@@ -1334,50 +1334,47 @@ extension UIImageView {
         var file : IGFile!
         var previewType : IGFile.PreviewType!
         
-        if showMain {
-            file = avatar
-            previewType = IGFile.PreviewType.originalFile
-            
+        if type == .largeThumbnail ,let largeThumbnail = avatar.largeThumbnail {
+            file = largeThumbnail
+            previewType = IGFile.PreviewType.largeThumbnail
         } else {
-            
-            if let largeThumbnail = avatar.largeThumbnail {
-                file = largeThumbnail
-                previewType = IGFile.PreviewType.largeThumbnail
-            } else {
-                file = avatar.smallThumbnail
-                previewType = IGFile.PreviewType.smallThumbnail
-            }
+            file = avatar.smallThumbnail
+            previewType = IGFile.PreviewType.smallThumbnail
         }
         
-        if file != nil {
-            let path = file.path()
-            
-            if IGGlobal.isFileExist(path: path, fileSize: file.size) {
-                self.sd_setImage(with: path, completed: nil)
-            } else {
+        if IGGlobal.isFileExist(path: avatar.path(), fileSize: avatar.size) {
+            self.sd_setImage(with: avatar.path(), completed: nil)
+        } else {
+            if file != nil {
+                let path = file.path()
                 
-                DispatchQueue.main.async {
-                    imagesMap[file.token!] = self
-                    IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
-                        DispatchQueue.main.async {
-                            if let imageMain = imagesMap[attachment.token!] {
-                                let path = attachment.path()
-                                // imageMain.sd_setImage(with: path)
-                                DispatchQueue.global(qos:.userInteractive).async {
-                                    if let data = try? Data(contentsOf: path!) {
-                                        if let image = UIImage(data: data) {
-                                            DispatchQueue.main.async {
-                                                imageMain.image = image
+                if IGGlobal.isFileExist(path: path, fileSize: file.size) {
+                    self.sd_setImage(with: path, completed: nil)
+                } else {
+                    
+                    DispatchQueue.main.async {
+                        imagesMap[file.token!] = self
+                        IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
+                            DispatchQueue.main.async {
+                                if let imageMain = imagesMap[attachment.token!] {
+                                    let path = attachment.path()
+                                    //imageMain.sd_setImage(with: path)
+                                    DispatchQueue.global(qos:.userInteractive).async {
+                                        if let data = try? Data(contentsOf: path!) {
+                                            if let image = UIImage(data: data) {
+                                                DispatchQueue.main.async {
+                                                    imageMain.image = image
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
-                        }
-                    }, failure: {
-                        print("ERROR HAPPEND IN DOWNLOADNING AVATAR")
-                    })
-                    
+                        }, failure: {
+                            print("ERROR HAPPEND IN DOWNLOADNING AVATAR")
+                        })
+                        
+                    }
                 }
             }
         }

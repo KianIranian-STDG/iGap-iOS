@@ -371,7 +371,6 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         viewBackgroundImage.roundCorners(corners: [.layerMaxXMaxYCorner,.layerMinXMaxYCorner], radius: 10)
         viewBackgroundImage.clipsToBounds = true
         initChangeLang()
-        requestToGetAvatarList()
         let tapCloud = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTapCloud(recognizer:)))
         stack0.addGestureRecognizer(tapCloud)
         
@@ -598,9 +597,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     @objc func handleTap(recognizer:UITapGestureRecognizer) {
         if recognizer.state == .ended {
-            if let userAvatar = user?.avatar {
-                showAvatar( avatar: userAvatar)
-            }
+            showAvatar()
         }
     }
     @objc func handleTapCloud(recognizer:UITapGestureRecognizer) {
@@ -625,34 +622,15 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     var timer = Timer()
     open private(set) var deleteToolbar: UIToolbar!
     
-    
-    func showAvatar(avatar : IGAvatar) {
-        
-        let photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMediaUserAvatar in
-            return IGMediaUserAvatar(avatar: avatar)
+    func showAvatar() {
+        if IGAvatar.hasAvatar(ownerId: self.user!.id) {
+            let mediaViewer = IGMediaPager.instantiateFromAppStroryboard(appStoryboard: .Main)
+            mediaViewer.hidesBottomBarWhenPushed = true
+            mediaViewer.ownerId = self.user?.id
+            mediaViewer.mediaPagerType = .avatar
+            mediaViewer.avatarType = .user
+            self.navigationController!.pushViewController(mediaViewer, animated: false)
         }
-        
-        avatarPhotos = photos
-        
-        if photos.count == 0 {
-            return
-        }
-        let currentPhoto = photos[0]
-        let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: userAvatarView)//, deleteView: deleteView, downloadView: downloadIndicatorMainView)
-        
-        galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
-            let currentIndex : Int! = photos.firstIndex{$0 === photo}
-            currentSize = self!.avatars[currentIndex].file?.size
-            return self?.userAvatarView
-        }
-        
-        galleryPhotos = galleryPreview
-        galleryPreview.deletePhotoHandler = { [weak self] photo in
-            let currentIndex : Int! = photos.firstIndex{$0 === photo}
-            self!.deleteAvatar(index: currentIndex)
-        }
-        
-        present(galleryPreview, animated: true, completion: nil)
     }
     
     func deleteAvatar(index: Int! = 0) {
@@ -663,7 +641,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 sizesArray.remove(at: index)
                 self.getUserInfo() // TODO - now for update show avatars in room list and chat cloud i use from getUserInfo. HINT: remove this state and change avatar list for this user
                 if self.avatars.count > 0 {
-                    self.userAvatarView.avatarImageView?.setImage(avatar: self.avatars[0].file!, showMain: true)
+                    self.userAvatarView.avatarImageView?.setAvatar(avatar: self.avatars[0].file!)
                 } else {
                     self.userAvatarView.avatarImageView = nil
                 }
@@ -681,37 +659,6 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         }).error({ (errorCode, waitTime) in }).send()
     }
     
-    func requestToGetAvatarList() {
-        if let currentUserId = IGAppManager.sharedManager.userID() {
-            
-            IGUserAvatarGetListRequest.Generator.generate(userId: currentUserId).success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let UserAvatarGetListoResponse as IGPUserAvatarGetListResponse:
-                        let responseAvatars =   IGUserAvatarGetListRequest.Handler.interpret(response: UserAvatarGetListoResponse, userId: currentUserId)
-                        
-                        self.avatars = responseAvatars
-                        sizesArray.removeAll()
-                        
-                        for element in responseAvatars {
-                            sizesArray.append(element.file?.size)
-                        }
-                        
-                    default:
-                        break
-                    }
-                }
-            }).error ({ (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
-                    break
-                default:
-                    break
-                }
-                
-            }).send()
-        }
-    }
     private func getScore(){
         IGUserIVandGetScoreRequest.Generator.generate().success({ (protoResponse) in
             if let response = protoResponse as? IGPUserIVandGetScoreResponse {
@@ -1540,7 +1487,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 if let image = file.attachedImage {
                     self.userAvatarView?.avatarImageView?.image = image
                 } else {
-                    self.userAvatarView?.avatarImageView!.setImage(avatar: file)
+                    self.userAvatarView?.avatarImageView!.setAvatar(avatar: file)
                 }
             }
         }

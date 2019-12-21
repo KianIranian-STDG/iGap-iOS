@@ -491,18 +491,18 @@ class IGUserUsernameToIdRequest : IGRequest {
 //MARK: -
 class IGUserAvatarAddRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate(attachment: IGFile) -> IGRequestWrapper {
+        class func generate(attachment: IGFile, completion: @escaping (_ avatar: IGFile) -> Void) -> IGRequestWrapper {
             var userAvatarAddRequestMessage = IGPUserAvatarAdd()
             userAvatarAddRequestMessage.igpAttachment = attachment.token!
-            return IGRequestWrapper(message: userAvatarAddRequestMessage, actionID: 114, identity: attachment)
+            return IGRequestWrapper(message: userAvatarAddRequestMessage, actionID: 114, identity: (attachment, completion))
         }
     }
     
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage: IGPUserAvatarAddResponse) {
-            let currentUserId = IGAppManager.sharedManager.userID()
-            IGFactory.shared.updateUserAvatar(currentUserId!, igpAvatar: responseProtoMessage.igpAvatar)
+            _ = IGAvatar.putOrUpdate(igpAvatar: responseProtoMessage.igpAvatar, ownerId: IGAppManager.sharedManager.userID()!)
         }
+        
         override class func handlePush(responseProtoMessage: Message) {
             if let response = responseProtoMessage as? IGPUserAvatarAddResponse {
                 self.interpret(response: response)
@@ -525,10 +525,14 @@ class IGUserAvatarDeleteRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage:IGPUserAvatarDeleteResponse) {
-            
+            IGAvatar.deleteAvatar(avatarId: responseProtoMessage.igpID)
         }
 
-        override class func handlePush(responseProtoMessage: Message) {}
+        override class func handlePush(responseProtoMessage: Message) {
+            if let response = responseProtoMessage as? IGPUserAvatarDeleteResponse {
+                IGUserAvatarDeleteRequest.Handler.interpret(response: response)
+            }
+        }
     }
 }
 
@@ -540,20 +544,11 @@ class IGUserAvatarGetListRequest : IGRequest {
             userAvatarGetListRequestMessage.igpUserID = userId
             return IGRequestWrapper(message: userAvatarGetListRequestMessage, actionID: 116)
         }
-        
     }
     
     class Handler : IGRequest.Handler {
-        class func interpret(response responseProtoMessage:IGPUserAvatarGetListResponse , userId: Int64) -> Array<IGAvatar> {
-            let igpAvatars = responseProtoMessage.igpAvatar
-            var igAvatars : Array<IGAvatar> = []
-            for igpAvatar in igpAvatars {
-//                IGFactory.shared.updateUserAvatar(userId, igpAvatar: igpAvatar)
-                let igavatar = IGAvatar(igpAvatar: igpAvatar)
-                igAvatars.append(igavatar)
-            }
-            return igAvatars
-            
+        class func interpret(response responseProtoMessage:IGPUserAvatarGetListResponse , userId: Int64) {
+            IGAvatar.addAvatarList(ownerId: userId, avatars: responseProtoMessage.igpAvatar)
         }
         override class func handlePush(responseProtoMessage: Message) {}
     }

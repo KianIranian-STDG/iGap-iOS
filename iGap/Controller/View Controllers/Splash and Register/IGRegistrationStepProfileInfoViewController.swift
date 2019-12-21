@@ -197,7 +197,7 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
                 if let image = file.attachedImage {
                     self.profileImageView?.image = image
                 } else {
-                    self.profileImageView?.setImage(avatar: file)
+                    self.profileImageView?.setAvatar(avatar: file)
                 }
             }
         }

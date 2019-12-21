@@ -14,16 +14,21 @@ import FSPagerView
 
 class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSource {
     
-    public var roomId: Int64!
-    public var messageId: Int64!
-    public var mediaPagerType: MediaPagerType!
+    public var ownerId: Int64!
+    public var messageId: Int64?
+    public var mediaPagerType: MediaPagerType?
+    public var avatarType: AvatarType?
 
-    private var mediaList: [IGRoomMessage]!
+    private var mediaList: [IGRoomMessage]?
+    private var avatarList: [IGAvatar]?
+    private var realmAvatarList: Results<IGAvatar>?
     private var mediaCount: Int!
     private var startIndex: Int!
     private var totalCount: Int!
     private var currentIndex: Int!
     private var showItemInfoLayout = true
+    private var pagerView: FSPagerView!
+    private var avatarsObserver: NotificationToken?
     
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var topViewHeight: NSLayoutConstraint!
@@ -36,9 +41,14 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchMedia()
         
-        let pagerView = FSPagerView(frame: self.view.frame)
+        if mediaPagerType == .avatar {
+            fetchAvatars()
+        } else {
+            fetchMessagesMedia()
+        }
+        
+        pagerView = FSPagerView(frame: self.view.frame)
         pagerView.dataSource = self
         pagerView.delegate = self
         pagerView.transformer = FSPagerViewTransformer(type: .depth)
@@ -47,16 +57,16 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         self.view.addSubview(pagerView)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            pagerView.scrollToItem(at: self.startIndex, animated: false)
+            self.pagerView.scrollToItem(at: self.startIndex, animated: false)
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-            pagerView.fadeIn(0.05)
+            self.pagerView.fadeIn(0.35)
         }
         
         self.manageCurrentMedia()
         
-        self.topViewHeight.constant = 60 + UIApplication.shared.statusBarFrame.size.height
+        self.topViewHeight.constant = 50 + UIApplication.shared.statusBarFrame.size.height
         self.view.bringSubviewToFront(topView)
         self.view.bringSubviewToFront(bottomView)
     }
@@ -75,9 +85,46 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        
     }
     
-    private func fetchMedia(){
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    //MARK:- Fetch Media
+    
+    private func fetchAvatars() {
+        realmAvatarList = IGAvatar.getAvatarsLocalList(ownerId: ownerId)
+        self.avatarsObserver = realmAvatarList!.observe { (changes: RealmCollectionChange) in
+            switch changes {
+            case .initial:
+                self.pagerView.reloadData()
+                break
+            case .update(_, _, _, _):
+                self.avatarList = Array(self.realmAvatarList!)
+                self.totalCount = self.avatarList!.count
+                self.manageCurrentMedia()
+                self.pagerView.reloadData()
+                break
+            case .error(let err):
+                fatalError("\(err)")
+                break
+            }
+        }
+        
+        startIndex = 0
+        currentIndex = startIndex
+        
+        avatarList = Array(realmAvatarList!)
+        totalCount = avatarList!.count
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            IGHelperAvatar.shared.getList(ownerId: self.ownerId, type: self.avatarType!)
+        }
+    }
+    
+    private func fetchMessagesMedia(){
         
         let sortProperties = [SortDescriptor(keyPath: "id", ascending: true)]
         
@@ -85,16 +132,16 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         var currentMediaPredicate: NSPredicate!
         
         if mediaPagerType == .imageAndVideo { // user for chat media pager
-            mediaPredicate = NSPredicate(format: "roomId = %lld AND (typeRaw = %d OR typeRaw = %d OR typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d) AND (statusRaw != %d AND statusRaw != %d)", roomId, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageStatus.sending.rawValue, IGRoomMessageStatus.failed.rawValue)
-            currentMediaPredicate = NSPredicate(format: "roomId = %lld AND id =< %lld AND (typeRaw = %d OR typeRaw = %d OR typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d) AND (statusRaw != %d AND statusRaw != %d)", roomId, messageId, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageStatus.sending.rawValue, IGRoomMessageStatus.failed.rawValue)
+            mediaPredicate = NSPredicate(format: "roomId = %lld AND (typeRaw = %d OR typeRaw = %d OR typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d) AND (statusRaw != %d AND statusRaw != %d)", ownerId, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageStatus.sending.rawValue, IGRoomMessageStatus.failed.rawValue)
+            currentMediaPredicate = NSPredicate(format: "roomId = %lld AND id =< %lld AND (typeRaw = %d OR typeRaw = %d OR typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d) AND (statusRaw != %d AND statusRaw != %d)", ownerId, messageId!, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageStatus.sending.rawValue, IGRoomMessageStatus.failed.rawValue)
             
         } else if mediaPagerType == .image { // use for avatar or share media image type
-            mediaPredicate = NSPredicate(format: "roomId = %lld AND (typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d) AND (statusRaw != %d AND statusRaw != %d)", roomId, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageStatus.sending.rawValue, IGRoomMessageStatus.failed.rawValue)
-            currentMediaPredicate = NSPredicate(format: "roomId = %lld AND id =< %lld AND (typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d) AND (statusRaw != %d AND statusRaw != %d)", roomId, messageId, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageStatus.sending.rawValue, IGRoomMessageStatus.failed.rawValue)
+            mediaPredicate = NSPredicate(format: "roomId = %lld AND (typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d) AND (statusRaw != %d AND statusRaw != %d)", ownerId, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageStatus.sending.rawValue, IGRoomMessageStatus.failed.rawValue)
+            currentMediaPredicate = NSPredicate(format: "roomId = %lld AND id =< %lld AND (typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d) AND (statusRaw != %d AND statusRaw != %d)", ownerId, messageId!, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageStatus.sending.rawValue, IGRoomMessageStatus.failed.rawValue)
             
         } else if mediaPagerType == .video { // user for share media video type
-            mediaPredicate = NSPredicate(format: "roomId = %lld AND (typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d) AND (statusRaw != %d AND statusRaw != %d)", roomId, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageStatus.sending.rawValue, IGRoomMessageStatus.failed.rawValue)
-            currentMediaPredicate = NSPredicate(format: "roomId = %lld AND id =< %lld AND (typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d) AND (statusRaw != %d AND statusRaw != %d)", roomId, messageId, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageStatus.sending.rawValue, IGRoomMessageStatus.failed.rawValue)
+            mediaPredicate = NSPredicate(format: "roomId = %lld AND (typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d) AND (statusRaw != %d AND statusRaw != %d)", ownerId, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageStatus.sending.rawValue, IGRoomMessageStatus.failed.rawValue)
+            currentMediaPredicate = NSPredicate(format: "roomId = %lld AND id =< %lld AND (typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d) AND (statusRaw != %d AND statusRaw != %d)", ownerId, messageId!, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageType.video.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageStatus.sending.rawValue, IGRoomMessageStatus.failed.rawValue)
         }
         
         let mediaListResult = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(mediaPredicate).sorted(by: sortProperties)
@@ -104,15 +151,24 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         currentIndex = startIndex
         
         mediaList = Array(mediaListResult)
-        totalCount = mediaList.count
+        totalCount = mediaList?.count
     }
     
     /** set media message and update count if room message has text value */
     private func manageCurrentMedia(time:TimeInterval = 0) {
         
-        if mediaList.count <= currentIndex {
+        var listCount: Int!
+        
+        if mediaPagerType == .avatar {
+            listCount = avatarList!.count
+        } else {
+            listCount = mediaList!.count
+        }
+        
+        if listCount <= currentIndex {
             return //index out of bound
         }
+        
         var totalCountString: String!
         var currentIndexString: String!
         
@@ -125,11 +181,18 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         }
         
         txtCount.text = "\(currentIndexString!) \(IGStringsManager.Of.rawValue.localized) \(totalCountString!)"
-        let roomMessage = mediaList[currentIndex]
+        
+        // don't continue if current pager is for avatar, because avatar dosen't have message text
+        if mediaPagerType == .avatar {
+            self.bottomView.fadeOut(0)
+            return
+        }
+        
+        let roomMessage = mediaList![currentIndex]
         let finalMessage = roomMessage.getFinalMessage()
         if let message = finalMessage.message, !message.isEmpty {
             txtMessage.text = message
-            bottomViewHeight.constant = CellSizeCalculator.sharedCalculator.mediaViewerCellSize(message: roomMessage).messageHeight.height
+            bottomViewHeight.constant = CellSizeCalculator.sharedCalculator.mediaPagerCellSize(message: roomMessage).messageHeight.height
             if showItemInfoLayout {
                 self.bottomView.fadeIn(time)
             }
@@ -152,19 +215,29 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     }
     
     @IBAction func btnShare(_ sender: UIButton) {
-        IGHelperPopular.shareAttachment(url: mediaList[currentIndex].attachment?.path(), viewController: self)
+        IGHelperPopular.shareAttachment(url: mediaList![currentIndex].getFinalMessage().attachment?.path(), viewController: self)
     }
     
     // MARK:- FSPagerView
     
     public func numberOfItems(in pagerView: FSPagerView) -> Int {
-        return mediaList.count
+        if mediaPagerType == .avatar {
+            return avatarList!.count
+        } else {
+            return mediaList!.count
+        }
     }
         
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
-        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: IGMediaPagerCell.cellReuseIdentifier(), at: index) as! IGMediaPagerCell
-        cell.setMessageItem(message: mediaList[index], size: CellSizeCalculator.sharedCalculator.mediaViewerCellSize(message: mediaList[index]))
-        return cell
+        if mediaPagerType == .avatar {
+            let cell = pagerView.dequeueReusableCell(withReuseIdentifier: IGMediaPagerCell.cellReuseIdentifier(), at: index) as! IGMediaPagerCell
+            cell.setAvatarItem(avatar: avatarList![index], size: CellSizeCalculator.sharedCalculator.mediaPagerCellSize(avatar: avatarList![index]))
+            return cell
+        } else {
+            let cell = pagerView.dequeueReusableCell(withReuseIdentifier: IGMediaPagerCell.cellReuseIdentifier(), at: index) as! IGMediaPagerCell
+            cell.setMessageItem(message: mediaList![index], size: CellSizeCalculator.sharedCalculator.mediaPagerCellSize(message: mediaList![index]))
+            return cell
+        }
     }
     
     func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {

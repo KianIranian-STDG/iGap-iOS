@@ -5164,7 +5164,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 UIView.transition(with: cell, duration: 0.5, animations: {
-                    cell.backgroundColor = UIColor.iGapGreen().withAlphaComponent(0.3)
+                    cell.backgroundColor = UIColor.iGapGreen().withAlphaComponent(0.5)
                 }, completion: { (completed) in
                     UIView.animate(withDuration: 0.5, animations: {
                         cell.backgroundColor = UIColor.clear
@@ -5842,7 +5842,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         case .image, .imageAndText:
             let mediaViewer = IGMediaPager.instantiateFromAppStroryboard(appStoryboard: .Main)
             mediaViewer.hidesBottomBarWhenPushed = true
-            mediaViewer.roomId = self.room?.id
+            mediaViewer.ownerId = self.room?.id
             mediaViewer.messageId = cellMessage.id
             mediaViewer.mediaPagerType = .imageAndVideo
             self.navigationController!.pushViewController(mediaViewer, animated: false)
