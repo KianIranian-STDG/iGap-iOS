@@ -613,10 +613,6 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         
     }
     
-    var insDelete : INSPhotosOverlayView!
-    var avatarPhotos : [INSPhotoViewable]?
-    var galleryPhotos: INSPhotosViewController?
-    var galleryPhoto: INSPhotoViewController?
     var lastIndex: Array<Any>.Index?
     var currentAvatarId: Int64?
     var timer = Timer()
@@ -636,7 +632,6 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     func deleteAvatar(index: Int! = 0) {
         IGHelperAvatar.shared.delete(avatarId: self.avatars[index].id, type: .user) {
             DispatchQueue.main.async {
-                self.avatarPhotos?.remove(at: index)
                 self.avatars.remove(at: index)
                 sizesArray.remove(at: index)
                 self.getUserInfo() // TODO - now for update show avatars in room list and chat cloud i use from getUserInfo. HINT: remove this state and change avatar list for this user

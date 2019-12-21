@@ -31,8 +31,6 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     var avatars: [IGAvatar] = []
     var deleteView: IGTappableView?
     var userAvatar: IGAvatar?
-    var avatarPhotos: [INSPhotoViewable]?
-    var galleryPhotos: INSPhotosViewController?
     var lastIndex: Array<Any>.Index?
     var currentAvatarId: Int64?
     var timer = Timer()

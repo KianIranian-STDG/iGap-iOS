@@ -299,8 +299,6 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         }
     }
     
-    var avatarPhotos : [INSPhotoViewable]?
-    var galleryPhotos: INSPhotosViewController?
     var lastIndex: Array<Any>.Index?
     var currentAvatarId: Int64?
     var timer = Timer()

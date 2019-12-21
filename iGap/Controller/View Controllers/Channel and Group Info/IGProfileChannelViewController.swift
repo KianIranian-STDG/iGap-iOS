@@ -29,8 +29,6 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
     var moderatprsCount : String = "" // moderator count not exist
     var isVerified : Bool! = false
     var maxNavHeight : CGFloat = 100
-    var avatarPhotos : [INSPhotoViewable]?
-    var galleryPhotos: INSPhotosViewController?
     var lastIndex: Array<Any>.Index?
     var currentAvatarId: Int64?
     var timer = Timer()

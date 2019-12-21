@@ -152,10 +152,6 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
 //        }
 //    }
     
-    var insDelete : INSPhotosOverlayView!
-    var avatarPhotos : [INSPhotoViewable]?
-    var galleryPhotos: INSPhotosViewController?
-    var galleryPhoto: INSPhotoViewController?
     var lastIndex: Array<Any>.Index?
     var currentAvatarId: Int64?
     var timer = Timer()
