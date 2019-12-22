@@ -40,6 +40,9 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     internal static var isDeprecatedClient : Bool = false
     internal static var appIsInBackground : Bool = false
     
+    var backTask: UIBackgroundTaskIdentifier = .invalid
+    var backTaskTimer : Timer!
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         //checksetting defaults
         userdefaultsManagment()
@@ -57,8 +60,6 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         _ = IGWebSocketManager.sharedManager
         _ = IGFactory.shared
         _ = IGCallEventListener.sharedManager // detect cellular call state
-        
-        //        UITabBar.appearance().tintColor = UIColor.white
         
         UserDefaults.standard.setValue(false, forKey:"_UIConstraintBasedLayoutLogUnsatisfiable")
         
@@ -127,13 +128,12 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
-        
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         AppDelegate.appIsInBackground = true
         IGAppManager.sharedManager.setUserUpdateStatus(status: .exactly)
-        
+        activateBackgroundTask()
         /* change this values for import contact after than contact changed in phone contact */
         IGContactManager.syncedPhoneBookContact = false
         IGContactManager.importedContact = false
@@ -141,6 +141,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         AppDelegate.appIsInBackground = false
+        deactivateBackGroundTask()
         if IGAppManager.sharedManager.isUserLoggiedIn() {
             IGHelperGetShareData.manageShareDate()
             IGAppManager.sharedManager.setUserUpdateStatus(status: .online)
@@ -173,6 +174,8 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
+        
+        
         if #available(iOS 10.0, *) {
             self.saveContext()
         } else {
@@ -700,4 +703,40 @@ fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [Stri
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
     return input.rawValue
+}
+
+
+    // MARK: - Keep App Active in background
+extension AppDelegate {
+    
+    
+    func activateBackgroundTask() {
+        
+        backTaskTimer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(backTaskTimerAction), userInfo: nil, repeats: false)
+        
+        backTask = UIApplication.shared.beginBackgroundTask(expirationHandler: { [weak self] in
+            guard let sSelf = self else {
+                return
+            }
+            UIApplication.shared.endBackgroundTask(sSelf.backTask)
+            sSelf.backTask = .invalid
+            return
+
+
+        })
+    }
+    
+    @objc private func backTaskTimerAction() {
+        var i = 0
+        i += 1
+    }
+    
+    private func deactivateBackGroundTask() {
+        if (backTaskTimer != nil) {
+            backTaskTimer.invalidate()
+        }
+        UIApplication.shared.endBackgroundTask(backTask)
+        backTask = .invalid
+    }
+    
 }
