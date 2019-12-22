@@ -114,6 +114,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     var deleteView: IGTappableView?
     var userAvatar: IGAvatar?
     var notificationToken: NotificationToken?
+    private var avatarObserver: NotificationToken?
     
     var isPoped = false
 //    let disposeBag = DisposeBag()
@@ -134,6 +135,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         
         self.hideKeyboardWhenTappedAround()
         initView()
+        initAvatarObserver()
         initServices()
         
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
@@ -652,6 +654,12 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 }
             }
         }).error({ (errorCode, waitTime) in }).send()
+    }
+    
+    private func initAvatarObserver(){
+        self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: self.user!.id).observe({ (ObjectChange) in
+            self.showAvatar()
+        })
     }
     
     private func getScore(){

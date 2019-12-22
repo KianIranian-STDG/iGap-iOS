@@ -23,6 +23,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     private var lastContentOffset: CGFloat = 0
     private var hasScaledDown: Bool = false
     private var isBlockedUser: Bool = false
+    private var avatarObserver: NotificationToken?
     var user: IGRegisteredUser?
     var previousRoomId: Int64?
     var room: IGRoom?
@@ -66,6 +67,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
 
         initView()
         initTheme()
+        initAvatarObserver()
     }
     private func initTheme() {
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
@@ -73,6 +75,12 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         usernameLabel.textColor = ThemeManager.currentTheme.LabelColor
         phoneNumberLabel.textColor = ThemeManager.currentTheme.LabelColor
         btnChatWith.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+    }
+    
+    private func initAvatarObserver(){
+        self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: self.user!.id).observe({ (ObjectChange) in
+            self.avatarView.setUser(self.user!)
+        })
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

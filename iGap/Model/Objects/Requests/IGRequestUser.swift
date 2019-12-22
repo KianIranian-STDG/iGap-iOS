@@ -500,7 +500,11 @@ class IGUserAvatarAddRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage: IGPUserAvatarAddResponse) {
-            _ = IGAvatar.putOrUpdate(igpAvatar: responseProtoMessage.igpAvatar, ownerId: IGAppManager.sharedManager.userID()!)
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    _ = IGAvatar.putOrUpdate(igpAvatar: responseProtoMessage.igpAvatar, ownerId: IGAppManager.sharedManager.userID()!)
+                }
+            }
         }
         
         override class func handlePush(responseProtoMessage: Message) {

@@ -778,7 +778,7 @@ class IGNavigationItem: UINavigationItem {
     
     private func initilizeNavigationBarForRoom(_ room: IGRoom) {}
     
-    private func setRoomAvatar(_ room: IGRoom) {
+    public func setRoomAvatar(_ room: IGRoom) {
         self.rightBarButtonItem = nil
         let rightViewFrame = CGRect(x: 0, y: 0, width: 60, height: 40)
         rightViewContainer = IGTappableView(frame: rightViewFrame)

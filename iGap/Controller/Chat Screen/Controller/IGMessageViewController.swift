@@ -206,6 +206,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     var messagesWithForwardedMedia = try! Realm().objects(IGRoomMessage.self)
     var notificationToken: NotificationToken?
+    var avatarObserver: NotificationToken?
     
     var room : IGRoom?
     var forwardedMessageArray : [IGRoomMessage] = []
@@ -428,6 +429,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         initAlignmentsNewChatView()
         initChangeLanguegeNewChatView()
         initDelegatesNewChatView()
+        initAvatarObserver()
         SwiftEventBus.onMainThread(self, name: "initTheme") { result in
             self.initTheme()
         }
@@ -560,8 +562,23 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             if self.room?.type == .chat {
                 self.selectedUserToSeeTheirInfo = (self.room?.chatRoom?.peer)!
                 self.openUserProfile()
-            } else {
+            } else if self.room?.type == .channel {
+                self.selectedChannelToSeeTheirInfo = self.room?.channelRoom
+                //self.performSegue(withIdentifier: "showChannelinfo", sender: self)
                 
+                let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                profile.selectedChannel = self.selectedChannelToSeeTheirInfo
+                profile.room = self.room
+                profile.myRole = self.room?.channelRoom?.role
+                profile.hidesBottomBarWhenPushed = true
+                self.navigationController!.pushViewController(profile, animated: true)
+            } else if self.room?.type == .group {
+                
+                let profile = IGProfileGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                profile.selectedGroup = self.room?.groupRoom
+                profile.room = self.room
+                profile.hidesBottomBarWhenPushed = true
+                self.navigationController!.pushViewController(profile, animated: true)
             }
         }
         
@@ -810,6 +827,17 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         self.collectionView!.collectionViewLayout.invalidateLayout()
+    }
+    
+    private func initAvatarObserver(){
+        var ownerId = room!.id
+        if room!.type == .chat {
+            ownerId = room!.chatRoom!.peer!.id
+        }
+        
+        self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: ownerId).observe({ (ObjectChange) in
+            (self.navigationItem as! IGNavigationItem).setRoomAvatar(self.room!)
+        })
     }
     
     private func manageDraft(){

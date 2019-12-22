@@ -56,6 +56,7 @@ class IGAvatar: Object{
         }
         avatar.ownerId = ownerId
         avatar.file = IGFile.putOrUpdate(igpFile: igpAvatar.igpFile, fileType: .image)
+        IGDatabaseManager.shared.realm.add(avatar)
         return avatar
     }
     
@@ -71,6 +72,7 @@ class IGAvatar: Object{
             avatar!.id = igpAvatar.igpID
             avatar!.ownerId = ownerId
             avatar!.file = IGFile.putOrUpdate(igpFile: igpAvatar.igpFile, fileType: IGFile.FileType.image)
+            IGDatabaseManager.shared.realm.add(avatar!)
         }
         
         return avatar!

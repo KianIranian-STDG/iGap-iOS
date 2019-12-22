@@ -350,7 +350,11 @@ class IGChannelAddAvatarRequest: IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage:IGPChannelAvatarAddResponse) {
-            _ = IGAvatar.putOrUpdate(igpAvatar: responseProtoMessage.igpAvatar, ownerId: responseProtoMessage.igpRoomID)
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    _ = IGAvatar.putOrUpdate(igpAvatar: responseProtoMessage.igpAvatar, ownerId: responseProtoMessage.igpRoomID)
+                }
+            }
         }
         override class func handlePush(responseProtoMessage: Message) {
             if let channelAvatarResponse = responseProtoMessage as? IGPChannelAvatarAddResponse {

@@ -389,7 +389,11 @@ class IGGroupAvatarAddRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage:IGPGroupAvatarAddResponse) {
-            _ = IGAvatar.putOrUpdate(igpAvatar: responseProtoMessage.igpAvatar, ownerId: responseProtoMessage.igpRoomID)
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    _ = IGAvatar.putOrUpdate(igpAvatar: responseProtoMessage.igpAvatar, ownerId: responseProtoMessage.igpRoomID)
+                }
+            }
         }
         override class func handlePush(responseProtoMessage: Message) {
             if let groupAvatarResponse = responseProtoMessage as? IGPGroupAvatarAddResponse {

@@ -54,6 +54,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
     var deleteView: IGTappableView?
     var userAvatar: IGAvatar?
     var maxNavHeight : CGFloat = 100
+    private var avatarObserver: NotificationToken?
     
     //MARK: -Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -81,6 +82,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         displayNameLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
         memberCountLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
         initTheme()
+        initAvatarObserver()
     }
     private func initTheme() {
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
@@ -115,6 +117,12 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
     }
     
     //MARK: -Development functions
+    
+    private func initAvatarObserver(){
+        self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: self.room!.id).observe({ (ObjectChange) in
+            self.avatarView.setRoom(self.room!)
+        })
+    }
     
     func report(room: IGRoom){
         let roomId = room.id

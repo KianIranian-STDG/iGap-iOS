@@ -50,6 +50,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
     var avatars: [IGAvatar] = []
     var deleteView: IGTappableView?
     var userAvatar: IGAvatar?
+    private var avatarObserver: NotificationToken?
 
     //MARK: -Outlets
     @IBOutlet weak var channelNameLabelTitle: UILabel!
@@ -80,6 +81,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         signMessageIndexPath = IndexPath(row: 2, section: 1)
 
         initTheme()
+        initAvatarObserver()
     }
     private func initTheme() {
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
@@ -87,6 +89,12 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         channelUserCountLabel.textColor = ThemeManager.currentTheme.LabelColor
     }
 
+    private func initAvatarObserver(){
+        self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: self.room!.id).observe({ (ObjectChange) in
+            self.channelImage.setRoom(self.room!)
+        })
+    }
+    
     func channelFirstInitialiser() {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
