@@ -77,7 +77,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         
-        displayNameLabel.textAlignment = displayNameLabel.localizedDirection
+        displayNameLabel.textAlignment = .right
         displayNameLabel.textColor = .white
         displayNameLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
         memberCountLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)

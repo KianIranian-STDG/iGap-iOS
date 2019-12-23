@@ -64,15 +64,27 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             self.tfNameOfRoom.placeholder = IGStringsManager.GroupName.rawValue.localized
         }
         self.initNavigationBar(title: title,rightItemText: "", iGapFont: true) {
+            self.view.endEditing(true)
             if self.room?.type == .channel {
                 self.RequestSequenceChannel()
             } else {
-                
+                self.RequestSequenceGroup()
             }
         }
         initView()
         initTheme()
         initAvatarObserver()
+        hideSaveChangesBtn()
+        tfNameOfRoom.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        tfDescriptionOfRoom.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    }
+    
+    private func showSaveChangesBtn() {
+        navigationItem.rightBarButtonItem?.customView?.isHidden = false
+    }
+    
+    private func hideSaveChangesBtn() {
+        navigationItem.rightBarButtonItem?.customView?.isHidden = true
     }
     
     private func initTheme() {
@@ -242,7 +254,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     private func getData() {
         //Hint : -This func is responsible to get current data of room and has responsibility to check values for changes
         if room?.type == .channel {
-            self.tmpOldDesc = (self.room?.channelRoom!.description)!
+            self.tmpOldDesc = (self.room?.channelRoom!.roomDescription)!
             self.tmpOldName = self.room!.title!
             if room?.channelRoom?.type == .privateRoom {
                 channelLink = room?.channelRoom?.privateExtra?.inviteLink
@@ -265,7 +277,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             tfChannelLink.text = channelLink
             
         } else {
-            self.tmpOldDesc = (self.room?.groupRoom!.description)!
+            self.tmpOldDesc = (self.room?.groupRoom!.roomDescription)!
             self.tmpOldName = self.room!.title!
             if room?.groupRoom?.type == .privateRoom {
                 channelLink = room?.groupRoom?.privateExtra?.inviteLink
@@ -1167,4 +1179,50 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             }
         }
     }
+    
+    // MARK:- TextField Delegate
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        switch textField {
+//        case tfNameOfRoom:
+//            checkSaveBtnAvailability()
+//            return
+//        case tfDescriptionOfRoom:
+//            checkSaveBtnAvailability()
+//            return
+//        default:
+//            return
+//        }
+//    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+
+        switch textField {
+        case tfNameOfRoom:
+            checkSaveBtnAvailability()
+            return
+        case tfDescriptionOfRoom:
+            checkSaveBtnAvailability()
+            return
+        default:
+            return
+        }
+        
+    }
+    
+    private func checkSaveBtnAvailability() {
+        
+        if tfNameOfRoom.text! != tmpOldName {
+            showSaveChangesBtn()
+            return
+        }
+        
+        if tfDescriptionOfRoom.text! != tmpOldDesc {
+            showSaveChangesBtn()
+            return
+        }
+        
+        hideSaveChangesBtn()
+        
+    }
+    
 }
