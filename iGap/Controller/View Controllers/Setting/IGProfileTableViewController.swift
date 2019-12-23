@@ -589,7 +589,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
         userInDb = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(predicate).first
         if userAvatarView.avatarImageView != nil && userAvatarView.avatarImageView?.image == nil {
-            userAvatarView.setUser(userInDb, showMainAvatar: true)
+            userAvatarView.setUser(userInDb)
         }
         user = userInDb
         userAvatarView.avatarImageView?.isUserInteractionEnabled = true
@@ -658,7 +658,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     
     private func initAvatarObserver(){
         self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: self.userInDb.id).observe({ (ObjectChange) in
-            self.showAvatar()
+            self.userAvatarView.setUser(self.userInDb)
         })
     }
     

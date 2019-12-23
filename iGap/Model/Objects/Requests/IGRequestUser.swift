@@ -529,7 +529,11 @@ class IGUserAvatarDeleteRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage:IGPUserAvatarDeleteResponse) {
-            IGAvatar.deleteAvatar(avatarId: responseProtoMessage.igpID)
+            var roomId: Int64 = 0
+            if let room = IGRoom.existRoomInLocal(userId: IGAppManager.sharedManager.userID()!) {
+                roomId = room.id
+            }
+            IGAvatar.deleteAvatar(roomId: roomId, avatarId: responseProtoMessage.igpID)
         }
 
         override class func handlePush(responseProtoMessage: Message) {

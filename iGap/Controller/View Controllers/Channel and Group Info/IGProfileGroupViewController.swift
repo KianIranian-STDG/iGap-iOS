@@ -326,9 +326,8 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         if !(room!.isInvalidated) {
             displayNameLabel.text = room?.title
             displayNameLabel.text = room?.title
-            //                groupDescriptionLabel.text = room?.groupRoom?.roomDescription
             if let groupRoom = room {
-                avatarView.setRoom(groupRoom, showMainAvatar: true)
+                avatarView.setRoom(groupRoom)
             }
             if let groupType = room?.groupRoom?.type {
                 switch groupType {
@@ -349,7 +348,6 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
                     groupLink = "iGap.net/\(groupUsername)"
                 }
             }
-            
         }
     }
     

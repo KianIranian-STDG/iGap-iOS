@@ -152,7 +152,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     //MARK: -Avatar Sequence
     func initAvatarView() {
         if user != nil {
-            self.avatarView.setUser(user!, showMainAvatar: true)
+            self.avatarView.setUser(user!)
             self.displayNameLabel.text = user!.displayName
             self.displayNameLabel.textAlignment = displayNameLabel.localizedDirection
             displayNameLabel.textColor = .white

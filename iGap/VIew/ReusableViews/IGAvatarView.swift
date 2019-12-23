@@ -71,7 +71,7 @@ class IGAvatarView: UIView {
         self.initialLettersLabel!.text = ""
     }
     
-    func setUser(_ user: IGRegisteredUser, showMainAvatar: Bool = false) {
+    func setUser(_ user: IGRegisteredUser) {
         self.avatarImageView!.image = nil
         self.initialLettersLabel!.text = user.initials
         let color = UIColor.hexStringToUIColor(hex: user.color)
@@ -92,7 +92,7 @@ class IGAvatarView: UIView {
         }
     }
     
-    func setRoom(_ room: IGRoom, showMainAvatar: Bool = false) {
+    func setRoom(_ room: IGRoom) {
         
         if room.isInvalidated {
             return
