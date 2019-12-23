@@ -28,8 +28,11 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     private var totalCount: Int!
     private var currentIndex: Int!
     private var showItemInfoLayout = true
+    private var isExpand = false
     private var pagerView: FSPagerView!
     private var avatarsObserver: NotificationToken?
+    
+    private let extraMessageHeight: CGFloat = 10 // this value is for distance between top of the 'bottomView' and top of the 'txtMessage' view
     
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var topViewHeight: NSLayoutConstraint!
@@ -40,6 +43,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
     @IBOutlet weak var txtMessage: UILabel!
+    @IBOutlet weak var txtMessageHeight: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,10 +72,17 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         
         self.manageCurrentMedia()
         self.manageDeleteButton()
+        txtMessageHeight.constant = bottomViewHeight.constant - extraMessageHeight // set message height at start
         
         self.topViewHeight.constant = 55 + UIApplication.shared.statusBarFrame.size.height
         self.view.bringSubviewToFront(topView)
         self.view.bringSubviewToFront(bottomView)
+        
+        bottomView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapOnBottomView(_:))))
+        bottomView.isUserInteractionEnabled = true
+        
+        topView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapOnTopView(_:))))
+        topView.isUserInteractionEnabled = true
     }
     
     override func viewDidLayoutSubviews() {
@@ -111,6 +122,19 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
             } else if avatarType == .channel && (room.channelRoom?.role == IGPChannelRoom.IGPRole.owner || room.channelRoom?.role == IGPChannelRoom.IGPRole.admin) {
                 btnDelete.isHidden = false
             }
+        }
+    }
+    
+    /** manage current state for show or hide bottom and top layouts */
+    private func manageShowLayouts(){
+        if showItemInfoLayout {
+            showItemInfoLayout = false
+            self.topView.fadeOut(0.3)
+            self.bottomView.fadeOut(0.3)
+        } else {
+            showItemInfoLayout = true
+            self.topView.fadeIn(0.3)
+            manageCurrentMedia(time: 0.3)
         }
     }
     
@@ -249,6 +273,34 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         IGHelperAvatar.shared.delete(roomId: ownerId, avatarId: avatarList![currentIndex].id, type: avatarType!, completion: {})
     }
     
+    @objc func didTapOnBottomView(_ gestureRecognizer: UITapGestureRecognizer) {
+        
+        // in this state message is not large so expand view is not useful
+        if (IGGlobal.fetchUIScreen().height / 3) > self.bottomViewHeight.constant {
+            return
+        }
+        
+        UIView.animate(withDuration: 0.4) {
+            if self.isExpand {
+                self.isExpand = false
+                self.bottomView.frame = CGRect(x: 0, y: IGGlobal.fetchUIScreen().height - (self.bottomViewHeight.constant), width: IGGlobal.fetchUIScreen().width, height: self.bottomViewHeight.constant)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.txtMessageHeight.constant = self.bottomViewHeight.constant - self.extraMessageHeight
+                }
+            } else {
+                self.isExpand = true
+                let roomMessage = self.mediaList![self.currentIndex]
+                let size = CellSizeCalculator.sharedCalculator.mediaPagerCellSize(message: roomMessage, force: true)
+                self.bottomView.frame = CGRect(x: 0, y: IGGlobal.fetchUIScreen().height - (size.messageHeight.height), width: IGGlobal.fetchUIScreen().width, height: size.messageHeight.height)
+                self.txtMessageHeight.constant = size.messageHeight.height - self.extraMessageHeight
+            }
+        }
+    }
+    
+    @objc func didTapOnTopView(_ gestureRecognizer: UITapGestureRecognizer) {
+        manageShowLayouts()
+    }
+    
     // MARK:- FSPagerView
     
     public func numberOfItems(in pagerView: FSPagerView) -> Int {
@@ -272,19 +324,15 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     }
     
     func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
-        if showItemInfoLayout {
-            showItemInfoLayout = false
-            self.topView.fadeOut(0.3)
-            self.bottomView.fadeOut(0.3)
-        } else {
-            showItemInfoLayout = true
-            self.topView.fadeIn(0.3)
-            manageCurrentMedia(time: 0.3)
-        }
+        manageShowLayouts()
     }
     
     func pagerViewWillEndDragging(_ pagerView: FSPagerView, targetIndex: Int) {
+        if currentIndex != targetIndex {
+            self.isExpand = false
+        }
         currentIndex = targetIndex
         manageCurrentMedia()
+        txtMessageHeight.constant = bottomViewHeight.constant - extraMessageHeight
     }
 }

@@ -279,7 +279,15 @@ class CellSizeCalculator: NSObject {
         return result
     }
     
-    func mediaPagerCellSize(message: IGRoomMessage? = nil, avatar: IGAvatar? = nil) -> MediaViewerCellCalculatedSize {
+    /**
+     - Declaration: compute media size for chat messages and avatars
+     
+     - Parameters:
+        - message: enter 'IGRoomMessage' if want to compute message media height
+        - avatar: enter 'IGAvatar' if want to compute avatar media height
+        - force: set true for avoid read from cache and reCompute media height, also return max message height according to phone height
+    */
+    func mediaPagerCellSize(message: IGRoomMessage? = nil, avatar: IGAvatar? = nil, force: Bool = false) -> MediaViewerCellCalculatedSize {
         
         var cacheId: Int64!
         var file: IGFile!
@@ -296,7 +304,7 @@ class CellSizeCalculator: NSObject {
         
         let cacheKey = "\(String(describing: cacheId))" as NSString
         let cachedSize = mediaViewerCache.object(forKey: cacheKey)
-        if cachedSize != nil {
+        if cachedSize != nil && !force {
             return cachedSize as! MediaViewerCellCalculatedSize
         }
         
@@ -309,15 +317,22 @@ class CellSizeCalculator: NSObject {
         
         if let text = messageText {
             messageHeight = CellSizeCalculator.bodyRect(text: text as NSString, width: CellSizeLimit.MediaViewerCellSize.MaxWidth)
-            if messageHeight.height > (CellSizeLimit.MediaViewerCellSize.MaxHeight/3) {
-                messageHeight.height = (CellSizeLimit.MediaViewerCellSize.MaxHeight/3)
+            
+            var heightRatio: CGFloat = 3
+            if force {// return max height according to phone height
+                heightRatio = 1.2
+            }
+            if messageHeight.height > (CellSizeLimit.MediaViewerCellSize.MaxHeight / heightRatio) {
+                messageHeight.height = (CellSizeLimit.MediaViewerCellSize.MaxHeight / heightRatio)
             }
             
             messageHeight.height = messageHeight.height + 10 //plus 10 is for UILabel padding into the view
         }
         
         let result: MediaViewerCellCalculatedSize = (mediaHeight, messageHeight)
-        mediaViewerCache.setObject(result as AnyObject, forKey: cacheKey)
+        if !force {
+            mediaViewerCache.setObject(result as AnyObject, forKey: cacheKey)
+        }
         return result
     }
     
