@@ -313,10 +313,9 @@ class IGCallsTableViewController: BaseTableViewController {
     }
     
     private func goToContactListPage() {
-        let contactList = IGContactListTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-        contactList.forceCall = true
-        contactList.hidesBottomBarWhenPushed = true
-        self.navigationController!.pushViewController(contactList, animated: true)
+        
+        self.performSegue(withIdentifier: "showPhoneBook", sender: nil)
+        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -418,6 +417,9 @@ class IGCallsTableViewController: BaseTableViewController {
     // MARK: - Prepare for segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         segue.destination.hidesBottomBarWhenPushed = true
+        if segue.identifier == "showPhoneBook" {
+            (segue.destination as! IGPhoneBookTableViewController).mustCallContact = true
+        }
     }
     
 }

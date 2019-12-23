@@ -75,6 +75,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     var connectionStatus: IGAppManager.ConnectionStatus?
     internal static var callDelegate: IGCallFromContactListObserver!
     
+    var mustCallContact = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationItems()
@@ -141,10 +143,17 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }
     
     private func setNavigationItems() {
+        
         if currentTabIndex == TabBarTab.Profile.rawValue || currentTabIndex == TabBarTab.Recent.rawValue {
             self.initNavigationBar(title: IGStringsManager.GlobalNew.rawValue.localized) { }
         } else {
             let navigationItem = self.navigationItem as! IGNavigationItem
+            if mustCallContact {
+                navigationItem.addNavigationBackItem()
+                navigationItem.backViewContainer?.addAction {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
             navigationItem.setPhoneBookNavigationItems()
             navigationItem.rightViewContainer?.addAction {
                 self.goToAddContactsPage()
@@ -496,18 +505,29 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         } else {
             user = self.contacts[selectedIndexPath]
         }
-        IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
-            if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
-                DispatchQueue.main.async {
-                    IGGlobal.prgHide()
-                    let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                    self.navigationController?.popToRootViewController(animated: true)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
-                }
+        
+        if mustCallContact {
+            
+            DispatchQueue.main.async {
+                UIApplication.topViewController()!.view.endEditing(true)
+                IGGlobal.prgHide()
+                (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: user.id, isIncommmingCall: false)
             }
-        }).error({ (errorCode, waitTime) in
-            IGGlobal.prgHide()
-        }).send()
+        }else {
+            IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
+                if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
+                    DispatchQueue.main.async {
+                        IGGlobal.prgHide()
+                        let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                        self.navigationController?.popToRootViewController(animated: true)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
+                    }
+                }
+            }).error({ (errorCode, waitTime) in
+                IGGlobal.prgHide()
+            }).send()
+        }
+         
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
