@@ -352,7 +352,7 @@ class IGChannelAddAvatarRequest: IGRequest {
         class func interpret(response responseProtoMessage:IGPChannelAvatarAddResponse) {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 try! IGDatabaseManager.shared.realm.write {
-                    IGRoom.updateAvatar(userId: responseProtoMessage.igpRoomID, avatar: IGAvatar.putOrUpdate(igpAvatar: responseProtoMessage.igpAvatar, ownerId: responseProtoMessage.igpRoomID))
+                    IGRoom.updateAvatar(roomId: responseProtoMessage.igpRoomID, avatar: IGAvatar.putOrUpdate(igpAvatar: responseProtoMessage.igpAvatar, ownerId: responseProtoMessage.igpRoomID))
                 }
             }
         }

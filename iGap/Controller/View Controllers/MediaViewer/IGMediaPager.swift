@@ -11,6 +11,7 @@
 import UIKit
 import RealmSwift
 import FSPagerView
+import IGProtoBuff
 
 class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSource {
     
@@ -34,6 +35,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     @IBOutlet weak var topViewHeight: NSLayoutConstraint!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnShare: UIButton!
+    @IBOutlet weak var btnDelete: UIButton!
     @IBOutlet weak var txtCount: UILabel!
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
@@ -65,8 +67,9 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         }
         
         self.manageCurrentMedia()
+        self.manageDeleteButton()
         
-        self.topViewHeight.constant = 50 + UIApplication.shared.statusBarFrame.size.height
+        self.topViewHeight.constant = 55 + UIApplication.shared.statusBarFrame.size.height
         self.view.bringSubviewToFront(topView)
         self.view.bringSubviewToFront(bottomView)
     }
@@ -92,6 +95,25 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         return .lightContent
     }
     
+    /** manage show delete button or no */
+    private func manageDeleteButton(){
+        if mediaPagerType != .avatar {
+            return
+        }
+        
+        if avatarType == .user {
+            if ownerId == IGAppManager.sharedManager.userID()! {
+                btnDelete.isHidden = false
+            }
+        } else if let room = IGRoom.existRoomInLocal(roomId: ownerId) {
+            if avatarType == .group && (room.groupRoom?.role == IGPGroupRoom.IGPRole.owner || room.groupRoom?.role == IGPGroupRoom.IGPRole.admin) {
+                btnDelete.isHidden = false
+            } else if avatarType == .channel && (room.channelRoom?.role == IGPChannelRoom.IGPRole.owner || room.channelRoom?.role == IGPChannelRoom.IGPRole.admin) {
+                btnDelete.isHidden = false
+            }
+        }
+    }
+    
     //MARK:- Fetch Media
     
     private func fetchAvatars() {
@@ -103,6 +125,10 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
                 break
             case .update(_, _, _, _):
                 self.avatarList = Array(self.realmAvatarList!)
+                // all avatar deleted so close media pager
+                if self.avatarList!.count == 0 {
+                    self.navigationController?.popViewController(animated: true)
+                }
                 self.totalCount = self.avatarList!.count
                 self.manageCurrentMedia()
                 self.pagerView.reloadData()
@@ -216,6 +242,11 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     
     @IBAction func btnShare(_ sender: UIButton) {
         IGHelperPopular.shareAttachment(url: mediaList![currentIndex].getFinalMessage().attachment?.path(), viewController: self)
+    }
+    
+    @IBAction func btnDelete(_ sender: UIButton) {
+        // don't need to use completion because avatar observed into the class
+        IGHelperAvatar.shared.delete(roomId: ownerId, avatarId: avatarList![currentIndex].id, type: avatarType!, completion: {})
     }
     
     // MARK:- FSPagerView

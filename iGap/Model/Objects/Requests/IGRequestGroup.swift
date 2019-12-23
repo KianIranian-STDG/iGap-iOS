@@ -391,7 +391,7 @@ class IGGroupAvatarAddRequest : IGRequest {
         class func interpret(response responseProtoMessage:IGPGroupAvatarAddResponse) {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 try! IGDatabaseManager.shared.realm.write {
-                    IGRoom.updateAvatar(userId: responseProtoMessage.igpRoomID, avatar: IGAvatar.putOrUpdate(igpAvatar: responseProtoMessage.igpAvatar, ownerId: responseProtoMessage.igpRoomID))
+                    IGRoom.updateAvatar(roomId: responseProtoMessage.igpRoomID, avatar: IGAvatar.putOrUpdate(igpAvatar: responseProtoMessage.igpAvatar, ownerId: responseProtoMessage.igpRoomID))
                 }
             }
         }

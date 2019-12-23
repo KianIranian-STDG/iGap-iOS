@@ -114,5 +114,12 @@ class IGRealmMember: Object {
             completion()
         }
     }
+    
+    public static func fetchMemberRole(roomId: Int64, memberId: Int64) -> Int {
+        if let member = IGDatabaseManager.shared.realm.objects(IGRealmMember.self).filter(NSPredicate(format: "roomId == %lld AND userId == %lld", roomId, memberId)).first {
+            return member.role
+        }
+        return -1
+    }
 }
 

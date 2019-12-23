@@ -11,6 +11,7 @@
 import UIKit
 import IGProtoBuff
 import YPImagePicker
+import RealmSwift
 
 class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, UITextFieldDelegate {
     
@@ -28,6 +29,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     var convertToPublic = false
     var signMessageSwitchStatus : Bool?
     var reactionSwitchStatus = false
+    private var avatarObserver: NotificationToken?
     
     // MARK: - Outlets
     @IBOutlet weak var lblSignMessage : UILabel!
@@ -70,6 +72,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         }
         initView()
         initTheme()
+        initAvatarObserver()
     }
     
     private func initTheme() {
@@ -102,10 +105,14 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
 
         switchSignMessage.onTintColor = ThemeManager.currentTheme.SliderTintColor
         switchChannelReaction.onTintColor = ThemeManager.currentTheme.SliderTintColor
-
-        
-        
     }
+    
+    private func initAvatarObserver() {
+        self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: self.room!.id).observe({ (ObjectChange) in
+            self.avatarRoom.setRoom(self.room!)
+        })
+    }
+    
     // MARK: - Development Funcs
     func RequestSequenceChannel(){
         
@@ -829,7 +836,6 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             
             tfDescriptionOfRoom.text = room.channelRoom?.roomDescription
             tfNameOfRoom.text = room.title
-            self.avatarRoom.setRoom(room!)
             let signIsOn = room.channelRoom?.isSignature
             if signIsOn! {
                 switchSignMessage.isOn = true
@@ -851,7 +857,6 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         } else {
             tfDescriptionOfRoom.text = room.groupRoom?.roomDescription
             tfNameOfRoom.text = room.title
-            self.avatarRoom.setRoom(room!)
             
         }
     }
@@ -863,25 +868,13 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         let ChoosePhoto = UIAlertAction(title: IGStringsManager.Gallery.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.pickImage(screens: [.library])
         })
-        let removeAction = UIAlertAction(title: IGStringsManager.DeletePhoto.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.deleteAvatar()
-        })
         let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
         
         optionMenu.addAction(ChoosePhoto)
         let alertActions = optionMenu.actions
-        for action in alertActions {
-            if action.title == IGStringsManager.DeletePhoto.rawValue.localized{
-                let removeColor = UIColor.iGapRed()
-                action.setValue(removeColor, forKey: "titleTextColor")
-            }
-        }
         optionMenu.view.tintColor = UIColor.organizationalColor()
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
             optionMenu.addAction(cameraOption)} else {
-        }
-        if self.avatarRoom.avatarImageView!.image != nil {
-            optionMenu.addAction(removeAction)
         }
         optionMenu.addAction(cancelAction)
         if let popoverController = optionMenu.popoverPresentationController {
@@ -898,24 +891,6 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 } else {
                     self.avatarRoom.avatarImageView?.setAvatar(avatar: file)
                 }
-            }
-        }
-    }
-    
-    /**
-     * this method will be deleted main(latest) avatar
-     */
-    func deleteAvatar(){
-        var avatarId: Int64!
-        if let channelAvatarId = self.room?.channelRoom?.avatar?.id {
-            avatarId = channelAvatarId
-        } else if let groupAvatarId = self.room?.groupRoom?.avatar?.id {
-            avatarId = groupAvatarId
-        }
-        
-        IGHelperAvatar.shared.delete(avatarId: avatarId, type: AvatarType.fromIG(self.room!.type)) {
-            DispatchQueue.main.async {
-                self.avatarRoom.avatarImageView!.image = nil
             }
         }
     }

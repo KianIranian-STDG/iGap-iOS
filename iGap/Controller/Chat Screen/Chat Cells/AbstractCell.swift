@@ -87,6 +87,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
     
     let cornerRadius: CGFloat = 7.0
     let bubbleSubviewOffset: CGFloat = 3
+    let bubbleShadowOffset: CGFloat = 0.6
+    let bubbleShadowRadius: CGFloat = 0.3
+    let bubbleShadowOpacity: Float = 0.2
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -614,11 +617,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
     private func manageCellBubble() {
       
         /************ Bubble View ************/
-        let shadowOffset: CGFloat = 0.5
         mainBubbleViewAbs.layer.cornerRadius = cornerRadius
-        mainBubbleViewAbs.layer.shadowColor = UIColor.darkGray.cgColor
-        mainBubbleViewAbs.layer.shadowRadius = 0.4
-        mainBubbleViewAbs.layer.shadowOpacity = 0.2
+        mainBubbleViewAbs.layer.shadowColor = UIColor.black.cgColor
+        mainBubbleViewAbs.layer.shadowRadius = bubbleShadowRadius
+        mainBubbleViewAbs.layer.shadowOpacity = bubbleShadowOpacity
         mainBubbleViewAbs.layer.masksToBounds = false
         
         if finalRoomMessage.type == .sticker || finalRoomMessage.type == .location {
@@ -638,7 +640,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             if trailingAbs != nil { trailingAbs?.deactivate() }
             
             if isIncommingMessage {
-                mainBubbleViewAbs.layer.shadowOffset = CGSize(width: shadowOffset, height: shadowOffset)
+                mainBubbleViewAbs.layer.shadowOffset = CGSize(width: bubbleShadowOffset, height: bubbleShadowOffset)
                 
                 if #available(iOS 11.0, *) {
                     if room.type == .group {
@@ -666,7 +668,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                 trailingAbs = make.trailing.equalTo(self.contentView.snp.trailing).offset(-16).priority(250).constraint
                 
             } else {
-                mainBubbleViewAbs.layer.shadowOffset = CGSize(width: -shadowOffset, height: shadowOffset)
+                mainBubbleViewAbs.layer.shadowOffset = CGSize(width: -bubbleShadowOffset, height: bubbleShadowOffset)
                 
                 if #available(iOS 11.0, *) {
                     mainBubbleViewAbs.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
@@ -1762,9 +1764,15 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             statusBackgroundViewAbs.layer.masksToBounds = false
             statusBackgroundViewAbs.layer.cornerRadius = self.cornerRadius
             statusBackgroundViewAbs.layer.shadowColor = UIColor.black.cgColor
-            statusBackgroundViewAbs.layer.shadowRadius = 0.1
-            statusBackgroundViewAbs.layer.shadowOpacity = 0.2
+            statusBackgroundViewAbs.layer.shadowRadius = bubbleShadowRadius
+            statusBackgroundViewAbs.layer.shadowOpacity = bubbleShadowOpacity
             mainBubbleViewAbs.addSubview(statusBackgroundViewAbs)
+        }
+        
+        if isIncommingMessage {
+            statusBackgroundViewAbs.layer.shadowOffset = CGSize(width: bubbleShadowOffset, height: bubbleShadowOffset)
+        } else {
+            statusBackgroundViewAbs.layer.shadowOffset = CGSize(width: -bubbleShadowOffset, height: bubbleShadowOffset)
         }
         
         statusBackgroundViewAbs.snp.makeConstraints { (make) in

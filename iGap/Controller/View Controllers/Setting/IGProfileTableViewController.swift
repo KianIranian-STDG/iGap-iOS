@@ -631,21 +631,6 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         }
     }
     
-    func deleteAvatar(index: Int! = 0) {
-        IGHelperAvatar.shared.delete(avatarId: self.avatars[index].id, type: .user) {
-            DispatchQueue.main.async {
-                self.avatars.remove(at: index)
-                sizesArray.remove(at: index)
-                self.getUserInfo() // TODO - now for update show avatars in room list and chat cloud i use from getUserInfo. HINT: remove this state and change avatar list for this user
-                if self.avatars.count > 0 {
-                    self.userAvatarView.avatarImageView?.setAvatar(avatar: self.avatars[0].file!)
-                } else {
-                    self.userAvatarView.avatarImageView = nil
-                }
-            }
-        }
-    }
-    
     func getUserInfo(){
         IGUserInfoRequest.Generator.generate(userID: (self.user?.id)!).success({ (protoResponse) in
             DispatchQueue.main.async {
@@ -1467,15 +1452,8 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             self.pickImage(screens: [.library])
         })
         
-        let deleteAction = UIAlertAction(title: IGStringsManager.DeletePhoto.rawValue.localized, style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
-            self.deleteAvatar()
-        })
-        
         let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
         
-        if self.avatars.count > 0 {
-            optionMenu.addAction(deleteAction)
-        }
         optionMenu.addAction(ChoosePhoto)
         optionMenu.addAction(cancelAction)
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
