@@ -135,7 +135,6 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         
         self.hideKeyboardWhenTappedAround()
         initView()
-        initAvatarObserver()
         initServices()
         
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
@@ -204,6 +203,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         }
         
         fetchUserInfo()
+        initAvatarObserver()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -657,7 +657,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     
     private func initAvatarObserver(){
-        self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: self.user!.id).observe({ (ObjectChange) in
+        self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: self.userInDb.id).observe({ (ObjectChange) in
             self.showAvatar()
         })
     }
