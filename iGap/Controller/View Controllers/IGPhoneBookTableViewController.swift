@@ -64,7 +64,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     private var forceCall: Bool = false
     private var pageName : String! = "NEW_CALL"
     private var lastContentOffset: CGFloat = 0
-    private var navigationControll : IGNavigationController!
     private let collation = UILocalizedIndexedCollation.current()
     private var realmNotificationToken: NotificationToken?
     private var allowInitObserver = true
@@ -74,8 +73,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     private var contactSynced = false // when all contacts import to server and then fetched from server this value will be true
     var connectionStatus: IGAppManager.ConnectionStatus?
     internal static var callDelegate: IGCallFromContactListObserver!
-    
-    var mustCallContact = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,7 +145,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             self.initNavigationBar(title: IGStringsManager.GlobalNew.rawValue.localized) { }
         } else {
             let navigationItem = self.navigationItem as! IGNavigationItem
-            if mustCallContact {
+            if currentTabIndex == 1 {
                 navigationItem.addNavigationBackItem()
                 navigationItem.backViewContainer?.addAction {
                     self.navigationController?.popViewController(animated: true)
@@ -487,10 +484,13 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         if currentTabIndex == TabBarTab.Profile.rawValue || currentTabIndex == TabBarTab.Recent.rawValue {
             if indexPath.row  == 0 {
                 self.didTapOnNewChannel()
+                return
             } else if indexPath.row  == 1 {
                 self.didTapOnNewGroup()
+                return
+            }else {
+                selectedIndexPath = indexPath.row - 2
             }
-            return
         } else {
             selectedIndexPath = indexPath.row
         }
@@ -506,7 +506,11 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             user = self.contacts[selectedIndexPath]
         }
         
-        if mustCallContact {
+        guard let currentTabIndex = currentTabIndex else {
+            return
+        }
+        
+        if currentTabIndex == 1 { // is for calling
             
             DispatchQueue.main.async {
                 UIApplication.topViewController()!.view.endEditing(true)

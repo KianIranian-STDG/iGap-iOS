@@ -417,9 +417,6 @@ class IGCallsTableViewController: BaseTableViewController {
     // MARK: - Prepare for segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         segue.destination.hidesBottomBarWhenPushed = true
-        if segue.identifier == "showPhoneBook" {
-            (segue.destination as! IGPhoneBookTableViewController).mustCallContact = true
-        }
     }
     
 }
