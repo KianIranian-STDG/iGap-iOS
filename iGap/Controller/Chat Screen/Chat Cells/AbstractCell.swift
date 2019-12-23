@@ -522,17 +522,28 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             }
             
             if txtTimeAbs != nil {
-                txtTimeAbs?.textColor = UIColor.white
                 mainBubbleViewAbs.bringSubviewToFront(txtTimeAbs)
             }
-            
+            if isIncommingMessage {
+                txtTimeAbs?.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
+            } else {
+                txtTimeAbs?.textColor = ThemeManager.currentTheme.LabelColor
+            }
+
             if txtEditedAbs != nil {
                 txtEditedAbs?.textColor = UIColor.white
                 mainBubbleViewAbs.bringSubviewToFront(txtEditedAbs)
             }
             
         } else {
-            txtTimeAbs?.textColor = UIColor.chatTimeTextColor()
+            if isIncommingMessage {
+                txtTimeAbs?.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
+            } else {
+                txtTimeAbs?.textColor = ThemeManager.currentTheme.LabelColor
+            }
+
             txtEditedAbs?.textColor = UIColor.chatTimeTextColor()
         }
     }
@@ -1538,6 +1549,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             //} else {
             /* set color always for avoid from reuse item color. for example: show incomming forward color for received forward color */
             //forwardViewAbs?.backgroundColor = UIColor.chatForwardedFromViewBackgroundColor(isIncommingMessage: isIncommingMessage)
+        } else {
+            forwardViewAbs?.backgroundColor = UIColor.chatForwardedFromViewBackgroundColor(isIncommingMessage: isIncommingMessage)
+
+            forwardLineViewAbs.backgroundColor = UIColor.chatForwardToIndicatorViewColor(isIncommingMessage: isIncommingMessage)
+            txtForwardAbs.textColor = UIColor.chatForwardedFromUsernameLabelColor(isIncommingMessage: isIncommingMessage)
+
         }
         
         if #available(iOS 11.0, *) {
@@ -1619,6 +1636,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         } else {
             /* set color always for avoid from reuse item color. for example: show incomming reply color for received reply color */
             replyViewAbs?.backgroundColor = UIColor.chatReplyToBackgroundColor(isIncommingMessage: isIncommingMessage)
+
         }
         
         if #available(iOS 11.0, *) {
@@ -1697,14 +1715,15 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         if txtTimeAbs == nil {
             txtTimeAbs = UILabel()
             txtTimeAbs.font = UIFont.igFont(ofSize: 11.0, weight: .medium)
-            if isIncommingMessage {
-                txtTimeAbs.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
-            } else {
-                txtTimeAbs.textColor = UIColor.chatTimeTextColor()
-            }
             mainBubbleViewAbs.addSubview(txtTimeAbs)
         }
-        
+        if isIncommingMessage {
+            txtTimeAbs?.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
+        } else {
+            txtTimeAbs?.textColor = ThemeManager.currentTheme.BackGroundColor
+        }
+
         txtTimeAbs.snp.removeConstraints()
         txtTimeAbs.snp.makeConstraints{ (make) in
             if statusExist {

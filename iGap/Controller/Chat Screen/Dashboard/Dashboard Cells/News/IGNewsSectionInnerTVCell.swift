@@ -35,6 +35,13 @@ class IGNewsSectionInnerTVCell: BaseTableViewCell {
         lblSeenCount.textColor = .white
         initAlignments()
 //        self.bgView.backgroundColor = .white
+        
+        
+        lblDate.textColor = ThemeManager.currentTheme.LabelColor
+        lblAlias.textColor = ThemeManager.currentTheme.LabelColor
+        lblSeenCount.textColor = ThemeManager.currentTheme.LabelColor
+        lblDate.textColor = ThemeManager.currentTheme.LabelColor
+        bgView.backgroundColor = ThemeManager.currentTheme.TableViewCellColor.darker(by: 20)
     }
     private func initAlignments() {
 //        let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue

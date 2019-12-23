@@ -15,6 +15,9 @@ class SMTwoInputView: UIView {
     
     /// Title of view
     @IBOutlet var infoLblOne: UILabel!
+    @IBOutlet var lblTFOne: UILabel!
+    @IBOutlet var lblTFTwo: UILabel!
+    @IBOutlet var lblTFThree: UILabel!
 
     @IBOutlet var inputTFOne: UITextField!
     @IBOutlet var inputTFTwo: customAmountTextField!
@@ -44,6 +47,14 @@ class SMTwoInputView: UIView {
 //        infoLblOne.text = IGStringsManager.Amount.rawValue.localized
         closeBtn.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
         self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
+        self.lblTFOne.text = IGStringsManager.GlobalMessage.rawValue.localized
+        self.lblTFTwo.text = IGStringsManager.Amount.rawValue.localized
+        self.lblTFThree.text = IGStringsManager.CardNumber.rawValue.localized
+
+        self.lblTFOne.textAlignment = lblTFOne.localizedDirection
+        self.lblTFTwo.textAlignment = lblTFTwo.localizedDirection
+        self.lblTFThree.textAlignment = lblTFThree.localizedDirection
+
         initTheme()
     }
     private func initTheme() {
@@ -51,15 +62,29 @@ class SMTwoInputView: UIView {
         closeBtn.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         confirmBtn.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         infoLblOne.textColor = ThemeManager.currentTheme.LabelColor
+        lblTFOne.textColor = ThemeManager.currentTheme.LabelColor
+        lblTFTwo.textColor = ThemeManager.currentTheme.LabelColor
+        lblTFThree.textColor = ThemeManager.currentTheme.LabelColor
         confirmBtn.backgroundColor = ThemeManager.currentTheme.SliderTintColor
         
-        inputTFOne.placeHolderColor = ThemeManager.currentTheme.LabelColor
-        inputTFTwo.placeHolderColor = ThemeManager.currentTheme.LabelColor
-        inputTFThree.placeHolderColor = ThemeManager.currentTheme.LabelColor
 
         inputTFOne.textColor = ThemeManager.currentTheme.LabelColor
         inputTFTwo.textColor = ThemeManager.currentTheme.LabelColor
         inputTFThree.textColor = ThemeManager.currentTheme.LabelColor
+
+        inputTFOne.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        inputTFTwo.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        inputTFThree.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+
+        inputTFOne.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        inputTFTwo.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        inputTFThree.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        inputTFOne.layer.borderWidth = 1.0
+        inputTFTwo.layer.borderWidth = 1.0
+        inputTFThree.layer.borderWidth = 1.0
+        inputTFOne.layer.cornerRadius = 10
+        inputTFTwo.layer.cornerRadius = 10
+        inputTFThree.layer.cornerRadius = 10
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

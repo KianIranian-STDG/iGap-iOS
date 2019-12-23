@@ -89,7 +89,7 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
     }
     
     private func initColors() {
-        btnAddEdit.backgroundColor = ThemeManager.currentTheme.LabelSecondColor
+        btnAddEdit.backgroundColor = ThemeManager.currentTheme.SliderTintColor
         lblUserNumber.textColor = ThemeManager.currentTheme.LabelColor
         lblBillNUmber.textColor = ThemeManager.currentTheme.LabelColor
         lblBillName.textColor = ThemeManager.currentTheme.LabelColor
@@ -103,10 +103,23 @@ class IGElecAddEditBillTableViewController: BaseTableViewController {
         tfBillNUmber.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
         tfBillName.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
 
+        tfUserNumber.layer.borderWidth = 1.0
+        tfBillNUmber.layer.borderWidth = 1.0
+        tfBillName.layer.borderWidth = 1.0
+
+        tfUserNumber.layer.cornerRadius = 10.0
+        tfBillNUmber.layer.cornerRadius = 10.0
+        tfBillName.layer.cornerRadius = 10.0
+
+        
+
         tfUserNumber.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         tfBillNUmber.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         tfBillName.backgroundColor = ThemeManager.currentTheme.BackGroundColor
-        btnAddEdit.setTitleColor(ThemeManager.currentTheme.TextFieldBackGround, for: .normal)
+        btnAddEdit.setTitleColor(ThemeManager.currentTheme.BackGroundColor, for: .normal)
+        
+        tfUserNumber.keyboardType = .numberPad
+        tfBillNUmber.keyboardType = .numberPad
 
     }
     

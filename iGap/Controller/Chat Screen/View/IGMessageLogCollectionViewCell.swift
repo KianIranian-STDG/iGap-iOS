@@ -49,6 +49,8 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
         self.logBackgroundView.backgroundColor = UIColor.logBackground()
         addShadow()
         manageWidth(IGRoomMessageLog.textForLogMessage(message))
+        self.logLabel.textColor = ThemeManager.currentTheme.LabelColor
+        self.logBackgroundView.backgroundColor = ThemeManager.currentTheme.SliderTintColor
     }
     
     func setUnreadMessage(_ message: IGRoomMessage){

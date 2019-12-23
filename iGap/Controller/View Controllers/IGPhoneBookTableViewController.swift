@@ -105,7 +105,9 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }
 
     private func initTheme() {
-        self.txtInviteContact.textColor = ThemeManager.currentTheme.LabelColor
+        if self.txtInviteContact != nil {
+            self.txtInviteContact.textColor = ThemeManager.currentTheme.LabelColor
+        }
         self.txtFooter.textColor = ThemeManager.currentTheme.LabelColor
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
     }

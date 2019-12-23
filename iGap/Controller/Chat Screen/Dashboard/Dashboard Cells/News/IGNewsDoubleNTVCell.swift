@@ -69,7 +69,7 @@ class IGNewsDoubleNTVCell: UITableViewCell {
 //        lblTitleTwo0.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         lblAlias0.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         lblTitle0.textAlignment = .right
-        lblTitleTwo0.textAlignment = .right
+//        lblTitleTwo0.textAlignment = .right
         lblAlias0.textAlignment = .right
         
         imgView1.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
@@ -77,7 +77,7 @@ class IGNewsDoubleNTVCell: UITableViewCell {
 //        lblTitleTwo1.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         lblAlias1.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         lblTitle1.textAlignment = .right
-        lblTitleTwo1.textAlignment = .right
+//        lblTitleTwo1.textAlignment = .right
         lblAlias1.textAlignment = .right
         
     }

@@ -1669,6 +1669,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.btnMic.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         self.btnSticker.setTitleColor(ThemeManager.currentTheme.LabelGrayColor, for: .normal)
         self.lblPlaceHolder.textColor = ThemeManager.currentTheme.TextFieldPlaceHolderColor
+        self.messageTextView.textColor = ThemeManager.currentTheme.LabelColor
         
     }
     ///setting fonts in here

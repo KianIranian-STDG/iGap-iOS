@@ -486,8 +486,29 @@ extension UITableView {
 }
 
 //MARK: -
+
+
 extension UIColor {
     
+    func lighter(by percentage: CGFloat = 30.0) -> UIColor? {
+        return self.adjust(by: abs(percentage) )
+    }
+
+    func darker(by percentage: CGFloat = 30.0) -> UIColor? {
+        return self.adjust(by: -1 * abs(percentage) )
+    }
+
+    func adjust(by percentage: CGFloat = 30.0) -> UIColor? {
+        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+        if self.getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
+            return UIColor(red: min(red + percentage/100, 1.0),
+                           green: min(green + percentage/100, 1.0),
+                           blue: min(blue + percentage/100, 1.0),
+                           alpha: alpha)
+        } else {
+            return nil
+        }
+    }
     public class func hexStringToUIColor(hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         
@@ -600,7 +621,7 @@ extension UIColor {
     }
     
     class func messageText() -> UIColor {
-        return ThemeManager.currentTheme.MessageTextColor ?? #colorLiteral(red: 0.1725490196, green: 0.2117647059, blue: 0.2470588235, alpha: 1)
+        return ThemeManager.currentTheme.LabelColor ?? #colorLiteral(red: 0.1725490196, green: 0.2117647059, blue: 0.2470588235, alpha: 1)
     }
     
     class func dialogueBoxInfo() -> UIColor { // filename, contact, ...
@@ -787,13 +808,13 @@ extension UIColor {
     
     //MARK: MessageCVCell Time
     class func chatTimeTextColor() -> UIColor {
-        return ThemeManager.currentTheme.MessageTimeLabelColor ?? #colorLiteral(red: 0.4117647059, green: 0.4823529412, blue: 0.5294117647, alpha: 1)
+        return ThemeManager.currentTheme.LabelColor ?? #colorLiteral(red: 0.4117647059, green: 0.4823529412, blue: 0.5294117647, alpha: 1)
     }
     
     //MARK: MessageCVCell Forward
     class func chatForwardedFromViewBackgroundColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return ThemeManager.currentTheme.MessageTextReceiverColor
+            return ThemeManager.currentTheme.SliderTintColor.lighter(by: 30)!
         } else {
             return UIColor.forwardBoxOutgoign()
         }
@@ -835,7 +856,7 @@ extension UIColor {
     //MARK: MessageCVCell Reply
     class func chatReplyToBackgroundColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return ThemeManager.currentTheme.MessageTextReceiverColor
+            return ThemeManager.currentTheme.SliderTintColor.lighter(by: 20)!
         } else {
             return UIColor.replyBoxOutgoing()
         }
@@ -858,7 +879,7 @@ extension UIColor {
     
     class func chatReplyToUsernameLabelTextColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return UIColor.replyBoxTitleIncomming()
+            return ThemeManager.currentTheme.LabelColor
         } else {
             return UIColor.replyBoxTitleOutgoign()
         }
@@ -1103,6 +1124,32 @@ extension UIImage {
 
       return gradientImage!
   }
+
+}
+extension UIImage {
+
+    func maskWithColor(color: UIColor) -> UIImage? {
+        let maskImage = cgImage!
+
+        let width = size.width
+        let height = size.height
+        let bounds = CGRect(x: 0, y: 0, width: width, height: height)
+
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+        let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
+
+        context.clip(to: bounds, mask: maskImage)
+        context.setFillColor(color.cgColor)
+        context.fill(bounds)
+
+        if let cgImage = context.makeImage() {
+            let coloredImage = UIImage(cgImage: cgImage)
+            return coloredImage
+        } else {
+            return nil
+        }
+    }
 
 }
 //MARK: -

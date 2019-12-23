@@ -54,9 +54,18 @@ class AudioCell: AbstractCell {
           }
         if isIncommingMessage {
             btnPlayAbs.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+            txtAudioName.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            txtMessage.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            txtAudioTime.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
         } else {
             btnPlayAbs.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: .normal)
+            txtAudioName.textColor = ThemeManager.currentTheme.MessageTextColor
+            txtMessage.textColor = ThemeManager.currentTheme.MessageTextColor
+            txtAudioTime.textColor = ThemeManager.currentTheme.MessageTextColor
+
         }
+
     }
     private func stopButtonPlayForRow() {
         let btns = self.mainBubbleViewAbs.subviews.flatMap { $0 as? UIButton }
@@ -108,13 +117,12 @@ class AudioCell: AbstractCell {
         
         if txtAudioName == nil {
             txtAudioName = UILabel()
-            txtAudioName.textColor = UIColor.dialogueBoxInfo()
             txtAudioName.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
             txtAudioName.lineBreakMode = .byTruncatingMiddle
             txtAudioName.numberOfLines = 1
             mainBubbleViewAbs.addSubview(txtAudioName)
+
         }
-        
         if sliderAudio == nil {
             sliderAudio = UISlider()
             mainBubbleViewAbs.addSubview(sliderAudio)

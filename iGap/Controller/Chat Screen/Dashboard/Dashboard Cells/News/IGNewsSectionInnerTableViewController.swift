@@ -217,7 +217,7 @@ class IGNewsSectionInnerTableViewController: BaseTableViewController {
 
         segmentedControl.selectedSegmentIndex = currentSegmentIndex
 
-        segmentedControl.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+        segmentedControl.backgroundColor = ThemeManager.currentTheme.TableViewCellColor.darker(by: 20)
 
         segmentedControl.addTarget(self, action: #selector(self.segmentedControlValueChanged(_:)), for: .valueChanged)
 

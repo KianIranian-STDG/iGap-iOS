@@ -56,10 +56,24 @@ class IGThreeInputTVController: BaseTableViewController {
         tfFirstRow.textColor = ThemeManager.currentTheme.LabelColor
         tfSecondRow.textColor = ThemeManager.currentTheme.LabelColor
         tfThirdRow.textColor = ThemeManager.currentTheme.LabelColor
+
+
+        tfFirstRow.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        tfSecondRow.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        tfThirdRow.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+
+        tfFirstRow.layer.borderWidth = 1.0
+        tfSecondRow.layer.borderWidth = 1.0
+        tfThirdRow.layer.borderWidth = 1.0
+        
+        tfFirstRow.layer.cornerRadius = 10.0
+        tfSecondRow.layer.cornerRadius = 10.0
+        tfThirdRow.layer.cornerRadius = 10.0
+
         //borders color set
-        tfFirstRow.backgroundColor = ThemeManager.currentTheme.TextFieldBackGround
-        tfSecondRow.backgroundColor = ThemeManager.currentTheme.TextFieldBackGround
-        tfThirdRow.backgroundColor = ThemeManager.currentTheme.TextFieldBackGround
+        tfFirstRow.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        tfSecondRow.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        tfThirdRow.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         btnSubmit.backgroundColor = ThemeManager.currentTheme.SliderTintColor
 
     }

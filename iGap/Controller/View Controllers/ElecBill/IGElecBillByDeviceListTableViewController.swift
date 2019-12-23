@@ -52,7 +52,7 @@ class IGElecBillByDeviceListTableViewController: BaseTableViewController ,UIPick
         self.tableView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
 //        self.topViewHolder.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         lblSelectCompany.textColor = ThemeManager.currentTheme.LabelColor
-        btnSearch.setTitleColor(ThemeManager.currentTheme.TextFieldBackGround, for: .normal)
+        btnSearch.setTitleColor(ThemeManager.currentTheme.BackGroundColor, for: .normal)
         btnCompanyCodes.setTitleColor(ThemeManager.currentTheme.LabelSecondColor, for: .normal)
         lblEnterSerialNumber.textColor = ThemeManager.currentTheme.LabelColor
         btnCompanyCodes.layer.borderColor = ThemeManager.currentTheme.LabelSecondColor.cgColor

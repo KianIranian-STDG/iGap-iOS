@@ -123,6 +123,9 @@ class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate, BillMerch
             edt.layer.cornerRadius = 5
             edt.layer.borderWidth = 1
             edt.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
+            edt.textColor = ThemeManager.currentTheme.LabelColor
+            edt.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+            edt.placeHolderColor = ThemeManager.currentTheme.LabelGrayColor
         }
     }
     

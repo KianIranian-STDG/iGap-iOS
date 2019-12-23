@@ -53,9 +53,9 @@ class IGElecBillMyBillListTableViewController: BaseTableViewController {
         let btn = UIButton()
         btn.layer.cornerRadius = 15
         btn.setTitle(IGStringsManager.BillAddMode.rawValue.localized, for: .normal)
-        btn.setTitleColor(ThemeManager.currentTheme.LabelSecondColor, for: .normal)
+        btn.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: .normal)
         btn.backgroundColor = ThemeManager.currentTheme.BackGroundColor
-        btn.layer.borderColor = ThemeManager.currentTheme.LabelSecondColor.cgColor
+        btn.layer.borderColor = ThemeManager.currentTheme.SliderTintColor.cgColor
         btn.layer.borderWidth = 2.0
         btn.titleLabel!.font = UIFont.igFont(ofSize: 15)
         headerView.addSubview(btn)

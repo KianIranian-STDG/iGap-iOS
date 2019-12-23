@@ -79,11 +79,11 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     private func customiseView() {
         self.topViewHolder.borderWidth = 0.5
         self.topViewHolder.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
-        btnDetailBranch.layer.borderColor = ThemeManager.currentTheme.LabelSecondColor.cgColor
+        btnDetailBranch.layer.borderColor = ThemeManager.currentTheme.SliderTintColor.cgColor
         btnDetailBranch.layer.borderWidth = 2
-        btnAddToMyBills.layer.borderColor = ThemeManager.currentTheme.LabelSecondColor.cgColor
+        btnAddToMyBills.layer.borderColor = ThemeManager.currentTheme.SliderTintColor.cgColor
         btnAddToMyBills.layer.borderWidth = 2
-        btnPDFofBill.layer.borderColor = ThemeManager.currentTheme.LabelSecondColor.cgColor
+        btnPDFofBill.layer.borderColor = ThemeManager.currentTheme.SliderTintColor.cgColor
         btnPDFofBill.layer.borderWidth = 2
 
         btnPay.layer.cornerRadius = 15
@@ -129,12 +129,12 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
     private func initColors() {
         self.tableView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         self.topViewHolder.backgroundColor = ThemeManager.currentTheme.BackGroundColor
-        btnPay.setTitleColor(ThemeManager.currentTheme.TextFieldBackGround, for: .normal)
-        btnDetailBranch.setTitleColor(ThemeManager.currentTheme.LabelSecondColor, for: .normal)
-        btnAddToMyBills.setTitleColor(ThemeManager.currentTheme.LabelSecondColor, for: .normal)
-        btnPDFofBill.setTitleColor(ThemeManager.currentTheme.LabelSecondColor, for: .normal)
+        btnPay.setTitleColor(ThemeManager.currentTheme.BackGroundColor, for: .normal)
+        btnDetailBranch.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: .normal)
+        btnAddToMyBills.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: .normal)
+        btnPDFofBill.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: .normal)
         
-        btnPay.backgroundColor = ThemeManager.currentTheme.LabelSecondColor
+        btnPay.backgroundColor = ThemeManager.currentTheme.SliderTintColor
         btnDetailBranch.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         btnAddToMyBills.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         btnPDFofBill.backgroundColor = ThemeManager.currentTheme.BackGroundColor

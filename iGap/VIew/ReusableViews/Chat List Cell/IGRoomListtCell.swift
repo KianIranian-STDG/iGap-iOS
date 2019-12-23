@@ -23,7 +23,7 @@ class IGRoomListtCell: BaseTableViewCell {
     var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 14,weight: .bold)
-        label.textColor = ThemeManager.currentTheme.TVCellTitleColor
+        label.textColor = ThemeManager.currentTheme.LabelColor
         label.textAlignment = label.localizedDirection
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -31,7 +31,7 @@ class IGRoomListtCell: BaseTableViewCell {
     var timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 13,weight: .light)
-        label.textColor = ThemeManager.currentTheme.TVCellTitleColor
+        label.textColor = ThemeManager.currentTheme.LabelColor
         label.textAlignment = NSTextAlignment.center
         label.text = label.text?.inLocalizedLanguage()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +40,7 @@ class IGRoomListtCell: BaseTableViewCell {
     var lastMsgLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 13, weight: .light)
-        label.textColor = ThemeManager.currentTheme.TVCellTitleColor
+        label.textColor = ThemeManager.currentTheme.LabelColor
         label.textAlignment = label.localizedDirection
         label.text = ""
         label.text = label.text?.inLocalizedLanguage()
@@ -493,9 +493,10 @@ class IGRoomListtCell: BaseTableViewCell {
                 }
             }
             self.bgPinTagImage.image = img.image
-            self.nameLabel.textColor = ThemeManager.currentTheme.TVCellTitleColor
-            self.timeLabel.textColor = ThemeManager.currentTheme.TVCellTitleColor
-            self.lastMsgLabel.textColor = ThemeManager.currentTheme.TVCellTitleColor
+            self.nameLabel.textColor = ThemeManager.currentTheme.LabelColor
+            self.timeLabel.textColor = ThemeManager.currentTheme.LabelColor
+            self.lastMsgLabel.textColor = ThemeManager.currentTheme.LabelColor
+            self.typeImage.textColor = ThemeManager.currentTheme.LabelColor
             self.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
         }
         

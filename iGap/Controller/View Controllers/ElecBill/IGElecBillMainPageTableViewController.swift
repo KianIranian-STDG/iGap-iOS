@@ -56,9 +56,9 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
         self.topViewHolder.borderWidth = 0.5
         self.topViewHolder.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
         self.btnMyBills.layer.borderWidth = 2
-        self.btnMyBills.layer.borderColor = ThemeManager.currentTheme.LabelSecondColor.cgColor
+        self.btnMyBills.layer.borderColor = ThemeManager.currentTheme.SliderTintColor.cgColor
         self.btnSearchBills.layer.borderWidth = 2
-        self.btnSearchBills.layer.borderColor = ThemeManager.currentTheme.LabelSecondColor.cgColor
+        self.btnSearchBills.layer.borderColor = ThemeManager.currentTheme.SliderTintColor.cgColor
         self.btnMyBills.layer.cornerRadius = 15
         self.btnSearchBills.layer.cornerRadius = 15
         self.btnQueryTopHolder.layer.cornerRadius = 15
@@ -91,12 +91,19 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
         self.topViewHolder.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         lblTopHolder.textColor = ThemeManager.currentTheme.LabelColor
         btnScanBarcode.setTitleColor(ThemeManager.currentTheme.LabelGrayColor, for: .normal)
-        btnQueryTopHolder.setTitleColor(ThemeManager.currentTheme.TextFieldBackGround, for: .normal)
-        btnMyBills.setTitleColor(ThemeManager.currentTheme.LabelSecondColor, for: .normal)
-        btnSearchBills.setTitleColor(ThemeManager.currentTheme.LabelSecondColor, for: .normal)
+        btnQueryTopHolder.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        btnMyBills.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: .normal)
+        btnSearchBills.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: .normal)
         self.btnSearchBills.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+
         self.btnMyBills.backgroundColor = ThemeManager.currentTheme.BackGroundColor
-        self.btnQueryTopHolder.backgroundColor = ThemeManager.currentTheme.LabelSecondColor
+        self.btnQueryTopHolder.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        
+        self.tfBillIdNumber.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        self.tfBillIdNumber.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        self.tfBillIdNumber.layer.borderWidth = 1.0
+        self.tfBillIdNumber.layer.cornerRadius = 10.0
+        self.tfBillIdNumber.textColor = ThemeManager.currentTheme.LabelColor
     }
     
     private func initAlignments() {

@@ -79,9 +79,12 @@ class ContactCell: AbstractCell {
                 removeEmailView()
             }
             avatarImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Incomming")
+           avatarImageView?.image =  avatarImageView?.image?.maskWithColor(color: ThemeManager.currentTheme.MessageTextReceiverColor)
             phoneIconLbl?.text = ""
-            nameLabel?.textColor = UIColor.dialogueBoxInfo()
-            phonesLabel?.textColor = UIColor.dialogueBoxInfo()
+            nameLabel?.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            phonesLabel?.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            
+            
         } else {
             if hasEmail() {
                 addEmailView()
@@ -92,6 +95,8 @@ class ContactCell: AbstractCell {
                 removeEmailView()
             }
             avatarImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
+            avatarImageView?.image = avatarImageView?.image?.maskWithColor(color: ThemeManager.currentTheme.MessageTextColor)
+
             phoneIconLbl?.text = ""
             phoneIconLbl?.textColor = ThemeManager.currentTheme.MessageTextColor
             nameLabel?.textColor = UIColor.dialogueBoxInfo()
@@ -144,7 +149,6 @@ class ContactCell: AbstractCell {
         if btnAddContact == nil {
             btnAddContact = UIButton()
             btnAddContact.setTitle(IGStringsManager.AddContact.rawValue.localized, for: UIControl.State.normal)
-            manageContactButtonView(btn: btnAddContact, color: UIColor.iGapBlue())
             mainBubbleViewAbs.addSubview(btnAddContact)
         }
         
@@ -154,7 +158,17 @@ class ContactCell: AbstractCell {
             manageContactButtonView(btn: btnCall, color: ThemeManager.currentTheme.LabelGrayColor)
             mainBubbleViewAbs.addSubview(btnCall)
         }
-        
+        if isIncommingMessage {
+            manageContactButtonView(btn: btnAddContact, color: ThemeManager.currentTheme.MessageTextReceiverColor)
+            manageContactButtonView(btn: btnCall, color: ThemeManager.currentTheme.MessageTextReceiverColor)
+
+        } else {
+            manageContactButtonView(btn: btnAddContact, color: ThemeManager.currentTheme.SliderTintColor)
+            manageContactButtonView(btn: btnCall, color: ThemeManager.currentTheme.SliderTintColor)
+
+        }
+
+
         avatarImageView!.snp.makeConstraints { (make) in
             
             if contactTop != nil { contactTop.deactivate() }

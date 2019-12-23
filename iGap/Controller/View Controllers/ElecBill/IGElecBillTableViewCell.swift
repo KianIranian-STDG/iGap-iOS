@@ -104,13 +104,13 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
     private func initColors() {
         self.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         self.topViewHolder.backgroundColor = ThemeManager.currentTheme.BackGroundColor
-        btnPay.setTitleColor(ThemeManager.currentTheme.TextFieldBackGround, for: .normal)
-        btnDetail.setTitleColor(ThemeManager.currentTheme.TextFieldBackGround, for: .normal)
+        btnPay.setTitleColor(ThemeManager.currentTheme.BackGroundColor, for: .normal)
+        btnDetail.setTitleColor(ThemeManager.currentTheme.BackGroundColor, for: .normal)
         btnDelete.setTitleColor(UIColor.iGapRed(), for: .normal)
         btnEdite.setTitleColor(ThemeManager.currentTheme.LabelGrayColor, for: .normal)
         
-        btnPay.backgroundColor = ThemeManager.currentTheme.LabelSecondColor
-        btnDetail.backgroundColor = ThemeManager.currentTheme.LabelSecondColor
+        btnPay.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        btnDetail.backgroundColor = ThemeManager.currentTheme.SliderTintColor
         
         lblBillName.textColor = ThemeManager.currentTheme.LabelColor
         lblTTlBillNumber.textColor = ThemeManager.currentTheme.LabelColor

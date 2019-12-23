@@ -128,6 +128,9 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
             edt.layer.cornerRadius = 5
             edt.layer.borderWidth = 0.5
             edt.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
+            edt.textColor = ThemeManager.currentTheme.LabelColor
+            edt.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+            edt.placeHolderColor = ThemeManager.currentTheme.LabelGrayColor
         }
     }
     

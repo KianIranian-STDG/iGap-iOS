@@ -30,49 +30,49 @@ class GreenColorSet: DayNightColorSetProtocol {
     
     var LabelFinancialServiceColor: UIColor = UIColor(named: "LabelFinancialServiceColor")!
     
-    var CustomAlertBGColor: UIColor = UIColor(named: "IGCustomAlertBGColor")!
-    
+    var CustomAlertBGColor: UIColor = UIColor.hexStringToUIColor(hex: "f5f5f5")
+
     var CustomAlertBorderColor: UIColor = UIColor(named: "IGCustomAlertBorderColor")!
     
     var MessageLogCellBGColor: UIColor = UIColor(named: "IGMessageLogCellBGColor")!
     
-    var MessageTextColor: UIColor = UIColor(named: "IGMessageTextColor")!
+    var MessageTextColor: UIColor = UIColor.hexStringToUIColor(hex: "2C363E")
     var MessageTextReceiverColor: UIColor = .white
 
     var MessageTimeLabelColor: UIColor = UIColor(named: "IGMessageTimeLabelColor")!
             
-    var SendMessageBubleBGColor: UIColor = UIColor(named: "IGSendMessageBubleBGColor")!
-        
-    var BackGroundColor: UIColor = UIColor(named: "IGBackGroundColor")!
+    var SendMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "E7EAEF")
+
+    var BackGroundColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
     
     var BackGroundGrayColor: UIColor = UIColor(named: "IGBackGroundGrayColor")!
             
     var DashboardCellBackgroundColor: UIColor = UIColor(named: "IGDashboardCellBackgroundColor")!
     
-    var LabelColor: UIColor = UIColor(named: "IGLabelColor")!
-    
+    var LabelColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+
     var LabelGrayColor: UIColor = UIColor(named: "IGLabelGrayColor")!
     
     var LabelSecondColor: UIColor = UIColor(named: "IGLabelSecondColor")!
     
-    var ModalViewBackgroundColor: UIColor = UIColor(named: "IGModalViewBackgroundColor")!
-    
+    var ModalViewBackgroundColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
+
     var ProgressBackgroundColor: UIColor = UIColor(named: "IGProgressBackgroundColor")!
     
     var ProgressColor: UIColor = UIColor(named: "IGProgressColor")!
     
-    var RecentTVCellColor: UIColor = UIColor(named: "IGRecentTVCellColor")!
-    
+    var RecentTVCellColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
+
     var SearchBarBackGroundColor: UIColor = UIColor(named: "IGSearchBarBackGroundColor")!
     
     var SplashBackgroundColor: UIColor = UIColor(named: "IGSplashBackgroundColor")!
         
     var TabbarColorLabel: UIColor = UIColor(named: "IGTabbarColorLabel")!
     
-    var TableViewBackgroundColor: UIColor = UIColor(named: "IGTableViewBackgroundColor")!
+    var TableViewBackgroundColor: UIColor = UIColor.hexStringToUIColor(hex: "F1F1F7")
     
-    var TableViewCellColor: UIColor = UIColor(named: "IGTableViewCellColor")!
-    
+    var TableViewCellColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
+
     var TextFieldBackGround: UIColor = UIColor(named: "IGTextFieldBackGround")!
     
     var TextFieldPlaceHolderColor: UIColor = UIColor(named: "IGTextFieldPlaceHolderColor")!
@@ -200,39 +200,39 @@ class GreenColorSetNight: NightColorSetProtocol {
     
     var LabelFinancialServiceColor: UIColor = UIColor(named: "LabelFinancialServiceColorNight")!
     
-    var CustomAlertBGColor: UIColor = UIColor(named: "IGCustomAlertBGColorNight")!
-    
+    var CustomAlertBGColor: UIColor = UIColor.hexStringToUIColor(hex: "3D3D3D")
+
     var CustomAlertBorderColor: UIColor = UIColor(named: "IGCustomAlertBorderColorNight")!
     
     var MessageLogCellBGColor: UIColor = UIColor(named: "IGMessageLogCellBGColorNight")!
     
-    var MessageTextColor: UIColor = UIColor(named: "IGMessageTextColorNight")!
+    var MessageTextColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
     var MessageTextReceiverColor: UIColor = .white
 
     var MessageTimeLabelColor: UIColor = UIColor(named: "IGMessageTimeLabelColorNight")!
             
-    var SendMessageBubleBGColor: UIColor = UIColor(named: "IGSendMessageBubleBGColorNight")!
-        
-    var BackGroundColor: UIColor = UIColor(named: "IGBackGroundColorNight")!
+    var SendMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "4a4a4a")
+
+    var BackGroundColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
     
     var BackGroundGrayColor: UIColor = UIColor(named: "IGBackGroundGrayColorNight")!
             
     var DashboardCellBackgroundColor: UIColor = UIColor(named: "IGDashboardCellBackgroundColorNight")!
     
-    var LabelColor: UIColor = UIColor(named: "IGLabelColorNight")!
+    var LabelColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
 
     var LabelGrayColor: UIColor = UIColor(named: "IGLabelGrayColorNight")!
     
     var LabelSecondColor: UIColor = UIColor(named: "IGLabelSecondColorNight")!
     
-    var ModalViewBackgroundColor: UIColor = UIColor(named: "IGModalViewBackgroundColorNight")!
-    
+    var ModalViewBackgroundColor: UIColor = UIColor.hexStringToUIColor(hex: "1B1B1D")
+
     var ProgressBackgroundColor: UIColor = UIColor(named: "IGProgressBackgroundColorNight")!
     
     var ProgressColor: UIColor = UIColor(named: "IGProgressColorNight")!
     
-    var RecentTVCellColor: UIColor = UIColor(named: "IGRecentTVCellColorNight")!
-    
+    var RecentTVCellColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+
     var SearchBarBackGroundColor: UIColor = UIColor(named: "IGSearchBarBackGroundColorNight")!
     
     var SplashBackgroundColor: UIColor = UIColor(named: "IGSplashBackgroundColorNight")!
@@ -241,8 +241,8 @@ class GreenColorSetNight: NightColorSetProtocol {
     
     var TableViewBackgroundColor: UIColor = UIColor(named: "IGTableViewBackgroundColorNight")!
     
-    var TableViewCellColor: UIColor = UIColor(named: "IGTableViewCellColorNight")!
-    
+    var TableViewCellColor: UIColor = UIColor.hexStringToUIColor(hex: "1B1B1D")
+
     var TextFieldBackGround: UIColor = UIColor(named: "IGTextFieldBackGroundNight")!
     
     var TextFieldPlaceHolderColor: UIColor = UIColor(named: "IGTextFieldPlaceHolderColorNight")!
