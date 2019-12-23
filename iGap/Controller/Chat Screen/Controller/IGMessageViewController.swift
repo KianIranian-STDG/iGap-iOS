@@ -205,7 +205,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     var messagesWithMedia = try! Realm().objects(IGRoomMessage.self)
     
     var messagesWithForwardedMedia = try! Realm().objects(IGRoomMessage.self)
-    var notificationToken: NotificationToken?
     var avatarObserver: NotificationToken?
     
     var room : IGRoom?
@@ -755,7 +754,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             IGStickerViewController.stickerTapListener = self
         }
         IGRecentsTableViewController.visibleChat[(room?.id)!] = true
-        IGAppManager.sharedManager.currentMessagesNotificationToekn = self.notificationToken
         let navigationItem = self.navigationItem as! IGNavigationItem
         if let roomVariable = IGRoomManager.shared.varible(for: room!) {
             roomVariable.asObservable().subscribe({ (event) in
@@ -795,12 +793,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if !holderReplyBar.isHidden { // maybe has forward
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
         }
-        notificationToken?.invalidate()
         self.view.endEditing(true)
         if !room!.isInvalidated {
             IGRecentsTableViewController.visibleChat[(room?.id)!] = false
         }
-        IGAppManager.sharedManager.currentMessagesNotificationToekn = nil
+        
         self.sendCancelTyping()
         self.sendCancelRecoringVoice()
         if let room = self.room, !room.isInvalidated {
@@ -816,12 +813,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         //        }
         
         NotificationCenter.default.removeObserver(self)
-    }
-    
-    deinit {
-        if notificationToken != nil {
-            notificationToken?.invalidate()
-        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

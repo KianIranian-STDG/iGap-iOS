@@ -774,4 +774,30 @@ extension IGRoom {
         }
         return nil
     }
+    
+    static func updateAvatar(roomId: Int64 = 0, userId: Int64 = 0, avatar: IGAvatar?){
+        
+        if avatar == nil {
+            return
+        }
+        
+        var room: IGRoom?
+        
+        if roomId != 0 {
+            room = IGRoom.existRoomInLocal(roomId: roomId)
+        } else if userId != 0 {
+            room = IGRoom.existRoomInLocal(userId: userId)
+        }
+        
+        if room != nil {
+            if room?.type == .chat {
+                room?.chatRoom?.peer?.avatar = avatar
+            } else if room?.type == .group {
+                room?.groupRoom?.avatar = avatar
+            } else if room?.type == .channel {
+                room?.channelRoom?.avatar = avatar
+            }
+            IGDatabaseManager.shared.realm.add(room!, update: .modified)
+        }
+    }
 }

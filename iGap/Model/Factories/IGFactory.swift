@@ -350,10 +350,6 @@ class IGFactory: NSObject {
                     shouldIncreamentUnreadCount = false
                 }
                 
-                var notificationTokens = [NotificationToken]()
-                if let notificationToken = IGAppManager.sharedManager.currentMessagesNotificationToekn {
-                    notificationTokens.append(notificationToken)
-                }
                 try! IGDatabaseManager.shared.realm.write {
                     if shouldIncreamentUnreadCount {
                         let unreadCount = roomInDb.unreadCount + 1
@@ -394,10 +390,6 @@ class IGFactory: NSObject {
                 shouldIncreamentUnreadCount = false
             }
             
-            var notificationTokens = [NotificationToken]()
-            if let notificationToken = IGAppManager.sharedManager.currentMessagesNotificationToekn {
-                notificationTokens.append(notificationToken)
-            }
             if shouldIncreamentUnreadCount {
                 let unreadCount = roomInDb.unreadCount + 1
                 if !AppDelegate.appIsInBackground {

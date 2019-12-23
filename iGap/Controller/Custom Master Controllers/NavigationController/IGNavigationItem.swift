@@ -789,7 +789,7 @@ class IGNavigationItem: UINavigationItem {
         let avatarViewFrame = CGRect(x: 0, y: 0, width: 35, height:35)
         
         let avatarView = IGAvatarView(frame: avatarViewFrame)
-        avatarView.setRoom(room)//removed show main avatar if u want it back put it in here
+        avatarView.setRoom(room)
         rightViewContainer!.addSubview(avatarView)
         avatarView.trailingAnchor.constraint(equalTo: rightViewContainer!.trailingAnchor, constant: 0).isActive = true
     }

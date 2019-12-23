@@ -126,10 +126,17 @@ class IGAvatar: Object{
         }
     }
     
-    public static func deleteAvatar(avatarId: Int64) {
+    public static func deleteAvatar(roomId: Int64 = 0, avatarId: Int64) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
                 IGDatabaseManager.shared.realm.delete(IGDatabaseManager.shared.realm.objects(IGAvatar.self).filter(NSPredicate(format: "id == %lld", avatarId)))
+            }
+            if roomId != 0 {
+                IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                    try! IGDatabaseManager.shared.realm.write {
+                        IGRoom.updateAvatar(roomId: roomId, avatar: IGAvatar.getLastAvatar(ownerId: roomId))
+                    }
+                }
             }
         }
     }

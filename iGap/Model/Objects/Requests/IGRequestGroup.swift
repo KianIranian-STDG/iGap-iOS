@@ -391,7 +391,7 @@ class IGGroupAvatarAddRequest : IGRequest {
         class func interpret(response responseProtoMessage:IGPGroupAvatarAddResponse) {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 try! IGDatabaseManager.shared.realm.write {
-                    _ = IGAvatar.putOrUpdate(igpAvatar: responseProtoMessage.igpAvatar, ownerId: responseProtoMessage.igpRoomID)
+                    IGRoom.updateAvatar(userId: responseProtoMessage.igpRoomID, avatar: IGAvatar.putOrUpdate(igpAvatar: responseProtoMessage.igpAvatar, ownerId: responseProtoMessage.igpRoomID))
                 }
             }
         }
@@ -415,7 +415,7 @@ class IGGroupAvatarDeleteRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response: IGPGroupAvatarDeleteResponse) {
-            IGAvatar.deleteAvatar(avatarId: response.igpID)
+            IGAvatar.deleteAvatar(roomId: response.igpRoomID, avatarId: response.igpID)
         }
         
         override class func handlePush(responseProtoMessage: Message) {

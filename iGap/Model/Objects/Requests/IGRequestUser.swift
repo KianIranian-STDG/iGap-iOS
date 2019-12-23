@@ -502,7 +502,7 @@ class IGUserAvatarAddRequest : IGRequest {
         class func interpret(response responseProtoMessage: IGPUserAvatarAddResponse) {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 try! IGDatabaseManager.shared.realm.write {
-                    _ = IGAvatar.putOrUpdate(igpAvatar: responseProtoMessage.igpAvatar, ownerId: IGAppManager.sharedManager.userID()!)
+                    IGRoom.updateAvatar(userId: IGAppManager.sharedManager.userID()!,avatar: IGAvatar.putOrUpdate(igpAvatar: responseProtoMessage.igpAvatar, ownerId: IGAppManager.sharedManager.userID()!))
                 }
             }
         }
