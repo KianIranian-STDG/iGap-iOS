@@ -384,6 +384,8 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
             switchInAppBrowser.isOn = false
         }
         initThemeView()
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+
         
     }
     private func initThemeView() {

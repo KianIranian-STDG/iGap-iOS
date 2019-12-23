@@ -1024,7 +1024,6 @@
         <!--Contacts-->
         <scene sceneID="vbS-PU-0cd">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qje-kG-XnB" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="SettingContactsPage" id="A2I-f1-J8f" customClass="IGSettingContactsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="z7f-EZ-BHf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -1171,6 +1170,7 @@
                         <segue destination="4PP-Um-oWS" kind="show" identifier="GoToAddNewContactPage" id="RZS-cp-iN0"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qje-kG-XnB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2546" y="-1504"/>
         </scene>
@@ -2361,7 +2361,7 @@
                                         <rect key="frame" x="0.0" y="702.33333396911621" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tAk-Cp-lLr" id="JL9-hQ-HtX">
-                                            <rect key="frame" x="0.0" y="0.0" width="383" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="395" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear Payment And Shipping Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="urC-DE-PXX" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
@@ -3433,7 +3433,6 @@
         <!--Title-->
         <scene sceneID="Z7W-zH-TMr">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xFF-G9-kLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="4PP-Um-oWS" customClass="IGSettingAddContactViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nQb-tz-VF6"/>
@@ -3519,13 +3518,13 @@
                         <outlet property="txtCountryCode" destination="bVc-JZ-nLF" id="oWE-GF-Lwj"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xFF-G9-kLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1674" y="-1504"/>
         </scene>
         <!--Title-->
         <scene sceneID="C8P-hZ-F33">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="p3u-Jl-JOF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="IGFinancialServiceBill" id="Wf4-F2-vtp" customClass="IGFinancialServiceBill" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xLN-Zk-O0r"/>
@@ -3616,13 +3615,13 @@
                         <segue destination="rr4-z8-z4B" kind="show" identifier="showFinancialServiceBillQrScanner" id="LW0-Zd-oYm"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p3u-Jl-JOF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="74" y="-2032"/>
         </scene>
         <!--Title-->
         <scene sceneID="uTi-or-xUs">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="emI-5g-Cqd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="IGFinancialServiceCharge" id="88X-eq-4dU" customClass="IGFinancialServiceCharge" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PaT-9s-FLZ"/>
@@ -3647,7 +3646,7 @@
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ported Subscriber Disable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWZ-ks-WND">
-                                <rect key="frame" x="101.00000000000001" y="121.66666666666669" width="199.33333333333337" height="20"/>
+                                <rect key="frame" x="100.99999999999999" y="118.33333333333333" width="197.66666666666663" height="26.666666666666671"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -3743,6 +3742,7 @@
                         <outlet property="txtOperatorTransport" destination="RWZ-ks-WND" id="rbN-eW-ByK"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="emI-5g-Cqd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1929" y="-2032"/>
         </scene>
@@ -4013,7 +4013,6 @@
         <!--Title-->
         <scene sceneID="3QP-Bp-31k">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1lq-iC-u1r" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="IGFinancialServiceBillQrScanner" id="rr4-z8-z4B" customClass="IGFinancialServiceBillQrScanner" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1Y1-BX-usT"/>
@@ -4029,6 +4028,7 @@
                         <outlet property="mainView" destination="aEc-gJ-7cc" id="9Nt-6S-Zpv"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1lq-iC-u1r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1014" y="-2032"/>
         </scene>
@@ -5848,7 +5848,7 @@ kay*****@gm**.com</string>
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="0Rv-rG-HAX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="BorderColorGold"/>
+                        <color key="backgroundColor" red="0.9488552213" green="0.94870942830000005" blue="0.96930819749999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
                             <tableViewSection headerTitle="" id="jDI-oC-lq8">
                                 <cells>
@@ -5964,7 +5964,7 @@ kay*****@gm**.com</string>
                                                     <rect key="frame" x="80" y="26" width="304" height="66"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="21:50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Py-y5-PED">
-                                                            <rect key="frame" x="236.33333333333331" y="43" width="27.666666666666686" height="13"/>
+                                                            <rect key="frame" x="236.33333333333331" y="38.666666666666671" width="27.666666666666686" height="17.333333333333329"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="11"/>
                                                             <color key="textColor" name="IGMessageTimeLabelColor"/>
                                                             <nil key="highlightedColor"/>
@@ -5980,7 +5980,7 @@ kay*****@gm**.com</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="it's morning in Tehran " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Io7-vU-V2r">
-                                                            <rect key="frame" x="15" y="5" width="274" height="33"/>
+                                                            <rect key="frame" x="15" y="5.0000000000000018" width="274" height="28.666666666666671"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="12"/>
                                                             <color key="textColor" name="IGMessageTextColor"/>
                                                             <nil key="highlightedColor"/>
@@ -6003,7 +6003,7 @@ kay*****@gm**.com</string>
                                                     <rect key="frame" x="30" y="130.66666666666666" width="304" height="66"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="21:51" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OAc-Ik-Hpo">
-                                                            <rect key="frame" x="236.33333333333331" y="43" width="27.666666666666686" height="13"/>
+                                                            <rect key="frame" x="236.33333333333331" y="38.666666666666686" width="27.666666666666686" height="17.333333333333329"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="11"/>
                                                             <color key="textColor" name="IGMessageReceiverTextColor"/>
                                                             <nil key="highlightedColor"/>
@@ -6019,7 +6019,7 @@ kay*****@gm**.com</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="it's morning in Tehran " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="erE-yU-c3w">
-                                                            <rect key="frame" x="15" y="5" width="274" height="33"/>
+                                                            <rect key="frame" x="15" y="5.0000000000000018" width="274" height="28.666666666666671"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="12"/>
                                                             <color key="textColor" name="IGMessageReceiverTextColor"/>
                                                             <nil key="highlightedColor"/>
@@ -6042,13 +6042,13 @@ kay*****@gm**.com</string>
                                                     <rect key="frame" x="30" y="206.66666666666666" width="304" height="65.999999999999972"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="21:50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B4O-gs-jbR">
-                                                            <rect key="frame" x="236.33333333333331" y="43" width="27.666666666666686" height="13"/>
+                                                            <rect key="frame" x="236.33333333333331" y="38.666666666666686" width="27.666666666666686" height="17.333333333333329"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="11"/>
                                                             <color key="textColor" name="IGMessageTimeLabelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="01:04 | 02:54" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSq-x6-UHh">
-                                                            <rect key="frame" x="70" y="43" width="63.666666666666657" height="13"/>
+                                                            <rect key="frame" x="70" y="38.666666666666686" width="64.666666666666686" height="17.333333333333329"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="11"/>
                                                             <color key="textColor" name="IGMessageTimeLabelColor"/>
                                                             <nil key="highlightedColor"/>
@@ -6546,9 +6546,6 @@ AQAAAAAAAABBAAAAAAAAAAAAAAAAAAACCw
         <namedColor name="BadgeColorDefault">
             <color red="0.79799997806549072" green="0.14000000059604645" blue="0.125" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="BorderColorGold">
-            <color red="0.83529411764705885" green="0.68235294117647061" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="IGBackGroundColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -6571,7 +6568,7 @@ AQAAAAAAAABBAAAAAAAAAAAAAAAAAAACCw
             <color red="0.41200000047683716" green="0.48199999332427979" blue="0.52899998426437378" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGNavigationSecondColor">
-            <color red="0.25499999523162842" green="0.6940000057220459" blue="0.125" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.25490196078431371" green="0.69019607843137254" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGSelectedChannelsCellBGColor">
             <color red="0.8901960784313725" green="0.8901960784313725" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -6592,7 +6589,7 @@ AQAAAAAAAABBAAAAAAAAAAAAAAAAAAACCw
         <segue reference="kTR-Le-LDZ"/>
         <segue reference="o6g-Hn-0qg"/>
         <segue reference="Fo6-Eu-Qdg"/>
-        <segue reference="Cz2-c9-IH5"/>
+        <segue reference="gBn-cR-odp"/>
         <segue reference="cgv-mr-LNt"/>
     </inferredMetricsTieBreakers>
 </document>

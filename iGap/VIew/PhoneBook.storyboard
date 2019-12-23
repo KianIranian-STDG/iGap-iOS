@@ -162,6 +162,7 @@
         <!--User Contacts Table View Controller-->
         <scene sceneID="aCQ-I3-UR8">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R9S-c6-8GN" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="eCW-Av-eOd" customClass="IGUserContactsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="HAD-b2-aKW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
@@ -241,7 +242,6 @@
                         </connections>
                     </tableView>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="R9S-c6-8GN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2317" y="-857"/>
         </scene>

@@ -22,6 +22,20 @@ class IGLookAndFindCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
+        if txtIcon != nil {
+            txtIcon.textColor = ThemeManager.currentTheme.LabelColor
+        }
+        if txtResultName != nil {
+            txtResultName.textColor = ThemeManager.currentTheme.LabelColor
+        }
+        if txtResultUsername != nil {
+            txtResultUsername.textColor = ThemeManager.currentTheme.LabelColor
+        }
+        if txtHeader != nil {
+            txtHeader.textColor = ThemeManager.currentTheme.LabelColor
+        }
+
+
     }
     
     func setSearchResult(result: IGLookAndFindStruct){
@@ -35,6 +49,7 @@ class IGLookAndFindCell: UITableViewCell {
     }
     
     func setHeader(type: IGSearchType){
+        txtHeader.font = UIFont.igFont(ofSize: 15)
         if type == .channel {
             txtHeader.text = IGStringsManager.Channels.rawValue.localized
         } else if type == .group {
@@ -48,6 +63,8 @@ class IGLookAndFindCell: UITableViewCell {
         } else if type == .hashtag {
             txtHeader.text = IGStringsManager.Hashtags.rawValue.localized
         }
+        txtHeader.textColor = ThemeManager.currentTheme.LabelColor
+
     }
     
     private func setRoom(room: IGRoom, message: String? = nil) {
@@ -76,6 +93,10 @@ class IGLookAndFindCell: UITableViewCell {
         }
         
         avatarView.setRoom(room)
+        txtIcon.textColor = ThemeManager.currentTheme.LabelColor
+        txtResultName.textColor = ThemeManager.currentTheme.LabelColor
+        txtResultUsername.textColor = ThemeManager.currentTheme.LabelColor
+
     }
     
     private func setUser(user: IGRegisteredUser, message: String? = nil) {
@@ -88,6 +109,10 @@ class IGLookAndFindCell: UITableViewCell {
         txtIcon.text = ""
         
         avatarView.setUser(user)
+        txtIcon.textColor = ThemeManager.currentTheme.LabelColor
+        txtResultName.textColor = ThemeManager.currentTheme.LabelColor
+        txtResultUsername.textColor = ThemeManager.currentTheme.LabelColor
+
     }
     
     private func setMessage(message: IGRoomMessage){

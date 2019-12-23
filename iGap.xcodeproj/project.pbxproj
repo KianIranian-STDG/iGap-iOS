@@ -97,6 +97,8 @@
 		8E5FBCA5231BD9D70069D4F2 /* IGStringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCA4231BD9D70069D4F2 /* IGStringManager.swift */; };
 		8E5FBCA7231CE6DC0069D4F2 /* IGProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCA6231CE6DC0069D4F2 /* IGProfileTableViewController.swift */; };
 		8E5FBCB3231E43400069D4F2 /* EFAutoScrollLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCB2231E43400069D4F2 /* EFAutoScrollLabel.swift */; };
+		8E67494623B119030012BA0F /* IGUserContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E67494523B119030012BA0F /* IGUserContactsTableViewCell.swift */; };
+		8E67494823B119400012BA0F /* IGUserContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E67494723B119400012BA0F /* IGUserContactsTableViewController.swift */; };
 		8E6E83A12341F75500392F27 /* IGEditProfileChannelAndGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6E83A02341F75500392F27 /* IGEditProfileChannelAndGroupTableViewController.swift */; };
 		8E6E83A32342617400392F27 /* EditProfileChannelAndGroup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E6E83A22342617400392F27 /* EditProfileChannelAndGroup.storyboard */; };
 		8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D3BA2261FFA400830F65 /* SMLoading.swift */; };
@@ -985,6 +987,8 @@
 		8E5FBCA4231BD9D70069D4F2 /* IGStringManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStringManager.swift; sourceTree = "<group>"; };
 		8E5FBCA6231CE6DC0069D4F2 /* IGProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileTableViewController.swift; sourceTree = "<group>"; };
 		8E5FBCB2231E43400069D4F2 /* EFAutoScrollLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EFAutoScrollLabel.swift; sourceTree = "<group>"; };
+		8E67494523B119030012BA0F /* IGUserContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGUserContactsTableViewCell.swift; sourceTree = "<group>"; };
+		8E67494723B119400012BA0F /* IGUserContactsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGUserContactsTableViewController.swift; sourceTree = "<group>"; };
 		8E6E83A02341F75500392F27 /* IGEditProfileChannelAndGroupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGEditProfileChannelAndGroupTableViewController.swift; sourceTree = "<group>"; };
 		8E6E83A22342617400392F27 /* EditProfileChannelAndGroup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditProfileChannelAndGroup.storyboard; sourceTree = "<group>"; };
 		8E76D3BA2261FFA400830F65 /* SMLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLoading.swift; sourceTree = "<group>"; };
@@ -1870,6 +1874,8 @@
 			isa = PBXGroup;
 			children = (
 				8ECFB53D234A471E001233E9 /* phoneBookCellTypeTwo.swift */,
+				8E67494523B119030012BA0F /* IGUserContactsTableViewCell.swift */,
+				8E67494723B119400012BA0F /* IGUserContactsTableViewController.swift */,
 			);
 			path = PhoneBook;
 			sourceTree = "<group>";
@@ -4451,6 +4457,7 @@
 				8EA8551123A22A8800C9442F /* IGPinkColorSet.swift in Sources */,
 				FAE6062A21EB39DB00F03FFC /* SwiftWebVCActivity.swift in Sources */,
 				FA63BAA31DD70D94000B60AD /* IGRequestSystem.swift in Sources */,
+				8E67494823B119400012BA0F /* IGUserContactsTableViewController.swift in Sources */,
 				D67E984523A67962003C1516 /* CGRect+Difference.swift in Sources */,
 				FA42EEF81E5C205D00CF8A32 /* IGImageView.swift in Sources */,
 				8E8CA3A8236FFC9E000DA358 /* IGElecBillMainPageTableViewController.swift in Sources */,
@@ -4613,6 +4620,7 @@
 				8E96A31A225B75EE007D8A77 /* SMDateUtil.swift in Sources */,
 				FA09535F1E1B97700043ED3F /* IGSettingContactBlockTableViewCell.swift in Sources */,
 				8E96A301225A2318007D8A77 /* IGRequestWallet.swift in Sources */,
+				8E67494623B119030012BA0F /* IGUserContactsTableViewCell.swift in Sources */,
 				8EC217BC2259E1A100105B5A /* SMConstants.swift in Sources */,
 				D6A89976236D8D920087215B /* IGHelperAvatar.swift in Sources */,
 				8EE1BFC82281604D001A2867 /* IGSetUserNickNameTableViewController.swift in Sources */,

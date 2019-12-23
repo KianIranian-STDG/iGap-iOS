@@ -1402,7 +1402,7 @@ extension IGRecentsTableViewController {
             textField.backgroundColor = .clear
 
             if let backgroundview = textField.subviews.first {
-                backgroundview.backgroundColor = ThemeManager.currentTheme.SearchBarBackGroundColor
+                backgroundview.backgroundColor = ThemeManager.currentTheme.BackGroundColor
                 for view in backgroundview.subviews {
                     view.backgroundColor = .clear
                 }
@@ -1418,7 +1418,7 @@ extension IGRecentsTableViewController {
             }
 
             if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
-                placeHolderInsideSearchField.textColor = UIColor.white
+                placeHolderInsideSearchField.textColor = ThemeManager.currentTheme.LabelColor
                 placeHolderInsideSearchField.textAlignment = .center
                 placeHolderInsideSearchField.text = IGStringsManager.SearchPlaceHolder.rawValue.localized
                 if let backgroundview = textField.subviews.first {

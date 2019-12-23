@@ -59,6 +59,7 @@ class IGCallListTableViewCell: BaseTableViewCell {
         }
         
         contactName.text = user?.displayName
+        contactName.textColor = ThemeManager.currentTheme.LabelColor
         contactName.textAlignment = self.appTextAlignment
         offerTime.text = callLog.offerTime.completeHumanReadableTime().inLocalizedLanguage()
         
