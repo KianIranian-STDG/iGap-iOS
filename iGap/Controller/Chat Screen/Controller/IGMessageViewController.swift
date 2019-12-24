@@ -691,7 +691,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         eventBusInitialiser()
         holderMusicPlayer.backgroundColor = .clear
         if IGGlobal.shouldShowTopBarPlayer {
-            let value = collectionViewTopInsetOffset
+            let value : CGFloat = 0
             var defaultValue: CGFloat = 20
             
             defaultValue = 60
@@ -730,7 +730,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         notification(register: true)
         if IGGlobal.shouldShowTopBarPlayer {
-            let value = collectionViewTopInsetOffset
+            let value : CGFloat = 0
             var defaultValue : CGFloat = 20
             
             defaultValue = 60
@@ -881,7 +881,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 
     @objc func updateLabelsData(singerName: String!,songName: String!) {
         if IGGlobal.shouldShowTopBarPlayer {
-            let value = collectionViewTopInsetOffset
+            let value : CGFloat = 0
             let defaultValue: CGFloat = 60
             
             self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
@@ -894,7 +894,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         IGGlobal.shouldShowTopBarPlayer = false
         holderMusicPlayer.isHidden = true
         IGPlayer.shared.stopMedia()
-        let value = collectionViewTopInsetOffset
+        let value : CGFloat = 0
         let defaultValue: CGFloat = 20
         self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
 
@@ -906,7 +906,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func showMusicTopPlayerWithAnimation() {
         IGGlobal.shouldShowTopBarPlayer = true
         holderMusicPlayer.isHidden = false
-        let value = collectionViewTopInsetOffset
+        let value : CGFloat = 0
         let defaultValue: CGFloat = 60
 
         self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
@@ -2301,7 +2301,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     ///the top offset is managed based on height of pin and topPlayer
 
     private func collectionViewOffsetManager(mode : messageMainTopViewState!) {
-        let value = collectionViewTopInsetOffset
+        let value : CGFloat = 0
         var defaultValue : CGFloat = 20
         switch mode {
         case .withBoth :
@@ -2596,7 +2596,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     func setCollectionViewInset(withDuration: TimeInterval = 0.2) {
-        let value = collectionViewTopInsetOffset
+        let value : CGFloat = 0
         manageCollectionViewBottom(value: value)
     }
     private func manageCollectionViewBottom(withDuration: TimeInterval = 0.2,value: CGFloat? = 0) {
