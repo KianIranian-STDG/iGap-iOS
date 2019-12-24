@@ -466,8 +466,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             txtStatusAbs.text = ""
             if isIncommingMessage {
                 txtStatusAbs.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
             } else {
-                txtStatusAbs.textColor = UIColor.messageText()
+                txtStatusAbs.textColor = ThemeManager.currentTheme.LabelColor
             }
             txtStatusAbs.backgroundColor = UIColor.clear
             break
@@ -475,8 +476,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             txtStatusAbs.text = ""
             if isIncommingMessage {
                 txtStatusAbs.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
             } else {
-                txtStatusAbs.textColor = UIColor.messageText()
+                txtStatusAbs.textColor = ThemeManager.currentTheme.LabelColor
             }
             txtStatusAbs.backgroundColor = UIColor.clear
             break
@@ -484,8 +486,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             txtStatusAbs.text = ""
             if isIncommingMessage {
                 txtStatusAbs.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
             } else {
-                txtStatusAbs.textColor = UIColor.messageText()
+                txtStatusAbs.textColor = ThemeManager.currentTheme.LabelColor
             }
             txtStatusAbs.backgroundColor = UIColor.clear
             break
@@ -493,8 +496,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             txtStatusAbs.text = ""
             if isIncommingMessage {
                 txtStatusAbs.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
             } else {
-                txtStatusAbs.textColor = UIColor.seenColor()
+                txtStatusAbs.textColor = ThemeManager.currentTheme.SliderTintColor
             }
 
             txtStatusAbs.backgroundColor = UIColor.clear
@@ -516,7 +520,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             
             if txtStatusAbs != nil {
                 if realmRoomMessage.status == .sending || realmRoomMessage.status == .sent || realmRoomMessage.status == .delivered {
-                    txtStatusAbs?.textColor = UIColor.white
+                    if isIncommingMessage {
+                        txtStatusAbs.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
+                    } else {
+                        txtStatusAbs.textColor = ThemeManager.currentTheme.LabelColor
+                    }
                 }
                 mainBubbleViewAbs.bringSubviewToFront(txtStatusAbs)
             }
@@ -1701,6 +1710,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                 make.width.equalTo(20)
             }
         }
+        if isIncommingMessage {
+            txtStatusAbs?.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
+        } else {
+            txtStatusAbs?.textColor = ThemeManager.currentTheme.LabelColor
+        }
+
     }
     
     private func removeStatus(){
