@@ -1770,6 +1770,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 }
             }
         }
+       
         else {
             if MoneyInputModal != nil {
                 self.hideMoneyInputModal()
@@ -3375,7 +3376,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.MoneyTransactionModalIsActive = false
         if MoneyTransactionModal != nil {
             UIView.animate(withDuration: 0.3, animations: {
-                self.MoneyTransactionModal.frame.origin.y = self.view.frame.height
+                self.MoneyTransactionModal.frame.origin.y = self.view.frame.height + 100
                 
             }) { (true) in
             }
@@ -5658,7 +5659,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             
             forwardModal.btnSend.addTarget(self, action: #selector(sendMultiForwardRequest), for: .touchUpInside)
             
-            forwardModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: forwardModal.frame.height)
+            forwardModal!.frame = CGRect(x: 0, y: self.view.frame.height - 100 , width: self.view.frame.width, height: forwardModal.frame.height)
             
             let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
             swipeDown.direction = .down
