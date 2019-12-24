@@ -187,6 +187,18 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         self.viewTop.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
 
+        let tfArray = [tfName, tfUserName, tfEmail, tfBio, tfReferral]
+        for tf in tfArray {
+            tf?.backgroundColor = .clear
+            tf?.layer.borderWidth = 1.0
+            tf?.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+            tf?.placeHolderColor = ThemeManager.currentTheme.LabelGrayColor
+            tf?.layer.cornerRadius = 5
+            tf?.textColor = ThemeManager.currentTheme.LabelColor
+            
+        }
+        
+        
         self.tableView.reloadData()
     }
     override func viewWillAppear(_ animated: Bool)  {
@@ -256,6 +268,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.setProfilePageNavigationItem()
         navigationItem.rightViewContainer?.addAction {
+            self.view.endEditing(true)
             self.editProfileTapped()
         }
     }
@@ -1229,8 +1242,8 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 if let setUsernameProtoResponse = protoResponse as? IGPUserProfileUpdateUsernameResponse {
                     IGUserProfileUpdateUsernameRequest.Handler.interpret(response: setUsernameProtoResponse)
                 }
+                self.btnUsername.setTitle((current), for: .normal)
             }
-            self.btnUsername.setTitle((current), for: .normal)
 
         }).error ({ (errorCode, waitTime) in
             DispatchQueue.main.async {
@@ -1306,6 +1319,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 default:
                     break
                 }
+                self.lblBioTop.text = current
             }
         }).error ({ (errorCode, waitTime) in
             SMLoading.hideLoadingPage()
