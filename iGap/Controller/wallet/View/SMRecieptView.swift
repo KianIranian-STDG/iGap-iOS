@@ -54,6 +54,8 @@ class SMRecieptView: UIView {
         closeReciept.layer.cornerRadius = closeReciept.frame.height / 2
         closeReciept.layer.borderWidth = 0.5
         closeReciept.layer.borderColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+        recieptColor.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        
     }
 
     override func awakeFromNib() {

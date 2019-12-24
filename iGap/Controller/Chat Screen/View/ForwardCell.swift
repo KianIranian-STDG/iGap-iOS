@@ -23,8 +23,12 @@ class ForwardCell: UICollectionViewCell {
         self.frame.size.height = 80.0
         self.btnCheckMark.isHidden = true
         self.viewHolder.layer.borderWidth = 0.0
+        lblName.textColor = ThemeManager.currentTheme.LabelColor
     }
-    
+    private func initTheme() {
+        self.btnCheckMark.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: .normal)
+        
+    }
     func setImage(avatar: IGAvatar?=nil,initials: String?,color:String) {
         self.imgUser!.image = nil
         self.lblInitials!.text = initials

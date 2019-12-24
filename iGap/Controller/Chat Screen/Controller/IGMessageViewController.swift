@@ -699,6 +699,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 
             self.createTopMusicPlayer()
         }
+        initTheme()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -778,6 +779,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         lblSelectedMessages.textColor = ThemeManager.currentTheme.LabelColor
         joinButton.backgroundColor = ThemeManager.currentTheme.SliderTintColor
         joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        self.messageTextView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+
     }
 
     override func viewWillDisappear(_ animated: Bool) {

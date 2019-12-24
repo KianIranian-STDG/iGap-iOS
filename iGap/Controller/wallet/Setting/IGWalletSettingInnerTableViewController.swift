@@ -53,7 +53,43 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         lblSecondRow.textColor = ThemeManager.currentTheme.LabelColor
         lblThirdRow.textColor = ThemeManager.currentTheme.LabelColor
         btnSubmit.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        initTheme()
     }
+    private func initTheme() {
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.lblFirstRow.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblThirdRow.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblSecondRow.textColor = ThemeManager.currentTheme.LabelColor
+        
+        tfFirst.backgroundColor = .clear
+        tfFirst.layer.borderWidth = 1.0
+        tfFirst.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        tfFirst.placeHolderColor = ThemeManager.currentTheme.LabelGrayColor
+        tfFirst.layer.cornerRadius = 10
+        tfFirst.textColor = ThemeManager.currentTheme.LabelColor
+
+        
+        tfSecond.backgroundColor = .clear
+        tfSecond.layer.borderWidth = 1.0
+        tfSecond.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        tfSecond.placeHolderColor = ThemeManager.currentTheme.LabelGrayColor
+        tfSecond.layer.cornerRadius = 10
+        tfSecond.textColor = ThemeManager.currentTheme.LabelColor
+
+        
+        tfThird.backgroundColor = .clear
+        tfThird.layer.borderWidth = 1.0
+        tfThird.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        tfThird.placeHolderColor = ThemeManager.currentTheme.LabelGrayColor
+        tfThird.layer.cornerRadius = 10
+        tfThird.textColor = ThemeManager.currentTheme.LabelColor
+
+    }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     func getMerChantCards(){
         SMLoading.showLoadingPage(viewcontroller: self)
         

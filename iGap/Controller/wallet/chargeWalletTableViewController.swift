@@ -41,6 +41,14 @@ class chargeWalletTableViewController: BaseTableViewController,UITextFieldDelega
         amountTitleLabel.textColor = ThemeManager.currentTheme.LabelColor
         balanceLabel.textColor = ThemeManager.currentTheme.LabelColor
         btnSubmit.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        tfAmount.backgroundColor = .clear
+        tfAmount.layer.borderWidth = 1.0
+        tfAmount.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        tfAmount.placeHolderColor = ThemeManager.currentTheme.LabelGrayColor
+        tfAmount.layer.cornerRadius = 10
+        
+        tfAmount.textColor = ThemeManager.currentTheme.LabelColor
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

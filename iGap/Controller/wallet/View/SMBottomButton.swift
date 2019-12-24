@@ -125,7 +125,7 @@ class SMBottomButton: UIButton {
     func enable() {
         self.isEnabled = true
         UIView.animate(withDuration: 0.2) {
-            self.backgroundColor = SMColor.PrimaryColor
+            self.backgroundColor = ThemeManager.currentTheme.SliderTintColor
         }
     }
     

@@ -25,7 +25,11 @@ class SMRecieptRowView: UIView{
 //        self.transform = SMDirection.PageAffineTransform()
         recieptTitleLabel.textAlignment = valueLabel.localizedDirection
         valueLabel.textAlignment = valueLabel.localizedDirection
-       
+        recieptTitleLabel.textColor = ThemeManager.currentTheme.LabelColor
+        valueLabel.textColor = ThemeManager.currentTheme.LabelColor
+        spaceLabel.textColor = ThemeManager.currentTheme.LabelColor
+        recieptTitleLabel.textColor = ThemeManager.currentTheme.LabelColor
+
     }
     
     override func awakeFromNib() {

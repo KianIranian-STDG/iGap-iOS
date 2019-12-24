@@ -84,7 +84,13 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
         initTheme()
     }
     private func initTheme() {
-        self.usersCollectionView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.usersCollectionView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        self.lblInfo.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblCount.backgroundColor = ThemeManager.currentTheme.LabelColor
+        self.btnSend.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: .normal)
+        self.btnSearch.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: .normal)
+        searchBar.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        self.backgroundColor = ThemeManager.currentTheme.BackGroundColor
     }
 
     private func manageView(){

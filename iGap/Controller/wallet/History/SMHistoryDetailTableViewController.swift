@@ -67,13 +67,22 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
 //            SMLoading.hideLoadingPage()
         })
         self.tableView.tableFooterView = UIView()
+        initTheme()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-    
+    private func initTheme() {
+        self.recieptButton?.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+    }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.Details.rawValue.localized)

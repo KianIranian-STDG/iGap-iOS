@@ -23,6 +23,9 @@ class SMHistoryDetailTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         initChangeCellLang()
+        title.textColor = ThemeManager.currentTheme.LabelColor
+        value.textColor = ThemeManager.currentTheme.LabelColor
+        sum.textColor = ThemeManager.currentTheme.LabelColor
     }
     func initChangeCellLang() {
         value.textAlignment = value.localizedDirection

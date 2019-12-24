@@ -49,6 +49,34 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         if currentRole == "admin" {
             getMerChantCards()
         }
+        initTheme()
+    }
+    private func initTheme() {
+        self.lblCashoutPriceHeader.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblWalletAmountBalance.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblCashableAmountBalance.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblEnterCardNUmberHeader.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblWalletAccountBalanceTitle.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblCashableAmountBalanceTitle.textColor = ThemeManager.currentTheme.LabelColor
+        self.btnpay.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        self.btnGetIban.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: .normal)
+        
+        tfAmount.backgroundColor = .clear
+        tfAmount.layer.borderWidth = 1.0
+        tfAmount.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        tfAmount.placeHolderColor = ThemeManager.currentTheme.LabelGrayColor
+        tfAmount.layer.cornerRadius = 10
+        tfAmount.textColor = ThemeManager.currentTheme.LabelColor
+
+        tfCardNumber.backgroundColor = .clear
+        tfCardNumber.layer.borderWidth = 1.0
+        tfCardNumber.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        tfCardNumber.placeHolderColor = ThemeManager.currentTheme.LabelGrayColor
+        tfCardNumber.layer.cornerRadius = 10
+        tfCardNumber.textColor = ThemeManager.currentTheme.LabelColor
+        
+        self.cashoutTypeSeg.backgroundColor = ThemeManager.currentTheme.TableViewCellColor.darker(by: 20)
+
     }
     func getMerChantCards(){
         SMLoading.showLoadingPage(viewcontroller: self)
@@ -547,6 +575,11 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
 
         }
     }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cell = super.tableView(tableView, cellForRowAt: indexPath) 
         if cell.tag == 0 {
