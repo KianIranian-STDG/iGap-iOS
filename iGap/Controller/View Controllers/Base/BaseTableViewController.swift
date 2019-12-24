@@ -81,9 +81,9 @@ class BaseTableViewController: UITableViewController, UIGestureRecognizerDelegat
 //        UIView.appearance().semanticContentAttribute = direction
 //    }
     
-    func initNavigationBar(title: String? = nil, rightItemText: String? = nil, iGapFont: Bool = false, rightAction: @escaping () -> ()) {
+    func initNavigationBar(title: String? = nil, rightItemText: String? = nil, rightItemFontSize: CGFloat = 20, iGapFont: Bool = false, rightAction: @escaping () -> ()) {
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: rightItemText, title: title, iGapFont: iGapFont)
+        navigationItem.addNavigationViewItems(rightItemText: rightItemText, rightItemFontSize: rightItemFontSize, title: title, iGapFont: iGapFont)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         if let navigationController = self.navigationController as? IGNavigationController {
             navigationController.interactivePopGestureRecognizer?.delegate = self

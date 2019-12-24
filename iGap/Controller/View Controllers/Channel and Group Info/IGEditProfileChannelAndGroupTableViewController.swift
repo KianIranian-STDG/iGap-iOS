@@ -63,7 +63,8 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             self.tfDescriptionOfRoom.placeholder = IGStringsManager.GroupDesc.rawValue.localized
             self.tfNameOfRoom.placeholder = IGStringsManager.GroupName.rawValue.localized
         }
-        self.initNavigationBar(title: title,rightItemText: "", iGapFont: true) {
+        
+        self.initNavigationBar(title: title, rightItemText: "", rightItemFontSize: 26, iGapFont: true) {
             self.view.endEditing(true)
             if self.room?.type == .channel {
                 self.RequestSequenceChannel()
