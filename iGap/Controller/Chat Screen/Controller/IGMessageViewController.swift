@@ -779,7 +779,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         lblSelectedMessages.textColor = ThemeManager.currentTheme.LabelColor
         joinButton.backgroundColor = ThemeManager.currentTheme.SliderTintColor
         joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
-        self.messageTextView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        self.messageTextView.backgroundColor = .clear
 
     }
 
