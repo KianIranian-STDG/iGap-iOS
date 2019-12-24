@@ -681,7 +681,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if let messageId = self.deepLinkMessageId {
             // need to make 'IGMessageLoader' for first time
-            messageLoader = IGMessageLoader.getInstance(room: self.room!, forceNew: true)
+            messageLoader = IGMessageLoader.getInstance(room: self.room!, forceNew: false)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.goToPosition(messageId: messageId)
             }
@@ -959,7 +959,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
      */
     private func startLoadMessage(){
         if messageLoader == nil {
-            messageLoader = IGMessageLoader.getInstance(room: self.room!, forceNew: true)
+            messageLoader = IGMessageLoader.getInstance(room: self.room!, forceNew: false)
         }
 
         let hasUnread = messageLoader.hasUnread()
@@ -6385,9 +6385,11 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }
     }
     
-    func onAddWaitingProgress(message: IGRoomMessage, direction: IGPClientGetRoomHistory.IGPDirection) {
-        self.appendMessageArray([message], direction)
-        self.addWaitingProgress(direction: direction)
+    func onAddWaitingProgress(roomId: Int64, message: IGRoomMessage, direction: IGPClientGetRoomHistory.IGPDirection) {
+        if roomId == self.room!.id {
+            self.appendMessageArray([message], direction)
+            self.addWaitingProgress(direction: direction)
+        }
     }
     
     func onRemoveWaitingProgress(fakeMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection) {

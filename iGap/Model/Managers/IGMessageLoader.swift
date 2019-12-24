@@ -705,7 +705,7 @@ class IGMessageLoader {
                         self.bottomProgressId = messageId - 1
                         message.id = self.bottomProgressId
                     }
-                    IGMessageViewController.messageOnChatReceiveObserver?.onAddWaitingProgress(message: message, direction: direction)
+                    IGMessageViewController.messageOnChatReceiveObserver?.onAddWaitingProgress(roomId: self.roomId, message: message, direction: direction)
                 }
             }
         } else {
