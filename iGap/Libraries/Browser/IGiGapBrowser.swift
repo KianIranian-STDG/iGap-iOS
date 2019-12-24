@@ -11,7 +11,7 @@
 import UIKit
 import WebKit
 
-class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate {
+class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate, WKNavigationDelegate {
     
     @IBOutlet var mainView: UIView!
     
@@ -134,7 +134,7 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate {
             make.right.equalTo(mainView.snp.right)
             make.left.equalTo(mainView.snp.left)
         }
-//        self.webView.delegate = self
+        self.webView.navigationDelegate = self
     }
     private func makeWebViewForAgreement(){
         if self.webView == nil {
@@ -147,7 +147,7 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate {
             make.right.equalTo(mainView.snp.right)
             make.left.equalTo(mainView.snp.left)
         }
-//        self.webView.delegate = self
+        self.webView.navigationDelegate = self
     }
     private func makeAgrementBtns(){
 
@@ -345,6 +345,15 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate {
             webViewProgressbar.startAnimating()
         }
         return true
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping ((WKNavigationActionPolicy) -> Void)) {
+        if let url = navigationAction.request.url {
+            if url.absoluteString == "igap://close" {
+                closeWebView()
+            }
+        }
+        decisionHandler(.allow)
     }
 }
 

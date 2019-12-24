@@ -347,14 +347,12 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             self.stopMusic()
         }
         SwiftEventBus.onMainThread(self, name: EventBusManager.updateLabelsData) { result in
-            //            print(result?.object as! Bool)
             self.updateLabelsData(singerName: IGGlobal.topBarSongSinger,songName: IGGlobal.topBarSongName)
         }
     }
     
     @objc func updateLabelsData(singerName: String!,songName: String!) {
         self.tableView.beginUpdates()
-        print("TOPBAR GOT REMOVED")
         let sectionToReload = 0
         let indexSet: IndexSet = [sectionToReload]
 
@@ -495,32 +493,10 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             case .update(_, let deletions, let insertions, let modifications):
                 // Query messages have changed, so apply them to the TableView
                 self.tableView.beginUpdates()
-                
-                if insertions.count != 0 {
-                    print(insertions)
-                }
-                
-                if deletions.count != 0 {
-                    print(deletions)
-                }
-                
-//                var numberOfRows = self.tableView.numberOfRows(inSection: 0)
-                
-//                let insertIndexes = insertions.map({ IndexPath(row: $0, section: 0) }).filter({ $0.row < numberOfRows })
                 self.tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .none)
-                
-//                numberOfRows = self.tableView.numberOfRows(inSection: 0)
-                
-//                let deleteIndexes = deletions.map({ IndexPath(row: $0, section: 0) }).filter({ $0.row < numberOfRows })
                 self.tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0) }), with: .none)
-                
-//                numberOfRows = self.tableView.numberOfRows(inSection: 0)
-                
-//                let modificationIndexes = modifications.map({ IndexPath(row: $0, section: 0) }).filter({ $0.row < numberOfRows })
                 self.tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }), with: .none)
-                
                 self.tableView.endUpdates()
-                
                 self.setTabbarBadge()
                 break
                 
