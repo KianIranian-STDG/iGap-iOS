@@ -20,7 +20,7 @@ class IGHelperBottomModals {
 
     private var actionSubmit: (() -> Void)?
     private init() {}
-
+    
     func showBottomPanThreeInput(view: UIViewController? = nil,mode: String! = "NEWS_COMMENTS",articleID : String? = nil) {//}-> UIView {
             var alertView = view
             if alertView == nil {
@@ -32,6 +32,19 @@ class IGHelperBottomModals {
             if articleID != nil {
                 vc.articleID = articleID!
             }
+            alertView!.presentPanModal(vc)
+    //        return UIView()
+        }
+    
+    
+    func showMultiForwardModal(view: UIViewController? = nil,messages: [IGRoomMessage] = []) {//}-> UIView {
+            var alertView = view
+            if alertView == nil {
+                alertView = UIApplication.topViewController()
+            }
+            let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "IGMultiForwardModalViewController") as! IGMultiForwardModalViewController
+            vc.selectedMessages = messages
             alertView!.presentPanModal(vc)
     //        return UIView()
         }

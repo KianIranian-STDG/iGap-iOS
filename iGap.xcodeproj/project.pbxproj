@@ -99,6 +99,7 @@
 		8E5FBCB3231E43400069D4F2 /* EFAutoScrollLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCB2231E43400069D4F2 /* EFAutoScrollLabel.swift */; };
 		8E67494623B119030012BA0F /* IGUserContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E67494523B119030012BA0F /* IGUserContactsTableViewCell.swift */; };
 		8E67494823B119400012BA0F /* IGUserContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E67494723B119400012BA0F /* IGUserContactsTableViewController.swift */; };
+		8E6BC53623B2649C0037323A /* IGMultiForwardModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6BC53523B2649C0037323A /* IGMultiForwardModalViewController.swift */; };
 		8E6E83A12341F75500392F27 /* IGEditProfileChannelAndGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6E83A02341F75500392F27 /* IGEditProfileChannelAndGroupTableViewController.swift */; };
 		8E6E83A32342617400392F27 /* EditProfileChannelAndGroup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E6E83A22342617400392F27 /* EditProfileChannelAndGroup.storyboard */; };
 		8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D3BA2261FFA400830F65 /* SMLoading.swift */; };
@@ -989,6 +990,7 @@
 		8E5FBCB2231E43400069D4F2 /* EFAutoScrollLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EFAutoScrollLabel.swift; sourceTree = "<group>"; };
 		8E67494523B119030012BA0F /* IGUserContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGUserContactsTableViewCell.swift; sourceTree = "<group>"; };
 		8E67494723B119400012BA0F /* IGUserContactsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGUserContactsTableViewController.swift; sourceTree = "<group>"; };
+		8E6BC53523B2649C0037323A /* IGMultiForwardModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMultiForwardModalViewController.swift; sourceTree = "<group>"; };
 		8E6E83A02341F75500392F27 /* IGEditProfileChannelAndGroupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGEditProfileChannelAndGroupTableViewController.swift; sourceTree = "<group>"; };
 		8E6E83A22342617400392F27 /* EditProfileChannelAndGroup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditProfileChannelAndGroup.storyboard; sourceTree = "<group>"; };
 		8E76D3BA2261FFA400830F65 /* SMLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLoading.swift; sourceTree = "<group>"; };
@@ -3451,6 +3453,7 @@
 				937455F81E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib */,
 				937455FA1E63F77F007694CE /* IGForwardMessageAudioAndVoiceAttachmentView.swift */,
 				8ECCA1ED22B8B99100D3A734 /* IGMultiForwardModal.swift */,
+				8E6BC53523B2649C0037323A /* IGMultiForwardModalViewController.swift */,
 				8ECCA1F122B8F6DF00D3A734 /* ForwardCell.swift */,
 				8ECCA1F222B8F6DF00D3A734 /* multiForwardShareUsers.xib */,
 				8ECCA1F522BA3FEB00D3A734 /* deviceSizeModel.swift */,
@@ -4395,6 +4398,7 @@
 				FAB0B87C232F5664002E35AB /* DeepLinkManager.swift in Sources */,
 				FA9D86A022796B44002F981A /* IGTabBarStickerController.swift in Sources */,
 				8E0405C2237146D300516DEB /* IGElecBillDetailPageTableViewController.swift in Sources */,
+				8E6BC53623B2649C0037323A /* IGMultiForwardModalViewController.swift in Sources */,
 				93E181E41E77E7EE005C3593 /* IGChannelAndGroupInfoSharedMediaFileTableViewCell.swift in Sources */,
 				FA4CFD0721A0490D005FCBF2 /* IGHelperPreferences.swift in Sources */,
 				FA9F735B2127E589004418E5 /* EPExtensions.swift in Sources */,

@@ -10,9 +10,13 @@
 
 import UIKit
 import RealmSwift
+import SwiftEventBus
 
-class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UISearchBarDelegate{
-    
+class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UISearchBarDelegate{
+    var isShortFormEnabled = true
+    var isKeyboardPresented = false
+    var keyboardHeightSize : CGFloat!
+    var MinesHeightSize : CGFloat! = 150.0
     var rooms: Results<IGRoom>? = nil
     var contacts: Results<IGRegisteredUser>? = nil
     var currentUser: IGRegisteredUser!
@@ -22,39 +26,46 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
     var selectedItems : [IGForwardStruct] = []
     let cellIdentifier = "cellIdentifier"
     var isInsearchMode : Bool! = false
+    var selectedMessages : [IGRoomMessage] = []
 
     @IBOutlet weak var lblInfo : UILabel!
     @IBOutlet weak var lblCount : UILabel!
     @IBOutlet weak var stackHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var btnSendHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var usersCollectionView: UICollectionView!
     @IBOutlet weak var btnSend: UIButton!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var btnSearch: UIButton!
     
-    class func loadFromNib() -> IGMultiForwardModal {
-        return UINib(nibName: "IGMultiForwardModal", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! IGMultiForwardModal
-    }
+
     
     @IBAction func btnSearchTap(_ sender: Any) {
         if isInsearchMode {
             UIView.transition(with: self.searchBar, duration: 0.2, options: .transitionFlipFromTop, animations: {
                 self.searchBar.isHidden = true
                 self.stackHeightConstraint.constant = 56
-                self.layoutIfNeeded()
+                self.collectionHeightConstraint.constant = deviceSizeModel.getShareModalSize() - self.btnSendHeightConstraint.constant - self.stackHeightConstraint.constant
+
+                self.view.layoutIfNeeded()
             }, completion: nil)
 
         } else {
             UIView.transition(with: self.searchBar, duration: 0.2, options: .transitionFlipFromTop, animations: {
                 self.searchBar.isHidden = false
                 self.stackHeightConstraint.constant = 112
-                self.layoutIfNeeded()
+                self.collectionHeightConstraint.constant = deviceSizeModel.getShareModalSize() - self.btnSendHeightConstraint.constant - self.stackHeightConstraint.constant
+
+                self.view.layoutIfNeeded()
             }, completion: nil)
         }
         isInsearchMode = !isInsearchMode
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.collectionHeightConstraint.constant = deviceSizeModel.getShareModalSize() - self.btnSendHeightConstraint.constant - self.stackHeightConstraint.constant
+
         searchBar.delegate = self
         let predicateChats = NSPredicate(format: "isReadOnly == false AND isDeleted == false")
         let predicateContacts = NSPredicate(format: "isInContacts == 1")
@@ -82,6 +93,45 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
         
         self.usersCollectionView.register(UINib(nibName:"multiForwardShareUsers", bundle: nil), forCellWithReuseIdentifier: cellIdentifier)
         initTheme()
+
+    }
+    @IBAction func didTapOnSendButton(_ sender: UIButton) {
+        
+        SwiftEventBus.post(EventBusManager.sendForwardReq)
+        self.dismiss(animated: true, completion: {
+            IGHelperForward.handleForward(messages: self.selectedMessages, forwardModal: self, controller: UIApplication.topViewController())
+        })
+
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(IGThreeInputTVController.keyboardWillDisappear(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(IGThreeInputTVController.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+
+    }
+    @objc func keyboardWillShow(notification: NSNotification) {
+        //Do something here
+        print("KEYBOARD DID APPEAR")
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            keyboardHeightSize = keyboardHeight
+        }
+
+        isKeyboardPresented = true
+        panModalSetNeedsLayoutUpdate()
+        panModalTransition(to: .longForm)
+
+        
+    }
+    
+    @objc func keyboardWillDisappear(notification: NSNotification) {
+        //Do something here
+        print("KEYBOARD DID DISAPPEAR")
+        keyboardHeightSize = 0.0
+        isKeyboardPresented = false
+        panModalSetNeedsLayoutUpdate()
+        panModalTransition(to: .longForm)
     }
     private func initTheme() {
         self.usersCollectionView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
@@ -92,13 +142,13 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
         self.btnSend.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: .normal)
         self.btnSearch.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: .normal)
         searchBar.backgroundColor = ThemeManager.currentTheme.BackGroundColor
-        self.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        self.view.backgroundColor = ThemeManager.currentTheme.BackGroundColor
     }
 
     private func manageView(){
-        self.frame.size.height = deviceSizeModel.getShareModalSize()
+//        self.view.frame.size.height = deviceSizeModel.getShareModalSize()
         self.lblCount.font = UIFont.igFont(ofSize: 14,weight: .bold)
-        self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
+//        self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
         self.btnSend.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
         self.stackHeightConstraint.constant = 56
         
@@ -257,4 +307,54 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
             lblInfo.attributedText = attributedString
         }
     }
+}
+
+extension IGMultiForwardModalViewController: PanModalPresentable {
+    var panScrollable: UIScrollView? {
+        return nil
+    }
+
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    func panModalDidDismiss() {
+        SwiftEventBus.post(EventBusManager.sendForwardReq)
+
+    }
+    
+    
+
+    
+    var shortFormHeight: PanModalHeight {
+        return .contentHeight(deviceSizeModel.getShareModalSize())
+    }
+    var longFormHeight: PanModalHeight {
+
+        if isKeyboardPresented {
+            self.collectionHeightConstraint.constant = UIScreen.main.bounds.size.height - keyboardHeightSize - self.stackHeightConstraint.constant - MinesHeightSize
+            return .contentHeight(deviceSizeModel.getShareModalSize() + keyboardHeightSize)
+        } else {
+            self.collectionHeightConstraint.constant = deviceSizeModel.getShareModalSize() - self.btnSendHeightConstraint.constant - self.stackHeightConstraint.constant
+
+            return .contentHeight(deviceSizeModel.getShareModalSize())
+        }
+
+    }
+    var anchorModalToLongForm: Bool {
+        return false
+    }
+
+
+    
+    func willTransition(to state: PanModalPresentationController.PresentationState) {
+        guard isShortFormEnabled, case .longForm = state
+            else { return }
+        
+        isShortFormEnabled = false
+        panModalSetNeedsLayoutUpdate()
+    }
+    
+    
 }

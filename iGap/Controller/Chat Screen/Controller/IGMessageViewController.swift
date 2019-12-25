@@ -106,10 +106,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var messageTextViewHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Variables
+    var multiShareModalOriginalHeight : CGFloat!
     var alreadyInSendMode : Bool = false
     var musicFile : MusicFile!
     private var textViewOldState: TextViewOldState = .EMPTY
     private var beforeMessageLineCount: CGFloat = -1
+    private var bConstraint: NSLayoutConstraint!
 
     //musicplayer variables
     var singerName: String! = ""
@@ -861,6 +863,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func eventBusInitialiser() {
         SwiftEventBus.onMainThread(self, name: EventBusManager.stopLastButtonState) { result in
               self.stopButtonPlayForRow()
+              
+          }
+        SwiftEventBus.onMainThread(self, name: EventBusManager.sendForwardReq) { result in
+              self.sendMultiForwardRequest()
               
           }
 
@@ -2498,13 +2504,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 }
                 else if MultiShareModalIsActive {
                     if let MultiShare = forwardModal {
-                        self.view.addSubview(MultiShare)
-                        UIView.animate(withDuration: 0.3) {
-                            if MultiShare.frame.origin.y < self.view.frame.size.height {
-                                let tmpY = ((self.view.frame.height) - (MultiShare.frame.height) - (200))
-                                MultiShare.frame = CGRect(x: 0, y: tmpY , width: self.view.frame.width, height: MultiShare.frame.height + (200))
-                            }
-                        }
+//                        self.view.addSubview(MultiShare)
+//                        UIView.animate(withDuration: 0.3) {
+//                            if MultiShare.frame.origin.y < self.view.frame.size.height {
+//                                let tmpY = ((self.view.frame.height) - (MultiShare.frame.height) - (200))
+//                                MultiShare.frame = CGRect(x: 0, y: self.view.frame.height - 100 , width: self.view.frame.width, height: self.multiShareModalOriginalHeight)
+//                            }
+//                        }
                     }
                     
                 }
@@ -2558,15 +2564,15 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 }
                 else if MultiShareModalIsActive {
                     if let MultiShare = forwardModal {
-                        window.addSubview(MultiShare)
-                        UIView.animate(withDuration: 0.3) {
-                            
-                            var frame = MultiShare.frame
-                            frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height  + (200))
-                            MultiShare.frame = frame
-                            MultiShare.frame.size.height =  MultiShare.frame.size.height - (200)
-                            
-                        }
+//                        window.addSubview(MultiShare)
+//                        UIView.animate(withDuration: 0.3) {
+//
+//                            var frame = MultiShare.frame
+//                            frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height  + (200))
+//                            MultiShare.frame = frame
+//                            MultiShare.frame.size.height =  MultiShare.frame.size.height - (200)
+//
+//                        }
                     }
                 }
                 else {
@@ -3363,12 +3369,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
     }
     
-    @objc func sendMultiForwardRequest() {
-        diselect()
-        if forwardModal != nil {
-            hideMultiShareModal()
-            IGHelperForward.handleForward(messages: self.selectedMessages, forwardModal: forwardModal, controller: self)
-        }
+    private func sendMultiForwardRequest() {
+        diselect()        
     }
     
     func hideMoneyTransactionModal() {
@@ -3438,24 +3440,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
     }
     func hideMultiShareModal() {
-        self.MultiShareModalIsActive = false
-        if forwardModal != nil {
-            self.dissmissViewBG.removeFromSuperview()
-            UIView.animate(withDuration: 0.3, animations: {
-                self.forwardModal.frame.origin.y = self.view.frame.height
-            }) { (true) in
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
-                if self.forwardModal != nil {
-                    self.forwardModal.removeFromSuperview()
-                    self.forwardModal = nil
-                    if self.dismissBtn != nil {
-                        self.dismissBtn.removeFromSuperview()
-                    }
-                }
-            }
-        }
-        forwardModal.searchBar.endEditing(true)
     }
     
     @objc func handleGesture(gesture: UITapGestureRecognizer) {
@@ -3473,12 +3457,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if CardToCardModal != nil {
             
             hideCardToCardModal()
-            self.view.endEditing(true)
-            
-        }
-        if forwardModal != nil {
-            
-            hideMultiShareModal()
             self.view.endEditing(true)
             
         }
@@ -5645,68 +5623,62 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         self.selectedMessages.append(cellMessage)
         self.showMultiSelectUI(state: State,isForward:isForward,isDelete:isDelete)
     }
+    
+    
     func showMultiShareModal() {
         self.MultiShareModalIsActive = true
+        IGHelperBottomModals.shared.showMultiForwardModal(view: self,messages : self.selectedMessages)
+
+//        if forwardModal == nil {
+//
+//
+////            //            blurEffectView = UIVisualEffectView(effect: blurEffect)
+////            //            blurEffectView.frame = view.bounds
+////            //            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+////            //            view.addSubview(blurEffectView)
+////
+////
+////            forwardModal = IGMultiForwardModal.loadFromNib()
+////
+////            forwardModal.btnSend.addTarget(self, action: #selector(sendMultiForwardRequest), for: .touchUpInside)
+////
+//////            forwardModal!.frame = CGRect(x: 0, y: self.view.frame.height - 100 , width: self.view.frame.width, height: forwardModal.frame.height)
+//////            multiShareModalOriginalHeight = forwardModal.frame.height
+////            self.view.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+////            self.view.addSubview(forwardModal)
+////            forwardModal.translatesAutoresizingMaskIntoConstraints = false
+////            forwardModal.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+////            forwardModal.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+////            if UIDevice.current.hasNotch {
+////                bConstraint = forwardModal.bottomAnchor.constraint(equalTo: self.view.bottomAnchor,constant: -20)
+////            } else {
+////                bConstraint = forwardModal.bottomAnchor.constraint(equalTo: self.view.bottomAnchor,constant: 0)
+////            }
+////            bConstraint.isActive = true
+////            forwardModal.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+////
+////
+////
+////            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+////            swipeDown.direction = .down
+////
+////            forwardModal.addGestureRecognizer(swipeDown)
+////            //dismissView
+////            dissmissViewBG.frame = view.bounds
+////            dissmissViewBG.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+////            self.view.addSubview(dissmissViewBG)
+////            dissmissViewBG.backgroundColor = UIColor.darkGray.withAlphaComponent(0.8)
+////            let tapToDismiss = UITapGestureRecognizer(target: self, action: #selector(didTapOnDissmissView))
+////            dissmissViewBG.addGestureRecognizer(tapToDismiss)
+////            dissmissViewBG.isUserInteractionEnabled = true
+////
+////            self.view.bringSubviewToFront(dissmissViewBG)
+////
+////            self.view.bringSubviewToFront(forwardModal!)
+//
+//        }
+
         
-        if forwardModal == nil {
-            //            blurEffectView = UIVisualEffectView(effect: blurEffect)
-            //            blurEffectView.frame = view.bounds
-            //            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            //            view.addSubview(blurEffectView)
-            
-            
-            forwardModal = IGMultiForwardModal.loadFromNib()
-            
-            forwardModal.btnSend.addTarget(self, action: #selector(sendMultiForwardRequest), for: .touchUpInside)
-            
-            forwardModal!.frame = CGRect(x: 0, y: self.view.frame.height - 100 , width: self.view.frame.width, height: forwardModal.frame.height)
-            
-            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
-            swipeDown.direction = .down
-            
-            forwardModal.addGestureRecognizer(swipeDown)
-            self.view.addSubview(forwardModal!)
-            //dismissView
-            dissmissViewBG.frame = view.bounds
-            dissmissViewBG.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            self.view.addSubview(dissmissViewBG)
-            dissmissViewBG.backgroundColor = UIColor.darkGray.withAlphaComponent(0.8)
-            let tapToDismiss = UITapGestureRecognizer(target: self, action: #selector(didTapOnDissmissView))
-            dissmissViewBG.addGestureRecognizer(tapToDismiss)
-            dissmissViewBG.isUserInteractionEnabled = true
-            
-            self.view.bringSubviewToFront(dissmissViewBG)
-            
-            self.view.bringSubviewToFront(forwardModal!)
-            
-        }
-        
-        if #available(iOS 11.0, *) {
-            UIView.animate(withDuration: 0.3) {
-                if UIDevice.current.hasNotch {
-                    let tmpY = ((self.view.frame.height) - (self.forwardModal.frame.height))
-                    self.forwardModal!.frame = CGRect(x: 0, y: tmpY - 44, width: self.view.frame.width, height: self.forwardModal.frame.height)
-                    
-                } else {
-                    let tmpY = ((self.view.frame.height) - (self.forwardModal.frame.height))
-                    self.forwardModal!.frame = CGRect(x: 0, y: tmpY , width: self.view.frame.width, height: self.forwardModal.frame.height)
-                    
-                }
-            }
-        } else {
-            UIView.animate(withDuration: 0.3) {
-                
-                if UIDevice.current.hasNotch {
-                    let tmpY = ((self.view.frame.height) - (self.forwardModal.frame.height))
-                    self.forwardModal!.frame = CGRect(x: 0, y: tmpY - 44, width: self.view.frame.width, height: self.forwardModal.frame.height)
-                    
-                } else {
-                    let tmpY = ((self.view.frame.height) - (self.forwardModal.frame.height))
-                    self.forwardModal!.frame = CGRect(x: 0, y: tmpY , width: self.view.frame.width, height: self.forwardModal.frame.height)
-                    
-                }
-            }
-        }
     }
     
     private func manageFailedMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){

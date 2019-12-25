@@ -16,9 +16,9 @@ class IGHelperForward {
     
     private static var makeChatArray : [Int64] = []
     private static var messagesStatic : [IGRoomMessage] = []
-    private static var forwardModalStatic: IGMultiForwardModal!
+    private static var forwardModalStatic: IGMultiForwardModalViewController!
     
-    internal static func handleForward(messages: [IGRoomMessage] = [], forwardModal: IGMultiForwardModal!, controller: UIViewController? = nil) {
+    internal static func handleForward(messages: [IGRoomMessage] = [], forwardModal: IGMultiForwardModalViewController!, controller: UIViewController? = nil) {
         if forwardModal.selectedItems.count == 1 {
             singleForward(messages: messages, forwardModal: forwardModal, controller: controller)
         } else {
@@ -26,7 +26,7 @@ class IGHelperForward {
         }
     }
     
-    private static func singleForward(messages: [IGRoomMessage] = [], forwardModal: IGMultiForwardModal!, controller: UIViewController? = nil){
+    private static func singleForward(messages: [IGRoomMessage] = [], forwardModal: IGMultiForwardModalViewController!, controller: UIViewController? = nil){
         
         var viewController: UIViewController! = controller
         if viewController == nil {
@@ -72,7 +72,7 @@ class IGHelperForward {
         }
     }
     
-    private static func multiForward(messages: [IGRoomMessage] = [], forwardModal: IGMultiForwardModal!){
+    private static func multiForward(messages: [IGRoomMessage] = [], forwardModal: IGMultiForwardModalViewController!){
         messagesStatic = messages
         forwardModalStatic = forwardModal
         

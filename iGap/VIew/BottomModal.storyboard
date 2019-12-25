@@ -1,12 +1,169 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANSans.ttf">
+            <string>IRANSans</string>
+        </array>
+        <array key="iGap_fontico.ttf">
+            <string>iGap_fontico</string>
+        </array>
+    </customFonts>
     <scenes>
+        <!--Multi Forward Modal View Controller-->
+        <scene sceneID="ZUz-pO-SeC">
+            <objects>
+                <viewController storyboardIdentifier="IGMultiForwardModalViewController" id="hWB-8T-bVn" customClass="IGMultiForwardModalViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xz7-hs-CQ4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1ek-Ly-10w">
+                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Mw-kl-LjH">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="نوع عملیات را انتخاب نمایید" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pRX-qj-pIG">
+                                                <rect key="frame" x="143.5" y="20.5" width="127" height="15.5"/>
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
+                                                <color key="textColor" name="IGLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dYz-AO-reR">
+                                                <rect key="frame" x="10" y="0.0" width="30" height="56"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="56" id="RLK-Nz-8GF"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="24"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" name="IGLabelColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btnSearchTap:" destination="hWB-8T-bVn" eventType="touchUpInside" id="wJE-ra-3a8"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="pRX-qj-pIG" firstAttribute="centerX" secondItem="5Mw-kl-LjH" secondAttribute="centerX" id="O03-qK-3jJ"/>
+                                            <constraint firstItem="dYz-AO-reR" firstAttribute="top" secondItem="5Mw-kl-LjH" secondAttribute="top" id="c8k-Zb-m1X"/>
+                                            <constraint firstItem="dYz-AO-reR" firstAttribute="leading" secondItem="5Mw-kl-LjH" secondAttribute="leading" constant="10" id="o91-Gb-Wwh"/>
+                                            <constraint firstAttribute="bottom" secondItem="dYz-AO-reR" secondAttribute="bottom" id="oCp-mD-GcA"/>
+                                            <constraint firstItem="pRX-qj-pIG" firstAttribute="centerY" secondItem="5Mw-kl-LjH" secondAttribute="centerY" id="pja-fz-QjK"/>
+                                            <constraint firstItem="dYz-AO-reR" firstAttribute="centerY" secondItem="5Mw-kl-LjH" secondAttribute="centerY" id="sS0-yc-HJ3"/>
+                                        </constraints>
+                                    </view>
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="Lxr-kx-6F4">
+                                        <rect key="frame" x="0.0" y="56" width="414" height="0.0"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="Gcn-XH-tak"/>
+                                </constraints>
+                            </stackView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aj7-T1-TJl">
+                                <rect key="frame" x="8" y="108" width="398" height="400"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="400" id="OAF-Jm-jxn"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="r0d-AE-3k8">
+                                    <size key="itemSize" width="50" height="80"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <connections>
+                                    <outlet property="dataSource" destination="hWB-8T-bVn" id="l6N-CX-Jpf"/>
+                                    <outlet property="delegate" destination="hWB-8T-bVn" id="OoN-13-gNe"/>
+                                </connections>
+                            </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bbZ-15-x2v">
+                                <rect key="frame" x="10" y="518" width="394" height="0.5"/>
+                                <color key="backgroundColor" name="IGLabelGrayColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="mA0-FE-rt9"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="tV6-X7-OhA">
+                                <rect key="frame" x="0.0" y="520.5" width="414" height="48"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vMk-jU-ft2" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
+                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                        <state key="normal" title="ارسال">
+                                            <color key="titleColor" red="0.25882352939999997" green="0.69411764710000001" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="didTapOnSendButton:" destination="hWB-8T-bVn" eventType="touchUpInside" id="D63-sS-Ulc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="tRN-4Z-yJX"/>
+                                </constraints>
+                            </stackView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eE5-mE-zLs">
+                                <rect key="frame" x="247" y="534.5" width="20.5" height="20.5"/>
+                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20.5" id="eeB-5o-0dK"/>
+                                    <constraint firstAttribute="width" constant="20.5" id="plM-J9-DjD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="bFV-Qh-e7x" firstAttribute="trailing" secondItem="tV6-X7-OhA" secondAttribute="trailing" id="0g3-mZ-7OT"/>
+                            <constraint firstItem="bbZ-15-x2v" firstAttribute="top" secondItem="aj7-T1-TJl" secondAttribute="bottom" constant="10" id="8Ss-U8-lmh"/>
+                            <constraint firstItem="1ek-Ly-10w" firstAttribute="leading" secondItem="bFV-Qh-e7x" secondAttribute="leading" id="D5A-LX-LT1"/>
+                            <constraint firstItem="tV6-X7-OhA" firstAttribute="leading" secondItem="bFV-Qh-e7x" secondAttribute="leading" id="G8p-sR-avz"/>
+                            <constraint firstItem="1ek-Ly-10w" firstAttribute="top" secondItem="bFV-Qh-e7x" secondAttribute="top" id="J0G-L5-0uj"/>
+                            <constraint firstItem="aj7-T1-TJl" firstAttribute="leading" secondItem="bFV-Qh-e7x" secondAttribute="leading" constant="8" id="Oev-0u-PNH"/>
+                            <constraint firstAttribute="trailing" secondItem="bbZ-15-x2v" secondAttribute="trailing" constant="10" id="Q38-ha-rlT"/>
+                            <constraint firstItem="eE5-mE-zLs" firstAttribute="centerX" secondItem="vMk-jU-ft2" secondAttribute="centerX" constant="50" id="TdE-Ld-rRk"/>
+                            <constraint firstItem="tV6-X7-OhA" firstAttribute="top" secondItem="bbZ-15-x2v" secondAttribute="bottom" constant="2" id="XQO-mN-NrF"/>
+                            <constraint firstItem="bFV-Qh-e7x" firstAttribute="trailing" secondItem="aj7-T1-TJl" secondAttribute="trailing" constant="8" id="XQQ-wF-VgK"/>
+                            <constraint firstItem="eE5-mE-zLs" firstAttribute="centerY" secondItem="tV6-X7-OhA" secondAttribute="centerY" id="XRF-00-7Os"/>
+                            <constraint firstItem="aj7-T1-TJl" firstAttribute="top" secondItem="1ek-Ly-10w" secondAttribute="bottom" constant="8" id="Yuv-e1-JEQ"/>
+                            <constraint firstItem="bbZ-15-x2v" firstAttribute="leading" secondItem="xz7-hs-CQ4" secondAttribute="leading" constant="10" id="kMN-0w-7TJ"/>
+                            <constraint firstItem="bFV-Qh-e7x" firstAttribute="trailing" secondItem="1ek-Ly-10w" secondAttribute="trailing" id="vLW-dK-4iC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bFV-Qh-e7x"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnSearch" destination="dYz-AO-reR" id="RsR-7c-eZX"/>
+                        <outlet property="btnSend" destination="vMk-jU-ft2" id="ipm-Md-Frt"/>
+                        <outlet property="btnSendHeightConstraint" destination="tRN-4Z-yJX" id="UGs-Qj-vAS"/>
+                        <outlet property="collectionHeightConstraint" destination="OAF-Jm-jxn" id="OBt-lR-nFG"/>
+                        <outlet property="lblCount" destination="eE5-mE-zLs" id="4aj-s5-J0e"/>
+                        <outlet property="lblInfo" destination="pRX-qj-pIG" id="NXc-f5-QJg"/>
+                        <outlet property="searchBar" destination="Lxr-kx-6F4" id="Dq1-nx-TXf"/>
+                        <outlet property="stackHeightConstraint" destination="Gcn-XH-tak" id="STj-HH-X0e"/>
+                        <outlet property="usersCollectionView" destination="aj7-T1-TJl" id="9G1-z1-yec"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EcD-dX-H0o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-759" y="168"/>
+        </scene>
         <!--Three InputTV Controller-->
         <scene sceneID="ndC-at-aNb">
             <objects>
@@ -160,4 +317,12 @@
             <point key="canvasLocation" x="-52.173913043478265" y="164.73214285714286"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="IGLabelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="IGLabelGrayColor">
+            <color white="0.33300000429153442" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+    </resources>
 </document>
