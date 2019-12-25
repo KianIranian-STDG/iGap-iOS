@@ -43,6 +43,9 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
     @IBOutlet weak var giftAmountLbl: UILabel!
     @IBOutlet weak var cashAmountLbl: UILabel!
     
+    @IBOutlet weak var giftAmountLblTitle: UILabel!
+    @IBOutlet weak var cashAmountLblTitle: UILabel!
+
     var bussinessArray: [Int]! = []
     var showSection: Bool = true
     var selectedRow: Int = 0
@@ -116,6 +119,8 @@ class packetTableViewController: BaseTableViewController, HandleDefaultCard, UIC
         self.setupUI()
         mainAmountView.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
         amountsView.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor
+        giftAmountLblTitle.textColor = ThemeManager.currentTheme.LabelColor
+        cashAmountLblTitle.textColor = ThemeManager.currentTheme.LabelColor
 
     }
     

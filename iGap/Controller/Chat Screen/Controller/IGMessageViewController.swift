@@ -105,7 +105,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var btnStickerWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageTextViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageTextViewHeightConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var collectionBottomConstraint: NSLayoutConstraint!
+
     // MARK: - Variables
     var multiShareModalOriginalHeight : CGFloat!
     var alreadyInSendMode : Bool = false
@@ -703,8 +704,35 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.createTopMusicPlayer()
         }
         initTheme()
+        manageCollectionInset()
     }
-    
+    private func manageCollectionInset() {
+         if self.isBotRoom() {
+            print("ROOMTYPE IS:","isBOTRoom")
+         } else {
+             if self.room?.type == .chat {
+                 print("ROOMTYPE IS:","isNormalChat")
+             } else if self.room?.type == .group {
+                 print("ROOMTYPE IS:","isGROUP")
+             } else {
+                 if self.room?.channelRoom?.role == .admin || self.room?.channelRoom?.role == .owner || self.room?.channelRoom?.role == .moderator {
+                     print("ROOMTYPE IS:","isChannel - NotUSer")
+                    collectionBottomConstraint.constant = 0
+
+                 } else {
+                    print("ROOMTYPE IS:","isChannel - ISUser",self.mainHolder.isHidden)
+                    if room!.isParticipant  {
+                        collectionBottomConstraint.constant = 50
+                    } else {
+                        collectionBottomConstraint.constant = 0
+
+                    }
+
+                 }
+             }
+        }
+
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -781,7 +809,23 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 //        self.holderMultiSelect.backgroundColor =
         lblSelectedMessages.textColor = ThemeManager.currentTheme.LabelColor
         joinButton.backgroundColor = ThemeManager.currentTheme.SliderTintColor
-        joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+        if currentTheme == "IGAPDay" {
+            
+            if currentColorSetLight == "IGAPBlack" {
+                joinButton.setTitleColor(.white, for: .normal)
+            } else {
+                joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+            }
+
+        } else {
+            joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+
+        }
+
         self.messageTextView.backgroundColor = .clear
         self.btnCloseReplyBar.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         self.btnCloseTopBar.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)

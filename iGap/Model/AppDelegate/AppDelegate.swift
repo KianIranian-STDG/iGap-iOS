@@ -607,6 +607,9 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             case "IGAPLightGray" :
                 DayColorSetManager.currentColorSet = LightGrayColorSet()
                 break
+          case "IGAPBlack" :
+                DayColorSetManager.currentColorSet = BWColorSet()
+                break
                 
             default: break
             }
@@ -648,6 +651,9 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
                 
             case "IGAPLightGray" :
                 NightColorSetManager.currentColorSet = LightGrayColorSetNight()
+                break
+            case "IGAPBlack" :
+                NightColorSetManager.currentColorSet = BWColorSetNight()
                 break
                 
             default: break

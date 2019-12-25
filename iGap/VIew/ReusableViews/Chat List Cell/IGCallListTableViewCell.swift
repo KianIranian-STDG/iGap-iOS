@@ -32,7 +32,7 @@ class IGCallListTableViewCell: BaseTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        contentView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        contentView.backgroundColor = .clear
         self.initialConfiguration()
     }
     

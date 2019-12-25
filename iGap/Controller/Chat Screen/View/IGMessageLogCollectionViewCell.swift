@@ -49,7 +49,24 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
         self.logBackgroundView.backgroundColor = UIColor.logBackground()
         addShadow()
         manageWidth(IGRoomMessageLog.textForLogMessage(message))
-        self.logLabel.textColor = ThemeManager.currentTheme.LabelColor
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+        if currentTheme == "IGAPDay" {
+            
+            if currentColorSetLight == "IGAPBlack" {
+                self.logLabel.textColor = .white
+            } else {
+                self.logLabel.textColor = ThemeManager.currentTheme.LabelColor
+            }
+
+        } else {
+            self.logLabel.textColor = ThemeManager.currentTheme.LabelColor
+
+        }
+
+
         self.logBackgroundView.backgroundColor = ThemeManager.currentTheme.SliderTintColor
     }
     

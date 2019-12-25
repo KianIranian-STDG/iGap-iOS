@@ -250,7 +250,6 @@ class IGRoomListtCell: BaseTableViewCell {
             case .unmute:
                 self.muteLabel.isHidden = true
                 unreadView.backgroundColor = ThemeManager.currentTheme.BadgeColor
-                
             case .mute:
                 self.muteLabel.isHidden = false
                 unreadView.backgroundColor = UIColor.darkGray
@@ -498,6 +497,9 @@ class IGRoomListtCell: BaseTableViewCell {
             self.lastMsgLabel.textColor = ThemeManager.currentTheme.LabelColor
             self.typeImage.textColor = ThemeManager.currentTheme.LabelColor
             self.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+            unreadView.layer.borderColor = UIColor.white.cgColor
+            unreadView.layer.borderWidth = 1.0
+
         }
         
     }

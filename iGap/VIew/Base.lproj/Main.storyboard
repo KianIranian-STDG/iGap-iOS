@@ -2037,6 +2037,7 @@
                         <outlet property="btnStickerWidthConstraint" destination="cNS-fD-8yK" id="TsP-aG-yxu"/>
                         <outlet property="btnTrash" destination="FkX-fc-CcQ" id="sBw-x7-hcj"/>
                         <outlet property="chatBackground" destination="PLh-MM-IK9" id="kmi-ka-fIy"/>
+                        <outlet property="collectionBottomConstraint" destination="bg0-rO-guD" id="h9U-Q5-4cv"/>
                         <outlet property="collectionView" destination="9G6-WI-YVj" id="W5s-J5-lty"/>
                         <outlet property="floatingDateView" destination="dyh-H7-OPt" id="Pat-k4-gtU"/>
                         <outlet property="holderAttachmentBar" destination="goW-Lg-W3d" id="ESn-oK-FR3"/>

@@ -69,7 +69,7 @@ class GreenColorSet: DayNightColorSetProtocol {
         
     var TabbarColorLabel: UIColor = UIColor(named: "IGTabbarColorLabel")!
     
-    var TableViewBackgroundColor: UIColor = UIColor.hexStringToUIColor(hex: "F1F1F7")
+    var TableViewBackgroundColor: UIColor = UIColor.hexStringToUIColor(hex: "e5e5e5")
     
     var TableViewCellColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
 
@@ -239,7 +239,7 @@ class GreenColorSetNight: NightColorSetProtocol {
         
     var TabbarColorLabel: UIColor = UIColor(named: "IGTabbarColorLabelNight")!
     
-    var TableViewBackgroundColor: UIColor = UIColor(named: "IGTableViewBackgroundColorNight")!
+    var TableViewBackgroundColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
     
     var TableViewCellColor: UIColor = UIColor.hexStringToUIColor(hex: "1B1B1D")
 

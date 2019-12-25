@@ -57,7 +57,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
     var themeTypes = [IGStringsManager.ClassicTheme.rawValue.localized,IGStringsManager.DayTheme.rawValue.localized,IGStringsManager.NightTheme.rawValue.localized]
     var bgArray : [UIColor] = [DefaultColorSet().SettingClassicBG,UIColor.white,UIColor.black]
 
-    var colorSets : [UIColor] = [UIColor(named: "BlueColorSet")!,UIColor(named: "TurquoiseColorSet")!,UIColor(named: "GreenColorSet")!,UIColor(named: "PinkColorSet")!,UIColor(named: "OrangeColorSet")!,UIColor(named: "PurpleColorSet")!,UIColor(named: "RedColorSet")!,UIColor(named: "GoldColorSet")!,UIColor(named: "LightGrayColorSet")!]
+    var colorSets : [UIColor] = [UIColor(named: "BlueColorSet")!,UIColor(named: "TurquoiseColorSet")!,UIColor(named: "GreenColorSet")!,UIColor(named: "PinkColorSet")!,UIColor(named: "OrangeColorSet")!,UIColor(named: "PurpleColorSet")!,UIColor(named: "RedColorSet")!,UIColor(named: "GoldColorSet")!,UIColor(named: "LightGrayColorSet")!,UIColor(named: "BlackColorSet")!]
     var appIcons : [UIImage] = [UIImage(named: "AppIconOne")!,UIImage(named: "AppIconTwo")!,UIImage(named: "AppIconThree")!,UIImage(named: "AppIconFour")!,UIImage(named: "AppIconFive")!,UIImage(named: "AppIconSix")!,UIImage(named: "AppIconSeven")!]
     var appIconsNames : [String] = ["AppIconOne","AppIconTwo","AppIconThree","AppIconFour","AppIconFive","AppIconSix","AppIconSeven"]
     var isClassicTheme : Bool = true
@@ -189,10 +189,11 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
             DayColorSetManager.currentColorSet = LightGrayColorSet()
 
             
-        case "IGAPBW" :
+        case "IGAPBlack" :
             indexPathLight = IndexPath(item: 9, section: 0)
             self.collectionColorSets.selectItem(at: indexPathLight, animated: true, scrollPosition: [])
-            
+            DayColorSetManager.currentColorSet = BWColorSet()
+
         default : break
             
         }
@@ -243,10 +244,11 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
             self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
             NightColorSetManager.currentColorSet = LightGrayColorSetNight()
 
-        case "IGAPBW" :
+        case "IGAPBlack" :
             indexPathDark = IndexPath(item: 9, section: 0)
             self.collectionColorSets.selectItem(at: indexPathDark, animated: true, scrollPosition: [])
-            
+            NightColorSetManager.currentColorSet = BWColorSetNight()
+
         default : break
             
         }
@@ -935,7 +937,27 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
 
                 }
                 
-                
+               
+                case 9 :
+                    print("CURRENT COLORSET IS :","BLACK")
+                    if currentTheme == "IGAPDay" {
+                        UserDefaults.standard.set("IGAPBlack", forKey: "CurrentColorSetLight")
+                        indexPathLight = IndexPath(item: 9, section: 0)
+                        DayColorSetManager.currentColorSet = BWColorSet()
+                        ThemeManager.currentTheme = DayTheme()
+                        initTheme(currentTheme: "IGAPDay", currentColorSet: "IGAPBlack")
+
+                        
+                    } else if currentTheme == "IGAPNight" {
+                        UserDefaults.standard.set("IGAPBlack", forKey: "CurrentColorSetDark")
+                        indexPathDark = IndexPath(item: 9, section: 0)
+                        NightColorSetManager.currentColorSet = BWColorSetNight()
+                        ThemeManager.currentTheme = NightTheme()
+                        initTheme(currentTheme: "IGAPNight", currentColorSet: "IGAPBlack")
+
+                    }
+                    
+                   
             default :
                 break
             }

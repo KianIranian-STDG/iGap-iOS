@@ -30,38 +30,38 @@ class BWColorSet: DayNightColorSetProtocol {
     
     var LabelFinancialServiceColor: UIColor = UIColor(named: "LabelFinancialServiceColor")!
     
-    var CustomAlertBGColor: UIColor = UIColor(named: "IGCustomAlertBGColor")!
-    
+    var CustomAlertBGColor: UIColor = UIColor.hexStringToUIColor(hex: "f5f5f5")
+
     var CustomAlertBorderColor: UIColor = UIColor(named: "IGCustomAlertBorderColor")!
     
     var MessageLogCellBGColor: UIColor = UIColor(named: "IGMessageLogCellBGColor")!
     
-    var MessageTextColor: UIColor = UIColor(named: "IGMessageTextColor")!
+    var MessageTextColor: UIColor = UIColor.hexStringToUIColor(hex: "2C363E")
     var MessageTextReceiverColor: UIColor = .white
 
     var MessageTimeLabelColor: UIColor = UIColor(named: "IGMessageTimeLabelColor")!
             
-    var SendMessageBubleBGColor: UIColor = UIColor(named: "IGSendMessageBubleBGColor")!
+    var SendMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "E7EAEF")
         
-    var BackGroundColor: UIColor = UIColor(named: "IGBackGroundColor")!
+    var BackGroundColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
     
     var BackGroundGrayColor: UIColor = UIColor(named: "IGBackGroundGrayColor")!
             
     var DashboardCellBackgroundColor: UIColor = UIColor(named: "IGDashboardCellBackgroundColor")!
     
-    var LabelColor: UIColor = UIColor(named: "IGLabelColor")!
-    
+    var LabelColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+
     var LabelGrayColor: UIColor = UIColor(named: "IGLabelGrayColor")!
     
     var LabelSecondColor: UIColor = UIColor(named: "IGLabelSecondColor")!
     
-    var ModalViewBackgroundColor: UIColor = UIColor(named: "IGModalViewBackgroundColor")!
-    
+    var ModalViewBackgroundColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
+
     var ProgressBackgroundColor: UIColor = UIColor(named: "IGProgressBackgroundColor")!
     
     var ProgressColor: UIColor = UIColor(named: "IGProgressColor")!
     
-    var RecentTVCellColor: UIColor = UIColor(named: "IGRecentTVCellColor")!
+    var RecentTVCellColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
     
     var SearchBarBackGroundColor: UIColor = UIColor(named: "IGSearchBarBackGroundColor")!
     
@@ -69,10 +69,10 @@ class BWColorSet: DayNightColorSetProtocol {
         
     var TabbarColorLabel: UIColor = UIColor(named: "IGTabbarColorLabel")!
     
-    var TableViewBackgroundColor: UIColor = UIColor(named: "IGTableViewBackgroundColor")!
-    
-    var TableViewCellColor: UIColor = UIColor(named: "IGTableViewCellColor")!
-    
+    var TableViewBackgroundColor: UIColor = UIColor.hexStringToUIColor(hex: "E5E5E5")
+
+    var TableViewCellColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
+
     var TextFieldBackGround: UIColor = UIColor(named: "IGTextFieldBackGround")!
     
     var TextFieldPlaceHolderColor: UIColor = UIColor(named: "IGTextFieldPlaceHolderColor")!
@@ -83,50 +83,221 @@ class BWColorSet: DayNightColorSetProtocol {
     
     //change by Color Set
     
-    var SettingDayReceiveBubble: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
-    var SliderTintColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
+    var SettingDayReceiveBubble: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+    var SliderTintColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
         
-    var CheckStatusColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
+    var CheckStatusColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
     
-    var MessageCountColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
+    var MessageCountColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
     
     var TabBarColor: UIColor = UIColor.hexStringToUIColor(hex: "EAEAEC")
 
-    var TabBarTextColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
+    var TabBarTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
+    var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "1e1e1e")
     
-    var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "6D6E88")
+    var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+    var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
 
-    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
+    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var MessageUnreadCellBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
+    var MessageUnreadCellBGColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
     var ButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ButtonBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
+    var ButtonBGColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var BorderCustomColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
+    var BorderCustomColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var BorderColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
-    var BadgeColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
+    var BorderColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+
+    var BadgeColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
     //tabbarIcons
 
-    var TabIconContacts: UIImage = UIImage(named: "ig-Phone-Book-on_25")!
+    var TabIconContacts: UIImage = UIImage(named: "igContactListLightGrayLight")!
     
-    var TabIconCallList: UIImage = UIImage(named: "ig-Call-List-on_25")!
+    var TabIconCallList: UIImage = UIImage(named: "igCallListLightGrayLight")!
     
-    var TabIconRoomList: UIImage = UIImage(named: "ig-Room-List-on_25")!
+    var TabIconRoomList: UIImage = UIImage(named: "igRoomListLightGrayLight")!
     
-    var TabIconRoomIland: UIImage = UIImage(named: "ig-Discovery-on_25")!
+    var TabIconRoomIland: UIImage = UIImage(named: "igIlandLightGrayLight")!
     
-    var TabIconRoomSettings: UIImage = UIImage(named: "ig-Settings-on_25")!
+    var TabIconRoomSettings: UIImage = UIImage(named: "igSettingLightGrayLight")!
+
 
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    var TableCellMainBGColor: UIColor = .black
+    
+    var TableCellSecondaryBGColor: UIColor  = .black
+    
+    var BorderMainColor: UIColor  = .black
+    
+    var BorderSecondaryColor: UIColor  = .black
+    
+    var LabelMainTextColor: UIColor = UIColor.black
+    
+    var LabelSecondaryTextColor: UIColor = .black
+    
+    var ViewMainBGColor: UIColor = .black
+
+    var ViewSecondaryBGColor: UIColor = .black
+    
+    var TableViewMainBGColor: UIColor = .black
+    
+    var TableViewSecondaryBGColor: UIColor = .black
+    
+    var ButtonMainBGColor: UIColor = .black
+    
+    var ButtonSecondaryBGColor: UIColor = .black
+    
+    var ButtonTitleMainColor: UIColor = .black
+    
+    var ButtonTitleSecondaryColor: UIColor = .black
+    
+    var NavigationFirstBGColor: UIColor = .black
+    
+    var NavigationSecondaryBGColor: UIColor = .black
+        
+    var TabbarMainBGColor: UIColor = .black
+    
+    var TabbarSecondaryBGColor: UIColor = .black
+    
+    var TabbarTitleTextColor: UIColor = .black
+    
+    //ChatBG
+    var ChatBG: UIImage = UIImage(named: "iGap-Chat-BG-L")!
+
+}
+
+class BWColorSetNight: NightColorSetProtocol {
+
+    
+    
+    var TVCellTitleColor: UIColor  = UIColor(named: "IGTVCellTitleColorNight")!
+    
+    var CellFavouriteChannellBGColor: UIColor = UIColor(named: "CellFavouriteChannellBGColorNight")!
+    
+    var CellSelectedChannelBGColor: UIColor = UIColor(named: "CellSelectedChannelBGColorNight")!
+        
+    var ProgressMainColor: UIColor = UIColor(named: "ProgressMainColorNight")!
+    
+    var ProgressBackgroundMainColor: UIColor = UIColor(named: "ProgressBackgroundMainColorNight")!
+    
+    var TransactionsCVColor: UIColor = UIColor(named: "IGTransactionsCVColorNight")!
+    
+    var TransactionsCVSelectedColor: UIColor = UIColor(named: "IGTransactionsCVSelectedColorNight")!
+    
+    var LabelFinancialServiceColor: UIColor = UIColor(named: "LabelFinancialServiceColorNight")!
+    
+    var CustomAlertBGColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+
+    var CustomAlertBorderColor: UIColor = UIColor(named: "IGCustomAlertBorderColorNight")!
+    
+    var MessageLogCellBGColor: UIColor = UIColor(named: "IGMessageLogCellBGColorNight")!
+    
+    var MessageTextColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
+    var MessageTextReceiverColor: UIColor = .white
+
+    var MessageTimeLabelColor: UIColor = UIColor(named: "IGMessageTimeLabelColorNight")!
+            
+    var SendMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "4A4A4A")
+
+    var BackGroundColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+    
+    var BackGroundGrayColor: UIColor = UIColor(named: "IGBackGroundGrayColorNight")!
+            
+    var DashboardCellBackgroundColor: UIColor = UIColor(named: "IGDashboardCellBackgroundColorNight")!
+    
+    var LabelColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
+
+    var LabelGrayColor: UIColor = UIColor(named: "IGLabelGrayColorNight")!
+    
+    var LabelSecondColor: UIColor = UIColor(named: "IGLabelSecondColorNight")!
+    
+    var ModalViewBackgroundColor: UIColor = UIColor.hexStringToUIColor(hex: "1B1B1D")
+
+    var ProgressBackgroundColor: UIColor = UIColor(named: "IGProgressBackgroundColorNight")!
+    
+    var ProgressColor: UIColor = UIColor(named: "IGProgressColorNight")!
+    
+    var RecentTVCellColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+
+    var SearchBarBackGroundColor: UIColor = UIColor(named: "IGSearchBarBackGroundColorNight")!
+    
+    var SplashBackgroundColor: UIColor = UIColor(named: "IGSplashBackgroundColorNight")!
+        
+    var TabbarColorLabel: UIColor = UIColor(named: "IGTabbarColorLabelNight")!
+    
+    var TableViewBackgroundColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+    
+    var TableViewCellColor: UIColor = UIColor.hexStringToUIColor(hex: "1B1B1D")
+
+    var TextFieldBackGround: UIColor = UIColor(named: "IGTextFieldBackGroundNight")!
+    
+    var TextFieldPlaceHolderColor: UIColor = UIColor(named: "IGTextFieldPlaceHolderColorNight")!
+    
+    var TVCellIconColor: UIColor = UIColor(named: "IGTVCellIconColorNight")!
+    
+    var IGTVCellTitleColor: UIColor = UIColor(named: "IGTVCellTitleColorNight")!
+    
+    //change by Color Set
+    
+    var SettingDayReceiveBubble: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+    var SliderTintColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+        
+    var CheckStatusColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+    
+    var MessageCountColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+    
+    var TabBarColor: UIColor = UIColor.hexStringToUIColor(hex: "1B1B1D")
+
+    var TabBarTextColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
+
+    var NavigationFirstColor: UIColor = UIColor.hexStringToUIColor(hex: "1e1e1e")
+    
+    var NavigationSecondColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+
+    var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+
+    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+
+    var MessageUnreadCellBGColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+
+    var ButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+
+    var ButtonBGColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+
+    var BorderCustomColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+
+    var BorderColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+
+    var BadgeColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
+
+    //tabbarIcons
+
+    var TabIconContacts: UIImage = UIImage(named: "igContactListLightGrayLight")!
+    
+    var TabIconCallList: UIImage = UIImage(named: "igCallListLightGrayLight")!
+    
+    var TabIconRoomList: UIImage = UIImage(named: "igRoomListLightGrayLight")!
+    
+    var TabIconRoomIland: UIImage = UIImage(named: "igIlandLightGrayLight")!
+    
+    var TabIconRoomSettings: UIImage = UIImage(named: "igSettingLightGrayLight")!
+
+
     
     
     

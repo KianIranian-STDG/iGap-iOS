@@ -136,12 +136,49 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
     private func initTheme() {
         self.usersCollectionView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         self.lblInfo.textColor = ThemeManager.currentTheme.LabelColor
-        self.lblCount.textColor = ThemeManager.currentTheme.LabelColor
-        self.lblCount.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        self.btnSend.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        self.btnSearch.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        if let textField = searchBar.value(forKey: "searchField") as? UITextField {
+            textField.backgroundColor = .clear
+            textField.font = UIFont.igFont(ofSize: 13)
+            textField.textColor = ThemeManager.currentTheme.LabelColor
+            if let backgroundview = textField.subviews.first {
+                backgroundview.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+                for view in backgroundview.subviews {
+                    view.backgroundColor = .clear
+                }
+                backgroundview.layer.cornerRadius = 10;
+                backgroundview.clipsToBounds = true;
+            }
+        }
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
 
-        self.btnSend.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: .normal)
-        self.btnSearch.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: .normal)
-        searchBar.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+        if currentTheme == "IGAPDay" {
+            
+            if currentColorSetLight == "IGAPBlack" {
+                
+                self.lblCount.textColor = .white
+                self.lblCount.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+
+                
+            } else {
+                
+                self.lblCount.textColor = ThemeManager.currentTheme.LabelColor
+                self.lblCount.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+                self.lblCount.layer.borderColor = UIColor.white.cgColor
+                self.lblCount.layer.borderWidth = 1.0
+
+            }
+
+        } else {
+            self.lblCount.textColor = ThemeManager.currentTheme.LabelColor
+            self.lblCount.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+            self.lblCount.layer.borderColor = UIColor.white.cgColor
+            self.lblCount.layer.borderWidth = 1.0
+
+        }
         self.view.backgroundColor = ThemeManager.currentTheme.BackGroundColor
     }
 
