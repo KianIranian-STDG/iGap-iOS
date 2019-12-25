@@ -83,6 +83,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         
         topView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapOnTopView(_:))))
         topView.isUserInteractionEnabled = true
+        self.view.backgroundColor = .black
     }
     
     override func viewDidLayoutSubviews() {
