@@ -502,7 +502,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                 let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
                 let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
 
-                if currentTheme == "IGAPDay" {
+                if currentTheme == "IGAPDay" || currentTheme == "IGAPNight" {
                     
                     if currentColorSetLight == "IGAPBlack" {
                         txtStatusAbs.textColor = .iGapGreen()
@@ -552,6 +552,22 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
 
             } else {
                 txtTimeAbs?.textColor = ThemeManager.currentTheme.LabelColor
+                let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+                let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+                let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+                if currentTheme == "IGAPDay" || currentTheme == "IGAPNight" {
+                    
+                    if currentColorSetLight == "IGAPBlack" {
+                        txtTimeAbs.textColor = .white
+                    } else {
+                        txtTimeAbs?.textColor = ThemeManager.currentTheme.LabelColor
+                    }
+
+                } else {
+                    txtTimeAbs?.textColor = ThemeManager.currentTheme.LabelColor
+                }
+
             }
 
             if txtEditedAbs != nil {
@@ -1751,7 +1767,22 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             txtTimeAbs?.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
 
         } else {
-            txtTimeAbs?.textColor = ThemeManager.currentTheme.BackGroundColor
+
+            let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+            let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+            let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+            if currentTheme == "IGAPDay" || currentTheme == "IGAPNight" {
+                
+                if currentColorSetLight == "IGAPBlack" {
+                    txtTimeAbs.textColor = .white
+                } else {
+                    txtTimeAbs?.textColor = ThemeManager.currentTheme.BackGroundColor
+                }
+
+            } else {
+                txtTimeAbs?.textColor = ThemeManager.currentTheme.BackGroundColor
+            }
         }
 
         txtTimeAbs.snp.removeConstraints()

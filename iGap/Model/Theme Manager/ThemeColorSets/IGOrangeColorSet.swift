@@ -71,7 +71,7 @@ class OrangeColorSet: DayNightColorSetProtocol {
     
     var TableViewBackgroundColor: UIColor = UIColor.hexStringToUIColor(hex: "e5e5e5")
     
-    var TableViewCellColor: UIColor = UIColor.hexStringToUIColor(hex: "1B1B1D")
+    var TableViewCellColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
 
     var TextFieldBackGround: UIColor = UIColor(named: "IGTextFieldBackGround")!
     
