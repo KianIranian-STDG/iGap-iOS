@@ -52,6 +52,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
     var indexPathDark : IndexPath = IndexPath(item : 0, section: 0)
     var indexPathLight : IndexPath = IndexPath(item : 0, section: 0)
     var userDefaults = UserDefaults.standard
+    var fontFinalSize: CGFloat!
     
     var themeTypes = [IGStringsManager.ClassicTheme.rawValue.localized,IGStringsManager.DayTheme.rawValue.localized,IGStringsManager.NightTheme.rawValue.localized]
     var bgArray : [UIColor] = [DefaultColorSet().SettingClassicBG,UIColor.white,UIColor.black]
@@ -83,6 +84,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         } else {
             fontDefaultSize = 15.0
         }
+        fontFinalSize = fontDefaultSize
         oneTo10Slider.value = fontDefaultSize
         oneTo10Slider.thumbTintColor = ThemeManager.currentTheme.SliderTintColor
         
@@ -96,11 +98,18 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         self.btnPlayPreview3.setTitleColor(ThemeManager.currentTheme.MessageTextReceiverColor, for: .normal)
         self.sliderPreview3.tintColor = ThemeManager.currentTheme.MessageTextReceiverColor
         self.sliderPreview3.thumbTintColor = ThemeManager.currentTheme.MessageTextReceiverColor
-//        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         
+        // if font size changed clear bubble cache for compute again after open chat
+        if fontFinalSize != fontDefaultSize {
+            fontDefaultSize = fontFinalSize
+            CellSizeCalculator.sharedCalculator.clearBubbleSizeCache()
+        }
     }
     private func changeTheme(theme: String!) {
-        //        SwiftEventBus.post("ChangeTheme",sender: themeType)
         let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
         let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
         
@@ -121,8 +130,8 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         }
     }
     private func selectTheme() {
-        let currentAppIcon = UserDefaults.standard.integer(forKey: "CurrentAppIcon") ?? 6
-        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+        let currentAppIcon = UserDefaults.standard.integer(forKey: "CurrentAppIcon")
+        let currentTheme = UserDefaults.standard.string(forKey: "entTheme") ?? "IGAPClassic"
         let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
         let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
         print("CURRENT COLOR SET FOR DARK",currentColorSetDark,"\n","CURRENT INDEX DARK IS",indexPathDark)
@@ -411,9 +420,8 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
 
     }
     @objc func valueChanged(_ sender: TGPDiscreteSlider, event:UIEvent) {
-        print("valueChanged", Double(sender.value))
+        fontFinalSize = sender.value
         UserDefaults.standard.set(sender.value, forKey: "textMessagesFontSize")
-        
         changeMessagePreview(font: sender.value)
     }
     @IBAction func switchInAppBrowser(_ sender: Any) {
@@ -456,15 +464,8 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
 
     
     //MARK:- FOOTER CONFIGS
-    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        let containerFooterView = view as! UITableViewHeaderFooterView
-        
-        switch section {
-        default :
-            break
-            
-        }
-    }
+    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {}
+    
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch section {
         default:
@@ -533,7 +534,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
             default:
                 return 44
             }
-            break
+            
         case 1 :
             return 100
             
@@ -595,7 +596,6 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == collectionThemes {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "IGThemeCVCell", for: indexPath) as! IGThemeCVCell
-            let current = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
             
             cell.lblThemeName.text = themeTypes[indexPath.item]
             cell.viewBG.backgroundColor = bgArray[indexPath.item]
@@ -634,7 +634,6 @@ extension IGSettingsAppearanceTableViewController: UICollectionViewDataSource, U
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "IGColorsSetCVCell", for: indexPath) as! IGColorsSetCVCell
             
-            let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
             let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
             let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
             
