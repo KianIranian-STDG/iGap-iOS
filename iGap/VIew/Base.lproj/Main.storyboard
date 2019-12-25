@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="2Jb-2h-F8Z">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="2Jb-2h-F8Z">
     <device id="retina6_5" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -2046,6 +2046,7 @@
                         <outlet property="holderRecordView" destination="urJ-PG-Uzl" id="jn5-Kd-7n7"/>
                         <outlet property="holderReplyBar" destination="wlI-ch-mHJ" id="zvb-pl-bf2"/>
                         <outlet property="holderTextBox" destination="AtU-aY-koK" id="Xub-Oe-bRh"/>
+                        <outlet property="iconReplyBar" destination="G7s-Cx-IOG" id="hBX-wd-LxF"/>
                         <outlet property="imgAttachmentImage" destination="KDh-5F-S6i" id="9n7-nH-u2Q"/>
                         <outlet property="inputBarRecodingBlinkingView" destination="HZt-jn-lqx" id="cQc-iR-vCv"/>
                         <outlet property="inputBarRecordTimeLabel" destination="0xP-Py-NoP" id="1WK-kO-5rF"/>
@@ -2301,7 +2302,7 @@
             <objects>
                 <tableViewController id="u0S-Sh-Wik" customClass="IGReport" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Bys-n6-siz">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -4228,7 +4229,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             <color red="0.72500002384185791" green="0.88599997758865356" blue="0.2669999897480011" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGNavigationSecondColor">
-            <color red="0.25490196078431371" green="0.69019607843137254" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.25499999523162842" green="0.6940000057220459" blue="0.125" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGRecentTVCellColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4251,7 +4252,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="iOQ-F0-yR8"/>
-        <segue reference="k9M-cr-cw2"/>
+        <segue reference="jRj-hY-oEr"/>
         <segue reference="hX0-rN-GMb"/>
         <segue reference="QJB-pO-R8A"/>
     </inferredMetricsTieBreakers>

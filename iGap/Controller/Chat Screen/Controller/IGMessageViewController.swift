@@ -68,6 +68,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var holderRecordView: UIView!
     @IBOutlet weak var holderAttachmentBar: UIView!
     @IBOutlet weak var holderReplyBar: UIView!
+    @IBOutlet weak var iconReplyBar: UILabel!
     @IBOutlet weak var holderTextBox: UIView!
     @IBOutlet weak var holderMultiSelect: UIView!
     @IBOutlet weak var holderMusicPlayer: UIView!
@@ -782,6 +783,17 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         joinButton.backgroundColor = ThemeManager.currentTheme.SliderTintColor
         joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         self.messageTextView.backgroundColor = .clear
+        self.btnCloseReplyBar.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        self.btnCloseTopBar.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        self.lblFirstInStack.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblSecondInStack.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblThirdInStack.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblReplyBody.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblReplyName.textColor = ThemeManager.currentTheme.LabelColor
+        self.lblFileSize.textColor = ThemeManager.currentTheme.LabelColor
+        self.iconReplyBar.textColor = ThemeManager.currentTheme.LabelColor
+        self.holderReplyBar.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
+        self.holderAttachmentBar.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
 
     }
 
@@ -1670,7 +1682,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.holderMessageTextView.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         self.btnAttachmentNew.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         self.btnSend.setTitleColor(ThemeManager.currentTheme.BackGroundColor, for: .normal)
-        self.btnSend.backgroundColor = ThemeManager.currentTheme.LabelColor
+        self.btnSend.backgroundColor = ThemeManager.currentTheme.SliderTintColor
         self.btnMoney.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         self.btnTrash.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         self.btnAttachmentNew.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
