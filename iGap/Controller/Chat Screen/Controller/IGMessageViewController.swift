@@ -813,6 +813,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
         let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
         let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+        self.holderRecordView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
 
         if currentTheme == "IGAPDay" {
             
@@ -822,7 +823,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.txtPinnedMessageTitle.textColor = .white
                 self.lblCenterText.textColor = .white
                 self.lblCenterIcon.textColor = .white
-                self.inputBarRecordTimeLabel.textColor = .white
+                self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
 
 
             } else {
