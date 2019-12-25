@@ -53,11 +53,35 @@ class AudioCell: AbstractCell {
               
           }
         if isIncommingMessage {
-            btnPlayAbs.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
-            txtAudioName.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
-            txtMessage.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
-            txtAudioTime.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
 
+            let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+            let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+            let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+            if currentTheme == "IGAPDay" {
+                
+                if currentColorSetLight == "IGAPBlack" {
+                    btnPlayAbs.setTitleColor(.white, for: .normal)
+                    txtAudioName.textColor = .white
+                    txtMessage.textColor = .white
+                    txtAudioTime.textColor = .white
+                } else {
+                    btnPlayAbs.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+                    txtAudioName.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+                    txtMessage.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+                    txtAudioTime.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+                }
+
+            } else {
+                btnPlayAbs.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+                txtAudioName.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+                txtMessage.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+                txtAudioTime.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
+            }
+
+
+            
         } else {
             btnPlayAbs.setTitleColor(ThemeManager.currentTheme.SliderTintColor, for: .normal)
             txtAudioName.textColor = ThemeManager.currentTheme.MessageTextColor

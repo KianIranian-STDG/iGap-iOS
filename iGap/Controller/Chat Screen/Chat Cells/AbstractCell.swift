@@ -498,7 +498,21 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                 txtStatusAbs.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
 
             } else {
-                txtStatusAbs.textColor = ThemeManager.currentTheme.SliderTintColor
+                let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+                let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+                let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+                if currentTheme == "IGAPDay" {
+                    
+                    if currentColorSetLight == "IGAPBlack" {
+                        txtStatusAbs.textColor = .iGapGreen()
+                    } else {
+                        txtStatusAbs.textColor = ThemeManager.currentTheme.SliderTintColor
+                    }
+
+                } else {
+                    txtStatusAbs.textColor = ThemeManager.currentTheme.SliderTintColor
+                }
             }
 
             txtStatusAbs.backgroundColor = UIColor.clear

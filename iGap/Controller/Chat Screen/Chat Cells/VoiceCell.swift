@@ -44,10 +44,34 @@ class VoiceCell: AbstractCell {
     }
     private func initTheme() {
         if isIncommingMessage {
-            txtVoiceTime.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
-            btnPlayAbs.setTitleColor(ThemeManager.currentTheme.MessageTextReceiverColor, for: .normal)
-//            sliderVoice.thumbTintColor = ThemeManager.currentTheme.MessageTextReceiverColor
-            sliderVoice.tintColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            
+            let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+            let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+            let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+            if currentTheme == "IGAPDay" {
+                
+                if currentColorSetLight == "IGAPBlack" {
+                    txtVoiceTime.textColor = .white
+                    btnPlayAbs.setTitleColor(.white, for: .normal)
+                    sliderVoice.tintColor = .white
+                } else {
+                    txtVoiceTime.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+                    btnPlayAbs.setTitleColor(ThemeManager.currentTheme.MessageTextReceiverColor, for: .normal)
+                    sliderVoice.tintColor = ThemeManager.currentTheme.MessageTextReceiverColor
+                }
+
+            } else {
+                txtVoiceTime.textColor = ThemeManager.currentTheme.MessageTextReceiverColor
+                btnPlayAbs.setTitleColor(ThemeManager.currentTheme.MessageTextReceiverColor, for: .normal)
+                sliderVoice.tintColor = ThemeManager.currentTheme.MessageTextReceiverColor
+
+            }
+
+            
+            
+            
+            
 
         } else {
             txtVoiceTime.textColor = UIColor.dialogueBoxInfo()
