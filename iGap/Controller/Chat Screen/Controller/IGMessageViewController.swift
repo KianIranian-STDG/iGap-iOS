@@ -820,11 +820,18 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 joinButton.setTitleColor(.white, for: .normal)
                 self.txtPinnedMessage.textColor = ThemeManager.currentTheme.LabelGrayColor.lighter(by: 10)
                 self.txtPinnedMessageTitle.textColor = .white
+                self.lblCenterText.textColor = .white
+                self.lblCenterIcon.textColor = .white
+                self.inputBarRecordTimeLabel.textColor = .white
+
 
             } else {
                 joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
                 self.txtPinnedMessage.textColor = ThemeManager.currentTheme.LabelGrayColor.lighter(by: 10)
                 self.txtPinnedMessageTitle.textColor = .white
+                self.lblCenterText.textColor = ThemeManager.currentTheme.LabelColor
+                self.lblCenterIcon.textColor = ThemeManager.currentTheme.LabelColor
+                self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
 
             }
 
@@ -832,6 +839,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
             self.txtPinnedMessage.textColor = ThemeManager.currentTheme.LabelGrayColor.lighter(by: 10)
             self.txtPinnedMessageTitle.textColor = .white
+            self.lblCenterText.textColor = ThemeManager.currentTheme.LabelColor
+            self.lblCenterIcon.textColor = ThemeManager.currentTheme.LabelColor
+self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
+
 
         }
 
@@ -848,6 +859,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.holderReplyBar.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         self.holderAttachmentBar.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         self.viewTopHolder.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+
 
     }
 
