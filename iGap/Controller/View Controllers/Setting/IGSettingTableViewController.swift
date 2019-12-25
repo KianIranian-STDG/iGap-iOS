@@ -73,6 +73,7 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
                 icon.textColor = ThemeManager.currentTheme.LabelColor
             }
             self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+            
         }
 
     func initDetails() {

@@ -101,7 +101,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var btnForward: UIButton!
     @IBOutlet weak var btnTrash: UIButton!
     @IBOutlet weak var holderMessageTextView: UIView!
-
+    @IBOutlet weak var viewTopHolder : UIView!
     @IBOutlet weak var btnStickerWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageTextViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageTextViewHeightConstraint: NSLayoutConstraint!
@@ -138,6 +138,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     var dismissBtn : UIButton!
     @IBOutlet weak var txtPinnedMessage: UILabel!
+    @IBOutlet weak var txtPinnedMessageTitle: UILabel!
     @IBOutlet weak var collectionView: IGMessageCollectionView!
     
     @IBOutlet weak var mainView: UIView!
@@ -704,7 +705,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.createTopMusicPlayer()
         }
         initTheme()
-        manageCollectionInset()
+//        manageCollectionInset()
     }
     private func manageCollectionInset() {
          if self.isBotRoom() {
@@ -817,12 +818,20 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
             if currentColorSetLight == "IGAPBlack" {
                 joinButton.setTitleColor(.white, for: .normal)
+                self.txtPinnedMessage.textColor = ThemeManager.currentTheme.LabelGrayColor.lighter(by: 10)
+                self.txtPinnedMessageTitle.textColor = .white
+
             } else {
                 joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+                self.txtPinnedMessage.textColor = ThemeManager.currentTheme.LabelGrayColor.lighter(by: 10)
+                self.txtPinnedMessageTitle.textColor = .white
+
             }
 
         } else {
             joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+            self.txtPinnedMessage.textColor = ThemeManager.currentTheme.LabelGrayColor.lighter(by: 10)
+            self.txtPinnedMessageTitle.textColor = .white
 
         }
 
@@ -838,6 +847,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.iconReplyBar.textColor = ThemeManager.currentTheme.LabelColor
         self.holderReplyBar.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         self.holderAttachmentBar.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
+        self.viewTopHolder.backgroundColor = ThemeManager.currentTheme.SliderTintColor
 
     }
 
@@ -1762,7 +1772,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         self.btnCloseReplyBar.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
         self.btnCloseReplyBar.setTitle("", for: .normal)
+        self.btnClosePin.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+        self.btnClosePin.setTitle("", for: .normal)
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+          let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+          let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
         
+        
+        print("CURRENT COLOR SET:",currentTheme,currentColorSetDark,currentColorSetLight)
+        print("CURRENT COLOR SET2:",ThemeManager.currentTheme)
     }
     ///Notifications initialisers
     private func initNotificationsNewChatView() {

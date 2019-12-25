@@ -98,6 +98,34 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         self.btnPlayPreview3.setTitleColor(ThemeManager.currentTheme.MessageTextReceiverColor, for: .normal)
         self.sliderPreview3.tintColor = ThemeManager.currentTheme.MessageTextReceiverColor
         self.sliderPreview3.thumbTintColor = ThemeManager.currentTheme.MessageTextReceiverColor
+        manageColorSets()
+    }
+    private func manageColorSets() {
+        let currentAppIcon = UserDefaults.standard.integer(forKey: "CurrentAppIcon")
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+        
+        print("||||||||||CHECKING|||||||||")
+        print(currentAppIcon)
+        print(currentTheme)
+        print(currentColorSetDark)
+        print(currentColorSetLight)
+        
+        switch currentTheme {
+        case "IGAPClassic" :
+            
+            break
+        case "IGAPDay" :
+            
+            break
+        case "IGAPNight" :
+            
+            break
+        default: break
+        }
+        initTheme()
+        self.tableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -131,7 +159,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
     }
     private func selectTheme() {
         let currentAppIcon = UserDefaults.standard.integer(forKey: "CurrentAppIcon")
-        let currentTheme = UserDefaults.standard.string(forKey: "entTheme") ?? "IGAPClassic"
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
         let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
         let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
         print("CURRENT COLOR SET FOR DARK",currentColorSetDark,"\n","CURRENT INDEX DARK IS",indexPathDark)
@@ -463,6 +491,7 @@ class IGSettingsAppearanceTableViewController: BaseTableViewController {
         cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
 
     }
+    
 
     
     //MARK:- FOOTER CONFIGS

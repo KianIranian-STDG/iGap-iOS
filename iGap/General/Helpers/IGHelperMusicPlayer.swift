@@ -335,7 +335,7 @@ class IGHelperMusicPlayer {
     }
     private func createMainView() -> UIView {
         let view = UIView()
-        view.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
+        view.backgroundColor = ThemeManager.currentTheme.SliderTintColor
         //        view.backgroundColor = .red
         view.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
@@ -358,7 +358,27 @@ class IGHelperMusicPlayer {
         default:
             break
         }
-        btn.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+          let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+          let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+          if currentTheme == "IGAPDay" {
+              
+              if currentColorSetLight == "IGAPBlack" {
+                  
+                btn.setTitleColor(.white, for: .normal)
+
+                  
+              } else {
+                  
+                  btn.setTitleColor(.white, for: .normal)
+
+              }
+          } else {
+              btn.setTitleColor(.white, for: .normal)
+
+          }
+
         btn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.heightAnchor.constraint(equalToConstant: 35).isActive = true
@@ -368,8 +388,29 @@ class IGHelperMusicPlayer {
     }
     
     private func createCloseButton(btn: UIButton!,view:UIView!)  {
-        btn.setTitle("🌩", for: .normal)
-        btn.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        btn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+        btn.setTitle("", for: .normal)
+
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+          let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+          let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+          if currentTheme == "IGAPDay" {
+              
+              if currentColorSetLight == "IGAPBlack" {
+                  
+                btn.setTitleColor(.white, for: .normal)
+
+                  
+              } else {
+                  
+                  btn.setTitleColor(.white, for: .normal)
+
+              }
+          } else {
+              btn.setTitleColor(.white, for: .normal)
+
+          }
         btn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.heightAnchor.constraint(equalToConstant: 35).isActive = true
@@ -396,7 +437,26 @@ class IGHelperMusicPlayer {
     }
     private func createProgressView(pv:UIProgressView!,view: UIView!,bottomBorder:UIView!) {
         pv.progress = 0.0
-        pv.progressTintColor = ThemeManager.currentTheme.SliderTintColor
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+          let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+          let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+          if currentTheme == "IGAPDay" {
+              
+              if currentColorSetLight == "IGAPBlack" {
+                  
+                pv.progressTintColor = .white
+
+                  
+              } else {
+                  
+                  pv.progressTintColor = ThemeManager.currentTheme.LabelColor
+
+              }
+          } else {
+              pv.progressTintColor = ThemeManager.currentTheme.LabelColor
+
+          }
         pv.progressViewStyle = .bar
         
         pv.translatesAutoresizingMaskIntoConstraints = false
@@ -411,7 +471,28 @@ class IGHelperMusicPlayer {
         songName.tag = 707
         songName.textAlignment = .center
         songName.font = UIFont.igFont(ofSize: 10 , weight: .bold)
-        songName.textColor = ThemeManager.currentTheme.LabelColor
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+        if currentTheme == "IGAPDay" {
+            
+            if currentColorSetLight == "IGAPBlack" {
+                
+                songName.textColor = .white
+
+                
+            } else {
+                
+                songName.textColor = .white
+
+            }
+        } else {
+            songName.textColor = .white
+
+        }
+
+
         songName.translatesAutoresizingMaskIntoConstraints = false
         songName.topAnchor.constraint(equalTo: view.topAnchor, constant: 5).isActive = true
         songName.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 45).isActive = true
@@ -421,7 +502,22 @@ class IGHelperMusicPlayer {
         singerName.tag = 708
         singerName.textAlignment = .center
         singerName.font = UIFont.igFont(ofSize: 10,weight : .light)
-        singerName.textColor = ThemeManager.currentTheme.LabelColor
+        if currentTheme == "IGAPDay" {
+            
+            if currentColorSetLight == "IGAPBlack" {
+                
+                singerName.textColor = .white
+
+                
+            } else {
+                
+                singerName.textColor = .white
+
+            }
+        } else {
+            singerName.textColor = .white
+
+        }
         singerName.translatesAutoresizingMaskIntoConstraints = false
         singerName.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5).isActive = true
         singerName.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 45).isActive = true

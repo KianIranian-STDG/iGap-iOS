@@ -58,11 +58,11 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
             if currentColorSetLight == "IGAPBlack" {
                 self.logLabel.textColor = .white
             } else {
-                self.logLabel.textColor = ThemeManager.currentTheme.LabelColor
+                self.logLabel.textColor = .white
             }
 
         } else {
-            self.logLabel.textColor = ThemeManager.currentTheme.LabelColor
+            self.logLabel.textColor = .white
 
         }
 
