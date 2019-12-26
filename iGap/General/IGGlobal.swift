@@ -1215,18 +1215,21 @@ extension AnimationView {
             let path = attachment.path()
             if IGGlobal.isFileExist(path: path) {
 //                self.sd_setImage(with: path, completed: nil)
-                let animation = Animation.named("Watermelon", subdirectory: "TestAnimations")
+                let animation = Animation.named("Watermelon")
                 self.animation = animation
-                    self.play(fromProgress: 0,
-                                       toProgress: 1,
-                                       loopMode: LottieLoopMode.playOnce,
-                                       completion: { (finished) in
-                                        if finished {
-                                          print("Animation Complete")
-                                        } else {
-                                          print("Animation cancelled")
-                                        }
-                    })
+                        self.play(fromProgress: 0,
+                                           toProgress: 1,
+                                           loopMode: LottieLoopMode.loop,
+                                           completion: { (finished) in
+                                            if finished {
+                                              print("Animation Complete")
+                                                self.play(fromProgress: 0,
+                                                toProgress: 1,
+                                                loopMode: LottieLoopMode.loop)
+                                            } else {
+                                              print("Animation cancelled")
+                                            }
+                        })
 
 
             } else {

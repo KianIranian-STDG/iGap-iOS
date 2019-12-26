@@ -21,7 +21,7 @@ class CellSizeCalculator: NSObject {
     private static let EXTRA_HEIGHT_RTL_OR_VOTE = 20
     public static let IMG_REPLY_DEFAULT_HEIGHT = 30
     internal static let RTL_OFFSET = -(EXTRA_HEIGHT_RTL_OR_VOTE - 7)
-    
+    var LiveStickerDefaultSize : CGFloat = 200.0
     static let sharedCalculator = CellSizeCalculator()
     
     private override init() {
@@ -81,15 +81,32 @@ class CellSizeCalculator: NSObject {
             case .sticker:
                 let attachmentFrame = fetchStickerFrame(media: finalMessage.attachment!)
                 
-                messageAttachmentHeight = attachmentFrame.height
-                if text != nil && text != "" {
-                    finalSize.height += CellSizeLimit.ConstantSizes.Media.ExtraHeightWithText
+                if finalMessage.attachment?.name!.hasSuffix(".json") ?? false {
+                    // MARK: - IS Live Sticker
+                    messageAttachmentHeight = LiveStickerDefaultSize
+                    if text != nil && text != "" {
+                        finalSize.height += CellSizeLimit.ConstantSizes.Media.ExtraHeightWithText
+                    } else {
+                        finalSize.height += CellSizeLimit.ConstantSizes.Media.ExtraHeight
+                    }
+                    
+                    finalSize.height += LiveStickerDefaultSize
+                    finalSize.width = LiveStickerDefaultSize
+
                 } else {
-                    finalSize.height += CellSizeLimit.ConstantSizes.Media.ExtraHeight
+                    // MARK: - IS Normal Sticker
+                    messageAttachmentHeight = attachmentFrame.height
+                    if text != nil && text != "" {
+                        finalSize.height += CellSizeLimit.ConstantSizes.Media.ExtraHeightWithText
+                    } else {
+                        finalSize.height += CellSizeLimit.ConstantSizes.Media.ExtraHeight
+                    }
+                    
+                    finalSize.height += attachmentFrame.height
+                    finalSize.width = attachmentFrame.width
+
                 }
                 
-                finalSize.height += attachmentFrame.height
-                finalSize.width = attachmentFrame.width
                 break
                 
             case .image, .imageAndText, .video, .videoAndText, .gif, .gifAndText:
