@@ -176,13 +176,6 @@
 		8EA854C0239F728400C9442F /* IGGreenColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA854BF239F728400C9442F /* IGGreenColorSet.swift */; };
 		8EA854C2239F79EF00C9442F /* IGTurquoiseColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA854C1239F79EF00C9442F /* IGTurquoiseColorSet.swift */; };
 		8EA854C4239F8E4600C9442F /* IGAppIconsCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA854C3239F8E4600C9442F /* IGAppIconsCVCell.swift */; };
-		8EA854ED239FA43D00C9442F /* AppIconTwo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EA854C7239FA43D00C9442F /* AppIconTwo.png */; };
-		8EA854FD239FA43D00C9442F /* AppIconFour.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EA854DF239FA43D00C9442F /* AppIconFour.png */; };
-		8EA854FF239FA43D00C9442F /* AppIconOne.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EA854E2239FA43D00C9442F /* AppIconOne.png */; };
-		8EA85501239FA43D00C9442F /* AppIconFive.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EA854E5239FA43D00C9442F /* AppIconFive.png */; };
-		8EA85504239FA43D00C9442F /* AppIconThree.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EA854E9239FA43D00C9442F /* AppIconThree.png */; };
-		8EA85505239FA43D00C9442F /* AppIconSix.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EA854EB239FA43D00C9442F /* AppIconSix.png */; };
-		8EA8550823A218FA00C9442F /* AppIconSeven.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EA8550723A218FA00C9442F /* AppIconSeven.png */; };
 		8EA8550A23A2217F00C9442F /* PinkColorSet.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EA8550923A2217F00C9442F /* PinkColorSet.xcassets */; };
 		8EA8550C23A2285F00C9442F /* IGNightTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8550B23A2285F00C9442F /* IGNightTheme.swift */; };
 		8EA8550E23A228D400C9442F /* IGNightColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EA8550D23A228D400C9442F /* IGNightColors.xcassets */; };
@@ -304,7 +297,6 @@
 		8ED97D7622E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED97D7522E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift */; };
 		8EE1BFC82281604D001A2867 /* IGSetUserNickNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */; };
 		8EE552D42364ADD1003A21FE /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE552D32364ADD1003A21FE /* UIImage+Gif.swift */; };
-		8EE552D62364B2C6003A21FE /* musicBarGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8EE552D52364B2C6003A21FE /* musicBarGif.gif */; };
 		8EE7FC93225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7FC92225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift */; };
 		8EE7FC95225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7FC94225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift */; };
 		8EE7FC97225DE16100B6C2C3 /* SMTextFieldAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7FC96225DE16100B6C2C3 /* SMTextFieldAlertViewController.swift */; };
@@ -746,7 +738,6 @@
 		FAB0B880232F64EC002E35AB /* ShortcutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0B87F232F64EC002E35AB /* ShortcutManager.swift */; };
 		FAB0B882232F7120002E35AB /* DeepLinkParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0B881232F7120002E35AB /* DeepLinkParser.swift */; };
 		FAB0B884232F7DC2002E35AB /* NotificationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0B883232F7DC2002E35AB /* NotificationParser.swift */; };
-		FAB0F9461FE956D1008F23EB /* Splash.gif in Resources */ = {isa = PBXBuildFile; fileRef = FAB0F9451FE956D1008F23EB /* Splash.gif */; };
 		FAB1BF74220C34AA00BA980B /* StickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB1BF73220C341300BA980B /* StickerCell.xib */; };
 		FAB2BE662264BBA600E99C6E /* IGiGapBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB2BE652264BBA600E99C6E /* IGiGapBrowser.swift */; };
 		FAB2C2DF1DF7F6E8001F30B5 /* IGSessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB2C2DE1DF7F6E8001F30B5 /* IGSessionInfo.swift */; };
@@ -1068,13 +1059,6 @@
 		8EA854BF239F728400C9442F /* IGGreenColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGreenColorSet.swift; sourceTree = "<group>"; };
 		8EA854C1239F79EF00C9442F /* IGTurquoiseColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTurquoiseColorSet.swift; sourceTree = "<group>"; };
 		8EA854C3239F8E4600C9442F /* IGAppIconsCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGAppIconsCVCell.swift; sourceTree = "<group>"; };
-		8EA854C7239FA43D00C9442F /* AppIconTwo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconTwo.png; sourceTree = "<group>"; };
-		8EA854DF239FA43D00C9442F /* AppIconFour.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconFour.png; sourceTree = "<group>"; };
-		8EA854E2239FA43D00C9442F /* AppIconOne.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconOne.png; sourceTree = "<group>"; };
-		8EA854E5239FA43D00C9442F /* AppIconFive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconFive.png; sourceTree = "<group>"; };
-		8EA854E9239FA43D00C9442F /* AppIconThree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconThree.png; sourceTree = "<group>"; };
-		8EA854EB239FA43D00C9442F /* AppIconSix.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconSix.png; sourceTree = "<group>"; };
-		8EA8550723A218FA00C9442F /* AppIconSeven.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconSeven.png; sourceTree = "<group>"; };
 		8EA8550923A2217F00C9442F /* PinkColorSet.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PinkColorSet.xcassets; sourceTree = "<group>"; };
 		8EA8550B23A2285F00C9442F /* IGNightTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNightTheme.swift; sourceTree = "<group>"; };
 		8EA8550D23A228D400C9442F /* IGNightColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = IGNightColors.xcassets; sourceTree = "<group>"; };
@@ -1201,7 +1185,6 @@
 		8ED97D7522E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFavouriteChannelsDashboardInnerTableViewController.swift; sourceTree = "<group>"; };
 		8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSetUserNickNameTableViewController.swift; sourceTree = "<group>"; };
 		8EE552D32364ADD1003A21FE /* UIImage+Gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
-		8EE552D52364B2C6003A21FE /* musicBarGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = musicBarGif.gif; sourceTree = "<group>"; };
 		8EE7FC92225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMNormalAlertViewController.swift; sourceTree = "<group>"; };
 		8EE7FC94225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMConfirmAlertViewController.swift; sourceTree = "<group>"; };
 		8EE7FC96225DE16100B6C2C3 /* SMTextFieldAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMTextFieldAlertViewController.swift; sourceTree = "<group>"; };
@@ -1663,7 +1646,6 @@
 		FAB0B87F232F64EC002E35AB /* ShortcutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutManager.swift; sourceTree = "<group>"; };
 		FAB0B881232F7120002E35AB /* DeepLinkParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkParser.swift; sourceTree = "<group>"; };
 		FAB0B883232F7DC2002E35AB /* NotificationParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationParser.swift; sourceTree = "<group>"; };
-		FAB0F9451FE956D1008F23EB /* Splash.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Splash.gif; sourceTree = "<group>"; };
 		FAB1BF73220C341300BA980B /* StickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StickerCell.xib; sourceTree = "<group>"; };
 		FAB2BE652264BBA600E99C6E /* IGiGapBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGiGapBrowser.swift; sourceTree = "<group>"; };
 		FAB2C2DE1DF7F6E8001F30B5 /* IGSessionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSessionInfo.swift; sourceTree = "<group>"; };
@@ -2171,21 +2153,6 @@
 				8E6BC53723B33EA20037323A /* BlackColorSet.xcassets */,
 			);
 			path = ThemeColorSets;
-			sourceTree = "<group>";
-		};
-		8EA854C5239FA43D00C9442F /* App Icons */ = {
-			isa = PBXGroup;
-			children = (
-				8EA854E2239FA43D00C9442F /* AppIconOne.png */,
-				8EA854C7239FA43D00C9442F /* AppIconTwo.png */,
-				8EA854E9239FA43D00C9442F /* AppIconThree.png */,
-				8EA854DF239FA43D00C9442F /* AppIconFour.png */,
-				8EA854E5239FA43D00C9442F /* AppIconFive.png */,
-				8EA854EB239FA43D00C9442F /* AppIconSix.png */,
-				8EA8550723A218FA00C9442F /* AppIconSeven.png */,
-			);
-			name = "App Icons";
-			path = "Assets.xcassets/App Icons";
 			sourceTree = "<group>";
 		};
 		8EA8550F23A228DC00C9442F /* Night */ = {
@@ -2759,18 +2726,8 @@
 			children = (
 				FA5656A3204AB16400DB46F0 /* Sounds */,
 				FA6A22741F41CAFB0063DF07 /* Fonts */,
-				FA2EBB921E2F44BD00BD8E9F /* Gif */,
 			);
 			path = Assets;
-			sourceTree = "<group>";
-		};
-		FA2EBB921E2F44BD00BD8E9F /* Gif */ = {
-			isa = PBXGroup;
-			children = (
-				8EE552D52364B2C6003A21FE /* musicBarGif.gif */,
-				FAB0F9451FE956D1008F23EB /* Splash.gif */,
-			);
-			path = Gif;
 			sourceTree = "<group>";
 		};
 		FA41C6EE1DC9DFBD00598383 /* General */ = {
@@ -3586,7 +3543,6 @@
 		FAF795FF1DAA392F0030509B /* VIew */ = {
 			isa = PBXGroup;
 			children = (
-				8EA854C5239FA43D00C9442F /* App Icons */,
 				FAF796001DAA392F0030509B /* Assets.xcassets */,
 				FA96AF141DDB1E72005AC571 /* ReusableViews */,
 				FA075DE0232A3EEF002E7AC7 /* Dashboard StoryBoards */,
@@ -3878,12 +3834,10 @@
 				945B127423251F8D00DBF2DA /* IGPaymentView.xib in Resources */,
 				D65179AA239BA00900557E5B /* IGMediaPagerCell.xib in Resources */,
 				FABA60F0221804E400FFBB5A /* stickerPublicKey.txt in Resources */,
-				8EA854ED239FA43D00C9442F /* AppIconTwo.png in Resources */,
 				FA6F312722B8E7D600DB942E /* trackingId.txt in Resources */,
 				FA99FF6522353401009035DF /* DashboardCell2.xib in Resources */,
 				FA5656C6204AB18F00DB46F0 /* igap_busy.mp3 in Resources */,
 				FA33063D1F445AE90096031A /* IRANSans_Medium.ttf in Resources */,
-				8EA85505239FA43D00C9442F /* AppIconSix.png in Resources */,
 				FA842A3C225CAA8100E500A4 /* DashboardCellUnknown.xib in Resources */,
 				FA075DE2232A3F3D002E7AC7 /* InternetPackage.storyboard in Resources */,
 				FA712AE2225DC9C200FD78AA /* DashboardCell7.xib in Resources */,
@@ -3908,12 +3862,10 @@
 				937455F91E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib in Resources */,
 				8EC94E0923964462003B3510 /* IGOneNewsTVCell.xib in Resources */,
 				FA33063E1F445AE90096031A /* IRANSans_UltraLight.ttf in Resources */,
-				8EA8550823A218FA00C9442F /* AppIconSeven.png in Resources */,
 				FA927E0620284DC100DF7145 /* GifCell.xib in Resources */,
 				8ECFB53C234A118A001233E9 /* igap_send_message_sound.mp3 in Resources */,
 				8EA854BA239F6E2800C9442F /* BlueColorSet.xcassets in Resources */,
 				8E3C696A23602DDE001575BE /* MusicPlayer.storyboard in Resources */,
-				8EA854FD239FA43D00C9442F /* AppIconFour.png in Resources */,
 				8E96A32F225C96C3007D8A77 /* RecieptView.xib in Resources */,
 				940F9E70231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.xib in Resources */,
 				8EBF553622DCCA0600834E6A /* SliderTypeThreeCell.xib in Resources */,
@@ -3922,17 +3874,14 @@
 				FAD57EE21E191DB000FC17D9 /* IGMessageLogCollectionViewCell.xib in Resources */,
 				FA0953071E1B87E40043ED3F /* IGSettingStoryboard.storyboard in Resources */,
 				940F9E74231B92DF00C26D50 /* IGFavouriteChannelCVCell.xib in Resources */,
-				8EA85504239FA43D00C9442F /* AppIconThree.png in Resources */,
 				8E5495CF22F02BB1001D30E1 /* SMTwoInputView.xib in Resources */,
 				FA99FF6122352109009035DF /* DashboardCell1.xib in Resources */,
-				8EA854FF239FA43D00C9442F /* AppIconOne.png in Resources */,
 				8EA854BE239F723100C9442F /* GreenColorSet.xcassets in Resources */,
 				8E098A7B2348B0B1008A40A9 /* Search.storyboard in Resources */,
 				FA5EC5DB1E06728C006E2850 /* IGChatRoomListTableViewCell.xib in Resources */,
 				8E7F18F622F567B500A7A7DD /* TextCellCardToCard.xib in Resources */,
 				FA99FF6922354031009035DF /* DashboardCell3.xib in Resources */,
 				8EA8551523A22DEC00C9442F /* OrangeColorSet.xcassets in Resources */,
-				8EE552D62364B2C6003A21FE /* musicBarGif.gif in Resources */,
 				8EBF552C22DCBAE900834E6A /* SliderTypeTwoCell.xib in Resources */,
 				D61B5DE5237D48B10060B9D9 /* LoadingView.xib in Resources */,
 				FA5656C2204AB18F00DB46F0 /* igap_disconnect.mp3 in Resources */,
@@ -3961,7 +3910,6 @@
 				8EB4BBAC234B83A400BFA878 /* igap_receive_message_sound.mp3 in Resources */,
 				8ECCA1EA22B7B1F000D3A734 /* SMSingleAmountInputView.xib in Resources */,
 				8EBF550722D9B84900834E6A /* DashboardCell8.xib in Resources */,
-				8EA85501239FA43D00C9442F /* AppIconFive.png in Resources */,
 				8EC03852239B84F400B525B5 /* BottomModal.storyboard in Resources */,
 				8EE7FCA0225DF67200B6C2C3 /* LNNumberpad.xib in Resources */,
 				FA927E02202841C900DF7145 /* VideoCell.xib in Resources */,
@@ -3987,7 +3935,6 @@
 				94E74DCA2323C798001AB47C /* TransactionInfoKeys.stringsdict in Resources */,
 				94E74DC323238F8F001AB47C /* FinancialHistory.storyboard in Resources */,
 				FAA6971A23770CF2006810A4 /* TabBarLocalizable.strings in Resources */,
-				FAB0F9461FE956D1008F23EB /* Splash.gif in Resources */,
 				8EA8550A23A2217F00C9442F /* PinkColorSet.xcassets in Resources */,
 				8EA8552123A23A6D00C9442F /* GoldColorSet.xcassets in Resources */,
 				8EA854B7239E90BE00C9442F /* ThemeColorSet.xcassets in Resources */,

@@ -127,6 +127,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         super.prepareForReuse()
         self.contentView.frame = self.bounds
         removeImage()
+        removeAnimationView()
     }
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
@@ -354,6 +355,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             case .sticker:
                 if (finalRoomMessage.attachment?.name!.hasSuffix(".json") ?? false) {
                     print("YESS LIVE STICKER")
+                    if animationView != nil {
+//                        removeAnimationView()
+                    }
                     makeAnimationView(attachmentJson: finalRoomMessage.attachment! )
                 } else {
                     print("YESS NORMAL STICKER")
@@ -1230,7 +1234,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                         
                         if (self.finalRoomMessage.attachment?.name!.hasSuffix(".json") ?? false) {
                             print("YESS LIVE STICKER")
-                            //self.animationView.setLiveSticker(for: file)
+                            self.animationView.setLiveSticker(for: file)
                         } else {
                             print("YESS NORMAL STICKER")
                             self.imgMediaAbs?.setSticker(for: file)
@@ -2061,6 +2065,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         
         indicatorViewAbs?.removeFromSuperview()
         indicatorViewAbs = nil
+    }
+    private func removeAnimationView(){
+        animationView?.removeFromSuperview()
+        animationView = nil
+        
     }
     
     
