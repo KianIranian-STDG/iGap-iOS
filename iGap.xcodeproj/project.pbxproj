@@ -101,61 +101,6 @@
 		8E67494823B119400012BA0F /* IGUserContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E67494723B119400012BA0F /* IGUserContactsTableViewController.swift */; };
 		8E6BC53623B2649C0037323A /* IGMultiForwardModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6BC53523B2649C0037323A /* IGMultiForwardModalViewController.swift */; };
 		8E6BC53823B33EA20037323A /* BlackColorSet.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC53723B33EA20037323A /* BlackColorSet.xcassets */; };
-		8E6BC57223B486B00037323A /* Switch.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC53A23B486B00037323A /* Switch.json */; };
-		8E6BC57323B486B00037323A /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC53B23B486B00037323A /* TwitterHeart.json */; };
-		8E6BC57423B486B00037323A /* 9squares-AlBoardman.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC53C23B486B00037323A /* 9squares-AlBoardman.json */; };
-		8E6BC57523B486B00037323A /* MotionCorpse-Jrcanest.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC53D23B486B00037323A /* MotionCorpse-Jrcanest.json */; };
-		8E6BC57623B486B00037323A /* TwitterHeartButton.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC53E23B486B00037323A /* TwitterHeartButton.json */; };
-		8E6BC57723B486B00037323A /* T.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC54023B486B00037323A /* T.json */; };
-		8E6BC57823B486B00037323A /* A.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC54123B486B00037323A /* A.json */; };
-		8E6BC57923B486B00037323A /* X.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC54223B486B00037323A /* X.json */; };
-		8E6BC57A23B486B00037323A /* BlinkingCursor.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC54323B486B00037323A /* BlinkingCursor.json */; };
-		8E6BC57B23B486B00037323A /* M.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC54423B486B00037323A /* M.json */; };
-		8E6BC57C23B486B00037323A /* L.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC54523B486B00037323A /* L.json */; };
-		8E6BC57D23B486B00037323A /* Y.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC54623B486B00037323A /* Y.json */; };
-		8E6BC57E23B486B00037323A /* U.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC54723B486B00037323A /* U.json */; };
-		8E6BC57F23B486B00037323A /* K.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC54823B486B00037323A /* K.json */; };
-		8E6BC58023B486B00037323A /* R.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC54923B486B00037323A /* R.json */; };
-		8E6BC58123B486B00037323A /* G.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC54A23B486B00037323A /* G.json */; };
-		8E6BC58223B486B00037323A /* F.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC54B23B486B00037323A /* F.json */; };
-		8E6BC58323B486B00037323A /* S.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC54C23B486B00037323A /* S.json */; };
-		8E6BC58423B486B00037323A /* J.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC54D23B486B00037323A /* J.json */; };
-		8E6BC58523B486B00037323A /* I.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC54E23B486B00037323A /* I.json */; };
-		8E6BC58623B486B00037323A /* E.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC54F23B486B00037323A /* E.json */; };
-		8E6BC58723B486B00037323A /* Apostrophe.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC55023B486B00037323A /* Apostrophe.json */; };
-		8E6BC58823B486B00037323A /* P.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC55123B486B00037323A /* P.json */; };
-		8E6BC58923B486B00037323A /* Q.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC55223B486B00037323A /* Q.json */; };
-		8E6BC58A23B486B00037323A /* D.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC55323B486B00037323A /* D.json */; };
-		8E6BC58B23B486B00037323A /* Colon.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC55423B486B00037323A /* Colon.json */; };
-		8E6BC58C23B486B00037323A /* H.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC55523B486B00037323A /* H.json */; };
-		8E6BC58D23B486B00037323A /* C.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC55623B486B00037323A /* C.json */; };
-		8E6BC58E23B486B00037323A /* V.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC55723B486B00037323A /* V.json */; };
-		8E6BC58F23B486B00037323A /* Comma.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC55823B486B00037323A /* Comma.json */; };
-		8E6BC59023B486B00037323A /* O.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC55923B486B00037323A /* O.json */; };
-		8E6BC59123B486B00037323A /* Z.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC55A23B486B00037323A /* Z.json */; };
-		8E6BC59223B486B00037323A /* N.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC55B23B486B00037323A /* N.json */; };
-		8E6BC59323B486B00037323A /* W.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC55C23B486B00037323A /* W.json */; };
-		8E6BC59423B486B00037323A /* B.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC55D23B486B00037323A /* B.json */; };
-		8E6BC59523B486B00037323A /* HamburgerArrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC55E23B486B00037323A /* HamburgerArrow.json */; };
-		8E6BC59623B486B00037323A /* vcTransition1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC55F23B486B00037323A /* vcTransition1.json */; };
-		8E6BC59723B486B00037323A /* LottieLogo2.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC56023B486B00037323A /* LottieLogo2.json */; };
-		8E6BC59823B486B00037323A /* Boat_Loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC56123B486B00037323A /* Boat_Loader.json */; };
-		8E6BC59923B486B00037323A /* GeometryTransformTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC56223B486B00037323A /* GeometryTransformTest.json */; };
-		8E6BC59A23B486B00037323A /* Watermelon.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC56323B486B00037323A /* Watermelon.json */; };
-		8E6BC59B23B486B00037323A /* Keypath.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC56423B486B00037323A /* Keypath.json */; };
-		8E6BC59C23B486B00037323A /* IconTransitions.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC56523B486B00037323A /* IconTransitions.json */; };
-		8E6BC59D23B486B00037323A /* vcTransition2.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC56623B486B00037323A /* vcTransition2.json */; };
-		8E6BC59E23B486B00037323A /* LottieLogo1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC56723B486B00037323A /* LottieLogo1.json */; };
-		8E6BC59F23B486B00037323A /* base64Test.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC56823B486B00037323A /* base64Test.json */; };
-		8E6BC5A023B486B00037323A /* Switch_States.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC56923B486B00037323A /* Switch_States.json */; };
-		8E6BC5A123B486B00037323A /* FirstText.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC56A23B486B00037323A /* FirstText.json */; };
-		8E6BC5A223B486B00037323A /* setValueTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC56B23B486B00037323A /* setValueTest.json */; };
-		8E6BC5A323B486B00037323A /* Zoom.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC56C23B486B00037323A /* Zoom.json */; };
-		8E6BC5A423B486B00037323A /* keypathTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC56D23B486B00037323A /* keypathTest.json */; };
-		8E6BC5A523B486B00037323A /* PinJump.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC56E23B486B00037323A /* PinJump.json */; };
-		8E6BC5A623B486B00037323A /* DisableNodesTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC56F23B486B00037323A /* DisableNodesTest.json */; };
-		8E6BC5A723B486B00037323A /* LottieLogo1_masked.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC57023B486B00037323A /* LottieLogo1_masked.json */; };
-		8E6BC5A823B486B00037323A /* timeremap.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC57123B486B00037323A /* timeremap.json */; };
 		8E6E83A12341F75500392F27 /* IGEditProfileChannelAndGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6E83A02341F75500392F27 /* IGEditProfileChannelAndGroupTableViewController.swift */; };
 		8E6E83A32342617400392F27 /* EditProfileChannelAndGroup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E6E83A22342617400392F27 /* EditProfileChannelAndGroup.storyboard */; };
 		8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D3BA2261FFA400830F65 /* SMLoading.swift */; };
@@ -1047,61 +992,6 @@
 		8E67494723B119400012BA0F /* IGUserContactsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGUserContactsTableViewController.swift; sourceTree = "<group>"; };
 		8E6BC53523B2649C0037323A /* IGMultiForwardModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMultiForwardModalViewController.swift; sourceTree = "<group>"; };
 		8E6BC53723B33EA20037323A /* BlackColorSet.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BlackColorSet.xcassets; sourceTree = "<group>"; };
-		8E6BC53A23B486B00037323A /* Switch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Switch.json; sourceTree = "<group>"; };
-		8E6BC53B23B486B00037323A /* TwitterHeart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeart.json; sourceTree = "<group>"; };
-		8E6BC53C23B486B00037323A /* 9squares-AlBoardman.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "9squares-AlBoardman.json"; sourceTree = "<group>"; };
-		8E6BC53D23B486B00037323A /* MotionCorpse-Jrcanest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "MotionCorpse-Jrcanest.json"; sourceTree = "<group>"; };
-		8E6BC53E23B486B00037323A /* TwitterHeartButton.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeartButton.json; sourceTree = "<group>"; };
-		8E6BC54023B486B00037323A /* T.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = T.json; sourceTree = "<group>"; };
-		8E6BC54123B486B00037323A /* A.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = A.json; sourceTree = "<group>"; };
-		8E6BC54223B486B00037323A /* X.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = X.json; sourceTree = "<group>"; };
-		8E6BC54323B486B00037323A /* BlinkingCursor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BlinkingCursor.json; sourceTree = "<group>"; };
-		8E6BC54423B486B00037323A /* M.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = M.json; sourceTree = "<group>"; };
-		8E6BC54523B486B00037323A /* L.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = L.json; sourceTree = "<group>"; };
-		8E6BC54623B486B00037323A /* Y.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Y.json; sourceTree = "<group>"; };
-		8E6BC54723B486B00037323A /* U.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = U.json; sourceTree = "<group>"; };
-		8E6BC54823B486B00037323A /* K.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = K.json; sourceTree = "<group>"; };
-		8E6BC54923B486B00037323A /* R.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = R.json; sourceTree = "<group>"; };
-		8E6BC54A23B486B00037323A /* G.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = G.json; sourceTree = "<group>"; };
-		8E6BC54B23B486B00037323A /* F.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = F.json; sourceTree = "<group>"; };
-		8E6BC54C23B486B00037323A /* S.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = S.json; sourceTree = "<group>"; };
-		8E6BC54D23B486B00037323A /* J.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = J.json; sourceTree = "<group>"; };
-		8E6BC54E23B486B00037323A /* I.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = I.json; sourceTree = "<group>"; };
-		8E6BC54F23B486B00037323A /* E.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = E.json; sourceTree = "<group>"; };
-		8E6BC55023B486B00037323A /* Apostrophe.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Apostrophe.json; sourceTree = "<group>"; };
-		8E6BC55123B486B00037323A /* P.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = P.json; sourceTree = "<group>"; };
-		8E6BC55223B486B00037323A /* Q.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Q.json; sourceTree = "<group>"; };
-		8E6BC55323B486B00037323A /* D.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = D.json; sourceTree = "<group>"; };
-		8E6BC55423B486B00037323A /* Colon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Colon.json; sourceTree = "<group>"; };
-		8E6BC55523B486B00037323A /* H.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = H.json; sourceTree = "<group>"; };
-		8E6BC55623B486B00037323A /* C.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = C.json; sourceTree = "<group>"; };
-		8E6BC55723B486B00037323A /* V.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = V.json; sourceTree = "<group>"; };
-		8E6BC55823B486B00037323A /* Comma.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Comma.json; sourceTree = "<group>"; };
-		8E6BC55923B486B00037323A /* O.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = O.json; sourceTree = "<group>"; };
-		8E6BC55A23B486B00037323A /* Z.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Z.json; sourceTree = "<group>"; };
-		8E6BC55B23B486B00037323A /* N.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = N.json; sourceTree = "<group>"; };
-		8E6BC55C23B486B00037323A /* W.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = W.json; sourceTree = "<group>"; };
-		8E6BC55D23B486B00037323A /* B.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = B.json; sourceTree = "<group>"; };
-		8E6BC55E23B486B00037323A /* HamburgerArrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HamburgerArrow.json; sourceTree = "<group>"; };
-		8E6BC55F23B486B00037323A /* vcTransition1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = vcTransition1.json; sourceTree = "<group>"; };
-		8E6BC56023B486B00037323A /* LottieLogo2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LottieLogo2.json; sourceTree = "<group>"; };
-		8E6BC56123B486B00037323A /* Boat_Loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Boat_Loader.json; sourceTree = "<group>"; };
-		8E6BC56223B486B00037323A /* GeometryTransformTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GeometryTransformTest.json; sourceTree = "<group>"; };
-		8E6BC56323B486B00037323A /* Watermelon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Watermelon.json; sourceTree = "<group>"; };
-		8E6BC56423B486B00037323A /* Keypath.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Keypath.json; sourceTree = "<group>"; };
-		8E6BC56523B486B00037323A /* IconTransitions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = IconTransitions.json; sourceTree = "<group>"; };
-		8E6BC56623B486B00037323A /* vcTransition2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = vcTransition2.json; sourceTree = "<group>"; };
-		8E6BC56723B486B00037323A /* LottieLogo1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LottieLogo1.json; sourceTree = "<group>"; };
-		8E6BC56823B486B00037323A /* base64Test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = base64Test.json; sourceTree = "<group>"; };
-		8E6BC56923B486B00037323A /* Switch_States.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Switch_States.json; sourceTree = "<group>"; };
-		8E6BC56A23B486B00037323A /* FirstText.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FirstText.json; sourceTree = "<group>"; };
-		8E6BC56B23B486B00037323A /* setValueTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = setValueTest.json; sourceTree = "<group>"; };
-		8E6BC56C23B486B00037323A /* Zoom.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Zoom.json; sourceTree = "<group>"; };
-		8E6BC56D23B486B00037323A /* keypathTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = keypathTest.json; sourceTree = "<group>"; };
-		8E6BC56E23B486B00037323A /* PinJump.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PinJump.json; sourceTree = "<group>"; };
-		8E6BC56F23B486B00037323A /* DisableNodesTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DisableNodesTest.json; sourceTree = "<group>"; };
-		8E6BC57023B486B00037323A /* LottieLogo1_masked.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LottieLogo1_masked.json; sourceTree = "<group>"; };
-		8E6BC57123B486B00037323A /* timeremap.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = timeremap.json; sourceTree = "<group>"; };
 		8E6E83A02341F75500392F27 /* IGEditProfileChannelAndGroupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGEditProfileChannelAndGroupTableViewController.swift; sourceTree = "<group>"; };
 		8E6E83A22342617400392F27 /* EditProfileChannelAndGroup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditProfileChannelAndGroup.storyboard; sourceTree = "<group>"; };
 		8E76D3BA2261FFA400830F65 /* SMLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLoading.swift; sourceTree = "<group>"; };
@@ -2105,76 +1995,6 @@
 				8E599D892329262500D75376 /* IGCallPageViewController.swift */,
 			);
 			path = DialPad;
-			sourceTree = "<group>";
-		};
-		8E6BC53923B486B00037323A /* TestAnimations */ = {
-			isa = PBXGroup;
-			children = (
-				8E6BC53A23B486B00037323A /* Switch.json */,
-				8E6BC53B23B486B00037323A /* TwitterHeart.json */,
-				8E6BC53C23B486B00037323A /* 9squares-AlBoardman.json */,
-				8E6BC53D23B486B00037323A /* MotionCorpse-Jrcanest.json */,
-				8E6BC53E23B486B00037323A /* TwitterHeartButton.json */,
-				8E6BC53F23B486B00037323A /* TypeFace */,
-				8E6BC55E23B486B00037323A /* HamburgerArrow.json */,
-				8E6BC55F23B486B00037323A /* vcTransition1.json */,
-				8E6BC56023B486B00037323A /* LottieLogo2.json */,
-				8E6BC56123B486B00037323A /* Boat_Loader.json */,
-				8E6BC56223B486B00037323A /* GeometryTransformTest.json */,
-				8E6BC56323B486B00037323A /* Watermelon.json */,
-				8E6BC56423B486B00037323A /* Keypath.json */,
-				8E6BC56523B486B00037323A /* IconTransitions.json */,
-				8E6BC56623B486B00037323A /* vcTransition2.json */,
-				8E6BC56723B486B00037323A /* LottieLogo1.json */,
-				8E6BC56823B486B00037323A /* base64Test.json */,
-				8E6BC56923B486B00037323A /* Switch_States.json */,
-				8E6BC56A23B486B00037323A /* FirstText.json */,
-				8E6BC56B23B486B00037323A /* setValueTest.json */,
-				8E6BC56C23B486B00037323A /* Zoom.json */,
-				8E6BC56D23B486B00037323A /* keypathTest.json */,
-				8E6BC56E23B486B00037323A /* PinJump.json */,
-				8E6BC56F23B486B00037323A /* DisableNodesTest.json */,
-				8E6BC57023B486B00037323A /* LottieLogo1_masked.json */,
-				8E6BC57123B486B00037323A /* timeremap.json */,
-			);
-			path = TestAnimations;
-			sourceTree = "<group>";
-		};
-		8E6BC53F23B486B00037323A /* TypeFace */ = {
-			isa = PBXGroup;
-			children = (
-				8E6BC54023B486B00037323A /* T.json */,
-				8E6BC54123B486B00037323A /* A.json */,
-				8E6BC54223B486B00037323A /* X.json */,
-				8E6BC54323B486B00037323A /* BlinkingCursor.json */,
-				8E6BC54423B486B00037323A /* M.json */,
-				8E6BC54523B486B00037323A /* L.json */,
-				8E6BC54623B486B00037323A /* Y.json */,
-				8E6BC54723B486B00037323A /* U.json */,
-				8E6BC54823B486B00037323A /* K.json */,
-				8E6BC54923B486B00037323A /* R.json */,
-				8E6BC54A23B486B00037323A /* G.json */,
-				8E6BC54B23B486B00037323A /* F.json */,
-				8E6BC54C23B486B00037323A /* S.json */,
-				8E6BC54D23B486B00037323A /* J.json */,
-				8E6BC54E23B486B00037323A /* I.json */,
-				8E6BC54F23B486B00037323A /* E.json */,
-				8E6BC55023B486B00037323A /* Apostrophe.json */,
-				8E6BC55123B486B00037323A /* P.json */,
-				8E6BC55223B486B00037323A /* Q.json */,
-				8E6BC55323B486B00037323A /* D.json */,
-				8E6BC55423B486B00037323A /* Colon.json */,
-				8E6BC55523B486B00037323A /* H.json */,
-				8E6BC55623B486B00037323A /* C.json */,
-				8E6BC55723B486B00037323A /* V.json */,
-				8E6BC55823B486B00037323A /* Comma.json */,
-				8E6BC55923B486B00037323A /* O.json */,
-				8E6BC55A23B486B00037323A /* Z.json */,
-				8E6BC55B23B486B00037323A /* N.json */,
-				8E6BC55C23B486B00037323A /* W.json */,
-				8E6BC55D23B486B00037323A /* B.json */,
-			);
-			path = TypeFace;
 			sourceTree = "<group>";
 		};
 		8E83CAA023408E5200A8CF65 /* Theme Manager */ = {
@@ -3750,7 +3570,6 @@
 		FAF795EC1DAA330C0030509B /* iGap */ = {
 			isa = PBXGroup;
 			children = (
-				8E6BC53923B486B00037323A /* TestAnimations */,
 				8EC217B82259DCFA00105B5A /* Entity */,
 				FA8FCBAD219C02C80028457F /* Api */,
 				FAD5807E1DDC402600A242DE /* Libraries */,
@@ -4053,8 +3872,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E6BC58723B486B00037323A /* Apostrophe.json in Resources */,
-				8E6BC5A023B486B00037323A /* Switch_States.json in Resources */,
 				8E1865392323A10400D8BCA9 /* ChannelAndSettings.storyboard in Resources */,
 				8EA854A4239D5C3300C9442F /* IGClassicColors.xcassets in Resources */,
 				8E6E83A32342617400392F27 /* EditProfileChannelAndGroup.storyboard in Resources */,
@@ -4062,14 +3879,10 @@
 				D65179AA239BA00900557E5B /* IGMediaPagerCell.xib in Resources */,
 				FABA60F0221804E400FFBB5A /* stickerPublicKey.txt in Resources */,
 				8EA854ED239FA43D00C9442F /* AppIconTwo.png in Resources */,
-				8E6BC59823B486B00037323A /* Boat_Loader.json in Resources */,
-				8E6BC59B23B486B00037323A /* Keypath.json in Resources */,
 				FA6F312722B8E7D600DB942E /* trackingId.txt in Resources */,
 				FA99FF6522353401009035DF /* DashboardCell2.xib in Resources */,
 				FA5656C6204AB18F00DB46F0 /* igap_busy.mp3 in Resources */,
-				8E6BC58423B486B00037323A /* J.json in Resources */,
 				FA33063D1F445AE90096031A /* IRANSans_Medium.ttf in Resources */,
-				8E6BC57423B486B00037323A /* 9squares-AlBoardman.json in Resources */,
 				8EA85505239FA43D00C9442F /* AppIconSix.png in Resources */,
 				FA842A3C225CAA8100E500A4 /* DashboardCellUnknown.xib in Resources */,
 				FA075DE2232A3F3D002E7AC7 /* InternetPackage.storyboard in Resources */,
@@ -4080,36 +3893,24 @@
 				FAB1BF74220C34AA00BA980B /* StickerCell.xib in Resources */,
 				D651C04623800F3A0043F700 /* ProgressCell.xib in Resources */,
 				FA9EE5BD221ECD7100BA7735 /* MoneyTransferCell.xib in Resources */,
-				8E6BC57B23B486B00037323A /* M.json in Resources */,
 				FA33063C1F445AE80096031A /* IRANSans_Light.ttf in Resources */,
 				8E7C74E52395451E00286315 /* SliderImageWithTextCVCell.xib in Resources */,
 				FA7CD4A422959020002918AD /* PaymentCell.xib in Resources */,
-				8E6BC58123B486B00037323A /* G.json in Resources */,
 				FA80F5A0204ABC5900F0EE74 /* tone.mp3 in Resources */,
 				8EA8550E23A228D400C9442F /* IGNightColors.xcassets in Resources */,
 				FA5656B9204AB18F00DB46F0 /* igap_noresponse.mp3 in Resources */,
 				8E6BC53823B33EA20037323A /* BlackColorSet.xcassets in Resources */,
 				8ECCA1E422B6585700D3A734 /* SMMoneyTransactionOptions.xib in Resources */,
 				943495C0231FBADC009854FE /* IGTransactionsTVCell.xib in Resources */,
-				8E6BC57A23B486B00037323A /* BlinkingCursor.json in Resources */,
-				8E6BC59A23B486B00037323A /* Watermelon.json in Resources */,
 				8EA854BC239F6F8800C9442F /* TurquoiseColorSet.xcassets in Resources */,
-				8E6BC57C23B486B00037323A /* L.json in Resources */,
-				8E6BC58923B486B00037323A /* Q.json in Resources */,
-				8E6BC59923B486B00037323A /* GeometryTransformTest.json in Resources */,
-				8E6BC59123B486B00037323A /* Z.json in Resources */,
 				8E2CCD0C237ED630000C3B3F /* ImageLocalizable.strings in Resources */,
 				8ECCA1F422B8F6DF00D3A734 /* multiForwardShareUsers.xib in Resources */,
-				8E6BC57323B486B00037323A /* TwitterHeart.json in Resources */,
 				937455F91E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib in Resources */,
 				8EC94E0923964462003B3510 /* IGOneNewsTVCell.xib in Resources */,
 				FA33063E1F445AE90096031A /* IRANSans_UltraLight.ttf in Resources */,
 				8EA8550823A218FA00C9442F /* AppIconSeven.png in Resources */,
-				8E6BC5A423B486B00037323A /* keypathTest.json in Resources */,
 				FA927E0620284DC100DF7145 /* GifCell.xib in Resources */,
-				8E6BC5A623B486B00037323A /* DisableNodesTest.json in Resources */,
 				8ECFB53C234A118A001233E9 /* igap_send_message_sound.mp3 in Resources */,
-				8E6BC58323B486B00037323A /* S.json in Resources */,
 				8EA854BA239F6E2800C9442F /* BlueColorSet.xcassets in Resources */,
 				8E3C696A23602DDE001575BE /* MusicPlayer.storyboard in Resources */,
 				8EA854FD239FA43D00C9442F /* AppIconFour.png in Resources */,
@@ -4118,19 +3919,14 @@
 				8EBF553622DCCA0600834E6A /* SliderTypeThreeCell.xib in Resources */,
 				8EA8551923A231B100C9442F /* PurpleColorSet.xcassets in Resources */,
 				8ECC1828222F991F006E43E8 /* wallet.storyboard in Resources */,
-				8E6BC59323B486B00037323A /* W.json in Resources */,
 				FAD57EE21E191DB000FC17D9 /* IGMessageLogCollectionViewCell.xib in Resources */,
 				FA0953071E1B87E40043ED3F /* IGSettingStoryboard.storyboard in Resources */,
-				8E6BC59223B486B00037323A /* N.json in Resources */,
 				940F9E74231B92DF00C26D50 /* IGFavouriteChannelCVCell.xib in Resources */,
 				8EA85504239FA43D00C9442F /* AppIconThree.png in Resources */,
 				8E5495CF22F02BB1001D30E1 /* SMTwoInputView.xib in Resources */,
 				FA99FF6122352109009035DF /* DashboardCell1.xib in Resources */,
-				8E6BC58023B486B00037323A /* R.json in Resources */,
 				8EA854FF239FA43D00C9442F /* AppIconOne.png in Resources */,
-				8E6BC59023B486B00037323A /* O.json in Resources */,
 				8EA854BE239F723100C9442F /* GreenColorSet.xcassets in Resources */,
-				8E6BC58A23B486B00037323A /* D.json in Resources */,
 				8E098A7B2348B0B1008A40A9 /* Search.storyboard in Resources */,
 				FA5EC5DB1E06728C006E2850 /* IGChatRoomListTableViewCell.xib in Resources */,
 				8E7F18F622F567B500A7A7DD /* TextCellCardToCard.xib in Resources */,
@@ -4144,16 +3940,9 @@
 				8E0A799323951736001A7EB6 /* News.storyboard in Resources */,
 				8EC217972258BD9E00105B5A /* SMSingleInputView.xib in Resources */,
 				FA82043B2025D90800A795D5 /* ImageCell.xib in Resources */,
-				8E6BC5A323B486B00037323A /* Zoom.json in Resources */,
-				8E6BC59423B486B00037323A /* B.json in Resources */,
-				8E6BC58C23B486B00037323A /* H.json in Resources */,
 				FAF796071DAA392F0030509B /* Main.storyboard in Resources */,
-				8E6BC59E23B486B00037323A /* LottieLogo1.json in Resources */,
-				8E6BC59C23B486B00037323A /* IconTransitions.json in Resources */,
 				FA417E51212179C900B5FBCD /* LocationCell.xib in Resources */,
-				8E6BC58623B486B00037323A /* E.json in Resources */,
 				FAE6062D21EB39FB00F03FFC /* Media.xcassets in Resources */,
-				8E6BC5A123B486B00037323A /* FirstText.json in Resources */,
 				8EC94DFF239636FC003B3510 /* IGDoubleButtonTVCell.xib in Resources */,
 				FA927E0A20286FE800DF7145 /* ContactCell.xib in Resources */,
 				8E8ABDC52394F89600DE00DB /* IGNewsSliderTVCell.xib in Resources */,
@@ -4163,58 +3952,36 @@
 				FA33063B1F445AE80096031A /* IRANSans_Bold.ttf in Resources */,
 				FA5656BD204AB18F00DB46F0 /* igap_connect.mp3 in Resources */,
 				8ECCA1F022B8B9AB00D3A734 /* IGMultiForwardModal.xib in Resources */,
-				8E6BC57523B486B00037323A /* MotionCorpse-Jrcanest.json in Resources */,
 				FA3306361F445A570096031A /* IRANSans.ttf in Resources */,
-				8E6BC5A523B486B00037323A /* PinJump.json in Resources */,
 				FAFDB3B6204EBCCA0022D183 /* IGCallListTableViewCell.xib in Resources */,
 				FA99FF6D2235413B009035DF /* DashboardCell4.xib in Resources */,
 				8E1CD973232CF79A008D8758 /* PhoneBook.storyboard in Resources */,
-				8E6BC57F23B486B00037323A /* K.json in Resources */,
 				FA15F0B323488BCA001E8158 /* iGap_fontico.ttf in Resources */,
 				D6CCCBF82392A1E10061F749 /* CardToCardCell.xib in Resources */,
-				8E6BC58F23B486B00037323A /* Comma.json in Resources */,
-				8E6BC57723B486B00037323A /* T.json in Resources */,
 				8EB4BBAC234B83A400BFA878 /* igap_receive_message_sound.mp3 in Resources */,
-				8E6BC58E23B486B00037323A /* V.json in Resources */,
 				8ECCA1EA22B7B1F000D3A734 /* SMSingleAmountInputView.xib in Resources */,
-				8E6BC58523B486B00037323A /* I.json in Resources */,
-				8E6BC57E23B486B00037323A /* U.json in Resources */,
 				8EBF550722D9B84900834E6A /* DashboardCell8.xib in Resources */,
-				8E6BC58223B486B00037323A /* F.json in Resources */,
-				8E6BC5A823B486B00037323A /* timeremap.json in Resources */,
 				8EA85501239FA43D00C9442F /* AppIconFive.png in Resources */,
-				8E6BC58D23B486B00037323A /* C.json in Resources */,
 				8EC03852239B84F400B525B5 /* BottomModal.storyboard in Resources */,
 				8EE7FCA0225DF67200B6C2C3 /* LNNumberpad.xib in Resources */,
 				FA927E02202841C900DF7145 /* VideoCell.xib in Resources */,
 				FA4BD8A41DF2A53400CCB239 /* IGMusicViewController.xib in Resources */,
 				8EBF552722DCA9B000834E6A /* SliderTypeOneCell.xib in Resources */,
-				8E6BC59623B486B00037323A /* vcTransition1.json in Resources */,
 				FA93EE2A2029A41200DD1521 /* VoiceCell.xib in Resources */,
-				8E6BC57923B486B00037323A /* X.json in Resources */,
-				8E6BC58B23B486B00037323A /* Colon.json in Resources */,
 				FA927E0E20288AEE00DF7145 /* FileCell.xib in Resources */,
 				8E8D8E2D225DB6A500039191 /* Fast.xib in Resources */,
 				8E94B7472237E61D005F6868 /* webServiceKey.txt in Resources */,
 				8EA8551D23A232F900C9442F /* RedColorSet.xcassets in Resources */,
 				FA8F8A69208602AB00AF03CB /* IGMapNearbyDistanceCell.xib in Resources */,
-				8E6BC57223B486B00037323A /* Switch.json in Resources */,
-				8E6BC59723B486B00037323A /* LottieLogo2.json in Resources */,
 				8EEB1FF622C1F68B00EFD2ED /* GetGiftPopup.xib in Resources */,
 				FA5656BE204AB18F00DB46F0 /* igap_signaling.mp3 in Resources */,
 				8EA854B3239E675200C9442F /* IGDayColors.xcassets in Resources */,
 				FA786D58206A575300608A2D /* profile.storyboard in Resources */,
-				8E6BC5A223B486B00037323A /* setValueTest.json in Resources */,
 				FA786D5A206A746700608A2D /* CreateRoom.storyboard in Resources */,
-				8E6BC59523B486B00037323A /* HamburgerArrow.json in Resources */,
-				8E6BC57623B486B00037323A /* TwitterHeartButton.json in Resources */,
 				FA93EE2E2029DBE300DD1521 /* AudioCell.xib in Resources */,
 				8EA8552523A23DE800C9442F /* LightGrayColorSet.xcassets in Resources */,
 				D6EAF0742383D9B300D7F177 /* Localizable.strings in Resources */,
 				FA936906207364E100A0D86A /* Register.storyboard in Resources */,
-				8E6BC5A723B486B00037323A /* LottieLogo1_masked.json in Resources */,
-				8E6BC57D23B486B00037323A /* Y.json in Resources */,
-				8E6BC59F23B486B00037323A /* base64Test.json in Resources */,
 				FAF796061DAA392F0030509B /* LaunchScreen.storyboard in Resources */,
 				FA97D444201716270087BBD0 /* TextCell.xib in Resources */,
 				94E74DCA2323C798001AB47C /* TransactionInfoKeys.stringsdict in Resources */,
@@ -4224,16 +3991,13 @@
 				8EA8550A23A2217F00C9442F /* PinkColorSet.xcassets in Resources */,
 				8EA8552123A23A6D00C9442F /* GoldColorSet.xcassets in Resources */,
 				8EA854B7239E90BE00C9442F /* ThemeColorSet.xcassets in Resources */,
-				8E6BC58823B486B00037323A /* P.json in Resources */,
 				FAE1698F20E746DC008FE881 /* GoogleService-Info.plist in Resources */,
 				949E8360231EA6A500B6799E /* slideImageCVCell.xib in Resources */,
 				8EC94E0D23964D05003B3510 /* IGSingleButtonTVCell.xib in Resources */,
 				FAF796051DAA392F0030509B /* Assets.xcassets in Resources */,
-				8E6BC57823B486B00037323A /* A.json in Resources */,
 				FA99FF75223544B2009035DF /* DashboardCell6.xib in Resources */,
 				8E8CA3AB236FFF2B000DA358 /* ElectroBill.storyboard in Resources */,
 				8EC94DF923955B89003B3510 /* IGNewsDoubleNTVCell.xib in Resources */,
-				8E6BC59D23B486B00037323A /* vcTransition2.json in Resources */,
 				8EBF553222DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

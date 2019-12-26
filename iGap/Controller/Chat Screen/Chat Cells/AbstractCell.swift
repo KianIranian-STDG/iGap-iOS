@@ -1230,7 +1230,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                         
                         if (self.finalRoomMessage.attachment?.name!.hasSuffix(".json") ?? false) {
                             print("YESS LIVE STICKER")
-                            self.animationView.setLiveSticker(for: file)
+                            //self.animationView.setLiveSticker(for: file)
                         } else {
                             print("YESS NORMAL STICKER")
                             self.imgMediaAbs?.setSticker(for: file)
