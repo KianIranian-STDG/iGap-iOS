@@ -21,6 +21,7 @@ import RealmSwift
 import var CommonCrypto.CC_MD5_DIGEST_LENGTH
 import func CommonCrypto.CC_MD5
 import typealias CommonCrypto.CC_LONG
+import Lottie
 
 var fontDefaultSize: CGFloat = 15.0
 
@@ -1098,6 +1099,7 @@ extension NSCache {
 }
 
 var imagesMap = Dictionary<String, UIImageView>()
+var liveStickerMap = Dictionary<String, AnimationView>()
 extension UIImage {
     
   func tintedWithLinearGradientColors(colorsArr: [CGColor]) -> UIImage {
@@ -1206,6 +1208,44 @@ extension UIView {
     }
 
     
+}
+extension AnimationView {
+    func setLiveSticker(for attachment:IGFile) {
+        do {
+            let path = attachment.path()
+            if IGGlobal.isFileExist(path: path) {
+//                self.sd_setImage(with: path, completed: nil)
+                let animation = Animation.named("Watermelon", subdirectory: "TestAnimations")
+                self.animation = animation
+                    self.play(fromProgress: 0,
+                                       toProgress: 1,
+                                       loopMode: LottieLoopMode.playOnce,
+                                       completion: { (finished) in
+                                        if finished {
+                                          print("Animation Complete")
+                                        } else {
+                                          print("Animation cancelled")
+                                        }
+                    })
+
+
+            } else {
+                throw NSError(domain: "asa", code: 1234, userInfo: nil)
+            }
+        } catch {
+            liveStickerMap[attachment.token!] = self
+            IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in
+                DispatchQueue.main.async {
+                    if let animation = liveStickerMap[attachment.token!] {
+                        liveStickerMap.removeValue(forKey: attachment.token!)
+                        animation.setLiveSticker(for: attachment)
+                    }
+                }
+            }, failure: {
+                
+            })
+        }
+    }
 }
 extension UIImageView {
     func setThumbnail(for attachment:IGFile, showMain: Bool = false) {
@@ -1332,8 +1372,9 @@ extension UIImageView {
             print("ATTACHMENT IS INVALIDATED")
         }
     }
-    
+
     func setSticker(for attachment:IGFile) {
+
         do {
             let path = attachment.path()
             if IGGlobal.isFileExist(path: path) {
