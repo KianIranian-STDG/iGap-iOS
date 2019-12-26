@@ -442,15 +442,19 @@ public class IGFile: Object {
         } else if let cacheId = self.cacheID, let name = self.name {
             var path = NSURL(fileURLWithPath: documents).appendingPathComponent(cacheId + name)
             print(path)
+            print("=========")
              print(documents)
+            print("=========")
             print((cacheId + name))
+            print("=========")
              print(NSURL(fileURLWithPath: documents))
             if (self.type == .voice) && (name.getExtension() == "mp3" || name.getExtension() == "ogg") {
                 path = path?.deletingPathExtension().appendingPathExtension("m4a")
             }
             return path
+        } else {
+            return nil
         }
-        return nil
     }
     
     class func path(fileNameOnDisk: String) -> URL {

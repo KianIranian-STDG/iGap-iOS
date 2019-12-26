@@ -1215,7 +1215,19 @@ extension AnimationView {
             let path = attachment.path()
             if IGGlobal.isFileExist(path: path) {
 //                self.sd_setImage(with: path, completed: nil)
-                let animation = Animation.named("Watermelon")
+//                let animation = Animation.named("Watermelon")
+//                let animation = Animation.filepath("/var/mobile/Containers/Data/Application/E2F45C49-E016-42D0-B8D0-036AD7DB9A9B/Documents/7b13775d0032b4a7d4c40310f4e2ff856a2e8d874adfa6a7ee990f111989a1770abbasi.json")
+                
+                print(path)
+                print("++++++++")
+                print(path?.absoluteURL)
+                print("++++++++")
+                print(path?.path)
+                print("++++++++")
+                print(path?.absoluteString)
+                print("++++++++")
+                let animation = Animation.filepath(path!.path)
+
                 self.animation = animation
                         self.play(fromProgress: 0,
                                            toProgress: 1,
