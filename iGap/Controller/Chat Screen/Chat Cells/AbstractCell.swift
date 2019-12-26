@@ -89,8 +89,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
     
     let cornerRadius: CGFloat = 7.0
     let bubbleSubviewOffset: CGFloat = 3
-    let bubbleShadowOffset: CGFloat = 0.6
-    let bubbleShadowRadius: CGFloat = 0.3
+    let bubbleShadowOffset: CGFloat = 0.4
+    let bubbleShadowRadius: CGFloat = 0.8
     let bubbleShadowOpacity: Float = 0.2
     
     override func awakeFromNib() {
