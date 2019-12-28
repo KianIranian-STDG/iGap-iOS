@@ -1017,8 +1017,8 @@ extension IGRecentsTableViewController {
                 IGRoom.isPin(roomId: $0.id)
             }).count ?? 0 >= 5 {
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: false, message: IGStringsManager.MaxPinAlert.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized)
+                return
             }
-            return
         }
         
         
