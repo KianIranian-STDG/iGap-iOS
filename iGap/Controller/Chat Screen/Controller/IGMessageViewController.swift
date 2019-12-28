@@ -686,7 +686,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if let messageId = self.deepLinkMessageId {
             // need to make 'IGMessageLoader' for first time
-            messageLoader = IGMessageLoader.getInstance(room: self.room!, forceNew: false)
+            messageLoader = IGMessageLoader.getInstance(room: self.room!, forceNew: true)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.goToPosition(messageId: messageId)
             }
@@ -1044,7 +1044,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
      */
     private func startLoadMessage(){
         if messageLoader == nil {
-            messageLoader = IGMessageLoader.getInstance(room: self.room!, forceNew: false)
+            messageLoader = IGMessageLoader.getInstance(room: self.room!, forceNew: true)
         }
 
         let hasUnread = messageLoader.hasUnread()
