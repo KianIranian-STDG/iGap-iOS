@@ -110,6 +110,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         }
         self.txtFooter.textColor = ThemeManager.currentTheme.LabelColor
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.setSearchBarGradient()
+        initialiseSearchBar()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -582,9 +584,9 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
             
         if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
             textField.backgroundColor = .clear
-
+            textField.textColor = ThemeManager.currentTheme.LabelColor
             if let backgroundview = textField.subviews.first {
-                backgroundview.backgroundColor = ThemeManager.currentTheme.SearchBarBackGroundColor
+                backgroundview.backgroundColor = ThemeManager.currentTheme.BackGroundColor
                 for view in backgroundview.subviews {
                     view.backgroundColor = .clear
                 }
@@ -595,12 +597,12 @@ extension IGPhoneBookTableViewController: UISearchResultsUpdating, UISearchBarDe
             if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
                 searchBarCancelButton.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
                 searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14, weight: .bold)
-                searchBarCancelButton.tintColor = UIColor.white
+                searchBarCancelButton.tintColor = ThemeManager.currentTheme.LabelColor
                 searchBarCancelButton.setTitleColor(UIColor.white, for: .normal)
             }
 
             if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
-                placeHolderInsideSearchField.textColor = UIColor.white
+                placeHolderInsideSearchField.textColor = ThemeManager.currentTheme.LabelColor
                 placeHolderInsideSearchField.textAlignment = .center
                 placeHolderInsideSearchField.text = IGStringsManager.SearchPlaceHolder.rawValue.localized
                 if let backgroundview = textField.subviews.first {

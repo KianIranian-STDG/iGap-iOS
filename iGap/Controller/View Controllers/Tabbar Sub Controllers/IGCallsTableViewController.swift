@@ -103,6 +103,7 @@ class IGCallsTableViewController: BaseTableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         initNavigationBar()
+//        self.initTheme()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -164,7 +165,7 @@ class IGCallsTableViewController: BaseTableViewController {
 
     private func addCollectionFilterView() -> UIView {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
-        headerView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+//        headerView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = UICollectionView.ScrollDirection.horizontal
