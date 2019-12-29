@@ -6439,7 +6439,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             DispatchQueue.main.async {
                 for indexPath in self.collectionView.indexPathsForVisibleItems {
                     if let cell = self.collectionView.cellForItem(at: indexPath) as? AbstractCell {
-                        if !cell.realmRoomMessage.isInvalidated && !cell.realmRoomMessage.authorUser!.isInvalidated {
+                        if !cell.realmRoomMessage.isInvalidated, let authorUser = cell.realmRoomMessage.authorUser, !authorUser.isInvalidated {
                             if let peerId = cell.realmRoomMessage.authorUser?.userId, userInfo.igpID == peerId {
                                 self.updateItem(cellPosition: indexPath.row)
                             }

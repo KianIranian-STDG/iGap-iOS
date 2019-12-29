@@ -77,18 +77,27 @@ class IGStickerToolbar: UIGestureRecognizer {
         
         if isLiveStricker {
             let animationView = AnimationView()
-            let btnLiveSticker = UIButton()
-            IGStickerToolbar.buttonArray.append(btnLiveSticker)
-            btnLiveSticker.tag = index
-            btnLiveSticker.addTarget(self, action: #selector(IGMessageViewController.tapOnStickerToolbar), for: .touchUpInside)
+            let btn = UIButton()
+            IGStickerToolbar.buttonArray.append(btn)
+            btn.tag = index
+            btn.addTarget(self, action: #selector(IGMessageViewController.tapOnStickerToolbar), for: .touchUpInside)
+            btn.backgroundColor = UIColor.clear
+            btn.layer.cornerRadius = 5
             
-            animationView.contentMode = .scaleAspectFit
-            animationView.backgroundColor = .clear
+            parent.addSubview(btn)
+            
+            btn.snp.makeConstraints { (make) in
+                make.left.equalTo(parent.snp.left).offset(leftSpace - ((ICON_BACKGROUDN_SIZE-ICON_SIZE)/2))
+                make.centerY.equalTo(parent.snp.centerY)
+                make.width.equalTo(ICON_BACKGROUDN_SIZE)
+                make.height.equalTo(ICON_BACKGROUDN_SIZE)
+            }
+            
             if imageName != nil {
-                btnLiveSticker.setTitle(imageName, for: UIControl.State.normal)
-                btnLiveSticker.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
-                btnLiveSticker.setTitleColor(UIColor.messageText(), for: .normal)
-                btnLiveSticker.removeUnderline()
+                btn.setTitle(imageName, for: UIControl.State.normal)
+                btn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+                btn.setTitleColor(UIColor.messageText(), for: .normal)
+                btn.removeUnderline()
             } else {
                 
                 IGAttachmentManager.sharedManager.getStickerFileInfo(token: (realmSticker?.avatarToken)!, completion: { (file) -> Void in
@@ -110,16 +119,7 @@ class IGStickerToolbar: UIGestureRecognizer {
             }
             
             leftSpace += ICON_SPACE + ICON_SIZE
-            btnLiveSticker.backgroundColor = UIColor.red
-            btnLiveSticker.layer.cornerRadius = 5
-            
-            parent.addSubview(btnLiveSticker)
-            btnLiveSticker.snp.makeConstraints { (make) in
-                make.left.equalTo(parent.snp.left).offset(leftSpace)
-                make.centerY.equalTo(parent.snp.centerY)
-                make.width.equalTo(ICON_SIZE)
-                make.height.equalTo(ICON_SIZE)
-            }
+
 
         } else {
             let imageView = UIImageView()

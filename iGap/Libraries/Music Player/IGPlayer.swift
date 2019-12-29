@@ -78,7 +78,7 @@ class IGPlayer {
         }
         else {
             if justUpdate {
-                if self.roomMessage?.id == roomMessage.id {
+                if self.roomMessage != nil && !self.roomMessage!.isInvalidated && self.roomMessage!.id == roomMessage.id {
                     btnPlayPause!.setTitle(latestButtonValue, for: UIControl.State.normal)
                     slider!.value = latestSliderValue ?? 0
                     timer!.text = latestTimeValue

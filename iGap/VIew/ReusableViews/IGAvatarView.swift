@@ -72,6 +72,9 @@ class IGAvatarView: UIView {
     }
     
     func setUser(_ user: IGRegisteredUser) {
+        if user.isInvalidated {
+            return
+        }
         self.avatarImageView!.image = nil
         self.initialLettersLabel!.text = user.initials
         let color = UIColor.hexStringToUIColor(hex: user.color)
