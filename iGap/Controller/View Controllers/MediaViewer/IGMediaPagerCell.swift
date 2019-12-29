@@ -88,6 +88,11 @@ class IGMediaPagerCell: FSPagerViewCell {
     private func showMedia(){
         let fileExist = IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size)
         if fileExist {
+            
+            if self.finalRoomMessage != nil && (self.finalRoomMessage.type == .video || self.finalRoomMessage.type == .videoAndText) {
+                makeVideoPlayView()
+            }
+            
             progress?.setState(attachment.status)
             progress.isHidden = true
             
