@@ -31,6 +31,8 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     var signMessageSwitchStatus : Bool?
     var reactionSwitchStatus = false
     private var avatarObserver: NotificationToken?
+    var allAreDone: Bool! = true
+    var errorString: String! = ""
     
     // MARK: - Outlets
     @IBOutlet weak var lblSignMessage : UILabel!
@@ -172,7 +174,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         self.dispatchGroup.leave()
         
         dispatchGroup.notify(queue: .main) {
-            // whatever you want to do when both are done
+            // whatever you want to do when all are done
             self.navigationController?.popViewController(animated: true)
         }
     }
@@ -479,6 +481,10 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             return
         }
         
+        if self.tfChannelLink.textColor == UIColor.iGapRed() {
+            dispatchGroup.leave()
+            return
+        }
         if let channelUserName = tfChannelLink.text {
             if channelUserName == "" {
                 SMLoading.hideLoadingPage()
@@ -514,7 +520,8 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                     SMLoading.hideLoadingPage()
                 }
             }).error ({ (errorCode, waitTime) in
-                
+                DispatchQueue.main.async {
+                    self.allAreDone = false
                 if self.convertToPublic {
                     self.tableView.beginUpdates()
                     self.convertToPublic = true
@@ -530,13 +537,12 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                     self.dispatchGroup.leave()
                     
                 }
-                DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
                         break
                     case .channelUpdateUsernameIsInvalid:
-
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.InvalidUserName.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                        self.errorString = IGStringsManager.InvalidUserName.rawValue.localized
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: self.errorString, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
 
                         break
                         

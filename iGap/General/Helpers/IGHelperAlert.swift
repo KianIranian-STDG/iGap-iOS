@@ -96,12 +96,11 @@ class IGHelperAlert {
     ///
     func showCustomAlert(view: UIViewController? = nil, alertType: helperCustomAlertType! = helperCustomAlertType.alert, title: String? = nil, showIconView: Bool? = true, showDoneButton: Bool? = true, showCancelButton: Bool? = true, message: String!, doneText: String? = nil, cancelText: String? = nil, cancel: (() -> Void)? = nil, done: (() -> Void)? = nil) {
         DispatchQueue.main.async {
-            var alertView = view
+//            var alertView = view
+            let alertView : UIWindow? = UIApplication.shared.keyWindow
+
+            alertView?.layoutIfNeeded()
             
-            if alertView == nil {
-                alertView = UIApplication.topViewController()
-            }
-            alertView?.view.layoutIfNeeded()
             UIApplication.topViewController()?.view.endEditing(true)
             ///check if there's already one customAlert on screen remove it and creat a new one
             if self.customAlert != nil {
@@ -275,7 +274,7 @@ class IGHelperAlert {
                         self.iconView.layoutIfNeeded()
                     }
                     
-                    alertView!.view?.superview?.layoutIfNeeded()
+                    alertView!.layoutIfNeeded()
                     
                 },completion: {(value: Bool) in
                     
@@ -341,12 +340,12 @@ class IGHelperAlert {
     
     
     //MARK: - constraints funcs
-    private func setConstraintsToCustomAlert(customView: UIView!,view: UIViewController? = UIApplication.topViewController(),height : CGFloat? = 150) {
+    private func setConstraintsToCustomAlert(customView: UIView!,view: UIWindow? ,height : CGFloat? = 150) {
         customView.translatesAutoresizingMaskIntoConstraints = false
         customView.heightAnchor.constraint(equalToConstant: (height!)).isActive = true
         customView.widthAnchor.constraint(equalToConstant: 250).isActive = true
-        customView.centerYAnchor.constraint(equalTo: view!.view!.centerYAnchor, constant: 0).isActive = true
-        customView.centerXAnchor.constraint(equalTo: view!.view!.centerXAnchor, constant: 0).isActive = true
+        customView.centerYAnchor.constraint(equalTo: view!.centerYAnchor, constant: 0).isActive = true
+        customView.centerXAnchor.constraint(equalTo: view!.centerXAnchor, constant: 0).isActive = true
     }
     
     private func setConstraintsToIconView(customView: UIView!,customAlertView: UIView!) {
