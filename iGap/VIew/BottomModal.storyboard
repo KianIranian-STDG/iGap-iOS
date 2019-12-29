@@ -316,10 +316,11 @@
             </objects>
             <point key="canvasLocation" x="-52.173913043478265" y="164.73214285714286"/>
         </scene>
-        <!--Multi Forward Modal View Controller-->
+        <!--Live Sticker Pack View Controller-->
         <scene sceneID="3iK-qb-j4r">
             <objects>
-                <viewController storyboardIdentifier="IGLiveStickerPackViewController" id="O9Z-B6-gIv" customClass="IGMultiForwardModalViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ake-06-JSo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="IGLiveStickerPackViewController" id="O9Z-B6-gIv" customClass="IGLiveStickerPackViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SIF-gI-BpU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -336,7 +337,7 @@
                                                 <color key="textColor" name="IGLabelColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m89-hr-Gxj">
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m89-hr-Gxj">
                                                 <rect key="frame" x="10" y="0.0" width="30" height="56"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="56" id="gSg-Jk-Lup"/>
@@ -345,9 +346,6 @@
                                                 <state key="normal" title="">
                                                     <color key="titleColor" name="IGLabelColor"/>
                                                 </state>
-                                                <connections>
-                                                    <action selector="btnSearchTap:" destination="O9Z-B6-gIv" eventType="touchUpInside" id="Pfx-Xn-jb3"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -382,8 +380,8 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <connections>
-                                    <outlet property="dataSource" destination="O9Z-B6-gIv" id="jl4-W1-xmw"/>
-                                    <outlet property="delegate" destination="O9Z-B6-gIv" id="chc-Lp-fP6"/>
+                                    <outlet property="dataSource" destination="O9Z-B6-gIv" id="6eI-ct-Tmv"/>
+                                    <outlet property="delegate" destination="O9Z-B6-gIv" id="9Oa-KB-yrC"/>
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgn-yn-yLR">
@@ -407,9 +405,6 @@
                                                 <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="didTapOnSendButton:" destination="O9Z-B6-gIv" eventType="touchUpInside" id="ZVq-Om-NiH"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -447,19 +442,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="W7j-oV-5Wp"/>
                     </view>
-                    <connections>
-                        <outlet property="btnSearch" destination="m89-hr-Gxj" id="Bww-tz-cd5"/>
-                        <outlet property="btnSend" destination="DFq-BG-8lJ" id="gGD-Od-iBF"/>
-                        <outlet property="btnSendHeightConstraint" destination="uTN-Xb-LtL" id="hiE-ee-wVd"/>
-                        <outlet property="collectionHeightConstraint" destination="rrO-LL-WMf" id="pKk-aZ-aGv"/>
-                        <outlet property="lblCount" destination="QV3-RJ-jtC" id="Jzz-Rb-W8i"/>
-                        <outlet property="lblInfo" destination="R5O-fF-Cal" id="ekQ-Ho-azb"/>
-                        <outlet property="searchBar" destination="Quh-LF-Q8O" id="FJ2-bM-Bkz"/>
-                        <outlet property="stackHeightConstraint" destination="iX1-4f-rTo" id="sxY-ZI-jB7"/>
-                        <outlet property="usersCollectionView" destination="dkj-Yv-JAy" id="Gzv-3N-vZj"/>
-                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ake-06-JSo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1397" y="165"/>
         </scene>

@@ -49,5 +49,18 @@ class IGHelperBottomModals {
     //        return UIView()
         }
     //MARK: -  Modal
+    
+    func showStickerPackModal(view: UIViewController? = nil) {//}-> UIView {
+            var alertView = view
+            if alertView == nil {
+                alertView = UIApplication.topViewController()
+            }
+            let storyboard : UIStoryboard = UIStoryboard(name: "BottomModal", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "IGLiveStickerPackViewController") as! IGLiveStickerPackViewController
 
+        
+        
+            alertView!.presentPanModal(vc)
+    //        return UIView()
+        }
 }

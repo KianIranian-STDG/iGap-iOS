@@ -915,6 +915,16 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                 }
             }
             
+            if animationView != nil {
+                let tap2 = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
+                animationView?.addGestureRecognizer(tap2)
+                if !(IGGlobal.shouldMultiSelect) {
+                    animationView?.isUserInteractionEnabled = true
+                }
+                else {
+                    animationView?.isUserInteractionEnabled = false
+                }
+            }
             if btnReturnToMessageAbs != nil {
                 let tapReturnToMessage = UITapGestureRecognizer(target: self, action: #selector(didTapOnReturnToMessage(_:)))
                 btnReturnToMessageAbs?.addGestureRecognizer(tapReturnToMessage)
@@ -963,7 +973,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
 
     @objc func didTapOnAttachment(_ gestureRecognizer: UITapGestureRecognizer) {
         if !(IGGlobal.shouldMultiSelect) {
-            self.delegate?.didTapOnAttachment(cellMessage: realmRoomMessage!, cell: self, imageView: imgMediaAbs)
+            self.delegate?.didTapOnAttachment(cellMessage: realmRoomMessage!, cell: self)
         }
     }
     

@@ -28,11 +28,9 @@ class IGStickerCell: UICollectionViewCell {
     func configure(stickerItem: IGRealmStickerItem) {
         if (stickerItem.fileName?.contains(".json"))! {
             self.makeAnimationView()
-            self.mainView.backgroundColor = UIColor.clear
+
             self.animationView.backgroundColor = UIColor.clear
-            
-            self.stickerItemRealm = stickerItem
-            
+
             let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnSticker(_:)))
             self.animationView.addGestureRecognizer(onStickerClick)
             self.animationView.isUserInteractionEnabled = true
@@ -48,11 +46,8 @@ class IGStickerCell: UICollectionViewCell {
             })
         } else {
             self.makeImage()
-            self.mainView.backgroundColor = UIColor.clear
             self.imgSticker.backgroundColor = UIColor.clear
-            
-            self.stickerItemRealm = stickerItem
-            
+
             let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnSticker(_:)))
             self.imgSticker.addGestureRecognizer(onStickerClick)
             self.imgSticker.isUserInteractionEnabled = true
@@ -67,45 +62,89 @@ class IGStickerCell: UICollectionViewCell {
                 }
             })
         }
+        self.mainView.backgroundColor = UIColor.clear
+        self.stickerItemRealm = stickerItem
+
     }
     
     func configureListPage(stickerItem: Sticker, sectionIndex: Int) {
-        self.makeImage()
+        if (stickerItem.fileName.contains(".json")) {
+            self.makeAnimationView()
+            self.animationView.backgroundColor = UIColor.clear
+            let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnSticker(_:)))
+            self.animationView.addGestureRecognizer(onStickerClick)
+            self.animationView.isUserInteractionEnabled = true
+
+        } else {
+            self.makeImage()
+            self.imgSticker.backgroundColor = UIColor.clear
+            let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.openStickerPreview(_:)))
+            self.imgSticker.addGestureRecognizer(onStickerClick)
+            self.imgSticker.isUserInteractionEnabled = true
+
+        }
         self.sectionIndex = sectionIndex
         self.stickerItemStruct = stickerItem
         self.mainView.backgroundColor = UIColor.clear
-        self.imgSticker.backgroundColor = UIColor.clear
         
-        let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.openStickerPreview(_:)))
-        self.imgSticker.addGestureRecognizer(onStickerClick)
-        self.imgSticker.isUserInteractionEnabled = true
-        
-        IGStickerViewController.stickerImageDic[stickerItem.token] = self.imgSticker
+        if (stickerItem.fileName.contains(".json")) {
+            IGStickerViewController.stickerAnimationDic[stickerItem.token] = self.animationView
+
+        } else {
+            IGStickerViewController.stickerImageDic[stickerItem.token] = self.imgSticker
+
+        }
         IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token, completion: { (file) -> Void in
             let cacheId = file.cacheID
             DispatchQueue.main.async {
-                if let stickerInfo = self.fetchStickerImage(cacheId: cacheId!){
-                    stickerInfo.image.setSticker(for: stickerInfo.file)
+                if (stickerItem.fileName.contains(".json")) {
+                    if let stickerInfo = self.fetchStickerAnimation(cacheId: cacheId!){
+                           stickerInfo.animation.setLiveSticker(for: stickerInfo.file)
+                       }
+                } else {
+                    if let stickerInfo = self.fetchStickerImage(cacheId: cacheId!){
+                           stickerInfo.image.setSticker(for: stickerInfo.file)
+                       }
                 }
+   
             }
         })
     }
     
     func configurePreview(stickerItem: Sticker) {
         self.stickerItemStruct = stickerItem
-        self.makeImage()
-        self.mainView.backgroundColor = UIColor.clear
-        self.imgSticker.backgroundColor = UIColor.clear
-        
-        IGStickerViewController.stickerImageDic[stickerItem.token] = self.imgSticker
-        IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token, completion: { (file) -> Void in
-            let cacheId = file.cacheID
-            DispatchQueue.main.async {
-                if let stickerInfo = self.fetchStickerImage(cacheId: cacheId!){
-                    stickerInfo.image.setSticker(for: stickerInfo.file)
+
+        if (stickerItem.fileName.contains(".json")) {
+            self.makeAnimationView()
+            self.mainView.backgroundColor = UIColor.clear
+            self.animationView.backgroundColor = UIColor.clear
+            
+            IGStickerViewController.stickerAnimationDic[stickerItem.token] = self.animationView
+            IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token, completion: { (file) -> Void in
+                let cacheId = file.cacheID
+                DispatchQueue.main.async {
+                    if let stickerInfo = self.fetchStickerAnimation(cacheId: cacheId!){
+                        stickerInfo.animation.setLiveSticker(for: stickerInfo.file)
+                    }
                 }
-            }
-        })
+            })
+
+        } else {
+            self.makeImage()
+            self.mainView.backgroundColor = UIColor.clear
+            self.imgSticker.backgroundColor = UIColor.clear
+            
+            IGStickerViewController.stickerImageDic[stickerItem.token] = self.imgSticker
+            IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token, completion: { (file) -> Void in
+                let cacheId = file.cacheID
+                DispatchQueue.main.async {
+                    if let stickerInfo = self.fetchStickerImage(cacheId: cacheId!){
+                        stickerInfo.image.setSticker(for: stickerInfo.file)
+                    }
+                }
+            })
+
+        }
     }
     
     /** Hint: Temporary solution

@@ -5875,7 +5875,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         return self
     }
     
-    func didTapOnAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell, imageView: IGImageView?) {
+    func didTapOnAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
         
         UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions(rawValue: UInt(0.3)), animations: {
             self.view.layoutIfNeeded()
@@ -5894,12 +5894,22 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
         
         if finalMessage.type == .sticker {
-            if let sticker = IGHelperJson.parseStickerMessage(data: (finalMessage.additional?.data)!) {
-                stickerPageType = StickerPageType.PREVIEW
-                stickerGroupId = sticker.groupId
-                performSegue(withIdentifier: "showSticker", sender: self)
+            if (finalMessage.attachment?.name?.contains(".json"))! {
+                if let sticker = IGHelperJson.parseStickerMessage(data: (finalMessage.additional?.data)!) {
+                    stickerPageType = StickerPageType.PREVIEW
+                    stickerGroupId = sticker.groupId
+                    performSegue(withIdentifier: "showSticker", sender: self)
+                }
+                return
+            } else {
+                if let sticker = IGHelperJson.parseStickerMessage(data: (finalMessage.additional?.data)!) {
+                    stickerPageType = StickerPageType.PREVIEW
+                    stickerGroupId = sticker.groupId
+                    performSegue(withIdentifier: "showSticker", sender: self)
+                }
+                return
             }
-            return
+
         }
         
         if finalMessage.type == .location {
