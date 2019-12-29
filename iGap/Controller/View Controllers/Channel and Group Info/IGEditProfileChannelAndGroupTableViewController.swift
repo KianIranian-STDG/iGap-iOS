@@ -27,6 +27,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     var channelLink: String? = ""
     var tmpOldUserName: String? = ""
     var convertToPublic = false
+    var wasPrivate = false
     var signMessageSwitchStatus : Bool?
     var reactionSwitchStatus = false
     private var avatarObserver: NotificationToken?
@@ -78,6 +79,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         hideSaveChangesBtn()
         tfNameOfRoom.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         tfDescriptionOfRoom.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        tfChannelLink.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
     private func showSaveChangesBtn() {
@@ -263,7 +265,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 self.convertToPublic = false
                 tfChannelLink.isEnabled = false
                 lblChannelType.text = IGStringsManager.PrivateChannel.rawValue.localized
-                
+                wasPrivate = true
             }
             if room?.channelRoom?.type == .publicRoom {
                 channelLink = room?.channelRoom?.publicExtra?.username
@@ -884,7 +886,6 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
         
         optionMenu.addAction(ChoosePhoto)
-        let alertActions = optionMenu.actions
         optionMenu.view.tintColor = UIColor.organizationalColor()
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
             optionMenu.addAction(cameraOption)} else {
@@ -930,6 +931,13 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         })
         
         let privateChannel = UIAlertAction(title: IGStringsManager.Private.rawValue.localized, style: .default, handler: { (action) in
+            
+            if !self.wasPrivate {
+                self.checkSaveBtnAvailability()
+            } else {
+                self.showSaveChangesBtn()
+            }
+            
             if self.room?.type == .channel {
                 self.tableView.beginUpdates()
                 self.lblChannelType.text = IGStringsManager.ChannelType.rawValue.localized + "  " + IGStringsManager.Private.rawValue.localized
@@ -951,8 +959,12 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         
         let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
         
-        alertController.addAction(publicChannel)
-        alertController.addAction(privateChannel)
+        if convertToPublic {
+            alertController.addAction(privateChannel)
+        } else {
+            alertController.addAction(publicChannel)
+        }
+        
         alertController.addAction(cancel)
         
         self.present(alertController, animated: true, completion: nil)
@@ -1181,33 +1193,8 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         }
     }
     
-    // MARK:- TextField Delegate
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        switch textField {
-//        case tfNameOfRoom:
-//            checkSaveBtnAvailability()
-//            return
-//        case tfDescriptionOfRoom:
-//            checkSaveBtnAvailability()
-//            return
-//        default:
-//            return
-//        }
-//    }
-    
     @objc func textFieldDidChange(_ textField: UITextField) {
-
-        switch textField {
-        case tfNameOfRoom:
-            checkSaveBtnAvailability()
-            return
-        case tfDescriptionOfRoom:
-            checkSaveBtnAvailability()
-            return
-        default:
-            return
-        }
-        
+        checkSaveBtnAvailability()
     }
     
     private func checkSaveBtnAvailability() {
@@ -1222,8 +1209,11 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             return
         }
         
-        hideSaveChangesBtn()
+        if tfChannelLink.text != tmpOldUserName {
+            showSaveChangesBtn()
+            return
+        }
         
+        hideSaveChangesBtn()
     }
-    
 }
