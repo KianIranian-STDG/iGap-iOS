@@ -27,7 +27,7 @@ class IGStickerToolbar: UIGestureRecognizer {
     let ICON_BACKGROUDN_SIZE: Double = 38
     let STICKER_ADD = 1000000
     let STICKER_SETTING = 2000000
-//    var animationView : AnimationView!
+    var animationView : AnimationView!
     
     public func toolbarMaker() -> UIView{
         fetchStickerInfo()
@@ -58,7 +58,7 @@ class IGStickerToolbar: UIGestureRecognizer {
             }
         }
         print(IGStickerToolbar.buttonArray)
-
+        
         makeTabIcon(parent: scrollView, index: STICKER_ADD, imageName: "",isLiveStricker: false)
         //makeTabIcon(parent: scrollView, index: STICKER_SETTING, imageName: "")
         
@@ -75,88 +75,56 @@ class IGStickerToolbar: UIGestureRecognizer {
     
     private func makeTabIcon(parent: UIScrollView, index: Int, realmSticker: IGRealmSticker? = nil, imageName: String? = nil,isLiveStricker: Bool = false){
         
-        if isLiveStricker {
-            let animationView = AnimationView()
-            let btn = UIButton()
-            IGStickerToolbar.buttonArray.append(btn)
-            btn.tag = index
-            btn.addTarget(self, action: #selector(IGMessageViewController.tapOnStickerToolbar), for: .touchUpInside)
-            btn.backgroundColor = UIColor.clear
-            btn.layer.cornerRadius = 5
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        
+        let btn = UIButton()
+        IGStickerToolbar.buttonArray.append(btn)
+        btn.tag = index
+        btn.addTarget(self, action: #selector(IGMessageViewController.tapOnStickerToolbar), for: .touchUpInside)
+        btn.backgroundColor = UIColor.clear
+        btn.layer.cornerRadius = 5
+        
+        parent.addSubview(btn)
+        
+        btn.snp.makeConstraints { (make) in
+            make.left.equalTo(parent.snp.left).offset(leftSpace - ((ICON_BACKGROUDN_SIZE-ICON_SIZE)/2))
+            make.centerY.equalTo(parent.snp.centerY)
+            make.width.equalTo(ICON_BACKGROUDN_SIZE)
+            make.height.equalTo(ICON_BACKGROUDN_SIZE)
+        }
+        
+        if imageName != nil {
+            btn.setTitle(imageName, for: UIControl.State.normal)
+            btn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+            btn.setTitleColor(UIColor.messageText(), for: .normal)
+            btn.removeUnderline()
+        } else {
             
-            parent.addSubview(btn)
-            
-            btn.snp.makeConstraints { (make) in
-                make.left.equalTo(parent.snp.left).offset(leftSpace - ((ICON_BACKGROUDN_SIZE-ICON_SIZE)/2))
-                make.centerY.equalTo(parent.snp.centerY)
-                make.width.equalTo(ICON_BACKGROUDN_SIZE)
-                make.height.equalTo(ICON_BACKGROUDN_SIZE)
-            }
-            
-            if imageName != nil {
-                btn.setTitle(imageName, for: UIControl.State.normal)
-                btn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
-                btn.setTitleColor(UIColor.messageText(), for: .normal)
-                btn.removeUnderline()
-            } else {
-                
-                IGAttachmentManager.sharedManager.getStickerFileInfo(token: (realmSticker?.avatarToken)!, completion: { (file) -> Void in
-                    let cacheId = file.cacheID
-                    DispatchQueue.main.async {
-                        if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
-                            animationView.setLiveSticker(for: fileInfo)
+            IGAttachmentManager.sharedManager.getStickerFileInfo(token: (realmSticker?.avatarToken)!, completion: { (file) -> Void in
+                let cacheId = file.cacheID
+                DispatchQueue.main.async {
+                    if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
+                        if isLiveStricker {
+                            self.animationView.setLiveSticker(for: fileInfo)
+                        } else {
+                            imageView.setSticker(for: fileInfo)
                         }
                     }
-                })
-                
-                parent.addSubview(animationView)
-                animationView.snp.makeConstraints { (make) in
+                }
+            })
+            if isLiveStricker {
+                self.animationView = AnimationView()
+                self.animationView.contentMode = .scaleAspectFit
+                self.animationView.isUserInteractionEnabled = false
+                parent.addSubview(self.animationView)
+                self.animationView.snp.makeConstraints { (make) in
                     make.left.equalTo(parent.snp.left).offset(leftSpace)
                     make.centerY.equalTo(parent.snp.centerY)
                     make.width.equalTo(ICON_SIZE)
                     make.height.equalTo(ICON_SIZE)
                 }
-            }
-            
-            leftSpace += ICON_SPACE + ICON_SIZE
-
-
-        } else {
-            let imageView = UIImageView()
-            imageView.contentMode = .scaleAspectFit
-            
-            let btn = UIButton()
-            IGStickerToolbar.buttonArray.append(btn)
-            btn.tag = index
-            btn.addTarget(self, action: #selector(IGMessageViewController.tapOnStickerToolbar), for: .touchUpInside)
-            btn.backgroundColor = UIColor.clear
-            btn.layer.cornerRadius = 5
-            
-            parent.addSubview(btn)
-            
-            btn.snp.makeConstraints { (make) in
-                make.left.equalTo(parent.snp.left).offset(leftSpace - ((ICON_BACKGROUDN_SIZE-ICON_SIZE)/2))
-                make.centerY.equalTo(parent.snp.centerY)
-                make.width.equalTo(ICON_BACKGROUDN_SIZE)
-                make.height.equalTo(ICON_BACKGROUDN_SIZE)
-            }
-            
-            if imageName != nil {
-                btn.setTitle(imageName, for: UIControl.State.normal)
-                btn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
-                btn.setTitleColor(UIColor.messageText(), for: .normal)
-                btn.removeUnderline()
             } else {
-                
-                IGAttachmentManager.sharedManager.getStickerFileInfo(token: (realmSticker?.avatarToken)!, completion: { (file) -> Void in
-                    let cacheId = file.cacheID
-                    DispatchQueue.main.async {
-                        if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
-                            imageView.setSticker(for: fileInfo)
-                        }
-                    }
-                })
-                
                 parent.addSubview(imageView)
                 imageView.snp.makeConstraints { (make) in
                     make.left.equalTo(parent.snp.left).offset(leftSpace)
@@ -166,8 +134,10 @@ class IGStickerToolbar: UIGestureRecognizer {
                 }
             }
             
-            leftSpace += ICON_SPACE + ICON_SIZE
-            
         }
+        
+        leftSpace += ICON_SPACE + ICON_SIZE
+        
+        
     }
 }

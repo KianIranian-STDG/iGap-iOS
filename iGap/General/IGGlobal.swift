@@ -1219,6 +1219,7 @@ extension AnimationView {
                 
 
                 self.animation = animation
+                print(animation?.size)
                 self.backgroundBehavior = .pauseAndRestore
                 
                         self.play(fromProgress: 0,
