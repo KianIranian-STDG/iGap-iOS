@@ -616,6 +616,9 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                     switch protoResponse {
                     case let groupUpdateUserName as IGPGroupUpdateUsernameResponse :
                         let _ = IGGroupUpdateUsernameRequest.Handler.interpret(response: groupUpdateUserName)
+                        self.tableView.beginUpdates()
+                        self.tableView.endUpdates()
+
                         self.dispatchGroup.leave()
                         SMLoading.hideLoadingPage()
                         
@@ -933,6 +936,8 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
                 self.tfChannelLink.text = nil
                 self.tfChannelLink.isEnabled = true
                 self.convertToPublic = true
+                self.tableView.endUpdates()
+
             }
         })
         
