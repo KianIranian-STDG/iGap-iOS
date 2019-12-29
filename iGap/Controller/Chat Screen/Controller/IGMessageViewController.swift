@@ -705,6 +705,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.createTopMusicPlayer()
         }
         initTheme()
+        self.view.endEditing(true)
 //        manageCollectionInset()
     }
     private func manageCollectionInset() {
@@ -5305,6 +5306,10 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
             
         } else {
             self.messageTextView.resignFirstResponder()
+            if message.type == .sticker {
+                
+            }
+
         }
     }
     

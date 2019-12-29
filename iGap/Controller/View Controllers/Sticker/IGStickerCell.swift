@@ -12,37 +12,61 @@ import UIKit
 import messages
 import IGProtoBuff
 import RealmSwift
+import Lottie
 
 @available(iOS 10.0, *)
 class IGStickerCell: UICollectionViewCell {
     
     @IBOutlet weak var mainView: UIView!
-    
+    var animationView : AnimationView!
+
     var imgSticker: UIImageView!
     var stickerItemRealm: IGRealmStickerItem!
     var stickerItemStruct: Sticker!
     var sectionIndex: Int!
     
     func configure(stickerItem: IGRealmStickerItem) {
-        self.makeImage()
-        self.mainView.backgroundColor = UIColor.clear
-        self.imgSticker.backgroundColor = UIColor.clear
-        
-        self.stickerItemRealm = stickerItem
-        
-        let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnSticker(_:)))
-        self.imgSticker.addGestureRecognizer(onStickerClick)
-        self.imgSticker.isUserInteractionEnabled = true
-        
-        IGStickerViewController.stickerImageDic[stickerItem.token!] = self.imgSticker
-        IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token!, completion: { (file) -> Void in
-            let cacheId = file.cacheID
-            DispatchQueue.main.async {
-                if let stickerInfo = self.fetchStickerImage(cacheId: cacheId!){
-                    stickerInfo.image.setSticker(for: stickerInfo.file)
+        if (stickerItem.fileName?.contains(".json"))! {
+            self.makeAnimationView()
+            self.mainView.backgroundColor = UIColor.clear
+            self.animationView.backgroundColor = UIColor.clear
+            
+            self.stickerItemRealm = stickerItem
+            
+            let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnSticker(_:)))
+            self.animationView.addGestureRecognizer(onStickerClick)
+            self.animationView.isUserInteractionEnabled = true
+            
+            IGStickerViewController.stickerAnimationDic[stickerItem.token!] = self.animationView
+            IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token!, completion: { (file) -> Void in
+                let cacheId = file.cacheID
+                DispatchQueue.main.async {
+                    if let stickerInfo = self.fetchStickerAnimation(cacheId: cacheId!){
+                        stickerInfo.animation.setLiveSticker(for: stickerInfo.file)
+                    }
                 }
-            }
-        })
+            })
+        } else {
+            self.makeImage()
+            self.mainView.backgroundColor = UIColor.clear
+            self.imgSticker.backgroundColor = UIColor.clear
+            
+            self.stickerItemRealm = stickerItem
+            
+            let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnSticker(_:)))
+            self.imgSticker.addGestureRecognizer(onStickerClick)
+            self.imgSticker.isUserInteractionEnabled = true
+            
+            IGStickerViewController.stickerImageDic[stickerItem.token!] = self.imgSticker
+            IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token!, completion: { (file) -> Void in
+                let cacheId = file.cacheID
+                DispatchQueue.main.async {
+                    if let stickerInfo = self.fetchStickerImage(cacheId: cacheId!){
+                        stickerInfo.image.setSticker(for: stickerInfo.file)
+                    }
+                }
+            })
+        }
     }
     
     func configureListPage(stickerItem: Sticker, sectionIndex: Int) {
@@ -89,10 +113,19 @@ class IGStickerCell: UICollectionViewCell {
      * now for show sticker in toolbar and sticker cell we check all files with this token in a loop.
      * However, this loop only has two items.
      */
-    private func fetchStickerImage(cacheId: String) -> (file: IGFile, image: UIImageView)? {
+     private func fetchStickerImage(cacheId: String) -> (file: IGFile, image: UIImageView)? {
+         for file in IGDatabaseManager.shared.realm.objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId)) {
+             if let image = IGStickerViewController.stickerImageDic[file.token!] {
+                 return (file, image)
+             }
+         }
+         return nil
+     }
+    
+    private func fetchStickerAnimation(cacheId: String) -> (file: IGFile, animation: AnimationView)? {
         for file in IGDatabaseManager.shared.realm.objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId)) {
-            if let image = IGStickerViewController.stickerImageDic[file.token!] {
-                return (file, image)
+            if let animation = IGStickerViewController.stickerAnimationDic[file.token!] {
+                return (file, animation)
             }
         }
         return nil
@@ -115,11 +148,40 @@ class IGStickerCell: UICollectionViewCell {
     
     /********************************/
     /********** View Maker **********/
+    private func makeAnimationView() {
+        if animationView != nil {
+            animationView.removeFromSuperview()
+            animationView = nil
+        }
+        if imgSticker != nil {
+            imgSticker.removeFromSuperview()
+            imgSticker = nil
+        }
+
+        animationView = AnimationView()
+        animationView.layer.masksToBounds = true
+        animationView.contentMode = .scaleAspectFit
+        animationView.backgroundColor = .clear
+        mainView.addSubview(animationView)
+
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        animationView.topAnchor.constraint(equalTo: mainView.topAnchor).isActive = true
+        animationView.bottomAnchor.constraint(equalTo: mainView.bottomAnchor).isActive = true
+        animationView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor).isActive = true
+        animationView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor).isActive = true
+
+    }
+
     private func makeImage(){
         if imgSticker != nil {
             imgSticker.removeFromSuperview()
             imgSticker = nil
         }
+        if animationView != nil {
+            animationView.removeFromSuperview()
+            animationView = nil
+        }
+
         imgSticker = UIImageView()
         imgSticker.contentMode = .scaleAspectFit
         mainView.addSubview(imgSticker)
@@ -129,5 +191,17 @@ class IGStickerCell: UICollectionViewCell {
             make.right.equalTo(mainView.snp.right)
             make.bottom.equalTo(mainView.snp.bottom)
         }
+    }
+    
+    
+    override func prepareForReuse() {
+        if imgSticker != nil {
+                   imgSticker.removeFromSuperview()
+                   imgSticker = nil
+               }
+               if animationView != nil {
+                   animationView.removeFromSuperview()
+                   animationView = nil
+               }
     }
 }

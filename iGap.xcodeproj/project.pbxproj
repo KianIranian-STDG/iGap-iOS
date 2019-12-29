@@ -294,6 +294,9 @@
 		8ED68CB52377BDC500637C29 /* IGElecBillTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED68CB42377BDC500637C29 /* IGElecBillTableViewCell.swift */; };
 		8ED68CB72377C2A500637C29 /* IGStructBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED68CB62377C2A500637C29 /* IGStructBill.swift */; };
 		8ED68CB92378165D00637C29 /* IGStructDeleteBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED68CB82378165D00637C29 /* IGStructDeleteBill.swift */; };
+		8ED8053C23B772590097A4A6 /* IGLiveStickerPackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED8053B23B772590097A4A6 /* IGLiveStickerPackViewController.swift */; };
+		8ED8054323B772FB0097A4A6 /* IGLiveStickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED8054123B772FB0097A4A6 /* IGLiveStickerCell.swift */; };
+		8ED8054423B772FB0097A4A6 /* IGLiveStickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ED8054223B772FB0097A4A6 /* IGLiveStickerCell.xib */; };
 		8ED97D7622E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED97D7522E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift */; };
 		8EE1BFC82281604D001A2867 /* IGSetUserNickNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */; };
 		8EE552D42364ADD1003A21FE /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE552D32364ADD1003A21FE /* UIImage+Gif.swift */; };
@@ -1182,6 +1185,9 @@
 		8ED68CB42377BDC500637C29 /* IGElecBillTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGElecBillTableViewCell.swift; sourceTree = "<group>"; };
 		8ED68CB62377C2A500637C29 /* IGStructBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructBill.swift; sourceTree = "<group>"; };
 		8ED68CB82378165D00637C29 /* IGStructDeleteBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructDeleteBill.swift; sourceTree = "<group>"; };
+		8ED8053B23B772590097A4A6 /* IGLiveStickerPackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGLiveStickerPackViewController.swift; sourceTree = "<group>"; };
+		8ED8054123B772FB0097A4A6 /* IGLiveStickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGLiveStickerCell.swift; sourceTree = "<group>"; };
+		8ED8054223B772FB0097A4A6 /* IGLiveStickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGLiveStickerCell.xib; sourceTree = "<group>"; };
 		8ED97D7522E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFavouriteChannelsDashboardInnerTableViewController.swift; sourceTree = "<group>"; };
 		8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSetUserNickNameTableViewController.swift; sourceTree = "<group>"; };
 		8EE552D32364ADD1003A21FE /* UIImage+Gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
@@ -3413,7 +3419,10 @@
 				8E6BC53523B2649C0037323A /* IGMultiForwardModalViewController.swift */,
 				8ECCA1F122B8F6DF00D3A734 /* ForwardCell.swift */,
 				8ECCA1F222B8F6DF00D3A734 /* multiForwardShareUsers.xib */,
+				8ED8054123B772FB0097A4A6 /* IGLiveStickerCell.swift */,
+				8ED8054223B772FB0097A4A6 /* IGLiveStickerCell.xib */,
 				8ECCA1F522BA3FEB00D3A734 /* deviceSizeModel.swift */,
+				8ED8053B23B772590097A4A6 /* IGLiveStickerPackViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3860,6 +3869,7 @@
 				8E2CCD0C237ED630000C3B3F /* ImageLocalizable.strings in Resources */,
 				8ECCA1F422B8F6DF00D3A734 /* multiForwardShareUsers.xib in Resources */,
 				937455F91E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib in Resources */,
+				8ED8054423B772FB0097A4A6 /* IGLiveStickerCell.xib in Resources */,
 				8EC94E0923964462003B3510 /* IGOneNewsTVCell.xib in Resources */,
 				FA33063E1F445AE90096031A /* IRANSans_UltraLight.ttf in Resources */,
 				FA927E0620284DC100DF7145 /* GifCell.xib in Resources */,
@@ -4541,6 +4551,7 @@
 				8E4472A623320D6000900244 /* IGProfileUserCell.swift in Sources */,
 				FA09538F1E1B97E20043ED3F /* SSRadioButtonController.swift in Sources */,
 				FA90B72A20B53EBC00043C89 /* MessageReceiveObserver.swift in Sources */,
+				8ED8054323B772FB0097A4A6 /* IGLiveStickerCell.swift in Sources */,
 				9366D98C1E363C2500998BA3 /* IGSettingAboutWebViewViewController.swift in Sources */,
 				8EC94E0423964092003B3510 /* IGTripleNewsTVCell.swift in Sources */,
 				FA0CC8071E5D7D4400556283 /* ActiveBuilder.swift in Sources */,
@@ -4568,6 +4579,7 @@
 				8E7C74E42395451E00286315 /* SliderImageWithTextCVCell.swift in Sources */,
 				8E599D8C2329EC5E00D75376 /* IGPhoneBookTableViewController.swift in Sources */,
 				D67E984B23A67962003C1516 /* NSObject+AsociatedKeyForImageZoomControllers.swift in Sources */,
+				8ED8053C23B772590097A4A6 /* IGLiveStickerPackViewController.swift in Sources */,
 				FAA9DFBC1F4B1CD60076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTableViewController.swift in Sources */,
 				8E96A31A225B75EE007D8A77 /* SMDateUtil.swift in Sources */,
 				FA09535F1E1B97700043ED3F /* IGSettingContactBlockTableViewCell.swift in Sources */,

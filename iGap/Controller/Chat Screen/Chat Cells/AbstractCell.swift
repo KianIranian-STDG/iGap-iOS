@@ -1233,10 +1233,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                     IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) { (file) in
                         
                         if (self.finalRoomMessage.attachment?.name!.hasSuffix(".json") ?? false) {
-                            print("YESS LIVE STICKER")
+//                            print("YESS LIVE STICKER")
                             self.animationView.setLiveSticker(for: file)
                         } else {
-                            print("YESS NORMAL STICKER")
+//                            print("YESS NORMAL STICKER")
                             self.imgMediaAbs?.setSticker(for: file)
 
                         }
@@ -1959,9 +1959,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
     private func makeAnimationView(attachmentJson: IGFile) {
         animationView = AnimationView()
         animationView.layer.masksToBounds = true
-//        animationView.layer.cornerRadius = cornerRadius
-        let animation = Animation.filepath(attachmentJson.path()!.absoluteString)
-        animationView.animation = animation
         animationView.contentMode = .scaleAspectFit
         animationView.backgroundColor = .clear
         mainBubbleViewAbs.addSubview(animationView)
@@ -1971,9 +1968,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         animationView.leadingAnchor.constraint(equalTo: mainBubbleViewAbs.leadingAnchor).isActive = true
         animationView.trailingAnchor.constraint(equalTo: mainBubbleViewAbs.trailingAnchor).isActive = true
         animationView.heightAnchor.constraint(equalToConstant: messageSizes.messageAttachmentHeight-bubbleSubviewOffset).isActive = true
-
-
-//        playANimation(animationView: animationView)
 
     }
     private func playANimation(animationView: AnimationView) {

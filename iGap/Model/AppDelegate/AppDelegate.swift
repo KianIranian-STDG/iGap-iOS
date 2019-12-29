@@ -344,12 +344,14 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     }
     
     func showLoginFaieldAlert(title: String = "Login Failed", message: String = "There was a problem logging you in. Please login again") {
-        let badLoginAC = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            self.logoutAndShowRegisterViewController()
-        })
-        badLoginAC.addAction(ok)
-        self.window?.rootViewController?.present(badLoginAC, animated: true, completion: nil)
+//        let badLoginAC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+//            self.logoutAndShowRegisterViewController()
+//        })
+//        badLoginAC.addAction(ok)
+//        self.window?.rootViewController?.present(badLoginAC, animated: true, completion: nil)
+        self.logoutAndShowRegisterViewController() // comment this line if the alert was unhidden
+
     }
     
     

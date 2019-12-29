@@ -36,7 +36,7 @@ class IGHelperBottomModals {
     //        return UIView()
         }
     
-    
+    //MARK: - MultiForward Modal
     func showMultiForwardModal(view: UIViewController? = nil,messages: [IGRoomMessage] = []) {//}-> UIView {
             var alertView = view
             if alertView == nil {
@@ -48,4 +48,6 @@ class IGHelperBottomModals {
             alertView!.presentPanModal(vc)
     //        return UIView()
         }
+    //MARK: -  Modal
+
 }

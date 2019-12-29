@@ -32,7 +32,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="نوع عملیات را انتخاب نمایید" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pRX-qj-pIG">
-                                                <rect key="frame" x="143.5" y="20.5" width="127" height="15.5"/>
+                                                <rect key="frame" x="134" y="18" width="146" height="20.5"/>
                                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                                 <color key="textColor" name="IGLabelColor"/>
                                                 <nil key="highlightedColor"/>
@@ -315,6 +315,153 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uu5-LU-6AB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-52.173913043478265" y="164.73214285714286"/>
+        </scene>
+        <!--Multi Forward Modal View Controller-->
+        <scene sceneID="3iK-qb-j4r">
+            <objects>
+                <viewController storyboardIdentifier="IGLiveStickerPackViewController" id="O9Z-B6-gIv" customClass="IGMultiForwardModalViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SIF-gI-BpU">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uzB-ge-O93">
+                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mSo-3l-FKv">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="نوع عملیات را انتخاب نمایید" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5O-fF-Cal">
+                                                <rect key="frame" x="134" y="18" width="146" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
+                                                <color key="textColor" name="IGLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m89-hr-Gxj">
+                                                <rect key="frame" x="10" y="0.0" width="30" height="56"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="56" id="gSg-Jk-Lup"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="24"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" name="IGLabelColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btnSearchTap:" destination="O9Z-B6-gIv" eventType="touchUpInside" id="Pfx-Xn-jb3"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="m89-hr-Gxj" firstAttribute="top" secondItem="mSo-3l-FKv" secondAttribute="top" id="5p4-4x-ti0"/>
+                                            <constraint firstItem="R5O-fF-Cal" firstAttribute="centerY" secondItem="mSo-3l-FKv" secondAttribute="centerY" id="AdG-Ql-4dT"/>
+                                            <constraint firstItem="m89-hr-Gxj" firstAttribute="centerY" secondItem="mSo-3l-FKv" secondAttribute="centerY" id="FDY-5g-xEB"/>
+                                            <constraint firstItem="R5O-fF-Cal" firstAttribute="centerX" secondItem="mSo-3l-FKv" secondAttribute="centerX" id="fkt-cD-IUm"/>
+                                            <constraint firstItem="m89-hr-Gxj" firstAttribute="leading" secondItem="mSo-3l-FKv" secondAttribute="leading" constant="10" id="lHb-sZ-lsa"/>
+                                            <constraint firstAttribute="bottom" secondItem="m89-hr-Gxj" secondAttribute="bottom" id="zEQ-bV-XGn"/>
+                                        </constraints>
+                                    </view>
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="Quh-LF-Q8O">
+                                        <rect key="frame" x="0.0" y="56" width="414" height="0.0"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="iX1-4f-rTo"/>
+                                </constraints>
+                            </stackView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="dkj-Yv-JAy">
+                                <rect key="frame" x="8" y="108" width="398" height="400"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="400" id="rrO-LL-WMf"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pkX-DF-80V">
+                                    <size key="itemSize" width="50" height="80"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <connections>
+                                    <outlet property="dataSource" destination="O9Z-B6-gIv" id="jl4-W1-xmw"/>
+                                    <outlet property="delegate" destination="O9Z-B6-gIv" id="chc-Lp-fP6"/>
+                                </connections>
+                            </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgn-yn-yLR">
+                                <rect key="frame" x="10" y="518" width="394" height="0.5"/>
+                                <color key="backgroundColor" name="IGLabelGrayColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="3G8-8a-dUX"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="IXP-ud-jEf">
+                                <rect key="frame" x="0.0" y="520.5" width="414" height="48"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFq-BG-8lJ" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
+                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                        <state key="normal" title="ارسال">
+                                            <color key="titleColor" red="0.25882352939999997" green="0.69411764710000001" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="didTapOnSendButton:" destination="O9Z-B6-gIv" eventType="touchUpInside" id="ZVq-Om-NiH"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="uTN-Xb-LtL"/>
+                                </constraints>
+                            </stackView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QV3-RJ-jtC">
+                                <rect key="frame" x="247" y="534.5" width="20.5" height="20.5"/>
+                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20.5" id="Idt-V5-HtR"/>
+                                    <constraint firstAttribute="height" constant="20.5" id="hNM-po-U2q"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="W7j-oV-5Wp" firstAttribute="trailing" secondItem="uzB-ge-O93" secondAttribute="trailing" id="4yP-hH-3xs"/>
+                            <constraint firstItem="uzB-ge-O93" firstAttribute="leading" secondItem="W7j-oV-5Wp" secondAttribute="leading" id="ChV-vq-hJI"/>
+                            <constraint firstItem="W7j-oV-5Wp" firstAttribute="trailing" secondItem="dkj-Yv-JAy" secondAttribute="trailing" constant="8" id="K1y-hU-XK9"/>
+                            <constraint firstItem="vgn-yn-yLR" firstAttribute="top" secondItem="dkj-Yv-JAy" secondAttribute="bottom" constant="10" id="Lje-iC-A7p"/>
+                            <constraint firstItem="uzB-ge-O93" firstAttribute="top" secondItem="W7j-oV-5Wp" secondAttribute="top" id="WLq-77-lYK"/>
+                            <constraint firstItem="QV3-RJ-jtC" firstAttribute="centerY" secondItem="IXP-ud-jEf" secondAttribute="centerY" id="cY4-Zl-VtD"/>
+                            <constraint firstAttribute="trailing" secondItem="vgn-yn-yLR" secondAttribute="trailing" constant="10" id="crQ-TS-Gfn"/>
+                            <constraint firstItem="IXP-ud-jEf" firstAttribute="leading" secondItem="W7j-oV-5Wp" secondAttribute="leading" id="elr-aG-clg"/>
+                            <constraint firstItem="dkj-Yv-JAy" firstAttribute="leading" secondItem="W7j-oV-5Wp" secondAttribute="leading" constant="8" id="evD-2y-0eS"/>
+                            <constraint firstItem="IXP-ud-jEf" firstAttribute="top" secondItem="vgn-yn-yLR" secondAttribute="bottom" constant="2" id="gzf-hg-egc"/>
+                            <constraint firstItem="vgn-yn-yLR" firstAttribute="leading" secondItem="SIF-gI-BpU" secondAttribute="leading" constant="10" id="ovc-XS-RZP"/>
+                            <constraint firstItem="QV3-RJ-jtC" firstAttribute="centerX" secondItem="DFq-BG-8lJ" secondAttribute="centerX" constant="50" id="r51-3y-h3A"/>
+                            <constraint firstItem="dkj-Yv-JAy" firstAttribute="top" secondItem="uzB-ge-O93" secondAttribute="bottom" constant="8" id="r91-MR-Rwe"/>
+                            <constraint firstItem="W7j-oV-5Wp" firstAttribute="trailing" secondItem="IXP-ud-jEf" secondAttribute="trailing" id="rll-t5-qej"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="W7j-oV-5Wp"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnSearch" destination="m89-hr-Gxj" id="Bww-tz-cd5"/>
+                        <outlet property="btnSend" destination="DFq-BG-8lJ" id="gGD-Od-iBF"/>
+                        <outlet property="btnSendHeightConstraint" destination="uTN-Xb-LtL" id="hiE-ee-wVd"/>
+                        <outlet property="collectionHeightConstraint" destination="rrO-LL-WMf" id="pKk-aZ-aGv"/>
+                        <outlet property="lblCount" destination="QV3-RJ-jtC" id="Jzz-Rb-W8i"/>
+                        <outlet property="lblInfo" destination="R5O-fF-Cal" id="ekQ-Ho-azb"/>
+                        <outlet property="searchBar" destination="Quh-LF-Q8O" id="FJ2-bM-Bkz"/>
+                        <outlet property="stackHeightConstraint" destination="iX1-4f-rTo" id="sxY-ZI-jB7"/>
+                        <outlet property="usersCollectionView" destination="dkj-Yv-JAy" id="Gzv-3N-vZj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ake-06-JSo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1397" y="165"/>
         </scene>
     </scenes>
     <resources>
