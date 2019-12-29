@@ -2878,9 +2878,8 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
         return false
     }
     
-    func allowEdit(_ message: IGRoomMessage) -> Bool{
-        if  (message.forwardedFrom == nil) && message.type != .sticker && message.authorHash == currentLoggedInUserAuthorHash && message.type != .contact && message.type != .location &&
-            ((self.room!.type == .chat) || (self.room!.type == .channel && self.room!.channelRoom!.role != .member) || (self.room!.type == .group && self.room!.groupRoom!.role != .member)) {
+    func allowEdit(_ message: IGRoomMessage) -> Bool {
+        if  (message.forwardedFrom == nil) && !self.room!.isReadOnly && message.authorHash == currentLoggedInUserAuthorHash && message.type != .sticker && message.type != .contact && message.type != .location {
             return true
         }
         return false
