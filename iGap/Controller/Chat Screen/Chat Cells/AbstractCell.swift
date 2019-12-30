@@ -756,7 +756,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             }
         }
         /************ Add multi Forward icon only in Rooms ************/
-        if room.type == .channel {
+        if room.type == .channel || (room.type == .chat && IGGlobal.isCloud(room: room)) {
             makeMultiForwardIconInRooms()
         }
     }
@@ -1468,12 +1468,16 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         if imgMultiForward == nil {
             imgMultiForward = UIImageView()
             imgMultiForward.contentMode = .scaleAspectFit
-            imgMultiForward.image = UIImage(named: "ig_message_forward")
+            if room.type == .channel {
+                imgMultiForward.image = UIImage(named: "ig_message_forward")
+            } else if (room.type == .chat && IGGlobal.isCloud(room: room)) {
+                imgMultiForward.image = UIImage(named: "cloudForwardIcon")
+            }
             let tap = UITapGestureRecognizer(target: self, action: #selector(self.onMultiForwardTap(_:)))
             imgMultiForward.addGestureRecognizer(tap)
             imgMultiForward.isUserInteractionEnabled = true
             
-            if room.type == .channel {
+            if room.type == .channel  {
                 imgMultiForward.alpha = 0.5
                 
                 self.contentView.addSubview(imgMultiForward)
@@ -1488,6 +1492,21 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                     make.width.equalTo(CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
                 }
                 
+            } else if  (room.type == .chat && IGGlobal.isCloud(room: room)) {
+                imgMultiForward.alpha = 0.5
+                       
+                       self.contentView.addSubview(imgMultiForward)
+                       self.contentView.bringSubviewToFront(imgMultiForward)
+                       
+                       
+                       
+                       imgMultiForward.snp.makeConstraints{ (make) in
+                           make.trailing.equalTo(mainBubbleViewAbs.snp.leading).offset(-2)
+                           make.bottom.equalTo(mainBubbleViewAbs.snp.bottom).offset(-5)
+                           make.height.equalTo(CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
+                           make.width.equalTo(CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
+                       }
+
             }
         }
         

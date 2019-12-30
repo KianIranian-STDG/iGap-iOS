@@ -319,7 +319,6 @@
         <!--Live Sticker Pack View Controller-->
         <scene sceneID="3iK-qb-j4r">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ake-06-JSo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="IGLiveStickerPackViewController" id="O9Z-B6-gIv" customClass="IGLiveStickerPackViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SIF-gI-BpU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -443,6 +442,7 @@
                         <viewLayoutGuide key="safeArea" id="W7j-oV-5Wp"/>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ake-06-JSo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1397" y="165"/>
         </scene>
