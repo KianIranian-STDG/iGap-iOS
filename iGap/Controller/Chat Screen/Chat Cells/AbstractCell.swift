@@ -968,7 +968,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
     }
     
     @objc func onMultiForwardTap(_ gestureRecognizer: UITapGestureRecognizer) {
-        self.delegate?.didTapOnMultiForward(cellMessage: realmRoomMessage!, cell: self)
+        self.delegate?.didTapOnMultiForward(cellMessage: realmRoomMessage!, cell: self, isFromCloud: IGGlobal.isCloud(room: self.room))
     }
 
     @objc func didTapOnAttachment(_ gestureRecognizer: UITapGestureRecognizer) {

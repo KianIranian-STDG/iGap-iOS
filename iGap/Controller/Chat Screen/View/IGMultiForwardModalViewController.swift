@@ -27,7 +27,7 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
     let cellIdentifier = "cellIdentifier"
     var isInsearchMode : Bool! = false
     var selectedMessages : [IGRoomMessage] = []
-
+    var isFromCloud : Bool = false
     @IBOutlet weak var lblInfo : UILabel!
     @IBOutlet weak var lblCount : UILabel!
     @IBOutlet weak var stackHeightConstraint: NSLayoutConstraint!
@@ -99,7 +99,7 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
         
         SwiftEventBus.post(EventBusManager.sendForwardReq)
         self.dismiss(animated: true, completion: {
-            IGHelperForward.handleForward(messages: self.selectedMessages, forwardModal: self, controller: UIApplication.topViewController())
+            IGHelperForward.handleForward(messages: self.selectedMessages, forwardModal: self, controller: UIApplication.topViewController(), isFromCloud: self.isFromCloud)
         })
 
     }

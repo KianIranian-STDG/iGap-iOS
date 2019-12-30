@@ -177,7 +177,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     var originalPoint: CGPoint!
     var selectedMessages : [IGRoomMessage] = []
     var sendTone: AVAudioPlayer?
-    
+    var isFromCloud : Bool = false
     let documentPickerIdentifiers = [String(kUTTypeURL), String(kUTTypeFileURL), String(kUTTypePDF), // file start
         String(kUTTypeGNUZipArchive), String(kUTTypeBzip2Archive), String(kUTTypeZipArchive),
         String(kUTTypeWebArchive), String(kUTTypeTXNTextAndMultimediaData), String(kUTTypeFlatRTFD),
@@ -5718,60 +5718,9 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     }
     
     
-    func showMultiShareModal() {
+    func showMultiShareModal(isCloud: Bool = false) {
         self.MultiShareModalIsActive = true
-        IGHelperBottomModals.shared.showMultiForwardModal(view: self,messages : self.selectedMessages)
-
-//        if forwardModal == nil {
-//
-//
-////            //            blurEffectView = UIVisualEffectView(effect: blurEffect)
-////            //            blurEffectView.frame = view.bounds
-////            //            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-////            //            view.addSubview(blurEffectView)
-////
-////
-////            forwardModal = IGMultiForwardModal.loadFromNib()
-////
-////            forwardModal.btnSend.addTarget(self, action: #selector(sendMultiForwardRequest), for: .touchUpInside)
-////
-//////            forwardModal!.frame = CGRect(x: 0, y: self.view.frame.height - 100 , width: self.view.frame.width, height: forwardModal.frame.height)
-//////            multiShareModalOriginalHeight = forwardModal.frame.height
-////            self.view.backgroundColor = ThemeManager.currentTheme.BackGroundColor
-////            self.view.addSubview(forwardModal)
-////            forwardModal.translatesAutoresizingMaskIntoConstraints = false
-////            forwardModal.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-////            forwardModal.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-////            if UIDevice.current.hasNotch {
-////                bConstraint = forwardModal.bottomAnchor.constraint(equalTo: self.view.bottomAnchor,constant: -20)
-////            } else {
-////                bConstraint = forwardModal.bottomAnchor.constraint(equalTo: self.view.bottomAnchor,constant: 0)
-////            }
-////            bConstraint.isActive = true
-////            forwardModal.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-////
-////
-////
-////            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
-////            swipeDown.direction = .down
-////
-////            forwardModal.addGestureRecognizer(swipeDown)
-////            //dismissView
-////            dissmissViewBG.frame = view.bounds
-////            dissmissViewBG.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-////            self.view.addSubview(dissmissViewBG)
-////            dissmissViewBG.backgroundColor = UIColor.darkGray.withAlphaComponent(0.8)
-////            let tapToDismiss = UITapGestureRecognizer(target: self, action: #selector(didTapOnDissmissView))
-////            dissmissViewBG.addGestureRecognizer(tapToDismiss)
-////            dissmissViewBG.isUserInteractionEnabled = true
-////
-////            self.view.bringSubviewToFront(dissmissViewBG)
-////
-////            self.view.bringSubviewToFront(forwardModal!)
-//
-//        }
-
-        
+        IGHelperBottomModals.shared.showMultiForwardModal(view: self,messages : self.selectedMessages, isFromCloud: isCloud )
     }
     
     private func manageFailedMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
@@ -6038,10 +5987,11 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
     }
     
-    func didTapOnMultiForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
+    func didTapOnMultiForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell,isFromCloud: Bool = false){
         self.selectedMessages.removeAll()
         self.selectedMessages.append(cellMessage)
-        showMultiShareModal()
+        
+        showMultiShareModal(isCloud : isFromCloud)
     }
     
     func didTapOnMention(mentionText: String) {
