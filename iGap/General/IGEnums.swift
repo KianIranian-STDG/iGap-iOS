@@ -28,6 +28,7 @@ enum AppStoryboard : String {
     case InternetPackage = "InternetPackage"
     case Message = "Message"
     case News = "News"
+    case MemoryTest = "MemoryTest"
 
     var instance : UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: nil)

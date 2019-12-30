@@ -417,6 +417,11 @@
 		D67E985F23A679AB003C1516 /* BounceOffsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67E985A23A679AB003C1516 /* BounceOffsets.swift */; };
 		D67E986023A679AB003C1516 /* ImageZoomControllerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67E985B23A679AB003C1516 /* ImageZoomControllerSettings.swift */; };
 		D67E986223A679B5003C1516 /* TypeAliasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67E986123A679B5003C1516 /* TypeAliasses.swift */; };
+		D68085FD23B8B1B800E456EA /* ViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68085FC23B8B1B800E456EA /* ViewControllerTest.swift */; };
+		D68085FF23B8CE0C00E456EA /* ObserverTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68085FE23B8CE0C00E456EA /* ObserverTest.swift */; };
+		D680860123B8D7FE00E456EA /* StructTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D680860023B8D7FE00E456EA /* StructTest.swift */; };
+		D680860323B8D96400E456EA /* ClassTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D680860223B8D96400E456EA /* ClassTest.swift */; };
+		D681FC4F23B9C6BF00197211 /* MemoryTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D681FC4E23B9C6BF00197211 /* MemoryTest.storyboard */; };
 		D6A89976236D8D920087215B /* IGHelperAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A89975236D8D920087215B /* IGHelperAvatar.swift */; };
 		D6CCCBF82392A1E10061F749 /* CardToCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */; };
 		D6EAF0742383D9B300D7F177 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */; };
@@ -1309,6 +1314,11 @@
 		D67E985A23A679AB003C1516 /* BounceOffsets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceOffsets.swift; sourceTree = "<group>"; };
 		D67E985B23A679AB003C1516 /* ImageZoomControllerSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageZoomControllerSettings.swift; sourceTree = "<group>"; };
 		D67E986123A679B5003C1516 /* TypeAliasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeAliasses.swift; sourceTree = "<group>"; };
+		D68085FC23B8B1B800E456EA /* ViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTest.swift; sourceTree = "<group>"; };
+		D68085FE23B8CE0C00E456EA /* ObserverTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverTest.swift; sourceTree = "<group>"; };
+		D680860023B8D7FE00E456EA /* StructTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructTest.swift; sourceTree = "<group>"; };
+		D680860223B8D96400E456EA /* ClassTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTest.swift; sourceTree = "<group>"; };
+		D681FC4E23B9C6BF00197211 /* MemoryTest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MemoryTest.storyboard; sourceTree = "<group>"; };
 		D6A89975236D8D920087215B /* IGHelperAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperAvatar.swift; sourceTree = "<group>"; };
 		D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardToCardCell.xib; sourceTree = "<group>"; };
 		DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRequestSignaling.swift; sourceTree = "<group>"; };
@@ -2517,6 +2527,17 @@
 			path = TypeAliasses;
 			sourceTree = "<group>";
 		};
+		D680860423B8DE2300E456EA /* MemoryTest */ = {
+			isa = PBXGroup;
+			children = (
+				D68085FC23B8B1B800E456EA /* ViewControllerTest.swift */,
+				D680860023B8D7FE00E456EA /* StructTest.swift */,
+				D680860223B8D96400E456EA /* ClassTest.swift */,
+				D68085FE23B8CE0C00E456EA /* ObserverTest.swift */,
+			);
+			path = MemoryTest;
+			sourceTree = "<group>";
+		};
 		D6B0725A23794B0100BF4DDD /* MediaViewer */ = {
 			isa = PBXGroup;
 			children = (
@@ -2739,6 +2760,7 @@
 		FA41C6EE1DC9DFBD00598383 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				D680860423B8DE2300E456EA /* MemoryTest */,
 				FA4CFD0521A046BA005FCBF2 /* Helpers */,
 				FAD8A02C21EE08D4006996E1 /* Structs */,
 				FA90B72820B53E5F00043C89 /* Protocols */,
@@ -3454,9 +3476,9 @@
 				FA4CBBD222894BCC00264A7C /* IGStructClientGetRoomHistoryIdentity.swift */,
 				FAC1330422C098D000817044 /* IGStructMessageOption.swift */,
 				FAA4E85A23124B110091199B /* IGForwardStruct.swift */,
+				FADA7B7F23291EAC0017A69B /* IGStructPayment.swift */,
 				940F9E79231BC17400C26D50 /* IGStructFavouriteChannels.swift */,
 				D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */,
-				FADA7B7F23291EAC0017A69B /* IGStructPayment.swift */,
 				FA075DEE232A631E002E7AC7 /* IGStructInternetCategory.swift */,
 				8E0405C52371B9AC00516DEB /* ElectricityBills */,
 				8E3FC94F23705FF5003C9C6C /* IGStructErrorHandler.swift */,
@@ -3570,6 +3592,7 @@
 				8ECC1827222F991F006E43E8 /* wallet.storyboard */,
 				FA786D59206A746700608A2D /* CreateRoom.storyboard */,
 				FA936905207364E100A0D86A /* Register.storyboard */,
+				D681FC4E23B9C6BF00197211 /* MemoryTest.storyboard */,
 			);
 			path = VIew;
 			sourceTree = "<group>";
@@ -3914,6 +3937,7 @@
 				FA3306361F445A570096031A /* IRANSans.ttf in Resources */,
 				FAFDB3B6204EBCCA0022D183 /* IGCallListTableViewCell.xib in Resources */,
 				FA99FF6D2235413B009035DF /* DashboardCell4.xib in Resources */,
+				D681FC4F23B9C6BF00197211 /* MemoryTest.storyboard in Resources */,
 				8E1CD973232CF79A008D8758 /* PhoneBook.storyboard in Resources */,
 				FA15F0B323488BCA001E8158 /* iGap_fontico.ttf in Resources */,
 				D6CCCBF82392A1E10061F749 /* CardToCardCell.xib in Resources */,
@@ -4144,6 +4168,7 @@
 				8EA8F3E9231F9E450099C4EF /* UICircularProgressRingDelegate.swift in Sources */,
 				8ECC182C222FB875006E43E8 /* buttonX.swift in Sources */,
 				8EC217C52259F59900105B5A /* SMBank.swift in Sources */,
+				D68085FF23B8CE0C00E456EA /* ObserverTest.swift in Sources */,
 				FAD959071F48D4EF00FBD306 /* IGSettingQrScannerViewController.swift in Sources */,
 				FAEC02D71F439E47001EB4B6 /* IGRegistrationStepQrViewController.swift in Sources */,
 				FAEEB0C31E1BC11600B6775F /* IGContact.swift in Sources */,
@@ -4263,6 +4288,7 @@
 				FA0953681E1B97700043ED3F /* IGSettingPrivacy&SecurityTableViewController.swift in Sources */,
 				D67E985C23A679AB003C1516 /* SpringAnimator.swift in Sources */,
 				8E4177F7233CDABD00CEB3AF /* AKMaskFieldBrackets.swift in Sources */,
+				D680860323B8D96400E456EA /* ClassTest.swift in Sources */,
 				8EBF550022D9B60D00834E6A /* BeautifulBarEntry.swift in Sources */,
 				8EBF54FB22D9B60D00834E6A /* UIBezierPathExtension.swift in Sources */,
 				FA8F22561DD89C88005A90D1 /* IGChannelRoom.swift in Sources */,
@@ -4325,6 +4351,7 @@
 				931585151E6D567000F4C04B /* IGUserPrivacy.swift in Sources */,
 				8EA854B5239E8E8600C9442F /* IGColorsSetCVCell.swift in Sources */,
 				FAA9DFB41F4B1C200076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationOptionsTableViewController.swift in Sources */,
+				D68085FD23B8B1B800E456EA /* ViewControllerTest.swift in Sources */,
 				8EBF550522D9B65000834E6A /* DynamicTextLayer.swift in Sources */,
 				FAE6064621EB4B7200F03FFC /* IGHelperOpenLink.swift in Sources */,
 				FA09535D1E1B97700043ED3F /* IGSettingChooseContactToAddToBlockListTableViewController.swift in Sources */,
@@ -4633,6 +4660,7 @@
 				FAA2A85A200A31CB00CAA7C7 /* IGSettingAccountBioTableViewController.swift in Sources */,
 				8E3C6989236036E8001575BE /* PanModalPresentable+Defaults.swift in Sources */,
 				8E25A7C322674601004A5BC0 /* IGSettingChangeLanguageTableViewController.swift in Sources */,
+				D680860123B8D7FE00E456EA /* StructTest.swift in Sources */,
 				FA85066C22670703002EEBF7 /* QRMainTabbarController.swift in Sources */,
 				FA3D05EA2382B2E600A9EEC1 /* IGSplashViewController.swift in Sources */,
 				FA63BAAD1DD70F09000B60AD /* IGRequestGroup.swift in Sources */,

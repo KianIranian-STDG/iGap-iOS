@@ -67,14 +67,15 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
             self.tfNameOfRoom.placeholder = IGStringsManager.GroupName.rawValue.localized
         }
         
-        self.initNavigationBar(title: title, rightItemText: "", rightItemFontSize: 26, iGapFont: true) {
-            self.view.endEditing(true)
-            if self.room?.type == .channel {
-                self.RequestSequenceChannel()
+        self.initNavigationBar(title: title, rightItemText: "", rightItemFontSize: 26, iGapFont: true, rightAction: { [weak self] in
+            self?.view.endEditing(true)
+            if self?.room?.type == .channel {
+                self?.RequestSequenceChannel()
             } else {
-                self.RequestSequenceGroup()
+                self?.RequestSequenceGroup()
             }
-        }
+        })
+        
         initView()
         initTheme()
         initAvatarObserver()
@@ -82,6 +83,15 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
         tfNameOfRoom.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         tfDescriptionOfRoom.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         tfChannelLink.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.avatarObserver?.invalidate()
+    }
+    
+    deinit {
+        print("Deinit IGEditProfileChannelAndGroupTableViewController")
     }
     
     private func showSaveChangesBtn() {
