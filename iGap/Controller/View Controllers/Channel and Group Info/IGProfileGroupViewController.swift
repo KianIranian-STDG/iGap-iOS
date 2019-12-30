@@ -21,17 +21,18 @@ import MBProgressHUD
 class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,cellTypeTwoDelegate {
     
     //MARK: -Variables
-    var adminsCount : String = "0"
-    var moderatprsCount : String = "0"
-    var adminsMembersCount : Results<IGRealmMember>!
-    var moderatorsMembersCount : Results<IGRealmMember>!
-    var adminsRole = IGPChannelRoom.IGPRole.admin.rawValue
-    var moderatorRole = IGPChannelRoom.IGPRole.moderator.rawValue
-    var predicateAdmins : NSPredicate!
-    var predicateModerators : NSPredicate!
-    var notificationTokenModerator: NotificationToken?
-    var notificationAdmin: NotificationToken?
-    
+    private var adminsCount : String = "0"
+    private var moderatprsCount : String = "0"
+    private var adminsMembersCount : Results<IGRealmMember>!
+    private var moderatorsMembersCount : Results<IGRealmMember>!
+    private var adminsRole = IGPChannelRoom.IGPRole.admin.rawValue
+    private var moderatorRole = IGPChannelRoom.IGPRole.moderator.rawValue
+    private var predicateAdmins : NSPredicate!
+    private var predicateModerators : NSPredicate!
+    private var notificationTokenModerator: NotificationToken?
+    private var notificationAdmin: NotificationToken?
+    private var avatarObserver: NotificationToken?
+    private var groupInfoObserver: NotificationToken?
     
     var isFistLaunch : Bool! = true
     var groupLink: String? = ""
@@ -48,13 +49,12 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
     var selectedGroup: IGGroupRoom?
     var groupRoom : Results<IGRoom>!
     var mode : String? = "Members"
-    var notificationToken: NotificationToken?
     var connectionStatus: IGAppManager.ConnectionStatus?
     var avatars: [IGAvatar] = []
     var deleteView: IGTappableView?
     var userAvatar: IGAvatar?
     var maxNavHeight : CGFloat = 100
-    private var avatarObserver: NotificationToken?
+    
     
     //MARK: -Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -100,6 +100,18 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         super.viewWillAppear(animated)
         let navigationControllerr = self.navigationController as! IGNavigationController
         navigationControllerr.interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        notificationTokenModerator?.invalidate()
+        notificationAdmin?.invalidate()
+        avatarObserver?.invalidate()
+        groupInfoObserver?.invalidate()
+    }
+
+    deinit {
+        print("Deint IGProfileGroupViewController")
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -284,7 +296,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
         let predicate = NSPredicate(format: "id = %lld", (room?.id)!)
         groupRoom =  try! Realm().objects(IGRoom.self).filter(predicate)
         
-        self.notificationToken = groupRoom.observe { (changes: RealmCollectionChange) in
+        self.groupInfoObserver = groupRoom.observe { (changes: RealmCollectionChange) in
             if self.room == nil || self.room!.isInvalidated {return}
             let predicatea = NSPredicate(format: "id = %lld", (self.room?.id)!)
             self.room =  try! Realm().objects(IGRoom.self).filter(predicatea).first!
@@ -496,26 +508,18 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
     func requestToGetRoom() {
         if let groupRoom = room {
             IGClientGetRoomRequest.Generator.generate(roomId: groupRoom.id).success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let clientGetRoomResponse as IGPClientGetRoomResponse:
-                        _ = IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
-                        
-                        
-                    default:
-                        break
-                    }
+                if let clientGetRoomResponse = protoResponse as? IGPClientGetRoomResponse {
+                    _ = IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
                 }
-            }).error ({ (errorCode, waitTime) in
+                
+            }).error ({ [weak self] (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
-                    self.hud.hide(animated: true)
-
+                    self?.hud.hide(animated: true)
                     break
                 default:
                     break
                 }
-                
             }).send()
         }
     }
