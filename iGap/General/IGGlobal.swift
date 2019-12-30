@@ -111,7 +111,12 @@ class IGGlobal {
         var total: Int = 0
         var count: Int = 0
     }
-    
+    internal static func isCloud(room: IGRoom) -> Bool {
+        if !room.isInvalidated, room.chatRoom?.peer?.id == IGAppManager.sharedManager.userID() {
+            return true
+        }
+        return false
+    }
     internal static  func playSound(isInChat: Bool = false,isSilent: Bool = false,isSendMessage: Bool! = false) {
         var url = Bundle.main.url(forResource: "igap_send_message_sound", withExtension: "mp3")
         
