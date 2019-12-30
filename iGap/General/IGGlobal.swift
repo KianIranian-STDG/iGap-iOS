@@ -820,7 +820,7 @@ extension UIColor {
     //MARK: MessageCVCell Forward
     class func chatForwardedFromViewBackgroundColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return ThemeManager.currentTheme.SliderTintColor.lighter(by: 30)!
+            return ThemeManager.currentTheme.SliderTintColor.lighter(by: 10)!
         } else {
             return UIColor.forwardBoxOutgoign()
         }

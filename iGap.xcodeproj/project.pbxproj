@@ -25,6 +25,7 @@
 		8E0A799323951736001A7EB6 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E0A799223951736001A7EB6 /* News.storyboard */; };
 		8E0BAEC022EC047200479682 /* IGRoomListtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BAEBF22EC047200479682 /* IGRoomListtCell.swift */; };
 		8E0BAEC222EC11C500479682 /* roomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BAEC122EC11C500479682 /* roomItem.swift */; };
+		8E0BCBE823BA4D5000085792 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BCBE723BA4D5000085792 /* CustomTextView.swift */; };
 		8E1865392323A10400D8BCA9 /* ChannelAndSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E1865382323A10400D8BCA9 /* ChannelAndSettings.storyboard */; };
 		8E1CD973232CF79A008D8758 /* PhoneBook.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E1CD972232CF79A008D8758 /* PhoneBook.storyboard */; };
 		8E1CD97A232D0ED1008D8758 /* inviteFreindsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1CD979232D0ED1008D8758 /* inviteFreindsVC.swift */; };
@@ -904,6 +905,7 @@
 		8E0A799223951736001A7EB6 /* News.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = News.storyboard; sourceTree = "<group>"; };
 		8E0BAEBF22EC047200479682 /* IGRoomListtCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRoomListtCell.swift; sourceTree = "<group>"; };
 		8E0BAEC122EC11C500479682 /* roomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = roomItem.swift; sourceTree = "<group>"; };
+		8E0BCBE723BA4D5000085792 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		8E1865382323A10400D8BCA9 /* ChannelAndSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChannelAndSettings.storyboard; sourceTree = "<group>"; };
 		8E1CD972232CF79A008D8758 /* PhoneBook.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PhoneBook.storyboard; sourceTree = "<group>"; };
 		8E1CD979232D0ED1008D8758 /* inviteFreindsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inviteFreindsVC.swift; sourceTree = "<group>"; };
@@ -3404,6 +3406,7 @@
 			isa = PBXGroup;
 			children = (
 				FAD580851DDC49A200A242DE /* IGMessageViewController.swift */,
+				8E0BCBE723BA4D5000085792 /* CustomTextView.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4655,6 +4658,7 @@
 				940F9E6F231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.swift in Sources */,
 				FAC34DB61E1A651200BB9823 /* IGContactInMessageCellView.swift in Sources */,
 				8EBF95E02258811500A1F7E4 /* IGConstants.swift in Sources */,
+				8E0BCBE823BA4D5000085792 /* CustomTextView.swift in Sources */,
 				FA11E28A1DE8A8A900A2F87C /* IGAttachmentManager.swift in Sources */,
 				FA0953671E1B97700043ED3F /* IGSettingPrivacy&SecurityPasscodeLockTableViewController.swift in Sources */,
 				FAA2A85A200A31CB00CAA7C7 /* IGSettingAccountBioTableViewController.swift in Sources */,

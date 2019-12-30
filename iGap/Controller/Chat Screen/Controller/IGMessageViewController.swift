@@ -737,7 +737,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         if self.room!.isInvalidated {
             self.navigationController?.popViewController(animated: true)
         }

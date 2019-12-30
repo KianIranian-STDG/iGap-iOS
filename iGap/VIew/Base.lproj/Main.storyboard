@@ -3857,7 +3857,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
                         <outlet property="lblThirdInStack" destination="pzv-e1-Mbf" id="KgX-1v-gGu"/>
                         <outlet property="mainHolder" destination="tLo-CB-Edf" id="KnN-7k-I1k"/>
                         <outlet property="mainView" destination="gnc-64-jn7" id="5pp-QU-EDn"/>
-                        <outlet property="messageTextView" destination="AOI-W1-GhG" id="Vq5-nF-52g"/>
+                        <outlet property="messageTextView" destination="AOI-W1-GhG" id="vFy-lC-sdu"/>
                         <outlet property="messageTextViewBottomConstraint" destination="kpu-hp-mtI" id="1s3-XD-Wa9"/>
                         <outlet property="messageTextViewHeightConstraint" destination="MR9-Rw-hij" id="fKe-ac-fU4"/>
                         <outlet property="scrollToBottomContainerView" destination="9ZQ-Ie-ZCw" id="Ach-O6-cgk"/>

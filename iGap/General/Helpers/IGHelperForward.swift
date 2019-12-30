@@ -63,10 +63,12 @@ class IGHelperForward {
                 }
             } else {
                 if let room = IGRoom.existRoomInLocal(roomId: selectedItem.id) {
-                    if let forwardedMessages = makeForwardMessageArray(room: room, messages: messages) {
+                    if let forwardedMessages = makeForwardMessageArray(room: room, messages: messages,isFromCloud: isFromCloud) {
                         openChat(room: room, messageArray: forwardedMessages, viewController: viewController)
                     }
+                    
                 }
+                
             }
         }
     }
