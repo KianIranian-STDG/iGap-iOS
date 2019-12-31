@@ -64,6 +64,11 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if !(UIDevice.current.hasNotch) {
+            self.btnSendHeightConstraint.constant = 88
+        } else {
+            self.btnSendHeightConstraint.constant = 48
+        }
         self.collectionHeightConstraint.constant = deviceSizeModel.getShareModalSize() - self.btnSendHeightConstraint.constant - self.stackHeightConstraint.constant
 
         searchBar.delegate = self
@@ -371,7 +376,13 @@ extension IGMultiForwardModalViewController: PanModalPresentable {
 
         if isKeyboardPresented {
             self.collectionHeightConstraint.constant = UIScreen.main.bounds.size.height - keyboardHeightSize - self.stackHeightConstraint.constant - MinesHeightSize
-            return .contentHeight(deviceSizeModel.getShareModalSize() + keyboardHeightSize)
+            if UIDevice.current.hasNotch {
+                return .contentHeight(deviceSizeModel.getShareModalSize() + keyboardHeightSize - 50.0)
+
+            } else {
+                return .contentHeight(deviceSizeModel.getShareModalSize() + keyboardHeightSize)
+
+            }
         } else {
             self.collectionHeightConstraint.constant = deviceSizeModel.getShareModalSize() - self.btnSendHeightConstraint.constant - self.stackHeightConstraint.constant
 
