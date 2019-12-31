@@ -1232,12 +1232,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
             message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.STICKER.rawValue)
             IGAttachmentManager.sharedManager.add(attachment: attachment)
             
-            let detachedMessage = message.detach()
-            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-            message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-            IGMessageSender.defaultSender.sendSticker(message: message, to: self.room!)
-            
-            self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
+            manageSendMessage(message: message, addForwardOrReply: true)
             
             self.sendMessageState(enable: false)
             self.messageTextView.text = ""
@@ -6442,35 +6437,6 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
                 }
                 IGMessageSender.defaultSender.send(message: message, to: self.room!)
                 self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
-            }
-        }
-    }
-    
-    /** manage current state of scroll and reload message history from end or just scroll to end */
-    private func manageSendMessageContact(message: IGRoomMessage, addForwardOrReply: Bool = true) {
-        let detachedMessage = message.detach()
-        IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-        
-        if self.messageLoader.allowAddToView() {
-            let detachedMessage = message.detach()
-            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-            if addForwardOrReply {
-                message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-            }
-            IGMessageSender.defaultSender.send(message: detachedMessage, to: self.room!)
-            self.addChatItem(realmRoomMessages: [detachedMessage], direction: IGPClientGetRoomHistory.IGPDirection.down)
-        } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.resetAndGetFromEnd()
-                let detachedMessage = message.detach()
-                IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                if addForwardOrReply {
-                    message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                    message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                }
-                IGMessageSender.defaultSender.send(message: detachedMessage, to: self.room!)
-                self.addChatItem(realmRoomMessages: [detachedMessage], direction: IGPClientGetRoomHistory.IGPDirection.down)
             }
         }
     }
