@@ -520,9 +520,16 @@ class IGRequestManager {
                             }
                         }
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + Double(self.TIME_OUT) , execute: {
-                        self.internalTimeOut(for: requestWrapper)
-                    })
+
+                    /**
+                     just start call 'checkTimeOut' when count of 'pendingRequests' is one, because when
+                     count of this object is more than one 'checkTimeOut' is calling at loop
+                     */
+                    print("PPP || self.pendingRequests.count: \(self.pendingRequests.count)")
+                    if self.pendingRequests.count == 1 {
+                        print("PPP || count is 1")
+                        self.checkTimeOut()
+                    }
                 }
             }
         }
@@ -619,7 +626,7 @@ class IGRequestManager {
     }
     
     
-    func internalTimeOut(for requestWrapper1: IGRequestWrapper) {
+    func checkTimeOut() {
         //check if request is still pending
         self.syncroniseQueue.async(flags: .barrier) {
             for requestWrapper in self.pendingRequests.values {
@@ -638,6 +645,14 @@ class IGRequestManager {
                         errorPowerful(.timeout, nil, requestWrapper)
                     }
                 }
+            }
+            
+            if self.pendingRequests.count == 0 {
+                return
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.checkTimeOut()
             }
         }
     }
