@@ -209,7 +209,7 @@ class BlueColorSetNight: NightColorSetProtocol {
     var MessageTextReceiverColor: UIColor = .white
     var MessageTimeLabelColor: UIColor = UIColor(named: "IGMessageTimeLabelColorNight")!
             
-    var SendMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "E7EAEF")
+    var SendMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "4a4a4a")
 
     var BackGroundColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
     

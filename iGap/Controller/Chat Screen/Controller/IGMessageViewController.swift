@@ -1751,7 +1751,38 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
     private func initColorSetNewChatView() {
         self.holderMessageTextView.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         self.btnAttachmentNew.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
-        self.btnSend.setTitleColor(ThemeManager.currentTheme.BackGroundColor, for: .normal)
+
+                let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+                let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+                let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+                self.holderRecordView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+
+                if currentTheme == "IGAPDay" {
+                    
+                    if currentColorSetLight == "IGAPBlack" {
+                        self.btnSend.setTitleColor(.white, for: .normal)
+
+
+                    } else {
+                        self.btnSend.setTitleColor(ThemeManager.currentTheme.BackGroundColor, for: .normal)
+
+                    }
+
+                } else if currentTheme == "IGAPNight" {
+                    
+                    if currentColorSetDark == "IGAPBlack" {
+                        self.btnSend.setTitleColor(.white, for: .normal)
+
+
+                    } else {
+                        self.btnSend.setTitleColor(ThemeManager.currentTheme.BackGroundColor, for: .normal)
+
+                    }
+                } else {
+                    self.btnSend.setTitleColor(ThemeManager.currentTheme.BackGroundColor, for: .normal)
+                    
+        }
+
         self.btnSend.backgroundColor = ThemeManager.currentTheme.SliderTintColor
         self.btnMoney.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         self.btnTrash.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
