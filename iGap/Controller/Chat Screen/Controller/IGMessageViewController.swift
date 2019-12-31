@@ -711,6 +711,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func manageCollectionInset() {
          if self.isBotRoom() {
             print("ROOMTYPE IS:","isBOTRoom")
+            collectionBottomConstraint.constant = 0
+
          } else {
              if self.room?.type == .chat {
                  print("ROOMTYPE IS:","isNormalChat")
@@ -719,14 +721,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
              } else {
                  if self.room?.channelRoom?.role == .admin || self.room?.channelRoom?.role == .owner || self.room?.channelRoom?.role == .moderator {
                      print("ROOMTYPE IS:","isChannel - NotUSer")
-                    collectionBottomConstraint.constant = 0
+//                    collectionBottomConstraint.constant = 0
 
                  } else {
                     print("ROOMTYPE IS:","isChannel - ISUser",self.mainHolder.isHidden)
                     if room!.isParticipant  {
-                        collectionBottomConstraint.constant = 50
+//                        collectionBottomConstraint.constant = 50
                     } else {
-                        collectionBottomConstraint.constant = 0
+//                        collectionBottomConstraint.constant = 0
 
                     }
 
@@ -2698,7 +2700,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
     private func manageCollectionViewBottom(withDuration: TimeInterval = 0.2,value: CGFloat? = 0) {
         UIView.animate(withDuration: withDuration, animations: {
             if self.isBotRoom() {
-                self.collectionView.contentInset = UIEdgeInsets.init(top: value!, left: 0, bottom: 20, right: 0)
+                self.collectionView.contentInset = UIEdgeInsets.init(top: 50, left: 0, bottom: 20, right: 0)
             } else {
                 if self.room?.type == .chat {
                     self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
