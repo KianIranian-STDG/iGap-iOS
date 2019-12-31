@@ -186,9 +186,11 @@ class IGMessageLoader {
     }
     
     /**
-     * manage save changeState , unread message , load from local or need get message from server and finally load message
+     manage save changeState , unread message , load from local or need get message from server and finally load message
+     - Parameter fetchDown: when this value is true, message loader will be fetched bottom direction even currently try for fetch up direction history
+     - Parameter onMessageReceive: for return messages after fetch from client or server
      */
-    public func getMessages(onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
+    public func getMessages(fetchDown: Bool = true ,onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
         var direction: IGPClientGetRoomHistory.IGPDirection!
         var messageInfos: [IGRoomMessage] = []
         /**
@@ -339,7 +341,7 @@ class IGMessageLoader {
             }
             
             /** Hint: when we try for fetch history for up direction, always send a request for down direction for insuring about finish bottom direction history*/
-            if direction == .up { // up direction just happen when we don't have saveState or unread
+            if fetchDown && direction == .up { // up direction just happen when we don't have saveState or unread
                 self.getOnlineMessage(oldMessageId: messageInfos[0].id, direction: .down, backgroundFetch: true, onMessageReceive: onMessageReceive)
             }
             

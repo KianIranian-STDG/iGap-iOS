@@ -354,13 +354,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             switch (finalRoomMessage.type) {
             case .sticker:
                 if (finalRoomMessage.attachment?.name!.hasSuffix(".json") ?? false) {
-                    print("YESS LIVE STICKER")
                     if animationView != nil {
 //                        removeAnimationView()
                     }
                     makeAnimationView(attachmentJson: finalRoomMessage.attachment! )
                 } else {
-                    print("YESS NORMAL STICKER")
                     makeImage(.sticker)
 
                 }
@@ -1243,10 +1241,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                     IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) { (file) in
                         
                         if (self.finalRoomMessage.attachment?.name!.hasSuffix(".json") ?? false) {
-//                            print("YESS LIVE STICKER")
                             self.animationView.setLiveSticker(for: file)
                         } else {
-//                            print("YESS NORMAL STICKER")
                             self.imgMediaAbs?.setSticker(for: file)
 
                         }

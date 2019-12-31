@@ -1045,7 +1045,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
      * sometimes startLoadMessage call from another state so will be send forwarded message twice
      * currentlly for manage this state just should be manage forward from one state
      */
-    private func startLoadMessage(){
+    private func startLoadMessage(fetchDown: Bool = true){
         if messageLoader == nil {
             messageLoader = IGMessageLoader.getInstance(room: self.room!, forceNew: true)
         }
@@ -1056,7 +1056,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
             self.collectionView.fadeOut(0)
         }
         
-        messageLoader.getMessages { (messages, direction) in
+        messageLoader.getMessages(fetchDown: fetchDown) { (messages, direction) in
             self.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
             if hasUnread || hasSaveState {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
@@ -1574,15 +1574,10 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
     
     /* overrided method */
     func onAdditionalSendMessage(structAdditional: IGStructAdditionalButton) {
-        
         let message = IGRoomMessage(body: structAdditional.label)
         message.type = .text
         message.additional = IGRealmAdditional(additionalData: structAdditional.json, additionalType: 3)
-        let detachedMessage = message.detach()
-        IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-        IGMessageSender.defaultSender.send(message: message, to: room!)
-        
-        self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
+        manageSendMessage(message: message, addForwardOrReply: false)
     }
     
     func onAdditionalLinkClick(structAdditional: IGStructAdditionalButton) {
@@ -2505,14 +2500,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
         message.roomId = self.room!.id
         message.type = .location
         
-        let detachedMessage = message.detach()
-        
-        IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-        message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-        message.repliedTo = selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-        IGMessageSender.defaultSender.send(message: message, to: room!)
-        
-        self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
+        self.manageSendMessage(message: message)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.sendMessageState(enable: false)
@@ -3087,14 +3075,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
             
             message.roomId = self.room!.id
             
-            let detachedMessage = message.detach()
-            
-            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-            message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-            message.repliedTo = selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-            IGMessageSender.defaultSender.send(message: message, to: room!)
-            
-            self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
+            manageSendMessage(message: message)
             
             self.sendMessageState(enable: false)
             self.messageTextView.text = ""
@@ -3105,8 +3086,6 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
             self.setupMessageTextHeightChnage()
             
         } else {
-            ///play send sound
-//            IGGlobal.playSound(isInChat : IGGlobal.isInChatPage,isSilent : IGGlobal.isSilent,isSendMessage: true)
             let messages = messageTextView.text.split(limit: MAX_TEXT_LENGHT)
             for i in 0..<messages.count {
                 DispatchQueue.main.asyncAfter(deadline: .now() + (Double(i) * 0.5)) {
@@ -3119,15 +3098,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
                     message.type = .text
                     message.roomId = self.room!.id
                     
-                    let detachedMessage = message.detach()
-                    
-                    IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                    message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                    message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                    IGMessageSender.defaultSender.send(message: message, to: self.room!)
-                    
-                    self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
-                    
+                    self.manageSendMessage(message: message)
                     self.sendMessageState(enable: false)
                     self.messageTextView.text = ""
                     self.currentAttachment = nil
@@ -3443,10 +3414,8 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
                 
                 let messageText = CardToCardModal.inputTFOne.text!.substring(offset: MAX_TEXT_LENGHT)
                 let message = IGRoomMessage.makeCardToCardRequestWithAmount(messageText: messageText, amount: ((CardToCardModal.inputTFTwo.text!).inEnglishNumbersNew().onlyDigitChars()), cardNumber: ((CardToCardModal.inputTFThree.text!).inEnglishNumbersNew().onlyDigitChars()))
-                let detachedMessage = message.detach()
-                IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                IGMessageSender.defaultSender.send(message: message, to: self.room!)
-                self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
+                
+                manageSendMessage(message: message, addForwardOrReply: false)
                 
                 IGMessageViewController.selectedMessageToForwardToThisRoom = nil
                 self.sendMessageState(enable: false)
@@ -4156,30 +4125,24 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
     }
     
     func epContactPicker(_: EPContactsPicker, didSelectContact contact : EPContact){
-        IGClientActionManager.shared.cancelChoosingContact(for: self.room!)
-        var phones : [String] = []
-        var emails : [String] = []
-        for phone in contact.phoneNumbers {
-            phones.append(phone.phoneNumber)
+        DispatchQueue.main.async {
+            IGClientActionManager.shared.cancelChoosingContact(for: self.room!)
+            var phones : [String] = []
+            var emails : [String] = []
+            for phone in contact.phoneNumbers {
+                phones.append(phone.phoneNumber)
+            }
+            for email in contact.emails {
+                emails.append(email.email)
+            }
+            
+            let message = IGRoomMessage(body: "")
+            let contact = IGRoomMessageContact(message:message, firstName:contact.firstName, lastName:contact.lastName, phones:phones, emails:emails)
+            message.contact = contact.detach()
+            message.type = .contact
+            message.roomId = self.room!.id
+            self.manageSendMessage(message: message)
         }
-        for email in contact.emails {
-            emails.append(email.email)
-        }
-        
-        let message = IGRoomMessage(body: "")
-        let contact = IGRoomMessageContact(message:message, firstName:contact.firstName, lastName:contact.lastName, phones:phones, emails:emails)
-        message.contact = contact.detach()
-        message.type = .contact
-        message.roomId = self.room!.id
-        let detachedMessage = message.detach()
-        IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-        message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-        message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-        IGMessageSender.defaultSender.send(message: message, to: self.room!)
-        
-        self.appendMessageArray([message], .down)
-        self.addChatItemToBottom(count: 1, scrollToBottom: true)
-        self.messageLoader.setWaitingHistoryDownLocal(isWaiting: false)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.sendMessageState(enable: false)
@@ -6457,6 +6420,62 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     /*********************************************************************************/
     /******************* Collection Manager (Add , Remove , Update) ******************/
     
+    /** manage current state of scroll and reload message history from end or just scroll to end */
+    private func manageSendMessage(message: IGRoomMessage, addForwardOrReply: Bool = true) {
+        if self.messageLoader.allowAddToView() {
+            let detachedMessage = message.detach()
+            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+            if addForwardOrReply {
+                message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                message.repliedTo = selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+            }
+            IGMessageSender.defaultSender.send(message: message, to: room!)
+            self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
+        } else {
+            resetAndGetFromEnd()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                let detachedMessage = message.detach()
+                IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+                if addForwardOrReply {
+                    message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                    message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                }
+                IGMessageSender.defaultSender.send(message: message, to: self.room!)
+                self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
+            }
+        }
+    }
+    
+    /** manage current state of scroll and reload message history from end or just scroll to end */
+    private func manageSendMessageContact(message: IGRoomMessage, addForwardOrReply: Bool = true) {
+        let detachedMessage = message.detach()
+        IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+        
+        if self.messageLoader.allowAddToView() {
+            let detachedMessage = message.detach()
+            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+            if addForwardOrReply {
+                message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+            }
+            IGMessageSender.defaultSender.send(message: detachedMessage, to: self.room!)
+            self.addChatItem(realmRoomMessages: [detachedMessage], direction: IGPClientGetRoomHistory.IGPDirection.down)
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.resetAndGetFromEnd()
+                let detachedMessage = message.detach()
+                IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+                if addForwardOrReply {
+                    message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                    message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                }
+                IGMessageSender.defaultSender.send(message: detachedMessage, to: self.room!)
+                self.addChatItem(realmRoomMessages: [detachedMessage], direction: IGPClientGetRoomHistory.IGPDirection.down)
+            }
+        }
+    }
+    
+    
     /* scroll to bottom as default for send message (Text Message/File Message) */
     func addChatItem(realmRoomMessages: [IGRoomMessage], direction: IGPClientGetRoomHistory.IGPDirection, scrollToBottom: Bool = true){
         if realmRoomMessages.count == 0 || self.room!.isInvalidated {
@@ -6474,6 +6493,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             // in this state (mabye all stats) when "scrollToBottom" is true, "realmRoomMessages" just has one item
             if let authorHash = realmRoomMessages[0].authorHash, authorHash == IGAppManager.sharedManager.authorHash() {
                 resetAndGetFromEnd()
+                return
             } else {
                 return
             }
@@ -6690,7 +6710,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     private func resetAndGetFromEnd(){
         self.scrollToBottomContainerView.isHidden = true
         self.clearCollectionView()
-        self.startLoadMessage()
+        self.startLoadMessage(fetchDown: false)
     }
     
     private func clearCollectionView(){
