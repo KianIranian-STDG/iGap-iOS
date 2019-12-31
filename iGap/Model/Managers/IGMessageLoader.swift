@@ -1037,7 +1037,7 @@ class IGMessageLoader {
         if (direction == .up) {
             
             let sortProperties = [SortDescriptor(keyPath: "id", ascending: false)]
-            let predicate = NSPredicate(format: "roomId = %lld AND id <= %lld AND previousMessageId != %lld ", roomId, messageId, 0)
+            let predicate = NSPredicate(format: "roomId = %lld AND id <= %lld AND previousMessageId != %lld AND statusRaw != %d AND statusRaw != %d", roomId, messageId, 0, IGRoomMessageStatus.failed.rawValue, IGRoomMessageStatus.sending.rawValue)
             let realmRoomMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
             
             if (realmRoomMessages.count > 0) {
