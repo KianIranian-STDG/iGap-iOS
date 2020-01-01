@@ -3826,10 +3826,9 @@
 			};
 			buildConfigurationList = FAF795E51DAA330C0030509B /* Build configuration list for PBXProject "iGap" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				Base,
 				en,
 				fa,

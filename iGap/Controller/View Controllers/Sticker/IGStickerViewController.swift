@@ -118,9 +118,9 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     
     private func fetchStickerPreview(groupId: String){
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            IGGlobal.prgShow(self.view)
+            SMLoading.showLoadingPage(viewcontroller: self)
             IGApiSticker.shared.stickerGroup(groupId: groupId) { (stickers) in
-                IGGlobal.prgHide()
+                SMLoading.hideLoadingPage()
                 if stickers.count == 0 { return }
                 
                 for sticker in stickers {
@@ -136,7 +136,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     
     private func fetchStickerList(){
         isWaitingForRequest = true
-        IGGlobal.prgShow(self.view)
+        SMLoading.showLoadingPage(viewcontroller: self)
         if stickerCategoryId == nil || stickerCategoryId!.isEmpty {
             IGApiSticker.shared.stickerList(offset: self.offset, limit: self.FETCH_LIMIT) { (stickers) in
                 self.showStickerList(stickers: stickers)
@@ -151,7 +151,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     /* after get sticker list from server use following method for show stickers in view */
     private func showStickerList(stickers: [StickerTab]){
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            IGGlobal.prgHide()
+            SMLoading.hideLoadingPage()
         }
         
         var indexSet : [Int] = []
