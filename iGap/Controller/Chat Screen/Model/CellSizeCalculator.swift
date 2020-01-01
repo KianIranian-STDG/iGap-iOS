@@ -337,7 +337,7 @@ class CellSizeCalculator: NSObject {
             
             var heightRatio: CGFloat = 3
             if force {// return max height according to phone height
-                heightRatio = 1.2
+                heightRatio = 1.3
             }
             if messageHeight.height > (CellSizeLimit.MediaViewerCellSize.MaxHeight / heightRatio) {
                 messageHeight.height = (CellSizeLimit.MediaViewerCellSize.MaxHeight / heightRatio)

@@ -3121,6 +3121,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
                     </view>
                     <connections>
                         <outlet property="bottomView" destination="MkA-tr-cWP" id="FZc-SC-T40"/>
+                        <outlet property="bottomViewBottomSpace" destination="T7k-bN-ezt" id="Wfm-fF-ziN"/>
                         <outlet property="bottomViewHeight" destination="aI9-na-M4l" id="di3-sk-ytb"/>
                         <outlet property="btnBack" destination="HZ3-LC-W6e" id="e2k-LZ-qJT"/>
                         <outlet property="btnDelete" destination="5EF-qR-ulM" id="1BH-6G-ZGi"/>

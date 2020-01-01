@@ -95,6 +95,7 @@ class IGGlobal {
     static var hideBarChart : Bool = true
     static var latestTime: Int64 = 0
     static var sendTone: AVAudioPlayer?
+    static var safeAreaInsets: CGFloat = 0
     static var topbarHeight: CGFloat {
         if #available(iOS 13.0, *) {
             return (UIApplication.shared.statusBarFrame.height ?? 0.0) +
@@ -421,6 +422,16 @@ class IGGlobal {
     
     public class func fetchUIScreen() -> CGRect {
         return UIScreen.main.bounds
+    }
+    
+    public class func fetchBottomSafeArea() -> CGFloat {
+        if safeAreaInsets != 0 {
+            return safeAreaInsets
+        }
+        if #available(iOS 11.0, *) {
+            safeAreaInsets = UIApplication.shared.keyWindow!.safeAreaInsets.bottom
+        }
+        return safeAreaInsets
     }
     
     public class func getCurrentMillis()->Int64{

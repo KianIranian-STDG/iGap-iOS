@@ -31,7 +31,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     private var isExpand = false
     private var pagerView: FSPagerView!
     private var avatarsObserver: NotificationToken?
-    
+    private var defaultHeight: CGFloat!
     private let extraMessageHeight: CGFloat = 10 // this value is for distance between top of the 'bottomView' and top of the 'txtMessage' view
     
     @IBOutlet weak var topView: UIView!
@@ -42,6 +42,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     @IBOutlet weak var txtCount: UILabel!
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var bottomViewBottomSpace: NSLayoutConstraint!
     @IBOutlet weak var txtMessage: UILabel!
     @IBOutlet weak var txtMessageHeight: NSLayoutConstraint!
     
@@ -72,6 +73,9 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         
         self.manageCurrentMedia()
         self.manageDeleteButton()
+        if #available(iOS 11.0, *) {
+            bottomViewBottomSpace.constant = IGGlobal.fetchBottomSafeArea()
+        }
         txtMessageHeight.constant = bottomViewHeight.constant - extraMessageHeight // set message height at start
         
         self.topViewHeight.constant = 55 + UIApplication.shared.statusBarFrame.size.height
@@ -243,7 +247,10 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         let finalMessage = roomMessage.getFinalMessage()
         if let message = finalMessage.message, !message.isEmpty {
             txtMessage.text = message
-            bottomViewHeight.constant = CellSizeCalculator.sharedCalculator.mediaPagerCellSize(message: roomMessage).messageHeight.height
+            bottomViewHeight.constant = CellSizeCalculator.sharedCalculator.mediaPagerCellSize(message: roomMessage, force: isExpand).messageHeight.height
+            if !isExpand {
+                defaultHeight = bottomViewHeight.constant
+            }
             if showItemInfoLayout {
                 self.bottomView.fadeIn(time)
             }
@@ -281,20 +288,21 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
             return
         }
         
-        UIView.animate(withDuration: 0.4) {
-            if self.isExpand {
-                self.isExpand = false
-                self.bottomView.frame = CGRect(x: 0, y: IGGlobal.fetchUIScreen().height - (self.bottomViewHeight.constant), width: IGGlobal.fetchUIScreen().width, height: self.bottomViewHeight.constant)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    self.txtMessageHeight.constant = self.bottomViewHeight.constant - self.extraMessageHeight
-                }
-            } else {
-                self.isExpand = true
-                let roomMessage = self.mediaList![self.currentIndex]
-                let size = CellSizeCalculator.sharedCalculator.mediaPagerCellSize(message: roomMessage, force: true)
-                self.bottomView.frame = CGRect(x: 0, y: IGGlobal.fetchUIScreen().height - (size.messageHeight.height), width: IGGlobal.fetchUIScreen().width, height: size.messageHeight.height)
-                self.txtMessageHeight.constant = size.messageHeight.height - self.extraMessageHeight
+        if self.isExpand {
+            self.isExpand = false
+            self.bottomViewHeight.constant = defaultHeight
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.txtMessageHeight.constant = IGGlobal.fetchUIScreen().height / 3 - self.extraMessageHeight
             }
+        } else {
+            self.isExpand = true
+            let roomMessage = self.mediaList![self.currentIndex]
+            let size = CellSizeCalculator.sharedCalculator.mediaPagerCellSize(message: roomMessage, force: true)
+            self.bottomViewHeight.constant = size.messageHeight.height
+            self.txtMessageHeight.constant = size.messageHeight.height - self.extraMessageHeight
+        }
+        UIView.animate(withDuration: 0.4) {
+            self.view.layoutIfNeeded()
         }
     }
     
