@@ -238,8 +238,8 @@ class IGUploadManager {
                 let progress = response.progress
                 IGAttachmentManager.sharedManager.setProgress(response.progress / 100.0, for: task.file)
                 IGAttachmentManager.sharedManager.setStatus(.uploading, for: task.file)
-                if let uploadInfo = requestWrapper.identity as? IGUploadTask {
-                    IGFile.updateFileToken(fileNameOnDisk: uploadInfo.file.fileNameOnDisk!, token: uploadInfo.token!)
+                if let uploadInfo = requestWrapper.identity as? IGUploadTask, let fileNameOnDisk = uploadInfo.file.fileNameOnDisk, let fileToken = uploadInfo.token {
+                    IGFile.updateFileToken(fileNameOnDisk: fileNameOnDisk, token: fileToken)
                 }
                 /*
                 DispatchQueue.main.async {
