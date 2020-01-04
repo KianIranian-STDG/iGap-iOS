@@ -24,127 +24,71 @@ class IGStickerCell: UICollectionViewCell {
     var stickerItemRealm: IGRealmStickerItem!
     var stickerItemStruct: Sticker!
     var sectionIndex: Int!
+    var stickerPageType: StickerPageType!
     
     func configure(stickerItem: IGRealmStickerItem) {
-        if (stickerItem.fileName?.contains(".json"))! {
-            self.makeAnimationView()
-
-            self.animationView.backgroundColor = UIColor.clear
-
-            let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnSticker(_:)))
-            self.animationView.addGestureRecognizer(onStickerClick)
-            self.animationView.isUserInteractionEnabled = true
-            
-            IGStickerViewController.stickerAnimationDic[stickerItem.token!] = self.animationView
-            IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token!, completion: { (file) -> Void in
-                let cacheId = file.cacheID
-                DispatchQueue.main.async {
-                    if let stickerInfo = self.fetchStickerAnimation(cacheId: cacheId!){
-                        stickerInfo.animation.setLiveSticker(for: stickerInfo.file)
-                    }
-                }
-            })
-        } else {
-            self.makeImage()
-            self.imgSticker.backgroundColor = UIColor.clear
-
-            let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnSticker(_:)))
-            self.imgSticker.addGestureRecognizer(onStickerClick)
-            self.imgSticker.isUserInteractionEnabled = true
-            
-            IGStickerViewController.stickerImageDic[stickerItem.token!] = self.imgSticker
-            IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token!, completion: { (file) -> Void in
-                let cacheId = file.cacheID
-                DispatchQueue.main.async {
-                    if let stickerInfo = self.fetchStickerImage(cacheId: cacheId!){
-                        stickerInfo.image.setSticker(for: stickerInfo.file)
-                    }
-                }
-            })
-        }
-        self.mainView.backgroundColor = UIColor.clear
+        self.stickerPageType = StickerPageType.MAIN
         self.stickerItemRealm = stickerItem
-
+        
+        if (stickerItem.fileName?.contains(".json"))! {
+            makeAnimationView()
+            showAnimatedSticker(token: stickerItem.token!)
+            
+        } else {
+            makeImage()
+            showSticker(token: stickerItem.token!)
+        }
     }
     
     func configureListPage(stickerItem: Sticker, sectionIndex: Int) {
-        if (stickerItem.fileName.contains(".json")) {
-            self.makeAnimationView()
-            self.animationView.backgroundColor = UIColor.clear
-            let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnSticker(_:)))
-            self.animationView.addGestureRecognizer(onStickerClick)
-            self.animationView.isUserInteractionEnabled = true
-
-        } else {
-            self.makeImage()
-            self.imgSticker.backgroundColor = UIColor.clear
-            let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.openStickerPreview(_:)))
-            self.imgSticker.addGestureRecognizer(onStickerClick)
-            self.imgSticker.isUserInteractionEnabled = true
-
-        }
+        self.stickerPageType = StickerPageType.CATEGORY
         self.sectionIndex = sectionIndex
         self.stickerItemStruct = stickerItem
-        self.mainView.backgroundColor = UIColor.clear
         
         if (stickerItem.fileName.contains(".json")) {
-            IGStickerViewController.stickerAnimationDic[stickerItem.token] = self.animationView
-
+            makeAnimationView()
+            showAnimatedSticker(token: stickerItem.token)
         } else {
-            IGStickerViewController.stickerImageDic[stickerItem.token] = self.imgSticker
-
+            makeImage()
+            showSticker(token: stickerItem.token)
         }
-        IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token, completion: { (file) -> Void in
+    }
+    
+    func configurePreview(stickerItem: Sticker) {
+        self.stickerPageType = StickerPageType.PREVIEW
+        self.stickerItemStruct = stickerItem
+
+        if (stickerItem.fileName.contains(".json")) {
+            makeAnimationView()
+            showAnimatedSticker(token: stickerItem.token)
+        } else {
+            makeImage()
+            showSticker(token: stickerItem.token)
+        }
+    }
+    
+    private func showSticker(token: String){
+        IGStickerViewController.stickerImageDic[token] = self.imgSticker
+        IGAttachmentManager.sharedManager.getStickerFileInfo(token: token, completion: { (file) -> Void in
             let cacheId = file.cacheID
             DispatchQueue.main.async {
-                if (stickerItem.fileName.contains(".json")) {
-                    if let stickerInfo = self.fetchStickerAnimation(cacheId: cacheId!){
-                           stickerInfo.animation.setLiveSticker(for: stickerInfo.file)
-                       }
-                } else {
-                    if let stickerInfo = self.fetchStickerImage(cacheId: cacheId!){
-                           stickerInfo.image.setSticker(for: stickerInfo.file)
-                       }
+                if let stickerInfo = self.fetchStickerImage(cacheId: cacheId!){
+                    stickerInfo.image.setSticker(for: stickerInfo.file)
                 }
-   
             }
         })
     }
     
-    func configurePreview(stickerItem: Sticker) {
-        self.stickerItemStruct = stickerItem
-
-        if (stickerItem.fileName.contains(".json")) {
-            self.makeAnimationView()
-            self.mainView.backgroundColor = UIColor.clear
-            self.animationView.backgroundColor = UIColor.clear
-            
-            IGStickerViewController.stickerAnimationDic[stickerItem.token] = self.animationView
-            IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token, completion: { (file) -> Void in
-                let cacheId = file.cacheID
-                DispatchQueue.main.async {
-                    if let stickerInfo = self.fetchStickerAnimation(cacheId: cacheId!){
-                        stickerInfo.animation.setLiveSticker(for: stickerInfo.file)
-                    }
+    private func showAnimatedSticker(token: String){
+        IGStickerViewController.stickerAnimationDic[token] = self.animationView
+        IGAttachmentManager.sharedManager.getStickerFileInfo(token: token, completion: { (file) -> Void in
+            let cacheId = file.cacheID
+            DispatchQueue.main.async {
+                if let stickerInfo = self.fetchStickerAnimation(cacheId: cacheId!){
+                    stickerInfo.animation.setLiveSticker(for: stickerInfo.file)
                 }
-            })
-
-        } else {
-            self.makeImage()
-            self.mainView.backgroundColor = UIColor.clear
-            self.imgSticker.backgroundColor = UIColor.clear
-            
-            IGStickerViewController.stickerImageDic[stickerItem.token] = self.imgSticker
-            IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token, completion: { (file) -> Void in
-                let cacheId = file.cacheID
-                DispatchQueue.main.async {
-                    if let stickerInfo = self.fetchStickerImage(cacheId: cacheId!){
-                        stickerInfo.image.setSticker(for: stickerInfo.file)
-                    }
-                }
-            })
-
-        }
+            }
+        })
     }
     
     /** Hint: Temporary solution
@@ -188,20 +132,24 @@ class IGStickerCell: UICollectionViewCell {
     /********************************/
     /********** View Maker **********/
     private func makeAnimationView() {
-        if animationView != nil {
-            animationView.removeFromSuperview()
-            animationView = nil
-        }
-        if imgSticker != nil {
-            imgSticker.removeFromSuperview()
-            imgSticker = nil
-        }
+        animationView?.removeFromSuperview()
+        imgSticker?.removeFromSuperview()
+        animationView = nil
+        imgSticker = nil
 
         animationView = AnimationView()
         animationView.layer.masksToBounds = true
         animationView.contentMode = .scaleAspectFit
         animationView.backgroundColor = .clear
         mainView.addSubview(animationView)
+        
+        if stickerPageType == StickerPageType.MAIN {
+            animationView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.didTapOnSticker(_:))))
+            animationView.isUserInteractionEnabled = true
+        } else if stickerPageType == StickerPageType.CATEGORY {
+            animationView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.openStickerPreview(_:))))
+            animationView.isUserInteractionEnabled = true
+        }
 
         animationView.translatesAutoresizingMaskIntoConstraints = false
         animationView.topAnchor.constraint(equalTo: mainView.topAnchor).isActive = true
@@ -211,19 +159,25 @@ class IGStickerCell: UICollectionViewCell {
 
     }
 
-    private func makeImage(){
-        if imgSticker != nil {
-            imgSticker.removeFromSuperview()
-            imgSticker = nil
-        }
-        if animationView != nil {
-            animationView.removeFromSuperview()
-            animationView = nil
-        }
-
+    private func makeImage() {
+        imgSticker?.removeFromSuperview()
+        animationView?.removeFromSuperview()
+        imgSticker = nil
+        animationView = nil
+        
         imgSticker = UIImageView()
         imgSticker.contentMode = .scaleAspectFit
+        imgSticker.backgroundColor = UIColor.clear
         mainView.addSubview(imgSticker)
+        
+        if stickerPageType == StickerPageType.MAIN {
+            imgSticker.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.didTapOnSticker(_:))))
+            imgSticker.isUserInteractionEnabled = true
+        } else if stickerPageType == StickerPageType.CATEGORY {
+            imgSticker.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.openStickerPreview(_:))))
+            imgSticker.isUserInteractionEnabled = true
+        }
+        
         imgSticker.snp.makeConstraints { (make) in
             make.top.equalTo(mainView.snp.top)
             make.left.equalTo(mainView.snp.left)
@@ -234,13 +188,9 @@ class IGStickerCell: UICollectionViewCell {
     
     
     override func prepareForReuse() {
-        if imgSticker != nil {
-                   imgSticker.removeFromSuperview()
-                   imgSticker = nil
-               }
-               if animationView != nil {
-                   animationView.removeFromSuperview()
-                   animationView = nil
-               }
+        imgSticker?.removeFromSuperview()
+        animationView?.removeFromSuperview()
+        imgSticker = nil
+        animationView = nil
     }
 }
