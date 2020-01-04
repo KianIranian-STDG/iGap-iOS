@@ -5767,38 +5767,6 @@ kay*****@gm**.com</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection headerTitle="" id="K6i-qn-hDq">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="QNg-ZH-Im4">
-                                        <rect key="frame" x="0.0" y="39.666667938232422" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QNg-ZH-Im4" id="XTe-fe-Lt3">
-                                            <rect key="frame" x="0.0" y="0.0" width="383" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keep Media" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vqr-Xs-DgC" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="28" y="13" width="92" height="20"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IbL-VU-bB7">
-                                                    <rect key="frame" x="371" y="11.666666666666664" width="14" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="IbL-VU-bB7" firstAttribute="trailing" secondItem="XTe-fe-Lt3" secondAttribute="trailingMargin" constant="10" id="0vz-p5-Gna"/>
-                                                <constraint firstItem="vqr-Xs-DgC" firstAttribute="leading" secondItem="XTe-fe-Lt3" secondAttribute="leadingMargin" constant="8" id="SxQ-TE-FH4"/>
-                                                <constraint firstItem="IbL-VU-bB7" firstAttribute="centerY" secondItem="XTe-fe-Lt3" secondAttribute="centerY" id="bY0-QU-Sav"/>
-                                                <constraint firstItem="vqr-Xs-DgC" firstAttribute="top" secondItem="XTe-fe-Lt3" secondAttribute="topMargin" constant="2" id="gxY-Zn-HnJ"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection headerTitle="" id="bPm-Yj-oB6">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="bUD-8N-HEZ">
@@ -5832,8 +5800,6 @@ kay*****@gm**.com</string>
                     <navigationItem key="navigationItem" title="Account" id="eJv-GJ-1nk" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="lblCleaCache" destination="zc5-fS-cRS" id="yYK-fs-jO9"/>
-                        <outlet property="lblKeepMedia" destination="vqr-Xs-DgC" id="XyB-kL-mvh"/>
-                        <outlet property="lblKeepMediaTime" destination="IbL-VU-bB7" id="GxG-Ox-av1"/>
                         <segue destination="lsw-XY-dQB" kind="show" identifier="showCacheSetting" id="KjF-Gz-Tx9"/>
                     </connections>
                 </tableViewController>

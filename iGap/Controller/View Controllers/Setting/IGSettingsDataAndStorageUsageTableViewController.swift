@@ -12,8 +12,8 @@ import UIKit
 
 class IGSettingsDataAndStorageUsageTableViewController: BaseTableViewController {
 
-    @IBOutlet weak var lblKeepMedia : UILabel!
-    @IBOutlet weak var lblKeepMediaTime : UILabel!
+    //@IBOutlet weak var lblKeepMedia : UILabel!
+    //@IBOutlet weak var lblKeepMediaTime : UILabel!
     @IBOutlet weak var lblCleaCache : UILabel!
     
     override func viewDidLoad() {
@@ -27,13 +27,13 @@ class IGSettingsDataAndStorageUsageTableViewController: BaseTableViewController 
     }
     private func initTheme() {
         lblCleaCache.textColor = ThemeManager.currentTheme.LabelColor
-        lblKeepMedia.textColor = ThemeManager.currentTheme.LabelColor
-        lblKeepMediaTime.textColor = ThemeManager.currentTheme.LabelColor
+        //lblKeepMedia.textColor = ThemeManager.currentTheme.LabelColor
+        //lblKeepMediaTime.textColor = ThemeManager.currentTheme.LabelColor
     }
     func initChangeLang() {
         // MARK: - Section 0
-        lblKeepMedia.text = IGStringsManager.KeepMedia.rawValue.localized
-        lblKeepMediaTime.text = "..."
+        //lblKeepMedia.text = IGStringsManager.KeepMedia.rawValue.localized
+        //lblKeepMediaTime.text = "..."
         // MARK: - Section 1
         lblCleaCache.text = IGStringsManager.CLearCashe.rawValue.localized
         
@@ -49,11 +49,10 @@ class IGSettingsDataAndStorageUsageTableViewController: BaseTableViewController 
     //MARK: - TableView Delegates
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 1
     }
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
-
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -71,12 +70,12 @@ class IGSettingsDataAndStorageUsageTableViewController: BaseTableViewController 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
-            break
-        case 1:
             if indexPath.row == 0 {
                 performSegue(withIdentifier: "showCacheSetting", sender: self)
-
             }
+            break
+        case 1:
+            break
         default:
             break
         }
@@ -96,7 +95,7 @@ class IGSettingsDataAndStorageUsageTableViewController: BaseTableViewController 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch section {
         case 0:
-            return IGStringsManager.KeepMediaFooter.rawValue.localized
+            return ""//IGStringsManager.KeepMediaFooter.rawValue.localized
         default:
             return ""
         }
@@ -104,7 +103,7 @@ class IGSettingsDataAndStorageUsageTableViewController: BaseTableViewController 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         switch section {
         case 0:
-            return 80
+            return 0//80
         default:
             return 0
         }
