@@ -57,7 +57,6 @@ class IGStickerToolbar: UIGestureRecognizer {
                 makeTabIcon(parent: scrollView, index: index, realmSticker: realmSticker,isLiveStricker: false)
             }
         }
-        print(IGStickerToolbar.buttonArray)
         
         makeTabIcon(parent: scrollView, index: STICKER_ADD, imageName: "",isLiveStricker: false)
         //makeTabIcon(parent: scrollView, index: STICKER_SETTING, imageName: "")

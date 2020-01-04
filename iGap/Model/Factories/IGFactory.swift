@@ -1459,7 +1459,7 @@ class IGFactory: NSObject {
      * with file type, and file type detection is impossible.
      * for example detect current file info is for image or sticker ?!
      */
-    func addStickerFileToDatabse(igpFile: IGPFile, completion: @escaping ((_ token :IGFile) -> Void)) {
+    func addStickerFileToDatabse(igpFile: IGPFile, completion: @escaping ((_ token :IGPFile) -> Void)) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             var newFile: IGFile!
 
@@ -1468,7 +1468,7 @@ class IGFactory: NSObject {
                 IGDatabaseManager.shared.realm.add(newFile)
             }
 
-            completion(newFile)
+            completion(igpFile)
         }
     }
 

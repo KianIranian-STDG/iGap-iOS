@@ -16,7 +16,8 @@ import IGProtoBuff
 class IGAttachmentManager: NSObject {
     static let sharedManager = IGAttachmentManager()
     public var variablesCache: NSCache<NSString, Variable<IGFile>>
-    var completionFileDic : [String : (IGFile)->() ] = [:]
+    var completionStickerDic : [String : (IGFile)->() ] = [:]
+    var syncroniseStickerQueue = DispatchQueue(label: "thread-safe-sticker-obj", attributes: .concurrent) // use "async(flags: .barrier)" for "writes on data"  AND  use "sync" for "read and assign value"
     
     private override init() {
         variablesCache = NSCache()
@@ -98,16 +99,23 @@ class IGAttachmentManager: NSObject {
         if let fileInfo = realm.objects(IGFile.self).filter(predicate).first {
             completion(fileInfo)
         } else {
-            completionFileDic[token] = completion
+            self.syncroniseStickerQueue.async(flags: .barrier) {
+                self.completionStickerDic[token] = completion
+            }
             IGFileInfoRequest.Generator.generate(token: token).success ({ (protoMessage) in
                 if let fileInfoReponse = protoMessage as? IGPFileInfoResponse {
                     IGFactory.shared.addStickerFileToDatabse(igpFile: fileInfoReponse.igpFile, completion: { (file) -> Void in
-                        let newFile = IGFile(igpFile: fileInfoReponse.igpFile, type: IGFile.FileType.sticker)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            if let completion = self.completionFileDic[newFile.token!] {
-                                self.completionFileDic.removeValue(forKey: newFile.token!)
-                                completion(newFile)
+                            let newFile = IGFile(igpFile: file, type: IGFile.FileType.sticker)
+                            
+                            var completionFinal: ((_ file :IGFile) -> Void)?
+                            self.syncroniseStickerQueue.sync {
+                                if let completionDic = self.completionStickerDic[newFile.token!] {
+                                    completionFinal = completionDic
+                                    self.completionStickerDic.removeValue(forKey: newFile.token!)
+                                }
                             }
+                            completionFinal?(newFile)
                         }
                     })
                 }

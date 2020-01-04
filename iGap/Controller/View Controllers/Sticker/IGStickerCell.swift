@@ -68,24 +68,26 @@ class IGStickerCell: UICollectionViewCell {
     }
     
     private func showSticker(token: String){
-        IGStickerViewController.stickerImageDic[token] = self.imgSticker
+        IGAttachmentManager.sharedManager.syncroniseStickerQueue.async(flags: .barrier) {
+            IGStickerViewController.stickerImageDic[token] = self.imgSticker
+        }
         IGAttachmentManager.sharedManager.getStickerFileInfo(token: token, completion: { (file) -> Void in
-            let cacheId = file.cacheID
-            DispatchQueue.main.async {
-                if let stickerInfo = self.fetchStickerImage(cacheId: cacheId!){
-                    stickerInfo.image.setSticker(for: stickerInfo.file)
+            self.fetchStickerImage(cacheId: file.cacheID!) { (file, imagaView) in
+                DispatchQueue.main.async {
+                    imagaView.setSticker(for: file)
                 }
             }
         })
     }
     
     private func showAnimatedSticker(token: String){
-        IGStickerViewController.stickerAnimationDic[token] = self.animationView
+        IGAttachmentManager.sharedManager.syncroniseStickerQueue.async(flags: .barrier) {
+            IGStickerViewController.stickerAnimationDic[token] = self.animationView
+        }
         IGAttachmentManager.sharedManager.getStickerFileInfo(token: token, completion: { (file) -> Void in
-            let cacheId = file.cacheID
-            DispatchQueue.main.async {
-                if let stickerInfo = self.fetchStickerAnimation(cacheId: cacheId!){
-                    stickerInfo.animation.setLiveSticker(for: stickerInfo.file)
+            self.fetchStickerAnimation(cacheId: file.cacheID!) { (file, animatedView) in
+                DispatchQueue.main.async {
+                    animatedView.setLiveSticker(for: file)
                 }
             }
         })
@@ -96,22 +98,24 @@ class IGStickerCell: UICollectionViewCell {
      * now for show sticker in toolbar and sticker cell we check all files with this token in a loop.
      * However, this loop only has two items.
      */
-     private func fetchStickerImage(cacheId: String) -> (file: IGFile, image: UIImageView)? {
-         for file in IGDatabaseManager.shared.realm.objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId)) {
-             if let image = IGStickerViewController.stickerImageDic[file.token!] {
-                 return (file, image)
-             }
-         }
-         return nil
-     }
-    
-    private func fetchStickerAnimation(cacheId: String) -> (file: IGFile, animation: AnimationView)? {
-        for file in IGDatabaseManager.shared.realm.objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId)) {
-            if let animation = IGStickerViewController.stickerAnimationDic[file.token!] {
-                return (file, animation)
+     private func fetchStickerImage(cacheId: String, completion: @escaping ((_ file :IGFile, _ image: UIImageView) -> Void)) {
+        IGAttachmentManager.sharedManager.syncroniseStickerQueue.sync {
+            for file in IGDatabaseManager.shared.realm.objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId)) {
+                if let image = IGStickerViewController.stickerImageDic[file.token!] {
+                    completion(file, image)
+                }
             }
         }
-        return nil
+    }
+    
+    private func fetchStickerAnimation(cacheId: String, completion: @escaping ((_ file :IGFile, _ animatedView: AnimationView) -> Void)) {
+        IGAttachmentManager.sharedManager.syncroniseStickerQueue.sync {
+            for file in IGDatabaseManager.shared.realm.objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId)) {
+                if let animation = IGStickerViewController.stickerAnimationDic[file.token!] {
+                    completion(file, animation)
+                }
+            }
+        }
     }
     
     /********************************/
