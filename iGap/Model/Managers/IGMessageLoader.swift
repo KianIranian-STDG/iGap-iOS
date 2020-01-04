@@ -1186,9 +1186,11 @@ class IGMessageLoader {
      * fetch message later if exist into the server but client not yet received
      */
     public func setInsuringGap(messageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection){
+        /*
         if !self.reachToBottom {
             self.reachToBottom = true
             IGFactory.shared.setGap(messageId: messageId, direction: direction)
         }
+        */
     }
 }

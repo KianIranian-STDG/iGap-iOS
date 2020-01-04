@@ -1453,17 +1453,6 @@ class IGFactory: NSObject {
         }).execute()
     }
 
-    func updateRoomParticipant(roomId: Int64, isParticipant: Bool){
-        IGDatabaseManager.shared.perfrmOnDatabaseThread {
-            let predicate = NSPredicate(format: "id = %lld", roomId)
-            if let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
-                try! IGDatabaseManager.shared.realm.write {
-                    room.isParticipant = isParticipant
-                }
-            }
-        }
-    }
-
     //MARK: --------------------------------------------------------
     //MARK: ▶︎▶︎ File
     /* just use this method for sticker. because we need insert info

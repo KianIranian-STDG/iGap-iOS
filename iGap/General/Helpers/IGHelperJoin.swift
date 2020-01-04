@@ -60,7 +60,7 @@ class IGHelperJoin {
         IGClientJoinByInviteLinkRequest.Generator.generate(invitedToken: invitedToken).success({ (protoResponse) in
             DispatchQueue.main.async {
                 if let _ = protoResponse as? IGPClientJoinByInviteLinkResponse {
-                    IGFactory.shared.updateRoomParticipant(roomId: room.igpID, isParticipant: true)
+                    IGClientJoinByInviteLinkRequest.Handler.interpret(roomId: room.igpID)
                     let predicate = NSPredicate(format: "id = %lld", room.igpID)
                     if let roomInfo = try! Realm().objects(IGRoom.self).filter(predicate).first {
                         self.openChatAfterJoin(room: roomInfo)

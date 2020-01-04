@@ -892,7 +892,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
             IGFactory.shared.markAllMessagesAsRead(roomId: room.id)
             if openChatFromLink { // TODO - also check if user before joined to this room don't send this request
                 sendUnsubscribForRoom(roomId: room.id)
-                IGFactory.shared.updateRoomParticipant(roomId: room.id, isParticipant: false)
+                IGRoom.setParticipant(roomId: room.id, isParticipant: false)
             }
         }
         //        if self.selectedMessageToReply != nil {
@@ -6095,7 +6095,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         IGClientJoinByInviteLinkRequest.Generator.generate(invitedToken: invitedToken).success({ (protoResponse) in
             DispatchQueue.main.async {
                 if let _ = protoResponse as? IGPClientJoinByInviteLinkResponse {
-                    IGFactory.shared.updateRoomParticipant(roomId: room.igpID, isParticipant: true)
+                    IGClientJoinByInviteLinkRequest.Handler.interpret(roomId: room.igpID)
                     let predicate = NSPredicate(format: "id = %lld", room.igpID)
                     if let roomInfo = try! Realm().objects(IGRoom.self).filter(predicate).first {
                         self.openChatAfterJoin(room: roomInfo)

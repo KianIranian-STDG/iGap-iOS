@@ -286,7 +286,10 @@ class IGClientJoinByInviteLinkRequest: IGRequest {
         }
     }
     class Handler: IGRequest.Handler {
-        class func interpret( response responseProtoMessage : IGPClientJoinByInviteLinkResponse) {}
+        class func interpret(roomId: Int64) {
+            IGRoom.setParticipant(roomId: roomId, isParticipant: true)
+            IGRoom.setLastMessage(roomId: roomId)
+        }
         override class func handlePush(responseProtoMessage: Message) {}
     }
 }
@@ -306,6 +309,7 @@ class IGClientJoinByUsernameRequest: IGRequest {
     class Handler: IGRequest.Handler {
         class func interpret( response responseProtoMessage : IGPClientJoinByUsernameResponse, roomId: Int64) {
             IGRoom.setParticipant(roomId: roomId, isParticipant: true)
+            IGRoom.setLastMessage(roomId: roomId)
         }
         override class func handlePush(responseProtoMessage: Message) {}
     }

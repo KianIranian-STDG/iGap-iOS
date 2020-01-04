@@ -153,12 +153,11 @@ class IGHelperPromote {
         
         IGClientJoinByUsernameRequest.Generator.generate(userName: username, identity: "identity").successPowerful({ (protoResponse, requestWrapper) in
             
-            if let _ = protoResponse as? IGPClientJoinByUsernameResponse {
-                
+            if let clientJoinbyUsernameResponse = protoResponse as? IGPClientJoinByUsernameResponse {
                 if let requestJoin = requestWrapper.message as? IGPClientJoinByUsername {
-                    
                     if let roomId = IGRoom.getRoomIdWithUsername(username: requestJoin.igpUsername) {
                         
+                        IGClientJoinByUsernameRequest.Handler.interpret(response: clientJoinbyUsernameResponse, roomId: roomId)
                         // get room info for detect complete room info and unread from server
                         IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ (protoResponse) in
                             if let clientGetRoomResponse = protoResponse as? IGPClientGetRoomResponse {

@@ -759,6 +759,20 @@ extension IGRoom {
         }
     }
     
+    /** automatically find last message and set in room*/
+    static func setLastMessage(roomId: Int64){
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                if let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", roomId)).first {
+                    if let message = IGRoomMessage.getLastMessage(roomId: roomId) {
+                        room.lastMessage = message // for show correct last message at room list
+                        room.sortimgTimestamp = (message.creationTime?.timeIntervalSinceReferenceDate)! // for show room at correct position at room list
+                    }
+                }
+            }
+        }
+    }
+    
     static func getLastMessage(roomId: Int64) -> IGRoomMessage? {
         let predicate = NSPredicate(format: "id = %lld", roomId)
         if let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
