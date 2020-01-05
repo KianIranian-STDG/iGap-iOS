@@ -1408,7 +1408,7 @@ extension UIImageView {
             }
         } catch {
             imagesMap[attachment.token!] = self
-            IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in
+            IGDownloadManager.sharedManager.downloadSticker(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in
                 DispatchQueue.main.async {
                     if let image = imagesMap[attachment.token!] {
                         imagesMap.removeValue(forKey: attachment.token!)

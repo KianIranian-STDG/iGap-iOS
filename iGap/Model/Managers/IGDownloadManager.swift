@@ -25,6 +25,7 @@ class IGDownloadManager {
     
     private var downloadQueue:  DispatchQueue
     private var thumbnailQueue: DispatchQueue
+    private var writeFile: DispatchQueue
     
     private var thumbnailTasks = [IGDownloadTask]()
     
@@ -38,6 +39,7 @@ class IGDownloadManager {
     init() {
         downloadQueue  = DispatchQueue(label: "im.igap.ios.queue.download.attachments")
         thumbnailQueue = DispatchQueue(label: "im.igap.ios.queue.download.thumbnail")
+        writeFile = DispatchQueue(label: "im.igap.ios.queue.download.write")
     }
     
     func isDownloading(token: String) -> Bool {
@@ -101,15 +103,6 @@ class IGDownloadManager {
     }
     
     func downloadSticker(file: IGFile, previewType: IGFile.PreviewType, completion:DownloadCompleteHandler, failure:DownloadFailedHander) {
-        
-        guard let token = file.token else {
-            return
-        }
-        
-        if IGDownloadManager.sharedManager.isDownloading(token: token) {
-            IGDownloadManager.sharedManager.pauseDownload(attachment: file)
-            return
-        }
         
         if !IGAppManager.sharedManager.isUserLoggiedIn() { // if isn't login don't start download
             return
@@ -334,7 +327,7 @@ class IGDownloadManager {
                     nextOffsetDownload = previousOffset + Int64(fileDownloadReponse.igpBytes.count)
                 }
                 
-                DispatchQueue.main.async {
+                self.writeFile.async {
                     IGAttachmentManager.sharedManager.appendDataToDisk(attachment: downloadTask.file, data: fileDownloadReponse.igpBytes)
                 }
                 
