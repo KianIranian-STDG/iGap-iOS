@@ -111,7 +111,7 @@ class IGProfileGroupViewController: BaseViewController,UITableViewDelegate,UITab
     }
 
     deinit {
-        print("Deint IGProfileGroupViewController")
+        print("Deinit IGProfileGroupViewController")
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

@@ -83,6 +83,17 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         initTheme()
         initAvatarObserver()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        avatarObserver?.invalidate()
+        notificationToken?.invalidate()
+    }
+    
+    deinit {
+        print("Deinit IGProfileChannelViewController")
+    }
+    
     private func initTheme() {
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         self.viewBGTwo.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
@@ -211,7 +222,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
     func reportRoom(roomId: Int64, reason: IGPClientRoomReport.IGPReason) {
         self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
         self.hud.mode = .indeterminate
-        IGClientRoomReportRequest.Generator.generate(roomId: roomId, reason: reason).success({ (protoResponse) in
+        IGClientRoomReportRequest.Generator.generate(roomId: roomId, reason: reason).success({ [weak self] (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
@@ -221,9 +232,9 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 default:
                     break
                 }
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
             }
-        }).error({ (errorCode , waitTime) in
+        }).error({ [weak self] (errorCode , waitTime) in
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
@@ -239,7 +250,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 default:
                     break
                 }
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
             }
         }).send()
     }
@@ -258,7 +269,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         
         self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
         self.hud.mode = .indeterminate
-        IGClientMuteRoomRequest.Generator.generate(roomId: roomId, roomMute: roomMute).success({ (protoResponse) in
+        IGClientMuteRoomRequest.Generator.generate(roomId: roomId, roomMute: roomMute).success({ [weak self] (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let muteRoomResponse as IGPClientMuteRoomResponse:
@@ -266,9 +277,9 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 default:
                     break
                 }
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
             }
-        }).error({ (errorCode , waitTime) in
+        }).error({ [weak self] (errorCode , waitTime) in
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
@@ -276,7 +287,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 default:
                     break
                 }
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
             }
         }).send()
     }
@@ -457,7 +468,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         if let channelRoom = room {
             self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
             self.hud.mode = .indeterminate
-            IGChannelUpdateSignatureRequest.Generator.generate(roomId: channelRoom.id, signatureStatus: signatureSwitchStatus).success({ (protoResponse) in
+            IGChannelUpdateSignatureRequest.Generator.generate(roomId: channelRoom.id, signatureStatus: signatureSwitchStatus).success({ [weak self] (protoResponse) in
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case let channelUpdateSignatureResponse as IGPChannelUpdateSignatureResponse:
@@ -465,9 +476,9 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     default:
                         break
                     }
-                    self.hud.hide(animated: true)
+                    self?.hud.hide(animated: true)
                 }
-            }).error ({ (errorCode, waitTime) in
+            }).error ({ [weak self] (errorCode, waitTime) in
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
@@ -475,7 +486,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     default:
                         break
                     }
-                    self.hud.hide(animated: true)
+                    self?.hud.hide(animated: true)
                 }
                 
             }).send()
@@ -493,7 +504,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         
         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         self.hud.mode = .indeterminate
-        IGChannelRevokeLinkRequest.Generator.generate(roomId: (room?.id)!).success({ (protoResponse) in
+        IGChannelRevokeLinkRequest.Generator.generate(roomId: (room?.id)!).success({ [weak self] (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let channelRevokeLinkRequest as IGPChannelRevokeLinkResponse:
@@ -501,9 +512,9 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 default:
                     break
                 }
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
             }
-        }).error ({ (errorCode, waitTime) in
+        }).error ({ [weak self] (errorCode, waitTime) in
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
@@ -511,7 +522,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 default:
                     break
                 }
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
             }
         }).send()
     }
@@ -519,21 +530,21 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
     func leftChannelRequest(room: IGRoom) {
         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         self.hud.mode = .indeterminate
-        IGChannelLeftRequest.Generator.generate(room: room).success({ (protoResponse) in
+        IGChannelLeftRequest.Generator.generate(room: room).success({ [weak self] (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let channelLeft as IGPChannelLeftResponse:
                     IGChannelLeftRequest.Handler.interpret(response: channelLeft)
-                    if self.navigationController is IGNavigationController {
-                        _ = self.navigationController?.popToRootViewController(animated: true)
+                    if self?.navigationController is IGNavigationController {
+                        _ = self?.navigationController?.popToRootViewController(animated: true)
                     }
                 default:
                     break
                 }
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
                 
             }
-        }).error({ (errorCode , waitTime) in
+        }).error({ [weak self] (errorCode , waitTime) in
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
@@ -541,7 +552,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 default:
                     break
                 }
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
             }
         }).send()
     }
@@ -550,21 +561,21 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
         if let channelRoom = room {
             self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
             self.hud.mode = .indeterminate
-            IGChannelDeleteRequest.Generator.generate(roomID: channelRoom.id).success({ (protoResponse) in
+            IGChannelDeleteRequest.Generator.generate(roomID: channelRoom.id).success({ [weak self] (protoResponse) in
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case let channelDeleteResponse as IGPChannelDeleteResponse:
                         let _ = IGChannelDeleteRequest.Handler.interpret(response: channelDeleteResponse)
-                        if self.navigationController is IGNavigationController {
-                            _ = self.navigationController?.popToRootViewController(animated: true)
+                        if self?.navigationController is IGNavigationController {
+                            _ = self?.navigationController?.popToRootViewController(animated: true)
                         }
                     default:
                         break
                     }
-                    self.hud.hide(animated: true)
+                    self?.hud.hide(animated: true)
                     
                 }
-            }).error ({ (errorCode, waitTime) in
+            }).error ({ [weak self] (errorCode, waitTime) in
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
@@ -572,7 +583,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     default:
                         break
                     }
-                    self.hud.hide(animated: true)
+                    self?.hud.hide(animated: true)
                 }
             }).send()
         }

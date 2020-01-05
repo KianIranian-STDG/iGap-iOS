@@ -1,7 +1,6 @@
 /// 1 - clear delegates (Hint: can use event bus or rx instead event)
 /// 2 - use [weak self] in all clousers that use into them from self(curretn) objects
 /// 3 - invalidate 'NotificationToken' observers (realm usage)
-/// 4 - use [weak self] for all request responses that use into them from self(curretn) objects
 ///
 ///
 ///
