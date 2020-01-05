@@ -135,6 +135,7 @@ class IGRegistrationStepQrViewController: BaseViewController {
                                 break
                             }
                             hud.hide(animated: true)
+                            RootVCSwitcher.updateRootVC(storyBoard: "Main", viewControllerID: "MainTabBar")
                             IGAppManager.sharedManager.setUserLoginSuccessful()
                             self.dismiss(animated: true, completion: nil)
                         }

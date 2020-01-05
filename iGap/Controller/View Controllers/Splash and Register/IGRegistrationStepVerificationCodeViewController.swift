@@ -412,23 +412,9 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
                                 }
                                 self.hud.hide(animated: true)
                                 
-//                                self.dismiss(animated: true, completion: {
-//                                    IGAppManager.sharedManager.setUserLoginSuccessful()
-//                                })
-                                
                                 RootVCSwitcher.updateRootVC(storyBoard: "Main", viewControllerID: "MainTabBar")
                                 IGAppManager.sharedManager.setUserLoginSuccessful()
                                 
-//                                let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//                                let vc = storyboard.instantiateViewController(withIdentifier.story: "MainTabBar")
-//                                vc.modalPresentationStyle = .fullScreen
-//
-//                                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-//                                    if let window = appDelegate.window {
-//                                        window.rootViewController?.present(vc, animated: true, completion: nil)
-//                                        IGAppManager.sharedManager.setUserLoginSuccessful()
-//                                    }
-//                                }
                             }
                         }).error({ (errorCode, waitTime) in
                             DispatchQueue.main.async {
