@@ -111,7 +111,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     var multiShareModalOriginalHeight : CGFloat!
     var alreadyInSendMode : Bool = false
     var musicFile : MusicFile!
-    private var textViewOldState: TextViewOldState = .EMPTY
     private var beforeMessageLineCount: CGFloat = -1
     private var bConstraint: NSLayoutConstraint!
 
@@ -741,6 +740,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         super.viewWillAppear(animated)
 
         if self.room!.isInvalidated {
+            print("VVV || popViewController view will appear")
             self.navigationController?.popViewController(animated: true)
         }
         
@@ -779,6 +779,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         super.viewDidAppear(animated)
         
         if self.room!.isInvalidated {
+            print("VVV || popViewController view did appear")
             self.navigationController?.popViewController(animated: true)
             return
         }
@@ -922,7 +923,6 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
         if let draft = self.room!.draft {
             if draft.message != "" || draft.replyTo != -1 {
                 messageTextView.text = draft.message
-                textViewOldState = .FULL
                 self.btnStickerWidthConstraint.constant = 0.0
                 
                 initChangeLanguegeNewChatView()
@@ -2092,7 +2092,6 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
         }
         
         if (textView.text == "" || textView.text.isEmpty) {
-            textViewOldState = .EMPTY
             alreadyInSendMode = false
             lblPlaceHolder.isHidden = false///handle send button animation
             
@@ -2105,8 +2104,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
             }
             self.messageTextViewHeightConstraint.constant = 50
             
-        } else if textViewOldState == .EMPTY {
-            textViewOldState = .FULL
+        } else if btnSend.isHidden {
             lblPlaceHolder.isHidden = true
             showHideStickerButton(shouldShow: false)
             handleShowHideMicButton(shouldShow: false)
@@ -2979,8 +2977,6 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
     
     //MARK: IBActions
     @IBAction func didTapOnSendButton(_ sender: UIButton) {
-        
-        textViewOldState = .EMPTY
         
         if IGGlobal.isFromSearchPage {
             IGGlobal.hasTexted = true
@@ -4815,6 +4811,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
         
         /* if room was deleted close chat room */
         if (self.room?.isInvalidated)! || messages!.count <= indexPath.row {
+            print("VVV || popViewController load chat item")
             self.navigationController?.popViewController(animated: true)
             
             let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
