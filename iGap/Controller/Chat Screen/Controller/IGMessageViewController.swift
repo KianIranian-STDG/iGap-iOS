@@ -1976,7 +1976,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
     ///Handle Show hide of Money button
     func handleShowHideMoneyButton(shouldShow : Bool!) {
         if shouldShow {
-            if !isBotRoom() {
+            if room?.type == .chat && !isBotRoom() {
                 btnMoney.isHidden = false
             }
         } else {
@@ -2091,15 +2091,18 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
                                                            repeats:  false)
         }
         
-        if (textView.text == "" || textView.text.isEmpty) && textViewOldState == .FULL {
+        if (textView.text == "" || textView.text.isEmpty) {
             textViewOldState = .EMPTY
             alreadyInSendMode = false
             lblPlaceHolder.isHidden = false///handle send button animation
-            showHideStickerButton(shouldShow: true)
-            handleShowHideMicButton(shouldShow: true)
-            handleShowHideShareButton(shouldShow: false)
-            handleShowHideSendButton(shouldShow: false)
-            handleShowHideMoneyButton(shouldShow: true)
+            
+            if self.currentAttachment == nil {
+                showHideStickerButton(shouldShow: true)
+                handleShowHideMicButton(shouldShow: true)
+                handleShowHideShareButton(shouldShow: false)
+                handleShowHideSendButton(shouldShow: false)
+                handleShowHideMoneyButton(shouldShow: true)
+            }
             self.messageTextViewHeightConstraint.constant = 50
             
         } else if textViewOldState == .EMPTY {
@@ -4161,6 +4164,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
             self.sendMessageState(enable: true)
         } else {
             self.sendMessageState(enable: false)
+            self.setupMessageTextHeightChnage()
         }
     }
     
