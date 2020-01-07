@@ -304,7 +304,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     func showMultiSelectUI(state : Bool!,isForward:Bool? = nil,isDelete:Bool?=nil) {
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.setNavigationBarForRoom(room!)
-        
+        setRightNavViewAction()
         
         if state {
             if isForward! {
@@ -422,6 +422,43 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
     }
     
+    
+    
+    private func setRightNavViewAction() {
+        
+        let navigationController = self.navigationController as! IGNavigationController
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        
+        navigationItem.rightViewContainer?.addAction {
+            if self.room?.type == .chat {
+                self.selectedUserToSeeTheirInfo = (self.room?.chatRoom?.peer)!
+                self.openUserProfile()
+            }
+            if self.room?.type == .channel {
+                self.selectedChannelToSeeTheirInfo = self.room?.channelRoom
+                //self.performSegue(withIdentifier: "showChannelinfo", sender: self)
+                
+                let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                profile.selectedChannel = self.selectedChannelToSeeTheirInfo
+                profile.room = self.room
+                profile.myRole = self.room?.channelRoom?.role
+                profile.hidesBottomBarWhenPushed = true
+                self.navigationController!.pushViewController(profile, animated: true)
+            }
+            if self.room?.type == .group {
+                
+                let profile = IGProfileGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                profile.selectedGroup = self.room?.groupRoom
+                profile.room = self.room
+                profile.hidesBottomBarWhenPushed = true
+                self.navigationController!.pushViewController(profile, animated: true)
+            }
+            
+        }
+        
+    }
+    
+    
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -534,33 +571,36 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         navigationItem.navigationController = navigationController
         navigationItem.setNavigationBarForRoom(room!)
         navigationController.interactivePopGestureRecognizer?.delegate = self
+        
+        setRightNavViewAction()
+        
         //        self.navigationController?.interactivePopGestureRecognizer?.addTarget(self, action:#selector(self.handlePopGesture))
-        navigationItem.rightViewContainer?.addAction {
-            if self.room?.type == .chat {
-                self.selectedUserToSeeTheirInfo = (self.room?.chatRoom?.peer)!
-                self.openUserProfile()
-            }
-            if self.room?.type == .channel {
-                self.selectedChannelToSeeTheirInfo = self.room?.channelRoom
-                //self.performSegue(withIdentifier: "showChannelinfo", sender: self)
-                
-                let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                profile.selectedChannel = self.selectedChannelToSeeTheirInfo
-                profile.room = self.room
-                profile.myRole = self.room?.channelRoom?.role
-                profile.hidesBottomBarWhenPushed = true
-                self.navigationController!.pushViewController(profile, animated: true)
-            }
-            if self.room?.type == .group {
-                
-                let profile = IGProfileGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                profile.selectedGroup = self.room?.groupRoom
-                profile.room = self.room
-                profile.hidesBottomBarWhenPushed = true
-                self.navigationController!.pushViewController(profile, animated: true)
-            }
-            
-        }
+//        navigationItem.rightViewContainer?.addAction {
+//            if self.room?.type == .chat {
+//                self.selectedUserToSeeTheirInfo = (self.room?.chatRoom?.peer)!
+//                self.openUserProfile()
+//            }
+//            if self.room?.type == .channel {
+//                self.selectedChannelToSeeTheirInfo = self.room?.channelRoom
+//                //self.performSegue(withIdentifier: "showChannelinfo", sender: self)
+//
+//                let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+//                profile.selectedChannel = self.selectedChannelToSeeTheirInfo
+//                profile.room = self.room
+//                profile.myRole = self.room?.channelRoom?.role
+//                profile.hidesBottomBarWhenPushed = true
+//                self.navigationController!.pushViewController(profile, animated: true)
+//            }
+//            if self.room?.type == .group {
+//
+//                let profile = IGProfileGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+//                profile.selectedGroup = self.room?.groupRoom
+//                profile.room = self.room
+//                profile.hidesBottomBarWhenPushed = true
+//                self.navigationController!.pushViewController(profile, animated: true)
+//            }
+//
+//        }
         navigationItem.centerViewContainer?.addAction {
             if self.room?.type == .chat {
                 self.selectedUserToSeeTheirInfo = (self.room?.chatRoom?.peer)!
@@ -916,6 +956,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
         
         self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: ownerId).observe({ (ObjectChange) in
             (self.navigationItem as! IGNavigationItem).setRoomAvatar(self.room!)
+            self.setRightNavViewAction()
         })
     }
     
