@@ -125,10 +125,13 @@ public class LocaleManager: NSObject {
             } else if let storyboard = window.rootViewController?.storyboard, let id = window.rootViewController?.value(forKey: "storyboardIdentifier") as? String {
                 window.rootViewController = storyboard.instantiateViewController(withIdentifier: id)
             }
-            for view in (window.subviews) {
-                view.removeFromSuperview()
-                window.addSubview(view)
-            }
+            
+            // Caused a bug in sticker view after setting or changing language
+            
+//            for view in (window.subviews) {
+//                view.removeFromSuperview()
+//                window.addSubview(view)
+//            }
         }
         if animated {
             windows.first.map {

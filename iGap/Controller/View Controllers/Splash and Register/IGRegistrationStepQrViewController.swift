@@ -138,6 +138,15 @@ class IGRegistrationStepQrViewController: BaseViewController {
                             RootVCSwitcher.updateRootVC(storyBoard: "Main", viewControllerID: "MainTabBar")
                             IGAppManager.sharedManager.setUserLoginSuccessful()
                             self.dismiss(animated: true, completion: nil)
+                            
+                            if let nav = self.navigationController {
+                                for vc in nav.viewControllers {
+                                    self.navigationController?.popViewController(viewController: vc, animated: false, completion: {
+                                        
+                                    })
+                                }
+                            }
+                            
                         }
                     }).error({ (errorCode, waitTime) in
                         DispatchQueue.main.async {

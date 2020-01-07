@@ -23,6 +23,13 @@ class RootVCSwitcher {
         } else {
             window = UIWindow(frame: UIScreen.main.bounds)
         }
+        
+        window.rootViewController?.dismissKeyboard()
+        window.rootViewController?.dismiss(animated: false, completion: nil)
+        for vi in window.subviews {
+            vi.removeFromSuperview()
+        }
+        
         window.rootViewController = rootVC
         window.makeKeyAndVisible()
     }
