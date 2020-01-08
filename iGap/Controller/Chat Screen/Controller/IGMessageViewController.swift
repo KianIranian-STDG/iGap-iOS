@@ -412,8 +412,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if self.selectedMessages.count > 0 {
             lblSelectedMessages.text = String(self.selectedMessages.count).inLocalizedLanguage() + "  " + IGStringsManager.Selected.rawValue.localized
-        }
-        else {
+            btnTrash.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+            btnTrash.isEnabled = true
+        } else {
             lblSelectedMessages.text = ""
             btnTrash.setTitleColor(UIColor.iGapGray(), for: .normal)
             btnTrash.isEnabled = false
@@ -1978,6 +1979,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
     }
     ///Handle Show hide of trash button
     func handleShowHideTrashButton(shouldShow : Bool!) {
+        
         if shouldShow {
             if !isBotRoom() {
                 btnTrash.isHidden = false
