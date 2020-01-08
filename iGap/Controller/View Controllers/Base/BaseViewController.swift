@@ -13,7 +13,7 @@ import RxSwift
 
 class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     var isRTL: Bool {
         get {

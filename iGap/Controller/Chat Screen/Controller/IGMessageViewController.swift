@@ -61,6 +61,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     //newUITextMessage
     // MARK: - Outlets
+    @IBOutlet weak var scrollToBottomBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var stackTopViews: UIStackView!
     @IBOutlet weak var stackMessageView: UIStackView!
@@ -426,34 +427,36 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private func setRightNavViewAction() {
         
-        let navigationController = self.navigationController as! IGNavigationController
-        let navigationItem = self.navigationItem as! IGNavigationItem
+        if let navigationController = self.navigationController as? IGNavigationController {
+            if let navigationItem = self.navigationItem as? IGNavigationItem {
         
-        navigationItem.rightViewContainer?.addAction {
-            if self.room?.type == .chat {
-                self.selectedUserToSeeTheirInfo = (self.room?.chatRoom?.peer)!
-                self.openUserProfile()
+                navigationItem.rightViewContainer?.addAction {
+                    if self.room?.type == .chat {
+                        self.selectedUserToSeeTheirInfo = (self.room?.chatRoom?.peer)!
+                        self.openUserProfile()
+                    }
+                    if self.room?.type == .channel {
+                        self.selectedChannelToSeeTheirInfo = self.room?.channelRoom
+                        //self.performSegue(withIdentifier: "showChannelinfo", sender: self)
+                        
+                        let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                        profile.selectedChannel = self.selectedChannelToSeeTheirInfo
+                        profile.room = self.room
+                        profile.myRole = self.room?.channelRoom?.role
+                        profile.hidesBottomBarWhenPushed = true
+                        self.navigationController!.pushViewController(profile, animated: true)
+                    }
+                    if self.room?.type == .group {
+                        
+                        let profile = IGProfileGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                        profile.selectedGroup = self.room?.groupRoom
+                        profile.room = self.room
+                        profile.hidesBottomBarWhenPushed = true
+                        self.navigationController!.pushViewController(profile, animated: true)
+                    }
+                    
+                }
             }
-            if self.room?.type == .channel {
-                self.selectedChannelToSeeTheirInfo = self.room?.channelRoom
-                //self.performSegue(withIdentifier: "showChannelinfo", sender: self)
-                
-                let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                profile.selectedChannel = self.selectedChannelToSeeTheirInfo
-                profile.room = self.room
-                profile.myRole = self.room?.channelRoom?.role
-                profile.hidesBottomBarWhenPushed = true
-                self.navigationController!.pushViewController(profile, animated: true)
-            }
-            if self.room?.type == .group {
-                
-                let profile = IGProfileGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                profile.selectedGroup = self.room?.groupRoom
-                profile.room = self.room
-                profile.hidesBottomBarWhenPushed = true
-                self.navigationController!.pushViewController(profile, animated: true)
-            }
-            
         }
         
     }
@@ -1374,6 +1377,10 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
             make.bottom.equalTo(doctorBotScrollView.snp.bottom)
             make.width.equalTo(leftSpace)
         }
+        
+        scrollToBottomBottomConstraint.constant -= CGFloat(DOCTOR_BOT_HEIGHT)
+        view.layoutIfNeeded()
+        
     }
     
     private func makeDoctorBotButtonView(parent: UIView, result: IGPFavorite){

@@ -12,6 +12,7 @@ import UIKit
 import IGProtoBuff
 import MapKit
 import SwiftEventBus
+import RxSwift
 
 var isDashboardInner: Bool! = false
 
@@ -72,15 +73,15 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_DISCOVERY_PAGE)
         initFont()
                 
-        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
-            self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
-        }, onError: { (error) in
-            
-        }, onCompleted: {
-            
-        }, onDisposed: {
-            
-        }).disposed(by: disposeBag)
+//        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
+//            self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
+//        }, onError: { (error) in
+//
+//        }, onCompleted: {
+//
+//        }, onDisposed: {
+//
+//        }).disposed(by: disposeBag)
         SwiftEventBus.onMainThread(self, name: "initTheme") { result in
             self.initTheme()
         }
@@ -97,6 +98,17 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         let navigationControllerr = self.navigationController as! IGNavigationController
         navigationControllerr.navigationBar.isHidden = false
         
+        
+        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
+            self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
+        }, onError: { (error) in
+            
+        }, onCompleted: {
+            
+        }, onDisposed: {
+            
+        }).disposed(by: disposeBag)
+        
         if isDashboardInner! {
             self.initNavigationBar(title: nil, rightItemText: nil) { }
         } else {
@@ -105,6 +117,13 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         
 //        collectionView.reloadData()
         initFont()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.disposeBag = DisposeBag()
+        
     }
     
     private func initFont() {
