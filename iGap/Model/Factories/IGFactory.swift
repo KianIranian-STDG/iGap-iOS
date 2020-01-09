@@ -331,7 +331,7 @@ class IGFactory: NSObject {
             let message = IGRoomMessage(body: "")
             message.type = .text
             message.roomId = roomId
-            message.forwardedFrom = IGRoomMessage.getMessageWithId(messageId: messageId)?.getFinalMessage()
+            message.forwardedFrom = IGRoomMessage.getMessageWithId(messageId: messageId)
             try! IGDatabaseManager.shared.realm.write {
                 IGDatabaseManager.shared.realm.add(message, update: .modified)
                 self.updateRoomLastMessageIfPossibleWithoutTransaction(roomID: roomId)
