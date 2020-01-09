@@ -1053,17 +1053,17 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             let delay: Double = 1
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 var indexOfMessage = index
-                self.makeForward(room: self.room!, message: self.forwardedMessageArray[indexOfMessage]) { (message) in
+                self.makeForward(room: self.room!, message: self.forwardedMessageArray[indexOfMessage]) { [weak self] (message) in
                     DispatchQueue.main.async {
-                        if let finalMessage = IGDatabaseManager.shared.realm.resolve(message) {
-                            IGMessageSender.defaultSender.sendSingleForward(message: finalMessage, to: self.room!, success: {
+                        if let finalMessage = IGDatabaseManager.shared.realm.resolve(message), let room = self?.room {
+                            IGMessageSender.defaultSender.sendSingleForward(message: finalMessage, to: room, success: {
                                 indexOfMessage = indexOfMessage + 1
-                                self.manageForward(index: indexOfMessage)
+                                self?.manageForward(index: indexOfMessage)
                             }, error: {
                                 indexOfMessage = indexOfMessage + 1
-                                self.manageForward(index: indexOfMessage)
+                                self?.manageForward(index: indexOfMessage)
                             })
-                            self.addChatItem(realmRoomMessages: [finalMessage], direction: IGPClientGetRoomHistory.IGPDirection.down)
+                            self?.addChatItem(realmRoomMessages: [finalMessage], direction: IGPClientGetRoomHistory.IGPDirection.down)
                         }
                     }
                 }
