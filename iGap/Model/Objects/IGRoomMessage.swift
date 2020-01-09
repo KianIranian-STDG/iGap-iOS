@@ -556,6 +556,16 @@ class IGRoomMessage: Object {
         return self
     }
     
+    public func getForwardedMessage(isForward: Bool = false) -> IGRoomMessage? {
+        if let forward = self.forwardedFrom {
+            return forward.getForwardedMessage(isForward: true)
+        }
+        if isForward {
+            return self
+        }
+        return nil
+    }
+    
     internal static func makeCopyOfMessage(message: IGRoomMessage) -> IGRoomMessage {
         let finalMessage = IGRoomMessage()
         finalMessage.id = message.id

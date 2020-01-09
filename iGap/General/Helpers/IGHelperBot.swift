@@ -249,7 +249,7 @@ class IGHelperBot {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             sender.isEnabled = true
         }
-        IGMessageViewController.additionalObserver.onBotClick()
+        IGGlobal.additionalObserver.onBotClick()
         if let structAdditional = buttonActionDic[sender] {
             manageAdditionalActions(structAdditional: structAdditional)
             
@@ -277,29 +277,29 @@ class IGHelperBot {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.joinLink.rawValue :
-                if let observer = IGMessageViewController.messageViewControllerObserver {
+                if let observer = IGGlobal.messageViewControllerObserver {
                     IGHelperJoin.getInstance(viewController: observer.onMessageViewControllerDetection()).requestToCheckInvitedLink(invitedLink: structAdditional.value)
                 }
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.botAction.rawValue :
-                IGMessageViewController.additionalObserver.onAdditionalSendMessage(structAdditional: structAdditional)
+                IGGlobal.additionalObserver.onAdditionalSendMessage(structAdditional: structAdditional)
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.usernameLink.rawValue :
-                if let observer = IGMessageViewController.messageViewControllerObserver {
+                if let observer = IGGlobal.messageViewControllerObserver {
                     IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: observer.onMessageViewControllerDetection(), username: structAdditional.value, joinToRoom: false)
                 }
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.webLink.rawValue :
-                if let observer = IGMessageViewController.messageViewControllerObserver {
+                if let observer = IGGlobal.messageViewControllerObserver {
                     IGHelperOpenLink.openLink(urlString: structAdditional.value, navigationController: observer.onNavigationControllerDetection(), forceOpenInApp: true)
                 }
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.webViewLink.rawValue :
-                IGMessageViewController.additionalObserver.onAdditionalLinkClick(structAdditional: structAdditional)
+                IGGlobal.additionalObserver.onAdditionalLinkClick(structAdditional: structAdditional)
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.billMenu.rawValue :
@@ -353,11 +353,11 @@ class IGHelperBot {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.requestPhone.rawValue :
-                IGMessageViewController.additionalObserver.onAdditionalRequestPhone(structAdditional: structAdditional)
+                IGGlobal.additionalObserver.onAdditionalRequestPhone(structAdditional: structAdditional)
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.requestLocation.rawValue :
-                IGMessageViewController.additionalObserver.onAdditionalRequestLocation(structAdditional: structAdditional)
+                IGGlobal.additionalObserver.onAdditionalRequestLocation(structAdditional: structAdditional)
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.showAlert.rawValue :

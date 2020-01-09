@@ -105,12 +105,12 @@ class IGHelperMessage {
                 /**
                  * invoke following callback when I'm the sender and the message has updated
                  */
-                IGMessageViewController.messageOnChatReceiveObserver?.onMessageUpdate(roomId: roomId, message: roomMessage, identity: structMessageIdentity!.roomMessage)
+                IGGlobal.messageOnChatReceiveObserver?.onMessageUpdate(roomId: roomId, message: roomMessage, identity: structMessageIdentity!.roomMessage)
             } else {
                 /**
                  * invoke following callback when i'm not the sender, because i already done everything after sending message
                  */
-                IGMessageViewController.messageOnChatReceiveObserver?.onMessageRecieveInChatPage(roomId: roomId, message: roomMessage, roomType: roomType)
+                IGGlobal.messageOnChatReceiveObserver?.onMessageRecieveInChatPage(roomId: roomId, message: roomMessage, roomType: roomType)
             }
             IGRecentsTableViewController.messageReceiveDelegat?.onMessageRecieveInRoomList(roomId: roomId ,messages: [roomMessage])
         }

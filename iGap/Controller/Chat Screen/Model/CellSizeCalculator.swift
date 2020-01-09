@@ -64,7 +64,7 @@ class CellSizeCalculator: NSObject {
         var additionalHeight: CGFloat = 0.0
         
         var finalMessage = message
-        if let forward = message.forwardedFrom {
+        if let forward = message.getForwardedMessage() {
             finalMessage = forward
             finalSize.height += 30
         } else if message.repliedTo != nil {

@@ -710,7 +710,7 @@ class IGMessageLoader {
                         self.bottomProgressId = messageId - 1
                         message.id = self.bottomProgressId
                     }
-                    IGMessageViewController.messageOnChatReceiveObserver?.onAddWaitingProgress(roomId: self.roomId, message: message, direction: direction)
+                    IGGlobal.messageOnChatReceiveObserver?.onAddWaitingProgress(roomId: self.roomId, message: message, direction: direction)
                 }
             }
         } else {
@@ -722,7 +722,7 @@ class IGMessageLoader {
                 fakeMessageId = self.topProgressId
                 self.topProgressId = 0
             }
-            IGMessageViewController.messageOnChatReceiveObserver?.onRemoveWaitingProgress(fakeMessageId: fakeMessageId, direction: direction)
+            IGGlobal.messageOnChatReceiveObserver?.onRemoveWaitingProgress(fakeMessageId: fakeMessageId, direction: direction)
         }
     }
     

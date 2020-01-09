@@ -646,7 +646,7 @@ class IGChannelAddMessageReactionRequest: IGRequest {
         IGChannelAddMessageReactionRequest.Generator.generate(roomId: roomId, messageId: messageId, reaction: reaction, identity: "identity").successPowerful ({ (protoResponse, requestWrapper) in
             if let response = protoResponse as? IGPChannelAddMessageReactionResponse, let request = requestWrapper.message as? IGPChannelAddMessageReaction {
                 IGRealmChannelExtra.addReaction(messageId: messageId, igpChannelAddMessageReactionResponse: response, reaction: request.igpReaction)
-                IGMessageViewController.messageOnChatReceiveObserver?.onMessageUpdateStatus(messageId: messageId)
+                IGGlobal.messageOnChatReceiveObserver?.onMessageUpdateStatus(messageId: messageId)
             }
         }).error ({ (errorCode, waitTime) in }).send()
     }

@@ -165,7 +165,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
     
     /* check that exist forward/reply and fill finalMessage with correct value */
     private func detectFinalMessage(){
-        if let message = realmRoomMessage.forwardedFrom {
+        if let message = realmRoomMessage.getForwardedMessage() {
             isForward = true
             isReply = false
             finalRoomMessage = message
@@ -616,7 +616,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             } else if let userId = realmRoomMessage.authorUser?.userId {
                 avatarViewAbs.avatarImageView?.backgroundColor = UIColor.white
                 avatarViewAbs.avatarImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
-                IGMessageViewController.messageOnChatReceiveObserver.onFetchUserInfo(userId: userId)
+                IGGlobal.messageOnChatReceiveObserver.onFetchUserInfo(userId: userId)
             }
             
         } else {
@@ -1207,7 +1207,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                 if let user = authorUser.user {
                     txtForwardAbs.text = IGStringsManager.ForwardedFrom.rawValue.localized + " \(user.displayName)"
                 } else {
-                    IGMessageViewController.messageOnChatReceiveObserver.onFetchUserInfo(userId: authorUser.userId)
+                    IGGlobal.messageOnChatReceiveObserver.onFetchUserInfo(userId: authorUser.userId)
                 }
             } else if let room = originalMessage.authorRoom {
                 txtForwardAbs.text = IGStringsManager.ForwardedFrom.rawValue.localized + " \(room.title != nil ? room.title! : "")"
@@ -2276,7 +2276,7 @@ extension AbstractCell: IGProgressDelegate {
 
             if let attachment = self.attachment {
                 if attachment.status == .uploading {
-                    IGMessageViewController.messageOnChatReceiveObserver.onMessageDelete(roomId: self.room.id, messageId: self.finalRoomMessage.id)
+                    IGGlobal.messageOnChatReceiveObserver.onMessageDelete(roomId: self.room.id, messageId: self.finalRoomMessage.id)
                     IGUploadManager.sharedManager.cancelUpload(attachment: attachment)
                 } else if attachment.status == .uploadFailed {
                     if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", self.realmRoomMessage.roomId)).first {

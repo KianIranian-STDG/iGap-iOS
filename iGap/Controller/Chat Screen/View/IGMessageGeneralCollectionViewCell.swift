@@ -11,7 +11,7 @@
 import UIKit
 
 
-protocol IGMessageGeneralCollectionViewCellDelegate {
+protocol IGMessageGeneralCollectionViewCellDelegate: AnyObject { // Using AnyObject you say that only classes can conform to this protocol, whereas structs or enums can't.
     func didTapAndHoldOnMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell)
     func swipToReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell)
     func didTapOnAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell)
@@ -36,7 +36,7 @@ class IGMessageGeneralCollectionViewCell: UICollectionViewCell {
     var cellMessage: IGRoomMessage?
     var attachment: IGFile?
     var forwardedAttachment: IGFile? //deprecated!. Not Used In Code.
-    var delegate: IGMessageGeneralCollectionViewCellDelegate?
+    weak var delegate: IGMessageGeneralCollectionViewCellDelegate?
     
     func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {}
     

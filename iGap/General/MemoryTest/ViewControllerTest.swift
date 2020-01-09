@@ -11,7 +11,35 @@
 import UIKit
 import RealmSwift
 
-class ViewControllerTest: BaseViewController, ObserverTest, UITextFieldDelegate {
+class ViewControllerTest: BaseViewController, ObserverTest, UITextFieldDelegate, AdditionalObserver, StickerTapListener {
+    func onStickerTap(stickerItem: IGRealmStickerItem) {
+        
+    }
+    
+    func onAdditionalSendMessage(structAdditional: IGStructAdditionalButton) {
+        
+    }
+    
+    func onAdditionalLinkClick(structAdditional: IGStructAdditionalButton) {
+        
+    }
+    
+    func onAdditionalRequestPhone(structAdditional: IGStructAdditionalButton) {
+        
+    }
+    
+    func onAdditionalRequestLocation(structAdditional: IGStructAdditionalButton) {
+        
+    }
+    
+    func onAdditionalRequestPayDirect(structAdditional: IGStructAdditionalButton) {
+        
+    }
+    
+    func onBotClick() {
+        
+    }
+    
 
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var textField: UITextField!
@@ -30,7 +58,9 @@ class ViewControllerTest: BaseViewController, ObserverTest, UITextFieldDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         observer = self
+        IGGlobal.additionalObserver = self
         textField.delegate = self
+        IGGlobal.stickerTapListener = self
         print("Initialize ViewControllerTest")
         
         
@@ -65,6 +95,8 @@ class ViewControllerTest: BaseViewController, ObserverTest, UITextFieldDelegate 
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        //ViewControllerTest.additionalObserver = nil
+        IGGlobal.stickerTapListener = nil
         observer = nil /// BAD - DO THIS
     }
 

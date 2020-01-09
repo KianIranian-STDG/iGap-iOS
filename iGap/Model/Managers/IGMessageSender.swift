@@ -48,8 +48,8 @@ class IGMessageSender {
     
     func resend(message: IGRoomMessage, to room: IGRoom) {
         IGFactory.shared.updateMessageStatus(primaryKeyId: message.primaryKeyId!, status: .sending)
-        if IGMessageViewController.messageOnChatReceiveObserver != nil {
-            IGMessageViewController.messageOnChatReceiveObserver.onLocalMessageUpdateStatus(localMessage: message)
+        if IGGlobal.messageOnChatReceiveObserver != nil {
+            IGGlobal.messageOnChatReceiveObserver.onLocalMessageUpdateStatus(localMessage: message)
         } else {
             // Hint: use from following code at "onLocalMessageUpdateStatus" callback, because we need latest updated local message for find position after send message
             if let localMessage = IGRoomMessage.getMessageWithPrimaryKeyId(primaryKeyId: message.primaryKeyId!) {

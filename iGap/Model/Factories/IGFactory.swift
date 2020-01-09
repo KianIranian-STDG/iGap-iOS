@@ -331,7 +331,7 @@ class IGFactory: NSObject {
             let message = IGRoomMessage(body: "")
             message.type = .text
             message.roomId = roomId
-            message.forwardedFrom = IGRoomMessage.getMessageWithId(messageId: messageId)
+            message.forwardedFrom = IGRoomMessage.getMessageWithId(messageId: messageId)?.getFinalMessage()
             try! IGDatabaseManager.shared.realm.write {
                 IGDatabaseManager.shared.realm.add(message, update: .modified)
                 self.updateRoomLastMessageIfPossibleWithoutTransaction(roomID: roomId)
@@ -468,7 +468,7 @@ class IGFactory: NSObject {
                 try! IGDatabaseManager.shared.realm.write {
                     messageUpdate.status = IGRoomMessageStatus.failed
                 }
-                IGMessageViewController.messageOnChatReceiveObserver?.onLocalMessageUpdateStatus(localMessage: message)
+                IGGlobal.messageOnChatReceiveObserver?.onLocalMessageUpdateStatus(localMessage: message)
             }
         }
     }
@@ -507,7 +507,7 @@ class IGFactory: NSObject {
                     messageInDb.statusVersion = statusVersion
                 }
             }
-            IGMessageViewController.messageOnChatReceiveObserver?.onMessageUpdateStatus(messageId: messageID)
+            IGGlobal.messageOnChatReceiveObserver?.onMessageUpdateStatus(messageId: messageID)
         }
     }
     
@@ -521,7 +521,7 @@ class IGFactory: NSObject {
                     messageInDb.type = IGRoomMessageType.unknown.fromIGP(messageType)
                     messageInDb.messageVersion = messageVersion
                 }
-                IGMessageViewController.messageOnChatReceiveObserver?.onMessageEdit(messageId: messageID, roomId: roomID, message: message, messageType: messageType, messageVersion: messageVersion)
+                IGGlobal.messageOnChatReceiveObserver?.onMessageEdit(messageId: messageID, roomId: roomID, message: message, messageType: messageType, messageVersion: messageVersion)
             }
         }
     }
@@ -535,7 +535,7 @@ class IGFactory: NSObject {
                     messageInDb.deleteVersion = deleteVersion
                 }
             }
-            IGMessageViewController.messageOnChatReceiveObserver?.onMessageDelete(roomId: roomID, messageId: messageID)
+            IGGlobal.messageOnChatReceiveObserver?.onMessageDelete(roomId: roomID, messageId: messageID)
         }
     }
     

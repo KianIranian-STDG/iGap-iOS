@@ -107,8 +107,26 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var messageTextViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var collectionBottomConstraint: NSLayoutConstraint!
-
+    
+    @IBOutlet weak var txtPinnedMessage: UILabel!
+    @IBOutlet weak var txtPinnedMessageTitle: UILabel!
+    @IBOutlet weak var collectionView: IGMessageCollectionView!
+    
+    @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var joinButton: UIButton!
+    @IBOutlet weak var btnScrollToBottom: UIButton!
+    @IBOutlet weak var btnClosePin: UIButton!
+    @IBOutlet weak var lblSelectedMessages: UILabel!
+    @IBOutlet weak var inputBarRecordTimeLabel: UILabel!
+    @IBOutlet weak var inputBarRecodingBlinkingView: UIView!
+    @IBOutlet weak var scrollToBottomContainerView: UIView!
+    //@IBOutlet weak var scrollToBottomBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var chatBackground: UIImageView!
+    @IBOutlet weak var floatingDateView: UIView!
+    @IBOutlet weak var txtFloatingDate: UILabel!
+    
     // MARK: - Variables
+    private var myNavigationItem: IGNavigationItem!
     var multiShareModalOriginalHeight : CGFloat!
     var alreadyInSendMode : Bool = false
     var musicFile : MusicFile!
@@ -129,32 +147,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     var MultiShareModalIsActive = false
     var CardToCardModalIsActive = false
     var isBoth = false
-    
     var blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
     var blurEffectView = UIVisualEffectView()
     var dissmissViewBG = UIView()
-    
-    public var deepLinkMessageId: Int64?
-    
     var dismissBtn : UIButton!
-    @IBOutlet weak var txtPinnedMessage: UILabel!
-    @IBOutlet weak var txtPinnedMessageTitle: UILabel!
-    @IBOutlet weak var collectionView: IGMessageCollectionView!
-    
-    @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var joinButton: UIButton!
-    @IBOutlet weak var btnScrollToBottom: UIButton!
-    @IBOutlet weak var btnClosePin: UIButton!
-    @IBOutlet weak var lblSelectedMessages: UILabel!
-    @IBOutlet weak var inputBarRecordTimeLabel: UILabel!
-    @IBOutlet weak var inputBarRecodingBlinkingView: UIView!
-    @IBOutlet weak var scrollToBottomContainerView: UIView!
-    //@IBOutlet weak var scrollToBottomBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var chatBackground: UIImageView!
-    @IBOutlet weak var floatingDateView: UIView!
-    @IBOutlet weak var txtFloatingDate: UILabel!
     var previousRect = CGRect.zero
-    
     var webView: UIWebView!
     var webViewProgressbar: UIActivityIndicatorView!
     var btnChangeKeyboard : UIButton!
@@ -199,7 +196,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         String(kUTTypeWaveformAudio), String(kUTTypeMIDIAudio)] // audio end
     
     
-    
+    public var deepLinkMessageId: Int64?
     //var messages = [IGRoomMessage]()
     let sortProperties = [SortDescriptor(keyPath: "creationTime", ascending: false),
                           SortDescriptor(keyPath: "id", ascending: false)]
@@ -284,9 +281,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private var cellSizeLimit: CellSizeLimit!
     
     fileprivate var typingStatusExpiryTimer = Timer() //use this to send cancel for typing status
-    internal static var additionalObserver: AdditionalObserver!
-    internal static var messageViewControllerObserver: MessageViewControllerObserver!
-    internal static var messageOnChatReceiveObserver: MessageOnChatReceiveObserver!
     
     private var saveDate: [String] = []
     private var firstSetDate = true
@@ -303,8 +297,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     func showMultiSelectUI(state : Bool!,isForward:Bool? = nil,isDelete:Bool?=nil) {
-        let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.setNavigationBarForRoom(room!)
+        myNavigationItem?.setNavigationBarForRoom(room!)
         setRightNavViewAction()
         
         if state {
@@ -427,39 +420,32 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     
     private func setRightNavViewAction() {
-        
-        if let navigationController = self.navigationController as? IGNavigationController {
-            if let navigationItem = self.navigationItem as? IGNavigationItem {
-        
-                navigationItem.rightViewContainer?.addAction {
-                    if self.room?.type == .chat {
-                        self.selectedUserToSeeTheirInfo = (self.room?.chatRoom?.peer)!
-                        self.openUserProfile()
-                    }
-                    if self.room?.type == .channel {
-                        self.selectedChannelToSeeTheirInfo = self.room?.channelRoom
-                        //self.performSegue(withIdentifier: "showChannelinfo", sender: self)
-                        
-                        let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                        profile.selectedChannel = self.selectedChannelToSeeTheirInfo
-                        profile.room = self.room
-                        profile.myRole = self.room?.channelRoom?.role
-                        profile.hidesBottomBarWhenPushed = true
-                        self.navigationController!.pushViewController(profile, animated: true)
-                    }
-                    if self.room?.type == .group {
-                        
-                        let profile = IGProfileGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                        profile.selectedGroup = self.room?.groupRoom
-                        profile.room = self.room
-                        profile.hidesBottomBarWhenPushed = true
-                        self.navigationController!.pushViewController(profile, animated: true)
-                    }
-                    
-                }
+        weak var weakSelf = self
+        myNavigationItem.rightViewContainer?.addAction {
+            if weakSelf?.room?.type == .chat {
+                weakSelf?.selectedUserToSeeTheirInfo = (weakSelf?.room?.chatRoom?.peer)!
+                weakSelf?.openUserProfile()
+            }
+            if weakSelf?.room?.type == .channel {
+                weakSelf?.selectedChannelToSeeTheirInfo = weakSelf?.room?.channelRoom
+                //self.performSegue(withIdentifier: "showChannelinfo", sender: self)
+                
+                let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                profile.selectedChannel = weakSelf?.selectedChannelToSeeTheirInfo
+                profile.room = weakSelf?.room
+                profile.myRole = weakSelf?.room?.channelRoom?.role
+                profile.hidesBottomBarWhenPushed = true
+                weakSelf?.navigationController!.pushViewController(profile, animated: true)
+            }
+            if weakSelf?.room?.type == .group {
+                
+                let profile = IGProfileGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                profile.selectedGroup = weakSelf?.room?.groupRoom
+                profile.room = weakSelf?.room
+                profile.hidesBottomBarWhenPushed = true
+                weakSelf?.navigationController!.pushViewController(profile, animated: true)
             }
         }
-        
     }
     
     
@@ -474,20 +460,17 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         initChangeLanguegeNewChatView()
         initDelegatesNewChatView()
         initAvatarObserver()
-        SwiftEventBus.onMainThread(self, name: "initTheme") { result in
-            self.initTheme()
+        SwiftEventBus.onMainThread(self, name: "initTheme") { [weak self] result in
+            self?.initTheme()
         }
 
         let attributes = [
-            NSAttributedString.Key.foregroundColor: ThemeManager.currentTheme.TextFieldPlaceHolderColor ?? #colorLiteral(red: 0.6784313725, green: 0.6784313725, blue: 0.6784313725, alpha: 1),
+            NSAttributedString.Key.foregroundColor: ThemeManager.currentTheme.TextFieldPlaceHolderColor ,
             NSAttributedString.Key.font: UIFont.igFont(ofSize: 13) // Note the !
         ]
         self.removeHideKeyboardWhenTappedAround()
-        initChangeLanguegeNewChatView()
-        
-        
-        self.removeHideKeyboardWhenTappedAround()
-        
+        self.initChangeLanguegeNewChatView()
+
         holderMusicPlayer.isHidden = true
         joinButton.isHidden = true
 
@@ -550,10 +533,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         removeButtonsUnderline(buttons: [btnMic, btnScrollToBottom, btnMoney, btnClosePin])
         
-        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
+        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { [weak self] (connectionStatus) in
             DispatchQueue.main.async {
-                self.updateConnectionStatus(connectionStatus)
-                
+                self?.updateConnectionStatus(connectionStatus)
             }
         }, onError: { (error) in
             
@@ -570,64 +552,40 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.addNotificationObserverForTapOnStatusBar()
         var canBecomeFirstResponder: Bool { return true }
         let navigationController = self.navigationController as! IGNavigationController
-        let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.delegate = self
-        navigationItem.navigationController = navigationController
-        navigationItem.setNavigationBarForRoom(room!)
+        myNavigationItem = self.navigationItem as? IGNavigationItem
+        myNavigationItem.delegate = self
+        myNavigationItem.navigationController = navigationController
+        myNavigationItem.setNavigationBarForRoom(room!)
         navigationController.interactivePopGestureRecognizer?.delegate = self
+        
+        weak var weakSelf = self
+        myNavigationItem.backViewContainer?.addAction {
+            weakSelf?.deallocate()
+            weakSelf?.back()
+        }
         
         setRightNavViewAction()
         
-        //        self.navigationController?.interactivePopGestureRecognizer?.addTarget(self, action:#selector(self.handlePopGesture))
-//        navigationItem.rightViewContainer?.addAction {
-//            if self.room?.type == .chat {
-//                self.selectedUserToSeeTheirInfo = (self.room?.chatRoom?.peer)!
-//                self.openUserProfile()
-//            }
-//            if self.room?.type == .channel {
-//                self.selectedChannelToSeeTheirInfo = self.room?.channelRoom
-//                //self.performSegue(withIdentifier: "showChannelinfo", sender: self)
-//
-//                let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-//                profile.selectedChannel = self.selectedChannelToSeeTheirInfo
-//                profile.room = self.room
-//                profile.myRole = self.room?.channelRoom?.role
-//                profile.hidesBottomBarWhenPushed = true
-//                self.navigationController!.pushViewController(profile, animated: true)
-//            }
-//            if self.room?.type == .group {
-//
-//                let profile = IGProfileGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-//                profile.selectedGroup = self.room?.groupRoom
-//                profile.room = self.room
-//                profile.hidesBottomBarWhenPushed = true
-//                self.navigationController!.pushViewController(profile, animated: true)
-//            }
-//
-//        }
-        navigationItem.centerViewContainer?.addAction {
-            if self.room?.type == .chat {
-                self.selectedUserToSeeTheirInfo = (self.room?.chatRoom?.peer)!
-                self.openUserProfile()
-            } else if self.room?.type == .channel {
-                self.selectedChannelToSeeTheirInfo = self.room?.channelRoom
-                //self.performSegue(withIdentifier: "showChannelinfo", sender: self)
-                
+        myNavigationItem.centerViewContainer?.addAction ({
+            if weakSelf?.room?.type == .chat {
+                weakSelf?.selectedUserToSeeTheirInfo = (weakSelf?.room?.chatRoom?.peer)!
+                weakSelf?.openUserProfile()
+            } else if weakSelf?.room?.type == .channel {
+                weakSelf?.selectedChannelToSeeTheirInfo = weakSelf?.room?.channelRoom
                 let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                profile.selectedChannel = self.selectedChannelToSeeTheirInfo
-                profile.room = self.room
-                profile.myRole = self.room?.channelRoom?.role
+                profile.selectedChannel = weakSelf?.selectedChannelToSeeTheirInfo
+                profile.room = weakSelf?.room
+                profile.myRole = weakSelf?.room?.channelRoom?.role
                 profile.hidesBottomBarWhenPushed = true
-                self.navigationController!.pushViewController(profile, animated: true)
-            } else if self.room?.type == .group {
-                
+                weakSelf?.navigationController!.pushViewController(profile, animated: true)
+            } else if weakSelf?.room?.type == .group {
                 let profile = IGProfileGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                profile.selectedGroup = self.room?.groupRoom
-                profile.room = self.room
+                profile.selectedGroup = weakSelf?.room?.groupRoom
+                profile.room = weakSelf?.room
                 profile.hidesBottomBarWhenPushed = true
-                self.navigationController!.pushViewController(profile, animated: true)
+                weakSelf?.navigationController!.pushViewController(profile, animated: true)
             }
-        }
+        })
         
         if room!.isReadOnly {
             if room!.isParticipant == false {
@@ -749,7 +707,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         initTheme()
         self.view.endEditing(true)
-//        manageCollectionInset()
     }
     private func manageCollectionInset() {
          if self.isBotRoom() {
@@ -789,9 +746,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         IGGlobal.isInChatPage = true
-        IGMessageViewController.messageViewControllerObserver = self
-        IGMessageViewController.additionalObserver = self
-        IGMessageViewController.messageOnChatReceiveObserver = self
+        //TODO - clear this delegates at correct position
+        IGGlobal.messageViewControllerObserver = self
+        IGGlobal.additionalObserver = self
+        IGGlobal.messageOnChatReceiveObserver = self
         self.currentRoomId = self.room?.id
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
         setupNotifications()
@@ -832,16 +790,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         messageTextView.scrollRangeToVisible(NSMakeRange(0, 0))
         
         if #available(iOS 10.0, *) {
-            IGStickerViewController.stickerTapListener = self
+            IGGlobal.stickerTapListener = self
         }
         IGRecentsTableViewController.visibleChat[(room?.id)!] = true
-        let navigationItem = self.navigationItem as! IGNavigationItem
         if let roomVariable = IGRoomManager.shared.varible(for: room!) {
-            roomVariable.asObservable().subscribe({ (event) in
-                if event.element == self.room! {
+            roomVariable.asObservable().subscribe({ [weak self] (event) in
+                if event.element == self?.room {
                     DispatchQueue.main.async {
-                        navigationItem.updateNavigationBarForRoom(event.element!)
-                        
+                        self?.myNavigationItem?.updateNavigationBarForRoom(event.element!)
                     }
                 }
             }).disposed(by: disposeBag)
@@ -854,17 +810,32 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         IGHelperGetMessageState.shared.clearMessageViews()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
+    private func deallocate(){
+        myNavigationItem?.delegate = nil
+        IGGlobal.stickerTapListener = nil
+        IGGlobal.messageViewControllerObserver = nil
+        IGGlobal.additionalObserver = nil
+        IGGlobal.messageOnChatReceiveObserver = nil
+        avatarObserver?.invalidate()
+        messageLoader = nil
+    }
+    
+    deinit {
+        print("Deinit IGMessageViewController")
+    }
+    
     private func initTheme() {
-//        self.holderMultiSelect.backgroundColor =
         lblSelectedMessages.textColor = ThemeManager.currentTheme.LabelColor
         joinButton.backgroundColor = ThemeManager.currentTheme.SliderTintColor
         let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
         let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
         self.holderRecordView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
 
         if currentTheme == "IGAPDay" {
-            
             if currentColorSetLight == "IGAPBlack" {
                 joinButton.setTitleColor(.white, for: .normal)
                 self.txtPinnedMessage.textColor = ThemeManager.currentTheme.LabelGrayColor.lighter(by: 10)
@@ -872,8 +843,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.lblCenterText.textColor = .white
                 self.lblCenterIcon.textColor = .white
                 self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
-
-
             } else {
                 joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
                 self.txtPinnedMessage.textColor = ThemeManager.currentTheme.LabelGrayColor.lighter(by: 10)
@@ -881,18 +850,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.lblCenterText.textColor = ThemeManager.currentTheme.LabelColor
                 self.lblCenterIcon.textColor = ThemeManager.currentTheme.LabelColor
                 self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
-
             }
-
         } else {
             joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
             self.txtPinnedMessage.textColor = ThemeManager.currentTheme.LabelGrayColor.lighter(by: 10)
             self.txtPinnedMessageTitle.textColor = .white
             self.lblCenterText.textColor = ThemeManager.currentTheme.LabelColor
             self.lblCenterIcon.textColor = ThemeManager.currentTheme.LabelColor
-self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
-
-
+            self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
         }
 
         self.messageTextView.backgroundColor = .clear
@@ -908,8 +873,6 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
         self.holderReplyBar.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         self.holderAttachmentBar.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         self.viewTopHolder.backgroundColor = ThemeManager.currentTheme.SliderTintColor
-
-
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -988,27 +951,24 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
     }
     
     private func eventBusInitialiser() {
-        SwiftEventBus.onMainThread(self, name: EventBusManager.stopLastButtonState) { result in
-              self.stopButtonPlayForRow()
-              
-          }
-        SwiftEventBus.onMainThread(self, name: EventBusManager.sendForwardReq) { result in
-              self.sendMultiForwardRequest()
-              
-          }
-
-        SwiftEventBus.onMainThread(self, name: EventBusManager.hideTopMusicPlayer) { result in
-            self.hideMusicTopPlayerWithAnimation()
+        SwiftEventBus.onMainThread(self, name: EventBusManager.stopLastButtonState) { [weak self] result in
+            self?.stopButtonPlayForRow()
         }
-        SwiftEventBus.onMainThread(self, name: EventBusManager.showTopMusicPlayer) { result in
-            self.musicFile = (result?.object as! MusicFile)
-            IGGlobal.topBarSongTime = self.musicFile.songTime
-            IGGlobal.topBarSongName = self.musicFile.songName
-            IGGlobal.topBarSongSinger = self.musicFile.singerName
-            self.showMusicTopPlayerWithAnimation()
+        SwiftEventBus.onMainThread(self, name: EventBusManager.sendForwardReq) { [weak self] result in
+            self?.sendMultiForwardRequest()
         }
-        SwiftEventBus.onMainThread(self, name: EventBusManager.updateLabelsData) { result in
-            self.updateLabelsData(singerName: IGGlobal.topBarSongSinger,songName: IGGlobal.topBarSongName)
+        SwiftEventBus.onMainThread(self, name: EventBusManager.hideTopMusicPlayer) { [weak self] result in
+            self?.hideMusicTopPlayerWithAnimation()
+        }
+        SwiftEventBus.onMainThread(self, name: EventBusManager.showTopMusicPlayer) { [weak self] result in
+            self?.musicFile = (result?.object as! MusicFile)
+            IGGlobal.topBarSongTime = self?.musicFile.songTime ?? 0
+            IGGlobal.topBarSongName = self?.musicFile.songName ?? ""
+            IGGlobal.topBarSongSinger = self?.musicFile.singerName ?? ""
+            self?.showMusicTopPlayerWithAnimation()
+        }
+        SwiftEventBus.onMainThread(self, name: EventBusManager.updateLabelsData) { [weak self] result in
+            self?.updateLabelsData(singerName: IGGlobal.topBarSongSinger,songName: IGGlobal.topBarSongName)
         }
     }
 
@@ -1101,16 +1061,16 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
             self.collectionView.fadeOut(0)
         }
         
-        messageLoader.getMessages(fetchDown: fetchDown) { (messages, direction) in
-            self.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
+        messageLoader.getMessages(fetchDown: fetchDown) { [weak self] (messages, direction) in
+            self?.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
             if hasUnread || hasSaveState {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                    self.collectionView.fadeIn(0.1)
+                    self?.collectionView.fadeIn(0.1)
                 }
             }
-            if self.allowManageForward {
-                self.allowManageForward = false
-                self.manageForward()
+            if self?.allowManageForward ?? false {
+                self?.allowManageForward = false
+                self?.manageForward()
             }
         }
     }
@@ -1317,7 +1277,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
     }
     
     private func getFavoriteMenu() {
-        IGClientGetFavoriteMenuRequest.Generator.generate().success ({ (responseProtoMessage) in
+        IGClientGetFavoriteMenuRequest.Generator.generate().success ({ [weak self] (responseProtoMessage) in
             if let favoriteResponse = responseProtoMessage as? IGPClientGetFavoriteMenuResponse {
                 DispatchQueue.main.async {
                     let results = favoriteResponse.igpFavorites
@@ -1325,20 +1285,24 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
                         return
                     }
                     
-                    if self.room!.isReadOnly {
-                        self.collectionViewTopInsetOffset = 0
+                    if self?.room?.isReadOnly ?? true {
+                        self?.collectionViewTopInsetOffset = 0
                     } else {
-                        self.collectionViewTopInsetOffset = CGFloat(self.DOCTOR_BOT_HEIGHT)
+                        self?.collectionViewTopInsetOffset = CGFloat(self?.DOCTOR_BOT_HEIGHT ?? 50)
                     }
                     
-                    self.apiStructArray = results
+                    self?.apiStructArray = results
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
-                        self.doctorBotView(results: results)
+                        if self != nil {
+                            self?.doctorBotView(results: results)
+                        }
                     }
                     
-                    self.setCollectionViewInset(withDuration: 0.9)
+                    self?.setCollectionViewInset(withDuration: 0.9)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                        self.collectionView.setContentOffset(CGPoint(x: 0, y: -self.collectionView.contentInset.top) , animated: true)
+                        if self != nil {
+                            self!.collectionView.setContentOffset(CGPoint(x: 0, y: -self!.collectionView.contentInset.top) , animated: true)
+                        }
                     }
                 }
             }
@@ -1742,12 +1706,14 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
             if let userInfoResponse = protoResponse as? IGPUserInfoResponse {
                 IGUserInfoRequest.Handler.interpret(response: userInfoResponse)
             }
-        }).error({ (errorCode, waitTime) in
+        }).error({ [weak self] (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
                 // call "getUserInfo" in main thread for avoid from "Realm Accessed from incorrect thread"
                 DispatchQueue.main.async {
-                    self.getUserInfo()
+                    if self != nil {
+                        self?.getUserInfo()
+                    }
                 }
             default:
                 break
@@ -1871,14 +1837,6 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
         self.btnCloseReplyBar.setTitle("", for: .normal)
         self.btnClosePin.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         self.btnClosePin.setTitle("", for: .normal)
-        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-          let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
-          let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
-
-        
-        
-        print("CURRENT COLOR SET:",currentTheme,currentColorSetDark,currentColorSetLight)
-        print("CURRENT COLOR SET2:",ThemeManager.currentTheme)
     }
     ///Notifications initialisers
     private func initNotificationsNewChatView() {
@@ -2246,10 +2204,10 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
     
     private func sendUnsubscribForRoom(roomId: Int64){
         IGClientUnsubscribeFromRoomRequest.Generator.generate(roomId: roomId).success { (responseProtoMessage) in
-        }.error({ (errorCode, waitTime) in
+        }.error({ [weak self] (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                self.sendUnsubscribForRoom(roomId: roomId)
+                self?.sendUnsubscribForRoom(roomId: roomId)
             default:
                 break
             }
@@ -2646,40 +2604,23 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
                         }
                     }
                 } else if CardToCardModalIsActive {
-                         if let CardInput = CardToCardModal {
-                             self.view.addSubview(CardInput)
-                             UIView.animate(withDuration: 0.3) {
-                                 if CardInput.frame.origin.y < self.view.frame.size.height {
-                                     CardInput.frame = CGRect(x: 0, y: self.view.frame.height - CardInput.frame.height - 45, width: self.view.frame.width, height: CardInput.frame.height)
-                                 }
-                             }
-                         }
-                         
-                         
-                }
-                else if MoneyTransactionModalIsActive {
-                         if let moneyTransactionModal = MoneyTransactionModal {
-                             self.view.addSubview(moneyTransactionModal)
-                             UIView.animate(withDuration: 0.3) {
-                                 if moneyTransactionModal.frame.origin.y < self.view.frame.size.height {
-                                     moneyTransactionModal.frame = CGRect(x: 0, y: self.view.frame.height - moneyTransactionModal.frame.height - 45, width: self.view.frame.width, height: moneyTransactionModal.frame.height)
-                                 }
-                             }
-                         }
-                         
-                         
-                }
-                else if MultiShareModalIsActive {
-                    if let MultiShare = forwardModal {
-//                        self.view.addSubview(MultiShare)
-//                        UIView.animate(withDuration: 0.3) {
-//                            if MultiShare.frame.origin.y < self.view.frame.size.height {
-//                                let tmpY = ((self.view.frame.height) - (MultiShare.frame.height) - (200))
-//                                MultiShare.frame = CGRect(x: 0, y: self.view.frame.height - 100 , width: self.view.frame.width, height: self.multiShareModalOriginalHeight)
-//                            }
-//                        }
+                    if let CardInput = CardToCardModal {
+                        self.view.addSubview(CardInput)
+                        UIView.animate(withDuration: 0.3) {
+                            if CardInput.frame.origin.y < self.view.frame.size.height {
+                                CardInput.frame = CGRect(x: 0, y: self.view.frame.height - CardInput.frame.height - 45, width: self.view.frame.width, height: CardInput.frame.height)
+                            }
+                        }
                     }
-                    
+                } else if MoneyTransactionModalIsActive {
+                    if let moneyTransactionModal = MoneyTransactionModal {
+                        self.view.addSubview(moneyTransactionModal)
+                        UIView.animate(withDuration: 0.3) {
+                            if moneyTransactionModal.frame.origin.y < self.view.frame.size.height {
+                                moneyTransactionModal.frame = CGRect(x: 0, y: self.view.frame.height - moneyTransactionModal.frame.height - 45, width: self.view.frame.width, height: moneyTransactionModal.frame.height)
+                            }
+                        }
+                    }
                 }
                 self.messageTextViewBottomConstraint.constant =  0
                 UIView.animate(withDuration: 0.5) {
@@ -2728,21 +2669,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
                                 
                             }
                         }
-                }
-                else if MultiShareModalIsActive {
-                    if let MultiShare = forwardModal {
-//                        window.addSubview(MultiShare)
-//                        UIView.animate(withDuration: 0.3) {
-//
-//                            var frame = MultiShare.frame
-//                            frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height  + (200))
-//                            MultiShare.frame = frame
-//                            MultiShare.frame.size.height =  MultiShare.frame.size.height - (200)
-//
-//                        }
-                    }
-                }
-                else {
+                } else {
                     if MoneyInputModal != nil {
                         self.hideMoneyInputModal()
                     }
@@ -2761,7 +2688,6 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
             
             UIView.animate(withDuration: animationDuration, delay: 0.0, options: UIView.AnimationOptions(rawValue: UInt(animationCurveOption)), animations: {
                 self.messageTextViewBottomConstraint.constant = bottomConstraint
-//                self.view.frame.origin.y -= bottomConstraint
                 self.view.layoutIfNeeded()
             }, completion: { (completed) in
                 
@@ -2825,14 +2751,14 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
         
         let alertC = UIAlertController(title: nil, message: message, preferredStyle: IGGlobal.detectAlertStyle())
         let unpin = UIAlertAction(title: title, style: .default, handler: { (action) in
-            IGGroupPinMessageRequest.Generator.generate(roomId: (self.room?.id)!, messageId: messageId).success({ (protoResponse) in
+            IGGroupPinMessageRequest.Generator.generate(roomId: (self.room?.id)!, messageId: messageId).success({ [weak self] (protoResponse) in
                 DispatchQueue.main.async {
                     if let groupPinMessage = protoResponse as? IGPGroupPinMessageResponse {
                         if groupPinMessage.hasIgpPinnedMessage {
-                            self.txtPinnedMessage.text = IGRoomMessage.detectPinMessageProto(message: groupPinMessage.igpPinnedMessage)
-                            self.stackTopViews.isHidden = false
+                            self?.txtPinnedMessage.text = IGRoomMessage.detectPinMessageProto(message: groupPinMessage.igpPinnedMessage)
+                            self?.stackTopViews.isHidden = false
                         } else {
-                            self.stackTopViews.isHidden = true
+                            self?.stackTopViews.isHidden = true
                         }
                         IGGroupPinMessageRequest.Handler.interpret(response: groupPinMessage)
                     }
@@ -2876,14 +2802,14 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
         
         let alertC = UIAlertController(title: nil, message: message, preferredStyle: IGGlobal.detectAlertStyle())
         let unpin = UIAlertAction(title: title, style: .default, handler: { (action) in
-            IGChannelPinMessageRequest.Generator.generate(roomId: (self.room?.id)!, messageId: messageId).success({ (protoResponse) in
+            IGChannelPinMessageRequest.Generator.generate(roomId: (self.room?.id)!, messageId: messageId).success({ [weak self] (protoResponse) in
                 DispatchQueue.main.async {
                     if let channelPinMessage = protoResponse as? IGPChannelPinMessageResponse {
                         if channelPinMessage.hasIgpPinnedMessage {
-                            self.txtPinnedMessage.text = IGRoomMessage.detectPinMessageProto(message: channelPinMessage.igpPinnedMessage)
-                            self.stackTopViews.isHidden = false
+                            self?.txtPinnedMessage.text = IGRoomMessage.detectPinMessageProto(message: channelPinMessage.igpPinnedMessage)
+                            self?.stackTopViews.isHidden = false
                         } else {
-                            self.stackTopViews.isHidden = true
+                            self?.stackTopViews.isHidden = true
                         }
                         IGChannelPinMessageRequest.Handler.interpret(response: channelPinMessage)
                     }
@@ -3442,19 +3368,19 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
                 
                 let tmpJWT : String! =  KeychainSwift().get("accesstoken")!
                 SMLoading.showLoadingPage(viewcontroller: self)
-                IGRequestWalletPaymentInit.Generator.generate(jwt: tmpJWT, amount: (Int64((MoneyInputModal.inputTF.text!).inEnglishNumbersNew().onlyDigitChars())!), userID: tmpUserID, description: "", language: IGPLanguage(rawValue: IGPLanguage.faIr.rawValue)!).success ({ (protoResponse) in
+                IGRequestWalletPaymentInit.Generator.generate(jwt: tmpJWT, amount: (Int64((MoneyInputModal.inputTF.text!).inEnglishNumbersNew().onlyDigitChars())!), userID: tmpUserID, description: "", language: IGPLanguage(rawValue: IGPLanguage.faIr.rawValue)!).success ({ [weak self] (protoResponse) in
                     SMLoading.hideLoadingPage()
                     if let response = protoResponse as? IGPWalletPaymentInitResponse {
                         SMUserManager.publicKey = response.igpPublicKey
                         SMUserManager.payToken = response.igpToken
-                        self.transferToWallet(pbKey: SMUserManager.publicKey, token: SMUserManager.payToken!)
+                        self?.transferToWallet(pbKey: SMUserManager.publicKey, token: SMUserManager.payToken!)
                     }
-                }).error ({ (errorCode, waitTime) in
+                }).error ({ [weak self] (errorCode, waitTime) in
                     switch errorCode {
                         
                     case .timeout:
                         SMLoading.hideLoadingPage()
-                        self.walletTransferTapped()
+                        self?.walletTransferTapped()
                     default:
                         break
                     }
@@ -4038,11 +3964,6 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
         self.webView.isHidden = false
         self.view.endEditing(true)
         
-        let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.backViewContainer?.addAction {
-            self.back()
-        }
-        
         let url = URL(string: url)
         if let unwrappedURL = url {
             
@@ -4127,8 +4048,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
     
     func back() { // this back  when work that webview is working
         if webView == nil || webView.isHidden {
-            let navigationItem = self.navigationItem as! IGNavigationItem
-            navigationItem.backViewContainer?.isUserInteractionEnabled = false
+            myNavigationItem.backViewContainer?.isUserInteractionEnabled = false
             
             _ = self.navigationController?.popViewController(animated: true)
         } else if webView.canGoBack {
@@ -4282,26 +4202,26 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
         if let publicRooomUserName = username {
             self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
             self.hud.mode = .indeterminate
-            IGClientJoinByUsernameRequest.Generator.generate(userName: publicRooomUserName).success({ (protoResponse) in
-                self.openChatFromLink = false
+            IGClientJoinByUsernameRequest.Generator.generate(userName: publicRooomUserName).success({ [weak self] (protoResponse) in
+                self?.openChatFromLink = false
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case let clientJoinbyUsernameResponse as IGPClientJoinByUsernameResponse:
-                        if let roomId = self.room?.id {
+                        if let roomId = self?.room?.id {
                             IGClientJoinByUsernameRequest.Handler.interpret(response: clientJoinbyUsernameResponse, roomId: roomId)
                         }
-                        self.joinButton.isHidden = true
-                        self.hud.hide(animated: true)
-                        self.collectionViewTopInsetOffset = 8.0
+                        self?.joinButton.isHidden = true
+                        self?.hud.hide(animated: true)
+                        self?.collectionViewTopInsetOffset = 8.0
                     default:
                         break
                     }
                 }
-            }).error ({ (errorCode, waitTime) in
+            }).error ({ [weak self] (errorCode, waitTime) in
                 switch errorCode {
                 case .timeout:
 
-                    self.hud.hide(animated: true)
+                    self?.hud.hide(animated: true)
                     break
 
                 case .clinetJoinByUsernameForbidden:
@@ -4309,8 +4229,8 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
                         let alert = UIAlertController(title: "Error", message: "You don't have permission to join this room", preferredStyle: .alert)
                         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                         alert.addAction(okAction)
-                        self.hud.hide(animated: true)
-                        self.present(alert, animated: true, completion: nil)
+                        self?.hud.hide(animated: true)
+                        self?.present(alert, animated: true, completion: nil)
                     }
                     
                 default:
@@ -4648,7 +4568,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
     func reportRoom(roomId: Int64, messageId: Int64, reason: IGPClientRoomReport.IGPReason) {
         self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
         self.hud.mode = .indeterminate
-        IGClientRoomReportRequest.Generator.generate(roomId: roomId, messageId: messageId, reason: reason).success({ (protoResponse) in
+        IGClientRoomReportRequest.Generator.generate(roomId: roomId, messageId: messageId, reason: reason).success({ [weak self] (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
@@ -4657,9 +4577,9 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
                 default:
                     break
                 }
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
             }
-        }).error({ (errorCode , waitTime) in
+        }).error({ [weak self] (errorCode , waitTime) in
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
@@ -4678,7 +4598,7 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
                 default:
                     break
                 }
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
             }
         }).send()
     }
@@ -5167,7 +5087,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             
         } else if messageType == .sticker {
             let cell: StickerCell = collectionView.dequeueReusableCell(withReuseIdentifier: StickerCell.cellReuseIdentifier(), for: indexPath) as! StickerCell
-            var bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
 
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
             
@@ -5398,7 +5318,7 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         }
         
         if (scrollView.contentOffset.y < 0) { //reach bottom
-            if !self.messageLoader.isFirstLoadDown() && !self.messageLoader.isWaitingHistoryDownLocal() {
+            if !(self.messageLoader?.isFirstLoadDown() ?? false) && !(self.messageLoader?.isWaitingHistoryDownLocal() ?? false) {
                 self.messageLoader.loadMessage(direction: .down, onMessageReceive: { (messages, direction) in
                     self.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
                 })
@@ -6109,13 +6029,13 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     func createChat(selectedUser: IGRegisteredUser) {
         let hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
         hud.mode = .indeterminate
-        IGChatGetRoomRequest.Generator.generate(peerId: selectedUser.id).success({ (protoResponse) in
+        IGChatGetRoomRequest.Generator.generate(peerId: selectedUser.id).success({ [weak self] (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let chatGetRoomResponse as IGPChatGetRoomResponse:
                     let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
                     
-                    IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ (protoResponse) in
+                    IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ [weak self] (protoResponse) in
                         DispatchQueue.main.async {
                             switch protoResponse {
                             case let clientGetRoomResponse as IGPClientGetRoomResponse:
@@ -6124,13 +6044,13 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                                 let roomVC = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                                 roomVC.room = room
                                 roomVC.hidesBottomBarWhenPushed = true
-                                self.navigationController!.pushViewController(roomVC, animated: true)
+                                self?.navigationController!.pushViewController(roomVC, animated: true)
                             default:
                                 break
                             }
-                            self.hud.hide(animated: true)
+                            self?.hud.hide(animated: true)
                         }
-                    }).error ({ (errorCode, waitTime) in
+                    }).error ({ [weak self] (errorCode, waitTime) in
                         DispatchQueue.main.async {
                             switch errorCode {
                             case .timeout:
@@ -6138,7 +6058,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                             default:
                                 break
                             }
-                            self.hud.hide(animated: true)
+                            self?.hud.hide(animated: true)
                         }
                     }).send()
                     
@@ -6149,30 +6069,30 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 }
             }
             
-        }).error({ (errorCode, waitTime) in
+        }).error({ [weak self] (errorCode, waitTime) in
             hud.hide(animated: true)
             let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalTryAgain.rawValue.localized, preferredStyle: .alert)
             let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
             alert.addAction(okAction)
-            self.present(alert, animated: true, completion: nil)
+            self?.present(alert, animated: true, completion: nil)
         }).send()
     }
     
     func joinRoombyInvitedLink(room:IGPRoom, invitedToken: String) {
         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         self.hud.mode = .indeterminate
-        IGClientJoinByInviteLinkRequest.Generator.generate(invitedToken: invitedToken).success({ (protoResponse) in
+        IGClientJoinByInviteLinkRequest.Generator.generate(invitedToken: invitedToken).success({ [weak self] (protoResponse) in
             DispatchQueue.main.async {
                 if let _ = protoResponse as? IGPClientJoinByInviteLinkResponse {
                     IGClientJoinByInviteLinkRequest.Handler.interpret(roomId: room.igpID)
                     let predicate = NSPredicate(format: "id = %lld", room.igpID)
                     if let roomInfo = try! Realm().objects(IGRoom.self).filter(predicate).first {
-                        self.openChatAfterJoin(room: roomInfo)
+                        self?.openChatAfterJoin(room: roomInfo)
                     }
                 }
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
             }
-        }).error ({ (errorCode, waitTime) in
+        }).error ({ [weak self] (errorCode, waitTime) in
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
@@ -6182,15 +6102,15 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                     let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue, message: IGStringsManager.GroupNotExist.rawValue.localized, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
-                    self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
+                    self?.hud.hide(animated: true)
+                    self?.present(alert, animated: true, completion: nil)
                     
                 case .clientJoinByInviteLinkAlreadyJoined:
-                    self.openChatAfterJoin(room: IGRoom(igpRoom: room), before: true)
+                    self?.openChatAfterJoin(room: IGRoom(igpRoom: room), before: true)
                 default:
                     break
                 }
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
             }
         }).send()
         
@@ -6198,23 +6118,23 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     func requestToCheckInvitedLink(invitedLink: String) {
         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         self.hud.mode = .indeterminate
-        IGClinetCheckInviteLinkRequest.Generator.generate(invitedToken: invitedLink).success({ (protoResponse) in
+        IGClinetCheckInviteLinkRequest.Generator.generate(invitedToken: invitedLink).success({ [weak self] (protoResponse) in
             DispatchQueue.main.async {
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
                 if let clinetCheckInvitedlink = protoResponse as? IGPClientCheckInviteLinkResponse {
                     IGClinetCheckInviteLinkRequest.Handler.interpret(response: clinetCheckInvitedlink)
                     let alert = UIAlertController(title: "iGap", message: IGStringsManager.SureToJoin.rawValue.localized + "\n \(clinetCheckInvitedlink.igpRoom.igpTitle)", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: { (action) in
-                        self.joinRoombyInvitedLink(room:clinetCheckInvitedlink.igpRoom, invitedToken: invitedLink)
+                        self?.joinRoombyInvitedLink(room:clinetCheckInvitedlink.igpRoom, invitedToken: invitedLink)
                     })
                     let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
                     
                     alert.addAction(okAction)
                     alert.addAction(cancelAction)
-                    self.present(alert, animated: true, completion: nil)
+                    self?.present(alert, animated: true, completion: nil)
                 }
             }
-        }).error ({ (errorCode, waitTime) in
+        }).error ({ [weak self] (errorCode, waitTime) in
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
@@ -6223,7 +6143,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 default:
                     break
                 }
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
             }
             
         }).send()
@@ -6262,14 +6182,16 @@ extension IGMessageViewController {
     }
     
     func addNotificationObserverForTapOnStatusBar() {
-        NotificationCenter.default.addObserver(forName: IGNotificationStatusBarTapped.name, object: .none, queue: .none) { _ in
-            if self.collectionView.contentSize.height < self.collectionView.frame.height {
-                return
+        NotificationCenter.default.addObserver(forName: IGNotificationStatusBarTapped.name, object: .none, queue: .none) {  [weak self] _ in
+            if self != nil {
+                if self!.collectionView.contentSize.height < self!.collectionView.frame.height {
+                    return
+                }
+                //1200 is just an arbitrary number. can be anything
+                let newOffsetY = min(self!.collectionView.contentOffset.y + 1200, self!.collectionView.contentSize.height - self!.collectionView.frame.height + self!.collectionView.contentInset.bottom)
+                let newOffsett = CGPoint(x: 0, y: newOffsetY)
+                self!.collectionView.setContentOffset(newOffsett , animated: true)
             }
-            //1200 is just an arbitrary number. can be anything
-            let newOffsetY = min(self.collectionView.contentOffset.y + 1200, self.collectionView.contentSize.height - self.collectionView.frame.height + self.collectionView.contentInset.bottom)
-            let newOffsett = CGPoint(x: 0, y: newOffsetY)
-            self.collectionView.setContentOffset(newOffsett , animated: true)
         }
     }
     

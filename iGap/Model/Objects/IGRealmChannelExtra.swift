@@ -84,7 +84,7 @@ class IGRealmChannelExtra: Object {
                 }
             }
 
-            IGMessageViewController.messageOnChatReceiveObserver?.onChannelGetMessageState(roomId: roomId)
+            IGGlobal.messageOnChatReceiveObserver?.onChannelGetMessageState(roomId: roomId)
         }
     }
 }

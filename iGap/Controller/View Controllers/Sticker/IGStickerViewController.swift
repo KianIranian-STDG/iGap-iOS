@@ -40,7 +40,6 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     static var currentStickerGroupId: String? = nil // when current sticker page type is 'StickerPageType.MAIN' set this value for keep index and show current state of sticker tab after close add sticker list page
     static var stickerImageDic: [String:UIImageView] = [:]
     static var stickerAnimationDic: [String:AnimationView] = [:]
-    static var stickerTapListener: StickerTapListener!
     static var stickerToolbarObserver: StickerToolbarObserver!
     static var stickerAddListener: StickerAddListener!
     static var stickerCurrentGroupIdObserver: StickerCurrentGroupIdObserver!

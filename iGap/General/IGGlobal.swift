@@ -63,6 +63,11 @@ enum messageMainTopViewState : Int {
 class IGGlobal {
     static var imgDic : [String: IGImageView] = [:]
 //    static var heroTabIndex : Int = -1
+    static var additionalObserver: AdditionalObserver!
+    static var messageViewControllerObserver: MessageViewControllerObserver!
+    static var messageOnChatReceiveObserver: MessageOnChatReceiveObserver!
+    static var stickerTapListener: StickerTapListener!
+    
     static var shouldMultiSelect : Bool = false
     static var clickedAudioCellIndexPath : IndexPath = [0,0]
     static var currentMusic : IGFile!

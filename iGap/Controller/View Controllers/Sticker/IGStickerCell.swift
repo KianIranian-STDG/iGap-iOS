@@ -121,7 +121,7 @@ class IGStickerCell: UICollectionViewCell {
     /********************************/
     /*********** Callback ***********/
     @objc func didTapOnSticker(_ gestureRecognizer: UITapGestureRecognizer) {
-        IGStickerViewController.stickerTapListener.onStickerTap(stickerItem: self.stickerItemRealm)
+        IGGlobal.stickerTapListener.onStickerTap(stickerItem: self.stickerItemRealm)
     }
     
     @objc func openStickerPreview(_ gestureRecognizer: UITapGestureRecognizer) {
