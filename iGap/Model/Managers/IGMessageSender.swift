@@ -177,7 +177,7 @@ class IGMessageSender {
     //MARK: Send Next
     func sendNextPlainRequest(_ nextMessageTask: IGMessageSenderTask) {
         
-        IGMessageLoader.getInstance(room: nextMessageTask.room, forceNew: false).setInsuringGap(messageId: nextMessageTask.message.id, direction: .up)
+        //IGMessageLoader.getInstance(room: nextMessageTask.room, forceNew: false).setInsuringGap(messageId: nextMessageTask.message.id, direction: .up)
         
         switch nextMessageTask.room.type {
         case .chat:

@@ -78,14 +78,21 @@ class IGMessageLoader {
         setSavedScrollMessageId(savedScrollMessageId: room.savedScrollMessageId)
     }
     
-    /** if forceNew is true, make a new instance and override to the message loader instances dictionary */
-    public static func getInstance(room: IGRoom, forceNew: Bool) -> IGMessageLoader {
-        if forceNew || IGMessageLoader.messageLoaderIntances[room.id] == nil {
+    public static func getInstance(room: IGRoom) -> IGMessageLoader {
+        if IGMessageLoader.messageLoaderIntances[room.id] == nil {
             let messageLoader = IGMessageLoader(room: room)
             IGMessageLoader.messageLoaderIntances[room.id] = messageLoader
             return messageLoader
         }
         return IGMessageLoader.messageLoaderIntances[room.id]!
+    }
+    
+    public static func removeInstance(roomId: Int64){
+        IGMessageLoader.messageLoaderIntances.removeValue(forKey: roomId)
+    }
+    
+    public static func getCountOfLoaders() -> Int {
+        return IGMessageLoader.messageLoaderIntances.count
     }
     
     /*************************************************/

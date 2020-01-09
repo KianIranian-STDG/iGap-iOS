@@ -687,7 +687,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if let messageId = self.deepLinkMessageId {
             // need to make 'IGMessageLoader' for first time
-            messageLoader = IGMessageLoader.getInstance(room: self.room!, forceNew: true)
+            messageLoader = IGMessageLoader.getInstance(room: self.room!)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.goToPosition(messageId: messageId)
             }
@@ -708,35 +708,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         initTheme()
         self.view.endEditing(true)
     }
-    private func manageCollectionInset() {
-         if self.isBotRoom() {
-            print("ROOMTYPE IS:","isBOTRoom")
-            collectionBottomConstraint.constant = 0
 
-         } else {
-             if self.room?.type == .chat {
-                 print("ROOMTYPE IS:","isNormalChat")
-             } else if self.room?.type == .group {
-                 print("ROOMTYPE IS:","isGROUP")
-             } else {
-                 if self.room?.channelRoom?.role == .admin || self.room?.channelRoom?.role == .owner || self.room?.channelRoom?.role == .moderator {
-                     print("ROOMTYPE IS:","isChannel - NotUSer")
-//                    collectionBottomConstraint.constant = 0
-
-                 } else {
-                    print("ROOMTYPE IS:","isChannel - ISUser",self.mainHolder.isHidden)
-                    if room!.isParticipant  {
-//                        collectionBottomConstraint.constant = 50
-                    } else {
-//                        collectionBottomConstraint.constant = 0
-
-                    }
-
-                 }
-             }
-        }
-
-    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -748,7 +720,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         IGGlobal.isInChatPage = true
         //TODO - clear this delegates at correct position
         IGGlobal.messageViewControllerObserver = self
-        IGGlobal.additionalObserver = self
         IGGlobal.messageOnChatReceiveObserver = self
         self.currentRoomId = self.room?.id
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
@@ -815,13 +786,15 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     private func deallocate(){
-        myNavigationItem?.delegate = nil
-        IGGlobal.stickerTapListener = nil
-        IGGlobal.messageViewControllerObserver = nil
-        IGGlobal.additionalObserver = nil
-        IGGlobal.messageOnChatReceiveObserver = nil
-        avatarObserver?.invalidate()
-        messageLoader = nil
+        if IGMessageLoader.getCountOfLoaders() == 1 { // if just one chat view exist
+            myNavigationItem?.delegate = nil
+            IGGlobal.stickerTapListener = nil
+            IGGlobal.messageViewControllerObserver = nil
+            IGGlobal.additionalObserver = nil
+            IGGlobal.messageOnChatReceiveObserver = nil
+            avatarObserver?.invalidate()
+        }
+        IGMessageLoader.removeInstance(roomId: self.room!.id)
     }
     
     deinit {
@@ -1052,7 +1025,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
      */
     private func startLoadMessage(fetchDown: Bool = true){
         if messageLoader == nil {
-            messageLoader = IGMessageLoader.getInstance(room: self.room!, forceNew: true)
+            messageLoader = IGMessageLoader.getInstance(room: self.room!)
         }
 
         let hasUnread = messageLoader.hasUnread()
