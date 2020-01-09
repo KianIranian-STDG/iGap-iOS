@@ -18,7 +18,7 @@ class IGHelperForward {
     private static var forwardModalStatic: IGMultiForwardModalViewController!
     
     internal static func handleForward(messages: [IGRoomMessage] = [], forwardModal: IGMultiForwardModalViewController!, controller: UIViewController? = nil, isFromCloud: Bool = false) {
-        if forwardModal.selectedItems.count == 1 {
+        if forwardModal.selectedItems.count == 1 { // single user or room was selected
             singleForward(messages: messages, forwardModal: forwardModal, controller: controller, isFromCloud : isFromCloud)
         } else {
             multiForward(messages: messages, forwardModal: forwardModal)
@@ -35,9 +35,7 @@ class IGHelperForward {
         for selectedItem in forwardModal.selectedItems {
             if selectedItem.typeRaw == IGRoom.IGType.chat {
                 if let room = IGRoom.existRoomInLocal(userId: selectedItem.id) {
-                    if let forwardedMessages = makeForwardMessageArray(room: room, messages: messages,isFromCloud: isFromCloud) {
-                        openChat(room: room, messageArray: forwardedMessages, viewController: viewController)
-                    }
+                    openChat(room: room, messageArray: messages, viewController: viewController)
                 } else {
                     IGGlobal.prgShow(viewController.view)
                     IGChatGetRoomRequest.Generator.generate(peerId: selectedItem.id).success({ (protoResponse) in
@@ -46,9 +44,7 @@ class IGHelperForward {
                             if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse {
                                 let _ = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
                                 let room = IGRoom(igpRoom: chatGetRoomResponse.igpRoom)
-                                if let forwardedMessages = makeForwardMessageArray(room: room, messages: messages) {
-                                    openChat(room: room, messageArray: forwardedMessages, viewController: viewController)
-                                }
+                                openChat(room: room, messageArray: messages, viewController: viewController)
                             }
                         }
                     }).error({ (errorCode, waitTime) in
@@ -63,12 +59,8 @@ class IGHelperForward {
                 }
             } else {
                 if let room = IGRoom.existRoomInLocal(roomId: selectedItem.id) {
-                    if let forwardedMessages = makeForwardMessageArray(room: room, messages: messages,isFromCloud: isFromCloud) {
-                        openChat(room: room, messageArray: forwardedMessages, viewController: viewController)
-                    }
-                    
+                    openChat(room: room, messageArray: messages, viewController: viewController)
                 }
-                
             }
         }
     }
@@ -142,6 +134,18 @@ class IGHelperForward {
         return nil
     }
     
+    private static func makeForward(room: IGRoom, messages: [IGRoomMessage], isFromCloud: Bool = false, completion: @escaping (_ messages: [ThreadSafeReference<IGRoomMessage>]) -> Void) {
+        var forwardedMessages : [ThreadSafeReference<IGRoomMessage>] = []
+        for forwardedMessage in messages {
+            IGFactory.shared.saveForwardMessage(roomId: room.id, messageId: forwardedMessage.id, completion: { (message) in
+                forwardedMessages.append(ThreadSafeReference(to: message))
+                if forwardedMessages.count == messages.count {
+                    completion(forwardedMessages)
+                }
+            })
+        }
+    }
+    
     private static func makeSingleForwardMessage(room: IGRoom, forwardedMessage: IGRoomMessage,isFromCloud: Bool = false) -> IGRoomMessage {
         if isFromCloud == true && (forwardedMessage.forwardedFrom == nil) {
             let messageText = (forwardedMessage.message)
@@ -188,11 +192,13 @@ class IGHelperForward {
     }
     
     private static func openChat(room: IGRoom, messageArray: [IGRoomMessage] = [], viewController: UIViewController){
-        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
-        roomVC.room = room
-        roomVC.forwardedMessageArray = messageArray
-        roomVC.hidesBottomBarWhenPushed = true
-        viewController.navigationController!.pushViewController(roomVC, animated: true)
+        DispatchQueue.main.async {
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
+            roomVC.room = room
+            roomVC.forwardedMessageArray = messageArray
+            roomVC.hidesBottomBarWhenPushed = true
+            viewController.navigationController!.pushViewController(roomVC, animated: true)
+        }
     }
 }

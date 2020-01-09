@@ -1120,17 +1120,28 @@ self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
             let delay: Double = 1
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 var indexOfMessage = index
-                let message = self.forwardedMessageArray[indexOfMessage]
-                IGMessageSender.defaultSender.sendSingleForward(message: message, to: self.room!, success: {
-                    indexOfMessage = indexOfMessage + 1
-                    self.manageForward(index: indexOfMessage)
-                }, error: {
-                    indexOfMessage = indexOfMessage + 1
-                    self.manageForward(index: indexOfMessage)
-                })
-                self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
+                self.makeForward(room: self.room!, message: self.forwardedMessageArray[indexOfMessage]) { (message) in
+                    DispatchQueue.main.async {
+                        if let finalMessage = IGDatabaseManager.shared.realm.resolve(message) {
+                            IGMessageSender.defaultSender.sendSingleForward(message: finalMessage, to: self.room!, success: {
+                                indexOfMessage = indexOfMessage + 1
+                                self.manageForward(index: indexOfMessage)
+                            }, error: {
+                                indexOfMessage = indexOfMessage + 1
+                                self.manageForward(index: indexOfMessage)
+                            })
+                            self.addChatItem(realmRoomMessages: [finalMessage], direction: IGPClientGetRoomHistory.IGPDirection.down)
+                        }
+                    }
+                }
             }
         }
+    }
+    
+    private func makeForward(room: IGRoom, message: IGRoomMessage, isFromCloud: Bool = false, completion: @escaping (_ message: ThreadSafeReference<IGRoomMessage>) -> Void) {
+        IGFactory.shared.saveForwardMessage(roomId: room.id, messageId: message.id, completion: { (message) in
+            completion(ThreadSafeReference(to: message))
+        })
     }
     
     private func sendTracker(){
@@ -4859,19 +4870,26 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        self.collectionView = collectionView as? IGMessageCollectionView
+        
+        if messages!.count <= indexPath.row {
+            print("VVV || popViewController index out of bound")
+            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
+            cell.setUnknownMessage()
+            return cell
+        }
+        
+        let message = messages![indexPath.row]
         /* if room was deleted close chat room */
-        if (self.room?.isInvalidated)! || messages!.count <= indexPath.row {
+        if message.isInvalidated || (self.room?.isInvalidated)! {
             print("VVV || popViewController load chat item")
             self.navigationController?.popViewController(animated: true)
             
             let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
             cell.setUnknownMessage()
-            
             return cell
         }
         
-        self.collectionView = collectionView as? IGMessageCollectionView
-        let message = messages![indexPath.row]
         var isIncommingMessage = true
         var shouldShowAvatar = false
         var isPreviousMessageFromSameSender = false
@@ -6344,10 +6362,10 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     }
     
     func onMessageUpdate(roomId: Int64, message: IGPRoomMessage, identity: IGRoomMessage) {
-        if identity.isInvalidated {
-            return
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
+            if self.room == nil || self.room!.isInvalidated || self.room!.id != roomId || identity.isInvalidated {
+                return
+            }
             if let roomMessage = self.messages {
                 var indexOfMessage = 0
                 if let index = roomMessage.firstIndex(of: identity) {
@@ -6421,7 +6439,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             /* this messageId updated so after get this message from realm it has latest update */
             if let newMessage = IGRoomMessage.getMessageWithId(messageId: messageId) {
-                if let position = IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.firstIndex(of: messageId) {
+                if let position = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId) {
                     self.updateMessageArray(cellPosition: position, message: newMessage)
                     self.updateItem(cellPosition: position)
                 }
@@ -6687,7 +6705,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }
         
         self.messages!.insert(message, at: cellPosition)
-        IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.insert(message.id, at: cellPosition)
+        IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.insert(message.id, at: cellPosition)
         
         self.collectionView?.performBatchUpdates({
             self.collectionView?.insertItems(at: [IndexPath(row: cellPosition, section: 0)])
@@ -6696,7 +6714,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     
     private func removeMessageArray(messageId: Int64){
         if let index = IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.firstIndex(of: messageId) {
-            IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.remove(at: index)
+            IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.remove(at: index)
         }
     }
     
@@ -6706,7 +6724,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }
         
         self.messages?.remove(at: cellPosition!)
-        IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.remove(at: cellPosition!)
+        IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.remove(at: cellPosition!)
     }
     
     private func updateMessageArray(cellPosition: Int, message: IGRoomMessage){
@@ -6715,7 +6733,9 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }
         
         self.messages![cellPosition] = message
-        IGMessageViewController.messageIdsStatic[(self.room?.id)!]![cellPosition] = message.id
+        if IGMessageViewController.messageIdsStatic[(self.room?.id) ?? -1] != nil {
+            IGMessageViewController.messageIdsStatic[(self.room?.id)!]![cellPosition] = message.id
+        }
     }
     
     private func makeTimeItem(date: Date) -> IGRoomMessage {

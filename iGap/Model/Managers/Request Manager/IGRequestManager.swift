@@ -640,11 +640,11 @@ class IGRequestManager {
                     self.resolvedRequests[requestWrapper.id] = requestWrapper
                     self.pendingRequests.remove(at: indexOfRequest)
                     if let error = requestWrapper.error {
-                        print("\n______________________________\nTIME OUT ➤➤➤ Action ID: \(requestWrapper.id)   || \(String(describing: requestWrapper.message)) \n------------------------------\n")
+                        print("\n______________________________\nTIME OUT ➤➤➤ Action ID: \(requestWrapper.actionId)   || \(String(describing: requestWrapper.message)) \n------------------------------\n")
                         error(.timeout, nil)
                     } else if let errorPowerful = requestWrapper.errorPowerful {
                         errorPowerful(.timeout, nil, requestWrapper)
-                        print("\n______________________________\nTIME OUT ➤➤➤ Action ID: \(requestWrapper.id)   || \(String(describing: requestWrapper.message)) \n------------------------------\n")
+                        print("\n______________________________\nTIME OUT ➤➤➤ Action ID: \(requestWrapper.actionId)   || \(String(describing: requestWrapper.message)) \n------------------------------\n")
                     }
                 }
             }

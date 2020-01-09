@@ -346,6 +346,9 @@ class IGMessageLoader {
             }
             
         } else {
+            /** set here just for call 'onMessageReceive' -> currently we need this for manage forward at start of chat when not exist any history yet */
+            onMessageReceive(messageInfos, direction)
+            
             /** send request to server for get message.
              * if direction is DOWN check again realmRoomMessage for detection
              * that exist any message without checking deleted changeState and if

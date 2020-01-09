@@ -326,6 +326,20 @@ class IGFactory: NSObject {
         }
     }
     
+    func saveForwardMessage(roomId: Int64, messageId: Int64, completion: @escaping (_ message: IGRoomMessage) -> Void) {
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            let message = IGRoomMessage(body: "")
+            message.type = .text
+            message.roomId = roomId
+            message.forwardedFrom = IGRoomMessage.getMessageWithId(messageId: messageId)
+            try! IGDatabaseManager.shared.realm.write {
+                IGDatabaseManager.shared.realm.add(message, update: .modified)
+                self.updateRoomLastMessageIfPossibleWithoutTransaction(roomID: roomId)
+            }
+            completion(message)
+        }
+    }
+    
     func updateRoomLastMessageIfPossible(roomID: Int64) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             let predicate = NSPredicate(format: "id = %lld", roomID)
