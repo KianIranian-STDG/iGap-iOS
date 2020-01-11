@@ -14,6 +14,7 @@ import IGProtoBuff
 import RealmSwift
 import Contacts
 import RxSwift
+import RxCocoa
 
 class IGContactManager: NSObject {
     
@@ -27,7 +28,7 @@ class IGContactManager: NSObject {
     private var contactIndex = 0
     private var CONTACT_IMPORT_LIMIT = 25
     private var md5Hex: String!
-    lazy var contactExchangeLevel: Variable<ContactExchangeLevel>! = Variable(.importing(percent: 0))
+    lazy var contactExchangeLevel: BehaviorRelay<ContactExchangeLevel>! = BehaviorRelay(value: .importing(percent: 0))
     
     private override init() {
         super.init()
@@ -125,7 +126,7 @@ class IGContactManager: NSObject {
                     self.sendContact(phoneContacts: contactsStructList)
                 }
                 let percent = Double((self.contactIndex * self.CONTACT_IMPORT_LIMIT)) / Double(self.results.count) * 100
-                IGContactManager.sharedManager.contactExchangeLevel.value = .importing(percent: Double(percent))
+                IGContactManager.sharedManager.contactExchangeLevel.accept(.importing(percent: Double(percent)))
                 self.contactIndex += 1
             }
         }

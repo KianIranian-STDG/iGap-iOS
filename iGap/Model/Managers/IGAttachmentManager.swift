@@ -12,10 +12,11 @@ import UIKit
 import RxSwift
 import RealmSwift
 import IGProtoBuff
+import RxCocoa
 
 class IGAttachmentManager: NSObject {
     static let sharedManager = IGAttachmentManager()
-    public var variablesCache: NSCache<NSString, Variable<IGFile>>
+    public var variablesCache: NSCache<NSString, BehaviorRelay<IGFile>>
     var completionStickerDic : [String : (IGFile)->() ] = [:]
     var syncroniseStickerQueue = DispatchQueue(label: "thread-safe-sticker-obj", attributes: .concurrent) // use "async(flags: .barrier)" for "writes on data"  AND  use "sync" for "read and assign value"
     
@@ -42,7 +43,7 @@ class IGAttachmentManager: NSObject {
                 }
             }
             if variablesCache.object(forKey: primaryKeyId as NSString) == nil {
-                variablesCache.setObject(Variable(attachment), forKey: (attachment.cacheID)! as NSString)
+                variablesCache.setObject(BehaviorRelay(value: attachment), forKey: (attachment.cacheID)! as NSString)
             } else {
                 print ("found variablesCache \(primaryKeyId)")
             }
@@ -61,14 +62,14 @@ class IGAttachmentManager: NSObject {
                 }
             }
             if variablesCache.object(forKey: primaryKeyId as NSString) == nil {
-                variablesCache.setObject(Variable(attachment), forKey: (attachment.cacheID)! as NSString)
+                variablesCache.setObject(BehaviorRelay(value: attachment), forKey: (attachment.cacheID)! as NSString)
             } else {
                 print ("found variablesCache \(primaryKeyId)")
             }
         }
     }
     
-    func getRxVariable(attachmentPrimaryKeyId: String) -> Variable<IGFile>? {
+    func getRxVariable(attachmentPrimaryKeyId: String) -> BehaviorRelay<IGFile>? {
         let file = variablesCache.object(forKey: attachmentPrimaryKeyId as NSString)
         return file
     }
@@ -77,7 +78,7 @@ class IGAttachmentManager: NSObject {
         if let variableInCache = variablesCache.object(forKey: attachment.cacheID! as NSString) {
             let attachment = variableInCache.value
             attachment.downloadUploadPercent = progress
-            variableInCache.value = attachment
+            variableInCache.accept(attachment)
         }
     }
     
@@ -85,7 +86,7 @@ class IGAttachmentManager: NSObject {
         if let variableInCache = variablesCache.object(forKey: attachment.cacheID! as NSString) {
             let attachment = variableInCache.value
             attachment.status = status
-            variableInCache.value = attachment
+            variableInCache.accept(attachment)
         }
     }
     

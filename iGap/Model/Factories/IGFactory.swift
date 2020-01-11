@@ -767,11 +767,11 @@ class IGFactory: NSObject {
                 }
                 
                 let percent = savedCount / Double(igpRegistredUsers.count) * 100
-                IGContactManager.sharedManager.contactExchangeLevel.value = .gettingList(percent: percent)
+                IGContactManager.sharedManager.contactExchangeLevel.accept(.gettingList(percent: percent))
                 
                 if Int(savedCount) == igpRegistredUsers.count { //after add all contacts to db do contact clearization
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // use from delay just for show "%100" to user
-                        IGContactManager.sharedManager.contactExchangeLevel.value = .completed
+                        IGContactManager.sharedManager.contactExchangeLevel.accept(.completed)
                     }
                     self.clearExtraContacts()
                 }

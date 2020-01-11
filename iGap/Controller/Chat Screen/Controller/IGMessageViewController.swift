@@ -57,7 +57,7 @@ class IGHeader: UICollectionReusableView {
     }
 }
 
-class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener, UITextFieldDelegate, HandleReciept, HandleBackNavigation {
+class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener, UITextFieldDelegate, HandleReciept, HandleBackNavigation {
     
     //newUITextMessage
     // MARK: - Outlets
@@ -538,11 +538,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self?.updateConnectionStatus(connectionStatus)
             }
         }, onError: { (error) in
-            
+            print("onError IGMessageViewController: \(error)")
         }, onCompleted: {
-            
+            print("onCompleted IGMessageViewController")
         }, onDisposed: {
-            
+            print("onDisposed IGMessageViewController")
         }).disposed(by: disposeBag)
         
         /*
@@ -720,7 +720,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         IGGlobal.isInChatPage = true
         //TODO - clear this delegates at correct position
         IGGlobal.messageViewControllerObserver = self
-        IGGlobal.additionalObserver = self
         IGGlobal.messageOnChatReceiveObserver = self
         self.currentRoomId = self.room?.id
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
@@ -791,7 +790,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             myNavigationItem?.delegate = nil
             IGGlobal.stickerTapListener = nil
             IGGlobal.messageViewControllerObserver = nil
-            IGGlobal.additionalObserver = nil
             IGGlobal.messageOnChatReceiveObserver = nil
             avatarObserver?.invalidate()
         }
@@ -943,6 +941,28 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         SwiftEventBus.onMainThread(self, name: EventBusManager.updateLabelsData) { [weak self] result in
             self?.updateLabelsData(singerName: IGGlobal.topBarSongSinger,songName: IGGlobal.topBarSongName)
+        }
+        SwiftEventBus.onMainThread(self, name: "\(self.room!.id)") { [weak self] (result) in
+            self?.onBotClick()
+            if let botAction = result?.object as? (actionType: Int, structAdditional: IGStructAdditionalButton) {
+                switch botAction.actionType {
+                case IGPDiscoveryField.IGPButtonActionType.botAction.rawValue:
+                    self?.onAdditionalSendMessage(structAdditional: botAction.structAdditional)
+                    break
+                case IGPDiscoveryField.IGPButtonActionType.webViewLink.rawValue:
+                    self?.onAdditionalLinkClick(structAdditional: botAction.structAdditional)
+                    break
+                case IGPDiscoveryField.IGPButtonActionType.requestPhone.rawValue:
+                    self?.onAdditionalRequestPhone(structAdditional: botAction.structAdditional)
+                    break
+                case IGPDiscoveryField.IGPButtonActionType.requestLocation.rawValue:
+                    self?.onAdditionalRequestLocation(structAdditional: botAction.structAdditional)
+                    break
+                    
+                default:
+                    break
+                }
+            }
         }
     }
 
@@ -1524,7 +1544,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                         self.makeKeyboardButton()
                         isCustomKeyboard = true
                         btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControl.State.normal)
-                        latestKeyboardAdditionalView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalData!, isKeyboard: true)
+                        latestKeyboardAdditionalView = IGHelperBot.shared.makeBotView(roomId: self.room!.id, additionalArrayMain: additionalData!, isKeyboard: true)
                         self.messageTextView.inputView = latestKeyboardAdditionalView
                         self.messageTextView.reloadInputViews()
                         if !self.messageTextView.isFirstResponder {
@@ -1565,27 +1585,27 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         return nil
     }
     
-    /* overrided method */
-    func onAdditionalSendMessage(structAdditional: IGStructAdditionalButton) {
+    // MARK: - Bot Actions
+    private func onAdditionalSendMessage(structAdditional: IGStructAdditionalButton) {
         let message = IGRoomMessage(body: structAdditional.label)
         message.type = .text
         message.additional = IGRealmAdditional(additionalData: structAdditional.json, additionalType: 3)
         manageSendMessage(message: message, addForwardOrReply: false)
     }
     
-    func onAdditionalLinkClick(structAdditional: IGStructAdditionalButton) {
+    private func onAdditionalLinkClick(structAdditional: IGStructAdditionalButton) {
         openWebView(url: structAdditional.value)
     }
     
-    func onAdditionalRequestPhone(structAdditional :IGStructAdditionalButton){
+    private func onAdditionalRequestPhone(structAdditional :IGStructAdditionalButton){
         manageRequestPhone()
     }
     
-    func onAdditionalRequestLocation(structAdditional :IGStructAdditionalButton){
+    private func onAdditionalRequestLocation(structAdditional :IGStructAdditionalButton){
         openLocation()
     }
     
-    func onBotClick(){
+    private func onBotClick(){
         self.collectionView.setContentOffset(CGPoint(x: 0, y: -self.collectionView.contentInset.top) , animated: false)
     }
     

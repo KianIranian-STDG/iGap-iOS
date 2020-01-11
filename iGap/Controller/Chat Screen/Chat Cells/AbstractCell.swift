@@ -1361,14 +1361,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
             let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
             
-            let additionalView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalStruct)
+            let additionalView = IGHelperBot.shared.makeBotView(roomId: room.id, additionalArrayMain: additionalStruct)
             IGHelperBot.createdViewDic[self.realmRoomMessage.id] = additionalView
             self.makeAdditionalView(additionalView: additionalView)
             
         } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
             let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
             
-            let additionalView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalStruct)
+            let additionalView = IGHelperBot.shared.makeBotView(roomId: room.id, additionalArrayMain: additionalStruct)
             IGHelperBot.createdViewDic[self.realmRoomMessage.id] = additionalView
             self.makeAdditionalView(additionalView: additionalView)
             

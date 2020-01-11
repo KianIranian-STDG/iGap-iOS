@@ -11,10 +11,11 @@
 import UIKit
 import RxSwift
 import RealmSwift
+import RxCocoa
 
 class IGRoomManager: NSObject {
     static let shared = IGRoomManager()
-    private var variablesCache: NSCache<NSString, Variable<IGRoom>>
+    private var variablesCache: NSCache<NSString, BehaviorRelay<IGRoom>>
     
     private override init() {
         variablesCache = NSCache()
@@ -29,7 +30,7 @@ class IGRoomManager: NSObject {
             let realm = try! Realm()
             if let room = realm.resolve(roomRef), let user = realm.resolve(userRef) {
                 if self.variablesCache.object(forKey: "\(room.id)" as NSString) == nil {
-                    self.variablesCache.setObject(Variable(room), forKey: "\(room.id)" as NSString)
+                    self.variablesCache.setObject(BehaviorRelay(value: room), forKey: "\(room.id)" as NSString)
                 }
                 
                 if let roomVariableInCache = self.variablesCache.object(forKey: "\(room.id)" as NSString) {
@@ -41,16 +42,16 @@ class IGRoomManager: NSObject {
                     } else {
                         room.currenctActionsByUsers["\(user.id)"] = (user, action)
                     }
-                    roomVariableInCache.value = room
+                    roomVariableInCache.accept(room)
                 }
             }
         }
     }
     
     
-    func varible(for room:IGRoom) -> Variable<IGRoom>? {
+    func varible(for room:IGRoom) -> BehaviorRelay<IGRoom>? {
         if self.variablesCache.object(forKey: "\(room.id)" as NSString) == nil {
-            self.variablesCache.setObject(Variable(room), forKey: "\(room.id)" as NSString)
+            self.variablesCache.setObject(BehaviorRelay(value: room), forKey: "\(room.id)" as NSString)
         }
         return variablesCache.object(forKey: "\(room.id)" as NSString)
     }

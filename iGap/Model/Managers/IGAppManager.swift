@@ -18,6 +18,7 @@ import WebRTC
 import FirebaseInstanceID
 import maincore
 import SwiftEventBus
+import RxCocoa
 
 class IGAppManager: NSObject {
     static let sharedManager = IGAppManager()
@@ -31,9 +32,9 @@ class IGAppManager: NSObject {
     }
     
     var realm = try! Realm()
-    var connectionStatus: Variable<ConnectionStatus>
+    var connectionStatus: BehaviorRelay<ConnectionStatus>
     static var connectionStatusStatic: IGAppManager.ConnectionStatus?
-    var isUserLoggedIn: Variable<Bool>
+    var isUserLoggedIn: BehaviorRelay<Bool>
     var isTryingToLoginUser: Bool = false
     var currentMessagesNotificationToekn: NotificationToken?
     
@@ -52,13 +53,13 @@ class IGAppManager: NSObject {
     public let LOAD_ROOM_LIMIT = 100
     
     private override init() {
-        connectionStatus = Variable(.waitingForNetwork)
-        isUserLoggedIn   = Variable(false)
+        connectionStatus = BehaviorRelay(value: .waitingForNetwork)
+        isUserLoggedIn   = BehaviorRelay(value: false)
         super.init()
     }
     
     public func setNetworkConnectionStatus(_ status: ConnectionStatus) {
-        self.connectionStatus.value = status
+        self.connectionStatus.accept(status)
     }
     
     public func setUserUpdateStatus(status: IGRegisteredUser.IGLastSeenStatus) {
@@ -178,7 +179,7 @@ class IGAppManager: NSObject {
     }
     
     public func setUserLoginSuccessful() {
-        isUserLoggedIn.value = true
+        isUserLoggedIn.accept(true)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName), object: nil)
     }
     

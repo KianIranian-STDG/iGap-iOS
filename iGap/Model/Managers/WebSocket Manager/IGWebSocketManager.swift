@@ -92,7 +92,7 @@ class IGWebSocketManager: NSObject {
         reachability.whenReachable = { reachability in
             // this is called on a background thread
             IGAppManager.sharedManager.setNetworkConnectionStatus(.connecting)
-            IGAppManager.sharedManager.isUserLoggedIn.value = false
+            IGAppManager.sharedManager.isUserLoggedIn.accept(false)
             if reachability.connection == .wifi {
                 print("Reachable via WiFi")
             } else {
@@ -105,7 +105,7 @@ class IGWebSocketManager: NSObject {
             print ("Network Unreachable")
             IGDownloadManager.sharedManager.pauseAllDownloads(internetConnectionLost: true)
             IGAppManager.sharedManager.setNetworkConnectionStatus(.waitingForNetwork)
-            IGAppManager.sharedManager.isUserLoggedIn.value = false
+            IGAppManager.sharedManager.isUserLoggedIn.accept(false)
             self.socket.disconnect(forceTimeout:0)
             guard let delegate = RTCClient.getInstance(justReturn: true)?.callStateDelegate else {
                 return

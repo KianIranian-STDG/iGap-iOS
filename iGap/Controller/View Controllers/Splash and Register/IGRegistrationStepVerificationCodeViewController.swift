@@ -393,7 +393,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
                 switch protoResponse {
                 case _ as IGPUserLoginResponse:
                     IGUserLoginRequest.Handler.intrepret(response: (protoResponse as? IGPUserLoginResponse)!)
-                    IGAppManager.sharedManager.isUserLoggedIn.value = true
+                    IGAppManager.sharedManager.isUserLoggedIn.accept(true)
                     if self.isUserNew! {
                         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_REGISTRATION_NEW_USER)
                         self.hud.hide(animated: true)

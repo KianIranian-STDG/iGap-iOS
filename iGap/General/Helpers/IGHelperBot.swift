@@ -10,6 +10,7 @@
 
 import SnapKit
 import IGProtoBuff
+import SwiftEventBus
 
 var tmpUserID : Int64!
 class IGHelperBot {
@@ -40,7 +41,7 @@ class IGHelperBot {
     /**************************************************/
     /**************** View Maker Start ****************/
     
-    func makeBotView(additionalArrayMain: [[IGStructAdditionalButton]], isKeyboard: Bool = false) -> UIView {
+    func makeBotView(roomId: Int64, additionalArrayMain: [[IGStructAdditionalButton]], isKeyboard: Bool = false) -> UIView {
         
         let rowCount = CGFloat(additionalArrayMain.count)
         let rowHeight = computeHeight(rowCount: rowCount)
@@ -98,7 +99,7 @@ class IGHelperBot {
                 stackView.translatesAutoresizingMaskIntoConstraints = false
                 
                 for additionalButton in row {
-                    stackView.addArrangedSubview(self.makeBotButton(parentView: stackView, additionalButton: additionalButton, isKeyboard: isKeyboard))
+                    stackView.addArrangedSubview(self.makeBotButton(roomId: roomId, parentView: stackView, additionalButton: additionalButton, isKeyboard: isKeyboard))
                 }
                 mainStackView.addArrangedSubview(stackView)
                 if (index == additionalArrayMain.endIndex - 1){
@@ -110,11 +111,12 @@ class IGHelperBot {
         return parent
     }
     
-    private func makeBotButton(parentView: UIView, additionalButton: IGStructAdditionalButton, isKeyboard: Bool) -> UIView {
+    private func makeBotButton(roomId: Int64, parentView: UIView, additionalButton: IGStructAdditionalButton, isKeyboard: Bool) -> UIView {
         let view = UIView()
         var img : UIImageView!
         let btn = UIButton()
-
+        btn.accessibilityIdentifier = String(describing: roomId) // set roomId as tag and when use try to tap on button use from this tag for post to the specific event
+        
         buttonActionDic[btn] = additionalButton
         buttonViewDic[btn] = view
         if !(IGGlobal.shouldMultiSelect) {
@@ -249,9 +251,9 @@ class IGHelperBot {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             sender.isEnabled = true
         }
-        IGGlobal.additionalObserver.onBotClick()
+        
         if let structAdditional = buttonActionDic[sender] {
-            manageAdditionalActions(structAdditional: structAdditional)
+            manageAdditionalActions(roomId: sender.accessibilityIdentifier!, structAdditional: structAdditional)
             
             UIView.animate(withDuration: 0.2, animations: {
                 self.buttonViewDic[sender]!.backgroundColor = UIColor.customKeyboardButton()
@@ -268,7 +270,7 @@ class IGHelperBot {
     /***************** View Maker End *****************/
     /**************************************************/
     
-    private func manageAdditionalActions(structAdditional: IGStructAdditionalButton){
+    private func manageAdditionalActions(roomId: String, structAdditional: IGStructAdditionalButton){
         if !(IGGlobal.shouldMultiSelect) {
 
             switch structAdditional.actionType {
@@ -283,7 +285,7 @@ class IGHelperBot {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.botAction.rawValue :
-                IGGlobal.additionalObserver.onAdditionalSendMessage(structAdditional: structAdditional)
+                SwiftEventBus.postToMainThread(roomId, sender: (structAdditional.actionType, structAdditional))
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.usernameLink.rawValue :
@@ -299,7 +301,7 @@ class IGHelperBot {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.webViewLink.rawValue :
-                IGGlobal.additionalObserver.onAdditionalLinkClick(structAdditional: structAdditional)
+                SwiftEventBus.postToMainThread(roomId, sender: (structAdditional.actionType, structAdditional))
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.billMenu.rawValue :
@@ -353,11 +355,11 @@ class IGHelperBot {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.requestPhone.rawValue :
-                IGGlobal.additionalObserver.onAdditionalRequestPhone(structAdditional: structAdditional)
+                SwiftEventBus.postToMainThread(roomId, sender: (structAdditional.actionType, structAdditional))
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.requestLocation.rawValue :
-                IGGlobal.additionalObserver.onAdditionalRequestLocation(structAdditional: structAdditional)
+                SwiftEventBus.postToMainThread(roomId, sender: (structAdditional.actionType, structAdditional))
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.showAlert.rawValue :

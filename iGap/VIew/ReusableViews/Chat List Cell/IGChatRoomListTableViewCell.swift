@@ -17,7 +17,7 @@ import pop
 import SnapKit
 import AVFoundation
 import DBAttachmentPickerControllerLibrary
-///import INSPhotoGallery
+import RxCocoa
 import AVKit
 import RealmSwift
 import RxRealm
@@ -51,7 +51,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     
     var room: IGRoom?
     var lastMessageStatusContainerViewWidthConstraintDefault: CGFloat = 18.0
-    var roomVariableFromRoomManagerCache: Variable<IGRoom>?
+    var roomVariableFromRoomManagerCache: BehaviorRelay<IGRoom>?
     var users = try! Realm().objects(IGRegisteredUser.self)
     let disposeBag = DisposeBag()
     var leadingVerify: Constraint!

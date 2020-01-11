@@ -184,7 +184,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController {
                 switch protoResponse {
                 case _ as IGPUserLoginResponse:
                     IGUserLoginRequest.Handler.intrepret(response: (protoResponse as? IGPUserLoginResponse)!)
-                    IGAppManager.sharedManager.isUserLoggedIn.value = true
+                    IGAppManager.sharedManager.isUserLoggedIn.accept(true)
                     
                     IGUserInfoRequest.Generator.generate(userID: IGAppManager.sharedManager.userID()!).success({ (protoResponse) in
                         IGGlobal.prgHide()
