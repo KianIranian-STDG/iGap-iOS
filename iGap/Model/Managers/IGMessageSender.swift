@@ -252,9 +252,7 @@ class IGMessageSender {
             IGChatSendMessageRequest.Generator.generate(message: messageTask.message, room: messageTask.room, attachmentToken: messageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
                 if let chatSendMessageResponse = protoResponse as? IGPChatSendMessageResponse, let oldMessage = requestWrapper.identity as? IGStructMessageIdentity {
                     IGChatSendMessageRequest.Handler.interpret(response: chatSendMessageResponse, identity: oldMessage)
-                    if !chatSendMessageResponse.igpResponse.igpID.isEmpty {
-                        //IGFactory.shared.updateIgpMessagesToDatabase(chatSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
-                    } else {
+                    if chatSendMessageResponse.igpResponse.igpID.isEmpty {
                         IGFactory.shared.updateSendingMessageStatus(messageTask.message, with: chatSendMessageResponse.igpRoomMessage)
                     }
                     success()

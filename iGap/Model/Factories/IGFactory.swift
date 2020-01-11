@@ -326,17 +326,34 @@ class IGFactory: NSObject {
         }
     }
     
-    func saveForwardMessage(roomId: Int64, messageId: Int64, completion: @escaping (_ message: IGRoomMessage) -> Void) {
+    func saveForwardMessage(roomId: Int64, messageId: Int64, isFromCloud: Bool = false, completion: @escaping (_ message: IGRoomMessage) -> Void) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
-            let message = IGRoomMessage(body: "")
-            message.type = .text
-            message.roomId = roomId
-            message.forwardedFrom = IGRoomMessage.getMessageWithId(messageId: messageId)
-            try! IGDatabaseManager.shared.realm.write {
-                IGDatabaseManager.shared.realm.add(message, update: .modified)
-                self.updateRoomLastMessageIfPossibleWithoutTransaction(roomID: roomId)
+            guard let forwardMessage = IGRoomMessage.getMessageWithId(messageId: messageId) else {
+                return
             }
-            completion(message)
+            var message: IGRoomMessage!
+            if isFromCloud && forwardMessage.forwardedFrom == nil {
+                message = IGRoomMessage(value: forwardMessage)
+                message.creationTime = Date()
+                message.status = IGRoomMessageStatus.sending
+                message.temporaryId = IGGlobal.randomString(length: 64)
+                message.primaryKeyId = IGGlobal.randomString(length: 64)
+                let fakeId = IGGlobal.fakeMessageId()
+                message.randomId = fakeId
+                message.id = fakeId
+            } else {
+                message = IGRoomMessage(body: "")
+                message.type = .text
+                message.roomId = roomId
+                message.forwardedFrom = forwardMessage
+            }
+            if message != nil {
+                try! IGDatabaseManager.shared.realm.write {
+                    IGDatabaseManager.shared.realm.add(message, update: .modified)
+                    self.updateRoomLastMessageIfPossibleWithoutTransaction(roomID: roomId)
+                }
+                completion(message)
+            }
         }
     }
     

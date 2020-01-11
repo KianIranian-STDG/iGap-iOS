@@ -211,6 +211,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     var room : IGRoom?
     var forwardedMessageArray : [IGRoomMessage] = []
+    var forwardFromCloud: Bool = false
     var privateRoom : IGRoom?
     var openChatFromLink: Bool = false // set true this param when user not joined to this room
     var customizeBackItem: Bool = false
@@ -1066,25 +1067,25 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
             if self?.allowManageForward ?? false {
                 self?.allowManageForward = false
-                self?.manageForward()
+                self?.manageForward(isFromCloud: self?.forwardFromCloud ?? false)
             }
         }
     }
     
-    private func manageForward(index: Int = 0){
+    private func manageForward(index: Int = 0, isFromCloud: Bool = false){
         if self.forwardedMessageArray.count > 0 && self.forwardedMessageArray.count > index {
             let delay: Double = 1
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 var indexOfMessage = index
-                self.makeForward(room: self.room!, message: self.forwardedMessageArray[indexOfMessage]) { [weak self] (message) in
+                self.makeForward(room: self.room!, message: self.forwardedMessageArray[indexOfMessage], isFromCloud: isFromCloud) { [weak self] (message) in
                     DispatchQueue.main.async {
                         if let finalMessage = IGDatabaseManager.shared.realm.resolve(message), let room = self?.room {
                             IGMessageSender.defaultSender.sendSingleForward(message: finalMessage, to: room, success: {
                                 indexOfMessage = indexOfMessage + 1
-                                self?.manageForward(index: indexOfMessage)
+                                self?.manageForward(index: indexOfMessage, isFromCloud: isFromCloud)
                             }, error: {
                                 indexOfMessage = indexOfMessage + 1
-                                self?.manageForward(index: indexOfMessage)
+                                self?.manageForward(index: indexOfMessage, isFromCloud: isFromCloud)
                             })
                             self?.addChatItem(realmRoomMessages: [finalMessage], direction: IGPClientGetRoomHistory.IGPDirection.down)
                         }
@@ -1095,7 +1096,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     private func makeForward(room: IGRoom, message: IGRoomMessage, isFromCloud: Bool = false, completion: @escaping (_ message: ThreadSafeReference<IGRoomMessage>) -> Void) {
-        IGFactory.shared.saveForwardMessage(roomId: room.id, messageId: message.id, completion: { (message) in
+        IGFactory.shared.saveForwardMessage(roomId: room.id, messageId: message.id, isFromCloud: isFromCloud, completion: { (message) in
             completion(ThreadSafeReference(to: message))
         })
     }

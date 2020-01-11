@@ -35,7 +35,7 @@ class IGHelperForward {
         for selectedItem in forwardModal.selectedItems {
             if selectedItem.typeRaw == IGRoom.IGType.chat {
                 if let room = IGRoom.existRoomInLocal(userId: selectedItem.id) {
-                    openChat(room: room, messageArray: messages, viewController: viewController)
+                    openChat(room: room, messageArray: messages, isFromCloud: isFromCloud, viewController: viewController)
                 } else {
                     IGGlobal.prgShow(viewController.view)
                     IGChatGetRoomRequest.Generator.generate(peerId: selectedItem.id).success({ (protoResponse) in
@@ -44,7 +44,7 @@ class IGHelperForward {
                             if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse {
                                 let _ = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
                                 let room = IGRoom(igpRoom: chatGetRoomResponse.igpRoom)
-                                openChat(room: room, messageArray: messages, viewController: viewController)
+                                openChat(room: room, messageArray: messages, isFromCloud: isFromCloud, viewController: viewController)
                             }
                         }
                     }).error({ (errorCode, waitTime) in
@@ -59,7 +59,7 @@ class IGHelperForward {
                 }
             } else {
                 if let room = IGRoom.existRoomInLocal(roomId: selectedItem.id) {
-                    openChat(room: room, messageArray: messages, viewController: viewController)
+                    openChat(room: room, messageArray: messages, isFromCloud: isFromCloud, viewController: viewController)
                 }
             }
         }
@@ -98,51 +98,6 @@ class IGHelperForward {
             for forwardedMessage in messages {
                 IGMessageSender.defaultSender.send(message: makeSingleForwardMessage(room: room, forwardedMessage: forwardedMessage), to: room)
             }
-        }
-    }
-    
-    private static func makeForwardMessageArray(room: IGRoom, messages: [IGRoomMessage], isFromCloud: Bool = false) -> [IGRoomMessage]? {
-        var forwardedMessages : [IGRoomMessage] = []
-        for forwardedMessage in messages {
-            if isFromCloud == true && (forwardedMessage.forwardedFrom == nil) {
-                let messageText = (forwardedMessage.message)
-                let message = IGRoomMessage(body: messageText!)
-                message.type = forwardedMessage.type
-                message.attachment = forwardedMessage.attachment
-
-                message.roomId = room.id
-                let detachedMessage = message.detach()
-                IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                forwardedMessages.append(message)
-
-            } else {
-                let message = IGRoomMessage(body: "")
-                message.type = .text
-                message.roomId = room.id
-                let detachedMessage = message.detach()
-                IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                message.forwardedFrom = forwardedMessage // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                forwardedMessages.append(message)
-            }
-
-            
-        }
-
-        if forwardedMessages.count > 0 {
-            return forwardedMessages
-        }
-        return nil
-    }
-    
-    private static func makeForward(room: IGRoom, messages: [IGRoomMessage], isFromCloud: Bool = false, completion: @escaping (_ messages: [ThreadSafeReference<IGRoomMessage>]) -> Void) {
-        var forwardedMessages : [ThreadSafeReference<IGRoomMessage>] = []
-        for forwardedMessage in messages {
-            IGFactory.shared.saveForwardMessage(roomId: room.id, messageId: forwardedMessage.id, completion: { (message) in
-                forwardedMessages.append(ThreadSafeReference(to: message))
-                if forwardedMessages.count == messages.count {
-                    completion(forwardedMessages)
-                }
-            })
         }
     }
     
@@ -191,11 +146,12 @@ class IGHelperForward {
         }).send()
     }
     
-    private static func openChat(room: IGRoom, messageArray: [IGRoomMessage] = [], viewController: UIViewController){
+    private static func openChat(room: IGRoom, messageArray: [IGRoomMessage] = [], isFromCloud: Bool = false, viewController: UIViewController){
         DispatchQueue.main.async {
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
             roomVC.room = room
+            roomVC.forwardFromCloud = isFromCloud
             roomVC.forwardedMessageArray = messageArray
             roomVC.hidesBottomBarWhenPushed = true
             viewController.navigationController!.pushViewController(roomVC, animated: true)
