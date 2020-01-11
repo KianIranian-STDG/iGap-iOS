@@ -720,6 +720,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         IGGlobal.isInChatPage = true
         //TODO - clear this delegates at correct position
         IGGlobal.messageViewControllerObserver = self
+        IGGlobal.additionalObserver = self
         IGGlobal.messageOnChatReceiveObserver = self
         self.currentRoomId = self.room?.id
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
