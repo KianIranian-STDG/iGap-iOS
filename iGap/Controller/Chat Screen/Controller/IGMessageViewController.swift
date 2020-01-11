@@ -893,9 +893,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             ownerId = room!.chatRoom!.peer!.id
         }
         
-        self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: ownerId).observe({ (ObjectChange) in
-            (self.navigationItem as! IGNavigationItem).setRoomAvatar(self.room!)
-            self.setRightNavViewAction()
+        self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: ownerId).observe({ [weak self] (ObjectChange) in
+            if self != nil {
+                self!.myNavigationItem?.setRoomAvatar(self!.room!)
+                self!.setRightNavViewAction()
+            }
         })
     }
     
@@ -1300,10 +1302,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     }
                 }
             }
-        }).error({ (errorCode, waitTime) in
+        }).error({ [weak self] (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                self.getFavoriteMenu()
+                self?.getFavoriteMenu()
             default:
                 break
             }
