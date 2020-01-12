@@ -461,10 +461,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         initChangeLanguegeNewChatView()
         initDelegatesNewChatView()
         initAvatarObserver()
-        SwiftEventBus.onMainThread(self, name: "initTheme") { [weak self] result in
-            self?.initTheme()
-        }
-
+        eventBusInitialiser()
+        
         let attributes = [
             NSAttributedString.Key.foregroundColor: ThemeManager.currentTheme.TextFieldPlaceHolderColor ,
             NSAttributedString.Key.font: UIFont.igFont(ofSize: 13) // Note the !
@@ -695,7 +693,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         } else {
             startLoadMessage()
         }
-        eventBusInitialiser()
         holderMusicPlayer.backgroundColor = .clear
         if IGGlobal.shouldShowTopBarPlayer {
             let value : CGFloat = 0
@@ -719,8 +716,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         IGGlobal.isInChatPage = true
-        //TODO - clear this delegates at correct position
-        IGGlobal.messageOnChatReceiveObserver = self
         self.currentRoomId = self.room?.id
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
         setupNotifications()
@@ -785,7 +780,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func deallocate(){
         if IGMessageLoader.getCountOfLoaders() == 1 { // if just one chat view exist
             myNavigationItem?.delegate = nil
-            IGGlobal.messageOnChatReceiveObserver = nil
             avatarObserver?.invalidate()
         }
         IGMessageLoader.removeInstance(roomId: self.room!.id)
@@ -920,6 +914,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     private func eventBusInitialiser() {
+        SwiftEventBus.onMainThread(self, name: "initTheme") { [weak self] result in
+            self?.initTheme()
+        }
+        
         SwiftEventBus.onMainThread(self, name: EventBusManager.stopLastButtonState) { [weak self] result in
             self?.stopButtonPlayForRow()
         }
@@ -945,6 +943,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         SwiftEventBus.onMainThread(self, name: "\(self.room!.id)") { [weak self] (result) in
+            
+            /** Bot Actions */
             if let botAction = result?.object as? (actionType: Int, structAdditional: IGStructAdditionalButton) {
                 self?.onBotClick()
                 switch botAction.actionType {
@@ -964,6 +964,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 default:
                     break
                 }
+                
+            /** Sticker Actions */
             } else if let stickerItem = result?.object as? IGRealmStickerItem {
                 if let attachment = IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token!) {
                     let message = IGRoomMessage(body: stickerItem.name!)
@@ -984,6 +986,141 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 } else {
                     IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token!, completion: { (attachment) -> Void in })
                 }
+            }
+        }
+        
+        /******************** Chat Message Actions ********************/
+        SwiftEventBus.onMainThread(self, name: "\(IGGlobal.eventBusChatKey)\(self.room!.id)") { [weak self] (result) in
+            
+            if let onMessageRecieveInChatPage = result?.object as? (action: ChatMessageAction, roomId: Int64, message: IGPRoomMessage, roomType: IGPRoom.IGPType), onMessageRecieveInChatPage.action == ChatMessageAction.receive {
+                // if message is for another room shouldn't be add to current room
+                if self?.currentRoomId != onMessageRecieveInChatPage.roomId {return}
+                
+                /**
+                 * set "firstLoadDown" to false value for avoid from scroll to top after receive/send message
+                 * from current callback when not loaded before any message from get history callback
+                 * Hint-TODO : do better action if is possible instead set false after each message
+                 */
+                self?.messageLoader.setFirstLoadDown(firstLoadDown : false)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    if let message = IGRoomMessage.getMessageWithId(messageId: onMessageRecieveInChatPage.message.igpMessageID) {
+                        self?.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
+                    }
+                }
+                
+                
+            } else if let onMessageUpdate = result?.object as? (action: ChatMessageAction, roomId: Int64, message: IGPRoomMessage, identity: IGRoomMessage), onMessageUpdate.action == ChatMessageAction.update {
+                //DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
+                if self?.room == nil || self?.room?.isInvalidated ?? true || self?.room!.id != onMessageUpdate.roomId || onMessageUpdate.identity.isInvalidated {
+                    return
+                }
+                if let roomMessage = self?.messages {
+                    var indexOfMessage = 0
+                    if let index = roomMessage.firstIndex(of: onMessageUpdate.identity) {
+                        indexOfMessage = index
+                    }
+                    self?.updateMessageArray(cellPosition: indexOfMessage, message: IGRoomMessage(igpMessage: onMessageUpdate.message, roomId: onMessageUpdate.roomId))
+                    self?.updateItem(cellPosition: indexOfMessage)
+                }
+                
+                
+            } else if let onMessageUpdateStatus = result?.object as? (action: ChatMessageAction, messageId: Int64), onMessageUpdateStatus.action == ChatMessageAction.updateStatus {
+                if self?.room == nil || self?.room?.isInvalidated ?? false {
+                    return
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    guard let messages = IGMessageViewController.messageIdsStatic[(self?.room?.id)!] else {
+                        return
+                    }
+                    if let indexOfMessage = messages.firstIndex(of: onMessageUpdateStatus.messageId) {
+                        if let message = IGRoomMessage.getMessageWithId(messageId: onMessageUpdateStatus.messageId) {
+                            self?.updateMessageArray(cellPosition: indexOfMessage, message: message)
+                            self?.updateItem(cellPosition: indexOfMessage)
+                        }
+                    }
+                }
+                
+                
+            } else if let onChannelGetMessageState = result?.object as? (action: ChatMessageAction, roomId: Int64), onChannelGetMessageState.action == ChatMessageAction.channelGetMessageState {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    if self?.room?.id == onChannelGetMessageState.roomId {
+                        self?.reloadCollection()
+                    }
+                }
+                
+                
+            } else if let onLocalMessageUpdateStatus = result?.object as? (action: ChatMessageAction, localMessage: IGRoomMessage), onLocalMessageUpdateStatus.action == ChatMessageAction.locallyUpdateStatus {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    if self?.room == nil || self?.room?.isInvalidated ?? false || IGMessageViewController.messageIdsStatic[(self?.room?.id)!] == nil || onLocalMessageUpdateStatus.localMessage.isInvalidated {
+                        return
+                    }
+                    
+                    if let roomMessage = self?.messages, let indexOfMessage = roomMessage.firstIndex(of: onLocalMessageUpdateStatus.localMessage) {
+                        if let newMessage = IGRoomMessage.getMessageWithPrimaryKeyId(primaryKeyId: onLocalMessageUpdateStatus.localMessage.primaryKeyId!) {
+                            self?.updateMessageArray(cellPosition: indexOfMessage, message: newMessage)
+                            self?.updateItem(cellPosition: indexOfMessage)
+                            
+                            if newMessage.status == IGRoomMessageStatus.sending {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                    let message = IGRoomMessage.makeCopyOfMessage(message: newMessage)
+                                    if message.type == .sticker {
+                                        IGMessageSender.defaultSender.sendSticker(message: newMessage, to: (self?.room!)!)
+                                    } else {
+                                        IGMessageSender.defaultSender.send(message: newMessage, to: (self?.room!)!)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                
+            } else if let onMessageEdit = result?.object as? (action: ChatMessageAction, messageId: Int64, roomId: Int64, message: String, messageType: IGPRoomMessageType, messageVersion: Int64), onMessageEdit.action == ChatMessageAction.edit {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    /* this messageId updated so after get this message from realm it has latest update */
+                    if let newMessage = IGRoomMessage.getMessageWithId(messageId: onMessageEdit.messageId) {
+                        if let position = IGMessageViewController.messageIdsStatic[(self?.room?.id)!]?.firstIndex(of: onMessageEdit.messageId) {
+                            self?.updateMessageArray(cellPosition: position, message: newMessage)
+                            self?.updateItem(cellPosition: position)
+                        }
+                    }
+                }
+                
+                
+            } else if let onMessageDelete = result?.object as? (action: ChatMessageAction, roomId: Int64, messageId: Int64), onMessageDelete.action == ChatMessageAction.delete {
+                //DispatchQueue.main.async {
+                self?.removeItem(cellPosition: IGMessageViewController.messageIdsStatic[onMessageDelete.roomId]?.firstIndex(of: onMessageDelete.messageId))
+                
+                
+            } else if let onFetchUserInfo = result?.object as? (action: ChatMessageAction, userId: Int64), onFetchUserInfo.action == ChatMessageAction.userInfo {
+                /* fetch user info and notify collection item if exist in visible items into the collection */
+                IGUserInfoRequest.sendRequestAvoidDuplicate(userId: onFetchUserInfo.userId) { [weak self] (userInfo) in
+                    DispatchQueue.main.async {
+                        if let visibleItems = self?.collectionView?.indexPathsForVisibleItems {
+                            for indexPath in visibleItems {
+                                if let cell = self?.collectionView.cellForItem(at: indexPath) as? AbstractCell {
+                                    if !cell.realmRoomMessage.isInvalidated, let authorUser = cell.realmRoomMessage.authorUser, !authorUser.isInvalidated {
+                                        if let peerId = cell.realmRoomMessage.authorUser?.userId, userInfo.igpID == peerId {
+                                            self?.updateItem(cellPosition: indexPath.row)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                
+            } else if let onAddWaitingProgress = result?.object as? (action: ChatMessageAction, roomId: Int64, message: IGRoomMessage, direction: IGPClientGetRoomHistory.IGPDirection), onAddWaitingProgress.action == ChatMessageAction.addProgress {
+                if onAddWaitingProgress.roomId == self?.room?.id ?? -1 {
+                    self?.appendMessageArray([onAddWaitingProgress.message], onAddWaitingProgress.direction)
+                    self?.addWaitingProgress(direction: onAddWaitingProgress.direction)
+                }
+                
+                
+            } else if let onRemoveWaitingProgress = result?.object as? (action: ChatMessageAction, fakeMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection), onRemoveWaitingProgress.action == ChatMessageAction.removeProgress {
+                self?.removeProgress(fakeMessageId: onRemoveWaitingProgress.fakeMessageId, direction: onRemoveWaitingProgress.direction)
             }
         }
     }
@@ -6214,14 +6351,6 @@ extension IGMessageViewController {
     fileprivate func sendCancelRecoringVoice() {
         IGClientActionManager.shared.sendCancelRecoringVoice(for: self.room!)
     }
-    
-    //    Capturing Image
-    //    Capturign Video
-    //    Sending Gif
-    //    Sending Location
-    //    Choosing Contact
-    //    Painting
-    
 }
 
 // Helper function inserted by Swift 4.2 migrator.
@@ -6235,164 +6364,11 @@ fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Categ
 }
 
 
-
-extension Array where Element: Equatable {
-    func indexes(of element: Element) -> [Int] {
-        return self.enumerated().filter({ element == $0.element }).map({ $0.offset })
-    }
-}
-
-
-
 /************************************************************************************/
 /********************************** Message Loader **********************************/
 /************************************************************************************/
 
-extension IGMessageViewController: MessageOnChatReceiveObserver {
-    
-    /*************************************************************************/
-    /******************************* Observers *******************************/
-    
-    func onMessageRecieveInChatPage(roomId: Int64, message: IGPRoomMessage, roomType: IGPRoom.IGPType) {
-        if roomType == .chat && self.currentRoomId == roomId {
-//            IGGlobal.playSound(isInChat : IGGlobal.isInChatPage,isSilent : IGGlobal.isSilent,isSendMessage: false)
-        }
-        
-        // if message is for another room shouldn't be add to current room
-        if self.currentRoomId != roomId {return}
-        
-        /**
-         * set "firstLoadDown" to false value for avoid from scroll to top after receive/send message
-         * from current callback when not loaded before any message from get history callback
-         * Hint-TODO : do better action if is possible instead set false after each message
-         */
-        self.messageLoader.setFirstLoadDown(firstLoadDown : false)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            if let message = IGRoomMessage.getMessageWithId(messageId: message.igpMessageID) {
-                self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
-            }
-        }
-    }
-    
-    func onMessageUpdate(roomId: Int64, message: IGPRoomMessage, identity: IGRoomMessage) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
-            if self.room == nil || self.room!.isInvalidated || self.room!.id != roomId || identity.isInvalidated {
-                return
-            }
-            if let roomMessage = self.messages {
-                var indexOfMessage = 0
-                if let index = roomMessage.firstIndex(of: identity) {
-                    indexOfMessage = index
-                }
-                self.updateMessageArray(cellPosition: indexOfMessage, message: IGRoomMessage(igpMessage: message, roomId: roomId))
-                self.updateItem(cellPosition: indexOfMessage)
-            }
-        }
-    }
-    
-    func onMessageUpdateStatus(messageId: Int64) {
-        if self.room == nil || self.room!.isInvalidated {
-            return
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            let messages = IGMessageViewController.messageIdsStatic[(self.room?.id)!]
-            if messages == nil {
-                return
-            }
-            if let indexOfMessage = messages!.firstIndex(of: messageId) {
-                if let message = IGRoomMessage.getMessageWithId(messageId: messageId) {
-                    self.updateMessageArray(cellPosition: indexOfMessage, message: message)
-                    self.updateItem(cellPosition: indexOfMessage)
-                }
-            }
-        }
-    }
-    
-    func onChannelGetMessageState(roomId: Int64){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if self.room!.id == roomId {
-                self.reloadCollection()
-            }
-        }
-    }
-    
-    func onLocalMessageUpdateStatus(localMessage: IGRoomMessage) {
-        if self.room == nil || self.room!.isInvalidated || localMessage.isInvalidated {
-            return
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            let messages = IGMessageViewController.messageIdsStatic[(self.room?.id)!]
-            if messages == nil {
-                return
-            }
-            
-            if let roomMessage = self.messages, let indexOfMessage = roomMessage.firstIndex(of: localMessage) {
-                if let newMessage = IGRoomMessage.getMessageWithPrimaryKeyId(primaryKeyId: localMessage.primaryKeyId!) {
-                    self.updateMessageArray(cellPosition: indexOfMessage, message: newMessage)
-                    self.updateItem(cellPosition: indexOfMessage)
-                    
-                    if newMessage.status == IGRoomMessageStatus.sending {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            let message = IGRoomMessage.makeCopyOfMessage(message: newMessage)
-                            if message.type == .sticker {
-                                IGMessageSender.defaultSender.sendSticker(message: newMessage, to: self.room!)
-                            } else {
-                                IGMessageSender.defaultSender.send(message: newMessage, to: self.room!)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    func onMessageEdit(messageId: Int64, roomId: Int64, message: String, messageType: IGPRoomMessageType, messageVersion: Int64) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            /* this messageId updated so after get this message from realm it has latest update */
-            if let newMessage = IGRoomMessage.getMessageWithId(messageId: messageId) {
-                if let position = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId) {
-                    self.updateMessageArray(cellPosition: position, message: newMessage)
-                    self.updateItem(cellPosition: position)
-                }
-            }
-        }
-    }
-    
-    func onMessageDelete(roomId: Int64, messageId: Int64) {
-        DispatchQueue.main.async {
-            self.removeItem(cellPosition: IGMessageViewController.messageIdsStatic[roomId]?.firstIndex(of: messageId))
-        }
-    }
-    
-    func onFetchUserInfo(userId: Int64){
-        /* fetch user info and notify collection item if exist in visible items into the collection */
-        IGUserInfoRequest.sendRequestAvoidDuplicate(userId: userId) { (userInfo) in
-            DispatchQueue.main.async {
-                for indexPath in self.collectionView.indexPathsForVisibleItems {
-                    if let cell = self.collectionView.cellForItem(at: indexPath) as? AbstractCell {
-                        if !cell.realmRoomMessage.isInvalidated, let authorUser = cell.realmRoomMessage.authorUser, !authorUser.isInvalidated {
-                            if let peerId = cell.realmRoomMessage.authorUser?.userId, userInfo.igpID == peerId {
-                                self.updateItem(cellPosition: indexPath.row)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    func onAddWaitingProgress(roomId: Int64, message: IGRoomMessage, direction: IGPClientGetRoomHistory.IGPDirection) {
-        if roomId == self.room!.id {
-            self.appendMessageArray([message], direction)
-            self.addWaitingProgress(direction: direction)
-        }
-    }
-    
-    func onRemoveWaitingProgress(fakeMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection) {
-        self.removeProgress(fakeMessageId: fakeMessageId, direction: direction)
-    }
+extension IGMessageViewController {
     
     /*********************************************************************************/
     /******************* Collection Manager (Add , Remove , Update) ******************/

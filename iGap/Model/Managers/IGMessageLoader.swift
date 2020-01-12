@@ -10,6 +10,7 @@
 
 import IGProtoBuff
 import RealmSwift
+import SwiftEventBus
 
 /**
  * MessageLoader class for detect message from local db or get message from
@@ -717,7 +718,8 @@ class IGMessageLoader {
                         self.bottomProgressId = messageId - 1
                         message.id = self.bottomProgressId
                     }
-                    IGGlobal.messageOnChatReceiveObserver?.onAddWaitingProgress(roomId: self.roomId, message: message, direction: direction)
+                    
+                    SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(self.roomId)", sender: (action: ChatMessageAction.addProgress, roomId: self.roomId, message: message, direction: direction))
                 }
             }
         } else {
@@ -729,7 +731,7 @@ class IGMessageLoader {
                 fakeMessageId = self.topProgressId
                 self.topProgressId = 0
             }
-            IGGlobal.messageOnChatReceiveObserver?.onRemoveWaitingProgress(fakeMessageId: fakeMessageId, direction: direction)
+            SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(self.roomId)", sender: (action: ChatMessageAction.removeProgress, fakeMessageId: fakeMessageId, direction: direction))
         }
     }
     

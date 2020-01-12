@@ -10,6 +10,7 @@
 
 import IGProtoBuff
 import RealmSwift
+import SwiftEventBus
 
 class IGHelperMessage {
     
@@ -107,12 +108,12 @@ class IGHelperMessage {
                 /**
                  * invoke following callback when I'm the sender and the message has updated
                  */
-                IGGlobal.messageOnChatReceiveObserver?.onMessageUpdate(roomId: roomId, message: roomMessage, identity: structMessageIdentity!.roomMessage)
+                SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(roomId)", sender: (action: ChatMessageAction.update, roomId: roomId, message: roomMessage, identity: structMessageIdentity!.roomMessage))
             } else {
                 /**
                  * invoke following callback when i'm not the sender, because i already done everything after sending message
                  */
-                IGGlobal.messageOnChatReceiveObserver?.onMessageRecieveInChatPage(roomId: roomId, message: roomMessage, roomType: roomType)
+                SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(roomId)", sender: (action: ChatMessageAction.receive, roomId: roomId, message: roomMessage, roomType: roomType))
             }
             IGRecentsTableViewController.messageReceiveDelegat?.onMessageRecieveInRoomList(roomId: roomId ,messages: [roomMessage])
         }

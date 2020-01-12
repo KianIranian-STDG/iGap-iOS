@@ -11,6 +11,7 @@
 import Foundation
 import IGProtoBuff
 import SwiftProtobuf
+import SwiftEventBus
 
 class IGChannelCreateRequest : IGRequest {
     class Generator : IGRequest.Generator {
@@ -646,7 +647,7 @@ class IGChannelAddMessageReactionRequest: IGRequest {
         IGChannelAddMessageReactionRequest.Generator.generate(roomId: roomId, messageId: messageId, reaction: reaction, identity: "identity").successPowerful ({ (protoResponse, requestWrapper) in
             if let response = protoResponse as? IGPChannelAddMessageReactionResponse, let request = requestWrapper.message as? IGPChannelAddMessageReaction {
                 IGRealmChannelExtra.addReaction(messageId: messageId, igpChannelAddMessageReactionResponse: response, reaction: request.igpReaction)
-                IGGlobal.messageOnChatReceiveObserver?.onMessageUpdateStatus(messageId: messageId)
+                SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(request.igpRoomID)", sender: (action: ChatMessageAction.updateStatus, messageId: messageId))
             }
         }).error ({ (errorCode, waitTime) in }).send()
     }

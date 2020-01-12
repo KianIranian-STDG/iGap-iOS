@@ -12,6 +12,7 @@ import UIKit
 import IGProtoBuff
 import SwiftProtobuf
 import RealmSwift
+import SwiftEventBus
 
 class IGMessageSender {
     static let defaultSender = IGMessageSender()
@@ -48,19 +49,7 @@ class IGMessageSender {
     
     func resend(message: IGRoomMessage, to room: IGRoom) {
         IGFactory.shared.updateMessageStatus(primaryKeyId: message.primaryKeyId!, status: .sending)
-        if IGGlobal.messageOnChatReceiveObserver != nil {
-            IGGlobal.messageOnChatReceiveObserver.onLocalMessageUpdateStatus(localMessage: message)
-        } else {
-            // Hint: use from following code at "onLocalMessageUpdateStatus" callback, because we need latest updated local message for find position after send message
-            if let localMessage = IGRoomMessage.getMessageWithPrimaryKeyId(primaryKeyId: message.primaryKeyId!) {
-                let message = IGRoomMessage.makeCopyOfMessage(message: localMessage)
-                if message.type == .sticker {
-                    self.sendSticker(message: message, to: room)
-                } else {
-                    self.send(message: message, to: room)
-                }
-            }
-        }
+        SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(room.id)", sender: (action: ChatMessageAction.updateStatus, localMessage: message))
     }
     
     func resendAllSendingMessage(roomId: Int64 = 0){

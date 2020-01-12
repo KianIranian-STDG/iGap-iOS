@@ -11,6 +11,7 @@
 import RealmSwift
 import IGProtoBuff
 import SwiftProtobuf
+import SwiftEventBus
 
 fileprivate class IGFactoryTask: NSObject {
     enum Status {
@@ -485,7 +486,7 @@ class IGFactory: NSObject {
                 try! IGDatabaseManager.shared.realm.write {
                     messageUpdate.status = IGRoomMessageStatus.failed
                 }
-                IGGlobal.messageOnChatReceiveObserver?.onLocalMessageUpdateStatus(localMessage: message)
+                SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(messageUpdate.roomId)", sender: (action: ChatMessageAction.updateStatus, localMessage: message))
             }
         }
     }
@@ -522,9 +523,10 @@ class IGFactory: NSObject {
                         break
                     }
                     messageInDb.statusVersion = statusVersion
+                    
+                    SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(messageInDb.roomId)", sender: (action: ChatMessageAction.updateStatus, messageId: messageID))
                 }
             }
-            IGGlobal.messageOnChatReceiveObserver?.onMessageUpdateStatus(messageId: messageID)
         }
     }
     
@@ -538,7 +540,7 @@ class IGFactory: NSObject {
                     messageInDb.type = IGRoomMessageType.unknown.fromIGP(messageType)
                     messageInDb.messageVersion = messageVersion
                 }
-                IGGlobal.messageOnChatReceiveObserver?.onMessageEdit(messageId: messageID, roomId: roomID, message: message, messageType: messageType, messageVersion: messageVersion)
+                SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(messageInDb.roomId)", sender: (action: ChatMessageAction.edit, messageId: messageID, roomId: roomID, message: message, messageType: messageType, messageVersion: messageVersion))
             }
         }
     }
@@ -552,7 +554,7 @@ class IGFactory: NSObject {
                     messageInDb.deleteVersion = deleteVersion
                 }
             }
-            IGGlobal.messageOnChatReceiveObserver?.onMessageDelete(roomId: roomID, messageId: messageID)
+            SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(roomID)", sender: (action: ChatMessageAction.delete, roomId: roomID, messageId: messageID))
         }
     }
     

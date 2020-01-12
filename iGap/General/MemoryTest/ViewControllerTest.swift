@@ -11,27 +11,7 @@
 import UIKit
 import RealmSwift
 
-class ViewControllerTest: BaseViewController, ObserverTest, UITextFieldDelegate, AdditionalObserver {
-    
-    func onAdditionalSendMessage(structAdditional: IGStructAdditionalButton) {
-        
-    }
-    
-    func onAdditionalLinkClick(structAdditional: IGStructAdditionalButton) {
-        
-    }
-    
-    func onAdditionalRequestPhone(structAdditional: IGStructAdditionalButton) {
-        
-    }
-    
-    func onAdditionalRequestLocation(structAdditional: IGStructAdditionalButton) {
-        
-    }
-    
-    func onAdditionalRequestPayDirect(structAdditional: IGStructAdditionalButton) {
-        
-    }
+class ViewControllerTest: BaseViewController, ObserverTest, UITextFieldDelegate {
     
     func onBotClick() {
         
@@ -55,7 +35,6 @@ class ViewControllerTest: BaseViewController, ObserverTest, UITextFieldDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         observer = self
-        IGGlobal.additionalObserver = self
         textField.delegate = self
         print("Initialize ViewControllerTest")
         
@@ -91,7 +70,6 @@ class ViewControllerTest: BaseViewController, ObserverTest, UITextFieldDelegate,
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        //ViewControllerTest.additionalObserver = nil
         observer = nil /// BAD - DO THIS
     }
 

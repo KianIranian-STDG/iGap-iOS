@@ -11,6 +11,7 @@
 import RealmSwift
 import Foundation
 import IGProtoBuff
+import SwiftEventBus
 
 class IGRealmChannelExtra: Object {
     
@@ -84,7 +85,7 @@ class IGRealmChannelExtra: Object {
                 }
             }
 
-            IGGlobal.messageOnChatReceiveObserver?.onChannelGetMessageState(roomId: roomId)
+            SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(roomId)", sender: (action: ChatMessageAction.channelGetMessageState, roomId: roomId))
         }
     }
 }

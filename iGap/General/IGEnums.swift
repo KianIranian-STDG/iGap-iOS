@@ -543,3 +543,15 @@ enum GroupCreateMode {
     case convertChatToGroup
 }
 
+enum ChatMessageAction {
+    case receive
+    case edit
+    case delete
+    case update
+    case updateStatus
+    case locallyUpdateStatus
+    case channelGetMessageState
+    case userInfo
+    case addProgress
+    case removeProgress
+}

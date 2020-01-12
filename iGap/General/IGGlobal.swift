@@ -62,10 +62,6 @@ enum messageMainTopViewState : Int {
 
 class IGGlobal {
     static var imgDic : [String: IGImageView] = [:]
-//    static var heroTabIndex : Int = -1
-    static var additionalObserver: AdditionalObserver!
-    static var messageOnChatReceiveObserver: MessageOnChatReceiveObserver!
-    
     static var shouldMultiSelect : Bool = false
     static var clickedAudioCellIndexPath : IndexPath = [0,0]
     static var currentMusic : IGFile!
@@ -99,6 +95,7 @@ class IGGlobal {
     static var latestTime: Int64 = 0
     static var sendTone: AVAudioPlayer?
     static var safeAreaInsets: CGFloat = 0
+    static let eventBusChatKey = "CHAT"
     static var topbarHeight: CGFloat {
         if #available(iOS 13.0, *) {
             return (UIApplication.shared.statusBarFrame.height ?? 0.0) +
@@ -2069,6 +2066,12 @@ extension Array where Element: Hashable {
         let thisSet = Set(self)
         let otherSet = Set(other)
         return Array(thisSet.symmetricDifference(otherSet))
+    }
+}
+
+extension Array where Element: Equatable {
+    func indexes(of element: Element) -> [Int] {
+        return self.enumerated().filter({ element == $0.element }).map({ $0.offset })
     }
 }
 

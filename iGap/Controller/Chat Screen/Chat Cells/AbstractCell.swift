@@ -15,6 +15,8 @@ import RxSwift
 import MarkdownKit
 import IGProtoBuff
 import Lottie
+import SwiftEventBus
+
 class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDelegate {
     
     var imgAvatarPay : UIImageViewX!
@@ -616,7 +618,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             } else if let userId = realmRoomMessage.authorUser?.userId {
                 avatarViewAbs.avatarImageView?.backgroundColor = UIColor.white
                 avatarViewAbs.avatarImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
-                IGGlobal.messageOnChatReceiveObserver.onFetchUserInfo(userId: userId)
+                SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(self.room.id)", sender: (action: ChatMessageAction.userInfo, userId: userId))
             }
             
         } else {
@@ -1207,7 +1209,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                 if let user = authorUser.user {
                     txtForwardAbs.text = IGStringsManager.ForwardedFrom.rawValue.localized + " \(user.displayName)"
                 } else {
-                    IGGlobal.messageOnChatReceiveObserver.onFetchUserInfo(userId: authorUser.userId)
+                    SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(self.room.id)", sender: (action: ChatMessageAction.userInfo, userId: authorUser.userId))
                 }
             } else if let room = originalMessage.authorRoom {
                 txtForwardAbs.text = IGStringsManager.ForwardedFrom.rawValue.localized + " \(room.title != nil ? room.title! : "")"
@@ -2276,7 +2278,7 @@ extension AbstractCell: IGProgressDelegate {
 
             if let attachment = self.attachment {
                 if attachment.status == .uploading {
-                    IGGlobal.messageOnChatReceiveObserver.onMessageDelete(roomId: self.room.id, messageId: self.finalRoomMessage.id)
+                    SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(self.room.id)", sender: (action: ChatMessageAction.delete, roomId: self.room.id, messageId: self.finalRoomMessage.id))
                     IGUploadManager.sharedManager.cancelUpload(attachment: attachment)
                 } else if attachment.status == .uploadFailed {
                     if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", self.realmRoomMessage.roomId)).first {
