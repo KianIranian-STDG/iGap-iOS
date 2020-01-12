@@ -1077,10 +1077,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 
                 
             } else if let onMessageEdit = result?.object as? (action: ChatMessageAction, messageId: Int64, roomId: Int64, message: String, messageType: IGPRoomMessageType, messageVersion: Int64), onMessageEdit.action == ChatMessageAction.edit {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     /* this messageId updated so after get this message from realm it has latest update */
                     if let newMessage = IGRoomMessage.getMessageWithId(messageId: onMessageEdit.messageId) {
-                        if let position = IGMessageViewController.messageIdsStatic[(self?.room?.id)!]?.firstIndex(of: onMessageEdit.messageId) {
+                        if let position = IGMessageViewController.messageIdsStatic[self?.room?.id ?? -1]?.firstIndex(of: onMessageEdit.messageId) {
                             self?.updateMessageArray(cellPosition: position, message: newMessage)
                             self?.updateItem(cellPosition: position)
                         }

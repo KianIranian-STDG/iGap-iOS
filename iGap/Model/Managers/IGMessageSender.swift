@@ -49,7 +49,7 @@ class IGMessageSender {
     
     func resend(message: IGRoomMessage, to room: IGRoom) {
         IGFactory.shared.updateMessageStatus(primaryKeyId: message.primaryKeyId!, status: .sending)
-        SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(room.id)", sender: (action: ChatMessageAction.updateStatus, localMessage: message))
+        SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(room.id)", sender: (action: ChatMessageAction.locallyUpdateStatus, localMessage: message))
     }
     
     func resendAllSendingMessage(roomId: Int64 = 0){

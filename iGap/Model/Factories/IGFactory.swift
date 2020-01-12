@@ -486,7 +486,7 @@ class IGFactory: NSObject {
                 try! IGDatabaseManager.shared.realm.write {
                     messageUpdate.status = IGRoomMessageStatus.failed
                 }
-                SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(messageUpdate.roomId)", sender: (action: ChatMessageAction.updateStatus, localMessage: message))
+                SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(messageUpdate.roomId)", sender: (action: ChatMessageAction.locallyUpdateStatus, localMessage: message))
             }
         }
     }
