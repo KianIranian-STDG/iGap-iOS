@@ -367,6 +367,7 @@
 		D2522EDA23D47BC6002B2D6C /* IGTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2522ED923D47BC6002B2D6C /* IGTextNode.swift */; };
 		D28B583123D56CA400CB861C /* IGImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28B583023D56CA400CB861C /* IGImageNode.swift */; };
 		D2AE38FE23D4870C0040192E /* BaseBubbleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */; };
+        D2F4B76823C9FB180046A6B8 /* ActiveLabelJsonify.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */; };
 		D6081912234DF2D5009C2A38 /* IGRealmAuthorUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6062F9B234DF0CC0007EF53 /* IGRealmAuthorUser.swift */; };
 		D60FF283234091310012ECF2 /* IGPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60FF282234091310012ECF2 /* IGPlayer.swift */; };
 		D617C711234CC69300A59EB3 /* IGWriteFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D617C710234CC69300A59EB3 /* IGWriteFileManager.swift */; };
@@ -1278,6 +1279,7 @@
 		D2522ED923D47BC6002B2D6C /* IGTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextNode.swift; sourceTree = "<group>"; };
 		D28B583023D56CA400CB861C /* IGImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGImageNode.swift; sourceTree = "<group>"; };
 		D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBubbleNode.swift; sourceTree = "<group>"; };
+        D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLabelJsonify.swift; sourceTree = "<group>"; };
 		D6062F9B234DF0CC0007EF53 /* IGRealmAuthorUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmAuthorUser.swift; sourceTree = "<group>"; };
 		D60FF282234091310012ECF2 /* IGPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPlayer.swift; sourceTree = "<group>"; };
 		D617C710234CC69300A59EB3 /* IGWriteFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGWriteFileManager.swift; sourceTree = "<group>"; };
@@ -2812,6 +2814,7 @@
 				8E1F413822391CEE00910E30 /* CheckInternet.swift */,
 				8E3C69932360785E001575BE /* IGTagManager.swift */,
 				8EE552D32364ADD1003A21FE /* UIImage+Gif.swift */,
+				D2F4B76723C9FB180046A6B8 /* ActiveLabelJsonify.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -4594,6 +4597,7 @@
 				FAB0B884232F7DC2002E35AB /* NotificationParser.swift in Sources */,
 				FA5EC5DA1E06728C006E2850 /* IGChatRoomListTableViewCell.swift in Sources */,
 				8E599D752325323D00D75376 /* IGSettingsAppearanceTableViewController.swift in Sources */,
+				D2F4B76823C9FB180046A6B8 /* ActiveLabelJsonify.swift in Sources */,
 				FA63BAA91DD70E77000B60AD /* IGRequestInfo.swift in Sources */,
 				8EC94E0C23964D05003B3510 /* IGSingleButtonTVCell.swift in Sources */,
 				8ECCA1F322B8F6DF00D3A734 /* ForwardCell.swift in Sources */,
