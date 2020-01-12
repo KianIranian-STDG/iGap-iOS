@@ -81,9 +81,9 @@ class SliderTypeTwoCell: BaseTableViewCell, UICollectionViewDelegate, UICollecti
         
         let channel = channelItem.channels?[indexPath.item]
         if channel?.type == .Public {
-            IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: UIApplication.topViewController()!, username: channel!.slug)
+            IGHelperChatOpener.checkUsernameAndOpenRoom(username: channel!.slug)
         } else if channel?.type == .Private {
-            IGHelperJoin.getInstance(viewController: UIApplication.topViewController()!).requestToCheckInvitedLink(invitedLink: channel!.slug)
+            IGHelperJoin.getInstance().requestToCheckInvitedLink(invitedLink: channel!.slug)
         }
     }
     

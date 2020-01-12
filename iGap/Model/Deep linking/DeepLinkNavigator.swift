@@ -166,11 +166,11 @@ class DeeplinkNavigator {
         }
         UIApplication.topViewController()!.navigationController!.popToRootViewController(animated: false)
         
-        IGHelperChatOpener.checkUsername(viewController: UIApplication.topViewController()!, username: username, completed: { (user, room, usernameType) in
+        IGHelperChatOpener.checkUsername(username: username, completed: { (user, room, usernameType) in
             
             switch usernameType {
             case .user:
-                IGHelperChatOpener.createChat(viewController: UIApplication.topViewController()!, userId: (user?.id)!)
+                IGHelperChatOpener.createChat(userId: (user?.id)!)
             case .room:
                 self.openRoom(room: room, messageId: messageID)
                 
@@ -192,7 +192,7 @@ class DeeplinkNavigator {
     
     private func openRoom(room: IGRoom?, messageId: Int64?) {
         guard let messageId = messageId else {
-            IGHelperChatOpener.manageOpenChatOrProfile(viewController: UIApplication.topViewController()!, usernameType: .room, user: nil, room: room)
+            IGHelperChatOpener.manageOpenChatOrProfile(usernameType: .room, user: nil, room: room)
             return
         }
         guard let igRoom = room else {

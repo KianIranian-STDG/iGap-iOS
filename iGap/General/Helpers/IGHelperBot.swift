@@ -279,9 +279,7 @@ class IGHelperBot {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.joinLink.rawValue :
-                if let observer = IGGlobal.messageViewControllerObserver {
-                    IGHelperJoin.getInstance(viewController: observer.onMessageViewControllerDetection()).requestToCheckInvitedLink(invitedLink: structAdditional.value)
-                }
+                IGHelperJoin.getInstance().requestToCheckInvitedLink(invitedLink: structAdditional.value)
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.botAction.rawValue :
@@ -289,15 +287,11 @@ class IGHelperBot {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.usernameLink.rawValue :
-                if let observer = IGGlobal.messageViewControllerObserver {
-                    IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: observer.onMessageViewControllerDetection(), username: structAdditional.value, joinToRoom: false)
-                }
+                IGHelperChatOpener.checkUsernameAndOpenRoom(username: structAdditional.value, joinToRoom: false)
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.webLink.rawValue :
-                if let observer = IGGlobal.messageViewControllerObserver {
-                    IGHelperOpenLink.openLink(urlString: structAdditional.value, navigationController: observer.onNavigationControllerDetection(), forceOpenInApp: true)
-                }
+                IGHelperOpenLink.openLink(urlString: structAdditional.value, forceOpenInApp: true)
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.webViewLink.rawValue :

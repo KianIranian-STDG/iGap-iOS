@@ -13,26 +13,19 @@ import RealmSwift
 
 class IGHelperJoin {
 
-    private var viewController: UIViewController!
-    
-    private init(_ viewController: UIViewController) {
-        self.viewController = viewController
-    }
-    
-    static func getInstance(viewController: UIViewController) -> IGHelperJoin {
-        return IGHelperJoin(viewController)
+    static func getInstance() -> IGHelperJoin {
+        return IGHelperJoin()
     }
     
     func requestToCheckInvitedLink(invitedLink: String) {
         let strings = invitedLink.split(separator: "/")
         let token: String = String(strings[strings.count-1])
         
-        IGGlobal.prgShow(viewController.view)
+        IGGlobal.prgShow()
         IGClinetCheckInviteLinkRequest.Generator.generate(invitedToken: token).success({ (protoResponse) in
             DispatchQueue.main.async {
                 IGGlobal.prgHide()
                 if let clinetCheckInvitedlink = protoResponse as? IGPClientCheckInviteLinkResponse {
-                    
                     IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: "iGap", showIconView: true, showDoneButton: false, showCancelButton: true, message: "Are you sure want to join \(clinetCheckInvitedlink.igpRoom.igpTitle)?",doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized,done: {
                         self.joinRoombyInvitedLink(room:clinetCheckInvitedlink.igpRoom, invitedToken: token)
                     })
@@ -43,20 +36,19 @@ class IGHelperJoin {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    
+                    self.requestToCheckInvitedLink(invitedLink: invitedLink)
                     break
                 default:
                     break
                 }
                 IGGlobal.prgHide()
             }
-            
         }).send()
     }
     
     
     private func joinRoombyInvitedLink(room:IGPRoom, invitedToken: String) {
-        IGGlobal.prgShow(viewController.view)
+        IGGlobal.prgShow()
         IGClientJoinByInviteLinkRequest.Generator.generate(invitedToken: invitedToken).success({ (protoResponse) in
             DispatchQueue.main.async {
                 if let _ = protoResponse as? IGPClientJoinByInviteLinkResponse {
@@ -106,9 +98,7 @@ class IGHelperJoin {
                 let chatPage = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
                 chatPage.room = room
                 chatPage.hidesBottomBarWhenPushed = true
-                self.viewController.navigationController!.pushViewController(chatPage, animated: true)
-
-                
+                UIApplication.topViewController()?.navigationController?.pushViewController(chatPage, animated: true)
             })
         }
     }
@@ -124,7 +114,7 @@ class IGHelperJoin {
             return
         }
         
-        IGGlobal.prgShow(viewController.view)
+        IGGlobal.prgShow()
         IGClientJoinByUsernameRequest.Generator.generate(userName: username).success({ (protoResponse) in
             DispatchQueue.main.async {
                 IGGlobal.prgHide()
@@ -148,7 +138,7 @@ class IGHelperJoin {
                     let alert = UIAlertController(title: "Error", message: "You don't have permission to join this room", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alert.addAction(okAction)
-                    self.viewController.present(alert, animated: true, completion: nil)
+                    UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
                     
                 default:
                     break

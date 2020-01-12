@@ -57,7 +57,7 @@ class IGHeader: UICollectionReusableView {
     }
 }
 
-class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener, UITextFieldDelegate, HandleReciept, HandleBackNavigation {
+class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, UIWebViewDelegate, StickerTapListener, UITextFieldDelegate, HandleReciept, HandleBackNavigation {
     
     //newUITextMessage
     // MARK: - Outlets
@@ -720,7 +720,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         IGGlobal.isInChatPage = true
         //TODO - clear this delegates at correct position
-        IGGlobal.messageViewControllerObserver = self
         IGGlobal.messageOnChatReceiveObserver = self
         self.currentRoomId = self.room?.id
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
@@ -790,7 +789,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if IGMessageLoader.getCountOfLoaders() == 1 { // if just one chat view exist
             myNavigationItem?.delegate = nil
             IGGlobal.stickerTapListener = nil
-            IGGlobal.messageViewControllerObserver = nil
             IGGlobal.messageOnChatReceiveObserver = nil
             avatarObserver?.invalidate()
         }
@@ -929,12 +927,15 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         SwiftEventBus.onMainThread(self, name: EventBusManager.stopLastButtonState) { [weak self] result in
             self?.stopButtonPlayForRow()
         }
+        
         SwiftEventBus.onMainThread(self, name: EventBusManager.sendForwardReq) { [weak self] result in
             self?.sendMultiForwardRequest()
         }
+        
         SwiftEventBus.onMainThread(self, name: EventBusManager.hideTopMusicPlayer) { [weak self] result in
             self?.hideMusicTopPlayerWithAnimation()
         }
+        
         SwiftEventBus.onMainThread(self, name: EventBusManager.showTopMusicPlayer) { [weak self] result in
             self?.musicFile = (result?.object as! MusicFile)
             IGGlobal.topBarSongTime = self?.musicFile.songTime ?? 0
@@ -942,9 +943,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             IGGlobal.topBarSongSinger = self?.musicFile.singerName ?? ""
             self?.showMusicTopPlayerWithAnimation()
         }
+        
         SwiftEventBus.onMainThread(self, name: EventBusManager.updateLabelsData) { [weak self] result in
             self?.updateLabelsData(singerName: IGGlobal.topBarSongSinger,songName: IGGlobal.topBarSongName)
         }
+        
         SwiftEventBus.onMainThread(self, name: "\(self.room!.id)") { [weak self] (result) in
             self?.onBotClick()
             if let botAction = result?.object as? (actionType: Int, structAdditional: IGStructAdditionalButton) {
@@ -1455,7 +1458,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     return
                 }
             }
-            IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: self, username: value)
+            IGHelperChatOpener.checkUsernameAndOpenRoom(username: value)
         } else {
             messageTextView.text = value
             self.didTapOnSendButton(self.btnSend)
@@ -5953,7 +5956,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             if forwardMessage.authorUser != nil {
                 usernameType = .user
             }
-            IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: usernameType, user: forwardMessage.authorUser?.user, room: forwardMessage.authorRoom)
+            IGHelperChatOpener.manageOpenChatOrProfile(usernameType: usernameType, user: forwardMessage.authorUser?.user, room: forwardMessage.authorRoom)
         }
     }
     
@@ -5972,7 +5975,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     }
     
     func didTapOnMention(mentionText: String) {
-        IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: self, username: mentionText)
+        IGHelperChatOpener.checkUsernameAndOpenRoom(username: mentionText)
     }
     
     func didTapOnEmail(email: String) {
@@ -5998,7 +6001,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             urlString = "http://" + urlString
         }
         
-        IGHelperOpenLink.openLink(urlString: urlString, navigationController: self.navigationController!)
+        IGHelperOpenLink.openLink(urlString: urlString)
     }
     
     func didTapOnDeepLink(url: URL) {

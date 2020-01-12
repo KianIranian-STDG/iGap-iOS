@@ -323,12 +323,12 @@ class AbstractDashboardCell: UICollectionViewCell {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
-                    IGHelperJoin.getInstance(viewController: UIApplication.topViewController()!).requestToCheckInvitedLink(invitedLink: discoveryInfo.igpValue)
+                    IGHelperJoin.getInstance().requestToCheckInvitedLink(invitedLink: discoveryInfo.igpValue)
                     return
 
                 }
             } else {
-                IGHelperJoin.getInstance(viewController: UIApplication.topViewController()!).requestToCheckInvitedLink(invitedLink: discoveryInfo.igpValue)
+                IGHelperJoin.getInstance().requestToCheckInvitedLink(invitedLink: discoveryInfo.igpValue)
                 return
 
             }
@@ -339,11 +339,11 @@ class AbstractDashboardCell: UICollectionViewCell {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
-                    IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: UIApplication.topViewController()!, username: discoveryInfo.igpValue, joinToRoom: false)
+                    IGHelperChatOpener.checkUsernameAndOpenRoom(username: discoveryInfo.igpValue, joinToRoom: false)
                     return
                 }
             } else {
-                IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: UIApplication.topViewController()!, username: discoveryInfo.igpValue, joinToRoom: false)
+                IGHelperChatOpener.checkUsernameAndOpenRoom(username: discoveryInfo.igpValue, joinToRoom: false)
                 return
             }
             
@@ -354,11 +354,11 @@ class AbstractDashboardCell: UICollectionViewCell {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
-                    IGHelperOpenLink.openLink(urlString: discoveryInfo.igpValue, navigationController: UIApplication.topNavigationController()!, forceOpenInApp: true)
+                    IGHelperOpenLink.openLink(urlString: discoveryInfo.igpValue, forceOpenInApp: true)
                     return
                 }
             } else {
-                IGHelperOpenLink.openLink(urlString: discoveryInfo.igpValue, navigationController: UIApplication.topNavigationController()!, forceOpenInApp: true)
+                IGHelperOpenLink.openLink(urlString: discoveryInfo.igpValue, forceOpenInApp: true)
                 return
             }
             

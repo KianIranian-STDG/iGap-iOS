@@ -104,7 +104,7 @@ class SliderTypeOneCell: UITableViewCell {
     public static func selectSlide(selectedSlide: FavouriteChannelsAddSlide) {
         switch selectedSlide.actionType {
         case 3:
-            IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: UIApplication.topViewController()!, username: selectedSlide.actionLink)
+            IGHelperChatOpener.checkUsernameAndOpenRoom(username: selectedSlide.actionLink)
             break
             
         case 4:

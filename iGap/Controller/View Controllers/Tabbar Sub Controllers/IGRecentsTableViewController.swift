@@ -908,7 +908,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     }
     
     func onForwardStart(user: IGRegisteredUser?, room: IGRoom?, type: IGPClientSearchUsernameResponse.IGPResult.IGPType) {
-        IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: type, user: user, room: room)
+        IGHelperChatOpener.manageOpenChatOrProfile(usernameType: type, user: user, room: room)
     }
 }
 

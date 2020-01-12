@@ -76,9 +76,9 @@ class IGFavouriteChannelsDashboardTableViewController: BaseTableViewController {
                         for channel in item.channels ?? [] {
                             if channel.id == self.deepLinkToken {
                                 if channel.type == .Public {
-                                    IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: UIApplication.topViewController()!, username: channel.slug)
+                                    IGHelperChatOpener.checkUsernameAndOpenRoom(username: channel.slug)
                                 } else if channel.type == .Private {
-                                    IGHelperJoin.getInstance(viewController: UIApplication.topViewController()!).requestToCheckInvitedLink(invitedLink: channel.slug)
+                                    IGHelperJoin.getInstance().requestToCheckInvitedLink(invitedLink: channel.slug)
                                 }
                             }
                         }

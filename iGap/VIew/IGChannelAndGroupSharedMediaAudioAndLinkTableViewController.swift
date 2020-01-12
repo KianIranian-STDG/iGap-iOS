@@ -185,7 +185,7 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: BaseTableView
             urlString = "http://" + urlString
         }
         
-        IGHelperOpenLink.openLink(urlString: urlString, navigationController: self.navigationController!)
+        IGHelperOpenLink.openLink(urlString: urlString)
     }
     func didTapOnRoomLink(link: String) {
         let token = link.chopPrefix(22)
