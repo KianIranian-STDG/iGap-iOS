@@ -65,7 +65,6 @@ class IGGlobal {
 //    static var heroTabIndex : Int = -1
     static var additionalObserver: AdditionalObserver!
     static var messageOnChatReceiveObserver: MessageOnChatReceiveObserver!
-    static var stickerTapListener: StickerTapListener!
     
     static var shouldMultiSelect : Bool = false
     static var clickedAudioCellIndexPath : IndexPath = [0,0]
@@ -349,6 +348,15 @@ class IGGlobal {
     }
     /******************** File ********************/
     /**********************************************/
+    
+    internal static func getVisibleRoomId() -> Int64? {
+        for chat in IGRecentsTableViewController.visibleChat {
+            if chat.value == true {
+                return chat.key
+            }
+        }
+        return nil
+    }
     
     internal static func isForwardEnable() -> Bool {
         return IGMessageViewController.selectedMessageToForwardToThisRoom != nil

@@ -13,6 +13,7 @@ import messages
 import IGProtoBuff
 import RealmSwift
 import Lottie
+import SwiftEventBus
 
 @available(iOS 10.0, *)
 class IGStickerCell: UICollectionViewCell {
@@ -121,7 +122,9 @@ class IGStickerCell: UICollectionViewCell {
     /********************************/
     /*********** Callback ***********/
     @objc func didTapOnSticker(_ gestureRecognizer: UITapGestureRecognizer) {
-        IGGlobal.stickerTapListener.onStickerTap(stickerItem: self.stickerItemRealm)
+        if let visibleRoomId = IGGlobal.getVisibleRoomId() {
+            SwiftEventBus.postToMainThread("\(visibleRoomId)", sender: self.stickerItemRealm)
+        }
     }
     
     @objc func openStickerPreview(_ gestureRecognizer: UITapGestureRecognizer) {

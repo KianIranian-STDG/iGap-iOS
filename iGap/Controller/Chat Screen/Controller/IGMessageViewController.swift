@@ -57,7 +57,7 @@ class IGHeader: UICollectionReusableView {
     }
 }
 
-class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, UIWebViewDelegate, StickerTapListener, UITextFieldDelegate, HandleReciept, HandleBackNavigation {
+class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, UIWebViewDelegate, UITextFieldDelegate, HandleReciept, HandleBackNavigation {
     
     //newUITextMessage
     // MARK: - Outlets
@@ -760,9 +760,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         messageTextView.setContentOffset(.zero, animated: true)
         messageTextView.scrollRangeToVisible(NSMakeRange(0, 0))
         
-        if #available(iOS 10.0, *) {
-            IGGlobal.stickerTapListener = self
-        }
         IGRecentsTableViewController.visibleChat[(room?.id)!] = true
         if let roomVariable = IGRoomManager.shared.varible(for: room!) {
             roomVariable.asObservable().subscribe({ [weak self] (event) in
@@ -788,7 +785,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func deallocate(){
         if IGMessageLoader.getCountOfLoaders() == 1 { // if just one chat view exist
             myNavigationItem?.delegate = nil
-            IGGlobal.stickerTapListener = nil
             IGGlobal.messageOnChatReceiveObserver = nil
             avatarObserver?.invalidate()
         }
@@ -949,8 +945,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         SwiftEventBus.onMainThread(self, name: "\(self.room!.id)") { [weak self] (result) in
-            self?.onBotClick()
             if let botAction = result?.object as? (actionType: Int, structAdditional: IGStructAdditionalButton) {
+                self?.onBotClick()
                 switch botAction.actionType {
                 case IGPDiscoveryField.IGPButtonActionType.botAction.rawValue:
                     self?.onAdditionalSendMessage(structAdditional: botAction.structAdditional)
@@ -967,6 +963,26 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     
                 default:
                     break
+                }
+            } else if let stickerItem = result?.object as? IGRealmStickerItem {
+                if let attachment = IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token!) {
+                    let message = IGRoomMessage(body: stickerItem.name!)
+                    message.type = .sticker
+                    message.roomId = self?.room?.id ?? 0
+                    message.attachment = attachment
+                    message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.STICKER.rawValue)
+                    IGAttachmentManager.sharedManager.add(attachment: attachment)
+                    
+                    self?.manageSendMessage(message: message, addForwardOrReply: true)
+                    
+                    self?.sendMessageState(enable: false)
+                    self?.messageTextView.text = ""
+                    self?.currentAttachment = nil
+                    IGMessageViewController.selectedMessageToForwardToThisRoom = nil
+                    self?.selectedMessageToReply = nil
+                    self?.setInputBarHeight()
+                } else {
+                    IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token!, completion: { (attachment) -> Void in })
                 }
             }
         }
@@ -1235,30 +1251,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         self.view.layoutIfNeeded()
-    }
-    
-    
-    func onStickerTap(stickerItem: IGRealmStickerItem) {
-        
-        if let attachment = IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token!) {
-            let message = IGRoomMessage(body: stickerItem.name!)
-            message.type = .sticker
-            message.roomId = self.room!.id
-            message.attachment = attachment
-            message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.STICKER.rawValue)
-            IGAttachmentManager.sharedManager.add(attachment: attachment)
-            
-            manageSendMessage(message: message, addForwardOrReply: true)
-            
-            self.sendMessageState(enable: false)
-            self.messageTextView.text = ""
-            self.currentAttachment = nil
-            IGMessageViewController.selectedMessageToForwardToThisRoom = nil
-            self.selectedMessageToReply = nil
-            self.setInputBarHeight()
-        } else {
-            IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token!, completion: { (attachment) -> Void in })
-        }
     }
     
     @objc func keyboardWillAppear() {
@@ -4725,7 +4717,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if segue.identifier == "showSticker" {
             if #available(iOS 10.0, *) {
                 let stickerViewController = segue.destination as! IGStickerViewController
-                //                stickerViewController.backGroundColor = ThemeManager.currentTheme.TableViewCellColor
                 stickerViewController.stickerPageType = self.stickerPageType
                 stickerViewController.stickerGroupId = self.stickerGroupId
             }

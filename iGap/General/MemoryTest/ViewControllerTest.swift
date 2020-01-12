@@ -11,10 +11,7 @@
 import UIKit
 import RealmSwift
 
-class ViewControllerTest: BaseViewController, ObserverTest, UITextFieldDelegate, AdditionalObserver, StickerTapListener {
-    func onStickerTap(stickerItem: IGRealmStickerItem) {
-        
-    }
+class ViewControllerTest: BaseViewController, ObserverTest, UITextFieldDelegate, AdditionalObserver {
     
     func onAdditionalSendMessage(structAdditional: IGStructAdditionalButton) {
         
@@ -60,7 +57,6 @@ class ViewControllerTest: BaseViewController, ObserverTest, UITextFieldDelegate,
         observer = self
         IGGlobal.additionalObserver = self
         textField.delegate = self
-        IGGlobal.stickerTapListener = self
         print("Initialize ViewControllerTest")
         
         
@@ -96,7 +92,6 @@ class ViewControllerTest: BaseViewController, ObserverTest, UITextFieldDelegate,
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         //ViewControllerTest.additionalObserver = nil
-        IGGlobal.stickerTapListener = nil
         observer = nil /// BAD - DO THIS
     }
 
