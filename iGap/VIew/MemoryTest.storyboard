@@ -42,6 +42,13 @@
                                     <constraint firstAttribute="height" constant="128" id="QUG-Rg-w9P"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F4l-5a-L0A">
+                                <rect key="frame" x="164.66666666666666" y="484" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="btnClick:" destination="hDh-fI-8Ou" eventType="touchUpInside" id="dMI-Ec-BNc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -51,8 +58,10 @@
                             <constraint firstItem="9pz-lQ-WB0" firstAttribute="top" secondItem="y7Y-gy-Ayg" secondAttribute="bottom" constant="23" id="9me-HD-Azz"/>
                             <constraint firstItem="y7Y-gy-Ayg" firstAttribute="leading" secondItem="5d3-Pk-Ch4" secondAttribute="leading" constant="67" id="Cde-PJ-1Z7"/>
                             <constraint firstItem="9pz-lQ-WB0" firstAttribute="leading" secondItem="5d3-Pk-Ch4" secondAttribute="leading" constant="140" id="Dgw-U4-VZq"/>
+                            <constraint firstItem="F4l-5a-L0A" firstAttribute="centerX" secondItem="5d3-Pk-Ch4" secondAttribute="centerX" id="Dsq-jE-A6l"/>
                             <constraint firstItem="aLs-wz-Pv6" firstAttribute="centerY" secondItem="5d3-Pk-Ch4" secondAttribute="centerY" id="pSK-5u-nT7"/>
                             <constraint firstItem="5d3-Pk-Ch4" firstAttribute="trailing" secondItem="9pz-lQ-WB0" secondAttribute="trailing" constant="138" id="wqI-vT-th0"/>
+                            <constraint firstItem="F4l-5a-L0A" firstAttribute="top" secondItem="aLs-wz-Pv6" secondAttribute="bottom" constant="23" id="xZP-Af-AKD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5d3-Pk-Ch4"/>
                     </view>

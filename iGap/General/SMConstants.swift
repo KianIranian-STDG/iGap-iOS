@@ -40,6 +40,7 @@ struct EventBusManager {
     static let updateBottomPlayerLabelsData = "updateBottomPlayerLabelsData"
     static let updateBillsName = "updateBillsName"
     static let sendForwardReq = "sendForwardReq"
+    static let disableMultiSelect = "disableMultiSelect"
 }
 
 struct SMMessage {

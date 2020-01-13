@@ -12,15 +12,11 @@ import UIKit
 import SnapKit
 import MBProgressHUD
 import IGProtoBuff
+import SwiftEventBus
 
-protocol HandleBackNavigation {
-    func diselect()
-}
 var currentPageName : String! = ""
 
 class IGNavigationItem: UINavigationItem {
-    
-    var delegate : HandleBackNavigation?
     
     var rightViewContainer:  IGTappableView?
     var centerViewContainer: IGTappableView?
@@ -151,7 +147,7 @@ class IGNavigationItem: UINavigationItem {
                 self.backViewContainer?.isUserInteractionEnabled = false
                 let numberOfPages = self.navigationController?.viewControllers.count
                 if IGGlobal.shouldMultiSelect {
-                    self.delegate?.diselect()
+                    SwiftEventBus.postToMainThread(EventBusManager.disableMultiSelect, sender: nil)
                 }
                 else {
                     if numberOfPages == 2  {
@@ -217,7 +213,7 @@ class IGNavigationItem: UINavigationItem {
                 self.backViewContainer?.isUserInteractionEnabled = false
                 let numberOfPages = self.navigationController?.viewControllers.count
                 if IGGlobal.shouldMultiSelect {
-                    self.delegate?.diselect()
+                    SwiftEventBus.postToMainThread(EventBusManager.disableMultiSelect, sender: nil)
                 }
                 else {
                     if numberOfPages == 2  {
@@ -284,7 +280,7 @@ class IGNavigationItem: UINavigationItem {
                 self.backViewContainer?.isUserInteractionEnabled = false
                 let numberOfPages = self.navigationController?.viewControllers.count
                 if IGGlobal.shouldMultiSelect {
-                    self.delegate?.diselect()
+                    SwiftEventBus.postToMainThread(EventBusManager.disableMultiSelect, sender: nil)
                 }
                 else {
                     if numberOfPages == 2  {
@@ -337,7 +333,7 @@ class IGNavigationItem: UINavigationItem {
             self.backViewContainer?.isUserInteractionEnabled = false
             let numberOfPages = self.navigationController?.viewControllers.count
             if IGGlobal.shouldMultiSelect {
-                self.delegate?.diselect()
+                SwiftEventBus.postToMainThread(EventBusManager.disableMultiSelect, sender: nil)
             } else {
                 if numberOfPages == 2 {
                     IGGlobal.shouldMultiSelect = false

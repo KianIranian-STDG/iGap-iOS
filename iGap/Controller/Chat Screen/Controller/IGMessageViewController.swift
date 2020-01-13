@@ -57,7 +57,7 @@ class IGHeader: UICollectionReusableView {
     }
 }
 
-class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, UIWebViewDelegate, UITextFieldDelegate, HandleReciept, HandleBackNavigation {
+class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, UIWebViewDelegate, UITextFieldDelegate, HandleReciept {
     
     //newUITextMessage
     // MARK: - Outlets
@@ -552,7 +552,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         var canBecomeFirstResponder: Bool { return true }
         let navigationController = self.navigationController as! IGNavigationController
         myNavigationItem = self.navigationItem as? IGNavigationItem
-        myNavigationItem.delegate = self
         myNavigationItem.navigationController = navigationController
         myNavigationItem.setNavigationBarForRoom(room!)
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -778,10 +777,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     private func deallocate(){
-        if IGMessageLoader.getCountOfLoaders() == 1 { // if just one chat view exist
-            myNavigationItem?.delegate = nil
-            avatarObserver?.invalidate()
-        }
+        avatarObserver?.invalidate()
         IGMessageLoader.removeInstance(roomId: self.room!.id)
     }
     
@@ -940,6 +936,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         SwiftEventBus.onMainThread(self, name: EventBusManager.updateLabelsData) { [weak self] result in
             self?.updateLabelsData(singerName: IGGlobal.topBarSongSinger,songName: IGGlobal.topBarSongName)
+        }
+        
+        SwiftEventBus.onMainThread(self, name: EventBusManager.disableMultiSelect) { [weak self] (result) in
+            self?.diselect()
         }
         
         SwiftEventBus.onMainThread(self, name: "\(self.room!.id)") { [weak self] (result) in

@@ -20,6 +20,10 @@ class ViewControllerTest: BaseViewController, ObserverTest, UITextFieldDelegate 
 
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var textField: UITextField!
+    @IBAction func btnClick(_ sender: UIButton) {
+        let test = ViewControllerTest.instantiateFromAppStroryboard(appStoryboard: .MemoryTest)
+        self.navigationController?.pushViewController(test, animated: true)
+    }
     
     public static var numberTest: Int = 0 /// public static is not important
     
