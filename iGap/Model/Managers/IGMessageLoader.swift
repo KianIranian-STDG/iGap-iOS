@@ -527,7 +527,11 @@ class IGMessageLoader {
                 limit = LIMIT_GET_HISTORY_LOW
             }
             
-            getMessageFromServer(roomId: roomId, messageIdGetHistory: oldMessageId, reachMessageId: reachMessageId, limit: limit, direction: direction, onMessageReceive: onMessageReceive, success: { (roomId, startMessageId, endMessageId, gapReached, jumpOverLocal, direction, onMessageRecieve) in
+            getMessageFromServer(roomId: roomId, messageIdGetHistory: oldMessageId, reachMessageId: reachMessageId, limit: limit, direction: direction, onMessageReceive: onMessageReceive, success: { [weak self] (roomId, startMessageId, endMessageId, gapReached, jumpOverLocal, direction, onMessageRecieve) in
+                
+                guard let mainSelf = self else {
+                    return
+                }
                 // should be check roomId in IGMessageViewController
                 /*
                  if (roomId != mRoomId) {
@@ -535,32 +539,32 @@ class IGMessageLoader {
                  }
                  */
                 /** hide progress received history */
-                self.manageProgress(state: .HIDE, direction: direction)
+                mainSelf.manageProgress(state: .HIDE, direction: direction)
                 
                 var realmRoomMessages: Results<IGRoomMessage>!
                 var sort: [SortDescriptor]!
                 
                 if (direction == .up) {
-                    self.firstUpOnline = false
-                    self.isWaitingForHistoryUpOnline = false
-                    self.startFutureMessageIdUp = startMessageId
+                    mainSelf.firstUpOnline = false
+                    mainSelf.isWaitingForHistoryUpOnline = false
+                    mainSelf.startFutureMessageIdUp = startMessageId
                     sort = [SortDescriptor(keyPath: "id", ascending: false)]
                 } else {
-                    self.firstDownOnline = false
-                    self.isWaitingForHistoryDownOnline = false
-                    self.startFutureMessageIdDown = endMessageId
+                    mainSelf.firstDownOnline = false
+                    mainSelf.isWaitingForHistoryDownOnline = false
+                    mainSelf.startFutureMessageIdDown = endMessageId
                     sort = [SortDescriptor(keyPath: "id", ascending: true)]
                 }
                 
                 let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id >= %lld AND id <= %lld", roomId, startMessageId, endMessageId)
                 realmRoomMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sort)
-                IGHelperMessageStatus.shared.sendStatus(roomId: roomId, roomType: self.roomType, status: .seen, realmRoomMessages: realmRoomMessages.toArray())
+                IGHelperMessageStatus.shared.sendStatus(roomId: roomId, roomType: mainSelf.roomType, status: .seen, realmRoomMessages: realmRoomMessages.toArray())
                 
                 /**
                  * I do this for set addToView true
                  */
-                if (direction == .down && realmRoomMessages.count < (self.LIMIT_GET_HISTORY_NORMAL - 1)) {
-                    self.getOnlineMessage(oldMessageId: self.startFutureMessageIdDown, direction: direction, onMessageReceive: onMessageReceive)
+                if (direction == .down && realmRoomMessages.count < (mainSelf.LIMIT_GET_HISTORY_NORMAL - 1)) {
+                    mainSelf.getOnlineMessage(oldMessageId: mainSelf.startFutureMessageIdDown, direction: direction, onMessageReceive: onMessageReceive)
                 }
                 
                 /**
@@ -571,17 +575,17 @@ class IGMessageLoader {
                 
                 if (gapReached && !jumpOverLocal) {
                     if (direction == .up) {
-                        self.gapMessageIdUp = 0
-                        self.reachMessageIdUp = 0
-                        self.topMore = true
+                        mainSelf.gapMessageIdUp = 0
+                        mainSelf.reachMessageIdUp = 0
+                        mainSelf.topMore = true
                     } else {
-                        self.gapMessageIdDown = 0
-                        self.reachMessageIdDown = 0
-                        self.bottomMore = true
+                        mainSelf.gapMessageIdDown = 0
+                        mainSelf.reachMessageIdDown = 0
+                        mainSelf.bottomMore = true
                     }
                     
-                    let _ = self.gapDetection(results: realmRoomMessages, direction: direction)
-                } else if ((direction == .up && self.isReachedToTopView()) || direction == .down && self.isReachedToBottomView()) {
+                    let _ = mainSelf.gapDetection(results: realmRoomMessages, direction: direction)
+                } else if ((direction == .up && mainSelf.isReachedToTopView()) || direction == .down && mainSelf.isReachedToBottomView()) {
                     /**
                      * check this changeState because if user is near to top view and not scroll get top message from server
                      */
@@ -591,7 +595,11 @@ class IGMessageLoader {
                 
                 onMessageReceive(realmRoomMessages.toArray(), direction)
                 
-            }, error: {(errorCode, requestWrapper) in
+            }, error: { [weak self] (errorCode, requestWrapper) in
+                
+                guard let mainSelf = self else {
+                    return
+                }
                 
                 let requestClientGetRoomHistory = requestWrapper.message as! IGPClientGetRoomHistory
                 let requestIdentity = requestWrapper.identity as! IGStructClientGetRoomHistoryIdentity
@@ -599,17 +607,17 @@ class IGMessageLoader {
                 /**
                  * hide progress if have any error
                  */
-                self.manageProgress(state: .HIDE, direction: direction)
+                mainSelf.manageProgress(state: .HIDE, direction: direction)
                 
                 switch errorCode {
                 case .clinetGetRoomHistoryNoMoreMessage:
                     if (requestClientGetRoomHistory.igpDirection == .up) {
-                        self.isWaitingForHistoryUpOnline = false
-                        self.allowGetHistoryUp = false
+                        mainSelf.isWaitingForHistoryUpOnline = false
+                        mainSelf.allowGetHistoryUp = false
                     } else {
-                        self.addToView = true
-                        self.isWaitingForHistoryDownOnline = false
-                        self.allowGetHistoryDown = false
+                        mainSelf.addToView = true
+                        mainSelf.isWaitingForHistoryDownOnline = false
+                        mainSelf.allowGetHistoryDown = false
                     }
                     break
                     
@@ -618,12 +626,12 @@ class IGMessageLoader {
                      * if time out came up try again for get history with previous value
                      */
                     if (requestClientGetRoomHistory.igpDirection == .up) {
-                        self.isWaitingForHistoryUpOnline = false
+                        mainSelf.isWaitingForHistoryUpOnline = false
                     } else {
-                        self.isWaitingForHistoryDownOnline = false
+                        mainSelf.isWaitingForHistoryDownOnline = false
                     }
                     
-                    self.getOnlineMessageAfterTimeOut(messageIdGetHistory: requestIdentity.firstMessageId, direction: direction, onMessageReceive: requestIdentity.onMessageReceive)
+                    mainSelf.getOnlineMessageAfterTimeOut(messageIdGetHistory: requestIdentity.firstMessageId, direction: direction, onMessageReceive: requestIdentity.onMessageReceive)
                     break
                     
                 default:
@@ -928,14 +936,17 @@ class IGMessageLoader {
                                       success: @escaping ((_ roomId :Int64 , _ startMessageId: Int64, _ endMessageId: Int64, _ gapReached: Bool, _ jumpOverLocal: Bool, _ historyDirection: IGPClientGetRoomHistory.IGPDirection, _ onMessageReceive: ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) -> Void),
                                       error: @escaping ((_ error: IGError, _ requestWrapper: IGRequestWrapper) -> Void)) {
         
-        IGClientGetRoomHistoryRequest.Generator.generatePowerful(roomID: roomId, firstMessageID: messageIdGetHistory, reachMessageId: reachMessageId, limit: limit, direction: direction, onMessageReceive: onMessageReceive).successPowerful({ (responseProto, requestWrapper) in
+        IGClientGetRoomHistoryRequest.Generator.generatePowerful(roomID: roomId, firstMessageID: messageIdGetHistory, reachMessageId: reachMessageId, limit: limit, direction: direction, onMessageReceive: onMessageReceive).successPowerful({ [weak self] (responseProto, requestWrapper) in
             let identity = requestWrapper.identity as! IGStructClientGetRoomHistoryIdentity
             let reachMessageIdRequest: Int64! = identity.reachMessageId
             
             if let roomHistoryRequest = requestWrapper.message as? IGPClientGetRoomHistory {
                 if let roomHistoryResponse = responseProto as? IGPClientGetRoomHistoryResponse {
-                    IGRoomMessage.managePutOrUpdate(roomId: roomHistoryRequest.igpRoomID, messages: roomHistoryResponse.igpMessage, options: IGStructMessageOption(isEnableCache: true), completion: {
+                    IGRoomMessage.managePutOrUpdate(roomId: roomHistoryRequest.igpRoomID, messages: roomHistoryResponse.igpMessage, options: IGStructMessageOption(isEnableCache: true), completion: { [weak self] in
                         DispatchQueue.main.async {
+                            guard let mainSelf = self else {
+                                return
+                            }
                             /*
                              var rewriteMessageInfo: [IGPRoomMessage] = []
                              try! IGDatabaseManager.shared.realm.write {
@@ -968,7 +979,7 @@ class IGMessageLoader {
                                      * with get this history , client jumped from local messages and now is in another gap
                                      */
                                     
-                                    if startMessageId <= self.gapExist(roomId: roomId, messageId: reachMessageId, direction: .up).gapMessageId {
+                                    if startMessageId <= mainSelf.gapExist(roomId: roomId, messageId: reachMessageId, direction: .up).gapMessageId {
                                         jumpOverLocal = true
                                     }
                                 }
@@ -979,7 +990,7 @@ class IGMessageLoader {
                                      * if gapReached now check that future gap is reached or no. if future gap reached this means
                                      * with get this history , client jumped from local messages and now is in another gap
                                      */
-                                    if endMessageId >= self.gapExist(roomId: roomId, messageId: reachMessageId, direction: .down).gapMessageId {
+                                    if endMessageId >= mainSelf.gapExist(roomId: roomId, messageId: reachMessageId, direction: .down).gapMessageId {
                                         jumpOverLocal = true
                                     }
                                 }
@@ -997,14 +1008,14 @@ class IGMessageLoader {
                                 /**
                                  * clear before state gap for avoid compute this message for gap state again
                                  */
-                                self.clearGap(roomId: roomId, messageId: messageIdGetHistory, finalMessageId: finalMessageId, direction: direction)
+                                mainSelf.clearGap(roomId: roomId, messageId: messageIdGetHistory, finalMessageId: finalMessageId, direction: direction)
                                 
                                 /**
                                  * if not reached to gap yet and exist reachMessageId
                                  * set new gap state for compute message for gap
                                  */
                                 if (jumpOverLocal || (!gapReached && reachMessageId > 0)) {
-                                    self.setGap(messageId: finalMessageId, direction: roomHistoryRequest.igpDirection)
+                                    mainSelf.setGap(messageId: finalMessageId, direction: roomHistoryRequest.igpDirection)
                                 }
                             }
                             

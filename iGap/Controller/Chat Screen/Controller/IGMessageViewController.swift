@@ -5296,8 +5296,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             
         } else if message.type == .log {
             let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
-            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
-            cell.setMessage(message, room: self.room!,isIncommingMessage: true,shouldShowAvatar: false,messageSizes:bubbleSize,isPreviousMessageFromSameSender: false,isNextMessageFromSameSender: false)
+            cell.setLogMessage(message)
             return cell
         } else if message.type == .time {
             let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
@@ -5305,7 +5304,6 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             return cell
         } else if message.type == .unread {
             let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
-            let _ = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
             cell.setUnreadMessage(message)
             return cell
         } else if message.type == .progress {
@@ -5741,15 +5739,6 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             self.report(room: self.room!, message: cellMessage)
         })
         
-        _ = UIAlertAction(title: IGStringsManager.More.rawValue.localized, style: .default, handler: { (action) in
-            for visibleCell in self.collectionView.visibleCells {
-                let aCell = visibleCell as! IGMessageGeneralCollectionViewCell
-                aCell.setMultipleSelectionMode(true)
-            }
-        })
-        _ = UIAlertAction(title: IGStringsManager.Delete.rawValue.localized, style: .destructive, handler: { (action) in
-            self.deleteMessage(cellMessage)
-        })
         var deleteTitle = ""
         if self.room!.type == .group || self.room!.type == .channel {
             deleteTitle =  IGStringsManager.Delete.rawValue.localized

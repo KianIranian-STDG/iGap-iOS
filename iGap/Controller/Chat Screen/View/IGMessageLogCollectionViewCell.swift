@@ -36,7 +36,7 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
         self.contentView.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
     }
     
-    override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
+    func setLogMessage(_ message: IGRoomMessage) {
         self.cellMessage = message
         self.logLabel.textColor = UIColor.white
         self.logLabel.lineBreakMode = .byTruncatingMiddle
@@ -50,23 +50,17 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
         addShadow()
         manageWidth(IGRoomMessageLog.textForLogMessage(message))
         let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
         let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
 
         if currentTheme == "IGAPDay" {
-            
             if currentColorSetLight == "IGAPBlack" {
                 self.logLabel.textColor = .white
             } else {
                 self.logLabel.textColor = .white
             }
-
         } else {
             self.logLabel.textColor = .white
-
         }
-
-
         self.logBackgroundView.backgroundColor = ThemeManager.currentTheme.SliderTintColor
     }
     

@@ -35,10 +35,6 @@ protocol IGMessageGeneralCollectionViewCellDelegate: AnyObject { // Using AnyObj
 class IGMessageGeneralCollectionViewCell: UICollectionViewCell {
     var cellMessage: IGRoomMessage?
     var attachment: IGFile?
-    var forwardedAttachment: IGFile? //deprecated!. Not Used In Code.
     weak var delegate: IGMessageGeneralCollectionViewCellDelegate?
-    
     func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {}
-    
-    func setMultipleSelectionMode(_ multipleSelectionMode: Bool) {}
 }
