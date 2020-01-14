@@ -9,7 +9,6 @@
  */
 
 import UIKit
-import RxRealm
 import RxSwift
 import RealmSwift
 import Gifu

@@ -11,7 +11,6 @@
 import UIKit
 import RealmSwift
 import IGProtoBuff
-import RxRealm
 import RxSwift
 import Gifu
 import MapKit

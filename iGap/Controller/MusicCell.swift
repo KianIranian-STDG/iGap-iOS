@@ -1,7 +1,6 @@
 import UIKit
 import AVFoundation
 import MediaPlayer
-import RxRealm
 import RxSwift
 
 protocol MusicCellDelegate {

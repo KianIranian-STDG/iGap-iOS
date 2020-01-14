@@ -20,7 +20,6 @@ import DBAttachmentPickerControllerLibrary
 import RxCocoa
 import AVKit
 import RealmSwift
-import RxRealm
 import RxSwift
 import RxCocoa
 import MBProgressHUD

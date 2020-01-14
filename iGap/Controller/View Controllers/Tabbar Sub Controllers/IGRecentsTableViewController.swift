@@ -11,7 +11,6 @@
 import UIKit
 import SwiftProtobuf
 import RealmSwift
-import RxRealm
 import RxSwift
 import RxCocoa
 import IGProtoBuff
