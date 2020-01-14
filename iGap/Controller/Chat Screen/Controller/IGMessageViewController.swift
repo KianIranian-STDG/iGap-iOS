@@ -853,8 +853,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             IGRecentsTableViewController.visibleChat[(room?.id)!] = false
         }
         
-        self.sendCancelTyping()
-        self.sendCancelRecoringVoice()
         if let room = self.room, !room.isInvalidated {
             room.saveDraft(messageTextView.text, replyToMessage: selectedMessageToReply)
             IGFactory.shared.markAllMessagesAsRead(roomId: room.id)
@@ -863,9 +861,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 IGRoom.setParticipant(roomId: room.id, isParticipant: false)
             }
         }
-        //        if self.selectedMessageToReply != nil {
-        //            self.selectedMessageToReply = nil
-        //        }
         
         NotificationCenter.default.removeObserver(self)
     }
@@ -1239,7 +1234,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.makeForward(room: self.room!, message: self.forwardedMessageArray[indexOfMessage], isFromCloud: isFromCloud) { [weak self] (message) in
                     DispatchQueue.main.async {
                         if let finalMessage = IGDatabaseManager.shared.realm.resolve(message), let room = self?.room {
-                            IGMessageSender.defaultSender.sendSingleForward(message: finalMessage, to: room, success: {
+                            IGMessageSender.defaultSender.sendSingleForward(message: finalMessage, to: room, success: { [weak self] in
                                 indexOfMessage = indexOfMessage + 1
                                 self?.manageForward(index: indexOfMessage, isFromCloud: isFromCloud)
                             }, error: {
@@ -2294,9 +2289,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     func close() {
-        self.dismiss(animated: true, completion: {
-            self.tabBarController?.tabBar.isUserInteractionEnabled = true
-            self.callCallBackApi(token: SMUserManager.payToken!)
+        self.dismiss(animated: true, completion: { [weak self] in
+            self?.tabBarController?.tabBar.isUserInteractionEnabled = true
+            self?.callCallBackApi(token: SMUserManager.payToken!)
         })
     }
     
@@ -5439,8 +5434,8 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         //currently use inverse
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) { //reach top
             if (!self.messageLoader.isFirstLoadUp() || self.messageLoader.isForceFirstLoadUp()) && !self.messageLoader.isWaitingHistoryUpLocal() {
-                self.messageLoader.loadMessage(direction: .up, onMessageReceive: { (messages, direction) in
-                    self.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
+                self.messageLoader.loadMessage(direction: .up, onMessageReceive: { [weak self] (messages, direction) in
+                    self?.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
                 })
             }
             
@@ -5454,8 +5449,8 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         
         if (scrollView.contentOffset.y < 0) { //reach bottom
             if !(self.messageLoader?.isFirstLoadDown() ?? false) && !(self.messageLoader?.isWaitingHistoryDownLocal() ?? false) {
-                self.messageLoader.loadMessage(direction: .down, onMessageReceive: { (messages, direction) in
-                    self.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
+                self.messageLoader.loadMessage(direction: .down, onMessageReceive: { [weak self] (messages, direction) in
+                    self?.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
                 })
             }
         }
