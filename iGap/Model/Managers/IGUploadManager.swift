@@ -203,12 +203,11 @@ class IGUploadManager {
             case let fileUploadReponse as IGPFileUploadResponse:
                 let response = IGFileUploadRequest.Handler.interpret(response: fileUploadReponse)
                 let progress = response.progress
-                IGAttachmentManager.sharedManager.setProgress(response.progress / 100.0, for: task.file)
-                IGAttachmentManager.sharedManager.setStatus(.uploading, for: task.file)
                 if (progress == 100) {
-                    //check for status
+                    IGAttachmentManager.sharedManager.setProgress(99 / 100.0, for: task.file)
                     self.checkStatus(for: task)
                 } else {
+                    IGAttachmentManager.sharedManager.setProgress(response.progress / 100.0, for: task.file)
                     //upload another chunk
                     self.uploadAChunk(task: task, offset: response.nextOffset, limit: response.nextLimit)
                 }
@@ -230,49 +229,33 @@ class IGUploadManager {
     //Step 4: Check for file state
     private func checkStatus(for task: IGUploadTask) {
         IGFileUploadStatusRequest.Generator.generate(token: task.token!, identity: task.file.cacheID!).successPowerful ({ (protoMessage, requestWrapper) in
-            switch protoMessage {
-            case let fileUploadStatusResponse as IGPFileUploadStatusResponse:
-                let response = IGFileUploadStatusRequest.Handler.interpret(response: fileUploadStatusResponse)
-                let retryDelay = response.retryDelay
-                let deadlineTime = DispatchTime.now() + Double(retryDelay)/1000.0
-                let progress = response.progress
-                IGAttachmentManager.sharedManager.setProgress(response.progress / 100.0, for: task.file)
-                IGAttachmentManager.sharedManager.setStatus(.uploading, for: task.file)
-                if let fileName = task.file.fileNameOnDisk, let token = task.token {
-                    IGFile.updateFileToken(fileNameOnDisk: fileName, token: token)
-                }
-                /*
-                DispatchQueue.main.async {
-                    if let progress = task.progressCallBack {
-                        progress(progress)
-                    }
-                }
-                */
-                switch response.status {
+            if let statusResponse = protoMessage as? IGPFileUploadStatusResponse {
+                switch statusResponse.igpStatus {
                 case .uploading:
-                    if progress == 100 {
+                    if statusResponse.igpProgress == 100 {
                         //check again after retry delay
-                        self.uploadQueue.asyncAfter(deadline: deadlineTime, execute: {
+                        self.uploadQueue.asyncAfter(deadline: (DispatchTime.now() + Double(statusResponse.igpRecheckDelayMs)/1000.0), execute: {
                             self.checkStatus(for: task)
                         })
                     } else {
                         self.initializeUplaod(for: task)
                     }
-                case .processing:
-                    //check again after retry delay
-                    self.uploadQueue.asyncAfter(deadline: deadlineTime, execute: {
+                    
+                case .processing: //check again after retry delay
+                    self.uploadQueue.asyncAfter(deadline: (DispatchTime.now() + Double(statusResponse.igpRecheckDelayMs)/1000.0), execute: {
                         self.checkStatus(for: task)
                     })
                     break
                 case .processed:
+                    if let fileName = task.file.fileNameOnDisk, let token = task.token {
+                        IGFile.updateFileToken(fileNameOnDisk: fileName, token: token)
+                    }
                     //get file info
                     self.getFileInfo(task: task)
                     break
                 default:
                     break
                 }
-            default:
-                break
             }
         }).error({ (errorCode, waitTime) in
             IGMessageSender.defaultSender.faileFileMessage(uploadTask: task)

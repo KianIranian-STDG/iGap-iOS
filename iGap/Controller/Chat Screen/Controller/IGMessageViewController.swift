@@ -3742,7 +3742,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func sendAsFileAlert(){
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let photoOrVideo = UIAlertAction(title: IGStringsManager.PhotoOrVideo.rawValue.localized, style: .default, handler: { (action) in
-            self.attachmentPicker(sendAsFile: true)
+            self.attachmentPicker(screens: [.library], sendAsFile: true)
         })
         let document = UIAlertAction(title: IGStringsManager.Document.rawValue.localized, style: .default, handler: { (action) in
             self.documentPicker()
@@ -3836,6 +3836,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let pathOnDisk = documents + "/" + randomString + filename
         try! FileManager.default.copyItem(atPath: mediaUrl.path, toPath: pathOnDisk)
         
+        self.imgAttachmentImage.image = attachment.attachedImage
+        self.imgAttachmentImage.layer.cornerRadius = 6.0
+        self.imgAttachmentImage.layer.masksToBounds = true
+        
         self.didSelectAttachment(attachment)
     }
     
@@ -3873,6 +3877,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         DispatchQueue.main.async {
             self.saveAttachmentToLocalStorage(data: imgData!, fileNameOnDisk: fileNameOnDisk)
         }
+        
+        self.imgAttachmentImage.image = attachment.attachedImage
+        self.imgAttachmentImage.layer.cornerRadius = 6.0
+        self.imgAttachmentImage.layer.masksToBounds = true
                 
         self.didSelectAttachment(attachment)
     }
@@ -4516,7 +4524,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     func recordVoice() {
         do {
             self.sendRecordingVoice()
-            let fileName = "Recording - \(NSDate.timeIntervalSinceReferenceDate)"
+            let fileName = "Recording-\(NSDate.timeIntervalSinceReferenceDate)"
             
             let writePath = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)?.appendingPathExtension("m4a")
             
@@ -5983,7 +5991,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             attachment = finalMessage.attachment
         }
         
-        if attachment.status != .ready && !IGGlobal.isFileExist(path: finalMessage.attachment?.path(), fileSize: (finalMessage.attachment?.size)!) {
+        if attachment.status != .ready && !IGGlobal.isFileExist(path: finalMessage.attachment?.path()) {
             return
         }
         
