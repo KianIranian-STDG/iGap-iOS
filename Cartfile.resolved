@@ -1,1 +1,5 @@
-github "airbnb/lottie-ios" "9d37b62452ae6e5f5f0d1c2857a60cc0fb62f966"
+git "https://chromium.googlesource.com/webm/libwebp" "v0.6.0"
+github "pinterest/PINCache" "3.0.1-beta.6"
+github "pinterest/PINOperation" "1.1.2"
+github "pinterest/PINRemoteImage" "3.0.0-beta.13"
+github "texturegroup/texture" "2.8.1"
