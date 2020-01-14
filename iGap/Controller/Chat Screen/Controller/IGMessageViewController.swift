@@ -973,7 +973,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.STICKER.rawValue)
                     IGAttachmentManager.sharedManager.add(attachment: attachment)
                     
-                    self?.manageSendMessage(message: message, addForwardOrReply: true)
+                    self?.manageSendMessage(message: message, addForwardOrReply: true, isSticker: true)
                     
                     self?.sendMessageState(enable: false)
                     self?.messageTextView.text = ""
@@ -6367,7 +6367,7 @@ extension IGMessageViewController {
     /******************* Collection Manager (Add , Remove , Update) ******************/
     
     /** manage current state of scroll and reload message history from end or just scroll to end */
-    private func manageSendMessage(message: IGRoomMessage, addForwardOrReply: Bool = true) {
+    private func manageSendMessage(message: IGRoomMessage, addForwardOrReply: Bool = true, isSticker: Bool = false) {
         if self.messageLoader.allowAddToView() {
             let detachedMessage = message.detach()
             IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
@@ -6375,7 +6375,11 @@ extension IGMessageViewController {
                 message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                 message.repliedTo = selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
             }
-            IGMessageSender.defaultSender.send(message: message, to: room!)
+            if isSticker {
+                IGMessageSender.defaultSender.sendSticker(message: message, to: room!)
+            } else {
+                IGMessageSender.defaultSender.send(message: message, to: room!)
+            }
             self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
         } else {
             resetAndGetFromEnd()
@@ -6386,7 +6390,11 @@ extension IGMessageViewController {
                     message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                     message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                 }
-                IGMessageSender.defaultSender.send(message: message, to: self.room!)
+                if isSticker {
+                    IGMessageSender.defaultSender.sendSticker(message: message, to: self.room!)
+                } else {
+                    IGMessageSender.defaultSender.send(message: message, to: self.room!)
+                }
                 self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
             }
         }
