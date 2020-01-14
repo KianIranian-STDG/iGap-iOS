@@ -220,7 +220,7 @@ class BWColorSetNight: NightColorSetProtocol {
             
     var DashboardCellBackgroundColor: UIColor = UIColor(named: "IGDashboardCellBackgroundColorNight")!
     
-    var LabelColor: UIColor = UIColor.hexStringToUIColor(hex: "FFFFFF")
+    var LabelColor: UIColor = UIColor.white
 
     var LabelGrayColor: UIColor = UIColor(named: "IGLabelGrayColorNight")!
     

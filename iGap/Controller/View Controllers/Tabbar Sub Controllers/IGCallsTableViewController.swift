@@ -104,6 +104,8 @@ class IGCallsTableViewController: BaseTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         initNavigationBar()
 //        self.initTheme()
+        self.initTheme()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -345,8 +347,9 @@ class IGCallsTableViewController: BaseTableViewController {
         
         return cell
     }
+    
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
 
     }
 

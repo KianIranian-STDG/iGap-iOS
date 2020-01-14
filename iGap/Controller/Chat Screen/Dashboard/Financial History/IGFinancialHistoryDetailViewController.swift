@@ -36,13 +36,14 @@ class IGFinancialHistoryDetailViewController: BaseViewController {
         
         transactionInfoTableView.dataSource = self
         transactionInfoTableView.delegate = self
-        
+        transactionInfoTableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         readTransactionInfoKeysDictionary()
         
         self.payTimeLbl.text = "_"
         self.payDateLbl.text = "_"
         self.statusLbl.text = "_"
         headerSV.isHidden = true
+        
         
     }
     
@@ -202,10 +203,14 @@ extension IGFinancialHistoryDetailViewController: UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionInfoTVCell", for: indexPath) as? TransactionInfoTVCell else { return TransactionInfoTVCell() }
         cell.setupCell(transaction: self.igpTransaction, indexPath: indexPath, transactionInfoKeys: TransactionInfoKeys)
-        
+        cell.valueLbl.textColor = ThemeManager.currentTheme.LabelColor
+        cell.keyLbl.textColor = ThemeManager.currentTheme.LabelColor
         return cell
     }
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+
+    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 36
     }
@@ -241,7 +246,6 @@ class TransactionInfoTVCell: UITableViewCell {
         case .cardToCard:
             let cardtocard = transaction.igpCardtocard
             let keyValue = transactionInfoKeys["CARD_TO_CARD"]?[indexPath.row]
-            self.keyLbl.text = IGStringsManager.CardToCard.rawValue.localized
             self.setupCardtoCard(keyValue: keyValue!, cardToCard: cardtocard)
             
         case .UNRECOGNIZED(_):
@@ -252,21 +256,32 @@ class TransactionInfoTVCell: UITableViewCell {
     private func setupCardtoCard(keyValue: String, cardToCard: IGPMplTransaction.IGPCardToCard) {
         if keyValue == "BANK" {
             self.valueLbl.text = cardToCard.igpBankName.inLocalizedLanguage()
+            self.keyLbl.text = IGStringsManager.SourceBank.rawValue.localized
+
         } else if keyValue == "CARD_OWNER" {
+            self.keyLbl.text = IGStringsManager.AccountOwnerName.rawValue.localized
             self.valueLbl.text = cardToCard.igpCardOwnerName.inLocalizedLanguage()
         } else if keyValue == "DESTINATION_BANK" {
+            self.keyLbl.text = IGStringsManager.DestinationBank.rawValue.localized
             self.valueLbl.text = cardToCard.igpDestBankName.inLocalizedLanguage()
         } else if keyValue == "DESTINATION_CARD" {
+            self.keyLbl.text = IGStringsManager.DestinationCard.rawValue.localized
             self.valueLbl.text = cardToCard.igpDestCardNumber.inLocalizedLanguage()
         } else if keyValue == "SOURCE_CARD" {
+            self.keyLbl.text = IGStringsManager.CardNumber.rawValue.localized
             self.valueLbl.text = cardToCard.igpSourceCardNumber.inLocalizedLanguage()
         } else if keyValue == "AMOUNT" {
+            self.keyLbl.text = IGStringsManager.AmountPlaceHolder.rawValue.localized
             self.valueLbl.text = "\(cardToCard.igpAmount)".inRialFormat()
         } else if keyValue == "MPL_TRANSACTION_ORDER_ID" {
+            self.keyLbl.text = IGStringsManager.PayIdentifier.rawValue.localized
             self.valueLbl.text = "\(cardToCard.igpOrderID)".inLocalizedLanguage()
         } else if keyValue == "MPL_TRANSACTION_RRN" {
+            
+            self.keyLbl.text = IGStringsManager.TransactionIdentifier.rawValue.localized
             self.valueLbl.text = "\(cardToCard.igpRrn)".inLocalizedLanguage()
         } else if keyValue == "MPL_TRANSACTION_TRACE_NO" {
+            self.keyLbl.text = IGStringsManager.TraceNumber.rawValue.localized
             self.valueLbl.text = "\(cardToCard.igpTraceNo)".inLocalizedLanguage()
         }
     }

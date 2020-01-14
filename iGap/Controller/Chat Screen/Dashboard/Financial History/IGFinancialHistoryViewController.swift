@@ -32,6 +32,7 @@ class IGFinancialHistoryViewController: BaseViewController {
         self.setupVC()
         
         self.getData(type: selectedType, offset: 0, limit: 15)
+        initTheme()
     }
     private func initTheme() {
         self.transactionTypesCollectionView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
@@ -150,10 +151,16 @@ extension IGFinancialHistoryViewController: UICollectionViewDataSource, UICollec
         
         if indexPath.item == selectedIndex {
             cell.backgroundColor = ThemeManager.currentTheme.TransactionsCVSelectedColor
+            cell.layer.borderColor = UIColor.white.cgColor
+            cell.layer.borderWidth = 1.0
+
             label.textColor = UIColor.white
         } else {
             cell.backgroundColor = ThemeManager.currentTheme.TransactionsCVColor
             label.textColor = ThemeManager.currentTheme.LabelFinancialServiceColor
+            cell.layer.borderColor = UIColor.white.cgColor
+            cell.layer.borderWidth = 0.0
+
         }
         
         return cell
@@ -192,6 +199,9 @@ extension IGFinancialHistoryViewController: UICollectionViewDataSource, UICollec
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         let label = cell.viewWithTag(110) as! UILabel
         cell.backgroundColor = ThemeManager.currentTheme.TransactionsCVSelectedColor
+        cell.layer.borderColor = UIColor.white.cgColor
+        cell.layer.borderWidth = 1.0
+        
         label.textColor = UIColor.white
         
         selectedIndex = indexPath.item
@@ -212,6 +222,8 @@ extension IGFinancialHistoryViewController: UICollectionViewDataSource, UICollec
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         let label = cell.viewWithTag(110) as! UILabel
         cell.backgroundColor = ThemeManager.currentTheme.TransactionsCVColor
+        cell.layer.borderColor = UIColor.white.cgColor
+        cell.layer.borderWidth = 0.0
         label.textColor = ThemeManager.currentTheme.LabelFinancialServiceColor
     }
     

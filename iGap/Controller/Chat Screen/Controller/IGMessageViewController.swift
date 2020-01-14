@@ -601,6 +601,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.getFavoriteMenu()
                 //self.scrollToBottomBottomConstraint.constant = -50
             } else {
+                self.collectionViewTopInsetOffset = 0
+                self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
+
                 //self.scrollToBottomBottomConstraint.constant = -10
             }
             
@@ -2831,7 +2834,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func manageCollectionViewBottom(withDuration: TimeInterval = 0.2,value: CGFloat? = 0) {
         UIView.animate(withDuration: withDuration, animations: {
             if self.isBotRoom() {
-                self.collectionView.contentInset = UIEdgeInsets.init(top: 50, left: 0, bottom: 20, right: 0)
+                if IGHelperDoctoriGap.isDoctoriGapRoom(room: self.room!) {
+                    self.collectionView.contentInset = UIEdgeInsets.init(top: 50, left: 0, bottom: 20, right: 0)
+                    //self.scrollToBottomBottomConstraint.constant = -50
+                } else {
+                    self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
+
+                }
             } else {
                 if self.room?.type == .chat {
                     self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)

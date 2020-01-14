@@ -216,6 +216,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         
         fetchUserInfo()
         initAvatarObserver()
+        initTheme()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -230,6 +231,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         if(IGProfileTableViewController.allowGetCountry){
             getUserCurrentLocation()
         }
+        initTheme()
     }
     
     func getUserCurrentLocation() {

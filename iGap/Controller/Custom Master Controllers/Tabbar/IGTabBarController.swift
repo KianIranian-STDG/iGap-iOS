@@ -32,7 +32,11 @@ class IGTabBarController: UITabBarController {
         SwiftEventBus.onMainThread(self, name: "initTheme") { result in
             self.initTheme()
         }
+        self.initTheme()
+
     }
+
+    
     private func manageColorSet(mode: String = "IGAPClassic") {
         let currentColorSet = UserDefaults.standard.string(forKey: "CurrentColorSet") ?? "IGAPDefaultColor"
         let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
@@ -82,7 +86,10 @@ class IGTabBarController: UITabBarController {
             case "IGAPLightGray" :
                 DayColorSetManager.currentColorSet = LightGrayColorSet()
                 break
-                
+            case "IGAPBlack" :
+                DayColorSetManager.currentColorSet = BWColorSet()
+                break
+                    
             default: break
             }
             SwiftEventBus.post("initTheme")
@@ -124,7 +131,10 @@ class IGTabBarController: UITabBarController {
             case "IGAPLightGray" :
                 NightColorSetManager.currentColorSet = LightGrayColorSetNight()
                 break
-                
+            case "IGAPBlack" :
+                NightColorSetManager.currentColorSet = BWColorSetNight()
+                break
+
             default: break
             }
             SwiftEventBus.post("initTheme")
@@ -212,16 +222,9 @@ class IGTabBarController: UITabBarController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        for item in tabBar.items! {
-            if #available(iOS 10.0, *) {
-                item.badgeColor = ThemeManager.currentTheme.BadgeColor
-                item.badgeValue = item.badgeValue?.inLocalizedLanguage()
-                item.setBadgeTextAttributes([
-                    NSAttributedString.Key.foregroundColor: UIColor.white,
-                    NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)
-                ], for: .normal)
-            }
-        }
+
+        self.initTheme()
+        
     }
     
     public func selectTabBar(tabBar: UITabBar, didSelect item: TabBarTab) {
