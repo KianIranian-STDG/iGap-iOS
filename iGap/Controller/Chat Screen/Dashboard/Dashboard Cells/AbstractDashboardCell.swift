@@ -178,7 +178,13 @@ class AbstractDashboardCell: UICollectionViewCell {
             
         }
     }
-    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        if self.btnCheckMark != nil {
+            btnCheckMark.removeFromSuperview()
+            self.btnCheckMark = nil
+        }
+    }
     //Carpino Agrement
     static func carpinoAggrement(agrementSlug: String!,itemID: Int32!,url : String!) {
         IGInfoPageRequest.Generator.generate(pageID: agrementSlug).success { (responseProto) in
@@ -209,19 +215,22 @@ class AbstractDashboardCell: UICollectionViewCell {
     }
     
     func showCheckMark(imageView: IGImageView?) {
-        btnCheckMark = UIButton()
-        btnCheckMark.setTitle("", for: .normal)
-        btnCheckMark.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
-        btnCheckMark.backgroundColor = UIColor.black.withAlphaComponent(0.2)
-        
-        btnCheckMark.layer.cornerRadius = IGDashboardViewController.itemCorner
-        
-        imageView!.addSubview(btnCheckMark)
-        btnCheckMark?.snp.makeConstraints { (make) in
-            make.width.equalTo((imageView?.frame.width)!)
-            make.height.equalTo((imageView?.frame.height)!)
-            make.centerX.equalTo(imageView!.snp.centerX)
-            make.centerY.equalTo(imageView!.snp.centerY)
+        if btnCheckMark == nil {
+            btnCheckMark = UIButton()
+            btnCheckMark.setTitle("", for: .normal)
+            btnCheckMark.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
+            btnCheckMark.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+            
+            btnCheckMark.layer.cornerRadius = IGDashboardViewController.itemCorner
+            
+            imageView!.addSubview(btnCheckMark)
+            btnCheckMark?.snp.makeConstraints { (make) in
+                make.width.equalTo((imageView?.frame.width)!)
+                make.height.equalTo((imageView?.frame.height)!)
+                make.centerX.equalTo(imageView!.snp.centerX)
+                make.centerY.equalTo(imageView!.snp.centerY)
+            }
+
         }
     }
     /**********************************************************************/
