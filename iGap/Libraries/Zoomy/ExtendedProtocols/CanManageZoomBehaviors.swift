@@ -70,6 +70,12 @@ public extension CanManageZoomBehaviors where Self: HasImageZoomControllers {
         imageZoomController?.reset()
         imageZoomControllers.removeValue(forKey: imageView.view)
     }
+    
+    func removeAllZoomBehavior(){
+        for zoom in imageZoomControllers {
+            zoom.value.dismissOverlay()
+        }
+    }
 }
 
 //MARK: Where Zoomy.Delegate

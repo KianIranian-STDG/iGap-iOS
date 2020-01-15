@@ -338,6 +338,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     
     func pagerViewWillEndDragging(_ pagerView: FSPagerView, targetIndex: Int) {
         if currentIndex != targetIndex {
+            UIApplication.topViewController()?.removeAllZoomBehavior()
             self.isExpand = false
         }
         currentIndex = targetIndex
