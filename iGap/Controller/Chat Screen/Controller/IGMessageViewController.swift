@@ -32,6 +32,7 @@ import SwiftyRSA
 import AVFoundation
 import YPImagePicker
 import SwiftEventBus
+import AsyncDisplayKit
 
 public var indexOfVideos = [Int]()
 class IGHeader: UICollectionReusableView {
@@ -111,7 +112,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var txtPinnedMessage: UILabel!
     @IBOutlet weak var txtPinnedMessageTitle: UILabel!
     @IBOutlet weak var collectionView: IGMessageCollectionView!
-    
+    @IBOutlet weak var tableviewMessages : ASTableNode!
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var joinButton: UIButton!
     @IBOutlet weak var btnScrollToBottom: UIButton!
