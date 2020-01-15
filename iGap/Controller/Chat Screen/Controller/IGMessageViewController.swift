@@ -599,12 +599,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             btnSticker.isHidden = true
             if IGHelperDoctoriGap.isDoctoriGapRoom(room: room!) {
                 self.getFavoriteMenu()
-                //self.scrollToBottomBottomConstraint.constant = -50
             } else {
                 self.collectionViewTopInsetOffset = 0
                 self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
-
-                //self.scrollToBottomBottomConstraint.constant = -10
             }
             
             let predicate = NSPredicate(format: "roomId = %lld AND (id >= %lld OR statusRaw == %d OR statusRaw == %d) AND isDeleted == false AND id != %lld" , self.room!.id, lastId ,0 ,1 ,0)
@@ -1420,15 +1417,15 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     
                     self?.apiStructArray = results
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
-                        if self != nil {
-                            self?.doctorBotView(results: results)
-                        }
+                        self?.doctorBotView(results: results)
                     }
                     
                     self?.setCollectionViewInset(withDuration: 0.9)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                        if self != nil {
-                            self!.collectionView.setContentOffset(CGPoint(x: 0, y: -self!.collectionView.contentInset.top) , animated: true)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self?.collectionView.contentInset = UIEdgeInsets.init(top: 50, left: 0, bottom: 20, right: 0)
+                        if self?.isScrollInEnd() ?? false {
+                            self?.collectionView.setContentOffset(CGPoint(x: 0, y: -self!.collectionView.contentInset.top) , animated: true)
                         }
                     }
                 }
@@ -2380,6 +2377,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
     }
     
+    /** fetch scroll state is at the end of list or not */
+    private func isScrollInEnd() -> Bool {
+        let visibleCells = self.collectionView.indexPathsForVisibleItems.sorted(by:{ $0.section < $1.section || $0.row < $1.row }).compactMap({ self.collectionView.cellForItem(at: $0) })
+        return self.collectionView.indexPath(for: visibleCells[0])!.row == 0
+    }
+    
     /* fetch visible message from collection view according to entered index */
     private func fetchVisibleMessage(visibleCells: [UICollectionViewCell], index: Int) -> IGRoomMessage? {
         if visibleCells.count > 0 {
@@ -2829,13 +2832,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func manageCollectionViewBottom(withDuration: TimeInterval = 0.2,value: CGFloat? = 0) {
         UIView.animate(withDuration: withDuration, animations: {
             if self.isBotRoom() {
-                if IGHelperDoctoriGap.isDoctoriGapRoom(room: self.room!) {
-                    self.collectionView.contentInset = UIEdgeInsets.init(top: 50, left: 0, bottom: 20, right: 0)
-                    //self.scrollToBottomBottomConstraint.constant = -50
-                } else {
-                    self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
-
-                }
+                self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
             } else {
                 if self.room?.type == .chat {
                     self.collectionView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
@@ -5467,13 +5464,6 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         if scrollView.contentOffset.y > 100 {
             self.scrollToBottomContainerView.isHidden = false
         } else {
-//            if isBotRoom() && IGHelperDoctoriGap.isDoctoriGapRoom(room: room!) {
-//                scrollToBottomContainerViewConstraint.constant = CGFloat(DOCTOR_BOT_HEIGHT)
-//            } else {
-//                if room!.isReadOnly {
-//                    scrollToBottomContainerViewConstraint.constant = -40
-//                }
-//            }
             self.scrollToBottomContainerView.isHidden = true
         }
     }
