@@ -21,8 +21,9 @@ typealias UploadFailedCallback   = (()->())?
 class IGUploadManager {
     static let sharedManager = IGUploadManager()
     fileprivate var uploadQueue: DispatchQueue
-    private var pendingUploads = [IGUploadTask]() // TODO - Convert to dictionary
+    private var pendingUploads = [IGUploadTask]()
     private var currentUploadingTask: IGUploadTask?
+    private var canceledUpload = false // for insuring about disable processing state
     
     class func compress(image: UIImage) -> UIImage {
         let scale: CGFloat = 0.5
@@ -63,7 +64,7 @@ class IGUploadManager {
         if attachment.cacheID == nil {
             return
         }
-        
+        self.canceledUpload = true
         IGRequestManager.sharedManager.cancelRequest(identity: attachment.cacheID!)
         IGMessageSender.defaultSender.removeMessagesWithAttachmentTask(cacheID: attachment.cacheID!)
         removeFromQueueAndStartNext(task: getTaskWithPrimaryKeyId(primaryKeyId: attachment.cacheID!))
@@ -175,6 +176,7 @@ class IGUploadManager {
                 IGAttachmentManager.sharedManager.setProgress(response.progress / 100.0, for: task.file)
                 IGAttachmentManager.sharedManager.setStatus(.uploading, for: task.file)
                 if response.progress == 100 {
+                    self.canceledUpload = false
                     self.checkStatus(for: task)
                 } else {
                     self.uploadAChunk(task: task, offset: response.offset, limit: response.limit)
@@ -205,6 +207,7 @@ class IGUploadManager {
                 let progress = response.progress
                 if (progress == 100) {
                     IGAttachmentManager.sharedManager.setProgress(99 / 100.0, for: task.file)
+                    self.canceledUpload = false
                     self.checkStatus(for: task)
                 } else {
                     IGAttachmentManager.sharedManager.setProgress(response.progress / 100.0, for: task.file)
@@ -229,6 +232,12 @@ class IGUploadManager {
     //Step 4: Check for file state
     private func checkStatus(for task: IGUploadTask) {
         IGFileUploadStatusRequest.Generator.generate(token: task.token!, identity: task.file.cacheID!).successPowerful ({ (protoMessage, requestWrapper) in
+            
+            if self.canceledUpload {
+                self.canceledUpload = false
+                return
+            }
+            
             if let statusResponse = protoMessage as? IGPFileUploadStatusResponse {
                 switch statusResponse.igpStatus {
                 case .uploading:
