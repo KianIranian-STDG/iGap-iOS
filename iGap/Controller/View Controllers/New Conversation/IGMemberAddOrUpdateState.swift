@@ -129,6 +129,7 @@ class IGMemberAddOrUpdateState: BaseViewController {
                 placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15,weight: .bold)
             }
         }
+        searchController.obscuresBackgroundDuringPresentation = false
         return searchController
     }()
     
@@ -178,6 +179,13 @@ class IGMemberAddOrUpdateState: BaseViewController {
         navigationControllerr.navigationBar.isHidden = false
 //        let navigationItem = self.navigationItem as! IGNavigationItem
 //        navigationItem.searchController = nil
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        searchController.isActive = false
+        searchController.searchBar.resignFirstResponder()
+        searchController.searchBar.endEditing(true)
     }
     
     private func setNavigationItem(){
