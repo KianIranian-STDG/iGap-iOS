@@ -24,13 +24,13 @@ class IGScoreHistoryViewController: BaseViewController, UICollectionViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        btnScan.isHidden = true
+//        btnScan.isHidden = true
         self.collectionView.semanticContentAttribute = self.semantic
         initNavigationBar()
         customizeView()
         manageShowActivties(isFirst: true)
-        btnScan.setTitle(IGStringsManager.QrCodeScanner.rawValue.localized, for: .normal)
-        btnScan.titleLabel!.font = UIFont.igFont(ofSize: 15)
+//        btnScan.setTitle(IGStringsManager.QrCodeScanner.rawValue.localized, for: .normal)
+//        btnScan.titleLabel!.font = UIFont.igFont(ofSize: 15)
         self.initTheme()
     }
     
@@ -54,17 +54,17 @@ class IGScoreHistoryViewController: BaseViewController, UICollectionViewDelegate
     }
     
     private func customizeView(){
-        bottomView.layer.masksToBounds = false
-        bottomView.layer.shadowOffset = CGSize(width: 0, height: -15)
-        bottomView.layer.shadowColor = UIColor.white.cgColor
-        bottomView.layer.shadowOpacity = 0.9
+//        bottomView.layer.masksToBounds = false
+//        bottomView.layer.shadowOffset = CGSize(width: 0, height: -15)
+//        bottomView.layer.shadowColor = UIColor.clear.cgColor
+//        bottomView.layer.shadowOpacity = 0.9
         
-        btnScan.layer.masksToBounds = true
-        btnScan.layer.cornerRadius = 20
-        btnScan.layer.shadowOffset = CGSize(width: 1, height: 1)
-        btnScan.layer.shadowRadius = 1
-        btnScan.layer.shadowColor = UIColor.gray.cgColor
-        btnScan.layer.shadowOpacity = 0.4
+//        btnScan.layer.masksToBounds = true
+//        btnScan.layer.cornerRadius = 20
+//        btnScan.layer.shadowOffset = CGSize(width: 1, height: 1)
+//        btnScan.layer.shadowRadius = 1
+//        btnScan.layer.shadowColor = UIColor.gray.cgColor
+//        btnScan.layer.shadowOpacity = 0.4
     }
     
     private func manageShowActivties(isFirst: Bool = false){

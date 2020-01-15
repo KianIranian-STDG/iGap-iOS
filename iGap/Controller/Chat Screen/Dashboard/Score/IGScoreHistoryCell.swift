@@ -36,6 +36,29 @@ class IGScoreHistoryCell: UICollectionViewCell {
         } else if activity.igpScore > 0 { // score up
             txtScoreIcon.text = ""
             txtScoreIcon.textColor = ThemeManager.currentTheme.SliderTintColor
+            let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+              let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+              let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+            if currentTheme == "IGAPDay" {
+                        
+                        if currentColorSetLight == "IGAPBlack" {
+                            
+                            txtScoreIcon.textColor = UIColor.iGapGreen()
+
+                        }
+                    } else if currentTheme == "IGAPNight" {
+                      
+                      if currentColorSetDark == "IGAPBlack" {
+                          
+                        txtScoreIcon.textColor = UIColor.iGapGreen()
+
+                      }
+
+                    }
+            
+            
+
         } else if activity.igpScore < 0 { // score down
             txtScoreIcon.text = ""
             txtScoreIcon.textColor = UIColor.iGapRed()

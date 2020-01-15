@@ -121,6 +121,39 @@ class IGElecBillTableViewCell: BaseTableViewCell,BillMerchantResultObserver {
         lblDataBillPayDate.textColor = ThemeManager.currentTheme.LabelColor
         lblDataBillPayAmount.textColor = ThemeManager.currentTheme.LabelColor
         lblDataBillPayNumber.textColor = ThemeManager.currentTheme.LabelColor
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+          let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+          let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+        if currentTheme == "IGAPDay" {
+                    
+                    if currentColorSetLight == "IGAPBlack" {
+                        
+                      btnPay.setTitleColor(.white, for: .normal)
+                      self.btnPay.layer.borderColor = UIColor.white.cgColor
+                      self.btnPay.layer.borderWidth = 2.0
+
+                      btnDetail.setTitleColor(.white, for: .normal)
+                      self.btnDetail.layer.borderColor = UIColor.white.cgColor
+                      self.btnDetail.layer.borderWidth = 2.0
+
+                        
+                    }
+                } else if currentTheme == "IGAPNight" {
+                  
+                  if currentColorSetDark == "IGAPBlack" {
+                      
+                    btnPay.setTitleColor(.white, for: .normal)
+                    self.btnPay.layer.borderColor = UIColor.white.cgColor
+                    self.btnPay.layer.borderWidth = 2.0
+
+                    btnDetail.setTitleColor(.white, for: .normal)
+                    self.btnDetail.layer.borderColor = UIColor.white.cgColor
+                    self.btnDetail.layer.borderWidth = 2.0
+                      
+                  }
+
+                }
     }
     
     private func initAlignments() {

@@ -73,6 +73,35 @@ class IGElecBillMyBillListTableViewController: BaseTableViewController {
         }
         headerView.backgroundColor = ThemeManager.currentTheme.RecentTVCellColor
         
+        
+        
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+          let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+          let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+        if currentTheme == "IGAPDay" {
+                    
+                    if currentColorSetLight == "IGAPBlack" {
+                        
+                      btn.setTitleColor(.white, for: .normal)
+                      btn.layer.borderColor = UIColor.white.cgColor
+                      btn.layer.borderWidth = 2.0
+                        
+                    }
+                } else if currentTheme == "IGAPNight" {
+                  
+                  if currentColorSetDark == "IGAPBlack" {
+                      
+                    btn.setTitleColor(.white, for: .normal)
+                    btn.layer.borderColor = UIColor.white.cgColor
+                    btn.layer.borderWidth = 2.0
+
+                  }
+
+                }
+        
+        
+        
         return headerView
     }
 

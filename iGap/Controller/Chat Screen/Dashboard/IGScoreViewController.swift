@@ -52,6 +52,7 @@ class IGScoreViewController: BaseViewController {
     }
     private func initTheme() {
         btnSeeRecords.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        self.view.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
     }
     private func addTotalPlaceLabel(text: Int32!) {
         lblMaxRank.font = UIFont.igFont(ofSize: 10,weight: .bold)

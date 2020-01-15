@@ -146,6 +146,59 @@ class IGElecBillDetailPageTableViewController: BaseTableViewController,UIDocumen
         lblDataBillPayDate.textColor = ThemeManager.currentTheme.LabelColor
         lblDataBillPayAmount.textColor = ThemeManager.currentTheme.LabelColor
         lblDataBillPayNumber.textColor = ThemeManager.currentTheme.LabelColor
+        
+        
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+          let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+          let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+        if currentTheme == "IGAPDay" {
+                    
+                    if currentColorSetLight == "IGAPBlack" {
+                        
+                      btnPay.setTitleColor(.white, for: .normal)
+                      btnPay.layer.borderColor = UIColor.white.cgColor
+                      btnPay.layer.borderWidth = 2.0
+
+                        btnPDFofBill.setTitleColor(.white, for: .normal)
+                        btnPDFofBill.layer.borderColor = UIColor.white.cgColor
+                        btnPDFofBill.layer.borderWidth = 2.0
+
+                        btnAddToMyBills.setTitleColor(.white, for: .normal)
+                        btnAddToMyBills.layer.borderColor = UIColor.white.cgColor
+                        btnAddToMyBills.layer.borderWidth = 2.0
+
+                        btnDetailBranch.setTitleColor(.white, for: .normal)
+                        btnDetailBranch.layer.borderColor = UIColor.white.cgColor
+                        btnDetailBranch.layer.borderWidth = 2.0
+
+                    }
+                } else if currentTheme == "IGAPNight" {
+                  
+                  if currentColorSetDark == "IGAPBlack" {
+                      
+                    btnPay.setTitleColor(.white, for: .normal)
+                    btnPay.layer.borderColor = UIColor.white.cgColor
+                    btnPay.layer.borderWidth = 2.0
+
+                      btnPDFofBill.setTitleColor(.white, for: .normal)
+                      btnPDFofBill.layer.borderColor = UIColor.white.cgColor
+                      btnPDFofBill.layer.borderWidth = 2.0
+
+                      btnAddToMyBills.setTitleColor(.white, for: .normal)
+                      btnAddToMyBills.layer.borderColor = UIColor.white.cgColor
+                      btnAddToMyBills.layer.borderWidth = 2.0
+
+                      btnDetailBranch.setTitleColor(.white, for: .normal)
+                      btnDetailBranch.layer.borderColor = UIColor.white.cgColor
+                      btnDetailBranch.layer.borderWidth = 2.0
+
+                  }
+
+                }
+        
+        
+        
 
     }
     

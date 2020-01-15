@@ -104,6 +104,50 @@ class IGElecBillMainPageTableViewController: BaseTableViewController {
         self.tfBillIdNumber.layer.borderWidth = 1.0
         self.tfBillIdNumber.layer.cornerRadius = 10.0
         self.tfBillIdNumber.textColor = ThemeManager.currentTheme.LabelColor
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+          let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+          let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+          if currentTheme == "IGAPDay" {
+              
+              if currentColorSetLight == "IGAPBlack" {
+                  
+                btnQueryTopHolder.setTitleColor(.white, for: .normal)
+                self.btnQueryTopHolder.layer.borderColor = UIColor.white.cgColor
+                self.btnQueryTopHolder.layer.borderWidth = 2.0
+
+                btnMyBills.setTitleColor(.white, for: .normal)
+                self.btnMyBills.layer.borderColor = UIColor.white.cgColor
+                self.btnMyBills.layer.borderWidth = 2.0
+
+                btnSearchBills.setTitleColor(.white, for: .normal)
+                self.btnSearchBills.layer.borderColor = UIColor.white.cgColor
+                self.btnSearchBills.layer.borderWidth = 2.0
+
+                  
+              }
+          } else if currentTheme == "IGAPNight" {
+            
+            if currentColorSetDark == "IGAPBlack" {
+                
+              btnQueryTopHolder.setTitleColor(.white, for: .normal)
+              self.btnQueryTopHolder.layer.borderColor = UIColor.white.cgColor
+              self.btnQueryTopHolder.layer.borderWidth = 2.0
+
+              btnMyBills.setTitleColor(.white, for: .normal)
+              self.btnMyBills.layer.borderColor = UIColor.white.cgColor
+              self.btnMyBills.layer.borderWidth = 2.0
+
+              btnSearchBills.setTitleColor(.white, for: .normal)
+              self.btnSearchBills.layer.borderColor = UIColor.white.cgColor
+              self.btnSearchBills.layer.borderWidth = 2.0
+
+                
+            }
+
+          }
+
+
     }
     
     private func initAlignments() {
