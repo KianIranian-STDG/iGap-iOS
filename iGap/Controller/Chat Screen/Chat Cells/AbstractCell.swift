@@ -1933,7 +1933,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                 make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(10)
                 make.centerY.equalTo(txtTimeAbs.snp.centerY)
                 make.height.equalTo(35)
-                make.width.greaterThanOrEqualTo(40)
+                make.width.greaterThanOrEqualTo(5)
             }
         }
     }
@@ -1957,14 +1957,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             make.leading.equalTo(txtSeenCountAbs.snp.trailing).offset(8)
             make.centerY.equalTo(txtTimeAbs.snp.centerY)
             make.height.equalTo(35)
-            make.width.greaterThanOrEqualTo(40)
+            make.width.greaterThanOrEqualTo(5)
         }
         
         txtVoteDownAbs.snp.makeConstraints { (make) in
             make.leading.equalTo(txtVoteUpAbs.snp.trailing).offset(8)
             make.centerY.equalTo(txtTimeAbs.snp.centerY)
             make.height.equalTo(35)
-            make.width.greaterThanOrEqualTo(40)
+            make.width.greaterThanOrEqualTo(5)
         }
     }
     
