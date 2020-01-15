@@ -62,6 +62,7 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
                 placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15,weight: .bold)
             }
         }
+        searchController.obscuresBackgroundDuringPresentation = false
         return searchController
     }()
     
@@ -129,6 +130,13 @@ class IGMemberTableViewController: BaseTableViewController, cellWithMore, Update
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         initialiseSearchBar()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        searchController.isActive = false
+        searchController.searchBar.resignFirstResponder()
+        searchController.searchBar.endEditing(true)
     }
     
     private func setNavigationItem(){
