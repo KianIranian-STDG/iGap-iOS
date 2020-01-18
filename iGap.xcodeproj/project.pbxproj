@@ -39,6 +39,11 @@
 		8E2CCD0C237ED630000C3B3F /* ImageLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E2CCD0A237ED630000C3B3F /* ImageLocalizable.strings */; };
 		8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */; };
 		8E3360D323CE04AA00CE766B /* ASTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360D223CE04AA00CE766B /* ASTextCell.swift */; };
+		8E3360D523CF3FB100CE766B /* MessageBubbleImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360D423CF3FB100CE766B /* MessageBubbleImageProvider.swift */; };
+		8E3360DB23D2DCC700CE766B /* MessageWhatsappBubbleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360DA23D2DCC700CE766B /* MessageWhatsappBubbleNode.swift */; };
+		8E3360DD23D2DF8A00CE766B /* MessageWhatsappTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360DC23D2DF8A00CE766B /* MessageWhatsappTextNode.swift */; };
+		8E3360DF23D2FDAE00CE766B /* chats.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E3360DE23D2FDAE00CE766B /* chats.json */; };
+		8E3360E123D2FE6D00CE766B /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E023D2FE6D00CE766B /* Chat.swift */; };
 		8E3C696A23602DDE001575BE /* MusicPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E3C696923602DDE001575BE /* MusicPlayer.storyboard */; };
 		8E3C696C23602E4D001575BE /* IGMusicPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */; };
 		8E3C696E23602EB2001575BE /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696D23602EB2001575BE /* Music.swift */; };
@@ -924,6 +929,11 @@
 		8E2CCD1B237EEED2000C3B3F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customYearTextfield.swift; sourceTree = "<group>"; };
 		8E3360D223CE04AA00CE766B /* ASTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTextCell.swift; sourceTree = "<group>"; };
+		8E3360D423CF3FB100CE766B /* MessageBubbleImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubbleImageProvider.swift; sourceTree = "<group>"; };
+		8E3360DA23D2DCC700CE766B /* MessageWhatsappBubbleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageWhatsappBubbleNode.swift; sourceTree = "<group>"; };
+		8E3360DC23D2DF8A00CE766B /* MessageWhatsappTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageWhatsappTextNode.swift; sourceTree = "<group>"; };
+		8E3360DE23D2FDAE00CE766B /* chats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = chats.json; sourceTree = "<group>"; };
+		8E3360E023D2FE6D00CE766B /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		8E3C696923602DDE001575BE /* MusicPlayer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MusicPlayer.storyboard; sourceTree = "<group>"; };
 		8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMusicPlayerTableViewController.swift; sourceTree = "<group>"; };
 		8E3C696D23602EB2001575BE /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
@@ -3316,6 +3326,11 @@
 				D61B5DDC237D40EB0060B9D9 /* ProgressCell.swift */,
 				D61B5DDE237D41510060B9D9 /* ProgressCell.xib */,
 				8E3360D223CE04AA00CE766B /* ASTextCell.swift */,
+				8E3360D423CF3FB100CE766B /* MessageBubbleImageProvider.swift */,
+				8E3360DA23D2DCC700CE766B /* MessageWhatsappBubbleNode.swift */,
+				8E3360DC23D2DF8A00CE766B /* MessageWhatsappTextNode.swift */,
+				8E3360DE23D2FDAE00CE766B /* chats.json */,
+				8E3360E023D2FE6D00CE766B /* Chat.swift */,
 			);
 			path = "Chat Cells";
 			sourceTree = "<group>";
@@ -3962,6 +3977,7 @@
 				FA936906207364E100A0D86A /* Register.storyboard in Resources */,
 				FAF796061DAA392F0030509B /* LaunchScreen.storyboard in Resources */,
 				FA97D444201716270087BBD0 /* TextCell.xib in Resources */,
+				8E3360DF23D2FDAE00CE766B /* chats.json in Resources */,
 				94E74DCA2323C798001AB47C /* TransactionInfoKeys.stringsdict in Resources */,
 				94E74DC323238F8F001AB47C /* FinancialHistory.storyboard in Resources */,
 				FAA6971A23770CF2006810A4 /* TabBarLocalizable.strings in Resources */,
@@ -4063,6 +4079,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftEventBus.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/FSPagerView.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Lottie.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/AsyncDisplayKit.framework",
 			);
 			name = "[RS] Copy Carthage Frameworks";
 			outputPaths = (
@@ -4391,6 +4408,7 @@
 				FA86D44A21A96955007B80D7 /* IGHelperPopular.swift in Sources */,
 				8ECFB53E234A471E001233E9 /* phoneBookCellTypeTwo.swift in Sources */,
 				8E031746237842EA00D5A2B5 /* IGElecBillByDeviceTableViewCell.swift in Sources */,
+				8E3360DD23D2DF8A00CE766B /* MessageWhatsappTextNode.swift in Sources */,
 				FA248C98226AEBE800A72EA7 /* IGScoreHistoryViewController.swift in Sources */,
 				FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */,
 				FA6C2DE722673B21005654AC /* IGHelperAlert.swift in Sources */,
@@ -4462,6 +4480,7 @@
 				8EC217C92259F59900105B5A /* SMIBAN.swift in Sources */,
 				FA3D05E82382A9B300A9EEC1 /* RootVCSwitcher.swift in Sources */,
 				FA03C19C2042945D008812E3 /* IGCall.swift in Sources */,
+				8E3360D523CF3FB100CE766B /* MessageBubbleImageProvider.swift in Sources */,
 				FAE07F042205A8B000BE3593 /* IGStickerSectionHeader.swift in Sources */,
 				FA0953521E1B97700043ED3F /* IGSettingChatFontSizeTableViewController.swift in Sources */,
 				8E1CD97A232D0ED1008D8758 /* inviteFreindsVC.swift in Sources */,
@@ -4598,6 +4617,7 @@
 				8ECCA1E822B7B1E200D3A734 /* SMSingleAmountInputView.swift in Sources */,
 				8E96A318225B757E007D8A77 /* SMLangUtil.swift in Sources */,
 				8E7C74E42395451E00286315 /* SliderImageWithTextCVCell.swift in Sources */,
+				8E3360DB23D2DCC700CE766B /* MessageWhatsappBubbleNode.swift in Sources */,
 				8E599D8C2329EC5E00D75376 /* IGPhoneBookTableViewController.swift in Sources */,
 				D67E984B23A67962003C1516 /* NSObject+AsociatedKeyForImageZoomControllers.swift in Sources */,
 				8ED8053C23B772590097A4A6 /* IGLiveStickerPackViewController.swift in Sources */,
@@ -4689,6 +4709,7 @@
 				93321E7E1E5C12B7004D4454 /* IGForwardChatsTableViewCell.swift in Sources */,
 				FA11E28D1DE99BF400A2F87C /* IGFactory.swift in Sources */,
 				8ED68CB12377243C00637C29 /* IGElecAddEditBillTableViewController.swift in Sources */,
+				8E3360E123D2FE6D00CE766B /* Chat.swift in Sources */,
 				FA68A2111DD9B0E9003A6651 /* IGRecentsTableViewController.swift in Sources */,
 				8E599D7C2325331C00D75376 /* TGPCamelLabels.swift in Sources */,
 				8E96A326225C9182007D8A77 /* SMGradientButton.swift in Sources */,

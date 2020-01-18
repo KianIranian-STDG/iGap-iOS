@@ -11,52 +11,18 @@
 import Foundation
 import AsyncDisplayKit
 
-private class MessageTextNode: ASTextNode {
-    
-    override init() {
-        super.init()
-        placeholderColor = UIColor.clear
-        isLayerBacked = true
-    }
-    
-    override func calculateSizeThatFits(_ constrainedSize: CGSize) -> CGSize {
-        let size = super.calculateSizeThatFits(constrainedSize)
-        return CGSize(width: max(size.width, 15), height: size.height)
-    }
-    
-}
+let mineImage = UIImage(named: "bubbleMine")!.stretchableImage(withLeftCapWidth: 15, topCapHeight: 14).withRenderingMode(.alwaysTemplate)
+let someoneImage = UIImage(named: "bubbleSomeone")!.stretchableImage(withLeftCapWidth: 21, topCapHeight: 14).withRenderingMode(.alwaysTemplate)
+
 class ASTextCell : ASCellNode {
+    let bubbleNode = ASImageNode()
+    let messageNode = ASTextNode()
 
-    private let isOutgoing: Bool
-    private let bubbleImageNode: ASImageNode
-    private let textNode: ASTextNode
-    
-    init(text: NSAttributedString, isOutgoing: Bool, bubbleImage: UIImage) {
-        self.isOutgoing = isOutgoing
 
-        bubbleImageNode = ASImageNode()
-        bubbleImageNode.image = bubbleImage
+    required init(isOutgoing : Bool! = true) {
+      super.init()
 
-        textNode = MessageTextNode()
-        textNode.attributedText = text
-        
-        super.init()
-        
-        addSubnode(bubbleImageNode)
-        addSubnode(textNode)
+
     }
-    
-    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let textNodeVerticalOffset = CGFloat(6)
-        return ASBackgroundLayoutSpec(
-            child: ASInsetLayoutSpec(
-                insets: UIEdgeInsets(
-                    top: 12,
-                    left: 12 + (isOutgoing ? 0 : textNodeVerticalOffset),
-                    bottom: 12,
-                    right: 12 + (isOutgoing ? textNodeVerticalOffset : 0)),
-                child: textNode),
-            background: bubbleImageNode)
-    }
-    
 }
+

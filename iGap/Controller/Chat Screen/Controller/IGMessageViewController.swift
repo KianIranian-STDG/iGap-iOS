@@ -63,7 +63,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     //newUITextMessage
     // MARK: - Outlets
     @IBOutlet weak var scrollToBottomBottomConstraint: NSLayoutConstraint!
-    
+    private(set) var chatsArray: [Chat] = []
+
     @IBOutlet weak var stackTopViews: UIStackView!
     @IBOutlet weak var stackMessageView: UIStackView!
     @IBOutlet weak var mainHolder: UIStackView!
@@ -112,7 +113,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var txtPinnedMessage: UILabel!
     @IBOutlet weak var txtPinnedMessageTitle: UILabel!
     @IBOutlet weak var collectionView: IGMessageCollectionView!
-    @IBOutlet weak var tableviewMessages : ASTableNode!
+    @IBOutlet weak var tableviewMessagesView : UIView!
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var joinButton: UIButton!
     @IBOutlet weak var btnScrollToBottom: UIButton!
@@ -176,6 +177,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     var selectedMessages : [IGRoomMessage] = []
     var sendTone: AVAudioPlayer?
     var isFromCloud : Bool = false
+    var tableviewMessages : ASTableNode!
     let documentPickerIdentifiers = [String(kUTTypeURL), String(kUTTypeFileURL), String(kUTTypePDF), // file start
         String(kUTTypeGNUZipArchive), String(kUTTypeBzip2Archive), String(kUTTypeZipArchive),
         String(kUTTypeWebArchive), String(kUTTypeTXNTextAndMultimediaData), String(kUTTypeFlatRTFD),
@@ -319,7 +321,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     self.btnAttachmentNew.isHidden = true
                     
                     
-                    self.reloadCollection()
+//                    self.reloadCollection()
                     self.btnForward.isHidden = !isForward!
 
                     
@@ -351,7 +353,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     self.btnAttachmentNew.isHidden = true
                     
                     
-                    self.reloadCollection()
+//                    self.reloadCollection()
                     self.btnTrash.isHidden = !isDelete!
 
                     
@@ -646,8 +648,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.collectionView.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
         self.collectionView.delaysContentTouches = false
         self.collectionView.keyboardDismissMode = .none
-        self.collectionView.dataSource = self
-        self.collectionView.delegate = self
         
         let bgColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         
@@ -687,15 +687,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         messageTextView.addGestureRecognizer(tapOnMessageTextView)
         messageTextView.isUserInteractionEnabled = true
         
-        if let messageId = self.deepLinkMessageId {
-            // need to make 'IGMessageLoader' for first time
-            messageLoader = IGMessageLoader.getInstance(room: self.room!)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.goToPosition(messageId: messageId)
-            }
-        } else {
-            startLoadMessage()
-        }
+
         holderMusicPlayer.backgroundColor = .clear
         if IGGlobal.shouldShowTopBarPlayer {
             let value : CGFloat = 0
@@ -708,8 +700,34 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         initTheme()
         self.view.endEditing(true)
+        initASTableDelegates()
+        if let messageId = self.deepLinkMessageId {
+            // need to make 'IGMessageLoader' for first time
+            messageLoader = IGMessageLoader.getInstance(room: self.room!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.goToPosition(messageId: messageId)
+            }
+        } else {
+            startLoadMessage()
+            fetchChatData()
+
+        }
     }
 
+    private func initASTableDelegates() {
+        tableviewMessages = ASTableNode()
+        tableviewMessages.delegate = self
+        tableviewMessages.dataSource = self
+        self.tableviewMessagesView.addSubnode(tableviewMessages)
+
+        tableviewMessages.view.translatesAutoresizingMaskIntoConstraints = false
+        tableviewMessages.view.topAnchor.constraint(equalTo: self.tableviewMessagesView.topAnchor).isActive = true
+
+        tableviewMessages.view.leadingAnchor.constraint(equalTo: self.tableviewMessagesView.leadingAnchor).isActive = true
+        tableviewMessages.view.trailingAnchor.constraint(equalTo: self.tableviewMessagesView.trailingAnchor).isActive = true
+        tableviewMessages.view.bottomAnchor.constraint(equalTo: self.tableviewMessagesView.bottomAnchor,constant: 0).isActive = true
+
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -910,7 +928,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     private func stopButtonPlayForRow() {
-        self.collectionView.reloadData()
+//        self.collectionView.reloadData()
     }
     
     private func eventBusInitialiser() {
@@ -1049,7 +1067,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             } else if let onChannelGetMessageState = result?.object as? (action: ChatMessageAction, roomId: Int64), onChannelGetMessageState.action == ChatMessageAction.channelGetMessageState {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     if self?.room?.id == onChannelGetMessageState.roomId {
-                        self?.reloadCollection()
+//                        self?.reloadCollection()
                     }
                 }
                 
@@ -1101,17 +1119,17 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 /* fetch user info and notify collection item if exist in visible items into the collection */
                 IGUserInfoRequest.sendRequestAvoidDuplicate(userId: onFetchUserInfo.userId) { [weak self] (userInfo) in
                     DispatchQueue.main.async {
-                        if let visibleItems = self?.collectionView?.indexPathsForVisibleItems {
-                            for indexPath in visibleItems {
-                                if let cell = self?.collectionView.cellForItem(at: indexPath) as? AbstractCell {
-                                    if !cell.realmRoomMessage.isInvalidated, let authorUser = cell.realmRoomMessage.authorUser, !authorUser.isInvalidated {
-                                        if let peerId = cell.realmRoomMessage.authorUser?.userId, userInfo.igpID == peerId {
-                                            self?.updateItem(cellPosition: indexPath.row)
-                                        }
-                                    }
-                                }
-                            }
-                        }
+//                        if let visibleItems = self?.collectionView?.indexPathsForVisibleItems {
+//                            for indexPath in visibleItems {
+//                                if let cell = self?.collectionView.cellForItem(at: indexPath) as? AbstractCell {
+//                                    if !cell.realmRoomMessage.isInvalidated, let authorUser = cell.realmRoomMessage.authorUser, !authorUser.isInvalidated {
+//                                        if let peerId = cell.realmRoomMessage.authorUser?.userId, userInfo.igpID == peerId {
+//                                            self?.updateItem(cellPosition: indexPath.row)
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
                     }
                 }
                 
@@ -1134,7 +1152,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             let value : CGFloat = 0
             let defaultValue: CGFloat = 60
             
-            self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+//            self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
 
             self.createTopMusicPlayer()
         }
@@ -1146,7 +1164,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         IGPlayer.shared.stopMedia()
         let value : CGFloat = 0
         let defaultValue: CGFloat = 20
-        self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+//        self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
 
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
@@ -1159,7 +1177,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let value : CGFloat = 0
         let defaultValue: CGFloat = 60
 
-        self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+//        self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
 
         UIView.animate(withDuration: 0.0) {
             self.view.layoutIfNeeded()
@@ -1207,6 +1225,29 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
      * sometimes startLoadMessage call from another state so will be send forwarded message twice
      * currentlly for manage this state just should be manage forward from one state
      */
+
+    
+    private func fetchChatData() {
+        
+        
+        if let url = Bundle.main.url(forResource: "chats", withExtension: "json") {
+            
+            DispatchQueue.main.async {
+            }
+            do {
+                
+                let data = try Data.init(contentsOf: url)
+                let decoder = JSONDecoder.init()
+                self.chatsArray = try decoder.decode([Chat].self, from: data)
+                self.tableviewMessages.reloadData()
+                
+            } catch let err {
+                print(err.localizedDescription)
+            }
+            
+        }
+    }
+    
     private func startLoadMessage(fetchDown: Bool = true){
         if messageLoader == nil {
             messageLoader = IGMessageLoader.getInstance(room: self.room!)
@@ -1215,14 +1256,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let hasUnread = messageLoader.hasUnread()
         let hasSaveState = messageLoader.hasSavedState()
         if hasUnread || hasSaveState {
-            self.collectionView.fadeOut(0)
+//            self.collectionView.fadeOut(0)
         }
         
         messageLoader.getMessages(fetchDown: fetchDown) { [weak self] (messages, direction) in
             self?.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
             if hasUnread || hasSaveState {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                    self?.collectionView.fadeIn(0.1)
+//                    self?.collectionView.fadeIn(0.1)
                 }
             }
             if self?.allowManageForward ?? false {
@@ -1401,7 +1442,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @objc func keyboardWillDisappear() {
         disableStickerView(delay: 0.4)
         if isBotRoom() {
-            self.reloadCollection()
+//            self.reloadCollection()
         }
     }
     
@@ -1419,9 +1460,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     }
                     
                     if self?.room?.isReadOnly ?? true {
-                        self?.collectionViewTopInsetOffset = 0
+//                        self?.collectionViewTopInsetOffset = 0
                     } else {
-                        self?.collectionViewTopInsetOffset = CGFloat(self?.DOCTOR_BOT_HEIGHT ?? 50)
+//                        self?.collectionViewTopInsetOffset = CGFloat(self?.DOCTOR_BOT_HEIGHT ?? 50)
                     }
                     
                     self?.apiStructArray = results
@@ -1431,10 +1472,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                         }
                     }
                     
-                    self?.setCollectionViewInset(withDuration: 0.9)
+//                    self?.setCollectionViewInset(withDuration: 0.9)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1){
                         if self != nil {
-                            self!.collectionView.setContentOffset(CGPoint(x: 0, y: -self!.collectionView.contentInset.top) , animated: true)
+//                            self!.collectionView.setContentOffset(CGPoint(x: 0, y: -self!.collectionView.contentInset.top) , animated: true)
                         }
                     }
                 }
@@ -1675,7 +1716,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     
                     if !self.messageTextView.isFirstResponder {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            self.reloadCollection()
+//                            self.reloadCollection()
                         }
                     }
                     
@@ -1745,7 +1786,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     private func onBotClick(){
-        self.collectionView.setContentOffset(CGPoint(x: 0, y: -self.collectionView.contentInset.top) , animated: false)
+//        self.collectionView.setContentOffset(CGPoint(x: 0, y: -self.collectionView.contentInset.top) , animated: false)
     }
     
     func onAdditionalRequestPayDirect(structAdditional :IGStructAdditionalButton){
@@ -4893,664 +4934,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 
 
 //MARK: - IGMessageCollectionViewDataSource
-extension IGMessageViewController: IGMessageCollectionViewDataSource {
-    
-    private func getMessageType(message: IGRoomMessage) -> IGRoomMessageType {
-        if message.isInvalidated {
-            return IGRoomMessageType.unknown
-        }
-        
-        var finalMessage = message
-        if let forward = message.forwardedFrom {
-            finalMessage = forward
-        }
-        return finalMessage.type
-    }
-    
-    func collectionView(_ collectionView: IGMessageCollectionView, messageAt indexpath: IndexPath) -> IGRoomMessage {
-        return messages![indexpath.row]
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if messages != nil {
-            return messages!.count
-        }
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        self.collectionView = collectionView as? IGMessageCollectionView
-        
-        if messages!.count <= indexPath.row {
-            print("VVV || popViewController index out of bound")
-            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
-            cell.setUnknownMessage()
-            return cell
-        }
-        
-        let message = messages![indexPath.row]
-        /* if room was deleted close chat room */
-        if message.isInvalidated || (self.room?.isInvalidated)! {
-            print("VVV || popViewController load chat item")
-            self.navigationController?.popViewController(animated: true)
-            
-            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
-            cell.setUnknownMessage()
-            return cell
-        }
-        
-        var isIncommingMessage = true
-        var shouldShowAvatar = false
-        var isPreviousMessageFromSameSender = false
-        let isNextMessageFromSameSender = false
-        
-        let messageType = getMessageType(message: message)
-        
-        
-        if self.room?.type == .channel { // isIncommingMessage means that show message left side
-            isIncommingMessage = true
-        } else if let senderHash = message.authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
-            isIncommingMessage = false
-        }
-        
-        if room?.groupRoom != nil {
-            shouldShowAvatar = true
-            
-            if isIncommingMessage {
-                if message.type != .log {
-                    if messages!.indices.contains(indexPath.row + 1){
-                        let previousMessage = messages![(indexPath.row + 1)]
-                        if previousMessage.type != .log && message.authorHash == previousMessage.authorHash {
-                            isPreviousMessageFromSameSender = true
-                        }
-                    }
-                    
-                    //Hint: comment following code because corrently we don't use from 'isNextMessageFromSameSender' variable
-                    /*
-                     if messages!.indices.contains(indexPath.row - 1){
-                     let nextMessage = messages![(indexPath.row - 1)]
-                     if message.authorHash == nextMessage.authorHash {
-                     isNextMessageFromSameSender = true
-                     }
-                     }
-                     */
-                }
-            } else {
-                shouldShowAvatar = false
-            }
-        }
-        
-        
-        if messageType == .text {
-            let cell: TextCell = collectionView.dequeueReusableCell(withReuseIdentifier: TextCell.cellReuseIdentifier(), for: indexPath) as! TextCell
-            
-            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
-            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
-            
-            if IGGlobal.shouldMultiSelect {
-                if selectedMessages.count > 0 {
-                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
-                    if selectedBefore {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    } else {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    }
-                } else {
-                    if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
-                    }
-                }
-            }
-            
-            manageHighlightMode(cell: cell, messageId: message.id)
-            
-            cell.delegate = self
-            return cell
-            
-        } else if messageType == .image ||  messageType == .imageAndText {
-            let cell: ImageCell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCell.cellReuseIdentifier(), for: indexPath) as! ImageCell
-            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
-            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
-            
-            if IGGlobal.shouldMultiSelect {
-                if selectedMessages.count > 0 {
-                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
-                    if selectedBefore {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    } else {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    }
-                } else {
-                    if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
-                    }
-                }
-            }
-            
-            manageHighlightMode(cell: cell, messageId: message.id)
-            
-            cell.delegate = self
-            return cell
-            
-        } else if messageType == .video || messageType == .videoAndText {
-            let cell: VideoCell = collectionView.dequeueReusableCell(withReuseIdentifier: VideoCell.cellReuseIdentifier(), for: indexPath) as! VideoCell
-            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
-            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
-            
-            if IGGlobal.shouldMultiSelect {
-                if selectedMessages.count > 0 {
-                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
-                    if selectedBefore {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    } else {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    }
-                } else {
-                    if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
-                    }
-                }
-            }
-            
-            manageHighlightMode(cell: cell, messageId: message.id)
-            
-            cell.delegate = self
-            return cell
-            
-        } else if messageType == .gif || messageType == .gifAndText {
-            let cell: GifCell = collectionView.dequeueReusableCell(withReuseIdentifier: GifCell.cellReuseIdentifier(), for: indexPath) as! GifCell
-            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
-            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
-            
-            if IGGlobal.shouldMultiSelect {
-                if selectedMessages.count > 0 {
-                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
-                    if selectedBefore {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    } else {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    }
-                } else {
-                    if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
-                    }
-                }
-            }
-            
-            manageHighlightMode(cell: cell, messageId: message.id)
-            
-            cell.delegate = self
-            return cell
-            
-        } else if messageType == .contact {
-            let cell: ContactCell = collectionView.dequeueReusableCell(withReuseIdentifier: ContactCell.cellReuseIdentifier(), for: indexPath) as! ContactCell
-            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
-            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
-            
-            if IGGlobal.shouldMultiSelect {
-                if selectedMessages.count > 0 {
-                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
-                    if selectedBefore {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    } else {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    }
-                } else {
-                    if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
-                    }
-                }
-            }
-            
-            manageHighlightMode(cell: cell, messageId: message.id)
-            
-            cell.delegate = self
-            return cell
-            
-        } else if messageType == .file || messageType == .fileAndText {
-            let cell: FileCell = collectionView.dequeueReusableCell(withReuseIdentifier: FileCell.cellReuseIdentifier(), for: indexPath) as! FileCell
-            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
-            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
-            
-            if IGGlobal.shouldMultiSelect {
-                if selectedMessages.count > 0 {
-                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
-                    if selectedBefore {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    } else {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    }
-                } else {
-                    if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
-                    }
-                }
-            }
-            manageHighlightMode(cell: cell, messageId: message.id)
-            
-            cell.delegate = self
-            return cell
-            
-        } else if messageType == .voice  {
-            let cell: VoiceCell = collectionView.dequeueReusableCell(withReuseIdentifier: VoiceCell.cellReuseIdentifier(), for: indexPath) as! VoiceCell
-            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
-            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
-            
-            if IGGlobal.shouldMultiSelect {
-                if selectedMessages.count > 0 {
-                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
-                    if selectedBefore {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    } else {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    }
-                } else {
-                    if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
-                    }
-                }
-            }
-            
-            manageHighlightMode(cell: cell, messageId: message.id)
-            
-            cell.delegate = self
-            return cell
-            
-        } else if messageType == .audio || messageType == .audioAndText {
-            let cell: AudioCell = collectionView.dequeueReusableCell(withReuseIdentifier: AudioCell.cellReuseIdentifier(), for: indexPath) as! AudioCell
-            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
-            cell.clickedAudioCellIndexPath = indexPath
-            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
-            
-            if IGGlobal.shouldMultiSelect {
-                if selectedMessages.count > 0 {
-                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
-                    if selectedBefore {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    } else {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    }
-                } else {
-                    if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
-                    }
-                }
-            }
-            
-            manageHighlightMode(cell: cell, messageId: message.id)
-            
-            cell.delegate = self
-            return cell
-            
-        } else if messageType == .sticker {
-            let cell: StickerCell = collectionView.dequeueReusableCell(withReuseIdentifier: StickerCell.cellReuseIdentifier(), for: indexPath) as! StickerCell
-            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
 
-            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
-            
-            if IGGlobal.shouldMultiSelect {
-                if selectedMessages.count > 0 {
-                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
-                    if selectedBefore {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    } else {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    }
-                } else {
-                    if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
-                    }
-                }
-            }
-            
-            manageHighlightMode(cell: cell, messageId: message.id)
-            
-            cell.delegate = self
-            return cell
-            
-        } else if messageType == .location {
-            let cell: LocationCell = collectionView.dequeueReusableCell(withReuseIdentifier: LocationCell.cellReuseIdentifier(), for: indexPath) as! LocationCell
-            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
-            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
-            
-            if IGGlobal.shouldMultiSelect {
-                if selectedMessages.count > 0 {
-                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
-                    if selectedBefore {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    } else {
-                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
-                        }, completion: nil)
-                    }
-                } else {
-                    if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
-                    }
-                }
-            }
-            
-            manageHighlightMode(cell: cell, messageId: message.id)
-            
-            cell.delegate = self
-            return cell
-            
-        } else if messageType == .wallet {
-            
-            if message.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
-                let cell: CardToCardCell = collectionView.dequeueReusableCell(withReuseIdentifier: CardToCardCell.cellReuseIdentifier(), for: indexPath) as! CardToCardCell
-                let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
-                cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
-                cell.delegate = self
-                return cell
-            } else if message.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
-                let cell: PaymentCell = collectionView.dequeueReusableCell(withReuseIdentifier: PaymentCell.cellReuseIdentifier(), for: indexPath) as! PaymentCell
-                let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
-                cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
-                cell.delegate = self
-                return cell
-            } else if message.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
-                let cell: MoneyTransferCell = collectionView.dequeueReusableCell(withReuseIdentifier: MoneyTransferCell.cellReuseIdentifier(), for: indexPath) as! MoneyTransferCell
-                let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
-                cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
-                cell.delegate = self
-                return cell
-            }
-            
-        } else if message.type == .log {
-            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
-            cell.setLogMessage(message)
-            return cell
-        } else if message.type == .time {
-            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
-            cell.setTime(message.message!)
-            return cell
-        } else if message.type == .unread {
-            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
-            cell.setUnreadMessage(message)
-            return cell
-        } else if message.type == .progress {
-            let cell: ProgressCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressCell.cellReuseIdentifier(), for: indexPath) as! ProgressCell
-            cell.showProgress()
-            return cell
-        } else {
-            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
-            cell.setUnknownMessage()
-            return cell
-        }
-        
-        
-        let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
-        cell.setUnknownMessage()
-        return cell
-        
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: 0.001, height: 0.001)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        var reusableview = UICollectionReusableView()
-        if kind == UICollectionView.elementKindSectionFooter {
-            
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
-            
-            if indexPath.row < messages!.count {
-                if let message = messages?[indexPath.row] {
-                    if message.shouldFetchBefore {
-                        header.setText(IGStringsManager.GlobalLoading.rawValue.localized)
-                    } else {
-                        
-                        let dayTimePeriodFormatter = DateFormatter()
-                        dayTimePeriodFormatter.dateFormat = "MMMM dd"
-                        dayTimePeriodFormatter.calendar = Calendar.current
-                        let dateString = (message.creationTime!).localizedDate()
-                        
-                        header.setText(dateString.inLocalizedLanguage())
-                    }
-                }
-            }
-            reusableview = header
-        }
-        return reusableview
-    }
-    
-    private func manageHighlightMode(cell: UICollectionViewCell, messageId: Int64) {
-        if messageId == IGMessageViewController.highlightMessageId || messageId == IGMessageViewController.highlightWithoutFastReturn {
-            IGMessageViewController.highlightMessageId = 0
-            IGMessageViewController.highlightWithoutFastReturn = 0
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                UIView.transition(with: cell, duration: 0.5, animations: {
-                    cell.backgroundColor = UIColor.iGapGreen().withAlphaComponent(0.5)
-                }, completion: { (completed) in
-                    UIView.animate(withDuration: 0.5, animations: {
-                        cell.backgroundColor = UIColor.clear
-                    }, completion: nil)
-                })
-            }
-        }
-    }
-}
 
 //MARK: - UICollectionViewDelegateFlowLayout
-extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        if messages!.count <= indexPath.row { return CGSize(width: 0, height: 0) }
-        
-        let message = messages![indexPath.row]
-        let size = self.collectionView.layout.sizeCell(room: self.room!, for: message)
-        let frame = size.bubbleSize
-        
-        return CGSize(width: self.collectionView.frame.width, height: frame.height + size.additionalHeight + 2)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let message = messages![indexPath.row]
-        if (IGGlobal.shouldMultiSelect) {
-            if let index = self.selectedMessages.firstIndex(where: { $0.id == message.id }) {
-                self.selectedMessages.remove(at: index)
-            } else {
-                self.selectedMessages.append(message)
-            }
-            
-            if self.selectedMessages.count > 0 {
-                lblSelectedMessages.text = String(self.selectedMessages.count).inLocalizedLanguage() + " " + IGStringsManager.Selected.rawValue.localized
-            } else {
-                lblSelectedMessages.text = ""
-            }
-            self.collectionView.reloadItems(at: [indexPath])
-            
-        } else {
-            self.messageTextView.resignFirstResponder()
-            if message.type == .sticker {
-                
-            }
 
-        }
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) { // TODO - when isWaiting for get from server return this method and don't do any action
-        
-        if self.collectionView.numberOfItems(inSection: 0) == 0 {
-            return
-        }
-        
-        setFloatingDate()
-        
-        //currently use inverse
-        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) { //reach top
-            if (!self.messageLoader.isFirstLoadUp() || self.messageLoader.isForceFirstLoadUp()) && !self.messageLoader.isWaitingHistoryUpLocal() {
-                self.messageLoader.loadMessage(direction: .up, onMessageReceive: { (messages, direction) in
-                    self.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
-                })
-            }
-            
-            /** if totalItemCount is lower than scrollEnd so (firstVisiblePosition < scrollEnd) is always true and we can't load DOWN,
-             * finally for solve this problem also check following state and load DOWN even totalItemCount is lower than scrollEnd count
-             */
-            //if (totalItemCount <= scrollEnd) {
-            //    loadMessage(DOWN);
-            //}
-        }
-        
-        if (scrollView.contentOffset.y < 0) { //reach bottom
-            if !(self.messageLoader?.isFirstLoadDown() ?? false) && !(self.messageLoader?.isWaitingHistoryDownLocal() ?? false) {
-                self.messageLoader.loadMessage(direction: .down, onMessageReceive: { (messages, direction) in
-                    self.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
-                })
-            }
-        }
-        
-        //100 is an arbitrary number. can be anything
-        if scrollView.contentOffset.y > 100 {
-            self.scrollToBottomContainerView.isHidden = false
-        } else {
-//            if isBotRoom() && IGHelperDoctoriGap.isDoctoriGapRoom(room: room!) {
-//                scrollToBottomContainerViewConstraint.constant = CGFloat(DOCTOR_BOT_HEIGHT)
-//            } else {
-//                if room!.isReadOnly {
-//                    scrollToBottomContainerViewConstraint.constant = -40
-//                }
-//            }
-            self.scrollToBottomContainerView.isHidden = true
-        }
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.floatingDateView.alpha = 0.0
-        })
-        UIView.animate(withDuration: 0.5, animations: {
-            self.txtFloatingDate.alpha = 0.0
-        })
-    }
-    
-    private func setFloatingDate(){
-        if messages == nil {return}
-        let arrayOfVisibleItems = collectionView.indexPathsForVisibleItems.sorted()
-        if let lastIndexPath = arrayOfVisibleItems.last {
-            if latestIndexPath != lastIndexPath {
-                
-                if let cell = self.collectionView?.cellForItem(at: IndexPath(row: lastIndexPath.row, section: 0)) as? IGMessageLogCollectionViewCell, cell.cellMessage?.type != .log {
-                    return
-                }
-                
-                latestIndexPath = lastIndexPath
-            } else {
-                return
-            }
-            
-            if latestIndexPath.row < messages!.count {
-                
-                var previousMessage: IGRoomMessage!
-                if  messages!.count > latestIndexPath.row + 1 {
-                    previousMessage = (messages?[latestIndexPath.row + 1])!
-                }
-                
-                if let message = messages?[latestIndexPath.row], !message.isInvalidated , message.type != .time , message.type != .unread {
-                    let dayTimePeriodFormatter = DateFormatter()
-                    dayTimePeriodFormatter.dateFormat = "MMMM dd"
-                    dayTimePeriodFormatter.calendar = Calendar.current
-                    let dateString = (message.creationTime!).localizedDate()
-                    
-                    var previousDateString = ""
-                    if previousMessage != nil {
-                        let dayTimePeriodFormatter1 = DateFormatter()
-                        dayTimePeriodFormatter1.dateFormat = "MMMM dd"
-                        dayTimePeriodFormatter1.calendar = Calendar.current
-                        previousDateString = (previousMessage.creationTime!).localizedDate()
-                    }
-                    
-                    if !previousDateString.isEmpty && previousDateString != dateString {
-                        if !saveDate.contains(dateString) {
-                            saveDate.append(dateString)
-                            if firstSetDate {
-                                firstSetDate = false
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                    if let messageTime = message.creationTime {
-                                        self.appendAtSpecificPosition(self.makeTimeItem(date: messageTime), cellPosition: lastIndexPath.row + 1)
-                                    }
-                                }
-                            } else {
-                                if let messageTime = message.creationTime {
-                                    self.appendAtSpecificPosition(self.makeTimeItem(date: messageTime), cellPosition: lastIndexPath.row + 1)
-                                }
-                            }
-                        }
-                    }
-                    
-                    txtFloatingDate.text = dateString.inLocalizedLanguage()
-                    UIView.animate(withDuration: 0.5, animations: {
-                        self.floatingDateView.alpha = 1.0
-                    })
-                    UIView.animate(withDuration: 0.5, animations: {
-                        self.txtFloatingDate.alpha = 1.0
-                    })
-                }
-            }
-        }
-    }
-}
 
 
 //MARK: - GrowingTextViewDelegate
@@ -5883,11 +5270,11 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
              * is showing so JUST notify Position and DON'T call scroll to item
              */
             
-            if !self.collectionView.indexPathsForVisibleItems.contains(previousIndexPath) {
-                self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
-            } else if !self.collectionView.indexPathsForVisibleItems.contains(futureIndexPath) {
-                self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
-            }
+//            if !self.collectionView.indexPathsForVisibleItems.contains(previousIndexPath) {
+//                self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
+//            } else if !self.collectionView.indexPathsForVisibleItems.contains(futureIndexPath) {
+//                self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
+//            }
             
             if enableFastReturn {
                 notifyPosition(messageId: IGMessageViewController.highlightMessageId)
@@ -5915,12 +5302,13 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             self.messageLoader.setSavedScrollMessageId(savedScrollMessageId: messageId!)
         }
         self.startLoadMessage()
+        fetchChatData()
     }
     
     func notifyPosition(messageId: Int64){
         if let indexOfMessge = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId) {
             let indexPath = IndexPath(row: indexOfMessge, section: 0)
-            self.collectionView.reloadItems(at: [indexPath])
+//            self.collectionView.reloadItems(at: [indexPath])
         }
     }
     // MARK: - End - Go to Message Position
@@ -6401,6 +5789,7 @@ extension IGMessageViewController {
     
     /* scroll to bottom as default for send message (Text Message/File Message) */
     func addChatItem(realmRoomMessages: [IGRoomMessage], direction: IGPClientGetRoomHistory.IGPDirection, scrollToBottom: Bool = true){
+
         if realmRoomMessages.count == 0 || self.room!.isInvalidated {
             return
         }
@@ -6489,41 +5878,41 @@ extension IGMessageViewController {
     }
     
     private func addChatItemToBottom(count: Int, scrollToBottom: Bool = false) {
-        let contentHeight = self.collectionView!.contentSize.height
-        let offsetY = self.collectionView!.contentOffset.y
-        let bottomOffset = contentHeight - offsetY
-        
-        if !scrollToBottom {
-            CATransaction.begin()
-            CATransaction.setDisableActions(true)
-        }
-        
-        self.collectionView?.performBatchUpdates({
-            var arrayIndex: [IndexPath] = []
-            
-            for index in 0...(count-1) {
-                arrayIndex.append(IndexPath(row: index, section: 0))
-            }
-            
-            self.collectionView?.insertItems(at: arrayIndex)
-        }, completion: { _ in
-            if !scrollToBottom {
-                self.collectionView!.contentOffset = CGPoint(x: 0, y: self.collectionView!.contentSize.height - bottomOffset)
-                CATransaction.commit()
-            }
-        })
+//        let contentHeight = self.collectionView!.contentSize.height
+//        let offsetY = self.collectionView!.contentOffset.y
+//        let bottomOffset = contentHeight - offsetY
+//
+//        if !scrollToBottom {
+//            CATransaction.begin()
+//            CATransaction.setDisableActions(true)
+//        }
+//
+//        self.collectionView?.performBatchUpdates({
+//            var arrayIndex: [IndexPath] = []
+//
+//            for index in 0...(count-1) {
+//                arrayIndex.append(IndexPath(row: index, section: 0))
+//            }
+//
+//            self.collectionView?.insertItems(at: arrayIndex)
+//        }, completion: { _ in
+//            if !scrollToBottom {
+//                self.collectionView!.contentOffset = CGPoint(x: 0, y: self.collectionView!.contentSize.height - bottomOffset)
+//                CATransaction.commit()
+//            }
+//        })
     }
     
     private func addChatItemToTop(count: Int) {
-        self.collectionView?.performBatchUpdates({
-            var arrayIndex: [IndexPath] = []
-            
-            for index in 0...(count-1) {
-                arrayIndex.append(IndexPath(row: (messages!.count-count)+index, section: 0))
-            }
-            
-            self.collectionView?.insertItems(at: arrayIndex)
-        }, completion: nil)
+//        self.collectionView?.performBatchUpdates({
+//            var arrayIndex: [IndexPath] = []
+//
+//            for index in 0...(count-1) {
+//                arrayIndex.append(IndexPath(row: (messages!.count-count)+index, section: 0))
+//            }
+//
+//            self.collectionView?.insertItems(at: arrayIndex)
+//        }, completion: nil)
     }
     
     private func addWaitingProgress(direction: IGPClientGetRoomHistory.IGPDirection){
@@ -6535,13 +5924,13 @@ extension IGMessageViewController {
     }
     
     private func removeItem(cellPosition: Int?){
-        if cellPosition == nil {return}
-        DispatchQueue.main.async {
-            self.removeMessageArrayByPosition(cellPosition: cellPosition)
-            self.collectionView?.performBatchUpdates({
-                self.collectionView?.deleteItems(at: [IndexPath(row: cellPosition!, section: 0)])
-            }, completion: nil)
-        }
+//        if cellPosition == nil {return}
+//        DispatchQueue.main.async {
+//            self.removeMessageArrayByPosition(cellPosition: cellPosition)
+//            self.collectionView?.performBatchUpdates({
+//                self.collectionView?.deleteItems(at: [IndexPath(row: cellPosition!, section: 0)])
+//            }, completion: nil)
+//        }
     }
     
     private func removeProgress(fakeMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection){
@@ -6551,9 +5940,9 @@ extension IGMessageViewController {
                     return
                 }
                 self.removeMessageArrayByPosition(cellPosition: cellPosition)
-                self.collectionView?.performBatchUpdates({
-                    self.collectionView?.deleteItems(at: [IndexPath(row: cellPosition, section: 0)])
-                }, completion: nil)
+//                self.collectionView?.performBatchUpdates({
+//                    self.collectionView?.deleteItems(at: [IndexPath(row: cellPosition, section: 0)])
+//                }, completion: nil)
             }
         }
     }
@@ -6563,7 +5952,8 @@ extension IGMessageViewController {
             return
         }
         
-        self.collectionView.reloadItems(at: [IndexPath(row: cellPosition, section: 0)])
+//        self.collectionView.reloadItems(at: [IndexPath(row: cellPosition, section: 0)])
+        self.tableviewMessages.reloadRows(at: [IndexPath(row: cellPosition, section: 0)], with: .automatic)
     }
     
     /*********************************************************************************/
@@ -6585,6 +5975,7 @@ extension IGMessageViewController {
                 IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.insert(message.id, at: 0)
             }
         }
+        self.tableviewMessages.reloadData()
     }
     
     private func appendAtSpecificPosition(_ message: IGRoomMessage, cellPosition: Int){
@@ -6595,9 +5986,9 @@ extension IGMessageViewController {
         self.messages!.insert(message, at: cellPosition)
         IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.insert(message.id, at: cellPosition)
         
-        self.collectionView?.performBatchUpdates({
-            self.collectionView?.insertItems(at: [IndexPath(row: cellPosition, section: 0)])
-        }, completion: nil)
+//        self.collectionView?.performBatchUpdates({
+//            self.collectionView?.insertItems(at: [IndexPath(row: cellPosition, section: 0)])
+//        }, completion: nil)
     }
     
     private func removeMessageArray(messageId: Int64){
@@ -6647,8 +6038,9 @@ extension IGMessageViewController {
     }
     
     private func reloadCollection(){
-        self.collectionView.reloadData()
-        self.collectionView.numberOfItems(inSection: 0) //<-- This code is no used, but it will let UICollectionView synchronize number of items, so it will not crash in following code.
+//        self.collectionView.reloadData()
+//        self.collectionView.numberOfItems(inSection: 0) //<-- This code is no used, but it will let UICollectionView synchronize number of items, so it will not crash in following code.
+        self.tableviewMessages.reloadData()
     }
     
     /**
@@ -6667,15 +6059,15 @@ extension IGMessageViewController {
      * so collection state is near to bottom
      */
     private func isNearToBottom() -> Bool {
-        let visibleCells = self.collectionView.indexPathsForVisibleItems.sorted(by:{
-            $0.section < $1.section || $0.row < $1.row
-        }).compactMap({
-            self.collectionView.cellForItem(at: $0)
-        })
-        
-        if visibleCells.count > 0, self.collectionView.indexPath(for: visibleCells[0])!.row > IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT {
-            return false
-        }
+//        let visibleCells = self.collectionView.indexPathsForVisibleItems.sorted(by:{
+//            $0.section < $1.section || $0.row < $1.row
+//        }).compactMap({
+//            self.collectionView.cellForItem(at: $0)
+//        })
+//
+//        if visibleCells.count > 0, self.collectionView.indexPath(for: visibleCells[0])!.row > IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT {
+//            return false
+//        }
         return true
     }
     
@@ -6687,4 +6079,89 @@ extension Date {
         formatter.dateFormat = format
         return formatter.string(from: self)
     }
+}
+extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
+    func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
+//        return chatsArray.count
+        return self.messages!.count
+    }
+    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+
+
+//        let cellnodeBlock  = {[weak self] () -> ASCellNode in
+//            guard let sSelf = self else {
+//                return ASCellNode()
+//            }
+//
+//            var isOut = true
+//            let msg = sSelf.chatsArray[indexPath.row]
+//
+//
+//
+//            DispatchQueue.main.async {
+//                print(sSelf.messages!.count)
+//                if sSelf.room?.type == .channel { // isIncommingMessage means that show message left side
+//                    isOut = true
+//                } else if msg.is_sent_by_me == false {
+//                    isOut = false
+//                } else {
+//                    isOut = true
+//
+//                }
+//            }
+//
+//            print(indexPath.row)
+//            let img = isOut ? mineImage : someoneImage
+//
+//            let node = MessageWhatsappBubbleNode(msg: msg, isOutgoing: isOut, bubbleImage: img)
+//            return node
+//
+//        }
+//        return cellnodeBlock
+        
+        
+        let cellnodeBlock  = {[weak self] () -> ASCellNode in
+            guard let sSelf = self else {
+                return ASCellNode()
+            }
+
+            var isOut = true
+            let msg = sSelf.messages?[indexPath.row]
+
+
+
+            DispatchQueue.main.async {
+                
+                
+                
+                if sSelf.room?.type == .channel { // isIncommingMessage means that show message left side
+                    isOut = true
+                } else if let senderHash = msg?.authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
+                    isOut = false
+                }
+
+                
+                
+            }
+            
+            
+            
+                let img = isOut ? mineImage : someoneImage
+
+                let node = MessageWhatsappBubbleNode(msg: msg!, isOutgoing: isOut, bubbleImage: img)
+                return node
+
+            
+
+
+        }
+        return cellnodeBlock
+
+
+    }
+
+    func numberOfSections(in tableNode: ASTableNode) -> Int {
+        return 1
+    }
+
 }
