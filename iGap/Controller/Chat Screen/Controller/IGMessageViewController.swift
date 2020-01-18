@@ -5966,12 +5966,12 @@ extension IGMessageViewController {
         
         if direction == .up {
             for message in messages {
-                self.messages!.append(message)
+                self.messages!.append(message.detach())
                 IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.append(message.id)
             }
         } else {
             for message in messages {
-                self.messages!.insert(message, at: 0)
+                self.messages!.insert(message.detach(), at: 0)
                 IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.insert(message.id, at: 0)
             }
         }
@@ -6011,7 +6011,7 @@ extension IGMessageViewController {
             return
         }
         
-        self.messages![cellPosition] = message
+        self.messages![cellPosition] = message.detach()
         if IGMessageViewController.messageIdsStatic[(self.room?.id) ?? -1] != nil {
             IGMessageViewController.messageIdsStatic[(self.room?.id)!]![cellPosition] = message.id
         }
@@ -6124,40 +6124,21 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
             guard let sSelf = self else {
                 return ASCellNode()
             }
-
             var isOut = true
             let msg = sSelf.messages?[indexPath.row]
-
-
-
-            DispatchQueue.main.async {
-                
-                
-                
-                if sSelf.room?.type == .channel { // isIncommingMessage means that show message left side
-                    isOut = true
-                } else if let senderHash = msg?.authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
-                    isOut = false
-                }
-
-                
-                
+            let authorHash = msg!.authorHash
+            
+            if self?.finalRoomType == .channel { // isIncommingMessage means that show message left side
+                isOut = true
+            } else if let senderHash = authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
+                isOut = false
             }
             
-            
-            
-                let img = isOut ? mineImage : someoneImage
-
-                let node = MessageWhatsappBubbleNode(msg: msg!, isOutgoing: isOut, bubbleImage: img)
-                return node
-
-            
-
-
+            let img = isOut ? mineImage : someoneImage
+            let node = MessageWhatsappBubbleNode(msg: msg!, isOutgoing: isOut, bubbleImage: img)
+            return node
         }
         return cellnodeBlock
-
-
     }
 
     func numberOfSections(in tableNode: ASTableNode) -> Int {

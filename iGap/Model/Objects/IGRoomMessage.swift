@@ -541,9 +541,18 @@ class IGRoomMessage: Object {
             let detachedLocation = location.detach()
             detachedMessage.location = detachedLocation
         }
+        
+        if let wallet = self.wallet {
+            detachedMessage.wallet = wallet.detach()
+        }
+        
         if let additional = self.additional {
             let detachedAdditional = additional.detach()
             detachedMessage.additional = detachedAdditional
+        }
+        
+        if let channelExtra = self.channelExtra {
+            detachedMessage.channelExtra = channelExtra.detach()
         }
         
         return detachedMessage

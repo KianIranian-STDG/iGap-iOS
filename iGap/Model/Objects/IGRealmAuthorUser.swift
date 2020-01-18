@@ -55,7 +55,11 @@ class IGRealmAuthorUser: Object {
     }
     
     func detach() -> IGRealmAuthorUser {
-        return IGRealmAuthorUser(value: self)
+        let authorUser = IGRealmAuthorUser(value: self)
+        if let userInfo = authorUser.userInfo {
+            authorUser.userInfo = userInfo.detach()
+        }
+        return authorUser
     }
 }
 
