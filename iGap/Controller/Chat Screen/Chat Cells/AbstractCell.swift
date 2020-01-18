@@ -984,22 +984,29 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
     }
     
     @objc func didTapOnForward(_ gestureRecognizer: UITapGestureRecognizer) {
-        self.delegate?.didTapOnForward(cellMessage: realmRoomMessage!, cell: self)
+        if !(IGGlobal.shouldMultiSelect) {
+            self.delegate?.didTapOnForward(cellMessage: realmRoomMessage!, cell: self)
+        }
     }
     
     @objc func didTapOnReturnToMessage(_ gestureRecognizer: UITapGestureRecognizer) {
-        self.delegate?.didTapOnReturnToMessage()
+        if !(IGGlobal.shouldMultiSelect) {
+            self.delegate?.didTapOnReturnToMessage()
+        }
     }
     
     @objc func didTapOnFailedStatus(_ gestureRecognizer: UITapGestureRecognizer) {
-        if realmRoomMessage.status == .failed {
-            self.delegate?.didTapOnFailedStatus(cellMessage: realmRoomMessage!)
+        if !(IGGlobal.shouldMultiSelect) {
+            if realmRoomMessage.status == .failed {
+                self.delegate?.didTapOnFailedStatus(cellMessage: realmRoomMessage!)
+            }
         }
     }
     
     func didTapOnForwardedAttachment(_ gestureRecognizer: UITapGestureRecognizer) {
-        self.delegate?.didTapOnForwardedAttachment(cellMessage: realmRoomMessage!, cell: self)
-        
+        if !(IGGlobal.shouldMultiSelect) {
+            self.delegate?.didTapOnForwardedAttachment(cellMessage: realmRoomMessage!, cell: self)
+        }
     }
     
     @objc func didTapOnSenderAvatar(_ gestureRecognizer: UITapGestureRecognizer) {
