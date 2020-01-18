@@ -3921,7 +3921,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if sendAsFile {
             if let data = try? Data(contentsOf: videoInfo.url) {
-                self.manageFile(fileData: data, filename: "FILE_VIDEO_" + IGGlobal.randomString(length: 3), single: single)
+                self.manageFile(fileData: data, filename: videoInfo.url.lastPathComponent, single: single)
             }
             return
         }
@@ -3964,14 +3964,17 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             image = imageInfo.originalImage
         }
         
+        var filename = imageInfo.asset?.originalFilename
+        if filename == nil {
+           filename = "IMAGE_" + IGGlobal.randomString(length: 5) + ".png"
+        }
         if sendAsFile {
             if let data = image!.pngData() {
-                self.manageFile(fileData: data, filename: "FILE_IMAGE_" + IGGlobal.randomString(length: 3), single: single)
+                self.manageFile(fileData: data, filename: filename!, single: single)
             }
             return
         }
         
-        let filename = "IMAGE_" + IGGlobal.randomString(length: 16)
         var scaledImage: UIImage! = image
         let imgData = scaledImage.jpegData(compressionQuality: 0.7)
         
@@ -3989,7 +3992,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         attachment.type = .image
         //TODO - don't use 'DispatchQueue.main.async' like this, use closure
         //DispatchQueue.main.async {
-        self.saveAttachmentToLocalStorage(data: imgData!, fileNameOnDisk: filename)
+        self.saveAttachmentToLocalStorage(data: imgData!, fileNameOnDisk: filename!)
         //}
         
         if single {
