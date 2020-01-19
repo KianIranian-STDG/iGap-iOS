@@ -143,7 +143,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
                             IGGlobal.prgHide()
                         }).send()
                     }
-                }).error({ (errorCode, waitTime) in
+                }).error({ [weak self] (errorCode, waitTime) in
                     
                     IGGlobal.prgHide()
                     var errorBody = ""
@@ -218,6 +218,9 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         })
 
         optionMenu.addAction(ChoosePhoto)
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
+            optionMenu.addAction(cameraOption)} else {
+        }
         optionMenu.addAction(cancelAction)
         if self.channelAvatarImage.image != self.defaultImage || self.channelAvatarImage.image != nil {
             optionMenu.addAction(removeAction)
@@ -229,11 +232,7 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
                 action.setValue(removeColor, forKey: "titleTextColor")
             }
         }
-        optionMenu.view.tintColor = ThemeManager.currentTheme.LabelGrayColor
 
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
-            optionMenu.addAction(cameraOption)} else {
-        }
         if let popoverController = optionMenu.popoverPresentationController {
             popoverController.sourceView = sender
         }

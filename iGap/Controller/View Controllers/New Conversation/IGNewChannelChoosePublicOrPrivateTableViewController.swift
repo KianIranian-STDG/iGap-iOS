@@ -66,6 +66,16 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
         initTheme()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        radioButtonController?.delegate = nil
+        channelLinkTextField?.delegate = nil
+    }
+    
+    deinit {
+        print("Deinit IGNewChannelChoosePublicOrPrivateTableViewController")
+    }
+    
     private func initTheme() {
         lblFooter.textColor = ThemeManager.currentTheme.LabelColor
         lblPublicChannelDesc.textColor = ThemeManager.currentTheme.LabelColor
@@ -109,15 +119,17 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         navigationItem.hidesBackButton = true
-        navigationItem.rightViewContainer?.addAction {
-            if self.radioButtonController?.selectedButton() == self.publicChannelButton {
-                self.convertChannelToPublic()
-            } else {
-                let profile = IGMemberAddOrUpdateState.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                profile.room = IGRoom(igpRoom: self.igpRoom!)
-                profile.mode = "CreateChannel"
-                profile.hidesBottomBarWhenPushed = true
-                self.navigationController!.pushViewController(profile, animated: true)
+        navigationItem.rightViewContainer?.addAction { [weak self] in
+            if self != nil {
+                if self!.radioButtonController?.selectedButton() == self!.publicChannelButton {
+                    self!.convertChannelToPublic()
+                } else {
+                    let profile = IGMemberAddOrUpdateState.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                    profile.room = IGRoom(igpRoom: self!.igpRoom!)
+                    profile.mode = "CreateChannel"
+                    profile.hidesBottomBarWhenPushed = true
+                    self!.navigationController!.pushViewController(profile, animated: true)
+                }
             }
         }
     }
@@ -144,22 +156,24 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
             
             self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
             self.hud.mode = .indeterminate
-            IGChannelUpdateUsernameRequest.Generator.generate(roomId:igpRoom.igpID ,username:channelUserName).success({ (protoResponse) in
+            IGChannelUpdateUsernameRequest.Generator.generate(roomId:igpRoom.igpID ,username:channelUserName).success({ [weak self] (protoResponse) in
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case is IGPChannelUpdateUsernameResponse :
-                        let profile = IGMemberAddOrUpdateState.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                        profile.room = IGRoom(igpRoom: self.igpRoom!)
-                        profile.mode = "CreateChannel"
-                        profile.hidesBottomBarWhenPushed = true
-                        self.navigationController!.pushViewController(profile, animated: true)
+                        if self != nil {
+                            let profile = IGMemberAddOrUpdateState.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                            profile.room = IGRoom(igpRoom: self!.igpRoom!)
+                            profile.mode = "CreateChannel"
+                            profile.hidesBottomBarWhenPushed = true
+                            self!.navigationController!.pushViewController(profile, animated: true)
+                        }
                         break
                     default:
                         break
                     }
-                    self.hud.hide(animated: true)
+                    self?.hud.hide(animated: true)
                 }
-            }).error ({ (errorCode, waitTime) in
+            }).error ({ [weak self] (errorCode, waitTime) in
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
@@ -187,13 +201,17 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
                         break
                         
                     case .channelUpdateUsernameLock:
+                        let time = waitTime
+                        let remainingMiuntes = time!/60
+                        let msg =  IGStringsManager.ErrorUpdateUSernameAfter.rawValue.localized + " \(remainingMiuntes)" + IGStringsManager.Minutes.rawValue.localized
+                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: msg, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                         break
                         
                     default:
                         break
                     }
                     
-                    self.hud.hide(animated: true)
+                    self?.hud.hide(animated: true)
                 }
                 
             }).send()
@@ -201,14 +219,14 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
     }
     
     func checkUsername(username: String){
-        IGChannelCheckUsernameRequest.Generator.generate(roomId:igpRoom.igpID ,username: username).success({ (protoResponse) in
+        IGChannelCheckUsernameRequest.Generator.generate(roomId:igpRoom.igpID ,username: username).success({ [weak self] (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let usernameResponse as IGPChannelCheckUsernameResponse :
                     if usernameResponse.igpStatus == IGPChannelCheckUsernameResponse.IGPStatus.available {
-                        self.channelLinkTextField.textColor = ThemeManager.currentTheme.LabelColor
+                        self?.channelLinkTextField.textColor = ThemeManager.currentTheme.LabelColor
                     } else {
-                        self.channelLinkTextField.textColor = UIColor.red
+                        self?.channelLinkTextField.textColor = UIColor.red
                     }
                     break
                 default:
@@ -216,15 +234,6 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
                 }
             }
         }).error ({ (errorCode, waitTime) in
-            DispatchQueue.main.async {
-                switch errorCode {
-                case .timeout:
-
-                    break
-                default:
-                    break
-                }
-            }
         }).send()
     }
     

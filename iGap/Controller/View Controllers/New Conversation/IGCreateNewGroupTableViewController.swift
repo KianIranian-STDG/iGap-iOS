@@ -60,6 +60,11 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         groupNameTextField.becomeFirstResponder()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated )
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom), object: nil)
+    }
+    
     deinit {
         print("Deinit IGCreateNewGroupTableViewController")
     }
@@ -103,12 +108,12 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     
     func choosePhotoActionSheet(sender : UIImageView){
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let cameraOption = UIAlertAction(title: IGStringsManager.Gallery.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.pickImage(screens: [.photo])
-        })
-        
         let ChoosePhoto = UIAlertAction(title: IGStringsManager.Gallery.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
            self.pickImage(screens: [.library])
+        })
+        
+        let cameraOption = UIAlertAction(title: IGStringsManager.Camera.rawValue.localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.pickImage(screens: [.photo])
         })
         
         let cancelAction = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: {
@@ -232,7 +237,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
                                 }
                                 
                                 if self?.groupAvatarImage.image != nil, self?.groupAvatarImage.image != self?.defualtImage {
-                                    IGHelperAvatar.shared.upload(roomId: getRoomProtoResponse.igpRoom.igpID, type: .channel, file: self!.groupAvatarAttachment) { [weak self] (file) in
+                                    IGHelperAvatar.shared.upload(roomId: getRoomProtoResponse.igpRoom.igpID, type: .group, file: self!.groupAvatarAttachment) { [weak self] (file) in
                                         DispatchQueue.main.async {
                                             self?.dismissView(roomId: getRoomProtoResponse.igpRoom.igpID)
                                         }
@@ -248,8 +253,28 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
                             IGGlobal.prgHide()
                         }).send()
                     }
-                }).error({ (errorCode, waitTime) in
+                }).error({ [weak self] (errorCode, waitTime) in
                     IGGlobal.prgHide()
+                    var errorBody = ""
+                    switch errorCode {
+                    case .groupCreatLimitReached:
+                        errorBody = IGStringsManager.RestrictionCreatRoom.rawValue.localized
+                        break
+                    case .timeout:
+                        errorBody = IGStringsManager.GlobalTimeOut.rawValue.localized
+                        break
+                    default:
+                        errorBody = IGStringsManager.GlobalTryAgain.rawValue.localized
+                        break
+                    }
+                    if waitTime != nil && waitTime != 0 {
+                        errorBody += IGStringsManager.GlobalTryAgain.rawValue.localized + "\n" + "\(waitTime ?? 0)"
+                    }
+                    DispatchQueue.main.async {
+                        IGGlobal.prgHide()
+                        IGHelperAlert.shared.showCustomAlert(view: self, alertType: .alert, title: nil, showIconView: true, showDoneButton: false, showCancelButton: true, message: errorBody, cancelText: IGStringsManager.GlobalOK.rawValue.localized)
+                    }
+
                 }).send()
             }
         }
@@ -301,8 +326,8 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     
     func dismissView(roomId: Int64){
         self.navigationController?.popToRootViewController(animated: true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        //DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom), object: nil, userInfo: ["room": roomId])
-        }
+        //}
     }
 }

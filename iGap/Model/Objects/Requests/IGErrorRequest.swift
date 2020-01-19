@@ -218,6 +218,7 @@ enum IGError: String {
     
     case canNotAddThisUserAsAdminToGroup        = "323.3"
     case canNotAddThisUserAsModeratorToGroup    = "320.3"
+    case groupCreatLimitReached                 = "380"
     case canNotAddThisUserAsAdminToChannel      = "423.3"
     case canNotAddThisUserAsModeratorToChannel  = "420.3"
     case channelCreatLimitReached  = "479"
