@@ -60,17 +60,21 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         groupNameTextField.becomeFirstResponder()
     }
     
+    deinit {
+        print("Deinit IGCreateNewGroupTableViewController")
+    }
+    
     private func initNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalNext.rawValue.localized, title: IGStringsManager.NewGroup.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
-        navigationItem.rightViewContainer?.addAction {
-            if self.mode == .convertChatToGroup {
-                self.requestToConvertChatToGroup()
+        navigationItem.rightViewContainer?.addAction { [weak self] in
+            if self?.mode == .convertChatToGroup {
+                self?.requestToConvertChatToGroup()
             } else {
-                self.requestToCreateGroup()
+                self?.requestToCreateGroup()
             }
         }
     }
@@ -142,16 +146,18 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     }
     
     private func pickImage(screens: [YPPickerScreen]){
-        IGHelperMediaPicker.shared.setScreens(screens).pick { mediaItems in
+        IGHelperMediaPicker.shared.setScreens(screens).pick { [weak self] mediaItems in
             if let imageInfo = mediaItems.singlePhoto, mediaItems.count == 1 {
                 DispatchQueue.main.async {
-                    self.groupAvatarAttachment = IGHelperAvatar.shared.makeAvatarFile(photo: imageInfo)
-                    var image = imageInfo.originalImage
-                    if let modifiedImage = imageInfo.modifiedImage {
-                        image = modifiedImage
+                    if self != nil {
+                        self!.groupAvatarAttachment = IGHelperAvatar.shared.makeAvatarFile(photo: imageInfo)
+                        var image = imageInfo.originalImage
+                        if let modifiedImage = imageInfo.modifiedImage {
+                            image = modifiedImage
+                        }
+                        self!.groupAvatarImage.image = image
+                        self!.roundUserImage(self!.groupAvatarImage)
                     }
-                    self.groupAvatarImage.image = image
-                    self.roundUserImage(self.groupAvatarImage)
                 }
             }
         }
@@ -207,32 +213,34 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         if let roomName = self.groupNameTextField.text {
             if roomName != "" {
                 IGGlobal.prgShow()
-                IGGroupCreateRequest.Generator.generate(name: roomName, description: self.descriptionTextField.text).success({ (protoResponse) in
+                IGGroupCreateRequest.Generator.generate(name: roomName, description: self.descriptionTextField.text).success({ [weak self] (protoResponse) in
                     if let groupCreateRespone = protoResponse as? IGPGroupCreateResponse {
-                        IGClientGetRoomRequest.Generator.generate(roomId: groupCreateRespone.igpRoomID).success({ (protoResponse) in
+                        IGClientGetRoomRequest.Generator.generate(roomId: groupCreateRespone.igpRoomID).success({ [weak self] (protoResponse) in
                             if let getRoomProtoResponse = protoResponse as? IGPClientGetRoomResponse {
                                 IGClientGetRoomRequest.Handler.interpret(response: getRoomProtoResponse)
                                 DispatchQueue.main.async {
-                                    for member in self.selectedUsersToCreateGroup {
-                                        IGGroupAddMemberRequest.Generator.generate(userID: member.id, group: IGRoom(igpRoom:getRoomProtoResponse.igpRoom)).success({ (protoResponse) in
-                                            if let groupAddMemberResponse = protoResponse as? IGPGroupAddMemberResponse {
-                                                let _ = IGGroupAddMemberRequest.Handler.interpret(response: groupAddMemberResponse)
-                                            }
-                                        }).error({ (errorCode, waitTime) in
-                                        }).send()
+                                    if let users = self?.selectedUsersToCreateGroup {
+                                        for member in users {
+                                            IGGroupAddMemberRequest.Generator.generate(userID: member.id, group: IGRoom(igpRoom:getRoomProtoResponse.igpRoom)).success({ (protoResponse) in
+                                                if let groupAddMemberResponse = protoResponse as? IGPGroupAddMemberResponse {
+                                                    let _ = IGGroupAddMemberRequest.Handler.interpret(response: groupAddMemberResponse)
+                                                }
+                                            }).error({ (errorCode, waitTime) in
+                                            }).send()
+                                        }
                                     }
                                 }
                                 
-                                if self.groupAvatarImage.image != nil, self.groupAvatarImage.image != self.defualtImage {
-                                    IGHelperAvatar.shared.upload(roomId: getRoomProtoResponse.igpRoom.igpID, type: .channel, file: self.groupAvatarAttachment) { (file) in
+                                if self?.groupAvatarImage.image != nil, self?.groupAvatarImage.image != self?.defualtImage {
+                                    IGHelperAvatar.shared.upload(roomId: getRoomProtoResponse.igpRoom.igpID, type: .channel, file: self!.groupAvatarAttachment) { [weak self] (file) in
                                         DispatchQueue.main.async {
-                                            self.dismissView(roomId: getRoomProtoResponse.igpRoom.igpID)
+                                            self?.dismissView(roomId: getRoomProtoResponse.igpRoom.igpID)
                                         }
                                     }
                                 } else {
                                     IGGlobal.prgHide()
                                     DispatchQueue.main.async {
-                                        self.dismissView(roomId: getRoomProtoResponse.igpRoom.igpID)
+                                        self?.dismissView(roomId: getRoomProtoResponse.igpRoom.igpID)
                                     }
                                 }
                             }
@@ -251,19 +259,19 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         self.view.endEditing(true)
         if let roomName = self.groupNameTextField.text {
             if roomName != "" {
-                IGChatConvertToGroupRequest.Generator.generate(roomId: roomId!, name: roomName, description: self.descriptionTextField.text!).success({ (protoResponse) in
+                IGChatConvertToGroupRequest.Generator.generate(roomId: roomId!, name: roomName, description: self.descriptionTextField.text!).success({ [weak self] (protoResponse) in
                     DispatchQueue.main.async {
                         switch protoResponse {
                         case let chatConvertToGroupResponse as IGPChatConvertToGroupResponse:
                             
-                            IGClientGetRoomRequest.Generator.generate(roomId: self.roomId!).success({ (protoResponse) in
+                            IGClientGetRoomRequest.Generator.generate(roomId: self?.roomId ?? -1).success({ [weak self] (protoResponse) in
                                 DispatchQueue.main.async {
                                     switch protoResponse {
                                     case let clientGetRoomResponse as IGPClientGetRoomResponse:
                                         let _ = IGChatConvertToGroupRequest.Handler.interpret(response: chatConvertToGroupResponse)
                                         IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
-                                        if self.navigationController is IGNavigationController {
-                                            self.navigationController?.popToRootViewController(animated: true)
+                                        if self?.navigationController is IGNavigationController {
+                                            self?.navigationController?.popToRootViewController(animated: true)
                                         }
                                     default:
                                         break
