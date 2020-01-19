@@ -1825,7 +1825,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         } else {
 
             let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-            let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
             let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
 
             if currentTheme == "IGAPDay" || currentTheme == "IGAPNight" {
@@ -1844,12 +1843,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         txtTimeAbs.snp.removeConstraints()
         txtTimeAbs.snp.makeConstraints{ (make) in
             if statusExist {
-                make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-25)
+                make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-33)
             } else {
-                make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-2)
+                make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-10)
             }
             make.bottom.equalTo(mainBubbleViewAbs.snp.bottom).offset(-11)
-            make.width.equalTo(35)
+            make.width.greaterThanOrEqualTo(5)
             make.height.equalTo(13)
         }
     }
