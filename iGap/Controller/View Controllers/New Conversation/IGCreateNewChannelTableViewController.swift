@@ -66,19 +66,25 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
           channelnameTextField.placeholder = IGStringsManager.ChannelName.rawValue.localized
       }
     
+    deinit {
+        print("Deinit IGCreateNewChannelTableViewController")
+    }
+    
     private func initNavigationBar() {
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: IGStringsManager.GlobalNext.rawValue.localized, title: IGStringsManager.NewChannel.rawValue.localized)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         
-        navigationItem.rightViewContainer?.addAction {
-            if self.channelnameTextField.text?.isEmpty == true {
-                let alert = UIAlertController(title: IGStringsManager.GlobalHint.rawValue.localized, message: IGStringsManager.MsgEnterChannelName.rawValue.localized, preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: UIAlertAction.Style.default, handler: nil))
-                alert.view.tintColor = UIColor.organizationalColor()
-                self.present(alert, animated: true, completion: nil)
-            } else {
-                self.createChannel()
+        navigationItem.rightViewContainer?.addAction { [weak self] in
+            if self != nil {
+                if self!.channelnameTextField.text?.isEmpty == true {
+                    let alert = UIAlertController(title: IGStringsManager.GlobalHint.rawValue.localized, message: IGStringsManager.MsgEnterChannelName.rawValue.localized, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: UIAlertAction.Style.default, handler: nil))
+                    alert.view.tintColor = UIColor.organizationalColor()
+                    self!.present(alert, animated: true, completion: nil)
+                } else {
+                    self!.createChannel()
+                }
             }
         }
         
@@ -107,27 +113,29 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
             if roomName != "" {
                 IGGlobal.prgShow()
                 let roomDescription = self.descriptionTextField.text
-                IGChannelCreateRequest.Generator.generate(name: roomName, description: roomDescription).success({ (protoResponse) in
+                IGChannelCreateRequest.Generator.generate(name: roomName, description: roomDescription).success({ [weak self] (protoResponse) in
                     if let channelCreateRespone = protoResponse as? IGPChannelCreateResponse {
-                        IGClientGetRoomRequest.Generator.generate(roomId: channelCreateRespone.igpRoomID).success({ (protoResponse) in
+                        IGClientGetRoomRequest.Generator.generate(roomId: channelCreateRespone.igpRoomID).success({ [weak self] (protoResponse) in
                             DispatchQueue.main.async {
-                                self.invitedLink = IGChannelCreateRequest.Handler.interpret(response: channelCreateRespone)
+                                self?.invitedLink = IGChannelCreateRequest.Handler.interpret(response: channelCreateRespone)
                                 if let getRoomProtoResponse = protoResponse as? IGPClientGetRoomResponse {
-                                    if self.channelAvatarImage.image != nil, self.channelAvatarImage.image != self.defaultImage {
+                                    if self?.channelAvatarImage.image != nil, self?.channelAvatarImage.image != self?.defaultImage {
                                         IGClientGetRoomRequest.Handler.interpret(response: getRoomProtoResponse)
-                                        self.igpRoom = getRoomProtoResponse.igpRoom
+                                        self?.igpRoom = getRoomProtoResponse.igpRoom
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                            IGHelperAvatar.shared.upload(roomId: getRoomProtoResponse.igpRoom.igpID, type: .channel, file: self.channelAvatarAttachment) { (file) in
-                                                DispatchQueue.main.async {
-                                                    self.performSegue(withIdentifier: "GotoChooseTypeOfChannelToCreate", sender: self)
+                                            if let avatar = self?.channelAvatarAttachment {
+                                                IGHelperAvatar.shared.upload(roomId: getRoomProtoResponse.igpRoom.igpID, type: .channel, file: avatar) { (file) in
+                                                    DispatchQueue.main.async {
+                                                        self?.performSegue(withIdentifier: "GotoChooseTypeOfChannelToCreate", sender: self)
+                                                    }
                                                 }
                                             }
                                         }
                                     } else {
                                         IGClientGetRoomRequest.Handler.interpret(response: getRoomProtoResponse)
-                                        self.igpRoom = getRoomProtoResponse.igpRoom
+                                        self?.igpRoom = getRoomProtoResponse.igpRoom
                                         IGGlobal.prgHide()
-                                        self.performSegue(withIdentifier: "GotoChooseTypeOfChannelToCreate", sender: self)
+                                        self?.performSegue(withIdentifier: "GotoChooseTypeOfChannelToCreate", sender: self)
                                     }
                                 }
                             }
@@ -233,16 +241,18 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
     }
 
     private func pickImage(screens: [YPPickerScreen]){
-        IGHelperMediaPicker.shared.setScreens(screens).pick { mediaItems in
+        IGHelperMediaPicker.shared.setScreens(screens).pick { [weak self] mediaItems in
             if let imageInfo = mediaItems.singlePhoto, mediaItems.count == 1 {
                 DispatchQueue.main.async {
-                    self.channelAvatarAttachment = IGHelperAvatar.shared.makeAvatarFile(photo: imageInfo)
-                    var image = imageInfo.originalImage
-                    if let modifiedImage = imageInfo.modifiedImage {
-                        image = modifiedImage
+                    if self != nil {
+                        self!.channelAvatarAttachment = IGHelperAvatar.shared.makeAvatarFile(photo: imageInfo)
+                        var image = imageInfo.originalImage
+                        if let modifiedImage = imageInfo.modifiedImage {
+                            image = modifiedImage
+                        }
+                        self!.channelAvatarImage.image = image
+                        self!.roundUserImage(self!.channelAvatarImage)
                     }
-                    self.channelAvatarImage.image = image
-                    self.roundUserImage(self.channelAvatarImage)
                 }
             }
         }
