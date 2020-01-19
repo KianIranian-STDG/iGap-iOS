@@ -97,9 +97,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
-        SwiftEventBus.onMainThread(self, name: "initTheme") { result in
-            self.initTheme()
-
+        SwiftEventBus.onMainThread(self, name: "initTheme") { [weak self] result in
+            self?.initTheme()
         }
         initTheme()
     }
@@ -125,8 +124,13 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        IGPhoneBookTableViewController.callDelegate = nil
         self.allowInitObserver = true
         self.realmNotificationToken?.invalidate()
+    }
+    
+    deinit {
+        print("Deinit IGPhoneBookTableViewController")
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -167,19 +171,19 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             allowInitObserver = false
             IGPhoneBookTableViewController.callDelegate = self
             contacts = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(NSPredicate(format: "isInContacts = 1")).sorted(byKeyPath: "displayName", ascending: true)
-            self.realmNotificationToken = self.contacts.observe { (changes: RealmCollectionChange) in
+            self.realmNotificationToken = self.contacts.observe { [weak self] (changes: RealmCollectionChange) in
                 switch changes {
                 case .initial:
-                    self.tableView.reloadData()
-                    self.setFooterLabelText()
+                    self?.tableView.reloadData()
+                    self?.setFooterLabelText()
                     break
                 case .update(_, let deletions, let insertions, let modifications):
-                    self.tableView.beginUpdates()
-                    self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
-                    self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
-                    self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
-                    self.tableView.endUpdates()
-                    self.setFooterLabelText()
+                    self?.tableView.beginUpdates()
+                    self?.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
+                    self?.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
+                    self?.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
+                    self?.tableView.endUpdates()
+                    self?.setFooterLabelText()
                     break
                 case .error(let err):
                     fatalError("\(err)")
@@ -191,19 +195,21 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
      
     private func initRxSwiftObservers() {
         /** Connection Observer */
+        /*
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
             DispatchQueue.main.async {
-//                self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
+                self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
             }
         }).disposed(by: disposeBag)
+        */
         
         /** Contact Observer */
-        IGContactManager.sharedManager.contactExchangeLevel.asObservable().subscribe(onNext: { (contactExchangeLevel) in
+        IGContactManager.sharedManager.contactExchangeLevel.asObservable().subscribe(onNext: { [weak self] (contactExchangeLevel) in
             DispatchQueue.main.async {
-                if let navigationItem = self.navigationItem as? IGNavigationItem {
+                if let navigationItem = self?.navigationItem as? IGNavigationItem {
                     switch contactExchangeLevel {
                     case .importing(let percent):
-                        self.contactSynced = false
+                        self?.contactSynced = false
                         if IGAppManager.sharedManager.isUserLoggiedIn() {
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .percent
@@ -212,7 +218,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                         break
                         
                     case .gettingList(let percent):
-                        self.contactSynced = false
+                        self?.contactSynced = false
                         
                         /* don't show start of contact saving view to the user when user is not login yet */
                         if percent == 0 && !IGAppManager.sharedManager.isUserLoggiedIn() {
@@ -225,8 +231,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                         break
                         
                     case .completed:
-                        self.contactSynced = true
-                        self.setNavigationItems()
+                        self?.contactSynced = true
+                        self?.setNavigationItems()
                         break
                     }
                 }
@@ -419,8 +425,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                     IGGlobal.prgHide()
                 }
             }
-        }).error ({ (errorCode, waitTime) in
-            self.contactEdit(phone: phone, firstname: firstname, lastname: lastname)
+        }).error ({ [weak self] (errorCode, waitTime) in
+            self?.contactEdit(phone: phone, firstname: firstname, lastname: lastname)
         }).send()
     }
 
@@ -522,12 +528,12 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: user.id, isIncommmingCall: false)
             }
         }else {
-            IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
+            IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ [weak self] (protoResponse) in
                 if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
                     DispatchQueue.main.async {
                         IGGlobal.prgHide()
                         let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                        self.navigationController?.popToRootViewController(animated: true)
+                        self?.navigationController?.popToRootViewController(animated: true)
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
                     }
                 }
