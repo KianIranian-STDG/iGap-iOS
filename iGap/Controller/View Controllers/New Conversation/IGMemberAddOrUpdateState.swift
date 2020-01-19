@@ -66,9 +66,9 @@ class IGMemberAddOrUpdateState: BaseViewController {
         if self.contactSections != nil {
             return self.contactSections!
         }
-        let users: [User] = contacts.map { (registredUser) -> User in
+        let users: [User] = contacts.map { [weak self] (registredUser) -> User in
             let user = User(registredUser: registredUser)
-            user.section = self.collation.section(for: user, collationStringSelector: #selector(getter: User.name))
+            user.section = self?.collation.section(for: user, collationStringSelector: #selector(getter: User.name))
             return user
         }
         
@@ -177,8 +177,6 @@ class IGMemberAddOrUpdateState: BaseViewController {
         super.viewWillAppear(animated)
         let navigationControllerr = self.navigationController as! IGNavigationController
         navigationControllerr.navigationBar.isHidden = false
-//        let navigationItem = self.navigationItem as! IGNavigationItem
-//        navigationItem.searchController = nil
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -186,6 +184,10 @@ class IGMemberAddOrUpdateState: BaseViewController {
         searchController.isActive = false
         searchController.searchBar.resignFirstResponder()
         searchController.searchBar.endEditing(true)
+    }
+    
+    deinit {
+        print("Deinit IGMemberAddOrUpdateState")
     }
     
     private func setNavigationItem(){
@@ -218,57 +220,57 @@ class IGMemberAddOrUpdateState: BaseViewController {
             navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: IGStringsManager.AddMemberTo.rawValue.localized, iGapFont: true)
         }
         
-        navigationItem.leftViewContainer?.addAction {
-            if self.mode == "Admin" || self.mode == "Moderator" || self.mode == "Members" {
-                if self.navigationController is IGNavigationController {
-                    self.navigationController?.popViewController(animated: true)
+        navigationItem.leftViewContainer?.addAction { [weak self] in
+            if self?.mode == "Admin" || self?.mode == "Moderator" || self?.mode == "Members" {
+                if self?.navigationController is IGNavigationController {
+                    self?.navigationController?.popViewController(animated: true)
                 }
             } else {
-                if self.navigationController is IGNavigationController {
-                    self.navigationController?.popViewController(animated: true)
+                if self?.navigationController is IGNavigationController {
+                    self?.navigationController?.popViewController(animated: true)
                 }
             }
         }
         
-        navigationItem.rightViewContainer?.addAction {
-            if self.mode == "Members" {
-                if self.room?.type == .channel {
-                    self.requestToAddmemberToChannel()
+        navigationItem.rightViewContainer?.addAction { [weak self] in
+            if self?.mode == "Members" {
+                if self?.room?.type == .channel {
+                    self?.requestToAddmemberToChannel()
                 } else {
-                    self.requestToAddmember()
+                    self?.requestToAddmember()
                 }
                 
-            } else if self.mode == "Moderator" {
-                if self.room?.type == .channel {
-                    self.requestToAddModeratorInChannel()
+            } else if self?.mode == "Moderator" {
+                if self?.room?.type == .channel {
+                    self?.requestToAddModeratorInChannel()
                 } else {
-                    self.requestToAddModeratorInGroup()
+                    self?.requestToAddModeratorInGroup()
                 }
                 
-            } else if self.mode == "Admin"{
-                if self.room?.type == .channel {
-                    self.requestToAddAdminInChannel()
+            } else if self?.mode == "Admin"{
+                if self?.room?.type == .channel {
+                    self?.requestToAddAdminInChannel()
                 } else {
-                    self.requestToAddAdminInGroup()
+                    self?.requestToAddAdminInGroup()
                 }
                 
             } else {
-                if self.mode == "CreateGroup" {
+                if self?.mode == "CreateGroup" {
                     let createGroup = IGCreateNewGroupTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                    let selectedUsersToCreateGroup = self.selectedUsers.map({ (user) -> IGRegisteredUser in
+                    let selectedUsersToCreateGroup = self?.selectedUsers.map({ (user) -> IGRegisteredUser in
                         return user.registredUser
                     })
                     var tmp = selectedUsersToCreateGroup
-                    if !(self.baseUser == nil) {
-                        tmp.append(self.baseUser!)
+                    if self?.baseUser != nil {
+                        tmp?.append((self?.baseUser!)!)
                     }
-                    createGroup.selectedUsersToCreateGroup = tmp
+                    createGroup.selectedUsersToCreateGroup = tmp ?? []
                     createGroup.mode = .newGroup
-                    createGroup.roomId = self.roomID
+                    createGroup.roomId = self?.roomID
                     createGroup.hidesBottomBarWhenPushed = true
-                    self.navigationController!.pushViewController(createGroup, animated: true)
-                } else if self.mode == "CreateChannel" {
-                    self.requestToAddmemberToChannel()
+                    self?.navigationController!.pushViewController(createGroup, animated: true)
+                } else if self?.mode == "CreateChannel" {
+                    self?.requestToAddmemberToChannel()
                 }
             }
         }
@@ -297,18 +299,18 @@ class IGMemberAddOrUpdateState: BaseViewController {
         }
         
         for member in selectedUsers {
-            IGGroupAddMemberRequest.Generator.generate(userID:member.registredUser.id, group: room!).success({ (protoResponse) in
+            IGGroupAddMemberRequest.Generator.generate(userID:member.registredUser.id, group: room!).success({ [weak self] (protoResponse) in
                 if let groupAddMemberResponse = protoResponse as? IGPGroupAddMemberResponse {
                     IGGroupAddMemberRequest.Handler.interpret(response: groupAddMemberResponse)
                 }
-                self.manageClosePage()
-            }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
+                self?.manageClosePage()
+            }).errorPowerful({ [weak self] (errorCode, waitTime, requestWrapper) in
                 if errorCode == .groupMemberIsExist {
                     if let requsetMessage = requestWrapper.message as? IGPGroupAddMember {
-                        self.existErrorUserIds.append(requsetMessage.igpMember.igpUserID)
+                        self?.existErrorUserIds.append(requsetMessage.igpMember.igpUserID)
                     }
                 }
-                self.manageClosePage()
+                self?.manageClosePage()
             }).send()
         }
     }
@@ -322,18 +324,18 @@ class IGMemberAddOrUpdateState: BaseViewController {
         }
         
         for member in selectedUsers {
-            IGChannelAddMemberRequest.Generator.generate(userID:member.registredUser.id, channel: room!).success({ (protoResponse) in
+            IGChannelAddMemberRequest.Generator.generate(userID:member.registredUser.id, channel: room!).success({ [weak self] (protoResponse) in
                 if let channelAddMemberResponse = protoResponse as? IGPChannelAddMemberResponse {
                     IGChannelAddMemberRequest.Handler.interpret(response: channelAddMemberResponse)
                 }
-                self.manageClosePage()
-            }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
+                self?.manageClosePage()
+            }).errorPowerful({ [weak self] (errorCode, waitTime, requestWrapper) in
                 if errorCode == .channelMemberIsExist {
                     if let requsetMessage = requestWrapper.message as? IGPChannelAddMember {
-                        self.existErrorUserIds.append(requsetMessage.igpMember.igpUserID)
+                        self?.existErrorUserIds.append(requsetMessage.igpMember.igpUserID)
                     }
                 }
-                self.manageClosePage()
+                self?.manageClosePage()
             }).send()
         }
     }
@@ -348,17 +350,17 @@ class IGMemberAddOrUpdateState: BaseViewController {
         for member in selectedUsers {
             if let channelRoom = room {
                 IGGlobal.prgShow(self.view)
-                IGChannelAddAdminRequest.Generator.generate(roomID: channelRoom.id, memberID: member.registredUser.id).success({ (protoResponse) in
+                IGChannelAddAdminRequest.Generator.generate(roomID: channelRoom.id, memberID: member.registredUser.id).success({ [weak self] (protoResponse) in
                     IGGlobal.prgHide()
                     DispatchQueue.main.async {
-                        self.manageClosePage()
+                        self?.manageClosePage()
                         if let channelAddAdminResponse = protoResponse as? IGPChannelAddAdminResponse {
                             IGChannelAddAdminRequest.Handler.interpret(response: channelAddAdminResponse)
                         }
                     }
-                }).error ({ (errorCode, waitTime) in
+                }).error ({ [weak self] (errorCode, waitTime) in
                     IGGlobal.prgHide()
-                    self.manageClosePage()
+                    self?.manageClosePage()
                     switch errorCode {
                     case .timeout:
                         break
@@ -384,17 +386,17 @@ class IGMemberAddOrUpdateState: BaseViewController {
         for member in selectedUsers {
             if let channelRoom = room {
                 IGGlobal.prgShow(self.view)
-                IGChannelAddModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: member.registredUser.id).success({ (protoResponse) in
+                IGChannelAddModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: member.registredUser.id).success({ [weak self] (protoResponse) in
                     IGGlobal.prgHide()
                     DispatchQueue.main.async {
-                        self.manageClosePage()
+                        self?.manageClosePage()
                         if let channelAddModeratorResponse = protoResponse as? IGPChannelAddModeratorResponse {
                             IGChannelAddModeratorRequest.Handler.interpret(response: channelAddModeratorResponse)
                         }
                     }
                     
-                }).error ({ (errorCode, waitTime) in
-                    self.manageClosePage()
+                }).error ({ [weak self] (errorCode, waitTime) in
+                    self?.manageClosePage()
                     IGGlobal.prgHide()
                     switch errorCode {
                     case .timeout:
@@ -428,17 +430,17 @@ class IGMemberAddOrUpdateState: BaseViewController {
         for member in selectedUsers {
             if let groupRoom = room {
                 IGGlobal.prgShow(self.view)
-                IGGroupAddAdminRequest.Generator.generate(roomID: groupRoom.id, memberID: member.registredUser.id).success({ (protoResponse) in
+                IGGroupAddAdminRequest.Generator.generate(roomID: groupRoom.id, memberID: member.registredUser.id).success({ [weak self] (protoResponse) in
                     IGGlobal.prgHide()
                     DispatchQueue.main.async {
-                        self.manageClosePage()
+                        self?.manageClosePage()
                         if let channelAddAdminResponse = protoResponse as? IGPGroupAddAdminResponse {
                             IGGroupAddAdminRequest.Handler.interpret(response: channelAddAdminResponse)
                         }
                     }
-                }).error ({ (errorCode, waitTime) in
+                }).error ({ [weak self] (errorCode, waitTime) in
                     IGGlobal.prgHide()
-                    self.manageClosePage()
+                    self?.manageClosePage()
                     switch errorCode {
                     case .timeout:
                         break
@@ -463,17 +465,17 @@ class IGMemberAddOrUpdateState: BaseViewController {
         for member in selectedUsers {
             if let channelRoom = room {
                 IGGlobal.prgShow(self.view)
-                IGGroupAddModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: member.registredUser.id).success({ (protoResponse) in
+                IGGroupAddModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: member.registredUser.id).success({ [weak self] (protoResponse) in
                     IGGlobal.prgHide()
                     DispatchQueue.main.async {
-                        self.manageClosePage()
+                        self?.manageClosePage()
                         if let groupAddModeratorResponse = protoResponse as? IGPGroupAddModeratorResponse {
                             IGGroupAddModeratorRequest.Handler.interpret(response: groupAddModeratorResponse)
                         }
                     }
                     
-                }).error ({ (errorCode, waitTime) in
-                    self.manageClosePage()
+                }).error ({ [weak self] (errorCode, waitTime) in
+                    self?.manageClosePage()
                     IGGlobal.prgHide()
                     switch errorCode {
                     case .timeout:

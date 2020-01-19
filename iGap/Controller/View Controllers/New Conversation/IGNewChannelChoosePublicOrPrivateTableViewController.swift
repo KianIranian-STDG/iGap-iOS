@@ -69,7 +69,6 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         radioButtonController?.delegate = nil
-        channelLinkTextField?.delegate = nil
     }
     
     deinit {

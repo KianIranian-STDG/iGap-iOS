@@ -11,7 +11,7 @@
 import UIKit
 import Foundation
 
-protocol IGDeleteSelectedCellDelegate{
+protocol IGDeleteSelectedCellDelegate: AnyObject{
     func contactViewWasSelected(cell: IGMemberChooseBottomCollectionCell)
 }
 
@@ -21,7 +21,7 @@ class IGMemberChooseBottomCollectionCell: UICollectionViewCell {
     @IBOutlet weak var contactAvatarView: IGAvatarView!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var contactNameLabel: UILabel!
-    var cellDelegate: IGDeleteSelectedCellDelegate?
+    weak var cellDelegate: IGDeleteSelectedCellDelegate?
     var selectedRowIndexPathForTableView : IndexPath?
     var user : IGMemberAddOrUpdateState.User!{
         didSet{
