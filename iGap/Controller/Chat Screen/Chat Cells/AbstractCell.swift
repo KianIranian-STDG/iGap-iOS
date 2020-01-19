@@ -1793,7 +1793,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                 make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-10)
                 make.centerY.equalTo(txtTimeAbs.snp.centerY).offset(-1)
                 make.height.equalTo(20)
-                make.width.equalTo(20)
+                make.width.greaterThanOrEqualTo(5)
             }
         }
         if isIncommingMessage {
