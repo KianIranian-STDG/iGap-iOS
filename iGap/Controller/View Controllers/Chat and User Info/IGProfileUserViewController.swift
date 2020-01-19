@@ -78,8 +78,8 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     private func initAvatarObserver(){
-        self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: self.user!.id).observe({ (ObjectChange) in
-            self.avatarView.setUser(self.user!)
+        self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: self.user!.id).observe({ [weak self] (ObjectChange) in
+            self?.avatarView.setUser((self?.user!)!)
         })
     }
     
@@ -110,6 +110,10 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+    }
+    
+    deinit {
+        print("Deinit IGProfileUserViewController")
     }
     
     
@@ -254,18 +258,18 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         if let selectedUser = user {
             let hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
             hud.mode = .indeterminate
-            IGChatGetRoomRequest.Generator.generate(peerId: selectedUser.id).success({ (protoResponse) in
+            IGChatGetRoomRequest.Generator.generate(peerId: selectedUser.id).success({ [weak self] (protoResponse) in
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case let chatGetRoomResponse as IGPChatGetRoomResponse:
                         let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
                         
                         //HINT: -segue to created chat
-                        if roomId == self.previousRoomId {
-                            _ = self.navigationController?.popViewController(animated: true)
+                        if roomId == self?.previousRoomId {
+                            _ = self?.navigationController?.popViewController(animated: true)
                         } else {
                             //HINT: -segue
-                            IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ (protoResponse) in
+                            IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ [weak self] (protoResponse) in
                                 DispatchQueue.main.async {
                                     switch protoResponse {
                                     case let clientGetRoomResponse as IGPClientGetRoomResponse:
@@ -275,11 +279,11 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                                         let roomVC = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                                         roomVC.room = room
                                         roomVC.hidesBottomBarWhenPushed = true
-                                        self.navigationController!.pushViewController(roomVC, animated: true)
+                                        self?.navigationController!.pushViewController(roomVC, animated: true)
                                     default:
                                         break
                                     }
-                                    self.hud.hide(animated: true)
+                                    self?.hud.hide(animated: true)
                                 }
                             }).error ({ (errorCode, waitTime) in
                                 DispatchQueue.main.async {
@@ -289,7 +293,7 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                                     default:
                                         break
                                     }
-                                    self.hud.hide(animated: true)
+                                    self?.hud.hide(animated: true)
                                 }
                             }).send()
                             
@@ -315,18 +319,18 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         if let selectedUser = user {
             self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
             self.hud.mode = .indeterminate
-            IGUserContactsBlockRequest.Generator.generate(blockedUserId: selectedUser.id).success({
+            IGUserContactsBlockRequest.Generator.generate(blockedUserId: selectedUser.id).success({ [weak self]
                 (protoResponse) in
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case let blockedProtoResponse as IGPUserContactsBlockResponse:
                        
                         let _ = IGUserContactsBlockRequest.Handler.interpret(response: blockedProtoResponse)
-                        self.isBlockedUser = true
+                        self?.isBlockedUser = true
 
-                        self.tableView.reloadData()
+                        self?.tableView.reloadData()
 
-                        self.hud.hide(animated: true)
+                        self?.hud.hide(animated: true)
                     default:
                         break
                     }
@@ -348,15 +352,15 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
         if let selectedUser = user {
             self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
             self.hud.mode = .indeterminate
-            IGUserContactsUnBlockRequest.Generator.generate(unBlockedUserId: selectedUser.id).success({
+            IGUserContactsUnBlockRequest.Generator.generate(unBlockedUserId: selectedUser.id).success({ [weak self]
                 (protoResponse) in
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case let unBlockedProtoResponse as IGPUserContactsUnblockResponse:
                         _ = IGUserContactsUnBlockRequest.Handler.interpret(response: unBlockedProtoResponse)
-                        self.isBlockedUser = false
-                        self.tableView.reloadData()
-                        self.hud.hide(animated: true)
+                        self?.isBlockedUser = false
+                        self?.tableView.reloadData()
+                        self?.hud.hide(animated: true)
                     default:
                         break
                     }
@@ -405,26 +409,26 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     func deleteChat(room: IGRoom) {
         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         self.hud.mode = .indeterminate
-        IGChatDeleteRequest.Generator.generate(room: room).success({ (protoResponse) in
+        IGChatDeleteRequest.Generator.generate(room: room).success({ [weak self] (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let deleteChat as IGPChatDeleteResponse:
                     IGChatDeleteRequest.Handler.interpret(response: deleteChat)
-                    if self.navigationController is IGNavigationController {
-                        _ = self.navigationController?.popToRootViewController(animated: true)
+                    if self?.navigationController is IGNavigationController {
+                        _ = self?.navigationController?.popToRootViewController(animated: true)
                     }
                 default:
                     break
                 }
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
             }
-        }).error({ (errorCode , waitTime) in
+        }).error({ [weak self] (errorCode , waitTime) in
             switch errorCode {
             case .timeout:
                 break
             default:
                 DispatchQueue.main.async {
-                    self.hud.hide(animated: true)
+                    self?.hud.hide(animated: true)
                 }
                 break
             }
@@ -464,29 +468,29 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     func clearChatMessageHistory(room: IGRoom) {
         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         self.hud.mode = .indeterminate
-        IGChatClearMessageRequest.Generator.generate(room: room).success({ (protoResponse) in
+        IGChatClearMessageRequest.Generator.generate(room: room).success({ [weak self] (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let clearChatMessages as IGPChatClearMessageResponse:
                     IGChatClearMessageRequest.Handler.interpret(response: clearChatMessages)
-                    if self.navigationController is IGNavigationController {
-                        self.navigationController?.popViewController(animated: true)
+                    if self?.navigationController is IGNavigationController {
+                        self?.navigationController?.popViewController(animated: true)
                     }
                 default:
                     break
                 }
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
             }
-        }).error({ (errorCode , waitTime) in
+        }).error({ [weak self] (errorCode , waitTime) in
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    self.hud.hide(animated: true)
+                    self?.hud.hide(animated: true)
                 }
                 break
             default:
                 DispatchQueue.main.async {
-                    self.hud.hide(animated: true)
+                    self?.hud.hide(animated: true)
                 }
                 break
             }
@@ -559,20 +563,20 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     func reportUser(userId: Int64, reason: IGPUserReport.IGPReason) {
         self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
         self.hud.mode = .indeterminate
-        IGUserReportRequest.Generator.generate(userId: userId, reason: reason).success({ (protoResponse) in
+        IGUserReportRequest.Generator.generate(userId: userId, reason: reason).success({ [weak self] (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPUserReportResponse:
                     let alert = UIAlertController(title: IGStringsManager.GlobalSuccess.rawValue.localized, message: IGStringsManager.ReportSent.rawValue.localized, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    self?.present(alert, animated: true, completion: nil)
                 default:
                     break
                 }
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
             }
-        }).error({ (errorCode , waitTime) in
+        }).error({ [weak self] (errorCode , waitTime) in
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
@@ -582,20 +586,20 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
                     let alert = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.UserReportedBefore.rawValue.localized, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    self?.present(alert, animated: true, completion: nil)
                     break
                     
                 case .userReportForbidden:
                     let alert = UIAlertController(title: "Error", message: "User Report Forbidden", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    self?.present(alert, animated: true, completion: nil)
                     break
                     
                 default:
                     break
                 }
-                self.hud.hide(animated: true)
+                self?.hud.hide(animated: true)
             }
         }).send()
     }
