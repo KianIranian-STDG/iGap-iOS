@@ -757,15 +757,19 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             } else {
                 if let groupRoom = room.groupRoom {
                     if groupRoom.role == .owner {
-                        alertC.addAction(leave)
+                        if groupRoom.publicExtra == nil { // owner can leave just from private
+                            alertC.addAction(leave)
+                        }
                         alertC.addAction(remove)
                     } else{
                         alertC.addAction(leave)
                     }
                 } else if let channel = room.channelRoom {
                     if channel.role == .owner {
+                        if channel.publicExtra == nil { // owner can leave just from private
+                            alertC.addAction(leave)
+                        }
                         alertC.addAction(remove)
-                        alertC.addAction(leave)
                     } else{
                         alertC.addAction(leave)
                     }
