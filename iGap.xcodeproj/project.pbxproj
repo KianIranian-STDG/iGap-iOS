@@ -498,7 +498,6 @@
 		FA15F0B323488BCA001E8158 /* iGap_fontico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA15F0B223488BC9001E8158 /* iGap_fontico.ttf */; };
 		FA1A9828234A157C00170BD3 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1A9827234A157C00170BD3 /* BaseTableViewCell.swift */; };
 		FA1C449C1DC716A20016C346 /* IGCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C449B1DC716A20016C346 /* IGCountry.swift */; };
-		FA1DE8FC220ADD8300C465E5 /* StickerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1DE8FB220ADD8300C465E5 /* StickerObserver.swift */; };
 		FA248C98226AEBE800A72EA7 /* IGScoreHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA248C97226AEBE800A72EA7 /* IGScoreHistoryViewController.swift */; };
 		FA248C9C226AEC6100A72EA7 /* IGScoreHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA248C9B226AEC6100A72EA7 /* IGScoreHistoryCell.swift */; };
 		FA27F74020BD77ED00EC6A97 /* api.key in Sources */ = {isa = PBXBuildFile; fileRef = FA27F73F20BD77ED00EC6A97 /* api.key */; };
@@ -1395,7 +1394,6 @@
 		FA15F0B223488BC9001E8158 /* iGap_fontico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iGap_fontico.ttf; sourceTree = "<group>"; };
 		FA1A9827234A157C00170BD3 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		FA1C449B1DC716A20016C346 /* IGCountry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGCountry.swift; sourceTree = "<group>"; };
-		FA1DE8FB220ADD8300C465E5 /* StickerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerObserver.swift; sourceTree = "<group>"; };
 		FA248C97226AEBE800A72EA7 /* IGScoreHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGScoreHistoryViewController.swift; sourceTree = "<group>"; };
 		FA248C9B226AEC6100A72EA7 /* IGScoreHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGScoreHistoryCell.swift; sourceTree = "<group>"; };
 		FA27F73F20BD77ED00EC6A97 /* api.key */ = {isa = PBXFileReference; lastKnownFileType = text; path = api.key; sourceTree = "<group>"; };
@@ -3135,7 +3133,6 @@
 				FA90B72920B53EBC00043C89 /* MessageReceiveObserver.swift */,
 				D650DF21235DC7DE00780B5E /* UpdateMyRoleObserver.swift */,
 				FA764FA921FC66ED0077E851 /* ForwardStartObserver.swift */,
-				FA1DE8FB220ADD8300C465E5 /* StickerObserver.swift */,
 				FA77E0FE2261EBCB008D6D25 /* DiscoveryObserver.swift */,
 				FA7E9BD322631D7900FB861D /* SelectCountryObserver.swift */,
 			);
@@ -4108,7 +4105,6 @@
 				8E3D6B9123770FEB00489762 /* IGStructBillImage.swift in Sources */,
 				8EBF54FF22D9B60D00834E6A /* BeautifulBarChart.swift in Sources */,
 				FA5B41A522EDD67D001203D0 /* IGHelperMessageStatus.swift in Sources */,
-				FA1DE8FC220ADD8300C465E5 /* StickerObserver.swift in Sources */,
 				FA73EC9521ECDDA50059EE8A /* IGHelperBot.swift in Sources */,
 				8E599D6F2325316100D75376 /* IGSettingsNotificationsTableViewController.swift in Sources */,
 				FAC1330522C098D000817044 /* IGStructMessageOption.swift in Sources */,

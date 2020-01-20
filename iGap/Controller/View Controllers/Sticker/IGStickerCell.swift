@@ -70,7 +70,7 @@ class IGStickerCell: UICollectionViewCell {
     
     private func showSticker(token: String){
         IGAttachmentManager.sharedManager.syncroniseStickerQueue.async(flags: .barrier) {
-            IGStickerViewController.stickerImageDic[token] = self.imgSticker
+            IGGlobal.stickerImageDic[token] = self.imgSticker
         }
         IGAttachmentManager.sharedManager.getStickerFileInfo(token: token, completion: { (file) -> Void in
             self.fetchStickerImage(cacheId: file.cacheID!) { (file, imagaView) in
@@ -83,7 +83,7 @@ class IGStickerCell: UICollectionViewCell {
     
     private func showAnimatedSticker(token: String){
         IGAttachmentManager.sharedManager.syncroniseStickerQueue.async(flags: .barrier) {
-            IGStickerViewController.stickerAnimationDic[token] = self.animationView
+            IGGlobal.stickerAnimationDic[token] = self.animationView
         }
         IGAttachmentManager.sharedManager.getStickerFileInfo(token: token, completion: { (file) -> Void in
             self.fetchStickerAnimation(cacheId: file.cacheID!) { (file, animatedView) in
@@ -102,7 +102,7 @@ class IGStickerCell: UICollectionViewCell {
      private func fetchStickerImage(cacheId: String, completion: @escaping ((_ file :IGFile, _ image: UIImageView) -> Void)) {
         IGAttachmentManager.sharedManager.syncroniseStickerQueue.sync {
             for file in IGDatabaseManager.shared.realm.objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId)) {
-                if let image = IGStickerViewController.stickerImageDic[file.token!] {
+                if let image = IGGlobal.stickerImageDic[file.token!] {
                     completion(file, image)
                 }
             }
@@ -112,7 +112,7 @@ class IGStickerCell: UICollectionViewCell {
     private func fetchStickerAnimation(cacheId: String, completion: @escaping ((_ file :IGFile, _ animatedView: AnimationView) -> Void)) {
         IGAttachmentManager.sharedManager.syncroniseStickerQueue.sync {
             for file in IGDatabaseManager.shared.realm.objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId)) {
-                if let animation = IGStickerViewController.stickerAnimationDic[file.token!] {
+                if let animation = IGGlobal.stickerAnimationDic[file.token!] {
                     completion(file, animation)
                 }
             }
@@ -128,7 +128,7 @@ class IGStickerCell: UICollectionViewCell {
     }
     
     @objc func openStickerPreview(_ gestureRecognizer: UITapGestureRecognizer) {
-        IGStickerViewController.previewSectionIndex = self.sectionIndex
+        IGGlobal.stickerPreviewSectionIndex = self.sectionIndex
         let stickerViewController = IGStickerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
         stickerViewController.stickerGroupId = self.stickerItemStruct.groupID
         stickerViewController.stickerPageType = StickerPageType.PREVIEW

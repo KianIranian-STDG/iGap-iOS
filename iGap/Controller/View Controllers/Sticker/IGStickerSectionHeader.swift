@@ -10,6 +10,7 @@
 
 import UIKit
 import SnapKit
+import SwiftEventBus
 
 @available(iOS 10.0, *)
 class IGStickerSectionHeader: UICollectionReusableView {
@@ -84,7 +85,7 @@ class IGStickerSectionHeader: UICollectionReusableView {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     if success {
-                        IGStickerViewController.stickerAddListener.onStickerAdd(index: self.sectionIndex)
+                        SwiftEventBus.postToMainThread(EventBusManager.stickerAdd, sender: self.sectionIndex)
                     }
                     
                     UIView.transition(with: self.stickerAddRemove, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
@@ -105,7 +106,7 @@ class IGStickerSectionHeader: UICollectionReusableView {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     if success {
-                        IGStickerViewController.stickerAddListener.onStickerAdd(index: self.sectionIndex)
+                        SwiftEventBus.postToMainThread(EventBusManager.stickerAdd, sender: self.sectionIndex)
                     }
                     
                     UIView.transition(with: self.stickerAddRemove, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {

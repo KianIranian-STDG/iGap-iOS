@@ -1306,24 +1306,20 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     @objc func tapOnStickerToolbar(sender: UIButton) {
         if #available(iOS 10.0, *) {
-            if let observer = IGStickerViewController.stickerToolbarObserver {
+            switch sender.tag {
+            case IGStickerToolbar.shared.STICKER_ADD:
+                print("TTT || tap on sticker")
+                SwiftEventBus.postToMainThread(EventBusManager.stickerCurrentGroupId)
+                IGTabBarStickerController.openStickerCategories()
+                break
                 
-                switch sender.tag {
-                case IGStickerToolbar.shared.STICKER_ADD:
-                    if let observer = IGStickerViewController.stickerCurrentGroupIdObserver {
-                        IGStickerViewController.currentStickerGroupId = observer.fetchCurrentStickerGroupId()
-                    }
-                    IGTabBarStickerController.openStickerCategories()
-                    break
-                    
-                case IGStickerToolbar.shared.STICKER_SETTING:
-                    disableStickerView(delay: 0.0)
-                    break
-                    
-                default:
-                    observer.onToolbarClick(index: sender.tag)
-                    break
-                }
+            case IGStickerToolbar.shared.STICKER_SETTING:
+                disableStickerView(delay: 0.0)
+                break
+                
+            default:
+                SwiftEventBus.postToMainThread(EventBusManager.stickerToolbarClick, sender: sender.tag)
+                break
             }
         }
     }
@@ -2617,7 +2613,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     /* open sticker view in chat and go to saved position */
     private func manageStickerPosition() {
         if #available(iOS 10.0, *) {
-            if IGStickerViewController.currentStickerGroupId != nil {
+            if IGGlobal.stickerCurrentGroupId != nil {
                 self.stickerViewState(enable: true)
             }
         }

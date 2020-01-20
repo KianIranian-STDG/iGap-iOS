@@ -11,11 +11,13 @@
 import UIKit
 import RealmSwift
 import Lottie
+import SwiftEventBus
+import SDWebImage
 
 private let reuseIdentifier = "StickerCell"
 
 @available(iOS 10.0, *)
-class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizerDelegate, StickerToolbarObserver, StickerAddListener, StickerCurrentGroupIdObserver {
+class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizerDelegate {
     
     var numberOfItemsPerRow = 5.0 as CGFloat
     let interItemSpacing = 1.0 as CGFloat
@@ -34,34 +36,13 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     // Due to the type of sticker page for collection view will be used one of the following variables
     var stickerTabs: Results<IGRealmSticker>! // use this variable at main sticker page (MAIN)
     var stickerList: [StickerTab] = [] // use this variable at sticker list page (PREVIEW, CATEGORY)
-
-    static var previewSectionIndex: Int = -1
-    static var addStickerIndex: Int = -1
-    static var currentStickerGroupId: String? = nil // when current sticker page type is 'StickerPageType.MAIN' set this value for keep index and show current state of sticker tab after close add sticker list page
-    static var stickerImageDic: [String:UIImageView] = [:]
-    static var stickerAnimationDic: [String:AnimationView] = [:]
-    static var stickerToolbarObserver: StickerToolbarObserver!
-    static var stickerAddListener: StickerAddListener!
-    static var stickerCurrentGroupIdObserver: StickerCurrentGroupIdObserver!
-    
     var backGroundColor = UIColor.sticker()
-    
-    override func viewDidAppear(_ animated: Bool) {
-        IGStickerViewController.stickerToolbarObserver = self
-        IGStickerViewController.stickerAddListener = self
-        IGStickerViewController.stickerCurrentGroupIdObserver = self
-        if IGStickerViewController.previewSectionIndex != -1 && stickerPageType == StickerPageType.CATEGORY {
-            if self.collectionView!.numberOfSections >= IGStickerViewController.previewSectionIndex + 1 {
-                self.collectionView?.reloadSections(IndexSet([IGStickerViewController.previewSectionIndex]))
-            }
-            IGStickerViewController.previewSectionIndex = -1
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initNavigationBar()
+        eventBusListeners()
         
         self.collectionView!.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         self.view.backgroundColor = backGroundColor
@@ -77,6 +58,19 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
             fetchStickerPreview(groupId: stickerGroupId!)
         }
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        if IGGlobal.stickerPreviewSectionIndex != -1 && stickerPageType == StickerPageType.CATEGORY {
+            if self.collectionView!.numberOfSections >= IGGlobal.stickerPreviewSectionIndex + 1 {
+                self.collectionView?.reloadSections(IndexSet([IGGlobal.stickerPreviewSectionIndex]))
+            }
+            IGGlobal.stickerPreviewSectionIndex = -1
+        }
+    }
+    
+    deinit {
+        print("Deinit IGStickerViewController")
+    }
     
     private func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
@@ -86,13 +80,13 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
         navigationController.interactivePopGestureRecognizer?.delegate = self
     }
     
-    /* go to default position if 'currentStickerGroupId' has value */
+    /***** go to default position if 'stickerCurrentGroupId' has value *****/
     private func manageStickerPostion(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             var position = -1
-            if IGStickerViewController.currentStickerGroupId != nil {
+            if IGGlobal.stickerCurrentGroupId != nil {
                 for (index, stickerTab) in self.stickerTabs.enumerated() {
-                    if stickerTab.id == IGStickerViewController.currentStickerGroupId {
+                    if stickerTab.id == IGGlobal.stickerCurrentGroupId {
                         position = index
                         break
                     }
@@ -104,7 +98,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
                 self.goToPosition(position: position)
                 self.highlightSelected(index: position)
             }
-            IGStickerViewController.currentStickerGroupId = nil
+            IGGlobal.stickerCurrentGroupId = nil
         }
     }
     
@@ -118,16 +112,16 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     private func fetchStickerPreview(groupId: String){
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             SMLoading.showLoadingPage(viewcontroller: self)
-            IGApiSticker.shared.stickerGroup(groupId: groupId) { (stickers) in
+            IGApiSticker.shared.stickerGroup(groupId: groupId) { [weak self] (stickers) in
                 SMLoading.hideLoadingPage()
                 if stickers.count == 0 { return }
                 
                 for sticker in stickers {
-                    self.stickerList.append(sticker)
+                    self?.stickerList.append(sticker)
                 }
                 
                 DispatchQueue.main.async {
-                    self.collectionView?.reloadData()
+                    self?.collectionView?.reloadData()
                 }
             }
         }
@@ -137,12 +131,12 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
         isWaitingForRequest = true
         SMLoading.showLoadingPage(viewcontroller: self)
         if stickerCategoryId == nil || stickerCategoryId!.isEmpty {
-            IGApiSticker.shared.stickerList(offset: self.offset, limit: self.FETCH_LIMIT) { (stickers) in
-                self.showStickerList(stickers: stickers)
+            IGApiSticker.shared.stickerList(offset: self.offset, limit: self.FETCH_LIMIT) { [weak self] (stickers) in
+                self?.showStickerList(stickers: stickers)
             }
         } else { // currently else state not call anytime! because currently 'StickerPageType.ADD_REMOVE' type removed
-            IGApiSticker.shared.stickerCategory(categoryId: stickerCategoryId!, offset: self.offset, limit: self.FETCH_LIMIT) { (stickers) in
-                self.showStickerList(stickers: stickers)
+            IGApiSticker.shared.stickerCategory(categoryId: stickerCategoryId!, offset: self.offset, limit: self.FETCH_LIMIT) { [weak self] (stickers) in
+                self?.showStickerList(stickers: stickers)
             }
         }
     }
@@ -173,7 +167,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
         
         self.offset += self.FETCH_LIMIT
         
-        /* mabye exist value so set 'isWaitingForRequest' false to allow user get other of items from server */
+        /***** mabye exist value so set 'isWaitingForRequest' false to allow user get other of items from server *****/
         if stickers.count == self.FETCH_LIMIT {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1){
                 self.isWaitingForRequest = false
@@ -182,23 +176,36 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     }
     
     /*******************************************************************************/
-    /********************************** Observer ***********************************/
+    /***************************** Observers & Events ******************************/
     
-    func onToolbarClick(index: Int) {
-        selectedIndexManually = index
-        goToPosition(position: index)
-        highlightSelected(index: index)
-    }
-    
-    func onStickerAdd(index: Int) {
-        self.collectionView?.reloadSections(IndexSet([index]))
-    }
-    
-    func fetchCurrentStickerGroupId() -> String {
-        if currentIndexPath != nil, self.collectionView!.numberOfSections > 0, let cell = self.collectionView!.cellForItem(at: currentIndexPath) as? IGStickerCell {
-            return cell.stickerItemRealm.groupID!
+    private func eventBusListeners(){
+        
+        /***** On Toolbar Click *****/
+        SwiftEventBus.onMainThread(self, name: EventBusManager.stickerToolbarClick) { [weak self] (result) in
+            if let index = result?.object as? Int {
+                self?.selectedIndexManually = index
+                self?.goToPosition(position: index)
+                self?.highlightSelected(index: index)
+            }
         }
-        return ""
+        
+        /***** Fetch Current Sticker State GroupId *****/
+        SwiftEventBus.onMainThread(self, name: EventBusManager.stickerCurrentGroupId) { [weak self] (result) in
+            if self?.currentIndexPath != nil, self?.collectionView?.numberOfSections ?? 0 > 0, let cell = self?.collectionView?.cellForItem(at: self?.currentIndexPath ?? IndexPath(row: 0, section: 0)) as? IGStickerCell {
+                print("TTT || cell.stickerItemRealm.groupID: \(cell.stickerItemRealm.groupID)")
+                IGGlobal.stickerCurrentGroupId = cell.stickerItemRealm.groupID
+                return
+            }
+            print("TTT || group id clear")
+            IGGlobal.stickerCurrentGroupId = ""
+        }
+        
+        /***** Sticker Add *****/
+        SwiftEventBus.onMainThread(self, name: EventBusManager.stickerAdd) { [weak self] (result) in
+            if let index = result?.object as? Int {
+                self?.collectionView?.reloadSections(IndexSet([index]))
+            }
+        }
     }
     
     private func goToPosition(position: Int){

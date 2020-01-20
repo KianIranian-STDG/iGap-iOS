@@ -97,6 +97,12 @@ class IGGlobal {
     static var sendTone: AVAudioPlayer?
     static var safeAreaInsets: CGFloat = 0
     static let eventBusChatKey = "CHAT"
+    
+    static var stickerPreviewSectionIndex: Int = -1
+    static var stickerCurrentGroupId: String? = nil // when current sticker page type is 'StickerPageType.MAIN' set this value for keep index and show current state of sticker tab after close add sticker list page
+    static var stickerImageDic: [String:UIImageView] = [:]
+    static var stickerAnimationDic: [String:AnimationView] = [:]
+    
     static var topbarHeight: CGFloat {
         if #available(iOS 13.0, *) {
             return (UIApplication.shared.statusBarFrame.height ?? 0.0) +
