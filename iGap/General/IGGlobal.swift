@@ -2231,6 +2231,27 @@ extension PHAsset {
     }
 }
 
+extension Realm {
+    func writeAsync<T : ThreadConfined>(obj: T, errorHandler: @escaping ((_ error : Swift.Error) -> Void) = { _ in return }, block: @escaping ((Realm, T?) -> Void)) {
+        let wrappedObj = ThreadSafeReference(to: obj)
+        DispatchQueue(label: "background").async {
+            autoreleasepool {
+                do {
+                    let realm = try Realm()
+                    let obj = realm.resolve(wrappedObj)
+
+                    try realm.write {
+                        block(realm, obj)
+                    }
+                }
+                catch {
+                    errorHandler(error)
+                }
+            }
+        }
+    }
+}
+
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
     guard let input = input else { return nil }

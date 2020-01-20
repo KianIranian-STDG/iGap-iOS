@@ -7,7 +7,6 @@
  * The idea of the Kianiranian STDG - www.kianiranian.com
  * All rights reserved.
  */
-import UIKit
 import RealmSwift
 
 class IGDatabaseManager: NSObject {
@@ -25,7 +24,9 @@ class IGDatabaseManager: NSObject {
     
     func perfrmOnDatabaseThread(_ block: @escaping ()->()) {
         databaseThread.enqueue {
-            block()
+            autoreleasepool {
+                block()
+            }
         }
     }
     
