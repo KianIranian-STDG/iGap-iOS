@@ -41,7 +41,6 @@ class BaseBubbleNode: ASCellNode {
         if let name = message.authorUser?.userInfo.displayName {
             nameTxtNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
             nameTxtNode.attributedText = NSAttributedString(string: name, attributes: kAMMessageCellNodeTopTextAttributes)
-            addSubnode(nameTxtNode)
         }
 
         if message.type == .text {
@@ -49,16 +48,22 @@ class BaseBubbleNode: ASCellNode {
         }else if message.type == .image {
             bubbleNode = IGImageNode(image: message.attachment?.attachedImage ?? #imageLiteral(resourceName: "holm.jpg"), isIncomming: isIncomming)
         }
-        
-        
+        if let time = message.creationTime {
+            timeTxtNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
+            timeTxtNode.attributedText = NSAttributedString(string: time.convertToHumanReadable(), attributes: kAMMessageCellNodeTopTextAttributes)
+        }
+
         
         addSubnode(bubbleImgNode)
+        addSubnode(nameTxtNode)
         addSubnode(bubbleNode)
-        
+        addSubnode(timeTxtNode)
+
     }
     
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        
         
         let stack = ASStackLayoutSpec()
         stack.direction = .vertical
@@ -66,35 +71,42 @@ class BaseBubbleNode: ASCellNode {
         stack.style.flexGrow = 1.0
         stack.spacing = 5
         
-        
-        if let _ = message.authorUser?.userInfo.displayName{
-            stack.children?.append(nameTxtNode)
-        }
+        stack.children?.append(nameTxtNode)
         stack.children?.append(bubbleNode)
-        
+
         let textNodeVerticalOffset = CGFloat(6)
         timeTxtNode.style.alignSelf = .end
+        
+        
         
         let verticalSpec = ASBackgroundLayoutSpec()
         verticalSpec.background = bubbleImgNode
         
-//        if let _ = bubbleNode  as? IGTextNode{
+        
+        if let _ = bubbleNode  as? IGTextNode{
             if let namecount = message.message{
                 if(namecount.count <= 20){
                     
                     let horizon = ASStackLayoutSpec(direction: .horizontal, spacing: 10, justifyContent: .start, alignItems: ASStackLayoutAlignItems.start, children: [stack , timeTxtNode])
                     verticalSpec.child = ASInsetLayoutSpec(
                         insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: horizon)
+                    
+                    
                 }else{
                     stack.children?.append(timeTxtNode)
                     verticalSpec.child = ASInsetLayoutSpec(
                         insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
                     
                 }
+                
             }
-//        }
+            
+            
+        }
         
-
+        
+        
+        //space it
         let insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 32, bottom: 5, right: 4) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 32), child: verticalSpec)
         
         
@@ -105,8 +117,8 @@ class BaseBubbleNode: ASCellNode {
         
         stackSpec.spacing = 0
         stackSpec.children = [insetSpec]
-            
         
+
         return stackSpec
         
     }
