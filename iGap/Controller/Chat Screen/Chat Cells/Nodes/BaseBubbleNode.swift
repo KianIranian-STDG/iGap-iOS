@@ -94,7 +94,7 @@ class BaseBubbleNode: ASCellNode {
             }
 //        }
         
-        
+
         let insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 32, bottom: 5, right: 4) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 32), child: verticalSpec)
         
         

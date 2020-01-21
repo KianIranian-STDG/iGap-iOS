@@ -2441,12 +2441,15 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     var finalRoomType: IGRoom.IGType!
     var finalRoomId: Int64!
+    var finalRoomGroupRoom : IGGroupRoom?
     
     //MARK: - Send Seen Status
     private func setMessagesRead() {
         //don't need send status for channel
         if self.room?.type == .channel {return}
-        
+        if self.room?.groupRoom != nil {
+            finalRoomGroupRoom = self.room?.groupRoom
+        }
         if let roomId = self.room?.id {
             finalRoomId = roomId
             finalRoomType = self.room?.type
@@ -6104,7 +6107,7 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
             
             
 
-            if sSelf.room?.groupRoom != nil {
+            if self?.finalRoomGroupRoom != nil {
                 shouldShowAvatar = true
                 
                 if isIncomming {
