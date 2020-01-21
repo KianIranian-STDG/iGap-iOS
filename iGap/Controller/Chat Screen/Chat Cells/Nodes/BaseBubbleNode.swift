@@ -1,12 +1,15 @@
-//
-//  BaseBubbleNode.swift
-//  iGap
-//
-//  Created by ahmad mohammadi on 1/19/20.
-//  Copyright © 2020 Kianiranian STDG -www.kianiranian.com. All rights reserved.
-//
+/*
+* This is the source code of iGap for iOS
+* It is licensed under GNU AGPL v3.0
+* You should have received a copy of the license in this archive (see LICENSE).
+* Copyright © 2017 , iGap - www.iGap.net
+* iGap Messenger | Free, Fast and Secure instant messaging application
+* The idea of the Kianiranian STDG - www.kianiranian.com
+* All rights reserved.
+*/
 
 import AsyncDisplayKit
+import UIKit
 
 class BaseBubbleNode: ASCellNode {
     
@@ -19,7 +22,8 @@ class BaseBubbleNode: ASCellNode {
     private let statusImgNode = ASImageNode()
     
     private var bubbleNode = ASDisplayNode()
-    
+    private let avatarImageViewNode = ASDisplayNode()
+
     init(message : IGRoomMessage, isOutgoing: Bool, bubbleImage: UIImage) {
         self.message = message
         self.isOutgoing = isOutgoing
@@ -34,9 +38,9 @@ class BaseBubbleNode: ASCellNode {
     private func setupView() {
         
         if message.type == .text {
-            bubbleNode = MsgTextNode(message: message.message ?? "", isOutgoing: isOutgoing)
+            bubbleNode = IGTextNode(message: message.message ?? "", isOutgoing: isOutgoing)
         }else if message.type == .image {
-            bubbleNode = MsgImageNode(image: message.attachment?.attachedImage ?? #imageLiteral(resourceName: "holm.jpg"), isOutgoing: isOutgoing)
+            bubbleNode = IGImageNode(image: message.attachment?.attachedImage ?? #imageLiteral(resourceName: "holm.jpg"), isOutgoing: isOutgoing)
         }
         
         
@@ -66,7 +70,7 @@ class BaseBubbleNode: ASCellNode {
         let verticalSpec = ASBackgroundLayoutSpec()
         verticalSpec.background = bubbleImgNode
         
-//        if let _ = bubbleNode  as? MsgTextNode{
+//        if let _ = bubbleNode  as? IGTextNode{
             if let namecount = message.message{
                 if(namecount.count <= 20){
                     

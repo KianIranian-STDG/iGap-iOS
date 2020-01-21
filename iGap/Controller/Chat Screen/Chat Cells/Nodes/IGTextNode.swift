@@ -1,5 +1,5 @@
 //
-//  MsgTextNode.swift
+//  IGTextNode.swift
 //  iGap
 //
 //  Created by ahmad mohammadi on 1/19/20.
@@ -8,7 +8,7 @@
 
 import AsyncDisplayKit
 
-class MsgTextNode: ASCellNode {
+class IGTextNode: ASCellNode {
     
     private let textNode = MsgTextTextNode()
     
