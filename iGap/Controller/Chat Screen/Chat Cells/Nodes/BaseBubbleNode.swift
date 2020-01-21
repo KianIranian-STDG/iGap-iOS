@@ -9,7 +9,6 @@
 */
 
 import AsyncDisplayKit
-import UIKit
 
 class BaseBubbleNode: ASCellNode {
     

@@ -6096,15 +6096,12 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
             let authorHash = msg!.authorHash
             
             if self?.finalRoomType == .channel { // isIncommingMessage means that show message left side
-                isOut = true
-            } else if let senderHash = authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
                 isOut = false
+            } else if let senderHash = authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
+                isOut = true
             }
             
             let img = isOut ? mineImage : someoneImage
-//            let node = BaseBubbleNode(msg: msg!, isOutgoing: isOut, bubbleImage: img)
-            
-//            let node = MessageWhatsappBubbleNode(msg: msg!, isOutgoing: isOut, bubbleImage: img)
             
             let node = BaseBubbleNode(message: msg!, isOutgoing: isOut, bubbleImage: img)
             return node
