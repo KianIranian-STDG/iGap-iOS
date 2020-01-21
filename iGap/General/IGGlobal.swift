@@ -22,6 +22,7 @@ import var CommonCrypto.CC_MD5_DIGEST_LENGTH
 import func CommonCrypto.CC_MD5
 import typealias CommonCrypto.CC_LONG
 import Lottie
+import AsyncDisplayKit
 
 var fontDefaultSize: CGFloat = 15.0
 
@@ -1124,6 +1125,7 @@ extension NSCache {
 }
 
 var imagesMap = Dictionary<String, UIImageView>()
+var ASimagesMap = Dictionary<String, ASNetworkImageNode>()
 var liveStickerMap = Dictionary<String, AnimationView>()
 extension UIImage {
     
@@ -1277,6 +1279,69 @@ extension AnimationView {
             }, failure: {
                 
             })
+        }
+    }
+}
+extension ASNetworkImageNode {
+    
+    func setAvatar(avatar: IGFile, type: IGFile.PreviewType = IGFile.PreviewType.largeThumbnail) {
+        
+        // remove imageview from download list on t on cell reuse
+        DispatchQueue.main.async {
+            let keys = (ASimagesMap as NSDictionary).allKeys(for: self) as! [String]
+            keys.forEach { (key) in
+                ASimagesMap.removeValue(forKey: key)
+            }
+        }
+        
+        var file : IGFile!
+        var previewType : IGFile.PreviewType!
+        
+        if type == .largeThumbnail ,let largeThumbnail = avatar.largeThumbnail {
+            file = largeThumbnail
+            previewType = IGFile.PreviewType.largeThumbnail
+        } else {
+            file = avatar.smallThumbnail
+            previewType = IGFile.PreviewType.smallThumbnail
+        }
+        
+        if IGGlobal.isFileExist(path: avatar.path(), fileSize: avatar.size) {
+//            self.sd_setImage(with: avatar.path(), completed: nil)
+            self.url = avatar.path()
+        } else {
+            if file != nil {
+                let path = file.path()
+                
+                if IGGlobal.isFileExist(path: path, fileSize: file.size) {
+//                    self.sd_setImage(with: path, completed: nil)
+                    self.url = path
+                } else {
+                    
+                    DispatchQueue.main.async {
+                        ASimagesMap[file.token!] = self
+                        IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
+                            DispatchQueue.main.async {
+                                if let imageMain = ASimagesMap[attachment.token!] {
+                                    let path = attachment.path()
+                                    //imageMain.sd_setImage(with: path)
+                                    DispatchQueue.global(qos:.userInteractive).async {
+                                        if let data = try? Data(contentsOf: path!) {
+                                            if let image = UIImage(data: data) {
+                                                DispatchQueue.main.async {
+                                                    imageMain.image = image
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }, failure: {
+                            print("ERROR HAPPEND IN DOWNLOADNING AVATAR")
+                        })
+                        
+                    }
+                }
+            }
         }
     }
 }

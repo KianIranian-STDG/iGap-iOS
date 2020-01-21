@@ -44,6 +44,8 @@
 		8E3360DD23D2DF8A00CE766B /* MessageWhatsappTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360DC23D2DF8A00CE766B /* MessageWhatsappTextNode.swift */; };
 		8E3360DF23D2FDAE00CE766B /* chats.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E3360DE23D2FDAE00CE766B /* chats.json */; };
 		8E3360E123D2FE6D00CE766B /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E023D2FE6D00CE766B /* Chat.swift */; };
+		8E3360E423D7395E00CE766B /* IGVideoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E223D7395D00CE766B /* IGVideoNode.swift */; };
+		8E3360E523D7395E00CE766B /* NodeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E323D7395D00CE766B /* NodeExtension.swift */; };
 		8E3C696A23602DDE001575BE /* MusicPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E3C696923602DDE001575BE /* MusicPlayer.storyboard */; };
 		8E3C696C23602E4D001575BE /* IGMusicPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */; };
 		8E3C696E23602EB2001575BE /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696D23602EB2001575BE /* Music.swift */; };
@@ -937,6 +939,8 @@
 		8E3360DC23D2DF8A00CE766B /* MessageWhatsappTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageWhatsappTextNode.swift; sourceTree = "<group>"; };
 		8E3360DE23D2FDAE00CE766B /* chats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = chats.json; sourceTree = "<group>"; };
 		8E3360E023D2FE6D00CE766B /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		8E3360E223D7395D00CE766B /* IGVideoNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGVideoNode.swift; sourceTree = "<group>"; };
+		8E3360E323D7395D00CE766B /* NodeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeExtension.swift; sourceTree = "<group>"; };
 		8E3C696923602DDE001575BE /* MusicPlayer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MusicPlayer.storyboard; sourceTree = "<group>"; };
 		8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMusicPlayerTableViewController.swift; sourceTree = "<group>"; };
 		8E3C696D23602EB2001575BE /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
@@ -2435,6 +2439,8 @@
 				8E3360DC23D2DF8A00CE766B /* MessageWhatsappTextNode.swift */,
 				D2522ED923D47BC6002B2D6C /* IGTextNode.swift */,
 				D28B583023D56CA400CB861C /* IGImageNode.swift */,
+				8E3360E223D7395D00CE766B /* IGVideoNode.swift */,
+				8E3360E323D7395D00CE766B /* NodeExtension.swift */,
 				D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */,
 			);
 			path = Nodes;
@@ -4137,6 +4143,7 @@
 				D62214A0235871E5000E48B1 /* IGRealmMember.swift in Sources */,
 				8E3C696C23602E4D001575BE /* IGMusicPlayerTableViewController.swift in Sources */,
 				D61B5DDD237D40EB0060B9D9 /* ProgressCell.swift in Sources */,
+				8E3360E523D7395E00CE766B /* NodeExtension.swift in Sources */,
 				8E5FBCB3231E43400069D4F2 /* EFAutoScrollLabel.swift in Sources */,
 				D60FF283234091310012ECF2 /* IGPlayer.swift in Sources */,
 				FAE6BAB2207B537B00E54ECE /* MKHipsterTileOverlay.swift in Sources */,
@@ -4246,6 +4253,7 @@
 				8E3C699223603724001575BE /* PanModalPresentationAnimator.swift in Sources */,
 				FA417E50212179C900B5FBCD /* LocationCell.swift in Sources */,
 				8EC94E112396686A003B3510 /* IGNewsSectionInnerTVCell.swift in Sources */,
+				8E3360E423D7395E00CE766B /* IGVideoNode.swift in Sources */,
 				8EBF553422DCC9F700834E6A /* SliderTypeThreeCell.swift in Sources */,
 				FA6791DC1DE41239003CFA4F /* IGErrorRequest.swift in Sources */,
 				FA56A03B233BC0E8000A0BB5 /* IGProfileSharedMediaPageViewController.swift in Sources */,

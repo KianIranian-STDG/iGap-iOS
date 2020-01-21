@@ -11,7 +11,7 @@ import AsyncDisplayKit
 
 //Whatsapp
 
-public let kAMMessageCellNodeAvatarImageSize: CGFloat = 24
+public let kAMMessageCellNodeAvatarImageSize: CGFloat = 50
 
 public let kAMMessageCellNodeTopTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,
                                                   NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12)]

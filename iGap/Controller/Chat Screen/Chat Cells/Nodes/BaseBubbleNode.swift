@@ -22,7 +22,7 @@ class BaseBubbleNode: ASCellNode {
     private let statusImgNode = ASImageNode()
     
     private var bubbleNode = ASDisplayNode()
-    private let avatarImageViewNode = ASDisplayNode()
+    private let avatarImageViewNode = ASNetworkImageNode()
 
     init(message : IGRoomMessage, isIncomming: Bool, bubbleImage: UIImage, isFromSameSender: Bool, shouldShowAvatar: Bool) {
         self.message = message
@@ -54,10 +54,37 @@ class BaseBubbleNode: ASCellNode {
         }
 
         
+        
+        //avatar
+//        if let _ = IGAvatar.getLastAvatar(ownerId: (message.authorUser?.user!.id)!), let avatarFile = message.authorUser?.user!.avatar?.file {
+//            avatarImageViewNode.setAvatar(avatar: avatarFile)
+//            avatarImageViewNode.image = UIImage(named: "AppIcon")
+//
+//        } else if let avatar = message.authorUser?.user!.avatar {
+////            avatarImageViewNode.setAvatar(avatar: avatar.file!)
+//            avatarImageViewNode.image = UIImage(named: "AppIcon")
+//
+//        }else{
+//            avatarImageViewNode.image = UIImage(named: "AppIcon")
+//        }
+        avatarImageViewNode.image = UIImage(named: "AppIcon")
+
+        if(isIncomming){
+            avatarImageViewNode.style.preferredSize = CGSize.zero
+            
+        }else{
+            avatarImageViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
+            avatarImageViewNode.cornerRadius = kAMMessageCellNodeAvatarImageSize/2
+            avatarImageViewNode.clipsToBounds = true
+
+        }
+
+        
         addSubnode(bubbleImgNode)
         addSubnode(nameTxtNode)
         addSubnode(bubbleNode)
         addSubnode(timeTxtNode)
+        addSubnode(avatarImageViewNode)
 
     }
     
@@ -106,20 +133,36 @@ class BaseBubbleNode: ASCellNode {
         
         
         
-        //space it
-        let insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 32, bottom: 5, right: 4) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 32), child: verticalSpec)
-        
-        
+//        space it
+        let insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 5, bottom: 5, right: 4) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 5), child: verticalSpec)
+
+
         let stackSpec = ASStackLayoutSpec()
         stackSpec.direction = .vertical
         stackSpec.justifyContent = .spaceAround
         stackSpec.alignItems = isIncomming ? .start : .end
-        
+        stackSpec.style.flexShrink = 1.0
+        stackSpec.style.flexGrow = 1.0
+
         stackSpec.spacing = 0
         stackSpec.children = [insetSpec]
+
+
+        let stackHSpec = ASStackLayoutSpec()
+        stackHSpec.direction = .horizontal
+        stackHSpec.spacing = 5
+//        stackHSpec.justifyContent = .spaceBetween
+        stackHSpec.verticalAlignment = .bottom
+//        stackHSpec.style.preferredSize.width = 200
+        stackHSpec.children = [stackSpec,avatarImageViewNode]
+        stackHSpec.style.flexShrink = 1.0
+        stackHSpec.style.flexGrow = 1.0
+
+        let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 5, bottom: 5, right: 4) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 5), child: stackHSpec)
+
         
 
-        return stackSpec
+        return insetHSpec
         
     }
     
