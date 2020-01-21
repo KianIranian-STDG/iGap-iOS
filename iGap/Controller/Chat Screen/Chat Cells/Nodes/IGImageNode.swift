@@ -16,15 +16,15 @@ class IGImageNode: ASCellNode {
     private var txtNode: ASTextNode
     
     private let image: UIImage
-    private let isOutgoing: Bool
+    private let isIncomming: Bool
     private var text: String?
     
-    init(image: UIImage, text: String? = nil, isOutgoing: Bool) {
+    init(image: UIImage, text: String? = nil, isIncomming: Bool) {
         self.image = image
         self.text = text
         imgNode = MsgImageImageNode()
         txtNode = ASTextNode()
-        self.isOutgoing = isOutgoing
+        self.isIncomming = isIncomming
         super.init()
         setupView()
     }
@@ -58,9 +58,9 @@ class IGImageNode: ASCellNode {
             
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
             top: 0,
-            left: 0 + (isOutgoing ? 0 : textNodeVerticalOffset),
+            left: 0 + (isIncomming ? 0 : textNodeVerticalOffset),
             bottom: 0,
-            right: 0 + (isOutgoing ? textNodeVerticalOffset : 0)), child: absSpec)
+            right: 0 + (isIncomming ? textNodeVerticalOffset : 0)), child: absSpec)
             
             return insetSpec
             
@@ -79,9 +79,9 @@ class IGImageNode: ASCellNode {
             
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
             top: 5,
-            left: 0 + (isOutgoing ? 0 : textNodeVerticalOffset),
+            left: 0 + (isIncomming ? 0 : textNodeVerticalOffset),
             bottom: 5,
-            right: 0 + (isOutgoing ? textNodeVerticalOffset : 0)), child: txtNode)
+            right: 0 + (isIncomming ? textNodeVerticalOffset : 0)), child: txtNode)
 
             return ASStackLayoutSpec(direction: .vertical, spacing: 4, justifyContent: .start, alignItems: .center, children: [absSpec, insetSpec])
             

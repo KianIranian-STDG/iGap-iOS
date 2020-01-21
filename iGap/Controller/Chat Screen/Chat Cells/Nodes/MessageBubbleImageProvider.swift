@@ -9,11 +9,11 @@
 import UIKit
 
 private struct MessageProperties: Hashable {
-    let isOutgoing: Bool
+    let isIncomming: Bool
     let hasTail: Bool
     
     var hashValue: Int {
-        return (31 &* isOutgoing.hashValue) &+ hasTail.hashValue
+        return (31 &* isIncomming.hashValue) &+ hasTail.hashValue
     }
 }
 
@@ -35,8 +35,8 @@ open class MessageBubbleImageProvider {
         self.outgoingColor = outgoingColor
     }
     
-    open func bubbleImage(isOutgoing: Bool, hasTail: Bool) -> UIImage {
-        let properties = MessageProperties(isOutgoing: isOutgoing, hasTail: hasTail)
+    open func bubbleImage(isIncomming: Bool, hasTail: Bool) -> UIImage {
+        let properties = MessageProperties(isIncomming: isIncomming, hasTail: hasTail)
         return bubbleImage(properties: properties)
     }
     
@@ -51,11 +51,11 @@ open class MessageBubbleImageProvider {
     }
     
     private func buildBubbleImage(properties: MessageProperties) -> UIImage {
-        let imageName = "bubble" + (properties.isOutgoing ? "_outgoing" : "_incoming") + (properties.hasTail ? "" : "_tailless")
+        let imageName = "bubble" + (properties.isIncomming ? "_outgoing" : "_incoming") + (properties.hasTail ? "" : "_tailless")
         let bubble = UIImage(named: imageName)!
         
         do {
-            var normalBubble = try bubble.imageMaskedWith(color: properties.isOutgoing ? outgoingColor : incomingColor)
+            var normalBubble = try bubble.imageMaskedWith(color: properties.isIncomming ? outgoingColor : incomingColor)
             
             // make image stretchable from center point
             let center = CGPoint(x: bubble.size.width / 2.0, y: bubble.size.height / 2.0)

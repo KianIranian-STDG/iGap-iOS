@@ -6091,19 +6091,55 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
             guard let sSelf = self else {
                 return ASCellNode()
             }
-            var isOut = true
+            var isIncomming = true
             let msg = sSelf.messages?[indexPath.row]
             let authorHash = msg!.authorHash
+            var shouldShowAvatar = false
+            var isFromSameSender = false
+
             
-            if self?.finalRoomType == .channel { // isIncommingMessage means that show message left side
-                isOut = false
-            } else if let senderHash = authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
-                isOut = true
+            
+            
+            
+            
+            
+
+            if sSelf.room?.groupRoom != nil {
+                shouldShowAvatar = true
+                
+                if isIncomming {
+                    if msg!.type != .log {
+                        if sSelf.messages!.indices.contains(indexPath.row + 1){
+                            let previousMessage = sSelf.messages![(indexPath.row + 1)]
+                            if previousMessage.type != .log && msg!.authorHash == previousMessage.authorHash {
+                                isFromSameSender = true
+                            }
+                        }
+                        
+                        //Hint: comment following code because corrently we don't use from 'isNextMessageFromSameSender' variable
+                        /*
+                         if messages!.indices.contains(indexPath.row - 1){
+                         let nextMessage = messages![(indexPath.row - 1)]
+                         if message.authorHash == nextMessage.authorHash {
+                         isNextMessageFromSameSender = true
+                         }
+                         }
+                         */
+                    }
+                } else {
+                    shouldShowAvatar = false
+                }
             }
             
-            let img = isOut ? mineImage : someoneImage
+            if self?.finalRoomType == .channel { // isIncommingMessage means that show message left side
+                isIncomming = true
+            } else if let senderHash = authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
+                isIncomming = false
+            }
             
-            let node = BaseBubbleNode(message: msg!, isOutgoing: isOut, bubbleImage: img)
+            let img = isIncomming ? someoneImage : mineImage
+            
+            let node = BaseBubbleNode(message: msg!, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
             return node
         }
         return cellnodeBlock

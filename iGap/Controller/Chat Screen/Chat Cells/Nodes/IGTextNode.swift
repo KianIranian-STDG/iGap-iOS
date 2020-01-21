@@ -14,11 +14,11 @@ class IGTextNode: ASCellNode {
     private let textNode = MsgTextTextNode()
     
     private let message: String
-    private let isOutgoing: Bool
+    private let isIncomming: Bool
     
-    init(message: String, isOutgoing: Bool) {
+    init(message: String, isIncomming: Bool) {
         self.message = message
-        self.isOutgoing = isOutgoing
+        self.isIncomming = isIncomming
         super.init()
         setupView()
     }
@@ -39,9 +39,9 @@ class IGTextNode: ASCellNode {
         
         let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
             top: 0,
-            left: 0 + (isOutgoing ? 0 : textNodeVerticalOffset),
+            left: 0 + (isIncomming ? 0 : textNodeVerticalOffset),
             bottom: 0,
-            right: 0 + (isOutgoing ? textNodeVerticalOffset : 0)), child: textNode)
+            right: 0 + (isIncomming ? textNodeVerticalOffset : 0)), child: textNode)
         
         
         return insetSpec

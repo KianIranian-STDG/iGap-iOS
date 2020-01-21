@@ -13,8 +13,9 @@ import AsyncDisplayKit
 class BaseBubbleNode: ASCellNode {
     
     private var message: IGRoomMessage
-    private var isOutgoing: Bool
-    
+    private var isIncomming: Bool
+    private var shouldShowAvatar : Bool
+    private var isFromSameSender : Bool
     private let bubbleImgNode = ASImageNode()
     private let timeTxtNode = ASTextNode()
     private let nameTxtNode = ASTextNode()
@@ -23,9 +24,11 @@ class BaseBubbleNode: ASCellNode {
     private var bubbleNode = ASDisplayNode()
     private let avatarImageViewNode = ASDisplayNode()
 
-    init(message : IGRoomMessage, isOutgoing: Bool, bubbleImage: UIImage) {
+    init(message : IGRoomMessage, isIncomming: Bool, bubbleImage: UIImage, isFromSameSender: Bool, shouldShowAvatar: Bool) {
         self.message = message
-        self.isOutgoing = isOutgoing
+        self.isIncomming = isIncomming
+        self.shouldShowAvatar = shouldShowAvatar
+        self.isFromSameSender = isFromSameSender
         self.bubbleImgNode.image = bubbleImage
         super.init()
         
@@ -35,12 +38,18 @@ class BaseBubbleNode: ASCellNode {
     
     
     private func setupView() {
-        
-        if message.type == .text {
-            bubbleNode = IGTextNode(message: message.message ?? "", isOutgoing: isOutgoing)
-        }else if message.type == .image {
-            bubbleNode = IGImageNode(image: message.attachment?.attachedImage ?? #imageLiteral(resourceName: "holm.jpg"), isOutgoing: isOutgoing)
+        if let name = message.authorUser?.userInfo.displayName {
+            nameTxtNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
+            nameTxtNode.attributedText = NSAttributedString(string: name, attributes: kAMMessageCellNodeTopTextAttributes)
+            addSubnode(nameTxtNode)
         }
+
+        if message.type == .text {
+            bubbleNode = IGTextNode(message: message.message ?? "", isIncomming: isIncomming)
+        }else if message.type == .image {
+            bubbleNode = IGImageNode(image: message.attachment?.attachedImage ?? #imageLiteral(resourceName: "holm.jpg"), isIncomming: isIncomming)
+        }
+        
         
         
         addSubnode(bubbleImgNode)
@@ -75,24 +84,24 @@ class BaseBubbleNode: ASCellNode {
                     
                     let horizon = ASStackLayoutSpec(direction: .horizontal, spacing: 10, justifyContent: .start, alignItems: ASStackLayoutAlignItems.start, children: [stack , timeTxtNode])
                     verticalSpec.child = ASInsetLayoutSpec(
-                        insets: UIEdgeInsets(top: 8,left: 12 + (isOutgoing ? 0 : textNodeVerticalOffset),bottom: 8,right: 12 + (isOutgoing ? textNodeVerticalOffset : 0)),child: horizon)
+                        insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: horizon)
                 }else{
                     stack.children?.append(timeTxtNode)
                     verticalSpec.child = ASInsetLayoutSpec(
-                        insets: UIEdgeInsets(top: 8,left: 12 + (isOutgoing ? 0 : textNodeVerticalOffset),bottom: 8,right: 12 + (isOutgoing ? textNodeVerticalOffset : 0)),child: stack)
+                        insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
                     
                 }
             }
 //        }
         
         
-        let insetSpec = ASInsetLayoutSpec(insets: isOutgoing ? UIEdgeInsets(top: 1, left: 32, bottom: 5, right: 4) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 32), child: verticalSpec)
+        let insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 32, bottom: 5, right: 4) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 32), child: verticalSpec)
         
         
         let stackSpec = ASStackLayoutSpec()
         stackSpec.direction = .vertical
         stackSpec.justifyContent = .spaceAround
-        stackSpec.alignItems = isOutgoing ? .end : .start
+        stackSpec.alignItems = isIncomming ? .start : .end
         
         stackSpec.spacing = 0
         stackSpec.children = [insetSpec]

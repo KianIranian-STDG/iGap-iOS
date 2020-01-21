@@ -14,7 +14,7 @@ import AsyncDisplayKit
 public let kAMMessageCellNodeAvatarImageSize: CGFloat = 24
 
 public let kAMMessageCellNodeTopTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,
-                                                  NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12)]
+                                                  NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12),NSAttributedString.Key.backgroundColor: UIColor.red]
 public let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,
                                                          NSAttributedString.Key.font:UIFont.preferredFont(forTextStyle: UIFont.TextStyle.footnote)]
 public let kAMMessageCellNodeBottomTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,
@@ -26,7 +26,7 @@ public let kAMMessageCellNodeCaptionTextAttributes = [NSAttributedString.Key.for
 
 class MessageWhatsappBubbleNode: ASCellNode{
     
-    private let isOutgoing: Bool
+    private let isIncomming: Bool
     private let bubbleImageNode: ASImageNode
     private let timeNode: ASTextNode
     private let sectionNode: ASTextNode
@@ -39,8 +39,8 @@ class MessageWhatsappBubbleNode: ASCellNode{
     
     
     
-    init(msg : IGRoomMessage, isOutgoing: Bool, bubbleImage: UIImage) {
-        self.isOutgoing = isOutgoing
+    init(msg : IGRoomMessage, isIncomming: Bool, bubbleImage: UIImage) {
+        self.isIncomming = isIncomming
         self.message = msg
         bubbleImageNode = ASImageNode()
         bubbleImageNode.image = bubbleImage
@@ -58,7 +58,7 @@ class MessageWhatsappBubbleNode: ASCellNode{
                 let myAttribute = [ NSAttributedString.Key.foregroundColor: UIColor.blue , NSAttributedString.Key.font: UIFont.igFont(ofSize: fontDefaultSize) ]
                 let myAttrString = NSAttributedString(string: myString, attributes: myAttribute)
 
-                bubbleNode = MessageWhatsappTextNode(text: myAttrString, isOutgoing: isOutgoing)
+                bubbleNode = MessageWhatsappTextNode(text: myAttrString, isOutgoing: isIncomming)
                 
             }
             
@@ -68,7 +68,7 @@ class MessageWhatsappBubbleNode: ASCellNode{
         
  
         if let name = msg.authorUser?.userInfo.displayName{
-            nameNode.textContainerInset = UIEdgeInsets(top: 0, left: (isOutgoing ? 0 : 6), bottom: 0, right: (isOutgoing ? 6 : 0))
+            nameNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
             nameNode.attributedText = NSAttributedString(string: name, attributes: kAMMessageCellNodeTopTextAttributes)
             addSubnode(nameNode)
             
@@ -107,11 +107,11 @@ class MessageWhatsappBubbleNode: ASCellNode{
                     
                     let horizon = ASStackLayoutSpec(direction: .horizontal, spacing: 10, justifyContent: .start, alignItems: ASStackLayoutAlignItems.start, children: [stack , timeNode])
                     verticalSpec.child = ASInsetLayoutSpec(
-                        insets: UIEdgeInsets(top: 8,left: 12 + (isOutgoing ? 0 : textNodeVerticalOffset),bottom: 8,right: 12 + (isOutgoing ? textNodeVerticalOffset : 0)),child: horizon)
+                        insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? 0 : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : 0)),child: horizon)
                 }else{
                     stack.children?.append(timeNode)
                     verticalSpec.child = ASInsetLayoutSpec(
-                        insets: UIEdgeInsets(top: 8,left: 12 + (isOutgoing ? 0 : textNodeVerticalOffset),bottom: 8,right: 12 + (isOutgoing ? textNodeVerticalOffset : 0)),child: stack)
+                        insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? 0 : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : 0)),child: stack)
                     
                 }
             }
@@ -120,13 +120,13 @@ class MessageWhatsappBubbleNode: ASCellNode{
                         
         
         //space it
-        let insetSpec = ASInsetLayoutSpec(insets: isOutgoing ? UIEdgeInsets(top: 1, left: 32, bottom: 5, right: 4) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 32), child: verticalSpec)
+        let insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 32, bottom: 5, right: 4) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 32), child: verticalSpec)
         
         
         let stackSpec = ASStackLayoutSpec()
         stackSpec.direction = .vertical
         stackSpec.justifyContent = .spaceAround
-        stackSpec.alignItems = isOutgoing ? .end : .start
+        stackSpec.alignItems = isIncomming ? .end : .start
         
         stackSpec.spacing = 0
         stackSpec.children = [insetSpec]
