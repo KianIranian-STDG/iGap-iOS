@@ -6086,39 +6086,6 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
         return self.messages!.count
     }
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-
-
-//        let cellnodeBlock  = {[weak self] () -> ASCellNode in
-//            guard let sSelf = self else {
-//                return ASCellNode()
-//            }
-//
-//            var isOut = true
-//            let msg = sSelf.chatsArray[indexPath.row]
-//
-//
-//
-//            DispatchQueue.main.async {
-//                print(sSelf.messages!.count)
-//                if sSelf.room?.type == .channel { // isIncommingMessage means that show message left side
-//                    isOut = true
-//                } else if msg.is_sent_by_me == false {
-//                    isOut = false
-//                } else {
-//                    isOut = true
-//
-//                }
-//            }
-//
-//            print(indexPath.row)
-//            let img = isOut ? mineImage : someoneImage
-//
-//            let node = MessageWhatsappBubbleNode(msg: msg, isOutgoing: isOut, bubbleImage: img)
-//            return node
-//
-//        }
-//        return cellnodeBlock
-        
         
         let cellnodeBlock  = {[weak self] () -> ASCellNode in
             guard let sSelf = self else {
@@ -6135,7 +6102,11 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
             }
             
             let img = isOut ? mineImage : someoneImage
-            let node = MessageWhatsappBubbleNode(msg: msg!, isOutgoing: isOut, bubbleImage: img)
+//            let node = BaseBubbleNode(msg: msg!, isOutgoing: isOut, bubbleImage: img)
+            
+//            let node = MessageWhatsappBubbleNode(msg: msg!, isOutgoing: isOut, bubbleImage: img)
+            
+            let node = BaseBubbleNode(message: msg!, isOutgoing: isOut, bubbleImage: img)
             return node
         }
         return cellnodeBlock

@@ -90,7 +90,6 @@ class MessageWhatsappBubbleNode: ASCellNode{
         stack.spacing = 5
         
         if let _ = message.authorUser?.userInfo.displayName{
-//            nameNode.addTarget(self, action: #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
             stack.children?.append(nameNode)
             
         }
@@ -99,11 +98,8 @@ class MessageWhatsappBubbleNode: ASCellNode{
         let textNodeVerticalOffset = CGFloat(6)
         timeNode.style.alignSelf = .end
         
-        
-        
         let verticalSpec = ASBackgroundLayoutSpec()
         verticalSpec.background = bubbleImageNode
-        
         
         if let _ = bubbleNode  as? MessageWhatsappTextNode{
             if let namecount = message.message{
@@ -112,18 +108,13 @@ class MessageWhatsappBubbleNode: ASCellNode{
                     let horizon = ASStackLayoutSpec(direction: .horizontal, spacing: 10, justifyContent: .start, alignItems: ASStackLayoutAlignItems.start, children: [stack , timeNode])
                     verticalSpec.child = ASInsetLayoutSpec(
                         insets: UIEdgeInsets(top: 8,left: 12 + (isOutgoing ? 0 : textNodeVerticalOffset),bottom: 8,right: 12 + (isOutgoing ? textNodeVerticalOffset : 0)),child: horizon)
-                    
-                    
                 }else{
                     stack.children?.append(timeNode)
                     verticalSpec.child = ASInsetLayoutSpec(
                         insets: UIEdgeInsets(top: 8,left: 12 + (isOutgoing ? 0 : textNodeVerticalOffset),bottom: 8,right: 12 + (isOutgoing ? textNodeVerticalOffset : 0)),child: stack)
                     
                 }
-                
             }
-            
-            
         }
         
                         
@@ -137,8 +128,8 @@ class MessageWhatsappBubbleNode: ASCellNode{
         stackSpec.justifyContent = .spaceAround
         stackSpec.alignItems = isOutgoing ? .end : .start
         
-            stackSpec.spacing = 0
-            stackSpec.children = [insetSpec]
+        stackSpec.spacing = 0
+        stackSpec.children = [insetSpec]
             
         
         return stackSpec
