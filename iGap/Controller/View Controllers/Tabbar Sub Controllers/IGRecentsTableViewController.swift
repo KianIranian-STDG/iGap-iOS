@@ -143,8 +143,8 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.setChatListsNavigationItems()
 
-        navigationItem.rightViewContainer?.addAction {
-            self.showAlertOptions()
+        navigationItem.rightViewContainer?.addAction { [weak self] in
+            self?.showAlertOptions()
         }
     }
     
@@ -153,28 +153,16 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         let alertController = UIAlertController(title: nil, message: IGStringsManager.WhichTypeOfMessage.rawValue.localized, preferredStyle: IGGlobal.detectAlertStyle())
         let myCloud = UIAlertAction(title: IGStringsManager.Cloud.rawValue.localized, style: .default, handler: { (action) in
             if let userId = IGAppManager.sharedManager.userID() {
-                let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                hud.mode = .indeterminate
+                IGGlobal.prgShow()
                 IGChatGetRoomRequest.Generator.generate(peerId: userId).success({ (protoResponse) in
-                    DispatchQueue.main.async {
-                        switch protoResponse {
-                        case let chatGetRoomResponse as IGPChatGetRoomResponse:
-                            let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                            //segue to created chat
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
-                                                            object: nil,
-                                                            userInfo: ["room": roomId])
-                            hud.hide(animated: true)
-                            break
-                        default:
-                            break
-                        }
+                    IGGlobal.prgHide()
+                    if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse {
+                        let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom), object: nil, userInfo: ["room": roomId])
                     }
                 }).error({ (errorCode, waitTime) in
-                    DispatchQueue.main.async {
-                        hud.hide(animated: true)
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
-                    }
+                    IGGlobal.prgHide()
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
                 }).send()
             }
         })
@@ -195,9 +183,7 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
             self.navigationController!.pushViewController(createChannel, animated: true)
         })
         
-        let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: { (action) in
-            
-        })
+        let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
         
         alertController.addAction(myCloud)
         alertController.addAction(newChat)
@@ -228,7 +214,6 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         initialiseSearchBar()
     }
     
@@ -243,12 +228,11 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         self.tableView.reloadData() //in order to update unread count color of each cell
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-            SwiftEventBus.onMainThread(self, name: "initTheme") { result in
-                self.initTheme()
-            }
+
+        eventBusInitialiser()
         isfromPacket = false
         
         let navigationItem = self.navigationItem as! IGNavigationItem
@@ -257,25 +241,22 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         self.tableView.bounces = false
         self.searchController.searchBar.delegate = self
         self.tableView.contentOffset = CGPoint(x: 0, y: 55)
-
         self.tableView.register(IGRoomListtCell.self, forCellReuseIdentifier: cellId)
-        
         
         let sortProperties = [SortDescriptor(keyPath: "priority", ascending: false), SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
         do {
             let realm = try Realm()
             self.rooms = realm.objects(IGRoom.self).filter("isParticipant = 1").sorted(by: sortProperties)
-            
         } catch _ as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN VIEWDIDLOAD:",String(describing: self))
         }
+        
         self.tableView.tableFooterView = UIView()
-//        self.tableView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         self.view.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         self.tableView.tableHeaderView?.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         
-        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
-            self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
+        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { [weak self] (connectionStatus) in
+            self?.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
         }, onError: { (error) in
             
         }, onCompleted: {
@@ -321,43 +302,50 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_ROOM_PAGE)
         
         self.hidesBottomBarWhenPushed = false
-        self.eventBusInitialiser()
     }
     
     private func eventBusInitialiser() {
-        SwiftEventBus.onMainThread(self, name: EventBusManager.showTopMusicPlayer) { result in
+        SwiftEventBus.onMainThread(self, name: "initTheme") { [weak self] result in
+            self?.initTheme()
+        }
+        
+        SwiftEventBus.onMainThread(self, name: EventBusManager.showTopMusicPlayer) { [weak self] result in
             let musicFile : MusicFile = result?.object as! MusicFile
             IGGlobal.topBarSongTime = musicFile.songTime
-            self.songName = musicFile.songName
-            self.singerName = musicFile.singerName
-            self.showMusicTopPlayerWithAnimation()
+            self?.songName = musicFile.songName
+            self?.singerName = musicFile.singerName
+            self?.showMusicTopPlayerWithAnimation()
         }
-        SwiftEventBus.onMainThread(self, name: EventBusManager.hideTopMusicPlayer) { result in
-            self.hideMusicTopPlayerWithAnimation()
+        
+        SwiftEventBus.onMainThread(self, name: EventBusManager.hideTopMusicPlayer) { [weak self] result in
+            self?.hideMusicTopPlayerWithAnimation()
         }
-        SwiftEventBus.onMainThread(self, name: EventBusManager.stopMusicPlayer) { result in
-            self.playMusic()
+        
+        SwiftEventBus.onMainThread(self, name: EventBusManager.stopMusicPlayer) { [weak self] result in
+            self?.playMusic()
         }
-        SwiftEventBus.onMainThread(self, name: EventBusManager.playMusicPlayer) { result in
-            self.stopMusic()
+        
+        SwiftEventBus.onMainThread(self, name: EventBusManager.playMusicPlayer) { [weak self] result in
+            self?.stopMusic()
         }
-        SwiftEventBus.onMainThread(self, name: EventBusManager.updateLabelsData) { result in
-            self.updateLabelsData(singerName: IGGlobal.topBarSongSinger,songName: IGGlobal.topBarSongName)
+        
+        SwiftEventBus.onMainThread(self, name: EventBusManager.updateLabelsData) { [weak self] result in
+            self?.updateLabelsData(singerName: IGGlobal.topBarSongSinger,songName: IGGlobal.topBarSongName)
         }
         
         /***** Receive Message *****/
-        SwiftEventBus.on(self, name: EventBusManager.messageReceiveGlobal, queue: OperationQueue.current) { result in
+        SwiftEventBus.on(self, name: EventBusManager.messageReceiveGlobal, queue: OperationQueue.current) { [weak self]  result in
             if let messageInfo = result?.object as? (roomId: Int64, messages: [IGPRoomMessage]) {
                 for message in messageInfo.messages {
                     var roomType: IGRoom.IGType = .chat
                     var roomMessageStatus: IGRoomMessageStatus = .delivered
                     
-                    if let type = self.roomTypeCache[messageInfo.roomId] {
+                    if let type = self?.roomTypeCache[messageInfo.roomId] {
                         roomType = type
                     } else {
                         if let roomInfo = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", messageInfo.roomId)).first {
                             roomType = roomInfo.type
-                            self.roomTypeCache[messageInfo.roomId] = roomType
+                            self?.roomTypeCache[messageInfo.roomId] = roomType
                         }
                     }
                     
@@ -366,7 +354,7 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
                         roomMessageStatus = .seen
                     }
                     
-                    self.manageUnreadMessage(roomId: messageInfo.roomId, roomType: roomType, message: message)
+                    IGFactory.shared.manageUnreadMessage(roomId: messageInfo.roomId, roomType: roomType, message: message)
                     IGHelperMessageStatus.shared.sendStatus(roomId: messageInfo.roomId, roomType: roomType, status: roomMessageStatus, roomMessages: [message])
                 }
             }
@@ -379,18 +367,15 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         let indexSet: IndexSet = [sectionToReload]
 
         self.tableView.reloadSections(indexSet, with: .automatic)
-
         self.tableView.endUpdates()
     }
     
     private func hideMusicTopPlayerWithAnimation() {
-//        UIView.animate(withDuration: 0.3, animations: {
-                self.tableView.beginUpdates()
-                self.headerHeight = 0
-                self.tableView.endUpdates()
-                IGPlayer.shared.stopMedia()
-//        })
-
+        self.tableView.beginUpdates()
+        self.headerHeight = 0
+        self.tableView.endUpdates()
+        IGPlayer.shared.stopMedia()
+        
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
             self.tableView.layoutIfNeeded()
@@ -446,12 +431,16 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.tableView.isUserInteractionEnabled = true
-        //self.notificationToken?.stop()
+        self.notificationToken?.invalidate()
         if currentTabIndex == TabBarTab.Recent.rawValue {
             if let navigationBar = self.navigationController?.navigationBar {
                 navigationBar.backgroundColor = .clear
             }
         }
+    }
+    
+    deinit {
+        print("Deinit IGRecentsTableViewController")
     }
     
     //MARK: Room List actions
@@ -506,20 +495,20 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
     private func addRoomChangeNotificationBlock() {
         self.notificationToken?.invalidate()
         
-        self.notificationToken = rooms!.observe { (changes: RealmCollectionChange) in
+        self.notificationToken = rooms!.observe { [weak self] (changes: RealmCollectionChange) in
             switch changes {
             case .initial:
-                self.setTabbarBadge()
+                self?.setTabbarBadge()
                 break
                 
             case .update(_, let deletions, let insertions, let modifications):
                 // Query messages have changed, so apply them to the TableView
-                self.tableView.beginUpdates()
-                self.tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .none)
-                self.tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0) }), with: .none)
-                self.tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }), with: .none)
-                self.tableView.endUpdates()
-                self.setTabbarBadge()
+                self?.tableView.beginUpdates()
+                self?.tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .none)
+                self?.tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0) }), with: .none)
+                self?.tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }), with: .none)
+                self?.tableView.endUpdates()
+                self?.setTabbarBadge()
                 break
                 
             case .error(let err):
@@ -537,8 +526,8 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         }
         
         isLoadingMoreRooms = true
-        IGClientGetRoomListRequest.Generator.generate(offset: offset, limit: limit).successPowerful ({ (responseProtoMessage, requestWrapper) in
-            self.isLoadingMoreRooms = false
+        IGClientGetRoomListRequest.Generator.generate(offset: offset, limit: limit).successPowerful ({ [weak self] (responseProtoMessage, requestWrapper) in
+            self?.isLoadingMoreRooms = false
             var newOffset: Int32!
             var newLimit: Int32!
             
@@ -558,20 +547,20 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
                     }
                     
                     if getRoomListResponse.igpRooms.count != 0 {
-                        self.allRoomsFetched = false
-                        self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse)
-                        self.fetchRoomList(offset: newOffset, limit: newLimit)
+                        self?.allRoomsFetched = false
+                        self?.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse)
+                        self?.fetchRoomList(offset: newOffset, limit: newLimit)
                     } else {
-                        self.allRoomsFetched = true
-                        self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse, removeDeleted: true)
+                        self?.allRoomsFetched = true
+                        self?.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse, removeDeleted: true)
                         //IGFactory.shared.deleteShareInfo()
                     }
                 }
             }
-        }).error({ (errorCode, waitTime) in
+        }).error({ [weak self] (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                self.fetchRoomList(offset: offset, limit: limit)
+                self?.fetchRoomList(offset: offset, limit: limit)
                 break
                 
             case .floodRequest:
@@ -898,36 +887,20 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         if let roomId = aNotification.userInfo?["room"] as? Int64 {
             let predicate = NSPredicate(format: "id = %lld", roomId)
             if let room = rooms!.filter(predicate).first {
-//                selectedRoomForSegue = room
-//                performSegue(withIdentifier: "showRoomMessages", sender: self)
                 let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 chatPage.room = room
                 chatPage.hidesBottomBarWhenPushed = true
                 UIApplication.topNavigationController()!.pushViewController(chatPage, animated: true)
             } else {
-                self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                self.hud.mode = .indeterminate
+                IGGlobal.prgShow()
                 IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ (protoResponse) in
-                    DispatchQueue.main.async {
-                        self.hud.hide(animated: true)
-                        switch protoResponse {
-                        case let clientGetRoomResponse as IGPClientGetRoomResponse:
-                            IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom), object: nil, userInfo: ["room": roomId])
-                        default:
-                            break
-                        }
+                    IGGlobal.prgHide()
+                    if let clientGetRoomResponse = protoResponse as? IGPClientGetRoomResponse {
+                        IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom), object: nil, userInfo: ["room": roomId])
                     }
                 }).error ({ (errorCode, waitTime) in
-                    DispatchQueue.main.async {
-                        switch errorCode {
-                        case .timeout:
-                            break
-                        default:
-                            break
-                        }
-                        self.hud.hide(animated: true)
-                    }
+                    IGGlobal.prgHide()
                 }).send()
             }
         }
@@ -937,58 +910,26 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
 //MARK:- Room Clear, Delete, Leave
 extension IGRecentsTableViewController {
     func clearChatMessageHistory(room: IGRoom) {
-        self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
-        self.hud.mode = .indeterminate
+        IGGlobal.prgShow()
         IGChatClearMessageRequest.Generator.generate(room: room).success({ (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case let clearChatMessages as IGPChatClearMessageResponse:
-                    IGChatClearMessageRequest.Handler.interpret(response: clearChatMessages)
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
+            IGGlobal.prgHide()
+            if let clearChatMessages = protoResponse as? IGPChatClearMessageResponse {
+                IGChatClearMessageRequest.Handler.interpret(response: clearChatMessages)
             }
         }).error({ (errorCode , waitTime) in
-            switch errorCode {
-            case .timeout:
-                DispatchQueue.main.async {
-                    self.hud.hide(animated: true)
-                }
-                break
-            default:
-                DispatchQueue.main.async {
-                    self.hud.hide(animated: true)
-                }
-                break
-            }
-            
+            IGGlobal.prgHide()
         }).send()
     }
     
     func clearGroupMessageHistory(room: IGRoom) {
-        self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
-        self.hud.mode = .indeterminate
+        IGGlobal.prgShow()
         IGGroupClearMessageRequest.Generator.generate(group: room).success({ (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case let deleteGroupMessageHistory as IGPGroupClearMessageResponse:
-                    IGGroupClearMessageRequest.Handler.interpret(response: deleteGroupMessageHistory)
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
+            if let deleteGroupMessageHistory = protoResponse as? IGPGroupClearMessageResponse {
+                IGGroupClearMessageRequest.Handler.interpret(response: deleteGroupMessageHistory)
             }
+            IGGlobal.prgHide()
         }).error({ (errorCode , waitTime) in
-            DispatchQueue.main.async {
-                switch errorCode {
-                case .timeout:
-                    break
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
-            }
+            IGGlobal.prgHide()
         }).send()
     }
     
@@ -1000,28 +941,14 @@ extension IGRecentsTableViewController {
             roomMute = .unmute
         }
         
-        self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
-        self.hud.mode = .indeterminate
+        IGGlobal.prgShow()
         IGClientMuteRoomRequest.Generator.generate(roomId: roomId, roomMute: roomMute).success({ (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case let muteRoomResponse as IGPClientMuteRoomResponse:
-                    IGClientMuteRoomRequest.Handler.interpret(response: muteRoomResponse)
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
+            IGGlobal.prgHide()
+            if let muteRoomResponse = protoResponse as? IGPClientMuteRoomResponse {
+                IGClientMuteRoomRequest.Handler.interpret(response: muteRoomResponse)
             }
         }).error({ (errorCode , waitTime) in
-            DispatchQueue.main.async {
-                switch errorCode {
-                case .timeout:
-                    break
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
-            }
+            IGGlobal.prgHide()
         }).send()
     }
     
@@ -1043,106 +970,134 @@ extension IGRecentsTableViewController {
             }
         }
         
-        
-        self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
-        self.hud.mode = .indeterminate
-        IGClientPinRoomRequest.Generator.generate(roomId: roomId, pin: pin).success({ (protoResponse) in
+        IGGlobal.prgShow()
+        IGClientPinRoomRequest.Generator.generate(roomId: roomId, pin: pin).success({ [weak self] (protoResponse) in
+            IGGlobal.prgHide()
+            if let pinRoomResponse = protoResponse as? IGPClientPinRoomResponse {
+                IGClientPinRoomRequest.Handler.interpret(response: pinRoomResponse)
+            }
             DispatchQueue.main.async {
-                switch protoResponse {
-                case let pinRoomResponse as IGPClientPinRoomResponse:
-                    IGClientPinRoomRequest.Handler.interpret(response: pinRoomResponse)
-                    break
-                    
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
-                self.tableView.reloadData()
-
+                self?.tableView.reloadData()
             }
         }).error({ (errorCode , waitTime) in
-            DispatchQueue.main.async {
-                switch errorCode {
-                case .timeout: break
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
-            }
+            IGGlobal.prgHide()
         }).send()
     }
     
     func reportRoom(roomId: Int64, reason: IGPClientRoomReport.IGPReason) {
-        self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
-        self.hud.mode = .indeterminate
+        IGGlobal.prgShow()
         IGClientRoomReportRequest.Generator.generate(roomId: roomId, reason: reason).success({ (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case _ as IGPClientRoomReportResponse:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ReportSent.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
-
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
-            }
+            IGGlobal.prgHide()
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ReportSent.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
         }).error({ (errorCode , waitTime) in
-            DispatchQueue.main.async {
-                switch errorCode {
-                case .timeout:
-                    break
-                    
-                case .clientRoomReportReportedBefore:
-                    break
-                    
-                case .clientRoomReportForbidden:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Room Report Fobidden", cancelText: IGStringsManager.GlobalClose.rawValue.localized )
-
-                    break
-                    
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
+            IGGlobal.prgHide()
+            switch errorCode {
+            case .timeout:
+                break
+                
+            case .clientRoomReportReportedBefore:
+                break
+                
+            case .clientRoomReportForbidden:
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "Room Report Fobidden", cancelText: IGStringsManager.GlobalClose.rawValue.localized )
+                
+                break
+            default:
+                break
             }
         }).send()
     }
     
     func reportUser(userId: Int64, reason: IGPUserReport.IGPReason) {
-        self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
-        self.hud.mode = .indeterminate
+        IGGlobal.prgShow()
         IGUserReportRequest.Generator.generate(userId: userId, reason: reason).success({ (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case _ as IGPUserReportResponse:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ReportSent.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
-
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
-            }
+            IGGlobal.prgHide()
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.ReportSent.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
         }).error({ (errorCode , waitTime) in
+            IGGlobal.prgHide()
+            switch errorCode {
+            case .timeout:
+                break
+                
+            case .userReportReportedBefore:
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UserReportedBefore.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
+                break
+                
+            case .userReportForbidden:
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "User Report Forbidden.", cancelText: IGStringsManager.GlobalClose.rawValue.localized )
+                break
+                
+            default:
+                break
+            }
+        }).send()
+    }
+    
+    func deleteChat(room: IGRoom) {
+        IGGlobal.prgShow()
+        IGChatDeleteRequest.Generator.generate(room: room).success({ (protoResponse) in
+            if let deleteChat = protoResponse as? IGPChatDeleteResponse {
+                IGChatDeleteRequest.Handler.interpret(response: deleteChat)
+            }
+            IGGlobal.prgHide()
+        }).error({ (errorCode , waitTime) in
+            IGGlobal.prgHide()
+        }).send()
+    }
+    
+    func deleteGroup(room: IGRoom) {
+        IGGlobal.prgShow()
+        IGGroupDeleteRequest.Generator.generate(group: room).success({ (protoResponse) in
+            if let deleteGroup = protoResponse as? IGPGroupDeleteResponse {
+                IGGroupDeleteRequest.Handler.interpret(response: deleteGroup)
+            }
+            IGGlobal.prgHide()
+        }).error({ (errorCode , waitTime) in
+            IGGlobal.prgHide()
+        }).send()
+    }
+    
+    func leaveGroup(room: IGRoom) {
+        IGGlobal.prgShow()
+        IGGroupLeftRequest.Generator.generate(room: room).success{ (protoResponse) in
+            if let response = protoResponse as? IGPGroupLeftResponse {
+                IGGroupLeftRequest.Handler.interpret(response: response)
+            }
+            IGGlobal.prgHide()
+        }.error { (errorCode, waitTime) in
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
                     break
-                    
-                case .userReportReportedBefore:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.UserReportedBefore.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized )
-
-                    break
-                    
-                case .userReportForbidden:
-                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "User Report Forbidden.", cancelText: IGStringsManager.GlobalClose.rawValue.localized )
-
-                    break
-                    
                 default:
-                    break
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "There was an error leaving this group.", cancelText: IGStringsManager.GlobalClose.rawValue.localized )
                 }
-                self.hud.hide(animated: true)
+                IGGlobal.prgHide()
             }
+        }.send()
+    }
+    
+    func leaveChannel(room: IGRoom) {
+        IGGlobal.prgShow()
+        IGChannelLeftRequest.Generator.generate(room: room).success { (protoResponse) in
+            if let response = protoResponse as? IGPChannelLeftResponse {
+                IGChannelLeftRequest.Handler.interpret(response: response)
+            }
+            IGGlobal.prgHide()
+        }.error({ (errorCode , waitTime) in
+            IGGlobal.prgHide()
+        }).send()
+    }
+    
+    func deleteChannel(room: IGRoom) {
+        IGGlobal.prgShow()
+        IGChannelDeleteRequest.Generator.generate(roomID: room.id).success({ (protoResponse) in
+            if let deleteChannel = protoResponse as? IGPChannelDeleteResponse {
+                let _ = IGChannelDeleteRequest.Handler.interpret(response: deleteChannel)
+            }
+            IGGlobal.prgHide()
+        }).error({ (errorCode , waitTime) in
+            IGGlobal.prgHide()
         }).send()
     }
     
@@ -1194,9 +1149,7 @@ extension IGRecentsTableViewController {
             self.performSegue(withIdentifier: "showReportPage", sender: self)
         })
         
-        let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: { (action) in
-            
-        })
+        let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: nil)
         
         alertC.addAction(abuse)
         alertC.addAction(spam)
@@ -1209,162 +1162,8 @@ extension IGRecentsTableViewController {
         alertC.addAction(other)
         alertC.addAction(cancel)
         
-        self.present(alertC, animated: true, completion: {
-            
-        })
-    }
-    
-    func deleteChat(room: IGRoom) {
-        self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
-        self.hud.mode = .indeterminate
-        IGChatDeleteRequest.Generator.generate(room: room).success({ (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case let deleteChat as IGPChatDeleteResponse:
-                    IGChatDeleteRequest.Handler.interpret(response: deleteChat)
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
-            }
-        }).error({ (errorCode , waitTime) in
-            DispatchQueue.main.async {
-                switch errorCode {
-                case .timeout: break
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
-            }
-            
-        }).send()
-    }
-    
-    func deleteGroup(room: IGRoom) {
-        self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
-        self.hud.mode = .indeterminate
-        IGGroupDeleteRequest.Generator.generate(group: room).success({ (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case let deleteGroup as IGPGroupDeleteResponse:
-                    IGGroupDeleteRequest.Handler.interpret(response: deleteGroup)
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
-            }
-        }).error({ (errorCode , waitTime) in
-            DispatchQueue.main.async {
-                switch errorCode {
-                case .timeout: break
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
-            }
-        }).send()
-    }
-    
-    func leaveGroup(room: IGRoom) {
-        self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
-        self.hud.mode = .indeterminate
-        IGGroupLeftRequest.Generator.generate(room: room).success{ (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case let response as IGPGroupLeftResponse:
-                    IGGroupLeftRequest.Handler.interpret(response: response)
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
-            }
-            }.error { (errorCode, waitTime) in
-                DispatchQueue.main.async {
-                    switch errorCode {
-                    case .timeout:
-                        break
-                    default:
-                        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: "There was an error leaving this group.", cancelText: IGStringsManager.GlobalClose.rawValue.localized )
-
-
-                    }
-                    self.hud.hide(animated: true)
-                }
-            }.send()
-    }
-    
-    func leaveChannel(room: IGRoom) {
-        self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
-        self.hud.mode = .indeterminate
-        IGChannelLeftRequest.Generator.generate(room: room).success { (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case let response as IGPChannelLeftResponse:
-                    IGChannelLeftRequest.Handler.interpret(response: response)
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
-            }
-            }.error({ (errorCode , waitTime) in
-                    DispatchQueue.main.async {
-                        switch errorCode {
-                        case .timeout:
-                            break
-                        default:
-                            break
-                        }
-                        self.hud.hide(animated: true)
-                    }
-                }).send()
-            }
-    
-    func deleteChannel(room: IGRoom) {
-        self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
-        self.hud.mode = .indeterminate
-        IGChannelDeleteRequest.Generator.generate(roomID: room.id).success({ (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case let deleteChannel as IGPChannelDeleteResponse:
-                    let _ = IGChannelDeleteRequest.Handler.interpret(response: deleteChannel)
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
-            }
-        }).error({ (errorCode , waitTime) in
-            DispatchQueue.main.async {
-                switch errorCode {
-                case .timeout:
-                    break
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
-            }
-        }).send()
-    }
-    
-    /***************** Send Rooms Status *****************/
-    
-    private func manageUnreadMessage(roomId: Int64, roomType: IGRoom.IGType, message: IGPRoomMessage){
-        IGDatabaseManager.shared.perfrmOnDatabaseThread {
-            try! IGDatabaseManager.shared.realm.write {
-                let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", roomId)).first
-                let message = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "id = %lld", message.igpMessageID)).first
-                
-                if room != nil && message != nil {
-                    /**
-                     * client checked (room.unreadCount <= 1) because in IGHelperMessage unreadCount++
-                     */
-                    if (room!.unreadCount <= Int32(1)) {
-                        message?.futureMessageId = message!.id
-                        room?.firstUnreadMessage = message
-                    }
-                }
-            }
-        }
-    }
+        self.present(alertC, animated: true, completion: nil)
+    } 
 }
 
 
@@ -1404,38 +1203,10 @@ extension IGRecentsTableViewController {
     }
 }
 
-
-/*
-extension IGRecentsTableViewController {
-    func loadMoreRooms() {
-        if !isLoadingMoreRooms && numberOfRoomFetchedInLastRequest % IGAppManager.sharedManager.LOAD_ROOM_LIMIT == 0 {
-            isLoadingMoreRooms = true
-            let offset = rooms!.count
-            IGClientGetRoomListRequest.Generator.generate(offset: Int32(offset), limit: Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)).success ({ (responseProtoMessage) in
-                DispatchQueue.main.async {
-                    self.isLoadingMoreRooms = false
-                    switch responseProtoMessage {
-                    case let response as IGPClientGetRoomListResponse:
-                        self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: response)
-                    default:
-                        break;
-                    }
-                }
-            }).error({ (errorCode, waitTime) in }).send()
-        }
-    }
-}
-*/
-
 //MARK: SEARCH BAR DELEGATE
 extension IGRecentsTableViewController: UISearchBarDelegate/*, UISearchResultsUpdating*/ {
     
-//    func updateSearchResults(for searchController: UISearchController) {
-//
-//    }
-    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        //Show Cancel
         searchBar.setShowsCancelButton(true, animated: true)
         searchBar.tintColor = .white
     }
@@ -1445,30 +1216,19 @@ extension IGRecentsTableViewController: UISearchBarDelegate/*, UISearchResultsUp
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-//        if let searchBarCancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
-//            searchBarCancelButton.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
-//            searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
-//            searchBarCancelButton.tintColor = UIColor.white
-//        }
-
         self.searchController.isActive = false
         let lookAndFind = IGLookAndFind.instantiateFromAppStroryboard(appStoryboard: .Setting)
         lookAndFind.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(lookAndFind, animated: false)
-
         return false
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        //Hide Cancel
-//        searchBar.setShowsCancelButton(false, animated: true)
         self.searchController.isActive = false
         searchBar.resignFirstResponder()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        //Hide Cancel
-//        searchBar.setShowsCancelButton(false, animated: true)
         self.searchController.isActive = false
         searchBar.text = String()
         searchBar.resignFirstResponder()

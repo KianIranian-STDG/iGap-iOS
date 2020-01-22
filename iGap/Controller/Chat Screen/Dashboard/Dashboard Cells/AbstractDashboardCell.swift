@@ -11,6 +11,7 @@
 import UIKit
 import IGProtoBuff
 import MBProgressHUD
+import SwiftEventBus
 
 class AbstractDashboardCell: UICollectionViewCell {
 
@@ -654,11 +655,11 @@ class AbstractDashboardCell: UICollectionViewCell {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
-                    IGDashboardViewController.discoveryObserver?.onNearbyClick()
+                    SwiftEventBus.post(EventBusManager.discoveryNearbyClick)
                     return
                 }
             } else {
-                IGDashboardViewController.discoveryObserver?.onNearbyClick()
+                SwiftEventBus.post(EventBusManager.discoveryNearbyClick)
                 return
             }
         case .call:

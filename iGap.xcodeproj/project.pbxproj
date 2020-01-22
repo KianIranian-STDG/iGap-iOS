@@ -76,7 +76,6 @@
 		8E5495CF22F02BB1001D30E1 /* SMTwoInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E5495CE22F02BB1001D30E1 /* SMTwoInputView.xib */; };
 		8E5495D122F02BEF001D30E1 /* SMTwoInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5495D022F02BEF001D30E1 /* SMTwoInputView.swift */; };
 		8E5495D322F03104001D30E1 /* customCardNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5495D222F03104001D30E1 /* customCardNumberTextField.swift */; };
-		8E599D6D232515BC00D75376 /* IGDashboardViewControllerInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D6C232515BC00D75376 /* IGDashboardViewControllerInner.swift */; };
 		8E599D6F2325316100D75376 /* IGSettingsNotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D6E2325316100D75376 /* IGSettingsNotificationsTableViewController.swift */; };
 		8E599D722325322000D75376 /* IGSettingsDataAndStorageUsageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D702325322000D75376 /* IGSettingsDataAndStorageUsageTableViewController.swift */; };
 		8E599D732325322000D75376 /* IGSettingsDataAndStorageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D712325322000D75376 /* IGSettingsDataAndStorageTableViewController.swift */; };
@@ -603,7 +602,6 @@
 		FA712AE5225DCCCC00FD78AA /* IGRealmDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */; };
 		FA73EC9521ECDDA50059EE8A /* IGHelperBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73EC9421ECDDA50059EE8A /* IGHelperBot.swift */; };
 		FA77E0FD2261E9D4008D6D25 /* IGHelperNearby.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA77E0FC2261E9D4008D6D25 /* IGHelperNearby.swift */; };
-		FA77E0FF2261EBCB008D6D25 /* DiscoveryObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA77E0FE2261EBCB008D6D25 /* DiscoveryObserver.swift */; };
 		FA786D58206A575300608A2D /* profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAA51753206A254200471EA0 /* profile.storyboard */; };
 		FA786D5A206A746700608A2D /* CreateRoom.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA786D59206A746700608A2D /* CreateRoom.storyboard */; };
 		FA7886C6223639E30006336F /* AbstractDashboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7886C5223639E30006336F /* AbstractDashboardCell.swift */; };
@@ -958,7 +956,6 @@
 		8E5495CE22F02BB1001D30E1 /* SMTwoInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMTwoInputView.xib; sourceTree = "<group>"; };
 		8E5495D022F02BEF001D30E1 /* SMTwoInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMTwoInputView.swift; sourceTree = "<group>"; };
 		8E5495D222F03104001D30E1 /* customCardNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customCardNumberTextField.swift; sourceTree = "<group>"; };
-		8E599D6C232515BC00D75376 /* IGDashboardViewControllerInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGDashboardViewControllerInner.swift; sourceTree = "<group>"; };
 		8E599D6E2325316100D75376 /* IGSettingsNotificationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingsNotificationsTableViewController.swift; sourceTree = "<group>"; };
 		8E599D702325322000D75376 /* IGSettingsDataAndStorageUsageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingsDataAndStorageUsageTableViewController.swift; sourceTree = "<group>"; };
 		8E599D712325322000D75376 /* IGSettingsDataAndStorageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingsDataAndStorageTableViewController.swift; sourceTree = "<group>"; };
@@ -1512,7 +1509,6 @@
 		FA73EC9421ECDDA50059EE8A /* IGHelperBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperBot.swift; sourceTree = "<group>"; };
 		FA752C321E1EC571008694C6 /* iGap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = iGap.entitlements; path = ../iGap.entitlements; sourceTree = "<group>"; };
 		FA77E0FC2261E9D4008D6D25 /* IGHelperNearby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperNearby.swift; sourceTree = "<group>"; };
-		FA77E0FE2261EBCB008D6D25 /* DiscoveryObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryObserver.swift; sourceTree = "<group>"; };
 		FA786D59206A746700608A2D /* CreateRoom.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateRoom.storyboard; sourceTree = "<group>"; };
 		FA7886C5223639E30006336F /* AbstractDashboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractDashboardCell.swift; sourceTree = "<group>"; };
 		FA7A2ED21DF5830F00164435 /* IGRegisteredUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRegisteredUser.swift; sourceTree = "<group>"; };
@@ -3127,7 +3123,6 @@
 			isa = PBXGroup;
 			children = (
 				D650DF21235DC7DE00780B5E /* UpdateMyRoleObserver.swift */,
-				FA77E0FE2261EBCB008D6D25 /* DiscoveryObserver.swift */,
 				FA7E9BD322631D7900FB861D /* SelectCountryObserver.swift */,
 			);
 			path = Protocols;
@@ -3225,7 +3220,6 @@
 				FA8A49E1226AEB6F00544B06 /* Score */,
 				FA99FF5A22351A50009035DF /* Dashboard Cells */,
 				FA99FF5C22351CA9009035DF /* IGDashboardViewController.swift */,
-				8E599D6C232515BC00D75376 /* IGDashboardViewControllerInner.swift */,
 				8EBF551F22DCA8EF00834E6A /* IGFavouriteChannelsDashboardTableViewController.swift */,
 				8ED97D7522E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift */,
 				FA6C2DE82267413A005654AC /* IGScoreViewController.swift */,
@@ -4226,7 +4220,6 @@
 				8ED97D7622E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift in Sources */,
 				FAA65CFB220AC0280006994A /* StickerCell.swift in Sources */,
 				8EBF550922D9B85400834E6A /* DahsboardCell8.swift in Sources */,
-				FA77E0FF2261EBCB008D6D25 /* DiscoveryObserver.swift in Sources */,
 				8EA854A6239E25EE00C9442F /* IGThemeCVCell.swift in Sources */,
 				FA09538A1E1B97E20043ED3F /* IGCreateNewGroupTableViewController.swift in Sources */,
 				8E06F0592344A6CF00CE0536 /* IGProfileUsercellTypeRed.swift in Sources */,
@@ -4454,7 +4447,6 @@
 				FA63BAA51DD70DD0000B60AD /* IGRequest.swift in Sources */,
 				8EBF54F922D9B60D00834E6A /* DataEntry.swift in Sources */,
 				FA9F73562127E589004418E5 /* EPConstants.swift in Sources */,
-				8E599D6D232515BC00D75376 /* IGDashboardViewControllerInner.swift in Sources */,
 				8EE7FC95225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift in Sources */,
 				FA63BAAF1DD70F21000B60AD /* IGRequestChannel.swift in Sources */,
 				FAB623EA229526D3006DEA00 /* CardToCardCell.swift in Sources */,

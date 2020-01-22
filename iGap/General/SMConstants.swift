@@ -46,6 +46,8 @@ struct EventBusManager {
     static let stickerToolbarClick = "stickerToolbarClick"
     static let stickerCurrentGroupId = "stickerCurrentGroupId"
     static let stickerAdd = "stickerAdd"
+    static let discoveryFetchFirstPage = "discoveryFetchFirstPage"
+    static let discoveryNearbyClick = "discoveryNearbyClick"
 }
 
 struct SMMessage {

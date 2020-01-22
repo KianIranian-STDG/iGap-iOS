@@ -13,6 +13,7 @@ import UIKit
 import IGProtoBuff
 import SwiftProtobuf
 import FirebaseInstanceID
+import SwiftEventBus
 
 enum IGVerificationCodeSendMethod {
     case sms
@@ -170,7 +171,7 @@ class IGUserLoginRequest: IGRequest {
             
             IGMessageSender.defaultSender.failSendingMessage()
             
-            IGDashboardViewController.discoveryObserver?.onFetchFirstPage()
+            SwiftEventBus.post(EventBusManager.discoveryFetchFirstPage)
             
             if IGAppManager.sharedManager.walletRegistered() {
                 IGRequestWalletGetAccessToken.sendRequest()

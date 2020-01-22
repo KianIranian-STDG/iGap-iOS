@@ -56,10 +56,8 @@ class IGCallsTableViewController: BaseTableViewController {
         let sortProperties = [SortDescriptor(keyPath: "offerTime", ascending: false)]
         callLogList = try! Realm().objects(IGRealmCallLog.self).sorted(by: sortProperties)
         
-        
         self.tableView.register(IGCallListTableViewCell.nib(), forCellReuseIdentifier: IGCallListTableViewCell.cellReuseIdentifier())
         self.tableView.tableFooterView = UIView()
-//        self.tableView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         self.view.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         self.tableView.tableHeaderView?.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         
@@ -76,8 +74,8 @@ class IGCallsTableViewController: BaseTableViewController {
         }
         callTypes = IGPSignalingGetLog.IGPFilter.allCases
         
-        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
-            self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
+        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { [weak self] (connectionStatus) in
+            self?.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
         }, onError: { (error) in
             
         }, onCompleted: {
@@ -85,27 +83,25 @@ class IGCallsTableViewController: BaseTableViewController {
         }, onDisposed: {
             
         }).disposed(by: disposeBag)
-            SwiftEventBus.onMainThread(self, name: "initTheme") { result in
-                self.initTheme()
-
-            }
+        
+        SwiftEventBus.onMainThread(self, name: "initTheme") { [weak self] result in
+            self?.initTheme()
+        }
+        
         initTheme()
-        }
+    }
 
-        private func initTheme() {
-            self.tableView.reloadData()
-            self.transactionTypesCollectionView.reloadData()
-            self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
-            self.transactionTypesCollectionView.backgroundColor = .clear
-            self.tableView!.setEmptyMessage(IGStringsManager.GlobalNoHistory.rawValue.localized)
-
-        }
+    private func initTheme() {
+        self.tableView.reloadData()
+        self.transactionTypesCollectionView.reloadData()
+        self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
+        self.transactionTypesCollectionView.backgroundColor = .clear
+        self.tableView!.setEmptyMessage(IGStringsManager.GlobalNoHistory.rawValue.localized)
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         initNavigationBar()
-//        self.initTheme()
         self.initTheme()
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -115,17 +111,21 @@ class IGCallsTableViewController: BaseTableViewController {
         transactionTypesCollectionView.selectItem(at: selectedIndex, animated: false, scrollPosition: [])
     }
     
+    deinit {
+        print("Deinit IGCallsTableViewController")
+    }
+    
     private func initNavigationBar() {
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.setCallListNavigationItems()
         self.hideKeyboardWhenTappedAround()
         
-        navigationItem.rightViewContainer?.addAction {
-            self.goToContactListPage()
+        navigationItem.rightViewContainer?.addAction { [weak self] in
+            self?.goToContactListPage()
         }
-        navigationItem.leftViewContainer?.addAction {
-            if !(self.callLogList!.count == 0) {
-                self.showClearHistoryActionSheet()
+        navigationItem.leftViewContainer?.addAction { [weak self] in
+            if !(self?.callLogList?.count ?? 0 == 0) {
+                self?.showClearHistoryActionSheet()
             }
         }
     }
@@ -167,7 +167,6 @@ class IGCallsTableViewController: BaseTableViewController {
 
     private func addCollectionFilterView() -> UIView {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
-//        headerView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = UICollectionView.ScrollDirection.horizontal
@@ -217,19 +216,19 @@ class IGCallsTableViewController: BaseTableViewController {
             
         }
         
-        self.notificationToken = callLogList!.observe { (changes: RealmCollectionChange) in
+        self.notificationToken = callLogList!.observe { [weak self] (changes: RealmCollectionChange) in
             switch changes {
                 
             case .initial:
-                self.tableView.reloadData()
+                self?.tableView.reloadData()
                 break
                 
             case .update(_, let deletions, let insertions, let modifications):
-                self.tableView.beginUpdates()
-                self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
-                self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
-                self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
-                self.tableView.endUpdates()
+                self?.tableView.beginUpdates()
+                self?.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
+                self?.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
+                self?.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
+                self?.tableView.endUpdates()
                 break
                 
             case .error(let err):
@@ -239,23 +238,12 @@ class IGCallsTableViewController: BaseTableViewController {
         }
     }
 
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //Hint :- restore call list to its first state on disapreance of viewcontroller
-
-//        self.tableView.isUserInteractionEnabled = true
-    }
-    
-    
     @objc private func fetchCallLogList() {
-        IGSignalingGetLogRequest.Generator.generate(offset: 0, limit: CALL_LOG_CONFIG, mode: currentMode).success { (responseProtoMessage) in
+        IGSignalingGetLogRequest.Generator.generate(offset: 0, limit: CALL_LOG_CONFIG, mode: currentMode).success { [weak self] (responseProtoMessage) in
             DispatchQueue.main.async {
-                
                 if let signalingResponse = responseProtoMessage as? IGPSignalingGetLogResponse {
-                    self.numberOfCallLogFetchedInLastRequest = IGSignalingGetLogRequest.Handler.interpret(response: signalingResponse)
+                    self?.numberOfCallLogFetchedInLastRequest = IGSignalingGetLogRequest.Handler.interpret(response: signalingResponse)
                 }
-                
             }}.error({ (errorCode, waitTime) in }).send()
     }
     
@@ -281,7 +269,7 @@ class IGCallsTableViewController: BaseTableViewController {
                             hud.hide(animated: true)
                         }
                     }
-                }).error({ (errorCode, waitTime) in
+                }).error({ [weak self] (errorCode, waitTime) in
                     DispatchQueue.main.async {
                         switch errorCode {
                         case .timeout:
@@ -290,7 +278,7 @@ class IGCallsTableViewController: BaseTableViewController {
                             default:
                             break
                         }
-                        self.hud.hide(animated: true)
+                        self?.hud.hide(animated: true)
                     }
                 }).send()
             }
@@ -389,7 +377,6 @@ class IGCallsTableViewController: BaseTableViewController {
 //    }
     private func sendClearOneRowRequest(rowID: Int64!) {
 
-        print(rowID)
         SMLoading.showLoadingPage(viewcontroller: self)
         IGSignalingClearLogRequest.Generator.generate(logIDArray: [rowID]).success({ (protoResponse) in
             DispatchQueue.main.async {
@@ -449,19 +436,19 @@ extension IGCallsTableViewController {
             
             let offset : Int! = callLogList!.count
             //
-            IGSignalingGetLogRequest.Generator.generate(offset: Int32(offset), limit: CALL_LOG_CONFIG, mode: currentMode).success { (responseProtoMessage) in
+            IGSignalingGetLogRequest.Generator.generate(offset: Int32(offset), limit: CALL_LOG_CONFIG, mode: currentMode).success { [weak self] (responseProtoMessage) in
                 DispatchQueue.main.async {
                     
                     if let callLog = responseProtoMessage as? IGPSignalingGetLogResponse {
-                        self.numberOfCallLogFetchedInLastRequest = IGSignalingGetLogRequest.Handler.interpret(response: callLog)
+                        self?.numberOfCallLogFetchedInLastRequest = IGSignalingGetLogRequest.Handler.interpret(response: callLog)
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                        self.isLoadingMore = false
+                        self?.isLoadingMore = false
                     }
                 }
-                }.error({ (errorCode, waitTime) in
+                }.error({ [weak self] (errorCode, waitTime) in
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                        self.isLoadingMore = false
+                        self?.isLoadingMore = false
                     }
                 }).send()
         }

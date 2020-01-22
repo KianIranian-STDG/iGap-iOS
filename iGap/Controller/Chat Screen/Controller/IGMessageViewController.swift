@@ -1308,7 +1308,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if #available(iOS 10.0, *) {
             switch sender.tag {
             case IGStickerToolbar.shared.STICKER_ADD:
-                print("TTT || tap on sticker")
                 SwiftEventBus.postToMainThread(EventBusManager.stickerCurrentGroupId)
                 IGTabBarStickerController.openStickerCategories()
                 break

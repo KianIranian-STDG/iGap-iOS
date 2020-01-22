@@ -29,11 +29,10 @@ class IGTabBarController: UITabBarController {
         super.viewDidLoad()
         manageTheme()
         initView()
-        SwiftEventBus.onMainThread(self, name: "initTheme") { result in
-            self.initTheme()
+        SwiftEventBus.onMainThread(self, name: "initTheme") { [weak self] result in
+            self?.initTheme()
         }
         self.initTheme()
-
     }
 
     
@@ -138,9 +137,9 @@ class IGTabBarController: UITabBarController {
             default: break
             }
             SwiftEventBus.post("initTheme")
-
         }
     }
+    
     private func manageTheme() {
         let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
         
@@ -159,8 +158,8 @@ class IGTabBarController: UITabBarController {
             ThemeManager.currentTheme = ClassicTheme()
             manageColorSet(mode: "IGAPClassic")
         }
-        
     }
+    
     private func initTheme() {
         let tabBarItemApperance = UITabBarItem.appearance()
         tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): ThemeManager.currentTheme.LabelGrayColor, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.normal)
@@ -169,8 +168,7 @@ class IGTabBarController: UITabBarController {
         self.tabBar.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         self.view.backgroundColor =  ThemeManager.currentTheme.TableViewBackgroundColor
 
-
-            setTabBarItems()
+        setTabBarItems()
         
         for item in tabBar.items! {
             if #available(iOS 10.0, *) {
@@ -182,13 +180,13 @@ class IGTabBarController: UITabBarController {
                 ], for: .normal)
             }
         }
-
     }
+    
     private func initView() {
         
         let tabBarItemApperance = UITabBarItem.appearance()
-    tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): ThemeManager.currentTheme.LabelGrayColor, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.normal)
-    tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): ThemeManager.currentTheme.LabelColor, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.selected)
+        tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): ThemeManager.currentTheme.LabelGrayColor, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.normal)
+        tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): ThemeManager.currentTheme.LabelColor, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.igFont(ofSize: 9,weight: .bold)]), for: UIControl.State.selected)
         
         self.delegate = self
         
@@ -202,7 +200,6 @@ class IGTabBarController: UITabBarController {
         
         setTabBarItems()
         self.selectedIndex = 2
-        
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -221,10 +218,11 @@ class IGTabBarController: UITabBarController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-
         self.initTheme()
-        
+    }
+    
+    deinit {
+        print("Deinit IGTabBarController")
     }
     
     public func selectTabBar(tabBar: UITabBar, didSelect item: TabBarTab) {

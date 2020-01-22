@@ -16,7 +16,7 @@ import RxSwift
 
 var isDashboardInner: Bool! = false
 
-class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate, DiscoveryObserver {
+class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate {
     
     static let itemCorner: CGFloat = 15
     let screenWidth = UIScreen.main.bounds.width
@@ -26,7 +26,6 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     private var pollListInfoInner: [IGPPollField] = []
     private var refresher: UIRefreshControl!
     private let locationManager = CLLocationManager()
-    static var discoveryObserver: DiscoveryObserver!
     static var needGetFirstPage = true
     private var pollResponse: IGPClientGetPollResponse!
     /// boolean value ehat shows if view controller is trying to get discovery items now
@@ -41,6 +40,9 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        eventBusInitializer()
+        
         isfromPacket = false
         
         let navigationItem = self.navigationItem as! IGNavigationItem
@@ -65,25 +67,15 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         
         if IGGlobal.shouldShowChart {
             getPollRequest()
-        }
-        else {
+        } else {
             getDiscoveryList()
         }
         
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_DISCOVERY_PAGE)
         initFont()
                 
-//        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
-//            self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
-//        }, onError: { (error) in
-//
-//        }, onCompleted: {
-//
-//        }, onDisposed: {
-//
-//        }).disposed(by: disposeBag)
-        SwiftEventBus.onMainThread(self, name: "initTheme") { result in
-            self.initTheme()
+        SwiftEventBus.onMainThread(self, name: "initTheme") { [weak self] result in
+            self?.initTheme()
         }
 
         self.initTheme()
@@ -94,13 +86,11 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        IGDashboardViewController.discoveryObserver = self
         let navigationControllerr = self.navigationController as! IGNavigationController
         navigationControllerr.navigationBar.isHidden = false
         
-        
-        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
-            self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
+        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { [weak self] (connectionStatus) in
+            self?.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
         }, onError: { (error) in
             
         }, onCompleted: {
@@ -115,15 +105,28 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
             self.initDashboardNavigationBar()
         }
         
-//        collectionView.reloadData()
         initFont()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         self.disposeBag = DisposeBag()
+    }
+    
+    deinit {
+        print("Deinit IGDashboardViewController")
+    }
+    
+    private func eventBusInitializer() {
+        SwiftEventBus.on(self, name: EventBusManager.discoveryFetchFirstPage, queue: OperationQueue.current) { [weak self] (result) in
+            if IGDashboardViewController.needGetFirstPage && self?.pageId == 0 {
+                self?.getDiscoveryList()
+            }
+        }
         
+        SwiftEventBus.on(self, name: EventBusManager.discoveryNearbyClick, queue: OperationQueue.current) { [weak self] (result) in
+            self?.manageOpenMap()
+        }
     }
     
     private func initFont() {
@@ -220,12 +223,14 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         }
         IGGlobal.pageIDChartUpdate = pageId
         
-        IGPClientGetPollRequest.Generator.generate(pageId: pageId).successPowerful({ (protoResponse, requestWrapper) in
+        IGPClientGetPollRequest.Generator.generate(pageId: pageId).successPowerful({ [weak self] (protoResponse, requestWrapper) in
+            if self == nil {return}
+            
             if let response = protoResponse as? IGPClientGetPollResponse {
-                self.pollResponse = response
-                self.pollList = response.igpPolls
+                self!.pollResponse = response
+                self!.pollList = response.igpPolls
                 
-                var tmpPollList = response.igpPolls[self.pollList.count-1]
+                var tmpPollList = response.igpPolls[self!.pollList.count-1]
 
                 tmpPollList.igpModel = IGPDiscovery.IGPDiscoveryModel(rawValue: 7)!
                 tmpPollList.igpScale = "8:4"
@@ -233,36 +238,35 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 tmpPollList.igpPollfields[0].igpID = 99999999
                 tmpPollList.igpPollfields[0].igpLabel = "نمودار"
 
-                for elemnt in self.pollList {
+                for elemnt in self!.pollList {
                     for elemnt in elemnt.igpPollfields {
                         if elemnt.igpClickable == true {
                             if elemnt.igpClicked == true {
                                 IGGlobal.hideBarChart = false
                             }
-                            self.pollListInfoInner.append(elemnt)
+                            self!.pollListInfoInner.append(elemnt)
                         }
                     }
                 }
                 
-                self.pollList.append(tmpPollList)
+                self!.pollList.append(tmpPollList)
 
-                
-                
                 DispatchQueue.main.async {
                     if isDashboardInner! {
-                        let navigationItem = self.navigationItem as! IGNavigationItem
-                        navigationItem.addNavigationViewItems(rightItemText: nil, title: response.igpTitle)
+                        if let navigationItem = self?.navigationItem as? IGNavigationItem {
+                            navigationItem.addNavigationViewItems(rightItemText: nil, title: response.igpTitle)
+                        }
                     }
                     
-                    self.collectionView.reloadData()
+                    self?.collectionView.reloadData()
                 }
             }
-        }).error ({ (errorCode, waitTime) in
+        }).error ({ [weak self] (errorCode, waitTime) in
             
             switch errorCode {
             case .timeout:
-                self.getPollRequest()
-                self.manageShowDiscovery()
+                self?.getPollRequest()
+                self?.manageShowDiscovery()
             default:
                 break
             }
@@ -294,43 +298,44 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
             return
         }
         
-        IGClientGetDiscoveryRequest.Generator.generate(pageId: pageId).successPowerful({ (protoResponse, requestWrapper) in
+        IGClientGetDiscoveryRequest.Generator.generate(pageId: pageId).successPowerful({ [weak self] (protoResponse, requestWrapper) in
             if let response = protoResponse as? IGPClientGetDiscoveryResponse {
-                self.discoveries = response.igpDiscoveries
+                self?.discoveries = response.igpDiscoveries
                 
-                self.isGettingDiscovery = false
+                self?.isGettingDiscovery = false
                 
                 /* just save first page info */
                 if let request = requestWrapper.message as? IGPClientGetDiscovery, request.igpPageID == 0 {
                     IGDashboardViewController.needGetFirstPage = false
-                    IGFactory.shared.addDiscoveryPageInfo(discoveryList: self.discoveries)
+                    IGFactory.shared.addDiscoveryPageInfo(discoveryList: self?.discoveries ?? [])
                 }
                 
                 DispatchQueue.main.async {
                     if isDashboardInner! {
-                        let navigationItem = self.navigationItem as! IGNavigationItem
-                        navigationItem.addNavigationViewItems(rightItemText: nil, title: response.igpTitle)
+                        if let navigationItem = self?.navigationItem as? IGNavigationItem {
+                            navigationItem.addNavigationViewItems(rightItemText: nil, title: response.igpTitle)
+                        }
                     }
                     
-                    if self.deepLinkDiscoveryIds != nil, self.deepLinkDiscoveryIds!.count > 0 {
-                        for discovery in self.discoveries {
-                            if let discoveryField = discovery.igpDiscoveryfields.filter({ return $0.igpID == Int32(self.deepLinkDiscoveryIds?.first ?? "0") }).first {
-                                self.deepLinkDiscoveryIds?.removeFirst()
-                                AbstractDashboardCell.dashboardCellActionManager(discoveryInfo: discoveryField, deepLinkDiscoveryIds: self.deepLinkDiscoveryIds ?? [])
+                    if self?.deepLinkDiscoveryIds != nil, self?.deepLinkDiscoveryIds?.count ?? 0 > 0 {
+                        for discovery in self?.discoveries ?? [] {
+                            if let discoveryField = discovery.igpDiscoveryfields.filter({ return $0.igpID == Int32(self?.deepLinkDiscoveryIds?.first ?? "0") }).first {
+                                self?.deepLinkDiscoveryIds?.removeFirst()
+                                AbstractDashboardCell.dashboardCellActionManager(discoveryInfo: discoveryField, deepLinkDiscoveryIds: self?.deepLinkDiscoveryIds ?? [])
                                 break
                             }
                         }
                         IGGlobal.prgHide()
                     }
                     
-                    self.collectionView.reloadData()
+                    self?.collectionView.reloadData()
                 }
             }
-        }).error ({ (errorCode, waitTime) in
+        }).error ({ [weak self] (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                self.getDiscoveryList()
-                self.manageShowDiscovery()
+                self?.getDiscoveryList()
+                self?.manageShowDiscovery()
             default:
                 break
             }
@@ -373,19 +378,6 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 self.btnRefresh!.isHidden = false
             }
         }
-    }
-    
-    /*************************************************************/
-    /************************* callbacks *************************/
-    
-    func onFetchFirstPage() {
-        if IGDashboardViewController.needGetFirstPage && pageId == 0 {
-            getDiscoveryList()
-        }
-    }
-    
-    func onNearbyClick() {
-        manageOpenMap()
     }
     
     func manageOpenMap(){
@@ -492,9 +484,6 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         }
         else {
             
-//            print(indexPath.row)
-            print(indexPath.section)
-            
             let item = discoveries[indexPath.section]
             if item.igpModel == .model1 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell1.cellReuseIdentifier(), for: indexPath) as! DashboardCell1
@@ -552,12 +541,10 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // Hint: plus height with 16 ,because in storyboard we used 4 space from top and 4 space from bottom
+        /***** Hint: plus height with 16 ,because in storyboard we used 4 space from top and 4 space from bottom *****/
         if IGGlobal.shouldShowChart {
             return CGSize(width: screenWidth, height: computeHeight(scale: pollList[indexPath.section].igpScale) + 8)
-            
-        }
-        else {
+        } else {
             return CGSize(width: screenWidth, height: computeHeight(scale: discoveries[indexPath.section].igpScale) + 8)
         }
     }
