@@ -325,29 +325,18 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
             type = IGPClientSearchUsernameResponse.IGPResult.IGPType.user.rawValue
         }
         
-        if IGGlobal.isForwardEnable() {
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                IGRecentsTableViewController.forwardStartObserver.onForwardStart(user: searchResult.user, room: room, type: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!)
-            }
-            
-            dismiss(animated: true, completion: nil)
-            dismiss(animated: true, completion: nil)
-            
+        var tmpType : String = "CHAT"
+        if searchResult.type == .bot || searchResult.type == .message {
+            tmpType = "CHAT"
+        } else if searchResult.type == .channel {
+            tmpType = "CHANNEL"
+        } else if  searchResult.type == .group {
+            tmpType = "GROUP"
         } else {
-            var tmpType : String = "CHAT"
-            if searchResult.type == .bot || searchResult.type == .message {
-                tmpType = "CHAT"
-            } else if searchResult.type == .channel {
-                tmpType = "CHANNEL"
-            } else if  searchResult.type == .group {
-                tmpType = "GROUP"
-            } else {
-                tmpType = "CHAT"
-            }
-            
-            IGHelperChatOpener.manageOpenChatOrProfile(usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!, user: searchResult.user, room: room, roomType: tmpType)
+            tmpType = "CHAT"
         }
+        
+        IGHelperChatOpener.manageOpenChatOrProfile(usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!, user: searchResult.user, room: room, roomType: tmpType)
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
            cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor

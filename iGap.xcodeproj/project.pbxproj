@@ -602,7 +602,6 @@
 		FA712AE2225DC9C200FD78AA /* DashboardCell7.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA712AE1225DC5BC00FD78AA /* DashboardCell7.xib */; };
 		FA712AE5225DCCCC00FD78AA /* IGRealmDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */; };
 		FA73EC9521ECDDA50059EE8A /* IGHelperBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73EC9421ECDDA50059EE8A /* IGHelperBot.swift */; };
-		FA764FAA21FC66ED0077E851 /* ForwardStartObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA764FA921FC66ED0077E851 /* ForwardStartObserver.swift */; };
 		FA77E0FD2261E9D4008D6D25 /* IGHelperNearby.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA77E0FC2261E9D4008D6D25 /* IGHelperNearby.swift */; };
 		FA77E0FF2261EBCB008D6D25 /* DiscoveryObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA77E0FE2261EBCB008D6D25 /* DiscoveryObserver.swift */; };
 		FA786D58206A575300608A2D /* profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAA51753206A254200471EA0 /* profile.storyboard */; };
@@ -661,7 +660,6 @@
 		FA8F8A682086027100AF03CB /* IGMapNearbyDistanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8F8A672086027100AF03CB /* IGMapNearbyDistanceCell.swift */; };
 		FA8F8A69208602AB00AF03CB /* IGMapNearbyDistanceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA8F8A66208600AB00AF03CB /* IGMapNearbyDistanceCell.xib */; };
 		FA8FCBB3219C1DAD0028457F /* IGApiStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8FCBB2219C1DAD0028457F /* IGApiStruct.swift */; };
-		FA90B72A20B53EBC00043C89 /* MessageReceiveObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90B72920B53EBC00043C89 /* MessageReceiveObserver.swift */; };
 		FA927E002028416300DF7145 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA927DFF2028416300DF7145 /* VideoCell.swift */; };
 		FA927E02202841C900DF7145 /* VideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA927E012028418600DF7145 /* VideoCell.xib */; };
 		FA927E0420284D7800DF7145 /* GifCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA927E0320284D7800DF7145 /* GifCell.swift */; };
@@ -1513,7 +1511,6 @@
 		FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmDiscovery.swift; sourceTree = "<group>"; };
 		FA73EC9421ECDDA50059EE8A /* IGHelperBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperBot.swift; sourceTree = "<group>"; };
 		FA752C321E1EC571008694C6 /* iGap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = iGap.entitlements; path = ../iGap.entitlements; sourceTree = "<group>"; };
-		FA764FA921FC66ED0077E851 /* ForwardStartObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardStartObserver.swift; sourceTree = "<group>"; };
 		FA77E0FC2261E9D4008D6D25 /* IGHelperNearby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperNearby.swift; sourceTree = "<group>"; };
 		FA77E0FE2261EBCB008D6D25 /* DiscoveryObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryObserver.swift; sourceTree = "<group>"; };
 		FA786D59206A746700608A2D /* CreateRoom.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateRoom.storyboard; sourceTree = "<group>"; };
@@ -1572,7 +1569,6 @@
 		FA8F8A66208600AB00AF03CB /* IGMapNearbyDistanceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGMapNearbyDistanceCell.xib; sourceTree = "<group>"; };
 		FA8F8A672086027100AF03CB /* IGMapNearbyDistanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMapNearbyDistanceCell.swift; sourceTree = "<group>"; };
 		FA8FCBB2219C1DAD0028457F /* IGApiStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiStruct.swift; sourceTree = "<group>"; };
-		FA90B72920B53EBC00043C89 /* MessageReceiveObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReceiveObserver.swift; sourceTree = "<group>"; };
 		FA927DFF2028416300DF7145 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		FA927E012028418600DF7145 /* VideoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoCell.xib; sourceTree = "<group>"; };
 		FA927E0320284D7800DF7145 /* GifCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifCell.swift; sourceTree = "<group>"; };
@@ -3130,9 +3126,7 @@
 		FA90B72820B53E5F00043C89 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				FA90B72920B53EBC00043C89 /* MessageReceiveObserver.swift */,
 				D650DF21235DC7DE00780B5E /* UpdateMyRoleObserver.swift */,
-				FA764FA921FC66ED0077E851 /* ForwardStartObserver.swift */,
 				FA77E0FE2261EBCB008D6D25 /* DiscoveryObserver.swift */,
 				FA7E9BD322631D7900FB861D /* SelectCountryObserver.swift */,
 			);
@@ -4215,7 +4209,6 @@
 				8E5495D122F02BEF001D30E1 /* SMTwoInputView.swift in Sources */,
 				8ECC19B42236937D006E43E8 /* IGMessageAttachmentLocation.swift in Sources */,
 				FA0953511E1B97700043ED3F /* IGSettingChatClearChacheTableViewController.swift in Sources */,
-				FA764FAA21FC66ED0077E851 /* ForwardStartObserver.swift in Sources */,
 				FA42EF0D1E5C224F00CF8A32 /* Array.swift in Sources */,
 				FA85066B22670703002EEBF7 /* mainWalletViewController.swift in Sources */,
 				8EA8551B23A232D600C9442F /* IGRedColorSet.swift in Sources */,
@@ -4563,7 +4556,6 @@
 				FA0CC80B1E5D7D4400556283 /* RegexParser.swift in Sources */,
 				8E4472A623320D6000900244 /* IGProfileUserCell.swift in Sources */,
 				FA09538F1E1B97E20043ED3F /* SSRadioButtonController.swift in Sources */,
-				FA90B72A20B53EBC00043C89 /* MessageReceiveObserver.swift in Sources */,
 				8ED8054323B772FB0097A4A6 /* IGLiveStickerCell.swift in Sources */,
 				9366D98C1E363C2500998BA3 /* IGSettingAboutWebViewViewController.swift in Sources */,
 				8EC94E0423964092003B3510 /* IGTripleNewsTVCell.swift in Sources */,

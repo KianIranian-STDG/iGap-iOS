@@ -27,7 +27,7 @@ import MarkdownKit
 import SwiftEventBus
 
 
-class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObserver, UNUserNotificationCenterDelegate, ForwardStartObserver {
+class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationCenterDelegate {
     var headerHeight: CGFloat = 0
     var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
@@ -85,8 +85,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     var testArray = [IGAvatarView]()
     var testLastMsgArray = [String]()
     var testImageArray = [UIImage]()
-    static var messageReceiveDelegat: MessageReceiveObserver!
-    static var forwardStartObserver: ForwardStartObserver!
     static var visibleChat: [Int64 : Bool] = [:]
     var selectedRoomForSegue : IGRoom?
     var cellIdentifer = IGChatRoomListTableViewCell.cellReuseIdentifier()
@@ -260,8 +258,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         self.searchController.searchBar.delegate = self
         self.tableView.contentOffset = CGPoint(x: 0, y: 55)
 
-        IGRecentsTableViewController.forwardStartObserver = self
-        IGRecentsTableViewController.messageReceiveDelegat = self
         self.tableView.register(IGRoomListtCell.self, forCellReuseIdentifier: cellId)
         
         
@@ -347,6 +343,33 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         }
         SwiftEventBus.onMainThread(self, name: EventBusManager.updateLabelsData) { result in
             self.updateLabelsData(singerName: IGGlobal.topBarSongSinger,songName: IGGlobal.topBarSongName)
+        }
+        
+        /***** Receive Message *****/
+        SwiftEventBus.on(self, name: EventBusManager.messageReceiveGlobal, queue: OperationQueue.current) { result in
+            if let messageInfo = result?.object as? (roomId: Int64, messages: [IGPRoomMessage]) {
+                for message in messageInfo.messages {
+                    var roomType: IGRoom.IGType = .chat
+                    var roomMessageStatus: IGRoomMessageStatus = .delivered
+                    
+                    if let type = self.roomTypeCache[messageInfo.roomId] {
+                        roomType = type
+                    } else {
+                        if let roomInfo = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", messageInfo.roomId)).first {
+                            roomType = roomInfo.type
+                            self.roomTypeCache[messageInfo.roomId] = roomType
+                        }
+                    }
+                    
+                    let seenStatus = IGRecentsTableViewController.visibleChat[messageInfo.roomId]
+                    if seenStatus != nil && seenStatus! {
+                        roomMessageStatus = .seen
+                    }
+                    
+                    self.manageUnreadMessage(roomId: messageInfo.roomId, roomType: roomType, message: message)
+                    IGHelperMessageStatus.shared.sendStatus(roomId: messageInfo.roomId, roomType: roomType, status: roomMessageStatus, roomMessages: [message])
+                }
+            }
         }
     }
     
@@ -909,10 +932,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             }
         }
     }
-    
-    func onForwardStart(user: IGRegisteredUser?, room: IGRoom?, type: IGPClientSearchUsernameResponse.IGPResult.IGPType) {
-        IGHelperChatOpener.manageOpenChatOrProfile(usernameType: type, user: user, room: room)
-    }
 }
 
 //MARK:- Room Clear, Delete, Leave
@@ -1327,31 +1346,6 @@ extension IGRecentsTableViewController {
     }
     
     /***************** Send Rooms Status *****************/
-    
-    func onMessageRecieveInRoomList(roomId: Int64, messages: [IGPRoomMessage]) {
-        
-        for message in messages {
-            var roomType: IGRoom.IGType = .chat
-            var roomMessageStatus: IGRoomMessageStatus = .delivered
-            
-            if let type = roomTypeCache[roomId] {
-                roomType = type
-            } else {
-                if let roomInfo = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", roomId)).first {
-                    roomType = roomInfo.type
-                    roomTypeCache[roomId] = roomType
-                }
-            }
-            
-            let seenStatus = IGRecentsTableViewController.visibleChat[roomId]
-            if seenStatus != nil && seenStatus! {
-                roomMessageStatus = .seen
-            }
-            
-            manageUnreadMessage(roomId: roomId, roomType: roomType, message: message)
-            IGHelperMessageStatus.shared.sendStatus(roomId: roomId, roomType: roomType, status: roomMessageStatus, roomMessages: [message])
-        }
-    }
     
     private func manageUnreadMessage(roomId: Int64, roomType: IGRoom.IGType, message: IGPRoomMessage){
         IGDatabaseManager.shared.perfrmOnDatabaseThread {

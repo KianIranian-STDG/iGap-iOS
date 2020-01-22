@@ -36,6 +36,8 @@ struct EventBusManager {
     static let updateMusicPlayerList = "updateMusicPlayerList"
     static let updateBottomPlayerButtonsState = "updateBottomPlayerButtonsState"
     static let updateLabelsData = "updateLabelsData"
+    static let messageReceiveGlobal = "messageReceiveGlobal"
+    static let lookAndFindForward = "lookAndFindForward"
     static let stopLastButtonState = "stopLastButtonState"
     static let updateBottomPlayerLabelsData = "updateBottomPlayerLabelsData"
     static let updateBillsName = "updateBillsName"

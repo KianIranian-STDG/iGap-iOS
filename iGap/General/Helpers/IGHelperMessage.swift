@@ -115,7 +115,7 @@ class IGHelperMessage {
                  */
                 SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(roomId)", sender: (action: ChatMessageAction.receive, roomId: roomId, message: roomMessage, roomType: roomType))
             }
-            IGRecentsTableViewController.messageReceiveDelegat?.onMessageRecieveInRoomList(roomId: roomId ,messages: [roomMessage])
+            SwiftEventBus.post(EventBusManager.messageReceiveGlobal, sender: (roomId, [roomMessage]))
         }
     }
     
