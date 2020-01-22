@@ -44,9 +44,9 @@ class BaseBubbleNode: ASCellNode {
         }
 
         if message.type == .text {
-            bubbleNode = IGTextNode(message: message.message ?? "", isIncomming: isIncomming)
+            bubbleNode = IGTextNode(message: message, isIncomming: isIncomming)
         }else if message.type == .image {
-            bubbleNode = IGImageNode(image: message.attachment?.attachedImage ?? #imageLiteral(resourceName: "holm.jpg"), isIncomming: isIncomming)
+            bubbleNode = IGImageNode(message: message, isIncomming: isIncomming)
         }
         if let time = message.creationTime {
             timeTxtNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))

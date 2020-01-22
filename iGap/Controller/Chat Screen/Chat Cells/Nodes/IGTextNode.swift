@@ -14,10 +14,10 @@ class IGTextNode: ASCellNode {
     
     private let textNode = MsgTextTextNode()
     
-    private let message: String
+    private let message: IGRoomMessage
     private let isIncomming: Bool
     
-    init(message: String, isIncomming: Bool) {
+    init(message: IGRoomMessage, isIncomming: Bool) {
         self.message = message
         self.isIncomming = isIncomming
         super.init()
@@ -26,8 +26,13 @@ class IGTextNode: ASCellNode {
     
     private func setupView() {
         
-        textNode.attributedText = NSAttributedString(string: message, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black, NSAttributedString.Key.font: UIFont.igFont(ofSize: fontDefaultSize)])
+        
+//        textNode.attributedText = addLinkDetection(message, highLightColor: .red)
+        
+        
+        textNode.attributedText = NSAttributedString(string: message.message!, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black, NSAttributedString.Key.font: UIFont.igFont(ofSize: fontDefaultSize)])
         textNode.isUserInteractionEnabled = true
+        textNode.delegate = self
         addSubnode(textNode)
         
         
@@ -63,4 +68,38 @@ private class MsgTextTextNode: ASTextNode {
         return CGSize(width: max(size.width, 15), height: size.height)
     }
      
+}
+
+
+extension IGTextNode: ASTextNodeDelegate {
+    
+    
+    func addLinkDetection(_ text: String, highLightColor: UIColor) -> NSAttributedString{
+
+        let types: NSTextCheckingResult.CheckingType = [.link]
+        let detector = try? NSDataDetector(types: types.rawValue)
+        let range = NSMakeRange(0, text.count)
+        let attributedText = NSAttributedString(string: text)
+//        if let attributedText = attributedText {
+        let mutableString = NSMutableAttributedString()
+        mutableString.append(attributedText)
+        detector?.enumerateMatches(in: text, range: range) {
+            (result, _, _) in
+            if let fixedRange = result?.range {
+                mutableString.addAttribute(NSAttributedString.Key.underlineColor, value: highLightColor, range: fixedRange)
+                mutableString.addAttribute(NSAttributedString.Key.link, value: result?.url ?? "", range: fixedRange)
+                mutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: highLightColor, range: fixedRange)
+
+            }
+        }
+        return mutableString
+//        }
+    }
+    
+    
+    
+    
+    
+    
+    
 }

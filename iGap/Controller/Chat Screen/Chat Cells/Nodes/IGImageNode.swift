@@ -19,15 +19,27 @@ class IGImageNode: ASCellNode {
     private let isIncomming: Bool
     private var text: String?
     
-    init(image: UIImage, text: String? = nil, isIncomming: Bool) {
-        self.image = image
-        self.text = text
+    
+    init(message: IGRoomMessage, isIncomming: Bool) {
+        self.image = message.attachment?.attachedImage ?? UIImage()
+        self.text = message.message
         imgNode = MsgImageImageNode()
         txtNode = ASTextNode()
         self.isIncomming = isIncomming
         super.init()
         setupView()
     }
+    
+    
+//    init(image: UIImage, text: String? = nil, isIncomming: Bool) {
+//        self.image = image
+//        self.text = text
+//        imgNode = MsgImageImageNode()
+//        txtNode = ASTextNode()
+//        self.isIncomming = isIncomming
+//        super.init()
+//        setupView()
+//    }
     
     private func setupView() {
         
