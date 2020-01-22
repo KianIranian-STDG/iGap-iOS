@@ -6090,12 +6090,14 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
     }
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         
+        let msg = messages?[indexPath.row]
+        
         let cellnodeBlock  = {[weak self] () -> ASCellNode in
             guard let sSelf = self else {
                 return ASCellNode()
             }
             var isIncomming = true
-            let msg = sSelf.messages?[indexPath.row]
+//            let msg = sSelf.messages?[indexPath.row]
             let authorHash = msg!.authorHash
             var shouldShowAvatar = false
             var isFromSameSender = false

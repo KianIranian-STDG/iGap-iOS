@@ -29,8 +29,15 @@ class IGTextNode: ASCellNode {
         
 //        textNode.attributedText = addLinkDetection(message, highLightColor: .red)
         
+        if let links = message.linkInfo {
+            
+            let items = ActiveLabelJsonify.toObejct(message.linkInfo!)
+            if let itms = items {
+                textNode.attributedText = addLinkDetection(text: message.message ?? "", activeItems: itms)
+            }
+            
+        }
         
-        textNode.attributedText = NSAttributedString(string: message.message!, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black, NSAttributedString.Key.font: UIFont.igFont(ofSize: fontDefaultSize)])
         textNode.isUserInteractionEnabled = true
         textNode.delegate = self
         addSubnode(textNode)
@@ -74,31 +81,65 @@ private class MsgTextTextNode: ASTextNode {
 extension IGTextNode: ASTextNodeDelegate {
     
     
-    func addLinkDetection(_ text: String, highLightColor: UIColor) -> NSAttributedString{
-
-        let types: NSTextCheckingResult.CheckingType = [.link]
-        let detector = try? NSDataDetector(types: types.rawValue)
-        let range = NSMakeRange(0, text.count)
-        let attributedText = NSAttributedString(string: text)
-//        if let attributedText = attributedText {
-        let mutableString = NSMutableAttributedString()
-        mutableString.append(attributedText)
-        detector?.enumerateMatches(in: text, range: range) {
-            (result, _, _) in
-            if let fixedRange = result?.range {
-                mutableString.addAttribute(NSAttributedString.Key.underlineColor, value: highLightColor, range: fixedRange)
-                mutableString.addAttribute(NSAttributedString.Key.link, value: result?.url ?? "", range: fixedRange)
-                mutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: highLightColor, range: fixedRange)
-
-            }
-        }
-        return mutableString
+//    func addLinkDetection(_ text: String, highLightColor: UIColor) -> NSAttributedString{
+//
+//        let types: NSTextCheckingResult.CheckingType = [.link]
+//        let detector = try? NSDataDetector(types: types.rawValue)
+//        let range = NSMakeRange(0, text.count)
+//        let attributedText = NSAttributedString(string: text)
+////        if let attributedText = attributedText {
+//        let mutableString = NSMutableAttributedString()
+//        mutableString.append(attributedText)
+//        detector?.enumerateMatches(in: text, range: range) {
+//            (result, _, _) in
+//            if let fixedRange = result?.range {
+//                mutableString.addAttribute(NSAttributedString.Key.underlineColor, value: highLightColor, range: fixedRange)
+//                mutableString.addAttribute(NSAttributedString.Key.link, value: result?.url ?? "", range: fixedRange)
+//                mutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: highLightColor, range: fixedRange)
+//
+//            }
 //        }
+//        return mutableString
+////        }
+//    }
+    
+    
+    
+    
+    func addLinkDetection(text: String, activeItems: [ActiveLabelItem]) -> NSAttributedString {
+        
+//        textNode.linkAttributeNames = [String]()
+        let attributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black, NSAttributedString.Key.font: UIFont.igFont(ofSize: fontDefaultSize)])
+        
+        
+        
+        //NSAttributedString(string: message.message!, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black, NSAttributedString.Key.font: UIFont.igFont(ofSize: fontDefaultSize)])
+//
+////        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Light", size: 16.0)!, range: NSRange(location: 0, length: blurb.length))
+//
+//        attributedString.addAttributes([kLinkAttributeName: NSURL(string: "http://placekitten.com/")!,
+//                              NSForegroundColorAttributeName: UIColor.gray,
+//                              NSUnderlineStyleAttributeName: (NSUnderlineStyle.styleSingle.rawValue | NSUnderlineStyle.patternDashDot.rawValue)],
+//                             range: blurb.range(of: "placekitten.com"))
+        
+        for itm in activeItems {
+            
+            attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red, range: NSMakeRange(itm.offset, itm.limit))
+            attributedString.addAttribute(NSAttributedString.Key.link, value: itm.type, range: NSMakeRange(itm.offset, itm.limit))
+        }
+        
+        return attributedString
+        
     }
     
     
+    func textNode(_ textNode: ASTextNode!, shouldHighlightLinkAttribute attribute: String!, value: Any!, at point: CGPoint) -> Bool {
+        return true
+    }
     
-    
+    func textNode(_ textNode: ASTextNode!, tappedLinkAttribute attribute: String!, value: Any!, at point: CGPoint, textRange: NSRange) {
+        print("=-=-=-=-", attribute, "=-=-=", point, "=-=-=", textRange)
+    }
     
     
     
