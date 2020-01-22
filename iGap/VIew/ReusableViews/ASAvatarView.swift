@@ -51,6 +51,8 @@ class ASAvatarView: ASDisplayNode {
             addSubnode(self.initialLettersLabel!)
             self.avatarASImageView = ASNetworkImageNode()
             addSubnode(self.avatarASImageView!)
+        avatarASImageView!.style.height = ASDimension(unit: .points, value: 50.0)
+        avatarASImageView!.style.width = ASDimension(unit: .points, value: 50.0)
 
 
 
@@ -67,8 +69,8 @@ class ASAvatarView: ASDisplayNode {
         
         stack.children?.append(self.initialLettersView!)
         if hasAvatar {
-            let ASCStack = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: self.initialLettersLabel!)
-            let ASBGStack = ASBackgroundLayoutSpec(child: ASCStack, background: self.avatarASImageView!)
+            let ASCStack = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: self.avatarASImageView!)
+            let ASBGStack = ASBackgroundLayoutSpec(child: ASCStack, background: self.initialLettersView!)
 
             return ASBGStack
 
@@ -94,6 +96,7 @@ class ASAvatarView: ASDisplayNode {
         if hasAvatar {
             self.initialLettersLabel?.removeFromSupernode() //removes the initial label if the user has Avatar
             self.avatarASImageView?.setAvatar(avatar: user.avatar!.file!)
+//            self.avatarASImageView?.image = UIImage(named: "AppIcon")
         } else {
             self.avatarASImageView?.removeFromSupernode() //removes the Avatar Image Node if the user has not Avatar
             let attribbutes = [NSAttributedString.Key.foregroundColor: UIColor.white,
