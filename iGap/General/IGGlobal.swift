@@ -1307,14 +1307,23 @@ extension ASNetworkImageNode {
         
         if IGGlobal.isFileExist(path: avatar.path(), fileSize: avatar.size) {
 //            self.sd_setImage(with: avatar.path(), completed: nil)
-            self.url = avatar.path()
+            if let data = try? Data(contentsOf: avatar.path()!) {
+                if let image = UIImage(data: data) {
+                        self.image = image
+                }
+            }
         } else {
             if file != nil {
                 let path = file.path()
                 
                 if IGGlobal.isFileExist(path: path, fileSize: file.size) {
 //                    self.sd_setImage(with: path, completed: nil)
-                    self.url = path
+                    if let data = try? Data(contentsOf: path!) {
+                        if let image = UIImage(data: data) {
+                                self.image = image
+                        }
+                    }
+                    
                 } else {
                     
                     DispatchQueue.main.async {

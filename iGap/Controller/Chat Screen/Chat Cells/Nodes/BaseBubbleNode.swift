@@ -22,7 +22,7 @@ class BaseBubbleNode: ASCellNode {
     private let statusImgNode = ASImageNode()
     
     private var bubbleNode = ASDisplayNode()
-    private let avatarImageViewNode = ASNetworkImageNode()
+    private let avatarImageViewNode = ASAvatarView()
 
     init(message : IGRoomMessage, isIncomming: Bool, bubbleImage: UIImage, isFromSameSender: Bool, shouldShowAvatar: Bool) {
         self.message = message
@@ -58,16 +58,16 @@ class BaseBubbleNode: ASCellNode {
         //avatar
 //        if let _ = IGAvatar.getLastAvatar(ownerId: (message.authorUser?.user!.id)!), let avatarFile = message.authorUser?.user!.avatar?.file {
 //            avatarImageViewNode.setAvatar(avatar: avatarFile)
-//            avatarImageViewNode.image = UIImage(named: "AppIcon")
+////            avatarImageViewNode.image = UIImage(named: "AppIcon")
 //
 //        } else if let avatar = message.authorUser?.user!.avatar {
-////            avatarImageViewNode.setAvatar(avatar: avatar.file!)
-//            avatarImageViewNode.image = UIImage(named: "AppIcon")
+//            avatarImageViewNode.setAvatar(avatar: avatar.file!)
+////            avatarImageViewNode.image = UIImage(named: "AppIcon")
 //
 //        }else{
 //            avatarImageViewNode.image = UIImage(named: "AppIcon")
 //        }
-        avatarImageViewNode.image = UIImage(named: "AppIcon")
+//        avatarImageViewNode.image = UIImage(named: "AppIcon")
 
         if(isIncomming){
             avatarImageViewNode.style.preferredSize = CGSize.zero
@@ -78,13 +78,13 @@ class BaseBubbleNode: ASCellNode {
             avatarImageViewNode.clipsToBounds = true
 
         }
-
-        
         addSubnode(bubbleImgNode)
         addSubnode(nameTxtNode)
         addSubnode(bubbleNode)
         addSubnode(timeTxtNode)
         addSubnode(avatarImageViewNode)
+        
+        
 
     }
     
