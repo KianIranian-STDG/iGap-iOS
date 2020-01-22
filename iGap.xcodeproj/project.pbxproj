@@ -47,6 +47,7 @@
 		8E3360E423D7395E00CE766B /* IGVideoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E223D7395D00CE766B /* IGVideoNode.swift */; };
 		8E3360E523D7395E00CE766B /* NodeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E323D7395D00CE766B /* NodeExtension.swift */; };
 		8E3360E723D8123B00CE766B /* ASAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E623D8123A00CE766B /* ASAvatarView.swift */; };
+		8E3360E923D835D300CE766B /* ASImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E823D835D300CE766B /* ASImageView.swift */; };
 		8E3C696A23602DDE001575BE /* MusicPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E3C696923602DDE001575BE /* MusicPlayer.storyboard */; };
 		8E3C696C23602E4D001575BE /* IGMusicPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */; };
 		8E3C696E23602EB2001575BE /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C696D23602EB2001575BE /* Music.swift */; };
@@ -943,6 +944,7 @@
 		8E3360E223D7395D00CE766B /* IGVideoNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGVideoNode.swift; sourceTree = "<group>"; };
 		8E3360E323D7395D00CE766B /* NodeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeExtension.swift; sourceTree = "<group>"; };
 		8E3360E623D8123A00CE766B /* ASAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAvatarView.swift; sourceTree = "<group>"; };
+		8E3360E823D835D300CE766B /* ASImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASImageView.swift; sourceTree = "<group>"; };
 		8E3C696923602DDE001575BE /* MusicPlayer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MusicPlayer.storyboard; sourceTree = "<group>"; };
 		8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMusicPlayerTableViewController.swift; sourceTree = "<group>"; };
 		8E3C696D23602EB2001575BE /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
@@ -3227,6 +3229,7 @@
 				8E5FBC08231534BA0069D4F2 /* IGCountDownTimer.swift */,
 				FA5E159C1E0FD76300EC19A1 /* IGAvatarView.swift */,
 				8E3360E623D8123A00CE766B /* ASAvatarView.swift */,
+				8E3360E823D835D300CE766B /* ASImageView.swift */,
 				FA5E159E1E0FFFD800EC19A1 /* IGTappableView.swift */,
 				FA401FA31E10F80500A50C5A /* IGLabel.swift */,
 				FAC34DB51E1A651200BB9823 /* IGContactInMessageCellView.swift */,
@@ -4293,6 +4296,7 @@
 				FA63BAA01DD70D60000B60AD /* IGRequestWrapper.swift in Sources */,
 				FA844D8821F88FCF000E6750 /* Compression.swift in Sources */,
 				8E5FBC0B23154D090069D4F2 /* IGRegisttrationStepSecurityQuestions.swift in Sources */,
+				8E3360E923D835D300CE766B /* ASImageView.swift in Sources */,
 				FA77E0FD2261E9D4008D6D25 /* IGHelperNearby.swift in Sources */,
 				FA42EF111E5C224F00CF8A32 /* ImageSourceHelpers.swift in Sources */,
 				FAA9DFBA1F4B1CC90076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationChangeHintTableViewController.swift in Sources */,

@@ -9,6 +9,7 @@
 */
 
 import AsyncDisplayKit
+import SwiftEventBus
 
 class BaseBubbleNode: ASCellNode {
     
@@ -69,22 +70,32 @@ class BaseBubbleNode: ASCellNode {
 //        }
 //        avatarImageViewNode.image = UIImage(named: "AppIcon")
 
-        if(isIncomming){
-            avatarImageViewNode.style.preferredSize = CGSize.zero
-            
-        }else{
-            avatarImageViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
-            avatarImageViewNode.cornerRadius = kAMMessageCellNodeAvatarImageSize/2
-            avatarImageViewNode.clipsToBounds = true
+        if message.type == .text ||  message.type == .image {
+            if(isIncomming){
+                avatarImageViewNode.style.preferredSize = CGSize.zero
+                
+            }else{
+                avatarImageViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
+                avatarImageViewNode.cornerRadius = kAMMessageCellNodeAvatarImageSize/2
+                avatarImageViewNode.clipsToBounds = true
+
+            }
+            addSubnode(bubbleImgNode)
+            addSubnode(nameTxtNode)
+            addSubnode(bubbleNode)
+            addSubnode(timeTxtNode)
+            addSubnode(avatarImageViewNode)
+            if let user = message.authorUser?.user {
+                avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.clear
+                avatarImageViewNode.setUser(user)
+            } else if let userId = message.authorUser?.userId {
+                avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.white
+                avatarImageViewNode.avatarASImageView!.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
+                SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(message.roomId)", sender: (action: ChatMessageAction.userInfo, userId: userId))
+            }
 
         }
-        addSubnode(bubbleImgNode)
-        addSubnode(nameTxtNode)
-        addSubnode(bubbleNode)
-        addSubnode(timeTxtNode)
-        addSubnode(avatarImageViewNode)
-        
-        
+
 
     }
     
