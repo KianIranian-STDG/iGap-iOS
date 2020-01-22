@@ -31,6 +31,7 @@ class IGRoomMessage: Object {
     @objc dynamic var id:                 Int64                           = -1
     @objc dynamic var roomId:             Int64                           = -1
     @objc dynamic var primaryKeyId:       String?
+    @objc dynamic var linkInfo:           String?
     @objc dynamic var messageVersion:     Int64                           = -1
     @objc dynamic var previousMessageId:  Int64                           = 0
     @objc dynamic var futureMessageId:    Int64                           = 0
@@ -338,7 +339,7 @@ class IGRoomMessage: Object {
         message.creationTime = Date(timeIntervalSince1970: TimeInterval(igpMessage.igpCreateTime))
         message.updateTime = Date(timeIntervalSince1970: TimeInterval(igpMessage.igpUpdateTime))
         message.randomId = igpMessage.igpRandomID
-        
+        message.linkInfo = ""
         message.status = IGRoomMessageStatus.fromIGP(status: igpMessage.igpStatus)
         message.type = IGRoomMessageType.unknown.fromIGP(igpMessage.igpMessageType, igpRoomMessage: igpMessage)
         
