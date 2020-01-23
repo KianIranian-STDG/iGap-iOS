@@ -137,25 +137,36 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
         lbl.textAlignment = lbl.localizedDirection
         lbl.isUserInteractionEnabled = true
         let current: String = SMLangUtil.loadLanguage()
-        if current == "fa" {
-            guard let range = lbl.text?.range(of: "قوانین و مقررات")?.nsRange else {
-                return lbl
-            }
-            let myMutableString = NSMutableAttributedString(string: lbl.text!, attributes: [NSAttributedString.Key.font :UIFont.igFont(ofSize: 17)])
-            myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.iGapSubmitButtons(), range: range)
-            
-            lbl.attributedText = myMutableString
-            
-        } else {
-            guard let range = lbl.text?.range(of: "terms")?.nsRange else {
-                return lbl
-            }
-            let myMutableString = NSMutableAttributedString(string: lbl.text!, attributes: [NSAttributedString.Key.font :UIFont.igFont(ofSize: 17)])
-            myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.iGapSubmitButtons(), range: range)
-            
-            lbl.attributedText = myMutableString
-            
+        
+        guard let range = lbl.text?.range(of: IGStringsManager.PrivacyAgreementClickablePart.rawValue.localized)?.nsRange else {
+            return lbl
         }
+        let myMutableString = NSMutableAttributedString(string: lbl.text!, attributes: [NSAttributedString.Key.font :UIFont.igFont(ofSize: 17)])
+        myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.iGapSubmitButtons(), range: range)
+
+        lbl.attributedText = myMutableString
+        
+        
+        
+//        if current == "fa" {
+//            guard let range = lbl.text?.range(of: "قوانین و مقررات")?.nsRange else {
+//                return lbl
+//            }
+//            let myMutableString = NSMutableAttributedString(string: lbl.text!, attributes: [NSAttributedString.Key.font :UIFont.igFont(ofSize: 17)])
+//            myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.iGapSubmitButtons(), range: range)
+//
+//            lbl.attributedText = myMutableString
+//
+//        } else {
+//            guard let range = lbl.text?.range(of: "terms")?.nsRange else {
+//                return lbl
+//            }
+//            let myMutableString = NSMutableAttributedString(string: lbl.text!, attributes: [NSAttributedString.Key.font :UIFont.igFont(ofSize: 17)])
+//            myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.iGapSubmitButtons(), range: range)
+//
+//            lbl.attributedText = myMutableString
+//
+//        }
         return lbl
     }()
     
@@ -210,24 +221,33 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
     @objc func tapLabel(tap: UITapGestureRecognizer) {
         //Step 3: Add link substrings
         
-        let current : String = SMLangUtil.loadLanguage()
-        if current == "fa" {
-            guard let range = self.lblAcceptPrivacy.text?.range(of: "قوانین و مقررات")?.nsRange else {
+//        let current : String = SMLangUtil.loadLanguage()
+        
+            guard let range = self.lblAcceptPrivacy.text?.range(of: IGStringsManager.PrivacyAgreementClickablePart.rawValue.localized)?.nsRange else {
                 return
             }
-            
+
             if tap.didTapAttributedTextInLabel(label: self.lblAcceptPrivacy, inRange: range) {
                 showTerms()
             }
-            
-        } else {
-            guard let range = self.lblAcceptPrivacy.text?.range(of: "terms")?.nsRange else {
-                return
-            }
-            if tap.didTapAttributedTextInLabel(label: self.lblAcceptPrivacy, inRange: range) {
-                showTerms()
-            }
-        }
+        
+//        if current == "fa" {
+//            guard let range = self.lblAcceptPrivacy.text?.range(of: "قوانین و مقررات")?.nsRange else {
+//                return
+//            }
+//
+//            if tap.didTapAttributedTextInLabel(label: self.lblAcceptPrivacy, inRange: range) {
+//                showTerms()
+//            }
+//
+//        } else {
+//            guard let range = self.lblAcceptPrivacy.text?.range(of: "terms")?.nsRange else {
+//                return
+//            }
+//            if tap.didTapAttributedTextInLabel(label: self.lblAcceptPrivacy, inRange: range) {
+//                showTerms()
+//            }
+//        }
     }
     
     private func setDefaultNavigationItem() {
@@ -344,11 +364,19 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
         
         
         scrollViewMain.addSubview(viewPrivacy)
-        NSLayoutConstraint.activate([viewPrivacy.leadingAnchor.constraint(equalTo: viewCountryBackground.leadingAnchor),
-                                     viewPrivacy.trailingAnchor.constraint(equalTo: viewCountryBackground.trailingAnchor),
-                                     viewPrivacy.heightAnchor.constraint(equalToConstant: 45),
-                                     viewPrivacy.topAnchor.constraint(equalTo: tfPhoneNumber.bottomAnchor, constant: 15)
-        ])
+        if LocaleManager.isRTL {
+            NSLayoutConstraint.activate([viewPrivacy.leadingAnchor.constraint(lessThanOrEqualTo: viewCountryBackground.leadingAnchor),
+                                         viewPrivacy.trailingAnchor.constraint(equalTo: viewCountryBackground.trailingAnchor),
+                                         viewPrivacy.heightAnchor.constraint(equalToConstant: 45),
+                                         viewPrivacy.topAnchor.constraint(equalTo: tfPhoneNumber.bottomAnchor, constant: 15)
+            ])
+        } else {
+            NSLayoutConstraint.activate([viewPrivacy.leadingAnchor.constraint(equalTo: viewCountryBackground.leadingAnchor),
+                                         viewPrivacy.trailingAnchor.constraint(lessThanOrEqualTo: viewCountryBackground.trailingAnchor),
+                                         viewPrivacy.heightAnchor.constraint(equalToConstant: 45),
+                                         viewPrivacy.topAnchor.constraint(equalTo: tfPhoneNumber.bottomAnchor, constant: 15)
+            ])
+        }
         
 
         viewPrivacy.addSubview(btnCheckmarkPrivacy)
@@ -360,7 +388,9 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
 
         viewPrivacy.addSubview(lblAcceptPrivacy)
         NSLayoutConstraint.activate([lblAcceptPrivacy.leadingAnchor.constraint(equalTo: btnCheckmarkPrivacy.trailingAnchor, constant: 4),
-                                     lblAcceptPrivacy.trailingAnchor.constraint(equalTo: viewPrivacy.trailingAnchor),
+                                     lblAcceptPrivacy.trailingAnchor.constraint(lessThanOrEqualTo: viewPrivacy.trailingAnchor),
+//                                     lblAcceptPrivacy.trailingAnchor.constraint(equalTo: viewPrivacy.trailingAnchor),
+            
                                      lblAcceptPrivacy.centerYAnchor.constraint(equalTo: btnCheckmarkPrivacy.centerYAnchor),
                                      lblAcceptPrivacy.heightAnchor.constraint(equalTo: btnCheckmarkPrivacy.heightAnchor)
         ])

@@ -4946,11 +4946,10 @@ TODO:// translate */
 "mark_as_several" = "بمناسبة عدة";
 
 /*  */
-"terms_and_condition" = "أقبل %@";
+"terms_and_condition" = "أقبل القواعد و اللوائح";
 
 /*  */
-"terms_and_condition_clickable" = "القواعد واللوائح";
-
+"terms_and_condition_clickable" = "القواعد و اللوائح";
 /*  */
 "warning" = "تحذير";
 

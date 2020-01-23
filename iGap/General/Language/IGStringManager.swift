@@ -92,6 +92,7 @@ enum IGStringsManager : String {
     //MARK: -Registration Process
     case RegisterationStepOneTitle = "rg_title_register"
     case PrivacyAgreement = "terms_and_condition"
+    case PrivacyAgreementClickablePart = "terms_and_condition_clickable"
     case BtnSendCode = "rg_Start"
     case PickNumWithCountry = "rg_confirm_text_register"
     case ChooseCountry = "rg_Select_Country"
