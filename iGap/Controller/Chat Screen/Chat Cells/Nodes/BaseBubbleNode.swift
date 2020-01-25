@@ -27,7 +27,7 @@ class BaseBubbleNode: ASCellNode {
     private let nameTxtNode = ASTextNode()
     private let statusTxtNode = ASTextNode()
     
-    private var bubbleNode = ASDisplayNode()
+    private(set) var bubbleNode = ASCellNode()
     private var replyForwardViewNode = ASReplyForwardNode()
 
     private let avatarImageViewNode = ASAvatarView()

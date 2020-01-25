@@ -10,67 +10,110 @@
 
 import AsyncDisplayKit
 
-class IGVideoNode: ASCellNode {
+class IGVideoNode: AbstractNode {
     
     private var imgNode : MsgImageImageNode
     private var playTxtNode: ASTextNode
     private var timeTxtNode: ASTextNode
-    private var txtNode: ASTextNode
     
     private let fakeStackBottomItem = ASDisplayNode()
     
-    private let image: UIImage
-    private let isOutgoing: Bool
-    private var text: String?
-    
-    init(message: IGRoomMessage, isOutgoing: Bool) {
-        self.image = #imageLiteral(resourceName: "becky.jpg")
-        self.text = message.message
-        self.isOutgoing = isOutgoing
+    override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = false) {
         imgNode = MsgImageImageNode()
-        txtNode = ASTextNode()
         playTxtNode = ASTextNode()
         timeTxtNode = ASTextNode()
-        super.init()
-        setupView()
+        super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode)
     }
     
-    private func setupView() {
+    
+    
+//    private let image: UIImage
+//    private let isOutgoing: Bool
+//    private var text: String?
+    
+//    init(message: IGRoomMessage, isOutgoing: Bool) {
+//        self.image = #imageLiteral(resourceName: "becky.jpg")
+//        self.text = message.message
+//        self.isOutgoing = isOutgoing
+//        imgNode = MsgImageImageNode()
+//        txtNode = ASTextNode()
+//        playTxtNode = ASTextNode()
+//        timeTxtNode = ASTextNode()
+//        super.init()
+//        setupView()
+//    }
+    
+    
+    
+    override func setupView() {
+        super.setupView()
         
-        imgNode.image = image
+
+        imgNode.image = message.attachment?.attachedImage
         addSubnode(imgNode)
-        
+
         let stl = NSMutableParagraphStyle()
         stl.alignment = NSTextAlignment.center
-        
+
         playTxtNode.attributedText = NSAttributedString(string: "", attributes: [NSAttributedString.Key.font : UIFont.iGapFonticon(ofSize: 55), NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.paragraphStyle: stl])
         playTxtNode.maximumNumberOfLines = 1
         playTxtNode.cornerRadius = 27.5
         playTxtNode.clipsToBounds = true
         playTxtNode.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        
+
         timeTxtNode.attributedText = NSAttributedString(string: "  00:05(616.33 کیلوبایت)  ", attributes: [NSAttributedString.Key.font : UIFont.igFont(ofSize: 12), NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.baselineOffset: -4])
         timeTxtNode.layer.cornerRadius = 12
         timeTxtNode.clipsToBounds = true
         timeTxtNode.layer.borderColor = UIColor.white.cgColor
         timeTxtNode.layer.borderWidth = 0.5
         timeTxtNode.backgroundColor = UIColor(white: 0, alpha: 0.3)
-        
+
         addSubnode(playTxtNode)
         addSubnode(timeTxtNode)
-        
-        if let txt = text {
-            txtNode.backgroundColor = .clear
-            addSubnode(txtNode)
-            txtNode.attributedText = NSAttributedString(string: txt, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black, NSAttributedString.Key.font: UIFont.igFont(ofSize: fontDefaultSize)])
+
+        if let _ = message.message {
+            addSubnode(textNode)
+//            textNode.attributedText = NSAttributedString(string: txt, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black, NSAttributedString.Key.font: UIFont.igFont(ofSize: fontDefaultSize)])
         }
+
         
     }
+    
+//    private func setupView() {
+//
+//        imgNode.image = message.attachment?.attachedImage
+//        addSubnode(imgNode)
+//
+//        let stl = NSMutableParagraphStyle()
+//        stl.alignment = NSTextAlignment.center
+//
+//        playTxtNode.attributedText = NSAttributedString(string: "", attributes: [NSAttributedString.Key.font : UIFont.iGapFonticon(ofSize: 55), NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.paragraphStyle: stl])
+//        playTxtNode.maximumNumberOfLines = 1
+//        playTxtNode.cornerRadius = 27.5
+//        playTxtNode.clipsToBounds = true
+//        playTxtNode.backgroundColor = UIColor(white: 0, alpha: 0.5)
+//
+//        timeTxtNode.attributedText = NSAttributedString(string: "  00:05(616.33 کیلوبایت)  ", attributes: [NSAttributedString.Key.font : UIFont.igFont(ofSize: 12), NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.baselineOffset: -4])
+//        timeTxtNode.layer.cornerRadius = 12
+//        timeTxtNode.clipsToBounds = true
+//        timeTxtNode.layer.borderColor = UIColor.white.cgColor
+//        timeTxtNode.layer.borderWidth = 0.5
+//        timeTxtNode.backgroundColor = UIColor(white: 0, alpha: 0.3)
+//
+//        addSubnode(playTxtNode)
+//        addSubnode(timeTxtNode)
+//
+//        if let txt = message.message {
+//            addSubnode(textNode)
+////            textNode.attributedText = NSAttributedString(string: txt, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black, NSAttributedString.Key.font: UIFont.igFont(ofSize: fontDefaultSize)])
+//        }
+//
+//    }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
 
             // setting image Size
-        let prefferedSize = NodeExtension.fetchMediaFrame(image: image)
+        let prefferedSize = NodeExtension.fetchMediaFrame(image: message.attachment?.attachedImage ?? UIImage())
         
         imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
         imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
@@ -99,13 +142,13 @@ class IGVideoNode: ASCellNode {
         
         let textNodeVerticalOffset = CGFloat(6)
 
-        if text == nil {
+        if message.message == nil {
             
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
             top: 0,
-            left: 0 + (isOutgoing ? 0 : textNodeVerticalOffset),
+            left: 0 + (isIncomming ? textNodeVerticalOffset : 0),
             bottom: 0,
-            right: 0 + (isOutgoing ? textNodeVerticalOffset : 0)), child: overlaySpec)
+            right: 0 + (isIncomming ? 0 : textNodeVerticalOffset)), child: overlaySpec)
             
             return insetSpec
             
@@ -113,9 +156,9 @@ class IGVideoNode: ASCellNode {
             
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
             top: 5,
-            left: 0 + (isOutgoing ? 0 : textNodeVerticalOffset),
+            left: 0 + (isIncomming ? 0 : textNodeVerticalOffset),
             bottom: 5,
-            right: 0 + (isOutgoing ? textNodeVerticalOffset : 0)), child: txtNode)
+            right: 0 + (isIncomming ? textNodeVerticalOffset : 0)), child: textNode)
 
             return ASStackLayoutSpec(direction: .vertical, spacing: 4, justifyContent: .start, alignItems: .center, children: [overlaySpec, insetSpec])
             

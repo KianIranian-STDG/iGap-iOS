@@ -6107,13 +6107,6 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
             var shouldShowAvatar = false
             var isFromSameSender = false
 
-            
-            
-            
-            
-            
-            
-
             if self?.finalRoomGroupRoom != nil {
                 shouldShowAvatar = true
                 
@@ -6140,8 +6133,10 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
             
             let img = isIncomming ? someoneImage : mineImage
             
+            
             let node = BaseBubbleNode(message: msg!,finalRoomType : self!.finalRoomType, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
-            node.delegate = self
+//            let node = BaseBubbleNode(message: msg!, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
+            (node.bubbleNode as? AbstractNode)?.delegate = self
             return node
         }
         return cellnodeBlock

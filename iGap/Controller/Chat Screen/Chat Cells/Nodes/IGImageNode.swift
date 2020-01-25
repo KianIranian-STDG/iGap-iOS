@@ -10,25 +10,24 @@
 
 import AsyncDisplayKit
 
-class IGImageNode: ASCellNode {
+class IGImageNode: AbstractNode {
     
     private var imgNode : MsgImageImageNode
-    private var txtNode: ASTextNode
     
-    private let image: UIImage
-    private let isIncomming: Bool
-    private var text: String?
-    
-    
-    init(message: IGRoomMessage, isIncomming: Bool) {
-        self.image = message.attachment?.attachedImage ?? UIImage()
-        self.text = message.message
+    override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = false) {
         imgNode = MsgImageImageNode()
-        txtNode = ASTextNode()
-        self.isIncomming = isIncomming
-        super.init()
-        setupView()
+        super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode)
     }
+    
+//    init(message: IGRoomMessage, isIncomming: Bool) {
+//        self.image = message.attachment?.attachedImage ?? UIImage()
+//        self.text = message.message
+//        imgNode = MsgImageImageNode()
+//        txtNode = ASTextNode()
+//        self.isIncomming = isIncomming
+//        super.init()
+//        setupView()
+//    }
     
     
 //    init(image: UIImage, text: String? = nil, isIncomming: Bool) {
@@ -41,32 +40,33 @@ class IGImageNode: ASCellNode {
 //        setupView()
 //    }
     
-    private func setupView() {
+
+    override func setupView() {
+        super.setupView()
         
-        imgNode.image = image
+        imgNode.image = message.attachment?.attachedImage
         addSubnode(imgNode)
-        
-        if let txt = text {
-            txtNode.backgroundColor = .clear
-            addSubnode(txtNode)
-            txtNode.attributedText = NSAttributedString(string: txt, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black, NSAttributedString.Key.font: UIFont.igFont(ofSize: fontDefaultSize)])
+
+        if let _ = message.message {
+            addSubnode(textNode)
         }
-        
     }
+    
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
 
+        if let img = message.attachment?.attachedImage {
+            let prefferedSize = NodeExtension.fetchMediaFrame(image: img)
         
-        let prefferedSize = NodeExtension.fetchMediaFrame(image: image)
-        
-        imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
-        imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
+            imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
+            imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
+        }
         
         let absSpec = ASAbsoluteLayoutSpec(children: [imgNode])
         
         let textNodeVerticalOffset = CGFloat(6)
 
-        if text == nil {
+        if message.message == nil {
             
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
             top: 0,
@@ -93,7 +93,7 @@ class IGImageNode: ASCellNode {
             top: 5,
             left: 0 + (isIncomming ? 0 : textNodeVerticalOffset),
             bottom: 5,
-            right: 0 + (isIncomming ? textNodeVerticalOffset : 0)), child: txtNode)
+            right: 0 + (isIncomming ? textNodeVerticalOffset : 0)), child: textNode)
 
             return ASStackLayoutSpec(direction: .vertical, spacing: 4, justifyContent: .start, alignItems: .center, children: [absSpec, insetSpec])
             
