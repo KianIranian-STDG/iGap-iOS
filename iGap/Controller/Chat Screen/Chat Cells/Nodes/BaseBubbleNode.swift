@@ -229,7 +229,7 @@ class BaseBubbleNode: ASCellNode {
 //        stackHSpec.justifyContent = .spaceBetween
         stackHSpec.verticalAlignment = .bottom
 //        stackHSpec.style.preferredSize.width = 200
-        stackHSpec.children = [stackSpec,ASBGStack]
+        stackHSpec.children = isIncomming ? [ASBGStack,stackSpec] : [stackSpec,ASBGStack]
         stackHSpec.style.flexShrink = 1.0
         stackHSpec.style.flexGrow = 1.0
 
