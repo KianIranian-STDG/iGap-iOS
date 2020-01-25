@@ -58,7 +58,7 @@ class IGHeader: UICollectionReusableView {
     }
 }
 
-class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, UIWebViewDelegate, UITextFieldDelegate, HandleReciept {
+class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, UIWebViewDelegate, UITextFieldDelegate, HandleReciept,ChatDelegate {
     
     //newUITextMessage
     // MARK: - Outlets
@@ -126,7 +126,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var chatBackground: UIImageView!
     @IBOutlet weak var floatingDateView: UIView!
     @IBOutlet weak var txtFloatingDate: UILabel!
-    
+    var finalRoomType: IGRoom.IGType!
+
     // MARK: - Variables
     private var myNavigationItem: IGNavigationItem!
     var multiShareModalOriginalHeight : CGFloat!
@@ -494,6 +495,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         switch self.room!.type {
         case .chat:
+            self.finalRoomType = .chat
             if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
                 self.btnMoney.isHidden = true
             }
@@ -525,9 +527,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         case .channel:
 //            self.mainHolder.isHidden = false
             self.btnMoney.isHidden = true
+            self.finalRoomType = .channel
+
 
         default:
             self.btnMoney.isHidden = true
+            self.finalRoomType = .group
+
             
         }
         IGMessageViewController.messageIdsStatic[(self.room?.id)!] = []
@@ -2439,7 +2445,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         return nil
     }
     
-    var finalRoomType: IGRoom.IGType!
     var finalRoomId: Int64!
     var finalRoomGroupRoom : IGGroupRoom?
     
@@ -6120,16 +6125,7 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
                                 isFromSameSender = true
                             }
                         }
-                        
-                        //Hint: comment following code because corrently we don't use from 'isNextMessageFromSameSender' variable
-                        /*
-                         if messages!.indices.contains(indexPath.row - 1){
-                         let nextMessage = messages![(indexPath.row - 1)]
-                         if message.authorHash == nextMessage.authorHash {
-                         isNextMessageFromSameSender = true
-                         }
-                         }
-                         */
+
                     }
                 } else {
                     shouldShowAvatar = false
@@ -6144,7 +6140,8 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
             
             let img = isIncomming ? someoneImage : mineImage
             
-            let node = BaseBubbleNode(message: msg!, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
+            let node = BaseBubbleNode(message: msg!,finalRoomType : self!.finalRoomType, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
+            node.delegate = self
             return node
         }
         return cellnodeBlock
@@ -6154,4 +6151,13 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
         return 1
     }
 
+    //Delegate Funcs
+    func openuserProfile(message: IGRoomMessage) {
+            print("click click On UserProfile")
+        if let user = message.authorUser?.user {
+            self.selectedUserToSeeTheirInfo = user
+            openUserProfile()
+        }
+
+    }
 }

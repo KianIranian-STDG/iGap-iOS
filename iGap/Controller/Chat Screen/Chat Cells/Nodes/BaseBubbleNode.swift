@@ -11,21 +11,31 @@
 import AsyncDisplayKit
 import SwiftEventBus
 
-class BaseBubbleNode: ASCellNode {
+@objc protocol ChatDelegate : AnyObject{
     
-    private var message: IGRoomMessage
+    func openuserProfile(message : IGRoomMessage)
+}
+
+class BaseBubbleNode: ASCellNode {
+    private var finalRoomType: IGRoom.IGType!
+    private var message: IGRoomMessage?
     private var isIncomming: Bool
     private var shouldShowAvatar : Bool
     private var isFromSameSender : Bool
     private let bubbleImgNode = ASImageNode()
     private let timeTxtNode = ASTextNode()
     private let nameTxtNode = ASTextNode()
-    private let statusImgNode = ASImageNode()
+    private let statusTxtNode = ASTextNode()
     
     private var bubbleNode = ASDisplayNode()
-    private let avatarImageViewNode = ASAvatarView()
+    private var replyForwardViewNode = ASReplyForwardNode()
 
-    init(message : IGRoomMessage, isIncomming: Bool, bubbleImage: UIImage, isFromSameSender: Bool, shouldShowAvatar: Bool) {
+    private let avatarImageViewNode = ASAvatarView()
+    private let avatarBtnViewNode = ASButtonNode()
+    weak var delegate : ChatDelegate!
+
+    init(message : IGRoomMessage, finalRoomType : IGRoom.IGType, isIncomming: Bool, bubbleImage: UIImage, isFromSameSender: Bool, shouldShowAvatar: Bool) {
+        self.finalRoomType = finalRoomType
         self.message = message
         self.isIncomming = isIncomming
         self.shouldShowAvatar = shouldShowAvatar
@@ -39,60 +49,66 @@ class BaseBubbleNode: ASCellNode {
     
     
     private func setupView() {
-        if let name = message.authorUser?.userInfo.displayName {
+        if let name = message!.authorUser?.userInfo.displayName {
             nameTxtNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
             nameTxtNode.attributedText = NSAttributedString(string: name, attributes: kAMMessageCellNodeTopTextAttributes)
         }
 
-        if message.type == .text {
-            bubbleNode = IGTextNode(message: message, isIncomming: isIncomming)
-        }else if message.type == .image {
-            bubbleNode = IGImageNode(message: message, isIncomming: isIncomming)
+        if message!.type == .text {
+            bubbleNode = IGTextNode(message: message!, isIncomming: isIncomming)
+        }else if message!.type == .image {
+            bubbleNode = IGImageNode(message: message!, isIncomming: isIncomming)
         }
-        if let time = message.creationTime {
+        if let time = message!.creationTime {
             timeTxtNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
             timeTxtNode.attributedText = NSAttributedString(string: time.convertToHumanReadable(), attributes: kAMMessageCellNodeTopTextAttributes)
         }
 
-        
-        
-        //avatar
-//        if let _ = IGAvatar.getLastAvatar(ownerId: (message.authorUser?.user!.id)!), let avatarFile = message.authorUser?.user!.avatar?.file {
-//            avatarImageViewNode.setAvatar(avatar: avatarFile)
-////            avatarImageViewNode.image = UIImage(named: "AppIcon")
-//
-//        } else if let avatar = message.authorUser?.user!.avatar {
-//            avatarImageViewNode.setAvatar(avatar: avatar.file!)
-////            avatarImageViewNode.image = UIImage(named: "AppIcon")
-//
-//        }else{
-//            avatarImageViewNode.image = UIImage(named: "AppIcon")
-//        }
-//        avatarImageViewNode.image = UIImage(named: "AppIcon")
-
-        if message.type == .text ||  message.type == .image {
+        if message!.type == .text ||  message!.type == .image {
             if(isIncomming){
-                avatarImageViewNode.style.preferredSize = CGSize.zero
                 
-            }else{
                 avatarImageViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
                 avatarImageViewNode.cornerRadius = kAMMessageCellNodeAvatarImageSize/2
                 avatarImageViewNode.clipsToBounds = true
 
+                //clearButton on top of ASAvatarView
+                avatarBtnViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
+                avatarBtnViewNode.cornerRadius = kAMMessageCellNodeAvatarImageSize/2
+                avatarBtnViewNode.clipsToBounds = true
+                
+                //set size of status marker to zero for incomming messages
+                statusTxtNode.style.preferredSize = CGSize.zero
+
+            }else{
+                avatarImageViewNode.style.preferredSize = CGSize.zero
+                avatarBtnViewNode.style.preferredSize = CGSize.zero
+                let attribbutes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,
+                                   NSAttributedString.Key.font: UIFont.iGapFonticon(ofSize: 15)]
+
+                self.statusTxtNode.attributedText = NSAttributedString(string: "", attributes: attribbutes)
             }
+            //Add SubNodes
             addSubnode(bubbleImgNode)
             addSubnode(nameTxtNode)
+            addSubnode(replyForwardViewNode)
             addSubnode(bubbleNode)
             addSubnode(timeTxtNode)
+            addSubnode(statusTxtNode)
             addSubnode(avatarImageViewNode)
-            if let user = message.authorUser?.user {
+            addSubnode(avatarBtnViewNode)//Button with clear BG in order to handle tap on avatar
+            
+            //Avatar
+            if let user = message!.authorUser?.user {
                 avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.clear
                 avatarImageViewNode.setUser(user)
-            } else if let userId = message.authorUser?.userId {
+            } else if let userId = message!.authorUser?.userId {
                 avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.white
                 avatarImageViewNode.avatarASImageView!.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
-                SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(message.roomId)", sender: (action: ChatMessageAction.userInfo, userId: userId))
+                SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(message!.roomId)", sender: (action: ChatMessageAction.userInfo, userId: userId))
             }
+
+            //Taps
+            avatarBtnViewNode.addTarget(self, action: #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
 
         }
 
@@ -110,6 +126,16 @@ class BaseBubbleNode: ASCellNode {
         stack.spacing = 5
         
         stack.children?.append(nameTxtNode)
+        //check if has reply or Forward
+        if let repliedMessage = message?.repliedTo {
+            stack.children?.append(replyForwardViewNode)
+            replyForwardViewNode.setReplyForward(isReply: true)
+        } else if let forwardedMessage = message?.forwardedFrom {
+            stack.children?.append(replyForwardViewNode)
+            replyForwardViewNode.setReplyForward(isReply: false)
+
+        }
+
         stack.children?.append(bubbleNode)
 
         let textNodeVerticalOffset = CGFloat(6)
@@ -122,26 +148,63 @@ class BaseBubbleNode: ASCellNode {
         
         
         if let _ = bubbleNode  as? IGTextNode{
-            if let namecount = message.message{
-                if(namecount.count <= 20){
+            if let msgcount = message!.message{
+                if(msgcount.count <= 20){
                     
-                    let horizon = ASStackLayoutSpec(direction: .horizontal, spacing: 10, justifyContent: .start, alignItems: ASStackLayoutAlignItems.start, children: [stack , timeTxtNode])
-                    verticalSpec.child = ASInsetLayoutSpec(
-                        insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: horizon)
-                    
+                    if (self.finalRoomType == .channel) {
+                        
+                        let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [timeTxtNode])
+
+                        let horizon = ASStackLayoutSpec(direction: .horizontal, spacing: 10, justifyContent: .end, alignItems: ASStackLayoutAlignItems.end, children: isIncomming ? [stack , timeStatusStack] : [stack , timeStatusStack])
+                        horizon.verticalAlignment = .bottom
+                        
+                        verticalSpec.child = ASInsetLayoutSpec(
+                            insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: horizon)
+                        
+                    } else {
+                        
+                        let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [timeTxtNode,statusTxtNode])
+
+                        let horizon = ASStackLayoutSpec(direction: .horizontal, spacing: 10, justifyContent: .end, alignItems: ASStackLayoutAlignItems.end, children: isIncomming ? [stack , timeStatusStack] : [stack , timeStatusStack])
+                        horizon.verticalAlignment = .bottom
+                        
+                        verticalSpec.child = ASInsetLayoutSpec(
+                            insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: horizon)
+                        
+                    }
                     
                 }else{
-                    stack.children?.append(timeTxtNode)
-                    verticalSpec.child = ASInsetLayoutSpec(
-                        insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
                     
+                    if (self.finalRoomType == .channel) {
+
+                        stack.children?.append(timeTxtNode)
+                        verticalSpec.child = ASInsetLayoutSpec(
+                            insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
+                        
+                    } else {
+                        
+                        if isIncomming {
+                            stack.children?.append(timeTxtNode)
+                            verticalSpec.child = ASInsetLayoutSpec(
+                                insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
+
+                        } else {
+                            let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [timeTxtNode,statusTxtNode])
+                            stack.children?.append(timeStatusStack)
+                            verticalSpec.child = ASInsetLayoutSpec(
+                                insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
+
+                        }
+
+                        
+                    }
+
                 }
                 
             }
             
             
         }
-        
         
         
 //        space it
@@ -159,13 +222,14 @@ class BaseBubbleNode: ASCellNode {
         stackSpec.children = [insetSpec]
 
 
+        let ASBGStack = ASBackgroundLayoutSpec(child: avatarBtnViewNode, background: avatarImageViewNode)
         let stackHSpec = ASStackLayoutSpec()
         stackHSpec.direction = .horizontal
         stackHSpec.spacing = 5
 //        stackHSpec.justifyContent = .spaceBetween
         stackHSpec.verticalAlignment = .bottom
 //        stackHSpec.style.preferredSize.width = 200
-        stackHSpec.children = [stackSpec,avatarImageViewNode]
+        stackHSpec.children = [stackSpec,ASBGStack]
         stackHSpec.style.flexShrink = 1.0
         stackHSpec.style.flexGrow = 1.0
 
@@ -176,5 +240,14 @@ class BaseBubbleNode: ASCellNode {
         return insetHSpec
         
     }
+    //- Hint : Check tap on user profile
+    @objc func handleUserTap() {
     
+        if(delegate != nil){
+            if let msg = message{
+                self.delegate.openuserProfile(message: msg)
+    
+            }
+        }
+    }
 }
