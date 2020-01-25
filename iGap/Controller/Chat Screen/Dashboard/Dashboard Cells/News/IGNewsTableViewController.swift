@@ -173,7 +173,7 @@ class IGNewsTableViewController: BaseTableViewController {
             //title of double news section
             singleNews.lblTitle0.text = (item.news![0].category)
             //pass categoryID
-            singleNews.categoryIDOne = (item.news![0].categoryId)
+            singleNews.categoryIDOne = "\(item.news![0].categoryId)"
             singleNews.categoryOne = (item.news![0].category)
 
             //set cell data
@@ -188,8 +188,8 @@ class IGNewsTableViewController: BaseTableViewController {
             doubleNews.newsOne = (item.news![0].news)
             doubleNews.newsTwo = (item.news![1].news)
             //pass categoryID
-            doubleNews.categoryIDOne = (item.news![0].categoryId)
-            doubleNews.categoryIDTwo = (item.news![1].categoryId)
+            doubleNews.categoryIDOne = "\(item.news![0].categoryId)"
+            doubleNews.categoryIDTwo = "\(item.news![1].categoryId)"
             //title of double news section
             doubleNews.lblTitle0.text = (item.news![0].category)
             doubleNews.lblTitle1.text = (item.news![1].category)
@@ -213,9 +213,9 @@ class IGNewsTableViewController: BaseTableViewController {
             tripleNews.lblTitleTwo.text = (item.news![1].category)
             tripleNews.lblTitleThree.text = (item.news![2].category)
             //pass categoryID
-            tripleNews.categoryIDOne = (item.news![0].categoryId)
-            tripleNews.categoryIDTwo = (item.news![1].categoryId)
-            tripleNews.categoryIDThree = (item.news![2].categoryId)
+            tripleNews.categoryIDOne = "\(item.news![0].categoryId)"
+            tripleNews.categoryIDTwo = "\(item.news![1].categoryId)"
+            tripleNews.categoryIDThree = "\(item.news![2].categoryId)"
             tripleNews.categoryOne = (item.news![0].category)
             tripleNews.categoryTwo = (item.news![1].category)
             tripleNews.categoryThree = (item.news![2].category)

@@ -26,9 +26,32 @@ enum `Type`: String, Decodable {
 struct news: Decodable {
     
     var category: String?
-    var categoryId: String?
+    var categoryId: QuantumValue?
     var news : [newsInner]?
     
+    
+}
+enum QuantumValue: Decodable {
+
+    case int(Int), string(String)
+
+    init(from decoder: Decoder) throws {
+        if let int = try? decoder.singleValueContainer().decode(Int.self) {
+            self = .int(int)
+            return
+        }
+
+        if let string = try? decoder.singleValueContainer().decode(String.self) {
+            self = .string(string)
+            return
+        }
+
+        throw QuantumError.missingValue
+    }
+
+    enum QuantumError:Error {
+        case missingValue
+    }
 }
 struct buttons: Decodable {
     

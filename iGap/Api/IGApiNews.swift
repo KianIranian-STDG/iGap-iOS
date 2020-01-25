@@ -84,7 +84,8 @@ class IGApiNews: IGApiBase {
                         let classData = try JSONDecoder().decode([IGStructNewsMainPage].self, from: value)
                         completion(true, classData)
                         
-                    } catch _ {
+                    } catch (let error) {
+                        print(error)
                         IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.GlobalTryAgain.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
                         completion(false, nil)
                     }
