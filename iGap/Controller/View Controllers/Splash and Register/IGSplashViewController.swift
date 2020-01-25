@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IGSplashViewController: UIViewController {
+class IGSplashViewController: BaseViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var selectLanguageTV: UITableView!
@@ -36,7 +36,9 @@ class IGSplashViewController: UIViewController {
         selectLanguageTV.layer.cornerRadius = 8
         selectLanguageTV.layer.borderWidth = 1
         selectLanguageTV.layer.borderColor = ThemeManager.currentTheme.LabelGrayColor.cgColor
+        selectLanguageTV.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
     }
+
 
 }
 
@@ -49,7 +51,7 @@ extension IGSplashViewController: UITableViewDelegate, UITableViewDataSource {
         let label = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
         //        label.textColor = UIColor.red
         label.text = "Choose Language - انتخاب زبان"
-        
+        label.textColor = ThemeManager.currentTheme.LabelColor
         label.font = UIFont.igFont(ofSize: 15)
         label.textAlignment = .center
         
@@ -84,7 +86,11 @@ extension IGSplashViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = ThemeManager.currentTheme.TableViewCellColor
+
+    }
+
 }
 
 
