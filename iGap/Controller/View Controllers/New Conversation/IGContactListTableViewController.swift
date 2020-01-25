@@ -13,6 +13,7 @@ import Contacts
 import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
+import SwiftEventBus
 
 class IGContactListTableViewController: BaseTableViewController, UISearchResultsUpdating, IGCallFromContactListObserver {
     
@@ -20,7 +21,6 @@ class IGContactListTableViewController: BaseTableViewController, UISearchResults
     var contacts : Results<IGRegisteredUser>!
     var contactSections: [Section]?
     let collation = UILocalizedIndexedCollation.current()
-//    var resultSearchController = UISearchController()
     var sections : [Section]!
     var forceCall: Bool = false
     var pageName : String! = IGStringsManager.NewCall.rawValue.localized
@@ -251,7 +251,7 @@ class IGContactListTableViewController: BaseTableViewController, UISearchResults
                         IGGlobal.prgHide()
                         let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
                         self.navigationController?.popToRootViewController(animated: true)
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
+                        SwiftEventBus.postToMainThread(EventBusManager.openRoom, sender: roomId)
                     }
                 }
             }).error({ (errorCode, waitTime) in

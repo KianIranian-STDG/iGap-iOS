@@ -56,6 +56,16 @@ class IGAppManager: NSObject {
         connectionStatus = BehaviorRelay(value: .waitingForNetwork)
         isUserLoggedIn   = BehaviorRelay(value: false)
         super.init()
+        
+        /***** detect contact change *****/
+        NotificationCenter.default.addObserver(self, selector: #selector(addressBookDidChange(_:)), name: NSNotification.Name.CNContactStoreDidChange, object: nil)
+    }
+    
+   @objc func addressBookDidChange(_ notification: UITapGestureRecognizer) {
+        if !IGContactManager.syncedPhoneBookContact {
+            IGContactManager.syncedPhoneBookContact = true
+            IGContactManager.sharedManager.manageContact()
+        }
     }
     
     public func setNetworkConnectionStatus(_ status: ConnectionStatus) {
@@ -180,7 +190,7 @@ class IGAppManager: NSObject {
     
     public func setUserLoginSuccessful() {
         isUserLoggedIn.accept(true)
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName), object: nil)
+        SwiftEventBus.postToMainThread(EventBusManager.login)
     }
     
     public func getSignalingConfiguration(force:Bool = false){

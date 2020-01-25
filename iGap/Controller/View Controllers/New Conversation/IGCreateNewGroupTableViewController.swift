@@ -11,6 +11,7 @@
 import UIKit
 import IGProtoBuff
 import YPImagePicker
+import SwiftEventBus
 
 class IGCreateNewGroupTableViewController: BaseTableViewController {
 
@@ -58,11 +59,6 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         groupNameTextField.becomeFirstResponder()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated )
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom), object: nil)
     }
     
     deinit {
@@ -326,8 +322,6 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     
     func dismissView(roomId: Int64){
         self.navigationController?.popToRootViewController(animated: true)
-        //DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom), object: nil, userInfo: ["room": roomId])
-        //}
+        SwiftEventBus.postToMainThread(EventBusManager.openRoom, sender: roomId)
     }
 }

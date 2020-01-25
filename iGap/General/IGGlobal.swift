@@ -26,11 +26,8 @@ import Photos
 
 var fontDefaultSize: CGFloat = 15.0
 
-let kIGUserLoggedInNotificationName = "im.igap.ios.user.logged.in"
-let kIGGoBackToMainNotificationName = "im.igap.ios.backed.to.main"
 let kIGChnageLanguageNotificationName = "im.igap.ios.change.language"
 let kIGGoDissmissLangNotificationName = "im.igap.ios.dismiss.lang"
-let kIGNotificationNameDidCreateARoom = "im.igap.ios.room.created"
 let kIGNotificationNameDidCreateARoomAtProfile = "im.igap.ios.room.created.from.profile"
 let kIGNoticationForPushUserExpire = "im.igap.ios.user.expire"
 let kIGNoticationDismissWalletPay = "im.igap.ios.dismiss.wallet.pay"
@@ -97,7 +94,7 @@ class IGGlobal {
     static var sendTone: AVAudioPlayer?
     static var safeAreaInsets: CGFloat = 0
     static let eventBusChatKey = "CHAT"
-    
+    static let eventBusObject = NSObject()
     static var stickerPreviewSectionIndex: Int = -1
     static var stickerCurrentGroupId: String? = nil // when current sticker page type is 'StickerPageType.MAIN' set this value for keep index and show current state of sticker tab after close add sticker list page
     static var stickerImageDic: [String:UIImageView] = [:]

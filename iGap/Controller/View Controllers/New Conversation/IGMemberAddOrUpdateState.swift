@@ -13,6 +13,7 @@ import Contacts
 import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
+import SwiftEventBus
 
 class IGMemberAddOrUpdateState: BaseViewController {
     
@@ -502,7 +503,7 @@ class IGMemberAddOrUpdateState: BaseViewController {
             if self.selectedUsers.count == self.doneActionsCount {
                 if self.mode == "CreateChannel" {
                     self.navigationController?.popToRootViewController(animated: true)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom), object: nil, userInfo: ["room": self.roomID!])
+                    SwiftEventBus.postToMainThread(EventBusManager.openRoom, sender: self.roomID!)
                 } else {
                     if self.existErrorUserIds.count == 0 {
                         if self.navigationController is IGNavigationController {

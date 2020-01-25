@@ -15,14 +15,8 @@ class NotificationParser {
     func handleNotification(_ userInfo: [AnyHashable : Any]) -> DeeplinkType? {
         
         if let deepLink = userInfo["deepLink"] as? String {
-            // handle notification deep link
             guard let url = URL(string: "igap://" + deepLink) else { return nil }
             return DeepLinkParser.shared.parseDeepLink(url)
-//            if IGAppManager.sharedManager.isUserLoggiedIn() {
-//                self.checkDeepLink()
-//            } else {
-//                NotificationCenter.default.addObserver(self, selector: #selector(self.checkDeepLink), name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName), object: nil)
-//            }
         } else if let roomID = userInfo["roomId"] as? String {
             let roomStrAsNSString = roomID as NSString
             let roomIdInt64 = roomStrAsNSString.longLongValue

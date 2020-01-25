@@ -67,10 +67,9 @@ class IGCallsTableViewController: BaseTableViewController {
         if IGAppManager.sharedManager.isUserLoggiedIn() {
             self.fetchCallLogList()
         } else {
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(self.fetchCallLogList),
-                                                   name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
-                                                   object: nil)
+            SwiftEventBus.on(self, name: EventBusManager.login, queue: OperationQueue.current) { [weak self] (result) in
+                self?.fetchCallLogList()
+            }
         }
         callTypes = IGPSignalingGetLog.IGPFilter.allCases
         
@@ -238,7 +237,7 @@ class IGCallsTableViewController: BaseTableViewController {
         }
     }
 
-    @objc private func fetchCallLogList() {
+    private func fetchCallLogList() {
         IGSignalingGetLogRequest.Generator.generate(offset: 0, limit: CALL_LOG_CONFIG, mode: currentMode).success { [weak self] (responseProtoMessage) in
             DispatchQueue.main.async {
                 if let signalingResponse = responseProtoMessage as? IGPSignalingGetLogResponse {

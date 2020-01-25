@@ -146,16 +146,14 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         if IGAppManager.sharedManager.isUserLoggiedIn() {
             self.checkDeepLink()
         } else {
-            
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(self.checkDeepLink),
-                                                   name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
-                                                   object: nil)
+            SwiftEventBus.on(self, name: EventBusManager.login, queue: OperationQueue.current) { [weak self] (result) in
+                self?.checkDeepLink()
+            }
         }
     }
     
-    @objc private func checkDeepLink() {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName), object: nil)
+    private func checkDeepLink() {
+        SwiftEventBus.unregister(self, name: EventBusManager.login)
         DeepLinkManager.shared.checkDeepLink()
     }
     

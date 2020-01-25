@@ -14,6 +14,7 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 import MGSwipeTableCell
+import SwiftEventBus
 
 class IGSettingContactsTableViewController: BaseTableViewController, UISearchResultsUpdating, IGCallFromContactListObserver {
     
@@ -397,10 +398,7 @@ class IGSettingContactsTableViewController: BaseTableViewController, UISearchRes
                     case let chatGetRoomResponse as IGPChatGetRoomResponse:
                         let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
                         self.dismiss(animated: true, completion: {
-                            //segue to created chat
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
-                                                            object: nil,
-                                                            userInfo: ["room": roomId])
+                            SwiftEventBus.postToMainThread(EventBusManager.openRoom, sender: roomId)
                         })
                         break
                     default:

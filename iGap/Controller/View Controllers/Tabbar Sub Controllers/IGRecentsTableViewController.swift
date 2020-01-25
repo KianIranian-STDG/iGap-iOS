@@ -158,7 +158,7 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
                     IGGlobal.prgHide()
                     if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse {
                         let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom), object: nil, userInfo: ["room": roomId])
+                        SwiftEventBus.postToMainThread(EventBusManager.openRoom, sender: roomId)
                     }
                 }).error({ (errorCode, waitTime) in
                     IGGlobal.prgHide()
@@ -274,27 +274,7 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
                 self.checkPermission()
                 self.fetchRoomList()
             }
-        } else {
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(self.userDidLogin),
-                                                   name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
-                                                   object: nil)
         }
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(segueToChatNotificationReceived(_:)),
-                                               name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
-                                               object: nil)
-        
-        /* detect contact change */
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(addressBookDidChange(_:)),
-                                               name: NSNotification.Name.CNContactStoreDidChange,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.changeDirectionOfUI),
-                                               name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName),
-                                               object: nil)
         
         // use current line for enable support gif in SDWebImage library
         SDWebImageCodersManager.sharedInstance().addCoder(SDWebImageGIFCoder.shared())
@@ -305,11 +285,15 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
     }
     
     private func eventBusInitialiser() {
-        SwiftEventBus.onMainThread(self, name: "initTheme") { [weak self] result in
+        
+        /***** unregister all events for avoid from duplicate regsiteration for an event *****/
+        unregisterEventBus()
+        
+        SwiftEventBus.onMainThread(IGGlobal.eventBusObject, name: EventBusManager.initTheme) { [weak self] result in
             self?.initTheme()
         }
         
-        SwiftEventBus.onMainThread(self, name: EventBusManager.showTopMusicPlayer) { [weak self] result in
+        SwiftEventBus.onMainThread(IGGlobal.eventBusObject, name: EventBusManager.showTopMusicPlayer) { [weak self] result in
             let musicFile : MusicFile = result?.object as! MusicFile
             IGGlobal.topBarSongTime = musicFile.songTime
             self?.songName = musicFile.songName
@@ -317,24 +301,38 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
             self?.showMusicTopPlayerWithAnimation()
         }
         
-        SwiftEventBus.onMainThread(self, name: EventBusManager.hideTopMusicPlayer) { [weak self] result in
+        SwiftEventBus.onMainThread(IGGlobal.eventBusObject, name: EventBusManager.hideTopMusicPlayer) { [weak self] result in
             self?.hideMusicTopPlayerWithAnimation()
         }
         
-        SwiftEventBus.onMainThread(self, name: EventBusManager.stopMusicPlayer) { [weak self] result in
+        SwiftEventBus.onMainThread(IGGlobal.eventBusObject, name: EventBusManager.stopMusicPlayer) { [weak self] result in
             self?.playMusic()
         }
         
-        SwiftEventBus.onMainThread(self, name: EventBusManager.playMusicPlayer) { [weak self] result in
+        SwiftEventBus.onMainThread(IGGlobal.eventBusObject, name: EventBusManager.playMusicPlayer) { [weak self] result in
             self?.stopMusic()
         }
         
-        SwiftEventBus.onMainThread(self, name: EventBusManager.updateLabelsData) { [weak self] result in
+        SwiftEventBus.onMainThread(IGGlobal.eventBusObject, name: EventBusManager.updateLabelsData) { [weak self] result in
             self?.updateLabelsData(singerName: IGGlobal.topBarSongSinger,songName: IGGlobal.topBarSongName)
         }
         
+        SwiftEventBus.on(IGGlobal.eventBusObject, name: EventBusManager.login, queue: OperationQueue.current) { [weak self] (result) in
+            self?.userDidLogin()
+        }
+        
+        SwiftEventBus.onMainThread(IGGlobal.eventBusObject, name: EventBusManager.openRoom) { [weak self] (result) in
+            if let roomId = result?.object as? Int64 {
+                self?.openRoom(roomId: roomId)
+            }
+        }
+        
+        SwiftEventBus.on(IGGlobal.eventBusObject, name: EventBusManager.changeDirection, queue: OperationQueue.current) { [weak self] (result) in
+            self?.changeDirectionOfUI()
+        }
+        
         /***** Receive Message *****/
-        SwiftEventBus.on(self, name: EventBusManager.messageReceiveGlobal, queue: OperationQueue.current) { [weak self]  result in
+        SwiftEventBus.on(IGGlobal.eventBusObject, name: EventBusManager.messageReceiveGlobal, queue: OperationQueue.current) { [weak self]  result in
             if let messageInfo = result?.object as? (roomId: Int64, messages: [IGPRoomMessage]) {
                 for message in messageInfo.messages {
                     var roomType: IGRoom.IGType = .chat
@@ -359,6 +357,19 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
                 }
             }
         }
+    }
+    
+    private func unregisterEventBus(){
+        SwiftEventBus.unregister(IGGlobal.eventBusObject, name: EventBusManager.initTheme)
+        SwiftEventBus.unregister(IGGlobal.eventBusObject, name: EventBusManager.showTopMusicPlayer)
+        SwiftEventBus.unregister(IGGlobal.eventBusObject, name: EventBusManager.hideTopMusicPlayer)
+        SwiftEventBus.unregister(IGGlobal.eventBusObject, name: EventBusManager.stopMusicPlayer)
+        SwiftEventBus.unregister(IGGlobal.eventBusObject, name: EventBusManager.playMusicPlayer)
+        SwiftEventBus.unregister(IGGlobal.eventBusObject, name: EventBusManager.updateLabelsData)
+        SwiftEventBus.unregister(IGGlobal.eventBusObject, name: EventBusManager.login)
+        SwiftEventBus.unregister(IGGlobal.eventBusObject, name: EventBusManager.openRoom)
+        SwiftEventBus.unregister(IGGlobal.eventBusObject, name: EventBusManager.changeDirection)
+        SwiftEventBus.unregister(IGGlobal.eventBusObject, name: EventBusManager.messageReceiveGlobal)
     }
     
     @objc func updateLabelsData(singerName: String!,songName: String!) {
@@ -401,15 +412,8 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         IGPlayer.shared.playMusic()
     }
     
-    @objc private func changeDirectionOfUI() {
+    private func changeDirectionOfUI() {
         let _ : String = SMLangUtil.loadLanguage()
-    }
-    
-    @objc func addressBookDidChange(_ notification: UITapGestureRecognizer) {
-        if !IGContactManager.syncedPhoneBookContact {
-            IGContactManager.syncedPhoneBookContact = true
-            IGContactManager.sharedManager.manageContact()
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -448,7 +452,7 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 
-    @objc private func userDidLogin() {
+    private func userDidLogin() {
         IGHelperGetShareData.manageShareDate()
         self.checkAppVersion()
         self.checkPermission()
@@ -882,26 +886,26 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
     }
     
     
-    @objc func segueToChatNotificationReceived(_ aNotification: Notification) {
-        if let roomId = aNotification.userInfo?["room"] as? Int64 {
-            let predicate = NSPredicate(format: "id = %lld", roomId)
-            if let room = rooms!.filter(predicate).first {
-                let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-                chatPage.room = room
-                chatPage.hidesBottomBarWhenPushed = true
-                UIApplication.topNavigationController()!.pushViewController(chatPage, animated: true)
-            } else {
-                IGGlobal.prgShow()
-                IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ (protoResponse) in
-                    IGGlobal.prgHide()
-                    if let clientGetRoomResponse = protoResponse as? IGPClientGetRoomResponse {
-                        IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom), object: nil, userInfo: ["room": roomId])
+    func openRoom(roomId: Int64) {
+        let predicate = NSPredicate(format: "id = %lld", roomId)
+        if let room = rooms!.filter(predicate).first {
+            let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+            chatPage.room = room
+            chatPage.hidesBottomBarWhenPushed = true
+            UIApplication.topNavigationController()!.pushViewController(chatPage, animated: true)
+        } else {
+            IGGlobal.prgShow()
+            IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ [weak self] (protoResponse) in
+                IGGlobal.prgHide()
+                if let clientGetRoomResponse = protoResponse as? IGPClientGetRoomResponse {
+                    IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        self?.openRoom(roomId: clientGetRoomResponse.igpRoom.igpID)
                     }
-                }).error ({ (errorCode, waitTime) in
-                    IGGlobal.prgHide()
-                }).send()
-            }
+                }
+            }).error ({ (errorCode, waitTime) in
+                IGGlobal.prgHide()
+            }).send()
         }
     }
 }

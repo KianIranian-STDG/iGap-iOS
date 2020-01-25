@@ -732,10 +732,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                     switch protoResponse {
                     case let chatGetRoomResponse as IGPChatGetRoomResponse:
                         let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                        //segue to created chat
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
-                                                        object: nil,
-                                                        userInfo: ["room": roomId])
+                        SwiftEventBus.postToMainThread(EventBusManager.openRoom, sender: roomId)
                         break
                     default:
                         break
@@ -1433,7 +1430,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                     IGGlobal.prgHide()
                     if let clientGetRoomResponse = protoResponse as? IGPClientGetRoomResponse {
                         IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
+                        SwiftEventBus.postToMainThread(EventBusManager.openRoom, sender: roomId)
                     }
                 }
             }).error ({ (errorCode, waitTime) in

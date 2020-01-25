@@ -25,6 +25,7 @@ struct SMConstants {
 
 struct EventBusManager {
     
+    static let initTheme = "initTheme"
     static let stopMusicPlayer = "stopMusicPlayer"
     static let playMusicPlayer = "playMusicPlayer"
     static let updateMediaTimer = "updateMediaTimer"
@@ -48,6 +49,9 @@ struct EventBusManager {
     static let stickerAdd = "stickerAdd"
     static let discoveryFetchFirstPage = "discoveryFetchFirstPage"
     static let discoveryNearbyClick = "discoveryNearbyClick"
+    static let login = "login"
+    static let openRoom = "openRoom"
+    static let changeDirection = "changeDirection"
 }
 
 struct SMMessage {

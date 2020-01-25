@@ -184,9 +184,8 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
         if numberOfPages == 2  {
             if currentTabIndex == TabBarTab.Profile.rawValue {
                 return super.popViewController(animated: animated)
-            }
-            else {
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName), object: nil)
+            } else {
+                SwiftEventBus.post(EventBusManager.changeDirection)
                 return super.popViewController(animated: animated)
             }
         } else {
@@ -203,17 +202,12 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
     }
     
     @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
-        // handling code
         print("TAPPED ON VIEW")
     }
 
     func configNavigationBar() {
         navigationBar.barStyle = .default
         navigationBar.shadowImage = UIImage()
-//        navigationBar.isTranslucent = false
-        
-//        navigationBar.tintColor = UIColor.white
-//        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

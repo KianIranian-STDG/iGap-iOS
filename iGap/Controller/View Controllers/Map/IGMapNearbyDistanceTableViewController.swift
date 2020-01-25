@@ -12,6 +12,7 @@ import UIKit
 import IGProtoBuff
 import SwiftProtobuf
 import RealmSwift
+import SwiftEventBus
 
 class IGMapNearbyDistanceTableViewController: BaseTableViewController {
     
@@ -68,10 +69,9 @@ class IGMapNearbyDistanceTableViewController: BaseTableViewController {
         if IGAppManager.sharedManager.isUserLoggiedIn() {
             self.fetchNearbyUsersDistanceList()
         } else {
-            NotificationCenter.default.addObserver(self,
-                                       selector: #selector(self.fetchNearbyUsersDistanceList),
-                                       name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
-                                       object: nil)
+            SwiftEventBus.on(self, name: EventBusManager.login, queue: OperationQueue.current) { [weak self] (result) in
+                self?.fetchNearbyUsersDistanceList()
+            }
         }
     }
     
@@ -86,7 +86,7 @@ class IGMapNearbyDistanceTableViewController: BaseTableViewController {
     }
     
     
-    @objc private func fetchNearbyUsersDistanceList() {
+    private func fetchNearbyUsersDistanceList() {
         IGGeoGetNearbyDistance.Generator.generate(lat: latitude, lon: longitude).success { (responseProtoMessage) in
             DispatchQueue.main.async {
                 if let nearbyDistanceResponse = responseProtoMessage as? IGPGeoGetNearbyDistanceResponse {
