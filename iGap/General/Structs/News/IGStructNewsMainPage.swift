@@ -53,6 +53,15 @@ enum QuantumValue: Decodable {
         case missingValue
     }
 }
+extension QuantumValue {
+
+    var stringValue: String? {
+        switch self {
+        case .int(let value): return String(value)
+        case .string(let value): return (value)
+        }
+    }
+}
 struct buttons: Decodable {
     
     var id: String?
