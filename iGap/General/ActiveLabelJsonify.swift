@@ -16,9 +16,19 @@ class ActiveLabelJsonify {
         let lbl = ActiveLabel(frame: .zero)
         lbl.text = text
         var itemHolder = ActiveItemsHolder(items: [ActiveLabelItem]())
-        for (key, value) in lbl.activeElements {
+        for (keyy, value) in lbl.activeElements {
+            var key = keyy
             if (value.count != 0){
                 for val in value {
+                    
+                    if key == .url {
+                        if isEmail(candidate: getStringAtRange(string: text, range: NSRange(location: val.range.location, length: val.range.length))) {
+                            
+                            key = .email
+                            
+                        }
+                    }
+                    
                     let item = ActiveLabelItem(type: typeToString(type: key), offset: val.range.location, limit: val.range.length)
                     itemHolder.items.append(item)
                 }
@@ -76,4 +86,14 @@ struct ActiveLabelItem: Codable {
     var type: String
     var offset: Int
     var limit: Int
+}
+
+
+fileprivate func isEmail(candidate: String) -> Bool {
+    let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+    return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: candidate)
+}
+
+private func getStringAtRange(string: String, range: NSRange) -> String {
+    return (string as NSString).substring(with: range)
 }
