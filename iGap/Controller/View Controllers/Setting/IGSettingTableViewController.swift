@@ -54,10 +54,9 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         
         tableView.tableFooterView = UIView()
-            SwiftEventBus.onMainThread(self, name: "initTheme") { result in
-                self.initTheme()
+            SwiftEventBus.onMainThread(self, name: "initTheme") { [weak self] result in
+                self?.initTheme()
             }
-
             initTheme()
         }
         private func initTheme() {
@@ -85,8 +84,8 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
         navigationController.interactivePopGestureRecognizer?.delegate = self
 
         // navigationItem.setChatListsNavigationItems()
-        navigationItem.rightViewContainer?.addAction {
-            self.showMoreActionSheet()
+        navigationItem.rightViewContainer?.addAction { [weak self] in
+            self?.showMoreActionSheet()
         }
     }
     
@@ -119,38 +118,11 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: animated)
         }
-//        self.navigationController?.interactivePopGestureRecognizer?.addTarget(self, action:#selector(self.handlePopGesture))
-
     }
-    //Hint : -Uncomment these lines if u want to handle swipe back manually
-    //becoz in the root view we should not have the nav bar
-//    @objc func handlePopGesture(gesture: UIGestureRecognizer) -> Void {
-//
-//        let position = gesture.location(in: self.view)
-//
-//        switch gesture.state {
-//
-//        case .possible:
-//            break
-//        case .began:
-//            print("BEGAN")
-//
-//        case .changed:
-//            print("changed")
-//
-//        case .ended:
-//            print("ended")
-//
-//        case .cancelled:
-//            print("canceled")
-//
-//        case .failed:
-//            print("failed")
-//
-//         default:
-//            break
-//        }
-//    }
+    
+    deinit {
+        print("Deinit IGSettingTableViewController")
+    }
     
     var lastIndex: Array<Any>.Index?
     var currentAvatarId: Int64?
@@ -186,7 +158,7 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
         
         if indexPath.section == 0 {
             
-            var rowIndex = indexPath.row
+            let rowIndex = indexPath.row
             
             if rowIndex == 0 {
                 self.tableView.isUserInteractionEnabled = false
@@ -282,11 +254,10 @@ class IGSettingTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     private func deleteAccountProcess() {
 
-        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: IGStringsManager.SureToDeleteAccount.rawValue.localized,doneText: IGStringsManager.GlobalOK.rawValue.localized ,cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel: {
-            self.dismiss(animated: true, completion: nil)
-        }, done: {
-            self.dismiss(animated: true, completion: nil)
-            
+        IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: IGStringsManager.SureToDeleteAccount.rawValue.localized,doneText: IGStringsManager.GlobalOK.rawValue.localized ,cancelText: IGStringsManager.GlobalClose.rawValue.localized,cancel: { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }, done: { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
         })
     }
 }

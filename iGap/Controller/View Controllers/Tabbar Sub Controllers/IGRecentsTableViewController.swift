@@ -431,7 +431,6 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.tableView.isUserInteractionEnabled = true
-        self.notificationToken?.invalidate()
         if currentTabIndex == TabBarTab.Recent.rawValue {
             if let navigationBar = self.navigationController?.navigationBar {
                 navigationBar.backgroundColor = .clear

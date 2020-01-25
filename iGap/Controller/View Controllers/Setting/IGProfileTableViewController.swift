@@ -138,8 +138,8 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
         
-        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
-            self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
+        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { [weak self] (connectionStatus) in
+            self?.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
         }, onError: { (error) in
             
         }, onCompleted: {
@@ -147,8 +147,8 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         }, onDisposed: {
             
         }).disposed(by: disposeBag)
-        SwiftEventBus.onMainThread(self, name: "initTheme") { result in
-            self.initTheme()
+        SwiftEventBus.onMainThread(self, name: "initTheme") { [weak self] result in
+            self?.initTheme()
         }
 
         initTheme()
@@ -234,27 +234,15 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     
     func getUserCurrentLocation() {
-        IGInfoLocationRequest.Generator.generate().success({(protoResponse) in
+        IGInfoLocationRequest.Generator.generate().success({ [weak self] (protoResponse) in
             DispatchQueue.main.async {
-                switch protoResponse {
-                case let locationProtoResponse as IGPInfoLocationResponse:
+                if self == nil {return}
+                if let locationProtoResponse = protoResponse as? IGPInfoLocationResponse {
                    let country = IGCountryInfo(responseProtoMessage: locationProtoResponse)
-                   self.selectedCountry = country
-                    self.setSelectedCountry(self.selectedCountry!)
-                    
-                default:
-                    break
+                   self!.selectedCountry = country
+                   self!.setSelectedCountry(self!.selectedCountry!)
                 }
             }
-        }).error ({ (errorCode, waitTime) in
-            switch errorCode {
-            case .timeout:
-                break
-
-            default:
-                break
-            }
-            
         }).send()
     }
     
@@ -265,12 +253,16 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         }
     }
     
+    deinit {
+        print("Deinit IGProfileTableViewController")
+    }
+    
     private func initNavBar() {
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.setProfilePageNavigationItem()
-        navigationItem.rightViewContainer?.addAction {
-            self.view.endEditing(true)
-            self.editProfileTapped()
+        navigationItem.rightViewContainer?.addAction { [weak self] in
+            self?.view.endEditing(true)
+            self?.editProfileTapped()
         }
     }
     
@@ -328,35 +320,35 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         }
         
         if checkUpdate {
-            IGInfoWallpaperRequest.Generator.generate(fit: fit , type: .profileWallpaper).successPowerful({ (protoResponse, requestWrapper) in
+            IGInfoWallpaperRequest.Generator.generate(fit: fit , type: .profileWallpaper).successPowerful({ [weak self] (protoResponse, requestWrapper) in
                 if let wallpaperRequest = requestWrapper.identity as? IGPInfoWallpaper, wallpaperRequest.igpType == .profileWallpaper {
                     if let wallpaperResponse = protoResponse as? IGPInfoWallpaperResponse {
                         let profileWallpaper = IGRealmWallpaper.fetchProfileWallpaper()
                         if profileWallpaper == nil || profileWallpaper!.cacheID != wallpaperResponse.igpWallpaper.first?.igpFile.igpCacheID {
                             IGInfoWallpaperRequest.Handler.interpret(response: wallpaperResponse ,type: .profileWallpaper)
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                self.showProfileWallpaper(checkUpdate: false)
+                                self?.showProfileWallpaper(checkUpdate: false)
                             }
                         } else {
-                            self.showProfileWallpaper(checkUpdate: false)
+                            self?.showProfileWallpaper(checkUpdate: false)
                         }
                     }
                 }
-            }).error({ (error, waitTime) in
+            }).error({ [weak self] (error, waitTime) in
                 if error == .timeout {
-                    self.showProfileWallpaper(checkUpdate: checkUpdate)
+                    self?.showProfileWallpaper(checkUpdate: checkUpdate)
                 }
             }).send()
         }
     }
     
     func finishDefault(isPaygear: Bool? ,isCard : Bool?) {
-        SMCard.getAllCardsFromServer({ cards in
+        SMCard.getAllCardsFromServer({ [weak self] cards in
             if cards != nil{
                 if (cards as? [SMCard]) != nil{
                     if (cards as! [SMCard]).count > 0 {
-                        self.userCards = SMCard.getAllCardsFromDB()
-                        if let cards = self.userCards {
+                        self?.userCards = SMCard.getAllCardsFromDB()
+                        if let cards = self?.userCards {
                             var tmpSum : Int64! = 0
                             for card in cards {
                                 if card.balance != nil {
@@ -364,10 +356,8 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                                     tmpSum =  tmpSum + tmpBalance
                                 }
                             }
-                            self.lblMoneyAmount.text = String(tmpSum).inRialFormat()
-
+                            self?.lblMoneyAmount.text = String(tmpSum).inRialFormat()
                         }
-
                     }
                 }
             }
@@ -523,54 +513,53 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     
     func getRepresenter(){
-        IGUserProfileGetRepresentativeRequest.Generator.generate().success({ (protoResponse) in
+        IGUserProfileGetRepresentativeRequest.Generator.generate().success({ [weak self] (protoResponse) in
             if let response = protoResponse as? IGPUserProfileGetRepresentativeResponse {
                 
                 if response.igpPhoneNumber.isEmpty {
-                    self.tfReferral.isEnabled = true
+                    self?.tfReferral.isEnabled = true
                 } else {
-                    self.tfReferral.isEnabled = false
+                    self?.tfReferral.isEnabled = false
 
                 }
                 IGUserProfileGetRepresentativeRequest.Handler.interpret(response: response)
                 
                 DispatchQueue.main.async {
-                    self.tfReferral.text = response.igpPhoneNumber
-                    if let tmpRef = self.tfReferral.text {
-                        self.currentReferral = tmpRef
+                    self?.tfReferral.text = response.igpPhoneNumber
+                    if let tmpRef = self?.tfReferral.text {
+                        self?.currentReferral = tmpRef
                     }
                 }
             }
-        }).error ({ (errorCode, waitTime) in
+        }).error ({ [weak self] (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                self.getRepresenter()
+                self?.getRepresenter()
             default:
-                DispatchQueue.main.async {
-                }
                 break
             }
         }).send()
     }
     func getUserEmail() {
-        IGUserProfileGetEmailRequest.Generator.generate().success({ (protoResponse) in
+        IGUserProfileGetEmailRequest.Generator.generate().success({ [weak self] (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let getUserEmailResponse as IGPUserProfileGetEmailResponse:
                     let userEmail = IGUserProfileGetEmailRequest.Handler.interpret(response: getUserEmailResponse)
                     DispatchQueue.main.async {
-                        self.tfEmail.text = userEmail
-                        if let tmpEmail = self.tfEmail.text {
-                            self.currentEmail = tmpEmail
+                        self?.tfEmail.text = userEmail
+                        if let tmpEmail = self?.tfEmail.text {
+                            self?.currentEmail = tmpEmail
                         }
                     }
                 default:
                     break
                 }
             }
-        }).error ({ (errorCode, waitTime) in
+        }).error ({ [weak self] (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
+                self?.getUserEmail()
                 break
             default:
                 break
@@ -581,17 +570,13 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     
     func getUserGender() {
         IGUserProfileGetGenderRequest.Generator.generate().success({ (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case let getUserGenderResponse as IGPUserProfileGetGenderResponse:
-                    _ = IGUserProfileGetGenderRequest.Handler.interpret(response: getUserGenderResponse)
-                default:
-                    break
-                }
+            if let getUserGenderResponse = protoResponse as? IGPUserProfileGetGenderResponse {
+                _ = IGUserProfileGetGenderRequest.Handler.interpret(response: getUserGenderResponse)
             }
-        }).error ({ (errorCode, waitTime) in
+        }).error ({ [weak self] (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
+                self?.getUserGender()
                 break
             default:
                 break
@@ -599,6 +584,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
             
         }).send()
     }
+    
     func fetchUserInfo() {
         let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
         userInDb = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(predicate).first
@@ -656,23 +642,25 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     
     private func initAvatarObserver(){
-        self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: self.userInDb.id).observe({ (ObjectChange) in
-            self.userAvatarView.setUser(self.userInDb)
+        self.avatarObserver = IGAvatar.getAvatarsLocalList(ownerId: self.userInDb.id).observe({ [weak self] (ObjectChange) in
+            if self != nil {
+                self!.userAvatarView.setUser(self!.userInDb)
+            }
         })
     }
     
     private func getScore(){
-        IGUserIVandGetScoreRequest.Generator.generate().success({ (protoResponse) in
+        IGUserIVandGetScoreRequest.Generator.generate().success({ [weak self] (protoResponse) in
             if let response = protoResponse as? IGPUserIVandGetScoreResponse {
                 DispatchQueue.main.async {
-                    self.lblScoreAmount.text = String(describing: response.igpScore).inRialFormat()
+                    self?.lblScoreAmount.text = String(describing: response.igpScore).inRialFormat()
                 }
             }
-        }).error({ (errorCode, waitTime) in
+        }).error({ [weak self] (errorCode, waitTime) in
             
             switch errorCode {
             case .timeout :
-                    self.getScore()
+                self?.getScore()
             default:
                 break
             }
@@ -753,13 +741,13 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                         break
                     }
                 }
-            }).error({ (errorCode, waitTime) in
+            }).error({ [weak self] (errorCode, waitTime) in
                 DispatchQueue.main.async {
                     let alertC = UIAlertController(title: IGStringsManager.GlobalWarning.rawValue.localized, message: IGStringsManager.GlobalTryAgain.rawValue.localized, preferredStyle: .alert)
                     
                     let cancel = UIAlertAction(title: IGStringsManager.GlobalOK.rawValue.localized, style: .default, handler: nil)
                     alertC.addAction(cancel)
-                    self.present(alertC, animated: true, completion: nil)
+                    self?.present(alertC, animated: true, completion: nil)
                 }
             }).send()
         }
@@ -835,7 +823,8 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
         if segue.identifier == "showCountryCell" {
             let nav = segue.destination as! UINavigationController
             let destination = nav.topViewController as! IGRegistrationStepSelectCountryTableViewController
-            destination.delegate = self
+            weak var weakSelf = self
+            destination.delegate = weakSelf
         }
     }
     
@@ -1236,14 +1225,14 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     //Hint: - send UserName Change Request
     private func sendUserNameRequest(current: String!) {
         SMLoading.showLoadingPage(viewcontroller: self)
-        IGUserProfileUpdateUsernameRequest.Generator.generate(username: current).success({ (protoResponse) in
+        IGUserProfileUpdateUsernameRequest.Generator.generate(username: current).success({ [weak self] (protoResponse) in
             SMLoading.hideLoadingPage()
-            self.canCallNextRequest = true
+            self?.canCallNextRequest = true
             DispatchQueue.main.async {
                 if let setUsernameProtoResponse = protoResponse as? IGPUserProfileUpdateUsernameResponse {
                     IGUserProfileUpdateUsernameRequest.Handler.interpret(response: setUsernameProtoResponse)
                 }
-                self.btnUsername.setTitle((current), for: .normal)
+                self?.btnUsername.setTitle((current), for: .normal)
             }
 
         }).error ({ (errorCode, waitTime) in
@@ -1278,9 +1267,9 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     //Hint: - send Name Change Request
     private func sendNameRequest(current: String!) {
         SMLoading.showLoadingPage(viewcontroller: self)
-        IGUserProfileSetNicknameRequest.Generator.generate(nickname: current).success({ (protoResponse) in
+        IGUserProfileSetNicknameRequest.Generator.generate(nickname: current).success({ [weak self] (protoResponse) in
             SMLoading.hideLoadingPage()
-            self.canCallNextRequest = true
+            self?.canCallNextRequest = true
             
             DispatchQueue.main.async {
                 switch protoResponse {
@@ -1289,16 +1278,16 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 default:
                     break
                 }
-                self.lblNameTop.text = current
+                self?.lblNameTop.text = current
             }
 
-        }).error ({ (errorCode, waitTime) in
+        }).error ({ [weak self] (errorCode, waitTime) in
             DispatchQueue.main.async {
                 SMLoading.hideLoadingPage()
 
                 switch errorCode {
                 case .timeout:
-                    self.canCallNextRequest = false
+                    self?.canCallNextRequest = false
                     break
                 default:
                     break
@@ -1310,9 +1299,9 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     //Hint: - send Bio Change Request
     private func sendBioRequest(current: String!) {
         SMLoading.showLoadingPage(viewcontroller: self)
-        IGUserProfileSetBioRequest.Generator.generate(bio: current).success({ (protoResponse) in
+        IGUserProfileSetBioRequest.Generator.generate(bio: current).success({ [weak self] (protoResponse) in
             SMLoading.hideLoadingPage()
-            self.canCallNextRequest = true
+            self?.canCallNextRequest = true
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let userProfileSetBioResponse as IGPUserProfileSetBioResponse:
@@ -1320,14 +1309,14 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                 default:
                     break
                 }
-                self.lblBioTop.text = current
+                self?.lblBioTop.text = current
             }
-        }).error ({ (errorCode, waitTime) in
+        }).error ({ [weak self] (errorCode, waitTime) in
             SMLoading.hideLoadingPage()
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    self.canCallNextRequest = false
+                    self?.canCallNextRequest = false
                     break
                 default:
                     break
@@ -1339,9 +1328,9 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     //Hint: - send Email Change Request
     private func sendEmailRequest(current: String!) {
         SMLoading.showLoadingPage(viewcontroller: self)
-        IGUserProfileSetEmailRequest.Generator.generate(userEmail: current).success({ (protoResponse) in
+        IGUserProfileSetEmailRequest.Generator.generate(userEmail: current).success({ [weak self] (protoResponse) in
             SMLoading.hideLoadingPage()
-            self.canCallNextRequest = true
+            self?.canCallNextRequest = true
             
             DispatchQueue.main.async {
                 switch protoResponse {
@@ -1352,12 +1341,12 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
                     break
                 }
             }
-        }).error ({ (errorCode, waitTime) in
+        }).error ({ [weak self] (errorCode, waitTime) in
             DispatchQueue.main.async {
                 SMLoading.hideLoadingPage()
                 switch errorCode {
                 case .timeout:
-                    self.canCallNextRequest = false
+                    self?.canCallNextRequest = false
                     break
                 default:
                     break
@@ -1369,19 +1358,19 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     //Hint: - send Referral Change Request
     private func sendReferralRequest(current: String!) {
         SMLoading.showLoadingPage(viewcontroller: self)
-        IGUserProfileSetRepresentativeRequest.Generator.generate(phone: current).success({ (protoResponse) in
+        IGUserProfileSetRepresentativeRequest.Generator.generate(phone: current).success({ [weak self] (protoResponse) in
             SMLoading.hideLoadingPage()
-            self.canCallNextRequest = true
+            self?.canCallNextRequest = true
             if let response = protoResponse as? IGPUserProfileSetRepresentativeResponse {
                 IGUserProfileSetRepresentativeRequest.Handler.interpret(response: response)
             }
 
-        }).error ({ (errorCode, waitTime) in
+        }).error ({ [weak self] (errorCode, waitTime) in
             DispatchQueue.main.async {
                 SMLoading.hideLoadingPage()
                 switch errorCode {
                 case .timeout:
-                    self.canCallNextRequest = false
+                    self?.canCallNextRequest = false
                     break
                 default:
                     break
@@ -1392,20 +1381,20 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     //Hint: - send gender Change Request
     private func sendGenderRequest(current: IGPGender.RawValue) {
         SMLoading.showLoadingPage(viewcontroller: self)
-        IGUserProfileSetGenderRequest.Generator.generate(gender: IGPGender(rawValue: current)!).success({ (protoResponse) in
+        IGUserProfileSetGenderRequest.Generator.generate(gender: IGPGender(rawValue: current)!).success({ [weak self] (protoResponse) in
             SMLoading.hideLoadingPage()
             DispatchQueue.main.async {
                 let userId = IGAppManager.sharedManager.userID()
                 let gender: IGPGender = IGPGender(rawValue: current)!
                 IGFactory.shared.updateProfileGender(userId!, igpGender: gender)
             }
-            self.canCallNextRequest = true
-        }).error ({ (errorCode, waitTime) in
+            self?.canCallNextRequest = true
+        }).error ({ [weak self] (errorCode, waitTime) in
             DispatchQueue.main.async {
                 SMLoading.hideLoadingPage()
                 switch errorCode {
                 case .timeout:
-                    self.canCallNextRequest = false
+                    self?.canCallNextRequest = false
                     break
                 default:
                     break
@@ -1478,12 +1467,12 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     }
     
     private func pickImage(screens: [YPPickerScreen]){
-        IGHelperAvatar.shared.pickAndUploadAvatar(roomId: userInDb.id, type: .user, screens: screens) { (file) in
+        IGHelperAvatar.shared.pickAndUploadAvatar(roomId: userInDb.id, type: .user, screens: screens) { [weak self] (file) in
             DispatchQueue.main.async {
                 if let image = file.attachedImage {
-                    self.userAvatarView?.avatarImageView?.image = image
+                    self?.userAvatarView?.avatarImageView?.image = image
                 } else {
-                    self.userAvatarView?.avatarImageView!.setAvatar(avatar: file)
+                    self?.userAvatarView?.avatarImageView?.setAvatar(avatar: file)
                 }
             }
         }
@@ -1529,12 +1518,3 @@ extension IGProfileTableViewController : IGRegistrationStepSelectCountryTableVie
         self.setSelectedCountry(country)
     }
 }
-
-extension IGProfileTableViewController: IGProgressDelegate {
-    func downloadUploadIndicatorDidTap(_ indicator: IGProgress) {
-        if let attachment = self.userAvatar?.file {
-            IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in }, failure: {})
-        }
-    }
-}
-
