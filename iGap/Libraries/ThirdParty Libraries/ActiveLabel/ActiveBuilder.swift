@@ -31,35 +31,25 @@ struct ActiveBuilder {
         let matches = RegexParser.getElements(from: text, with: type.pattern, range: range)
         let nsstring = text as NSString
         var elements: [ElementTuple] = []
-        
-        _ = matches.withUnsafeBufferPointer { buffer -> Int? in
-            for i in stride(from: buffer.startIndex, to: buffer.endIndex, by: 1) {
-                
-                let match = buffer[i]
-                if match.range.length > 2 {
-                    let word = nsstring.substring(with: match.range)
-                        .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 
-                    guard let maxLenght = maximumLenght, word.count > maxLenght else {
-                        let range = maximumLenght == nil ? match.range : (text as NSString).range(of: word)
-                        let element = ActiveElement.create(with: type, text: word)
-                        elements.append((range, element, type))
-                        continue
-                    }
+        for match in matches where match.range.length > 2 {
+            let word = nsstring.substring(with: match.range)
+                .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 
-                    let trimmedWord = word.trim(to: maxLenght)
-                    text = text.replacingOccurrences(of: word, with: trimmedWord)
-
-                    let newRange = (text as NSString).range(of: trimmedWord)
-                    let element = ActiveElement.url(original: word, trimmed: trimmedWord)
-                    elements.append((newRange, element, type))
-                }
+            guard let maxLenght = maximumLenght, word.count > maxLenght else {
+                let range = maximumLenght == nil ? match.range : (text as NSString).range(of: word)
+                let element = ActiveElement.create(with: type, text: word)
+                elements.append((range, element, type))
+                continue
             }
-            return nil
+
+            let trimmedWord = word.trim(to: maxLenght)
+            text = text.replacingOccurrences(of: word, with: trimmedWord)
+
+            let newRange = (text as NSString).range(of: trimmedWord)
+            let element = ActiveElement.url(original: word, trimmed: trimmedWord)
+            elements.append((newRange, element, type))
         }
-        
-        
-        
         return (elements, text)
     }
 
@@ -69,29 +59,29 @@ struct ActiveBuilder {
         var elements: [ElementTuple] = []
 
 //        IGGlobal.getTime()
-//        for match in matches where match.range.length > minLength {
-//            let word = nsstring.substring(with: match.range).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-//            if filterPredicate?(word) ?? true {
-//                let element = ActiveElement.create(with: type, text: word)
-//                elements.append((match.range, element, type))
-//            }
-//        }
+        for match in matches where match.range.length > minLength {
+            let word = nsstring.substring(with: match.range).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            if filterPredicate?(word) ?? true {
+                let element = ActiveElement.create(with: type, text: word)
+                elements.append((match.range, element, type))
+            }
+        }
 //        IGGlobal.getTime("My Time ---")
         
-        _ = matches.withUnsafeBufferPointer { buffer -> Int? in
-            for i in stride(from: buffer.startIndex, to: buffer.endIndex, by: 1) {
-
-                let match = buffer[i]
-                if match.range.length > minLength {
-                    let word = nsstring.substring(with: match.range).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                    if filterPredicate?(word) ?? true {
-                        let element = ActiveElement.create(with: type, text: word)
-                        elements.append((match.range, element, type))
-                    }
-                }
-            }
-            return nil
-        }
+//        _ = matches.withUnsafeBufferPointer { buffer -> Int? in
+//            for i in stride(from: buffer.startIndex, to: buffer.endIndex, by: 1) {
+//
+//                let match = buffer[i]
+//                if match.range.length > minLength {
+//                    let word = nsstring.substring(with: match.range).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+//                    if filterPredicate?(word) ?? true {
+//                        let element = ActiveElement.create(with: type, text: word)
+//                        elements.append((match.range, element, type))
+//                    }
+//                }
+//            }
+//            return nil
+//        }
         
         return elements
     }
@@ -107,43 +97,43 @@ struct ActiveBuilder {
         
         
 
-//        for match in matches where match.range.length > 2 {
-//            let range = NSRange(location: match.range.location + 1, length: match.range.length - 1)
-//            var word = nsstring.substring(with: range)
-//            if word.hasPrefix("@") {
-//                word.remove(at: word.startIndex)
-//            }
-//            else if word.hasPrefix("#") {
-//                word.remove(at: word.startIndex)
-//            }
-//
-//            if filterPredicate?(word) ?? true {
-//                let element = ActiveElement.create(with: type, text: word)
-//                elements.append((match.range, element, type))
-//            }
-//        }
-//        
-        
-        _ = matches.withUnsafeBufferPointer { buffer -> Int? in
-            for i in stride(from: buffer.startIndex, to: buffer.endIndex, by: 1) {
-
-                let match = buffer[i]
-                let range = NSRange(location: match.range.location + 1, length: match.range.length - 1)
-                var word = nsstring.substring(with: range)
-                if word.hasPrefix("@") {
-                    word.remove(at: word.startIndex)
-                }
-                else if word.hasPrefix("#") {
-                    word.remove(at: word.startIndex)
-                }
-
-                if filterPredicate?(word) ?? true {
-                    let element = ActiveElement.create(with: type, text: word)
-                    elements.append((match.range, element, type))
-                }
+        for match in matches where match.range.length > 2 {
+            let range = NSRange(location: match.range.location + 1, length: match.range.length - 1)
+            var word = nsstring.substring(with: range)
+            if word.hasPrefix("@") {
+                word.remove(at: word.startIndex)
             }
-            return nil
+            else if word.hasPrefix("#") {
+                word.remove(at: word.startIndex)
+            }
+
+            if filterPredicate?(word) ?? true {
+                let element = ActiveElement.create(with: type, text: word)
+                elements.append((match.range, element, type))
+            }
         }
+        
+        
+//        _ = matches.withUnsafeBufferPointer { buffer -> Int? in
+//            for i in stride(from: buffer.startIndex, to: buffer.endIndex, by: 1) {
+//
+//                let match = buffer[i]
+//                let range = NSRange(location: match.range.location + 1, length: match.range.length - 1)
+//                var word = nsstring.substring(with: range)
+//                if word.hasPrefix("@") {
+//                    word.remove(at: word.startIndex)
+//                }
+//                else if word.hasPrefix("#") {
+//                    word.remove(at: word.startIndex)
+//                }
+//
+//                if filterPredicate?(word) ?? true {
+//                    let element = ActiveElement.create(with: type, text: word)
+//                    elements.append((match.range, element, type))
+//                }
+//            }
+//            return nil
+//        }
         
         
         

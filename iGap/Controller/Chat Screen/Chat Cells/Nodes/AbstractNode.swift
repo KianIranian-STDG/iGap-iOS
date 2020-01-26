@@ -29,9 +29,16 @@ class AbstractNode: ASCellNode {
     }
     
     func setupView() {
-        
-        if let msg = message.message {
-            setupMessageText(msg)
+        if let forwardedFrom = message.forwardedFrom {
+            if let msg = forwardedFrom.message {
+                setupMessageText(msg)
+            }
+
+        } else {
+            if let msg = message.message {
+                setupMessageText(msg)
+            }
+
         }
     }
     

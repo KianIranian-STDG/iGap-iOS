@@ -202,6 +202,20 @@ class IGGlobal {
 //        }
 //    }
     
+    
+    /********************************************/
+    /******************ASTEXT********************/
+    internal static func makeText(for node: ASTextNode, with text: String, textColor: UIColor? = UIColor.lightGray,size: CGFloat? = 12,numberOfLines : UInt? = 1) {
+        
+        let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: textColor!,
+                                                          NSAttributedString.Key.font:UIFont.igFont(ofSize: size!)]
+
+        node.attributedText = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes)
+
+        node.maximumNumberOfLines = numberOfLines!
+    }
+ 
+ 
     /**********************************************/
     /****************** Progress ******************/
     private static var progressHUD = MBProgressHUD()
@@ -1351,6 +1365,159 @@ extension ASNetworkImageNode {
                     }
                 }
             }
+        }
+    }
+    
+    func setThumbnail(for attachment:IGFile, showMain: Bool = false) {
+        if !(attachment.isInvalidated) {
+            if attachment.type == .voice {
+                self.image = UIImage(named:"IG_Message_Cell_Voice")
+            } else if attachment.type == .file {
+                let filename: NSString = attachment.name! as NSString
+                let fileExtension = filename.pathExtension
+                
+                if fileExtension != "" {
+                    if fileExtension == "doc" {
+                        self.image = UIImage(named:"IG_Message_Cell_File_Doc")
+                        
+                    } else if fileExtension == "exe" {
+                        self.image = UIImage(named:"IG_Message_Cell_File_Exe")
+                        
+                    } else if fileExtension == "pdf" {
+                        self.image = UIImage(named:"IG_Message_Cell_File_Pdf")
+                        
+                    } else if fileExtension == "txt" {
+                        self.image = UIImage(named:"IG_Message_Cell_File_Txt")
+                        
+                    } else {
+                        self.image = UIImage(named:"IG_Message_Cell_File_Generic")
+                    }
+                    //self.image = UIImage(named:"IG_Message_Cell_File")
+                    
+                } else {
+                    self.image = UIImage(named:"IG_Message_Cell_File_Generic")
+                }
+                
+            } else if attachment.type == .audio {
+                self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
+            } else {
+                let MAX_IMAGE_SIZE = 256 // max size for show main image at view
+                
+                /* when fileNameOnDisk is added into the attachment just check file existance without check file size
+                 * because file size after upload is different with file size before upload
+                 * Hint: mabye change this kind of check for file existance change later
+                 */
+                let fileSizeKB = attachment.size/1024
+                var showBestPreview = true // show main image if has small size otherwise show large thumbnail, also for video show large thumnail always because video doesn't have original image
+                if attachment.type == .image {
+                    /* for big images show largeThumbnail if exist, even main file was downloaded before.
+                     * currently check size for 256 KB
+                     */
+                    
+                    if attachment.fileNameOnDisk != nil {
+                        showBestPreview = IGGlobal.isFileExist(path: attachment.path())
+                    } else {
+                        showBestPreview = IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size)
+                    }
+                }
+                
+                if fileSizeKB < MAX_IMAGE_SIZE && showBestPreview {
+                    if let data = try? Data(contentsOf: attachment.path()!) {
+                        if let image = UIImage(data: data) {
+                                self.image = image
+                        }
+                    }
+
+                } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
+                    
+                    var fileType: IGFile.PreviewType = .smallThumbnail
+                    var finalFile: IGFile = attachment.smallThumbnail!
+                    if showMain {
+                        fileType = .originalFile
+                        finalFile = attachment
+                    } else if showBestPreview { // show large thumbnail for downloaded file if has big size
+                        fileType = .largeThumbnail
+                        finalFile = attachment.largeThumbnail!
+                    }
+                    
+                    do {
+                        var path = URL(string: "")
+                        if attachment.attachedImage != nil {
+                            self.image = attachment.attachedImage
+                        } else {
+                            var image: UIImage?
+                            path = finalFile.path()
+                            if IGGlobal.isFileExist(path: path) {
+                                image = UIImage(contentsOfFile: path!.path)
+                            }
+                            
+                            if image != nil {
+                                if let data = try? Data(contentsOf: path!) {
+                                         if let image = UIImage(data: data) {
+                                                 self.image = image
+                                         }
+                                     }
+                            } else {
+                                throw NSError(domain: "asa", code: 1234, userInfo: nil)
+                            }
+                        }
+                    } catch {
+
+                        DispatchQueue.main.async {
+                            ASimagesMap[attachment.token!] = self
+                            IGDownloadManager.sharedManager.download(file: finalFile, previewType: fileType, completion: { (attachment) -> Void in
+                                DispatchQueue.main.async {
+                                    if let imageMain = ASimagesMap[attachment.token!] {
+                                        let path = attachment.path()
+                                        //imageMain.sd_setImage(with: path)
+                                        DispatchQueue.global(qos:.userInteractive).async {
+                                            if let data = try? Data(contentsOf: path!) {
+                                                if let image = UIImage(data: data) {
+                                                    DispatchQueue.main.async {
+                                                        imageMain.image = image
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }, failure: {
+                                print("ERROR HAPPEND IN DOWNLOADNING AVATAR")
+                            })
+                            
+                        }
+                        
+                        
+                    }
+                } else {
+                    switch attachment.type {
+                    case .image:
+                        // when user is sender thumbnail is not exist, so need to show main image even size is bigger than 1024 Kb
+                        if IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) {
+                            if let data = try? Data(contentsOf: attachment.path()!) {
+                                if let image = UIImage(data: data) {
+                                        self.image = image
+                                }
+                            }
+                        } else {
+                            self.image = nil
+                        }
+                        break
+                    case .gif:
+                        break
+                    case .video:
+                        break
+                    case .audio:
+                        self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
+                        break
+                    default:
+                        break
+                    }
+                }
+            }
+        }
+        else {
+            print("ATTACHMENT IS INVALIDATED")
         }
     }
 }

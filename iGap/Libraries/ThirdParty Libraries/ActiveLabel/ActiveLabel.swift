@@ -412,11 +412,9 @@ open class ActiveLabel: UILabel {
                 attributes = configureLinkAttribute(type, attributes, false)
             }
             
-            _ = elements.withUnsafeBufferPointer { buffer -> Int? in
-                for i in stride(from: buffer.startIndex, to: buffer.endIndex, by: 1) {
-                    mutAttrString.setAttributes(convertToOptionalNSAttributedStringKeyDictionary(attributes), range: buffer[i].range)
-                }
-                return nil
+            
+            for element in elements {
+                mutAttrString.setAttributes(convertToOptionalNSAttributedStringKeyDictionary(attributes), range: element.range)
             }
             
         }

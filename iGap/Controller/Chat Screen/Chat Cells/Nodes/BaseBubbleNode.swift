@@ -49,11 +49,28 @@ class BaseBubbleNode: ASCellNode {
     
     
     private func setupView() {
-        if let name = message!.authorUser?.userInfo.displayName {
-            nameTxtNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
-            nameTxtNode.attributedText = NSAttributedString(string: name, attributes: kAMMessageCellNodeTopTextAttributes)
+        if !(finalRoomType == .chat) {
+            if let name = message!.authorUser?.userInfo {
+                nameTxtNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
+                nameTxtNode.attributedText = NSAttributedString(string: name.displayName, attributes: kAMMessageCellNodeTopTextAttributes)
+            } else {
+                nameTxtNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
+                nameTxtNode.attributedText = NSAttributedString(string: "", attributes: kAMMessageCellNodeTopTextAttributes)
+            }
         }
 
+         if let forwardedMessage = message?.forwardedFrom {
+            if forwardedMessage.type == .text {
+                bubbleNode = IGTextNode(message: forwardedMessage, isIncomming: isIncomming)
+            }
+        } else {
+            if message!.type == .text {
+                bubbleNode = IGTextNode(message: message!, isIncomming: isIncomming)
+            }else if message!.type == .image {
+                bubbleNode = IGImageNode(message: message!, isIncomming: isIncomming)
+            }
+
+        }
         if message!.type == .text {
             bubbleNode = IGTextNode(message: message!, isIncomming: isIncomming)
         }else if message!.type == .image {
@@ -89,7 +106,9 @@ class BaseBubbleNode: ASCellNode {
             }
             //Add SubNodes
             addSubnode(bubbleImgNode)
-            addSubnode(nameTxtNode)
+            if !(finalRoomType == .chat) {
+                addSubnode(nameTxtNode)
+            }
             addSubnode(replyForwardViewNode)
             addSubnode(bubbleNode)
             addSubnode(timeTxtNode)
@@ -124,19 +143,23 @@ class BaseBubbleNode: ASCellNode {
         stack.style.flexShrink = 1.0
         stack.style.flexGrow = 1.0
         stack.spacing = 5
-        
-        stack.children?.append(nameTxtNode)
+        if !(finalRoomType == .chat) {
+            stack.children?.append(nameTxtNode)
+        }
         //check if has reply or Forward
         if let repliedMessage = message?.repliedTo {
-            stack.children?.append(replyForwardViewNode)
-            replyForwardViewNode.setReplyForward(isReply: true)
-        } else if let forwardedMessage = message?.forwardedFrom {
-            stack.children?.append(replyForwardViewNode)
-            replyForwardViewNode.setReplyForward(isReply: false)
+                   stack.children?.append(replyForwardViewNode)
+            replyForwardViewNode.setReplyForward(isReply: true, extraMessage : repliedMessage)
 
+            stack.children?.append(bubbleNode)
+        } else if let forwardedFrom = message?.forwardedFrom {
+                   stack.children?.append(replyForwardViewNode)
+                   replyForwardViewNode.setReplyForward(isReply: false, extraMessage : forwardedFrom)
+                   stack.children?.append(bubbleNode)
+        } else {
+            stack.children?.append(bubbleNode)
         }
 
-        stack.children?.append(bubbleNode)
 
         let textNodeVerticalOffset = CGFloat(6)
         timeTxtNode.style.alignSelf = .end

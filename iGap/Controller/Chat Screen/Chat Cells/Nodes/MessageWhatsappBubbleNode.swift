@@ -16,7 +16,7 @@ public let kAMMessageCellNodeAvatarImageSize: CGFloat = 50
 public let kAMMessageCellNodeTopTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,
                                                   NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12)]
 public let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,
-                                                         NSAttributedString.Key.font:UIFont.preferredFont(forTextStyle: UIFont.TextStyle.footnote)]
+                                                         NSAttributedString.Key.font:UIFont.igFont(ofSize: 12)]
 public let kAMMessageCellNodeBottomTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,
                                                      NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption2)]
 public let kAMMessageCellNodeBubbleAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black,
