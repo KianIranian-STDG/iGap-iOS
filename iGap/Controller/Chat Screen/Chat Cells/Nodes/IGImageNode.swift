@@ -13,6 +13,8 @@ import AsyncDisplayKit
 class IGImageNode: AbstractNode {
     
     
+    private var acNode = IGProgressNode()
+    
     override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = false) {
         super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode)
         setupView()
@@ -51,6 +53,11 @@ class IGImageNode: AbstractNode {
             addSubnode(textNode)
         }
         
+        
+        acNode.setState(.readyToDownload)
+        acNode.setFileType(.download)
+        addSubnode(acNode)
+        
     }
     
     
@@ -63,6 +70,10 @@ class IGImageNode: AbstractNode {
 
         let absSpec = ASAbsoluteLayoutSpec(children: [imgNode])
         
+        
+        let acNodeSpec = ASOverlayLayoutSpec(child: absSpec, overlay: acNode)
+        
+        
         let textNodeVerticalOffset = CGFloat(6)
 
         if message.type == .image {
@@ -71,7 +82,7 @@ class IGImageNode: AbstractNode {
             top: 0,
             left: 0 + (isIncomming ? 0 : textNodeVerticalOffset),
             bottom: 0,
-            right: 0 + (isIncomming ? textNodeVerticalOffset : 0)), child: absSpec)
+            right: 0 + (isIncomming ? textNodeVerticalOffset : 0)), child: acNodeSpec)
             
             return insetSpec
             
@@ -83,7 +94,7 @@ class IGImageNode: AbstractNode {
             bottom: 5,
             right: 0 + (isIncomming ? textNodeVerticalOffset : 0)), child: textNode)
 
-            return ASStackLayoutSpec(direction: .vertical, spacing: 4, justifyContent: .start, alignItems: .center, children: [absSpec, insetSpec])
+            return ASStackLayoutSpec(direction: .vertical, spacing: 4, justifyContent: .start, alignItems: .center, children: [acNodeSpec, insetSpec])
             
         }
         
