@@ -23,6 +23,7 @@ class IGVideoNode: AbstractNode {
         playTxtNode = ASTextNode()
         timeTxtNode = ASTextNode()
         super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode)
+        setupView()
     }
     
     
@@ -71,44 +72,11 @@ class IGVideoNode: AbstractNode {
         addSubnode(playTxtNode)
         addSubnode(timeTxtNode)
 
-        if let _ = message.message {
+        if message.type == .videoAndText {
             addSubnode(textNode)
-//            textNode.attributedText = NSAttributedString(string: txt, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black, NSAttributedString.Key.font: UIFont.igFont(ofSize: fontDefaultSize)])
         }
 
-        
     }
-    
-//    private func setupView() {
-//
-//        imgNode.image = message.attachment?.attachedImage
-//        addSubnode(imgNode)
-//
-//        let stl = NSMutableParagraphStyle()
-//        stl.alignment = NSTextAlignment.center
-//
-//        playTxtNode.attributedText = NSAttributedString(string: "", attributes: [NSAttributedString.Key.font : UIFont.iGapFonticon(ofSize: 55), NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.paragraphStyle: stl])
-//        playTxtNode.maximumNumberOfLines = 1
-//        playTxtNode.cornerRadius = 27.5
-//        playTxtNode.clipsToBounds = true
-//        playTxtNode.backgroundColor = UIColor(white: 0, alpha: 0.5)
-//
-//        timeTxtNode.attributedText = NSAttributedString(string: "  00:05(616.33 کیلوبایت)  ", attributes: [NSAttributedString.Key.font : UIFont.igFont(ofSize: 12), NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.baselineOffset: -4])
-//        timeTxtNode.layer.cornerRadius = 12
-//        timeTxtNode.clipsToBounds = true
-//        timeTxtNode.layer.borderColor = UIColor.white.cgColor
-//        timeTxtNode.layer.borderWidth = 0.5
-//        timeTxtNode.backgroundColor = UIColor(white: 0, alpha: 0.3)
-//
-//        addSubnode(playTxtNode)
-//        addSubnode(timeTxtNode)
-//
-//        if let txt = message.message {
-//            addSubnode(textNode)
-////            textNode.attributedText = NSAttributedString(string: txt, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black, NSAttributedString.Key.font: UIFont.igFont(ofSize: fontDefaultSize)])
-//        }
-//
-//    }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
 
@@ -142,7 +110,7 @@ class IGVideoNode: AbstractNode {
         
         let textNodeVerticalOffset = CGFloat(6)
 
-        if message.message == nil {
+        if message.type == .video {
             
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
             top: 0,

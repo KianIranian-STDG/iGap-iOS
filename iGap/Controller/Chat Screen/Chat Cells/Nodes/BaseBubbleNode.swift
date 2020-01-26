@@ -72,8 +72,12 @@ class BaseBubbleNode: ASCellNode {
         
         if message!.type == .text {
             bubbleNode = IGTextNode(message: msg!, isIncomming: isIncomming)
-        }else if message!.type == .image {
+        }else if message!.type == .image || message!.type == .imageAndText {
             bubbleNode = IGImageNode(message: msg!, isIncomming: isIncomming)
+        }else if message!.type == .video || message!.type == .videoAndText {
+            bubbleNode = IGVideoNode(message: msg!, isIncomming: isIncomming)
+        }else if message!.type == .file || message!.type == .fileAndText {
+            bubbleNode = IGFileNode(message: msg!, isIncomming: isIncomming)
         }
         
         
@@ -232,7 +236,7 @@ class BaseBubbleNode: ASCellNode {
             }
             
             
-        } else if let _ = bubbleNode  as? IGImageNode{
+        } else if let _ = bubbleNode as? IGImageNode{
             if let msattachment = message!.attachment{
                 
                 if (self.finalRoomType == .channel) {
@@ -256,13 +260,39 @@ class BaseBubbleNode: ASCellNode {
                         
                     }
                     
-                    
                 }
-                
-                
-                
+                 
             }
             
+            
+        } else if let _ = bubbleNode as? IGFileNode {
+            
+            if let msattachment = message!.attachment{
+                
+                if (self.finalRoomType == .channel) {
+                    
+                    stack.children?.append(timeTxtNode)
+                    verticalSpec.child = ASInsetLayoutSpec(
+                        insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
+                    
+                } else {
+                    
+                    if isIncomming {
+                        stack.children?.append(timeTxtNode)
+                        verticalSpec.child = ASInsetLayoutSpec(
+                            insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
+                        
+                    } else {
+                        let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [timeTxtNode,statusTxtNode])
+                        stack.children?.append(timeStatusStack)
+                        verticalSpec.child = ASInsetLayoutSpec(
+                            insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
+                        
+                    }
+                    
+                }
+                 
+            }
             
         }
         

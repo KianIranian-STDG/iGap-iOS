@@ -17,6 +17,7 @@ class IGImageNode: AbstractNode {
     override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = false) {
         imgNode = MsgImageImageNode()
         super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode)
+        setupView()
     }
     
 //    init(message: IGRoomMessage, isIncomming: Bool) {
@@ -44,18 +45,19 @@ class IGImageNode: AbstractNode {
     override func setupView() {
         super.setupView()
         
-        imgNode.image = message.attachment?.attachedImage
+        imgNode.image = UIImage(named: "becky") //message.attachment?.attachedImage
         addSubnode(imgNode)
 
-        if let _ = message.message {
+        if message.type == .imageAndText {
             addSubnode(textNode)
         }
+        
     }
     
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
 
-        if let img = message.attachment?.attachedImage {
+        if let img = UIImage(named: "becky") { //message.attachment?.attachedImage {
             let prefferedSize = NodeExtension.fetchMediaFrame(image: img)
         
             imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
@@ -66,7 +68,7 @@ class IGImageNode: AbstractNode {
         
         let textNodeVerticalOffset = CGFloat(6)
 
-        if message.message == nil {
+        if message.type == .image {
             
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
             top: 0,
@@ -77,17 +79,6 @@ class IGImageNode: AbstractNode {
             return insetSpec
             
         }else {
-            
-//            let insetSpec = ASInsetLayoutSpec()
-//            insetSpec.children = [absSpec, txtNode]
-//            insetSpec.insets = UIEdgeInsets(top: 0,
-//                                            left: 0 + (isOutgoing ? 0 : textNodeVerticalOffset),
-//                                            bottom: 0,
-//                                            right: 0 + (isOutgoing ? textNodeVerticalOffset : 0))
-//
-//            return insetSpec
-//            txtNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
-//            txtNode.style.minHeight = ASDimension(unit: .points, value: 40)
             
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
             top: 5,
@@ -107,14 +98,14 @@ private class MsgImageImageNode: ASImageNode {
     
     override init() {
         super.init()
-        contentMode = .scaleAspectFit
+        contentMode = .scaleAspectFill
         isUserInteractionEnabled = true
     }
     
     override func calculateSizeThatFits(_ constrainedSize: CGSize) -> CGSize {
 
         let size = super.calculateSizeThatFits(constrainedSize)
-        return CGSize(width: max(size.width, 15), height: size.height)
+        return CGSize(width: max(100, 15), height: 100)
 
     }
     
