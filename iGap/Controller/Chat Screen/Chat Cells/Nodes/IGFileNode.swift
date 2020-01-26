@@ -12,13 +12,13 @@ import AsyncDisplayKit
 
 class IGFileNode: AbstractNode {
     
-    private var fileImgNode: ASImageNode = {
-        let node = ASImageNode()
-        node.contentMode = .scaleAspectFit
+    private var imgAttachmentNode = ASNetworkImageNode()
+    private var txtAttachmentNode: ASTextNode = {
+        let node = ASTextNode()
         return node
     }()
-    private var titleTxtNode = ASTextNode()
-    private var sizeTxtNode = ASTextNode()
+    private var txtTitleNode = ASTextNode()
+    private var txtSizeNode = ASTextNode()
     
     override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = false) {
         super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode)
@@ -27,13 +27,33 @@ class IGFileNode: AbstractNode {
     
     override func setupView() {
         super.setupView()
+        let filename: NSString = message.attachment!.name! as NSString
+        let fileExtension = filename.pathExtension
         
-        fileImgNode.image = UIImage(named: "IG_Message_Cell_File_Pdf")
-        titleTxtNode.attributedText = NSAttributedString(string: "heeeeeellllooo")
-        sizeTxtNode.attributedText = NSAttributedString(string: "Sizzzzzzeeeeee")
-        addSubnode(fileImgNode)
-        addSubnode(titleTxtNode)
-        addSubnode(sizeTxtNode)
+        if fileExtension == "jpg" {
+            self.imgAttachmentNode.style.width = ASDimension(unit: .points, value: 50.0)
+            self.imgAttachmentNode.style.height = ASDimension(unit: .points, value: 50.0)
+            self.imgAttachmentNode.image = UIImage(named: "igap_default_image")
+            self.imgAttachmentNode.layer.cornerRadius = 10
+            self.txtAttachmentNode.style.preferredSize = CGSize.zero
+            self.imgAttachmentNode.setThumbnail(for: message.attachment!)
+            IGGlobal.makeText(for: txtTitleNode , with: message.attachment!.name!)
+            IGGlobal.makeText(for: txtSizeNode , with: message.attachment!.sizeToString())
+
+        } else {
+            self.imgAttachmentNode.style.preferredSize = CGSize.zero
+            self.txtAttachmentNode.style.width = ASDimension(unit: .points, value: 50.0)
+            self.txtAttachmentNode.style.height = ASDimension(unit: .points, value: 50.0)
+            self.txtAttachmentNode.setThumbnail(for: message.attachment!)
+
+            IGGlobal.makeText(for: txtTitleNode , with: message.attachment!.name!)
+            IGGlobal.makeText(for: txtSizeNode , with: message.attachment!.sizeToString())
+        }
+
+        addSubnode(imgAttachmentNode)
+        addSubnode(txtAttachmentNode)
+        addSubnode(txtTitleNode)
+        addSubnode(txtSizeNode)
         
         if message.type == .imageAndText {
             addSubnode(textNode)
@@ -44,40 +64,32 @@ class IGFileNode: AbstractNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
-        fileImgNode.style.width = ASDimension(unit: .points, value: 80)
-        fileImgNode.style.height = ASDimension(unit: .points, value: 100)
+        let textBox = ASStackLayoutSpec.vertical()
+        textBox.justifyContent = .spaceAround
+        textBox.children = [txtTitleNode, txtSizeNode]
         
-        let imgAbsStack = ASAbsoluteLayoutSpec(children: [fileImgNode])
-        
-        let verticalStack = ASStackLayoutSpec(direction: .vertical, spacing: 4, justifyContent: .start, alignItems: .start, children: [titleTxtNode, sizeTxtNode])
-        
-        let hoStack = ASStackLayoutSpec(direction: .horizontal, spacing: 4, justifyContent: .start, alignItems: .start, children: [imgAbsStack, verticalStack])
-        hoStack.verticalAlignment = .top
-        
-        
-        let textNodeVerticalOffset = CGFloat(6)
-        
-        if message.type == .file {
-            
-            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-            top: 0,
-            left: 0 + (isIncomming ? 0 : textNodeVerticalOffset),
-            bottom: 0,
-            right: 0 + (isIncomming ? textNodeVerticalOffset : 0)), child: hoStack)
-            
-            return insetSpec
-            
-        }else {
-            
-            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-            top: 5,
-            left: 0 + (isIncomming ? 0 : textNodeVerticalOffset),
-            bottom: 5,
-            right: 0 + (isIncomming ? textNodeVerticalOffset : 0)), child: textNode)
+        let attachmentBox = ASStackLayoutSpec.horizontal()
+        attachmentBox.spacing = 0
+        attachmentBox.children = [txtAttachmentNode, imgAttachmentNode]
 
-            return ASStackLayoutSpec(direction: .vertical, spacing: 4, justifyContent: .start, alignItems: .center, children: [hoStack, insetSpec])
-            
+        let profileBox = ASStackLayoutSpec.horizontal()
+        profileBox.spacing = 10
+        profileBox.children = [attachmentBox, textBox]
+        
+        // Apply text truncation
+        let elems: [ASLayoutElement] = [txtSizeNode, txtTitleNode, textBox, profileBox, attachmentBox]
+        for elem in elems {
+            elem.style.flexShrink = 1
         }
+        
+        let insetBox = ASInsetLayoutSpec(
+            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+            child: profileBox
+        )
+        
+        return insetBox
+        
+        
         
     }
     

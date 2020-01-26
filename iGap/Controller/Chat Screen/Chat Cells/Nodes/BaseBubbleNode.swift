@@ -86,7 +86,7 @@ class BaseBubbleNode: ASCellNode {
             timeTxtNode.attributedText = NSAttributedString(string: time.convertToHumanReadable(), attributes: kAMMessageCellNodeTopTextAttributes)
         }
         
-        if message!.type == .text ||  message!.type == .image {
+        if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText ||  message!.type == .file ||  message!.type == .fileAndText {
             if(isIncomming){
                 
                 avatarImageViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
