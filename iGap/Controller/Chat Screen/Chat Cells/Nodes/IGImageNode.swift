@@ -12,10 +12,8 @@ import AsyncDisplayKit
 
 class IGImageNode: AbstractNode {
     
-    private var imgNode : MsgImageImageNode
     
     override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = false) {
-        imgNode = MsgImageImageNode()
         super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode)
         setupView()
     }
@@ -43,9 +41,10 @@ class IGImageNode: AbstractNode {
     
 
     override func setupView() {
+        
         super.setupView()
         
-        imgNode.image = UIImage(named: "becky") //message.attachment?.attachedImage
+//        imgNode.image = UIImage(named: "becky") //message.attachment?.attachedImage
         addSubnode(imgNode)
 
         if message.type == .imageAndText {
@@ -57,13 +56,11 @@ class IGImageNode: AbstractNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
 
-        if let img = UIImage(named: "becky") { //message.attachment?.attachedImage {
-            let prefferedSize = NodeExtension.fetchMediaFrame(image: img)
-        
-            imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
-            imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
-        }
-        
+        let prefferedSize = NodeExtension.fetchMediaFrame(image: imgNode.image!)
+
+        imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
+        imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
+
         let absSpec = ASAbsoluteLayoutSpec(children: [imgNode])
         
         let textNodeVerticalOffset = CGFloat(6)
@@ -90,23 +87,6 @@ class IGImageNode: AbstractNode {
             
         }
         
-    }
-    
-}
-
-private class MsgImageImageNode: ASImageNode {
-    
-    override init() {
-        super.init()
-        contentMode = .scaleAspectFill
-        isUserInteractionEnabled = true
-    }
-    
-    override func calculateSizeThatFits(_ constrainedSize: CGSize) -> CGSize {
-
-        let size = super.calculateSizeThatFits(constrainedSize)
-        return CGSize(width: max(100, 15), height: 100)
-
     }
     
 }

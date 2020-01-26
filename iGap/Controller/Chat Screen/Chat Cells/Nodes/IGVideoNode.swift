@@ -12,14 +12,12 @@ import AsyncDisplayKit
 
 class IGVideoNode: AbstractNode {
     
-    private var imgNode : MsgImageImageNode
     private var playTxtNode: ASTextNode
     private var timeTxtNode: ASTextNode
     
     private let fakeStackBottomItem = ASDisplayNode()
     
     override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = false) {
-        imgNode = MsgImageImageNode()
         playTxtNode = ASTextNode()
         timeTxtNode = ASTextNode()
         super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode)
@@ -132,23 +130,6 @@ class IGVideoNode: AbstractNode {
             
         }
         
-    }
-    
-}
-
-private class MsgImageImageNode: ASImageNode {
-    
-    override init() {
-        super.init()
-        contentMode = .scaleAspectFit
-        isUserInteractionEnabled = true
-    }
-    
-    override func calculateSizeThatFits(_ constrainedSize: CGSize) -> CGSize {
-
-        let size = super.calculateSizeThatFits(constrainedSize)
-        return CGSize(width: max(size.width, 15), height: size.height)
-
     }
     
 }

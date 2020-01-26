@@ -16,6 +16,10 @@ class AbstractNode: ASCellNode {
     
     let message: IGRoomMessage
     let isIncomming: Bool
+    var attachment: IGFile?
+    var imgNode = ASNetworkImageNode()
+
+
     private var isTextMessageNode = false
     
     weak var delegate: IGMessageGeneralCollectionViewCellDelegate?
@@ -27,7 +31,7 @@ class AbstractNode: ASCellNode {
         super.init()
         
     }
-    
+
     func setupView() {
         if let forwardedFrom = message.forwardedFrom {
             if let msg = forwardedFrom.message {
@@ -40,6 +44,7 @@ class AbstractNode: ASCellNode {
             }
 
         }
+        manageAttachment(file: message.attachment)
     }
     
     private func setupMessageText(_ msg: String) {
@@ -68,6 +73,120 @@ class AbstractNode: ASCellNode {
         
     }
     
+    
+    /*
+     ******************************************************************
+     ************************ Manage Attachment ***********************
+     ******************************************************************
+     */
+    
+    private func manageAttachment(file: IGFile? = nil){
+
+        if message.type == .sticker || message.additional?.dataType == AdditionalType.STICKER.rawValue {
+
+            if let stickerStruct = IGHelperJson.parseStickerMessage(data: (message.additional?.data)!) {
+                //IGGlobal.imgDic[stickerStruct.token!] = self.imgMediaAbs
+                DispatchQueue.main.async {
+                    IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) { (file) in
+
+                        if (self.message.attachment?.name!.hasSuffix(".json") ?? false) {
+//                            self.animationView.setLiveSticker(for: file)
+                        } else {
+//                            self.imgMediaAbs?.setSticker(for: file)
+
+                        }
+
+                    }
+                }
+            }
+            return
+        }
+
+        if var attachment = message.attachment , !(attachment.isInvalidated) {
+            if let attachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
+                attachment = attachmentVariableInCache.value
+            } else {
+                //self.attachment = attachment.detach()
+                //let attachmentRef = ThreadSafeReference(to: attachment)
+                IGAttachmentManager.sharedManager.add(attachment: attachment)
+                if let variable = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
+                    self.attachment = variable.value
+                } else {
+                    self.attachment = attachment
+                }
+            }
+
+            /* Rx Start */
+            if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
+                attachment = variableInCache.value
+
+                if let disposable = IGGlobal.dispoasDic[self.message.id] {
+                    IGGlobal.dispoasDic.removeValue(forKey: self.message.id)
+                    disposable.dispose()
+                }
+                let subscriber = variableInCache.asObservable().subscribe({ (event) in
+                    DispatchQueue.main.async {
+                        self.updateAttachmentDownloadUploadIndicatorView()
+                    }
+                })
+                IGGlobal.dispoasDic[self.message.id] = subscriber
+            }
+            /* Rx End */
+
+            switch (message.type) {
+            case .image, .imageAndText, .video, .videoAndText, .gif, .gifAndText:
+                if !(attachment.isInvalidated) {
+                    imgNode.setThumbnail(for: attachment)
+
+                    if attachment.status != .ready {
+//                        indicatorViewAbs?.delegate = self
+                    }
+                    break
+                }
+            default:
+                break
+            }
+        }
+    }
+    
+    func updateAttachmentDownloadUploadIndicatorView() {
+        if message.isInvalidated || (self.attachment?.isInvalidated) ?? (message.attachment != nil) {
+            return
+        }
+
+        if let attachment = self.attachment {
+            let fileExist = IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size)
+            if fileExist && !attachment.isInUploadLevels() {
+                if message.type == .video || message.type == .videoAndText {
+//                    makeVideoPlayView()
+                }
+
+//                indicatorViewAbs?.setState(.ready)
+                if attachment.type == .gif {
+                    attachment.loadData()
+                    if let data = attachment.data {
+//                        imgMediaAbs?.prepareForAnimation(withGIFData: data)
+//                        imgMediaAbs?.startAnimatingGIF()
+                    }
+                } else if attachment.type == .image {
+                    imgNode.setThumbnail(for: attachment)
+                }
+                return
+            }
+
+            if isIncomming || !fileExist {
+//                indicatorViewAbs?.setFileType(.download)
+            } else {
+//                indicatorViewAbs?.setFileType(.upload)
+            }
+//            indicatorViewAbs?.setState(attachment.status)
+            if attachment.status == .downloading || attachment.status == .uploading {
+//                indicatorViewAbs?.setPercentage(attachment.downloadUploadPercent)
+            }
+        }
+    }
+
+
     
 }
 
