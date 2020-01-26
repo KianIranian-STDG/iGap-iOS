@@ -78,6 +78,8 @@ class BaseBubbleNode: ASCellNode {
             bubbleNode = IGVideoNode(message: msg!, isIncomming: isIncomming)
         }else if message!.type == .file || message!.type == .fileAndText {
             bubbleNode = IGFileNode(message: msg!, isIncomming: isIncomming)
+        }else if message!.type == .voice {
+            bubbleNode = IGVoiceNode(message: msg!, isIncomming: isIncomming)
         }
         
         
@@ -86,7 +88,7 @@ class BaseBubbleNode: ASCellNode {
             timeTxtNode.attributedText = NSAttributedString(string: time.convertToHumanReadable(), attributes: kAMMessageCellNodeTopTextAttributes)
         }
         
-        if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText ||  message!.type == .file ||  message!.type == .fileAndText {
+        if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice {
             if(isIncomming){
                 
                 avatarImageViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
@@ -287,6 +289,41 @@ class BaseBubbleNode: ASCellNode {
         /**************************************************************/
 
         else if let _ = bubbleNode as? IGFileNode {
+            
+            if let msattachment = message!.attachment{
+                
+                if (self.finalRoomType == .channel) {
+                    
+                    stack.children?.append(timeTxtNode)
+                    verticalSpec.child = ASInsetLayoutSpec(
+                        insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
+                    
+                } else {
+                    
+                    if isIncomming {
+                        stack.children?.append(timeTxtNode)
+                        verticalSpec.child = ASInsetLayoutSpec(
+                            insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
+                        
+                    } else {
+                        let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [timeTxtNode,statusTxtNode])
+                        stack.children?.append(timeStatusStack)
+                        verticalSpec.child = ASInsetLayoutSpec(
+                            insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
+                        
+                    }
+                    
+                }
+                 
+            }
+            
+        }
+        
+        /**************************************************************/
+        /************VOICE NODE**************/
+        /**************************************************************/
+
+        else if let _ = bubbleNode as? IGVoiceNode {
             
             if let msattachment = message!.attachment{
                 

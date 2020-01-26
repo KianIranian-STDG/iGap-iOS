@@ -135,6 +135,7 @@
 		8E8D8E17225CCE6800039191 /* SMValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D8E16225CCE6800039191 /* SMValidation.swift */; };
 		8E8D8E2D225DB6A500039191 /* Fast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E8D8E2C225DB6A500039191 /* Fast.xib */; };
 		8E8D8E46225DBB9000039191 /* SMNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D8E45225DBB9000039191 /* SMNavigationController.swift */; };
+		8E8E505223DDCD640094A91C /* IGVoiceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E505123DDCD640094A91C /* IGVoiceNode.swift */; };
 		8E91C64C2274887D00C36DAB /* SplashScreenPageOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E91C64B2274887D00C36DAB /* SplashScreenPageOneViewController.swift */; };
 		8E94B7382237E4A1005F6868 /* KeychainSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B72A2237E4A0005F6868 /* KeychainSwift.framework */; };
 		8E94B7392237E4A1005F6868 /* UICKeyChainStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B72B2237E4A0005F6868 /* UICKeyChainStore.framework */; };
@@ -1039,6 +1040,7 @@
 		8E8D8E16225CCE6800039191 /* SMValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMValidation.swift; sourceTree = "<group>"; };
 		8E8D8E2C225DB6A500039191 /* Fast.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Fast.xib; sourceTree = "<group>"; };
 		8E8D8E45225DBB9000039191 /* SMNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMNavigationController.swift; sourceTree = "<group>"; };
+		8E8E505123DDCD640094A91C /* IGVoiceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGVoiceNode.swift; sourceTree = "<group>"; };
 		8E91C64B2274887D00C36DAB /* SplashScreenPageOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPageOneViewController.swift; sourceTree = "<group>"; };
 		8E94B7282237E49F005F6868 /* QRCodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCodeReader.framework; path = Carthage/Build/iOS/QRCodeReader.framework; sourceTree = "<group>"; };
 		8E94B72A2237E4A0005F6868 /* KeychainSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainSwift.framework; path = Carthage/Build/iOS/KeychainSwift.framework; sourceTree = "<group>"; };
@@ -2453,6 +2455,7 @@
 				D2AD204E23D9675700466666 /* AbstractNode.swift */,
 				D2522ED923D47BC6002B2D6C /* IGTextNode.swift */,
 				D28B583023D56CA400CB861C /* IGImageNode.swift */,
+				8E8E505123DDCD640094A91C /* IGVoiceNode.swift */,
 				8E3360E223D7395D00CE766B /* IGVideoNode.swift */,
 				D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */,
 				8E3360E323D7395D00CE766B /* NodeExtension.swift */,
@@ -4245,6 +4248,7 @@
 				93193F321E5813030039AC0C /* IGMemberCell.swift in Sources */,
 				8ED68CAF2377219B00637C29 /* IGStructAddBill.swift in Sources */,
 				8E4472A42331FE5100900244 /* IGProfileUserViewController.swift in Sources */,
+				8E8E505223DDCD640094A91C /* IGVoiceNode.swift in Sources */,
 				FAE11243204E96FA009F402B /* IGCallsTableViewController.swift in Sources */,
 				FA09536A1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewCell.swift in Sources */,
 				8EA854C0239F728400C9442F /* IGGreenColorSet.swift in Sources */,
