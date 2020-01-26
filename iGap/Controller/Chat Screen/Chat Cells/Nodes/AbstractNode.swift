@@ -19,7 +19,7 @@ class AbstractNode: ASCellNode {
     private var isTextMessageNode = false
     
     weak var delegate: IGMessageGeneralCollectionViewCellDelegate?
-    
+
     init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool) {
         self.message = message
         self.isIncomming = isIncomming

@@ -722,6 +722,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 
     private func initASTableDelegates() {
         tableviewMessages = ASTableNode()
+        //flips the tableview (and all cells) upside down
+        tableviewMessages.view.transform = CGAffineTransform(scaleX: 1, y: -1)
+
         tableviewMessages.delegate = self
         tableviewMessages.dataSource = self
         self.tableviewMessagesView.addSubnode(tableviewMessages)

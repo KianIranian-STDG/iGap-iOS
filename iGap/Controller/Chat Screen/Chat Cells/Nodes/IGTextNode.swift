@@ -14,7 +14,7 @@ class IGTextNode: AbstractNode {
     
 //    private let textNode = MsgTextTextNode()
     
-    
+
     override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = true) {
         super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode)
         setupView()

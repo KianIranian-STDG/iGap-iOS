@@ -33,7 +33,12 @@ class BaseBubbleNode: ASCellNode {
     private let avatarImageViewNode = ASAvatarView()
     private let avatarBtnViewNode = ASButtonNode()
     weak var delegate : ChatDelegate!
-    
+    override func didLoad() {
+        super.didLoad()
+        self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
+
+    }
+
     init(message : IGRoomMessage, finalRoomType : IGRoom.IGType, isIncomming: Bool, bubbleImage: UIImage, isFromSameSender: Bool, shouldShowAvatar: Bool) {
         self.finalRoomType = finalRoomType
         self.message = message
