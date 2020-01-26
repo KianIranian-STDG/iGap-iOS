@@ -120,8 +120,9 @@ class ASReplyForwardNode: ASDisplayNode {
             }
 
         } else { // is Forward
-            if extraMessage.type == .text {
-                
+                imgReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
+                txtReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
+
                 IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: IGStringsManager.ForwardedFrom.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1)//shows Forwarded Message at top
 
                 if let user = extraMessage.authorUser?.user { //get Forward message sender Name
@@ -131,9 +132,6 @@ class ASReplyForwardNode: ASDisplayNode {
                 } else {
                     IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: "", textColor: .lightGray, size: 12, numberOfLines: 1)
                 }
-
-
-            }
 
         }
     }

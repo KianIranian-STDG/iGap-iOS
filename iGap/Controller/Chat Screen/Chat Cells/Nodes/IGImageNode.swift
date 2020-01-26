@@ -19,6 +19,27 @@ class IGImageNode: AbstractNode {
         super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode)
     }
     
+//    init(message: IGRoomMessage, isIncomming: Bool) {
+//        self.image = message.attachment?.attachedImage ?? UIImage()
+//        self.text = message.message
+//        imgNode = MsgImageImageNode()
+//        txtNode = ASTextNode()
+//        self.isIncomming = isIncomming
+//        super.init()
+//        setupView()
+//    }
+    
+    
+//    init(image: UIImage, text: String? = nil, isIncomming: Bool) {
+//        self.image = image
+//        self.text = text
+//        imgNode = MsgImageImageNode()
+//        txtNode = ASTextNode()
+//        self.isIncomming = isIncomming
+//        super.init()
+//        setupView()
+//    }
+    
 
     override func setupView() {
         super.setupView()

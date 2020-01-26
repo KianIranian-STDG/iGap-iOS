@@ -1,12 +1,12 @@
 /*
-* This is the source code of iGap for iOS
-* It is licensed under GNU AGPL v3.0
-* You should have received a copy of the license in this archive (see LICENSE).
-* Copyright © 2017 , iGap - www.iGap.net
-* iGap Messenger | Free, Fast and Secure instant messaging application
-* The idea of the Kianiranian STDG - www.kianiranian.com
-* All rights reserved.
-*/
+ * This is the source code of iGap for iOS
+ * It is licensed under GNU AGPL v3.0
+ * You should have received a copy of the license in this archive (see LICENSE).
+ * Copyright © 2017 , iGap - www.iGap.net
+ * iGap Messenger | Free, Fast and Secure instant messaging application
+ * The idea of the Kianiranian STDG - www.kianiranian.com
+ * All rights reserved.
+ */
 
 import AsyncDisplayKit
 import SwiftEventBus
@@ -29,11 +29,11 @@ class BaseBubbleNode: ASCellNode {
     
     private(set) var bubbleNode = ASCellNode()
     private var replyForwardViewNode = ASReplyForwardNode()
-
+    
     private let avatarImageViewNode = ASAvatarView()
     private let avatarBtnViewNode = ASButtonNode()
     weak var delegate : ChatDelegate!
-
+    
     init(message : IGRoomMessage, finalRoomType : IGRoom.IGType, isIncomming: Bool, bubbleImage: UIImage, isFromSameSender: Bool, shouldShowAvatar: Bool) {
         self.finalRoomType = finalRoomType
         self.message = message
@@ -58,36 +58,32 @@ class BaseBubbleNode: ASCellNode {
                 nameTxtNode.attributedText = NSAttributedString(string: "", attributes: kAMMessageCellNodeTopTextAttributes)
             }
         }
-
-         if let forwardedMessage = message?.forwardedFrom {
-            if forwardedMessage.type == .text {
-                bubbleNode = IGTextNode(message: forwardedMessage, isIncomming: isIncomming)
-            }
-        } else {
-            if message!.type == .text {
-                bubbleNode = IGTextNode(message: message!, isIncomming: isIncomming)
-            }else if message!.type == .image {
-                bubbleNode = IGImageNode(message: message!, isIncomming: isIncomming)
-            }
-
+        
+        var msg = message
+        
+        if let forMessage = message?.forwardedFrom { // if message contains Forward message pass forwarded message instead of original message
+            msg = forMessage
         }
+        
         if message!.type == .text {
-            bubbleNode = IGTextNode(message: message!, isIncomming: isIncomming)
+            bubbleNode = IGTextNode(message: msg!, isIncomming: isIncomming)
         }else if message!.type == .image {
-            bubbleNode = IGImageNode(message: message!, isIncomming: isIncomming)
+            bubbleNode = IGImageNode(message: msg!, isIncomming: isIncomming)
         }
+        
+        
         if let time = message!.creationTime {
             timeTxtNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
             timeTxtNode.attributedText = NSAttributedString(string: time.convertToHumanReadable(), attributes: kAMMessageCellNodeTopTextAttributes)
         }
-
+        
         if message!.type == .text ||  message!.type == .image {
             if(isIncomming){
                 
                 avatarImageViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
                 avatarImageViewNode.cornerRadius = kAMMessageCellNodeAvatarImageSize/2
                 avatarImageViewNode.clipsToBounds = true
-
+                
                 //clearButton on top of ASAvatarView
                 avatarBtnViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
                 avatarBtnViewNode.cornerRadius = kAMMessageCellNodeAvatarImageSize/2
@@ -95,13 +91,13 @@ class BaseBubbleNode: ASCellNode {
                 
                 //set size of status marker to zero for incomming messages
                 statusTxtNode.style.preferredSize = CGSize.zero
-
+                
             }else{
                 avatarImageViewNode.style.preferredSize = CGSize.zero
                 avatarBtnViewNode.style.preferredSize = CGSize.zero
                 let attribbutes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,
                                    NSAttributedString.Key.font: UIFont.iGapFonticon(ofSize: 15)]
-
+                
                 self.statusTxtNode.attributedText = NSAttributedString(string: "", attributes: attribbutes)
             }
             //Add SubNodes
@@ -125,13 +121,13 @@ class BaseBubbleNode: ASCellNode {
                 avatarImageViewNode.avatarASImageView!.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
                 SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(message!.roomId)", sender: (action: ChatMessageAction.userInfo, userId: userId))
             }
-
+            
             //Taps
             avatarBtnViewNode.addTarget(self, action: #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
-
+            
         }
-
-
+        
+        
     }
     
     
@@ -148,19 +144,19 @@ class BaseBubbleNode: ASCellNode {
         }
         //check if has reply or Forward
         if let repliedMessage = message?.repliedTo {
-                   stack.children?.append(replyForwardViewNode)
+            stack.children?.append(replyForwardViewNode)
             replyForwardViewNode.setReplyForward(isReply: true, extraMessage : repliedMessage)
-
+            
             stack.children?.append(bubbleNode)
         } else if let forwardedFrom = message?.forwardedFrom {
-                   stack.children?.append(replyForwardViewNode)
-                   replyForwardViewNode.setReplyForward(isReply: false, extraMessage : forwardedFrom)
-                   stack.children?.append(bubbleNode)
+            stack.children?.append(replyForwardViewNode)
+            replyForwardViewNode.setReplyForward(isReply: false, extraMessage : forwardedFrom)
+            stack.children?.append(bubbleNode)
         } else {
             stack.children?.append(bubbleNode)
         }
-
-
+        
+        
         let textNodeVerticalOffset = CGFloat(6)
         timeTxtNode.style.alignSelf = .end
         
@@ -170,14 +166,14 @@ class BaseBubbleNode: ASCellNode {
         verticalSpec.background = bubbleImgNode
         
         
-        if let _ = bubbleNode  as? IGTextNode{
+        if let _ = bubbleNode  as? IGTextNode{ // Only Contains Text
             if let msgcount = message!.message{
                 if(msgcount.count <= 20){
                     
                     if (self.finalRoomType == .channel) {
                         
                         let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [timeTxtNode])
-
+                        
                         let horizon = ASStackLayoutSpec(direction: .horizontal, spacing: 10, justifyContent: .end, alignItems: ASStackLayoutAlignItems.end, children: isIncomming ? [stack , timeStatusStack] : [stack , timeStatusStack])
                         horizon.verticalAlignment = .bottom
                         
@@ -187,7 +183,7 @@ class BaseBubbleNode: ASCellNode {
                     } else {
                         
                         let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [timeTxtNode,statusTxtNode])
-
+                        
                         let horizon = ASStackLayoutSpec(direction: .horizontal, spacing: 10, justifyContent: .end, alignItems: ASStackLayoutAlignItems.end, children: isIncomming ? [stack , timeStatusStack] : [stack , timeStatusStack])
                         horizon.verticalAlignment = .bottom
                         
@@ -199,7 +195,7 @@ class BaseBubbleNode: ASCellNode {
                 }else{
                     
                     if (self.finalRoomType == .channel) {
-
+                        
                         stack.children?.append(timeTxtNode)
                         verticalSpec.child = ASInsetLayoutSpec(
                             insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
@@ -210,19 +206,51 @@ class BaseBubbleNode: ASCellNode {
                             stack.children?.append(timeTxtNode)
                             verticalSpec.child = ASInsetLayoutSpec(
                                 insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
-
+                            
                         } else {
                             let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [timeTxtNode,statusTxtNode])
                             stack.children?.append(timeStatusStack)
                             verticalSpec.child = ASInsetLayoutSpec(
                                 insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
-
+                            
                         }
-
+                        
                         
                     }
-
+                    
                 }
+                
+            }
+            
+            
+        } else if let _ = bubbleNode  as? IGImageNode{
+            if let msattachment = message!.attachment{
+                
+                if (self.finalRoomType == .channel) {
+                    
+                    stack.children?.append(timeTxtNode)
+                    verticalSpec.child = ASInsetLayoutSpec(
+                        insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
+                    
+                } else {
+                    
+                    if isIncomming {
+                        stack.children?.append(timeTxtNode)
+                        verticalSpec.child = ASInsetLayoutSpec(
+                            insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
+                        
+                    } else {
+                        let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [timeTxtNode,statusTxtNode])
+                        stack.children?.append(timeStatusStack)
+                        verticalSpec.child = ASInsetLayoutSpec(
+                            insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset)),child: stack)
+                        
+                    }
+                    
+                    
+                }
+                
+                
                 
             }
             
@@ -230,46 +258,46 @@ class BaseBubbleNode: ASCellNode {
         }
         
         
-//        space it
+        //        space it
         let insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 5, bottom: 5, right: 4) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 5), child: verticalSpec)
-
-
+        
+        
         let stackSpec = ASStackLayoutSpec()
         stackSpec.direction = .vertical
         stackSpec.justifyContent = .spaceAround
         stackSpec.alignItems = isIncomming ? .start : .end
         stackSpec.style.flexShrink = 1.0
         stackSpec.style.flexGrow = 1.0
-
+        
         stackSpec.spacing = 0
         stackSpec.children = [insetSpec]
-
-
+        
+        
         let ASBGStack = ASBackgroundLayoutSpec(child: avatarBtnViewNode, background: avatarImageViewNode)
         let stackHSpec = ASStackLayoutSpec()
         stackHSpec.direction = .horizontal
         stackHSpec.spacing = 5
-//        stackHSpec.justifyContent = .spaceBetween
+        //        stackHSpec.justifyContent = .spaceBetween
         stackHSpec.verticalAlignment = .bottom
-//        stackHSpec.style.preferredSize.width = 200
+        //        stackHSpec.style.preferredSize.width = 200
         stackHSpec.children = isIncomming ? [ASBGStack,stackSpec] : [stackSpec,ASBGStack]
         stackHSpec.style.flexShrink = 1.0
         stackHSpec.style.flexGrow = 1.0
-
-        let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 5, bottom: 5, right: 4) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 5), child: stackHSpec)
-
         
-
+        let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 5, bottom: 5, right: 4) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 5), child: stackHSpec)
+        
+        
+        
         return insetHSpec
         
     }
     //- Hint : Check tap on user profile
     @objc func handleUserTap() {
-    
+        
         if(delegate != nil){
             if let msg = message{
                 self.delegate.openuserProfile(message: msg)
-    
+                
             }
         }
     }
