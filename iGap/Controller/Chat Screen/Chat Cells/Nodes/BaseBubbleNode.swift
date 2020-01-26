@@ -172,7 +172,11 @@ class BaseBubbleNode: ASCellNode {
         
         
         if let _ = bubbleNode  as? IGTextNode{ // Only Contains Text
-            if let msgcount = message!.message{
+            var msg = message!.message
+            if let forwardMessage = message?.forwardedFrom {
+                msg = forwardMessage.message
+            }
+            if let msgcount = msg {
                 if(msgcount.count <= 20){
                     
                     if (self.finalRoomType == .channel) {
