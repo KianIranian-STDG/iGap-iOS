@@ -117,6 +117,34 @@ class ASReplyForwardNode: ASDisplayNode {
                     txtReplyMsgForwardSource!.style.preferredSize = CGSize.zero // set size two zero
                 }
 
+            } else if extraMessage.type == .voice || extraMessage.type == .audio || extraMessage.type == .audioAndText || extraMessage.type == .contact || extraMessage.type == .file || extraMessage.type == .fileAndText   {
+                imgReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
+                txtReplyAttachment!.style.preferredSize = CGSize(width: 50.0, height: 50.0)
+                txtReplyAttachment!.setThumbnail(for: extraMessage.attachment!)
+
+                if let user = extraMessage.authorUser?.user { //get reply message sender Name
+                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: user.displayName, textColor: .lightGray, size: 12, numberOfLines: 1)
+                } else if let sender = extraMessage.authorRoom { //get reply message sender Room Title
+                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: sender.title ?? "", textColor: .lightGray, size: 12, numberOfLines: 1)
+                } else {
+                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: "", textColor: .lightGray, size: 12, numberOfLines: 1)
+                }
+                switch extraMessage.type {
+                    
+                case .unknown:
+                    break
+                case .audio,.audioAndText:
+                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.AudioMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1)//get reply message message
+                case .voice:
+                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.VoiceMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1)//get reply message message
+                case .file,.fileAndText:
+                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.FileMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1)//get reply message message
+                case .contact:
+                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.ContactMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1)//get reply message message
+                default:
+                    break
+                }
+
             }
 
         } else { // is Forward

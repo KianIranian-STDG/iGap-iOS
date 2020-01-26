@@ -1367,40 +1367,9 @@ extension ASNetworkImageNode {
             }
         }
     }
-    
     func setThumbnail(for attachment:IGFile, showMain: Bool = false) {
         if !(attachment.isInvalidated) {
-            if attachment.type == .voice {
-                self.image = UIImage(named:"IG_Message_Cell_Voice")
-            } else if attachment.type == .file {
-                let filename: NSString = attachment.name! as NSString
-                let fileExtension = filename.pathExtension
-                
-                if fileExtension != "" {
-                    if fileExtension == "doc" {
-                        self.image = UIImage(named:"IG_Message_Cell_File_Doc")
-                        
-                    } else if fileExtension == "exe" {
-                        self.image = UIImage(named:"IG_Message_Cell_File_Exe")
-                        
-                    } else if fileExtension == "pdf" {
-                        self.image = UIImage(named:"IG_Message_Cell_File_Pdf")
-                        
-                    } else if fileExtension == "txt" {
-                        self.image = UIImage(named:"IG_Message_Cell_File_Txt")
-                        
-                    } else {
-                        self.image = UIImage(named:"IG_Message_Cell_File_Generic")
-                    }
-                    //self.image = UIImage(named:"IG_Message_Cell_File")
-                    
-                } else {
-                    self.image = UIImage(named:"IG_Message_Cell_File_Generic")
-                }
-                
-            } else if attachment.type == .audio {
-                self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
-            } else {
+ 
                 let MAX_IMAGE_SIZE = 256 // max size for show main image at view
                 
                 /* when fileNameOnDisk is added into the attachment just check file existance without check file size
@@ -1508,12 +1477,54 @@ extension ASNetworkImageNode {
                     case .video:
                         break
                     case .audio:
-                        self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
+//                        self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
                         break
                     default:
                         break
                     }
                 }
+            
+        }
+        else {
+            print("ATTACHMENT IS INVALIDATED")
+        }
+    }
+    
+}
+extension ASTextNode {
+    
+    func setThumbnail(for attachment: IGFile,showMain: Bool = false) {
+        if !(attachment.isInvalidated) {
+            let attribute = [NSAttributedString.Key.foregroundColor: UIColor.black,
+                                                              NSAttributedString.Key.font:UIFont.iGapFonticon(ofSize: 50)]
+
+            if attachment.type == .voice {
+                self.attributedText = NSAttributedString(string: "", attributes: attribute)
+                
+            } else if attachment.type == .file {
+                let filename: NSString = attachment.name! as NSString
+                let fileExtension = filename.pathExtension
+                
+                if fileExtension != "" {
+                    if fileExtension == "doc" {
+                        self.attributedText = NSAttributedString(string: "", attributes: attribute)
+                    } else if fileExtension == "exe" {
+                        self.attributedText = NSAttributedString(string: "", attributes: attribute)
+                    } else if fileExtension == "pdf" {
+                        self.attributedText = NSAttributedString(string: "", attributes: attribute)
+                    } else if fileExtension == "txt" {
+                        self.attributedText = NSAttributedString(string: "", attributes: attribute)
+                    } else {
+                        self.attributedText = NSAttributedString(string: "", attributes: attribute)
+                    }
+                    //self.image = UIImage(named:"IG_Message_Cell_File")
+                    
+                } else {
+                    self.attributedText = NSAttributedString(string: "", attributes: attribute)
+                }
+                
+            } else if attachment.type == .audio {
+                self.attributedText = NSAttributedString(string: "", attributes: attribute)
             }
         }
         else {
