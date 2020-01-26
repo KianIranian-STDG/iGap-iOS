@@ -18,7 +18,7 @@ import SwiftEventBus
 
 class BaseBubbleNode: ASCellNode {
     private var finalRoomType: IGRoom.IGType!
-    private var message: IGRoomMessage?
+    var message: IGRoomMessage?
     private var isIncomming: Bool
     private var shouldShowAvatar : Bool
     private var isFromSameSender : Bool
@@ -174,7 +174,18 @@ class BaseBubbleNode: ASCellNode {
         let verticalSpec = ASBackgroundLayoutSpec()
         verticalSpec.background = bubbleImgNode
         
+        /**************************************************************/
+        /************DIFFRENT NODES SHOULD BE ADDED HERE**************/
+        /**************************************************************/
+
         
+        
+        
+        
+        /**************************************************************/
+        /************TEXT NODE**************/
+        /**************************************************************/
+
         if let _ = bubbleNode  as? IGTextNode{ // Only Contains Text
             var msg = message!.message
             if let forwardMessage = message?.forwardedFrom {
@@ -236,7 +247,12 @@ class BaseBubbleNode: ASCellNode {
             }
             
             
-        } else if let _ = bubbleNode as? IGImageNode{
+        }
+        /**************************************************************/
+        /************IMAGE AND IMAGE TEXT NODE**************/
+        /**************************************************************/
+
+        else if let _ = bubbleNode as? IGImageNode{
             if let msattachment = message!.attachment{
                 
                 if (self.finalRoomType == .channel) {
@@ -265,7 +281,12 @@ class BaseBubbleNode: ASCellNode {
             }
             
             
-        } else if let _ = bubbleNode as? IGFileNode {
+        }
+        /**************************************************************/
+        /************FILE NODE**************/
+        /**************************************************************/
+
+        else if let _ = bubbleNode as? IGFileNode {
             
             if let msattachment = message!.attachment{
                 
