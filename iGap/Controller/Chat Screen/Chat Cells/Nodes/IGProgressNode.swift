@@ -26,7 +26,17 @@ class IGProgressNode: ASDisplayNode {
         super.init()
         
         backNode.backgroundColor = UIColor(white: 0, alpha: 0.6)
-        IGGlobal.makeText(for: txtNodePercent, with: "0%".inLocalizedLanguage(), textColor: UIColor.white, size: 10, numberOfLines: 1)
+     
+        let paragraphStyle = NSMutableParagraphStyle()
+          paragraphStyle.alignment = .center
+          paragraphStyle.lineBreakMode = .byWordWrapping
+        
+
+        let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
+                                                          NSAttributedString.Key.font:UIFont.igFont(ofSize: 15),NSAttributedString.Key.paragraphStyle: paragraphStyle]
+
+
+//        txtNodePercent.attributedText = NSAttributedString(string: "0%".inLocalizedLanguage(), attributes: kAMMessageCellNodeContentTopTextAttributes)
 
         
 //        state = .readyToDownload
@@ -43,7 +53,8 @@ class IGProgressNode: ASDisplayNode {
         addSubnode(backNode)
         addSubnode(txtNodePercent)
         addSubnode(btnChangeState)
-        
+        btnChangeState.setAttributedTitle(NSAttributedString(string: "🎚", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font : UIFont.iGapFonticon(ofSize: 30)]), for: .normal)
+
         
 
     }
@@ -54,6 +65,7 @@ class IGProgressNode: ASDisplayNode {
         let backCenterAspec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: backNode)
          
         let percentCenterAspec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: txtNodePercent)
+        percentCenterAspec.horizontalPosition = .center
         
         let btnCenterAspec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: btnChangeState)
         
