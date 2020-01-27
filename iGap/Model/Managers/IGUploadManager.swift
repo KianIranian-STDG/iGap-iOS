@@ -112,7 +112,7 @@ class IGUploadManager {
     private func startNextTaskIfPossible() {
         if let task = pendingUploads.first {
             if task.status == .waiting {
-                task.loadDataAndCalculateHash()
+                task.file.loadData()
                 getUploadOptions(for: task)
             }
         }
@@ -163,7 +163,7 @@ class IGUploadManager {
         let request = IGFileUploadInitRequest.Generator.generate(initialBytes: initialBytes,
                                                               finalBytes: finalBytes,
                                                               size: Int64(task.file.data!.count),
-                                                              hash: task.file.sha256Hash!,
+                                                              hash: (task.file.data?.SHA256())!,
                                                               name: task.file.name!,
                                                               identity: task.file.cacheID!)
         request.successPowerful ({ (protoMessage, requestWrapper) in
@@ -331,26 +331,12 @@ class IGUploadTask: NSObject{
     var successCallBack : UploadCompleteCallback
     var failureCallBack : UploadFailedCallback
     fileprivate init(file:IGFile, start: UploadStartCallback, progress:UploadProgressCallback, completion:UploadCompleteCallback, failure:UploadFailedCallback) {
-        //make a copy of file = the file object passed here is a
-        //`Realm` object and cannot be accessed form this thread
-        self.file = IGFile()
-        self.file.cacheID = file.cacheID
-        self.file.token = file.token
-        self.file.size = file.size
-        self.file.name = file.name
-        self.file.data = file.data
-        self.file.type = file.type
-        self.file.fileNameOnDisk = file.fileNameOnDisk
+        self.file = file.detach()
         self.startCallBack    = start
         self.progressCallBack = progress
         self.successCallBack  = completion
         self.failureCallBack  = failure
         super.init()
-    }
-    
-    fileprivate func loadDataAndCalculateHash() {
-        self.file.loadData()
-        self.file.calculateHash()
     }
 }
 

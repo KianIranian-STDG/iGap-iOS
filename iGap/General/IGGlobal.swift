@@ -1087,8 +1087,8 @@ extension UITapGestureRecognizer {
 }
 //MARK: -
 extension Data {
-    func igSHA256() -> Data {
-        var hash = [UInt8](repeating: 0,  count: Int(CC_SHA256_DIGEST_LENGTH))
+    func SHA256() -> Data {
+        var hash = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
         self.withUnsafeBytes {
             _ = CC_SHA256($0, CC_LONG(self.count), &hash)
         }

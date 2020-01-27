@@ -109,9 +109,7 @@ public class IGFile: Object {
     
     ///TODO - check and remove following files
     var data:           Data?
-    var sha256Hash:     Data?
     var status:         Status                              = .unknown
-    var playingStatus:  PlayingStatus                       = .notAvaiable
     var downloadUploadPercent: Double                       = 0.0
     
     var localPath: String? {
@@ -383,26 +381,14 @@ public class IGFile: Object {
     }
     
     public func loadData() {
-        let nsurl = NSURL(fileURLWithPath: self.localPath ?? "")
-        if let url = nsurl as URL? {
-            try? self.data = Data(contentsOf: url)
+        if let path = self.localPath, !path.isEmpty {
+            let nsurl = NSURL(fileURLWithPath: path)
+            if let url = nsurl as URL? {
+                try? self.data = Data(contentsOf: url)
+            }
         }
     }
     
-    public func calculateHash() {
-        if self.data != nil {
-            self.sha256Hash = self.sha256(data: data!)
-        }
-    }
-    
-    private func sha256(data : Data) -> Data {
-        var hash = [UInt8](repeating: 0,  count: Int(CC_SHA256_DIGEST_LENGTH))
-        data.withUnsafeBytes {
-            _ = CC_SHA256($0, CC_LONG(data.count), &hash)
-        }
-        return Data(hash)
-    }
-
     public func sizeToString() -> String {
         return IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: self.size)
     }
@@ -553,17 +539,17 @@ public class IGFile: Object {
 }
 
 
-func == (lhs: IGFile, rhs: IGFile) -> Bool {
-    if lhs === rhs {
-        return true
-    }
-    if lhs.cacheID == rhs.cacheID {
-        return true
-    }
-    if (lhs.sha256Hash != nil) && (rhs.sha256Hash != nil) && (lhs.sha256Hash == rhs.sha256Hash) {
-        return true
-    }
-    return false
-}
+//func == (lhs: IGFile, rhs: IGFile) -> Bool {
+//    if lhs === rhs {
+//        return true
+//    }
+//    if lhs.cacheID == rhs.cacheID {
+//        return true
+//    }
+//    if (lhs.sha256Hash != nil) && (rhs.sha256Hash != nil) && (lhs.sha256Hash == rhs.sha256Hash) {
+//        return true
+//    }
+//    return false
+//}
 
 
