@@ -27,16 +27,6 @@ class IGProgressNode: ASDisplayNode {
         
         backNode.backgroundColor = UIColor(white: 0, alpha: 0.6)
      
-        let paragraphStyle = NSMutableParagraphStyle()
-          paragraphStyle.alignment = .center
-          paragraphStyle.lineBreakMode = .byWordWrapping
-        
-
-        let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
-                                                          NSAttributedString.Key.font:UIFont.igFont(ofSize: 15),NSAttributedString.Key.paragraphStyle: paragraphStyle]
-
-
-//        txtNodePercent.attributedText = NSAttributedString(string: "0%".inLocalizedLanguage(), attributes: kAMMessageCellNodeContentTopTextAttributes)
 
         
 //        state = .readyToDownload
@@ -78,7 +68,7 @@ class IGProgressNode: ASDisplayNode {
     
     func setPercentage(percent: Int) {
         
-        txtNodePercent.attributedText = NSAttributedString(string: "\(percent)%", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+        IGGlobal.makeText(for: txtNodePercent, with: "\(percent)%", textColor: .white, size: 30, numberOfLines: 1, font: .igapFont, alignment: .center)
         
     }
     

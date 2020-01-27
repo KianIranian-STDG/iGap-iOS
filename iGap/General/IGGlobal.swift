@@ -205,16 +205,36 @@ class IGGlobal {
     
     /********************************************/
     /******************ASTEXT********************/
-    internal static func makeText(for node: ASTextNode, with text: String, textColor: UIColor? = UIColor.lightGray,size: CGFloat? = 12,numberOfLines : UInt? = 1) {
-        
-        let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: textColor!,
-                                                          NSAttributedString.Key.font:UIFont.igFont(ofSize: size!)]
+    internal static func makeText(for node: ASTextNode, with text: String, textColor: UIColor? = UIColor.lightGray,size: CGFloat? = 12,numberOfLines : UInt? = 1,font: fontPack,alignment: NSTextAlignment = .left) {
+          let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = alignment
+            paragraphStyle.lineBreakMode = .byWordWrapping
+          node.maximumNumberOfLines = numberOfLines!
 
-        node.attributedText = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes)
 
-        node.maximumNumberOfLines = numberOfLines!
+
+        switch font {
+
+        case .fontIcon:
+                      let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: textColor,
+                                                              NSAttributedString.Key.font:UIFont.iGapFonticon(ofSize: size!),NSAttributedString.Key.paragraphStyle: paragraphStyle]
+            node.attributedText = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes)
+
+        case .igapFont:
+                      let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: textColor,
+                                                              NSAttributedString.Key.font:UIFont.igFont(ofSize: size!),NSAttributedString.Key.paragraphStyle: paragraphStyle]
+            node.attributedText = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes)
+
+        default:
+            break
+        }
+
     }
- 
+    public enum fontPack:Int {
+        
+        case fontIcon            = 1 // UIFont.igapFontIcon
+        case igapFont            = 2 //UIFont.igFont
+    }
  
     /**********************************************/
     /****************** Progress ******************/
@@ -1984,6 +2004,16 @@ extension UITextView {
             } else {
                 return NSTextAlignment.left
             }
+        }
+    }
+
+}
+extension String {
+    var localizedDirection: NSTextAlignment {
+        if LocaleManager.isRTL {
+            return NSTextAlignment.right
+        } else {
+            return NSTextAlignment.left
         }
     }
 

@@ -71,9 +71,11 @@ class AbstractNode: ASCellNode {
         
         if message.linkInfo == nil {
             if isTextMessageNode {
-                textNode.attributedText = NSAttributedString(string: msg, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black, NSAttributedString.Key.font: UIFont.igFont(ofSize: fontDefaultSize)])
+                IGGlobal.makeText(for: textNode, with: msg, textColor: .black, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.localizedDirection)
+
             } else {
-                msgTextNode.attributedText = NSAttributedString(string: msg, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black, NSAttributedString.Key.font: UIFont.igFont(ofSize: fontDefaultSize)])
+                IGGlobal.makeText(for: msgTextNode, with: msg, textColor: .black, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.localizedDirection)
+
             }
             return
         }

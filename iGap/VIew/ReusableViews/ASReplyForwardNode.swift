@@ -92,27 +92,27 @@ class ASReplyForwardNode: ASDisplayNode {
                 txtReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
 
                 if let user = extraMessage.authorUser?.user { //get reply message sender Name
-                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: user.displayName, textColor: .lightGray, size: 12, numberOfLines: 1)
+                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: user.displayName, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)
                 } else if let sender = extraMessage.authorRoom { //get reply message sender Room Title
-                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: sender.title ?? "", textColor: .lightGray, size: 12, numberOfLines: 1)
+                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: sender.title ?? "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)
                 } else {
-                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: "", textColor: .lightGray, size: 12, numberOfLines: 1)
+                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)
                 }
-                IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: extraMessage.message ?? "", textColor: .lightGray, size: 12, numberOfLines: 1)//get reply message message
+                IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: extraMessage.message ?? "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
             } else if extraMessage.type == .image || extraMessage.type == .imageAndText || extraMessage.type == .video || extraMessage.type == .videoAndText { // if reply or forward message has image/Video attachment
                 imgReplyAttachment!.style.preferredSize = CGSize(width: 50.0, height: 50.0)
                 txtReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
                 imgReplyAttachment!.setThumbnail(for: extraMessage.attachment!)
 
                 if let user = extraMessage.authorUser?.user { //get reply message sender Name
-                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: user.displayName, textColor: .lightGray, size: 12, numberOfLines: 1)
+                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: user.displayName, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)
                 } else if let sender = extraMessage.authorRoom { //get reply message sender Room Title
-                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: sender.title ?? "", textColor: .lightGray, size: 12, numberOfLines: 1)
+                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: sender.title ?? "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)
                 } else {
-                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: "", textColor: .lightGray, size: 12, numberOfLines: 1)
+                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)
                 }
                 if extraMessage.message != nil { //if has message
-                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: extraMessage.message ?? "", textColor: .lightGray, size: 12, numberOfLines: 1)//get reply message message
+                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: extraMessage.message ?? "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
                 } else {
                     txtReplyMsgForwardSource!.style.preferredSize = CGSize.zero // set size two zero
                 }
@@ -123,24 +123,24 @@ class ASReplyForwardNode: ASDisplayNode {
                 txtReplyAttachment!.setThumbnail(for: extraMessage.attachment!)
 
                 if let user = extraMessage.authorUser?.user { //get reply message sender Name
-                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: user.displayName, textColor: .lightGray, size: 12, numberOfLines: 1)
+                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: user.displayName, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)
                 } else if let sender = extraMessage.authorRoom { //get reply message sender Room Title
-                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: sender.title ?? "", textColor: .lightGray, size: 12, numberOfLines: 1)
+                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: sender.title ?? "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)
                 } else {
-                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: "", textColor: .lightGray, size: 12, numberOfLines: 1)
+                    IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)
                 }
                 switch extraMessage.type {
                     
                 case .unknown:
                     break
                 case .audio,.audioAndText:
-                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.AudioMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1)//get reply message message
+                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.AudioMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
                 case .voice:
-                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.VoiceMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1)//get reply message message
+                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.VoiceMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
                 case .file,.fileAndText:
-                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.FileMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1)//get reply message message
+                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.FileMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
                 case .contact:
-                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.ContactMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1)//get reply message message
+                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.ContactMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
                 default:
                     break
                 }
@@ -151,14 +151,14 @@ class ASReplyForwardNode: ASDisplayNode {
                 imgReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
                 txtReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
 
-                IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: IGStringsManager.ForwardedFrom.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1)//shows Forwarded Message at top
+                IGGlobal.makeText(for: self.txtRepOrForwardNode!, with: IGStringsManager.ForwardedFrom.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//shows Forwarded Message at top
 
                 if let user = extraMessage.authorUser?.user { //get Forward message sender Name
-                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: user.displayName, textColor: .lightGray, size: 12, numberOfLines: 1)
+                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: user.displayName, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)
                 } else if let sender = extraMessage.authorRoom { //get Forward message sender Room Title
-                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: sender.title ?? "", textColor: .lightGray, size: 12, numberOfLines: 1)
+                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: sender.title ?? "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)
                 } else {
-                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: "", textColor: .lightGray, size: 12, numberOfLines: 1)
+                    IGGlobal.makeText(for: self.txtReplyMsgForwardSource!, with: "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)
                 }
 
         }

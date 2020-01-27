@@ -59,10 +59,11 @@ class BaseBubbleNode: ASCellNode {
         if !(finalRoomType == .chat) {
             if let name = message!.authorUser?.userInfo {
                 nameTxtNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
-                nameTxtNode.attributedText = NSAttributedString(string: name.displayName, attributes: kAMMessageCellNodeTopTextAttributes)
+                IGGlobal.makeText(for: nameTxtNode, with: name.displayName, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont, alignment: .left)
             } else {
                 nameTxtNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
-                nameTxtNode.attributedText = NSAttributedString(string: "", attributes: kAMMessageCellNodeTopTextAttributes)
+                IGGlobal.makeText(for: nameTxtNode, with: "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont, alignment: .left)
+
             }
         }
         
@@ -89,7 +90,8 @@ class BaseBubbleNode: ASCellNode {
         
         if let time = message!.creationTime {
             timeTxtNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
-            timeTxtNode.attributedText = NSAttributedString(string: time.convertToHumanReadable(), attributes: kAMMessageCellNodeTopTextAttributes)
+            IGGlobal.makeText(for: timeTxtNode, with: time.convertToHumanReadable(), textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont, alignment: .center)
+
         }
         
         if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice || message!.type == .location {
@@ -110,10 +112,9 @@ class BaseBubbleNode: ASCellNode {
             }else{
                 avatarImageViewNode.style.preferredSize = CGSize.zero
                 avatarBtnViewNode.style.preferredSize = CGSize.zero
-                let attribbutes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,
-                                   NSAttributedString.Key.font: UIFont.iGapFonticon(ofSize: 15)]
                 
-                self.statusTxtNode.attributedText = NSAttributedString(string: "", attributes: attribbutes)
+                IGGlobal.makeText(for: self.statusTxtNode, with: "", textColor: .lightGray, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+
             }
             //Add SubNodes
             addSubnode(bubbleImgNode)
