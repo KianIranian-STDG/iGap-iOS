@@ -47,7 +47,6 @@ class ASAvatarView: ASDisplayNode {
             let attribbutes = [NSAttributedString.Key.foregroundColor: UIColor.white,
                                NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)]
 
-            self.initialLettersLabel!.attributedText = NSAttributedString(string: "تست", attributes: attribbutes)
             addSubnode(self.initialLettersLabel!)
             self.avatarASImageView = ASNetworkImageNode()
             addSubnode(self.avatarASImageView!)
@@ -111,5 +110,6 @@ class ASAvatarView: ASDisplayNode {
 
         
     }
+    
     
 }

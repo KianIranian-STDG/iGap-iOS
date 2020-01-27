@@ -22,7 +22,11 @@ class IGImageNode: AbstractNode {
     override func setupView() {
         
         super.setupView()
+        let prefferedSize = NodeExtension.fetchMediaFrame(media: message.attachment!)
         
+        imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
+        imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
+
         addSubnode(imgNode)
 
         if message.type == .imageAndText {
@@ -51,10 +55,6 @@ class IGImageNode: AbstractNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
 
-        let prefferedSize = NodeExtension.fetchMediaFrame(media: message.attachment!)
-        
-        imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
-        imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
 
         let acNodeSpec = ASOverlayLayoutSpec(child: imgNode, overlay: indicatorViewAbs)
         
