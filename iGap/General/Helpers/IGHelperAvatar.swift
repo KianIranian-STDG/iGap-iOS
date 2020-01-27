@@ -194,7 +194,6 @@ class IGHelperAvatar {
         let randString = IGGlobal.randomString(length: 10)
         
         let avatar = IGFile()
-        avatar.attachedImage = image
         avatar.cacheID = randString
         avatar.name = randString
         avatar.data = image.jpegData(compressionQuality: 0.7)

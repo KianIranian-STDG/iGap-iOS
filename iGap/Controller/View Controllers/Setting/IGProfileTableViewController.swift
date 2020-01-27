@@ -1466,11 +1466,7 @@ class IGProfileTableViewController: BaseTableViewController, CLLocationManagerDe
     private func pickImage(screens: [YPPickerScreen]){
         IGHelperAvatar.shared.pickAndUploadAvatar(roomId: userInDb.id, type: .user, screens: screens) { [weak self] (file) in
             DispatchQueue.main.async {
-                if let image = file.attachedImage {
-                    self?.userAvatarView?.avatarImageView?.image = image
-                } else {
-                    self?.userAvatarView?.avatarImageView?.setAvatar(avatar: file)
-                }
+                self?.userAvatarView?.avatarImageView?.setAvatar(avatar: file)
             }
         }
     }

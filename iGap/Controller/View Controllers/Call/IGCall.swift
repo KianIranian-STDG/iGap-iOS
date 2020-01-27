@@ -573,15 +573,15 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             remoteCameraView.isHidden = true
             localCameraView.isHidden = true
             imgAvatar.isHidden = false
-//            btnSwitchCamera.isEnabled = false
             txtiGap.text = IGStringsManager.VoiceCall.rawValue.localized
-//            btnSwitchCamera.setTitle("", for: UIControl.State.normal)
         }
         
         if let avatar = userInfo.avatar {
             lblIcon.isHidden = true
-
-            setImageMain(avatar: avatar)
+            if let avatarFile = avatar.file {
+                imgAvatar.setAvatar(avatar: avatarFile)
+                imgAvatarInner.setAvatar(avatar: avatarFile)
+            }
         } else {
             lblIcon.isHidden = false
         }
@@ -592,14 +592,12 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             btnMute.isHidden = true
             btnSpeaker.isHidden = true
             btnChat.isHidden = true
-//            btnSwitchCamera.isHidden = true
             txtCallTime.isHidden = true
 
         } else {
             btnMute.isHidden = false
             btnSpeaker.isHidden = false
             btnChat.isHidden = false
-//            btnSwitchCamera.isHidden = false
             txtCallTime.isHidden = false
             btnAnswer.isHidden = true
             txtCallTime.isHidden = true
@@ -978,48 +976,6 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     func stopSound(){
         if player != nil {
             player?.stop()
-        }
-    }
-    
-    func setImageMain(avatar: IGAvatar) {
-        if let originalFile = avatar.file {
-            do {
-                if originalFile.attachedImage != nil {
-                    imgAvatar.image = originalFile.attachedImage
-                    imgAvatarInner.image = originalFile.attachedImage
-                } else {
-                    var image: UIImage?
-                    if let path = originalFile.localPath, IGGlobal.isFileExist(path: path) {
-                        image = UIImage(contentsOfFile: path)
-                    }
-                    
-                    if image != nil {
-                        self.imgAvatar.image = image
-                        self.imgAvatarInner.image = image
-                        /*
-                        if callType == .voiceCalling {
-                            self.viewTransparent.isHidden = false
-                        }
-                        */
-                    } else {
-                        lblIcon.isHidden = false
-                        throw NSError(domain: "asa", code: 1234, userInfo: nil)
-                    }
-                }
-            } catch {
-                IGDownloadManager.sharedManager.download(file: originalFile, previewType:.originalFile, completion: { (attachment) -> Void in
-                    DispatchQueue.main.async {
-                        if let url = originalFile.localUrl {
-                            if let data = try? Data(contentsOf: url) {
-                                if let image = UIImage(data: data) {
-                                    self.imgAvatar.image = image
-                                    self.imgAvatarInner.image = image
-                                }
-                            }
-                        }
-                    }
-                }, failure: {})
-            }
         }
     }
     

@@ -194,11 +194,7 @@ class IGRegistrationStepProfileInfoViewController: BaseTableViewController,Selec
     private func pickImage(screens: [YPPickerScreen]){
         IGHelperAvatar.shared.pickAndUploadAvatar(type: .user, screens: screens) { (file) in
             DispatchQueue.main.async {
-                if let image = file.attachedImage {
-                    self.profileImageView?.image = image
-                } else {
-                    self.profileImageView?.setAvatar(avatar: file)
-                }
+                self.profileImageView?.setAvatar(avatar: file)
             }
         }
     }

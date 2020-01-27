@@ -919,11 +919,7 @@ class IGEditProfileChannelAndGroupTableViewController: BaseTableViewController, 
     private func pickImage(screens: [YPPickerScreen]){
         IGHelperAvatar.shared.pickAndUploadAvatar(roomId: self.room!.id, type: AvatarType.fromIG(self.room!.type), screens: screens) { (file) in
             DispatchQueue.main.async {
-                if let image = file.attachedImage {
-                    self.avatarRoom.avatarImageView?.image = image
-                } else {
-                    self.avatarRoom.avatarImageView?.setAvatar(avatar: file)
-                }
+                self.avatarRoom.avatarImageView?.setAvatar(avatar: file)
             }
         }
     }

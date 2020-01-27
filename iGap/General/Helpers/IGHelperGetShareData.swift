@@ -264,7 +264,6 @@ class IGHelperGetShareData {
         
         let attachment = IGFile(name: filename)
         attachment.size = fileSize
-        attachment.attachedImage = scaledImage
         attachment.fileNameOnDisk = fileNameOnDisk
         attachment.height = Double((scaledImage.size.height))
         attachment.width = Double((scaledImage.size.width))
@@ -319,7 +318,6 @@ class IGHelperGetShareData {
         attachment.duration = asset.duration.seconds
         attachment.fileNameOnDisk = randomString + filename
         attachment.name = filename
-        attachment.attachedImage = uiImage
         attachment.type = .video
         attachment.height = Double(cgImage.height)
         attachment.width = Double(cgImage.width)
@@ -361,7 +359,6 @@ class IGHelperGetShareData {
         attachment.size = fileSize
         attachment.fileNameOnDisk = randomString + filename
         attachment.name = filename
-        attachment.attachedImage = uiImage
         attachment.type = .gif
         attachment.height = Double((uiImage?.size.height)!)
         attachment.width = Double((uiImage?.size.width)!)

@@ -341,7 +341,6 @@ class IGUploadTask: NSObject{
         self.file.data = file.data
         self.file.type = file.type
         self.file.fileNameOnDisk = file.fileNameOnDisk
-        self.file.attachedImage  = file.attachedImage
         self.startCallBack    = start
         self.progressCallBack = progress
         self.successCallBack  = completion

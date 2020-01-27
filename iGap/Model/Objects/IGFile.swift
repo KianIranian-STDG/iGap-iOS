@@ -108,7 +108,6 @@ public class IGFile: Object {
     @objc dynamic var baseFilePathTypeRaw:BaseFilePathType.RawValue = BaseFilePathType.document.rawValue // use this variable at detect base file directory for fetch 'localPath'
     
     ///TODO - check and remove following files
-    var attachedImage:  UIImage?
     var data:           Data?
     var sha256Hash:     Data?
     var status:         Status                              = .unknown

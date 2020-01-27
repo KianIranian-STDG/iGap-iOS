@@ -179,8 +179,6 @@ class IGRoomListtCell: BaseTableViewCell {
             
             if item.pinId > 0 && !IGHelperPromote.isPromotedRoom(room: item) {
                 self.unreadView.isHidden = true
-                
-//                self.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Pin")
                 self.lastMessageStateImage.backgroundColor = UIColor.clear
             } else {
                 if let lastMessage = item.lastMessage {
@@ -294,41 +292,18 @@ class IGRoomListtCell: BaseTableViewCell {
                 self.unreadView.isHidden = false
             }
             
-//            nameLabel.snp.removeConstraints()
-            
             switch item.type {
                 
             case .chat:
-//                nameLabel.snp.remakeConstraints { (make) in
-//                    make.leading.equalTo(self.typeImage.snp.trailing).offset(-20)
-//                    make.trailing.equalTo(self.checkImage.snp.leading).offset(-10)
-//                    make.top.equalTo(self.avatarImage.snp.top)
-//
-//                }
                 self.lastMessageStateImage.isHidden = false
-                
                 break
                 
             case .group:
-//                nameLabel.snp.makeConstraints { (make) in
-//                    make.leading.equalTo(self.typeImage.snp.trailing).offset(10)
-//                    make.trailing.equalTo(self.checkImage.snp.leading).offset(-10)
-//                    make.top.equalTo(self.avatarImage.snp.top)
-//
-//                }
                 self.lastMessageStateImage.isHidden = false
-                
                 break
                 
             case .channel:
-//                nameLabel.snp.makeConstraints { (make) in
-//                    make.leading.equalTo(self.typeImage.snp.trailing).offset(10)
-//                    make.trailing.equalTo(self.checkImage.snp.leading).offset(-10)
-//                    make.top.equalTo(self.avatarImage.snp.top)
-//
-//                }
                 self.lastMessageStateImage.isHidden = true
-                
                 break
             }
             
@@ -337,17 +312,6 @@ class IGRoomListtCell: BaseTableViewCell {
             } else {
                 self.lastMsgLabel.text = ""
             }
-            
-            //end
-            
-            
-            
-            
-            
-            
-            
-            
-            
             
             let img = UIImageView()
             let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
@@ -510,7 +474,6 @@ class IGRoomListtCell: BaseTableViewCell {
         unreadView.backgroundColor = .red
         
         timeLabel.text = "..."
-//        nameLabel.text = "..."
         checkImage.image = UIImage(named:"IG_Verify")
         
         self.nameAndTypeStackView.axis = .horizontal
@@ -583,7 +546,6 @@ class IGRoomListtCell: BaseTableViewCell {
         self.stateImage.image = nil
         self.unreadCountLabel.text = nil
         self.lastMessageStateImage.image = nil
-//        self.lastMsgLabel.text = nil
         self.avatarImage.image = UIImage()
         showStateImage = nil
     }
@@ -625,14 +587,6 @@ class IGRoomListtCell: BaseTableViewCell {
                         
                     case .audioAndText, .gifAndText, .fileAndText, .imageAndText, .videoAndText:
                         self.lastMsgLabel.text = forwarded.message
-//                        if let message = forwarded.message {
-//
-//                            let markdown = MarkdownParser()
-//                            markdown.enabledElements = MarkdownParser.EnabledElements.bold
-//                            self.lastMsgLabel.attributedText = markdown.parse(message)
-//                            self.lastMsgLabel.font = UIFont.igFont(ofSize: 14.0)
-//                            self.lastMsgLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
-//                        }
                     case .image:
                         self.lastMsgLabel.text = IGStringsManager.ImageMessage.rawValue.localized
                     case .video:
@@ -664,14 +618,6 @@ class IGRoomListtCell: BaseTableViewCell {
                     switch lastMessage.type {
                     case .audioAndText, .gifAndText, .fileAndText, .imageAndText, .videoAndText, .text:
                         self.lastMsgLabel.text = lastMessage.message
-//                        if let message = lastMessage.message {
-//
-//                            let markdown = MarkdownParser()
-//                            markdown.enabledElements = MarkdownParser.EnabledElements.bold
-//                            self.lastMsgLabel.attributedText = markdown.parse(message)
-//                            self.lastMsgLabel.font = UIFont.igFont(ofSize: 14.0)
-//                            self.lastMsgLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
-//                        }
                     case .image:
                         self.lastMsgLabel.text = IGStringsManager.ImageMessage.rawValue.localized
                     case .video:

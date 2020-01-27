@@ -1359,21 +1359,16 @@ extension UIImageView {
                     }
                     
                     do {
-                        var path = URL(string: "")
-                        if attachment.attachedImage != nil {
-                            self.image = attachment.attachedImage
+                        var image: UIImage?
+                        let path = finalFile.localUrl
+                        if IGGlobal.isFileExist(path: path) {
+                            image = UIImage(contentsOfFile: path!.path)
+                        }
+                        
+                        if image != nil {
+                            self.sd_setImage(with: path, completed: nil)
                         } else {
-                            var image: UIImage?
-                            path = finalFile.localUrl
-                            if IGGlobal.isFileExist(path: path) {
-                                image = UIImage(contentsOfFile: path!.path)
-                            }
-                            
-                            if image != nil {
-                                self.sd_setImage(with: path, completed: nil)
-                            } else {
-                                throw NSError(domain: "image not exist", code: 1234, userInfo: nil)
-                            }
+                            throw NSError(domain: "image not exist", code: 1234, userInfo: nil)
                         }
                     } catch {
                         imagesMap[attachment.token!] = self
@@ -1435,19 +1430,6 @@ extension UIImageView {
             }, failure: {
                 
             })
-        }
-    }
-    
-    func setImage(for attachment:IGFile) {
-        if attachment.attachedImage != nil {
-            self.image = attachment.attachedImage
-        } else {
-            if let path = attachment.localUrl {
-                let data = try! Data(contentsOf: path)
-                if let image = UIImage(data: data) {
-                    self.image = image
-                }
-            }
         }
     }
     
@@ -1540,34 +1522,6 @@ extension UIImage {
         return image!
     }
 
-    
-    class func thumbnail(for attachment: IGFile) -> UIImage? {
-        if let thumbnail = attachment.smallThumbnail {
-            return self.originalImage(for: thumbnail)
-        }
-        return nil
-    }
-    class func largeThumbnail(for attachment: IGFile) -> UIImage? {
-        if let thumbnail = attachment.largeThumbnail {
-            return self.originalImage(for: thumbnail)
-        }
-        return nil
-    }
-    
-    class func originalImage(for attachment: IGFile) -> UIImage? {
-        if let path = attachment.localPath {
-            if IGGlobal.isFileExist(path: path, fileSize: attachment.size) {
-                if let image = UIImage(contentsOfFile: path) {
-                    return image
-                }
-            }
-        }
-        if let attachedImage = attachment.attachedImage {
-            return attachedImage
-        }
-        return nil
-    }
-    
     /****** Gif ******/
     public class func gifImageWithData(_ data: Data) -> UIImage? {
         guard let source = CGImageSourceCreateWithData(data as CFData, nil) else {

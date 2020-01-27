@@ -3821,7 +3821,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         attachment.duration = asset.duration.seconds
         attachment.fileNameOnDisk = randomString + filename
         attachment.name = filename
-        attachment.attachedImage = uiImage
         attachment.type = .video
         attachment.height = Double(cgImage.height)
         attachment.width = Double(cgImage.width)
@@ -3829,7 +3828,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let pathOnDisk = documents + "/" + randomString + filename
         try! FileManager.default.copyItem(atPath: mediaUrl.path, toPath: pathOnDisk)
         
-        self.imgAttachmentImage.image = attachment.attachedImage
+        self.imgAttachmentImage.image = uiImage
         self.imgAttachmentImage.layer.cornerRadius = 6.0
         self.imgAttachmentImage.layer.masksToBounds = true
         
@@ -3859,7 +3858,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         let attachment = IGFile(name: filename)
-        attachment.attachedImage = scaledImage
         attachment.fileNameOnDisk = fileNameOnDisk
         attachment.height = Double((scaledImage.size.height))
         attachment.width = Double((scaledImage.size.width))
@@ -3871,7 +3869,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.saveAttachmentToLocalStorage(data: imgData!, fileNameOnDisk: fileNameOnDisk)
         }
         
-        self.imgAttachmentImage.image = attachment.attachedImage
+        self.imgAttachmentImage.image = scaledImage
         self.imgAttachmentImage.layer.cornerRadius = 6.0
         self.imgAttachmentImage.layer.masksToBounds = true
                 
@@ -3934,7 +3932,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         attachment.duration = videoInfo.asset!.duration
         attachment.fileNameOnDisk = randomString + filename
         attachment.name = filename
-        attachment.attachedImage = videoInfo.thumbnail
         attachment.type = .video
         attachment.height = Double(videoInfo.asset!.pixelHeight)
         attachment.width = Double(videoInfo.asset!.pixelWidth)
@@ -3979,7 +3976,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         let attachment = IGFile(name: filename)
-        attachment.attachedImage = scaledImage
         attachment.fileNameOnDisk = filename
         attachment.height = Double((scaledImage.size.height))
         attachment.width = Double((scaledImage.size.width))
@@ -3992,7 +3988,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         //}
         
         if single {
-            self.imgAttachmentImage.image = attachment.attachedImage
+            self.imgAttachmentImage.image = scaledImage
             self.imgAttachmentImage.layer.cornerRadius = 6.0
             self.imgAttachmentImage.layer.masksToBounds = true
             self.didSelectAttachment(attachment)
