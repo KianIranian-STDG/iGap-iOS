@@ -24,70 +24,23 @@ class IGVideoNode: AbstractNode {
         setupView()
     }
     
-    
-    
-//    private let image: UIImage
-//    private let isOutgoing: Bool
-//    private var text: String?
-    
-//    init(message: IGRoomMessage, isOutgoing: Bool) {
-//        self.image = #imageLiteral(resourceName: "becky.jpg")
-//        self.text = message.message
-//        self.isOutgoing = isOutgoing
-//        imgNode = MsgImageImageNode()
-//        txtNode = ASTextNode()
-//        playTxtNode = ASTextNode()
-//        timeTxtNode = ASTextNode()
-//        super.init()
-//        setupView()
-//    }
-    
-    
-    
     override func setupView() {
         super.setupView()
         
         addSubnode(imgNode)
-
-        let stl = NSMutableParagraphStyle()
-        stl.alignment = NSTextAlignment.center
-
-//        playTxtNode.attributedText = NSAttributedString(string: "", attributes: [NSAttributedString.Key.font : UIFont.iGapFonticon(ofSize: 55), NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.paragraphStyle: stl])
         
         IGGlobal.makeText(for: playTxtNode, with: "", textColor: .white, size: 55, numberOfLines: 1, font: .fontIcon, alignment: .center)
         
-//        playTxtNode.maximumNumberOfLines = 1
         playTxtNode.cornerRadius = 27.5
         playTxtNode.clipsToBounds = true
         playTxtNode.backgroundColor = UIColor(white: 0, alpha: 0.5)
 
         let time : String! = IGAttachmentManager.sharedManager.convertFileTime(seconds: Int((message.attachment?.duration)!))
-//        txtTimeVideoAbs.text = time
-//        txtSizeVideoAbs.text = "(\(IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: (finalRoomMessage.attachment?.size)!)))"
-        
-        
-        
-//        timeTxtNode.text
         
         IGGlobal.makeText(for: timeTxtNode, with: time, textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
-        IGGlobal.makeText(for: timeTxtNode, with: " (\(IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: (message.attachment?.size)!))) ", textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeText(for: timeTxtNode, with: " " + "(\(IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: (message.attachment?.size)!)))" + " ", textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-//        timeTxtNode.attributedText = NSAttributedString(string: "  00:05(616.33 کیلوبایت)  ", attributes: [NSAttributedString.Key.font : UIFont.igFont(ofSize: 12), NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.baselineOffset: -4])
-        timeTxtNode.layer.cornerRadius = 12
+        timeTxtNode.layer.cornerRadius = 10
         timeTxtNode.clipsToBounds = true
         timeTxtNode.layer.borderColor = UIColor.white.cgColor
         timeTxtNode.layer.borderWidth = 0.5
@@ -113,7 +66,7 @@ class IGVideoNode: AbstractNode {
         let imgAbsSpec = ASAbsoluteLayoutSpec(children: [imgNode])
         
         
-        timeTxtNode.style.height = ASDimension(unit: .points, value: 18)
+        timeTxtNode.style.height = ASDimension(unit: .points, value: 20)
         fakeStackBottomItem.style.height = ASDimension(unit: .points, value: 26)
         
             // Setting Play Btn Size
@@ -132,26 +85,12 @@ class IGVideoNode: AbstractNode {
         
         let overlaySpec = ASOverlayLayoutSpec(child: imgAbsSpec, overlay: itemsStackSpec)
         
-        let textNodeVerticalOffset = CGFloat(6)
-
         if message.type == .video {
-            
-//            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-//            top: 0,
-//            left: 0 + (isIncomming ? textNodeVerticalOffset : 0),
-//            bottom: 0,
-//            right: 0 + (isIncomming ? 0 : textNodeVerticalOffset)), child: overlaySpec)
             
             return overlaySpec
             
         }else {
             
-//            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-//            top: 5,
-//            left: 0 + (isIncomming ? 0 : textNodeVerticalOffset),
-//            bottom: 5,
-//            right: 0 + (isIncomming ? textNodeVerticalOffset : 0)), child: textNode)
-
             return ASStackLayoutSpec(direction: .vertical, spacing: 4, justifyContent: .start, alignItems: .center, children: [overlaySpec, textNode])
             
         }

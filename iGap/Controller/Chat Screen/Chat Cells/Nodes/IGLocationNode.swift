@@ -23,7 +23,6 @@ class IGLocationNode: AbstractNode {
         
         super.setupView()
         
-        backgroundColor = .red
         imgNode.image = UIImage(named: "map_screenShot")
         imgNode.contentMode = .scaleAspectFill
         addSubnode(imgNode)

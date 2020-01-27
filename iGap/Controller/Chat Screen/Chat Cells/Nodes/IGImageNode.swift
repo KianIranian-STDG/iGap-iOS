@@ -58,21 +58,12 @@ class IGImageNode: AbstractNode {
 
         let acNodeSpec = ASOverlayLayoutSpec(child: imgNode, overlay: indicatorViewAbs)
         
-        
-//        let textNodeVerticalOffset = CGFloat(6)
-
         if message.type == .image {
             
             return acNodeSpec
             
         }else {
             
-//            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-//            top: 5,
-//            left: 0 + (isIncomming ? 0 : textNodeVerticalOffset),
-//            bottom: 5,
-//            right: 0 + (isIncomming ? textNodeVerticalOffset : 0)), child: textNode)
-
             return ASStackLayoutSpec(direction: .vertical, spacing: 4, justifyContent: .start, alignItems: .center, children: [acNodeSpec, textNode])
             
         }

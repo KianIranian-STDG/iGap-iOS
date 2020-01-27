@@ -53,6 +53,9 @@ class AbstractNode: ASCellNode {
     }
 
     func setupView() {
+        
+        imgNode.contentMode = .scaleAspectFit
+        
         if let forwardedFrom = message.forwardedFrom {
             if let msg = forwardedFrom.message {
                 setupMessageText(msg)
