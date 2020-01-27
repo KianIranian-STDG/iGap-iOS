@@ -18,8 +18,7 @@ class IGImageNode: AbstractNode {
         super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode,finalRoomType : finalRoomType, finalRoom: finalRoom)
         setupView()
     }
-        
-
+    
     override func setupView() {
         
         super.setupView()
