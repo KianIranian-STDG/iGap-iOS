@@ -17,10 +17,10 @@ class IGVideoNode: AbstractNode {
     
     private let fakeStackBottomItem = ASDisplayNode()
     
-    override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = false) {
+    override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = false,finalRoomType : IGRoom.IGType,finalRoom : IGRoom) {
         playTxtNode = ASTextNode()
         timeTxtNode = ASTextNode()
-        super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode)
+        super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode,finalRoomType: finalRoomType, finalRoom: finalRoom)
         setupView()
     }
     

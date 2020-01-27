@@ -56,27 +56,28 @@ class IGProgressNode: ASDisplayNode {
         super.init()
         
         backNode.backgroundColor = UIColor(white: 0, alpha: 0.6)
-        txtNodePercent.attributedText = NSAttributedString(string: "100%", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+        IGGlobal.makeText(for: txtNodePercent, with: "100%".inLocalizedLanguage(), textColor: UIColor.white, size: 10, numberOfLines: 1)
 
+        
+//        state = .readyToDownload
+        backNode.style.width = ASDimension(unit: .points, value: 50)
+        backNode.style.height = ASDimension(unit: .points, value: 50)
+        backNode.layer.cornerRadius = 25
+        
+        txtNodePercent.style.width = ASDimension(unit: .points, value: 40)
+        txtNodePercent.style.height = ASDimension(unit: .points, value: 20)
+
+        btnChangeState.style.width = ASDimension(unit: .points, value: 40)
+        btnChangeState.style.height = ASDimension(unit: .points, value: 30)
         
         addSubnode(backNode)
         addSubnode(txtNodePercent)
         addSubnode(btnChangeState)
-        
-        state = .readyToDownload
-        
+
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
-        backNode.style.width = ASDimension(unit: .points, value: 100)
-        backNode.style.height = ASDimension(unit: .points, value: 100)
-        
-        txtNodePercent.style.width = ASDimension(unit: .points, value: 100)
-        txtNodePercent.style.height = ASDimension(unit: .points, value: 100)
-        
-        btnChangeState.style.width = ASDimension(unit: .points, value: 100)
-        btnChangeState.style.height = ASDimension(unit: .points, value: 100)
         
         let backCenterAspec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: backNode)
          

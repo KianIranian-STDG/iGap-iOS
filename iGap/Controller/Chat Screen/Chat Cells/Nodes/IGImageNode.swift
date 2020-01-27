@@ -13,40 +13,17 @@ import AsyncDisplayKit
 class IGImageNode: AbstractNode {
     
     
-    private var acNode = IGProgressNode()
     
-    override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = false) {
-        super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode)
+    override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = false,finalRoomType : IGRoom.IGType,finalRoom: IGRoom) {
+        super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode,finalRoomType : finalRoomType, finalRoom: finalRoom)
         setupView()
     }
-    
-//    init(message: IGRoomMessage, isIncomming: Bool) {
-//        self.image = message.attachment?.attachedImage ?? UIImage()
-//        self.text = message.message
-//        imgNode = MsgImageImageNode()
-//        txtNode = ASTextNode()
-//        self.isIncomming = isIncomming
-//        super.init()
-//        setupView()
-//    }
-    
-    
-//    init(image: UIImage, text: String? = nil, isIncomming: Bool) {
-//        self.image = image
-//        self.text = text
-//        imgNode = MsgImageImageNode()
-//        txtNode = ASTextNode()
-//        self.isIncomming = isIncomming
-//        super.init()
-//        setupView()
-//    }
-    
+        
 
     override func setupView() {
         
         super.setupView()
         
-//        imgNode.image = UIImage(named: "becky") //message.attachment?.attachedImage
         addSubnode(imgNode)
 
         if message.type == .imageAndText {
@@ -54,24 +31,36 @@ class IGImageNode: AbstractNode {
         }
         
         
-        acNode.setState(.readyToDownload)
-        acNode.setFileType(.download)
-        addSubnode(acNode)
-        
-    }
-    
-    
-    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-
+        addSubnode(indicatorViewAbs)
+        checkIndicatorState()
         let prefferedSize = NodeExtension.fetchMediaFrame(image: imgNode.image!)
 
         imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
         imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
 
+        
+    }
+    func checkIndicatorState() {
+        if IGGlobal.isFileExist(path: message.attachment!.path(), fileSize: message.attachment!.size) {
+            indicatorViewAbs.isHidden = true
+            indicatorViewAbs.style.preferredSize = CGSize.zero
+            
+        } else {
+            indicatorViewAbs.isHidden = false
+            indicatorViewAbs.style.preferredSize = CGSize(width: 50, height: 50)
+        }
+
+        
+    }
+
+    
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+
+
         let absSpec = ASAbsoluteLayoutSpec(children: [imgNode])
         
         
-        let acNodeSpec = ASOverlayLayoutSpec(child: absSpec, overlay: acNode)
+        let acNodeSpec = ASOverlayLayoutSpec(child: absSpec, overlay: indicatorViewAbs)
         
         
         let textNodeVerticalOffset = CGFloat(6)

@@ -127,6 +127,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var floatingDateView: UIView!
     @IBOutlet weak var txtFloatingDate: UILabel!
     var finalRoomType: IGRoom.IGType!
+    var finalRoom: IGRoom!
 
     // MARK: - Variables
     private var myNavigationItem: IGNavigationItem!
@@ -492,7 +493,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
         }
         tmpUserID = self.room?.chatRoom?.peer?.id
-        
+        self.finalRoom = self.room!.detach()
         switch self.room!.type {
         case .chat:
             self.finalRoomType = .chat
@@ -724,7 +725,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         tableviewMessages = ASTableNode()
         //flips the tableview (and all cells) upside down
         tableviewMessages.view.transform = CGAffineTransform(scaleX: 1, y: -1)
-
+        
+        
         tableviewMessages.delegate = self
         tableviewMessages.dataSource = self
         self.tableviewMessagesView.addSubnode(tableviewMessages)
@@ -6136,10 +6138,11 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
             
             let img = isIncomming ? someoneImage : mineImage
             
-            
-            let node = BaseBubbleNode(message: msg!,finalRoomType : self!.finalRoomType, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
+            //TODO: check detach
+            let node = BaseBubbleNode(message: msg!, finalRoomType : self!.finalRoomType ,finalRoom : self!.finalRoom, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
 //            let node = BaseBubbleNode(message: msg!, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
             (node.bubbleNode as? AbstractNode)?.delegate = self
+            node.selectionStyle = .none
             return node
         }
         return cellnodeBlock

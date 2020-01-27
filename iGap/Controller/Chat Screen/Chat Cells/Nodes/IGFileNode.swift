@@ -20,8 +20,8 @@ class IGFileNode: AbstractNode {
     private var txtTitleNode = ASTextNode()
     private var txtSizeNode = ASTextNode()
     
-    override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = false) {
-        super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode)
+    override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = false,finalRoomType : IGRoom.IGType,finalRoom : IGRoom) {
+        super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode,finalRoomType : finalRoomType, finalRoom: finalRoom)
         setupView()
     }
     

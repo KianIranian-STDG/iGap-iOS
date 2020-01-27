@@ -7,6 +7,7 @@
 //
 
 import AsyncDisplayKit
+import SwiftEventBus
 
 
 class AbstractNode: ASCellNode {
@@ -15,16 +16,35 @@ class AbstractNode: ASCellNode {
     let msgTextNode = MsgTextTextNode() // Only Use in IGTextNode
     
     let message: IGRoomMessage
+    let finalRoom: IGRoom!
+    let finalRoomType: IGRoom.IGType
     let isIncomming: Bool
     var attachment: IGFile?
+    //IMAGE NODE FOR IMAGENODE AND VIDEO NODE
     var imgNode = ASNetworkImageNode()
+    //UISlider for IGVOICE NODE
+    let node = ASDisplayNode { () -> UIView in
+        let view = UISlider()
+        view.minimumValue = 0
+        view.value = 10
+        view.maximumValue = 20
+        view.tintColor = .red
+
+        return view
+    }
+    //BUTTON DOWNLOAD/PLAY/PAUSE for NODES
+    var btnStateNode = ASButtonNode()
+    //progress Node
+    var indicatorViewAbs = IGProgressNode()
 
 
     private var isTextMessageNode = false
     
     weak var delegate: IGMessageGeneralCollectionViewCellDelegate?
 
-    init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool) {
+    init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool,finalRoomType : IGRoom.IGType,finalRoom : IGRoom) {
+        self.finalRoom = finalRoom
+        self.finalRoomType = finalRoomType
         self.message = message
         self.isIncomming = isIncomming
         self.isTextMessageNode = isTextMessageNode
@@ -139,7 +159,7 @@ class AbstractNode: ASCellNode {
                     imgNode.setThumbnail(for: attachment)
 
                     if attachment.status != .ready {
-//                        indicatorViewAbs?.delegate = self
+                        indicatorViewAbs.delegate = self
                     }
                     break
                 }
@@ -161,7 +181,7 @@ class AbstractNode: ASCellNode {
 //                    makeVideoPlayView()
                 }
 
-//                indicatorViewAbs?.setState(.ready)
+                indicatorViewAbs.setState(.ready)
                 if attachment.type == .gif {
                     attachment.loadData()
                     if let data = attachment.data {
@@ -175,13 +195,13 @@ class AbstractNode: ASCellNode {
             }
 
             if isIncomming || !fileExist {
-//                indicatorViewAbs?.setFileType(.download)
+                indicatorViewAbs.setFileType(.download)
             } else {
-//                indicatorViewAbs?.setFileType(.upload)
+                indicatorViewAbs.setFileType(.upload)
             }
-//            indicatorViewAbs?.setState(attachment.status)
+            indicatorViewAbs.setState(attachment.status)
             if attachment.status == .downloading || attachment.status == .uploading {
-//                indicatorViewAbs?.setPercentage(attachment.downloadUploadPercent)
+                indicatorViewAbs.setPercentage(percent: Int(attachment.downloadUploadPercent))
             }
         }
     }
@@ -217,7 +237,6 @@ extension AbstractNode: ASTextNodeDelegate {
     }
     
     func textNode(_ textNode: ASTextNode!, tappedLinkAttribute attribute: String!, value: Any!, at point: CGPoint, textRange: NSRange) {
-        print("=-=-=-=-", value, "=-=-=", point, "=-=-=", textRange)
         
         guard let type = value as? (String, String) else {
             return
@@ -269,4 +288,25 @@ class MsgTextTextNode: ASTextNode {
         return CGSize(width: max(size.width, 15), height: size.height)
     }
      
+}
+extension AbstractNode: IGProgreeNodeDelegate {
+    
+    func downloadUploadIndicatorDidTap(_ indicator: IGProgressNode) {
+        if !IGGlobal.shouldMultiSelect {///if not in multiSelectMode
+
+            if let attachment = self.attachment {
+                if attachment.status == .uploading {
+                    SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(self.finalRoom.id)", sender: (action: ChatMessageAction.delete, roomId: self.finalRoom.id, messageId: self.message.id))
+                    IGUploadManager.sharedManager.cancelUpload(attachment: attachment)
+                } else if attachment.status == .uploadFailed {
+                        IGMessageSender.defaultSender.resend(message: self.message, to: finalRoom)
+                    
+                } else {
+                    IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in }, failure: {})
+                }
+            }
+            
+        }
+    }
+    
 }

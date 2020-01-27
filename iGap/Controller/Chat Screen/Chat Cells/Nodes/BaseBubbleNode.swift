@@ -17,6 +17,7 @@ import SwiftEventBus
 }
 
 class BaseBubbleNode: ASCellNode {
+    private var finalRoom: IGRoom!
     private var finalRoomType: IGRoom.IGType!
     var message: IGRoomMessage?
     private var isIncomming: Bool
@@ -39,7 +40,8 @@ class BaseBubbleNode: ASCellNode {
 
     }
 
-    init(message : IGRoomMessage, finalRoomType : IGRoom.IGType, isIncomming: Bool, bubbleImage: UIImage, isFromSameSender: Bool, shouldShowAvatar: Bool) {
+    init(message : IGRoomMessage, finalRoomType : IGRoom.IGType, finalRoom : IGRoom, isIncomming: Bool, bubbleImage: UIImage, isFromSameSender: Bool, shouldShowAvatar: Bool) {
+        self.finalRoom = finalRoom
         self.finalRoomType = finalRoomType
         self.message = message
         self.isIncomming = isIncomming
@@ -71,15 +73,15 @@ class BaseBubbleNode: ASCellNode {
         }
         
         if message!.type == .text {
-            bubbleNode = IGTextNode(message: msg!, isIncomming: isIncomming)
+            bubbleNode = IGTextNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         }else if message!.type == .image || message!.type == .imageAndText {
-            bubbleNode = IGImageNode(message: msg!, isIncomming: isIncomming)
+            bubbleNode = IGImageNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         }else if message!.type == .video || message!.type == .videoAndText {
-            bubbleNode = IGVideoNode(message: msg!, isIncomming: isIncomming)
+            bubbleNode = IGVideoNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         }else if message!.type == .file || message!.type == .fileAndText {
-            bubbleNode = IGFileNode(message: msg!, isIncomming: isIncomming)
+            bubbleNode = IGFileNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         }else if message!.type == .voice {
-            bubbleNode = IGVoiceNode(message: msg!, isIncomming: isIncomming)
+            bubbleNode = IGVoiceNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         }
         
         
