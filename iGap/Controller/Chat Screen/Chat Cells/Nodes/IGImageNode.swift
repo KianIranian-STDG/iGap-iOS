@@ -51,38 +51,29 @@ class IGImageNode: AbstractNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
 
-        let prefferedSize = NodeExtension.fetchMediaFrame(image: imgNode.image ?? UIImage(named: "igap_default_image")!)
-
+        let prefferedSize = NodeExtension.fetchMediaFrame(media: message.attachment!)
+        
         imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
         imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
 
-        let absSpec = ASAbsoluteLayoutSpec(children: [imgNode])
+        let acNodeSpec = ASOverlayLayoutSpec(child: imgNode, overlay: indicatorViewAbs)
         
         
-        let acNodeSpec = ASOverlayLayoutSpec(child: absSpec, overlay: indicatorViewAbs)
-        
-        
-        let textNodeVerticalOffset = CGFloat(6)
+//        let textNodeVerticalOffset = CGFloat(6)
 
         if message.type == .image {
             
-            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-            top: 0,
-            left: 0 + (isIncomming ? 0 : textNodeVerticalOffset),
-            bottom: 0,
-            right: 0 + (isIncomming ? textNodeVerticalOffset : 0)), child: acNodeSpec)
-            
-            return insetSpec
+            return acNodeSpec
             
         }else {
             
-            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-            top: 5,
-            left: 0 + (isIncomming ? 0 : textNodeVerticalOffset),
-            bottom: 5,
-            right: 0 + (isIncomming ? textNodeVerticalOffset : 0)), child: textNode)
+//            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+//            top: 5,
+//            left: 0 + (isIncomming ? 0 : textNodeVerticalOffset),
+//            bottom: 5,
+//            right: 0 + (isIncomming ? textNodeVerticalOffset : 0)), child: textNode)
 
-            return ASStackLayoutSpec(direction: .vertical, spacing: 4, justifyContent: .start, alignItems: .center, children: [acNodeSpec, insetSpec])
+            return ASStackLayoutSpec(direction: .vertical, spacing: 4, justifyContent: .start, alignItems: .center, children: [acNodeSpec, textNode])
             
         }
         
