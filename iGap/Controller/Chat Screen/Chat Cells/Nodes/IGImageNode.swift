@@ -32,10 +32,6 @@ class IGImageNode: AbstractNode {
         
         addSubnode(indicatorViewAbs)
         checkIndicatorState()
-        let prefferedSize = NodeExtension.fetchMediaFrame(image: imgNode.image!)
-
-        imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
-        imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
 
         
     }
@@ -55,6 +51,10 @@ class IGImageNode: AbstractNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
 
+        let prefferedSize = NodeExtension.fetchMediaFrame(image: imgNode.image ?? UIImage(named: "igap_default_image")!)
+
+        imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
+        imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
 
         let absSpec = ASAbsoluteLayoutSpec(children: [imgNode])
         

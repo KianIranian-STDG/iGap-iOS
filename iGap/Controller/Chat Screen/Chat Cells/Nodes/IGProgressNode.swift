@@ -17,37 +17,7 @@ class IGProgressNode: ASDisplayNode {
     var delegate: IGProgreeNodeDelegate?
     
     private var backNode = ASDisplayNode()
-    private var state: IGFile.Status = .readyToDownload {
-        didSet {
-            switch self.state {
-            case .readyToDownload:
-                setPercentage(percent: 0)
-                self.txtNodePercent.isHidden = true
-                self.btnChangeState.isHidden = false
-                break
-            case .downloading:
-                self.txtNodePercent.isHidden = false
-                self.btnChangeState.isHidden = true
-                break
-            case .uploadFailed:
-                self.txtNodePercent.isHidden = true
-                self.btnChangeState.isHidden = false
-                break
-            case .uploading:
-                self.txtNodePercent.isHidden = false
-                self.btnChangeState.isHidden = true
-                break
-            case .ready:
-                self.removeFromSupernode()
-                break
-            case .unknown:
-                setPercentage(percent: 0)
-                self.txtNodePercent.isHidden = true
-                self.btnChangeState.isHidden = false
-                break
-            }
-        }
-    }
+    private var state: IGFile.Status = .readyToDownload
     
     private var txtNodePercent = ASTextNode()
     private var btnChangeState = ASButtonNode()
@@ -56,7 +26,7 @@ class IGProgressNode: ASDisplayNode {
         super.init()
         
         backNode.backgroundColor = UIColor(white: 0, alpha: 0.6)
-        IGGlobal.makeText(for: txtNodePercent, with: "100%".inLocalizedLanguage(), textColor: UIColor.white, size: 10, numberOfLines: 1)
+        IGGlobal.makeText(for: txtNodePercent, with: "0%".inLocalizedLanguage(), textColor: UIColor.white, size: 10, numberOfLines: 1)
 
         
 //        state = .readyToDownload
@@ -73,6 +43,8 @@ class IGProgressNode: ASDisplayNode {
         addSubnode(backNode)
         addSubnode(txtNodePercent)
         addSubnode(btnChangeState)
+        
+        
 
     }
     
@@ -111,6 +83,36 @@ class IGProgressNode: ASDisplayNode {
     
     func setState(_ state:IGFile.Status) {
         self.state = state
+    
+                switch self.state {
+                case .readyToDownload:
+                    setPercentage(percent: 0)
+                    self.txtNodePercent.isHidden = true
+                    self.btnChangeState.isHidden = false
+                    break
+                case .downloading:
+                    self.txtNodePercent.isHidden = false
+                    self.btnChangeState.isHidden = true
+                    break
+                case .uploadFailed:
+                    self.txtNodePercent.isHidden = true
+                    self.btnChangeState.isHidden = false
+                    break
+                case .uploading:
+                    self.txtNodePercent.isHidden = false
+                    self.btnChangeState.isHidden = true
+                    break
+                case .ready:
+                    self.removeFromSupernode()
+                    break
+                case .unknown:
+                    setPercentage(percent: 0)
+                    self.txtNodePercent.isHidden = true
+                    self.btnChangeState.isHidden = false
+                    break
+                }
+            
+        
     }
     
     

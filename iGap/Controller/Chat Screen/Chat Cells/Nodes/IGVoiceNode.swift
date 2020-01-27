@@ -49,7 +49,6 @@ class IGVoiceNode: AbstractNode {
         } else {
             indicatorViewAbs.isHidden = false
             indicatorViewAbs.style.preferredSize = CGSize(width: 50, height: 50)
-
             btnStateNode.setTitle("🎗", with: UIFont.iGapFonticon(ofSize: 40), with: .black, for: .normal)
 
         }

@@ -154,7 +154,7 @@ class AbstractNode: ASCellNode {
             /* Rx End */
 
             switch (message.type) {
-            case .image, .imageAndText, .video, .videoAndText, .gif, .gifAndText:
+            case .image, .imageAndText, .video, .videoAndText, .gif, .gifAndText,.voice:
                 if !(attachment.isInvalidated) {
                     imgNode.setThumbnail(for: attachment)
 
@@ -163,6 +163,7 @@ class AbstractNode: ASCellNode {
                     }
                     break
                 }
+
             default:
                 break
             }
