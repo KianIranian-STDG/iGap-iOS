@@ -53,9 +53,6 @@ class IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell: UITableViewCe
             self.attachment = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!)?.value
         }
         
-//        self.playingSlider.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .normal)
-//        playingSlider.value = 0.0
-//        durationTimeLabel.text = "\(playingSlider.value)".inLocalizedLanguage()
         self.mediaSizeLabel.text = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: attachment.size).inLocalizedLanguage()
         
         if let creationtime = message.creationTime {
@@ -66,19 +63,13 @@ class IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell: UITableViewCe
             songNameLabel.text = attachment.name
         }
         if attachment.type == .audio {
-            //fetchMP3Info(attachment: attachment)
             songNameLabel.text = attachment.name
         }
         
-        let path = attachment.path()
-        let asset = AVURLAsset(url: path!)
-        let time = (CMTimeGetSeconds(asset.duration))
         let timeInt = Int(attachment.duration)
         let remainingSeconds = timeInt%60
         let remainingMiuntes = timeInt/60
         durationTimeLabel.text = "\(remainingMiuntes):\(remainingSeconds)".inLocalizedLanguage()
-//        playingSlider.maximumValue = Float(time)
-        
         
         if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
             self.attachment = variableInCache.value
@@ -109,7 +100,7 @@ class IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell: UITableViewCe
     
     func updateAttachmentDownloadUploadIndicatorView() {
         if let attachment = self.attachment {
-            if IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) {
+            if IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size) {
                 self.indicatorView.setState(.ready)
                 if attachment.type == .audio {
                     setImage(file: attachment)

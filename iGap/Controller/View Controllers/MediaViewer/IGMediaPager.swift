@@ -273,7 +273,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     }
     
     @IBAction func btnShare(_ sender: UIButton) {
-        IGHelperPopular.shareAttachment(url: mediaList![currentIndex].getFinalMessage().attachment?.path(), viewController: self)
+        IGHelperPopular.shareAttachment(url: mediaList![currentIndex].getFinalMessage().attachment?.localUrl, viewController: self)
     }
     
     @IBAction func btnDelete(_ sender: UIButton) {

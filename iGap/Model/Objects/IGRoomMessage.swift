@@ -369,7 +369,7 @@ class IGRoomMessage: Object {
         }
         
         if igpMessage.hasIgpAttachment {
-            message.attachment = IGFile.putOrUpdate(realm: realmFinal, igpFile: igpMessage.igpAttachment, fileType: IGFile.FileType.convertToFileType(messageType: message!.type) , enableCache: true)
+            message.attachment = IGFile.putOrUpdate(igpFile: igpMessage.igpAttachment, fileType: IGFile.FileType.convertToFileType(messageType: message!.type))
         }
         if igpMessage.hasIgpLocation {
             message.location = IGRoomMessageLocation.putOrUpdate(realm: realmFinal, igpRoomMessageLocation: igpMessage.igpLocation, for: message)

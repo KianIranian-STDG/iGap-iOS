@@ -57,8 +57,10 @@ class IGMusicPlayer {
         } else {
             // Fallback on earlier versions
         }
-        let path = list.first?.path()
-        let asset = AVURLAsset(url: path!)
+        guard let url = list.first?.localUrl else {
+            return
+        }
+        let asset = AVURLAsset(url: url)
         let playerItem = AVPlayerItem(asset: asset)
         player.insert(playerItem, after:nil)
         player.play()

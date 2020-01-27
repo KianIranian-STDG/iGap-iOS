@@ -32,6 +32,7 @@ import SwiftyRSA
 import AVFoundation
 import YPImagePicker
 import SwiftEventBus
+import Files
 
 public var indexOfVideos = [Int]()
 class IGHeader: UICollectionReusableView {
@@ -3039,7 +3040,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if (message.type == .file || message.type == .fileAndText ||
             message.type == .image || message.type == .imageAndText ||
             message.type == .video || message.type == .videoAndText ||
-            message.type == .gif) && IGGlobal.isFileExist(path: message.attachment!.path(), fileSize: message.attachment!.size) {
+            message.type == .gif) && IGGlobal.isFileExist(path: message.attachment!.localPath, fileSize: message.attachment!.size) {
             return true
         }
         return false
@@ -3806,7 +3807,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let filename = mediaUrl.lastPathComponent
-        let fileSize = Int(IGGlobal.getFileSize(path: mediaUrl))
+        let fileSize = IGGlobal.getFileSize(path: mediaUrl)
         let randomString = IGGlobal.randomString(length: 16) + "_"
         
         /*** get thumbnail from video ***/
@@ -3862,7 +3863,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         attachment.fileNameOnDisk = fileNameOnDisk
         attachment.height = Double((scaledImage.size.height))
         attachment.width = Double((scaledImage.size.width))
-        attachment.size = (imgData?.count)!
+        attachment.size = Int64(imgData?.count ?? 0)
         attachment.data = imgData
         attachment.type = .image
         
@@ -3924,7 +3925,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let mediaUrl = videoInfo.url
         let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let filename = mediaUrl.lastPathComponent
-        let fileSize = Int(IGGlobal.getFileSize(path: mediaUrl))
+        let fileSize = IGGlobal.getFileSize(path: mediaUrl)
         let randomString = IGGlobal.randomString(length: 16) + "_"
         
         /*** get thumbnail from video ***/
@@ -3982,7 +3983,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         attachment.fileNameOnDisk = filename
         attachment.height = Double((scaledImage.size.height))
         attachment.width = Double((scaledImage.size.width))
-        attachment.size = (imgData?.count)!
+        attachment.size = Int64(imgData?.count ?? 0)
         attachment.data = imgData
         attachment.type = .image
         //TODO - don't use 'DispatchQueue.main.async' like this, use closure
@@ -4006,7 +4007,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let pathOnDisk = documents + "/" + filename
         let fileUrl : URL = NSURL(fileURLWithPath: pathOnDisk) as URL
-        let fileSize = Int(fileData.count)
+        let fileSize = Int64(fileData.count)
         
         writeFileToUrl(data: fileData, url: fileUrl) {
             DispatchQueue.main.async {
@@ -4018,7 +4019,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 
                 if single {
                     self.imgAttachmentImage.image = UIImage(named: "IG_Message_Cell_File_Generic")
-                    //                    self.imgAttachmentImage.frame = CGRect(x: 0, y: 0, width: 30, height: 34)
                     self.imgAttachmentImage.layer.cornerRadius = 6.0
                     self.imgAttachmentImage.layer.masksToBounds = true
                     self.didSelectAttachment(attachment)
@@ -5618,7 +5618,7 @@ extension IGMessageViewController: AVAudioRecorderDelegate {
                 let data = try Data(contentsOf: filePath)
                 self.saveAttachmentToLocalStorage(data: data, fileNameOnDisk: filePath.lastPathComponent)
                 attachment.fileNameOnDisk = filePath.lastPathComponent
-                attachment.size = data.count
+                attachment.size = Int64(data.count)
                 attachment.type = .voice
                 self.currentAttachment = attachment
                 self.didTapOnSendButton(self.btnSend)
@@ -5732,7 +5732,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             if let forward = cellMessage.forwardedFrom {
                 finalMessage = forward
             }
-            IGHelperPopular.shareAttachment(url: finalMessage.attachment?.path(), viewController: self)
+            IGHelperPopular.shareAttachment(url: finalMessage.attachment?.localUrl, viewController: self)
         })
         
         let report = UIAlertAction(title: IGStringsManager.Report.rawValue.localized, style: .default, handler: { (action) in
@@ -5979,7 +5979,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             attachment = finalMessage.attachment
         }
         
-        if attachment.status != .ready && !IGGlobal.isFileExist(path: finalMessage.attachment?.path()) {
+        if attachment.status != .ready && !IGGlobal.isFileExist(path: finalMessage.attachment?.localPath) {
             return
         }
         
@@ -5994,8 +5994,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             return
             
         case .video, .videoAndText:
-            if let path = attachment.path() {
-                let player = AVPlayer(url: path)
+            if let url = attachment.localUrl {
+                let player = AVPlayer(url: url)
                 let avController = AVPlayerViewController()
                 avController.player = player
                 player.play()
@@ -6009,10 +6009,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             return
             
         case .file , .fileAndText:
-            if let path = attachment.path() {
+            if let url = attachment.localUrl {
                 let controller = UIDocumentInteractionController()
                 controller.delegate = self
-                controller.url = path
+                controller.url = url
                 controller.presentPreview(animated: true)
             }
             return
@@ -6031,8 +6031,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 })
                 break
             case .video, .videoAndText:
-                if let path = cellMessage.forwardedFrom?.attachment?.path() {
-                    let player = AVPlayer(url: path)
+                if let url = cellMessage.forwardedFrom?.attachment?.localUrl {
+                    let player = AVPlayer(url: url)
                     let avController = AVPlayerViewController()
                     avController.player = player
                     player.play()

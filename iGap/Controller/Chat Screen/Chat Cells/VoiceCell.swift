@@ -46,7 +46,6 @@ class VoiceCell: AbstractCell {
         if isIncommingMessage {
             
             let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-            let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
             let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
 
             if currentTheme == "IGAPDay" {
@@ -95,7 +94,7 @@ class VoiceCell: AbstractCell {
             finalMessage = forward
         }
         /* TODO - saeed : this method is exist in abstract message, don't call following method twice */
-        if IGGlobal.isFileExist(path: finalMessage.attachment!.path(), fileSize: finalMessage.attachment!.size) {
+        if IGGlobal.isFileExist(path: finalMessage.attachment!.localPath, fileSize: finalMessage.attachment!.size) {
             indicatorViewAbs?.isHidden = true
         } else {
             indicatorViewAbs?.isHidden = false

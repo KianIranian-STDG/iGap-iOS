@@ -555,3 +555,28 @@ enum ChatMessageAction {
     case addProgress
     case removeProgress
 }
+
+enum BaseFilePathType: Int {
+    case document = 0 // main directory for store downloaded media
+    case cache // auto downloadable files (thumnail, avatar, background, sticker)
+    case temp // temp directory for store file at download levels
+}
+
+enum FilePathType {
+    /***** Document Folder *****/
+    case image
+    case video
+    case audio
+    case voice
+    case gif
+    case file
+    /***** Cache Folder *****/
+    case avatar
+    case sticker
+    case background
+    case thumb
+    /***** Temp Folder *****/
+    case temp
+    
+    case unknown
+}

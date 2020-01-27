@@ -65,16 +65,15 @@ class MusicCell : UITableViewCell {
     
     func getMetadata(file : IGFile!) {
         
-        let path = attachment!.path()
-        let asset = AVURLAsset(url: path!)
+        guard let url = attachment?.localUrl else {
+            return
+        }
+        let asset = AVURLAsset(url: url)
         let playerItem = AVPlayerItem(asset: asset)
         let metadataList = playerItem.asset.commonMetadata
-        var nowPlayingInfo = [String : Any]()
-        
         let artworkItems = AVMetadataItem.metadataItems(from: metadataList, filteredByIdentifier: AVMetadataIdentifier.commonIdentifierArtwork)
         
         if let artworkItem = artworkItems.first {
-            // Coerce the value to an NSData using its dataValue property
             if let imageData = artworkItem.dataValue {
                 DispatchQueue.global(qos: .userInteractive).async {
                     let image = UIImage(data: imageData)
@@ -83,23 +82,17 @@ class MusicCell : UITableViewCell {
                     }
                 }
             }
-            
-            // process image
         } else {
             let avatarView : UIImageView = UIImageView()
             avatarView.setThumbnail(for: file)
-            
-            
             if let image = avatarView.image {
                 musicCover.image = image
-                
             }
         }
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        //        addSubview(musicCoverLabel)
         addSubview(musicCoverHolder)
         addSubview(nameAndButtonStackView)
         addSubview(indicatorViewAbs)
@@ -110,7 +103,6 @@ class MusicCell : UITableViewCell {
         nameAndButtonStackView.addArrangedSubview(musicNameLabel)
         nameAndButtonStackView.addArrangedSubview(musicState)
         
-        //        addSubview(musicArtistLabel)
         musicCoverHolder.addSubview(musicCoverLabel)
         musicCoverHolder.addSubview(musicCover)
         musicCoverHolder.backgroundColor = ThemeManager.currentTheme.LabelGrayColor
@@ -121,10 +113,8 @@ class MusicCell : UITableViewCell {
         makeNameLabel()
         makeMusicCoverImage()
         makeMusicState()
-        //        makeBtnDownload()
-//        self.backgroundColor = .purple
-        
     }
+    
     func setMusic(roomMessage: IGRoomMessage) {
         if roomMessage.attachment!.name!.contains(".mp3") {
             self.musicNameLabel.text = roomMessage.attachment!.name!.replacingOccurrences(of: ".mp3", with: "")
@@ -134,7 +124,7 @@ class MusicCell : UITableViewCell {
         self.attachment = roomMessage.attachment!
         
         
-        let fileExist = IGGlobal.isFileExist(path: roomMessage.attachment!.path(), fileSize: roomMessage.attachment!.size)
+        let fileExist = IGGlobal.isFileExist(path: roomMessage.attachment!.localPath, fileSize: roomMessage.attachment!.size)
         if fileExist {
             self.indicatorViewAbs.isHidden = true
             self.fileExist = true
@@ -269,7 +259,7 @@ class MusicCell : UITableViewCell {
     func updateAttachmentDownloadUploadIndicatorView() {
         if let attachment = self.attachment {
 
-            if IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) {
+            if IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size) {
                 indicatorViewAbs.setState(.ready)
                 return
             }

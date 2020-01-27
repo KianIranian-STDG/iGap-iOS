@@ -12,10 +12,7 @@ import RealmSwift
 import CryptoSwift
 import UIKit
 import IGProtoBuff
-
-class IGFileManager {
-    
-}
+import Files
 
 public class IGFile: Object {
     enum Status {
@@ -92,29 +89,57 @@ public class IGFile: Object {
     
     
     //properties
-    @objc dynamic var primaryKeyId:       String?   //if incomming { primaryKeyId = cacheId } else { primaryKeyId = rand}
-    @objc dynamic var cacheID:            String?   //set by server
+    @objc dynamic var primaryKeyId:       String?  ///TODO - use from id instead primaryKey (messagId) //if incomming { primaryKeyId = cacheId } else { primaryKeyId = rand}
+    @objc dynamic var cacheID:            String?
     @objc dynamic var token:              String?
     @objc dynamic var publicUrl:          String?
     @objc dynamic var fileNameOnDisk:     String?
     @objc dynamic var name:               String?
+    @objc dynamic var mime:               String?
+    @objc dynamic var localSavePath:      String? // save file path without base directory. don't save absolute path, because application directory after each run will be changed
     @objc dynamic var smallThumbnail:     IGFile?
     @objc dynamic var largeThumbnail:     IGFile?
     @objc dynamic var waveformThumbnail:  IGFile?
-    @objc dynamic var size:               Int                     = -1     //TODO: change to Int64
-    @objc dynamic var width:              Double                  =  0.0
-    @objc dynamic var height:             Double                  =  0.0
-    @objc dynamic var duration:           Double                  =  0.0
-    //@objc dynamic var roomIDs:            [Int64]                 = [-1]
-    @objc dynamic var typeRaw:            FileType.RawValue       = FileType.file.rawValue
-    @objc dynamic var previewTypeRaw:     PreviewType.RawValue    = PreviewType.originalFile.rawValue
-    //ignored properties
+    @objc dynamic var size:               Int64                     = -1
+    @objc dynamic var width:              Double                    = 0.0
+    @objc dynamic var height:             Double                    = 0.0
+    @objc dynamic var duration:           Double                    = 0.0
+    @objc dynamic var typeRaw:            FileType.RawValue         = FileType.file.rawValue
+    @objc dynamic var baseFilePathTypeRaw:BaseFilePathType.RawValue = BaseFilePathType.document.rawValue // use this variable at detect base file directory for fetch 'localPath'
+    
+    ///TODO - check and remove following files
     var attachedImage:  UIImage?
     var data:           Data?
     var sha256Hash:     Data?
     var status:         Status                              = .unknown
     var playingStatus:  PlayingStatus                       = .notAvaiable
     var downloadUploadPercent: Double                       = 0.0
+    
+    var localPath: String? {
+        get {
+            if let path = self.localSavePath, !path.isEmpty {
+                if baseFilePathTypeRaw == BaseFilePathType.document.rawValue {
+                    return IGGlobal.APP_DIR + path
+                } else if baseFilePathTypeRaw == BaseFilePathType.cache.rawValue {
+                    return IGGlobal.CACHE_DIR + path
+                } else if baseFilePathTypeRaw == BaseFilePathType.temp.rawValue {
+                    return IGGlobal.TEMP_DIR + path
+                }
+            }
+            return nil
+        }
+    }
+    
+    var localUrl: URL? {
+        get {
+            if let path = self.localPath, !path.isEmpty {
+                return NSURL(fileURLWithPath: path) as URL?
+            }
+            return nil
+        }
+    }
+    
+    
     var fileTypeBasedOnNameExtension: FileTypeBasedOnNameExtension {
         get {
             if let name = self.name {
@@ -136,17 +161,6 @@ public class IGFile: Object {
         }
     }
     
-    var previewType: PreviewType {
-        get {
-            if let a = PreviewType(rawValue: previewTypeRaw) {
-                return a
-            }
-            return .originalFile
-        }
-        set {
-            previewTypeRaw = newValue.rawValue
-        }
-    }
     var type: FileType {
         get {
             if let a = FileType(rawValue: typeRaw) {
@@ -180,30 +194,18 @@ public class IGFile: Object {
         self.cacheID = IGGlobal.randomString(length: 64)
     }
     
-//    convenience init(path: String, name: String, cacheID: String?, token: String = "") {
-//        self.init()
-//        self.fileNameOnDisk = path.lastPathComponent
-//        self.name = name
-//        self.cacheID = cacheID
-//        self.token = token
-//    }
-    
+    ///TODO - remove usage of this files
     convenience init(igpFile : IGPFile, type: IGFile.FileType) {
         self.init()
         self.token = igpFile.igpToken
         self.publicUrl = igpFile.igpPublicURL
         self.name = igpFile.igpName
-        self.size = Int(igpFile.igpSize)
+        self.size = igpFile.igpSize
         self.cacheID = igpFile.igpCacheID
-        self.previewType = .originalFile
         self.type = type
-        
-        
-//        if igpFile.hasIgpWidth {}
+        self.mime = igpFile.igpMime
         self.width = Double(igpFile.igpWidth)
-//        if igpFile.hasIgpHeight {}
         self.height = Double(igpFile.igpHeight)
-//        if igpFile.hasIgpDuration {}
         self.duration = igpFile.igpDuration
         
         if igpFile.hasIgpSmallThumbnail {
@@ -212,7 +214,7 @@ public class IGFile: Object {
             if let fileInDb = realm.objects(IGFile.self).filter(predicate).first {
                 self.smallThumbnail = fileInDb
             } else {
-                self.smallThumbnail = IGFile(igpThumbnail: igpFile.igpSmallThumbnail, previewType: .smallThumbnail, token:self.token)
+                self.smallThumbnail = IGFile(igpThumbnail: igpFile.igpSmallThumbnail, token:self.token)
             }
         }
         if igpFile.hasIgpLargeThumbnail {
@@ -221,11 +223,11 @@ public class IGFile: Object {
             if let fileInDb = realm.objects(IGFile.self).filter(predicate).first {
                 self.largeThumbnail = fileInDb
             } else {
-                self.largeThumbnail = IGFile(igpThumbnail: igpFile.igpLargeThumbnail, previewType: .largeThumbnail, token:self.token)
+                self.largeThumbnail = IGFile(igpThumbnail: igpFile.igpLargeThumbnail, token:self.token)
             }
         }
         if igpFile.hasIgpWaveformThumbnail {
-            self.waveformThumbnail = IGFile(igpThumbnail: igpFile.igpWaveformThumbnail, previewType: .waveformThumbnail, token:self.token)
+            self.waveformThumbnail = IGFile(igpThumbnail: igpFile.igpWaveformThumbnail, token:self.token)
         }
     }
     
@@ -268,26 +270,27 @@ public class IGFile: Object {
         self.init(igpFile : igpFile, type: fileType)
     }
     
-    convenience private init(igpThumbnail: IGPThumbnail, previewType: IGFile.PreviewType, token: String?) {
+    convenience private init(igpThumbnail: IGPThumbnail, token: String?) {
         self.init()
         self.token = token
-        self.size = Int(igpThumbnail.igpSize)
+        self.size = igpThumbnail.igpSize
         self.width = Double(igpThumbnail.igpWidth)
         self.height = Double(igpThumbnail.igpHeight)
-        self.previewType = previewType
         self.type = .image
         self.cacheID = igpThumbnail.igpCacheID
         self.name = cacheID
     }
     
-    static func putOrUpdate(realm: Realm = IGDatabaseManager.shared.realm, igpFile : IGPFile, fileType: IGFile.FileType, enableCache: Bool = false) -> IGFile {
-        
-        if enableCache, let file = IGGlobal.importedFileDic[igpFile.igpCacheID], !file.isInvalidated {
-            //return file
-        }
+    /**
+    make file realm info
+    - Parameter igpFile: server object for file info
+    - Parameter fileType: type of file that converted to the client file type
+    - Parameter filePathType: make localPath according to 'filePathType' value
+    */
+    static func putOrUpdate(igpFile:IGPFile, fileType:IGFile.FileType, filePathType: FilePathType? = nil) -> IGFile {
         
         let predicate = NSPredicate(format: "token = %@", igpFile.igpToken)
-        var file: IGFile! = realm.objects(IGFile.self).filter(predicate).first
+        var file: IGFile! = IGDatabaseManager.shared.realm.objects(IGFile.self).filter(predicate).first
         
         if file == nil {
             file = IGFile()
@@ -305,47 +308,46 @@ public class IGFile: Object {
         file.token = igpFile.igpToken
         file.publicUrl = igpFile.igpPublicURL
         file.name = igpFile.igpName
-        file.size = Int(igpFile.igpSize)
+        file.mime = igpFile.igpMime
+        file.size = igpFile.igpSize
         file.cacheID = igpFile.igpCacheID
-        file.previewType = .originalFile
         file.width = Double(igpFile.igpWidth)
         file.height = Double(igpFile.igpHeight)
         file.duration = igpFile.igpDuration
+        let path = file.makeLocalPath(filePathType ?? file.convertToFilePathType())
+        file.localSavePath = path
         
         if igpFile.hasIgpSmallThumbnail {
-            file.smallThumbnail = IGFile.putOrUpdateThumbnail(realm: realm, igpThumbnail: igpFile.igpSmallThumbnail, previewType: .largeThumbnail, token:file.token)
+            file.smallThumbnail = IGFile.putOrUpdateThumbnail(igpThumbnail: igpFile.igpSmallThumbnail, token:file.token)
         }
         if igpFile.hasIgpLargeThumbnail {
-            file.largeThumbnail = IGFile.putOrUpdateThumbnail(realm: realm, igpThumbnail: igpFile.igpLargeThumbnail, previewType: .largeThumbnail, token:file.token)
+            file.largeThumbnail = IGFile.putOrUpdateThumbnail(igpThumbnail: igpFile.igpLargeThumbnail, token:file.token)
         }
         if igpFile.hasIgpWaveformThumbnail {
-            file.waveformThumbnail = IGFile.putOrUpdateThumbnail(realm: realm, igpThumbnail: igpFile.igpWaveformThumbnail, previewType: .largeThumbnail, token:file.token)
-        }
-        
-        if enableCache {
-            IGGlobal.importedFileDic[igpFile.igpCacheID] = file
+            file.waveformThumbnail = IGFile.putOrUpdateThumbnail(igpThumbnail: igpFile.igpWaveformThumbnail, token:file.token)
         }
         
         return file
     }
     
-    static func putOrUpdateThumbnail(realm: Realm, igpThumbnail: IGPThumbnail, previewType: IGFile.PreviewType, token: String?) -> IGFile {
+    static func putOrUpdateThumbnail(igpThumbnail: IGPThumbnail, token: String?) -> IGFile {
         
         let predicate = NSPredicate(format: "cacheID = %@", igpThumbnail.igpCacheID)
-        var file: IGFile! = realm.objects(IGFile.self).filter(predicate).first
+        var file: IGFile! = IGDatabaseManager.shared.realm.objects(IGFile.self).filter(predicate).first
         if file == nil {
             file = IGFile()
             file.cacheID = igpThumbnail.igpCacheID
         }
         
         file.token = token
-        file.size = Int(igpThumbnail.igpSize)
+        file.size = igpThumbnail.igpSize
         file.width = Double(igpThumbnail.igpWidth)
         file.height = Double(igpThumbnail.igpHeight)
-        file.previewType = previewType
         file.type = .image
         file.cacheID = igpThumbnail.igpCacheID
         file.name = igpThumbnail.igpCacheID
+        file.mime = igpThumbnail.igpMime
+        file.localSavePath = file.makeLocalPath(.thumb)
         
         return file
     }
@@ -381,36 +383,10 @@ public class IGFile: Object {
         return detachedFile
     }
     
-    internal static func convertFileTypeToString(fileType: IGFile.FileType) -> String{
-        if fileType == .image {
-            return IGStringsManager.ImageMessage.rawValue.localized
-        } else if fileType == .video {
-            return IGStringsManager.VideoMessage.rawValue.localized
-        } else if fileType == .gif {
-            return IGStringsManager.GifMessage.rawValue.localized
-        } else if fileType == .audio {
-            return IGStringsManager.AudioMessage.rawValue.localized
-        } else if fileType == .file {
-            return IGStringsManager.FileMessage.rawValue.localized
-        } else if fileType == .voice {
-            return IGStringsManager.VoiceMessage.rawValue.localized
-        } else if fileType == .sticker {
-            return IGStringsManager.StickerMessage.rawValue.localized
-        }
-        return ""
-    }
-    
-    
-    //other fuctions
     public func loadData() {
-        if self.data != nil {
-            return
-        } else if let filePath = self.path() {
-            try? self.data = Data(contentsOf: filePath)
-        } else if self.attachedImage != nil {
-            self.data = self.attachedImage!.pngData()
-        } else {
-            print("error: file data did not load")
+        let nsurl = NSURL(fileURLWithPath: self.localPath ?? "")
+        if let url = nsurl as URL? {
+            try? self.data = Data(contentsOf: url)
         }
     }
     
@@ -432,22 +408,63 @@ public class IGFile: Object {
         return IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: self.size)
     }
     
-    public func path() -> URL? {
-        if self.isInvalidated {
-            return nil
+    func makeLocalPath(_ type: FilePathType) -> String {
+        
+        var filePath = ""
+        let filename = self.name ?? ""
+        
+        switch type {
+        case .thumb:
+            self.baseFilePathTypeRaw = BaseFilePathType.cache.rawValue
+            filePath = IGGlobal.THUMB_DIR + "/" + filename + ".jpg"
+            break
+        case .image:
+            self.baseFilePathTypeRaw = BaseFilePathType.document.rawValue
+            filePath = IGGlobal.IMAGE_DIR + "/" + filename
+            break
+        case .video:
+            self.baseFilePathTypeRaw = BaseFilePathType.document.rawValue
+            filePath = IGGlobal.VIDEO_DIR + "/" + filename
+            break
+        case .gif:
+            self.baseFilePathTypeRaw = BaseFilePathType.document.rawValue
+            filePath = IGGlobal.GIF_DIR + "/" + filename
+            break
+        case .audio:
+            self.baseFilePathTypeRaw = BaseFilePathType.document.rawValue
+            filePath = IGGlobal.AUDIO_DIR + "/" + filename
+            break
+        case .voice:
+            self.baseFilePathTypeRaw = BaseFilePathType.document.rawValue
+            filePath = IGGlobal.VOICE_DIR + "/" + filename
+            break
+        case .file:
+            self.baseFilePathTypeRaw = BaseFilePathType.document.rawValue
+            filePath = IGGlobal.FILE_DIR + "/" + filename
+            break
+        case .avatar:
+            self.baseFilePathTypeRaw = BaseFilePathType.cache.rawValue
+            filePath = IGGlobal.AVATAR_DIR + "/" + filename
+            break
+        case .sticker:
+            self.baseFilePathTypeRaw = BaseFilePathType.cache.rawValue
+            filePath = IGGlobal.STICKER_DIR + "/" + filename
+            break
+        case .background:
+            self.baseFilePathTypeRaw = BaseFilePathType.cache.rawValue
+            filePath = IGGlobal.BACKGROUND_DIR + "/" + filename
+            break
+        case .temp:
+            self.baseFilePathTypeRaw = BaseFilePathType.temp.rawValue
+            filePath = IGGlobal.TEMP_DIR + "/" + filename
+            break
+        default:
+            self.baseFilePathTypeRaw = BaseFilePathType.temp.rawValue
+            filePath = IGGlobal.TEMP_DIR + "/" + filename
+            break
         }
-        let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        if let fileNameOnDisk = self.fileNameOnDisk {
-            return NSURL(fileURLWithPath: documents).appendingPathComponent(fileNameOnDisk)
-        } else if let cacheId = self.cacheID, let name = self.name {
-            var path = NSURL(fileURLWithPath: documents).appendingPathComponent(cacheId + name)
-            if (self.type == .voice) && (name.getExtension() == "mp3" || name.getExtension() == "ogg") {
-                path = path?.deletingPathExtension().appendingPathExtension("m4a")
-            }
-            return path
-        } else {
-            return nil
-        }
+        
+        return filePath
     }
     
     class func path(fileNameOnDisk: String) -> URL {
@@ -494,8 +511,45 @@ public class IGFile: Object {
         default:
             break
         }
-        
         return fileType
+    }
+    
+    func convertToFilePathType() -> FilePathType {
+        switch self.type {
+        case .image:
+            return .image
+        case .gif:
+            return .gif
+        case .video:
+            return .video
+        case .audio:
+            return .audio
+        case .voice:
+            return .voice
+        case .file:
+            return .file
+        case .sticker:
+            return .sticker
+        }
+    }
+    
+    internal static func convertFileTypeToString(fileType: IGFile.FileType) -> String{
+        if fileType == .image {
+            return IGStringsManager.ImageMessage.rawValue.localized
+        } else if fileType == .video {
+            return IGStringsManager.VideoMessage.rawValue.localized
+        } else if fileType == .gif {
+            return IGStringsManager.GifMessage.rawValue.localized
+        } else if fileType == .audio {
+            return IGStringsManager.AudioMessage.rawValue.localized
+        } else if fileType == .file {
+            return IGStringsManager.FileMessage.rawValue.localized
+        } else if fileType == .voice {
+            return IGStringsManager.VoiceMessage.rawValue.localized
+        } else if fileType == .sticker {
+            return IGStringsManager.StickerMessage.rawValue.localized
+        }
+        return ""
     }
 }
 

@@ -78,33 +78,37 @@ class IGForwardMessageAudioAndVoiceAttachmentView: UIView {
         self.playingSlider.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .normal)
         playingSlider.value = 0.0
         mediaRemainingTimeLabel.text = "\(playingSlider.value)"
-            if attachment.type == .voice {
-                songNameLabel.text = attachment.fileNameOnDisk
-                artistLabel.text = ""
-                let voiceImage = UIImage(named: "IG_Message_Cell_Voice")
-                mediaCoverImageView.image = voiceImage
-            }
-            if attachment.type == .audio {
-                fetchMP3Info()
-            }
-            let path = attachment.path()
-            let asset = AVURLAsset(url: path!)
-            let time = (CMTimeGetSeconds(asset.duration))
-            let timeInt = Int(time)
-            let remainingSeconds = timeInt%60
-            let remainingMiuntes = timeInt/60
-            mediaRemainingTimeLabel.text = "\(remainingMiuntes):\(remainingSeconds)"
-            playingSlider.maximumValue = Float(time)
-            playerWatcherIndex = player.addWatcher(self)
-
+        if attachment.type == .voice {
+            songNameLabel.text = attachment.fileNameOnDisk
+            artistLabel.text = ""
+            let voiceImage = UIImage(named: "IG_Message_Cell_Voice")
+            mediaCoverImageView.image = voiceImage
+        }
+        if attachment.type == .audio {
+            fetchMP3Info()
+        }
+        guard let url = attachment.localUrl else {
+            return
+        }
+        let asset = AVURLAsset(url: url)
+        let time = (CMTimeGetSeconds(asset.duration))
+        let timeInt = Int(time)
+        let remainingSeconds = timeInt%60
+        let remainingMiuntes = timeInt/60
+        mediaRemainingTimeLabel.text = "\(remainingMiuntes):\(remainingSeconds)"
+        playingSlider.maximumValue = Float(time)
+        playerWatcherIndex = player.addWatcher(self)
+        
     }
     
     func fetchMP3Info() {
         var albumName = ""
         var titleName = ""
         if let attach = attachment {
-            let path = attach.path()
-            let asset = AVURLAsset(url: path!)
+            guard let url = attach.localUrl else {
+                return
+            }
+            let asset = AVURLAsset(url: url)
             let playerItem = AVPlayerItem(asset: asset)
             let metaList = playerItem.asset.commonMetadata
             for item in metaList {

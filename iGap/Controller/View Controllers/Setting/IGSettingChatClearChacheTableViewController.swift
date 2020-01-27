@@ -278,7 +278,7 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
     private func computeFileSize(fileType: Int) -> Int64 {
         var size: Int64 = 0
         for file in try! Realm().objects(IGFile.self).filter(NSPredicate(format: "typeRaw = %d", fileType)) {
-            if IGGlobal.isFileExist(path: file.path(), fileSize: file.size) {
+            if IGGlobal.isFileExist(path: file.localPath, fileSize: file.size) {
                 size = size + Int64(file.size)
             }
         }
@@ -287,8 +287,8 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
     
     private func removeFiles(fileType: Int) {
         for file in try! Realm().objects(IGFile.self).filter(NSPredicate(format: "typeRaw = %d", fileType)) {
-            if IGGlobal.isFileExist(path: file.path(), fileSize: file.size) {
-                IGGlobal.removeFile(path: file.path())
+            if IGGlobal.isFileExist(path: file.localPath, fileSize: file.size) {
+                IGGlobal.removeFile(path: file.localPath)
                 IGAttachmentManager.sharedManager.variablesCache.removeObject(forKey: file.cacheID! as NSString)
                 IGFactory.shared.removeFileNameOnDisk(primaryKeyId: file.cacheID!)
             }
@@ -296,7 +296,7 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
     }
     
     private func convertFileSize(fileSize: Int64) -> String {
-        let size = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: Int(fileSize))
+        let size = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: fileSize)
         if size.isEmpty {
             return "0 KB"
         }

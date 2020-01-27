@@ -13,6 +13,7 @@ import RxSwift
 import RealmSwift
 import IGProtoBuff
 import RxCocoa
+import Files
 
 class IGAttachmentManager: NSObject {
     static let sharedManager = IGAttachmentManager()
@@ -96,7 +97,7 @@ class IGAttachmentManager: NSObject {
      */
     func getStickerFileInfo(token: String, completion: @escaping ((_ file :IGFile) -> Void)){
         let realm = try! Realm()
-        let predicate = NSPredicate(format: "token = %@ AND previewTypeRaw = %d", token, IGFile.PreviewType.originalFile.rawValue)
+        let predicate = NSPredicate(format: "token = %@", token)
         if let fileInfo = realm.objects(IGFile.self).filter(predicate).first {
             completion(fileInfo)
         } else {
@@ -125,17 +126,17 @@ class IGAttachmentManager: NSObject {
     }
     
     func getFileInfo(token: String, PreviewType: Int = IGFile.PreviewType.originalFile.rawValue) -> IGFile? {
-        return try! Realm().objects(IGFile.self).filter(NSPredicate(format: "token = %@ AND previewTypeRaw = %d", token, IGFile.PreviewType.originalFile.rawValue)).first
+        return try! Realm().objects(IGFile.self).filter(NSPredicate(format: "token = %@", token)).first
     }
     
     func saveDataToDisk(attachment: IGFile) -> String? {
-        if let writePath = attachment.path() {
+        if let writePath = attachment.localUrl {
             do {
-                try attachment.data?.write(to: writePath)
-                attachment.fileNameOnDisk = writePath.lastPathComponent
+                let folder = try Folder(path: writePath.deletingLastPathComponent().path)
+                try folder.createFileIfNeeded(at: writePath.lastPathComponent, contents: attachment.data)
                 return writePath.lastPathComponent
-            } catch  {
-                print("saving downloaded data to disk failed")
+            } catch let error {
+                print(error)
                 return nil
             }
         }
@@ -143,7 +144,7 @@ class IGAttachmentManager: NSObject {
     }
     
     func appendDataToDisk(attachment: IGFile, data: Data) {
-        if let outputStream = OutputStream(url: attachment.path()!, append: true) {
+        if let url = attachment.localUrl, let outputStream = OutputStream(url: url, append: true) {
             outputStream.open()
             let bytesWritten = outputStream.write(data.bytes, maxLength: data.count)
             if bytesWritten < 0 {
@@ -155,7 +156,7 @@ class IGAttachmentManager: NSObject {
         }
     }
     
-    func convertFileSize(sizeInByte : Int) -> String {
+    func convertFileSize(sizeInByte : Int64) -> String {
         if sizeInByte == 0 {
             return ""
         } else if sizeInByte < 1024 { // Byte

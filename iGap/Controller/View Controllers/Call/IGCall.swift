@@ -989,9 +989,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                     imgAvatarInner.image = originalFile.attachedImage
                 } else {
                     var image: UIImage?
-                    let path = originalFile.path()
-                    if FileManager.default.fileExists(atPath: path!.path) {
-                        image = UIImage(contentsOfFile: path!.path)
+                    if let path = originalFile.localPath, IGGlobal.isFileExist(path: path) {
+                        image = UIImage(contentsOfFile: path)
                     }
                     
                     if image != nil {
@@ -1010,22 +1009,16 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             } catch {
                 IGDownloadManager.sharedManager.download(file: originalFile, previewType:.originalFile, completion: { (attachment) -> Void in
                     DispatchQueue.main.async {
-                        let path = originalFile.path()
-                        if let data = try? Data(contentsOf: path!) {
-                            if let image = UIImage(data: data) {
-                                /*
-                                if self.callType == .voiceCalling {
-                                    self.viewTransparent.isHidden = false
+                        if let url = originalFile.localUrl {
+                            if let data = try? Data(contentsOf: url) {
+                                if let image = UIImage(data: data) {
+                                    self.imgAvatar.image = image
+                                    self.imgAvatarInner.image = image
                                 }
-                                */
-                                self.imgAvatar.image = image
-                                self.imgAvatarInner.image = image
                             }
                         }
                     }
-                }, failure: {
-                    
-                })
+                }, failure: {})
             }
         }
     }

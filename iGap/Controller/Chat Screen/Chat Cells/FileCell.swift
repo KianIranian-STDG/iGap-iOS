@@ -94,7 +94,7 @@ class FileCell: AbstractCell {
             finalMessage = forward
         }
         /* TODO - saeed : this method is exist in abstract message, don't call following method twice */
-        if IGGlobal.isFileExist(path: finalMessage.attachment!.path(), fileSize: finalMessage.attachment!.size) {
+        if IGGlobal.isFileExist(path: finalMessage.attachment!.localPath, fileSize: finalMessage.attachment!.size) {
             indicatorViewAbs?.isHidden = true
         } else {
             indicatorViewAbs?.isHidden = false

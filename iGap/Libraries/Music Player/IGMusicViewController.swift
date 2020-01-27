@@ -41,8 +41,10 @@ class IGMusicViewController: UIViewController {
             if attachment?.type == .audio {
                 fetchMP3Info()
             }
-            let path = attach.path()
-            let asset = AVURLAsset(url: path!)
+            guard let url = attach.localUrl else {
+                return
+            }
+            let asset = AVURLAsset(url: url)
             let time = (CMTimeGetSeconds(asset.duration))
             let timeInt = Int(time)
             let remainingSeconds = timeInt%60
@@ -99,8 +101,10 @@ class IGMusicViewController: UIViewController {
     }
     
     func sliderValueChanged() {
-        let path = attachment!.path()
-        let asset = AVURLAsset(url: path!)
+        guard let url = attachment?.localUrl else {
+            return
+        }
+        let asset = AVURLAsset(url: url)
         let playerItem = AVPlayerItem(asset: asset)
         let t1 = Float((playerItem.currentTime().value))
         let t2 = Float((playerItem.currentTime().timescale))
@@ -118,8 +122,10 @@ class IGMusicViewController: UIViewController {
         var albumName = ""
         var titleName = ""
         if let attach = attachment {
-            let path = attach.path()
-            let asset = AVURLAsset(url: path!)
+            guard let url = attach.localUrl else {
+                return
+            }
+            let asset = AVURLAsset(url: url)
             let playerItem = AVPlayerItem(asset: asset)
             let metaList = playerItem.asset.commonMetadata
             for item in metaList {
@@ -183,8 +189,10 @@ class IGMusicViewController: UIViewController {
     @IBAction func didTapOnCloseButton(_ sender: UIButton) {
         self.dismiss(animated: true, completion: {
             self.player.pause()
-            let path = self.attachment!.path()
-            let asset = AVURLAsset(url: path!)
+            guard let url = self.attachment?.localUrl else {
+                return
+            }
+            let asset = AVURLAsset(url: url)
             let playerItem = AVPlayerItem(asset: asset)
             let timeScale = playerItem.asset.duration.timescale
             self.player.seekToTime(value:  CMTimeMakeWithSeconds(Float64(0), preferredTimescale: timeScale))

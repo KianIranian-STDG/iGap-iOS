@@ -110,10 +110,10 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: BaseTableView
             let musicPlayer = IGMusicViewController()
             musicPlayer.attachment = sharedMedia[indexPath.row].attachment
             self.present(musicPlayer, animated: true, completion: {})
-        } else if let path = sharedMedia[indexPath.row].attachment?.path() {
+        } else if let url = sharedMedia[indexPath.row].attachment?.localUrl {
             let controller = UIDocumentInteractionController()
             controller.delegate = self
-            controller.url = path
+            controller.url = url
             controller.presentPreview(animated: true)
         }
     }

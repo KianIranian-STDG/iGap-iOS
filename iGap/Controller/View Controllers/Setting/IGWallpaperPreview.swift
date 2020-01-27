@@ -42,8 +42,8 @@ class IGWallpaperPreview: UIViewController, UIGestureRecognizerDelegate {
             var imageData : NSData!
             if wallpaperLocal != nil {
                 imageData = wallpaperLocal
-            } else {
-                imageData = try? NSData(contentsOf: (wallpaperFile?.path())!)
+            } else if let url = wallpaperFile?.localUrl {
+                imageData = try? NSData(contentsOf: url)
             }
             IGFactory.shared.setWallpaperFile(wallpaper: imageData)
             IGFactory.shared.setWallpaperSolidColor(solidColor: nil)
@@ -83,7 +83,7 @@ class IGWallpaperPreview: UIViewController, UIGestureRecognizerDelegate {
         
         imgWallpaper.setThumbnail(for: wallpaperFile!)
         
-        if !IGGlobal.isFileExist(path: wallpaperFile?.path()){
+        if !IGGlobal.isFileExist(path: wallpaperFile?.localPath){
             
             /*** don't need to use listener for set download percentage, because wallpapaers will be downloaded in one chunck
              

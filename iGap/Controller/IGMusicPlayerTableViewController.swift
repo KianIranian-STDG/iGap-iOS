@@ -472,23 +472,20 @@ class IGMusicPlayerTableViewController: UITableViewController {
     }
     @objc func buttonNextAction(_ sender:UIButton!) {
         currentPlatingIndexPath.row += 1
-        print("CHECK POINT BENJI3",currentPlatingIndexPath)
         let currentPlayingItem = sharedMediaAudioFile[currentPlatingIndexPath.row]
-        let fileExist = IGGlobal.isFileExist(path: currentPlayingItem.attachment!.path(), fileSize: currentPlayingItem.attachment!.size)
+        let fileExist = IGGlobal.isFileExist(path: currentPlayingItem.attachment!.localPath, fileSize: currentPlayingItem.attachment!.size)
         
         if fileExist {
             SwiftEventBus.post(EventBusManager.stopLastButtonState)
             IGPlayer.shared.startPlayer(roomMessage: currentPlayingItem,room: self.room,isfromBottomPlayer: true)
             updateTopLabels(file: currentPlayingItem.attachment)
-            //            cell.musicState.isHidden = false
         }
-        
     }
+    
     @objc func buttonPreviusAction(_ sender:UIButton!) {
         currentPlatingIndexPath.row -= 1
-        print("CHECK POINT BENJI3",currentPlatingIndexPath)
         let currentPlayingItem = sharedMediaAudioFile[currentPlatingIndexPath.row]
-        let fileExist = IGGlobal.isFileExist(path: currentPlayingItem.attachment!.path(), fileSize: currentPlayingItem.attachment!.size)
+        let fileExist = IGGlobal.isFileExist(path: currentPlayingItem.attachment!.localPath, fileSize: currentPlayingItem.attachment!.size)
         
         if fileExist {
             SwiftEventBus.post(EventBusManager.stopLastButtonState)
@@ -500,27 +497,23 @@ class IGMusicPlayerTableViewController: UITableViewController {
     }
     
     
-    ///SLIDER
     private func addGestureRecognizer(slider: UISlider!,musicCover: UIButton!,shareBtn: UIButton!){
         slider.addTarget(self, action: #selector(sliderTouchUpInside(_:)), for: .touchUpInside)
         slider.addTarget(self, action: #selector(sliderTouchUpOutside(_:)), for: .touchUpOutside)
         slider.addTarget(self, action: #selector(sliderTouchDown(_:)), for: .touchDown)
         slider.addTarget(self, action: #selector(sliderValueChanged(slider:event:)), for: .valueChanged)
         
-        
         musicCover.addTarget(self, action: #selector(self.didTapOnMusicCover(_:)), for: .touchUpInside)
         shareBtn.addTarget(self, action: #selector(self.didTapOnShareButton(_:)), for: .touchUpInside)
 
     }
     
-    @objc func didTapOnMusicCover(_ sender:UIButton!) {
-        print("DID TAP ON MUSIC COVER")
-    }
+    @objc func didTapOnMusicCover(_ sender:UIButton!) {}
 
     @objc func didTapOnShareButton(_ sender:UIButton!) {
-        print("DID TAP ON SHARE BUTTON")
-        var finalMessageFile = IGGlobal.currentMusic
-        IGHelperPopular.shareAttachment(url: IGGlobal.currentMusic.path(), viewController: self)
+        if let file = IGGlobal.currentMusic, let url = file.localUrl {
+            IGHelperPopular.shareAttachment(url: url, viewController: self)
+        }
     }
 
     /*************************************************************************/
@@ -747,7 +740,7 @@ class IGMusicPlayerTableViewController: UITableViewController {
         //        cell.initGif()
         let currentLastItem = sharedMediaAudioFile[indexPath.row]
         
-        let fileExist = IGGlobal.isFileExist(path: currentLastItem.attachment!.path(), fileSize: currentLastItem.attachment!.size)
+        let fileExist = IGGlobal.isFileExist(path: currentLastItem.attachment!.localPath, fileSize: currentLastItem.attachment!.size)
         
         if fileExist {
             SwiftEventBus.post(EventBusManager.stopLastButtonState)
@@ -794,17 +787,15 @@ class IGMusicPlayerTableViewController: UITableViewController {
     }
     
     func getMetadata(file : IGFile!,button : UIButton!) {
-        
-        let path = file!.path()
-        let asset = AVURLAsset(url: path!)
+        guard let url = file?.localUrl else {
+            return
+        }
+        let asset = AVURLAsset(url: url)
         let playerItem = AVPlayerItem(asset: asset)
         let metadataList = playerItem.asset.commonMetadata
-        var nowPlayingInfo = [String : Any]()
-        
         let artworkItems = AVMetadataItem.metadataItems(from: metadataList, filteredByIdentifier: AVMetadataIdentifier.commonIdentifierArtwork)
         
         if let artworkItem = artworkItems.first {
-            // Coerce the value to an NSData using its dataValue property
             if let imageData = artworkItem.dataValue {
                 DispatchQueue.global(qos: .userInteractive).async {
                     let image = UIImage(data: imageData)
@@ -813,12 +804,9 @@ class IGMusicPlayerTableViewController: UITableViewController {
                     }
                 }
             }
-            
-            // process image
         } else {
             let avatarView : UIImageView = UIImageView()
             avatarView.setThumbnail(for: file)
-            
             
             if let image = avatarView.image {
                 button.setImage(image, for: .normal)
@@ -826,17 +814,13 @@ class IGMusicPlayerTableViewController: UITableViewController {
             }
         }
     }
-    
-    
-    
 }
+
 extension IGMusicPlayerTableViewController: PanModalPresentable {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
-    
     
     var panScrollable: UIScrollView? {
         return tableView

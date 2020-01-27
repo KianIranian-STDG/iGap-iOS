@@ -12,6 +12,7 @@ import UIKit
 import SwiftProtobuf
 import IGProtoBuff
 import Digger
+import Files
 
 typealias DownloadCompleteHandler = ((_ attachment:IGFile)->())?
 typealias DownloadFailedHander    = (()->())?
@@ -186,7 +187,7 @@ class IGDownloadManager {
                         downloadCDN(task: firstTaskInQueue)
                     }
                 } else {
-                    downloadProto(task: firstTaskInQueue, offset: IGGlobal.getFileSize(path: firstTaskInQueue.file.path()))
+                    downloadProto(task: firstTaskInQueue, offset: IGGlobal.getFileSize(path: firstTaskInQueue.file.localPath))
                 }
                 
             } else if firstTaskInQueue.state == .finished {
@@ -253,10 +254,10 @@ class IGDownloadManager {
                     do {
                         let fileManager = FileManager.default
                         let content = try Data(contentsOf: url)
-                        fileManager.createFile(atPath: (downloadTask.file.path()?.path)!, contents: content, attributes: nil)
+                        ///CHECK - create file
+                        fileManager.createFile(atPath: (downloadTask.file.localPath)!, contents: content, attributes: nil)
                         
                         IGAttachmentManager.sharedManager.setStatus(.ready, for: downloadTask.file)
-                        IGFactory.shared.addNameOnDiskToFile(downloadTask.file, name: (downloadTask.file.path()?.lastPathComponent)!)
                         
                         if let task = self.dictionaryDownloadTaskMain[downloadTask.file.token!] {
                             self.dictionaryDownloadTaskMain.removeValue(forKey: task.file.token!)
@@ -340,32 +341,23 @@ class IGDownloadManager {
                 } else { // finished download
                     
                     IGAttachmentManager.sharedManager.setProgress(1.0, for: downloadTask.file)
-                    if let fileNameOnDisk = downloadTask.file.path()?.lastPathComponent {
-                        
-                        IGAttachmentManager.sharedManager.setStatus(.ready, for: downloadTask.file)
-                        IGFactory.shared.addNameOnDiskToFile(downloadTask.file, name: fileNameOnDisk)
-                        
-                        if let task = self.dictionaryDownloadTaskMain[downloadTask.file.token!] {
-                            self.dictionaryDownloadTaskMain.removeValue(forKey: task.file.token!)
-                        }
-                        
-                        downloadTask.state = .finished
-                        if let success = downloadTask.completionHandler {
-                            success(downloadTask.file)
-                        }
-                        switch downloadTask.type {
-                        case .originalFile:
-                            self.startNextDownloadTaskIfPossible()
-                        case .smallThumbnail, .largeThumbnail, .waveformThumbnail:
-                            self.startNextThumbnailTaskIfPossible()
-                        }
-                        
-                    } else { //failed saving to disk
-                        
-                        downloadRequest.error!(.unknownError, nil)
-                        IGAttachmentManager.sharedManager.setProgress(0.0, for: downloadTask.file)
-                        IGAttachmentManager.sharedManager.setStatus(.readyToDownload, for: downloadTask.file)
-                        
+                    ///CHECK
+                    
+                    IGAttachmentManager.sharedManager.setStatus(.ready, for: downloadTask.file)
+                    
+                    if let task = self.dictionaryDownloadTaskMain[downloadTask.file.token!] {
+                        self.dictionaryDownloadTaskMain.removeValue(forKey: task.file.token!)
+                    }
+                    
+                    downloadTask.state = .finished
+                    if let success = downloadTask.completionHandler {
+                        success(downloadTask.file)
+                    }
+                    switch downloadTask.type {
+                    case .originalFile:
+                        self.startNextDownloadTaskIfPossible()
+                    case .smallThumbnail, .largeThumbnail, .waveformThumbnail:
+                        self.startNextThumbnailTaskIfPossible()
                     }
                     
                 }
@@ -384,8 +376,7 @@ class IGDownloadManager {
     private func downloadProtoThumbnail(task downloadTask:IGDownloadTask) {
         
         downloadTask.state = .downloading
-        
-        let downloadRequest = IGFileDownloadRequest.Generator.generate(token: downloadTask.file.token!,offset: Int64((downloadTask.file.data?.count)!),maxChunkSize: IGDownloadManager.defaultChunkSizeForDownload,type: downloadTask.type)
+        let downloadRequest = IGFileDownloadRequest.Generator.generate(token: downloadTask.file.token!, offset: Int64(downloadTask.file.data?.count ?? 0), maxChunkSize: IGDownloadManager.defaultChunkSizeForDownload,type: downloadTask.type)
         
         downloadRequest.successPowerful { (responseProto, requestWrapper) in
             
@@ -395,22 +386,13 @@ class IGDownloadManager {
                     let data = IGFileDownloadRequest.Handler.interpret(response: fileDownloadReponse)
                     downloadTask.file.data!.append(data)
                     
-                    if  downloadTask.file.data?.count != downloadTask.file.size { // downloading //downloadTask.file.data?.count
-                        /*
-                         let progress = Progress()
-                         progress.totalUnitCount = Int64(downloadTask.file.size)
-                         progress.completedUnitCount =  Int64((downloadTask.file.data?.count)!)
-                         IGAttachmentManager.sharedManager.setProgress(progress.fractionCompleted, for: downloadTask.file)
-                         */
+                    if Int64(downloadTask.file.data!.count) != downloadTask.file.size {
                         IGDownloadManager.sharedManager.downloadProtoThumbnail(task: downloadTask)
                         
                     } else { // finished download
                         
-                        //IGAttachmentManager.sharedManager.setProgress(1.0, for: downloadTask.file)
-                        if let fileNameOnDisk = IGAttachmentManager.sharedManager.saveDataToDisk(attachment: downloadTask.file) {
-                            
+                        if let _ = IGAttachmentManager.sharedManager.saveDataToDisk(attachment: downloadTask.file) {
                             IGAttachmentManager.sharedManager.setStatus(.ready, for: downloadTask.file)
-                            IGFactory.shared.addNameOnDiskToFile(downloadTask.file, name: fileNameOnDisk)
                             downloadTask.state = .finished
                             if let success = downloadTask.completionHandler {
                                 success(downloadTask.file)
@@ -421,16 +403,7 @@ class IGDownloadManager {
                             case .smallThumbnail, .largeThumbnail, .waveformThumbnail:
                                 self.startNextThumbnailTaskIfPossible()
                             }
-                            
-                        } else {
-                            
-                            //failed saving to disk
-                            downloadRequest.error!(.unknownError, nil)
-                            IGAttachmentManager.sharedManager.setProgress(0.0, for: downloadTask.file)
-                            IGAttachmentManager.sharedManager.setStatus(.readyToDownload, for: downloadTask.file)
-                            
                         }
-                        
                     }
                 }
             }
@@ -523,17 +496,8 @@ class IGDownloadTask {
     var state = State.pending
     
     init(file: IGFile, previewType: IGFile.PreviewType, completion: DownloadCompleteHandler, failure: DownloadFailedHander) {
-        //make a copy of file = the file object passed here is a
-        //`Realm` object and cannot be accessed form this thread
-        self.file = IGFile()
-        self.file.cacheID = file.cacheID
-        self.file.token = file.token
-        self.file.publicUrl = file.publicUrl
-        self.file.size = file.size
-        self.file.name = file.name
-        self.file.type = file.type
+        self.file = file.detach()
         self.file.data = Data()
-        
         self.completionHandler = completion
         self.failureHandler = failure
         self.type = previewType

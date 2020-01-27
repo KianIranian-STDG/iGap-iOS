@@ -23,6 +23,7 @@ import func CommonCrypto.CC_MD5
 import typealias CommonCrypto.CC_LONG
 import Lottie
 import Photos
+import Files
 
 var fontDefaultSize: CGFloat = 15.0
 
@@ -59,6 +60,27 @@ enum messageMainTopViewState : Int {
 }
 
 class IGGlobal {
+    
+    /***** Base of Directories *****/
+    static let APP_DIR = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/iGap"
+    static let CACHE_DIR = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0] + "/iGap"
+    /***** Document Base *****/
+    static let IMAGE_DIR = "/images"
+    static let VIDEO_DIR = "/videos"
+    static let AUDIO_DIR = "/audios"
+    static let VOICE_DIR = "/voices"
+    static let GIF_DIR = "/gifs"
+    static let FILE_DIR = "/files"
+    /***** Cache Base *****/
+    static let THUMB_DIR = "/thumb"
+    static let BACKGROUND_DIR = "/backgrounds"
+    static let AVATAR_DIR = "/avatars"
+    static let STICKER_DIR = "/stickers"
+    /***** Temporary Base *****/
+    static let TEMP_DIR = "/temp"
+    //static let TEMP_DIR = Folder.temporary.path + "/iGap"
+    
+    
     static var imgDic : [String: IGImageView] = [:]
     static var shouldMultiSelect : Bool = false
     static var clickedAudioCellIndexPath : IndexPath = [0,0]
@@ -87,7 +109,6 @@ class IGGlobal {
     static var languageFileName: String = "localizationsFa"
     static var importedRoomMessageDic: [Int64:IGRoomMessage] = [:]
     static var rewriteRoomInfo: [IGPRoom] = []
-    static var importedFileDic: [String:IGFile] = [:]
     static var shouldShowChart : Bool = false
     static var hideBarChart : Bool = true
     static var latestTime: Int64 = 0
@@ -285,16 +306,16 @@ class IGGlobal {
         attributedString.addAttributes(boldFontAttribute, range: range)
         return attributedString
     }
-    internal static func isFileExist(path: String?, fileSize: Int = -1) -> Bool {
+    internal static func isFileExist(path: String?, fileSize: Int64 = -1) -> Bool {
         if path != nil && FileManager.default.fileExists(atPath: path!) {
-            if fileSize == -1 || fileSize == FileManager.default.contents(atPath: path!)?.count {
+            if fileSize == -1 || fileSize == Int64(FileManager.default.contents(atPath: path!)?.count ?? 0) {
                 return true
             }
         }
         return false
     }
     
-    internal static func isFileExist(path: URL?, fileSize: Int = -1) -> Bool {
+    internal static func isFileExist(path: URL?, fileSize: Int64 = -1) -> Bool {
         if path != nil {
             return isFileExist(path: path?.path, fileSize: fileSize)
         }
@@ -321,7 +342,7 @@ class IGGlobal {
         }
     }
     
-    internal static func getFileSize(path: URL?) -> Int64{
+    internal static func getFileSize(path: URL?) -> Int64 {
         if path == nil {
             return 0
         }
@@ -1241,33 +1262,20 @@ extension UIView {
 extension AnimationView {
     func setLiveSticker(for attachment:IGFile) {
         do {
-            let path = attachment.path()
-            
-            if IGGlobal.isFileExist(path: path) {
-                let animation = Animation.filepath(path!.path, animationCache: LRUAnimationCache.sharedCache)
-                
-
+            if let path = attachment.localPath, IGGlobal.isFileExist(path: path) {
+                let animation = Animation.filepath(path, animationCache: LRUAnimationCache.sharedCache)
                 self.animation = animation
                 self.contentMode = .scaleAspectFit
                 self.backgroundBehavior = .pauseAndRestore
                 
-                        self.play(fromProgress: 0,
-                                           toProgress: 1,
-                                           loopMode: LottieLoopMode.loop,
-                                           completion: { (finished) in
-                                            if finished {
-                                              print("Animation Complete")
-                                                self.play(fromProgress: 0,
-                                                toProgress: 1,
-                                                loopMode: LottieLoopMode.loop)
-                                            } else {
-                                              print("Animation cancelled")
-                                            }
-                        })
-
-
+                self.play(fromProgress: 0, toProgress: 1, loopMode: LottieLoopMode.loop, completion: { (finished) in
+                    if finished {
+                        self.play(fromProgress: 0, toProgress: 1, loopMode: LottieLoopMode.loop)
+                    }
+                })
+                
             } else {
-                throw NSError(domain: "asa", code: 1234, userInfo: nil)
+                throw NSError(domain: "error set live sticker", code: 1234, userInfo: nil)
             }
         } catch {
             liveStickerMap[attachment.token!] = self
@@ -1278,9 +1286,7 @@ extension AnimationView {
                         animation.setLiveSticker(for: attachment)
                     }
                 }
-            }, failure: {
-                
-            })
+            }, failure: {})
         }
     }
 }
@@ -1332,14 +1338,14 @@ extension UIImageView {
                      */
                     
                     if attachment.fileNameOnDisk != nil {
-                        showBestPreview = IGGlobal.isFileExist(path: attachment.path())
+                        showBestPreview = IGGlobal.isFileExist(path: attachment.localPath)
                     } else {
-                        showBestPreview = IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size)
+                        showBestPreview = IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size)
                     }
                 }
                 
                 if fileSizeKB < MAX_IMAGE_SIZE && showBestPreview {
-                    self.sd_setImage(with: attachment.path(), completed: nil)
+                    self.sd_setImage(with: attachment.localUrl, completed: nil)
                 } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
                     
                     var fileType: IGFile.PreviewType = .smallThumbnail
@@ -1358,7 +1364,7 @@ extension UIImageView {
                             self.image = attachment.attachedImage
                         } else {
                             var image: UIImage?
-                            path = finalFile.path()
+                            path = finalFile.localUrl
                             if IGGlobal.isFileExist(path: path) {
                                 image = UIImage(contentsOfFile: path!.path)
                             }
@@ -1366,7 +1372,7 @@ extension UIImageView {
                             if image != nil {
                                 self.sd_setImage(with: path, completed: nil)
                             } else {
-                                throw NSError(domain: "asa", code: 1234, userInfo: nil)
+                                throw NSError(domain: "image not exist", code: 1234, userInfo: nil)
                             }
                         }
                     } catch {
@@ -1375,19 +1381,16 @@ extension UIImageView {
                             DispatchQueue.main.async {
                                 if let image = imagesMap[attachment.token!] {
                                     imagesMap.removeValue(forKey: attachment.token!)
-                                    image.sd_setImage(with: attachment.path(), completed: nil)
+                                    image.sd_setImage(with: attachment.localUrl, completed: nil)
                                 }
                             }
-                        }, failure: {
-                            
-                        })
+                        }, failure: {})
                     }
                 } else {
                     switch attachment.type {
                     case .image:
-                        // when user is sender thumbnail is not exist, so need to show main image even size is bigger than 1024 Kb
-                        if IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) {
-                            self.sd_setImage(with: attachment.path(), completed: nil)
+                        if IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size) {
+                            self.sd_setImage(with: attachment.localUrl, completed: nil)
                         } else {
                             self.image = nil
                         }
@@ -1413,11 +1416,12 @@ extension UIImageView {
     func setSticker(for attachment:IGFile) {
 
         do {
-            let path = attachment.path()
-            if IGGlobal.isFileExist(path: path) {
-                self.sd_setImage(with: path, completed: nil)
-            } else {
-                throw NSError(domain: "asa", code: 1234, userInfo: nil)
+            if let url = attachment.localUrl {
+                if IGGlobal.isFileExist(path: url) {
+                    self.sd_setImage(with: url, completed: nil)
+                } else {
+                    throw NSError(domain: "sticker not exist", code: 1234, userInfo: nil)
+                }
             }
         } catch {
             imagesMap[attachment.token!] = self
@@ -1438,10 +1442,11 @@ extension UIImageView {
         if attachment.attachedImage != nil {
             self.image = attachment.attachedImage
         } else {
-            let path = attachment.path()
-            let data = try! Data(contentsOf: path!)
-            if let image = UIImage(data: data) {
-                self.image = image
+            if let path = attachment.localUrl {
+                let data = try! Data(contentsOf: path)
+                if let image = UIImage(data: data) {
+                    self.image = image
+                }
             }
         }
     }
@@ -1467,28 +1472,25 @@ extension UIImageView {
             previewType = IGFile.PreviewType.smallThumbnail
         }
         
-        if IGGlobal.isFileExist(path: avatar.path(), fileSize: avatar.size) {
-            self.sd_setImage(with: avatar.path(), completed: nil)
+        if IGGlobal.isFileExist(path: avatar.localPath, fileSize: avatar.size), let url = avatar.localUrl {
+            self.sd_setImage(with: url, completed: nil)
         } else {
             if file != nil {
-                let path = file.path()
-                
-                if IGGlobal.isFileExist(path: path, fileSize: file.size) {
-                    self.sd_setImage(with: path, completed: nil)
+                if let url = file.localUrl, IGGlobal.isFileExist(path: url, fileSize: file.size) {
+                    self.sd_setImage(with: url, completed: nil)
                 } else {
-                    
                     DispatchQueue.main.async {
                         imagesMap[file.token!] = self
                         IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
                             DispatchQueue.main.async {
                                 if let imageMain = imagesMap[attachment.token!] {
-                                    let path = attachment.path()
-                                    //imageMain.sd_setImage(with: path)
-                                    DispatchQueue.global(qos:.userInteractive).async {
-                                        if let data = try? Data(contentsOf: path!) {
-                                            if let image = UIImage(data: data) {
-                                                DispatchQueue.main.async {
-                                                    imageMain.image = image
+                                    if let url = attachment.localUrl {
+                                        DispatchQueue.global(qos:.userInteractive).async {
+                                            if let data = try? Data(contentsOf: url) {
+                                                if let image = UIImage(data: data) {
+                                                    DispatchQueue.main.async {
+                                                        imageMain.image = image
+                                                    }
                                                 }
                                             }
                                         }
@@ -1498,7 +1500,6 @@ extension UIImageView {
                         }, failure: {
                             print("ERROR HAPPEND IN DOWNLOADNING AVATAR")
                         })
-                        
                     }
                 }
             }
@@ -1554,9 +1555,9 @@ extension UIImage {
     }
     
     class func originalImage(for attachment: IGFile) -> UIImage? {
-        if let path = attachment.path() {
+        if let path = attachment.localPath {
             if IGGlobal.isFileExist(path: path, fileSize: attachment.size) {
-                if let image = UIImage(contentsOfFile: path.path) {
+                if let image = UIImage(contentsOfFile: path) {
                     return image
                 }
             }

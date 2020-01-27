@@ -178,8 +178,10 @@ class IGPlayer {
     }
     private func fetchAttachmentTime(){
         
-        let path = attachment!.path()
-        let asset = AVURLAsset(url: path!)
+        guard let url = attachment?.localUrl else {
+            return
+        }
+        let asset = AVURLAsset(url: url)
         let playerItem = AVPlayerItem(asset: asset)
         let timeScale = playerItem.asset.duration.timescale
         let time = (CMTimeGetSeconds(asset.duration))

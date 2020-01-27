@@ -11,6 +11,7 @@
 import UIKit
 import IGProtoBuff
 import RealmSwift
+import Files
 
 class IGHelperGetShareData {
 
@@ -242,14 +243,14 @@ class IGHelperGetShareData {
     private static func manageImage(imageUrl: URL?, originalImage: UIImage) -> IGFile {
         
         var filename : String!
-        var fileSize : Int!
+        var fileSize : Int64
         
         if imageUrl != nil {
             filename = imageUrl!.lastPathComponent
-            fileSize = Int(IGGlobal.getFileSize(path: imageUrl))
+            fileSize = IGGlobal.getFileSize(path: imageUrl)
         } else {
             filename = "IMAGE_" + IGGlobal.randomString(length: 16)
-            fileSize = NSData(data: (originalImage).jpegData(compressionQuality: 1)!).length
+            fileSize = Int64(NSData(data: (originalImage).jpegData(compressionQuality: 1)!).length)
         }
         let randomString = IGGlobal.randomString(length: 16) + "_"
         
@@ -267,7 +268,6 @@ class IGHelperGetShareData {
         attachment.fileNameOnDisk = fileNameOnDisk
         attachment.height = Double((scaledImage.size.height))
         attachment.width = Double((scaledImage.size.width))
-        attachment.size = (imgData?.count)!
         attachment.data = imgData
         attachment.type = .image
         
@@ -303,7 +303,7 @@ class IGHelperGetShareData {
         
         let videoUrl : URL = NSURL(fileURLWithPath: pathOnDisk) as URL
         //let fileSize = Int(IGGlobal.getFileSize(path: videoUrl))
-        let fileSize = Int(videoData.count)
+        let fileSize = Int64(videoData.count)
 
         // write data to my fileUrl
         try! videoData.write(to: videoUrl)
@@ -350,7 +350,7 @@ class IGHelperGetShareData {
         let pathOnDisk = documents + "/" + randomString + filename
         
         let gifUrl : URL = NSURL(fileURLWithPath: pathOnDisk) as URL
-        let fileSize = Int(gifData.count)
+        let fileSize = Int64(gifData.count)
         
         // write data to my fileUrl
         try! gifData.write(to: gifUrl)
@@ -392,7 +392,7 @@ class IGHelperGetShareData {
         let pathOnDisk = documents + "/" + randomString + filename
         
         let fileUrl : URL = NSURL(fileURLWithPath: pathOnDisk) as URL
-        let fileSize = Int(fileData.count)
+        let fileSize = Int64(fileData.count)
         
         // write data to my fileUrl
         try! fileData.write(to: fileUrl)
@@ -503,8 +503,8 @@ class IGHelperGetShareData {
             if let user = igRoom.chatRoom?.peer {
                 id = user.id
                 if let attachment = user.avatar?.file?.largeThumbnail {
-                    if let path : URL = attachment.path() {
-                        imageData = try? Data(contentsOf: path)
+                    if let url = attachment.localUrl {
+                        imageData = try? Data(contentsOf: url)
                     }
                 }
             }
@@ -513,8 +513,8 @@ class IGHelperGetShareData {
             
             if let group = igRoom.groupRoom {
                 id = group.id
-                if let path = igRoom.groupRoom?.avatar?.file?.largeThumbnail?.path() {
-                    imageData = try? Data(contentsOf: path)
+                if let url = igRoom.groupRoom?.avatar?.file?.largeThumbnail?.localUrl {
+                    imageData = try? Data(contentsOf: url)
                 }
             }
             
@@ -523,8 +523,8 @@ class IGHelperGetShareData {
             if let channel = igRoom.channelRoom {
                 id = channel.id
                 if let attachment = igRoom.channelRoom?.avatar?.file?.largeThumbnail {
-                    if let path : URL = attachment.path() {
-                        imageData = try? Data(contentsOf: path)
+                    if let url = attachment.localUrl {
+                        imageData = try? Data(contentsOf: url)
                     }
                 }
             }
@@ -537,8 +537,8 @@ class IGHelperGetShareData {
     internal static func setRealmShareInfo(igpUser: IGPRegisteredUser, igUser: IGRegisteredUser) -> IGShareInfo {
         
         var imageData : Data?
-        if let path = igUser.avatar?.file?.largeThumbnail?.path() {
-            imageData = try? Data(contentsOf: path)
+        if let url = igUser.avatar?.file?.largeThumbnail?.localUrl {
+            imageData = try? Data(contentsOf: url)
         }
         
         return IGShareInfo(igpUser: igpUser, imageData: imageData)

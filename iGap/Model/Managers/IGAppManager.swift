@@ -19,6 +19,7 @@ import FirebaseInstanceID
 import maincore
 import SwiftEventBus
 import RxCocoa
+import Files
 
 class IGAppManager: NSObject {
     static let sharedManager = IGAppManager()
@@ -59,12 +60,34 @@ class IGAppManager: NSObject {
         
         /***** detect contact change *****/
         NotificationCenter.default.addObserver(self, selector: #selector(addressBookDidChange(_:)), name: NSNotification.Name.CNContactStoreDidChange, object: nil)
+        createAppDirectories()
     }
     
    @objc func addressBookDidChange(_ notification: UITapGestureRecognizer) {
         if !IGContactManager.syncedPhoneBookContact {
             IGContactManager.syncedPhoneBookContact = true
             IGContactManager.sharedManager.manageContact()
+        }
+    }
+    
+    /***** make app directories for save downloaded and uploaded files *****/
+    public func createAppDirectories(){
+        do {
+            try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR + IGGlobal.IMAGE_DIR, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR + IGGlobal.VIDEO_DIR, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR + IGGlobal.AUDIO_DIR, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR + IGGlobal.VOICE_DIR, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR + IGGlobal.GIF_DIR, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR + IGGlobal.FILE_DIR, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: IGGlobal.CACHE_DIR, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: IGGlobal.CACHE_DIR + IGGlobal.THUMB_DIR, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: IGGlobal.CACHE_DIR + IGGlobal.BACKGROUND_DIR, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: IGGlobal.CACHE_DIR + IGGlobal.AVATAR_DIR, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: IGGlobal.CACHE_DIR + IGGlobal.STICKER_DIR, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: IGGlobal.TEMP_DIR, withIntermediateDirectories: true, attributes: nil)
+        } catch let error as NSError {
+            print("Unable to create directory \(error.debugDescription)")
         }
     }
     

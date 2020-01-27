@@ -1319,7 +1319,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         }
         
         if let attachment = self.attachment {
-            let fileExist = IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size)
+            let fileExist = IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size)
             if fileExist && !attachment.isInUploadLevels() {
                 if finalRoomMessage.type == .video || finalRoomMessage.type == .videoAndText {
                     makeVideoPlayView()
@@ -2046,7 +2046,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                 make.leading.equalTo(imgMediaAbs.snp.leading)
             }
             
-            if IGGlobal.isFileExist(path: self.finalRoomMessage.attachment!.path(), fileSize: self.finalRoomMessage.attachment!.size) {
+            if IGGlobal.isFileExist(path: self.finalRoomMessage.attachment!.localPath, fileSize: self.finalRoomMessage.attachment!.size) {
                 indicatorViewAbs?.isHidden = true
             } else {
                 indicatorViewAbs?.isHidden = false

@@ -1264,7 +1264,6 @@ class IGFactory: NSObject {
         let cachedRooms = IGGlobal.rewriteRoomInfo
         IGGlobal.rewriteRoomInfo.removeAll()
         IGGlobal.importedRoomMessageDic.removeAll()
-        IGGlobal.importedFileDic.removeAll()
         try! IGDatabaseManager.shared.realm.write {
             for room in cachedRooms {
                 IGDatabaseManager.shared.realm.add(IGRoom.putOrUpdate(room))
@@ -1497,7 +1496,7 @@ class IGFactory: NSObject {
             var newFile: IGFile!
 
             try! IGDatabaseManager.shared.realm.write {
-                newFile = IGFile.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpFile: igpFile, fileType: IGFile.FileType.sticker)
+                newFile = IGFile.putOrUpdate(igpFile: igpFile, fileType: IGFile.FileType.sticker, filePathType: .sticker)
                 IGDatabaseManager.shared.realm.add(newFile)
             }
 
@@ -1516,11 +1515,11 @@ class IGFactory: NSObject {
         }
     }
 
+    ///CHECK
     func updateFileInDatabe(_ file: IGFile, with igpFile: IGPFile) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
-                let newFile = IGFile.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpFile: igpFile, fileType: file.type)
-                //newFile.cacheID = file.cacheID
+                let newFile = IGFile.putOrUpdate(igpFile: igpFile, fileType: file.type)
                 newFile.fileNameOnDisk = file.fileNameOnDisk
             }
         }

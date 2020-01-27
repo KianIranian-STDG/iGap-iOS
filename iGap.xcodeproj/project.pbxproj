@@ -423,6 +423,8 @@
 		D680860323B8D96400E456EA /* ClassTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D680860223B8D96400E456EA /* ClassTest.swift */; };
 		D681FC4F23B9C6BF00197211 /* MemoryTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D681FC4E23B9C6BF00197211 /* MemoryTest.storyboard */; };
 		D6A89976236D8D920087215B /* IGHelperAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A89975236D8D920087215B /* IGHelperAvatar.swift */; };
+		D6AFC17123DD6AAD002584D5 /* Files.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AFC17023DD6AAD002584D5 /* Files.framework */; };
+		D6AFC17223DD6AAD002584D5 /* Files.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6AFC17023DD6AAD002584D5 /* Files.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D6CCCBF82392A1E10061F749 /* CardToCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */; };
 		D6EAF0742383D9B300D7F177 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */; };
 		DF3EDEF64399AA713B2D0C2F /* IGRequestSignaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */; };
@@ -860,6 +862,7 @@
 				D65179A9239B8F6D00557E5B /* FSPagerView.framework in Embed Frameworks */,
 				D62946362349E4BD00FB5A08 /* Stevia.framework in Embed Frameworks */,
 				D62946332349E43400FB5A08 /* PryntTrimmerView.framework in Embed Frameworks */,
+				D6AFC17223DD6AAD002584D5 /* Files.framework in Embed Frameworks */,
 				FAA6C5DB2222BA800035D777 /* PecPayment.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -1313,6 +1316,7 @@
 		D680860223B8D96400E456EA /* ClassTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTest.swift; sourceTree = "<group>"; };
 		D681FC4E23B9C6BF00197211 /* MemoryTest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MemoryTest.storyboard; sourceTree = "<group>"; };
 		D6A89975236D8D920087215B /* IGHelperAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperAvatar.swift; sourceTree = "<group>"; };
+		D6AFC17023DD6AAD002584D5 /* Files.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Files.framework; path = Carthage/Build/iOS/Files.framework; sourceTree = "<group>"; };
 		D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardToCardCell.xib; sourceTree = "<group>"; };
 		DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRequestSignaling.swift; sourceTree = "<group>"; };
 		FA03C19B2042945D008812E3 /* IGCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCall.swift; sourceTree = "<group>"; };
@@ -1833,6 +1837,7 @@
 				FAF5D2E71F8D81A900A26EE1 /* SwiftProtobuf.framework in Frameworks */,
 				FA6F312522B8C3D300DB942E /* libsqlite3.tbd in Frameworks */,
 				FA6F312322B8C37600DB942E /* libz.tbd in Frameworks */,
+				D6AFC17123DD6AAD002584D5 /* Files.framework in Frameworks */,
 				FA6F312122B8C18600DB942E /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3637,6 +3642,7 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D6AFC17023DD6AAD002584D5 /* Files.framework */,
 				D65179A7239B8F6C00557E5B /* FSPagerView.framework */,
 				D62946342349E4BD00FB5A08 /* Stevia.framework */,
 				D62946312349E43400FB5A08 /* PryntTrimmerView.framework */,
@@ -4045,6 +4051,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftEventBus.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/FSPagerView.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Lottie.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Files.framework",
 			);
 			name = "[RS] Copy Carthage Frameworks";
 			outputPaths = (

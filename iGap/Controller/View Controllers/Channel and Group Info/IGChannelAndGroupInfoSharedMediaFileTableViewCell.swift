@@ -90,7 +90,7 @@ class IGChannelAndGroupInfoSharedMediaFileTableViewCell: UITableViewCell {
     
     func updateAttachmentDownloadUploadIndicatorView() {
         if let attachment = self.attachment {
-            if IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) {
+            if IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size) {
                 self.indicatorView.setState(.ready)
                 self.fileImageView.setThumbnail(for: attachment)
                 return
