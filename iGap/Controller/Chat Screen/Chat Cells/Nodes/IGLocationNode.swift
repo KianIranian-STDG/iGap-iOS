@@ -26,28 +26,26 @@ class IGLocationNode: AbstractNode {
         imgNode.image = UIImage(named: "map_screenShot")
         imgPinMarker.image = UIImage(named: "Location_Marker")
         imgPinMarker.style.preferredSize = CGSize(width: 30, height: 30)
-        imgNode.style.width = ASDimension(unit: .points, value: 260)
+        imgNode.style.width = ASDimension(unit: .points, value: 200)
         imgNode.style.height = ASDimension(unit: .points, value: 160)
 
+        
+        
         imgNode.contentMode = .scaleAspectFill
         addSubnode(imgNode)
         addSubnode(imgPinMarker)
-
-//        if message.type == .imageAndText {
-//            addSubnode(textNode)
-//        }
         
     }
     
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
 
-        let backCenterAspec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: imgNode)
-         
+        
         let percentCenterAspec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: imgPinMarker)
         percentCenterAspec.horizontalPosition = .center
-                
-        let over1Spec = ASOverlayLayoutSpec(child: backCenterAspec, overlay: percentCenterAspec)
+        
+        
+        let over1Spec = ASOverlayLayoutSpec(child: imgNode, overlay: percentCenterAspec)
         
         return over1Spec
 
