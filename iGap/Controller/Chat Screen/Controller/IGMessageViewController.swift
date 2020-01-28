@@ -5042,7 +5042,7 @@ extension IGMessageViewController: AVAudioRecorderDelegate {
 
 //MARK: - IGMessageGeneralCollectionViewCellDelegate
 extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
-    func didTapAndHoldOnMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
+    func didTapAndHoldOnMessage(cellMessage: IGRoomMessage) {
         
         if cellMessage.isInvalidated {return}
         
@@ -5054,11 +5054,11 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
         if cellMessage.status == IGRoomMessageStatus.failed {
             if !(IGGlobal.shouldMultiSelect) {
-                manageFailedMessage(cellMessage: cellMessage, cell: cell)
+                manageFailedMessage(cellMessage: cellMessage)
             }
         } else {
             if !(IGGlobal.shouldMultiSelect) {
-                manageSendedMessage(cellMessage: cellMessage, cell: cell)
+                manageSendedMessage(cellMessage: cellMessage)
                 
             }
         }
@@ -5087,7 +5087,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
     }
     
-    private func manageSendedMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
+    private func manageSendedMessage(cellMessage: IGRoomMessage){
         
         if self.room!.isInvalidated {
             return
@@ -5230,7 +5230,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         IGHelperBottomModals.shared.showMultiForwardModal(view: self,messages : self.selectedMessages, isFromCloud: isCloud )
     }
     
-    private func manageFailedMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
+    private func manageFailedMessage(cellMessage: IGRoomMessage){
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
         let resend = UIAlertAction(title: IGStringsManager.SendAgain.rawValue.localized, style: .default, handler: { (action) in
@@ -5332,7 +5332,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         return self
     }
     
-    func didTapOnAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
+    func didTapOnAttachment(cellMessage: IGRoomMessage) {
         
         UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions(rawValue: UInt(0.3)), animations: {
             self.view.layoutIfNeeded()
@@ -5432,7 +5432,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
     }
     
-    func didTapOnForwardedAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
+    func didTapOnForwardedAttachment(cellMessage: IGRoomMessage) {
         if let forwardedMsgType = cellMessage.forwardedFrom?.type {
             switch forwardedMsgType {
             case .audio , .voice :
@@ -5455,7 +5455,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
     }
     
-    func didTapOnSenderAvatar(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
+    func didTapOnSenderAvatar(cellMessage: IGRoomMessage) {
         if let user = cellMessage.authorUser?.user {
             self.selectedUserToSeeTheirInfo = user
             openUserProfile()
@@ -5466,7 +5466,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
     }
     
-    func didTapOnReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
+    func didTapOnReply(cellMessage: IGRoomMessage){
         if let replyMessage = cellMessage.repliedTo {
             IGMessageViewController.returnToMessage = cellMessage
             
@@ -5478,7 +5478,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
     }
     
-    func didTapOnForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
+    func didTapOnForward(cellMessage: IGRoomMessage){
         if let forwardMessage = cellMessage.forwardedFrom {
             var usernameType : IGPClientSearchUsernameResponse.IGPResult.IGPType = .room
             if forwardMessage.authorUser != nil {
@@ -5495,7 +5495,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
     }
     
-    func didTapOnMultiForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell,isFromCloud: Bool = false){
+    func didTapOnMultiForward(cellMessage: IGRoomMessage, isFromCloud: Bool = false){
         self.selectedMessages.removeAll()
         self.selectedMessages.append(cellMessage)
         
@@ -6140,12 +6140,14 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
             
 
             //TODO: check detach
-            let node = BaseBubbleNode(message: msg!, finalRoomType : self!.finalRoomType ,finalRoom : self!.finalRoom, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
+            let node = BaseBubbleNode(message: msg!, finalRoomType : sSelf.finalRoomType ,finalRoom : sSelf.finalRoom, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
 
-            (node.bubbleNode as? AbstractNode)?.delegate = self
+            (node.bubbleNode as? AbstractNode)?.delegate = sSelf
+            node.generalMessageDelegate = sSelf
             node.selectionStyle = .none
             return node
         }
+        
         return cellnodeBlock
     }
 

@@ -217,7 +217,7 @@ class AbstractNode: ASCellNode {
 }
 
 
-
+    //MARK: - Text Link Detection
 extension AbstractNode: ASTextNodeDelegate {
     
     func addLinkDetection(text: String, activeItems: [ActiveLabelItem]) -> NSAttributedString {
@@ -316,3 +316,4 @@ extension AbstractNode: IGProgreeNodeDelegate {
     }
     
 }
+
