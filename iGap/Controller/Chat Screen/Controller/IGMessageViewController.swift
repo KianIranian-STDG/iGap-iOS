@@ -6138,9 +6138,10 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
             
             let img = isIncomming ? someoneImage : mineImage
             
+
             //TODO: check detach
             let node = BaseBubbleNode(message: msg!, finalRoomType : self!.finalRoomType ,finalRoom : self!.finalRoom, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
-//            let node = BaseBubbleNode(message: msg!, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
+
             (node.bubbleNode as? AbstractNode)?.delegate = self
             node.selectionStyle = .none
             return node

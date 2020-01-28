@@ -137,6 +137,7 @@
 		8E8D8E46225DBB9000039191 /* SMNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D8E45225DBB9000039191 /* SMNavigationController.swift */; };
 		8E8E505223DDCD640094A91C /* IGVoiceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E505123DDCD640094A91C /* IGVoiceNode.swift */; };
 		8E8E505423DF09600094A91C /* IGMusicNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E505323DF09600094A91C /* IGMusicNode.swift */; };
+		8E8E505623E0012D0094A91C /* IGContactNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E505523E0012D0094A91C /* IGContactNode.swift */; };
 		8E91C64C2274887D00C36DAB /* SplashScreenPageOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E91C64B2274887D00C36DAB /* SplashScreenPageOneViewController.swift */; };
 		8E94B7382237E4A1005F6868 /* KeychainSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B72A2237E4A0005F6868 /* KeychainSwift.framework */; };
 		8E94B7392237E4A1005F6868 /* UICKeyChainStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B72B2237E4A0005F6868 /* UICKeyChainStore.framework */; };
@@ -1045,6 +1046,7 @@
 		8E8D8E45225DBB9000039191 /* SMNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMNavigationController.swift; sourceTree = "<group>"; };
 		8E8E505123DDCD640094A91C /* IGVoiceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGVoiceNode.swift; sourceTree = "<group>"; };
 		8E8E505323DF09600094A91C /* IGMusicNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMusicNode.swift; sourceTree = "<group>"; };
+		8E8E505523E0012D0094A91C /* IGContactNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGContactNode.swift; sourceTree = "<group>"; };
 		8E91C64B2274887D00C36DAB /* SplashScreenPageOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPageOneViewController.swift; sourceTree = "<group>"; };
 		8E94B7282237E49F005F6868 /* QRCodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCodeReader.framework; path = Carthage/Build/iOS/QRCodeReader.framework; sourceTree = "<group>"; };
 		8E94B72A2237E4A0005F6868 /* KeychainSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainSwift.framework; path = Carthage/Build/iOS/KeychainSwift.framework; sourceTree = "<group>"; };
@@ -2465,6 +2467,7 @@
 				8E8E505323DF09600094A91C /* IGMusicNode.swift */,
 				8E3360E223D7395D00CE766B /* IGVideoNode.swift */,
 				D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */,
+				8E8E505523E0012D0094A91C /* IGContactNode.swift */,
 				8E3360E323D7395D00CE766B /* NodeExtension.swift */,
 				D244EA6623DDC44C0071B00F /* IGProgressNode.swift */,
 				D250C6DD23DEB32D00B4860E /* IGLocationNode.swift */,
@@ -4657,6 +4660,7 @@
 				FA09538F1E1B97E20043ED3F /* SSRadioButtonController.swift in Sources */,
 				FA90B72A20B53EBC00043C89 /* MessageReceiveObserver.swift in Sources */,
 				8ED8054323B772FB0097A4A6 /* IGLiveStickerCell.swift in Sources */,
+				8E8E505623E0012D0094A91C /* IGContactNode.swift in Sources */,
 				9366D98C1E363C2500998BA3 /* IGSettingAboutWebViewViewController.swift in Sources */,
 				8EC94E0423964092003B3510 /* IGTripleNewsTVCell.swift in Sources */,
 				FA0CC8071E5D7D4400556283 /* ActiveBuilder.swift in Sources */,

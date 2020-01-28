@@ -37,9 +37,9 @@ class BaseBubbleNode: ASCellNode {
     override func didLoad() {
         super.didLoad()
         self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
-
+        
     }
-
+    
     init(message : IGRoomMessage, finalRoomType : IGRoom.IGType, finalRoom : IGRoom, isIncomming: Bool, bubbleImage: UIImage, isFromSameSender: Bool, shouldShowAvatar: Bool) {
         self.finalRoom = finalRoom
         self.finalRoomType = finalRoomType
@@ -63,7 +63,7 @@ class BaseBubbleNode: ASCellNode {
             } else {
                 txtNameNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
                 IGGlobal.makeText(for: txtNameNode, with: "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont, alignment: .left)
-
+                
             }
         }
         
@@ -84,20 +84,22 @@ class BaseBubbleNode: ASCellNode {
         }else if message!.type == .voice {
             bubbleNode = IGVoiceNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         } else if message!.type == .location {
-                       bubbleNode = IGLocationNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
+            bubbleNode = IGLocationNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         } else if message!.type == .audio {
-                   bubbleNode = IGMusicNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
+            bubbleNode = IGMusicNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
+        } else if message!.type == .contact {
+            bubbleNode = IGContactNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         }
-           
+        
         
         
         if let time = message!.creationTime {
             txtTimeNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
             IGGlobal.makeText(for: txtTimeNode, with: time.convertToHumanReadable(), textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+            
         }
         
-        if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice || message!.type == .location || message!.type == .video || message!.type == .videoAndText || message!.type == .audio {
+        if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice || message!.type == .location || message!.type == .video || message!.type == .videoAndText || message!.type == .audio || message!.type == .contact {
             if(isIncomming){
                 
                 avatarImageViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
@@ -117,7 +119,7 @@ class BaseBubbleNode: ASCellNode {
                 avatarBtnViewNode.style.preferredSize = CGSize.zero
                 
                 IGGlobal.makeText(for: self.txtStatusNode, with: "", textColor: .lightGray, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
-
+                
             }
             //Add SubNodes
             addSubnode(bubbleImgNode)
@@ -184,10 +186,10 @@ class BaseBubbleNode: ASCellNode {
         let verticalSpec = ASBackgroundLayoutSpec()
         verticalSpec.background = bubbleImgNode
         
-                                        /**************************************************************/
-                                        /************DIFFRENT NODES SHOULD BE ADDED HERE**************/
-                                        /**************************************************************/
-
+        /**************************************************************/
+        /************DIFFRENT NODES SHOULD BE ADDED HERE**************/
+        /**************************************************************/
+        
         
         
         
@@ -195,7 +197,7 @@ class BaseBubbleNode: ASCellNode {
         /**************************************************************/
         /************TEXT NODE**************/
         /**************************************************************/
-
+        
         if let _ = bubbleNode  as? IGTextNode{ // Only Contains Text
             var msg = message!.message
             if let forwardMessage = message?.forwardedFrom {
@@ -257,10 +259,10 @@ class BaseBubbleNode: ASCellNode {
             
             
         }
-        /**************************************************************/
-        /************IMAGE AND IMAGE TEXT NODE**************/
-        /**************************************************************/
-
+            /**************************************************************/
+            /************IMAGE AND IMAGE TEXT NODE**************/
+            /**************************************************************/
+            
         else if let _ = bubbleNode as? IGImageNode{
             if message!.attachment != nil{
                 
@@ -295,16 +297,16 @@ class BaseBubbleNode: ASCellNode {
                     }
                     
                 }
-                 
+                
             }
             
             
         }
             
-        /**************************************************************/
-        /************VIDEO AND VIDEO TEXT NODE**************/
-        /**************************************************************/
-
+            /**************************************************************/
+            /************VIDEO AND VIDEO TEXT NODE**************/
+            /**************************************************************/
+            
         else if let _ = bubbleNode as? IGVideoNode{
             if message!.attachment != nil{
                 
@@ -329,16 +331,16 @@ class BaseBubbleNode: ASCellNode {
                     }
                     
                 }
-                 
+                
             }
             
             
         }
             
-        /**************************************************************/
-        /************FILE NODE**************/
-        /**************************************************************/
-
+            /**************************************************************/
+            /************FILE NODE**************/
+            /**************************************************************/
+            
         else if let _ = bubbleNode as? IGFileNode {
             
             if message!.attachment != nil{
@@ -362,15 +364,15 @@ class BaseBubbleNode: ASCellNode {
                     }
                     
                 }
-                 
+                
             }
             
         }
-        
-        /**************************************************************/
-        /************VOICE NODE**************/
-        /**************************************************************/
-
+            
+            /**************************************************************/
+            /************VOICE NODE**************/
+            /**************************************************************/
+            
         else if let _ = bubbleNode as? IGVoiceNode {
             
             if message!.attachment != nil{
@@ -395,16 +397,18 @@ class BaseBubbleNode: ASCellNode {
                     }
                     
                 }
-                 
+                
             }
             
         }
-
+            
             /**************************************************************/
             /************MUSIC NODE**************/
             /**************************************************************/
-
-            else if let _ = bubbleNode as? IGMusicNode {
+            
+        else if let _ = bubbleNode as? IGMusicNode {
+            
+            if let msattachment = message!.attachment{
                 
                 if message!.attachment != nil{
                     
@@ -428,15 +432,17 @@ class BaseBubbleNode: ASCellNode {
                         }
                         
                     }
-                     
+                    
                 }
                 
             }
-
-        
-        /**************************************************************/
-        /************LOCATION NODE**************/
-        /**************************************************************/
+            
+        }
+            
+            
+            /**************************************************************/
+            /************LOCATION NODE**************/
+            /**************************************************************/
             
         else if let _ = bubbleNode as? IGLocationNode{
             
@@ -461,6 +467,37 @@ class BaseBubbleNode: ASCellNode {
                 }
                 
             }
+            
+        }
+        /**************************************************************/
+            /************CONTACT NODE**************/
+            /**************************************************************/
+            
+        else if let _ = bubbleNode as? IGContactNode{
+            
+            if (self.finalRoomType == .channel) {
+                
+                stack.children?.append(txtTimeNode)
+                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
+
+            } else {
+                
+                if isIncomming {
+                    stack.children?.append(txtTimeNode)
+                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
+                    
+                } else {
+                    
+                    let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
+                    
+                    stack.children?.append(timeStatusStack)
+                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 5,bottom: 8,right: 14),child: stack)
+                    
+                }
+                
+            }
+            
+            
             
         }
         
