@@ -31,6 +31,8 @@ class BaseBubbleNode: ASCellNode {
     private(set) var bubbleNode = ASCellNode()
     private var replyForwardViewNode = ASReplyForwardNode()
     
+    private var imgNodeReply = ASImageNode()
+    
     private let avatarImageViewNode = ASAvatarView()
     private let avatarBtnViewNode = ASButtonNode()
     weak var delegate : ChatDelegate!
@@ -44,6 +46,10 @@ class BaseBubbleNode: ASCellNode {
         super.didLoad()
         self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
         manageGestureRecognizers()
+        if !(IGGlobal.shouldMultiSelect) {
+            makeSwipeImage()
+            swipePositionManager()
+        }
     }
     
     init(message : IGRoomMessage, finalRoomType : IGRoom.IGType, finalRoom : IGRoom, isIncomming: Bool, bubbleImage: UIImage, isFromSameSender: Bool, shouldShowAvatar: Bool) {
@@ -564,7 +570,6 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
             tapAndHold.minimumPressDuration = 0.2
             bubbleNode.view.addGestureRecognizer(tapAndHold)
             
-//            bubbleNode.isUserInteractionEnabled = true
             bubbleNode.view.isUserInteractionEnabled = true
             
             if message?.repliedTo != nil {
@@ -738,5 +743,142 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
 //            return false
 //        }
 //    }
+    
+    
+    
+    
+    /*
+     ******************************************************************
+     ************************** Swipe to Reply ************************
+     ******************************************************************
+     */
+    
+    private func makeSwipeImage() {
+//        self.backgroundColor = UIColor.clear
+//        imgReply = UIImageView()
+//        imgReply.contentMode = .scaleAspectFit
+//        imgReply.image = UIImage(named: "ig_message_reply")
+//        imgReply.alpha = 0.5
+        
+        imgNodeReply.contentMode = .scaleAspectFit
+        imgNodeReply.image = UIImage(named: "ig_message_reply")
+        imgNodeReply.alpha = 0.5
+        
+        
+        if !(IGGlobal.shouldMultiSelect) {
+            pan = UIPanGestureRecognizer(target: self, action: #selector(onSwipe(_:)))
+            pan.delegate = self
+            view.addGestureRecognizer(pan)
+        }
+    }
+    
+    private func swipePositionManager(){
+        if finalRoom.isInvalidated {
+            return
+        }
+        if finalRoomType == .chat || finalRoomType == .group {
+            if pan != nil {
+                
+                if (pan.state == UIGestureRecognizer.State.changed) {
+//                    self.insertSubview(imgReply, belowSubview: self.contentView)
+                    let p: CGPoint = pan.translation(in: view)
+                    let width = self.view.frame.width
+                    let height = self.view.frame.height
+                    self.view.frame = CGRect(x: p.x,y: 0, width: width, height: height);
+                    self.imgNodeReply.frame = CGRect(x: p.x + width + imgNodeReply.frame.size.width, y: (height/2) - (imgNodeReply.frame.size.height) / 2 , width: CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT), height: CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
+                    
+                } else if (pan.state == UIGestureRecognizer.State.ended) || (pan.state == UIGestureRecognizer.State.cancelled) {
+                    imgNodeReply.removeFromSupernode()
+                }
+            }
+            else {
+                return
+            }
+        }
+    }
+    
+    @objc func onSwipe(_ pan: UIPanGestureRecognizer) {
+        if pan.state == UIGestureRecognizer.State.began {
+            
+        } else if pan.state == UIGestureRecognizer.State.changed {
+            self.setNeedsLayout()
+        } else {
+            //let hasMovedToFarLeft = self.frame.maxX < UIScreen.main.bounds.width / 2
+            let shouldReply = abs(pan.velocity(in: view).x) > UIScreen.main.bounds.width / 2
+            let direction = pan.direction(in: view.superview!)
+            
+            if direction.contains(.Left) {
+                switch message!.status {
+
+                case .failed, .unknown , .sending:
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.setNeedsLayout()
+                        self.layoutIfNeeded()
+                    })
+                    break
+                default :
+                    if (shouldReply) {
+//                        let collectionView: UITableView = view.superview as! UITableView
+//                        let indexPath: IndexPath = collectionView.indexPathForItem(at: view.center)!
+//                        collectionView.delegate?.collectionView!(collectionView, performAction: #selector(onSwipe(_:)), forItemAt: indexPath, withSender: nil)
+                        
+                        
+                        let tableView = view.superview!.superview!.superview as! UITableView
+                        let indexPath = tableView.indexPathForRow(at: view.center)!
+                        tableView.delegate?.tableView?(tableView, performAction: #selector(onSwipe(_:)), forRowAt: indexPath, withSender: nil)
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        UIView.animate(withDuration: 0.2, animations: {[weak self] in
+                            guard let sSelf = self else {
+                                return
+                            }
+                            sSelf.setNeedsLayout()
+                            sSelf.generalMessageDelegate?.swipToReply(cellMessage: sSelf.message!)
+                            sSelf.layoutIfNeeded()
+                        })
+                        
+                    } else {
+                        UIView.animate(withDuration: 0.2, animations: {
+                            self.setNeedsLayout()
+                            self.layoutIfNeeded()
+                        })
+                    }
+                    break
+                }
+
+            } else if direction.contains(.Down) {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.setNeedsLayout()
+                    self.layoutIfNeeded()
+                })
+            } else {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.setNeedsLayout()
+                    self.layoutIfNeeded()
+                })
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
    
 }

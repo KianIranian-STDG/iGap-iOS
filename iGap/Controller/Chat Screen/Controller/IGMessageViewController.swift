@@ -5070,7 +5070,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
     }
     
-    func swipToReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
+    func swipToReply(cellMessage: IGRoomMessage) {
         if !(IGGlobal.shouldMultiSelect) {
             
             if cellMessage.status == IGRoomMessageStatus.sending {

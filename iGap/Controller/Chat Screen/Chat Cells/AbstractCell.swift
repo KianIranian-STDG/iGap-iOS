@@ -1112,7 +1112,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                         collectionView.delegate?.collectionView!(collectionView, performAction: #selector(onSwipe(_:)), forItemAt: indexPath, withSender: nil)
                         UIView.animate(withDuration: 0.2, animations: {
                             self.setNeedsLayout()
-                            self.delegate?.swipToReply(cellMessage: self.realmRoomMessage!, cell: self)
+                            self.delegate?.swipToReply(cellMessage: self.realmRoomMessage!)
                             self.layoutIfNeeded()
                         })
                         
