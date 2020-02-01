@@ -117,7 +117,7 @@ class AbstractNode: ASCellNode {
                         if (self.message.attachment?.name!.hasSuffix(".json") ?? false) {
 //                            self.animationView.setLiveSticker(for: file)
                         } else {
-//                            self.imgMediaAbs?.setSticker(for: file)
+                            self.imgNode.setSticker(for: file)
 
                         }
 

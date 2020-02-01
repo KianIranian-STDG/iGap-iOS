@@ -235,6 +235,7 @@ class IGGlobal {
         case fontIcon            = 1 // UIFont.igapFontIcon
         case igapFont            = 2 //UIFont.igFont
     }
+
  
     /**********************************************/
     /****************** Progress ******************/
@@ -1318,6 +1319,33 @@ extension AnimationView {
 }
 extension ASNetworkImageNode {
     
+    func setSticker(for attachment:IGFile) {
+
+        do {
+            let path = attachment.path()
+            if IGGlobal.isFileExist(path: path) {
+                if let data = try? Data(contentsOf: path!) {
+                    if let image = UIImage(data: data) {
+                            self.image = image
+                    }
+                }
+            } else {
+                throw NSError(domain: "asa", code: 1234, userInfo: nil)
+            }
+        } catch {
+            ASimagesMap[attachment.token!] = self
+            IGDownloadManager.sharedManager.downloadSticker(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in
+                DispatchQueue.main.async {
+                    if let image = ASimagesMap[attachment.token!] {
+                        ASimagesMap.removeValue(forKey: attachment.token!)
+                        image.setSticker(for: attachment)
+                    }
+                }
+            }, failure: {
+                
+            })
+        }
+    }
     func setAvatar(avatar: IGFile, type: IGFile.PreviewType = IGFile.PreviewType.largeThumbnail) {
         
         // remove imageview from download list on t on cell reuse

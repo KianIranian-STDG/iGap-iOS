@@ -6102,6 +6102,7 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
         
         let msg = messages?[indexPath.row]
         
+
         let cellnodeBlock  = {[weak self] () -> ASCellNode in
             guard let sSelf = self else {
                 return ASCellNode()
@@ -6138,14 +6139,29 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
             
             let img = isIncomming ? someoneImage : mineImage
             
+            if sSelf.messages!.count <= indexPath.row {
+                   print("VVV || popViewController index out of bound")
+                
+                   let node = BaseBubbleNode(message: msg!, finalRoomType : sSelf.finalRoomType ,finalRoom : sSelf.finalRoom, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
 
-            //TODO: check detach
-            let node = BaseBubbleNode(message: msg!, finalRoomType : sSelf.finalRoomType ,finalRoom : sSelf.finalRoom, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
+                   (node.bubbleNode as? AbstractNode)?.delegate = sSelf
+                   node.generalMessageDelegate = sSelf
+                   node.selectionStyle = .none
+                
+                return node
 
-            (node.bubbleNode as? AbstractNode)?.delegate = sSelf
-            node.generalMessageDelegate = sSelf
-            node.selectionStyle = .none
-            return node
+            } else {
+                //TODO: check detach
+
+                let node = BaseBubbleNode(message: msg!, finalRoomType : sSelf.finalRoomType ,finalRoom : sSelf.finalRoom, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
+
+                (node.bubbleNode as? AbstractNode)?.delegate = sSelf
+                node.generalMessageDelegate = sSelf
+                node.selectionStyle = .none
+                return node
+
+            }
+            
         }
         
         return cellnodeBlock
