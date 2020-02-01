@@ -700,7 +700,8 @@ enum IGStringsManager : String {
     case DeleteForMe = "delete_for_me"
     case DeleteForMeAnd = "delete_for_me_and"
     case SendAgain = "send_again"
-    
+    case UnknownMessage = "unknown_message"
+    case You = "you"
     //MARK: -Player
     case UnknownArtist = "unknown_artist"
     case UnknownAudio = "unknown_audio"

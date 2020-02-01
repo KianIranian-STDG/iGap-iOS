@@ -5891,41 +5891,106 @@ extension IGMessageViewController {
     }
     
     private func addChatItemToBottom(count: Int, scrollToBottom: Bool = false) {
-//        let contentHeight = self.collectionView!.contentSize.height
-//        let offsetY = self.collectionView!.contentOffset.y
-//        let bottomOffset = contentHeight - offsetY
-//
-//        if !scrollToBottom {
-//            CATransaction.begin()
-//            CATransaction.setDisableActions(true)
-//        }
-//
-//        self.collectionView?.performBatchUpdates({
-//            var arrayIndex: [IndexPath] = []
-//
-//            for index in 0...(count-1) {
-//                arrayIndex.append(IndexPath(row: index, section: 0))
-//            }
-//
-//            self.collectionView?.insertItems(at: arrayIndex)
-//        }, completion: { _ in
-//            if !scrollToBottom {
-//                self.collectionView!.contentOffset = CGPoint(x: 0, y: self.collectionView!.contentSize.height - bottomOffset)
-//                CATransaction.commit()
-//            }
-//        })
+        let contentHeight = self.tableviewMessages!.view.contentSize.height
+        let offsetY = self.tableviewMessages!.contentOffset.y
+        let bottomOffset = contentHeight - offsetY
+
+        if !scrollToBottom {
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+        }
+
+        self.tableviewMessages?.performBatchUpdates({
+            var arrayIndex: [IndexPath] = []
+
+            for index in 0...(count-1) {
+                arrayIndex.append(IndexPath(row: index, section: 0))
+            }
+
+            self.tableviewMessages?.insertRows(at: arrayIndex, with: .automatic)
+        }, completion: { _ in
+            if !scrollToBottom {
+                self.tableviewMessages!.contentOffset = CGPoint(x: 0, y: self.tableviewMessages!.view.contentSize.height - bottomOffset)
+                CATransaction.commit()
+            }
+        })
     }
     
+    private func setFloatingDate(){
+        if messages == nil {return}
+        let arrayOfVisibleItems = self.tableviewMessages.indexPathsForVisibleRows().sorted()
+        if let lastIndexPath = arrayOfVisibleItems.last {
+            if latestIndexPath != lastIndexPath {
+                
+                if let cell = self.tableviewMessages?.nodeForRow(at: IndexPath(row: lastIndexPath.row, section: 0)) as? IGLogNode, cell.message?.type != .log {
+                    return // check time of all messages exept .log creation time
+                }
+                
+                latestIndexPath = lastIndexPath
+            } else {
+                return
+            }
+            
+            if latestIndexPath.row < messages!.count {
+                
+                var previousMessage: IGRoomMessage!
+                if  messages!.count > latestIndexPath.row + 1 {
+                    previousMessage = (messages?[latestIndexPath.row + 1])!
+                }
+                
+                if let message = messages?[latestIndexPath.row], !message.isInvalidated , message.type != .time , message.type != .unread {
+                    let dayTimePeriodFormatter = DateFormatter()
+                    dayTimePeriodFormatter.dateFormat = "MMMM dd"
+                    dayTimePeriodFormatter.calendar = Calendar.current
+                    let dateString = (message.creationTime!).localizedDate()
+                    
+                    var previousDateString = ""
+                    if previousMessage != nil {
+                        let dayTimePeriodFormatter1 = DateFormatter()
+                        dayTimePeriodFormatter1.dateFormat = "MMMM dd"
+                        dayTimePeriodFormatter1.calendar = Calendar.current
+                        previousDateString = (previousMessage.creationTime!).localizedDate()
+                    }
+                    
+                    if !previousDateString.isEmpty && previousDateString != dateString {
+                        if !saveDate.contains(dateString) {
+                            saveDate.append(dateString)
+                            if firstSetDate {
+                                firstSetDate = false
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    if let messageTime = message.creationTime {
+                                        self.appendAtSpecificPosition(self.makeTimeItem(date: messageTime), cellPosition: lastIndexPath.row + 1)
+                                    }
+                                }
+                            } else {
+                                if let messageTime = message.creationTime {
+                                    self.appendAtSpecificPosition(self.makeTimeItem(date: messageTime), cellPosition: lastIndexPath.row + 1)
+                                }
+                            }
+                        }
+                    }
+                    
+                    txtFloatingDate.text = dateString.inLocalizedLanguage()
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.floatingDateView.alpha = 1.0
+                    })
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.txtFloatingDate.alpha = 1.0
+                    })
+                }
+            }
+        }
+    }
     private func addChatItemToTop(count: Int) {
-//        self.collectionView?.performBatchUpdates({
-//            var arrayIndex: [IndexPath] = []
-//
-//            for index in 0...(count-1) {
-//                arrayIndex.append(IndexPath(row: (messages!.count-count)+index, section: 0))
-//            }
-//
-//            self.collectionView?.insertItems(at: arrayIndex)
-//        }, completion: nil)
+        self.tableviewMessages?.performBatchUpdates({
+            var arrayIndex: [IndexPath] = []
+
+            for index in 0...(count-1) {
+                arrayIndex.append(IndexPath(row: (messages!.count-count)+index, section: 0))
+            }
+
+            self.tableviewMessages?.insertRows(at: arrayIndex,with: .automatic)
+        }, completion: nil)
     }
     
     private func addWaitingProgress(direction: IGPClientGetRoomHistory.IGPDirection){
@@ -5937,13 +6002,13 @@ extension IGMessageViewController {
     }
     
     private func removeItem(cellPosition: Int?){
-//        if cellPosition == nil {return}
-//        DispatchQueue.main.async {
-//            self.removeMessageArrayByPosition(cellPosition: cellPosition)
-//            self.collectionView?.performBatchUpdates({
-//                self.collectionView?.deleteItems(at: [IndexPath(row: cellPosition!, section: 0)])
-//            }, completion: nil)
-//        }
+        if cellPosition == nil {return}
+        DispatchQueue.main.async {
+            self.removeMessageArrayByPosition(cellPosition: cellPosition)
+            self.tableviewMessages?.performBatchUpdates({
+                self.tableviewMessages?.deleteRows(at: [IndexPath(row: cellPosition!, section: 0)], with: .automatic)
+            }, completion: nil)
+        }
     }
     
     private func removeProgress(fakeMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection){
@@ -5999,9 +6064,10 @@ extension IGMessageViewController {
         self.messages!.insert(message, at: cellPosition)
         IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.insert(message.id, at: cellPosition)
         
-//        self.collectionView?.performBatchUpdates({
-//            self.collectionView?.insertItems(at: [IndexPath(row: cellPosition, section: 0)])
-//        }, completion: nil)
+        self.tableviewMessages?.performBatchUpdates({
+            self.tableviewMessages?.insertRows(at: [IndexPath(row: cellPosition, section: 0)],with: .automatic)
+
+        }, completion: nil)
     }
     
     private func removeMessageArray(messageId: Int64){
@@ -6099,20 +6165,19 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
         return self.messages!.count
     }
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-        
         let msg = messages?[indexPath.row]
-        
 
         let cellnodeBlock  = {[weak self] () -> ASCellNode in
             guard let sSelf = self else {
                 return ASCellNode()
             }
+
             var isIncomming = true
-//            let msg = sSelf.messages?[indexPath.row]
+            //            let msg = sSelf.messages?[indexPath.row]
             let authorHash = msg!.authorHash
             var shouldShowAvatar = false
             var isFromSameSender = false
-
+            
             if self?.finalRoomGroupRoom != nil {
                 shouldShowAvatar = true
                 
@@ -6124,7 +6189,7 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
                                 isFromSameSender = true
                             }
                         }
-
+                        
                     }
                 } else {
                     shouldShowAvatar = false
@@ -6138,33 +6203,61 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
             }
             
             let img = isIncomming ? someoneImage : mineImage
-            
-            if sSelf.messages!.count <= indexPath.row {
-                   print("VVV || popViewController index out of bound")
-                
-                   let node = BaseBubbleNode(message: msg!, finalRoomType : sSelf.finalRoomType ,finalRoom : sSelf.finalRoom, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
 
-                   (node.bubbleNode as? AbstractNode)?.delegate = sSelf
-                   node.generalMessageDelegate = sSelf
+            if (sSelf.messages!.count <= indexPath.row) || (msg!.isInvalidated) || (sSelf.finalRoom?.isInvalidated)!  {
+                    let node = IGLogNode(logType: .unknown, finalRoomType: self!.finalRoomType, finalRoom: self!.finalRoom)
                    node.selectionStyle = .none
                 
                 return node
+            }
 
-            } else {
+            if msg!.type == .text ||  msg!.type == .image ||  msg!.type == .imageAndText ||  msg!.type == .file ||  msg!.type == .fileAndText || msg!.type == .voice || msg!.type == .location || msg!.type == .video || msg!.type == .videoAndText || msg!.type == .audio || msg!.type == .contact || msg!.type == .sticker {
                 //TODO: check detach
-
                 let node = BaseBubbleNode(message: msg!, finalRoomType : sSelf.finalRoomType ,finalRoom : sSelf.finalRoom, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
-
+                
                 (node.bubbleNode as? AbstractNode)?.delegate = sSelf
                 node.generalMessageDelegate = sSelf
                 node.selectionStyle = .none
                 return node
 
+                
+            } else if msg!.type == .log || msg!.type == .time || msg!.type == .unread {
+                var logTypeTemp : logMessageType!
+
+                
+                switch msg!.type {
+                case .log :
+                    logTypeTemp = .log
+                case .time :
+                    logTypeTemp = .time
+                case .unread :
+                    logTypeTemp = .unread
+                    
+                default:
+                    break
+                }
+                
+                let node = IGLogNode(message: msg!, logType: logTypeTemp, finalRoomType: self!.finalRoomType, finalRoom: self!.finalRoom)
+                node.selectionStyle = .none
+                
+                return node
+
+                
+            } else {
+                    //Unread
+                    let node = IGLogNode(logType: .unknown, finalRoomType: self!.finalRoomType, finalRoom: self!.finalRoom)
+                   node.selectionStyle = .none
+                
+                return node
+
+                
             }
             
         }
         
         return cellnodeBlock
+
+        
     }
 
     func numberOfSections(in tableNode: ASTableNode) -> Int {
@@ -6180,4 +6273,50 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
         }
 
     }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) { // TODO - when isWaiting for get from server return this method and don't do any action
+            
+            if self.tableviewMessages.numberOfRows(inSection: 0) == 0 {
+                return
+            }
+            
+            setFloatingDate()
+            
+            //currently use inverse
+            if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) { //reach top
+                if (!self.messageLoader.isFirstLoadUp() || self.messageLoader.isForceFirstLoadUp()) && !self.messageLoader.isWaitingHistoryUpLocal() {
+                    self.messageLoader.loadMessage(direction: .up, onMessageReceive: { (messages, direction) in
+                        self.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
+                    })
+                }
+                
+                /** if totalItemCount is lower than scrollEnd so (firstVisiblePosition < scrollEnd) is always true and we can't load DOWN,
+                 * finally for solve this problem also check following state and load DOWN even totalItemCount is lower than scrollEnd count
+                 */
+                //if (totalItemCount <= scrollEnd) {
+                //    loadMessage(DOWN);
+                //}
+            }
+            
+            if (scrollView.contentOffset.y < 0) { //reach bottom
+                if !(self.messageLoader?.isFirstLoadDown() ?? false) && !(self.messageLoader?.isWaitingHistoryDownLocal() ?? false) {
+                    self.messageLoader.loadMessage(direction: .down, onMessageReceive: { (messages, direction) in
+                        self.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
+                    })
+                }
+            }
+            
+            //100 is an arbitrary number. can be anything
+            if scrollView.contentOffset.y > 100 {
+                self.scrollToBottomContainerView.isHidden = false
+            } else {
+    //            if isBotRoom() && IGHelperDoctoriGap.isDoctoriGapRoom(room: room!) {
+    //                scrollToBottomContainerViewConstraint.constant = CGFloat(DOCTOR_BOT_HEIGHT)
+    //            } else {
+    //                if room!.isReadOnly {
+    //                    scrollToBottomContainerViewConstraint.constant = -40
+    //                }
+    //            }
+                self.scrollToBottomContainerView.isHidden = true
+            }
+        }
 }
