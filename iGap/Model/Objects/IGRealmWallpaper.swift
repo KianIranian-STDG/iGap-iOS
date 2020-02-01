@@ -28,7 +28,7 @@ class IGRealmWallpaper: Object {
             if let file = try! Realm().objects(IGFile.self).filter(predicate).first {
                 self.file.append(file)
             } else {
-                self.file.append(IGFile(igpFile : wallpaper.igpFile, type: .image))
+                self.file.append(IGFile.putOrUpdate(igpFile: wallpaper.igpFile, fileType: .image, filePathType: .background).detach())
             }
             
             let predicateString = NSPredicate(format: "innerString ==[c] %@", wallpaper.igpColor)

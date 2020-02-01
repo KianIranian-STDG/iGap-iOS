@@ -27,13 +27,6 @@ public class IGFile: Object {
         case ready
     }
     
-    enum PlayingStatus {
-        case notAvaiable
-        case readyToPlay
-        case playing
-        case paused
-    }
-    
     enum PreviewType: Int {
         case originalFile = 0
         case smallThumbnail
@@ -107,7 +100,6 @@ public class IGFile: Object {
     @objc dynamic var typeRaw:            FileType.RawValue         = FileType.file.rawValue
     @objc dynamic var baseFilePathTypeRaw:BaseFilePathType.RawValue = BaseFilePathType.document.rawValue // use this variable at detect base file directory for fetch 'localPath'
     
-    ///TODO - check and remove following files
     var data:           Data?
     var status:         Status                              = .unknown
     var downloadUploadPercent: Double                       = 0.0
@@ -175,7 +167,7 @@ public class IGFile: Object {
     }
     
     override public static func ignoredProperties() -> [String] {
-        return ["previewType", "type", "attachedImage", "data", "sha256Hash", "status", "playingStatus", "downloadUploadPercent", "fileTypeBasedOnNameExtention"]
+        return ["previewType", "type", "data", "status", "downloadUploadPercent", "fileTypeBasedOnNameExtention"]
     }
     
     convenience init(name: String?) {
@@ -396,7 +388,7 @@ public class IGFile: Object {
     func makeLocalPath(_ type: FilePathType) -> String {
         
         var filePath = ""
-        let filename = self.name ?? ""
+        let filename = self.cacheID ?? ""
         
         switch type {
         case .thumb:
