@@ -151,6 +151,14 @@ class BaseBubbleNode: ASCellNode {
             addSubnode(txtStatusNode)
             addSubnode(avatarImageViewNode)
             addSubnode(avatarBtnViewNode)//Button with clear BG in order to handle tap on avatar
+            addSubnode(imgNodeReply)
+            if finalRoomType! != .channel {
+                imgNodeReply.alpha = 0
+                imgNodeReply.isUserInteractionEnabled = false
+            }else {
+                imgNodeReply.alpha = 0.5
+                imgNodeReply.isUserInteractionEnabled = true
+            }
             
             //Avatar
             if let user = message!.authorUser?.user {
@@ -594,20 +602,19 @@ class BaseBubbleNode: ASCellNode {
         stackSpec.children = [insetSpec]
         
         
+        imgNodeReply.style.width = ASDimension(unit: .points, value: 32)
+        imgNodeReply.style.height = ASDimension(unit: .points, value: 32)
+        
         let ASBGStack = ASBackgroundLayoutSpec(child: avatarBtnViewNode, background: avatarImageViewNode)
         let stackHSpec = ASStackLayoutSpec()
         stackHSpec.direction = .horizontal
         stackHSpec.spacing = 5
-        //        stackHSpec.justifyContent = .spaceBetween
         stackHSpec.verticalAlignment = .bottom
-        //        stackHSpec.style.preferredSize.width = 200
-        stackHSpec.children = isIncomming ? [ASBGStack,stackSpec] : [stackSpec,ASBGStack]
+        stackHSpec.children = isIncomming ? [ASBGStack,stackSpec, imgNodeReply] : [imgNodeReply, stackSpec,ASBGStack]
         stackHSpec.style.flexShrink = 1.0
         stackHSpec.style.flexGrow = 1.0
         
         let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 5, bottom: 5, right: 4) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 5), child: stackHSpec)
-        
-        
         
         return insetHSpec
         
@@ -825,9 +832,11 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
 //        imgReply.image = UIImage(named: "ig_message_reply")
 //        imgReply.alpha = 0.5
         
+//        addSubnode(imgNodeReply)
+        
         imgNodeReply.contentMode = .scaleAspectFit
         imgNodeReply.image = UIImage(named: "ig_message_reply")
-        imgNodeReply.alpha = 0.5
+//        imgNodeReply.alpha = 0.5
         
         
         if !(IGGlobal.shouldMultiSelect) {
@@ -835,6 +844,7 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
             pan.delegate = self
             view.addGestureRecognizer(pan)
         }
+        
     }
     
     private func swipePositionManager(){
@@ -845,7 +855,10 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
             if pan != nil {
                 
                 if (pan.state == UIGestureRecognizer.State.changed) {
+                    
 //                    self.insertSubview(imgReply, belowSubview: self.contentView)
+//                    insertSubnode(imgNodeReply, belowSubnode: self)
+                    
                     let p: CGPoint = pan.translation(in: view)
                     let width = self.view.frame.width
                     let height = self.view.frame.height
@@ -863,55 +876,111 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
     }
     
     @objc func onSwipe(_ pan: UIPanGestureRecognizer) {
+        
+        let minReplySwipeValue: CGFloat = 80
+        
         if pan.state == UIGestureRecognizer.State.began {
             
         } else if pan.state == UIGestureRecognizer.State.changed {
+            
             self.setNeedsLayout()
+//            UIView.animate(withDuration: 0.2, animations: {[weak self] in
+//                guard let sSelf = self else {
+//                    return
+//                }
+//
+//                let p: CGPoint = sSelf.pan.translation(in: sSelf.view)
+//                sSelf.view.frame.origin.x = p.x
+//            })
+            
+            if finalRoomType! != .channel {
+                UIView.animate(withDuration: 0.2, animations: {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    
+                    let p: CGPoint = sSelf.pan.translation(in: sSelf.view)
+                    sSelf.view.frame.origin.x = p.x
+                    sSelf.imgNodeReply.alpha = ((-p.x) * CGFloat(0.5))/60
+                    
+                }) {[weak self] (done) in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    
+                    sSelf.imgNodeReply.isUserInteractionEnabled = true
+                    
+                }
+            }else {
+                UIView.animate(withDuration: 0.2) {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    let p: CGPoint = sSelf.pan.translation(in: sSelf.view)
+                    sSelf.view.frame.origin.x = p.x
+                }
+            }
+            
         } else {
-            //let hasMovedToFarLeft = self.frame.maxX < UIScreen.main.bounds.width / 2
-            let shouldReply = abs(pan.velocity(in: view).x) > UIScreen.main.bounds.width / 2
+            
+            let shouldReply = pan.translation(in: self.view).x < -minReplySwipeValue
             let direction = pan.direction(in: view.superview!)
+            
+            if finalRoomType! != .channel {
+                UIView.animate(withDuration: 0.2, animations: {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    
+                    sSelf.view.frame.origin.x = 0
+                    sSelf.imgNodeReply.alpha = 0
+                    
+                }) {[weak self] (done) in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    
+                    sSelf.imgNodeReply.isUserInteractionEnabled = true
+                    
+                }
+            }else {
+                UIView.animate(withDuration: 0.2) {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    sSelf.view.frame.origin.x = 0
+                }
+            }
+            
             
             if direction.contains(.Left) {
                 switch message!.status {
 
                 case .failed, .unknown , .sending:
                     UIView.animate(withDuration: 0.2, animations: {
-                        self.setNeedsLayout()
-                        self.layoutIfNeeded()
+                        self.view.setNeedsLayout()
+                        self.view.layoutIfNeeded()
                     })
                     break
                 default :
                     if (shouldReply) {
-//                        let collectionView: UITableView = view.superview as! UITableView
-//                        let indexPath: IndexPath = collectionView.indexPathForItem(at: view.center)!
-//                        collectionView.delegate?.collectionView!(collectionView, performAction: #selector(onSwipe(_:)), forItemAt: indexPath, withSender: nil)
-                        
-                        
                         let tableView = view.superview!.superview!.superview as! UITableView
                         let indexPath = tableView.indexPathForRow(at: view.center)!
                         tableView.delegate?.tableView?(tableView, performAction: #selector(onSwipe(_:)), forRowAt: indexPath, withSender: nil)
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+
                         UIView.animate(withDuration: 0.2, animations: {[weak self] in
                             guard let sSelf = self else {
                                 return
                             }
-                            sSelf.setNeedsLayout()
+                            sSelf.view.setNeedsLayout()
                             sSelf.generalMessageDelegate?.swipToReply(cellMessage: sSelf.message!)
-                            sSelf.layoutIfNeeded()
+                            sSelf.view.layoutIfNeeded()
                         })
-                        
+
                     } else {
                         UIView.animate(withDuration: 0.2, animations: {
-                            self.setNeedsLayout()
-                            self.layoutIfNeeded()
+                            self.view.setNeedsLayout()
+                            self.view.layoutIfNeeded()
                         })
                     }
                     break
@@ -919,25 +988,21 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
 
             } else if direction.contains(.Down) {
                 UIView.animate(withDuration: 0.2, animations: {
-                    self.setNeedsLayout()
-                    self.layoutIfNeeded()
+                    self.view.setNeedsLayout()
+                    self.view.layoutIfNeeded()
                 })
             } else {
                 UIView.animate(withDuration: 0.2, animations: {
-                    self.setNeedsLayout()
-                    self.layoutIfNeeded()
+                    self.view.setNeedsLayout()
+                    self.view.layoutIfNeeded()
                 })
             }
         }
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
         return true
     }
-    
-    
-    
-    
-    
    
 }
