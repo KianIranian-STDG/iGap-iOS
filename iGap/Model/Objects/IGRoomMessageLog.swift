@@ -123,7 +123,7 @@ class IGRoomMessageLog: Object {
         var actorUsernameTitle = ""
         
         if let user = message.authorUser?.user {
-            if user.displayName == IGAppManager.sharedManager.username() {
+            if user.username == IGAppManager.sharedManager.username() {
                 actorUsernameTitle = IGStringsManager.You.rawValue.localized
             } else {
                 actorUsernameTitle = user.displayName
