@@ -330,8 +330,6 @@
 		93321E7C1E5C12A3004D4454 /* IGForwardContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93321E7B1E5C12A3004D4454 /* IGForwardContactsTableViewCell.swift */; };
 		93321E7E1E5C12B7004D4454 /* IGForwardChatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93321E7D1E5C12B7004D4454 /* IGForwardChatsTableViewCell.swift */; };
 		9366D98C1E363C2500998BA3 /* IGSettingAboutWebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9366D98B1E363C2400998BA3 /* IGSettingAboutWebViewViewController.swift */; };
-		937455F91E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937455F81E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib */; };
-		937455FB1E63F77F007694CE /* IGForwardMessageAudioAndVoiceAttachmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937455FA1E63F77F007694CE /* IGForwardMessageAudioAndVoiceAttachmentView.swift */; };
 		93C299941E77D5FD00EE37C4 /* IGChannelAndGroupInfoSharedAudioAndVoiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C299931E77D5FD00EE37C4 /* IGChannelAndGroupInfoSharedAudioAndVoiceTableViewCell.swift */; };
 		93CE90811EC4B93F002BFEC1 /* NVActivityIndicatorView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93CE90801EC4B93F002BFEC1 /* NVActivityIndicatorView.framework */; };
 		93E181E41E77E7EE005C3593 /* IGChannelAndGroupInfoSharedMediaFileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E181E31E77E7EE005C3593 /* IGChannelAndGroupInfoSharedMediaFileTableViewCell.swift */; };
@@ -1226,8 +1224,6 @@
 		93321E7B1E5C12A3004D4454 /* IGForwardContactsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGForwardContactsTableViewCell.swift; sourceTree = "<group>"; };
 		93321E7D1E5C12B7004D4454 /* IGForwardChatsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGForwardChatsTableViewCell.swift; sourceTree = "<group>"; };
 		9366D98B1E363C2400998BA3 /* IGSettingAboutWebViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingAboutWebViewViewController.swift; sourceTree = "<group>"; };
-		937455F81E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = IGForwardMessageAudioAndVoiceAttachment.xib; path = ../../../VIew/IGForwardMessageAudioAndVoiceAttachment.xib; sourceTree = "<group>"; };
-		937455FA1E63F77F007694CE /* IGForwardMessageAudioAndVoiceAttachmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IGForwardMessageAudioAndVoiceAttachmentView.swift; path = ../../../VIew/IGForwardMessageAudioAndVoiceAttachmentView.swift; sourceTree = "<group>"; };
 		93C299931E77D5FD00EE37C4 /* IGChannelAndGroupInfoSharedAudioAndVoiceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGChannelAndGroupInfoSharedAudioAndVoiceTableViewCell.swift; sourceTree = "<group>"; };
 		93CE90801EC4B93F002BFEC1 /* NVActivityIndicatorView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NVActivityIndicatorView.framework; path = Carthage/Build/iOS/NVActivityIndicatorView.framework; sourceTree = "<group>"; };
 		93E181E31E77E7EE005C3593 /* IGChannelAndGroupInfoSharedMediaFileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGChannelAndGroupInfoSharedMediaFileTableViewCell.swift; sourceTree = "<group>"; };
@@ -3419,8 +3415,6 @@
 				FAD580931DDC5C4E00A242DE /* IGMessageCollectionViewCell.xib */,
 				FAD57EDF1E191DB000FC17D9 /* IGMessageLogCollectionViewCell.swift */,
 				FAD57EE01E191DB000FC17D9 /* IGMessageLogCollectionViewCell.xib */,
-				937455F81E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib */,
-				937455FA1E63F77F007694CE /* IGForwardMessageAudioAndVoiceAttachmentView.swift */,
 				8ECCA1ED22B8B99100D3A734 /* IGMultiForwardModal.swift */,
 				8E6BC53523B2649C0037323A /* IGMultiForwardModalViewController.swift */,
 				8ECCA1F122B8F6DF00D3A734 /* ForwardCell.swift */,
@@ -3875,7 +3869,6 @@
 				8EA854BC239F6F8800C9442F /* TurquoiseColorSet.xcassets in Resources */,
 				8E2CCD0C237ED630000C3B3F /* ImageLocalizable.strings in Resources */,
 				8ECCA1F422B8F6DF00D3A734 /* multiForwardShareUsers.xib in Resources */,
-				937455F91E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib in Resources */,
 				8ED8054423B772FB0097A4A6 /* IGLiveStickerCell.xib in Resources */,
 				8EC94E0923964462003B3510 /* IGOneNewsTVCell.xib in Resources */,
 				FA33063E1F445AE90096031A /* IRANSans_UltraLight.ttf in Resources */,
@@ -4404,7 +4397,6 @@
 				FA50A8CE1DD35EFD00C6D2EA /* IGRegistrationStepProfileInfoViewController.swift in Sources */,
 				D67E985E23A679AB003C1516 /* DefaultAnimators.swift in Sources */,
 				D67E982223A67921003C1516 /* Side.swift in Sources */,
-				937455FB1E63F77F007694CE /* IGForwardMessageAudioAndVoiceAttachmentView.swift in Sources */,
 				FAAF82D6221A85200022D84C /* IGHelperFinancial.swift in Sources */,
 				D67E984123A67962003C1516 /* UIViewController+HasImageZoomControllers.swift in Sources */,
 				FA5EC5E11E069A1E006E2850 /* IGTextAttachment.swift in Sources */,

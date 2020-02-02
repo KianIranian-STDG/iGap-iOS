@@ -1337,18 +1337,14 @@ extension UIImageView {
                      * currently check size for 256 KB
                      */
                     
-                    if attachment.fileNameOnDisk != nil {
-                        showBestPreview = IGGlobal.isFileExist(path: attachment.localPath)
-                    } else {
-                        showBestPreview = IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size)
-                    }
+                    showBestPreview = IGGlobal.isFileExist(path: attachment.localPath)
                 }
                 
                 if fileSizeKB < MAX_IMAGE_SIZE && showBestPreview {
                     self.sd_setImage(with: attachment.localUrl, completed: nil)
                 } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
                     
-                    var fileType: IGFile.PreviewType = .smallThumbnail
+                    var fileType: PreviewType = .smallThumbnail
                     var finalFile: IGFile = attachment.smallThumbnail!
                     if showMain {
                         fileType = .originalFile
@@ -1433,7 +1429,7 @@ extension UIImageView {
         }
     }
     
-    func setAvatar(avatar: IGFile, type: IGFile.PreviewType = IGFile.PreviewType.largeThumbnail) {
+    func setAvatar(avatar: IGFile, type: PreviewType = PreviewType.largeThumbnail) {
         
         // remove imageview from download list on t on cell reuse
         DispatchQueue.main.async {
@@ -1444,14 +1440,14 @@ extension UIImageView {
         }
         
         var file : IGFile!
-        var previewType : IGFile.PreviewType!
+        var previewType : PreviewType!
         
         if type == .largeThumbnail ,let largeThumbnail = avatar.largeThumbnail {
             file = largeThumbnail
-            previewType = IGFile.PreviewType.largeThumbnail
+            previewType = PreviewType.largeThumbnail
         } else {
             file = avatar.smallThumbnail
-            previewType = IGFile.PreviewType.smallThumbnail
+            previewType = PreviewType.smallThumbnail
         }
         
         if IGGlobal.isFileExist(path: avatar.localPath, fileSize: avatar.size), let url = avatar.localUrl {

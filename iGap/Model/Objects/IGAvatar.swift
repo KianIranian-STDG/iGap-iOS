@@ -33,7 +33,7 @@ class IGAvatar: Object{
         let predicateAvatar = NSPredicate(format: "cacheID = %@", igpAvatar.igpFile.igpCacheID)
         let avatarFile = try! Realm().objects(IGFile.self).filter(predicateAvatar).first
         if avatarFile == nil {
-            self.file = IGFile(igpFile: igpAvatar.igpFile, type: .image)
+            self.file = IGFile.putOrUpdate(igpFile: igpAvatar.igpFile, fileType: .image, filePathType: .avatar, unmanagedObjects: true)
         } else {
             self.file = avatarFile
         }
@@ -72,7 +72,7 @@ class IGAvatar: Object{
             avatar!.id = igpAvatar.igpID
             avatar!.ownerId = ownerId
         }
-        avatar!.file = IGFile.putOrUpdate(igpFile: igpAvatar.igpFile, fileType: IGFile.FileType.image, filePathType: .avatar)
+        avatar!.file = IGFile.putOrUpdate(igpFile: igpAvatar.igpFile, fileType: FileType.image, filePathType: .avatar)
         IGDatabaseManager.shared.realm.add(avatar!)
         
         return avatar!

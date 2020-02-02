@@ -35,12 +35,12 @@ class IGAttachmentManager: NSObject {
         }
         if let primaryKeyId = attachment.cacheID {
             if attachment.status == .unknown {
-                if attachment.fileNameOnDisk == nil {
-                    attachment.downloadUploadPercent = 0.0
-                    attachment.status = .readyToDownload
-                } else {
+                if IGGlobal.isFileExist(path: attachment.localPath) {
                     attachment.downloadUploadPercent = 1.0
                     attachment.status = .ready
+                } else {
+                    attachment.downloadUploadPercent = 0.0
+                    attachment.status = .readyToDownload
                 }
             }
             if variablesCache.object(forKey: primaryKeyId as NSString) == nil {
@@ -54,12 +54,12 @@ class IGAttachmentManager: NSObject {
     func add(attachment: IGFile) {
         if let primaryKeyId = attachment.cacheID {
             if attachment.status == .unknown {
-                if attachment.fileNameOnDisk == nil {
-                    attachment.downloadUploadPercent = 0.0
-                    attachment.status = .readyToDownload
-                } else {
+                if IGGlobal.isFileExist(path: attachment.localPath) {
                     attachment.downloadUploadPercent = 1.0
                     attachment.status = .ready
+                } else {
+                    attachment.downloadUploadPercent = 0.0
+                    attachment.status = .readyToDownload
                 }
             }
             if variablesCache.object(forKey: primaryKeyId as NSString) == nil {
@@ -83,7 +83,7 @@ class IGAttachmentManager: NSObject {
         }
     }
     
-    func setStatus(_ status: IGFile.Status, for attachment:IGFile) {
+    func setStatus(_ status: Status, for attachment:IGFile) {
         if let variableInCache = variablesCache.object(forKey: attachment.cacheID! as NSString) {
             let attachment = variableInCache.value
             attachment.status = status
@@ -108,7 +108,7 @@ class IGAttachmentManager: NSObject {
                 if let fileInfoReponse = protoMessage as? IGPFileInfoResponse {
                     IGFactory.shared.addStickerFileToDatabse(igpFile: fileInfoReponse.igpFile, completion: { (file) -> Void in
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            let newFile = IGFile(igpFile: file, type: IGFile.FileType.sticker)
+                            let newFile = IGFile.putOrUpdate(igpFile: file, fileType: .sticker, filePathType: .sticker, unmanagedObjects: true)
                             
                             var completionFinal: ((_ file :IGFile) -> Void)?
                             self.syncroniseStickerQueue.sync {
@@ -125,7 +125,7 @@ class IGAttachmentManager: NSObject {
         }
     }
     
-    func getFileInfo(token: String, PreviewType: Int = IGFile.PreviewType.originalFile.rawValue) -> IGFile? {
+    func getFileInfo(token: String, PreviewType: Int = PreviewType.originalFile.rawValue) -> IGFile? {
         return try! Realm().objects(IGFile.self).filter(NSPredicate(format: "token = %@", token)).first
     }
     

@@ -129,14 +129,7 @@ class IGRoomMessage: Object {
             if let fileInDb = realm.objects(IGFile.self).filter(predicate).first {
                 self.attachment = fileInDb
             } else {
-                self.attachment = IGFile(igpFile: igpMessage.igpAttachment, messageType: self.type)
-                if self.attachment?.fileNameOnDisk == nil {
-                    self.attachment!.downloadUploadPercent = 0.0
-                    self.attachment!.status = .readyToDownload
-                } else if !(self.attachment?.isInUploadLevels())!{
-                    self.attachment!.downloadUploadPercent = 1.0
-                    self.attachment!.status = .ready
-                }
+                self.attachment = IGFile.putOrUpdate(igpFile: igpMessage.igpAttachment, fileType: IGFile.getFileType(messageType: self.type), unmanagedObjects: true)
             }
         }
         if igpMessage.hasIgpAuthor {
@@ -205,9 +198,6 @@ class IGRoomMessage: Object {
         self.creationTime = Date(timeIntervalSince1970: TimeInterval(igpMessage.igpCreateTime))
         self.updateTime = Date(timeIntervalSince1970: TimeInterval(igpMessage.igpUpdateTime))
         if igpMessage.hasIgpForwardFrom {
-            if igpMessage.igpForwardFrom.igpAuthor.hasIgpRoom {
-                print("found that")
-            }
             self.forwardedFrom = IGRoomMessage(igpMessage: igpMessage.igpForwardFrom, roomId: roomId, isForward: true)
         }
         if igpMessage.hasIgpReplyTo {
@@ -369,7 +359,7 @@ class IGRoomMessage: Object {
         }
         
         if igpMessage.hasIgpAttachment {
-            message.attachment = IGFile.putOrUpdate(igpFile: igpMessage.igpAttachment, fileType: IGFile.FileType.convertToFileType(messageType: message!.type))
+            message.attachment = IGFile.putOrUpdate(igpFile: igpMessage.igpAttachment, fileType: FileType.convertToFileType(messageType: message!.type))
         }
         if igpMessage.hasIgpLocation {
             message.location = IGRoomMessageLocation.putOrUpdate(realm: realmFinal, igpRoomMessageLocation: igpMessage.igpLocation, for: message)

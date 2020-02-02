@@ -145,7 +145,7 @@ class IGFileInfoRequest: IGRequest {
 //MARK: -
 class IGFileDownloadRequest: IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate(token: String, offset:Int64, maxChunkSize: Int32, type: IGFile.PreviewType) -> IGRequestWrapper {
+        class func generate(token: String, offset:Int64, maxChunkSize: Int32, type: PreviewType) -> IGRequestWrapper {
             var downloadRequestMessage = IGPFileDownload()
             downloadRequestMessage.igpToken = token
             downloadRequestMessage.igpOffset = offset

@@ -580,3 +580,68 @@ enum FilePathType {
     
     case unknown
 }
+
+enum Status {
+    case unknown
+    
+    case readyToDownload // also for 'downloadFailed' & 'downloadPause' use 'readyToDownload' enum
+    case downloading
+    
+    case uploadFailed
+    case uploading
+    
+    case ready
+}
+
+enum PreviewType: Int {
+    case originalFile = 0
+    case smallThumbnail
+    case largeThumbnail
+    case waveformThumbnail
+}
+
+enum FileType: Int {
+    case image = 0
+    case gif
+    case video
+    case audio
+    case voice
+    case file
+    case sticker
+    
+    static func convertToFileType(messageType: IGRoomMessageType) -> FileType {
+        switch messageType {
+        case .audio, .audioAndText:
+            return .audio
+            
+        case .image, .imageAndText:
+            return .image
+            
+        case .video, .videoAndText:
+            return .video
+            
+        case .voice:
+            return .voice
+            
+        case .gif, .gifAndText:
+            return .gif
+            
+        case .file, .fileAndText:
+            return .file
+            
+        case .sticker:
+            return .sticker
+            
+        default:
+            return .image
+        }
+    }
+}
+
+enum FileTypeBasedOnNameExtension {
+    case generic
+    case docx
+    case exe
+    case pdf
+    case txt
+}

@@ -34,7 +34,7 @@ class IGMusicViewController: UIViewController {
         mediaElapsedTimeLabel.text = "\(mediaCurrentTimeSlider.value)"
         if let attach = attachment {
             if attach.type == .voice {
-                mediaNameLabel.text = attach.fileNameOnDisk
+                mediaNameLabel.text = attach.name
                 mediaArtistAlbumName.text = ""
                 mediaCoverImageView.image = UIImage(named: "IG_Music_Player_Mic")
             }

@@ -256,11 +256,17 @@ class IGUploadManager {
                     })
                     break
                 case .processed:
-                    if let fileName = task.file.fileNameOnDisk, let token = task.token {
-                        IGFile.updateFileToken(fileNameOnDisk: fileName, token: token)
+                    if let fakeCacheId = task.file.cacheID, let token = task.token {
+                        IGFile.updateFileToken(cacheId: fakeCacheId, token: token)
                     }
-                    //get file info
-                    self.getFileInfo(task: task)
+                    
+                    task.status = .finished
+                    self.removeFromQueueAndStartNext(task: task)
+                    DispatchQueue.main.async {
+                        if let completeClosure = task.successCallBack {
+                            completeClosure(task)
+                        }
+                    }
                     break
                 default:
                     break
@@ -268,37 +274,6 @@ class IGUploadManager {
             }
         }).error({ (errorCode, waitTime) in
             IGMessageSender.defaultSender.faileFileMessage(uploadTask: task)
-            task.status = .failed
-            self.removeFromQueueAndStartNext(task: task)
-            DispatchQueue.main.async {
-                if let failureClosure = task.failureCallBack {
-                    failureClosure()
-                }
-            }
-        }).send()
-    }
-    
-    //Step 5: get file info (to get cache id)
-    private func getFileInfo(task: IGUploadTask) {
-        IGFileInfoRequest.Generator.generate(token: task.token!).success { (protoMessage) in
-            switch protoMessage {
-            case let fileInfoReponse as IGPFileInfoResponse:
-                //update file in db
-                IGFactory.shared.updateFileInDatabe(task.file, with: fileInfoReponse.igpFile)
-                IGAttachmentManager.sharedManager.setProgress(100.0, for: task.file)
-                IGAttachmentManager.sharedManager.setStatus(.ready, for: task.file)
-                //finish task
-                task.status = .finished
-                self.removeFromQueueAndStartNext(task: task)
-                DispatchQueue.main.async {
-                    if let completeClosure = task.successCallBack {
-                        completeClosure(task)
-                    }
-                }
-            default:
-                break
-            }
-        }.error({ (errorCode, waitTime) in
             task.status = .failed
             self.removeFromQueueAndStartNext(task: task)
             DispatchQueue.main.async {

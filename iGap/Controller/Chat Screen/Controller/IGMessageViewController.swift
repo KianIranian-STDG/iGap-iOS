@@ -3805,34 +3805,28 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             return
         }
         
-        let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let filename = mediaUrl.lastPathComponent
-        let fileSize = IGGlobal.getFileSize(path: mediaUrl)
-        let randomString = IGGlobal.randomString(length: 16) + "_"
-        
         /*** get thumbnail from video ***/
         let asset = AVURLAsset(url: mediaUrl)
         let imgGenerator = AVAssetImageGenerator(asset: asset)
         let cgImage = try!imgGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
         let uiImage = UIImage(cgImage: cgImage)
         
-        let attachment = IGFile(name: filename)
-        attachment.size = fileSize
-        attachment.duration = asset.duration.seconds
-        attachment.fileNameOnDisk = randomString + filename
-        attachment.name = filename
-        attachment.type = .video
-        attachment.height = Double(cgImage.height)
-        attachment.width = Double(cgImage.width)
+        let attachment = IGFile.makeFileInfo(name: mediaUrl.lastPathComponent,
+                                                 size: IGGlobal.getFileSize(path: mediaUrl),
+                                                 type: .video,
+                                                 width: Double(cgImage.width),
+                                                 height: Double(cgImage.height),
+                                                 duration: asset.duration.seconds)
         
-        let pathOnDisk = documents + "/" + randomString + filename
-        try! FileManager.default.copyItem(atPath: mediaUrl.path, toPath: pathOnDisk)
-        
-        self.imgAttachmentImage.image = uiImage
-        self.imgAttachmentImage.layer.cornerRadius = 6.0
-        self.imgAttachmentImage.layer.masksToBounds = true
-        
-        self.didSelectAttachment(attachment)
+        if let path = attachment.localPath {
+            try! FileManager.default.copyItem(atPath: mediaUrl.path, toPath: path)
+            
+            self.imgAttachmentImage.image = uiImage
+            self.imgAttachmentImage.layer.cornerRadius = 6.0
+            self.imgAttachmentImage.layer.masksToBounds = true
+            
+            self.didSelectAttachment(attachment)
+        }
     }
     
     //DEPRECATED
@@ -3847,26 +3841,21 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         } else {
             filename = "IMAGE_" + IGGlobal.randomString(length: 16)
         }
-        let randomString = IGGlobal.randomString(length: 16) + "_"
-        
         var scaledImage = originalImage
-        let imgData = scaledImage.jpegData(compressionQuality: 0.7)
-        let fileNameOnDisk = randomString + filename
         
         if (originalImage.size.width) > CGFloat(2000.0) || (originalImage.size.height) >= CGFloat(2000) {
             scaledImage = IGUploadManager.compress(image: originalImage)
         }
+        let imgData = scaledImage.jpegData(compressionQuality: 0.7)
         
-        let attachment = IGFile(name: filename)
-        attachment.fileNameOnDisk = fileNameOnDisk
-        attachment.height = Double((scaledImage.size.height))
-        attachment.width = Double((scaledImage.size.width))
-        attachment.size = Int64(imgData?.count ?? 0)
-        attachment.data = imgData
-        attachment.type = .image
+        let attachment = IGFile.makeFileInfo(name: filename,
+                                             size: Int64(imgData?.count ?? 0),
+                                             type: .image,
+                                             width: Double(scaledImage.size.width),
+                                             height: Double(scaledImage.size.height))
         
         DispatchQueue.main.async {
-            self.saveAttachmentToLocalStorage(data: imgData!, fileNameOnDisk: fileNameOnDisk)
+            self.saveAttachmentToLocalStorage(data: imgData!, localPath: attachment.localPath ?? "")
         }
         
         self.imgAttachmentImage.image = scaledImage
@@ -3921,32 +3910,25 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         let mediaUrl = videoInfo.url
-        let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let filename = mediaUrl.lastPathComponent
-        let fileSize = IGGlobal.getFileSize(path: mediaUrl)
-        let randomString = IGGlobal.randomString(length: 16) + "_"
+        let attachment = IGFile.makeFileInfo(name: mediaUrl.lastPathComponent,
+                                             size: IGGlobal.getFileSize(path: mediaUrl),
+                                             type: .video, width: Double(videoInfo.asset!.pixelWidth),
+                                             height: Double(videoInfo.asset!.pixelHeight),
+                                             duration: videoInfo.asset!.duration)
         
-        /*** get thumbnail from video ***/
-        let attachment = IGFile(name: filename)
-        attachment.size = fileSize
-        attachment.duration = videoInfo.asset!.duration
-        attachment.fileNameOnDisk = randomString + filename
-        attachment.name = filename
-        attachment.type = .video
-        attachment.height = Double(videoInfo.asset!.pixelHeight)
-        attachment.width = Double(videoInfo.asset!.pixelWidth)
-        
-        let pathOnDisk = documents + "/" + randomString + filename
-        try! FileManager.default.copyItem(atPath: mediaUrl.path, toPath: pathOnDisk)
-        
-        if single {
-            self.imgAttachmentImage.image = videoInfo.thumbnail
-            self.imgAttachmentImage.layer.cornerRadius = 6.0
-            self.imgAttachmentImage.layer.masksToBounds = true
-            self.didSelectAttachment(attachment)
-        } else {
-            self.currentAttachment = attachment
-            self.didTapOnSendButton(self.btnSend)
+        /***** TODO - Write File Background *****/
+        if let path = attachment.localPath {
+            try! FileManager.default.copyItem(atPath: mediaUrl.path, toPath: path)
+            
+            if single {
+                self.imgAttachmentImage.image = videoInfo.thumbnail
+                self.imgAttachmentImage.layer.cornerRadius = 6.0
+                self.imgAttachmentImage.layer.masksToBounds = true
+                self.didSelectAttachment(attachment)
+            } else {
+                self.currentAttachment = attachment
+                self.didTapOnSendButton(self.btnSend)
+            }
         }
     }
     
@@ -3969,22 +3951,21 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         var scaledImage: UIImage! = image
-        let imgData = scaledImage.jpegData(compressionQuality: 0.7)
-        
         if (image!.size.width) > CGFloat(2000.0) || (image!.size.height) >= CGFloat(2000) {
             scaledImage = IGUploadManager.compress(image: image!)
         }
+        let imgData = scaledImage.jpegData(compressionQuality: 0.7)
         
-        let attachment = IGFile(name: filename)
-        attachment.fileNameOnDisk = filename
-        attachment.height = Double((scaledImage.size.height))
-        attachment.width = Double((scaledImage.size.width))
-        attachment.size = Int64(imgData?.count ?? 0)
-        attachment.data = imgData
-        attachment.type = .image
+        let attachment = IGFile.makeFileInfo(name: filename!,
+                                             size: Int64(imgData?.count ?? 0),
+                                             type: .image,
+                                             width: Double((scaledImage.size.width)),
+                                             height: Double((scaledImage.size.height)))
+        
         //TODO - don't use 'DispatchQueue.main.async' like this, use closure
         //DispatchQueue.main.async {
-        self.saveAttachmentToLocalStorage(data: imgData!, fileNameOnDisk: filename!)
+        /***** TODO - Write File Background *****/
+        self.saveAttachmentToLocalStorage(data: imgData!, localPath: attachment.localPath ?? "")
         //}
         
         if single {
@@ -4000,19 +3981,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     func manageFile(fileData: Data, filename: String, single: Bool = true) {
         
-        let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let pathOnDisk = documents + "/" + filename
-        let fileUrl : URL = NSURL(fileURLWithPath: pathOnDisk) as URL
-        let fileSize = Int64(fileData.count)
+        let attachment = IGFile.makeFileInfo(name: filename, size: Int64(fileData.count), type: .file)
         
-        writeFileToUrl(data: fileData, url: fileUrl) {
+        guard let localUrl = attachment.localUrl else {
+            return
+        }
+        
+        writeFileToUrl(data: fileData, url: localUrl) {
             DispatchQueue.main.async {
-                let attachment = IGFile(name: filename)
-                attachment.size = fileSize
-                attachment.fileNameOnDisk = filename
-                attachment.name = filename
-                attachment.type = .file
-                
                 if single {
                     self.imgAttachmentImage.image = UIImage(named: "IG_Message_Cell_File_Generic")
                     self.imgAttachmentImage.layer.cornerRadius = 6.0
@@ -4033,38 +4009,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             success()
         }
     }
-    
-    /*
-     func manageFile(fileData: Data, filename: String) {
-     
-     let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-     let randomString = IGGlobal.randomString(length: 16) + "_"
-     let pathOnDisk = documents + "/" + randomString + filename
-     
-     let fileUrl : URL = NSURL(fileURLWithPath: pathOnDisk) as URL
-     let fileSize = Int(fileData.count)
-     
-     // write data to my fileUrl
-     try! fileData.write(to: fileUrl)
-     
-     let attachment = IGFile(name: filename)
-     attachment.size = fileSize
-     attachment.fileNameOnDisk = randomString + filename
-     attachment.name = filename
-     attachment.type = .file
-     
-     let randomStringFinal = IGGlobal.randomString(length: 16) + "_"
-     let pathOnDiskFinal = documents + "/" + randomStringFinal + filename
-     try! FileManager.default.copyItem(atPath: fileUrl.path, toPath: pathOnDiskFinal)
-     
-     self.inputBarAttachmentViewThumnailImageView.image = UIImage(named: "IG_Message_Cell_File_Generic")
-     self.inputBarAttachmentViewThumnailImageView.frame = CGRect(x: 0, y: 0, width: 30, height: 34)
-     self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
-     self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
-     
-     self.didSelectAttachment(attachment)
-     }
-     */
     
     private func openLocation(){
         let status = CLLocationManager.authorizationStatus()
@@ -4561,9 +4505,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.lblFileSize.text = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: currentAttachment!.size)
     }
     
-    func saveAttachmentToLocalStorage(data: Data, fileNameOnDisk: String) {
-        let path = IGFile.path(fileNameOnDisk: fileNameOnDisk)
-        FileManager.default.createFile(atPath: path.path, contents: data, attributes: nil)
+    func saveAttachmentToLocalStorage(data: Data, localPath: String) {
+        do {
+            let nsurl = NSURL(fileURLWithPath: localPath)
+            if let url = nsurl as URL? {
+                let folder = try Folder(path: url.deletingLastPathComponent().path)
+                try folder.createFileIfNeeded(at: url.lastPathComponent, contents: data)
+            }
+        } catch let error {
+            print(error)
+        }
     }
     
     //MARK: Actions for tap and hold on messages
@@ -5581,11 +5532,8 @@ extension IGMessageViewController: UITextViewDelegate {
     func managePinnedMessage(){
         if room?.pinMessage != nil && room?.pinMessage?.id != room?.deletedPinMessageId {
             txtPinnedMessage.text = IGRoomMessage.detectPinMessage(message: (room?.pinMessage)!)
-//            pinnedMessageView.isHidden = false
             self.stackTopViews.isHidden = false
-            
         } else {
-//            pinnedMessageView.isHidden = true
             self.stackTopViews.isHidden = true
         }
     }
@@ -5598,28 +5546,20 @@ extension IGMessageViewController: AVAudioRecorderDelegate {
         if self.isRecordingVoice {
             self.didFinishRecording(success: flag)
             let filePath = recorder.url
-            //discard file if time is too small
-            
-            //AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:avAudioRecorder.url options:nil];
-            //CMTime time = asset.duration;
-            //double durationInSeconds = CMTimeGetSeconds(time);
             let asset = AVURLAsset(url: filePath)
             let time = CMTimeGetSeconds(asset.duration)
             if time < 1.0 {
                 return
             }
             do {
-                let attachment = IGFile(name: filePath.lastPathComponent)
-                
                 let data = try Data(contentsOf: filePath)
-                self.saveAttachmentToLocalStorage(data: data, fileNameOnDisk: filePath.lastPathComponent)
-                attachment.fileNameOnDisk = filePath.lastPathComponent
-                attachment.size = Int64(data.count)
-                attachment.type = .voice
+                let attachment = IGFile.makeFileInfo(name: filePath.lastPathComponent, size: Int64(data.count), type: .voice, filePathType: .voice)
+                /***** TODO - Write File Background *****/
+                self.saveAttachmentToLocalStorage(data: data, localPath: (attachment.localPath ?? ""))
                 self.currentAttachment = attachment
                 self.didTapOnSendButton(self.btnSend)
-            } catch {
-                //there was an error recording voice
+            } catch let error {
+                print(error)
             }
         }
         self.isRecordingVoice = false

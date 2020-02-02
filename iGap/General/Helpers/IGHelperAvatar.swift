@@ -190,14 +190,19 @@ class IGHelperAvatar {
      make 'IGFile' from 'YPMediaPhoto'
      */
     public func makeAvatarFile(photo: YPMediaPhoto) -> IGFile {
-        let image = photo.modifiedImage ?? photo.originalImage
-        let randString = IGGlobal.randomString(length: 10)
+        var image = photo.modifiedImage ?? photo.originalImage
+        if (image.size.width) > CGFloat(2000.0) || (image.size.height) >= CGFloat(2000) {
+            image = IGUploadManager.compress(image: image)
+        }
+        let imgData = image.jpegData(compressionQuality: 0.7)
         
-        let avatar = IGFile()
-        avatar.cacheID = randString
-        avatar.name = randString
-        avatar.data = image.jpegData(compressionQuality: 0.7)
-        avatar.fileNameOnDisk = "IMAGE_" + randString
+        let avatar = IGFile.makeFileInfo(name: IGGlobal.randomString(length: 10),
+                                         size: Int64(imgData?.count ?? 0),
+                                         type: .image,
+                                         width: Double(image.size.width),
+                                         height: Double(image.size.height),
+                                         filePathType: .avatar)
+        
         return avatar
     }
 }

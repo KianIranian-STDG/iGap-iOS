@@ -20,7 +20,7 @@ class IGProgress: UIView {
     var delegate: IGProgressDelegate?
     
     public var backgroundView: CAShapeLayer!
-    private var state: IGFile.Status = .readyToDownload
+    private var state: Status = .readyToDownload
     private var containerView: UIView?
     private var actionButton: UIButton?
     
@@ -63,7 +63,7 @@ class IGProgress: UIView {
     }
     
     
-    func setState(_ state:IGFile.Status) {
+    func setState(_ state:Status) {
         makeActionButton()
         self.isHidden = false
         switch state {

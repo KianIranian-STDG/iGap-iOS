@@ -74,28 +74,28 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
         tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.imagesSize = self.computeFileSize(fileType: IGFile.FileType.image.rawValue)
+            self.imagesSize = self.computeFileSize(fileType: FileType.image.rawValue)
             self.txtImages.text = self.convertFileSize(fileSize: self.imagesSize)
             
-            self.gifsSize = self.computeFileSize(fileType: IGFile.FileType.gif.rawValue)
+            self.gifsSize = self.computeFileSize(fileType: FileType.gif.rawValue)
             self.txtGIFs.text = self.convertFileSize(fileSize: self.gifsSize)
             
-            self.videosSize = self.computeFileSize(fileType: IGFile.FileType.video.rawValue)
+            self.videosSize = self.computeFileSize(fileType: FileType.video.rawValue)
             self.txtVideos.text = self.convertFileSize(fileSize: self.videosSize)
             
-            self.audiosSize = self.computeFileSize(fileType: IGFile.FileType.audio.rawValue)
+            self.audiosSize = self.computeFileSize(fileType: FileType.audio.rawValue)
             self.txtAudios.text = self.convertFileSize(fileSize: self.audiosSize)
             
-            self.voicesSize = self.computeFileSize(fileType: IGFile.FileType.voice.rawValue)
+            self.voicesSize = self.computeFileSize(fileType: FileType.voice.rawValue)
             self.txtVoices.text = self.convertFileSize(fileSize: self.voicesSize)
             
-            self.documentsSize = self.computeFileSize(fileType: IGFile.FileType.file.rawValue)
+            self.documentsSize = self.computeFileSize(fileType: FileType.file.rawValue)
             self.txtDocuments.text = self.convertFileSize(fileSize: self.documentsSize)
             
-            self.documentsSize = self.computeFileSize(fileType: IGFile.FileType.file.rawValue)
+            self.documentsSize = self.computeFileSize(fileType: FileType.file.rawValue)
             self.txtDocuments.text = self.convertFileSize(fileSize: self.documentsSize)
             
-            self.stickersSize = self.computeFileSize(fileType: IGFile.FileType.sticker.rawValue)
+            self.stickersSize = self.computeFileSize(fileType: FileType.sticker.rawValue)
             self.txtStickers.text = self.convertFileSize(fileSize: self.stickersSize)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -243,31 +243,31 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
         for row in selectedRows {
             switch row {
             case ClearCache.IMAGES.rawValue:
-                self.removeFiles(fileType: IGFile.FileType.image.rawValue)
+                self.removeFiles(fileType: FileType.image.rawValue)
                 break
                 
             case ClearCache.GIFS.rawValue:
-                self.removeFiles(fileType: IGFile.FileType.gif.rawValue)
+                self.removeFiles(fileType: FileType.gif.rawValue)
                 break
                 
             case ClearCache.VIDEOS.rawValue:
-                self.removeFiles(fileType: IGFile.FileType.video.rawValue)
+                self.removeFiles(fileType: FileType.video.rawValue)
                 break
                 
             case ClearCache.AUDIOS.rawValue:
-                self.removeFiles(fileType: IGFile.FileType.audio.rawValue)
+                self.removeFiles(fileType: FileType.audio.rawValue)
                 break
                 
             case ClearCache.VOICES.rawValue:
-                self.removeFiles(fileType: IGFile.FileType.voice.rawValue)
+                self.removeFiles(fileType: FileType.voice.rawValue)
                 break
                 
             case ClearCache.DOCUMENTS.rawValue:
-                self.removeFiles(fileType: IGFile.FileType.file.rawValue)
+                self.removeFiles(fileType: FileType.file.rawValue)
                 break
                 
             case ClearCache.STICKERS.rawValue:
-                self.removeFiles(fileType: IGFile.FileType.sticker.rawValue)
+                self.removeFiles(fileType: FileType.sticker.rawValue)
                 break
             default:
                 break
@@ -290,7 +290,6 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
             if IGGlobal.isFileExist(path: file.localPath, fileSize: file.size) {
                 IGGlobal.removeFile(path: file.localPath)
                 IGAttachmentManager.sharedManager.variablesCache.removeObject(forKey: file.cacheID! as NSString)
-                IGFactory.shared.removeFileNameOnDisk(primaryKeyId: file.cacheID!)
             }
         }
     }

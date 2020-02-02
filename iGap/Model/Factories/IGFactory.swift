@@ -1496,43 +1496,11 @@ class IGFactory: NSObject {
             var newFile: IGFile!
 
             try! IGDatabaseManager.shared.realm.write {
-                newFile = IGFile.putOrUpdate(igpFile: igpFile, fileType: IGFile.FileType.sticker, filePathType: .sticker)
+                newFile = IGFile.putOrUpdate(igpFile: igpFile, fileType: FileType.sticker, filePathType: .sticker)
                 IGDatabaseManager.shared.realm.add(newFile)
             }
 
             completion(igpFile)
-        }
-    }
-
-    func removeFileNameOnDisk(primaryKeyId: String) {
-        IGDatabaseManager.shared.perfrmOnDatabaseThread {
-            try! IGDatabaseManager.shared.realm.write {
-                let predicate = NSPredicate(format: "cacheID = %@", primaryKeyId)
-                if let file = IGDatabaseManager.shared.realm.objects(IGFile.self).filter(predicate).first {
-                    file.fileNameOnDisk = nil
-                }
-            }
-        }
-    }
-
-    ///CHECK
-    func updateFileInDatabe(_ file: IGFile, with igpFile: IGPFile) {
-        IGDatabaseManager.shared.perfrmOnDatabaseThread {
-            try! IGDatabaseManager.shared.realm.write {
-                let newFile = IGFile.putOrUpdate(igpFile: igpFile, fileType: file.type)
-                newFile.fileNameOnDisk = file.fileNameOnDisk
-            }
-        }
-    }
-
-    func addNameOnDiskToFile(_ file: IGFile, name: String) {
-        IGDatabaseManager.shared.perfrmOnDatabaseThread {
-            let predicate = NSPredicate(format: "cacheID = %@", file.cacheID!)
-            if let fileInDb = IGDatabaseManager.shared.realm.objects(IGFile.self).filter(predicate).first {
-                try! IGDatabaseManager.shared.realm.write {
-                    fileInDb.fileNameOnDisk = name
-                }
-            }
         }
     }
 

@@ -262,13 +262,10 @@ class IGHelperGetShareData {
             scaledImage = IGUploadManager.compress(image: originalImage)
         }
         
-        let attachment = IGFile(name: filename)
-        attachment.size = fileSize
-        attachment.fileNameOnDisk = fileNameOnDisk
-        attachment.height = Double((scaledImage.size.height))
-        attachment.width = Double((scaledImage.size.width))
-        attachment.data = imgData
-        attachment.type = .image
+        let attachment = IGFile.makeFileInfo(name: filename,
+                                             size: fileSize,
+                                             type: .image, width: Double((scaledImage.size.width)),
+                                             height: Double((scaledImage.size.height)))
         
         DispatchQueue.main.async {
             self.saveAttachmentToLocalStorage(data: imgData!, fileNameOnDisk: fileNameOnDisk)
@@ -311,20 +308,15 @@ class IGHelperGetShareData {
         let asset = AVURLAsset(url: videoUrl)
         let imgGenerator = AVAssetImageGenerator(asset: asset)
         let cgImage = try! imgGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
-        let uiImage = UIImage(cgImage: cgImage)
         
-        let attachment = IGFile(name: filename)
-        attachment.size = fileSize
-        attachment.duration = asset.duration.seconds
-        attachment.fileNameOnDisk = randomString + filename
-        attachment.name = filename
-        attachment.type = .video
-        attachment.height = Double(cgImage.height)
-        attachment.width = Double(cgImage.width)
+        let attachment = IGFile.makeFileInfo(name: filename,
+                                             size: fileSize,
+                                             type: .video, width: Double(cgImage.width),
+                                             height: Double(cgImage.height),
+                                             duration: asset.duration.seconds)
         
-        let randomStringFinal = IGGlobal.randomString(length: 16) + "_"
-        let pathOnDiskFinal = documents + "/" + randomStringFinal + filename
-        try! FileManager.default.copyItem(atPath: videoUrl.path, toPath: pathOnDiskFinal)
+        /***** TODO - Write File Background *****/
+        try! FileManager.default.copyItem(atPath: videoUrl.path, toPath: attachment.localPath ?? "")
         
         return attachment
     }
@@ -355,18 +347,13 @@ class IGHelperGetShareData {
         
         let uiImage = UIImage.gifImageWithURL(gifUrl.absoluteString)
         
-        let attachment = IGFile(name: filename)
-        attachment.size = fileSize
-        attachment.fileNameOnDisk = randomString + filename
-        attachment.name = filename
-        attachment.type = .gif
-        attachment.height = Double((uiImage?.size.height)!)
-        attachment.width = Double((uiImage?.size.width)!)
+        let attachment = IGFile.makeFileInfo(name: filename,
+                                             size: fileSize,
+                                             type: .gif, width: Double((uiImage?.size.width)!),
+                                             height: Double((uiImage?.size.height)!))
         
-        let randomStringFinal = IGGlobal.randomString(length: 16) + "_"
-        let pathOnDiskFinal = documents + "/" + randomStringFinal + filename
-        try! FileManager.default.copyItem(atPath: gifUrl.path, toPath: pathOnDiskFinal)
-        
+        /***** TODO - Write File Background *****/
+        try! FileManager.default.copyItem(atPath: gifUrl.path, toPath: attachment.localPath ?? "")
         return attachment
     }
     
@@ -394,15 +381,9 @@ class IGHelperGetShareData {
         // write data to my fileUrl
         try! fileData.write(to: fileUrl)
         
-        let attachment = IGFile(name: filename)
-        attachment.size = fileSize
-        attachment.fileNameOnDisk = randomString + filename
-        attachment.name = filename
-        attachment.type = .file
+        let attachment = IGFile.makeFileInfo(name: filename, size: fileSize, type: .file)
         
-        let randomStringFinal = IGGlobal.randomString(length: 16) + "_"
-        let pathOnDiskFinal = documents + "/" + randomStringFinal + filename
-        try! FileManager.default.copyItem(atPath: fileUrl.path, toPath: pathOnDiskFinal)
+        try! FileManager.default.copyItem(atPath: fileUrl.path, toPath: attachment.localPath ?? "")
         
         return attachment
     }

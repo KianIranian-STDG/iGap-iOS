@@ -74,7 +74,7 @@ class IGDownloadManager {
         }
     }
     
-    func download(file: IGFile, previewType: IGFile.PreviewType, completion:DownloadCompleteHandler, failure:DownloadFailedHander) {
+    func download(file: IGFile, previewType: PreviewType, completion:DownloadCompleteHandler, failure:DownloadFailedHander) {
         
         guard let token = file.token else {
             return
@@ -103,7 +103,7 @@ class IGDownloadManager {
         }
     }
     
-    func downloadSticker(file: IGFile, previewType: IGFile.PreviewType, completion:DownloadCompleteHandler, failure:DownloadFailedHander) {
+    func downloadSticker(file: IGFile, previewType: PreviewType, completion:DownloadCompleteHandler, failure:DownloadFailedHander) {
         
         if !IGAppManager.sharedManager.isUserLoggiedIn() { // if isn't login don't start download
             return
@@ -254,7 +254,6 @@ class IGDownloadManager {
                     do {
                         let fileManager = FileManager.default
                         let content = try Data(contentsOf: url)
-                        ///CHECK - create file
                         fileManager.createFile(atPath: (downloadTask.file.localPath)!, contents: content, attributes: nil)
                         
                         IGAttachmentManager.sharedManager.setStatus(.ready, for: downloadTask.file)
@@ -341,8 +340,6 @@ class IGDownloadManager {
                 } else { // finished download
                     
                     IGAttachmentManager.sharedManager.setProgress(1.0, for: downloadTask.file)
-                    ///CHECK
-                    
                     IGAttachmentManager.sharedManager.setStatus(.ready, for: downloadTask.file)
                     
                     if let task = self.dictionaryDownloadTaskMain[downloadTask.file.token!] {
@@ -492,10 +489,10 @@ class IGDownloadTask {
     var progress: Double = 0.0
     var completionHandler: DownloadCompleteHandler
     var failureHandler: DownloadFailedHander
-    var type: IGFile.PreviewType
+    var type: PreviewType
     var state = State.pending
     
-    init(file: IGFile, previewType: IGFile.PreviewType, completion: DownloadCompleteHandler, failure: DownloadFailedHander) {
+    init(file: IGFile, previewType: PreviewType, completion: DownloadCompleteHandler, failure: DownloadFailedHander) {
         self.file = file.detach()
         self.file.data = Data()
         self.completionHandler = completion
