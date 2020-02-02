@@ -606,11 +606,19 @@ class IGProfileUserViewController: BaseViewController, UITableViewDelegate, UITa
     
     //MARK: -Convert to Group
     private func convertToGroup(){
+        
+        var roomInfo = self.room
+        if roomInfo == nil {
+            roomInfo = IGRoom.existRoomInLocal(userId: self.user?.id ?? -1)
+        }
+        
+        if roomInfo == nil {return}
+        
         let createGroup = IGCreateNewGroupTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
         let groupMembers: [IGRegisteredUser] = [user!, IGRegisteredUser.getUserInfo(id: IGAppManager.sharedManager.userID()!)!]
         createGroup.selectedUsersToCreateGroup = groupMembers
         createGroup.mode = .convertChatToGroup
-        createGroup.roomId = self.room!.id
+        createGroup.roomId = roomInfo?.id
         createGroup.hidesBottomBarWhenPushed = true
         self.navigationController!.pushViewController(createGroup, animated: true)
     }
