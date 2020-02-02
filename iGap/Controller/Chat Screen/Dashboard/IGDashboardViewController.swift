@@ -285,7 +285,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         if pageId == 0 ,let discovery = IGRealmDiscovery.getDiscoveryInfo() {
             self.discoveries = discovery.igpDiscoveries
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
+                self.collectionView?.reloadData()
             }
         }
         
