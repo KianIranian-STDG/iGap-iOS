@@ -145,7 +145,7 @@ class IGFileInfoRequest: IGRequest {
 //MARK: -
 class IGFileDownloadRequest: IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate(token: String, offset:Int64, maxChunkSize: Int32, type: PreviewType) -> IGRequestWrapper {
+        class func generate(token: String, offset:Int64, maxChunkSize: Int32, type: PreviewType, downloadTask: IGDownloadTask) -> IGRequestWrapper {
             var downloadRequestMessage = IGPFileDownload()
             downloadRequestMessage.igpToken = token
             downloadRequestMessage.igpOffset = offset
@@ -160,7 +160,7 @@ class IGFileDownloadRequest: IGRequest {
             case .waveformThumbnail:
                 downloadRequestMessage.igpSelector = .waveformThumbnail
             }
-            return IGRequestWrapper(message: downloadRequestMessage, actionID: 705, identity: token)
+            return IGRequestWrapper(message: downloadRequestMessage, actionID: 705, identity: downloadTask)
         }
     }
     

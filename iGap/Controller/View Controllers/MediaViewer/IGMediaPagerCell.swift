@@ -117,7 +117,7 @@ class IGMediaPagerCell: FSPagerViewCell {
         if finalAvatar != nil {
             imgMedia.setAvatar(avatar: attachment, type: .smallThumbnail)
         } else {
-            imgMedia.setThumbnail(for: attachment, showMain: true)
+            imgMedia.setThumbnail(for: attachment, ignoreSize: true)
         }
     }
     

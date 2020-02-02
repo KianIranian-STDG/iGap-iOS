@@ -316,7 +316,7 @@ class IGDownloadManager {
         
         downloadTask.state = .downloading
         
-        let downloadRequest = IGFileDownloadRequest.Generator.generate(token: downloadTask.file.token!, offset: offset, maxChunkSize: IGDownloadManager.defaultChunkSizeForDownload, type: downloadTask.type)
+        let downloadRequest = IGFileDownloadRequest.Generator.generate(token: downloadTask.file.token!, offset: offset, maxChunkSize: IGDownloadManager.defaultChunkSizeForDownload, type: downloadTask.type, downloadTask: downloadTask)
         downloadRequest.successPowerful { (responseProto, requestWrapper) in
 
             if let fileDownloadReponse = responseProto as? IGPFileDownloadResponse {
@@ -373,28 +373,24 @@ class IGDownloadManager {
     private func downloadProtoThumbnail(task downloadTask:IGDownloadTask) {
         
         downloadTask.state = .downloading
-        let downloadRequest = IGFileDownloadRequest.Generator.generate(token: downloadTask.file.token!, offset: Int64(downloadTask.file.data?.count ?? 0), maxChunkSize: IGDownloadManager.defaultChunkSizeForDownload,type: downloadTask.type)
         
-        downloadRequest.successPowerful { (responseProto, requestWrapper) in
-            
+        IGFileDownloadRequest.Generator.generate(token: downloadTask.file.token!, offset: Int64(downloadTask.file.data?.count ?? 0), maxChunkSize: IGDownloadManager.defaultChunkSizeForDownload,type: downloadTask.type, downloadTask: downloadTask).successPowerful { (responseProto, requestWrapper) in
             DispatchQueue.main.async {
-                
-                if let fileDownloadReponse = responseProto as? IGPFileDownloadResponse {
+                if let fileDownloadReponse = responseProto as? IGPFileDownloadResponse, let downloadTaskMain = requestWrapper.identity as? IGDownloadTask {
                     let data = IGFileDownloadRequest.Handler.interpret(response: fileDownloadReponse)
-                    downloadTask.file.data!.append(data)
+                    downloadTaskMain.file.data!.append(data)
                     
-                    if Int64(downloadTask.file.data!.count) != downloadTask.file.size {
-                        IGDownloadManager.sharedManager.downloadProtoThumbnail(task: downloadTask)
+                    if Int64(downloadTaskMain.file.data!.count) != downloadTaskMain.file.size {
+                        IGDownloadManager.sharedManager.downloadProtoThumbnail(task: downloadTaskMain)
                         
-                    } else { // finished download
-                        
-                        if let _ = IGAttachmentManager.sharedManager.saveDataToDisk(attachment: downloadTask.file) {
-                            IGAttachmentManager.sharedManager.setStatus(.ready, for: downloadTask.file)
-                            downloadTask.state = .finished
-                            if let success = downloadTask.completionHandler {
-                                success(downloadTask.file)
+                    } else { /*** finished download ***/
+                        if let _ = IGAttachmentManager.sharedManager.saveDataToDisk(attachment: downloadTaskMain.file) {
+                            IGAttachmentManager.sharedManager.setStatus(.ready, for: downloadTaskMain.file)
+                            downloadTaskMain.state = .finished
+                            if let success = downloadTaskMain.completionHandler {
+                                success(downloadTaskMain.file)
                             }
-                            switch downloadTask.type {
+                            switch downloadTaskMain.type {
                             case .originalFile:
                                 self.startNextDownloadTaskIfPossible()
                             case .smallThumbnail, .largeThumbnail, .waveformThumbnail:
@@ -404,16 +400,18 @@ class IGDownloadManager {
                     }
                 }
             }
-            }.error({ (errorCode, waitTime) in
-                IGAttachmentManager.sharedManager.setProgress(0.0, for: downloadTask.file)
-                IGAttachmentManager.sharedManager.setStatus(.readyToDownload, for: downloadTask.file)
-                switch downloadTask.type {
+        }.errorPowerful({ (errorCode, waitTime, requestWrapper) in
+            if let downloadTaskMain = requestWrapper.identity as? IGDownloadTask {
+                IGAttachmentManager.sharedManager.setProgress(0.0, for: downloadTaskMain.file)
+                IGAttachmentManager.sharedManager.setStatus(.readyToDownload, for: downloadTaskMain.file)
+                switch downloadTaskMain.type {
                 case .originalFile:
                     self.startNextDownloadTaskIfPossible()
                 case .smallThumbnail, .largeThumbnail, .waveformThumbnail:
                     self.startNextThumbnailTaskIfPossible()
                 }
-            }).send()
+            }
+        }).send()
     }
     
     private func fetchProgress(total: Int64, complete: Int64) -> Double{

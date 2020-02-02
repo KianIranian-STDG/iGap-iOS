@@ -1291,7 +1291,12 @@ extension AnimationView {
     }
 }
 extension UIImageView {
-    func setThumbnail(for attachment:IGFile, showMain: Bool = false) {
+    
+    /** show file preview and download thumbnail or main file if needed
+     - Parameter showMain: if set true main file will be downloaded automatically
+     - Parameter ignoreSize: if set true check size for show main file will be ignored and will be shown main file if has big size (for example appropriate for IGMediaPagerCell)
+     */
+    func setThumbnail(for attachment:IGFile, showMain: Bool = false, ignoreSize: Bool = false) {
         if !(attachment.isInvalidated) {
             if attachment.type == .voice {
                 self.image = UIImage(named:"IG_Message_Cell_Voice")
@@ -1340,7 +1345,7 @@ extension UIImageView {
                     showBestPreview = IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size)
                 }
                 
-                if fileSizeKB < MAX_IMAGE_SIZE && showBestPreview {
+                if (fileSizeKB < MAX_IMAGE_SIZE || ignoreSize) && showBestPreview {
                     self.sd_setImage(with: attachment.localUrl, completed: nil)
                 } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
                     
@@ -1367,7 +1372,7 @@ extension UIImageView {
                             throw NSError(domain: "image not exist", code: 1234, userInfo: nil)
                         }
                     } catch {
-                        imagesMap[attachment.token!] = self
+                        imagesMap[finalFile.token!] = self
                         IGDownloadManager.sharedManager.download(file: finalFile, previewType: fileType, completion: { (attachment) -> Void in
                             DispatchQueue.main.async {
                                 if let image = imagesMap[attachment.token!] {
