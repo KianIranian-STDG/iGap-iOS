@@ -10,6 +10,7 @@
 
 import AsyncDisplayKit
 import SwiftEventBus
+import IGProtoBuff
 
 @objc protocol ChatDelegate : AnyObject{
     
@@ -28,7 +29,7 @@ class BaseBubbleNode: ASCellNode {
     private let txtNameNode = ASTextNode()
     private let txtStatusNode = ASTextNode()
     private var subNode = ASDisplayNode()
-
+    
     private(set) var bubbleNode = ASCellNode()
     private var replyForwardViewNode = ASReplyForwardNode()
     
@@ -104,6 +105,10 @@ class BaseBubbleNode: ASCellNode {
             bubbleNode = IGContactNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         } else if message!.type == .sticker {
             bubbleNode = IGStrickerNormalNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
+        } else if message!.type == .wallet && message!.wallet?.type == 2  { //CardToCard
+            bubbleNode = IGCardToCardReceiptNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
+        }  else if message!.type == .wallet && message!.wallet?.type == 0  { //moneyTransfer
+            bubbleNode = IGMoneytransferReceiptNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         }
         
         
@@ -114,7 +119,7 @@ class BaseBubbleNode: ASCellNode {
             
         }
         
-        if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice || message!.type == .location || message!.type == .video || message!.type == .videoAndText || message!.type == .audio || message!.type == .contact || message!.type == .sticker {
+        if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice || message!.type == .location || message!.type == .video || message!.type == .videoAndText || message!.type == .audio || message!.type == .contact || message!.type == .sticker || message!.type == .wallet {
             if(isIncomming){
                 
                 avatarImageViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
@@ -140,10 +145,10 @@ class BaseBubbleNode: ASCellNode {
             if message?.type == .sticker {
                 addSubnode(subNode)
             }
-
+            
             addSubnode(bubbleImgNode)
             if finalRoomType == .group && isIncomming {
-               addSubnode(txtNameNode)
+                addSubnode(txtNameNode)
             }
             addSubnode(replyForwardViewNode)
             addSubnode(bubbleNode)
@@ -186,10 +191,11 @@ class BaseBubbleNode: ASCellNode {
         stack.direction = .vertical
         stack.style.flexShrink = 1.0
         stack.style.flexGrow = 1.0
+        stack.alignItems = .stretch
         stack.spacing = 5
         if finalRoomType == .group && isIncomming {
             if message?.type != .sticker || message?.type != .log || message?.type != .unread {
-
+                
                 stack.children?.append(txtNameNode)
                 
             }
@@ -209,6 +215,7 @@ class BaseBubbleNode: ASCellNode {
             stack.children?.append(bubbleNode)
         } else {
             stack.children?.append(bubbleNode)
+
         }
         
         
@@ -248,7 +255,7 @@ class BaseBubbleNode: ASCellNode {
                         horizon.verticalAlignment = .bottom
                         
                         verticalSpec.child = ASInsetLayoutSpec(
-                            insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 12 + textNodeVerticalOffset),child: horizon)
+                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 7),child: horizon)
                         
                     } else {
                         
@@ -259,7 +266,7 @@ class BaseBubbleNode: ASCellNode {
                         horizon.verticalAlignment = .bottom
                         
                         verticalSpec.child = ASInsetLayoutSpec(
-                            insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 12 + textNodeVerticalOffset),child: horizon)
+                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 7),child: horizon)
                         
                     }
                     
@@ -269,21 +276,21 @@ class BaseBubbleNode: ASCellNode {
                         
                         stack.children?.append(txtTimeNode)
                         verticalSpec.child = ASInsetLayoutSpec(
-                            insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 12 + textNodeVerticalOffset),child: stack)
+                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 7),child: stack)
                         
                     } else {
                         
                         if isIncomming {
                             stack.children?.append(txtTimeNode)
-                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8, left: 12 + textNodeVerticalOffset, bottom: 8, right: 12 + textNodeVerticalOffset),child: stack)
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 7),child: stack)
                             
                         } else {
                             let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
                             timeStatusStack.verticalAlignment = .center
-
+                            
                             stack.children?.append(timeStatusStack)
                             verticalSpec.child = ASInsetLayoutSpec(
-                                insets: UIEdgeInsets(top: 8,left: 12 + (isIncomming ? textNodeVerticalOffset : textNodeVerticalOffset),bottom: 8,right: 12 + textNodeVerticalOffset),child: stack)
+                                insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 7),child: stack)
                             
                         }
                         
@@ -315,8 +322,8 @@ class BaseBubbleNode: ASCellNode {
                 } else {
                     
                     if isIncomming {
-//                        stack.children?.append(txtTimeNode)
-//                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
+                        //                        stack.children?.append(txtTimeNode)
+                        //                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
                         
                         let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode])
                         
@@ -328,7 +335,7 @@ class BaseBubbleNode: ASCellNode {
                         
                         let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
                         timeStatusStack.verticalAlignment = .center
-
+                        
                         stack.children?.append(timeStatusStack)
                         verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 5,bottom: 8,right: 14),child: stack)
                         
@@ -363,7 +370,7 @@ class BaseBubbleNode: ASCellNode {
                         
                         let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
                         timeStatusStack.verticalAlignment = .center
-
+                        
                         stack.children?.append(timeStatusStack)
                         verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 5,bottom: 8,right: 14),child: stack)
                         
@@ -397,7 +404,7 @@ class BaseBubbleNode: ASCellNode {
                     } else {
                         let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
                         timeStatusStack.verticalAlignment = .center
-
+                        
                         stack.children?.append(timeStatusStack)
                         verticalSpec.child = ASInsetLayoutSpec(
                             insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 12 + textNodeVerticalOffset),child: stack)
@@ -407,6 +414,58 @@ class BaseBubbleNode: ASCellNode {
                 }
                 
             }
+            
+        }
+            /**************************************************************/
+            /************RECEIPT NODE**************/
+            /**************************************************************/
+            
+        else if let _ = bubbleNode as? IGCardToCardReceiptNode {
+            
+            
+            if (self.finalRoomType == .channel) {
+                
+                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 14),child: stack)
+            } else {
+                
+                if isIncomming {
+                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 14),child: stack)
+                    
+                } else {
+                    let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [])
+                    timeStatusStack.verticalAlignment = .center
+                    
+                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 8,bottom: 8,right: 14),child: stack)
+                    
+                }
+                
+            }
+            
+            
+            
+        }
+        else if let _ = bubbleNode as? IGMoneytransferReceiptNode {
+            
+            
+            if (self.finalRoomType == .channel) {
+                
+                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 14),child: stack)
+            } else {
+                
+                if isIncomming {
+                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 14),child: stack)
+                    
+                } else {
+                    let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [])
+                    timeStatusStack.verticalAlignment = .center
+                    
+                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 8,bottom: 8,right: 14),child: stack)
+                    
+                }
+                
+            }
+            
+            
             
         }
             
@@ -432,7 +491,7 @@ class BaseBubbleNode: ASCellNode {
                     } else {
                         let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
                         timeStatusStack.verticalAlignment = .center
-
+                        
                         stack.children?.append(timeStatusStack)
                         verticalSpec.child = ASInsetLayoutSpec(
                             insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 12 + textNodeVerticalOffset),child: stack)
@@ -469,7 +528,7 @@ class BaseBubbleNode: ASCellNode {
                         } else {
                             let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
                             timeStatusStack.verticalAlignment = .center
-
+                            
                             stack.children?.append(timeStatusStack)
                             verticalSpec.child = ASInsetLayoutSpec(
                                 insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 12 + textNodeVerticalOffset),child: stack)
@@ -506,7 +565,7 @@ class BaseBubbleNode: ASCellNode {
                     
                     let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
                     timeStatusStack.verticalAlignment = .center
-
+                    
                     stack.children?.append(timeStatusStack)
                     verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 5,bottom: 8,right: 14),child: stack)
                     
@@ -515,7 +574,7 @@ class BaseBubbleNode: ASCellNode {
             }
             
         }
-        /**************************************************************/
+            /**************************************************************/
             /************CONTACT NODE**************/
             /**************************************************************/
             
@@ -525,7 +584,7 @@ class BaseBubbleNode: ASCellNode {
                 
                 stack.children?.append(txtTimeNode)
                 verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
-
+                
             } else {
                 
                 if isIncomming {
@@ -536,7 +595,7 @@ class BaseBubbleNode: ASCellNode {
                     
                     let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
                     timeStatusStack.verticalAlignment = .center
-
+                    
                     stack.children?.append(timeStatusStack)
                     verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 5,bottom: 8,right: 14),child: stack)
                     
@@ -547,7 +606,7 @@ class BaseBubbleNode: ASCellNode {
             
             
         }
-
+            
             /**************************************************************/
             /************NORMAL STICKER NODE**************/
             /**************************************************************/
@@ -558,7 +617,7 @@ class BaseBubbleNode: ASCellNode {
                 
                 stack.children?.append(txtTimeNode)
                 verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
-
+                
             } else {
                 
                 if isIncomming {
@@ -585,7 +644,7 @@ class BaseBubbleNode: ASCellNode {
             
             
         }
-
+        
         
         //        space it
         let insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 5, bottom: 5, right: 4) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 5), child: verticalSpec)
@@ -631,7 +690,7 @@ class BaseBubbleNode: ASCellNode {
     }
 }
 
-    //MARK: - Gesture Recognizers
+//MARK: - Gesture Recognizers
 
 extension BaseBubbleNode: UIGestureRecognizerDelegate {
     
@@ -652,7 +711,7 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
                     replyForwardViewNode.isUserInteractionEnabled = true
                 }else {
                     replyForwardViewNode.isUserInteractionEnabled = false
-
+                    
                 }
             }
             
@@ -689,36 +748,36 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
                 }
             }
             
-//            if animationView != nil {
-//                let tap2 = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
-//                animationView?.addGestureRecognizer(tap2)
-//                if !(IGGlobal.shouldMultiSelect) {
-//                    animationView?.isUserInteractionEnabled = true
-//                }
-//                else {
-//                    animationView?.isUserInteractionEnabled = false
-//                }
-//            }
-//            if btnReturnToMessageAbs != nil {
-//                let tapReturnToMessage = UITapGestureRecognizer(target: self, action: #selector(didTapOnReturnToMessage(_:)))
-//                btnReturnToMessageAbs?.addGestureRecognizer(tapReturnToMessage)
-//            }
-//
-//            let statusGusture = UITapGestureRecognizer(target: self, action: #selector(didTapOnFailedStatus(_:)))
-//            txtStatusAbs?.addGestureRecognizer(statusGusture)
-//            txtStatusAbs?.isUserInteractionEnabled = true
-//
-//            let tap5 = UITapGestureRecognizer(target: self, action: #selector(didTapOnSenderAvatar(_:)))
-//            avatarViewAbs?.addGestureRecognizer(tap5)
-//
-//            let tapVoteUp = UITapGestureRecognizer(target: self, action: #selector(didTapOnVoteUp(_:)))
-//            txtVoteUpAbs?.addGestureRecognizer(tapVoteUp)
-//            txtVoteUpAbs?.isUserInteractionEnabled = true
-//
-//            let tapVoteDown = UITapGestureRecognizer(target: self, action: #selector(didTapOnVoteDown(_:)))
-//            txtVoteDownAbs?.addGestureRecognizer(tapVoteDown)
-//            txtVoteDownAbs?.isUserInteractionEnabled = true
-
+            //            if animationView != nil {
+            //                let tap2 = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
+            //                animationView?.addGestureRecognizer(tap2)
+            //                if !(IGGlobal.shouldMultiSelect) {
+            //                    animationView?.isUserInteractionEnabled = true
+            //                }
+            //                else {
+            //                    animationView?.isUserInteractionEnabled = false
+            //                }
+            //            }
+            //            if btnReturnToMessageAbs != nil {
+            //                let tapReturnToMessage = UITapGestureRecognizer(target: self, action: #selector(didTapOnReturnToMessage(_:)))
+            //                btnReturnToMessageAbs?.addGestureRecognizer(tapReturnToMessage)
+            //            }
+            //
+            //            let statusGusture = UITapGestureRecognizer(target: self, action: #selector(didTapOnFailedStatus(_:)))
+            //            txtStatusAbs?.addGestureRecognizer(statusGusture)
+            //            txtStatusAbs?.isUserInteractionEnabled = true
+            //
+            //            let tap5 = UITapGestureRecognizer(target: self, action: #selector(didTapOnSenderAvatar(_:)))
+            //            avatarViewAbs?.addGestureRecognizer(tap5)
+            //
+            //            let tapVoteUp = UITapGestureRecognizer(target: self, action: #selector(didTapOnVoteUp(_:)))
+            //            txtVoteUpAbs?.addGestureRecognizer(tapVoteUp)
+            //            txtVoteUpAbs?.isUserInteractionEnabled = true
+            //
+            //            let tapVoteDown = UITapGestureRecognizer(target: self, action: #selector(didTapOnVoteDown(_:)))
+            //            txtVoteDownAbs?.addGestureRecognizer(tapVoteDown)
+            //            txtVoteDownAbs?.isUserInteractionEnabled = true
+            
         }
     }
     
@@ -744,7 +803,7 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
     @objc func onMultiForwardTap(_ gestureRecognizer: UITapGestureRecognizer) {
         self.generalMessageDelegate?.didTapOnMultiForward(cellMessage: message!, isFromCloud: IGGlobal.isCloud(room: finalRoom))
     }
-
+    
     @objc func didTapOnAttachment(_ gestureRecognizer: UITapGestureRecognizer) {
         if !(IGGlobal.shouldMultiSelect) {
             self.generalMessageDelegate?.didTapOnAttachment(cellMessage: message!)
@@ -782,39 +841,39 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
         }
     }
     
-//    @objc func didTapOnVoteUp(_ gestureRecognizer: UITapGestureRecognizer) {
-//        var messageVote: IGRoomMessage! = message
-//        if let forward = message!.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
-//            messageVote = forward
-//        }
-//        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsUp)
-//    }
-//
-//    @objc func didTapOnVoteDown(_ gestureRecognizer: UITapGestureRecognizer) {
-//        var messageVote: IGRoomMessage! = message
-//        if let forward = message!.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
-//            messageVote = forward
-//        }
-//        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsDown)
-//    }
-//
-//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-//        return true
-//    }
-//
-//    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-//        if pan != nil {
-//            let direction = pan.direction(in: superview!)
-//            if direction.contains(.Left) {
-//                return abs((pan.velocity(in: pan.view)).x) > abs((pan.velocity(in: pan.view)).y)
-//            } else {
-//                return false
-//            }
-//        }
-//        else {
-//            return false
-//        }
-//    }
+    //    @objc func didTapOnVoteUp(_ gestureRecognizer: UITapGestureRecognizer) {
+    //        var messageVote: IGRoomMessage! = message
+    //        if let forward = message!.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
+    //            messageVote = forward
+    //        }
+    //        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsUp)
+    //    }
+    //
+    //    @objc func didTapOnVoteDown(_ gestureRecognizer: UITapGestureRecognizer) {
+    //        var messageVote: IGRoomMessage! = message
+    //        if let forward = message!.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
+    //            messageVote = forward
+    //        }
+    //        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsDown)
+    //    }
+    //
+    //    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    //        return true
+    //    }
+    //
+    //    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    //        if pan != nil {
+    //            let direction = pan.direction(in: superview!)
+    //            if direction.contains(.Left) {
+    //                return abs((pan.velocity(in: pan.view)).x) > abs((pan.velocity(in: pan.view)).y)
+    //            } else {
+    //                return false
+    //            }
+    //        }
+    //        else {
+    //            return false
+    //        }
+    //    }
     
     
     
@@ -826,17 +885,17 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
      */
     
     private func makeSwipeImage() {
-//        self.backgroundColor = UIColor.clear
-//        imgReply = UIImageView()
-//        imgReply.contentMode = .scaleAspectFit
-//        imgReply.image = UIImage(named: "ig_message_reply")
-//        imgReply.alpha = 0.5
+        //        self.backgroundColor = UIColor.clear
+        //        imgReply = UIImageView()
+        //        imgReply.contentMode = .scaleAspectFit
+        //        imgReply.image = UIImage(named: "ig_message_reply")
+        //        imgReply.alpha = 0.5
         
-//        addSubnode(imgNodeReply)
+        //        addSubnode(imgNodeReply)
         
         imgNodeReply.contentMode = .scaleAspectFit
         imgNodeReply.image = UIImage(named: "ig_message_reply")
-//        imgNodeReply.alpha = 0.5
+        //        imgNodeReply.alpha = 0.5
         
         
         if !(IGGlobal.shouldMultiSelect) {
@@ -856,8 +915,8 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
                 
                 if (pan.state == UIGestureRecognizer.State.changed) {
                     
-//                    self.insertSubview(imgReply, belowSubview: self.contentView)
-//                    insertSubnode(imgNodeReply, belowSubnode: self)
+                    //                    self.insertSubview(imgReply, belowSubview: self.contentView)
+                    //                    insertSubnode(imgNodeReply, belowSubnode: self)
                     
                     let p: CGPoint = pan.translation(in: view)
                     let width = self.view.frame.width
@@ -884,6 +943,14 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
         } else if pan.state == UIGestureRecognizer.State.changed {
             
             self.setNeedsLayout()
+            //            UIView.animate(withDuration: 0.2, animations: {[weak self] in
+            //                guard let sSelf = self else {
+            //                    return
+            //                }
+            //
+            //                let p: CGPoint = sSelf.pan.translation(in: sSelf.view)
+            //                sSelf.view.frame.origin.x = p.x
+            //            })
             
             if finalRoomType! != .channel {
                 UIView.animate(withDuration: 0.2, animations: {[weak self] in
@@ -947,7 +1014,7 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
             
             if direction.contains(.Left) {
                 switch message!.status {
-
+                    
                 case .failed, .unknown , .sending:
                     UIView.animate(withDuration: 0.2, animations: {
                         self.view.setNeedsLayout()
@@ -959,7 +1026,7 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
                         let tableView = view.superview!.superview!.superview as! UITableView
                         let indexPath = tableView.indexPathForRow(at: view.center)!
                         tableView.delegate?.tableView?(tableView, performAction: #selector(onSwipe(_:)), forRowAt: indexPath, withSender: nil)
-
+                        
                         UIView.animate(withDuration: 0.2, animations: {[weak self] in
                             guard let sSelf = self else {
                                 return
@@ -968,7 +1035,7 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
                             sSelf.generalMessageDelegate?.swipToReply(cellMessage: sSelf.message!)
                             sSelf.view.layoutIfNeeded()
                         })
-
+                        
                     } else {
                         UIView.animate(withDuration: 0.2, animations: {
                             self.view.setNeedsLayout()
@@ -977,7 +1044,7 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
                     }
                     break
                 }
-
+                
             } else if direction.contains(.Down) {
                 UIView.animate(withDuration: 0.2, animations: {
                     self.view.setNeedsLayout()

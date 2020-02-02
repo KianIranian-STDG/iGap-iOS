@@ -202,7 +202,7 @@ class IGGlobal {
 //        }
 //    }
     
-    
+
     /********************************************/
     /******************ASTEXT********************/
     internal static func makeText(for node: ASTextNode, with text: String, textColor: UIColor? = UIColor.lightGray,size: CGFloat? = 12,weight: UIFont.FontWeight = .regular,numberOfLines : UInt? = 1,font: fontPack,alignment: NSTextAlignment = .left) {
@@ -1317,6 +1317,7 @@ extension AnimationView {
         }
     }
 }
+
 extension ASNetworkImageNode {
     
     func setSticker(for attachment:IGFile) {

@@ -61,8 +61,18 @@ class IGRoomMessageWallet: Object {
     }
     
     func detach() -> IGRoomMessageWallet {
-        let detachedRoomMessageLocation = IGRoomMessageWallet(value: self)
-        return detachedRoomMessageLocation
+        let detachedRoomMessageWallet = IGRoomMessageWallet(value: self)
+        if self.moneyTrasfer != nil {
+            detachedRoomMessageWallet.moneyTrasfer = self.moneyTrasfer?.detach()
+        }
+        if self.payment != nil {
+            detachedRoomMessageWallet.payment = self.moneyTrasfer?.detach()
+        }
+        if self.cardToCard != nil {
+            detachedRoomMessageWallet.cardToCard = self.cardToCard?.detach()
+        }
+        
+        return detachedRoomMessageWallet
     }
 }
 
@@ -108,8 +118,8 @@ class IGRoomMessageMoneyTransfer: Object {
     }
     
     func detach() -> IGRoomMessageMoneyTransfer {
-        let detachedRoomMessageLocation = IGRoomMessageMoneyTransfer(value: self)
-        return detachedRoomMessageLocation
+        let detachedRoomMessageMoneyTransfer = IGRoomMessageMoneyTransfer(value: self)
+        return detachedRoomMessageMoneyTransfer
     }
 }
 
@@ -162,7 +172,7 @@ class IGRoomMessageCardToCard: Object {
     }
     
     func detach() -> IGRoomMessageCardToCard {
-        let detachedRoomMessageLocation = IGRoomMessageCardToCard(value: self)
-        return detachedRoomMessageLocation
+        let detachedRoomMessageCardToCard = IGRoomMessageCardToCard(value: self)
+        return detachedRoomMessageCardToCard
     }
 }

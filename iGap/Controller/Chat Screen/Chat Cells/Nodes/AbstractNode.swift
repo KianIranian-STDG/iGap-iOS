@@ -11,6 +11,7 @@
 
 import AsyncDisplayKit
 import SwiftEventBus
+import IGProtoBuff
 
 
 class AbstractNode: ASCellNode {
@@ -39,6 +40,7 @@ class AbstractNode: ASCellNode {
     var btnStateNode = ASButtonNode()
     //progress Node
     var indicatorViewAbs = IGProgressNode()
+    var btnShowMore = ASButtonNode()
 
 
     private var isTextMessageNode = false
@@ -65,8 +67,21 @@ class AbstractNode: ASCellNode {
             }
 
         } else {
+            
             if let msg = message.message {
-                setupMessageText(msg)
+                if message.type == .text {
+                    if let additionalData = message.additional?.data, message.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
+                            let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncomming || (self.finalRoom.type == .chat && !(self.finalRoom.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)) {
+                            if let msg = message.message?.replacingOccurrences(of: "⁣", with: "") { // replace with invisible character if exist
+                                setupMessageText(msg)
+                            }
+                            
+                        } else {
+                            setupMessageText(msg)
+                        }
+                } else {
+                    setupMessageText(msg)
+                }
             }
 
         }

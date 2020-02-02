@@ -140,6 +140,8 @@
 		8E8E505623E0012D0094A91C /* IGContactNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E505523E0012D0094A91C /* IGContactNode.swift */; };
 		8E8E505C23E05CB70094A91C /* IGStickerNormalNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E505B23E05CB70094A91C /* IGStickerNormalNode.swift */; };
 		8E8E505E23E54CA10094A91C /* IGLogNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E505D23E54CA10094A91C /* IGLogNode.swift */; };
+		8E8E506023E5BAAA0094A91C /* IGCardToCardReceiptNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E505F23E5BAA90094A91C /* IGCardToCardReceiptNode.swift */; };
+		8E8E506223E6DE770094A91C /* IGMoneytransferReceiptNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E506123E6DE770094A91C /* IGMoneytransferReceiptNode.swift */; };
 		8E91C64C2274887D00C36DAB /* SplashScreenPageOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E91C64B2274887D00C36DAB /* SplashScreenPageOneViewController.swift */; };
 		8E94B7382237E4A1005F6868 /* KeychainSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B72A2237E4A0005F6868 /* KeychainSwift.framework */; };
 		8E94B7392237E4A1005F6868 /* UICKeyChainStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B72B2237E4A0005F6868 /* UICKeyChainStore.framework */; };
@@ -1051,6 +1053,8 @@
 		8E8E505523E0012D0094A91C /* IGContactNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGContactNode.swift; sourceTree = "<group>"; };
 		8E8E505B23E05CB70094A91C /* IGStickerNormalNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStickerNormalNode.swift; sourceTree = "<group>"; };
 		8E8E505D23E54CA10094A91C /* IGLogNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGLogNode.swift; sourceTree = "<group>"; };
+		8E8E505F23E5BAA90094A91C /* IGCardToCardReceiptNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCardToCardReceiptNode.swift; sourceTree = "<group>"; };
+		8E8E506123E6DE770094A91C /* IGMoneytransferReceiptNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMoneytransferReceiptNode.swift; sourceTree = "<group>"; };
 		8E91C64B2274887D00C36DAB /* SplashScreenPageOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPageOneViewController.swift; sourceTree = "<group>"; };
 		8E94B7282237E49F005F6868 /* QRCodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCodeReader.framework; path = Carthage/Build/iOS/QRCodeReader.framework; sourceTree = "<group>"; };
 		8E94B72A2237E4A0005F6868 /* KeychainSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainSwift.framework; path = Carthage/Build/iOS/KeychainSwift.framework; sourceTree = "<group>"; };
@@ -2474,6 +2478,8 @@
 				8E8E505D23E54CA10094A91C /* IGLogNode.swift */,
 				D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */,
 				8E8E505523E0012D0094A91C /* IGContactNode.swift */,
+				8E8E506123E6DE770094A91C /* IGMoneytransferReceiptNode.swift */,
+				8E8E505F23E5BAA90094A91C /* IGCardToCardReceiptNode.swift */,
 				8E3360E323D7395D00CE766B /* NodeExtension.swift */,
 				D244EA6623DDC44C0071B00F /* IGProgressNode.swift */,
 				D250C6DD23DEB32D00B4860E /* IGLocationNode.swift */,
@@ -4414,6 +4420,7 @@
 				8EA8F3DE231F9E1D0099C4EF /* MBCircularProgressBarView.m in Sources */,
 				8E96A316225B74E2007D8A77 /* IGExtensions.swift in Sources */,
 				FA42EF091E5C224F00CF8A32 /* Animator.swift in Sources */,
+				8E8E506223E6DE770094A91C /* IGMoneytransferReceiptNode.swift in Sources */,
 				FAD580971DDC61DD00A242DE /* IGMessageCollectionView.swift in Sources */,
 				8EEB1FF822C1F6A100EFD2ED /* GetGiftPopupView.swift in Sources */,
 				8EC217B62259DCF400105B5A /* SMEntity.swift in Sources */,
@@ -4555,6 +4562,7 @@
 				FA03C19C2042945D008812E3 /* IGCall.swift in Sources */,
 				8E3360D523CF3FB100CE766B /* MessageBubbleImageProvider.swift in Sources */,
 				FAE07F042205A8B000BE3593 /* IGStickerSectionHeader.swift in Sources */,
+				8E8E506023E5BAAA0094A91C /* IGCardToCardReceiptNode.swift in Sources */,
 				FA0953521E1B97700043ED3F /* IGSettingChatFontSizeTableViewController.swift in Sources */,
 				8E1CD97A232D0ED1008D8758 /* inviteFreindsVC.swift in Sources */,
 				D67E986023A679AB003C1516 /* ImageZoomControllerSettings.swift in Sources */,

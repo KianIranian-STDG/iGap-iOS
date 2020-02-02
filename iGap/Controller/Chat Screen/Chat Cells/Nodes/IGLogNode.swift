@@ -72,6 +72,7 @@ class IGLogNode: ASCellNode {
         IGGlobal.makeText(for: self.txtLogMessage, with:time, textColor: .white, size: 15, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
         self.txtLogMessage.backgroundColor = UIColor.logBackground()
         self.txtLogMessage.layer.cornerRadius = 10.0
+        self.txtLogMessage.clipsToBounds = true
         let logSize = (time.width(withConstrainedHeight: 20, font: UIFont.igFont(ofSize: 16)))
         self.txtLogMessage.style.width =  ASDimensionMake(.points, logSize)
 
