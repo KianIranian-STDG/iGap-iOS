@@ -4530,8 +4530,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         IGMessageViewController.selectedMessageToForwardToThisRoom = nil
         
         self.messageTextView.text = message.message
-        //        messageTextView.placeholder = IGStringsManager.GlobalMessage.rawValue.localized
-
 
         let numLines = (messageTextView.contentSize.height / messageTextView.font!.lineHeight).rounded(.down)
         messageTextView.scrollRangeToVisible(messageTextView.selectedRange)

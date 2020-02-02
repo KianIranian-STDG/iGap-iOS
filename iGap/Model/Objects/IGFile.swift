@@ -14,7 +14,7 @@ import Files
 
 public class IGFile: Object {
     
-    @objc dynamic var primaryKeyId:       String?  ///TODO - use from id instead primaryKey (messagId) //if incomming { primaryKeyId = cacheId } else { primaryKeyId = rand}
+    //@objc dynamic var id: Int64 = -1; Note: add 'id' if need at the future
     @objc dynamic var cacheID:            String?
     @objc dynamic var token:              String?
     @objc dynamic var publicUrl:          String?
