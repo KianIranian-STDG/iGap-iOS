@@ -425,12 +425,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         weak var weakSelf = self
         myNavigationItem.rightViewContainer?.addAction {
             if weakSelf?.room?.type == .chat {
-                weakSelf?.selectedUserToSeeTheirInfo = (weakSelf?.room?.chatRoom?.peer)!
-                weakSelf?.openUserProfile()
+                if let user = weakSelf?.room?.chatRoom?.peer {
+                    weakSelf?.selectedUserToSeeTheirInfo = user
+                    weakSelf?.openUserProfile()
+                }
             }
             if weakSelf?.room?.type == .channel {
                 weakSelf?.selectedChannelToSeeTheirInfo = weakSelf?.room?.channelRoom
-                //self.performSegue(withIdentifier: "showChannelinfo", sender: self)
                 
                 let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
                 profile.selectedChannel = weakSelf?.selectedChannelToSeeTheirInfo
@@ -567,8 +568,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         myNavigationItem.centerViewContainer?.addAction ({
             if weakSelf?.room?.type == .chat {
-                weakSelf?.selectedUserToSeeTheirInfo = (weakSelf?.room?.chatRoom?.peer)!
-                weakSelf?.openUserProfile()
+                if let user = weakSelf?.room?.chatRoom?.peer {
+                    weakSelf?.selectedUserToSeeTheirInfo = user
+                    weakSelf?.openUserProfile()
+                }
             } else if weakSelf?.room?.type == .channel {
                 weakSelf?.selectedChannelToSeeTheirInfo = weakSelf?.room?.channelRoom
                 let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
@@ -1026,7 +1029,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    guard let messages = IGMessageViewController.messageIdsStatic[(self?.room?.id)!] else {
+                    guard let messages = IGMessageViewController.messageIdsStatic[self?.room?.id ?? -1] else {
                         return
                     }
                     if let indexOfMessage = messages.firstIndex(of: onMessageUpdateStatus.messageId) {
@@ -1048,7 +1051,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 
             } else if let onLocalMessageUpdateStatus = result?.object as? (action: ChatMessageAction, localMessage: IGRoomMessage), onLocalMessageUpdateStatus.action == ChatMessageAction.locallyUpdateStatus {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    if self?.room == nil || self?.room?.isInvalidated ?? false || IGMessageViewController.messageIdsStatic[(self?.room?.id)!] == nil || onLocalMessageUpdateStatus.localMessage.isInvalidated {
+                    if self?.room == nil || self?.room?.isInvalidated ?? false || IGMessageViewController.messageIdsStatic[self?.room?.id ?? -1] == nil || onLocalMessageUpdateStatus.localMessage.isInvalidated {
                         return
                     }
                     
