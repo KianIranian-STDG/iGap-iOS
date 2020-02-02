@@ -1,10 +1,13 @@
-//
-//  AbstractNode.swift
-//  iGap
-//
-//  Created by ahmad mohammadi on 1/23/20.
-//  Copyright © 2020 Kianiranian STDG -www.kianiranian.com. All rights reserved.
-//
+/*
+* This is the source code of iGap for iOS
+* It is licensed under GNU AGPL v3.0
+* You should have received a copy of the license in this archive (see LICENSE).
+* Copyright © 2017 , iGap - www.iGap.net
+* iGap Messenger | Free, Fast and Secure instant messaging application
+* The idea of the Kianiranian STDG - www.kianiranian.com
+* All rights reserved.
+*/
+
 
 import AsyncDisplayKit
 import SwiftEventBus
@@ -129,7 +132,7 @@ class AbstractNode: ASCellNode {
 
         if var attachment = message.attachment , !(attachment.isInvalidated) {
             if let attachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
-                attachment = attachmentVariableInCache.value
+                self.attachment = attachmentVariableInCache.value
             } else {
                 //self.attachment = attachment.detach()
                 //let attachmentRef = ThreadSafeReference(to: attachment)

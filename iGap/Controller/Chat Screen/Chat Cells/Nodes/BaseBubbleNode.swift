@@ -671,10 +671,10 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
                 bubbleNode.view.addGestureRecognizer(onFileClick)
                 
                 if !(IGGlobal.shouldMultiSelect) {
-                    (bubbleNode as! IGImageNode).imgNode.isUserInteractionEnabled = true
+                    (bubbleNode as! IGFileNode).imgNode.isUserInteractionEnabled = true
                 }
                 else {
-                    (bubbleNode as! IGImageNode).imgNode.isUserInteractionEnabled = false
+                    (bubbleNode as! IGFileNode).imgNode.isUserInteractionEnabled = false
                 }
             }
             
