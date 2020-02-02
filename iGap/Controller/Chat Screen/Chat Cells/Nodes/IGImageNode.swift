@@ -12,8 +12,6 @@ import AsyncDisplayKit
 
 class IGImageNode: AbstractNode {
     
-    
-    
     override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = false,finalRoomType : IGRoom.IGType,finalRoom: IGRoom) {
         super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode,finalRoomType : finalRoomType, finalRoom: finalRoom)
         setupView()
@@ -34,23 +32,25 @@ class IGImageNode: AbstractNode {
         }
         
         
-        addSubnode(indicatorViewAbs)
-        checkIndicatorState()
-
-        
-    }
-    func checkIndicatorState() {
-        if IGGlobal.isFileExist(path: message.attachment!.path(), fileSize: message.attachment!.size) {
-            indicatorViewAbs.isHidden = true
-            indicatorViewAbs.style.preferredSize = CGSize.zero
-            
-        } else {
-            indicatorViewAbs.isHidden = false
-            indicatorViewAbs.style.preferredSize = CGSize(width: 50, height: 50)
+        if message.attachment != nil {
+            addSubnode(indicatorViewAbs)
         }
+        
+        
+//        checkIndicatorState()
 
         
     }
+//    func checkIndicatorState() {
+//        if IGGlobal.isFileExist(path: message.attachment!.path(), fileSize: message.attachment!.size) {
+//            indicatorViewAbs.isHidden = true
+//            indicatorViewAbs.style.preferredSize = CGSize.zero
+//            
+//        } else {
+//            indicatorViewAbs.isHidden = false
+//            indicatorViewAbs.style.preferredSize = CGSize(width: 50, height: 50)
+//        }
+//    }
 
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

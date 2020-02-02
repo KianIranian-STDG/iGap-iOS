@@ -993,8 +993,22 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        
         return true
     }
-   
+    
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if pan != nil {
+            let direction = pan.direction(in: self.view)
+            if direction.contains(.Left)
+            {
+                return abs((pan.velocity(in: self.view)).x) > abs((pan.velocity(in: self.view)).y)
+            } else {
+                return true
+            }
+        }
+        else {
+            return true
+        }
+    }
+    
 }

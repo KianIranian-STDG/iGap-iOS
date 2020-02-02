@@ -70,6 +70,18 @@ class AbstractNode: ASCellNode {
             }
 
         }
+        
+        if message.attachment != nil {
+            if IGGlobal.isFileExist(path: message.attachment!.path(), fileSize: message.attachment!.size) {
+                indicatorViewAbs.isHidden = true
+                indicatorViewAbs.style.preferredSize = CGSize.zero
+                
+            } else {
+                indicatorViewAbs.isHidden = false
+                indicatorViewAbs.style.preferredSize = CGSize(width: 50, height: 50)
+            }
+        }
+        
         manageAttachment(file: message.attachment)
     }
     
