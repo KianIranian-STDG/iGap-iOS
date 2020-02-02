@@ -350,6 +350,7 @@ extension UIApplication {
 }
 
 extension Bundle {
+    private static var syncroniseQueue = DispatchQueue(label: "thread-safe-local-manager-obj", attributes: .concurrent) // use "async(flags: .barrier)" for "writes on data"  AND  use "sync" for "read and assign value"
     private static var savedLanguageNames: [String: String] = [:]
     
     private func languageName(for lang: String) -> String? {
@@ -385,28 +386,30 @@ extension Bundle {
     }
     
     @objc func mn_custom_localizedString(forKey key: String, value: String?, table tableName: String?) -> String {
-        if let customString = LocaleManager.customTranslation?(key) {
-            return customString
-        }
-        
-        /*
-         Trying to find lproj resource first in user preferred locale, then system-wide current locale, and finally "Base"
-         */
-        let bundle: Bundle
-        if let path = resourcePath(for: Locale._userPreferred) {
-            bundle = Bundle(path: path)!
-        } else if let path = resourcePath(for: Locale.current) {
-            bundle = Bundle(path: path)!
-        } else if let path = self.path(forResource: LocaleManager.base, ofType: "lproj") {
-            bundle = Bundle(path: path)!
-        } else {
-            if let value = value, !value.isEmpty {
-                return value
-            } else {
-                bundle = self
+        Bundle.syncroniseQueue.sync {
+            if let customString = LocaleManager.customTranslation?(key) {
+                return customString
             }
+            
+            /*
+             Trying to find lproj resource first in user preferred locale, then system-wide current locale, and finally "Base"
+             */
+            let bundle: Bundle
+            if let path = resourcePath(for: Locale._userPreferred) {
+                bundle = Bundle(path: path)!
+            } else if let path = resourcePath(for: Locale.current) {
+                bundle = Bundle(path: path)!
+            } else if let path = self.path(forResource: LocaleManager.base, ofType: "lproj") {
+                bundle = Bundle(path: path)!
+            } else {
+                if let value = value, !value.isEmpty {
+                    return value
+                } else {
+                    bundle = self
+                }
+            }
+            return bundle.mn_custom_localizedString(forKey: key, value: value, table: tableName)
         }
-        return bundle.mn_custom_localizedString(forKey: key, value: value, table: tableName)
     }
 }
 
