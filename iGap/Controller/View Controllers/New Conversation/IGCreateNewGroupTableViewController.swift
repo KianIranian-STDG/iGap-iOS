@@ -291,8 +291,17 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
                                     case let clientGetRoomResponse as IGPClientGetRoomResponse:
                                         let _ = IGChatConvertToGroupRequest.Handler.interpret(response: chatConvertToGroupResponse)
                                         IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
-                                        if self?.navigationController is IGNavigationController {
-                                            self?.navigationController?.popToRootViewController(animated: true)
+                                        if self?.groupAvatarImage.image != nil, self?.groupAvatarImage.image != self?.defualtImage {
+                                            IGHelperAvatar.shared.upload(roomId: clientGetRoomResponse.igpRoom.igpID, type: .group, file: self!.groupAvatarAttachment) { [weak self] (file) in
+                                                DispatchQueue.main.async {
+                                                    self?.dismissView(roomId: clientGetRoomResponse.igpRoom.igpID)
+                                                }
+                                            }
+                                        } else {
+                                            IGGlobal.prgHide()
+                                            DispatchQueue.main.async {
+                                                self?.dismissView(roomId: clientGetRoomResponse.igpRoom.igpID)
+                                            }
                                         }
                                     default:
                                         break

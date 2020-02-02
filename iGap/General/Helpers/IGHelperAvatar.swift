@@ -11,6 +11,7 @@
 import Crashlytics
 import IGProtoBuff
 import YPImagePicker
+import Files
 
 /** Global Class For Manage Avatar States, Like: Upload, Add Avatar, Delete Avatar*/
 class IGHelperAvatar {
@@ -196,13 +197,27 @@ class IGHelperAvatar {
         }
         let imgData = image.jpegData(compressionQuality: 0.7)
         
-        let avatar = IGFile.makeFileInfo(name: IGGlobal.randomString(length: 10),
+        let avatar = IGFile.makeFileInfo(name: photo.asset?.originalFilename ?? IGGlobal.randomString(length: 10) + ".png",
                                          size: Int64(imgData?.count ?? 0),
                                          type: .image,
                                          width: Double(image.size.width),
                                          height: Double(image.size.height),
                                          filePathType: .avatar)
         
+        self.saveAttachmentToLocalStorage(data: imgData!, localPath: avatar.localPath ?? "")
+        
         return avatar
+    }
+    
+    func saveAttachmentToLocalStorage(data: Data, localPath: String) {
+        do {
+            let nsurl = NSURL(fileURLWithPath: localPath)
+            if let url = nsurl as URL? {
+                let folder = try Folder(path: url.deletingLastPathComponent().path)
+                try folder.createFileIfNeeded(at: url.lastPathComponent, contents: data)
+            }
+        } catch let error {
+            print(error)
+        }
     }
 }
