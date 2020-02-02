@@ -70,7 +70,7 @@ class IGTextNode: AbstractNode {
         
     }
     
-    func makeBotNode(roomId: Int64, additionalArrayMain: [[IGStructAdditionalButton]], isKeyboard: Bool = false) -> ASLayoutSpec {
+    func makeBotNode(roomId: Int64?, additionalArrayMain: [[IGStructAdditionalButton]], isKeyboard: Bool = false) -> ASLayoutSpec {
         let buttonBoxV = ASStackLayoutSpec.vertical()
         buttonBoxV.justifyContent = .center
         buttonBoxV.style.flexShrink = 1.0
@@ -91,6 +91,11 @@ class IGTextNode: AbstractNode {
                     let view = ASDisplayNode()
                     let img = ASNetworkImageNode()
                     let button = ASButtonNode()
+                    if let roomID = roomId {
+                        button.accessibilityIdentifier = String(roomID) // set roomId as tag and when use try to tap on button use from this tag for post to the specific event
+
+                    }
+
                     button.style.flexShrink = 1.0
                     button.style.flexGrow = 1.0
                     button.style.height = ASDimensionMake(.points, 50)
@@ -98,7 +103,7 @@ class IGTextNode: AbstractNode {
                     button.contentVerticalAlignment = .center
                     button.contentHorizontalAlignment = .middle
                     button.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
-
+                    button.titleNode.textContainerInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
                     img.style.height = ASDimensionMake(.points, 30)
                     img.style.width = ASDimensionMake(.points, 30)
                     ASbuttonActionDic[button] = additionalButton
@@ -113,10 +118,33 @@ class IGTextNode: AbstractNode {
                         view.addSubnode(img)
                     }
                     if additionalButton.actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue {
-                        button.setTitle(IGStringsManager.CardToCard.rawValue.localized, with: .igFont(ofSize: 15), with: .white, for: .normal)
 
+                        let paragraphStyle = NSMutableParagraphStyle()
+                        paragraphStyle.alignment = .center
+                          paragraphStyle.lineBreakMode = .byWordWrapping
+                        button.titleNode.maximumNumberOfLines = 2
+
+                        let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
+                                                                          NSAttributedString.Key.font:UIFont.igFont(ofSize: 13),NSAttributedString.Key.paragraphStyle: paragraphStyle]
+
+                        
+                        let string = NSAttributedString(string: IGStringsManager.CardToCard.rawValue.localized, attributes: kAMMessageCellNodeContentTopTextAttributes)
+
+                        button.setAttributedTitle(string, for: .normal)
                     } else {
-                        button.setTitle(additionalButton.label, with: .igFont(ofSize: 15), with: .white, for: .normal)
+                        
+                        let paragraphStyle = NSMutableParagraphStyle()
+                        paragraphStyle.alignment = .center
+                          paragraphStyle.lineBreakMode = .byWordWrapping
+                        button.titleNode.maximumNumberOfLines = 2
+
+                        let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
+                                                                          NSAttributedString.Key.font:UIFont.igFont(ofSize: 13),NSAttributedString.Key.paragraphStyle: paragraphStyle]
+
+                        
+                        let string = NSAttributedString(string: additionalButton.label, attributes: kAMMessageCellNodeContentTopTextAttributes)
+
+                        button.setAttributedTitle(string, for: .normal)
                     }
 
                       buttonBoxH.children?.append(button)

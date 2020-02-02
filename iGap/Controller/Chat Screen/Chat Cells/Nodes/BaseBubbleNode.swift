@@ -276,13 +276,13 @@ class BaseBubbleNode: ASCellNode {
                         
                         stack.children?.append(txtTimeNode)
                         verticalSpec.child = ASInsetLayoutSpec(
-                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 7),child: stack)
+                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: stack)
                         
                     } else {
                         
                         if isIncomming {
                             stack.children?.append(txtTimeNode)
-                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 7),child: stack)
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: stack)
                             
                         } else {
                             let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
@@ -290,7 +290,7 @@ class BaseBubbleNode: ASCellNode {
                             
                             stack.children?.append(timeStatusStack)
                             verticalSpec.child = ASInsetLayoutSpec(
-                                insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 7),child: stack)
+                                insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: stack)
                             
                         }
                         
