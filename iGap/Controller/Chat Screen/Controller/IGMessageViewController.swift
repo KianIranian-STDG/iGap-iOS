@@ -5334,6 +5334,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
     func didTapOnAttachment(cellMessage: IGRoomMessage) {
         
+        print("=-=-=-=- Did Tap On Attachement Delegate Called")
+        
         UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions(rawValue: UInt(0.3)), animations: {
             self.view.layoutIfNeeded()
         }, completion: { (completed) in

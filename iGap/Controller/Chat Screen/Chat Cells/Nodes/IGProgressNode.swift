@@ -45,7 +45,8 @@ class IGProgressNode: ASDisplayNode {
         addSubnode(btnChangeState)
         btnChangeState.setAttributedTitle(NSAttributedString(string: "🎚", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font : UIFont.iGapFonticon(ofSize: 30)]), for: .normal)
 
-        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
+        self.view.addGestureRecognizer(tapGesture)
 
     }
     
@@ -119,6 +120,7 @@ class IGProgressNode: ASDisplayNode {
     
     
     @objc func didTapOnView() {
+        print("Did Tap On IGProgress Delegate")
         self.delegate?.downloadUploadIndicatorDidTap(self)
     }
     

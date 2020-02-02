@@ -884,14 +884,6 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
         } else if pan.state == UIGestureRecognizer.State.changed {
             
             self.setNeedsLayout()
-//            UIView.animate(withDuration: 0.2, animations: {[weak self] in
-//                guard let sSelf = self else {
-//                    return
-//                }
-//
-//                let p: CGPoint = sSelf.pan.translation(in: sSelf.view)
-//                sSelf.view.frame.origin.x = p.x
-//            })
             
             if finalRoomType! != .channel {
                 UIView.animate(withDuration: 0.2, animations: {[weak self] in
