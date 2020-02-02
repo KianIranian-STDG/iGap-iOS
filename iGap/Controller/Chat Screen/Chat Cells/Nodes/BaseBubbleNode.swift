@@ -245,7 +245,8 @@ class BaseBubbleNode: ASCellNode {
                 msg = forwardMessage.message
             }
             if let msgcount = msg {
-                if(msgcount.count <= 20){
+                
+                if(msgcount.count <= 20) && message!.additional?.data == nil  {
                     
                     if (self.finalRoomType == .channel) {
                         

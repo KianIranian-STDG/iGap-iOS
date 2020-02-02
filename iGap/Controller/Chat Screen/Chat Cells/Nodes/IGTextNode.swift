@@ -53,6 +53,7 @@ class IGTextNode: AbstractNode {
             bottom: 0,
             right: 0), child: msgTextNode)
         mainBoxV.children?.append(insetSpec)
+        //check if msg has additional data of type bot buttons
         if let additionalData = message.additional?.data, message.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
             let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncomming || (self.finalRoom.type == .chat && !(self.finalRoom.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)) {
  
@@ -62,6 +63,15 @@ class IGTextNode: AbstractNode {
             return mainBoxV
 
             
+        }
+        //check if msg has additional data of type CardToCard
+        else if let additionalData = message.additional?.data, message.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
+            let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncomming || (self.finalRoom.type == .chat && !(self.finalRoom.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
+            let buttonBox = makeBotNode(roomId: finalRoom.id, additionalArrayMain: additionalStruct)
+            mainBoxV.children?.append(buttonBox)
+
+            return mainBoxV
+
         } else {
             return mainBoxV
 

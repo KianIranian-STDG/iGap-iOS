@@ -725,8 +725,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         tableviewMessages = ASTableNode()
         //flips the tableview (and all cells) upside down
         tableviewMessages.view.transform = CGAffineTransform(scaleX: 1, y: -1)
-        
-        
+        tableviewMessages.view.separatorStyle = .none
+            
         tableviewMessages.delegate = self
         tableviewMessages.dataSource = self
         self.tableviewMessagesView.addSubnode(tableviewMessages)
@@ -5909,7 +5909,7 @@ extension IGMessageViewController {
                 arrayIndex.append(IndexPath(row: index, section: 0))
             }
 
-            self.tableviewMessages?.insertRows(at: arrayIndex, with: .automatic)
+            self.tableviewMessages?.insertRows(at: arrayIndex, with: .fade)
         }, completion: { _ in
             if !scrollToBottom {
                 self.tableviewMessages!.contentOffset = CGPoint(x: 0, y: self.tableviewMessages!.view.contentSize.height - bottomOffset)
@@ -5991,7 +5991,7 @@ extension IGMessageViewController {
                 arrayIndex.append(IndexPath(row: (messages!.count-count)+index, section: 0))
             }
 
-            self.tableviewMessages?.insertRows(at: arrayIndex,with: .automatic)
+            self.tableviewMessages?.insertRows(at: arrayIndex,with: .fade)
         }, completion: nil)
     }
     
@@ -6008,7 +6008,7 @@ extension IGMessageViewController {
         DispatchQueue.main.async {
             self.removeMessageArrayByPosition(cellPosition: cellPosition)
             self.tableviewMessages?.performBatchUpdates({
-                self.tableviewMessages?.deleteRows(at: [IndexPath(row: cellPosition!, section: 0)], with: .automatic)
+                self.tableviewMessages?.deleteRows(at: [IndexPath(row: cellPosition!, section: 0)], with: .fade)
             }, completion: nil)
         }
     }
@@ -6033,7 +6033,7 @@ extension IGMessageViewController {
         }
         
 //        self.collectionView.reloadItems(at: [IndexPath(row: cellPosition, section: 0)])
-        self.tableviewMessages.reloadRows(at: [IndexPath(row: cellPosition, section: 0)], with: .automatic)
+        self.tableviewMessages.reloadRows(at: [IndexPath(row: cellPosition, section: 0)], with: .fade)
     }
     
     /*********************************************************************************/
@@ -6067,7 +6067,7 @@ extension IGMessageViewController {
         IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.insert(message.id, at: cellPosition)
         
         self.tableviewMessages?.performBatchUpdates({
-            self.tableviewMessages?.insertRows(at: [IndexPath(row: cellPosition, section: 0)],with: .automatic)
+            self.tableviewMessages?.insertRows(at: [IndexPath(row: cellPosition, section: 0)],with: .fade)
 
         }, completion: nil)
     }
