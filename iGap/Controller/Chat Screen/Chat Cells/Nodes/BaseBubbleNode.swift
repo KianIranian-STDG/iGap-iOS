@@ -192,7 +192,7 @@ class BaseBubbleNode: ASCellNode {
         stack.style.flexShrink = 1.0
         stack.style.flexGrow = 1.0
         stack.alignItems = .stretch
-        stack.spacing = 5
+        stack.spacing = 10
         if finalRoomType == .group && isIncomming {
             if message?.type != .sticker || message?.type != .log || message?.type != .unread {
                 
@@ -255,7 +255,7 @@ class BaseBubbleNode: ASCellNode {
                         horizon.verticalAlignment = .bottom
                         
                         verticalSpec.child = ASInsetLayoutSpec(
-                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 7),child: horizon)
+                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: horizon)
                         
                     } else {
                         
@@ -266,7 +266,7 @@ class BaseBubbleNode: ASCellNode {
                         horizon.verticalAlignment = .bottom
                         
                         verticalSpec.child = ASInsetLayoutSpec(
-                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 7),child: horizon)
+                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: horizon)
                         
                     }
                     

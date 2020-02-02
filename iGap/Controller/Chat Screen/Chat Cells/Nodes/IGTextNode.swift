@@ -76,11 +76,13 @@ class IGTextNode: AbstractNode {
         buttonBoxV.style.flexShrink = 1.0
         buttonBoxV.style.flexGrow = 1.0
         buttonBoxV.alignItems = .stretch
+        buttonBoxV.spacing = 5
 
         for (index, row) in additionalArrayMain.enumerated() {
         
                   let buttonBoxH = ASStackLayoutSpec.horizontal()
                   buttonBoxH.justifyContent = .spaceAround
+                    buttonBoxH.spacing = 5
                     buttonBoxH.style.flexShrink = 1.0
                     buttonBoxH.style.flexGrow = 1.0
                     buttonBoxH.alignItems = .stretch
@@ -93,7 +95,8 @@ class IGTextNode: AbstractNode {
                     button.style.flexGrow = 1.0
                     button.style.height = ASDimensionMake(.points, 50)
                     button.layer.cornerRadius = 10
-           
+                    button.contentVerticalAlignment = .center
+                    button.contentHorizontalAlignment = .middle
                     button.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
 
                     img.style.height = ASDimensionMake(.points, 30)
