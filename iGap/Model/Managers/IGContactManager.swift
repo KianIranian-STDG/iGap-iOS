@@ -56,6 +56,7 @@ class IGContactManager: NSObject {
     private func savePhoneContactsToDatabase() {
         
         self.results = []
+        self.contactIndex = 0
         
         let keys = [CNContactGivenNameKey,
                     CNContactMiddleNameKey,
