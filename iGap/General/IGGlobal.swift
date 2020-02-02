@@ -1337,7 +1337,7 @@ extension UIImageView {
                      * currently check size for 256 KB
                      */
                     
-                    showBestPreview = IGGlobal.isFileExist(path: attachment.localPath)
+                    showBestPreview = IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size)
                 }
                 
                 if fileSizeKB < MAX_IMAGE_SIZE && showBestPreview {
