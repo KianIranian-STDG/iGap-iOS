@@ -69,7 +69,7 @@ class IGLogNode: ASCellNode {
         }
     }
     func setTime(_ time: String) {
-        IGGlobal.makeText(for: self.txtLogMessage, with:time, textColor: .white, size: 15, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: self.txtLogMessage, with:time, textColor: .white, size: 15, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
         self.txtLogMessage.backgroundColor = UIColor.logBackground()
         self.txtLogMessage.layer.cornerRadius = 10.0
         self.txtLogMessage.clipsToBounds = true
@@ -79,10 +79,10 @@ class IGLogNode: ASCellNode {
     }
     func setLogMessage(_ message: IGRoomMessage) {
         if message.log?.type == .pinnedMessage {
-            IGGlobal.makeText(for: self.txtLogMessage, with: IGRoomMessage.detectPinMessage(message: message), textColor: .white, size: 15, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: self.txtLogMessage, with: IGRoomMessage.detectPinMessage(message: message), textColor: .white, size: 15, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
 
         } else {
-            IGGlobal.makeText(for: self.txtLogMessage, with:IGRoomMessageLog.textForLogMessage(message), textColor: .white, size: 15, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: self.txtLogMessage, with:IGRoomMessageLog.textForLogMessage(message), textColor: .white, size: 15, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
 
 
         }
@@ -95,13 +95,13 @@ class IGLogNode: ASCellNode {
     
     func setUnknownMessage(){
         
-        IGGlobal.makeText(for: self.txtLogMessage, with: IGStringsManager.UnknownMessage.rawValue.localized, textColor: .white, size: 15, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: self.txtLogMessage, with: IGStringsManager.UnknownMessage.rawValue.localized, textColor: .white, size: 15, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
         self.bgTextNode.layer.cornerRadius = 10.0
         self.bgTextNode.backgroundColor = UIColor.logBackground()
     }
     
     func setUnreadMessage(_ message: IGRoomMessage){
-        IGGlobal.makeText(for: self.txtLogMessage, with: (message.message?.inLocalizedLanguage())!, textColor: .white, size: 15, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: self.txtLogMessage, with: (message.message?.inLocalizedLanguage())!, textColor: .white, size: 15, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
         self.bgTextNode.layer.cornerRadius = 0.0
         self.bgTextNode.backgroundColor = UIColor.unreadBackground()
     }

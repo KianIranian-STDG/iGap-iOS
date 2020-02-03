@@ -37,8 +37,8 @@ class IGFileNode: AbstractNode {
             self.imgAttachmentNode.layer.cornerRadius = 10
             self.txtAttachmentNode.style.preferredSize = CGSize.zero
             self.imgAttachmentNode.setThumbnail(for: message.attachment!)
-            IGGlobal.makeText(for: txtTitleNode , with: message.attachment!.name!, font: .igapFont)
-            IGGlobal.makeText(for: txtSizeNode , with: message.attachment!.sizeToString(), font: .igapFont)
+            IGGlobal.makeAsyncText(for: txtTitleNode , with: message.attachment!.name!, font: .igapFont)
+            IGGlobal.makeAsyncText(for: txtSizeNode , with: message.attachment!.sizeToString(), font: .igapFont)
 
         } else {
             self.imgAttachmentNode.style.preferredSize = CGSize.zero
@@ -46,8 +46,8 @@ class IGFileNode: AbstractNode {
             self.txtAttachmentNode.style.height = ASDimension(unit: .points, value: 50.0)
             self.txtAttachmentNode.setThumbnail(for: message.attachment!)
 
-            IGGlobal.makeText(for: txtTitleNode , with: message.attachment!.name!, font: .igapFont)
-            IGGlobal.makeText(for: txtSizeNode , with: message.attachment!.sizeToString(), font: .igapFont)
+            IGGlobal.makeAsyncText(for: txtTitleNode , with: message.attachment!.name!, font: .igapFont)
+            IGGlobal.makeAsyncText(for: txtSizeNode , with: message.attachment!.sizeToString(), font: .igapFont)
         }
 
         addSubnode(imgAttachmentNode)

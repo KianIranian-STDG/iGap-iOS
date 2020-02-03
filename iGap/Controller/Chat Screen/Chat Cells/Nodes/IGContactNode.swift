@@ -35,9 +35,9 @@ class IGContactNode: AbstractNode {
         
         txtCover.style.preferredSize = CGSize(width: 50, height: 50)
         txtCover.layer.cornerRadius = 25
-        IGGlobal.makeText(for: txtCover, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 50, numberOfLines: 1, font: IGGlobal.fontPack.fontIcon, alignment: .center)
-        IGGlobal.makeText(for: txtPhoneIcon, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 10, numberOfLines: 1, font: IGGlobal.fontPack.fontIcon, alignment: .center)
-        IGGlobal.makeText(for: txtEmailIcon, with: "🖂", textColor: ThemeManager.currentTheme.LabelColor, size: 10, numberOfLines: 1, font: IGGlobal.fontPack.fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtCover, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 50, numberOfLines: 1, font: IGGlobal.fontPack.fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtPhoneIcon, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 10, numberOfLines: 1, font: IGGlobal.fontPack.fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtEmailIcon, with: "🖂", textColor: ThemeManager.currentTheme.LabelColor, size: 10, numberOfLines: 1, font: IGGlobal.fontPack.fontIcon, alignment: .center)
         
         btnViewContact.setTitle(IGStringsManager.ViewContact.rawValue.localized, with: UIFont.igFont(ofSize: 14, weight: .bold), with: ThemeManager.currentTheme.LabelColor, for: .normal)
         btnViewContact.layer.cornerRadius = 10
@@ -71,15 +71,15 @@ class IGContactNode: AbstractNode {
             let firstName = contact.firstName == nil ? "" : contact.firstName! + " "
             let lastName = contact.lastName == nil ? "" : contact.lastName!
             let name = String(format: "%@%@", firstName, lastName)
-            IGGlobal.makeText(for: self.txtContactName, with: name, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+            IGGlobal.makeAsyncText(for: self.txtContactName, with: name, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
             if contact.phones.count == 1 {
                 let phoneNumber = contact.phones.first!.innerString
-                IGGlobal.makeText(for: self.txtPhoneNumbers, with: phoneNumber, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+                IGGlobal.makeAsyncText(for: self.txtPhoneNumbers, with: phoneNumber, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
 
             } else {
                 for phone in contact.phones {
                     let phoneNumber = (self.txtPhoneNumbers.attributedText?.string ?? "") + phone.innerString + "\n"
-                    IGGlobal.makeText(for: self.txtPhoneNumbers, with: phoneNumber, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+                    IGGlobal.makeAsyncText(for: self.txtPhoneNumbers, with: phoneNumber, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
                     
                 }
             }
@@ -88,12 +88,12 @@ class IGContactNode: AbstractNode {
             if self.hasEmail() {
                 if contact.emails.count == 1 {
                     let emailAdd = contact.emails.first!.innerString
-                    IGGlobal.makeText(for: self.txtEmails, with: emailAdd, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+                    IGGlobal.makeAsyncText(for: self.txtEmails, with: emailAdd, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
 
                 } else {
                     for email in contact.emails {
                         let emailAdd = (self.txtEmails.attributedText?.string ?? "") + email.innerString + "\n"
-                        IGGlobal.makeText(for: self.txtEmails, with: emailAdd, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+                        IGGlobal.makeAsyncText(for: self.txtEmails, with: emailAdd, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
                         
                     }
                 }

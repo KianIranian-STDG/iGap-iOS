@@ -113,7 +113,7 @@ class IGTextNode: AbstractNode {
                     button.contentVerticalAlignment = .center
                     button.contentHorizontalAlignment = .middle
                     button.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
-                    button.titleNode.textContainerInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+                    button.titleNode.textContainerInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
                     img.style.height = ASDimensionMake(.points, 30)
                     img.style.width = ASDimensionMake(.points, 30)
                     ASbuttonActionDic[button] = additionalButton
@@ -129,32 +129,12 @@ class IGTextNode: AbstractNode {
                     }
                     if additionalButton.actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue {
 
-                        let paragraphStyle = NSMutableParagraphStyle()
-                        paragraphStyle.alignment = .center
-                          paragraphStyle.lineBreakMode = .byWordWrapping
-                        button.titleNode.maximumNumberOfLines = 2
-
-                        let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
-                                                                          NSAttributedString.Key.font:UIFont.igFont(ofSize: 13),NSAttributedString.Key.paragraphStyle: paragraphStyle]
-
+                        IGGlobal.makeAsyncButton(for: button, with: IGStringsManager.CardToCard.rawValue.localized, textColor: .white, weight: .regular, font: .igapFont, alignment: .center)
                         
-                        let string = NSAttributedString(string: IGStringsManager.CardToCard.rawValue.localized, attributes: kAMMessageCellNodeContentTopTextAttributes)
-
-                        button.setAttributedTitle(string, for: .normal)
                     } else {
                         
-                        let paragraphStyle = NSMutableParagraphStyle()
-                        paragraphStyle.alignment = .center
-                          paragraphStyle.lineBreakMode = .byWordWrapping
-                        button.titleNode.maximumNumberOfLines = 2
+                        IGGlobal.makeAsyncButton(for: button, with: additionalButton.label, textColor: .white, weight: .regular, font: .igapFont, alignment: .center)
 
-                        let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
-                                                                          NSAttributedString.Key.font:UIFont.igFont(ofSize: 13),NSAttributedString.Key.paragraphStyle: paragraphStyle]
-
-                        
-                        let string = NSAttributedString(string: additionalButton.label, attributes: kAMMessageCellNodeContentTopTextAttributes)
-
-                        button.setAttributedTitle(string, for: .normal)
                     }
 
                       buttonBoxH.children?.append(button)

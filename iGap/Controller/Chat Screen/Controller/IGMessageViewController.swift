@@ -6289,7 +6289,7 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
 
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) { // TODO - when isWaiting for get from server return this method and don't do any action
-            
+            print("=======DIDSCROLL BY ME=========")
             if self.tableviewMessages.numberOfRows(inSection: 0) == 0 {
                 return
             }

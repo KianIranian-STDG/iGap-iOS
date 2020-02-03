@@ -31,7 +31,7 @@ class IGMusicNode: AbstractNode {
         imgDefaultCover.style.preferredSize = CGSize(width: 50, height: 50)
         imgDefaultCover.layer.cornerRadius = 25
         imgDefaultCover.image = UIImage(named: "igap_default_music")
-        IGGlobal.makeText(for: txtMusicArtist, with: "Siavash Ghomeishi", textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
+        IGGlobal.makeAsyncText(for: txtMusicArtist, with: "Siavash Ghomeishi", textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
 
         imgMusicAvatar.style.preferredSize = CGSize(width: 50, height: 50)
         imgMusicAvatar.layer.cornerRadius = 25
@@ -132,14 +132,14 @@ class IGMusicNode: AbstractNode {
                 avatarView.setThumbnail(for: file)
                 if message.attachment!.name!.contains(".mp3") {
                     let name = message.attachment!.name!.replacingOccurrences(of: ".mp3", with: "")
-                    IGGlobal.makeText(for: txtMusicName, with: name, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+                    IGGlobal.makeAsyncText(for: txtMusicName, with: name, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
 
 
                 } else {
-                    IGGlobal.makeText(for: txtMusicName, with: message.attachment!.name!, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+                    IGGlobal.makeAsyncText(for: txtMusicName, with: message.attachment!.name!, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
 
                 }
-                IGGlobal.makeText(for: txtMusicArtist, with: IGStringsManager.UnknownArtist.rawValue.localized, textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
+                IGGlobal.makeAsyncText(for: txtMusicArtist, with: IGStringsManager.UnknownArtist.rawValue.localized, textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
 
                 if let image = avatarView.image {
                     self.imgMusicAvatar.image = image

@@ -44,16 +44,78 @@ class BaseBubbleNode: ASCellNode {
     var pan: UIPanGestureRecognizer!
     var tapMulti: UITapGestureRecognizer!
     
+    private var currentSwipeToReplyTranslation: CGFloat = 0.0
+    private var swipeToReplyNode: ChatMessageSwipeToReplyNode?
+    private var swipeToReplyFeedback: HapticFeedback?
+
     override func didLoad() {
         super.didLoad()
         self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
         manageGestureRecognizers()
         if !(IGGlobal.shouldMultiSelect) {
-            makeSwipeImage()
-            swipePositionManager()
+//            makeSwipeImage()
+//            swipePositionManager()
+            makeSwipeToReply() // Telegram Func
+            
         }
     }
+    private func makeSwipeToReply() {// Telegram Func
+        let replyRecognizer = ChatSwipeToReplyRecognizer(target: self, action: #selector(self.swipeToReplyGesture(_:)))
+
+        self.view.addGestureRecognizer(replyRecognizer)
+
+    }
     
+    @objc func swipeToReplyGesture(_ recognizer: ChatSwipeToReplyRecognizer) {
+        switch recognizer.state {
+            case .began:
+                self.currentSwipeToReplyTranslation = 0.0
+                if self.swipeToReplyFeedback == nil {
+                    self.swipeToReplyFeedback = HapticFeedback()
+                    self.swipeToReplyFeedback?.prepareImpact()
+                }
+            case .changed:
+                var translation = recognizer.translation(in: self.view)
+                translation.x = max(-80.0, min(0.0, translation.x))
+                var animateReplyNodeIn = false
+                if (translation.x < -45.0) != (self.currentSwipeToReplyTranslation < -45.0) {
+                    if translation.x < -45.0, self.swipeToReplyNode == nil {
+                        self.swipeToReplyFeedback?.impact()
+
+                        let swipeToReplyNode = ChatMessageSwipeToReplyNode(fillColor: UIColor.black, strokeColor: UIColor.red, foregroundColor: .white)
+                        self.swipeToReplyNode = swipeToReplyNode
+                        self.insertSubnode(swipeToReplyNode, at: 0)
+                        animateReplyNodeIn = true
+                    }
+                }
+                self.currentSwipeToReplyTranslation = translation.x
+                var bounds = self.bounds
+                bounds.origin.x = -translation.x
+                self.bounds = bounds
+            
+                if let swipeToReplyNode = self.swipeToReplyNode {
+                    swipeToReplyNode.frame = CGRect(origin: CGPoint(x: bounds.size.width, y: round(33.0) / 2.0), size: CGSize(width: 33.0, height: 33.0))
+                    if animateReplyNodeIn {
+                    } else {
+                        swipeToReplyNode.alpha = min(1.0, abs(translation.x / 45.0))
+                    }
+                }
+            case .cancelled, .ended:
+                self.swipeToReplyFeedback = nil
+                
+                var bounds = self.bounds
+                bounds.origin.x = 0.0
+                self.bounds = bounds
+                if let swipeToReplyNode = self.swipeToReplyNode {
+                    self.swipeToReplyNode = nil
+                    swipeToReplyNode.removeFromSupernode()
+                }
+
+        default:
+                break
+        }
+    }
+
     init(message : IGRoomMessage, finalRoomType : IGRoom.IGType, finalRoom : IGRoom, isIncomming: Bool, bubbleImage: UIImage, isFromSameSender: Bool, shouldShowAvatar: Bool) {
         self.finalRoom = finalRoom
         self.finalRoomType = finalRoomType
@@ -73,49 +135,63 @@ class BaseBubbleNode: ASCellNode {
         if !(finalRoomType == .chat) {
             if let name = message!.authorUser?.userInfo {
                 txtNameNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
-                IGGlobal.makeText(for: txtNameNode, with: name.displayName, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont, alignment: .left)
+                IGGlobal.makeAsyncText(for: txtNameNode, with: name.displayName, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont, alignment: .left)
             } else {
                 txtNameNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
-                IGGlobal.makeText(for: txtNameNode, with: "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont, alignment: .left)
+                IGGlobal.makeAsyncText(for: txtNameNode, with: "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont, alignment: .left)
                 
             }
         }
         
         var msg = message
         
-        if let forMessage = message?.forwardedFrom { // if message contains Forward message pass forwarded message instead of original message
-            msg = forMessage
+        if let repliedMessage = message?.repliedTo {
+            msg = repliedMessage
+
+
+        } else if let forwardedFrom = message?.forwardedFrom {
+            msg = forwardedFrom
+
+            
+        } else {
+            msg = message
+            
         }
-        
-        if message!.type == .text {
+        var finalType : IGRoomMessageType = msg!.type
+
+        if finalType == .text {
             bubbleNode = IGTextNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
-        }else if message!.type == .image || message!.type == .imageAndText {
+        }else if finalType == .image || finalType == .imageAndText {
             bubbleNode = IGImageNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
-        }else if message!.type == .video || message!.type == .videoAndText {
+        }else if finalType == .video || finalType == .videoAndText {
             bubbleNode = IGVideoNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
-        }else if message!.type == .file || message!.type == .fileAndText {
+        }else if finalType == .file || finalType == .fileAndText {
             bubbleNode = IGFileNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
-        }else if message!.type == .voice {
+        }else if finalType == .voice {
             bubbleNode = IGVoiceNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
-        } else if message!.type == .location {
+        } else if finalType == .location {
             bubbleNode = IGLocationNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
-        } else if message!.type == .audio {
+        } else if finalType == .audio {
             bubbleNode = IGMusicNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
-        } else if message!.type == .contact {
+        } else if finalType == .contact {
             bubbleNode = IGContactNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
-        } else if message!.type == .sticker {
+        } else if finalType == .sticker {
             bubbleNode = IGStrickerNormalNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
-        } else if message!.type == .wallet && message!.wallet?.type == 2  { //CardToCard
+        } else if finalType == .wallet && msg!.wallet?.type == 2  { //CardToCard
             bubbleNode = IGCardToCardReceiptNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
-        }  else if message!.type == .wallet && message!.wallet?.type == 0  { //moneyTransfer
+        }  else if finalType == .wallet && msg!.wallet?.type == 0  { //moneyTransfer
             bubbleNode = IGMoneytransferReceiptNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         }
+
+
+        
+        
         
         
         
         if let time = message!.creationTime {
             txtTimeNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
-            IGGlobal.makeText(for: txtTimeNode, with: time.convertToHumanReadable(), textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: txtTimeNode, with: time.convertToHumanReadable(), textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont, alignment: .center)
             
         }
         
@@ -138,11 +214,11 @@ class BaseBubbleNode: ASCellNode {
                 avatarImageViewNode.style.preferredSize = CGSize.zero
                 avatarBtnViewNode.style.preferredSize = CGSize.zero
                 
-                IGGlobal.makeText(for: self.txtStatusNode, with: "", textColor: .lightGray, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                IGGlobal.makeAsyncText(for: self.txtStatusNode, with: "", textColor: .lightGray, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
                 
             }
             //Add SubNodes
-            if message?.type == .sticker {
+            if finalType == .sticker {
                 addSubnode(subNode)
             }
             
@@ -200,20 +276,27 @@ class BaseBubbleNode: ASCellNode {
                 
             }
         }
+        var layoutMsg = message
+
         //check if has reply or Forward
         if let repliedMessage = message?.repliedTo {
-            
+            layoutMsg = repliedMessage
             stack.children?.append(replyForwardViewNode)
-            replyForwardViewNode.setReplyForward(isReply: true, extraMessage : repliedMessage)
+            replyForwardViewNode.setReplyForward(isReply: true, extraMessage : layoutMsg!)
             
             stack.children?.append(bubbleNode)
         } else if let forwardedFrom = message?.forwardedFrom {
+            layoutMsg = forwardedFrom
+
             if message?.type != .sticker || message?.type != .log {
+                replyForwardViewNode.setReplyForward(isReply: false, extraMessage : layoutMsg!)
                 stack.children?.append(replyForwardViewNode)
-                replyForwardViewNode.setReplyForward(isReply: false, extraMessage : forwardedFrom)
+
             }
             stack.children?.append(bubbleNode)
         } else {
+            layoutMsg = message
+
             stack.children?.append(bubbleNode)
 
         }
@@ -390,7 +473,7 @@ class BaseBubbleNode: ASCellNode {
             
         else if let _ = bubbleNode as? IGFileNode {
             
-            if message!.attachment != nil{
+            if layoutMsg!.attachment != nil{
                 
                 if (self.finalRoomType == .channel) {
                     
@@ -886,24 +969,11 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
      */
     
     private func makeSwipeImage() {
-        //        self.backgroundColor = UIColor.clear
-        //        imgReply = UIImageView()
-        //        imgReply.contentMode = .scaleAspectFit
-        //        imgReply.image = UIImage(named: "ig_message_reply")
-        //        imgReply.alpha = 0.5
-        
-        //        addSubnode(imgNodeReply)
+
         
         imgNodeReply.contentMode = .scaleAspectFit
         imgNodeReply.image = UIImage(named: "ig_message_reply")
-        //        imgNodeReply.alpha = 0.5
-        
-        
-        if !(IGGlobal.shouldMultiSelect) {
-            pan = UIPanGestureRecognizer(target: self, action: #selector(onSwipe(_:)))
-            pan.delegate = self
-            view.addGestureRecognizer(pan)
-        }
+        imgNodeReply.alpha = 0.5
         
     }
     
@@ -942,7 +1012,7 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
         if pan.state == UIGestureRecognizer.State.began {
             
         } else if pan.state == UIGestureRecognizer.State.changed {
-            
+
             self.setNeedsLayout()
             //            UIView.animate(withDuration: 0.2, animations: {[weak self] in
             //                guard let sSelf = self else {
@@ -982,7 +1052,8 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
             }
             
         } else {
-            
+
+          
             let shouldReply = pan.translation(in: self.view).x < -minReplySwipeValue
             let direction = pan.direction(in: view.superview!)
             
@@ -1051,11 +1122,6 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
                     self.view.setNeedsLayout()
                     self.view.layoutIfNeeded()
                 })
-            } else {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.view.setNeedsLayout()
-                    self.view.layoutIfNeeded()
-                })
             }
         }
     }
@@ -1065,17 +1131,14 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
     }
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+
         if pan != nil {
-            let velocity = pan.velocity(in: pan.view)
-            
-            let rad = atan(velocity.y/velocity.x)
-            let degree = rad * 180 / .pi
-            
-            let th: CGFloat = 20.0
-            
-            if abs(degree) > th {
-                return true
-            }else {
+            let direction = pan.direction(in: self.view)
+            if direction.contains(.Left)
+            {
+                return abs((pan.velocity(in: self.view)).x) > abs((pan.velocity(in: self.view)).y)
+            }
+            else {
                 return true
             }
             

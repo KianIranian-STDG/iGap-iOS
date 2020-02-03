@@ -52,7 +52,7 @@ enum songMainState : Int {
     case ended = 0
     case playing = 1
     case paused = 2
-
+    
 }
 enum messageMainTopViewState : Int {
     case withPin = 0
@@ -106,7 +106,7 @@ class IGGlobal {
                 (44)
         }
     }
-
+    
     static var timeDic: [Int:Time] = [:]
     struct Time {
         var lastMillis: Int64 = 0
@@ -187,44 +187,79 @@ class IGGlobal {
     }
     /////SET LANGUAGE//////
     
-//    internal static func setLanguage() {
-//        if  lastLang == Language.persian.rawValue  {
-//            SMLangUtil.changeLanguage(newLang: .Persian)
-//            Language.language = Language.persian
-//
-//        } else if lastLang == Language.arabic.rawValue {
-//            SMLangUtil.changeLanguage(newLang: .Persian)
-//            Language.language = Language.arabic
-//
-//        } else {
-//            SMLangUtil.changeLanguage(newLang: .English)
-//            Language.language = Language.english
-//        }
-//    }
+    //    internal static func setLanguage() {
+    //        if  lastLang == Language.persian.rawValue  {
+    //            SMLangUtil.changeLanguage(newLang: .Persian)
+    //            Language.language = Language.persian
+    //
+    //        } else if lastLang == Language.arabic.rawValue {
+    //            SMLangUtil.changeLanguage(newLang: .Persian)
+    //            Language.language = Language.arabic
+    //
+    //        } else {
+    //            SMLangUtil.changeLanguage(newLang: .English)
+    //            Language.language = Language.english
+    //        }
+    //    }
     
-
+    
     /********************************************/
     /******************ASTEXT********************/
-    internal static func makeText(for node: ASTextNode, with text: String, textColor: UIColor? = UIColor.lightGray,size: CGFloat? = 12,weight: UIFont.FontWeight = .regular,numberOfLines : UInt? = 1,font: fontPack,alignment: NSTextAlignment = .left) {
+    internal static func makeAsyncText(for node: ASTextNode, with text: String, textColor: UIColor? = UIColor.lightGray,size: CGFloat? = 12,weight: UIFont.FontWeight = .regular,numberOfLines : UInt? = 1,font: fontPack,alignment: NSTextAlignment = .left) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = alignment
         paragraphStyle.lineBreakMode = .byWordWrapping
         node.maximumNumberOfLines = numberOfLines!
-
+        
+        
+        
         switch font {
-
+            
         case .fontIcon:
             let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: textColor,
-                                                                        NSAttributedString.Key.font:UIFont.iGapFonticon(ofSize: size!),NSAttributedString.Key.paragraphStyle: paragraphStyle]
-            node.attributedText = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes as [NSAttributedString.Key : Any])
+                                                              NSAttributedString.Key.font:UIFont.iGapFonticon(ofSize: size!),NSAttributedString.Key.paragraphStyle: paragraphStyle]
+            node.attributedText = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes)
+            
+        case .igapFont:
+            let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: textColor,
+                                                              NSAttributedString.Key.font:UIFont.igFont(ofSize: size!,weight: weight),NSAttributedString.Key.paragraphStyle: paragraphStyle]
+            node.attributedText = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes)
+            
+        default:
+            break
+        }
+        
+    }
+    
+    /********************************************/
+    /******************ASBUTTON********************/
+    //HINT: - best size for buttons is 12
+    
+    internal static func makeAsyncButton(for node: ASButtonNode, with text: String, textColor: UIColor? = UIColor.lightGray,size: CGFloat? = 12,weight: UIFont.FontWeight = .regular,font: fontPack,alignment: NSTextAlignment = .left) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = alignment
+        paragraphStyle.lineBreakMode = .byWordWrapping
+        node.titleNode.maximumNumberOfLines = 2
+        
+        
+        
+        switch font {
+            
+        case .fontIcon:
+            let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: textColor,
+                                                              NSAttributedString.Key.font:UIFont.iGapFonticon(ofSize: size!),NSAttributedString.Key.paragraphStyle: paragraphStyle]
+            let attString = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes)
+            node.setAttributedTitle(attString, for: .normal)
 
         case .igapFont:
             let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: textColor,
-                                                                        NSAttributedString.Key.font:UIFont.igFont(ofSize: size!,weight: weight),NSAttributedString.Key.paragraphStyle: paragraphStyle]
-            node.attributedText = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes as [NSAttributedString.Key : Any])
-
+                                                              NSAttributedString.Key.font:UIFont.igFont(ofSize: size!,weight: weight),NSAttributedString.Key.paragraphStyle: paragraphStyle]
+            let attString = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes)
+            node.setAttributedTitle(attString, for: .normal)
+        default:
+            break
         }
-
+        
     }
     
     public enum fontPack:Int {
@@ -232,8 +267,8 @@ class IGGlobal {
         case fontIcon            = 1 // UIFont.igapFontIcon
         case igapFont            = 2 //UIFont.igFont
     }
-
- 
+    
+    
     /**********************************************/
     /****************** Progress ******************/
     private static var progressHUD = MBProgressHUD()
@@ -259,7 +294,7 @@ class IGGlobal {
     
     /**********************************************/
     /******************** HASH ********************/
-
+    
     internal static func MD5(string: String) -> Data {
         let length = Int(CC_MD5_DIGEST_LENGTH)
         let messageData = string.data(using:.utf8)!
@@ -552,11 +587,11 @@ extension UIColor {
     func lighter(by percentage: CGFloat = 30.0) -> UIColor? {
         return self.adjust(by: abs(percentage) )
     }
-
+    
     func darker(by percentage: CGFloat = 30.0) -> UIColor? {
         return self.adjust(by: -1 * abs(percentage) )
     }
-
+    
     func adjust(by percentage: CGFloat = 30.0) -> UIColor? {
         var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
         if self.getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
@@ -643,7 +678,7 @@ extension UIColor {
     class func iGapPurple() -> UIColor {
         return UIColor(red: 167/255.0, green: 70/255.0, blue: 141/255.0, alpha: 0.9)
     }
-
+    
     class func iGapSubmitButtons() -> UIColor { // navigation bar color
         return UIColor(red:87/255.0, green:186/255.0, blue:38/255.0, alpha:1.0)
     }
@@ -924,12 +959,12 @@ extension UIColor {
     class func chatReplyToIndicatorViewColor(isIncommingMessage: Bool) -> UIColor {
         return ThemeManager.currentTheme.ReceiveMessageBubleBGColor
         /*
-        if isIncommingMessage {
-            return UIColor.replyBoxTitleIncomming()
-        } else {
-            return UIColor.replyBoxTitleOutgoign()
-        }
-        */
+         if isIncommingMessage {
+         return UIColor.replyBoxTitleIncomming()
+         } else {
+         return UIColor.replyBoxTitleOutgoign()
+         }
+         */
     }
     
     class func chatForwardToIndicatorViewColor(isIncommingMessage: Bool) -> UIColor {
@@ -987,7 +1022,7 @@ extension Date {
         let dateString = self.localizedDate(showHour: showHour)
         return dateString.inLocalizedLanguage()
     }
-
+    
     func completeHumanReadableTimeWithSec(showHour: Bool = false) -> String {
         let dayTimePeriodFormatter = DateFormatter()
         dayTimePeriodFormatter.dateFormat = "dd MMM YYYY - HH:mm:ss"
@@ -1161,49 +1196,49 @@ var ASimagesMap = Dictionary<String, ASNetworkImageNode>()
 var liveStickerMap = Dictionary<String, AnimationView>()
 extension UIImage {
     
-  func tintedWithLinearGradientColors(colorsArr: [CGColor]) -> UIImage {
-      UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale);
-      guard let context = UIGraphicsGetCurrentContext() else {
-          return UIImage()
-      }
-      context.translateBy(x: 0, y: self.size.height)
-      context.scaleBy(x: 1, y: -1)
-
-      context.setBlendMode(.normal)
-      let rect = CGRect.init(x: 0, y: 0, width: size.width, height: size.height)
-
-      // Create gradient
-      let colors = colorsArr as CFArray
-      let space = CGColorSpaceCreateDeviceRGB()
-      let gradient = CGGradient(colorsSpace: space, colors: colors, locations: nil)
-
-      // Apply gradient
-      context.clip(to: rect, mask: self.cgImage!)
-      context.drawLinearGradient(gradient!, start: CGPoint(x: 0, y: 0), end: CGPoint(x: 0, y: self.size.height), options: .drawsAfterEndLocation)
-      let gradientImage = UIGraphicsGetImageFromCurrentImageContext()
-      UIGraphicsEndImageContext()
-
-      return gradientImage!
-  }
-
+    func tintedWithLinearGradientColors(colorsArr: [CGColor]) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale);
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return UIImage()
+        }
+        context.translateBy(x: 0, y: self.size.height)
+        context.scaleBy(x: 1, y: -1)
+        
+        context.setBlendMode(.normal)
+        let rect = CGRect.init(x: 0, y: 0, width: size.width, height: size.height)
+        
+        // Create gradient
+        let colors = colorsArr as CFArray
+        let space = CGColorSpaceCreateDeviceRGB()
+        let gradient = CGGradient(colorsSpace: space, colors: colors, locations: nil)
+        
+        // Apply gradient
+        context.clip(to: rect, mask: self.cgImage!)
+        context.drawLinearGradient(gradient!, start: CGPoint(x: 0, y: 0), end: CGPoint(x: 0, y: self.size.height), options: .drawsAfterEndLocation)
+        let gradientImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return gradientImage!
+    }
+    
 }
 extension UIImage {
-
+    
     func maskWithColor(color: UIColor) -> UIImage? {
         let maskImage = cgImage!
-
+        
         let width = size.width
         let height = size.height
         let bounds = CGRect(x: 0, y: 0, width: width, height: height)
-
+        
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
         let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
-
+        
         context.clip(to: bounds, mask: maskImage)
         context.setFillColor(color.cgColor)
         context.fill(bounds)
-
+        
         if let cgImage = context.makeImage() {
             let coloredImage = UIImage(cgImage: cgImage)
             return coloredImage
@@ -1211,7 +1246,7 @@ extension UIImage {
             return nil
         }
     }
-
+    
 }
 //MARK: -
 extension UIView {
@@ -1265,7 +1300,7 @@ extension UIView {
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: viewsDictionary))
     }
-
+    
     
 }
 extension AnimationView {
@@ -1276,26 +1311,26 @@ extension AnimationView {
             if IGGlobal.isFileExist(path: path) {
                 let animation = Animation.filepath(path!.path, animationCache: LRUAnimationCache.sharedCache)
                 
-
+                
                 self.animation = animation
                 self.contentMode = .scaleAspectFit
                 self.backgroundBehavior = .pauseAndRestore
                 
-                        self.play(fromProgress: 0,
-                                           toProgress: 1,
-                                           loopMode: LottieLoopMode.loop,
-                                           completion: { (finished) in
-                                            if finished {
-                                              print("Animation Complete")
-                                                self.play(fromProgress: 0,
-                                                toProgress: 1,
-                                                loopMode: LottieLoopMode.loop)
-                                            } else {
-                                              print("Animation cancelled")
-                                            }
-                        })
-
-
+                self.play(fromProgress: 0,
+                          toProgress: 1,
+                          loopMode: LottieLoopMode.loop,
+                          completion: { (finished) in
+                            if finished {
+                                print("Animation Complete")
+                                self.play(fromProgress: 0,
+                                          toProgress: 1,
+                                          loopMode: LottieLoopMode.loop)
+                            } else {
+                                print("Animation cancelled")
+                            }
+                })
+                
+                
             } else {
                 throw NSError(domain: "asa", code: 1234, userInfo: nil)
             }
@@ -1318,13 +1353,13 @@ extension AnimationView {
 extension ASNetworkImageNode {
     
     func setSticker(for attachment:IGFile) {
-
+        
         do {
             let path = attachment.path()
             if IGGlobal.isFileExist(path: path) {
                 if let data = try? Data(contentsOf: path!) {
                     if let image = UIImage(data: data) {
-                            self.image = image
+                        self.image = image
                     }
                 }
             } else {
@@ -1366,21 +1401,21 @@ extension ASNetworkImageNode {
         }
         
         if IGGlobal.isFileExist(path: avatar.path(), fileSize: avatar.size) {
-//            self.sd_setImage(with: avatar.path(), completed: nil)
+            //            self.sd_setImage(with: avatar.path(), completed: nil)
             if let data = try? Data(contentsOf: avatar.path()!) {
                 if let image = UIImage(data: data) {
-                        self.image = image
+                    self.image = image
                 }
             }
         } else {
             if file != nil {
+
                 let path = file.path()
-                
                 if IGGlobal.isFileExist(path: path, fileSize: file.size) {
-//                    self.sd_setImage(with: path, completed: nil)
+                    //                    self.sd_setImage(with: path, completed: nil)
                     if let data = try? Data(contentsOf: path!) {
                         if let image = UIImage(data: data) {
-                                self.image = image
+                            self.image = image
                         }
                     }
                     
@@ -1415,120 +1450,120 @@ extension ASNetworkImageNode {
     }
     func setThumbnail(for attachment:IGFile, showMain: Bool = false) {
         if !(attachment.isInvalidated) {
- 
-                let MAX_IMAGE_SIZE = 256 // max size for show main image at view
-                
-                /* when fileNameOnDisk is added into the attachment just check file existance without check file size
-                 * because file size after upload is different with file size before upload
-                 * Hint: mabye change this kind of check for file existance change later
+            
+            let MAX_IMAGE_SIZE = 256 // max size for show main image at view
+            
+            /* when fileNameOnDisk is added into the attachment just check file existance without check file size
+             * because file size after upload is different with file size before upload
+             * Hint: mabye change this kind of check for file existance change later
+             */
+            let fileSizeKB = attachment.size/1024
+            var showBestPreview = true // show main image if has small size otherwise show large thumbnail, also for video show large thumnail always because video doesn't have original image
+            if attachment.type == .image {
+                /* for big images show largeThumbnail if exist, even main file was downloaded before.
+                 * currently check size for 256 KB
                  */
-                let fileSizeKB = attachment.size/1024
-                var showBestPreview = true // show main image if has small size otherwise show large thumbnail, also for video show large thumnail always because video doesn't have original image
-                if attachment.type == .image {
-                    /* for big images show largeThumbnail if exist, even main file was downloaded before.
-                     * currently check size for 256 KB
-                     */
-                    
-                    if attachment.fileNameOnDisk != nil {
-                        showBestPreview = IGGlobal.isFileExist(path: attachment.path())
-                    } else {
-                        showBestPreview = IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size)
+                
+                if attachment.fileNameOnDisk != nil {
+                    showBestPreview = IGGlobal.isFileExist(path: attachment.path())
+                } else {
+                    showBestPreview = IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size)
+                }
+            }
+            
+            if fileSizeKB < MAX_IMAGE_SIZE && showBestPreview {
+                if let data = try? Data(contentsOf: attachment.path()!) {
+                    if let image = UIImage(data: data) {
+                        self.image = image
                     }
                 }
                 
-                if fileSizeKB < MAX_IMAGE_SIZE && showBestPreview {
-                    if let data = try? Data(contentsOf: attachment.path()!) {
-                        if let image = UIImage(data: data) {
-                                self.image = image
+            } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
+                
+                var fileType: IGFile.PreviewType = .smallThumbnail
+                var finalFile: IGFile = attachment.smallThumbnail!
+                if showMain {
+                    fileType = .originalFile
+                    finalFile = attachment
+                } else if showBestPreview { // show large thumbnail for downloaded file if has big size
+                    fileType = .largeThumbnail
+                    finalFile = attachment.largeThumbnail!
+                }
+                
+                do {
+                    var path = URL(string: "")
+                    if attachment.attachedImage != nil {
+                        self.image = attachment.attachedImage
+                    } else {
+                        var image: UIImage?
+                        path = finalFile.path()
+                        if IGGlobal.isFileExist(path: path) {
+                            image = UIImage(contentsOfFile: path!.path)
                         }
-                    }
-
-                } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
-                    
-                    var fileType: IGFile.PreviewType = .smallThumbnail
-                    var finalFile: IGFile = attachment.smallThumbnail!
-                    if showMain {
-                        fileType = .originalFile
-                        finalFile = attachment
-                    } else if showBestPreview { // show large thumbnail for downloaded file if has big size
-                        fileType = .largeThumbnail
-                        finalFile = attachment.largeThumbnail!
-                    }
-                    
-                    do {
-                        var path = URL(string: "")
-                        if attachment.attachedImage != nil {
-                            self.image = attachment.attachedImage
+                        
+                        if image != nil {
+                            if let data = try? Data(contentsOf: path!) {
+                                if let image = UIImage(data: data) {
+                                    self.image = image
+                                }
+                            }
                         } else {
-                            var image: UIImage?
-                            path = finalFile.path()
-                            if IGGlobal.isFileExist(path: path) {
-                                image = UIImage(contentsOfFile: path!.path)
-                            }
-                            
-                            if image != nil {
-                                if let data = try? Data(contentsOf: path!) {
-                                         if let image = UIImage(data: data) {
-                                                 self.image = image
-                                         }
-                                     }
-                            } else {
-                                throw NSError(domain: "asa", code: 1234, userInfo: nil)
-                            }
+                            throw NSError(domain: "asa", code: 1234, userInfo: nil)
                         }
-                    } catch {
-
-                        DispatchQueue.main.async {
-                            ASimagesMap[attachment.token!] = self
-                            IGDownloadManager.sharedManager.download(file: finalFile, previewType: fileType, completion: { (attachment) -> Void in
-                                DispatchQueue.main.async {
-                                    if let imageMain = ASimagesMap[attachment.token!] {
-                                        let path = attachment.path()
-                                        //imageMain.sd_setImage(with: path)
-                                        DispatchQueue.global(qos:.userInteractive).async {
-                                            if let data = try? Data(contentsOf: path!) {
-                                                if let image = UIImage(data: data) {
-                                                    DispatchQueue.main.async {
-                                                        imageMain.image = image
-                                                    }
+                    }
+                } catch {
+                    
+                    DispatchQueue.main.async {
+                        ASimagesMap[attachment.token!] = self
+                        IGDownloadManager.sharedManager.download(file: finalFile, previewType: fileType, completion: { (attachment) -> Void in
+                            DispatchQueue.main.async {
+                                if let imageMain = ASimagesMap[attachment.token!] {
+                                    let path = attachment.path()
+                                    //imageMain.sd_setImage(with: path)
+                                    DispatchQueue.global(qos:.userInteractive).async {
+                                        if let data = try? Data(contentsOf: path!) {
+                                            if let image = UIImage(data: data) {
+                                                DispatchQueue.main.async {
+                                                    imageMain.image = image
                                                 }
                                             }
                                         }
                                     }
                                 }
-                            }, failure: {
-                                print("ERROR HAPPEND IN DOWNLOADNING AVATAR")
-                            })
-                            
-                        }
-                        
-                        
-                    }
-                } else {
-                    switch attachment.type {
-                    case .image:
-                        // when user is sender thumbnail is not exist, so need to show main image even size is bigger than 1024 Kb
-                        if IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) {
-                            if let data = try? Data(contentsOf: attachment.path()!) {
-                                if let image = UIImage(data: data) {
-                                        self.image = image
-                                }
                             }
-                        } else {
-                            self.image = nil
-                        }
-                        break
-                    case .gif:
-                        break
-                    case .video:
-                        break
-                    case .audio:
-//                        self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
-                        break
-                    default:
-                        break
+                        }, failure: {
+                            print("ERROR HAPPEND IN DOWNLOADNING AVATAR")
+                        })
+                        
                     }
+                    
+                    
                 }
+            } else {
+                switch attachment.type {
+                case .image:
+                    // when user is sender thumbnail is not exist, so need to show main image even size is bigger than 1024 Kb
+                    if IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) {
+                        if let data = try? Data(contentsOf: attachment.path()!) {
+                            if let image = UIImage(data: data) {
+                                self.image = image
+                            }
+                        }
+                    } else {
+                        self.image = nil
+                    }
+                    break
+                case .gif:
+                    break
+                case .video:
+                    break
+                case .audio:
+                    //                        self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
+                    break
+                default:
+                    break
+                }
+            }
             
         }
         else {
@@ -1542,8 +1577,8 @@ extension ASTextNode {
     func setThumbnail(for attachment: IGFile,showMain: Bool = false) {
         if !(attachment.isInvalidated) {
             let attribute = [NSAttributedString.Key.foregroundColor: UIColor.black,
-                                                              NSAttributedString.Key.font:UIFont.iGapFonticon(ofSize: 50)]
-
+                             NSAttributedString.Key.font:UIFont.iGapFonticon(ofSize: 50)]
+            
             if attachment.type == .voice {
                 self.attributedText = NSAttributedString(string: "", attributes: attribute)
                 
@@ -1703,9 +1738,9 @@ extension UIImageView {
             print("ATTACHMENT IS INVALIDATED")
         }
     }
-
+    
     func setSticker(for attachment:IGFile) {
-
+        
         do {
             let path = attachment.path()
             if IGGlobal.isFileExist(path: path) {
@@ -1832,7 +1867,7 @@ extension UIImage {
         
         return image!
     }
-
+    
     
     class func thumbnail(for attachment: IGFile) -> UIImage? {
         if let thumbnail = attachment.smallThumbnail {
@@ -1895,7 +1930,7 @@ extension UIImage {
         return gifImageWithData(imageData)
     }
     
-
+    
     
 }
 
@@ -2032,7 +2067,7 @@ extension UITextView {
             }
         }
     }
-
+    
 }
 extension String {
     var localizedDirection: NSTextAlignment {
@@ -2042,7 +2077,7 @@ extension String {
             return NSTextAlignment.left
         }
     }
-
+    
 }
 extension UILabel {
     
@@ -2182,26 +2217,26 @@ extension String {
     }
     
     
-//    var localized: String {
-//        if SMLangUtil.loadLanguage() == "fa" {
-//            IGGlobal.languageFileName = "localizationsFa"
-//        } else {
-//            IGGlobal.languageFileName = "localizationsEn"
-//        }
-//        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
-//
-//        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
-//        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
-//
-//        return MCLocalization.string(forKey: self) ?? "" //prevent crash if string coud not be fount
-//    }
+    //    var localized: String {
+    //        if SMLangUtil.loadLanguage() == "fa" {
+    //            IGGlobal.languageFileName = "localizationsFa"
+    //        } else {
+    //            IGGlobal.languageFileName = "localizationsEn"
+    //        }
+    //        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
+    //
+    //        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
+    //        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
+    //
+    //        return MCLocalization.string(forKey: self) ?? "" //prevent crash if string coud not be fount
+    //    }
     
     var Imagelocalized: String {
-         return NSLocalizedString(self, tableName: "ImageLocalizable", comment: "")
+        return NSLocalizedString(self, tableName: "ImageLocalizable", comment: "")
     }
     
     var Tablocalized: String {
-         return NSLocalizedString(self, tableName: "TabBarLocalizable", comment: "")
+        return NSLocalizedString(self, tableName: "TabBarLocalizable", comment: "")
     }
     
     var RecentTableViewlocalized: String {
@@ -2255,7 +2290,7 @@ extension String {
     }
     
     
-
+    
     func inRialFormat() -> String {
         
         let nf = NumberFormatter()
@@ -2577,7 +2612,7 @@ public extension UIDevice {
         let modelCode = withUnsafePointer(to: &systemInfo.machine) {
             $0.withMemoryRebound(to: CChar.self, capacity: 1) {
                 ptr in String.init(validatingUTF8: ptr)
-
+                
             }
         }
         var modelMap : [ String : Model ] = [
@@ -2648,8 +2683,8 @@ public extension UIDevice {
             "iPhone12,3" : .iPhone11Pro,
             "iPhone12,5" : .iPhone11ProMax
         ]
-
-    if let model = modelMap[String.init(validatingUTF8: modelCode!)!] {
+        
+        if let model = modelMap[String.init(validatingUTF8: modelCode!)!] {
             return model
         }
         return Model.unrecognized

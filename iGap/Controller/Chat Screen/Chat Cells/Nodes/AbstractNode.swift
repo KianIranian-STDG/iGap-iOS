@@ -100,7 +100,7 @@ class AbstractNode: ASCellNode {
                         setupMessageText(msg)
                     }
                 } else {
-                    setupMessageText(msg)
+                    
                 }
             }
             
@@ -124,7 +124,7 @@ class AbstractNode: ASCellNode {
         
         if message.linkInfo == nil {
             if isTextMessageNode {
-                IGGlobal.makeText(for: textNode, with: msg, textColor: .black, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.localizedDirection)
+                IGGlobal.makeAsyncText(for: textNode, with: msg, textColor: .black, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.localizedDirection)
                 
                 IGGlobal.makeText(for: textNode, with: msg, textColor: .black, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
 

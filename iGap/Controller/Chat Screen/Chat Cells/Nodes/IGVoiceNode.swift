@@ -30,7 +30,7 @@ class IGVoiceNode: AbstractNode {
         btnStateNode.layer.cornerRadius = 25
         
         //make current time text
-        IGGlobal.makeText(for: self.txtCurrentTimeNode, with: "00:00".inLocalizedLanguage(), textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont,alignment: .left)
+        IGGlobal.makeAsyncText(for: self.txtCurrentTimeNode, with: "00:00".inLocalizedLanguage(), textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont,alignment: .left)
         //        msgTextNode.isUserInteractionEnabled = true
         addSubnode(node)
         addSubnode(txtVoiceTimeNode)

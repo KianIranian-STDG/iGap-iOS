@@ -55,16 +55,16 @@ class IGMoneytransferReceiptNode: AbstractNode {
     override func setupView() {
         super.setupView()
         
-        IGGlobal.makeText(for: txtTypeIcon, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 40, numberOfLines: 1, font: .fontIcon, alignment: .center)
-        IGGlobal.makeText(for: txtTypeTitle, with: IGStringsManager.CardMoneyTransfer.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
+        IGGlobal.makeAsyncText(for: txtTypeIcon, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 40, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTypeTitle, with: IGStringsManager.CardMoneyTransfer.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
         if let amount = (message.wallet?.moneyTrasfer?.amount) {
             
-            IGGlobal.makeText(for: txtAmount, with: String(amount).inRialFormat() + " " + IGStringsManager.Currency.rawValue.localized
+            IGGlobal.makeAsyncText(for: txtAmount, with: String(amount).inRialFormat() + " " + IGStringsManager.Currency.rawValue.localized
            , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
         }
         else{
             
-           IGGlobal.makeText(for: txtAmount, with: "..." , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+           IGGlobal.makeAsyncText(for: txtAmount, with: "..." , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
         }
 
         viewSepratorOne.style.height = ASDimensionMake(.points, 0)
@@ -126,37 +126,37 @@ class IGMoneytransferReceiptNode: AbstractNode {
     
     func setData() {
         //TITLES SET DATA
-        IGGlobal.makeText(for: self.txtTTLDate, with: IGStringsManager.DateTime.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-        IGGlobal.makeText(for: self.txtTTLSenderName, with: IGStringsManager.From.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-        IGGlobal.makeText(for: self.txtTTLReciever, with: IGStringsManager.Reciever.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-        IGGlobal.makeText(for: self.txtTTLTraceNumber, with: IGStringsManager.TraceNumber.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-        IGGlobal.makeText(for: self.txtTTLRefrenceNumber, with: IGStringsManager.RefrenceNum.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-        IGGlobal.makeText(for: self.txtTTLDesc, with: IGStringsManager.Desc.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: self.txtTTLDate, with: IGStringsManager.DateTime.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: self.txtTTLSenderName, with: IGStringsManager.From.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: self.txtTTLReciever, with: IGStringsManager.Reciever.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: self.txtTTLTraceNumber, with: IGStringsManager.TraceNumber.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: self.txtTTLRefrenceNumber, with: IGStringsManager.RefrenceNum.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: self.txtTTLDesc, with: IGStringsManager.Desc.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
         //VALUES SET DATA
         if let time = TimeInterval(exactly: (message.wallet?.cardToCard!.requestTime)!) {
 
-            IGGlobal.makeText(for: self.txtVALUEDate, with: Date(timeIntervalSince1970: time).completeHumanReadableTime(showHour: true).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: self.txtVALUEDate, with: Date(timeIntervalSince1970: time).completeHumanReadableTime(showHour: true).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
 
         }
         if let senderUser = IGRegisteredUser.getUserInfo(id: (message.wallet?.moneyTrasfer!.fromUserId)!) {
-            IGGlobal.makeText(for: self.txtVALUESenderName, with: senderUser.displayName, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: self.txtVALUESenderName, with: senderUser.displayName, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
         }
         if let receiverUser = IGRegisteredUser.getUserInfo(id: (message.wallet?.moneyTrasfer!.toUserId)!) {
-            IGGlobal.makeText(for: self.txtVALUEReciever, with: receiverUser.displayName, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: self.txtVALUEReciever, with: receiverUser.displayName, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
         }
         if let traceNum = (message.wallet?.moneyTrasfer!.traceNumber) {
-            IGGlobal.makeText(for: self.txtVALUETraceNumber, with: String(traceNum).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: self.txtVALUETraceNumber, with: String(traceNum).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
 
         }
         if let invoiceNum = (message.wallet?.moneyTrasfer!.invoiceNumber) {
-            IGGlobal.makeText(for: self.txtVALUETraceNumber, with: String(invoiceNum).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: self.txtVALUETraceNumber, with: String(invoiceNum).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
 
         }
         if (message.wallet?.moneyTrasfer!.walletDescription)!.isEmpty  || (message.wallet?.moneyTrasfer!.walletDescription) == nil || (message.wallet?.moneyTrasfer!.description) == ""{
-            IGGlobal.makeText(for: self.txtVALUETraceNumber, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: self.txtVALUETraceNumber, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
 
         } else {
-            IGGlobal.makeText(for: self.txtVALUETraceNumber, with: ((message.wallet?.moneyTrasfer!.walletDescription)!), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: self.txtVALUETraceNumber, with: ((message.wallet?.moneyTrasfer!.walletDescription)!), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
 
         }
 

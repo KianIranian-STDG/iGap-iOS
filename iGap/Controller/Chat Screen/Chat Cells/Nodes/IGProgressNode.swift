@@ -69,7 +69,7 @@ class IGProgressNode: ASDisplayNode {
     
     func setPercentage(percent: Int) {
         
-        IGGlobal.makeText(for: txtNodePercent, with: "\(percent)%", textColor: .white, size: 30, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtNodePercent, with: "\(percent)%", textColor: .white, size: 30, numberOfLines: 1, font: .igapFont, alignment: .center)
         
     }
     

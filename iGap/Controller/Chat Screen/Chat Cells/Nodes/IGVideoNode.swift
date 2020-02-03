@@ -29,7 +29,7 @@ class IGVideoNode: AbstractNode {
         
         addSubnode(imgNode)
         
-        IGGlobal.makeText(for: playTxtNode, with: "", textColor: .white, size: 55, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: playTxtNode, with: "", textColor: .white, size: 55, numberOfLines: 1, font: .fontIcon, alignment: .center)
         
         playTxtNode.cornerRadius = 27.5
         playTxtNode.clipsToBounds = true
@@ -37,8 +37,8 @@ class IGVideoNode: AbstractNode {
 
         let time : String! = IGAttachmentManager.sharedManager.convertFileTime(seconds: Int((message.attachment?.duration)!))
         
-        IGGlobal.makeText(for: timeTxtNode, with: time, textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
-        IGGlobal.makeText(for: timeTxtNode, with: " " + "(\(IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: (message.attachment?.size)!)))" + " ", textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: timeTxtNode, with: time, textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: timeTxtNode, with: " " + "(\(IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: (message.attachment?.size)!)))" + " ", textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
         
         timeTxtNode.layer.cornerRadius = 10
         timeTxtNode.clipsToBounds = true
