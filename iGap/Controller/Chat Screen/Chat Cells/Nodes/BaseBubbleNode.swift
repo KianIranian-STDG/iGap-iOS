@@ -1066,16 +1066,24 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if pan != nil {
-            let direction = pan.direction(in: self.view)
-            if direction.contains(.Left)
-            {
-                return abs((pan.velocity(in: self.view)).x) > abs((pan.velocity(in: self.view)).y)
-            } else {
+            let velocity = pan.velocity(in: pan.view)
+            
+            let rad = atan(velocity.y/velocity.x)
+            let degree = rad * 180 / .pi
+            
+            let th: CGFloat = 20.0
+            
+            if abs(degree) > th {
+                return true
+            }else {
                 return true
             }
+            
+            
         }
         else {
             return true
+            
         }
     }
     

@@ -206,30 +206,27 @@ class IGGlobal {
     /********************************************/
     /******************ASTEXT********************/
     internal static func makeText(for node: ASTextNode, with text: String, textColor: UIColor? = UIColor.lightGray,size: CGFloat? = 12,weight: UIFont.FontWeight = .regular,numberOfLines : UInt? = 1,font: fontPack,alignment: NSTextAlignment = .left) {
-          let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.alignment = alignment
-            paragraphStyle.lineBreakMode = .byWordWrapping
-          node.maximumNumberOfLines = numberOfLines!
-
-        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = alignment
+        paragraphStyle.lineBreakMode = .byWordWrapping
+        node.maximumNumberOfLines = numberOfLines!
 
         switch font {
 
         case .fontIcon:
-                      let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: textColor,
+            let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: textColor,
                                                                         NSAttributedString.Key.font:UIFont.iGapFonticon(ofSize: size!),NSAttributedString.Key.paragraphStyle: paragraphStyle]
-            node.attributedText = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes)
+            node.attributedText = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes as [NSAttributedString.Key : Any])
 
         case .igapFont:
-                      let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: textColor,
+            let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: textColor,
                                                                         NSAttributedString.Key.font:UIFont.igFont(ofSize: size!,weight: weight),NSAttributedString.Key.paragraphStyle: paragraphStyle]
-            node.attributedText = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes)
+            node.attributedText = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes as [NSAttributedString.Key : Any])
 
-        default:
-            break
         }
 
     }
+    
     public enum fontPack:Int {
         
         case fontIcon            = 1 // UIFont.igapFontIcon

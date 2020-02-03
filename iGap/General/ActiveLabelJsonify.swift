@@ -16,6 +16,9 @@ class ActiveLabelJsonify {
         let lbl = ActiveLabel(frame: .zero)
         lbl.text = text
         var itemHolder = ActiveItemsHolder(items: [ActiveLabelItem]())
+        if lbl.activeElements.count == 0 {
+            return nil
+        }
         for (keyy, value) in lbl.activeElements {
             var key = keyy
             if (value.count != 0){

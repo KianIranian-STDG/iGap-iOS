@@ -126,9 +126,11 @@ class AbstractNode: ASCellNode {
             if isTextMessageNode {
                 IGGlobal.makeText(for: textNode, with: msg, textColor: .black, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.localizedDirection)
                 
+                IGGlobal.makeText(for: textNode, with: msg, textColor: .black, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+
             } else {
-                IGGlobal.makeText(for: msgTextNode, with: msg, textColor: .black, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.localizedDirection)
-                
+                IGGlobal.makeText(for: msgTextNode, with: msg, textColor: .black, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+
             }
             return
         }
@@ -272,7 +274,14 @@ extension AbstractNode: ASTextNodeDelegate {
     
     func addLinkDetection(text: String, activeItems: [ActiveLabelItem]) -> NSAttributedString {
         
-        let attributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black, NSAttributedString.Key.font: UIFont.igFont(ofSize: fontDefaultSize)])
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = text.isRTL() ? .right : .left
+        paragraphStyle.lineBreakMode = .byWordWrapping
+        
+        let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black,
+                                                                    NSAttributedString.Key.font:UIFont.igFont(ofSize: 12),NSAttributedString.Key.paragraphStyle: paragraphStyle]
+        let attributedString = NSMutableAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes as [NSAttributedString.Key : Any])
+        
         
         for itm in activeItems {
             let st = NSMutableParagraphStyle()
