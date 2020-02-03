@@ -82,7 +82,7 @@ class IGGlobal {
     static var themeMode : themeMode.RawValue = 2
     static var isPopView : Bool = false
     static var dispoasDic: [Int64:Disposable] = [:]
-    static var dispoasDicString: [String:Disposable] = [:]
+    static let syncroniseDisposDicQueue = DispatchQueue(label: "thread-safe-dispose-obj", attributes: .concurrent) /*** use "async(flags: .barrier)" for "writes on data"  AND  use "sync" for "read and assign value" **/
     static var carpinoAgreement : Bool = false
     static var barSpace : Int = 50
     static var chartIGPPollFields: [IGPPollField]! = []

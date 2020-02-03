@@ -12,7 +12,7 @@
 import AsyncDisplayKit
 import SwiftEventBus
 import IGProtoBuff
-
+import RxSwift
 
 class AbstractNode: ASCellNode {
     
@@ -195,16 +195,22 @@ class AbstractNode: ASCellNode {
             if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
                 attachment = variableInCache.value
                 
-                if let disposable = IGGlobal.dispoasDic[self.message.id] {
-                    IGGlobal.dispoasDic.removeValue(forKey: self.message.id)
-                    disposable.dispose()
+                IGGlobal.syncroniseDisposDicQueue.sync(flags: .barrier) {
+                    if let disposable = IGGlobal.dispoasDic[self.message.id] {
+                        IGGlobal.dispoasDic.removeValue(forKey: self.message.id)
+                        disposable.dispose()
+                    }
                 }
+                
                 let subscriber = variableInCache.asObservable().subscribe({ (event) in
                     DispatchQueue.main.async {
                         self.updateAttachmentDownloadUploadIndicatorView()
                     }
                 })
-                IGGlobal.dispoasDic[self.message.id] = subscriber
+                  
+                IGGlobal.syncroniseDisposDicQueue.sync(flags: .barrier) {
+                    IGGlobal.dispoasDic[self.message.id] = subscriber
+                }
             }
             /* Rx End */
             
