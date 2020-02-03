@@ -93,11 +93,10 @@ class BaseBubbleNode: ASCellNode {
             
                 if let swipeToReplyNode = self.swipeToReplyNode {
                     swipeToReplyNode.frame = CGRect(origin: CGPoint(x: bounds.size.width, y: round(33.0) / 2.0), size: CGSize(width: 33.0, height: 33.0))
-                    if animateReplyNodeIn {
-                    } else {
-                        swipeToReplyNode.alpha = min(1.0, abs(translation.x / 45.0))
-                    }
-                }
+                    
+                    swipeToReplyNode.alpha = min(1.0, abs(translation.x / 45.0))
+
+            }
             case .ended:
                 self.swipeToReplyFeedback = nil
                 
@@ -334,13 +333,13 @@ class BaseBubbleNode: ASCellNode {
         /**************************************************************/
         
         if let _ = bubbleNode  as? IGTextNode{ // Only Contains Text
-            var msg = message!.message
+            var msg = layoutMsg!.message
             if let forwardMessage = message?.forwardedFrom {
                 msg = forwardMessage.message
             }
             if let msgcount = msg {
                 
-                if(msgcount.count <= 20) && message!.additional?.data == nil  {
+                if(msgcount.count <= 20) && layoutMsg!.additional?.data == nil  {
                     
                     if (self.finalRoomType == .channel) {
                         
@@ -350,7 +349,7 @@ class BaseBubbleNode: ASCellNode {
                         horizon.verticalAlignment = .bottom
                         
                         verticalSpec.child = ASInsetLayoutSpec(
-                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: horizon)
+                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 15),child: horizon)
                         
                     } else {
                         
@@ -361,7 +360,7 @@ class BaseBubbleNode: ASCellNode {
                         horizon.verticalAlignment = .bottom
                         
                         verticalSpec.child = ASInsetLayoutSpec(
-                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: horizon)
+                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 15),child: horizon)
                         
                     }
                     
@@ -403,7 +402,7 @@ class BaseBubbleNode: ASCellNode {
             /**************************************************************/
             
         else if let _ = bubbleNode as? IGImageNode{
-            if message!.attachment != nil{
+            if layoutMsg!.attachment != nil{
                 
                 if (self.finalRoomType == .channel) {
                     
@@ -448,7 +447,7 @@ class BaseBubbleNode: ASCellNode {
             /**************************************************************/
             
         else if let _ = bubbleNode as? IGVideoNode{
-            if message!.attachment != nil{
+            if layoutMsg!.attachment != nil{
                 
                 if (self.finalRoomType == .channel) {
                     
@@ -570,7 +569,7 @@ class BaseBubbleNode: ASCellNode {
             
         else if let _ = bubbleNode as? IGVoiceNode {
             
-            if message!.attachment != nil{
+            if layoutMsg!.attachment != nil{
                 
                 if (self.finalRoomType == .channel) {
                     
@@ -605,9 +604,9 @@ class BaseBubbleNode: ASCellNode {
             
         else if let _ = bubbleNode as? IGMusicNode {
             
-            if let msattachment = message!.attachment{
+            if let msattachment = layoutMsg!.attachment{
                 
-                if message!.attachment != nil{
+                if layoutMsg!.attachment != nil{
                     
                     if (self.finalRoomType == .channel) {
                         

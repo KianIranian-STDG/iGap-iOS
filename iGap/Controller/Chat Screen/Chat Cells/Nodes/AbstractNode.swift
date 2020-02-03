@@ -266,6 +266,11 @@ class AbstractNode: ASCellNode {
             indicatorViewAbs.setState(attachment.status)
             if attachment.status == .downloading || attachment.status == .uploading {
                 indicatorViewAbs.setPercentage(percent: Int(attachment.downloadUploadPercent))
+                if Int(attachment.downloadUploadPercent) == 1 {
+                    attachment.status = .ready
+                    imgNode.setThumbnail(for: attachment)
+
+                }
             }
         }
     }
