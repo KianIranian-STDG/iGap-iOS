@@ -339,7 +339,7 @@ class BaseBubbleNode: ASCellNode {
             }
             if let msgcount = msg {
                 
-                if(msgcount.count <= 20) && layoutMsg!.additional?.data == nil  {
+                if(msgcount.count <= 20)  {
                     
                     if (self.finalRoomType == .channel) {
                         
@@ -353,14 +353,34 @@ class BaseBubbleNode: ASCellNode {
                         
                     } else {
                         
-                        let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
-                        timeStatusStack.verticalAlignment = .center
                         
-                        let horizon = ASStackLayoutSpec(direction: .horizontal, spacing: 10, justifyContent: .end, alignItems: ASStackLayoutAlignItems.end, children: [stack , timeStatusStack])
-                        horizon.verticalAlignment = .bottom
-                        
-                        verticalSpec.child = ASInsetLayoutSpec(
-                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 15),child: horizon)
+                        if ((layoutMsg!.additional?.data) != nil), layoutMsg!.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue {
+                            
+                            if isIncomming {
+                                stack.children?.append(txtTimeNode)
+                                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: stack)
+                                
+                            } else {
+                                let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
+                                timeStatusStack.verticalAlignment = .center
+                                
+                                stack.children?.append(timeStatusStack)
+                                verticalSpec.child = ASInsetLayoutSpec(
+                                    insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: stack)
+                                
+                            }
+
+                        } else {
+                            let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
+                            timeStatusStack.verticalAlignment = .center
+                            
+                            let horizon = ASStackLayoutSpec(direction: .horizontal, spacing: 10, justifyContent: .end, alignItems: ASStackLayoutAlignItems.end, children: [stack , timeStatusStack])
+                            horizon.verticalAlignment = .bottom
+
+                            verticalSpec.child = ASInsetLayoutSpec(
+                                insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 15),child: horizon)
+
+                        }
                         
                     }
                     
