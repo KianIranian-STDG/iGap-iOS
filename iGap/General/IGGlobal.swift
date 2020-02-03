@@ -1336,7 +1336,7 @@ extension UIImageView {
                  * Hint: mabye change this kind of check for file existance change later
                  */
                 let fileSizeKB = attachment.size/1024
-                var showBestPreview = true // show main image if has small size otherwise show large thumbnail, also for video show large thumnail always because video doesn't have original image
+                var showBestPreview = false // show main image if has small size otherwise show large thumbnail, also for video show large thumnail always because video doesn't have original image
                 if attachment.type == .image {
                     /* for big images show largeThumbnail if exist, even main file was downloaded before.
                      * currently check size for 256 KB
@@ -1354,7 +1354,7 @@ extension UIImageView {
                     if showMain {
                         fileType = .originalFile
                         finalFile = attachment
-                    } else if showBestPreview { // show large thumbnail for downloaded file if has big size
+                    } else if showBestPreview || attachment.type != .image { // show large thumbnail for downloaded file if has big size || for another types that is not image (like: video, gif)
                         fileType = .largeThumbnail
                         finalFile = attachment.largeThumbnail!
                     }
