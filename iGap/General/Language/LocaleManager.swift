@@ -386,7 +386,7 @@ extension Bundle {
     }
     
     @objc func mn_custom_localizedString(forKey key: String, value: String?, table tableName: String?) -> String {
-        Bundle.syncroniseQueue.sync {
+        Bundle.syncroniseQueue.sync(flags: .barrier) {
             if let customString = LocaleManager.customTranslation?(key) {
                 return customString
             }
