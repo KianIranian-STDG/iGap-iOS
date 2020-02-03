@@ -19,17 +19,27 @@ class ActiveLabelJsonify {
         if lbl.activeElements.count == 0 {
             return nil
         }
+        
         for (keyy, value) in lbl.activeElements {
             var key = keyy
             if (value.count != 0){
                 for val in value {
                     
                     if key == .url {
-                        if isEmail(candidate: getStringAtRange(string: text, range: NSRange(location: val.range.location, length: val.range.length))) {
+                        
+                        let str = getStringAtRange(string: text, range: NSRange(location: val.range.location, length: val.range.length))
+                        
+                        if isEmail(candidate: str) {
                             
                             key = .email
                             
+                        } else if URL(string: str) == nil{
+                            
+                            continue
+                            
                         }
+                        
+                        
                     }
                     
                     let item = ActiveLabelItem(type: typeToString(type: key), offset: val.range.location, limit: val.range.length)
