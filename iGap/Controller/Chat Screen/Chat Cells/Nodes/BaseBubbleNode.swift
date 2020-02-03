@@ -53,8 +53,6 @@ class BaseBubbleNode: ASCellNode {
         self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
         manageGestureRecognizers()
         if !(IGGlobal.shouldMultiSelect) {
-//            makeSwipeImage()
-//            swipePositionManager()
             makeSwipeToReply() // Telegram Func
             
         }
@@ -100,7 +98,7 @@ class BaseBubbleNode: ASCellNode {
                         swipeToReplyNode.alpha = min(1.0, abs(translation.x / 45.0))
                     }
                 }
-            case .cancelled, .ended:
+            case .ended:
                 self.swipeToReplyFeedback = nil
                 
                 var bounds = self.bounds
@@ -111,6 +109,19 @@ class BaseBubbleNode: ASCellNode {
                     swipeToReplyNode.removeFromSupernode()
                 }
 
+                self.generalMessageDelegate?.swipToReply(cellMessage: self.message!)
+
+            case .cancelled:
+                self.swipeToReplyFeedback = nil
+                
+                var bounds = self.bounds
+                bounds.origin.x = 0.0
+                self.bounds = bounds
+                if let swipeToReplyNode = self.swipeToReplyNode {
+                    self.swipeToReplyNode = nil
+                    swipeToReplyNode.removeFromSupernode()
+                }
+            
         default:
                 break
         }
