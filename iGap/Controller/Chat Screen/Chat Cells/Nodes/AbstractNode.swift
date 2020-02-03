@@ -59,7 +59,7 @@ class AbstractNode: ASCellNode {
     
     func setupView() {
         
-        imgNode.contentMode = .scaleAspectFit
+        imgNode.contentMode = .scaleAspectFill
         
         if let forwardedFrom = message.forwardedFrom {
             if let msg = forwardedFrom.message {
@@ -100,7 +100,7 @@ class AbstractNode: ASCellNode {
                         setupMessageText(msg)
                     }
                 } else {
-                    
+                    setupMessageText(msg)
                 }
             }
             
@@ -123,7 +123,7 @@ class AbstractNode: ASCellNode {
     private func setupMessageText(_ msg: String) {
         
         if message.linkInfo == nil {
-            if isTextMessageNode {
+            if !isTextMessageNode {
                 IGGlobal.makeAsyncText(for: textNode, with: msg, textColor: .black, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.localizedDirection)
                 
                 IGGlobal.makeAsyncText(for: textNode, with: msg, textColor: .black, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)

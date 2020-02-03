@@ -26,9 +26,11 @@ class IGImageNode: AbstractNode {
         imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
 
         addSubnode(imgNode)
+        imgNode.backgroundColor = .red
 
         if message.type == .imageAndText {
             addSubnode(textNode)
+            textNode.backgroundColor = .red
         }
         
         
@@ -64,7 +66,7 @@ class IGImageNode: AbstractNode {
             
         }else {
             
-            return ASStackLayoutSpec(direction: .vertical, spacing: 4, justifyContent: .start, alignItems: .center, children: [acNodeSpec, textNode])
+            return ASStackLayoutSpec(direction: .vertical, spacing: 4, justifyContent: .start, alignItems: .stretch, children: [acNodeSpec, textNode])
             
         }
         
