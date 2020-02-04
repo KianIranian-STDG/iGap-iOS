@@ -50,7 +50,9 @@ class AbstractNode: ASCellNode {
         return view
     }
     var btnShowMore = ASButtonNode()
+    var playTxtNode = ASTextNode()
     
+    var isAttachmentReady = false
     
     private var isTextMessageNode = false
     
@@ -99,7 +101,7 @@ class AbstractNode: ASCellNode {
                             
                             let tt = tmpJson?.amount
                             let tmpAmount : Int! = tt
-                            let attrsRegular = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 14 , weight: .regular)]
+//                            let attrsRegular = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 14 , weight: .regular)]
                             let tempMSG = IGStringsManager.Amount.rawValue.localized + " " + String(tmpAmount).inRialFormat() + IGStringsManager.Currency.rawValue.localized  + "\n_________________________\n" + IGStringsManager.Desc.rawValue.localized + " " + msg
                             setupMessageText(tempMSG)
 
@@ -120,6 +122,12 @@ class AbstractNode: ASCellNode {
             if IGGlobal.isFileExist(path: message.attachment!.path(), fileSize: message.attachment!.size) {
                 indicatorViewAbs.isHidden = true
                 indicatorViewAbs.style.preferredSize = CGSize.zero
+                isAttachmentReady = true
+                
+                if message.type == .video || message.type == .videoAndText {
+//                    addSubnode(playTxtNode)
+                    insertSubnode(playTxtNode, aboveSubnode: imgNode)
+                }
                 
             } else {
                 indicatorViewAbs.isHidden = false
@@ -254,6 +262,9 @@ class AbstractNode: ASCellNode {
             if fileExist && !attachment.isInUploadLevels() {
                 if message.type == .video || message.type == .videoAndText {
                     //                    makeVideoPlayView()
+//                    playTxtNode
+//                    addSubnode(playTxtNode)
+                    insertSubnode(playTxtNode, aboveSubnode: imgNode)
                 }
                 
                 (indicatorViewAbs.view as! IGProgress).setState(.ready)

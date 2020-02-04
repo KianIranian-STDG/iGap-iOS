@@ -12,13 +12,13 @@ import AsyncDisplayKit
 
 class IGVideoNode: AbstractNode {
     
-    private var playTxtNode: ASTextNode
     private var timeTxtNode: ASTextNode
     
     private let fakeStackBottomItem = ASDisplayNode()
     
+    private var prefferedSize = CGSize()
+    
     override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = false,finalRoomType : IGRoom.IGType,finalRoom : IGRoom) {
-        playTxtNode = ASTextNode()
         timeTxtNode = ASTextNode()
         super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode,finalRoomType: finalRoomType, finalRoom: finalRoom)
         setupView()
@@ -26,6 +26,12 @@ class IGVideoNode: AbstractNode {
     
     override func setupView() {
         super.setupView()
+        
+        // setting image Size
+        prefferedSize = NodeExtension.fetchMediaFrame(media: message.attachment!)
+        
+        imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
+        imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
         
         addSubnode(imgNode)
         
@@ -46,25 +52,22 @@ class IGVideoNode: AbstractNode {
         timeTxtNode.layer.borderWidth = 0.5
         timeTxtNode.backgroundColor = UIColor(white: 0, alpha: 0.3)
 
-        addSubnode(playTxtNode)
+//        addSubnode(playTxtNode)
         addSubnode(timeTxtNode)
 
         if message.type == .videoAndText {
             addSubnode(textNode)
         }
 
+        if message.attachment != nil {
+//            addSubnode(indicatorViewAbs)
+            insertSubnode(indicatorViewAbs, aboveSubnode: imgNode)
+        }
+        
+        
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-
-            // setting image Size
-        let prefferedSize = NodeExtension.fetchMediaFrame(media: message.attachment!)
-        
-        imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
-        imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
-        
-        let imgAbsSpec = ASAbsoluteLayoutSpec(children: [imgNode])
-        
         
         timeTxtNode.style.height = ASDimension(unit: .points, value: 20)
         fakeStackBottomItem.style.height = ASDimension(unit: .points, value: 26)
@@ -83,15 +86,16 @@ class IGVideoNode: AbstractNode {
         let itemsStackSpec = ASStackLayoutSpec(direction: .vertical, spacing: 6, justifyContent: .spaceBetween, alignItems: .start, children: [timeInsetSpec, playTxtCenterSpec, fakeStackBottomItem])
         itemsStackSpec.style.height = ASDimension(unit: .points, value: prefferedSize.height)
         
-        let overlaySpec = ASOverlayLayoutSpec(child: imgAbsSpec, overlay: itemsStackSpec)
+        let overlaySpec = ASOverlayLayoutSpec(child: imgNode, overlay: itemsStackSpec)
+        let acNodeSpec = ASOverlayLayoutSpec(child: overlaySpec, overlay: indicatorViewAbs)
         
         if message.type == .video {
             
-            return overlaySpec
+            return acNodeSpec
             
         }else {
             
-            return ASStackLayoutSpec(direction: .vertical, spacing: 4, justifyContent: .start, alignItems: .center, children: [overlaySpec, textNode])
+            return ASStackLayoutSpec(direction: .vertical, spacing: 4, justifyContent: .start, alignItems: .center, children: [acNodeSpec, textNode])
             
         }
         
