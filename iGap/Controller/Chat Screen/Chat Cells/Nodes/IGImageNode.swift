@@ -24,7 +24,8 @@ class IGImageNode: AbstractNode {
         
         imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
         imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
-
+        indicatorViewAbs.style.height = ASDimensionMake(.points, 50)
+        indicatorViewAbs.style.width = ASDimensionMake(.points, 50)
         addSubnode(imgNode)
 
         if message.type == .imageAndText {

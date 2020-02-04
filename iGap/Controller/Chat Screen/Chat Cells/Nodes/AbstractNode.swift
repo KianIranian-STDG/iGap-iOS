@@ -44,7 +44,11 @@ class AbstractNode: ASCellNode {
     //BUTTON DOWNLOAD/PLAY/PAUSE for NODES
     var btnStateNode = ASButtonNode()
     //progress Node
-    var indicatorViewAbs = IGProgressNode()
+    var indicatorViewAbs = ASDisplayNode { () -> UIView in
+        let view = IGProgress()
+        
+        return view
+    }
     var btnShowMore = ASButtonNode()
     
     
@@ -228,7 +232,8 @@ class AbstractNode: ASCellNode {
                     imgNode.setThumbnail(for: attachment)
                     
                     if attachment.status != .ready {
-                        indicatorViewAbs.delegate = self
+
+                        (indicatorViewAbs.view as! IGProgress).delegate = self
                     }
                     break
                 }
@@ -251,7 +256,7 @@ class AbstractNode: ASCellNode {
                     //                    makeVideoPlayView()
                 }
                 
-                indicatorViewAbs.setState(.ready)
+                (indicatorViewAbs.view as! IGProgress).setState(.ready)
                 if attachment.type == .gif {
                     attachment.loadData()
                     if let data = attachment.data {
@@ -265,17 +270,21 @@ class AbstractNode: ASCellNode {
             }
             
             if isIncomming || !fileExist {
-                indicatorViewAbs.setFileType(.download)
+                (indicatorViewAbs.view as! IGProgress).setFileType(.download)
             } else {
-                indicatorViewAbs.setFileType(.upload)
+                (indicatorViewAbs.view as! IGProgress).setFileType(.upload)
             }
-            indicatorViewAbs.setState(attachment.status)
+            (indicatorViewAbs.view as! IGProgress).setState(attachment.status)
             if attachment.status == .downloading || attachment.status == .uploading {
-                indicatorViewAbs.setPercentage(percent: Int(attachment.downloadUploadPercent))
-                if Int(attachment.downloadUploadPercent) == 1 {
-                    attachment.status = .ready
-                    imgNode.setThumbnail(for: attachment)
+                (indicatorViewAbs.view as! IGProgress).setPercentage(attachment.downloadUploadPercent)
+                print("======-PERCENTAGE-========")
+                print(attachment.downloadUploadPercent)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    if (attachment.downloadUploadPercent) == 1.0 {
+                        attachment.status = .ready
+                        self.imgNode.setThumbnail(for: attachment)
 
+                    }
                 }
             }
         }
@@ -371,9 +380,9 @@ class MsgTextTextNode: ASTextNode {
     }
     
 }
-extension AbstractNode: IGProgreeNodeDelegate {
+extension AbstractNode: IGProgressDelegate {
     
-    func downloadUploadIndicatorDidTap(_ indicator: IGProgressNode) {
+    func downloadUploadIndicatorDidTap(_ indicator: IGProgress) {
         if !IGGlobal.shouldMultiSelect {///if not in multiSelectMode
             
             if let attachment = self.attachment {

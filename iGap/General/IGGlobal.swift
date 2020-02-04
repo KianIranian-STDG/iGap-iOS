@@ -1498,13 +1498,19 @@ extension ASNetworkImageNode {
                         var image: UIImage?
                         path = finalFile.path()
                         if IGGlobal.isFileExist(path: path) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+
                             image = UIImage(contentsOfFile: path!.path)
+                            }
                         }
                         
                         if image != nil {
                             if let data = try? Data(contentsOf: path!) {
                                 if let image = UIImage(data: data) {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+
                                     self.image = image
+                                    }
                                 }
                             }
                         } else {
@@ -1516,7 +1522,7 @@ extension ASNetworkImageNode {
                     DispatchQueue.main.async {
                         ASimagesMap[attachment.token!] = self
                         IGDownloadManager.sharedManager.download(file: finalFile, previewType: fileType, completion: { (attachment) -> Void in
-                            DispatchQueue.main.async {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                                 if let imageMain = ASimagesMap[attachment.token!] {
                                     let path = attachment.path()
                                     //imageMain.sd_setImage(with: path)

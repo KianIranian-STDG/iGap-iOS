@@ -21,6 +21,11 @@ class IGProgressNode: ASDisplayNode {
     
     private var txtNodePercent = ASTextNode()
     private var btnChangeState = ASButtonNode()
+    private var IGIndicatorNode = ASDisplayNode { () -> UIView in
+        let view = IGProgress()
+        
+        return view
+    }
     
     override init() {
         super.init()
