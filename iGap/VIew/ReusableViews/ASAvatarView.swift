@@ -126,7 +126,7 @@ class ASAvatarView: ASDisplayNode {
         
         if let avatar = IGAvatar.getLastAvatar(ownerId: ownerId), let avatarFile = avatar.file {
             self.avatarASImageView!.setAvatar(avatar: avatarFile)
-            
+            hasAvatar = true
         } else { /// HINT: old version dosen't have owernId so currently we have to check this state
             var file: IGFile?
             if room.type == .chat, let avatar = room.chatRoom?.peer?.avatar?.file {
@@ -139,24 +139,37 @@ class ASAvatarView: ASDisplayNode {
             
             if file != nil {
                 self.avatarASImageView!.setAvatar(avatar: file!)
+                hasAvatar = true
+            } else {
+                hasAvatar = false
+
             }
         }
 
+                if hasAvatar {
+                    self.initialLettersLabel?.removeFromSupernode() //removes the initial label if the user has Avatar
+                } else {
+                    self.avatarASImageView?.removeFromSupernode() //removes the Avatar Image Node if the user has not Avatar
+                    
+                    if self.frame.size.width < 40 {
+                        IGGlobal.makeAsyncText(for: self.initialLettersLabel!, with: room.initilas!, textColor: .white, size: 10, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+                        let color = UIColor.hexStringToUIColor(hex: room.colorString)
+                        self.initialLettersView!.backgroundColor = color
+                    } else if self.frame.size.width < 60 {
+                        IGGlobal.makeAsyncText(for: self.initialLettersLabel!, with: room.initilas!, textColor: .white, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+                        let color = UIColor.hexStringToUIColor(hex: room.colorString)
+                        self.initialLettersView!.backgroundColor = color
+                    } else {
+                        IGGlobal.makeAsyncText(for: self.initialLettersLabel!, with: room.initilas!, textColor: .white, size: 17, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+                        let color = UIColor.hexStringToUIColor(hex: room.colorString)
+                        self.initialLettersView!.backgroundColor = color
+                    }
+
+                    
+                }
 
 
-        if self.frame.size.width < 40 {
-            IGGlobal.makeAsyncText(for: self.initialLettersLabel!, with: room.initilas!, textColor: .white, size: 10, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
-            let color = UIColor.hexStringToUIColor(hex: room.colorString)
-            self.initialLettersView!.backgroundColor = color
-        } else if self.frame.size.width < 60 {
-            IGGlobal.makeAsyncText(for: self.initialLettersLabel!, with: room.initilas!, textColor: .white, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
-            let color = UIColor.hexStringToUIColor(hex: room.colorString)
-            self.initialLettersView!.backgroundColor = color
-        } else {
-            IGGlobal.makeAsyncText(for: self.initialLettersLabel!, with: room.initilas!, textColor: .white, size: 17, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
-            let color = UIColor.hexStringToUIColor(hex: room.colorString)
-            self.initialLettersView!.backgroundColor = color
-        }
+
     }
     
     
