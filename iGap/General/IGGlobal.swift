@@ -1562,6 +1562,17 @@ extension ASNetworkImageNode {
                 case .gif:
                     break
                 case .video:
+                    // when user is sender thumbnail is not exist, so need to show main image even size is bigger than 1024 Kb
+                    if IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) {
+                        if let data = try? Data(contentsOf: attachment.path()!) {
+                            if let image = UIImage(data: data) {
+                                self.image = image
+                            }
+                        }
+                    } else {
+                        self.image = nil
+                    }
+
                     break
                 case .audio:
                     //                        self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")

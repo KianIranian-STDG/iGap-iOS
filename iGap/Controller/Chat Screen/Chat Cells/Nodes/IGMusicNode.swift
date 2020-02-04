@@ -48,7 +48,10 @@ class IGMusicNode: AbstractNode {
 //        addSubnode(btnStateNode)
         addSubnode(indicatorViewAbs)
 //        checkButtonState(btn: btnStateNode)
-        getMetadata(file: message.attachment)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.getMetadata(file: self.message.attachment)
+        }
+
         
     }
     
@@ -106,45 +109,97 @@ class IGMusicNode: AbstractNode {
     
     
     func getMetadata(file : IGFile!) {
-        let path = message.attachment!.path()
-
-        print(path!)
-        let playerItem = AVPlayerItem(url: path!)
-        let metadataList = playerItem.asset.metadata
-
-
-        let artworkItems = AVMetadataItem.metadataItems(from: metadataList, filteredByIdentifier: AVMetadataIdentifier.commonIdentifierArtwork)
-            
-            if let artworkItem = artworkItems.first {
-                // Coerce the value to an NSData using its dataValue property
-                if let imageData = artworkItem.dataValue {
-                    DispatchQueue.global(qos: .userInteractive).async {
-                        let image = UIImage(data: imageData)
-                        DispatchQueue.main.async {
-                            self.imgMusicAvatar.image = image
-                        }
-                    }
-                }
-                
-                // process image
-            } else {
-                let avatarView : ASNetworkImageNode = ASNetworkImageNode()
-                avatarView.setThumbnail(for: file)
-                if message.attachment!.name!.contains(".mp3") {
-                    let name = message.attachment!.name!.replacingOccurrences(of: ".mp3", with: "")
-                    IGGlobal.makeAsyncText(for: txtMusicName, with: name, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+        let path = attachment!.path()
+        let asset = AVURLAsset(url: path!)
+        let playerItem = AVPlayerItem(asset: asset)
+        let metadataList = playerItem.asset.commonMetadata
+        var hasSingerName : Bool = false
+        var hasSongName : Bool = false
+        var hasArtwork : Bool = false
+        
+        for item in metadataList {
+            if item.commonKey!.rawValue == "title" {
+                let songName = item.stringValue!
+                hasSongName = true
+                IGGlobal.makeAsyncText(for: txtMusicName, with: songName, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
 
 
-                } else {
-                    IGGlobal.makeAsyncText(for: txtMusicName, with: message.attachment!.name!, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
-
-                }
-                IGGlobal.makeAsyncText(for: txtMusicArtist, with: IGStringsManager.UnknownArtist.rawValue.localized, textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
-
-                if let image = avatarView.image {
-                    self.imgMusicAvatar.image = image
-                }
             }
+            if item.commonKey!.rawValue == "artist" {
+                let singerName = item.stringValue!
+                hasSingerName = true
+                IGGlobal.makeAsyncText(for: txtMusicArtist, with: singerName, textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
+
+            }
+            if item.commonKey!.rawValue == "artwork" {
+                hasArtwork = true
+
+                                if let imageData = item.dataValue {
+                                    DispatchQueue.global(qos: .userInteractive).async {
+                                        let image = UIImage(data: imageData)
+                                        DispatchQueue.main.async {
+                                            self.imgMusicAvatar.image = image
+                                        }
+                                    }
+                                }
+            }
+
+        }
+        if !hasArtwork {
+            imgMusicAvatar.setThumbnail(for: file)
+
+        }
+        if !hasSingerName {
+            let singerName = IGStringsManager.UnknownArtist.rawValue.localized
+            IGGlobal.makeAsyncText(for: txtMusicArtist, with: singerName, textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
+
+            
+
+        }
+        if !hasSongName {
+            if let sn =  attachment?.name {
+                let songName = sn
+                IGGlobal.makeAsyncText(for: txtMusicName, with: songName, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+
+            } else {
+                let songName = IGStringsManager.UnknownAudio.rawValue.localized
+                IGGlobal.makeAsyncText(for: txtMusicName, with: songName, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+
+                
+            }
+        }
+
+        
+//            if let artworkItem = artworkItems.first {
+//                // Coerce the value to an NSData using its dataValue property
+//                if let imageData = artworkItem.dataValue {
+//                    DispatchQueue.global(qos: .userInteractive).async {
+//                        let image = UIImage(data: imageData)
+//                        DispatchQueue.main.async {
+//                            self.imgMusicAvatar.image = image
+//                        }
+//                    }
+//                }
+                
+// //                process image
+//            } else {
+//                let avatarView : ASNetworkImageNode = ASNetworkImageNode()
+//                avatarView.setThumbnail(for: file)
+//                if message.attachment!.name!.contains(".mp3") {
+//                    let name = message.attachment!.name!.replacingOccurrences(of: ".mp3", with: "")
+//                    IGGlobal.makeAsyncText(for: txtMusicName, with: name, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+//
+//
+//                } else {
+//                    IGGlobal.makeAsyncText(for: txtMusicName, with: message.attachment!.name!, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+//
+//                }
+//                IGGlobal.makeAsyncText(for: txtMusicArtist, with: IGStringsManager.UnknownArtist.rawValue.localized, textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
+//
+//                if let image = avatarView.image {
+//                    self.imgMusicAvatar.image = image
+//                }
+//            }
         }
 
     

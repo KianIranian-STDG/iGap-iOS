@@ -6213,7 +6213,7 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
                 return node
             }
 
-            if msg!.type == .text ||  msg!.type == .image ||  msg!.type == .imageAndText ||  msg!.type == .file ||  msg!.type == .fileAndText || msg!.type == .voice || msg!.type == .location || msg!.type == .video || msg!.type == .videoAndText || msg!.type == .audio || msg!.type == .contact || msg!.type == .sticker || msg!.type == .wallet {
+            if msg!.type == .text ||  msg!.type == .image ||  msg!.type == .imageAndText ||  msg!.type == .file ||  msg!.type == .fileAndText || msg!.type == .voice || msg!.type == .location || msg!.type == .video || msg!.type == .videoAndText || msg!.type == .audio || msg!.type == .audioAndText || msg!.type == .contact || msg!.type == .sticker || msg!.type == .wallet {
                 //TODO: check detach
                 let node = BaseBubbleNode(message: msg!, finalRoomType : sSelf.finalRoomType ,finalRoom : sSelf.finalRoom, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
                 

@@ -183,7 +183,9 @@ class BaseBubbleNode: ASCellNode {
             bubbleNode = IGLocationNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         } else if finalType == .audio {
             bubbleNode = IGMusicNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
-        } else if finalType == .contact {
+        }  else if finalType == .audioAndText {
+            bubbleNode = IGMusicNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
+        }else if finalType == .contact {
             bubbleNode = IGContactNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         } else if finalType == .sticker {
             bubbleNode = IGStrickerNormalNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
@@ -207,7 +209,7 @@ class BaseBubbleNode: ASCellNode {
             
         }
         
-        if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice || message!.type == .location || message!.type == .video || message!.type == .videoAndText || message!.type == .audio || message!.type == .contact || message!.type == .sticker || message!.type == .wallet || message!.type == .progress {
+        if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice || message!.type == .location || message!.type == .video || message!.type == .videoAndText || message!.type == .audio ||  message!.type == .audioAndText || message!.type == .contact || message!.type == .sticker || message!.type == .wallet || message!.type == .progress {
             if(isIncomming){
                 
                 avatarImageViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
