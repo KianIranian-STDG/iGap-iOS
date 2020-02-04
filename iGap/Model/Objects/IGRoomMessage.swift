@@ -557,6 +557,8 @@ class IGRoomMessage: Object {
             detachedMessage.channelExtra = channelExtra.detach()
         }
         
+        
+        
         return detachedMessage
     }
     

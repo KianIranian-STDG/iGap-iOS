@@ -98,10 +98,8 @@ class ASAvatarView: ASDisplayNode {
 //            self.avatarASImageView?.image = UIImage(named: "AppIcon")
         } else {
             self.avatarASImageView?.removeFromSupernode() //removes the Avatar Image Node if the user has not Avatar
-            let attribbutes = [NSAttributedString.Key.foregroundColor: UIColor.white,
-                               NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)]
-
-            self.initialLettersLabel!.attributedText = NSAttributedString(string: user.initials, attributes: attribbutes)
+            
+            IGGlobal.makeAsyncText(for: self.initialLettersLabel!, with: user.initials, textColor: .white, size: 15, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
             let color = UIColor.hexStringToUIColor(hex: user.color)
             self.initialLettersView!.backgroundColor = color
 
@@ -109,6 +107,56 @@ class ASAvatarView: ASDisplayNode {
 
 
         
+    }
+    
+    
+    func setRoom(_ room: IGRoom) {
+        
+        if room.isInvalidated {
+            return
+        }
+        
+        self.avatarASImageView!.image = nil
+
+        
+        var ownerId: Int64 = room.id
+        if room.type == .chat {
+            ownerId = (room.chatRoom?.peer!.id)!
+        }
+        
+        if let avatar = IGAvatar.getLastAvatar(ownerId: ownerId), let avatarFile = avatar.file {
+            self.avatarASImageView!.setAvatar(avatar: avatarFile)
+            
+        } else { /// HINT: old version dosen't have owernId so currently we have to check this state
+            var file: IGFile?
+            if room.type == .chat, let avatar = room.chatRoom?.peer?.avatar?.file {
+                file = avatar
+            } else if room.type == .group, let avatar = room.groupRoom?.avatar?.file {
+                file = avatar
+            } else if room.type == .channel, let avatar = room.channelRoom?.avatar?.file {
+                file = avatar
+            }
+            
+            if file != nil {
+                self.avatarASImageView!.setAvatar(avatar: file!)
+            }
+        }
+
+
+
+        if self.frame.size.width < 40 {
+            IGGlobal.makeAsyncText(for: self.initialLettersLabel!, with: room.initilas!, textColor: .white, size: 10, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+            let color = UIColor.hexStringToUIColor(hex: room.colorString)
+            self.initialLettersView!.backgroundColor = color
+        } else if self.frame.size.width < 60 {
+            IGGlobal.makeAsyncText(for: self.initialLettersLabel!, with: room.initilas!, textColor: .white, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+            let color = UIColor.hexStringToUIColor(hex: room.colorString)
+            self.initialLettersView!.backgroundColor = color
+        } else {
+            IGGlobal.makeAsyncText(for: self.initialLettersLabel!, with: room.initilas!, textColor: .white, size: 17, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+            let color = UIColor.hexStringToUIColor(hex: room.colorString)
+            self.initialLettersView!.backgroundColor = color
+        }
     }
     
     

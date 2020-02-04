@@ -190,7 +190,9 @@ class BaseBubbleNode: ASCellNode {
         } else if finalType == .wallet && msg!.wallet?.type == 2  { //CardToCard
             bubbleNode = IGCardToCardReceiptNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         }  else if finalType == .wallet && msg!.wallet?.type == 0  { //moneyTransfer
-            bubbleNode = IGMoneytransferReceiptNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
+                  bubbleNode = IGMoneytransferReceiptNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
+        }   else if finalType == .progress {
+                  bubbleNode = IGCircularLoaderNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         }
 
 
@@ -205,7 +207,7 @@ class BaseBubbleNode: ASCellNode {
             
         }
         
-        if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice || message!.type == .location || message!.type == .video || message!.type == .videoAndText || message!.type == .audio || message!.type == .contact || message!.type == .sticker || message!.type == .wallet {
+        if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice || message!.type == .location || message!.type == .video || message!.type == .videoAndText || message!.type == .audio || message!.type == .contact || message!.type == .sticker || message!.type == .wallet || message!.type == .progress {
             if(isIncomming){
                 
                 avatarImageViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
@@ -252,13 +254,26 @@ class BaseBubbleNode: ASCellNode {
             }
             
             //Avatar
-            if let user = message!.authorUser?.user {
+            if (finalRoomType == .chat) || (finalRoomType == .group)  {
+                if let user = message!.authorUser?.user {
+                    avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.clear
+                    avatarImageViewNode.setUser(user)
+                } else if let userId = message!.authorUser?.userId {
+                    avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.white
+                    avatarImageViewNode.avatarASImageView!.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
+                    SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(message!.roomId)", sender: (action: ChatMessageAction.userInfo, userId: userId))
+                } else {
+                    print("COMES HERE")
+                }
+
+            } else {
+                
+                print("COMES HERE CHANNEL")
+                print("=====-----=======")
                 avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.clear
-                avatarImageViewNode.setUser(user)
-            } else if let userId = message!.authorUser?.userId {
-                avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.white
-                avatarImageViewNode.avatarASImageView!.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
-                SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(message!.roomId)", sender: (action: ChatMessageAction.userInfo, userId: userId))
+                avatarImageViewNode.setRoom(self.finalRoom)
+
+                
             }
             
             //Taps
@@ -349,7 +364,7 @@ class BaseBubbleNode: ASCellNode {
                         horizon.verticalAlignment = .bottom
                         
                         verticalSpec.child = ASInsetLayoutSpec(
-                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 15),child: horizon)
+                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: horizon)
                         
                     } else {
                         
@@ -378,7 +393,7 @@ class BaseBubbleNode: ASCellNode {
                             horizon.verticalAlignment = .bottom
 
                             verticalSpec.child = ASInsetLayoutSpec(
-                                insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 15),child: horizon)
+                                insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: horizon)
 
                         }
                         
@@ -496,7 +511,40 @@ class BaseBubbleNode: ASCellNode {
             
             
         }
-            
+
+                /**************************************************************/
+                /************CIRCULAR LOADER**************/
+                /**************************************************************/
+                
+            else if let _ = bubbleNode as? IGCircularLoaderNode{
+                    
+                    if (self.finalRoomType == .channel) {
+                        
+                        stack.children?.append(txtTimeNode)
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
+                        
+                    } else {
+                        
+                        if isIncomming {
+                            stack.children?.append(txtTimeNode)
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
+                            
+                        } else {
+                            
+                            let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
+                            timeStatusStack.verticalAlignment = .center
+                            
+                            stack.children?.append(timeStatusStack)
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 5,bottom: 8,right: 14),child: stack)
+                            
+                        }
+                        
+                    }
+                    
+                
+                
+                
+            }
             /**************************************************************/
             /************FILE NODE**************/
             /**************************************************************/

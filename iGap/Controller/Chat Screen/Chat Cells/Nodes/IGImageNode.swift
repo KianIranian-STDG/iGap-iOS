@@ -26,11 +26,9 @@ class IGImageNode: AbstractNode {
         imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
 
         addSubnode(imgNode)
-        imgNode.backgroundColor = .red
 
         if message.type == .imageAndText {
             addSubnode(textNode)
-            textNode.backgroundColor = .red
         }
         
         

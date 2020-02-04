@@ -27,13 +27,18 @@ class AbstractNode: ASCellNode {
     //IMAGE NODE FOR IMAGENODE AND VIDEO NODE
     var imgNode = ASNetworkImageNode()
     //UISlider for IGVOICE NODE
-    let node = ASDisplayNode { () -> UIView in
+    let SliderNode = ASDisplayNode { () -> UIView in
         let view = UISlider()
         view.minimumValue = 0
         view.value = 10
         view.maximumValue = 20
         view.tintColor = .red
         
+        return view
+    }
+    let CircularLoaderNode = ASDisplayNode { () -> UIView in
+        let view = ProgressCell()
+        view.showProgress()
         return view
     }
     //BUTTON DOWNLOAD/PLAY/PAUSE for NODES
@@ -54,6 +59,7 @@ class AbstractNode: ASCellNode {
         self.isIncomming = isIncomming
         self.isTextMessageNode = isTextMessageNode
         super.init()
+
         
     }
     

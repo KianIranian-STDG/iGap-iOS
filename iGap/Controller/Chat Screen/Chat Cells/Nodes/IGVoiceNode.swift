@@ -25,14 +25,17 @@ class IGVoiceNode: AbstractNode {
     override func setupView() {
         super.setupView()
         
-        node.style.preferredSize = CGSize(width: 200, height: 50)
+        SliderNode.style.preferredSize = CGSize(width: 200, height: 50)
         
         btnStateNode.layer.cornerRadius = 25
         
         //make current time text
         IGGlobal.makeAsyncText(for: self.txtCurrentTimeNode, with: "00:00".inLocalizedLanguage(), textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont,alignment: .left)
         //        msgTextNode.isUserInteractionEnabled = true
-        addSubnode(node)
+        addSubnode(SliderNode)
+       let slider = SliderNode.view as? UISlider
+        print(slider!.maximumValue)
+        
         addSubnode(txtVoiceTimeNode)
         addSubnode(txtCurrentTimeNode)
         addSubnode(btnStateNode)
@@ -65,7 +68,7 @@ class IGVoiceNode: AbstractNode {
         
         let sliderBox = ASStackLayoutSpec.vertical()
         sliderBox.justifyContent = .spaceAround
-        sliderBox.children = [node, txtCurrentTimeNode]
+        sliderBox.children = [SliderNode, txtCurrentTimeNode]
         sliderBox.spacing = 0
         
         let overlayBox = ASOverlayLayoutSpec(child: btnStateNode, overlay: indicatorViewAbs)

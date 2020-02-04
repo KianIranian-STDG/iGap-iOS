@@ -6258,7 +6258,14 @@ extension IGMessageViewController : ASTableDelegate,ASTableDataSource {
                 return node
 
                 
-            } else {
+            } else if msg!.type == .progress {
+                
+                    let node = IGLogNode(logType: .unknown, finalRoomType: self!.finalRoomType, finalRoom: self!.finalRoom)
+                   node.selectionStyle = .none
+                
+                return node
+
+            }else {
                     //Unread
                     let node = IGLogNode(logType: .unknown, finalRoomType: self!.finalRoomType, finalRoom: self!.finalRoom)
                    node.selectionStyle = .none
