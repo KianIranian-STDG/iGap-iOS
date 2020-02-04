@@ -27,7 +27,7 @@ class AbstractNode: ASCellNode {
     //IMAGE NODE FOR IMAGENODE AND VIDEO NODE
     var imgNode = ASNetworkImageNode()
     //UISlider for IGVOICE NODE
-    let SliderNode = ASDisplayNode { () -> UIView in
+    let sliderNode = ASDisplayNode { () -> UIView in
         let view = UISlider()
         view.minimumValue = 0
         view.value = 10

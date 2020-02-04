@@ -19,21 +19,24 @@ class IGVoiceNode: AbstractNode {
     override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = true,finalRoomType : IGRoom.IGType,finalRoom : IGRoom) {
         super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode,finalRoomType : finalRoomType, finalRoom: finalRoom)
         setupView()
+        setVoice()
+        voiceGustureRecognizers()
+        checkPlayerState()
     }
     
     
     override func setupView() {
         super.setupView()
         
-        SliderNode.style.preferredSize = CGSize(width: 200, height: 50)
+        sliderNode.style.preferredSize = CGSize(width: 200, height: 50)
         
         btnStateNode.layer.cornerRadius = 25
         
         //make current time text
         IGGlobal.makeAsyncText(for: self.txtCurrentTimeNode, with: "00:00".inLocalizedLanguage(), textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont,alignment: .left)
         //        msgTextNode.isUserInteractionEnabled = true
-        addSubnode(SliderNode)
-       let slider = SliderNode.view as? UISlider
+        addSubnode(sliderNode)
+       let slider = sliderNode.view as? UISlider
         print(slider!.maximumValue)
         
         addSubnode(txtVoiceTimeNode)
@@ -49,14 +52,14 @@ class IGVoiceNode: AbstractNode {
             indicatorViewAbs.isHidden = true
             indicatorViewAbs.style.preferredSize = CGSize.zero
             btnStateNode.style.preferredSize = CGSize(width: 50, height: 50)
-            btnStateNode.setTitle("🎗", with: UIFont.iGapFonticon(ofSize: 40), with: .black, for: .normal)
+            btnStateNode.setTitle("🎗", with: UIFont.iGapFonticon(ofSize: 35), with: .black, for: .normal)
             
         } else {
             indicatorViewAbs.isHidden = false
             indicatorViewAbs.style.preferredSize = CGSize(width: 50, height: 50)
             btnStateNode.style.preferredSize = CGSize.zero
             btnStateNode.style.preferredSize = CGSize(width: 50, height: 50)
-            btnStateNode.setTitle("🎗", with: UIFont.iGapFonticon(ofSize: 40), with: .black, for: .normal)
+            btnStateNode.setTitle("🎗", with: UIFont.iGapFonticon(ofSize: 35), with: .black, for: .normal)
 
         }
         
@@ -68,7 +71,7 @@ class IGVoiceNode: AbstractNode {
         
         let sliderBox = ASStackLayoutSpec.vertical()
         sliderBox.justifyContent = .spaceAround
-        sliderBox.children = [SliderNode, txtCurrentTimeNode]
+        sliderBox.children = [sliderNode, txtCurrentTimeNode]
         sliderBox.spacing = 0
         
         let overlayBox = ASOverlayLayoutSpec(child: btnStateNode, overlay: indicatorViewAbs)
@@ -91,9 +94,63 @@ class IGVoiceNode: AbstractNode {
         
         return insetBox
         
+    }
+    
+    private func setVoice(){
+        
+        let attachment: IGFile! = message.attachment
+        
+        if isIncomming {
+            (sliderNode.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .normal)
+            (sliderNode.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .focused)
+            (sliderNode.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .selected)
+            (sliderNode.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .highlighted)
+            (sliderNode.view as! UISlider).minimumTrackTintColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            (sliderNode.view as! UISlider).maximumTrackTintColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
+            IGGlobal.makeAsyncButton(for: btnStateNode, with: "", textColor: .black, size: 35, font: .fontIcon, alignment: .center)
+        } else {
+            (sliderNode.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .normal)
+            (sliderNode.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .focused)
+            (sliderNode.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .selected)
+            (sliderNode.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .highlighted)
+            (sliderNode.view as! UISlider).maximumTrackTintColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1.0)
+            (sliderNode.view as! UISlider).minimumTrackTintColor = UIColor(red: 22.0/255.0, green: 91.0/255.0, blue: 88.0/255.0, alpha: 1.0)
+            IGGlobal.makeAsyncButton(for: btnStateNode, with: "", textColor: .black, size: 35, font: .fontIcon, alignment: .center)
+        }
+        
+//        if self.attachment?.status != .ready {
+//            indicatorViewAbs.delegate = self
+//        }
+        
+        (sliderNode.view as! UISlider).setValue(0.0, animated: false)
+        let timeM = Int(attachment.duration / 60)
+        let timeS = Int(attachment.duration.truncatingRemainder(dividingBy: 60.0))
+//        txtVoiceTimeNode.text = "0:00 / \(timeM):\(timeS)".inLocalizedLanguage()
+        IGGlobal.makeAsyncText(for: txtVoiceTimeNode, with: "0:00 / \(timeM):\(timeS)".inLocalizedLanguage(), textColor: .black, size: 13, font: .igapFont, alignment: .center)
+    }
+    
+    
+    /****************************************************************************/
+    /******************************* Voice Player *******************************/
+    
+    /** check current voice state and if is playing update values to current state */
+    private func checkPlayerState(){
+        IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: (sliderNode.view as! UISlider), timer: txtCurrentTimeNode, roomMessage: self.message, justUpdate: true)
+    }
+    
+    private func voiceGustureRecognizers() {
+//        let play = UITapGestureRecognizer(target: self, action: #selector(didTapOnPlay(_:)))
+//        btnStateNode.view.addGestureRecognizer(play)
+        
+        btnStateNode.addTarget(self, action: #selector(didTapOnPlay(_:)), forControlEvents: .touchUpInside)
         
     }
     
+    @objc func didTapOnPlay(_ gestureRecognizer: UITapGestureRecognizer) {
+        IGGlobal.isVoice = true // determine the file is voice and not music
+
+        IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: (sliderNode.view as! UISlider), timer: txtCurrentTimeNode, roomMessage: self.message)
+    }
     
     
 }
