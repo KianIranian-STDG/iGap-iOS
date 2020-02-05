@@ -82,11 +82,11 @@ class IGAppManager: NSObject {
             try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR + IGGlobal.GIF_DIR, withIntermediateDirectories: true, attributes: nil)
             try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR + IGGlobal.FILE_DIR, withIntermediateDirectories: true, attributes: nil)
             /**** cache directories ***/
-            try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR, withIntermediateDirectories: true, attributes: nil)
-            try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR + IGGlobal.THUMB_DIR, withIntermediateDirectories: true, attributes: nil)
-            try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR + IGGlobal.BACKGROUND_DIR, withIntermediateDirectories: true, attributes: nil)
-            try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR + IGGlobal.AVATAR_DIR, withIntermediateDirectories: true, attributes: nil)
-            try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR + IGGlobal.STICKER_DIR, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: IGGlobal.CACHE_DIR, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: IGGlobal.CACHE_DIR + IGGlobal.THUMB_DIR, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: IGGlobal.CACHE_DIR + IGGlobal.BACKGROUND_DIR, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: IGGlobal.CACHE_DIR + IGGlobal.AVATAR_DIR, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: IGGlobal.CACHE_DIR + IGGlobal.STICKER_DIR, withIntermediateDirectories: true, attributes: nil)
             /**** temporary directories ***/
             try FileManager.default.createDirectory(atPath: IGGlobal.TEMP_DIR, withIntermediateDirectories: true, attributes: nil)
         } catch let error as NSError {
