@@ -1112,14 +1112,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 
                 
             } else if let onAddWaitingProgress = result?.object as? (action: ChatMessageAction, roomId: Int64, message: IGRoomMessage, direction: IGPClientGetRoomHistory.IGPDirection), onAddWaitingProgress.action == ChatMessageAction.addProgress {
+                /*
                 if onAddWaitingProgress.roomId == self?.room?.id ?? -1 {
                     self?.appendMessageArray([onAddWaitingProgress.message], onAddWaitingProgress.direction)
                     self?.addWaitingProgress(direction: onAddWaitingProgress.direction)
                 }
+                */
                 
                 
             } else if let onRemoveWaitingProgress = result?.object as? (action: ChatMessageAction, fakeMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection), onRemoveWaitingProgress.action == ChatMessageAction.removeProgress {
-                self?.removeProgress(fakeMessageId: onRemoveWaitingProgress.fakeMessageId, direction: onRemoveWaitingProgress.direction)
+                //self?.removeProgress(fakeMessageId: onRemoveWaitingProgress.fakeMessageId, direction: onRemoveWaitingProgress.direction)
             }
         }
     }
