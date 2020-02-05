@@ -52,6 +52,8 @@ struct EventBusManager {
     static let login = "login"
     static let openRoom = "openRoom"
     static let changeDirection = "changeDirection"
+    static let updateButtonPlayForDownload = "updateButtonPlayForDownload"
+
 }
 
 struct SMMessage {

@@ -411,10 +411,12 @@ open class ActiveLabel: UILabel {
             if let configureLinkAttribute = configureLinkAttribute {
                 attributes = configureLinkAttribute(type, attributes, false)
             }
-
+            
+            
             for element in elements {
                 mutAttrString.setAttributes(convertToOptionalNSAttributedStringKeyDictionary(attributes), range: element.range)
             }
+            
         }
     }
 

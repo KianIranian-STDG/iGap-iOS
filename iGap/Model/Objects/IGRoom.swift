@@ -324,8 +324,8 @@ class IGRoom: Object {
         let detachedRoom = IGRoom(value: self)
         
         if let lastMessage = self.lastMessage {
-            let detachedMessage = lastMessage.detach()
-            detachedRoom.lastMessage = detachedMessage
+//            let detachedMessage = lastMessage.detach()
+//            detachedRoom.lastMessage = detachedMessage
         }
         if let draft = self.draft {
             let detachedDraft = draft.detach()

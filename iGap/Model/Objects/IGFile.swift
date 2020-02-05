@@ -221,7 +221,7 @@ public class IGFile: Object {
             let detachedThumbnail = waveformThumbnail.detach()
             detachedFile.waveformThumbnail = detachedThumbnail
         }
-        
+
         return detachedFile
     }
     

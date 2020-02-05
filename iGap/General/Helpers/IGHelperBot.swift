@@ -11,6 +11,7 @@
 import SnapKit
 import IGProtoBuff
 import SwiftEventBus
+import AsyncDisplayKit
 
 var tmpUserID : Int64!
 class IGHelperBot {
@@ -20,7 +21,7 @@ class IGHelperBot {
     static var createdViewDic: [Int64 : UIView] = [:]
     var buttonActionDic: [UIButton : IGStructAdditionalButton] = [:]
     var buttonViewDic: [UIButton : UIView] = [:]
-    
+
     let SCREAN_WIDTH = UIScreen.main.bounds.width
     let OUT_LAYOUT_SPACE: CGFloat = 10
     let IN_LAYOUT_SPACE: CGFloat = 5
@@ -40,7 +41,7 @@ class IGHelperBot {
     
     /**************************************************/
     /**************** View Maker Start ****************/
-    
+
     func makeBotView(roomId: Int64, additionalArrayMain: [[IGStructAdditionalButton]], isKeyboard: Bool = false) -> UIView {
         
         let rowCount = CGFloat(additionalArrayMain.count)

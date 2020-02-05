@@ -10,6 +10,7 @@
 
 import UIKit
 
+
 class IGAvatarView: UIView {
     
     private var initialLettersView: UIView?

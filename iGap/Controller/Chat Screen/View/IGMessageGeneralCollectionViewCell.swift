@@ -12,14 +12,14 @@ import UIKit
 
 
 protocol IGMessageGeneralCollectionViewCellDelegate: AnyObject { // Using AnyObject you say that only classes can conform to this protocol, whereas structs or enums can't.
-    func didTapAndHoldOnMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell)
-    func swipToReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell)
-    func didTapOnAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell)
-    func didTapOnForwardedAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell)
-    func didTapOnSenderAvatar(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell)
-    func didTapOnReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell)
-    func didTapOnForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell)
-    func didTapOnMultiForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell, isFromCloud: Bool)
+    func didTapAndHoldOnMessage(cellMessage: IGRoomMessage)
+    func swipToReply(cellMessage: IGRoomMessage)
+    func didTapOnAttachment(cellMessage: IGRoomMessage)
+    func didTapOnForwardedAttachment(cellMessage: IGRoomMessage)
+    func didTapOnSenderAvatar(cellMessage: IGRoomMessage)
+    func didTapOnReply(cellMessage: IGRoomMessage)
+    func didTapOnForward(cellMessage: IGRoomMessage)
+    func didTapOnMultiForward(cellMessage: IGRoomMessage, isFromCloud: Bool)
     func didTapOnFailedStatus(cellMessage: IGRoomMessage)
     func didTapOnReturnToMessage()
     func didTapOnHashtag(hashtagText: String)

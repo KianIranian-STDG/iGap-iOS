@@ -952,7 +952,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         switch gestureRecognizer.state {
         case .began:
             if !(IGGlobal.shouldMultiSelect) {
-                self.delegate?.didTapAndHoldOnMessage(cellMessage: realmRoomMessage!, cell: self)
+                self.delegate?.didTapAndHoldOnMessage(cellMessage: realmRoomMessage!)
             }
         default:
             break
@@ -968,18 +968,18 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
     }
     
     @objc func onMultiForwardTap(_ gestureRecognizer: UITapGestureRecognizer) {
-        self.delegate?.didTapOnMultiForward(cellMessage: realmRoomMessage!, cell: self, isFromCloud: IGGlobal.isCloud(room: self.room))
+        self.delegate?.didTapOnMultiForward(cellMessage: realmRoomMessage!, isFromCloud: IGGlobal.isCloud(room: self.room))
     }
 
     @objc func didTapOnAttachment(_ gestureRecognizer: UITapGestureRecognizer) {
         if !(IGGlobal.shouldMultiSelect) {
-            self.delegate?.didTapOnAttachment(cellMessage: realmRoomMessage!, cell: self)
+            self.delegate?.didTapOnAttachment(cellMessage: realmRoomMessage!)
         }
     }
     
     @objc func didTapOnReply(_ gestureRecognizer: UITapGestureRecognizer) {
         if !(IGGlobal.shouldMultiSelect) {
-            self.delegate?.didTapOnReply(cellMessage: realmRoomMessage!, cell: self)
+            self.delegate?.didTapOnReply(cellMessage: realmRoomMessage!)
         }
     }
     
@@ -1011,7 +1011,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
     
     @objc func didTapOnSenderAvatar(_ gestureRecognizer: UITapGestureRecognizer) {
         if !(IGGlobal.shouldMultiSelect) {
-            self.delegate?.didTapOnSenderAvatar(cellMessage: realmRoomMessage!, cell: self)
+            self.delegate?.didTapOnSenderAvatar(cellMessage: realmRoomMessage!)
         }
     }
     
@@ -1119,7 +1119,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
                         collectionView.delegate?.collectionView!(collectionView, performAction: #selector(onSwipe(_:)), forItemAt: indexPath, withSender: nil)
                         UIView.animate(withDuration: 0.2, animations: {
                             self.setNeedsLayout()
-                            self.delegate?.swipToReply(cellMessage: self.realmRoomMessage!, cell: self)
+                            self.delegate?.swipToReply(cellMessage: self.realmRoomMessage!)
                             self.layoutIfNeeded()
                         })
                         
