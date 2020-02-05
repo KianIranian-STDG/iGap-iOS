@@ -6343,7 +6343,7 @@ extension IGMessageViewController {
         }
         
         if direction == .down {
-            if self.messageLoader.getBiggestMessageId() != 0 && self.messageLoader.getBiggestMessageId() > realmRoomMessages[realmRoomMessages.count-1].id {
+            if self.messageLoader.getBiggestMessageId() != 0 && self.messageLoader.getBiggestMessageId() >= realmRoomMessages[realmRoomMessages.count-1].id {
                 return
             }
             self.messageLoader.setBiggestMessage(biggestMessage: realmRoomMessages[realmRoomMessages.count-1])
