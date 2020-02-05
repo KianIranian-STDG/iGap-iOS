@@ -210,6 +210,7 @@ class IGMessageLoader {
         var resultsUp: Results<IGRoomMessage>!
         
         var fetchMessageId: Int64 = 0 // with this value realm will be queried for get message
+        var unreadMessage: IGRoomMessage?
         
         if (hasUnread() || hasSavedState()) {
             setForceFirstLoadUp(forceFirstLoadUp: true)
@@ -227,7 +228,7 @@ class IGMessageLoader {
                     getMessages(onMessageReceive: onMessageReceive)
                     return
                 }
-                makeUnreadLayoutMessage(onMessageReceive: onMessageReceive)
+                unreadMessage = makeUnreadLayoutMessage()
                 fetchMessageId = firstUnreadMessage.id
                 
             } else {
@@ -310,6 +311,10 @@ class IGMessageLoader {
                 } else {
                     startFutureMessageIdDown = 0
                 }
+            }
+            
+            if unreadMessage != nil {
+                messageInfos.insert(unreadMessage!, at: 0) /** add unread item at start of message list */
             }
             
             onMessageReceive(messageInfos, direction)
@@ -703,13 +708,14 @@ class IGMessageLoader {
     /**
      * make unread layout message and add to the view
      */
-    private func makeUnreadLayoutMessage(onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
+    private func makeUnreadLayoutMessage() -> IGRoomMessage? {
         if (unreadCount > 0) {
             isShowLayoutUnreadMessage = true
             let message = IGRoomMessage(body: "\("\(unreadCount)".inLocalizedLanguage()) \(IGStringsManager.UnreadMessage.rawValue.localized)")
             message.type = .unread
-            onMessageReceive([message], .down)
+            return message
         }
+        return nil
     }
     
     
