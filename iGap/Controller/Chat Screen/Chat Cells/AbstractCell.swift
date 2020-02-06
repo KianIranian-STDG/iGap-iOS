@@ -985,7 +985,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
     
     @objc func didTapOnForward(_ gestureRecognizer: UITapGestureRecognizer) {
         if !(IGGlobal.shouldMultiSelect) {
-            self.delegate?.didTapOnForward(cellMessage: realmRoomMessage!, cell: self)
+            self.delegate?.didTapOnForward(cellMessage: realmRoomMessage!)
         }
     }
     
@@ -1005,7 +1005,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
     
     func didTapOnForwardedAttachment(_ gestureRecognizer: UITapGestureRecognizer) {
         if !(IGGlobal.shouldMultiSelect) {
-            self.delegate?.didTapOnForwardedAttachment(cellMessage: realmRoomMessage!, cell: self)
+            self.delegate?.didTapOnForwardedAttachment(cellMessage: realmRoomMessage!)
         }
     }
     

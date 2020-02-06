@@ -119,7 +119,7 @@ class AbstractNode: ASCellNode {
         }
         
         if message.attachment != nil {
-            if IGGlobal.isFileExist(path: message.attachment!.path(), fileSize: message.attachment!.size) {
+            if IGGlobal.isFileExist(path: message.attachment!.localPath, fileSize: message.attachment!.size) {
                 indicatorViewAbs.isHidden = true
                 indicatorViewAbs.style.preferredSize = CGSize.zero
                 isAttachmentReady = true
@@ -258,7 +258,7 @@ class AbstractNode: ASCellNode {
         }
         
         if let attachment = self.attachment {
-            let fileExist = IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size)
+            let fileExist = IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size)
             if fileExist && !attachment.isInUploadLevels() {
                 if message.type == .video || message.type == .videoAndText {
                     //                    makeVideoPlayView()

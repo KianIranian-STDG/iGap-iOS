@@ -837,7 +837,7 @@ class BaseBubbleNode: ASCellNode {
         stackHSpec.style.flexShrink = 1.0
         stackHSpec.style.flexGrow = 1.0
         
-        let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 5, bottom: 5, right: 4) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 5), child: stackHSpec)
+        let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 5, bottom: 5, right: 10) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 10), child: stackHSpec)
         
         return insetHSpec
         

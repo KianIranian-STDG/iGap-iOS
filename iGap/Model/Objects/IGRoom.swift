@@ -323,10 +323,6 @@ class IGRoom: Object {
     func detach() -> IGRoom {
         let detachedRoom = IGRoom(value: self)
         
-        if let lastMessage = self.lastMessage {
-//            let detachedMessage = lastMessage.detach()
-//            detachedRoom.lastMessage = detachedMessage
-        }
         if let draft = self.draft {
             let detachedDraft = draft.detach()
             detachedRoom.draft = detachedDraft
@@ -343,6 +339,21 @@ class IGRoom: Object {
             let detachedChannelRoom = channelRoom.detach()
             detachedRoom.channelRoom = detachedChannelRoom
         }
+        if let lastMessage = self.lastMessage {
+            //            let detachedMessage = lastMessage.detach()
+            //            detachedRoom.lastMessage = detachedMessage
+        }
+        if let firstUnreadMessage = self.firstUnreadMessage {
+            let detachedFirstUnreadMessage = firstUnreadMessage.detach()
+            detachedRoom.firstUnreadMessage = detachedFirstUnreadMessage
+        }
+        
+        if let pinMessage = self.pinMessage {
+            let detachedPinMessage = pinMessage.detach()
+            detachedRoom.pinMessage = detachedPinMessage
+        }
+
+
         
         return detachedRoom
     }

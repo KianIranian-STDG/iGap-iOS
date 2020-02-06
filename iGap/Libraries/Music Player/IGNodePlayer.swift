@@ -185,7 +185,7 @@ class IGNodePlayer {
     }
     private func fetchAttachmentTime(){
         
-        let path = attachment!.path()
+        let path = attachment!.localUrl
         let asset = AVURLAsset(url: path!)
         let playerItem = AVPlayerItem(asset: asset)
         let timeScale = playerItem.asset.duration.timescale

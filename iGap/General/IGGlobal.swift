@@ -1366,7 +1366,7 @@ extension ASNetworkImageNode {
     func setSticker(for attachment:IGFile) {
         
         do {
-            let path = attachment.path()
+            let path = attachment.localUrl
             if IGGlobal.isFileExist(path: path) {
                 if let data = try? Data(contentsOf: path!) {
                     if let image = UIImage(data: data) {
@@ -1390,7 +1390,7 @@ extension ASNetworkImageNode {
             })
         }
     }
-    func setAvatar(avatar: IGFile, type: IGFile.PreviewType = IGFile.PreviewType.largeThumbnail) {
+    func setAvatar(avatar: IGFile, type: PreviewType = PreviewType.largeThumbnail) {
         
         // remove imageview from download list on t on cell reuse
         DispatchQueue.main.async {
@@ -1401,19 +1401,19 @@ extension ASNetworkImageNode {
         }
         
         var file : IGFile!
-        var previewType : IGFile.PreviewType!
-        
+        var previewType : PreviewType!
+
         if type == .largeThumbnail ,let largeThumbnail = avatar.largeThumbnail {
             file = largeThumbnail
-            previewType = IGFile.PreviewType.largeThumbnail
+            previewType = PreviewType.largeThumbnail
         } else {
             file = avatar.smallThumbnail
-            previewType = IGFile.PreviewType.smallThumbnail
+            previewType = PreviewType.smallThumbnail
         }
         
-        if IGGlobal.isFileExist(path: avatar.path(), fileSize: avatar.size) {
+        if IGGlobal.isFileExist(path: avatar.localPath, fileSize: avatar.size) {
             //            self.sd_setImage(with: avatar.path(), completed: nil)
-            if let data = try? Data(contentsOf: avatar.path()!) {
+            if let data = try? Data(contentsOf: avatar.localUrl!) {
                 if let image = UIImage(data: data) {
                     self.image = image
                 }
@@ -1421,7 +1421,7 @@ extension ASNetworkImageNode {
         } else {
             if file != nil {
 
-                let path = file.path()
+                let path = file.localUrl
                 if IGGlobal.isFileExist(path: path, fileSize: file.size) {
                     //                    self.sd_setImage(with: path, completed: nil)
                     if let data = try? Data(contentsOf: path!) {
@@ -1437,7 +1437,7 @@ extension ASNetworkImageNode {
                         IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
                             DispatchQueue.main.async {
                                 if let imageMain = ASimagesMap[attachment.token!] {
-                                    let path = attachment.path()
+                                    let path = attachment.localUrl
                                     //imageMain.sd_setImage(with: path)
                                     DispatchQueue.global(qos:.userInteractive).async {
                                         if let data = try? Data(contentsOf: path!) {
@@ -1475,15 +1475,11 @@ extension ASNetworkImageNode {
                  * currently check size for 256 KB
                  */
                 
-                if attachment.fileNameOnDisk != nil {
-                    showBestPreview = IGGlobal.isFileExist(path: attachment.path())
-                } else {
-                    showBestPreview = IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size)
-                }
+                showBestPreview = IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size)
             }
             
             if fileSizeKB < MAX_IMAGE_SIZE && showBestPreview {
-                if let data = try? Data(contentsOf: attachment.path()!) {
+                if let data = try? Data(contentsOf: attachment.localUrl!) {
                     if let image = UIImage(data: data) {
                         self.image = image
                     }
@@ -1491,81 +1487,72 @@ extension ASNetworkImageNode {
                 
             } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
                 
-                var fileType: IGFile.PreviewType = .smallThumbnail
+                var fileType: PreviewType = .smallThumbnail
                 var finalFile: IGFile = attachment.smallThumbnail!
+                
                 if showMain {
                     fileType = .originalFile
                     finalFile = attachment
-                } else if showBestPreview { // show large thumbnail for downloaded file if has big size
+                } else if showBestPreview || attachment.type != .image { // show large thumbnail for downloaded file if has big size || for another types that is not image (like: video, gif)
                     fileType = .largeThumbnail
                     finalFile = attachment.largeThumbnail!
                 }
                 
                 do {
-                    var path = URL(string: "")
-                    if attachment.attachedImage != nil {
-                        self.image = attachment.attachedImage
-                    } else {
-                        var image: UIImage?
-                        path = finalFile.path()
-                        if IGGlobal.isFileExist(path: path) {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    var image: UIImage?
+                    let path = finalFile.localUrl
+                    if IGGlobal.isFileExist(path: path) {
+                        image = UIImage(contentsOfFile: path!.path)
+                    }
+                    
+                    if image != nil {
 
-                            image = UIImage(contentsOfFile: path!.path)
+                        if let data = try? Data(contentsOf: path!) {
+                            if let image = UIImage(data: data) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                    
+                                    self.image = image
+                                }
                             }
                         }
                         
-                        if image != nil {
-                            if let data = try? Data(contentsOf: path!) {
-                                if let image = UIImage(data: data) {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-
-                                    self.image = image
-                                    }
-                                }
-                            }
-                        } else {
-                            throw NSError(domain: "asa", code: 1234, userInfo: nil)
-                        }
+                    } else {
+                        throw NSError(domain: "image not exist", code: 1234, userInfo: nil)
                     }
                 } catch {
-                    
-                    DispatchQueue.main.async {
-                        ASimagesMap[attachment.token!] = self
-                        IGDownloadManager.sharedManager.download(file: finalFile, previewType: fileType, completion: { (attachment) -> Void in
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                                if let imageMain = ASimagesMap[attachment.token!] {
-                                    let path = attachment.path()
-                                    //imageMain.sd_setImage(with: path)
-                                    DispatchQueue.global(qos:.userInteractive).async {
-                                        if let data = try? Data(contentsOf: path!) {
-                                            if let image = UIImage(data: data) {
-                                                DispatchQueue.main.async {
-                                                    imageMain.image = image
-                                                }
-                                            }
+                    ASimagesMap[finalFile.token!] = self
+                    IGDownloadManager.sharedManager.download(file: finalFile, previewType: fileType, completion: { (attachment) -> Void in
+                        DispatchQueue.main.async {
+                            if let image = ASimagesMap[attachment.token!] {
+                                ASimagesMap.removeValue(forKey: attachment.token!)
+
+                                if let data = try? Data(contentsOf: attachment.localUrl!) {
+                                    if let image = UIImage(data: data) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                            
+                                            self.image = image
                                         }
                                     }
                                 }
+                                
                             }
-                        }, failure: {
-                            print("ERROR HAPPEND IN DOWNLOADNING AVATAR")
-                        })
-                        
-                    }
-                    
-                    
+                        }
+                    }, failure: {})
                 }
             } else {
                 switch attachment.type {
                 case .image:
-                    // when user is sender thumbnail is not exist, so need to show main image even size is bigger than 1024 Kb
-                    if IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) {
-                        if let data = try? Data(contentsOf: attachment.path()!) {
+                    if IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size) {
+
+                        if let data = try? Data(contentsOf: attachment.localUrl!) {
                             if let image = UIImage(data: data) {
-                                self.image = image
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                    
+                                    self.image = image
+                                }
                             }
                         }
+                        
                     } else {
                         self.image = nil
                     }
@@ -1573,20 +1560,9 @@ extension ASNetworkImageNode {
                 case .gif:
                     break
                 case .video:
-                    // when user is sender thumbnail is not exist, so need to show main image even size is bigger than 1024 Kb
-                    if IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) {
-                        if let data = try? Data(contentsOf: attachment.path()!) {
-                            if let image = UIImage(data: data) {
-                                self.image = image
-                            }
-                        }
-                    } else {
-                        self.image = nil
-                    }
-
                     break
                 case .audio:
-                    //                        self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
+                    self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
                     break
                 default:
                     break
@@ -2447,6 +2423,29 @@ extension URLRequest {
     
 }
 extension UIView {
+    
+    func fadeIn(_ duration: TimeInterval = 1.0, _ alpha: CGFloat = 1.0) {
+        UIView.animate(withDuration: duration, animations: {
+            self.alpha = alpha
+        })
+    }
+    
+    func fadeOut(_ duration: TimeInterval = 1.0, _ alpha: CGFloat = 0.0) {
+        UIView.animate(withDuration: duration, animations: {
+            self.alpha = alpha
+        })
+    }
+    
+    func fadeTransition(_ duration:CFTimeInterval) {
+        let animation = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        animation.type = CATransitionType.fade
+        animation.duration = duration
+        layer.add(animation, forKey: CATransitionType.fade.rawValue)
+    }
+}
+
+extension ASDisplayNode {
     
     func fadeIn(_ duration: TimeInterval = 1.0, _ alpha: CGFloat = 1.0) {
         UIView.animate(withDuration: duration, animations: {

@@ -57,7 +57,7 @@ class IGMusicNode: AbstractNode {
     
     
     func checkButtonState(btn : ASButtonNode) {
-        if IGGlobal.isFileExist(path: message.attachment!.path(), fileSize: message.attachment!.size) {
+        if IGGlobal.isFileExist(path: message.attachment?.localPath, fileSize: message.attachment!.size) {
             indicatorViewAbs.isHidden = true
             indicatorViewAbs.style.preferredSize = CGSize.zero
             btnStateNode.style.preferredSize = CGSize(width: 50, height: 50)
@@ -109,7 +109,7 @@ class IGMusicNode: AbstractNode {
     
     
     func getMetadata(file : IGFile!) {
-        let path = attachment!.path()
+        let path = attachment!.localUrl
         let asset = AVURLAsset(url: path!)
         let playerItem = AVPlayerItem(asset: asset)
         let metadataList = playerItem.asset.commonMetadata
