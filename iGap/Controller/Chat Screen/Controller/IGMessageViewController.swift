@@ -6443,7 +6443,11 @@ extension IGMessageViewController {
                     if self.isNearToBottom() {
                         self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: scrollToBottom)
                     }else {
-                        self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: false)
+                        if realmRoomMessages[0].type != .log, let authorHash = realmRoomMessages[0].authorHash, authorHash == IGAppManager.sharedManager.authorHash() {
+                            self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: scrollToBottom)
+                        } else {
+                            self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: false)
+                        }
                     }
                     self.messageLoader.setWaitingHistoryDownLocal(isWaiting: false)
                     if scrollToBottom {
