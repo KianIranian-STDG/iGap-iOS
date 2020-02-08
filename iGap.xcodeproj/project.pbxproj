@@ -114,7 +114,7 @@
 		8E6BC53823B33EA20037323A /* BlackColorSet.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC53723B33EA20037323A /* BlackColorSet.xcassets */; };
 		8E6E83A12341F75500392F27 /* IGEditProfileChannelAndGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6E83A02341F75500392F27 /* IGEditProfileChannelAndGroupTableViewController.swift */; };
 		8E6E83A32342617400392F27 /* EditProfileChannelAndGroup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E6E83A22342617400392F27 /* EditProfileChannelAndGroup.storyboard */; };
-		8E76B2DB23E86B2F0069BAAF /* IGCircularLoaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76B2DA23E86B2F0069BAAF /* IGCircularLoaderNode.swift */; };
+		8E76B2DB23E86B2F0069BAAF /* IGCircularProgressNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76B2DA23E86B2F0069BAAF /* IGCircularProgressNode.swift */; };
 		8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D3BA2261FFA400830F65 /* SMLoading.swift */; };
 		8E792960234CB9DA00C9CA5C /* IGHelperUIViewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E79295F234CB9DA00C9CA5C /* IGHelperUIViewView.swift */; };
 		8E7C74E42395451E00286315 /* SliderImageWithTextCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C74E22395451E00286315 /* SliderImageWithTextCVCell.swift */; };
@@ -1030,7 +1030,7 @@
 		8E6BC53723B33EA20037323A /* BlackColorSet.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BlackColorSet.xcassets; sourceTree = "<group>"; };
 		8E6E83A02341F75500392F27 /* IGEditProfileChannelAndGroupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGEditProfileChannelAndGroupTableViewController.swift; sourceTree = "<group>"; };
 		8E6E83A22342617400392F27 /* EditProfileChannelAndGroup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditProfileChannelAndGroup.storyboard; sourceTree = "<group>"; };
-		8E76B2DA23E86B2F0069BAAF /* IGCircularLoaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCircularLoaderNode.swift; sourceTree = "<group>"; };
+		8E76B2DA23E86B2F0069BAAF /* IGCircularProgressNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCircularProgressNode.swift; sourceTree = "<group>"; };
 		8E76D3BA2261FFA400830F65 /* SMLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLoading.swift; sourceTree = "<group>"; };
 		8E79295F234CB9DA00C9CA5C /* IGHelperUIViewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperUIViewView.swift; sourceTree = "<group>"; };
 		8E7C74E22395451E00286315 /* SliderImageWithTextCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderImageWithTextCVCell.swift; sourceTree = "<group>"; };
@@ -2492,7 +2492,7 @@
 				8E8E505D23E54CA10094A91C /* IGLogNode.swift */,
 				D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */,
 				8E8E505523E0012D0094A91C /* IGContactNode.swift */,
-				8E76B2DA23E86B2F0069BAAF /* IGCircularLoaderNode.swift */,
+				8E76B2DA23E86B2F0069BAAF /* IGCircularProgressNode.swift */,
 				8E8E506123E6DE770094A91C /* IGMoneytransferReceiptNode.swift */,
 				8E8E505F23E5BAA90094A91C /* IGCardToCardReceiptNode.swift */,
 				8E3360E323D7395D00CE766B /* NodeExtension.swift */,
@@ -4232,7 +4232,7 @@
 				FA99FF6022352109009035DF /* DashboardCellUnknown.swift in Sources */,
 				FA0953611E1B97700043ED3F /* IGSettingContactsTableViewController.swift in Sources */,
 				940F9E78231BBED700C26D50 /* IGApiFavouriteChannels.swift in Sources */,
-				8E76B2DB23E86B2F0069BAAF /* IGCircularLoaderNode.swift in Sources */,
+				8E76B2DB23E86B2F0069BAAF /* IGCircularProgressNode.swift in Sources */,
 				FA6F310F22B8A90500DB942E /* IGHelperTracker.swift in Sources */,
 				D67E982E23A6792C003C1516 /* ImageZoomControllerState.swift in Sources */,
 				8E4177F3233CDABD00CEB3AF /* AKMaskFieldBlock.swift in Sources */,

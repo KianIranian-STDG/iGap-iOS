@@ -6778,7 +6778,7 @@ extension IGMessageViewController : ASCollectionDelegate,ASCollectionDataSource 
                        break
                    }
                    
-                let node = IGLogNode(logType: .unknown, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
+                let node = IGLogNode(message: msg!.detach(),logType: logTypeTemp, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
                    node.selectionStyle = .none
                    
                    return node
@@ -6786,7 +6786,7 @@ extension IGMessageViewController : ASCollectionDelegate,ASCollectionDataSource 
                    
                } else if msg!.type == .progress {
                    
-                       let node = IGLogNode(logType: .unknown, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
+                       let node = IGLogNode(logType: .progress, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
                       node.selectionStyle = .none
                    
                    return node

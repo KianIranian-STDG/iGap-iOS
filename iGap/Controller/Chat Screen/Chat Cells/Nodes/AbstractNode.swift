@@ -36,11 +36,6 @@ class AbstractNode: ASCellNode {
         
         return view
     }
-    let CircularLoaderNode = ASDisplayNode { () -> UIView in
-        let view = ProgressCell()
-        view.showProgress()
-        return view
-    }
     //BUTTON DOWNLOAD/PLAY/PAUSE for NODES
     var btnStateNode = ASButtonNode()
     //progress Node

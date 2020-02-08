@@ -15,12 +15,19 @@ public enum logMessageType:Int {
     case unread            = 1 // exp: 12 unread messages
     case log            = 2 //exp : ali was added to group
     case time            = 3 //time between chats
-    case unknown            = 4 //unknown message
+    case progress            = 4 //progress for loading new chats
+    case unknown            = 5 //unknown message
 }
 class IGLogNode: ASCellNode {
     
     private let txtLogMessage = ASTextNode()
+    let progressNode = ASDisplayNode { () -> UIView in
+        let view = AnimateloadingView()
+//        view.showProgress()
+        return view
+    }
     private var bgTextNode = ASDisplayNode()
+    private var bgProgressNode = ASDisplayNode()
     private var bgNode = ASDisplayNode()
     private var finalRoom: IGRoom!
     private var finalRoomType: IGRoom.IGType!
@@ -35,7 +42,8 @@ class IGLogNode: ASCellNode {
         self.logType = logType
         self.finalRoom = finalRoom
         self.finalRoomType = finalRoomType
-        
+        if logType == .progress {
+        }
         super.init()
         setupView()
     }
@@ -44,29 +52,48 @@ class IGLogNode: ASCellNode {
         self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
     }
     func setupView() {
-
         addSubnode(self.bgNode)
-        addSubnode(self.bgTextNode)
-        addSubnode(self.txtLogMessage)
 
-        self.bgNode.style.height = ASDimensionMake(.points, 50)
-        self.bgTextNode.style.height = ASDimensionMake(.points, 40)
-        self.bgNode.backgroundColor = UIColor.clear
+        if self.logType == .progress {
+            addSubnode(self.bgProgressNode)
+            addSubnode(self.progressNode)
+            self.bgProgressNode.style.height = ASDimensionMake(.points, 50)
+            self.bgProgressNode.style.width = ASDimensionMake(.points, 50)
 
-        switch logType {
+            self.progressNode.style.height = ASDimensionMake(.points, 40)
+            self.progressNode.style.width = ASDimensionMake(.points, 40)
+            self.bgProgressNode.backgroundColor = UIColor.white
+            self.bgProgressNode.layer.cornerRadius = 25
+            self.bgProgressNode.layer.borderColor = UIColor.darkGray.cgColor
+            self.bgProgressNode.layer.borderWidth = 1.0
+            self.bgNode.backgroundColor = UIColor.clear
+
+            (progressNode.view as! AnimateloadingView).startAnimating()
+            (progressNode.view as! AnimateloadingView).stopAnimating()
+        } else {
+            addSubnode(self.bgTextNode)
+            addSubnode(self.txtLogMessage)
+
+            self.bgNode.style.height = ASDimensionMake(.points, 50)
+            self.bgTextNode.style.height = ASDimensionMake(.points, 40)
+            self.bgNode.backgroundColor = UIColor.clear
             
-        case .unread:
-            setUnreadMessage(message!)
-        case .log:
-            setLogMessage(message!)
-        case .time:
-            setTime(message!.message!)
-        case .unknown:
-            setUnknownMessage()
+            switch logType {
+                
+            case .unread:
+                setUnreadMessage(message!)
+            case .log:
+                setLogMessage(message!)
+            case .time:
+                setTime(message!.message!)
+            case .unknown:
+                setUnknownMessage()
 
-        default:
-            break
+            default:
+                break
+            }
         }
+
     }
     func setTime(_ time: String) {
         IGGlobal.makeAsyncText(for: self.txtLogMessage, with:time, textColor: .white, size: 15, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
@@ -74,7 +101,7 @@ class IGLogNode: ASCellNode {
         self.txtLogMessage.layer.cornerRadius = 10.0
         self.txtLogMessage.clipsToBounds = true
         let logSize = (time.width(withConstrainedHeight: 20, font: UIFont.igFont(ofSize: 16)))
-        self.txtLogMessage.style.width =  ASDimensionMake(.points, logSize)
+        self.txtLogMessage.style.width =  ASDimensionMake(.points, logSize + 10)
 
     }
     func setLogMessage(_ message: IGRoomMessage) {
@@ -109,19 +136,37 @@ class IGLogNode: ASCellNode {
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
 
 
-        let centerBoxText = ASCenterLayoutSpec(centeringOptions: .XY, child: txtLogMessage)
-        let backTextBox = ASBackgroundLayoutSpec(child: centerBoxText, background: self.bgTextNode)
-        let backBox = ASBackgroundLayoutSpec(child: backTextBox, background: self.bgNode)
-        backBox.style.flexGrow = 1.0
+        if self.logType == .progress {
+            let centerBoxText = ASCenterLayoutSpec(centeringOptions: .XY, child: progressNode)
+            let backTextBox = ASBackgroundLayoutSpec(child: centerBoxText, background: self.bgProgressNode)
+            let backBox = ASBackgroundLayoutSpec(child: backTextBox, background: self.bgNode)
+            backBox.style.flexGrow = 1.0
 
-        let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0), child: backBox)
+            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0), child: backBox)
+                
             
-        
-        return insetSpec
+            return insetSpec
+
+        } else {
+            let centerBoxText = ASCenterLayoutSpec(centeringOptions: .XY, child: txtLogMessage)
+            let backTextBox = ASBackgroundLayoutSpec(child: centerBoxText, background: self.bgTextNode)
+            let backBox = ASBackgroundLayoutSpec(child: backTextBox, background: self.bgNode)
+            backBox.style.flexGrow = 1.0
+
+            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0), child: backBox)
+                
+            
+            return insetSpec
+
+        }
 
     }
     

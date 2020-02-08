@@ -193,8 +193,6 @@ class BaseBubbleNode: ASCellNode {
             bubbleNode = IGCardToCardReceiptNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         }  else if finalType == .wallet && msg!.wallet?.type == 0  { //moneyTransfer
                   bubbleNode = IGMoneytransferReceiptNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
-        }   else if finalType == .progress {
-                  bubbleNode = IGCircularLoaderNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         }
 
 
@@ -514,39 +512,7 @@ class BaseBubbleNode: ASCellNode {
             
         }
 
-                /**************************************************************/
-                /************CIRCULAR LOADER**************/
-                /**************************************************************/
-                
-            else if let _ = bubbleNode as? IGCircularLoaderNode{
-                    
-                    if (self.finalRoomType == .channel) {
-                        
-                        stack.children?.append(txtTimeNode)
-                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
-                        
-                    } else {
-                        
-                        if isIncomming {
-                            stack.children?.append(txtTimeNode)
-                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
-                            
-                        } else {
-                            
-                            let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
-                            timeStatusStack.verticalAlignment = .center
-                            
-                            stack.children?.append(timeStatusStack)
-                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 5,bottom: 8,right: 14),child: stack)
-                            
-                        }
-                        
-                    }
-                    
-                
-                
-                
-            }
+            
             /**************************************************************/
             /************FILE NODE**************/
             /**************************************************************/
