@@ -421,7 +421,7 @@ class IGDownloadManager {
         return progress.fractionCompleted
     }
     
-    func pauseAllDownloads(internetConnectionLost: Bool = false) {
+    func pauseAllDownloads(removePauseListCDN: Bool = false) {
         for downloadTask in dictionaryDownloadTaskMain.values {
             pauseDownload(attachment: downloadTask.file)
         }
@@ -433,7 +433,7 @@ class IGDownloadManager {
          * BUT
          * if just socket connection losted don't remove pauseDownload list (Because now we have to start task NOT start download)
          */
-        if internetConnectionLost {
+        if removePauseListCDN {
             dictionaryPauseTask.removeAll()
         }
     }

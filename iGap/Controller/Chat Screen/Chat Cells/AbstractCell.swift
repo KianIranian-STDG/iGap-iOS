@@ -1343,7 +1343,15 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             } else {
                 indicatorViewAbs?.setFileType(.upload)
             }
-            indicatorViewAbs?.setState(attachment.status)
+            
+            if attachment.status == .ready {
+                if fileExist {
+                    indicatorViewAbs?.setState(.ready)
+                }
+            } else {
+                indicatorViewAbs?.setState(attachment.status)
+            }
+            
             if attachment.status == .downloading || attachment.status == .uploading {
                 indicatorViewAbs?.setPercentage(attachment.downloadUploadPercent)
             }

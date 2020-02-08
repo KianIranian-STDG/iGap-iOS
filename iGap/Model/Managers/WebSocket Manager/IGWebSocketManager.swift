@@ -103,7 +103,7 @@ class IGWebSocketManager: NSObject {
         reachability.whenUnreachable = { reachability in
             // this is called on a background thread
             print ("Network Unreachable")
-            IGDownloadManager.sharedManager.pauseAllDownloads(internetConnectionLost: true)
+            IGDownloadManager.sharedManager.pauseAllDownloads(removePauseListCDN: true)
             IGAppManager.sharedManager.setNetworkConnectionStatus(.waitingForNetwork)
             IGAppManager.sharedManager.isUserLoggedIn.accept(false)
             self.socket.disconnect(forceTimeout:0)

@@ -69,6 +69,7 @@ class IGProgress: UIView {
         switch state {
         case .readyToDownload:
             setPercentage(0.0)
+            //actionButton?.setTitle("🎚", for: UIControl.State.normal)
             break
             
         case .downloading, .uploading:
