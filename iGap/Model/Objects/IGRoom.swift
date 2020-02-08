@@ -343,12 +343,12 @@ class IGRoom: Object {
             let detachedMessage = lastMessage.detach()
             detachedRoom.lastMessage = detachedMessage
         }
-        if let firstUnreadMessage = self.firstUnreadMessage {
+        if let firstUnreadMessage = self.firstUnreadMessage, copyLastMessage {
             let detachedFirstUnreadMessage = firstUnreadMessage.detach()
             detachedRoom.firstUnreadMessage = detachedFirstUnreadMessage
         }
         
-        if let pinMessage = self.pinMessage {
+        if let pinMessage = self.pinMessage, copyLastMessage {
             let detachedPinMessage = pinMessage.detach()
             detachedRoom.pinMessage = detachedPinMessage
         }
