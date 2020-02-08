@@ -505,8 +505,8 @@ class IGRoomMessage: Object {
             detachedMessage.authorUser = detachedAuthor
         }
         if let author = self.authorRoom {
-//            let detachedAuthor = author.detach()
-//            detachedMessage.authorRoom = detachedAuthor
+            let detachedAuthor = author.detach(copyLastMessage: false)
+            detachedMessage.authorRoom = detachedAuthor
         }
         if let attach = self.attachment {
             let detachedAttachment = attach.detach()

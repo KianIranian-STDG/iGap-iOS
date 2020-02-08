@@ -320,7 +320,7 @@ class IGRoom: Object {
     
     
     //detach from current realm
-    func detach() -> IGRoom {
+    func detach(copyLastMessage: Bool = true) -> IGRoom {
         let detachedRoom = IGRoom(value: self)
         
         if let draft = self.draft {
@@ -339,9 +339,9 @@ class IGRoom: Object {
             let detachedChannelRoom = channelRoom.detach()
             detachedRoom.channelRoom = detachedChannelRoom
         }
-        if let lastMessage = self.lastMessage {
-            //            let detachedMessage = lastMessage.detach()
-            //            detachedRoom.lastMessage = detachedMessage
+        if let lastMessage = self.lastMessage, copyLastMessage {
+            let detachedMessage = lastMessage.detach()
+            detachedRoom.lastMessage = detachedMessage
         }
         if let firstUnreadMessage = self.firstUnreadMessage {
             let detachedFirstUnreadMessage = firstUnreadMessage.detach()
