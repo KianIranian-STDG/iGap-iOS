@@ -6441,7 +6441,11 @@ extension IGMessageViewController {
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
                     self.appendMessageArray(realmRoomMessages, direction)
-                    self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: scrollToBottom)
+                    if self.isNearToBottom() {
+                        self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: scrollToBottom)
+                    }else {
+                        self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: false)
+                    }
                     self.messageLoader.setWaitingHistoryDownLocal(isWaiting: false)
                     if scrollToBottom {
                         // check log type for avoid from always scroll to bottom after pin message
