@@ -69,7 +69,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private var collectionViewNode : ASCollectionNode!
     var finalRoom: IGRoom!
     var middleIndex : IndexPath = [0,0]
-
+    var newMessageArrivedCount : Int = 0
+    
     @IBOutlet weak var scrollToBottomBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var stackTopViews: UIStackView!
@@ -724,7 +725,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         flowlayout.scrollDirection = .vertical
         
         self.collectionViewNode = ASCollectionNode.init(frame: CGRect.zero, collectionViewLayout:flowlayout)
-
+        self.collectionViewNode.backgroundColor = .clear
+        self.tableviewMessagesView.backgroundColor = .clear
         
         collectionViewNode.view.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
         collectionViewNode.view.delaysContentTouches = false
@@ -6446,6 +6448,7 @@ extension IGMessageViewController {
                         if realmRoomMessages[0].type != .log, let authorHash = realmRoomMessages[0].authorHash, authorHash == IGAppManager.sharedManager.authorHash() {
                             self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: scrollToBottom)
                         } else {
+                            self.newMessageArrivedCount = realmRoomMessages.count
                             self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: false)
                         }
                     }
@@ -6733,7 +6736,7 @@ extension IGMessageViewController : ASCollectionDelegate,ASCollectionDataSource 
                let img = isIncomming ? someoneImage : mineImage
 
                if (sSelf.messages!.count <= indexPath.row) || (msg!.isInvalidated) || (sSelf.room?.isInvalidated)!  {
-                let node = IGLogNode(logType: .unknown, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
+                let node = IGLogNode(logType: .emptyBox, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
                       node.selectionStyle = .none
                    
                    return node
@@ -6786,14 +6789,15 @@ extension IGMessageViewController : ASCollectionDelegate,ASCollectionDataSource 
                    
                } else if msg!.type == .progress {
                    
-                       let node = IGLogNode(logType: .progress, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
+                       let node = IGLogNode(logType: .unknown, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
+                             node.selectionStyle = .none
                       node.selectionStyle = .none
                    
                    return node
 
                }else {
                        //Unread
-                let node = IGLogNode(logType: .unknown, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
+                let node = IGLogNode(logType: .emptyBox, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
                       node.selectionStyle = .none
                    
                    return node

@@ -16,7 +16,8 @@ public enum logMessageType:Int {
     case log            = 2 //exp : ali was added to group
     case time            = 3 //time between chats
     case progress            = 4 //progress for loading new chats
-    case unknown            = 5 //unknown message
+    case emptyBox            = 5 //progress for loading new chats
+    case unknown            = 6 //unknown message
 }
 class IGLogNode: ASCellNode {
     
@@ -70,7 +71,9 @@ class IGLogNode: ASCellNode {
 
             (progressNode.view as! AnimateloadingView).startAnimating()
             (progressNode.view as! AnimateloadingView).stopAnimating()
-        } else {
+
+            (progressNode.view as! AnimateloadingView).frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        } else if logType == .emptyBox { } else {
             addSubnode(self.bgTextNode)
             addSubnode(self.txtLogMessage)
 
@@ -140,13 +143,25 @@ class IGLogNode: ASCellNode {
             let centerBoxText = ASCenterLayoutSpec(centeringOptions: .XY, child: progressNode)
             let backTextBox = ASBackgroundLayoutSpec(child: centerBoxText, background: self.bgProgressNode)
             let backBox = ASBackgroundLayoutSpec(child: backTextBox, background: self.bgNode)
-            backBox.style.flexGrow = 1.0
+            backBox.style.flexGrow = 0.0
+            backTextBox.style.flexGrow = 0.0
 
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
             top: 0,
             left: 0,
             bottom: 0,
             right: 0), child: backBox)
+                
+            
+            return insetSpec
+
+        } else if logType == .emptyBox {
+            let verticalBox = ASStackLayoutSpec()
+            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0), child: verticalBox)
                 
             
             return insetSpec

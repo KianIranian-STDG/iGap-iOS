@@ -1461,7 +1461,7 @@ extension ASNetworkImageNode {
     }
     func setThumbnail(for attachment:IGFile, showMain: Bool = false) {
         if !(attachment.isInvalidated) {
-            
+
             let MAX_IMAGE_SIZE = 256 // max size for show main image at view
             
             /* when fileNameOnDisk is added into the attachment just check file existance without check file size
@@ -1488,14 +1488,14 @@ extension ASNetworkImageNode {
             } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
                 
                 var fileType: PreviewType = .smallThumbnail
-                var finalFile: IGFile = attachment.smallThumbnail!
+                var finalFile: IGFile = attachment.smallThumbnail!.detach()
                 
                 if showMain {
                     fileType = .originalFile
-                    finalFile = attachment
+                    finalFile = attachment.detach()
                 } else if showBestPreview || attachment.type != .image { // show large thumbnail for downloaded file if has big size || for another types that is not image (like: video, gif)
                     fileType = .largeThumbnail
-                    finalFile = attachment.largeThumbnail!
+                    finalFile = attachment.largeThumbnail!.detach()
                 }
                 
                 do {
