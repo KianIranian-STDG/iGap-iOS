@@ -763,7 +763,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         setBackground()
         
         if let forwardMsg = IGMessageViewController.selectedMessageToForwardToThisRoom {
-            self.forwardOrReplyMessage(forwardMsg, isReply: false)
+            self.forwardOrReplyMessage(forwardMsg.detach(), isReply: false)
         }
         
         manageDraft()
@@ -931,7 +931,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 if draft.replyTo != -1 {
                     let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", draft.replyTo, self.room!.id)
                     if let replyToMessage = try! Realm().objects(IGRoomMessage.self).filter(predicate).first {
-                        forwardOrReplyMessage(replyToMessage)
+                        forwardOrReplyMessage(replyToMessage.detach())
                     }
                 }
                 setSendAndRecordButtonStates()
@@ -1009,7 +1009,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.STICKER.rawValue)
                     IGAttachmentManager.sharedManager.add(attachment: attachment)
                     
-                    self?.manageSendMessage(message: message, addForwardOrReply: true, isSticker: true)
+                    self?.manageSendMessage(message: message.detach(), addForwardOrReply: true, isSticker: true)
                     
                     self?.sendMessageState(enable: false)
                     self?.messageTextView.text = ""
@@ -1045,7 +1045,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 
             } else if let onMessageUpdate = result?.object as? (action: ChatMessageAction, roomId: Int64, message: IGPRoomMessage, identity: IGRoomMessage), onMessageUpdate.action == ChatMessageAction.update {
                 //DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
-                if self?.room == nil || self?.room?.isInvalidated ?? true || self?.room!.id != onMessageUpdate.roomId || onMessageUpdate.identity.isInvalidated {
+                if self?.room?.detach() == nil || self?.room?.detach().isInvalidated ?? true || self?.room!.id != onMessageUpdate.roomId || onMessageUpdate.identity.isInvalidated {
                     return
                 }
                 if let roomMessage = self?.messages {
@@ -1053,7 +1053,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     if let index = roomMessage.firstIndex(of: onMessageUpdate.identity) {
                         indexOfMessage = index
                     }
-                    self?.updateMessageArray(cellPosition: indexOfMessage, message: IGRoomMessage(igpMessage: onMessageUpdate.message, roomId: onMessageUpdate.roomId))
+                    self?.updateMessageArray(cellPosition: indexOfMessage, message: IGRoomMessage(igpMessage: onMessageUpdate.message, roomId: onMessageUpdate.roomId).detach())
                     self?.updateItem(cellPosition: indexOfMessage)
                 }
                 
@@ -1089,11 +1089,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 
             } else if let onLocalMessageUpdateStatus = result?.object as? (action: ChatMessageAction, localMessage: IGRoomMessage), onLocalMessageUpdateStatus.action == ChatMessageAction.locallyUpdateStatus {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    if self?.room == nil || self?.room?.isInvalidated ?? false || IGMessageViewController.messageIdsStatic[self?.room?.id ?? -1] == nil || onLocalMessageUpdateStatus.localMessage.isInvalidated {
+                    if self?.room == nil || self?.room?.isInvalidated ?? false || IGMessageViewController.messageIdsStatic[self?.room?.id ?? -1] == nil || onLocalMessageUpdateStatus.localMessage.detach().isInvalidated {
                         return
                     }
                     
-                    if let roomMessage = self?.messages, let indexOfMessage = roomMessage.firstIndex(of: onLocalMessageUpdateStatus.localMessage) {
+                    if let roomMessage = self?.messages, let indexOfMessage = roomMessage.firstIndex(of: onLocalMessageUpdateStatus.localMessage.detach()) {
                         if let newMessage = IGRoomMessage.getMessageWithPrimaryKeyId(primaryKeyId: onLocalMessageUpdateStatus.localMessage.primaryKeyId!) {
                             self?.updateMessageArray(cellPosition: indexOfMessage, message: newMessage)
                             self?.updateItem(cellPosition: indexOfMessage)
@@ -1270,7 +1270,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             let delay: Double = 1
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 var indexOfMessage = index
-                self.makeForward(room: self.room!, message: self.forwardedMessageArray[indexOfMessage], isFromCloud: isFromCloud) { [weak self] (message) in
+                self.makeForward(room: self.room!, message: self.forwardedMessageArray[indexOfMessage].detach(), isFromCloud: isFromCloud) { [weak self] (message) in
                     DispatchQueue.main.async {
                         if let finalMessage = IGDatabaseManager.shared.realm.resolve(message), let room = self?.room {
                             IGMessageSender.defaultSender.sendSingleForward(message: finalMessage, to: room, success: { [weak self] in
@@ -1290,7 +1290,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private func makeForward(room: IGRoom, message: IGRoomMessage, isFromCloud: Bool = false, completion: @escaping (_ message: ThreadSafeReference<IGRoomMessage>) -> Void) {
         IGFactory.shared.saveForwardMessage(roomId: room.id, messageId: message.id, isFromCloud: isFromCloud, completion: { (message) in
-            completion(ThreadSafeReference(to: message))
+            completion(ThreadSafeReference(to: message.detach()))
         })
     }
     
@@ -1699,7 +1699,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 do {
                     let realm = try Realm()
                     let latestMessage = realm.objects(IGRoomMessage.self).filter(predicate).last
-                    let additionalData = getAdditional(roomMessage: latestMessage)
+                    let additionalData = getAdditional(roomMessage: latestMessage?.detach())
                     
                     if !self.messageTextView.isFirstResponder {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -1757,7 +1757,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let message = IGRoomMessage(body: structAdditional.label)
         message.type = .text
         message.additional = IGRealmAdditional(additionalData: structAdditional.json, additionalType: 3)
-        manageSendMessage(message: message, addForwardOrReply: false)
+        manageSendMessage(message: message.detach(), addForwardOrReply: false)
     }
     
     private func onAdditionalLinkClick(structAdditional: IGStructAdditionalButton) {
@@ -2399,7 +2399,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if self.collectionViewNode.indexPath(for: visibleCells[0])!.row > IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT {
             var finalMessage: IGRoomMessage!
             if let collectionCell = self.collectionViewNode.nodeForItem(at: IndexPath(row: numberOfItems - IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT, section: 0)) as? BaseBubbleNode {
-                finalMessage = collectionCell.message
+                finalMessage = collectionCell.message?.detach()
             }
             if finalMessage != nil && (finalMessage.isInvalidated || finalMessage.id == firstVisibleItem.id) {
                 saveState = false
@@ -2422,7 +2422,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func fetchVisibleMessage(visibleCells: [ASCellNode], index: Int) -> IGRoomMessage? {
         if visibleCells.count > 0 {
             if let visibleMessage = visibleCells[index] as? BaseBubbleNode {
-                return visibleMessage.message
+                return visibleMessage.message?.detach()
             }
         }
         return nil
@@ -2678,7 +2678,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         message.roomId = self.room!.id
         message.type = .location
         
-        self.manageSendMessage(message: message)
+        self.manageSendMessage(message: message.detach())
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.sendMessageState(enable: false)
@@ -3219,7 +3219,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
             message.roomId = self.room!.id
             
-            manageSendMessage(message: message)
+            manageSendMessage(message: message.detach())
             
             self.sendMessageState(enable: false)
             self.messageTextView.text = ""
@@ -3242,7 +3242,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     message.type = .text
                     message.roomId = self.room!.id
                     
-                    self.manageSendMessage(message: message)
+                    self.manageSendMessage(message: message.detach())
                     self.sendMessageState(enable: false)
                     self.messageTextView.text = ""
                     self.currentAttachment = nil
@@ -3703,7 +3703,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     /************************************************************************/
     @IBAction func didTapOnDeleteButton(_ sender: UIButton) {
         for message in self.selectedMessages {
-            self.deleteMessage(message , both:self.isBoth)
+            self.deleteMessage(message.detach() , both:self.isBoth)
         }
     }
     
@@ -4879,7 +4879,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) { // TODO - when isWaiting for get from server return this method and don't do any action
-        print("======**Scroll**=======")
         if self.collectionViewNode.numberOfItems(inSection: 0) == 0 {
             return
         }
@@ -4945,10 +4944,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 
                 var previousMessage: IGRoomMessage!
                 if  messages!.count > latestIndexPath.row + 1 {
-                    previousMessage = (messages?[latestIndexPath.row + 1])!
+                    previousMessage = (messages?[latestIndexPath.row + 1].detach())!
                 }
                 
-                if let message = messages?[latestIndexPath.row], !message.isInvalidated , message.type != .time , message.type != .unread {
+                if let message = messages?[latestIndexPath.row].detach(), !message.isInvalidated , message.type != .time , message.type != .unread {
                     let dayTimePeriodFormatter = DateFormatter()
                     dayTimePeriodFormatter.dateFormat = "MMMM dd"
                     dayTimePeriodFormatter.calendar = Calendar.current
@@ -5614,11 +5613,11 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
         if cellMessage.status == IGRoomMessageStatus.failed {
             if !(IGGlobal.shouldMultiSelect) {
-                manageFailedMessage(cellMessage: cellMessage)
+                manageFailedMessage(cellMessage: cellMessage.detach())
             }
         } else {
             if !(IGGlobal.shouldMultiSelect) {
-                manageSendedMessage(cellMessage: cellMessage)
+                manageSendedMessage(cellMessage: cellMessage.detach())
                 
             }
         }
@@ -5641,7 +5640,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             
             if cellMessage.status == IGRoomMessageStatus.failed {
             } else {
-                self.forwardOrReplyMessage(cellMessage)
+                self.forwardOrReplyMessage(cellMessage.detach())
             }
             
         }
@@ -5698,7 +5697,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         })
         
         let share = UIAlertAction(title: IGStringsManager.Share.rawValue.localized, style: .default, handler: { (action) in
-            var finalMessage = cellMessage
+            var finalMessage = cellMessage.detach()
             if let forward = cellMessage.forwardedFrom {
                 finalMessage = forward
             }
@@ -5706,7 +5705,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         })
         
         let report = UIAlertAction(title: IGStringsManager.Report.rawValue.localized, style: .default, handler: { (action) in
-            self.report(room: self.room!, message: cellMessage)
+            self.report(room: self.room!.detach(), message: cellMessage)
         })
         
         var deleteTitle = ""
@@ -5731,7 +5730,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         })
         
         //Copy
-        if allowCopy(cellMessage){
+        if allowCopy(cellMessage.detach()){
             alertC.addAction(copy)
         }
         
@@ -5752,19 +5751,19 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             alertC.addAction(forward)
         }
         //Edit
-        if self.allowEdit(cellMessage){
+        if self.allowEdit(cellMessage.detach()){
             alertC.addAction(edit)
         }
         
         //Share
-        if self.allowShare(cellMessage){
+        if self.allowShare(cellMessage.detach()){
             alertC.addAction(share)
         }
         
         alertC.addAction(report)
         
         //Delete
-        let delete = allowDelete(cellMessage)
+        let delete = allowDelete(cellMessage.detach())
         if delete.singleDelete {
             alertC.addAction(deleteForMe)
         }
@@ -6692,8 +6691,8 @@ extension IGMessageViewController : ASCollectionDelegate,ASCollectionDataSource 
             return self.messages!.count
         }
     func collectionNode(_ collectionNode: ASCollectionNode, nodeBlockForItemAt indexPath: IndexPath) -> ASCellNodeBlock {
-        print("TEKRAR",indexPath.item)
-           let msg = messages?[indexPath.row]
+
+        let msg = messages?[indexPath.row]
 
            let cellnodeBlock  = {[weak self] () -> ASCellNode in
                guard let sSelf = self else {
