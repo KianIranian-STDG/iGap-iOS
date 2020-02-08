@@ -70,7 +70,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     var finalRoom: IGRoom!
     var middleIndex : IndexPath = [0,0]
     var newMessageArrivedCount : Int = 0
-    
+    @IBOutlet weak var lblUnreadArrieved : UILabel!
     @IBOutlet weak var scrollToBottomBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var stackTopViews: UIStackView!
@@ -464,6 +464,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.lblUnreadArrieved.isHidden = true
+        self.lblUnreadArrieved.textColor = .white
+        self.lblUnreadArrieved.text = self.lblUnreadArrieved.text?.inLocalizedLanguage()
+        self.lblUnreadArrieved.layer.cornerRadius = 7.5
+        self.lblUnreadArrieved.layer.masksToBounds = true
         ///newUITextMessage
         initViewNewChatView()
         initNotificationsNewChatView()
@@ -714,7 +719,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         initTheme()
         self.view.endEditing(true)
-
     }
 
     private func initASCollectionNode() {
@@ -743,7 +747,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         collectionViewNode.view.leadingAnchor.constraint(equalTo: self.tableviewMessagesView.leadingAnchor).isActive = true
         collectionViewNode.view.trailingAnchor.constraint(equalTo: self.tableviewMessagesView.trailingAnchor).isActive = true
         collectionViewNode.view.bottomAnchor.constraint(equalTo: self.tableviewMessagesView.bottomAnchor,constant: 0).isActive = true
-
 
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -1043,7 +1046,15 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                         self?.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
                     }
                 }
-                
+                self!.newMessageArrivedCount += 1
+                                
+                self!.lblUnreadArrieved.text = String(self!.newMessageArrivedCount)
+                                
+                if self!.newMessageArrivedCount > 0 {
+                    self!.lblUnreadArrieved.isHidden = false
+                } else {
+                    self!.lblUnreadArrieved.isHidden = true
+                }
                 
             } else if let onMessageUpdate = result?.object as? (action: ChatMessageAction, roomId: Int64, message: IGPRoomMessage, identity: IGRoomMessage), onMessageUpdate.action == ChatMessageAction.update {
                 //DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
@@ -4281,6 +4292,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         } else {
             resetAndGetFromEnd()
         }
+        newMessageArrivedCount = 0
+        self.lblUnreadArrieved.isHidden = true
+        self.lblUnreadArrieved.text = "0".inLocalizedLanguage()
+
     }
     private func keepPositioOfScroll() {
         print("=-=-=-1=-=-=-=-")
@@ -4904,6 +4919,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         if (scrollView.contentOffset.y < 0) { //reach bottom
+            self.newMessageArrivedCount = 0
+                            
+            self.lblUnreadArrieved.text = "0".inLocalizedLanguage()
+            self.lblUnreadArrieved.isHidden = true
             if !(self.messageLoader?.isFirstLoadDown() ?? false) && !(self.messageLoader?.isWaitingHistoryDownLocal() ?? false) {
                 self.messageLoader.loadMessage(direction: .down, onMessageReceive: { [weak self] (messages, direction) in
                     self?.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
@@ -6448,7 +6467,7 @@ extension IGMessageViewController {
                         if realmRoomMessages[0].type != .log, let authorHash = realmRoomMessages[0].authorHash, authorHash == IGAppManager.sharedManager.authorHash() {
                             self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: scrollToBottom)
                         } else {
-                            self.newMessageArrivedCount = realmRoomMessages.count
+
                             self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: false)
                         }
                     }
@@ -6490,6 +6509,13 @@ extension IGMessageViewController {
                 CATransaction.commit()
             }
         })
+        if isNearToBottom() {
+            self.newMessageArrivedCount = 0
+            self.lblUnreadArrieved.isHidden = true
+            self.lblUnreadArrieved.text = "0".inLocalizedLanguage()
+        } else {
+            self.lblUnreadArrieved.isHidden = false
+        }
     }
     
     private func addChatItemToTop(count: Int) {
