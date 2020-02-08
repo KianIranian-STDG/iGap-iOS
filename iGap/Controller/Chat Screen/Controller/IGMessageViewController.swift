@@ -68,6 +68,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @IBOutlet weak var tableviewMessagesView : UIView!
     private var collectionViewNode : ASCollectionNode!
     var finalRoom: IGRoom!
+    var middleIndex : IndexPath = [0,0]
 
     @IBOutlet weak var scrollToBottomBottomConstraint: NSLayoutConstraint!
     
@@ -712,6 +713,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         initTheme()
         self.view.endEditing(true)
+
     }
 
     private func initASCollectionNode() {
@@ -732,14 +734,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         collectionViewNode.dataSource = self
 
         self.tableviewMessagesView.addSubnode(collectionViewNode)
-        self.tableviewMessagesView.backgroundColor = .red
+//        self.tableviewMessagesView.backgroundColor = .red
         collectionViewNode.view.translatesAutoresizingMaskIntoConstraints = false
         collectionViewNode.view.topAnchor.constraint(equalTo: self.tableviewMessagesView.topAnchor).isActive = true
 
         collectionViewNode.view.leadingAnchor.constraint(equalTo: self.tableviewMessagesView.leadingAnchor).isActive = true
         collectionViewNode.view.trailingAnchor.constraint(equalTo: self.tableviewMessagesView.trailingAnchor).isActive = true
         collectionViewNode.view.bottomAnchor.constraint(equalTo: self.tableviewMessagesView.bottomAnchor,constant: 0).isActive = true
-        
+
 
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -806,6 +808,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         setMessagesRead()
         manageStickerPosition()
         IGHelperGetMessageState.shared.clearMessageViews()
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -1066,7 +1069,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     }
                     if let indexOfMessage = messages.firstIndex(of: onMessageUpdateStatus.messageId) {
                         if let message = IGRoomMessage.getMessageWithId(messageId: onMessageUpdateStatus.messageId) {
-                            self?.updateMessageArray(cellPosition: indexOfMessage, message: message)
+                            let indexItem = (self?.middleIndex.item)! - 1
+                            self?.middleIndex.item = indexItem
+                                
+                                self?.updateMessageArray(cellPosition: indexOfMessage, message: message.detach())
                             self?.updateItem(cellPosition: indexOfMessage)
                         }
                     }
@@ -1130,9 +1136,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     DispatchQueue.main.async {
                         if let visibleItems = self?.collectionViewNode.indexPathsForVisibleItems {
                             for indexPath in visibleItems {
-                                if let cell = self?.collectionViewNode.nodeForItem(at: indexPath) as? AbstractNode {
-                                    if !cell.message.isInvalidated, let authorUser = cell.message.authorUser, !authorUser.isInvalidated {
-                                        if let peerId = cell.message.authorUser?.userId, userInfo.igpID == peerId {
+                                if let cell = self?.collectionViewNode.nodeForItem(at: indexPath) as? BaseBubbleNode {
+                                    if !cell.message!.isInvalidated, let authorUser = cell.message!.authorUser, !authorUser.isInvalidated {
+                                        if let peerId = cell.message!.authorUser?.userId, userInfo.igpID == peerId {
                                             self?.updateItem(cellPosition: indexPath.row)
                                         }
                                     }
@@ -2392,7 +2398,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if self.collectionViewNode.indexPath(for: visibleCells[0])!.row > IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT {
             var finalMessage: IGRoomMessage!
-            if let collectionCell = self.collectionViewNode.nodeForItem(at: IndexPath(row: numberOfItems - IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT, section: 0)) as? AbstractNode {
+            if let collectionCell = self.collectionViewNode.nodeForItem(at: IndexPath(row: numberOfItems - IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT, section: 0)) as? BaseBubbleNode {
                 finalMessage = collectionCell.message
             }
             if finalMessage != nil && (finalMessage.isInvalidated || finalMessage.id == firstVisibleItem.id) {
@@ -2415,7 +2421,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     /* fetch visible message from collection view according to entered index */
     private func fetchVisibleMessage(visibleCells: [ASCellNode], index: Int) -> IGRoomMessage? {
         if visibleCells.count > 0 {
-            if let visibleMessage = visibleCells[index] as? AbstractNode {
+            if let visibleMessage = visibleCells[index] as? BaseBubbleNode {
                 return visibleMessage.message
             }
         }
@@ -4274,9 +4280,18 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             resetAndGetFromEnd()
         }
     }
-    
+    private func keepPositioOfScroll() {
+        print("=-=-=-1=-=-=-=-")
+        print("MIDDLEINDEX",self.middleIndex)
+        print("=-=-=-2=-=-=-=-")
+        
+
+    }
     private func scrollToBottom(){
+        print("=-=-=-3=-=-=-=-",self.collectionViewNode.contentOffset.y)
         self.collectionViewNode.setContentOffset(CGPoint(x: 0, y: -self.collectionViewNode.contentInset.top) , animated: false)
+        print("=-=-=-4=-=-=-=-",self.collectionViewNode.contentOffset.y)
+
     }
     
     @IBAction func didTapOnJoinButton(_ sender: UIButton) {
@@ -6515,8 +6530,10 @@ extension IGMessageViewController {
         if self.messages!.count <= cellPosition  {
             return
         }
-        
+        print("COMES HERE 001")
         self.collectionViewNode.reloadItems(at: [IndexPath(row: cellPosition, section: 0)])
+        print("COMES HERE 002")
+
     }
     
     /*********************************************************************************/
@@ -6612,7 +6629,13 @@ extension IGMessageViewController {
             DispatchQueue.main.async {
                 self.scrollToBottom()
             }
+        } else {
+            DispatchQueue.main.async {
+
+                self.keepPositioOfScroll()
+            }
         }
+        
     }
     
     /**

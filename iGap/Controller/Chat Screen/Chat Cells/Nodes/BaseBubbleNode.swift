@@ -395,7 +395,7 @@ class BaseBubbleNode: ASCellNode {
                             horizon.verticalAlignment = .bottom
 
                             verticalSpec.child = ASInsetLayoutSpec(
-                                insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 20),child: horizon)
+                                insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: horizon)
 
                         }
                         
@@ -811,7 +811,7 @@ class BaseBubbleNode: ASCellNode {
         
         
         //        space it
-        let insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 5, bottom: 5, right: 4) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 5), child: verticalSpec)
+        let insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 5, bottom: 5, right: 0) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 0), child: verticalSpec)
         
         
         let stackSpec = ASStackLayoutSpec()
