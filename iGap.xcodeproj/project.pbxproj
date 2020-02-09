@@ -227,6 +227,7 @@
 		8EACC7B022621A1F00F32DC3 /* maincore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EACC7AF22621A1F00F32DC3 /* maincore.framework */; };
 		8EACC7B222621A3100F32DC3 /* webservice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EACC7B122621A3100F32DC3 /* webservice.framework */; };
 		8EB4BBAC234B83A400BFA878 /* igap_receive_message_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8EB4BBAB234B83A400BFA878 /* igap_receive_message_sound.mp3 */; };
+		8EBA834923EFEC2A00871FCA /* messageLoader.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EBA834823EFEC2900871FCA /* messageLoader.json */; };
 		8EBB455D2270202A00A52D88 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB455C2270202A00A52D88 /* BaseCollectionViewController.swift */; };
 		8EBF54F822D9B60D00834E6A /* BeautifulBarChartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54ED22D9B60B00834E6A /* BeautifulBarChartPresenter.swift */; };
 		8EBF54F922D9B60D00834E6A /* DataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54EE22D9B60B00834E6A /* DataEntry.swift */; };
@@ -1147,6 +1148,7 @@
 		8EACC7AF22621A1F00F32DC3 /* maincore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = maincore.framework; path = Carthage/Build/iOS/maincore.framework; sourceTree = "<group>"; };
 		8EACC7B122621A3100F32DC3 /* webservice.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = webservice.framework; path = Carthage/Build/iOS/webservice.framework; sourceTree = "<group>"; };
 		8EB4BBAB234B83A400BFA878 /* igap_receive_message_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = igap_receive_message_sound.mp3; sourceTree = "<group>"; };
+		8EBA834823EFEC2900871FCA /* messageLoader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = messageLoader.json; sourceTree = "<group>"; };
 		8EBB455C2270202A00A52D88 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
 		8EBF54ED22D9B60B00834E6A /* BeautifulBarChartPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeautifulBarChartPresenter.swift; sourceTree = "<group>"; };
 		8EBF54EE22D9B60B00834E6A /* DataEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntry.swift; sourceTree = "<group>"; };
@@ -2372,6 +2374,7 @@
 		8ECC183A222FEB5F006E43E8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				8EBA834823EFEC2900871FCA /* messageLoader.json */,
 				8EE7FCA1225DF67900B6C2C3 /* LNNumberpad */,
 				8E8D8E16225CCE6800039191 /* SMValidation.swift */,
 				8EEB1FF322C1F48400EFD2ED /* SMGetGift.swift */,
@@ -3999,6 +4002,7 @@
 				8E5495CF22F02BB1001D30E1 /* SMTwoInputView.xib in Resources */,
 				FA99FF6122352109009035DF /* DashboardCell1.xib in Resources */,
 				8EA854BE239F723100C9442F /* GreenColorSet.xcassets in Resources */,
+				8EBA834923EFEC2A00871FCA /* messageLoader.json in Resources */,
 				8E098A7B2348B0B1008A40A9 /* Search.storyboard in Resources */,
 				FA5EC5DB1E06728C006E2850 /* IGChatRoomListTableViewCell.xib in Resources */,
 				8E7F18F622F567B500A7A7DD /* TextCellCardToCard.xib in Resources */,

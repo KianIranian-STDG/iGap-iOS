@@ -210,23 +210,44 @@ class BaseBubbleNode: ASCellNode {
         if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice || message!.type == .location || message!.type == .video || message!.type == .videoAndText || message!.type == .audio ||  message!.type == .audioAndText || message!.type == .contact || message!.type == .sticker || message!.type == .wallet {
             if(isIncomming){
                 
-                avatarImageViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
-                avatarImageViewNode.cornerRadius = kAMMessageCellNodeAvatarImageSize/2
-                avatarImageViewNode.clipsToBounds = true
                 
-                //clearButton on top of ASAvatarView
-                avatarBtnViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
-                avatarBtnViewNode.cornerRadius = kAMMessageCellNodeAvatarImageSize/2
-                avatarBtnViewNode.clipsToBounds = true
+                if self.finalRoom.type == .channel || self.finalRoom.type == .group {
+                    if self.finalRoom.type == .group {
+
+                        if !isFromSameSender  {
+                            avatarImageViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
+                            avatarImageViewNode.cornerRadius = kAMMessageCellNodeAvatarImageSize/2
+                            avatarImageViewNode.clipsToBounds = true
+
+                            //clearButton on top of ASAvatarView
+                            avatarBtnViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
+                            avatarBtnViewNode.cornerRadius = kAMMessageCellNodeAvatarImageSize/2
+                            avatarBtnViewNode.clipsToBounds = true
+                        }
+                        
+                    } else {
+                        avatarImageViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
+                        avatarImageViewNode.cornerRadius = kAMMessageCellNodeAvatarImageSize/2
+                        avatarImageViewNode.clipsToBounds = true
+
+                        //clearButton on top of ASAvatarView
+                        avatarBtnViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
+                        avatarBtnViewNode.cornerRadius = kAMMessageCellNodeAvatarImageSize/2
+                        avatarBtnViewNode.clipsToBounds = true
+                    }
+                }
                 
                 //set size of status marker to zero for incomming messages
                 txtStatusNode.style.preferredSize = CGSize.zero
                 
             }else{
-                avatarImageViewNode.style.preferredSize = CGSize.zero
-                avatarBtnViewNode.style.preferredSize = CGSize.zero
-                
-                IGGlobal.makeAsyncText(for: self.txtStatusNode, with: "", textColor: .lightGray, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                if self.finalRoom.type == .channel || self.finalRoom.type == .group {
+                    avatarImageViewNode.style.preferredSize = CGSize.zero
+                    avatarBtnViewNode.style.preferredSize = CGSize.zero
+
+                }
+                manageMessageStatus()
+
                 
             }
             //Add SubNodes
@@ -242,8 +263,80 @@ class BaseBubbleNode: ASCellNode {
             addSubnode(bubbleNode)
             addSubnode(txtTimeNode)
             addSubnode(txtStatusNode)
-            addSubnode(avatarImageViewNode)
-            addSubnode(avatarBtnViewNode)//Button with clear BG in order to handle tap on avatar
+            if self.finalRoom.type == .channel || self.finalRoom.type == .group {
+                if self.finalRoom.type == .channel {
+                    addSubnode(avatarImageViewNode)
+                    addSubnode(avatarBtnViewNode)//Button with clear BG in order to handle tap on avatar
+                    //Avatar
+                    if (finalRoomType == .chat) || (finalRoomType == .group)  {
+                        if let user = message!.authorUser?.user {
+                            avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.clear
+                            avatarImageViewNode.setUser(user)
+                        } else if let userId = message!.authorUser?.userId {
+                            avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.white
+                            avatarImageViewNode.avatarASImageView!.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
+                            SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(message!.roomId)", sender: (action: ChatMessageAction.userInfo, userId: userId))
+                        } else {
+                            print("COMES HERE")
+                        }
+
+                    } else {
+                        
+                        print("COMES HERE CHANNEL")
+                        print("=====-----=======")
+                        avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.clear
+                        avatarImageViewNode.setRoom(self.finalRoom)
+
+                        
+                    }
+                    
+                    //Taps
+                    avatarBtnViewNode.addTarget(self, action: #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
+
+
+                } else {
+                    if !isFromSameSender {
+                        addSubnode(avatarImageViewNode)
+                        addSubnode(avatarBtnViewNode)//Button with clear BG in order to handle tap on avatar
+                        //Avatar
+                        if (finalRoomType == .chat) || (finalRoomType == .group)  {
+                            if let user = message!.authorUser?.user {
+                                avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.clear
+                                avatarImageViewNode.setUser(user)
+                            } else if let userId = message!.authorUser?.userId {
+                                avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.white
+                                avatarImageViewNode.avatarASImageView!.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
+                                SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(message!.roomId)", sender: (action: ChatMessageAction.userInfo, userId: userId))
+                            } else {
+                                print("COMES HERE")
+                            }
+
+                        } else {
+                            
+                            print("COMES HERE CHANNEL")
+                            print("=====-----=======")
+                            avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.clear
+                            avatarImageViewNode.setRoom(self.finalRoom)
+
+                            
+                        }
+                        
+                        //Taps
+                        avatarBtnViewNode.addTarget(self, action: #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
+
+
+                    } else {
+                        avatarImageViewNode.removeFromSupernode()
+                        avatarBtnViewNode.removeFromSupernode()
+                    }
+                }
+
+
+            } else {
+                avatarImageViewNode.removeFromSupernode()
+                avatarBtnViewNode.removeFromSupernode()
+                
+            }
             addSubnode(imgNodeReply)
             if finalRoomType! != .channel {
                 imgNodeReply.alpha = 0
@@ -252,38 +345,109 @@ class BaseBubbleNode: ASCellNode {
                 imgNodeReply.alpha = 0.5
                 imgNodeReply.isUserInteractionEnabled = true
             }
+    
             
-            //Avatar
-            if (finalRoomType == .chat) || (finalRoomType == .group)  {
-                if let user = message!.authorUser?.user {
-                    avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.clear
-                    avatarImageViewNode.setUser(user)
-                } else if let userId = message!.authorUser?.userId {
-                    avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.white
-                    avatarImageViewNode.avatarASImageView!.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
-                    SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(message!.roomId)", sender: (action: ChatMessageAction.userInfo, userId: userId))
-                } else {
-                    print("COMES HERE")
-                }
-
-            } else {
-                
-                print("COMES HERE CHANNEL")
-                print("=====-----=======")
-                avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.clear
-                avatarImageViewNode.setRoom(self.finalRoom)
-
-                
-            }
-            
-            //Taps
-            avatarBtnViewNode.addTarget(self, action: #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
             
         }
         
         
     }
     
+    /*
+     ******************************************************************
+     ************************* Status Manager *************************
+     ******************************************************************
+     */
+    
+    private func manageMessageStatus(){
+        
+        switch message!.status {
+        case .sending:
+            if isIncomming {
+                let Color = ThemeManager.currentTheme.MessageTextReceiverColor
+                IGGlobal.makeAsyncText(for: self.txtStatusNode, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+
+            } else {
+                let Color = ThemeManager.currentTheme.LabelColor
+                IGGlobal.makeAsyncText(for: self.txtStatusNode, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+
+            }
+            
+            txtStatusNode.backgroundColor = UIColor.clear
+
+            break
+        case .sent:
+
+            if isIncomming {
+                let Color = ThemeManager.currentTheme.MessageTextReceiverColor
+                IGGlobal.makeAsyncText(for: self.txtStatusNode, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+
+            } else {
+                let Color = ThemeManager.currentTheme.LabelColor
+                IGGlobal.makeAsyncText(for: self.txtStatusNode, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+
+            }
+            
+            txtStatusNode.backgroundColor = UIColor.clear
+
+            
+            break
+        case .delivered:
+
+            if isIncomming {
+                let Color = ThemeManager.currentTheme.MessageTextReceiverColor
+                IGGlobal.makeAsyncText(for: self.txtStatusNode, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+
+            } else {
+                let Color = ThemeManager.currentTheme.LabelColor
+                IGGlobal.makeAsyncText(for: self.txtStatusNode, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+
+            }
+            
+            txtStatusNode.backgroundColor = UIColor.clear
+
+            break
+        case .seen,.listened:
+
+
+            
+            if isIncomming {
+                let Color = ThemeManager.currentTheme.MessageTextReceiverColor
+                IGGlobal.makeAsyncText(for: self.txtStatusNode, with: "", textColor: Color, size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+
+            } else {
+                let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+                let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+                let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+                if currentTheme == "IGAPDay" || currentTheme == "IGAPNight" {
+                    
+                    if currentColorSetLight == "IGAPBlack" {
+                        let Color = ThemeManager.currentTheme.LabelColor
+                        IGGlobal.makeAsyncText(for: self.txtStatusNode, with: "", textColor: .iGapGreen(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                    } else {
+                        let Color = ThemeManager.currentTheme.LabelColor
+                        IGGlobal.makeAsyncText(for: self.txtStatusNode, with: "", textColor: .iGapGreen(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                    }
+
+                } else {
+                    let Color = ThemeManager.currentTheme.LabelColor
+                    IGGlobal.makeAsyncText(for: self.txtStatusNode, with: "", textColor: .iGapGreen(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                }
+
+
+            }
+            
+            txtStatusNode.backgroundColor = UIColor.clear
+
+            break
+        case .failed, .unknown:
+            IGGlobal.makeAsyncText(for: self.txtStatusNode, with: "", textColor: .failedColor(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
+            txtStatusNode.backgroundColor = UIColor.clear
+
+            break
+        }
+    }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
@@ -444,7 +608,7 @@ class BaseBubbleNode: ASCellNode {
                     let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode])
                     
                     stack.children?.append(timeStatusStack)
-                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
+                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
                     
                     
                     
@@ -487,7 +651,7 @@ class BaseBubbleNode: ASCellNode {
                 if (self.finalRoomType == .channel) {
                     
                     stack.children?.append(txtTimeNode)
-                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
+                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
                     
                 } else {
                     
@@ -777,7 +941,22 @@ class BaseBubbleNode: ASCellNode {
         
         
         //        space it
-        let insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 5, bottom: 5, right: 0) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 0), child: verticalSpec)
+        
+        var insetSpec : ASInsetLayoutSpec!
+        if isFromSameSender {
+            if self.finalRoom.type == .channel {
+                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0), child: verticalSpec)
+
+            } else if self.finalRoom.type == .group {
+                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 75, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 10), child: verticalSpec)
+                
+            } else {
+                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 13, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 10), child: verticalSpec)
+
+            }
+        } else {
+            insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 14, left: 5, bottom: 0, right: 0) : UIEdgeInsets(top: 14, left: 4, bottom: 0, right: 0), child: verticalSpec)
+        }
         
         
         let stackSpec = ASStackLayoutSpec()
@@ -793,19 +972,90 @@ class BaseBubbleNode: ASCellNode {
         
         imgNodeReply.style.width = ASDimension(unit: .points, value: 32)
         imgNodeReply.style.height = ASDimension(unit: .points, value: 32)
-        
-        let ASBGStack = ASBackgroundLayoutSpec(child: avatarBtnViewNode, background: avatarImageViewNode)
-        let stackHSpec = ASStackLayoutSpec()
-        stackHSpec.direction = .horizontal
-        stackHSpec.spacing = 5
-        stackHSpec.verticalAlignment = .bottom
-        stackHSpec.children = isIncomming ? [ASBGStack,stackSpec, imgNodeReply] : [imgNodeReply, stackSpec,ASBGStack]
-        stackHSpec.style.flexShrink = 1.0
-        stackHSpec.style.flexGrow = 1.0
-        
-        let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 1, left: 5, bottom: 5, right: 4) : UIEdgeInsets(top: 1, left: 4, bottom: 5, right: 5), child: stackHSpec)
-        
-        return insetHSpec
+        //checks if is from same sender or not handles showing avatar for diffrent types of room types
+        if !isFromSameSender {
+            if self.finalRoom.type == .group {
+                let ASBGStack = ASBackgroundLayoutSpec(child: avatarBtnViewNode, background: avatarImageViewNode)
+                
+                let stackHSpec = ASStackLayoutSpec()
+                stackHSpec.direction = .horizontal
+                stackHSpec.spacing = 5
+                stackHSpec.verticalAlignment = .bottom
+
+                stackHSpec.children = isIncomming ? [ASBGStack,stackSpec, imgNodeReply] : [imgNodeReply, stackSpec,ASBGStack]
+                stackHSpec.style.flexShrink = 1.0
+                stackHSpec.style.flexGrow = 1.0
+                
+                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 4) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 5), child: stackHSpec)
+                
+                return insetHSpec
+
+
+            } else if self.finalRoom.type == .chat {
+                let stackHSpec = ASStackLayoutSpec()
+                stackHSpec.direction = .horizontal
+                stackHSpec.spacing = 5
+                stackHSpec.verticalAlignment = .bottom
+
+                stackHSpec.children = isIncomming ? [stackSpec, imgNodeReply] : [imgNodeReply, stackSpec]
+                stackHSpec.style.flexShrink = 1.0
+                stackHSpec.style.flexGrow = 1.0
+                
+                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 5), child: stackHSpec)
+                
+                return insetHSpec
+
+            } else  {
+                let ASBGStack = ASBackgroundLayoutSpec(child: avatarBtnViewNode, background: avatarImageViewNode)
+                let stackHSpec = ASStackLayoutSpec()
+                stackHSpec.direction = .horizontal
+                stackHSpec.spacing = 5
+                stackHSpec.verticalAlignment = .bottom
+
+                stackHSpec.children = isIncomming ? [ASBGStack,stackSpec, imgNodeReply] : [imgNodeReply, stackSpec,ASBGStack]
+                stackHSpec.style.flexShrink = 1.0
+                stackHSpec.style.flexGrow = 1.0
+                
+                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 5), child: stackHSpec)
+                
+                return insetHSpec
+
+            }
+        } else {
+            if self.finalRoom.type == .channel {
+                
+                let ASBGStack = ASBackgroundLayoutSpec(child: avatarBtnViewNode, background: avatarImageViewNode)
+                let stackHSpec = ASStackLayoutSpec()
+                stackHSpec.direction = .horizontal
+                stackHSpec.spacing = 5
+                stackHSpec.verticalAlignment = .bottom
+
+                stackHSpec.children = isIncomming ? [ASBGStack,stackSpec, imgNodeReply] : [imgNodeReply, stackSpec,ASBGStack]
+                stackHSpec.style.flexShrink = 1.0
+                stackHSpec.style.flexGrow = 1.0
+                
+                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 5), child: stackHSpec)
+                
+                return insetHSpec
+
+            } else {
+                let stackHSpec = ASStackLayoutSpec()
+                stackHSpec.direction = .horizontal
+                stackHSpec.spacing = 5
+                stackHSpec.verticalAlignment = .bottom
+
+                stackHSpec.children = isIncomming ? [stackSpec, imgNodeReply] : [imgNodeReply, stackSpec]
+                stackHSpec.style.flexShrink = 1.0
+                stackHSpec.style.flexGrow = 1.0
+                
+                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 5), child: stackHSpec)
+                
+                return insetHSpec
+
+            }
+
+        }
+
         
     }
     //- Hint : Check tap on user profile
