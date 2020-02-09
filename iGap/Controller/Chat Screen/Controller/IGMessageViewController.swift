@@ -2433,7 +2433,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     /** fetch scroll state is at the end of list or not */
     private func isScrollInEnd() -> Bool {
         let visibleCells = self.collectionViewNode.indexPathsForVisibleItems.sorted(by:{ $0.section < $1.section || $0.row < $1.row }).compactMap({ self.collectionViewNode.nodeForItem(at: $0) })
-        return self.collectionViewNode.indexPath(for: visibleCells[0])!.row == 0
+        if let indexPath = self.collectionViewNode.indexPath(for: visibleCells[0]) {
+            return indexPath.row == 0
+        }else {
+            return true
+        }
+//        return self.collectionViewNode.indexPath(for: visibleCells[0])!.row == 0
     }
     
     /* fetch visible message from collection view according to entered index */
@@ -6736,35 +6741,36 @@ extension IGMessageViewController : ASCollectionDelegate,ASCollectionDataSource 
 
         let msg = messages?[indexPath.row]
 
-           let cellnodeBlock  = {[weak self] () -> ASCellNode in
-               guard let sSelf = self else {
-                   return ASCellNode()
-               }
+        let cellnodeBlock  = {[weak self] () -> ASCellNode in
+            
+            guard let sSelf = self else {
+                return ASCellNode()
+            }
 
-               var isIncomming = true
-               let authorHash = msg!.authorHash
-               var shouldShowAvatar = false
-               var isFromSameSender = false
-               
+            var isIncomming = true
+            let authorHash = msg!.authorHash
+            var shouldShowAvatar = false
+            var isFromSameSender = false
+            
             if self?.finalRoom.type == .group || self?.finalRoom.type == .chat || self?.finalRoom.type == .channel  {
-                   shouldShowAvatar = true
-                   
-                       if msg!.type != .log {
-                           if sSelf.messages!.indices.contains(indexPath.row + 1){
-                               let previousMessage = sSelf.messages![(indexPath.row + 1)]
-                               if previousMessage.type != .log && msg!.authorHash == previousMessage.authorHash {
-                                   isFromSameSender = true
-                               }
-                           }
-                           
-                       }
-               }
-               
+                shouldShowAvatar = true
+                
+                if msg!.type != .log {
+                    if sSelf.messages!.indices.contains(indexPath.row + 1){
+                        let previousMessage = sSelf.messages![(indexPath.row + 1)]
+                        if previousMessage.type != .log && msg!.authorHash == previousMessage.authorHash {
+                            isFromSameSender = true
+                        }
+                    }
+                    
+                }
+            }
+            
             if self?.finalRoom.type == .channel { // isIncommingMessage means that show message left side
-                   isIncomming = true
-               } else if let senderHash = authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
-                   isIncomming = false
-               }
+                isIncomming = true
+            } else if let senderHash = authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
+                isIncomming = false
+            }
             var img = UIImage()
 
             if isFromSameSender {
@@ -6775,79 +6781,79 @@ extension IGMessageViewController : ASCollectionDelegate,ASCollectionDataSource 
 
             }
 
-               if (sSelf.messages!.count <= indexPath.row) || (msg!.isInvalidated) || (sSelf.room?.isInvalidated)!  {
+            if (sSelf.messages!.count <= indexPath.row) || (msg!.isInvalidated) || (sSelf.room?.isInvalidated)!  {
                 let node = IGLogNode(logType: .emptyBox, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
-                      node.selectionStyle = .none
-                   
-                   return node
-               }
+                node.selectionStyle = .none
+            
+                return node
+            }
 
-               if msg!.type == .text ||  msg!.type == .image ||  msg!.type == .imageAndText ||  msg!.type == .file ||  msg!.type == .fileAndText || msg!.type == .voice || msg!.type == .location || msg!.type == .video || msg!.type == .videoAndText || msg!.type == .audio || msg!.type == .audioAndText || msg!.type == .contact || msg!.type == .sticker || msg!.type == .wallet {
-                   //TODO: check detach
+            if msg!.type == .text ||  msg!.type == .image ||  msg!.type == .imageAndText ||  msg!.type == .file ||  msg!.type == .fileAndText || msg!.type == .voice || msg!.type == .location || msg!.type == .video || msg!.type == .videoAndText || msg!.type == .audio || msg!.type == .audioAndText || msg!.type == .contact || msg!.type == .sticker || msg!.type == .wallet {
+                //TODO: check detach
                 let node = BaseBubbleNode(message: msg!, finalRoomType : sSelf.finalRoom!.type ,finalRoom : sSelf.finalRoom!, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
-                   
-                   (node.bubbleNode as? AbstractNode)?.delegate = sSelf
-                   node.generalMessageDelegate = sSelf
-                   node.selectionStyle = .none
-                   return node
+                    
+                (node.bubbleNode as? AbstractNode)?.delegate = sSelf
+                node.generalMessageDelegate = sSelf
+                node.selectionStyle = .none
+                return node
 
-                   
-               } /*else if msg!.type == .wallet {
-                   
-                   if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue { //mode: CardToCard
+                
+            } /*else if msg!.type == .wallet {
+                
+                if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue { //mode: CardToCard
 
-                   } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue { //mode: payment
+                } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue { //mode: payment
 
-                   } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue { //mode: moneyTransfer
+                } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue { //mode: moneyTransfer
 
-                   }
-                   
+                }
+                
 
-               }
-    */
-               else if msg!.type == .log || msg!.type == .time || msg!.type == .unread {
-                   var logTypeTemp : logMessageType!
+            }
+*/
+            else if msg!.type == .log || msg!.type == .time || msg!.type == .unread {
+                var logTypeTemp : logMessageType!
 
-                   
-                   switch msg!.type {
-                   case .log :
-                       logTypeTemp = .log
-                   case .time :
-                       logTypeTemp = .time
-                   case .unread :
-                       logTypeTemp = .unread
-                       
-                   default:
-                       break
-                   }
-                   
-                let node = IGLogNode(message: msg!.detach(),logType: logTypeTemp, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
-                   node.selectionStyle = .none
-                   
-                   return node
+                
+                switch msg!.type {
+                case .log :
+                    logTypeTemp = .log
+                case .time :
+                    logTypeTemp = .time
+                case .unread :
+                    logTypeTemp = .unread
+                    
+                default:
+                    break
+                }
+                
+            let node = IGLogNode(message: msg!.detach(),logType: logTypeTemp, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
+                node.selectionStyle = .none
+                
+                return node
 
-                   
-               } else if msg!.type == .progress {
-                   
-                       let node = IGLogNode(logType: .unknown, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
-                             node.selectionStyle = .none
-                      node.selectionStyle = .none
-                   
-                   return node
+                
+            } else if msg!.type == .progress {
+                    
+                let node = IGLogNode(logType: .unknown, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
+                node.selectionStyle = .none
+                node.selectionStyle = .none
+                    
+                return node
 
-               }else {
-                       //Unread
+            }else {
+                    //Unread
                 let node = IGLogNode(logType: .emptyBox, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
-                      node.selectionStyle = .none
-                   
-                   return node
+                node.selectionStyle = .none
+                    
+                return node
 
-                   
-               }
-               
-           }
+                
+            }
+            
+        }
            
-           return cellnodeBlock
+        return cellnodeBlock
 
            
        }
