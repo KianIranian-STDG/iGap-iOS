@@ -99,6 +99,12 @@ class IGRoomMessage: Object {
         if !isForward && !isReply {
             self.roomId = roomId
         }
+        if igpMessage.igpMessage != "" {
+            self.message = igpMessage.igpMessage
+            self.linkInfo = ActiveLabelJsonify.toJson(igpMessage.igpMessage)
+        } else {
+            self.message = nil
+        }
         self.primaryKeyId = IGRoomMessage.generatePrimaryKey(messageID: igpMessage.igpMessageID, roomID: roomId, isForward: isForward, isReply: isReply)
         self.messageVersion = igpMessage.igpMessageVersion
         self.isDeleted = igpMessage.igpDeleted
