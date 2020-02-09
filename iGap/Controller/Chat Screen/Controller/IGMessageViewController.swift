@@ -727,7 +727,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let screenSizeWidth = UIScreen.main.bounds.width
         let flowlayout = UICollectionViewFlowLayout.init()
         flowlayout.scrollDirection = .vertical
-        
+        flowlayout.minimumLineSpacing = 0.0
+
         self.collectionViewNode = ASCollectionNode.init(frame: CGRect.zero, collectionViewLayout:flowlayout)
         self.collectionViewNode.backgroundColor = .clear
         self.tableviewMessagesView.backgroundColor = .clear
@@ -1263,7 +1264,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if hasUnread || hasSaveState {
             self.collectionViewNode.fadeOut(0)
         }
-        
+        if hasUnread {
+            self.lblUnreadArrieved.isHidden = false
+        } else {
+            self.lblUnreadArrieved.isHidden = true
+        }
         messageLoader.getMessages(fetchDown: fetchDown) { [weak self] (messages, direction) in
             self?.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
             if hasUnread || hasSaveState {
@@ -4280,7 +4285,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.messageTextView.text = ""
             self.messageTextViewHeightConstraint.constant = 50
             self.view.layoutIfNeeded()
-
         }
         self.setInputBarHeight()
         self.setSendAndRecordButtonStates()
@@ -6514,7 +6518,12 @@ extension IGMessageViewController {
             self.lblUnreadArrieved.isHidden = true
             self.lblUnreadArrieved.text = "0".inLocalizedLanguage()
         } else {
-            self.lblUnreadArrieved.isHidden = false
+            if newMessageArrivedCount == 0 {
+                self.lblUnreadArrieved.isHidden = true
+            } else {
+                self.lblUnreadArrieved.isHidden = false
+            }
+            
         }
     }
     
@@ -6737,10 +6746,9 @@ extension IGMessageViewController : ASCollectionDelegate,ASCollectionDataSource 
                var shouldShowAvatar = false
                var isFromSameSender = false
                
-            if self?.finalRoom.type == .group {
+            if self?.finalRoom.type == .group || self?.finalRoom.type == .chat || self?.finalRoom.type == .channel  {
                    shouldShowAvatar = true
                    
-                   if isIncomming {
                        if msg!.type != .log {
                            if sSelf.messages!.indices.contains(indexPath.row + 1){
                                let previousMessage = sSelf.messages![(indexPath.row + 1)]
@@ -6750,7 +6758,6 @@ extension IGMessageViewController : ASCollectionDelegate,ASCollectionDataSource 
                            }
                            
                        }
-                   } else {}
                }
                
             if self?.finalRoom.type == .channel { // isIncommingMessage means that show message left side
@@ -6758,8 +6765,15 @@ extension IGMessageViewController : ASCollectionDelegate,ASCollectionDataSource 
                } else if let senderHash = authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
                    isIncomming = false
                }
-               
-               let img = isIncomming ? someoneImage : mineImage
+            var img = UIImage()
+
+            if isFromSameSender {
+                img = isIncomming ? tailLesImage : mineTailLesImage
+
+            } else {
+                img = isIncomming ? someoneImage : mineImage
+
+            }
 
                if (sSelf.messages!.count <= indexPath.row) || (msg!.isInvalidated) || (sSelf.room?.isInvalidated)!  {
                 let node = IGLogNode(logType: .emptyBox, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
