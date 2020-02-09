@@ -829,9 +829,9 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
             
             let tapAndHold = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnCell(_:)))
             tapAndHold.minimumPressDuration = 0.2
-            bubbleNode.view.addGestureRecognizer(tapAndHold)
+            self.view.addGestureRecognizer(tapAndHold)
             
-            bubbleNode.view.isUserInteractionEnabled = true
+            self.view.isUserInteractionEnabled = true
             
             if message?.repliedTo != nil {
                 let onReplyClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnReply(_:)))
