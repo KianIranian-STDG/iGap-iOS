@@ -103,6 +103,7 @@ class IGGlobal {
     static var isPopView : Bool = false
     static var dispoasDic: [Int64:Disposable] = [:]
     static let syncroniseDisposDicQueue = DispatchQueue(label: "thread-safe-dispose-obj", attributes: .concurrent) /*** use "async(flags: .barrier)" for "writes on data"  AND  use "sync" for "read and assign value" **/
+    static var syncroniseImageQueue = DispatchQueue(label: "thread-safe-image-obj", attributes: .concurrent)
     static var carpinoAgreement : Bool = false
     static var barSpace : Int = 50
     static var chartIGPPollFields: [IGPPollField]! = []
@@ -1432,8 +1433,9 @@ extension ASNetworkImageNode {
                     
                 } else {
                     file = file.detach()
+                    ASimagesMap[file.token!] = self
                     DispatchQueue.main.async {
-                        ASimagesMap[file.token!] = self
+                        
                         IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
                             DispatchQueue.main.async {
                                 if let imageMain = ASimagesMap[attachment.token!] {
@@ -1520,21 +1522,27 @@ extension ASNetworkImageNode {
                         throw NSError(domain: "image not exist", code: 1234, userInfo: nil)
                     }
                 } catch {
-                    ASimagesMap[finalFile.token!] = self
+                    let tmpFinalFile = finalFile.detach()
+                    IGGlobal.syncroniseImageQueue.async(flags: .barrier) {
+                        ASimagesMap[tmpFinalFile.token!] = self
+                    }
                     IGDownloadManager.sharedManager.download(file: finalFile, previewType: fileType, completion: { (attachment) -> Void in
                         DispatchQueue.main.async {
-                            if let image = ASimagesMap[attachment.token!] {
+                            
+                            var image: ASNetworkImageNode!
+                            IGGlobal.syncroniseImageQueue.sync {
+                                image = ASimagesMap[attachment.token!]
                                 ASimagesMap.removeValue(forKey: attachment.token!)
-
+                            }
+                            
+                            if image != nil {
                                 if let data = try? Data(contentsOf: attachment.localUrl!) {
                                     if let image = UIImage(data: data) {
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                                            
                                             self.image = image
                                         }
                                     }
                                 }
-                                
                             }
                         }
                     }, failure: {})
