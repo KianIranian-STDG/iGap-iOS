@@ -1431,7 +1431,7 @@ extension ASNetworkImageNode {
                     }
                     
                 } else {
-                    
+                    file = file.detach()
                     DispatchQueue.main.async {
                         ASimagesMap[file.token!] = self
                         IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
