@@ -62,12 +62,6 @@ class BaseBubbleNode: ASCellNode {
         manageGestureRecognizers()
         if !(IGGlobal.shouldMultiSelect) {
             makeSwipeToReply() // Telegram Func
-            DispatchQueue.main.async {
-                let tap = UITapGestureRecognizer(target: self, action: #selector(self.onMultiForwardTap(_:)))
-                self.imgNodeReply.view.addGestureRecognizer(tap)
-                self.imgNodeReply.isUserInteractionEnabled = true
-
-            }
 
         }
     }
@@ -334,16 +328,22 @@ class BaseBubbleNode: ASCellNode {
      */
     private func makeInstantForwardImage() {
 
-        
-        imgNodeReply.contentMode = .scaleAspectFit
-        if self.finalRoom.type == .channel {
-            imgNodeReply.image = UIImage(named: "ig_message_forward")
-        } else if (self.finalRoom.type == .chat && IGGlobal.isCloud(room: self.finalRoom)) {
-            imgNodeReply.image = UIImage(named: "cloudForwardIcon")
-        }
-        imgNodeReply.alpha = 0.5
+        DispatchQueue.main.async {
 
-        
+            self.imgNodeReply.contentMode = .scaleAspectFit
+            if self.finalRoom.type == .channel {
+                self.imgNodeReply.image = UIImage(named: "ig_message_forward")
+            } else if (self.finalRoom.type == .chat && IGGlobal.isCloud(room: self.finalRoom)) {
+                self.imgNodeReply.image = UIImage(named: "cloudForwardIcon")
+            }
+            self.imgNodeReply.alpha = 0.5
+
+            let tap = UITapGestureRecognizer(target: self, action: #selector(self.onMultiForwardTap(_:)))
+            self.imgNodeReply.view.addGestureRecognizer(tap)
+            self.imgNodeReply.isUserInteractionEnabled = true
+
+        }
+
 
         
     }
@@ -665,16 +665,27 @@ class BaseBubbleNode: ASCellNode {
                         
                         if isIncomming {
                             stack.children?.append(txtTimeNode)
-                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: stack)
+                            if isFromSameSender {
+                                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
+
+                            } else {
+                                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                            }
+                            
+
                             
                         } else {
                             let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
                             timeStatusStack.verticalAlignment = .center
                             
                             stack.children?.append(timeStatusStack)
-                            verticalSpec.child = ASInsetLayoutSpec(
-                                insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: stack)
-                            
+                            if isFromSameSender {
+                                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
+
+                            } else {
+                                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                            }
+
                         }
                         
                         
@@ -717,7 +728,12 @@ class BaseBubbleNode: ASCellNode {
                         let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode])
                         
                         stack.children?.append(timeStatusStack)
-                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
+                        if isFromSameSender {
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
+
+                        } else {
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                        }
                         
                         
                     } else {
@@ -726,7 +742,14 @@ class BaseBubbleNode: ASCellNode {
                         timeStatusStack.verticalAlignment = .center
                         
                         stack.children?.append(timeStatusStack)
-                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 5,bottom: 8,right: 14),child: stack)
+                        
+                        if isFromSameSender {
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
+
+                        } else {
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                        }
+
                         
                     }
                     
@@ -812,16 +835,25 @@ class BaseBubbleNode: ASCellNode {
                     
                     if isIncomming {
                         stack.children?.append(txtTimeNode)
-                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 12 + textNodeVerticalOffset),child: stack)
-                        
+                        if isFromSameSender {
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
+
+                        } else {
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                        }
+
                     } else {
                         let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
                         timeStatusStack.verticalAlignment = .center
                         
                         stack.children?.append(timeStatusStack)
-                        verticalSpec.child = ASInsetLayoutSpec(
-                            insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 12 + textNodeVerticalOffset),child: stack)
-                        
+                        if isFromSameSender {
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
+
+                        } else {
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                        }
+
                     }
                     
                 }
@@ -912,16 +944,25 @@ class BaseBubbleNode: ASCellNode {
                     
                     if isIncomming {
                         stack.children?.append(txtTimeNode)
-                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 12 + textNodeVerticalOffset),child: stack)
-                        
+                        if isFromSameSender {
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
+
+                        } else {
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                        }
+
                     } else {
                         let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
                         timeStatusStack.verticalAlignment = .center
                         
                         stack.children?.append(timeStatusStack)
-                        verticalSpec.child = ASInsetLayoutSpec(
-                            insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 12 + textNodeVerticalOffset),child: stack)
-                        
+                        if isFromSameSender {
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
+
+                        } else {
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                        }
+
                     }
                     
                 }
@@ -960,16 +1001,25 @@ class BaseBubbleNode: ASCellNode {
                         
                         if isIncomming {
                             stack.children?.append(txtTimeNode)
-                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset, bottom: 8,right: 12 + textNodeVerticalOffset),child: stack)
-                            
+                            if isFromSameSender {
+                                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
+
+                            } else {
+                                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                            }
+
                         } else {
                             let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
                             timeStatusStack.verticalAlignment = .center
                             
                             stack.children?.append(timeStatusStack)
-                            verticalSpec.child = ASInsetLayoutSpec(
-                                insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 12 + textNodeVerticalOffset),child: stack)
-                            
+                            if isFromSameSender {
+                                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
+
+                            } else {
+                                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                            }
+
                         }
                         
                     }
@@ -1007,16 +1057,26 @@ class BaseBubbleNode: ASCellNode {
                 
                 if isIncomming {
                     stack.children?.append(txtTimeNode)
-                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
-                    
+                    if isFromSameSender {
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
+
+                    } else {
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                    }
+
                 } else {
                     
                     let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
                     timeStatusStack.verticalAlignment = .center
                     
                     stack.children?.append(timeStatusStack)
-                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 5,bottom: 8,right: 14),child: stack)
-                    
+                    if isFromSameSender {
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
+
+                    } else {
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                    }
+
                 }
                 
             }
@@ -1048,16 +1108,26 @@ class BaseBubbleNode: ASCellNode {
                 
                 if isIncomming {
                     stack.children?.append(txtTimeNode)
-                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
-                    
+                    if isFromSameSender {
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
+
+                    } else {
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                    }
+
                 } else {
                     
                     let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
                     timeStatusStack.verticalAlignment = .center
                     
                     stack.children?.append(timeStatusStack)
-                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 5,bottom: 8,right: 14),child: stack)
-                    
+                    if isFromSameSender {
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
+
+                    } else {
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                    }
+
                 }
                 
             }
@@ -1092,8 +1162,13 @@ class BaseBubbleNode: ASCellNode {
                 
                 if isIncomming {
                     stack.children?.append(txtTimeNode)
-                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
-                    
+                    if isFromSameSender {
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
+
+                    } else {
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                    }
+
                 } else {
                     subNode.style.preferredSize = CGSize(width: 100, height: 30)
                     subNode.backgroundColor = UIColor(white: 0, alpha: 0.6)
@@ -1105,8 +1180,13 @@ class BaseBubbleNode: ASCellNode {
                     let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: [backBox])
                     
                     stack.children?.append(timeStatusStack)
-                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 5,bottom: 8,right: 14),child: stack)
-                    
+                    if isFromSameSender {
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
+
+                    } else {
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                    }
+
                 }
                 
             }
