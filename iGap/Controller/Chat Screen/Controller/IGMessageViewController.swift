@@ -6091,7 +6091,14 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     }
     
     func didTapOnMention(mentionText: String) {
-        IGHelperChatOpener.checkUsernameAndOpenRoom(username: mentionText)
+        
+        var finalString = mentionText.trimmingCharacters(in: .whitespaces)
+        
+        if finalString[finalString.startIndex] == "@" {
+            finalString.remove(at: finalString.startIndex)
+        }
+        
+        IGHelperChatOpener.checkUsernameAndOpenRoom(username: finalString)
     }
     
     func didTapOnEmail(email: String) {
