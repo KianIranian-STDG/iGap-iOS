@@ -204,6 +204,8 @@ class IGHelperAvatar {
                                          height: Double(image.size.height),
                                          filePathType: .avatar)
         
+        IGAvatar.saveAvatarInfo(avatarFile: avatar.detach())
+        
         self.saveAttachmentToLocalStorage(data: imgData!, localPath: avatar.localPath ?? "")
         
         return avatar

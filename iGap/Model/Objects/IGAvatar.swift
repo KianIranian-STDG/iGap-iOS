@@ -78,6 +78,14 @@ class IGAvatar: Object{
         return avatar!
     }
     
+    public static func saveAvatarInfo(avatarFile: IGFile){
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                IGDatabaseManager.shared.realm.add(avatarFile)
+            }
+        }
+    }
+    
     //MARK:- Avatar Fetch
     
     public static func getAvatarsLocalList(ownerId: Int64) -> Results<IGAvatar> {

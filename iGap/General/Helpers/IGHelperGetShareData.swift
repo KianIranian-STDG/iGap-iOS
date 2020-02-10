@@ -252,11 +252,9 @@ class IGHelperGetShareData {
             filename = "IMAGE_" + IGGlobal.randomString(length: 16)
             fileSize = Int64(NSData(data: (originalImage).jpegData(compressionQuality: 1)!).length)
         }
-        let randomString = IGGlobal.randomString(length: 16) + "_"
         
         var scaledImage = originalImage
         let imgData = scaledImage.jpegData(compressionQuality: 0.7)
-        let fileNameOnDisk = randomString + filename
         
         if (originalImage.size.width) > CGFloat(2000.0) || (originalImage.size.height) >= CGFloat(2000) {
             scaledImage = IGUploadManager.compress(image: originalImage)
@@ -268,15 +266,22 @@ class IGHelperGetShareData {
                                              height: Double((scaledImage.size.height)))
         
         DispatchQueue.main.async {
-            self.saveAttachmentToLocalStorage(data: imgData!, fileNameOnDisk: fileNameOnDisk)
+            self.saveAttachmentToLocalStorage(data: imgData!, localPath: (attachment.localPath ?? ""))
         }
         
         return attachment
     }
     
-    private static func saveAttachmentToLocalStorage(data: Data, fileNameOnDisk: String) {
-        let path = IGFile.path(fileNameOnDisk: fileNameOnDisk)
-        FileManager.default.createFile(atPath: path.path, contents: data, attributes: nil)
+    private static func saveAttachmentToLocalStorage(data: Data, localPath: String) {
+        do {
+            let nsurl = NSURL(fileURLWithPath: localPath)
+            if let url = nsurl as URL? {
+                let folder = try Folder(path: url.deletingLastPathComponent().path)
+                try folder.createFileIfNeeded(at: url.lastPathComponent, contents: data)
+            }
+        } catch let error {
+            print(error)
+        }
     }
     
     /************************************************************************************************************/

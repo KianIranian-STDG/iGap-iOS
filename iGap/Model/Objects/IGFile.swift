@@ -297,11 +297,6 @@ public class IGFile: Object {
         return filePath
     }
     
-    class func path(fileNameOnDisk: String) -> URL {
-        let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        return NSURL(fileURLWithPath: documents).appendingPathComponent(fileNameOnDisk)!
-    }
-    
     public func isInUploadLevels() -> Bool {
         return self.status == .uploading || self.status == .uploadFailed
     }
