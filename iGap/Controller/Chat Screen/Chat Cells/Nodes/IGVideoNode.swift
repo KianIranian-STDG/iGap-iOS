@@ -32,7 +32,7 @@ class IGVideoNode: AbstractNode {
         
         imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
         imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
-        
+        imgNode.layer.cornerRadius = 10
         addSubnode(imgNode)
         
         IGGlobal.makeAsyncText(for: playTxtNode, with: "", textColor: .white, size: 55, numberOfLines: 1, font: .fontIcon, alignment: .center)

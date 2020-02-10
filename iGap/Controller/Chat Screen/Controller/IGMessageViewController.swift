@@ -1109,16 +1109,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     
                     if let roomMessage = self?.messages, let indexOfMessage = roomMessage.firstIndex(of: onLocalMessageUpdateStatus.localMessage.detach()) {
                         if let newMessage = IGRoomMessage.getMessageWithPrimaryKeyId(primaryKeyId: onLocalMessageUpdateStatus.localMessage.primaryKeyId!) {
-                            self?.updateMessageArray(cellPosition: indexOfMessage, message: newMessage)
+                            self?.updateMessageArray(cellPosition: indexOfMessage, message: newMessage.detach())
                             self?.updateItem(cellPosition: indexOfMessage)
                             
                             if newMessage.status == IGRoomMessageStatus.sending {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                    let message = IGRoomMessage.makeCopyOfMessage(message: newMessage)
+                                    let message = IGRoomMessage.makeCopyOfMessage(message: newMessage.detach())
                                     if message.type == .sticker {
-                                        IGMessageSender.defaultSender.sendSticker(message: newMessage, to: (self?.room!)!)
+                                        IGMessageSender.defaultSender.sendSticker(message: newMessage.detach(), to: (self?.room!.detach())!)
                                     } else {
-                                        IGMessageSender.defaultSender.send(message: newMessage, to: (self?.room!)!)
+                                        IGMessageSender.defaultSender.send(message: newMessage.detach(), to: (self?.room!.detach())!)
                                     }
                                 }
                             }
@@ -1132,7 +1132,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     /* this messageId updated so after get this message from realm it has latest update */
                     if let newMessage = IGRoomMessage.getMessageWithId(messageId: onMessageEdit.messageId) {
                         if let position = IGMessageViewController.messageIdsStatic[self?.room?.id ?? -1]?.firstIndex(of: onMessageEdit.messageId) {
-                            self?.updateMessageArray(cellPosition: position, message: newMessage)
+                            self?.updateMessageArray(cellPosition: position, message: newMessage.detach())
                             self?.updateItem(cellPosition: position)
                         }
                     }
@@ -6772,21 +6772,26 @@ extension IGMessageViewController : ASCollectionDelegate,ASCollectionDataSource 
                     
                 }
             }
-            
-            if self?.finalRoom.type == .channel { // isIncommingMessage means that show message left side
-                isIncomming = true
-            } else if let senderHash = authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
-                isIncomming = false
-            }
             var img = UIImage()
 
-            if isFromSameSender {
-                img = isIncomming ? tailLesImage : mineTailLesImage
+            if self?.finalRoom.type == .channel { // isIncommingMessage means that show message left side
+                isIncomming = true
+                img = tailLesImage
 
             } else {
-                img = isIncomming ? someoneImage : mineImage
+
+                if let senderHash = authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
+                    isIncomming = false
+                    
+                }
+                if isFromSameSender {
+                    img = isIncomming ? tailLesImage : mineTailLesImage
+                } else {
+                    img = isIncomming ? someoneImage : mineImage
+                }
 
             }
+
 
             if (sSelf.messages!.count <= indexPath.row) || (msg!.isInvalidated) || (sSelf.room?.isInvalidated)!  {
                 let node = IGLogNode(logType: .emptyBox, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
@@ -6798,58 +6803,58 @@ extension IGMessageViewController : ASCollectionDelegate,ASCollectionDataSource 
             if msg!.type == .text ||  msg!.type == .image ||  msg!.type == .imageAndText ||  msg!.type == .file ||  msg!.type == .fileAndText || msg!.type == .voice || msg!.type == .location || msg!.type == .video || msg!.type == .videoAndText || msg!.type == .audio || msg!.type == .audioAndText || msg!.type == .contact || msg!.type == .sticker || msg!.type == .wallet {
                 //TODO: check detach
                 let node = BaseBubbleNode(message: msg!, finalRoomType : sSelf.finalRoom!.type ,finalRoom : sSelf.finalRoom!, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
-                    
-                (node.bubbleNode as? AbstractNode)?.delegate = sSelf
-                node.generalMessageDelegate = sSelf
-                node.selectionStyle = .none
-                return node
+                   
+                   (node.bubbleNode as? AbstractNode)?.delegate = sSelf
+                   node.generalMessageDelegate = sSelf
+                   node.selectionStyle = .none
+                   return node
 
-                
-            } /*else if msg!.type == .wallet {
-                
-                if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue { //mode: CardToCard
+                   
+               } /*else if msg!.type == .wallet {
+                   
+                   if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue { //mode: CardToCard
 
-                } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue { //mode: payment
+                   } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue { //mode: payment
 
-                } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue { //mode: moneyTransfer
+                   } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue { //mode: moneyTransfer
 
-                }
-                
+                   }
+                   
 
-            }
-*/
-            else if msg!.type == .log || msg!.type == .time || msg!.type == .unread {
-                var logTypeTemp : logMessageType!
+               }
+    */
+               else if msg!.type == .log || msg!.type == .time || msg!.type == .unread {
+                   var logTypeTemp : logMessageType!
 
-                
-                switch msg!.type {
-                case .log :
-                    logTypeTemp = .log
-                case .time :
-                    logTypeTemp = .time
-                case .unread :
-                    logTypeTemp = .unread
-                    
-                default:
-                    break
-                }
-                
-            let node = IGLogNode(message: msg!.detach(),logType: logTypeTemp, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
-                node.selectionStyle = .none
-                
-                return node
+                   
+                   switch msg!.type {
+                   case .log :
+                       logTypeTemp = .log
+                   case .time :
+                       logTypeTemp = .time
+                   case .unread :
+                       logTypeTemp = .unread
+                       
+                   default:
+                       break
+                   }
+                   
+                let node = IGLogNode(message: msg!.detach(),logType: logTypeTemp, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
+                   node.selectionStyle = .none
+                   
+                   return node
 
-                
-            } else if msg!.type == .progress {
-                    
-                let node = IGLogNode(logType: .unknown, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
-                node.selectionStyle = .none
-                node.selectionStyle = .none
-                    
-                return node
+                   
+               } else if msg!.type == .progress {
+                   
+                       let node = IGLogNode(logType: .progress, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
+                             node.selectionStyle = .none
+                      node.selectionStyle = .none
+                   
+                   return node
 
-            }else {
-                    //Unread
+               }else {
+                       //Unread
                 let node = IGLogNode(logType: .emptyBox, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
                 node.selectionStyle = .none
                     

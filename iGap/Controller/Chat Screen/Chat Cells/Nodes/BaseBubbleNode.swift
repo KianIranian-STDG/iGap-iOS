@@ -29,7 +29,7 @@ class BaseBubbleNode: ASCellNode {
     private let txtNameNode = ASTextNode()
     private let txtStatusNode = ASTextNode()
     private var subNode = ASDisplayNode()
-    
+    var hasReAction : Bool = false
     private(set) var bubbleNode = ASCellNode()
     private var replyForwardViewNode = ASReplyForwardNode()
     
@@ -37,6 +37,14 @@ class BaseBubbleNode: ASCellNode {
     
     private let avatarImageViewNode = ASAvatarView()
     private let avatarBtnViewNode = ASButtonNode()
+    //only in channel
+    private let lblEyeIcon = ASTextNode()
+    private let lblEyeText = ASTextNode()
+    private let lblLikeIcon = ASTextNode()
+    private let lblLikeText = ASTextNode()
+    private let lblDisLikeIcon = ASTextNode()
+    private let lblDisLikeText = ASTextNode()
+    
     weak var delegate : ChatDelegate!
     
     weak var generalMessageDelegate: IGMessageGeneralCollectionViewCellDelegate?
@@ -54,7 +62,13 @@ class BaseBubbleNode: ASCellNode {
         manageGestureRecognizers()
         if !(IGGlobal.shouldMultiSelect) {
             makeSwipeToReply() // Telegram Func
-            
+            DispatchQueue.main.async {
+                let tap = UITapGestureRecognizer(target: self, action: #selector(self.onMultiForwardTap(_:)))
+                self.imgNodeReply.view.addGestureRecognizer(tap)
+                self.imgNodeReply.isUserInteractionEnabled = true
+
+            }
+
         }
     }
     private func makeSwipeToReply() {// Telegram Func
@@ -211,7 +225,7 @@ class BaseBubbleNode: ASCellNode {
             if(isIncomming){
                 
                 
-                if self.finalRoom.type == .channel || self.finalRoom.type == .group {
+                if  self.finalRoom.type == .group {
                     if self.finalRoom.type == .group {
 
                         if !isFromSameSender  {
@@ -225,23 +239,15 @@ class BaseBubbleNode: ASCellNode {
                             avatarBtnViewNode.clipsToBounds = true
                         }
                         
-                    } else {
-                        avatarImageViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
-                        avatarImageViewNode.cornerRadius = kAMMessageCellNodeAvatarImageSize/2
-                        avatarImageViewNode.clipsToBounds = true
-
-                        //clearButton on top of ASAvatarView
-                        avatarBtnViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
-                        avatarBtnViewNode.cornerRadius = kAMMessageCellNodeAvatarImageSize/2
-                        avatarBtnViewNode.clipsToBounds = true
                     }
                 }
                 
                 //set size of status marker to zero for incomming messages
                 txtStatusNode.style.preferredSize = CGSize.zero
                 
+                
             }else{
-                if self.finalRoom.type == .channel || self.finalRoom.type == .group {
+                if self.finalRoom.type == .group {
                     avatarImageViewNode.style.preferredSize = CGSize.zero
                     avatarBtnViewNode.style.preferredSize = CGSize.zero
 
@@ -263,38 +269,7 @@ class BaseBubbleNode: ASCellNode {
             addSubnode(bubbleNode)
             addSubnode(txtTimeNode)
             addSubnode(txtStatusNode)
-            if self.finalRoom.type == .channel || self.finalRoom.type == .group {
-                if self.finalRoom.type == .channel {
-                    addSubnode(avatarImageViewNode)
-                    addSubnode(avatarBtnViewNode)//Button with clear BG in order to handle tap on avatar
-                    //Avatar
-                    if (finalRoomType == .chat) || (finalRoomType == .group)  {
-                        if let user = message!.authorUser?.user {
-                            avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.clear
-                            avatarImageViewNode.setUser(user)
-                        } else if let userId = message!.authorUser?.userId {
-                            avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.white
-                            avatarImageViewNode.avatarASImageView!.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
-                            SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(message!.roomId)", sender: (action: ChatMessageAction.userInfo, userId: userId))
-                        } else {
-                            print("COMES HERE")
-                        }
-
-                    } else {
-                        
-                        print("COMES HERE CHANNEL")
-                        print("=====-----=======")
-                        avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.clear
-                        avatarImageViewNode.setRoom(self.finalRoom)
-
-                        
-                    }
-                    
-                    //Taps
-                    avatarBtnViewNode.addTarget(self, action: #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
-
-
-                } else {
+            if self.finalRoom.type == .group {
                     if !isFromSameSender {
                         addSubnode(avatarImageViewNode)
                         addSubnode(avatarBtnViewNode)//Button with clear BG in order to handle tap on avatar
@@ -329,7 +304,7 @@ class BaseBubbleNode: ASCellNode {
                         avatarImageViewNode.removeFromSupernode()
                         avatarBtnViewNode.removeFromSupernode()
                     }
-                }
+                
 
 
             } else {
@@ -337,20 +312,119 @@ class BaseBubbleNode: ASCellNode {
                 avatarBtnViewNode.removeFromSupernode()
                 
             }
-            addSubnode(imgNodeReply)
-            if finalRoomType! != .channel {
-                imgNodeReply.alpha = 0
-                imgNodeReply.isUserInteractionEnabled = false
-            }else {
-                imgNodeReply.alpha = 0.5
-                imgNodeReply.isUserInteractionEnabled = true
-            }
-    
-            
+
             
         }
+        if self.finalRoom.type == .channel {
+            if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice  || message!.type == .video || message!.type == .videoAndText || message!.type == .audio ||  message!.type == .audioAndText   {
+                
+                    self.makeLikeDislikeIcons()
+
+            }
+
+        }
+        if self.finalRoom.type == .channel || (self.finalRoom.type == .chat && IGGlobal.isCloud(room: self.finalRoom)) {
+            makeInstantForwardNode()
+        }
+    }
+    /*
+     ******************************************************************
+     ****************** MAKE/Remove Instant Forward in channels Only *********
+     ******************************************************************
+     */
+    private func makeInstantForwardImage() {
+
         
+        imgNodeReply.contentMode = .scaleAspectFit
+        if self.finalRoom.type == .channel {
+            imgNodeReply.image = UIImage(named: "ig_message_forward")
+        } else if (self.finalRoom.type == .chat && IGGlobal.isCloud(room: self.finalRoom)) {
+            imgNodeReply.image = UIImage(named: "cloudForwardIcon")
+        }
+        imgNodeReply.alpha = 0.5
+
         
+
+        
+    }
+    private func makeInstantForwardNode(){
+        
+        addSubnode(imgNodeReply)
+        makeInstantForwardImage()
+        
+        imgNodeReply.alpha = 0.5
+        imgNodeReply.isUserInteractionEnabled = true
+        
+                
+    }
+    private func removeInstantForwardNode() {
+            imgNodeReply.removeFromSupernode()
+    }
+    /*
+     ******************************************************************
+     ****************** Update Channel Message State ******************
+     ******************************************************************
+     */
+    
+    /* this method update message just for channel */
+    private func manageVoteActions(){
+        
+        if self.message!.channelExtra != nil {
+            var messageVote: IGRoomMessage! = self.message!
+            if let forward = self.message!.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
+               messageVote = forward
+            }
+            let Color = ThemeManager.currentTheme.LabelColor
+            IGGlobal.makeAsyncText(for: self.lblEyeText, with: (messageVote.channelExtra?.viewsLabel ?? "1").inLocalizedLanguage(), textColor: Color, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+            
+            if let channel = messageVote.authorRoom?.channelRoom, channel.hasReaction {
+                hasReAction = true
+
+                IGGlobal.makeAsyncText(for: self.lblLikeText, with: (messageVote.channelExtra?.thumbsUpLabel ?? "0").inLocalizedLanguage(), textColor: Color, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
+                IGGlobal.makeAsyncText(for: self.lblDisLikeText, with: (messageVote.channelExtra?.thumbsDownLabel ?? "0").inLocalizedLanguage(), textColor: Color, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+            } else {
+                hasReAction = false
+
+                lblLikeIcon.removeFromSupernode()
+                lblLikeText.removeFromSupernode()
+                lblDisLikeIcon.removeFromSupernode()
+                lblDisLikeText.removeFromSupernode()
+            }
+            
+            var roomId = messageVote.authorRoom?.id
+            if roomId == nil {
+                roomId = messageVote.roomId
+            }
+            IGHelperGetMessageState.shared.getMessageState(roomId: roomId!, messageId: messageVote.id)
+        } else {
+            lblEyeIcon.removeFromSupernode()
+            lblEyeText.removeFromSupernode()
+            lblLikeIcon.removeFromSupernode()
+            lblLikeText.removeFromSupernode()
+            lblDisLikeIcon.removeFromSupernode()
+            lblDisLikeText.removeFromSupernode()
+
+        }
+    }
+    private func makeLikeDislikeIcons() {
+        
+        addSubnode(lblEyeIcon)
+        addSubnode(lblEyeText)
+        addSubnode(lblLikeIcon)
+        addSubnode(lblLikeText)
+        addSubnode(lblDisLikeIcon)
+        addSubnode(lblDisLikeText)
+
+        
+        let Color = ThemeManager.currentTheme.LabelColor
+        IGGlobal.makeAsyncText(for: self.lblEyeIcon, with: "🌣", textColor: Color, size: 10, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: self.lblLikeIcon, with: "🌡", textColor: .iGapRed(), size: 10, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: self.lblDisLikeIcon, with: "🌢", textColor: .iGapRed(), size: 10, numberOfLines: 1, font: .fontIcon, alignment: .center)
+
+
+        manageVoteActions()
     }
     
     /*
@@ -522,14 +596,20 @@ class BaseBubbleNode: ASCellNode {
                     
                     if (self.finalRoomType == .channel) {
                         
-                        let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode])
-                        
-                        let horizon = ASStackLayoutSpec(direction: .horizontal, spacing: 10, justifyContent: .end, alignItems: ASStackLayoutAlignItems.end, children: isIncomming ? [stack , timeStatusStack] : [stack , timeStatusStack])
-                        horizon.verticalAlignment = .bottom
-                        
-                        verticalSpec.child = ASInsetLayoutSpec(
-                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: horizon)
-                        
+                        let timeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .start, children: [txtTimeNode])
+                        var likeDislikeStack = ASStackLayoutSpec()
+                        if hasReAction {
+                            likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText,lblLikeIcon,lblLikeText,lblDisLikeIcon,lblDisLikeText])
+                            likeDislikeStack.verticalAlignment = .center
+                        } else {
+                            likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText])
+                            likeDislikeStack.verticalAlignment = .center
+
+                        }
+                        let holderSyack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,timeStack])
+                        stack.children?.append(holderSyack)
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10 ,bottom: 8,right: 10),child: stack)
+
                     } else {
                         
                         
@@ -567,10 +647,20 @@ class BaseBubbleNode: ASCellNode {
                     
                     if (self.finalRoomType == .channel) {
                         
-                        stack.children?.append(txtTimeNode)
-                        verticalSpec.child = ASInsetLayoutSpec(
-                            insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: stack)
-                        
+                        let timeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .start, children: [txtTimeNode])
+                        var likeDislikeStack = ASStackLayoutSpec()
+                        if hasReAction {
+                            likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText,lblLikeIcon,lblLikeText,lblDisLikeIcon,lblDisLikeText])
+                            likeDislikeStack.verticalAlignment = .center
+                        } else {
+                            likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText])
+                            likeDislikeStack.verticalAlignment = .center
+
+                        }
+                        let holderSyack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,timeStack])
+                        stack.children?.append(holderSyack)
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10 ,bottom: 8,right: 10),child: stack)
+
                     } else {
                         
                         if isIncomming {
@@ -604,19 +694,25 @@ class BaseBubbleNode: ASCellNode {
             if layoutMsg!.attachment != nil{
                 
                 if (self.finalRoomType == .channel) {
-                    
-                    let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode])
-                    
-                    stack.children?.append(timeStatusStack)
-                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
-                    
+                    let timeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .start, children: [txtTimeNode])
+                    var likeDislikeStack = ASStackLayoutSpec()
+                    if hasReAction {
+                        likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText,lblLikeIcon,lblLikeText,lblDisLikeIcon,lblDisLikeText])
+                        likeDislikeStack.verticalAlignment = .center
+                    } else {
+                        likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText])
+                        likeDislikeStack.verticalAlignment = .center
+
+                    }
+                    let holderSyack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,timeStack])
+                    stack.children?.append(holderSyack)
+                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10 ,bottom: 8,right: 10),child: stack)
+
                     
                     
                 } else {
                     
                     if isIncomming {
-                        //                        stack.children?.append(txtTimeNode)
-                        //                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
                         
                         let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode])
                         
@@ -650,9 +746,20 @@ class BaseBubbleNode: ASCellNode {
                 
                 if (self.finalRoomType == .channel) {
                     
-                    stack.children?.append(txtTimeNode)
-                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
-                    
+                    let timeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .start, children: [txtTimeNode])
+                    var likeDislikeStack = ASStackLayoutSpec()
+                    if hasReAction {
+                        likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText,lblLikeIcon,lblLikeText,lblDisLikeIcon,lblDisLikeText])
+                        likeDislikeStack.verticalAlignment = .center
+                    } else {
+                        likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText])
+                        likeDislikeStack.verticalAlignment = .center
+
+                    }
+                    let holderSyack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,timeStack])
+                    stack.children?.append(holderSyack)
+                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10 ,bottom: 8,right: 10),child: stack)
+
                 } else {
                     
                     if isIncomming {
@@ -687,8 +794,20 @@ class BaseBubbleNode: ASCellNode {
                 
                 if (self.finalRoomType == .channel) {
                     
-                    stack.children?.append(txtTimeNode)
-                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 12 + textNodeVerticalOffset),child: stack)
+                    let timeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .start, children: [txtTimeNode])
+                    var likeDislikeStack = ASStackLayoutSpec()
+                    if hasReAction {
+                        likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText,lblLikeIcon,lblLikeText,lblDisLikeIcon,lblDisLikeText])
+                        likeDislikeStack.verticalAlignment = .center
+                    } else {
+                        likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText])
+                        likeDislikeStack.verticalAlignment = .center
+
+                    }
+                    let holderSyack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,timeStack])
+                    stack.children?.append(holderSyack)
+                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10 ,bottom: 8,right: 10),child: stack)
+
                 } else {
                     
                     if isIncomming {
@@ -720,6 +839,7 @@ class BaseBubbleNode: ASCellNode {
             if (self.finalRoomType == .channel) {
                 
                 verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 14),child: stack)
+                
             } else {
                 
                 if isIncomming {
@@ -744,6 +864,7 @@ class BaseBubbleNode: ASCellNode {
             if (self.finalRoomType == .channel) {
                 
                 verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 14),child: stack)
+                
             } else {
                 
                 if isIncomming {
@@ -773,9 +894,20 @@ class BaseBubbleNode: ASCellNode {
                 
                 if (self.finalRoomType == .channel) {
                     
-                    stack.children?.append(txtTimeNode)
-                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 12 + textNodeVerticalOffset),child: stack)
-                    
+                    let timeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .start, children: [txtTimeNode])
+                    var likeDislikeStack = ASStackLayoutSpec()
+                    if hasReAction {
+                        likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText,lblLikeIcon,lblLikeText,lblDisLikeIcon,lblDisLikeText])
+                        likeDislikeStack.verticalAlignment = .center
+                    } else {
+                        likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText])
+                        likeDislikeStack.verticalAlignment = .center
+
+                    }
+                    let holderSyack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,timeStack])
+                    stack.children?.append(holderSyack)
+                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10 ,bottom: 8,right: 10),child: stack)
+
                 } else {
                     
                     if isIncomming {
@@ -810,9 +942,20 @@ class BaseBubbleNode: ASCellNode {
                     
                     if (self.finalRoomType == .channel) {
                         
-                        stack.children?.append(txtTimeNode)
-                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 12 + textNodeVerticalOffset,bottom: 8,right: 12 + textNodeVerticalOffset),child: stack)
-                        
+                        let timeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .start, children: [txtTimeNode])
+                        var likeDislikeStack = ASStackLayoutSpec()
+                        if hasReAction {
+                            likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText,lblLikeIcon,lblLikeText,lblDisLikeIcon,lblDisLikeText])
+                            likeDislikeStack.verticalAlignment = .center
+                        } else {
+                            likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText])
+                            likeDislikeStack.verticalAlignment = .center
+
+                        }
+                        let holderSyack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,timeStack])
+                        stack.children?.append(holderSyack)
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10 ,bottom: 8,right: 10),child: stack)
+
                     } else {
                         
                         if isIncomming {
@@ -846,9 +989,20 @@ class BaseBubbleNode: ASCellNode {
             
             if (self.finalRoomType == .channel) {
                 
-                stack.children?.append(txtTimeNode)
-                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
-                
+                let timeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .start, children: [txtTimeNode])
+                var likeDislikeStack = ASStackLayoutSpec()
+                if hasReAction {
+                    likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText,lblLikeIcon,lblLikeText,lblDisLikeIcon,lblDisLikeText])
+                    likeDislikeStack.verticalAlignment = .center
+                } else {
+                    likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText])
+                    likeDislikeStack.verticalAlignment = .center
+
+                }
+                let holderSyack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,timeStack])
+                stack.children?.append(holderSyack)
+                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10 ,bottom: 8,right: 10),child: stack)
+
             } else {
                 
                 if isIncomming {
@@ -876,9 +1030,20 @@ class BaseBubbleNode: ASCellNode {
             
             if (self.finalRoomType == .channel) {
                 
-                stack.children?.append(txtTimeNode)
-                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
-                
+                let timeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .start, children: [txtTimeNode])
+                var likeDislikeStack = ASStackLayoutSpec()
+                if hasReAction {
+                    likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText,lblLikeIcon,lblLikeText,lblDisLikeIcon,lblDisLikeText])
+                    likeDislikeStack.verticalAlignment = .center
+                } else {
+                    likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText])
+                    likeDislikeStack.verticalAlignment = .center
+
+                }
+                let holderSyack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,timeStack])
+                stack.children?.append(holderSyack)
+                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10 ,bottom: 8,right: 10),child: stack)
+
             } else {
                 
                 if isIncomming {
@@ -909,9 +1074,20 @@ class BaseBubbleNode: ASCellNode {
             
             if (self.finalRoomType == .channel) {
                 
-                stack.children?.append(txtTimeNode)
-                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
-                
+                let timeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .start, children: [txtTimeNode])
+                var likeDislikeStack = ASStackLayoutSpec()
+                if hasReAction {
+                    likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText,lblLikeIcon,lblLikeText,lblDisLikeIcon,lblDisLikeText])
+                    likeDislikeStack.verticalAlignment = .center
+                } else {
+                    likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon,lblEyeText])
+                    likeDislikeStack.verticalAlignment = .center
+
+                }
+                let holderSyack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,timeStack])
+                stack.children?.append(holderSyack)
+                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10 ,bottom: 8,right: 10),child: stack)
+
             } else {
                 
                 if isIncomming {
@@ -973,25 +1149,8 @@ class BaseBubbleNode: ASCellNode {
         imgNodeReply.style.width = ASDimension(unit: .points, value: 32)
         imgNodeReply.style.height = ASDimension(unit: .points, value: 32)
         //checks if is from same sender or not handles showing avatar for diffrent types of room types
-        if !isFromSameSender {
-            if self.finalRoom.type == .group {
-                let ASBGStack = ASBackgroundLayoutSpec(child: avatarBtnViewNode, background: avatarImageViewNode)
-                
-                let stackHSpec = ASStackLayoutSpec()
-                stackHSpec.direction = .horizontal
-                stackHSpec.spacing = 5
-                stackHSpec.verticalAlignment = .bottom
-
-                stackHSpec.children = isIncomming ? [ASBGStack,stackSpec, imgNodeReply] : [imgNodeReply, stackSpec,ASBGStack]
-                stackHSpec.style.flexShrink = 1.0
-                stackHSpec.style.flexGrow = 1.0
-                
-                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 4) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 5), child: stackHSpec)
-                
-                return insetHSpec
-
-
-            } else if self.finalRoom.type == .chat {
+        if self.finalRoom.type == .channel {
+            
                 let stackHSpec = ASStackLayoutSpec()
                 stackHSpec.direction = .horizontal
                 stackHSpec.spacing = 5
@@ -999,64 +1158,78 @@ class BaseBubbleNode: ASCellNode {
 
                 stackHSpec.children = isIncomming ? [stackSpec, imgNodeReply] : [imgNodeReply, stackSpec]
                 stackHSpec.style.flexShrink = 1.0
-                stackHSpec.style.flexGrow = 1.0
                 
-                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 5), child: stackHSpec)
-                
-                return insetHSpec
-
-            } else  {
-                let ASBGStack = ASBackgroundLayoutSpec(child: avatarBtnViewNode, background: avatarImageViewNode)
-                let stackHSpec = ASStackLayoutSpec()
-                stackHSpec.direction = .horizontal
-                stackHSpec.spacing = 5
-                stackHSpec.verticalAlignment = .bottom
-
-                stackHSpec.children = isIncomming ? [ASBGStack,stackSpec, imgNodeReply] : [imgNodeReply, stackSpec,ASBGStack]
-                stackHSpec.style.flexShrink = 1.0
-                stackHSpec.style.flexGrow = 1.0
-                
-                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 5), child: stackHSpec)
+                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 5), child: stackHSpec)
                 
                 return insetHSpec
 
-            }
         } else {
-            if self.finalRoom.type == .channel {
-                
-                let ASBGStack = ASBackgroundLayoutSpec(child: avatarBtnViewNode, background: avatarImageViewNode)
-                let stackHSpec = ASStackLayoutSpec()
-                stackHSpec.direction = .horizontal
-                stackHSpec.spacing = 5
-                stackHSpec.verticalAlignment = .bottom
 
-                stackHSpec.children = isIncomming ? [ASBGStack,stackSpec, imgNodeReply] : [imgNodeReply, stackSpec,ASBGStack]
-                stackHSpec.style.flexShrink = 1.0
-                stackHSpec.style.flexGrow = 1.0
-                
-                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 5), child: stackHSpec)
-                
-                return insetHSpec
+            if !isFromSameSender {
+                if self.finalRoom.type == .group {
+                    let ASBGStack = ASBackgroundLayoutSpec(child: avatarBtnViewNode, background: avatarImageViewNode)
+                    
+                    let stackHSpec = ASStackLayoutSpec()
+                    stackHSpec.direction = .horizontal
+                    stackHSpec.spacing = 5
+                    stackHSpec.verticalAlignment = .bottom
 
+                    stackHSpec.children = isIncomming ? [ASBGStack,stackSpec, imgNodeReply] : [imgNodeReply, stackSpec,ASBGStack]
+                    stackHSpec.style.flexShrink = 1.0
+                    stackHSpec.style.flexGrow = 1.0
+                    
+                    let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 4) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 5), child: stackHSpec)
+                    
+                    return insetHSpec
+
+
+                } else if self.finalRoom.type == .chat {
+                    let stackHSpec = ASStackLayoutSpec()
+                    stackHSpec.direction = .horizontal
+                    stackHSpec.spacing = 5
+                    stackHSpec.verticalAlignment = .bottom
+
+                    stackHSpec.children = isIncomming ? [stackSpec, imgNodeReply] : [imgNodeReply, stackSpec]
+                    stackHSpec.style.flexShrink = 1.0
+                    stackHSpec.style.flexGrow = 1.0
+                    
+                    let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 5), child: stackHSpec)
+                    
+                    return insetHSpec
+
+                } else {
+                    let stackHSpec = ASStackLayoutSpec()
+                    stackHSpec.direction = .horizontal
+                    stackHSpec.spacing = 5
+                    stackHSpec.verticalAlignment = .bottom
+
+                    stackHSpec.children = isIncomming ? [stackSpec, imgNodeReply] : [imgNodeReply, stackSpec]
+                    stackHSpec.style.flexShrink = 1.0
+                    stackHSpec.style.flexGrow = 1.0
+                    
+                    let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 5), child: stackHSpec)
+                    
+                    return insetHSpec
+
+                }
             } else {
-                let stackHSpec = ASStackLayoutSpec()
-                stackHSpec.direction = .horizontal
-                stackHSpec.spacing = 5
-                stackHSpec.verticalAlignment = .bottom
+                    let stackHSpec = ASStackLayoutSpec()
+                    stackHSpec.direction = .horizontal
+                    stackHSpec.spacing = 5
+                    stackHSpec.verticalAlignment = .bottom
 
-                stackHSpec.children = isIncomming ? [stackSpec, imgNodeReply] : [imgNodeReply, stackSpec]
-                stackHSpec.style.flexShrink = 1.0
-                stackHSpec.style.flexGrow = 1.0
-                
-                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 5), child: stackHSpec)
-                
-                return insetHSpec
+                    stackHSpec.children = isIncomming ? [stackSpec, imgNodeReply] : [imgNodeReply, stackSpec]
+                    stackHSpec.style.flexShrink = 1.0
+                    stackHSpec.style.flexGrow = 1.0
+                    
+                    let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 5), child: stackHSpec)
+                    
+                    return insetHSpec
 
             }
 
+            
         }
-
-        
     }
     //- Hint : Check tap on user profile
     @objc func handleUserTap() {
@@ -1181,7 +1354,8 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
     }
     
     @objc func onMultiForwardTap(_ gestureRecognizer: UITapGestureRecognizer) {
-        self.generalMessageDelegate?.didTapOnMultiForward(cellMessage: message!, isFromCloud: IGGlobal.isCloud(room: finalRoom))
+//        self.generalMessageDelegate?.didTapOnMultiForward(cellMessage: message!, isFromCloud: IGGlobal.isCloud(room: finalRoom))
+        print("didTap")
     }
     
     @objc func didTapOnAttachment(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -1258,169 +1432,11 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
     
     
     
-    /*
-     ******************************************************************
-     ************************** Swipe to Reply ************************
-     ******************************************************************
-     */
-    
-    private func makeSwipeImage() {
 
-        
-        imgNodeReply.contentMode = .scaleAspectFit
-        imgNodeReply.image = UIImage(named: "ig_message_reply")
-        imgNodeReply.alpha = 0.5
-        
-    }
     
-    private func swipePositionManager(){
-        if finalRoom.isInvalidated {
-            return
-        }
-        if finalRoomType == .chat || finalRoomType == .group {
-            if pan != nil {
-                
-                if (pan.state == UIGestureRecognizer.State.changed) {
-                    
-                    //                    self.insertSubview(imgReply, belowSubview: self.contentView)
-                    //                    insertSubnode(imgNodeReply, belowSubnode: self)
-                    
-                    let p: CGPoint = pan.translation(in: view)
-                    let width = self.view.frame.width
-                    let height = self.view.frame.height
-                    self.view.frame = CGRect(x: p.x,y: 0, width: width, height: height);
-                    self.imgNodeReply.frame = CGRect(x: p.x + width + imgNodeReply.frame.size.width, y: (height/2) - (imgNodeReply.frame.size.height) / 2 , width: CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT), height: CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
-                    
-                } else if (pan.state == UIGestureRecognizer.State.ended) || (pan.state == UIGestureRecognizer.State.cancelled) {
-                    imgNodeReply.removeFromSupernode()
-                }
-            }
-            else {
-                return
-            }
-        }
-    }
+
     
-    @objc func onSwipe(_ pan: UIPanGestureRecognizer) {
-        
-        let minReplySwipeValue: CGFloat = 80
-        
-        if pan.state == UIGestureRecognizer.State.began {
-            
-        } else if pan.state == UIGestureRecognizer.State.changed {
-
-            self.setNeedsLayout()
-            //            UIView.animate(withDuration: 0.2, animations: {[weak self] in
-            //                guard let sSelf = self else {
-            //                    return
-            //                }
-            //
-            //                let p: CGPoint = sSelf.pan.translation(in: sSelf.view)
-            //                sSelf.view.frame.origin.x = p.x
-            //            })
-            
-            if finalRoomType! != .channel {
-                UIView.animate(withDuration: 0.2, animations: {[weak self] in
-                    guard let sSelf = self else {
-                        return
-                    }
-                    
-                    let p: CGPoint = sSelf.pan.translation(in: sSelf.view)
-                    sSelf.view.frame.origin.x = p.x
-                    sSelf.imgNodeReply.alpha = ((-p.x) * CGFloat(0.5))/60
-                    
-                }) {[weak self] (done) in
-                    guard let sSelf = self else {
-                        return
-                    }
-                    
-                    sSelf.imgNodeReply.isUserInteractionEnabled = true
-                    
-                }
-            }else {
-                UIView.animate(withDuration: 0.2) {[weak self] in
-                    guard let sSelf = self else {
-                        return
-                    }
-                    let p: CGPoint = sSelf.pan.translation(in: sSelf.view)
-                    sSelf.view.frame.origin.x = p.x
-                }
-            }
-            
-        } else {
-
-          
-            let shouldReply = pan.translation(in: self.view).x < -minReplySwipeValue
-            let direction = pan.direction(in: view.superview!)
-            
-            if finalRoomType! != .channel {
-                UIView.animate(withDuration: 0.2, animations: {[weak self] in
-                    guard let sSelf = self else {
-                        return
-                    }
-                    
-                    sSelf.view.frame.origin.x = 0
-                    sSelf.imgNodeReply.alpha = 0
-                    
-                }) {[weak self] (done) in
-                    guard let sSelf = self else {
-                        return
-                    }
-                    
-                    sSelf.imgNodeReply.isUserInteractionEnabled = true
-                    
-                }
-            }else {
-                UIView.animate(withDuration: 0.2) {[weak self] in
-                    guard let sSelf = self else {
-                        return
-                    }
-                    sSelf.view.frame.origin.x = 0
-                }
-            }
-            
-            
-            if direction.contains(.Left) {
-                switch message!.status {
-                    
-                case .failed, .unknown , .sending:
-                    UIView.animate(withDuration: 0.2, animations: {
-                        self.view.setNeedsLayout()
-                        self.view.layoutIfNeeded()
-                    })
-                    break
-                default :
-                    if (shouldReply) {
-                        let tableView = view.superview!.superview!.superview as! UITableView
-                        let indexPath = tableView.indexPathForRow(at: view.center)!
-                        tableView.delegate?.tableView?(tableView, performAction: #selector(onSwipe(_:)), forRowAt: indexPath, withSender: nil)
-                        
-                        UIView.animate(withDuration: 0.2, animations: {[weak self] in
-                            guard let sSelf = self else {
-                                return
-                            }
-                            sSelf.view.setNeedsLayout()
-                            sSelf.generalMessageDelegate?.swipToReply(cellMessage: sSelf.message!)
-                            sSelf.view.layoutIfNeeded()
-                        })
-                        
-                    } else {
-                        UIView.animate(withDuration: 0.2, animations: {
-                            self.view.setNeedsLayout()
-                            self.view.layoutIfNeeded()
-                        })
-                    }
-                    break
-                }
-                
-            } else if direction.contains(.Down) {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.view.setNeedsLayout()
-                    self.view.layoutIfNeeded()
-                })
-            }
-        }
-    }
+    
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true

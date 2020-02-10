@@ -9,6 +9,7 @@
 */
 
 import AsyncDisplayKit
+import Lottie
 
 public enum logMessageType:Int {
     
@@ -23,9 +24,8 @@ class IGLogNode: ASCellNode {
     
     private let txtLogMessage = ASTextNode()
     let progressNode = ASDisplayNode { () -> UIView in
-        let view = AnimateloadingView()
-//        view.showProgress()
-        return view
+        let animationView = AnimationView()
+        return animationView
     }
     private var bgTextNode = ASDisplayNode()
     private var bgProgressNode = ASDisplayNode()
@@ -54,25 +54,29 @@ class IGLogNode: ASCellNode {
     }
     func setupView() {
         addSubnode(self.bgNode)
-
+        
         if self.logType == .progress {
-            addSubnode(self.bgProgressNode)
             addSubnode(self.progressNode)
-            self.bgProgressNode.style.height = ASDimensionMake(.points, 50)
-            self.bgProgressNode.style.width = ASDimensionMake(.points, 50)
 
-            self.progressNode.style.height = ASDimensionMake(.points, 40)
-            self.progressNode.style.width = ASDimensionMake(.points, 40)
-            self.bgProgressNode.backgroundColor = UIColor.white
-            self.bgProgressNode.layer.cornerRadius = 25
-            self.bgProgressNode.layer.borderColor = UIColor.darkGray.cgColor
-            self.bgProgressNode.layer.borderWidth = 1.0
-            self.bgNode.backgroundColor = UIColor.clear
+            self.progressNode.style.height = ASDimensionMake(.points, 50)
+            self.progressNode.style.width = ASDimensionMake(.points, 50)
+            self.progressNode.backgroundColor = UIColor.white
+            self.progressNode.layer.cornerRadius = 25
+            DispatchQueue.main.async {
+                (self.progressNode.view as! AnimationView).play()
+                (self.progressNode.view as! AnimationView).frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+                (self.progressNode.view as! AnimationView).contentMode = .scaleAspectFit
+                let animation = Animation.named("messageLoader")
+                (self.progressNode.view as! AnimationView).animation = animation
+                (self.progressNode.view as! AnimationView).contentMode = .scaleAspectFit
+                (self.progressNode.view as! AnimationView).play()
+                (self.progressNode.view as! AnimationView).loopMode = .loop
+                (self.progressNode.view as! AnimationView).backgroundBehavior = .pauseAndRestore
+                (self.progressNode.view as! AnimationView).forceDisplayUpdate()
 
-            (progressNode.view as! AnimateloadingView).startAnimating()
-            (progressNode.view as! AnimateloadingView).stopAnimating()
+            }
+            self.progressNode.alpha = 0.8
 
-            (progressNode.view as! AnimateloadingView).frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         } else if logType == .emptyBox { } else {
             addSubnode(self.bgTextNode)
             addSubnode(self.txtLogMessage)
@@ -141,10 +145,8 @@ class IGLogNode: ASCellNode {
 
         if self.logType == .progress {
             let centerBoxText = ASCenterLayoutSpec(centeringOptions: .XY, child: progressNode)
-            let backTextBox = ASBackgroundLayoutSpec(child: centerBoxText, background: self.bgProgressNode)
-            let backBox = ASBackgroundLayoutSpec(child: backTextBox, background: self.bgNode)
+            let backBox = ASBackgroundLayoutSpec(child: centerBoxText, background: self.bgNode)
             backBox.style.flexGrow = 0.0
-            backTextBox.style.flexGrow = 0.0
 
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
             top: 0,
