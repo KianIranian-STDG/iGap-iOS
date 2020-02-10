@@ -1295,9 +1295,9 @@ extension UIImageView {
     
     /** show file preview and download thumbnail or main file if needed
      - Parameter showMain: if set true main file will be downloaded automatically
-     - Parameter ignoreSize: if set true check size for show main file will be ignored and will be shown main file if has big size (for example appropriate for IGMediaPagerCell)
+     - Parameter forceShowMain: if set true check size for show main file will be ignored and will be shown main file if has big size (for example appropriate for IGMediaPagerCell)
      */
-    func setThumbnail(for attachment:IGFile, showMain: Bool = false, ignoreSize: Bool = false) {
+    func setThumbnail(for attachment:IGFile, showMain: Bool = false, forceShowMain: Bool = false) {
         if !(attachment.isInvalidated) {
             if attachment.type == .voice {
                 self.image = UIImage(named:"IG_Message_Cell_Voice")
@@ -1337,16 +1337,16 @@ extension UIImageView {
                  * Hint: mabye change this kind of check for file existance change later
                  */
                 let fileSizeKB = attachment.size/1024
-                var showBestPreview = false // show main image if has small size otherwise show large thumbnail, also for video show large thumnail always because video doesn't have original image
+                var mainFileExist = false // show main image if has small size otherwise show large thumbnail, also for video show large thumnail always because video doesn't have original image
                 if attachment.type == .image {
                     /* for big images show largeThumbnail if exist, even main file was downloaded before.
                      * currently check size for 256 KB
                      */
                     
-                    showBestPreview = IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size)
+                    mainFileExist = IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size)
                 }
                 
-                if (fileSizeKB < MAX_IMAGE_SIZE || ignoreSize) && showBestPreview {
+                if (fileSizeKB < MAX_IMAGE_SIZE || forceShowMain) && mainFileExist {
                     self.sd_setImage(with: attachment.localUrl, completed: nil)
                 } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
                     
@@ -1355,7 +1355,7 @@ extension UIImageView {
                     if showMain {
                         fileType = .originalFile
                         finalFile = attachment
-                    } else if showBestPreview || attachment.type != .image { // show large thumbnail for downloaded file if has big size || for another types that is not image (like: video, gif)
+                    } else if mainFileExist || attachment.type != .image { // show large thumbnail for downloaded file if has big size || for another types that is not image (like: video, gif)
                         fileType = .largeThumbnail
                         finalFile = attachment.largeThumbnail!
                     }
@@ -1370,6 +1370,9 @@ extension UIImageView {
                         if image != nil {
                             self.sd_setImage(with: path, completed: nil)
                         } else {
+                            if mainFileExist { // if main file is exist show that before download thumbnail (do this for avoid from show small thumbnail after than downloaded file)
+                                self.sd_setImage(with: attachment.localUrl, completed: nil)
+                            }
                             throw NSError(domain: "image not exist", code: 1234, userInfo: nil)
                         }
                     } catch {
