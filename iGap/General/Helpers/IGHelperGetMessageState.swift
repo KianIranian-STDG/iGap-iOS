@@ -17,6 +17,7 @@ class IGHelperGetMessageState: UICollectionViewCell {
     private var isWaiting = false // when 'checkLoop' is waiting for call don't run this method again for avoid from run multiple 'DispatchQueue'
     private var getViews: [Int64] = []
     private var getViewsMessage: [Int64: [Int64]] = [:]
+    private var syncroniseViewMessageQueue = DispatchQueue(label: "thread-safe-view-message-obj", attributes: .concurrent)
     
     /* add messageId to list for send to server for update to latest message state */
     public func getMessageState(roomId: Int64, messageId: Int64) {
@@ -32,7 +33,10 @@ class IGHelperGetMessageState: UICollectionViewCell {
         getViews.append(messageId)
         
         if getViewsMessage[roomId] == nil {
-            getViewsMessage[roomId] = [messageId]
+            syncroniseViewMessageQueue.async(flags: .barrier) {
+                self.getViewsMessage[roomId] = [messageId]
+            }
+            
         } else {
             var messageIdList = getViewsMessage[roomId]
             if !(messageIdList?.contains(messageId))! {
