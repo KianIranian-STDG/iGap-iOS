@@ -50,7 +50,7 @@ class IGLogNode: ASCellNode {
     }
     override func didLoad() {
         super.didLoad()
-        self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
+//        self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
     }
     func setupView() {
         addSubnode(self.bgNode)
