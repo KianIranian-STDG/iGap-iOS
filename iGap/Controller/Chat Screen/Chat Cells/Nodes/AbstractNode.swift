@@ -18,7 +18,8 @@ class AbstractNode: ASCellNode {
     
     let textNode = ASTextNode()
     let msgTextNode = MsgTextTextNode() // Only Use in IGTextNode
-    
+    var imgNodeCopy = ASDisplayNode()
+
     let message: IGRoomMessage
     let finalRoom: IGRoom!
     let finalRoomType: IGRoom.IGType
@@ -63,7 +64,9 @@ class AbstractNode: ASCellNode {
 
         
     }
-    
+    override func didLoad() {
+        super.didLoad()
+    }
     func setupView() {
         
         imgNode.contentMode = .scaleAspectFill

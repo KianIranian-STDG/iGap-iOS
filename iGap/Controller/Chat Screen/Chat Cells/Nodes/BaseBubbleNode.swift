@@ -58,12 +58,14 @@ class BaseBubbleNode: ASCellNode {
 
     override func didLoad() {
         super.didLoad()
-        self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
         manageGestureRecognizers()
         if !(IGGlobal.shouldMultiSelect) {
             makeSwipeToReply() // Telegram Func
 
         }
+//        self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
+
+
     }
     private func makeSwipeToReply() {// Telegram Func
         let replyRecognizer = ChatSwipeToReplyRecognizer(target: self, action: #selector(self.swipeToReplyGesture(_:)))
@@ -563,7 +565,6 @@ class BaseBubbleNode: ASCellNode {
             stack.children?.append(bubbleNode)
 
         }
-        
         
         let textNodeVerticalOffset = CGFloat(6)
         txtTimeNode.style.alignSelf = .end
@@ -1372,13 +1373,24 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
             
             if bubbleNode as? IGImageNode != nil || bubbleNode as? IGVideoNode != nil {
                 let tap1 = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
-                bubbleNode.view.addGestureRecognizer(tap1)
+                let tap2 = UITapGestureRecognizer(target: self, action: #selector(didtapOnView(_:)))
+                (bubbleNode as! AbstractNode).imgNode.view.addGestureRecognizer(tap1)
+                (bubbleNode as! AbstractNode).imgNodeCopy.view.addGestureRecognizer(tap2)
                 if !(IGGlobal.shouldMultiSelect) {
-                    bubbleNode.isUserInteractionEnabled = true
+                    (bubbleNode as! AbstractNode).imgNode.view.isUserInteractionEnabled = true
+                    (bubbleNode as! AbstractNode).imgNode.isUserInteractionEnabled = true
+
+                    (bubbleNode as! AbstractNode).imgNodeCopy.view.isUserInteractionEnabled = true
+                    (bubbleNode as! AbstractNode).imgNodeCopy.isUserInteractionEnabled = true
                 }
                 else {
-                    bubbleNode.isUserInteractionEnabled = false
+                    (bubbleNode as! AbstractNode).imgNode.view.isUserInteractionEnabled = false
+                    (bubbleNode as! AbstractNode).imgNode.isUserInteractionEnabled = false
+
+                    (bubbleNode as! AbstractNode).imgNodeCopy.view.isUserInteractionEnabled = false
+                    (bubbleNode as! AbstractNode).imgNodeCopy.isUserInteractionEnabled = false
                 }
+                
             }
             
             //            if animationView != nil {
@@ -1439,9 +1451,14 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
     }
     
     @objc func didTapOnAttachment(_ gestureRecognizer: UITapGestureRecognizer) {
-        if !(IGGlobal.shouldMultiSelect) {
-            self.generalMessageDelegate?.didTapOnAttachment(cellMessage: message!)
-        }
+//        if !(IGGlobal.shouldMultiSelect) {
+//            self.generalMessageDelegate?.didTapOnAttachment(cellMessage: message!)
+//        }
+        print("didTapP1")
+
+    }
+    @objc func didtapOnView(_ gestureRecognizer: UITapGestureRecognizer) {
+        print("didTapP2")
     }
     
     @objc func didTapOnReply(_ gestureRecognizer: UITapGestureRecognizer) {

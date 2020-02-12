@@ -733,7 +733,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.collectionViewNode.backgroundColor = .clear
         self.tableviewMessagesView.backgroundColor = .clear
         
-        collectionViewNode.view.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
+//        collectionViewNode.view.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
         collectionViewNode.view.delaysContentTouches = false
         collectionViewNode.view.keyboardDismissMode = .none
 

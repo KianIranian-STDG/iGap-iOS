@@ -11,11 +11,12 @@
 import AsyncDisplayKit
 
 class IGImageNode: AbstractNode {
-    
     override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = false,finalRoomType : IGRoom.IGType,finalRoom: IGRoom) {
         super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode,finalRoomType : finalRoomType, finalRoom: finalRoom)
         setupView()
+
     }
+
     
     override func setupView() {
         
@@ -24,54 +25,77 @@ class IGImageNode: AbstractNode {
         
         imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
         imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
+        imgNode.clipsToBounds = true
         imgNode.layer.cornerRadius = 10
         indicatorViewAbs.style.height = ASDimensionMake(.points, 50)
         indicatorViewAbs.style.width = ASDimensionMake(.points, 50)
         
-        addSubnode(imgNode)
 
         if message.type == .imageAndText {
             addSubnode(textNode)
         }
-        
+        addSubnode(imgNode)
+
         
         if message.attachment != nil {
             addSubnode(indicatorViewAbs)
         }
         
-        
-//        checkIndicatorState()
-
-        
     }
-//    func checkIndicatorState() {
-//        if IGGlobal.isFileExist(path: message.attachment!.path(), fileSize: message.attachment!.size) {
-//            indicatorViewAbs.isHidden = true
-//            indicatorViewAbs.style.preferredSize = CGSize.zero
-//            
-//        } else {
-//            indicatorViewAbs.isHidden = false
-//            indicatorViewAbs.style.preferredSize = CGSize(width: 50, height: 50)
-//        }
-//    }
 
     
+    
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-
-
-        let acNodeSpec = ASOverlayLayoutSpec(child: imgNode, overlay: indicatorViewAbs)
+        
+        
+        
+        
+        
+        
+        
         
         if message.type == .image {
+            let verticalSpec = ASStackLayoutSpec()
+            verticalSpec.direction = .vertical
+            verticalSpec.spacing = 0
+            verticalSpec.justifyContent = .start
+            verticalSpec.alignItems = isIncomming == true ? .end : .start
             
-            return acNodeSpec
+            verticalSpec.children?.append(imgNode)
+
+            let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            let insetSpec = ASInsetLayoutSpec(insets: insets, child: verticalSpec)
             
+            let overlay = ASOverlayLayoutSpec(child: insetSpec, overlay: indicatorViewAbs)
+            return overlay
+
         }else {
-            
-            return ASStackLayoutSpec(direction: .vertical, spacing: 4, justifyContent: .start, alignItems: .stretch, children: [acNodeSpec, textNode])
+            let verticalSpec = ASStackLayoutSpec()
+            verticalSpec.direction = .vertical
+            verticalSpec.spacing = 0
+            verticalSpec.alignItems = .stretch
+            verticalSpec.justifyContent = .start
+
+            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+                top: 0,
+                left: 0 ,
+                bottom: 0,
+                right: 0), child: textNode)
+
+            verticalSpec.children?.append(imgNode)
+            verticalSpec.children?.append(insetSpec)
+
+            let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            let insetSpecccc = ASInsetLayoutSpec(insets: insets, child: verticalSpec)
+
+            let overlay = ASOverlayLayoutSpec(child: insetSpecccc, overlay: indicatorViewAbs)
+            return overlay
+
             
         }
         
     }
     
 }
+
 
