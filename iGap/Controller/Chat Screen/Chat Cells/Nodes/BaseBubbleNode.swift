@@ -1200,6 +1200,7 @@ class BaseBubbleNode: ASCellNode {
         //        space it
         
         var insetSpec : ASInsetLayoutSpec!
+        //handles spacing between bubble chats based on samesender or not
         if isFromSameSender {
             if self.finalRoom.type == .channel {
                 insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0), child: verticalSpec)
@@ -1212,7 +1213,7 @@ class BaseBubbleNode: ASCellNode {
 
             }
         } else {
-            insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 14, left: 5, bottom: 0, right: 0) : UIEdgeInsets(top: 14, left: 4, bottom: 0, right: 0), child: verticalSpec)
+            insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 14, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 14, right: 0), child: verticalSpec)
         }
         
         
