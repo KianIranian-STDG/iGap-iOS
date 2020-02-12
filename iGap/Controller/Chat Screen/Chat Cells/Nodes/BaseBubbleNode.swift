@@ -152,7 +152,7 @@ class BaseBubbleNode: ASCellNode {
     
     
     private func setupView() {
-        bubbleImgNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(.red)
+        bubbleImgNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(isIncomming ? ThemeManager.currentTheme.ReceiveMessageBubleBGColor : ThemeManager.currentTheme.SendMessageBubleBGColor)
         if !(finalRoomType == .chat) {
             if let name = message!.authorUser?.userInfo {
                 txtNameNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
