@@ -1374,9 +1374,7 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
             
             if bubbleNode as? IGImageNode != nil || bubbleNode as? IGVideoNode != nil {
                 let tap1 = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
-                let tap2 = UITapGestureRecognizer(target: self, action: #selector(didtapOnView(_:)))
                 (bubbleNode as! AbstractNode).imgNode.view.addGestureRecognizer(tap1)
-                (bubbleNode as! AbstractNode).imgNodeCopy.view.addGestureRecognizer(tap2)
                 if !(IGGlobal.shouldMultiSelect) {
                     (bubbleNode as! AbstractNode).imgNode.view.isUserInteractionEnabled = true
                     (bubbleNode as! AbstractNode).imgNode.isUserInteractionEnabled = true
@@ -1447,21 +1445,15 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
     }
     
     @objc func onMultiForwardTap(_ gestureRecognizer: UITapGestureRecognizer) {
-//        self.generalMessageDelegate?.didTapOnMultiForward(cellMessage: message!, isFromCloud: IGGlobal.isCloud(room: finalRoom))
-        print("didTap")
+        self.generalMessageDelegate?.didTapOnMultiForward(cellMessage: message!, isFromCloud: IGGlobal.isCloud(room: finalRoom))
     }
     
     @objc func didTapOnAttachment(_ gestureRecognizer: UITapGestureRecognizer) {
-//        if !(IGGlobal.shouldMultiSelect) {
-//            self.generalMessageDelegate?.didTapOnAttachment(cellMessage: message!)
-//        }
-        print("didTapP1")
+        if !(IGGlobal.shouldMultiSelect) {
+            self.generalMessageDelegate?.didTapOnAttachment(cellMessage: message!)
+        }
 
     }
-    @objc func didtapOnView(_ gestureRecognizer: UITapGestureRecognizer) {
-        print("didTapP2")
-    }
-    
     @objc func didTapOnReply(_ gestureRecognizer: UITapGestureRecognizer) {
         if !(IGGlobal.shouldMultiSelect) {
             self.generalMessageDelegate?.didTapOnReply(cellMessage: message!)

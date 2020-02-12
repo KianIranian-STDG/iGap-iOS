@@ -82,7 +82,7 @@ class IGNodePlayer {
                 if self.roomMessage != nil && !self.roomMessage!.isInvalidated && self.roomMessage!.id == roomMessage.id {
 //                    btnPlayPause!.setTitle(latestButtonValue, for: UIControl.State.normal)
                     
-                    IGGlobal.makeAsyncButton(for: btnPlayPause!, with: latestButtonValue, textColor: .black, size: 13, font: .igapFont, alignment: .center)
+                    IGGlobal.makeAsyncButton(for: btnPlayPause!, with: latestButtonValue, textColor: .black, size: 13, font: .fontIcon, alignment: .center)
                     
                     slider!.value = latestSliderValue ?? 0
 //                    timer!.text = latestTimeValue

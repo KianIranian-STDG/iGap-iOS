@@ -33,15 +33,21 @@ class IGHelperGetMessageState: UICollectionViewCell {
         getViews.append(messageId)
         
         if getViewsMessage[roomId] == nil {
-            syncroniseViewMessageQueue.async(flags: .barrier) {
+            syncroniseViewMessageQueue.sync(flags: .barrier) {
                 self.getViewsMessage[roomId] = [messageId]
             }
             
         } else {
-            var messageIdList = getViewsMessage[roomId]
+            var messageIdList: [Int64]?
+            syncroniseViewMessageQueue.sync(flags: .barrier) {
+                messageIdList = getViewsMessage[roomId]
+            }
+            
             if !(messageIdList?.contains(messageId))! {
                 messageIdList?.append(messageId)
-                getViewsMessage[roomId] = messageIdList
+                syncroniseViewMessageQueue.sync(flags: .barrier) {
+                    self.getViewsMessage[roomId] = messageIdList
+                }
             }
         }
     }
@@ -50,8 +56,13 @@ class IGHelperGetMessageState: UICollectionViewCell {
     private func sendMessageState() {
         
         for roomId in getViewsMessage.keys {
-            let messageIdList = getViewsMessage[roomId]
-            getViewsMessage.removeValue(forKey: roomId)
+            var messageIdList: [Int64]?
+            syncroniseViewMessageQueue.sync(flags: .barrier) {
+                messageIdList = getViewsMessage[roomId]
+            }
+            syncroniseViewMessageQueue.sync(flags: .barrier) {
+                self.getViewsMessage.removeValue(forKey: roomId)
+            }
             if (messageIdList?.count)! > 0 {
                 IGChannelGetMessagesStatsRequest.sendRequest(roomId: roomId, messageIdList: messageIdList!)
             }
