@@ -82,11 +82,11 @@ class IGNodePlayer {
                 if self.roomMessage != nil && !self.roomMessage!.isInvalidated && self.roomMessage!.id == roomMessage.id {
 //                    btnPlayPause!.setTitle(latestButtonValue, for: UIControl.State.normal)
                     
-                    IGGlobal.makeAsyncButton(for: btnPlayPause!, with: latestButtonValue, textColor: .black, size: 13, font: .fontIcon, alignment: .center)
+                    IGGlobal.makeAsyncButton(for: btnPlayPause!, with: latestButtonValue, textColor: .black, size: 35, font: .fontIcon, alignment: .center)
                     
                     slider!.value = latestSliderValue ?? 0
 //                    timer!.text = latestTimeValue
-                    IGGlobal.makeAsyncText(for: timer!, with: latestTimeValue ?? "", textColor: UIColor.black, size: 13, font: .igapFont, alignment: .center)
+                    IGGlobal.makeAsyncText(for: timer!, with: latestTimeValue?.inLocalizedLanguage() ?? "", textColor: UIColor.black, size: 13, font: .igapFont, alignment: .center)
                     
                     
                     self.btnPlayPause = btnPlayPause
@@ -299,7 +299,7 @@ class IGNodePlayer {
         let valueInt = Int(currentTime)
         let remainingSeconds = valueInt%60
         let remainingMiuntes = valueInt/60
-        let finalValue = "\(remainingMiuntes):\(remainingSeconds) / \(attachmentStringTime ?? "00:00")"
+        let finalValue = "\(remainingMiuntes):\(remainingSeconds) / \(attachmentStringTime ?? "00:00")".inLocalizedLanguage()
 //        timer.text = finalValue
         IGGlobal.makeAsyncText(for: timer, with: finalValue, textColor: .black, size: 13, font: .igapFont, alignment: .center)
         latestTimeValue = finalValue

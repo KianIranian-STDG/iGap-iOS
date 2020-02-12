@@ -24,11 +24,20 @@ class IGVoiceNode: AbstractNode {
         checkPlayerState()
     }
     
+    override func didLoad() {
+        super.didLoad()
+        DispatchQueue.main.async {
+            self.setVoice()
+            self.voiceGustureRecognizers()
+            self.checkPlayerState()
+        }
+    }
     
     override func setupView() {
         super.setupView()
         
-        sliderNode.style.preferredSize = CGSize(width: 200, height: 50)
+        sliderNode.style.preferredSize = CGSize(width: 150, height: 50)
+//        sliderNode.style.height = ASDimension(unit: .points, value: 50)
         
         btnStateNode.layer.cornerRadius = 25
         
@@ -70,14 +79,15 @@ class IGVoiceNode: AbstractNode {
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
         let sliderBox = ASStackLayoutSpec.vertical()
-        sliderBox.justifyContent = .spaceAround
+        sliderBox.justifyContent = .start
+        sliderBox.alignContent = .stretch
         sliderBox.children = [sliderNode, txtCurrentTimeNode]
         sliderBox.spacing = 0
         
         let overlayBox = ASOverlayLayoutSpec(child: btnStateNode, overlay: indicatorViewAbs)
         
         let attachmentBox = ASStackLayoutSpec.horizontal()
-        attachmentBox.spacing = 10
+        attachmentBox.spacing = 8
         attachmentBox.children = [overlayBox, sliderBox]
         
         
@@ -85,10 +95,11 @@ class IGVoiceNode: AbstractNode {
         let elems: [ASLayoutElement] = [txtCurrentTimeNode,overlayBox, sliderBox, attachmentBox]
         for elem in elems {
             elem.style.flexShrink = 1
+            elem.style.flexGrow = 1
         }
         
         let insetBox = ASInsetLayoutSpec(
-            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+            insets: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0),
             child: attachmentBox
         )
         
@@ -135,21 +146,19 @@ class IGVoiceNode: AbstractNode {
     
     /** check current voice state and if is playing update values to current state */
     private func checkPlayerState(){
-        IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: (sliderNode.view as! UISlider), timer: txtCurrentTimeNode, roomMessage: self.message, justUpdate: true)
+        IGNodePlayer.shared.startPlayer(btnPlayPause: self.btnStateNode, slider: (self.sliderNode.view as! UISlider), timer: self.txtCurrentTimeNode, roomMessage: self.message, justUpdate: true)
     }
     
     private func voiceGustureRecognizers() {
 //        let play = UITapGestureRecognizer(target: self, action: #selector(didTapOnPlay(_:)))
 //        btnStateNode.view.addGestureRecognizer(play)
-        
-        btnStateNode.addTarget(self, action: #selector(didTapOnPlay(_:)), forControlEvents: .touchUpInside)
-        
+        self.btnStateNode.addTarget(self, action: #selector(self.didTapOnPlay(_:)), forControlEvents: .touchUpInside)
     }
     
     @objc func didTapOnPlay(_ gestureRecognizer: UITapGestureRecognizer) {
         IGGlobal.isVoice = true // determine the file is voice and not music
 
-        IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: (sliderNode.view as! UISlider), timer: txtCurrentTimeNode, roomMessage: self.message)
+        IGNodePlayer.shared.startPlayer(btnPlayPause: self.btnStateNode, slider: (self.sliderNode.view as! UISlider), timer: self.txtCurrentTimeNode, roomMessage: self.message)
     }
     
     
