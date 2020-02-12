@@ -63,7 +63,7 @@ class BaseBubbleNode: ASCellNode {
             makeSwipeToReply() // Telegram Func
 
         }
-//        self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
+        self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
 
 
     }

@@ -47,13 +47,6 @@ class IGImageNode: AbstractNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
-        
-        
-        
-        
-        
-        
-        
         if message.type == .image {
             let verticalSpec = ASStackLayoutSpec()
             verticalSpec.direction = .vertical
@@ -82,14 +75,15 @@ class IGImageNode: AbstractNode {
                 bottom: 0,
                 right: 0), child: textNode)
 
-            verticalSpec.children?.append(imgNode)
+            let overlay = ASOverlayLayoutSpec(child: imgNode, overlay: indicatorViewAbs)
+
+            verticalSpec.children?.append(overlay)
             verticalSpec.children?.append(insetSpec)
 
             let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             let insetSpecccc = ASInsetLayoutSpec(insets: insets, child: verticalSpec)
 
-            let overlay = ASOverlayLayoutSpec(child: insetSpecccc, overlay: indicatorViewAbs)
-            return overlay
+            return insetSpecccc
 
             
         }

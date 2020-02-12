@@ -66,7 +66,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     //MARK: -NODE
     private(set) var chatsArray: [Chat] = []
     @IBOutlet weak var tableviewMessagesView : UIView!
-    private var collectionViewNode : ASCollectionNode!
+    private var tableViewNode : ASTableNode!
     var finalRoom: IGRoom!
     var middleIndex : IndexPath = [0,0]
     var newMessageArrivedCount : Int = 0
@@ -621,7 +621,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.getFavoriteMenu()
             } else {
                 self.collectionViewTopInsetOffset = 0
-                self.collectionViewNode.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
+                self.tableViewNode.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
             }
             
             let predicate = NSPredicate(format: "roomId = %lld AND (id >= %lld OR statusRaw == %d OR statusRaw == %d) AND isDeleted == false AND id != %lld" , self.room!.id, lastId ,0 ,1 ,0)
@@ -713,7 +713,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             var defaultValue: CGFloat = 20
             
             defaultValue = 60
-            self.collectionViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+            self.tableViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
 
             self.createTopMusicPlayer()
         }
@@ -729,25 +729,27 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         flowlayout.scrollDirection = .vertical
         flowlayout.minimumLineSpacing = 0.0
 
-        self.collectionViewNode = ASCollectionNode.init(frame: CGRect.zero, collectionViewLayout:flowlayout)
-        self.collectionViewNode.backgroundColor = .clear
+//        self.collectionViewNode = ASCollectionNode.init(frame: CGRect.zero, collectionViewLayout:flowlayout)
+        self.tableViewNode = ASTableNode.init(style: .plain)
+        self.tableViewNode.backgroundColor = .clear
         self.tableviewMessagesView.backgroundColor = .clear
+        self.tableViewNode.view.separatorStyle = .none
         
-//        collectionViewNode.view.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
-        collectionViewNode.view.delaysContentTouches = false
-        collectionViewNode.view.keyboardDismissMode = .none
+        tableViewNode.view.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
+        tableViewNode.view.delaysContentTouches = false
+        tableViewNode.view.keyboardDismissMode = .none
 
-        collectionViewNode.delegate = self
-        collectionViewNode.dataSource = self
+        tableViewNode.delegate = self
+        tableViewNode.dataSource = self
 
-        self.tableviewMessagesView.addSubnode(collectionViewNode)
+        self.tableviewMessagesView.addSubnode(tableViewNode)
 //        self.tableviewMessagesView.backgroundColor = .red
-        collectionViewNode.view.translatesAutoresizingMaskIntoConstraints = false
-        collectionViewNode.view.topAnchor.constraint(equalTo: self.tableviewMessagesView.topAnchor).isActive = true
+        tableViewNode.view.translatesAutoresizingMaskIntoConstraints = false
+        tableViewNode.view.topAnchor.constraint(equalTo: self.tableviewMessagesView.topAnchor).isActive = true
 
-        collectionViewNode.view.leadingAnchor.constraint(equalTo: self.tableviewMessagesView.leadingAnchor).isActive = true
-        collectionViewNode.view.trailingAnchor.constraint(equalTo: self.tableviewMessagesView.trailingAnchor).isActive = true
-        collectionViewNode.view.bottomAnchor.constraint(equalTo: self.tableviewMessagesView.bottomAnchor,constant: 0).isActive = true
+        tableViewNode.view.leadingAnchor.constraint(equalTo: self.tableviewMessagesView.leadingAnchor).isActive = true
+        tableViewNode.view.trailingAnchor.constraint(equalTo: self.tableviewMessagesView.trailingAnchor).isActive = true
+        tableViewNode.view.bottomAnchor.constraint(equalTo: self.tableviewMessagesView.bottomAnchor,constant: 0).isActive = true
 
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -780,7 +782,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             var defaultValue : CGFloat = 20
             
             defaultValue = 60
-            self.collectionViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+            self.tableViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
             
             self.createTopMusicPlayer()
         }
@@ -909,7 +911,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        self.collectionViewNode!.collectionViewLayout.invalidateLayout()
+//        self.collectionViewNode!.collectionViewLayout.invalidateLayout()
+        self.tableViewNode.invalidateCalculatedLayout()
     }
     
     private func initAvatarObserver(){
@@ -946,7 +949,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     private func stopButtonPlayForRow() {
-        self.collectionViewNode.reloadData()
+        self.tableViewNode.reloadData()
     }
     
     private func eventBusInitialiser() {
@@ -1148,9 +1151,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 /* fetch user info and notify collection item if exist in visible items into the collection */
                 IGUserInfoRequest.sendRequestAvoidDuplicate(userId: onFetchUserInfo.userId) { [weak self] (userInfo) in
                     DispatchQueue.main.async {
-                        if let visibleItems = self?.collectionViewNode.indexPathsForVisibleItems {
+                        if let visibleItems = self?.tableViewNode.indexPathsForVisibleRows() {
                             for indexPath in visibleItems {
-                                if let cell = self?.collectionViewNode.nodeForItem(at: indexPath) as? BaseBubbleNode {
+                                if let cell = self?.tableViewNode.nodeForRow(at: indexPath) as? BaseBubbleNode {
                                     if !cell.message!.isInvalidated, let authorUser = cell.message!.authorUser, !authorUser.isInvalidated {
                                         if let peerId = cell.message!.authorUser?.userId, userInfo.igpID == peerId {
                                             self?.updateItem(cellPosition: indexPath.row)
@@ -1181,7 +1184,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             let value : CGFloat = 0
             let defaultValue: CGFloat = 60
             
-            self.collectionViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+            self.tableViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
 
             self.createTopMusicPlayer()
         }
@@ -1193,7 +1196,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         IGPlayer.shared.stopMedia()
         let value : CGFloat = 0
         let defaultValue: CGFloat = 20
-        self.collectionViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+        self.tableViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
 
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
@@ -1206,7 +1209,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let value : CGFloat = 0
         let defaultValue: CGFloat = 60
 
-        self.collectionViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+        self.tableViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
 
         UIView.animate(withDuration: 0.0) {
             self.view.layoutIfNeeded()
@@ -1262,7 +1265,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let hasUnread = messageLoader.hasUnread()
         let hasSaveState = messageLoader.hasSavedState()
         if hasUnread || hasSaveState {
-            self.collectionViewNode.fadeOut(0)
+            self.tableViewNode.fadeOut(0)
         }
         if hasUnread {
             self.lblUnreadArrieved.isHidden = false
@@ -1273,7 +1276,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self?.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
             if hasUnread || hasSaveState {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                    self?.collectionViewNode.fadeIn(0.1)
+                    self?.tableViewNode.fadeIn(0.1)
                 }
             }
             if self?.allowManageForward ?? false {
@@ -1478,9 +1481,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     self?.setCollectionViewInset(withDuration: 0.9)
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        self?.collectionViewNode.contentInset = UIEdgeInsets.init(top: 50, left: 0, bottom: 20, right: 0)
+                        self?.tableViewNode.contentInset = UIEdgeInsets.init(top: 50, left: 0, bottom: 20, right: 0)
                         if self?.isScrollInEnd() ?? false {
-                            self?.collectionViewNode.setContentOffset(CGPoint(x: 0, y: -self!.collectionViewNode.contentInset.top) , animated: true)
+                            self?.tableViewNode.setContentOffset(CGPoint(x: 0, y: -self!.tableViewNode.contentInset.top) , animated: true)
                         }
                     }
                 }
@@ -1791,7 +1794,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     private func onBotClick(){
-        self.collectionViewNode.setContentOffset(CGPoint(x: 0, y: -self.collectionViewNode.contentInset.top) , animated: false)
+        self.tableViewNode.setContentOffset(CGPoint(x: 0, y: -self.tableViewNode.contentInset.top) , animated: false)
     }
     
     func onAdditionalRequestPayDirect(structAdditional :IGStructAdditionalButton){
@@ -2398,10 +2401,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             return
         }
         
-        let visibleCells = self.collectionViewNode.indexPathsForVisibleItems.sorted(by:{
+        let visibleCells = self.tableViewNode.indexPathsForVisibleRows().sorted(by: {
+//        let visibleCells = self.tableViewNode.indexPathsForVisibleRows().sorted(by:{
             $0.section < $1.section || $0.row < $1.row
         }).compactMap({
-            self.collectionViewNode.nodeForItem(at: $0)
+            self.tableViewNode.nodeForRow(at: $0)
         })
         
         guard let firstVisibleItem = fetchVisibleMessage(visibleCells: visibleCells, index: 0) else {
@@ -2412,11 +2416,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         var saveState = true
-        let numberOfItems = collectionViewNode.numberOfItems(inSection: 0)
+        let numberOfItems = tableViewNode.numberOfRows(inSection: 0)
         
-        if self.collectionViewNode.indexPath(for: visibleCells[0])!.row > IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT {
+        if self.tableViewNode.indexPath(for: visibleCells[0])!.row > IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT {
             var finalMessage: IGRoomMessage!
-            if let collectionCell = self.collectionViewNode.nodeForItem(at: IndexPath(row: numberOfItems - IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT, section: 0)) as? BaseBubbleNode {
+            if let collectionCell = self.tableViewNode.nodeForRow(at: IndexPath(row: numberOfItems - IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT, section: 0)) as? BaseBubbleNode {
                 finalMessage = collectionCell.message?.detach()
             }
             if finalMessage != nil && (finalMessage.isInvalidated || finalMessage.id == firstVisibleItem.id) {
@@ -2432,13 +2436,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     /** fetch scroll state is at the end of list or not */
     private func isScrollInEnd() -> Bool {
-        let visibleCells = self.collectionViewNode.indexPathsForVisibleItems.sorted(by:{ $0.section < $1.section || $0.row < $1.row }).compactMap({ self.collectionViewNode.nodeForItem(at: $0) })
-        if let indexPath = self.collectionViewNode.indexPath(for: visibleCells[0]) {
+        
+        let visibleCells = self.tableViewNode.indexPathsForVisibleRows().sorted(by:{ $0.section < $1.section || $0.row < $1.row }).compactMap({ self.tableViewNode.nodeForRow(at: $0) })
+        if let indexPath = self.tableViewNode.indexPath(for: visibleCells[0]) {
             return indexPath.row == 0
         }else {
             return true
         }
-//        return self.collectionViewNode.indexPath(for: visibleCells[0])!.row == 0
+//        return self.tableViewNode.indexPath(for: visibleCells[0])!.row == 0
     }
     
     /* fetch visible message from collection view according to entered index */
@@ -2632,7 +2637,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         case .withBoth :
             defaultValue = 112
             UIView.animate(withDuration: 0.3, animations: {
-                self.collectionViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+                self.tableViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
             }, completion: { (completed) in
                 
             })
@@ -2641,7 +2646,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         case .withTopPlayer :
             defaultValue = 60
             UIView.animate(withDuration: 0.3, animations: {
-                self.collectionViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+                self.tableViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
             }, completion: { (completed) in
                 
             })
@@ -2650,7 +2655,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         case .withPin :
             defaultValue = 70
             UIView.animate(withDuration: 0.3, animations: {
-                self.collectionViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+                self.tableViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
             }, completion: { (completed) in
                 
             })
@@ -2659,7 +2664,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         case .none :
             defaultValue = 20
             UIView.animate(withDuration: 0.3, animations: {
-                self.collectionViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
+                self.tableViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
             }, completion: { (completed) in
                 
             })
@@ -2715,11 +2720,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private func keepScrollPosition(didMessagesAddedToBottom: Bool, initialContentOffset: CGPoint, initialContentSize: CGSize, animated: Bool) {
         if didMessagesAddedToBottom {
-            self.collectionViewNode.contentOffset = initialContentOffset
+            self.tableViewNode.contentOffset = initialContentOffset
         } else {
-            let contentOffsetY = self.collectionViewNode.view.contentSize.height - (initialContentSize.height - initialContentOffset.y)
+            let contentOffsetY = self.tableViewNode.view.contentSize.height - (initialContentSize.height - initialContentOffset.y)
             // + self.collectionView.contentOffset.y - initialContentSize.height
-            self.collectionViewNode.contentOffset = CGPoint(x: self.collectionViewNode.contentOffset.x, y: contentOffsetY)
+            self.tableViewNode.contentOffset = CGPoint(x: self.tableViewNode.contentOffset.x, y: contentOffsetY)
         }
     }
     
@@ -2888,17 +2893,17 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func manageCollectionViewBottom(withDuration: TimeInterval = 0.2,value: CGFloat? = 0) {
         UIView.animate(withDuration: withDuration, animations: {
             if self.isBotRoom() {
-                self.collectionViewNode.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
+                self.tableViewNode.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
             } else {
                 if self.room?.type == .chat {
-                    self.collectionViewNode.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
+                    self.tableViewNode.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
                 } else if self.room?.type == .group {
-                    self.collectionViewNode.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
+                    self.tableViewNode.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
                 } else {
                     if self.room?.channelRoom?.role == .admin || self.room?.channelRoom?.role == .owner || self.room?.channelRoom?.role == .moderator {
-                        self.collectionViewNode.contentInset = UIEdgeInsets.init(top: value!, left: 0, bottom: 20, right: 0)
+                        self.tableViewNode.contentInset = UIEdgeInsets.init(top: value!, left: 0, bottom: 20, right: 0)
                     } else {
-                        self.collectionViewNode.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
+                        self.tableViewNode.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
                     }
                 }
            }
@@ -4094,7 +4099,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         scrollToBottomContainerView.isHidden = true
-        collectionViewNode.isHidden = true
+        tableViewNode.isHidden = true
         chatBackground.isHidden = true
         self.mainHolder.isHidden = true
         self.webView.isHidden = false
@@ -4122,7 +4127,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     func closeWebView()  {
-        collectionViewNode.isHidden = false
+        tableViewNode.isHidden = false
         chatBackground.isHidden = false
         self.mainHolder.isHidden = false
         self.webView.stopLoading()
@@ -4314,9 +4319,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 
     }
     private func scrollToBottom(){
-        print("=-=-=-3=-=-=-=-",self.collectionViewNode.contentOffset.y)
-        self.collectionViewNode.setContentOffset(CGPoint(x: 0, y: -self.collectionViewNode.contentInset.top) , animated: false)
-        print("=-=-=-4=-=-=-=-",self.collectionViewNode.contentOffset.y)
+        print("=-=-=-3=-=-=-=-",self.tableViewNode.contentOffset.y)
+        self.tableViewNode.setContentOffset(CGPoint(x: 0, y: -self.tableViewNode.contentInset.top) , animated: false)
+        print("=-=-=-4=-=-=-=-",self.tableViewNode.contentOffset.y)
 
     }
     
@@ -4905,7 +4910,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) { // TODO - when isWaiting for get from server return this method and don't do any action
-        if self.collectionViewNode.numberOfItems(inSection: 0) == 0 {
+        if self.tableViewNode.numberOfRows(inSection: 0) == 0 {
             return
         }
         
@@ -4958,13 +4963,18 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private func setFloatingDate(){
         if messages == nil {return}
-        let arrayOfVisibleItems = collectionViewNode.indexPathsForVisibleItems.sorted()
+        let arrayOfVisibleItems = tableViewNode.indexPathsForVisibleRows().sorted()
         if let lastIndexPath = arrayOfVisibleItems.last {
             if latestIndexPath != lastIndexPath {
                 
-                if let cell = self.collectionViewNode?.nodeForItem(at: IndexPath(row: lastIndexPath.row, section: 0)) as? IGLogNode, cell.message?.type != .log {
-                    return // check time of all messages exept .log creation time
+                
+                if let cell = self.tableViewNode.nodeForRow(at: IndexPath(row: lastIndexPath.row, section: 0)) as? IGLogNode, cell.message?.type != .log {
+                    return
                 }
+                
+//                if let cell = self.collectionViewNode?.nodeForItem(at: IndexPath(row: lastIndexPath.row, section: 0)) as? IGLogNode, cell.message?.type != .log {
+//                    return // check time of all messages exept .log creation time
+//                }
                 
                 latestIndexPath = lastIndexPath
             } else {
@@ -5872,11 +5882,16 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
              * is showing so JUST notify Position and DON'T call scroll to item
              */
             
-            if !self.collectionViewNode.indexPathsForVisibleItems.contains(previousIndexPath) {
-                self.collectionViewNode.scrollToItem(at: indexPath, at: .bottom, animated: false)
-            } else if !self.collectionViewNode.indexPathsForVisibleItems.contains(futureIndexPath) {
-                self.collectionViewNode.scrollToItem(at: indexPath, at: .bottom, animated: false)
+            if self.tableViewNode.indexPathsForVisibleRows().contains(previousIndexPath) {
+                self.tableViewNode.scrollToRow(at: indexPath, at: .bottom, animated: false)
+            } else if self.tableViewNode.indexPathsForVisibleRows().contains(futureIndexPath) {
+                self.tableViewNode.scrollToRow(at: indexPath, at: .bottom, animated: false)
             }
+//            if !self.collectionViewNode.indexPathsForVisibleItems.contains(previousIndexPath) {
+//                self.collectionViewNode.scrollToItem(at: indexPath, at: .bottom, animated: false)
+//            } else if !self.tableViewNode.indexPathsForVisibleItems.contains(futureIndexPath) {
+//                self.tableViewNode.scrollToItem(at: indexPath, at: .bottom, animated: false)
+//            }
             
             if enableFastReturn {
                 notifyPosition(messageId: IGMessageViewController.highlightMessageId)
@@ -5909,7 +5924,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     func notifyPosition(messageId: Int64){
         if let indexOfMessge = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId) {
             let indexPath = IndexPath(row: indexOfMessge, section: 0)
-            self.collectionViewNode.reloadItems(at: [indexPath])
+//            self.tableViewNode.reloadItems(at: [indexPath])
+            self.tableViewNode.reloadRows(at: [indexPath], with: .none)
         }
     }
     // MARK: - End - Go to Message Position
@@ -6307,13 +6323,13 @@ extension IGMessageViewController {
     func addNotificationObserverForTapOnStatusBar() {
         NotificationCenter.default.addObserver(forName: IGNotificationStatusBarTapped.name, object: .none, queue: .none) {  [weak self] _ in
             if self != nil {
-                if self!.collectionViewNode.view.contentSize.height < self!.collectionViewNode.view.frame.height {
+                if self!.tableViewNode.view.contentSize.height < self!.tableViewNode.view.frame.height {
                     return
                 }
                 //1200 is just an arbitrary number. can be anything
-                let newOffsetY = min(self!.collectionViewNode.contentOffset.y + 1200, self!.collectionViewNode.view.contentSize.height - self!.collectionViewNode.view.frame.height + self!.collectionViewNode.contentInset.bottom)
+                let newOffsetY = min(self!.tableViewNode.contentOffset.y + 1200, self!.tableViewNode.view.contentSize.height - self!.tableViewNode.view.frame.height + self!.tableViewNode.contentInset.bottom)
                 let newOffsett = CGPoint(x: 0, y: newOffsetY)
-                self!.collectionViewNode.setContentOffset(newOffsett , animated: true)
+                self!.tableViewNode.setContentOffset(newOffsett , animated: true)
             }
         }
     }
@@ -6468,8 +6484,8 @@ extension IGMessageViewController {
                     self.appendMessageArray(realmRoomMessages, direction)
                     self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: scrollToBottom)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        let bottomOffset = CGPoint(x: 0, y: self.collectionViewNode.view.contentSize.height - self.collectionViewNode.view.bounds.size.height)
-                        self.collectionViewNode.setContentOffset(bottomOffset, animated: false)
+                        let bottomOffset = CGPoint(x: 0, y: self.tableViewNode.view.contentSize.height - self.tableViewNode.view.bounds.size.height)
+                        self.tableViewNode.setContentOffset(bottomOffset, animated: false)
                     }
                     self.messageLoader.setFirstLoadDown(firstLoadDown : false)
                     self.messageLoader.setWaitingHistoryDownLocal(isWaiting: false)
@@ -6502,8 +6518,8 @@ extension IGMessageViewController {
     }
     
     private func addChatItemToBottom(count: Int, scrollToBottom: Bool = false) {
-        let contentHeight = self.collectionViewNode!.view.contentSize.height
-        let offsetY = self.collectionViewNode!.contentOffset.y
+        let contentHeight = self.tableViewNode!.view.contentSize.height
+        let offsetY = self.tableViewNode!.contentOffset.y
         let bottomOffset = contentHeight - offsetY
         
         if !scrollToBottom {
@@ -6511,17 +6527,17 @@ extension IGMessageViewController {
             CATransaction.setDisableActions(true)
         }
         
-        self.collectionViewNode?.performBatchUpdates({
+        self.tableViewNode?.performBatchUpdates({
             var arrayIndex: [IndexPath] = []
             
             for index in 0...(count-1) {
                 arrayIndex.append(IndexPath(row: index, section: 0))
             }
             
-            self.collectionViewNode?.insertItems(at: arrayIndex)
+            self.tableViewNode?.insertRows(at: arrayIndex, with: .none)
         }, completion: { _ in
             if !scrollToBottom {
-                self.collectionViewNode!.contentOffset = CGPoint(x: 0, y: self.collectionViewNode!.view.contentSize.height - bottomOffset)
+                self.tableViewNode!.contentOffset = CGPoint(x: 0, y: self.tableViewNode!.view.contentSize.height - bottomOffset)
                 CATransaction.commit()
             }
         })
@@ -6540,14 +6556,15 @@ extension IGMessageViewController {
     }
     
     private func addChatItemToTop(count: Int) {
-        self.collectionViewNode?.performBatchUpdates({
+        self.tableViewNode?.performBatchUpdates({
             var arrayIndex: [IndexPath] = []
             
             for index in 0...(count-1) {
                 arrayIndex.append(IndexPath(row: (messages!.count-count)+index, section: 0))
             }
             
-            self.collectionViewNode?.insertItems(at: arrayIndex)
+//            self.tableViewNode?.insertItems(at: arrayIndex)
+            self.tableViewNode.insertRows(at: arrayIndex, with: .none)
         }, completion: nil)
     }
     
@@ -6563,8 +6580,8 @@ extension IGMessageViewController {
         if cellPosition == nil {return}
         DispatchQueue.main.async {
             self.removeMessageArrayByPosition(cellPosition: cellPosition)
-            self.collectionViewNode?.performBatchUpdates({
-                self.collectionViewNode?.deleteItems(at: [IndexPath(row: cellPosition!, section: 0)])
+            self.tableViewNode?.performBatchUpdates({
+                self.tableViewNode?.deleteRows(at: [IndexPath(row: cellPosition!, section: 0)], with: .none)
             }, completion: nil)
         }
     }
@@ -6576,8 +6593,8 @@ extension IGMessageViewController {
                     return
                 }
                 self.removeMessageArrayByPosition(cellPosition: cellPosition)
-                self.collectionViewNode?.performBatchUpdates({
-                    self.collectionViewNode?.deleteItems(at: [IndexPath(row: cellPosition, section: 0)])
+                self.tableViewNode?.performBatchUpdates({
+                    self.tableViewNode?.deleteRows(at: [IndexPath(row: cellPosition, section: 0)], with: .none)
                 }, completion: nil)
             }
         }
@@ -6588,7 +6605,8 @@ extension IGMessageViewController {
             return
         }
         print("COMES HERE 001")
-        self.collectionViewNode.reloadItems(at: [IndexPath(row: cellPosition, section: 0)])
+//        self.tableViewNode.reloadItems(at: [IndexPath(row: cellPosition, section: 0)])
+        self.tableViewNode.reloadRows(at: [IndexPath(row: cellPosition, section: 0)], with: .none)
         print("COMES HERE 002")
 
     }
@@ -6622,8 +6640,8 @@ extension IGMessageViewController {
         self.messages!.insert(message.detach(), at: cellPosition)
         IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.insert(message.id, at: cellPosition)
         
-        self.collectionViewNode?.performBatchUpdates({
-            self.collectionViewNode?.insertItems(at: [IndexPath(row: cellPosition, section: 0)])
+        self.tableViewNode?.performBatchUpdates({
+            self.tableViewNode?.insertRows(at: [IndexPath(row: cellPosition, section: 0)], with: .none)
         }, completion: nil)
     }
     
@@ -6670,12 +6688,13 @@ extension IGMessageViewController {
         self.messages?.removeAll()
         IGMessageViewController.messageIdsStatic.removeAll()
         reloadCollection()
-        self.collectionViewNode.contentOffset = .zero
+        self.tableViewNode.contentOffset = .zero
     }
     
     private func reloadCollection(){
-        self.collectionViewNode.reloadData()
-        self.collectionViewNode.numberOfItems(inSection: 0) //<-- This code is no used, but it will let UICollectionView synchronize number of items, so it will not crash in following code.
+        self.tableViewNode.reloadData()
+//        self.tableViewNode.numberOfItems(inSection: 0) //<-- This code is no used, but it will let UICollectionView synchronize number of items, so it will not crash in following code.
+        self.tableViewNode.numberOfRows(inSection: 0)
     }
     
     /**
@@ -6700,13 +6719,16 @@ extension IGMessageViewController {
      * so collection state is near to bottom
      */
     private func isNearToBottom() -> Bool {
-        let visibleCells = self.collectionViewNode.indexPathsForVisibleItems.sorted(by:{
+        
+        
+        let visibleCells = self.tableViewNode.indexPathsForVisibleRows().sorted(by:{
+//        let visibleCells = self.tableViewNode.indexPathsForVisibleItems.sorted(by:{
             $0.section < $1.section || $0.row < $1.row
         }).compactMap({
-            self.collectionViewNode.nodeForItem(at: $0)
+            self.tableViewNode.nodeForRow(at: $0)
         })
         
-        if visibleCells.count > 0, self.collectionViewNode.indexPath(for: visibleCells[0])!.row > IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT {
+        if visibleCells.count > 0, self.tableViewNode.indexPath(for: visibleCells[0])!.row > IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT {
             return false
         }
         return true
@@ -6724,7 +6746,7 @@ extension Date {
 
 
 
-extension IGMessageViewController : ASCollectionDelegate,ASCollectionDataSource {
+extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
     
     private func getMessageType(message: IGRoomMessage) -> IGRoomMessageType {
         if message.isInvalidated {
@@ -6737,14 +6759,18 @@ extension IGMessageViewController : ASCollectionDelegate,ASCollectionDataSource 
         }
         return finalMessage.type
     }
-    func numberOfSections(in collectionNode: ASCollectionNode) -> Int {
+    
+    
+    func numberOfSections(in tableNode: ASTableNode) -> Int {
         return 1
     }
-    func collectionNode(_ collectionNode: ASCollectionNode, numberOfItemsInSection section: Int) -> Int {
-    //        return chatsArray.count
-            return self.messages!.count
-        }
-    func collectionNode(_ collectionNode: ASCollectionNode, nodeBlockForItemAt indexPath: IndexPath) -> ASCellNodeBlock {
+    
+    func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
+        return self.messages!.count
+    }
+    
+    
+    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
 
         let msg = messages?[indexPath.row]
 
@@ -6870,8 +6896,8 @@ extension IGMessageViewController : ASCollectionDelegate,ASCollectionDataSource 
            
        }
     
-
-    open func collectionView(_ collectionView: ASCollectionView, constrainedSizeForNodeAt indexPath: IndexPath) -> ASSizeRange {
+    
+    func tableNode(_ tableNode: ASTableNode, constrainedSizeForRowAt indexPath: IndexPath) -> ASSizeRange {
         let width = collectionView.bounds.width;
         // Assume horizontal scroll directions
         return ASSizeRangeMake(CGSize(width: width, height: 0), CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
