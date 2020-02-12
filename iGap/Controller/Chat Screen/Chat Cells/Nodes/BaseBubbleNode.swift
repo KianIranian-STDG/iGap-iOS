@@ -25,6 +25,7 @@ class BaseBubbleNode: ASCellNode {
     private var shouldShowAvatar : Bool
     private var isFromSameSender : Bool
     private let bubbleImgNode = ASImageNode()
+    private let shadowImgNode = ASDisplayNode()
     private let txtTimeNode = ASTextNode()
     private let txtNameNode = ASTextNode()
     private let txtStatusNode = ASTextNode()
@@ -144,6 +145,7 @@ class BaseBubbleNode: ASCellNode {
         self.shouldShowAvatar = shouldShowAvatar
         self.isFromSameSender = isFromSameSender
         self.bubbleImgNode.image = bubbleImage
+//        self.shadowImgNode.image = bubbleImage
         super.init()
         
         setupView()
@@ -153,6 +155,10 @@ class BaseBubbleNode: ASCellNode {
     
     private func setupView() {
         bubbleImgNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(isIncomming ? ThemeManager.currentTheme.ReceiveMessageBubleBGColor : ThemeManager.currentTheme.SendMessageBubleBGColor)
+        shadowImgNode.backgroundColor = (.red)
+
+        
+        
         if !(finalRoomType == .chat) {
             if let name = message!.authorUser?.userInfo {
                 txtNameNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
@@ -257,7 +263,7 @@ class BaseBubbleNode: ASCellNode {
             if finalType == .sticker {
                 addSubnode(subNode)
             }
-            
+            addSubnode(shadowImgNode)//addshadow
             addSubnode(bubbleImgNode)
             if finalRoomType == .group && isIncomming {
                 addSubnode(txtNameNode)
@@ -1233,17 +1239,17 @@ class BaseBubbleNode: ASCellNode {
         
         if isFromSameSender {
             if self.finalRoom.type == .channel {
-                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0), child: verticalSpec)
+                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 5, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 5, right: 0), child: verticalSpec)
 
             } else if self.finalRoom.type == .group {
-                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 78, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 20), child: verticalSpec)
+                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 78, bottom: 5, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 5, right: 20), child: verticalSpec)
                 
             } else {
-                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 20), child: verticalSpec)
+                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 20, bottom: 5, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 5, right: 20), child: verticalSpec)
 
             }
         } else {
-            insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 15, left: 5, bottom: 0, right: 0) : UIEdgeInsets(top: 15, left: 4, bottom: 0, right: 0), child: verticalSpec)
+            insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 15, left: 5, bottom: 5, right: 0) : UIEdgeInsets(top: 15, left: 4, bottom: 5, right: 0), child: verticalSpec)
         }
         
         

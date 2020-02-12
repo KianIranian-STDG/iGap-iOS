@@ -21,7 +21,12 @@ class IGImageNode: AbstractNode {
     override func setupView() {
         
         super.setupView()
-        let prefferedSize = NodeExtension.fetchMediaFrame(media: message.attachment!)
+        var prefferedSize : CGSize = CGSize(width: 0, height: 0)
+        if message.attachment!.largeThumbnail == nil && message.attachment!.smallThumbnail == nil {
+            prefferedSize = CGSize(width: 200, height: 200)
+        } else  {
+            prefferedSize = NodeExtension.fetchMediaFrame(media: message.attachment!)
+        }
         
         imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
         imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)

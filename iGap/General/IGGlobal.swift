@@ -1562,13 +1562,27 @@ extension ASNetworkImageNode {
                         }
                         
                     } else {
-                        self.image = nil
+                        self.image = UIImage(named:"igap_default_image")
                     }
                     break
                 case .gif:
                     break
                 case .video:
-                    break
+                    if IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size) {
+
+                        if let data = try? Data(contentsOf: attachment.localUrl!) {
+                            if let image = UIImage(data: data) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                    
+                                    self.image = image
+                                }
+                            }
+                        }
+                        
+                    } else {
+                        self.image = UIImage(named:"igap_default_video")
+                    }
+
                 case .audio:
                     self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
                     break

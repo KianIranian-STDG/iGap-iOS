@@ -6847,6 +6847,8 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
                    (node.bubbleNode as? AbstractNode)?.delegate = sSelf
                    node.generalMessageDelegate = sSelf
                    node.selectionStyle = .none
+                    node.neverShowPlaceholders = true
+                node.enableSubtreeRasterization()
                    return node
 
                    
