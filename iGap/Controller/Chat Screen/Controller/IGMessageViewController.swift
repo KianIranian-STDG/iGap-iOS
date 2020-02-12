@@ -6773,7 +6773,7 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
 
         let msg = messages?[indexPath.row]
-
+        print("CHECK NODE",indexPath.row)
         let cellnodeBlock  = {[weak self] () -> ASCellNode in
             
             guard let sSelf = self else {
@@ -6811,9 +6811,23 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
                     
                 }
                 if isFromSameSender {
-                    img = isIncomming ? tailLesImage : mineTailLesImage
+                    if isIncomming {
+                        img = tailLesImage
+
+                    } else {
+                        img = mineTailLesImage
+
+                    }
+
                 } else {
-                    img = isIncomming ? someoneImage : mineImage
+
+                    if isIncomming {
+                        img = someoneImage
+
+                    } else {
+                        img = mineImage
+
+                    }
                 }
 
             }

@@ -26,6 +26,7 @@ class IGImageNode: AbstractNode {
         imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
         imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
         imgNode.clipsToBounds = true
+        
         imgNode.layer.cornerRadius = 10
         indicatorViewAbs.style.height = ASDimensionMake(.points, 50)
         indicatorViewAbs.style.width = ASDimensionMake(.points, 50)

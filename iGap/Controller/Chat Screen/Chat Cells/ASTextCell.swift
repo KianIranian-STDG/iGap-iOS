@@ -11,10 +11,10 @@
 import Foundation
 import AsyncDisplayKit
 
-let mineImage = UIImage(named: "bubbleMine")!.stretchableImage(withLeftCapWidth: 15, topCapHeight: 14).withRenderingMode(.alwaysTemplate)
-let someoneImage = UIImage(named: "bubbleSomeone")!.stretchableImage(withLeftCapWidth: 21, topCapHeight: 14).withRenderingMode(.alwaysTemplate)
-let tailLesImage = UIImage(named: "BubbleTailLes")!.stretchableImage(withLeftCapWidth: 21, topCapHeight: 14).withRenderingMode(.alwaysTemplate)
-let mineTailLesImage = UIImage(named: "BubbleTailLesMine")!.stretchableImage(withLeftCapWidth: 15, topCapHeight: 14).withRenderingMode(.alwaysTemplate)
+let mineImage = UIImage(named: "BubbleOutOne")!.stretchableImage(withLeftCapWidth: 15, topCapHeight: 14).withRenderingMode(.alwaysTemplate)
+let someoneImage = UIImage(named: "BubbleOutOne")!.withHorizontallyFlippedOrientation().stretchableImage(withLeftCapWidth: 21, topCapHeight: 14).withRenderingMode(.alwaysTemplate)
+let tailLesImage = UIImage(named: "BubbleOutThree")!.withHorizontallyFlippedOrientation().stretchableImage(withLeftCapWidth: 21, topCapHeight: 14).withRenderingMode(.alwaysTemplate)
+let mineTailLesImage = UIImage(named: "BubbleOutThree")!.stretchableImage(withLeftCapWidth: 15, topCapHeight: 14).withRenderingMode(.alwaysTemplate)
 
 class ASTextCell : ASCellNode {
     let bubbleNode = ASImageNode()

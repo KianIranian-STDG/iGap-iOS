@@ -152,6 +152,7 @@ class BaseBubbleNode: ASCellNode {
     
     
     private func setupView() {
+        bubbleImgNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(.red)
         if !(finalRoomType == .chat) {
             if let name = message!.authorUser?.userInfo {
                 txtNameNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
@@ -631,14 +632,41 @@ class BaseBubbleNode: ASCellNode {
                             }
 
                         } else {
-                            let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
-                            timeStatusStack.verticalAlignment = .center
-                            
-                            let horizon = ASStackLayoutSpec(direction: .horizontal, spacing: 10, justifyContent: .end, alignItems: ASStackLayoutAlignItems.end, children: [stack , timeStatusStack])
-                            horizon.verticalAlignment = .bottom
+                            if isIncomming {
+                                let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode])
+                                timeStatusStack.verticalAlignment = .center
+                                
+                                let horizon = ASStackLayoutSpec(direction: .horizontal, spacing: 10, justifyContent: .end, alignItems: ASStackLayoutAlignItems.end, children: [stack , timeStatusStack])
+                                horizon.verticalAlignment = .bottom
 
-                            verticalSpec.child = ASInsetLayoutSpec(
-                                insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: horizon)
+                                if isFromSameSender {
+                                    verticalSpec.child = ASInsetLayoutSpec(
+                                        insets: UIEdgeInsets(top: 8,left: 10 ,bottom: 8,right: 0),child: horizon)
+
+                                } else {
+                                    verticalSpec.child = ASInsetLayoutSpec(
+                                        insets: UIEdgeInsets(top: 8,left: 20 ,bottom: 8,right: 0),child: horizon)
+
+                                }
+
+                            } else {
+                                
+                                let timeStatusStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .end, children: [txtTimeNode,txtStatusNode])
+                                timeStatusStack.verticalAlignment = .center
+                                
+                                let horizon = ASStackLayoutSpec(direction: .horizontal, spacing: 10, justifyContent: .end, alignItems: ASStackLayoutAlignItems.end, children: [stack , timeStatusStack])
+                                horizon.verticalAlignment = .bottom
+
+                                if isFromSameSender {
+                                    verticalSpec.child = ASInsetLayoutSpec(
+                                        insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: horizon)
+
+                                } else {
+                                    verticalSpec.child = ASInsetLayoutSpec(
+                                        insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 20),child: horizon)
+                                }
+
+                            }
 
                         }
                         
@@ -1201,19 +1229,21 @@ class BaseBubbleNode: ASCellNode {
         
         var insetSpec : ASInsetLayoutSpec!
         //handles spacing between bubble chats based on samesender or not
+
+        
         if isFromSameSender {
             if self.finalRoom.type == .channel {
                 insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0), child: verticalSpec)
 
             } else if self.finalRoom.type == .group {
-                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 75, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 10), child: verticalSpec)
+                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 78, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 20), child: verticalSpec)
                 
             } else {
-                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 13, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 10), child: verticalSpec)
+                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 20), child: verticalSpec)
 
             }
         } else {
-            insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 14, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 14, right: 0), child: verticalSpec)
+            insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 15, left: 5, bottom: 0, right: 0) : UIEdgeInsets(top: 15, left: 4, bottom: 0, right: 0), child: verticalSpec)
         }
         
         

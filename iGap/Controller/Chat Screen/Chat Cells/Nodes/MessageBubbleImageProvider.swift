@@ -55,6 +55,7 @@ open class MessageBubbleImageProvider {
         let bubble = UIImage(named: imageName)!
         
         do {
+            
             var normalBubble = try bubble.imageMaskedWith(color: properties.isIncomming ? outgoingColor : incomingColor)
             
             // make image stretchable from center point
