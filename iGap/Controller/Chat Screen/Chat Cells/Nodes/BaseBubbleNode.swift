@@ -25,7 +25,7 @@ class BaseBubbleNode: ASCellNode {
     private var shouldShowAvatar : Bool
     private var isFromSameSender : Bool
     private let bubbleImgNode = ASImageNode()
-    private let shadowImgNode = ASDisplayNode()
+    private let shadowImgNode = ASImageNode()
     private let txtTimeNode = ASTextNode()
     private let txtNameNode = ASTextNode()
     private let txtStatusNode = ASTextNode()
@@ -145,7 +145,7 @@ class BaseBubbleNode: ASCellNode {
         self.shouldShowAvatar = shouldShowAvatar
         self.isFromSameSender = isFromSameSender
         self.bubbleImgNode.image = bubbleImage
-//        self.shadowImgNode.image = bubbleImage
+        self.shadowImgNode.image = bubbleImage
         super.init()
         
         setupView()
@@ -155,7 +155,8 @@ class BaseBubbleNode: ASCellNode {
     
     private func setupView() {
         bubbleImgNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(isIncomming ? ThemeManager.currentTheme.ReceiveMessageBubleBGColor : ThemeManager.currentTheme.SendMessageBubleBGColor)
-        shadowImgNode.backgroundColor = (.red)
+        shadowImgNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(.darkGray)
+        shadowImgNode.alpha = 0.3
 
         
         
@@ -578,7 +579,19 @@ class BaseBubbleNode: ASCellNode {
         
         let verticalSpec = ASBackgroundLayoutSpec()
         if message?.type != .sticker || message?.type == .log {
-            verticalSpec.background = bubbleImgNode
+            if isIncomming {
+                let insetShadowBox = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0 , left: 0, bottom: 1, right: 1), child: bubbleImgNode)
+                let overlayShadowBox = ASOverlayLayoutSpec(child: shadowImgNode, overlay: insetShadowBox)
+
+                verticalSpec.background = overlayShadowBox
+
+            } else {
+                let insetShadowBox = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0 , left: 1, bottom: 1, right: 0), child: bubbleImgNode)
+                let overlayShadowBox = ASOverlayLayoutSpec(child: shadowImgNode, overlay: insetShadowBox)
+
+                verticalSpec.background = overlayShadowBox
+
+            }
         }
         
         /**************************************************************/
@@ -822,7 +835,7 @@ class BaseBubbleNode: ASCellNode {
                     
                     if isIncomming {
                         stack.children?.append(txtTimeNode)
-                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 14,bottom: 8,right: 5),child: stack)
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 20,bottom: 8,right: 5),child: stack)
                         
                     } else {
                         
@@ -983,7 +996,7 @@ class BaseBubbleNode: ASCellNode {
                             verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
 
                         } else {
-                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 20,bottom: 8,right: 10),child: stack)
                         }
 
                     } else {
@@ -1239,17 +1252,17 @@ class BaseBubbleNode: ASCellNode {
         
         if isFromSameSender {
             if self.finalRoom.type == .channel {
-                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 5, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 5, right: 0), child: verticalSpec)
+                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 5, bottom: 2, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 2, right: 0), child: verticalSpec)
 
             } else if self.finalRoom.type == .group {
-                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 78, bottom: 5, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 5, right: 20), child: verticalSpec)
+                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 78, bottom: 2, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 2, right: 20), child: verticalSpec)
                 
             } else {
-                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 20, bottom: 5, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 5, right: 20), child: verticalSpec)
+                insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 20, bottom: 2, right: 0) : UIEdgeInsets(top: 0, left: 4, bottom: 2, right: 20), child: verticalSpec)
 
             }
         } else {
-            insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 15, left: 5, bottom: 5, right: 0) : UIEdgeInsets(top: 15, left: 4, bottom: 5, right: 0), child: verticalSpec)
+            insetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 15, left: 5, bottom: 2, right: 0) : UIEdgeInsets(top: 15, left: 4, bottom: 2, right: 0), child: verticalSpec)
         }
         
         
@@ -1289,12 +1302,16 @@ class BaseBubbleNode: ASCellNode {
                     
                     let stackHSpec = ASStackLayoutSpec()
                     stackHSpec.direction = .horizontal
-                    stackHSpec.spacing = 5
+                    stackHSpec.spacing = 2
                     stackHSpec.verticalAlignment = .bottom
 
+                    
                     stackHSpec.children = isIncomming ? [ASBGStack,stackSpec, imgNodeReply] : [imgNodeReply, stackSpec,ASBGStack]
                     stackHSpec.style.flexShrink = 1.0
                     stackHSpec.style.flexGrow = 1.0
+                    
+
+                    
                     
                     let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 4) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 5), child: stackHSpec)
                     

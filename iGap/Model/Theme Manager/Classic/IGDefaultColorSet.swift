@@ -87,8 +87,8 @@ class DefaultColorSet: DefaultColorSetProtocol {
     
     var SettingDayReceiveBubble: UIColor = UIColor(named: "SettingDayReceiveBubbleDefault")!
     
-    var SliderTintColor: UIColor = UIColor(named: "SliderTintColorDefault")!
-        
+    var SliderTintColor: UIColor = UIColor.iGapGreen()
+
     var CheckStatusColor: UIColor = UIColor(named: "CheckStatusColorDefault")!
     
     var MessageCountColor: UIColor = UIColor(named: "MessageCountColorDefault")!
