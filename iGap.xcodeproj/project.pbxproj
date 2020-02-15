@@ -379,6 +379,9 @@
 		D244EA6723DDC44C0071B00F /* IGProgressNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D244EA6623DDC44C0071B00F /* IGProgressNode.swift */; };
 		D250C6DE23DEB32D00B4860E /* IGLocationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D250C6DD23DEB32D00B4860E /* IGLocationNode.swift */; };
 		D2522EDA23D47BC6002B2D6C /* IGTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2522ED923D47BC6002B2D6C /* IGTextNode.swift */; };
+		D25D0F2E23F7E61D00DA3797 /* IGNodeMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25D0F2D23F7E61D00DA3797 /* IGNodeMusicPlayer.swift */; };
+		D25D0F3023F7E88300DA3797 /* IGNodeHelperMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25D0F2F23F7E88300DA3797 /* IGNodeHelperMusicPlayer.swift */; };
+		D25D0F3223F7EB6200DA3797 /* IGNodeMusicPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25D0F3123F7EB6200DA3797 /* IGNodeMusicPlayerTableViewController.swift */; };
 		D26E8C5E23DC5BCD00C1E916 /* IGFileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */; };
 		D28B583123D56CA400CB861C /* IGImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28B583023D56CA400CB861C /* IGImageNode.swift */; };
 		D2AD204F23D9675700466666 /* AbstractNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AD204E23D9675700466666 /* AbstractNode.swift */; };
@@ -1306,6 +1309,9 @@
 		D244EA6623DDC44C0071B00F /* IGProgressNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProgressNode.swift; sourceTree = "<group>"; };
 		D250C6DD23DEB32D00B4860E /* IGLocationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGLocationNode.swift; sourceTree = "<group>"; };
 		D2522ED923D47BC6002B2D6C /* IGTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextNode.swift; sourceTree = "<group>"; };
+		D25D0F2D23F7E61D00DA3797 /* IGNodeMusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodeMusicPlayer.swift; sourceTree = "<group>"; };
+		D25D0F2F23F7E88300DA3797 /* IGNodeHelperMusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodeHelperMusicPlayer.swift; sourceTree = "<group>"; };
+		D25D0F3123F7EB6200DA3797 /* IGNodeMusicPlayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodeMusicPlayerTableViewController.swift; sourceTree = "<group>"; };
 		D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFileNode.swift; sourceTree = "<group>"; };
 		D28B583023D56CA400CB861C /* IGImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGImageNode.swift; sourceTree = "<group>"; };
 		D2AD204E23D9675700466666 /* AbstractNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractNode.swift; sourceTree = "<group>"; };
@@ -2919,11 +2925,12 @@
 		FA4BD8A01DF2A52300CCB239 /* Music Player */ = {
 			isa = PBXGroup;
 			children = (
-				FADE97B21DF2DBF100FF714A /* IGMusicPlayer.swift */,
 				FA4BD8A11DF2A53400CCB239 /* IGMusicViewController.swift */,
 				FA4BD8A21DF2A53400CCB239 /* IGMusicViewController.xib */,
 				D60FF282234091310012ECF2 /* IGPlayer.swift */,
 				D217E92A23E97759009008F2 /* IGNodePlayer.swift */,
+				FADE97B21DF2DBF100FF714A /* IGMusicPlayer.swift */,
+				D25D0F2D23F7E61D00DA3797 /* IGNodeMusicPlayer.swift */,
 			);
 			path = "Music Player";
 			sourceTree = "<group>";
@@ -2958,6 +2965,7 @@
 				D629462C2349DA0600FB5A08 /* IGHelperMediaPicker.swift */,
 				8E79295F234CB9DA00C9CA5C /* IGHelperUIViewView.swift */,
 				8E82B24E2355AFE50055F9F8 /* IGHelperShowToastAlertView.swift */,
+				D25D0F2F23F7E88300DA3797 /* IGNodeHelperMusicPlayer.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -3716,6 +3724,7 @@
 				FAD530561E0BD6C300FE6C54 /* Custom Master Controllers */,
 				FA087B2C1DC4A27200E139FA /* View Controllers */,
 				8E3C696B23602E4D001575BE /* IGMusicPlayerTableViewController.swift */,
+				D25D0F3123F7EB6200DA3797 /* IGNodeMusicPlayerTableViewController.swift */,
 				8EC03853239B87AE00B525B5 /* IGThreeInputTVController.swift */,
 				8E3C696D23602EB2001575BE /* Music.swift */,
 				8E3C696F23603096001575BE /* MusicCell.swift */,
@@ -4250,6 +4259,7 @@
 				FAD7450021B940F800801D2E /* IGHelperGetShareData.swift in Sources */,
 				8EC217C62259F59900105B5A /* SMCashout.swift in Sources */,
 				8EC94DFE239636FC003B3510 /* IGDoubleButtonTVCell.swift in Sources */,
+				D25D0F2E23F7E61D00DA3797 /* IGNodeMusicPlayer.swift in Sources */,
 				8E96A321225C9074007D8A77 /* SMBottomButton.swift in Sources */,
 				FA0CC8091E5D7D4400556283 /* ActiveType.swift in Sources */,
 				8E0405C72371B9CE00516DEB /* IGStructBranchingInfo.swift in Sources */,
@@ -4334,6 +4344,7 @@
 				8EA8551B23A232D600C9442F /* IGRedColorSet.swift in Sources */,
 				8E8E506A23E82F540094A91C /* HepticFeedback.swift in Sources */,
 				4FFCE2A01EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift in Sources */,
+				D25D0F3023F7E88300DA3797 /* IGNodeHelperMusicPlayer.swift in Sources */,
 				FA09538C1E1B97E20043ED3F /* IGMemberChooseBottomCollectionCell.swift in Sources */,
 				8EC03854239B87AE00B525B5 /* IGThreeInputTVController.swift in Sources */,
 				8E5495D322F03104001D30E1 /* customCardNumberTextField.swift in Sources */,
@@ -4506,6 +4517,7 @@
 				D244EA6723DDC44C0071B00F /* IGProgressNode.swift in Sources */,
 				8E3360DD23D2DF8A00CE766B /* MessageWhatsappTextNode.swift in Sources */,
 				FA248C98226AEBE800A72EA7 /* IGScoreHistoryViewController.swift in Sources */,
+				D25D0F3223F7EB6200DA3797 /* IGNodeMusicPlayerTableViewController.swift in Sources */,
 				FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */,
 				FA6C2DE722673B21005654AC /* IGHelperAlert.swift in Sources */,
 				8EC2180A2259FF3500105B5A /* Model.xcdatamodeld in Sources */,

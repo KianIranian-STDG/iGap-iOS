@@ -532,7 +532,7 @@ class IGNodePlayer {
     }
 }
 
-extension IGNodePlayer:IGMusicPlayerDelegate {
+extension IGNodePlayer: IGMusicPlayerDelegate {
     func player(_ player:IGMusicPlayer, didStartPlaying item:AVPlayerItem) {
         
     }

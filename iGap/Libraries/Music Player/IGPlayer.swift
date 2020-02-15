@@ -384,10 +384,15 @@ class IGPlayer {
             
             IGGlobal.songState = .playing
             let files = [file]
-            UIView.transition(with: btnPlayPause,duration: 0.3, options: .transitionFlipFromTop, animations: {
-                self.latestButtonValue = ""
-                self.btnPlayPause.setTitle("", for: UIControl.State.normal) // pause icon
-            },completion: nil)
+            
+            self.latestButtonValue = ""
+            self.btnPlayPause.setTitle("", for: UIControl.State.normal) // pause icon
+            
+//            UIView.transition(with: btnPlayPause,duration: 0.3, options: .transitionFlipFromTop, animations: {
+//                self.latestButtonValue = ""
+//                self.btnPlayPause.setTitle("", for: UIControl.State.normal) // pause icon
+//            },completion: nil)
+            
             player.play(index: 0, from: files)
             flag = false
             updateSliderValue()

@@ -1237,14 +1237,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         } else {
             addMusicPlayerToHolder()
         }
-        IGHelperMusicPlayer.shared.room = self.room // pass room obj to helper music layer in order to be used in showing audio list of room at the bottom music player
+        IGNodeHelperMusicPlayer.shared.room = self.room // pass room obj to helper music layer in order to be used in showing audio list of room at the bottom music player
     }
     private func addMusicPlayerToHolder() {
         if holderMusicPlayer.subviews.count > 0 {
             holderMusicPlayer.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
         }
         
-        let view = (IGHelperMusicPlayer.shared.showTopMusicPlayer(view: self, songTime: IGGlobal.topBarSongTime, singerName: IGGlobal.topBarSongSinger, songName: IGGlobal.topBarSongName))
+        let view = (IGNodeHelperMusicPlayer.shared.showTopMusicPlayer(view: self, songTime: IGGlobal.topBarSongTime, singerName: IGGlobal.topBarSongSinger, songName: IGGlobal.topBarSongName))
         holderMusicPlayer.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -6775,7 +6775,6 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
 
         let msg = messages?[indexPath.row]
-        print("CHECK NODE",indexPath.row)
         let cellnodeBlock  = {[weak self] () -> ASCellNode in
             
             guard let sSelf = self else {
@@ -6844,7 +6843,7 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
 
             if msg!.type == .text ||  msg!.type == .image ||  msg!.type == .imageAndText ||  msg!.type == .file ||  msg!.type == .fileAndText || msg!.type == .voice || msg!.type == .location || msg!.type == .video || msg!.type == .videoAndText || msg!.type == .audio || msg!.type == .audioAndText || msg!.type == .contact || msg!.type == .sticker || msg!.type == .wallet {
                 //TODO: check detach
-                let node = BaseBubbleNode(message: msg!, finalRoomType : sSelf.finalRoom!.type ,finalRoom : sSelf.finalRoom!, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar)
+                let node = BaseBubbleNode(message: msg!, finalRoomType : sSelf.finalRoom!.type ,finalRoom : sSelf.finalRoom!, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar, indexPath: indexPath)
                    
                    (node.bubbleNode as? AbstractNode)?.delegate = sSelf
                    node.generalMessageDelegate = sSelf

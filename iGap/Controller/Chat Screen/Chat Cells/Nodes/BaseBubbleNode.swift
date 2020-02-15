@@ -57,6 +57,8 @@ class BaseBubbleNode: ASCellNode {
     private var swipeToReplyNode: ChatMessageSwipeToReplyNode?
     private var swipeToReplyFeedback: HapticFeedback?
 
+    private var index: IndexPath!
+    
     override func didLoad() {
         super.didLoad()
         manageGestureRecognizers()
@@ -137,7 +139,7 @@ class BaseBubbleNode: ASCellNode {
         }
     }
 
-    init(message : IGRoomMessage, finalRoomType : IGRoom.IGType, finalRoom : IGRoom, isIncomming: Bool, bubbleImage: UIImage, isFromSameSender: Bool, shouldShowAvatar: Bool) {
+    init(message : IGRoomMessage, finalRoomType : IGRoom.IGType, finalRoom : IGRoom, isIncomming: Bool, bubbleImage: UIImage, isFromSameSender: Bool, shouldShowAvatar: Bool, indexPath: IndexPath) {
         self.finalRoom = finalRoom
         self.finalRoomType = finalRoomType
         self.message = message
@@ -146,6 +148,7 @@ class BaseBubbleNode: ASCellNode {
         self.isFromSameSender = isFromSameSender
         self.bubbleImgNode.image = bubbleImage
         self.shadowImgNode.image = bubbleImage
+        self.index = indexPath
         super.init()
         
         setupView()
@@ -179,15 +182,11 @@ class BaseBubbleNode: ASCellNode {
 
         } else if let forwardedFrom = message?.forwardedFrom {
             msg = forwardedFrom
-
-            DispatchQueue.main.async {
-                print("=========::::::=======",msg)
-            }
         } else {
             msg = message
             
         }
-        var finalType : IGRoomMessageType = msg!.type
+        let finalType : IGRoomMessageType = msg!.type
 
         if finalType == .text {
             bubbleNode = IGTextNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
@@ -203,8 +202,10 @@ class BaseBubbleNode: ASCellNode {
             bubbleNode = IGLocationNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         } else if finalType == .audio {
             bubbleNode = IGMusicNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
+            (bubbleNode as! IGMusicNode).index = index
         }  else if finalType == .audioAndText {
             bubbleNode = IGMusicNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
+            (bubbleNode as! IGMusicNode).index = index
         }else if finalType == .contact {
             bubbleNode = IGContactNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         } else if finalType == .sticker {

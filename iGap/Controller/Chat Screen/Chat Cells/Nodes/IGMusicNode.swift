@@ -16,25 +16,33 @@ class IGMusicNode: AbstractNode {
     private var txtMusicName = ASTextNode()
     private var txtMusicArtist = ASTextNode()
     private var imgDefaultCover = ASNetworkImageNode()
-    private var imgMusicAvatar = ASNetworkImageNode()
     private var testView = ASDisplayNode()
+    
+    var index: IndexPath!
 
     override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = false,finalRoomType : IGRoom.IGType,finalRoom : IGRoom) {
         super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode,finalRoomType : finalRoomType, finalRoom: finalRoom)
         setupView()
+        checkPlayerState()
     }
     
+    override func didLoad() {
+        super.didLoad()
+        self.musicGustureRecognizers()
+        self.checkPlayerState()
+    }
     
     override func setupView() {
         super.setupView()
         
+        imgDefaultCover.alpha = 0
         imgDefaultCover.style.preferredSize = CGSize(width: 50, height: 50)
         imgDefaultCover.layer.cornerRadius = 25
         imgDefaultCover.image = UIImage(named: "igap_default_music")
-        IGGlobal.makeAsyncText(for: txtMusicArtist, with: "Siavash Ghomeishi", textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
+        IGGlobal.makeAsyncText(for: txtMusicArtist, with: "", textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
 
-        imgMusicAvatar.style.preferredSize = CGSize(width: 50, height: 50)
-        imgMusicAvatar.layer.cornerRadius = 25
+        btnStateNode.style.preferredSize = CGSize(width: 50, height: 50)
+        btnStateNode.layer.cornerRadius = 25
         //        btnStateNode.layer.cornerRadius = 25
         
         //make current time text
@@ -44,10 +52,10 @@ class IGMusicNode: AbstractNode {
         addSubnode(txtMusicName)
         addSubnode(txtMusicArtist)
         addSubnode(imgDefaultCover)
-        addSubnode(imgMusicAvatar)
+        addSubnode(btnStateNode)
 //        addSubnode(btnStateNode)
         addSubnode(indicatorViewAbs)
-//        checkButtonState(btn: btnStateNode)
+        checkButtonState(btn: btnStateNode)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.getMetadata(file: self.message.attachment)
         }
@@ -83,7 +91,7 @@ class IGMusicNode: AbstractNode {
         textBox.children = [txtMusicName,txtMusicArtist]
         textBox.spacing = 0
         
-        let overlayBox = ASOverlayLayoutSpec(child: imgMusicAvatar, overlay: indicatorViewAbs)
+        let overlayBox = ASOverlayLayoutSpec(child: btnStateNode, overlay: indicatorViewAbs)
         let defaultBox = ASOverlayLayoutSpec(child: imgDefaultCover, overlay: overlayBox)
 
         let attachmentBox = ASStackLayoutSpec.horizontal()
@@ -131,24 +139,24 @@ class IGMusicNode: AbstractNode {
                 IGGlobal.makeAsyncText(for: txtMusicArtist, with: singerName, textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
 
             }
-            if item.commonKey!.rawValue == "artwork" {
-                hasArtwork = true
-
-                                if let imageData = item.dataValue {
-                                    DispatchQueue.global(qos: .userInteractive).async {
-                                        let image = UIImage(data: imageData)
-                                        DispatchQueue.main.async {
-                                            self.imgMusicAvatar.image = image
-                                        }
-                                    }
-                                }
-            }
-
-        }
-        if !hasArtwork {
-            imgMusicAvatar.setThumbnail(for: file)
+//            if item.commonKey!.rawValue == "artwork" {
+//                hasArtwork = true
+//
+//                if let imageData = item.dataValue {
+//                    DispatchQueue.global(qos: .userInteractive).async {
+//                        let image = UIImage(data: imageData)
+//                        DispatchQueue.main.async {
+//                            self.imgMusicAvatar.image = image
+//                        }
+//                    }
+//                }
+//            }
 
         }
+//        if !hasArtwork {
+//            imgMusicAvatar.setThumbnail(for: file)
+//
+//        }
         if !hasSingerName {
             let singerName = IGStringsManager.UnknownArtist.rawValue.localized
             IGGlobal.makeAsyncText(for: txtMusicArtist, with: singerName, textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
@@ -168,40 +176,35 @@ class IGMusicNode: AbstractNode {
                 
             }
         }
-
         
-//            if let artworkItem = artworkItems.first {
-//                // Coerce the value to an NSData using its dataValue property
-//                if let imageData = artworkItem.dataValue {
-//                    DispatchQueue.global(qos: .userInteractive).async {
-//                        let image = UIImage(data: imageData)
-//                        DispatchQueue.main.async {
-//                            self.imgMusicAvatar.image = image
-//                        }
-//                    }
-//                }
-                
-// //                process image
-//            } else {
-//                let avatarView : ASNetworkImageNode = ASNetworkImageNode()
-//                avatarView.setThumbnail(for: file)
-//                if message.attachment!.name!.contains(".mp3") {
-//                    let name = message.attachment!.name!.replacingOccurrences(of: ".mp3", with: "")
-//                    IGGlobal.makeAsyncText(for: txtMusicName, with: name, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
-//
-//
-//                } else {
-//                    IGGlobal.makeAsyncText(for: txtMusicName, with: message.attachment!.name!, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
-//
-//                }
-//                IGGlobal.makeAsyncText(for: txtMusicArtist, with: IGStringsManager.UnknownArtist.rawValue.localized, textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
-//
-//                if let image = avatarView.image {
-//                    self.imgMusicAvatar.image = image
-//                }
-//            }
-        }
+    }
 
+    
+    /****************************************************************************/
+    /******************************* Audio Player *******************************/
+    
+    /** check current voice state and if is playing update values to current state */
+    private func checkPlayerState(){
+//        IGNodePlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderAudio, timer: txtAudioTime, roomMessage: self.finalRoomMessage, justUpdate: true,room: self.room)
+        
+        
+        IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: UISlider(), timer: ASTextNode(), roomMessage: message, justUpdate: true, room: finalRoom)
+        
+        
+    }
+    
+    private func musicGustureRecognizers() {
+//        let play = UITapGestureRecognizer(target: self, action: #selector(didTapOnPlay(_:)))
+//        btnStateNode.addGestureRecognizer(play)
+        btnStateNode.addTarget(self, action: #selector(didTapOnPlay(_:)), forControlEvents: .touchUpInside)
+    }
+    
+    @objc func didTapOnPlay(_ gestureRecognizer: UITapGestureRecognizer) {
+        IGGlobal.isVoice = false // determine the file is not voice and is music
+
+        IGGlobal.clickedAudioCellIndexPath = index
+        IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: UISlider(), timer: ASTextNode(), roomMessage: message,room: finalRoom)
+    }
     
     
 }
