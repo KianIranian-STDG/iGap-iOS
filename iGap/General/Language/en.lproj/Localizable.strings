@@ -2261,22 +2261,22 @@ TODO:// complete */
 "ROOM_CREATED" = "created";
 
 /*  */
-"MEMBER_ADDED" = "added";
+"MEMBER_ADDED" = "was added";
 
 /*  */
-"prefix" = "";
+"prefix" = "by";
 
 /* have to empty */
-"MEMBER_KICKED" = "kicked out";
+"MEMBER_KICKED" = "was kicked";
 
 /*  */
-"MEMBER_LEFT" = "left Page";
+"MEMBER_LEFT" = "left the Page";
 
 /*  */
-"ROOM_CONVERTED_TO_PUBLIC" = "converted to Public";
+"ROOM_CONVERTED_TO_PUBLIC" = "converted page to Public";
 
 /*  */
-"ROOM_CONVERTED_TO_PRIVATE" = "converted to Private";
+"ROOM_CONVERTED_TO_PRIVATE" = "converted page to Private";
 
 /*  */
 "MEMBER_JOINED_BY_INVITE_LINK" = "joined via Invite Link";
