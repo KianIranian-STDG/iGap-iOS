@@ -469,6 +469,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.lblUnreadArrieved.text = self.lblUnreadArrieved.text?.inLocalizedLanguage()
         self.lblUnreadArrieved.layer.cornerRadius = 7.5
         self.lblUnreadArrieved.layer.masksToBounds = true
+        self.lblUnreadArrieved.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+
         ///newUITextMessage
         initViewNewChatView()
         initNotificationsNewChatView()
@@ -1291,7 +1293,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             let delay: Double = 1
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 var indexOfMessage = index
-                self.makeForward(room: self.room!, message: self.forwardedMessageArray[indexOfMessage].detach(), isFromCloud: isFromCloud) { [weak self] (message) in
+                self.makeForward(room: self.room!, message: self.forwardedMessageArray[indexOfMessage], isFromCloud: isFromCloud) { [weak self] (message) in
                     DispatchQueue.main.async {
                         if let finalMessage = IGDatabaseManager.shared.realm.resolve(message), let room = self?.room {
                             IGMessageSender.defaultSender.sendSingleForward(message: finalMessage, to: room, success: { [weak self] in
@@ -1311,7 +1313,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private func makeForward(room: IGRoom, message: IGRoomMessage, isFromCloud: Bool = false, completion: @escaping (_ message: ThreadSafeReference<IGRoomMessage>) -> Void) {
         IGFactory.shared.saveForwardMessage(roomId: room.id, messageId: message.id, isFromCloud: isFromCloud, completion: { (message) in
-            completion(ThreadSafeReference(to: message.detach()))
+            completion(ThreadSafeReference(to: message))
         })
     }
     
@@ -6792,7 +6794,7 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
                     if sSelf.messages!.indices.contains(indexPath.row + 1){
                         let previousMessage = sSelf.messages![(indexPath.row + 1)]
                         if previousMessage.type != .log && msg!.authorHash == previousMessage.authorHash {
-                            isFromSameSender = true
+                            isFromSameSender = false // should be true for next version
                         }
                     }
                     

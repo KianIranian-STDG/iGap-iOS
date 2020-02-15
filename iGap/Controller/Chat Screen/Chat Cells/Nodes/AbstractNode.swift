@@ -45,6 +45,9 @@ class AbstractNode: ASCellNode {
         
         return view
     }
+    //Contact
+    var btnViewContact = ASButtonNode()
+
     var btnShowMore = ASButtonNode()
     var playTxtNode = ASTextNode()
     

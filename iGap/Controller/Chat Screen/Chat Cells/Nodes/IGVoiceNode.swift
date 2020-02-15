@@ -37,6 +37,10 @@ class IGVoiceNode: AbstractNode {
         super.setupView()
         
         sliderNode.style.preferredSize = CGSize(width: 150, height: 50)
+        (sliderNode.view as! UISlider).maximumTrackTintColor = .black
+        (sliderNode.view as! UISlider).minimumTrackTintColor = .red
+        (sliderNode.view as! UISlider).tintColor = .green
+
 //        sliderNode.style.height = ASDimension(unit: .points, value: 50)
         
         btnStateNode.layer.cornerRadius = 25
@@ -117,14 +121,14 @@ class IGVoiceNode: AbstractNode {
             (sliderNode.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .selected)
             (sliderNode.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .highlighted)
             (sliderNode.view as! UISlider).minimumTrackTintColor = ThemeManager.currentTheme.MessageTextReceiverColor
-            (sliderNode.view as! UISlider).maximumTrackTintColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
+            (sliderNode.view as! UISlider).maximumTrackTintColor = UIColor.black
             IGGlobal.makeAsyncButton(for: btnStateNode, with: "", textColor: .black, size: 35, font: .fontIcon, alignment: .center)
         } else {
             (sliderNode.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .normal)
             (sliderNode.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .focused)
             (sliderNode.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .selected)
             (sliderNode.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .highlighted)
-            (sliderNode.view as! UISlider).maximumTrackTintColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1.0)
+            (sliderNode.view as! UISlider).maximumTrackTintColor = UIColor.black
             (sliderNode.view as! UISlider).minimumTrackTintColor = UIColor(red: 22.0/255.0, green: 91.0/255.0, blue: 88.0/255.0, alpha: 1.0)
             IGGlobal.makeAsyncButton(for: btnStateNode, with: "", textColor: .black, size: 35, font: .fontIcon, alignment: .center)
         }

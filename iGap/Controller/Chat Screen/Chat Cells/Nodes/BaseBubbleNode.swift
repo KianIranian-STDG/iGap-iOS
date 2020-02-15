@@ -163,7 +163,7 @@ class BaseBubbleNode: ASCellNode {
         if !(finalRoomType == .chat) {
             if let name = message!.authorUser?.userInfo {
                 txtNameNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
-                IGGlobal.makeAsyncText(for: txtNameNode, with: name.displayName, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont, alignment: .left)
+                IGGlobal.makeAsyncText(for: txtNameNode, with: name.displayName, textColor: UIColor.hexStringToUIColor(hex: (message!.authorUser?.user!.color)!), size: 12, numberOfLines: 1, font: .igapFont, alignment: .left)
             } else {
                 txtNameNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
                 IGGlobal.makeAsyncText(for: txtNameNode, with: "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont, alignment: .left)
@@ -180,7 +180,9 @@ class BaseBubbleNode: ASCellNode {
         } else if let forwardedFrom = message?.forwardedFrom {
             msg = forwardedFrom
 
-            
+            DispatchQueue.main.async {
+                print("=========::::::=======",msg)
+            }
         } else {
             msg = message
             
@@ -549,26 +551,26 @@ class BaseBubbleNode: ASCellNode {
                 
             }
         }
-        var layoutMsg = message
+        var layoutMsg = message?.detach()
 
         //check if has reply or Forward
         if let repliedMessage = message?.repliedTo {
-            layoutMsg = repliedMessage
+            layoutMsg = repliedMessage.detach()
             stack.children?.append(replyForwardViewNode)
-            replyForwardViewNode.setReplyForward(isReply: true, extraMessage : layoutMsg!)
+            replyForwardViewNode.setReplyForward(isReply: true, extraMessage : layoutMsg!,isIncomming : isIncomming)
             
             stack.children?.append(bubbleNode)
         } else if let forwardedFrom = message?.forwardedFrom {
-            layoutMsg = forwardedFrom
+            layoutMsg = forwardedFrom.detach()
 
             if message?.type != .sticker || message?.type != .log {
-                replyForwardViewNode.setReplyForward(isReply: false, extraMessage : layoutMsg!)
                 stack.children?.append(replyForwardViewNode)
+                replyForwardViewNode.setReplyForward(isReply: false, extraMessage : layoutMsg!,isIncomming : isIncomming)
 
             }
             stack.children?.append(bubbleNode)
         } else {
-            layoutMsg = message
+            layoutMsg = message?.detach()
 
             stack.children?.append(bubbleNode)
 
@@ -682,7 +684,7 @@ class BaseBubbleNode: ASCellNode {
 
                                 } else {
                                     verticalSpec.child = ASInsetLayoutSpec(
-                                        insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 20),child: horizon)
+                                        insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 25),child: horizon)
                                 }
 
                             }
@@ -707,7 +709,7 @@ class BaseBubbleNode: ASCellNode {
                         }
                         let holderSyack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,timeStack])
                         stack.children?.append(holderSyack)
-                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10 ,bottom: 8,right: 10),child: stack)
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 25 ,bottom: 8,right: 10),child: stack)
 
                     } else {
                         
@@ -717,7 +719,7 @@ class BaseBubbleNode: ASCellNode {
                                 verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
 
                             } else {
-                                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 25,bottom: 8,right: 10),child: stack)
                             }
                             
 
@@ -728,10 +730,10 @@ class BaseBubbleNode: ASCellNode {
                             
                             stack.children?.append(timeStatusStack)
                             if isFromSameSender {
-                                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
+                                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 15),child: stack)
 
                             } else {
-                                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 25),child: stack)
                             }
 
                         }
@@ -765,7 +767,7 @@ class BaseBubbleNode: ASCellNode {
                     }
                     let holderSyack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,timeStack])
                     stack.children?.append(holderSyack)
-                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10 ,bottom: 8,right: 10),child: stack)
+                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 25 ,bottom: 8,right: 10),child: stack)
 
                     
                     
@@ -780,7 +782,7 @@ class BaseBubbleNode: ASCellNode {
                             verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
 
                         } else {
-                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 25,bottom: 8,right: 10),child: stack)
                         }
                         
                         
@@ -795,7 +797,7 @@ class BaseBubbleNode: ASCellNode {
                             verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
 
                         } else {
-                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 20),child: stack)
                         }
 
                         
@@ -1160,7 +1162,7 @@ class BaseBubbleNode: ASCellNode {
                         verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
 
                     } else {
-                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15 ,bottom: 8,right: 10),child: stack)
                     }
 
                 } else {
@@ -1173,7 +1175,7 @@ class BaseBubbleNode: ASCellNode {
                         verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
 
                     } else {
-                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 15),child: stack)
                     }
 
                 }

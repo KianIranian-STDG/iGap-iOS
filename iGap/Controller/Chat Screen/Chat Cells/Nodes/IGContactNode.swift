@@ -18,8 +18,7 @@ class IGContactNode: AbstractNode {
     private var txtContactName = ASTextNode()
     private var txtEmails = ASTextNode()
     private var txtEmailIcon = ASTextNode()
-    private var txtCover = ASTextNode()
-    private var btnViewContact = ASButtonNode()
+    private var imgCover = ASImageNode()
     private func hasEmail() -> Bool{
         return (message.contact?.emails.count)! > 0
     }
@@ -33,16 +32,24 @@ class IGContactNode: AbstractNode {
     override func setupView() {
         super.setupView()
         
-        txtCover.style.preferredSize = CGSize(width: 50, height: 50)
-        txtCover.layer.cornerRadius = 25
-        IGGlobal.makeAsyncText(for: txtCover, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 50, numberOfLines: 1, font: IGGlobal.fontPack.fontIcon, alignment: .center)
+        imgCover.style.preferredSize = CGSize(width: 40, height: 40)
+        imgCover.layer.cornerRadius = 20
+        imgCover.image = UIImage(named: "ig_default_contact")
+        imgCover.imageModificationBlock = ASImageNodeTintColorModificationBlock((isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!)
         IGGlobal.makeAsyncText(for: txtPhoneIcon, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 10, numberOfLines: 1, font: IGGlobal.fontPack.fontIcon, alignment: .center)
         IGGlobal.makeAsyncText(for: txtEmailIcon, with: "🖂", textColor: ThemeManager.currentTheme.LabelColor, size: 10, numberOfLines: 1, font: IGGlobal.fontPack.fontIcon, alignment: .center)
         
-        btnViewContact.setTitle(IGStringsManager.ViewContact.rawValue.localized, with: UIFont.igFont(ofSize: 14, weight: .bold), with: ThemeManager.currentTheme.LabelColor, for: .normal)
+        if self.isIncomming {
+            btnViewContact.setTitle(IGStringsManager.ViewContact.rawValue.localized, with: UIFont.igFont(ofSize: 14, weight: .bold), with: ThemeManager.currentTheme.SliderTintColor, for: .normal)
+            btnViewContact.layer.borderColor = ThemeManager.currentTheme.SliderTintColor.cgColor
+
+        } else {
+            btnViewContact.setTitle(IGStringsManager.ViewContact.rawValue.localized, with: UIFont.igFont(ofSize: 14, weight: .bold), with: ThemeManager.currentTheme.SendMessageBubleBGColor.darker(), for: .normal)
+            btnViewContact.layer.borderColor = ThemeManager.currentTheme.SendMessageBubleBGColor.darker()?.cgColor
+
+        }
         btnViewContact.layer.cornerRadius = 10
-        btnViewContact.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
-        btnViewContact.layer.borderWidth = 2.0
+        btnViewContact.layer.borderWidth = 1.0
         btnViewContact.backgroundColor = .clear
         btnViewContact.style.height = ASDimension(unit: .points, value: 40.0)
         addSubnode(txtContactName)
@@ -50,36 +57,58 @@ class IGContactNode: AbstractNode {
         addSubnode(txtPhoneIcon)
         addSubnode(txtEmails)
         addSubnode(txtEmailIcon)
-        addSubnode(txtCover)
+        addSubnode(imgCover)
         addSubnode(btnViewContact)
-        getContactDetails()
         
+        getContactDetails()
+        btnViewContact.addTarget(self, action:  #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
         
     }
-    
-    
+    //- Hint : Check tap on user profile
+    @objc func handleUserTap() {
+        
+
+        print("DID TAP ON CONTACT SHOW")
+        
+    }
+
     func getContactDetails() {
         DispatchQueue.main.async {
-            let predicate = NSPredicate(format: "primaryKeyId = %@", self.message.primaryKeyId!)
-            let contact: IGRoomMessageContact = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first!.contact!
-            print("============::::::===========")
-            print(contact)
-            print(self.message.contact!)
-            print(self.hasEmail())
-            
+            let contact: IGRoomMessageContact
+            if self.message.contact  == nil {
+                let predicate = NSPredicate(format: "primaryKeyId = %@", self.message.primaryKeyId!)
+                 contact = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first!.contact!
+                print("============:::3:::===========")
+                print(contact)
+                print(self.message.contact!)
+                print(self.hasEmail())
+                
+
+            } else {
+                contact = self.message.contact!
+            }
             
             let firstName = contact.firstName == nil ? "" : contact.firstName! + " "
             let lastName = contact.lastName == nil ? "" : contact.lastName!
             let name = String(format: "%@%@", firstName, lastName)
-            IGGlobal.makeAsyncText(for: self.txtContactName, with: name, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
-            if contact.phones.count == 1 {
-                let phoneNumber = contact.phones.first!.innerString
-                IGGlobal.makeAsyncText(for: self.txtPhoneNumbers, with: phoneNumber, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+            if self.isIncomming {
+                
+                IGGlobal.makeAsyncText(for: self.txtContactName, with: name, textColor: ThemeManager.currentTheme.SliderTintColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
 
             } else {
+                
+                IGGlobal.makeAsyncText(for: self.txtContactName, with: name, textColor: ThemeManager.currentTheme.SendMessageBubleBGColor.darker(), size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+
+            }
+            if contact.phones.count == 1 {
+                let phoneNumber = contact.phones.first!.innerString
+                IGGlobal.makeAsyncText(for: self.txtPhoneNumbers, with: phoneNumber, textColor: ThemeManager.currentTheme.LabelColor, size: 13, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+
+            } else {
+                let numberOfLines : UInt = UInt(contact.phones.count)
                 for phone in contact.phones {
                     let phoneNumber = (self.txtPhoneNumbers.attributedText?.string ?? "") + phone.innerString + "\n"
-                    IGGlobal.makeAsyncText(for: self.txtPhoneNumbers, with: phoneNumber, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+                    IGGlobal.makeAsyncText(for: self.txtPhoneNumbers, with: phoneNumber, textColor: ThemeManager.currentTheme.LabelColor, size: 13, weight: .bold, numberOfLines: numberOfLines, font: .igapFont, alignment: .left)
                     
                 }
             }
@@ -91,9 +120,11 @@ class IGContactNode: AbstractNode {
                     IGGlobal.makeAsyncText(for: self.txtEmails, with: emailAdd, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
 
                 } else {
+                    let numberOfLines : UInt = UInt(contact.emails.count)
+
                     for email in contact.emails {
                         let emailAdd = (self.txtEmails.attributedText?.string ?? "") + email.innerString + "\n"
-                        IGGlobal.makeAsyncText(for: self.txtEmails, with: emailAdd, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+                        IGGlobal.makeAsyncText(for: self.txtEmails, with: emailAdd, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: numberOfLines, font: .igapFont, alignment: .left)
                         
                     }
                 }
@@ -108,7 +139,7 @@ class IGContactNode: AbstractNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let phonenumberBox = ASStackLayoutSpec.horizontal()
-        phonenumberBox.spacing = 10
+        phonenumberBox.spacing = 5
         phonenumberBox.children = [txtPhoneIcon, txtPhoneNumbers]
         phonenumberBox.verticalAlignment = .center
         
@@ -128,8 +159,8 @@ class IGContactNode: AbstractNode {
         
         
         let attachmentBox = ASStackLayoutSpec.horizontal()
-        attachmentBox.spacing = 10
-        attachmentBox.children = [txtCover, textBox]
+        attachmentBox.spacing = 5
+        attachmentBox.children = [imgCover, textBox]
         
         let finalBox = ASStackLayoutSpec.vertical()
         finalBox.justifyContent = .spaceAround
@@ -138,13 +169,13 @@ class IGContactNode: AbstractNode {
 
         
         // Apply text truncation
-        let elems: [ASLayoutElement] = [txtEmails,txtPhoneNumbers,txtContactName,txtCover,btnViewContact,phonenumberBox,emailBox,textBox, attachmentBox,finalBox]
+        let elems: [ASLayoutElement] = [imgCover,txtEmails,txtContactName,imgCover,btnViewContact, emailBox,textBox, attachmentBox,finalBox]
         for elem in elems {
             elem.style.flexShrink = 1
         }
-        
+        txtPhoneNumbers.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
         let insetBox = ASInsetLayoutSpec(
-            insets: UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5),
+            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
             child: finalBox
         )
         

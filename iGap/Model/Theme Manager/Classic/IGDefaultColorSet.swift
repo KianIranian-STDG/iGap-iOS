@@ -39,7 +39,7 @@ class DefaultColorSet: DefaultColorSetProtocol {
 
     var MessageTimeLabelColor: UIColor = UIColor(named: "IGMessageTimeLabelColor")!
             
-    var SendMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "ddf7c8")
+    var SendMessageBubleBGColor: UIColor = UIColor(named: "IGSendMessageBubleBGColorDefault")!
         
     var BackGroundColor: UIColor = UIColor(named: "IGBackGroundColor")!
     
@@ -103,7 +103,7 @@ class DefaultColorSet: DefaultColorSetProtocol {
 
     var NavigationButtonTextColor: UIColor = UIColor(named: "NavigationButtonTextColorDefault")!
 
-    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "eeefee")
+    var ReceiveMessageBubleBGColor: UIColor = UIColor(named: "IGReceiveMessageBubleBGColorDefault")!
 
     var MessageUnreadCellBGColor: UIColor = UIColor(named: "MessageUnreadCellBGColorDefault")!
 
