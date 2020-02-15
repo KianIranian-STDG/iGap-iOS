@@ -3740,7 +3740,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func sendAsFileAlert(){
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let photoOrVideo = UIAlertAction(title: IGStringsManager.PhotoOrVideo.rawValue.localized, style: .default, handler: { (action) in
-            self.attachmentPicker(screens: [.library], sendAsFile: true)
+            self.attachmentPicker(sendAsFile: true)
         })
         let document = UIAlertAction(title: IGStringsManager.Document.rawValue.localized, style: .default, handler: { (action) in
             self.documentPicker()
