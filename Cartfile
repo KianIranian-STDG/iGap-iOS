@@ -30,10 +30,10 @@ github "evgenyneu/keychain-swift" ~> 15.0
 github "kaishin/Gifu"
 github "KianIranian-STDG/swift-protobuf" "1.6.0_iGap"
 github "KianIranian-STDG/IGProtoBuffLibrary" "proto129"
-github "Yummypets/YPImagePicker"
 github "cesarferreira/SwiftEventBus" == 5.0.0
 github "WenchaoD/FSPagerView"
 github "airbnb/lottie-ios" "master"
+github "KianIranian-STDG/MediaPicker" "master"
 
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAnalyticsBinary.json"
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseMessagingBinary.json"
