@@ -475,6 +475,7 @@ enum AdditionalType: Int32 {
     case FORM_BUILDER = 8
     case WEBVIEW_SHOW = 9
     case CARD_TO_CARD_PAY = 12
+    case GIFT_STICKER = 13
 }
 
 enum StickerPageType: Int {

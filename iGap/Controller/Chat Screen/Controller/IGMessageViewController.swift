@@ -5879,6 +5879,9 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
         
         if finalMessage.type == .sticker {
+            if finalMessage.additional?.dataType == AdditionalType.GIFT_STICKER.rawValue {
+                return
+            }
             if (finalMessage.attachment?.name?.contains(".json"))! {
                 if let sticker = IGHelperJson.parseStickerMessage(data: (finalMessage.additional?.data)!) {
                     stickerPageType = StickerPageType.PREVIEW
