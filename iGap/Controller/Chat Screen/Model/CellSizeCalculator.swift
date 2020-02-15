@@ -474,7 +474,7 @@ class CellSizeCalculator: NSObject {
             height = max(height, minHeight)
             return CGSize(width: width, height: height)
         } else {
-            return CGSize(width: minWidth, height: minHeight)
+            return CGSize(width: 200, height: 200)
         }
     }
     
