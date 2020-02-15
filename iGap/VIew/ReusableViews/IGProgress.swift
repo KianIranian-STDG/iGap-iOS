@@ -116,7 +116,7 @@ class IGProgress: UIView {
         if self.actionButton == nil {
             
             /** make circle background for action button **/
-            let viewWidth: CGFloat = 55
+            let viewWidth: CGFloat = 45
             let pathWidth: CGFloat = 4.5
             let lineAndCircleSpace: CGFloat = 3.5
             let circlePath = UIBezierPath(arcCenter: CGPoint(x: viewWidth / 2.0, y: viewWidth / 2.0), radius: (viewWidth - (pathWidth + lineAndCircleSpace)) / 2.0, startAngle: CGFloat(-(Double.pi / 2.0)), endAngle: CGFloat(Double.pi * 1.5), clockwise: true)
@@ -147,7 +147,7 @@ class IGProgress: UIView {
             /** make action button view **/
             self.actionButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
             self.actionButton?.setTitle("🎚", for: UIControl.State.normal)
-            self.actionButton?.titleLabel?.font = UIFont.iGapFonticon(ofSize: 40)
+            self.actionButton?.titleLabel?.font = UIFont.iGapFonticon(ofSize: 36)
             self.actionButton?.addTarget(self, action: #selector(didTapOnView), for: .touchUpInside)
             self.addSubview(self.actionButton!)
             

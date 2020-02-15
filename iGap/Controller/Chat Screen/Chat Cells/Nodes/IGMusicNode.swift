@@ -52,6 +52,10 @@ class IGMusicNode: AbstractNode {
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
 //            self.getMetadata(file: self.message.attachment)
 //        }
+        
+        if message.type == .audioAndText {
+            addSubnode(textNode)
+        }
 
         IGGlobal.makeAsyncButton(for: btnStateNode, with: "", textColor: .black, size: 35, font: .fontIcon, alignment: .center)
     }
@@ -66,7 +70,7 @@ class IGMusicNode: AbstractNode {
             
         } else {
             indicatorViewAbs.isHidden = false
-            indicatorViewAbs.style.preferredSize = CGSize(width: 50, height: 50)
+            indicatorViewAbs.style.preferredSize = CGSize(width: 60, height: 60)
             btnStateNode.style.preferredSize = CGSize.zero
             btnStateNode.style.preferredSize = CGSize(width: 60, height: 60)
             btnStateNode.setTitle("🎗", with: UIFont.iGapFonticon(ofSize: 35), with: .black, for: .normal)
@@ -98,12 +102,33 @@ class IGMusicNode: AbstractNode {
             elem.style.flexShrink = 1
         }
         
-        let insetBox = ASInsetLayoutSpec(
-            insets: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8),
-            child: attachmentBox
-        )
+        if message.type == .audio {
+            
+            let insetBox = ASInsetLayoutSpec(
+                insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+                child: attachmentBox
+            )
+            
+            return insetBox
+            
+        }else {
+            
+            let vStack = ASStackLayoutSpec(direction: .vertical, spacing: 6, justifyContent: .start, alignItems: .start, children: [attachmentBox, textNode])
+            
+            let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            let insetSpecccc = ASInsetLayoutSpec(insets: insets, child: vStack)
+            
+            return insetSpecccc
+            
+        }
         
-        return insetBox
+        
+        
+        
+        
+        
+        
+//        return insetBox
         
         
     }
