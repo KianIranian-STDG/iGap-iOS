@@ -384,7 +384,7 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         self.tableView.beginUpdates()
         self.headerHeight = 0
         self.tableView.endUpdates()
-        IGPlayer.shared.stopMedia()
+        IGNodePlayer.shared.stopMedia()
         
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
@@ -404,11 +404,11 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
     }
     
     private func stopMusic() {
-        IGPlayer.shared.pauseMusic()
+        IGNodePlayer.shared.pauseMusic()
     }
     
     private func playMusic() {
-        IGPlayer.shared.playMusic()
+        IGNodePlayer.shared.playMusic()
     }
     
     private func changeDirectionOfUI() {
@@ -581,7 +581,7 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return IGHelperMusicPlayer.shared.showTopMusicPlayer(view: self, songTime: IGGlobal.topBarSongTime, singerName: IGGlobal.topBarSongSinger, songName: IGGlobal.topBarSongName)
+        return IGNodeHelperMusicPlayer.shared.showTopMusicPlayer(view: self, songTime: IGGlobal.topBarSongTime, singerName: IGGlobal.topBarSongSinger, songName: IGGlobal.topBarSongName)
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return headerHeight

@@ -15,8 +15,6 @@ import SwiftEventBus
 class IGMusicNode: AbstractNode {
     private var txtMusicName = ASTextNode()
     private var txtMusicArtist = ASTextNode()
-    private var imgDefaultCover = ASNetworkImageNode()
-    private var testView = ASDisplayNode()
     
     var index: IndexPath!
 
@@ -30,18 +28,14 @@ class IGMusicNode: AbstractNode {
         super.didLoad()
         self.musicGustureRecognizers()
         self.checkPlayerState()
+        self.getMetadata(file: self.message.attachment)
     }
     
     override func setupView() {
         super.setupView()
-        
-        imgDefaultCover.alpha = 0
-        imgDefaultCover.style.preferredSize = CGSize(width: 50, height: 50)
-        imgDefaultCover.layer.cornerRadius = 25
-        imgDefaultCover.image = UIImage(named: "igap_default_music")
         IGGlobal.makeAsyncText(for: txtMusicArtist, with: "", textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
 
-        btnStateNode.style.preferredSize = CGSize(width: 50, height: 50)
+        btnStateNode.style.preferredSize = CGSize(width: 60, height: 60)
         btnStateNode.layer.cornerRadius = 25
         //        btnStateNode.layer.cornerRadius = 25
         
@@ -51,16 +45,15 @@ class IGMusicNode: AbstractNode {
 
         addSubnode(txtMusicName)
         addSubnode(txtMusicArtist)
-        addSubnode(imgDefaultCover)
         addSubnode(btnStateNode)
 //        addSubnode(btnStateNode)
         addSubnode(indicatorViewAbs)
         checkButtonState(btn: btnStateNode)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.getMetadata(file: self.message.attachment)
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+//            self.getMetadata(file: self.message.attachment)
+//        }
 
-        
+        IGGlobal.makeAsyncButton(for: btnStateNode, with: "", textColor: .black, size: 35, font: .fontIcon, alignment: .center)
     }
     
     
@@ -68,14 +61,14 @@ class IGMusicNode: AbstractNode {
         if IGGlobal.isFileExist(path: message.attachment?.localPath, fileSize: message.attachment!.size) {
             indicatorViewAbs.isHidden = true
             indicatorViewAbs.style.preferredSize = CGSize.zero
-            btnStateNode.style.preferredSize = CGSize(width: 50, height: 50)
+            btnStateNode.style.preferredSize = CGSize(width: 60, height: 60)
             btnStateNode.setTitle("🎗", with: UIFont.iGapFonticon(ofSize: 35), with: .black, for: .normal)
             
         } else {
             indicatorViewAbs.isHidden = false
             indicatorViewAbs.style.preferredSize = CGSize(width: 50, height: 50)
             btnStateNode.style.preferredSize = CGSize.zero
-            btnStateNode.style.preferredSize = CGSize(width: 50, height: 50)
+            btnStateNode.style.preferredSize = CGSize(width: 60, height: 60)
             btnStateNode.setTitle("🎗", with: UIFont.iGapFonticon(ofSize: 35), with: .black, for: .normal)
 
         }
@@ -92,11 +85,11 @@ class IGMusicNode: AbstractNode {
         textBox.spacing = 0
         
         let overlayBox = ASOverlayLayoutSpec(child: btnStateNode, overlay: indicatorViewAbs)
-        let defaultBox = ASOverlayLayoutSpec(child: imgDefaultCover, overlay: overlayBox)
+//        let defaultBox = ASOverlayLayoutSpec(child: imgDefaultCover, overlay: overlayBox)
 
         let attachmentBox = ASStackLayoutSpec.horizontal()
         attachmentBox.spacing = 10
-        attachmentBox.children = [defaultBox, textBox]
+        attachmentBox.children = [overlayBox, textBox]
         
         
         // Apply text truncation
@@ -106,7 +99,7 @@ class IGMusicNode: AbstractNode {
         }
         
         let insetBox = ASInsetLayoutSpec(
-            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+            insets: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8),
             child: attachmentBox
         )
         

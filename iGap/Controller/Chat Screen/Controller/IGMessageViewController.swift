@@ -1195,7 +1195,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func hideMusicTopPlayerWithAnimation() {
         IGGlobal.shouldShowTopBarPlayer = false
         holderMusicPlayer.isHidden = true
-        IGPlayer.shared.stopMedia()
+        IGNodePlayer.shared.stopMedia()
         let value : CGFloat = 0
         let defaultValue: CGFloat = 20
         self.tableViewNode.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: defaultValue, right: 0)
