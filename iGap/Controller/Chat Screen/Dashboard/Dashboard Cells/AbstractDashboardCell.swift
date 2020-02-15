@@ -487,7 +487,8 @@ class AbstractDashboardCell: UICollectionViewCell {
                 } else {
                     let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                     dashboard.pageId = Int32(discoveryInfo.igpValue)!
-                    IGGlobal.shouldShowChart = false // value is false becoz the chart should not be shown in this page anymore instead it should be shown in pollResult page
+                    IGGlobal.shouldShowChart = true // value is false becoz the chart should not be shown in this page anymore instead it should be shown in pollResult page
+                    dashboard.showChartOnly = false
                     dashboard.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                     return
@@ -495,7 +496,9 @@ class AbstractDashboardCell: UICollectionViewCell {
             } else {
                 let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 dashboard.pageId = Int32(discoveryInfo.igpValue)!
-                IGGlobal.shouldShowChart = false // value is false becoz the chart should not be shown in this page anymore instead it should be shown in pollResult page
+                IGGlobal.shouldShowChart = true // value is false becoz the chart should not be shown in this page anymore instead it should be shown in pollResult page
+                dashboard.showChartOnly = false
+
                 dashboard.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                 return
@@ -509,6 +512,8 @@ class AbstractDashboardCell: UICollectionViewCell {
                     let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                     dashboard.pageId = Int32(discoveryInfo.igpValue)!
                     IGGlobal.shouldShowChart = true
+                    dashboard.showChartOnly = true
+
                     dashboard.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                     return
@@ -517,6 +522,8 @@ class AbstractDashboardCell: UICollectionViewCell {
                 let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 dashboard.pageId = Int32(discoveryInfo.igpValue)!
                 IGGlobal.shouldShowChart = true
+                dashboard.showChartOnly = true
+
                 dashboard.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                 return

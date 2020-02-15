@@ -34,7 +34,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     /// This variable is set only whene should perform deep link and holds discovery id's that should be opened
     var deepLinkDiscoveryIds: [String]?
     var connectionStatus: IGAppManager.ConnectionStatus?
-    
+    var showChartOnly: Bool = false
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var btnRefresh: UIButton!
     
@@ -233,7 +233,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 var tmpPollList = response.igpPolls[self!.pollList.count-1]
 
                 tmpPollList.igpModel = IGPDiscovery.IGPDiscoveryModel(rawValue: 7)!
-                tmpPollList.igpScale = "8:4"
+                tmpPollList.igpScale = "8:8"
                 tmpPollList.igpPollfields[0].igpImageurl = ""
                 tmpPollList.igpPollfields[0].igpID = 99999999
                 tmpPollList.igpPollfields[0].igpLabel = "نمودار"
@@ -249,7 +249,11 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                     }
                 }
                 
-                self!.pollList.append(tmpPollList)
+                if self!.showChartOnly {
+                    self!.pollList.removeAll()
+                    self!.pollList.append(tmpPollList)
+                } else { }
+//                self!.pollList.append(tmpPollList)
 
                 DispatchQueue.main.async {
                     if isDashboardInner! {
@@ -465,7 +469,8 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 cell.dashboardIGPPoll = self.pollResponse
                 return cell
                 
-            } else if item.igpModel == .model7 {
+            }  else if item.igpModel == IGPDiscovery.IGPDiscoveryModel(rawValue: 7)! {
+
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell8.cellReuseIdentifier(), for: indexPath) as! DashboardCell8
                 cell.item = indexPath.item
                 cell.dashboardIGPPoll = self.pollResponse
@@ -524,7 +529,8 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 cell.initView(dashboard: discoveryFields)
                 return cell
             }
-            else if item.igpModel == .model7 {
+            else if item.igpModel == IGPDiscovery.IGPDiscoveryModel(rawValue: 7)! {
+
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell8.cellReuseIdentifier(), for: indexPath) as! DashboardCell8
                 let discoveryFields = item.igpDiscoveryfields
                 cell.initView(dashboard: discoveryFields)
