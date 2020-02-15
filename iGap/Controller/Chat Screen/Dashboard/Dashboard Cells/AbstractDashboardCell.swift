@@ -487,6 +487,27 @@ class AbstractDashboardCell: UICollectionViewCell {
                 } else {
                     let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                     dashboard.pageId = Int32(discoveryInfo.igpValue)!
+                    IGGlobal.shouldShowChart = false // value is false becoz the chart should not be shown in this page anymore instead it should be shown in pollResult page
+                    dashboard.hidesBottomBarWhenPushed = true
+                    UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
+                    return
+                }
+            } else {
+                let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                dashboard.pageId = Int32(discoveryInfo.igpValue)!
+                IGGlobal.shouldShowChart = false // value is false becoz the chart should not be shown in this page anymore instead it should be shown in pollResult page
+                dashboard.hidesBottomBarWhenPushed = true
+                UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
+                return
+            }
+        case .pollResult:
+            if !(agreementSlug == "") {
+                if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
+                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    
+                } else {
+                    let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                    dashboard.pageId = Int32(discoveryInfo.igpValue)!
                     IGGlobal.shouldShowChart = true
                     dashboard.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
@@ -500,8 +521,8 @@ class AbstractDashboardCell: UICollectionViewCell {
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                 return
             }
-            
         // End
+            
         case .electricBillMenu:
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {

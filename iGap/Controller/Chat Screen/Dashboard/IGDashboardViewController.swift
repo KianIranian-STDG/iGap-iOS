@@ -465,8 +465,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 cell.dashboardIGPPoll = self.pollResponse
                 return cell
                 
-            }
-            else if item.igpModel == IGPDiscovery.IGPDiscoveryModel(rawValue: 7)! {
+            } else if item.igpModel == .model7 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell8.cellReuseIdentifier(), for: indexPath) as! DashboardCell8
                 cell.item = indexPath.item
                 cell.dashboardIGPPoll = self.pollResponse
@@ -525,7 +524,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 cell.initView(dashboard: discoveryFields)
                 return cell
             }
-            else if item.igpModel == IGPDiscovery.IGPDiscoveryModel(rawValue: 7)! {
+            else if item.igpModel == .model7 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell8.cellReuseIdentifier(), for: indexPath) as! DashboardCell8
                 let discoveryFields = item.igpDiscoveryfields
                 cell.initView(dashboard: discoveryFields)
