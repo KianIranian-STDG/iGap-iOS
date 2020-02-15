@@ -1448,6 +1448,20 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
                 
             }
             
+            
+            if bubbleNode as? IGLocationNode != nil {
+                let onLocationClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
+                bubbleNode.view.addGestureRecognizer(onLocationClick)
+                
+                if !(IGGlobal.shouldMultiSelect) {
+                    (bubbleNode as! AbstractNode).isUserInteractionEnabled = true
+                }
+                else {
+                    (bubbleNode as! AbstractNode).isUserInteractionEnabled = false
+                }
+                
+            }
+            
             //            if animationView != nil {
             //                let tap2 = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
             //                animationView?.addGestureRecognizer(tap2)
