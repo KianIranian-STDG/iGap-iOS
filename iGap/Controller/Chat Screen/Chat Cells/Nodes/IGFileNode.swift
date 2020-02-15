@@ -12,11 +12,7 @@ import AsyncDisplayKit
 
 class IGFileNode: AbstractNode {
     
-    private var imgAttachmentNode = ASNetworkImageNode()
-    private var txtAttachmentNode: ASTextNode = {
-        let node = ASTextNode()
-        return node
-    }()
+    private var txtAttachmentNode = ASTextNode()
     private var txtTitleNode = ASTextNode()
     private var txtSizeNode = ASTextNode()
     
@@ -25,38 +21,42 @@ class IGFileNode: AbstractNode {
         setupView()
     }
     
+    override func didLoad() {
+        super.didLoad()
+        checkBtnState()
+    }
+    
     override func setupView() {
         super.setupView()
         let filename: NSString = message.attachment!.name! as NSString
         let fileExtension = filename.pathExtension
         
-        if fileExtension == "jpg" {
-            self.imgAttachmentNode.style.width = ASDimension(unit: .points, value: 50.0)
-            self.imgAttachmentNode.style.height = ASDimension(unit: .points, value: 50.0)
-            self.imgAttachmentNode.image = UIImage(named: "igap_default_image")
-            self.imgAttachmentNode.layer.cornerRadius = 10
-            self.txtAttachmentNode.style.preferredSize = CGSize.zero
-            self.imgAttachmentNode.setThumbnail(for: message.attachment!)
-            IGGlobal.makeAsyncText(for: txtTitleNode , with: message.attachment!.name!, font: .igapFont)
-            IGGlobal.makeAsyncText(for: txtSizeNode , with: message.attachment!.sizeToString(), font: .igapFont)
+        self.txtAttachmentNode.style.width = ASDimension(unit: .points, value: 60.0)
+        self.txtAttachmentNode.style.height = ASDimension(unit: .points, value: 60.0)
+        self.txtAttachmentNode.setThumbnail(for: message.attachment!)
 
-        } else {
-            self.imgAttachmentNode.style.preferredSize = CGSize.zero
-            self.txtAttachmentNode.style.width = ASDimension(unit: .points, value: 50.0)
-            self.txtAttachmentNode.style.height = ASDimension(unit: .points, value: 50.0)
-            self.txtAttachmentNode.setThumbnail(for: message.attachment!)
+        IGGlobal.makeAsyncText(for: txtTitleNode , with: message.attachment!.name!, font: .igapFont)
+        IGGlobal.makeAsyncText(for: txtSizeNode , with: message.attachment!.sizeToString(), font: .igapFont)
 
-            IGGlobal.makeAsyncText(for: txtTitleNode , with: message.attachment!.name!, font: .igapFont)
-            IGGlobal.makeAsyncText(for: txtSizeNode , with: message.attachment!.sizeToString(), font: .igapFont)
-        }
-
-        addSubnode(imgAttachmentNode)
         addSubnode(txtAttachmentNode)
         addSubnode(txtTitleNode)
         addSubnode(txtSizeNode)
+        addSubnode(indicatorViewAbs)
         
-        if message.type == .imageAndText {
+        if message.type == .fileAndText {
             addSubnode(textNode)
+        }
+        
+    }
+    
+    private func checkBtnState() {
+        
+        if IGGlobal.isFileExist(path: self.message.attachment!.localPath, fileSize: self.message.attachment!.size) {
+            indicatorViewAbs.isHidden = true
+            indicatorViewAbs.style.preferredSize = CGSize.zero
+        } else {
+            indicatorViewAbs.isHidden = false
+            indicatorViewAbs.style.preferredSize = CGSize(width: 60, height: 60)
         }
         
     }
@@ -68,26 +68,42 @@ class IGFileNode: AbstractNode {
         textBox.justifyContent = .spaceAround
         textBox.children = [txtTitleNode, txtSizeNode]
         
-        let attachmentBox = ASStackLayoutSpec.horizontal()
-        attachmentBox.spacing = 0
-        attachmentBox.children = [txtAttachmentNode, imgAttachmentNode]
+        let txtImageBox = ASOverlayLayoutSpec(child: txtAttachmentNode, overlay: indicatorViewAbs)
 
         let profileBox = ASStackLayoutSpec.horizontal()
         profileBox.spacing = 10
-        profileBox.children = [attachmentBox, textBox]
-        
+        profileBox.children = [txtImageBox, textBox]
+
         // Apply text truncation
-        let elems: [ASLayoutElement] = [txtSizeNode, txtTitleNode, textBox, profileBox, attachmentBox]
+        let elems: [ASLayoutElement] = [txtSizeNode, txtTitleNode, textBox, profileBox]
         for elem in elems {
-            elem.style.flexShrink = 1
+           elem.style.flexShrink = 1
         }
-        
+
         let insetBox = ASInsetLayoutSpec(
-            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
-            child: profileBox
+           insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+           child: profileBox
         )
-        
-        return insetBox
+
+        if message.type == .file {
+            
+            let insetBoxx = ASInsetLayoutSpec(
+                insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+                child: insetBox
+            )
+            
+            return insetBoxx
+            
+        } else {
+            
+            let vStack = ASStackLayoutSpec(direction: .vertical, spacing: 6, justifyContent: .start, alignItems: .start, children: [insetBox, textNode])
+            
+            let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            let insetSpecccc = ASInsetLayoutSpec(insets: insets, child: vStack)
+            
+            return insetSpecccc
+            
+        }
         
         
         

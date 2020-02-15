@@ -122,15 +122,6 @@ class IGMusicNode: AbstractNode {
             
         }
         
-        
-        
-        
-        
-        
-        
-//        return insetBox
-        
-        
     }
     
     

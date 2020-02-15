@@ -236,7 +236,7 @@ class AbstractNode: ASCellNode {
             /* Rx End */
             
             switch (message.type) {
-            case .image, .imageAndText, .video, .videoAndText, .gif, .gifAndText,.voice, .audio, .audioAndText:
+            case .image, .imageAndText, .video, .videoAndText, .gif, .gifAndText,.voice, .audio, .audioAndText, .file, .fileAndText:
                 if !(attachment.isInvalidated) {
                     imgNode.setThumbnail(for: attachment)
                     
