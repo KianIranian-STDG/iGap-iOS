@@ -62,7 +62,7 @@ class BaseBubbleNode: ASCellNode {
     override func didLoad() {
         super.didLoad()
         manageGestureRecognizers()
-        if !(IGGlobal.shouldMultiSelect) {
+        if !(IGGlobal.shouldMultiSelect) && finalRoomType! != .channel{
             makeSwipeToReply() // Telegram Func
 
         }
@@ -72,7 +72,6 @@ class BaseBubbleNode: ASCellNode {
     }
     private func makeSwipeToReply() {// Telegram Func
         let replyRecognizer = ChatSwipeToReplyRecognizer(target: self, action: #selector(self.swipeToReplyGesture(_:)))
-
         self.view.addGestureRecognizer(replyRecognizer)
 
     }
@@ -105,7 +104,7 @@ class BaseBubbleNode: ASCellNode {
                 self.bounds = bounds
             
                 if let swipeToReplyNode = self.swipeToReplyNode {
-                    swipeToReplyNode.frame = CGRect(origin: CGPoint(x: bounds.size.width, y: round(33.0) / 2.0), size: CGSize(width: 33.0, height: 33.0))
+                    swipeToReplyNode.frame = CGRect(origin: CGPoint(x: bounds.size.width, y: self.frame.height - 40), size: CGSize(width: 33.0, height: 33.0))
                     
                     swipeToReplyNode.alpha = min(1.0, abs(translation.x / 45.0))
 
@@ -121,7 +120,11 @@ class BaseBubbleNode: ASCellNode {
                     swipeToReplyNode.removeFromSupernode()
                 }
 
-                self.generalMessageDelegate?.swipToReply(cellMessage: self.message!)
+                if recognizer.translation(in: self.view).x < -45.0 {
+                    self.generalMessageDelegate?.swipToReply(cellMessage: self.message!)
+                }
+                
+                
 
             case .cancelled:
                 self.swipeToReplyFeedback = nil
