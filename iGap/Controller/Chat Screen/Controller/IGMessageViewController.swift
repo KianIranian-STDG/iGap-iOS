@@ -5884,9 +5884,9 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
              * is showing so JUST notify Position and DON'T call scroll to item
              */
             
-            if self.tableViewNode.indexPathsForVisibleRows().contains(previousIndexPath) {
+            if !self.tableViewNode.indexPathsForVisibleRows().contains(previousIndexPath) {
                 self.tableViewNode.scrollToRow(at: indexPath, at: .bottom, animated: false)
-            } else if self.tableViewNode.indexPathsForVisibleRows().contains(futureIndexPath) {
+            } else if !self.tableViewNode.indexPathsForVisibleRows().contains(futureIndexPath) {
                 self.tableViewNode.scrollToRow(at: indexPath, at: .bottom, animated: false)
             }
 //            if !self.collectionViewNode.indexPathsForVisibleItems.contains(previousIndexPath) {
