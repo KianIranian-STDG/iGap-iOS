@@ -27,6 +27,12 @@ class AbstractNode: ASCellNode {
     var attachment: IGFile?
     //IMAGE NODE FOR IMAGENODE AND VIDEO NODE
     var imgNode = ASNetworkImageNode()
+    var gifNode = ASDisplayNode { () -> UIView in
+        let view = GIFImageView()
+        
+        return view
+    }
+
     //UISlider for IGVOICE NODE
     let sliderNode = ASDisplayNode { () -> UIView in
         let view = UISlider()
@@ -272,8 +278,8 @@ class AbstractNode: ASCellNode {
                 if attachment.type == .gif {
                     attachment.loadData()
                     if let data = attachment.data {
-                        //                        imgMediaAbs?.prepareForAnimation(withGIFData: data)
-                        //                        imgMediaAbs?.startAnimatingGIF()
+                        (gifNode.view as! GIFImageView).prepareForAnimation(withGIFData: data)
+                        (gifNode.view as! GIFImageView).startAnimatingGIF()
                     }
                 } else if attachment.type == .image {
                     imgNode.setThumbnail(for: attachment)

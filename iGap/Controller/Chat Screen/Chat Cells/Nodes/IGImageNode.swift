@@ -27,71 +27,184 @@ class IGImageNode: AbstractNode {
         } else  {
             prefferedSize = NodeExtension.fetchMediaFrame(media: message.attachment!)
         }
-        
-        imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
-        imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
-        imgNode.clipsToBounds = true
-        
-        imgNode.layer.cornerRadius = 10
-        indicatorViewAbs.style.height = ASDimensionMake(.points, 50)
-        indicatorViewAbs.style.width = ASDimensionMake(.points, 50)
-        
+        if message.type == .gif || message.type == .gifAndText {
+            (gifNode).style.width = ASDimension(unit: .points, value: prefferedSize.width)
+            (gifNode).style.height = ASDimension(unit: .points, value: prefferedSize.height)
+            (gifNode).clipsToBounds = true
+            (gifNode).backgroundColor = .red
+            (gifNode).layer.cornerRadius = 10
+            indicatorViewAbs.style.height = ASDimensionMake(.points, 50)
+            indicatorViewAbs.style.width = ASDimensionMake(.points, 50)
+            
 
-        if message.type == .imageAndText {
-            addSubnode(textNode)
-        }
-        addSubnode(imgNode)
+            if message.type == .imageAndText || message.type == .gifAndText {
+                addSubnode(textNode)
+            }
+            addSubnode(gifNode)
 
-        
-        if message.attachment != nil {
-            addSubnode(indicatorViewAbs)
+            
+            if message.attachment != nil {
+                addSubnode(indicatorViewAbs)
+            }
+
+            
+
+        } else if message.type == .image || message.type == .imageAndText {
+            imgNode.style.width = ASDimension(unit: .points, value: prefferedSize.width)
+            imgNode.style.height = ASDimension(unit: .points, value: prefferedSize.height)
+            imgNode.clipsToBounds = true
+            
+            imgNode.layer.cornerRadius = 10
+            indicatorViewAbs.style.height = ASDimensionMake(.points, 50)
+            indicatorViewAbs.style.width = ASDimensionMake(.points, 50)
+            
+
+            if message.type == .imageAndText || message.type == .gifAndText {
+                addSubnode(textNode)
+            }
+            addSubnode(imgNode)
+
+            
+            if message.attachment != nil {
+                addSubnode(indicatorViewAbs)
+            }
+
         }
+
         
     }
 
     
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        
-        if message.type == .image {
-            let verticalSpec = ASStackLayoutSpec()
-            verticalSpec.direction = .vertical
-            verticalSpec.spacing = 0
-            verticalSpec.justifyContent = .start
-            verticalSpec.alignItems = isIncomming == true ? .end : .start
+        if message.type == .gif || message.type == .gifAndText {
+
+
+            if message.type == .gif {
+                let verticalSpec = ASStackLayoutSpec()
+                verticalSpec.direction = .vertical
+                verticalSpec.spacing = 0
+                verticalSpec.justifyContent = .start
+                verticalSpec.alignItems = isIncomming == true ? .end : .start
+                
+                verticalSpec.children?.append(gifNode)
+
+                let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                let insetSpec = ASInsetLayoutSpec(insets: insets, child: verticalSpec)
+                
+                let overlay = ASOverlayLayoutSpec(child: insetSpec, overlay: indicatorViewAbs)
+                return overlay
+
+            }else {
+                let verticalSpec = ASStackLayoutSpec()
+                verticalSpec.direction = .vertical
+                verticalSpec.spacing = 0
+                verticalSpec.alignItems = .stretch
+                verticalSpec.justifyContent = .start
+
+                let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+                    top: 0,
+                    left: 0 ,
+                    bottom: 0,
+                    right: 0), child: textNode)
+
+                let overlay = ASOverlayLayoutSpec(child: imgNode, overlay: indicatorViewAbs)
+
+                verticalSpec.children?.append(overlay)
+                verticalSpec.children?.append(insetSpec)
+
+                let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                let insetSpecccc = ASInsetLayoutSpec(insets: insets, child: verticalSpec)
+
+                return insetSpecccc
+
+                
+            }
             
-            verticalSpec.children?.append(imgNode)
+        } else if message.type == .image || message.type == .imageAndText {
 
-            let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            let insetSpec = ASInsetLayoutSpec(insets: insets, child: verticalSpec)
-            
-            let overlay = ASOverlayLayoutSpec(child: insetSpec, overlay: indicatorViewAbs)
-            return overlay
+            if message.type == .image {
+                let verticalSpec = ASStackLayoutSpec()
+                verticalSpec.direction = .vertical
+                verticalSpec.spacing = 0
+                verticalSpec.justifyContent = .start
+                verticalSpec.alignItems = isIncomming == true ? .end : .start
+                
+                verticalSpec.children?.append(imgNode)
 
-        }else {
-            let verticalSpec = ASStackLayoutSpec()
-            verticalSpec.direction = .vertical
-            verticalSpec.spacing = 0
-            verticalSpec.alignItems = .stretch
-            verticalSpec.justifyContent = .start
+                let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                let insetSpec = ASInsetLayoutSpec(insets: insets, child: verticalSpec)
+                
+                let overlay = ASOverlayLayoutSpec(child: insetSpec, overlay: indicatorViewAbs)
+                return overlay
 
-            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-                top: 0,
-                left: 0 ,
-                bottom: 0,
-                right: 0), child: textNode)
+            }else {
+                let verticalSpec = ASStackLayoutSpec()
+                verticalSpec.direction = .vertical
+                verticalSpec.spacing = 0
+                verticalSpec.alignItems = .stretch
+                verticalSpec.justifyContent = .start
 
-            let overlay = ASOverlayLayoutSpec(child: imgNode, overlay: indicatorViewAbs)
+                let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+                    top: 0,
+                    left: 0 ,
+                    bottom: 0,
+                    right: 0), child: textNode)
 
-            verticalSpec.children?.append(overlay)
-            verticalSpec.children?.append(insetSpec)
+                let overlay = ASOverlayLayoutSpec(child: imgNode, overlay: indicatorViewAbs)
 
-            let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            let insetSpecccc = ASInsetLayoutSpec(insets: insets, child: verticalSpec)
+                verticalSpec.children?.append(overlay)
+                verticalSpec.children?.append(insetSpec)
 
-            return insetSpecccc
+                let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                let insetSpecccc = ASInsetLayoutSpec(insets: insets, child: verticalSpec)
 
-            
+                return insetSpecccc
+
+                
+            }
+        } else {
+
+            if message.type == .image {
+                let verticalSpec = ASStackLayoutSpec()
+                verticalSpec.direction = .vertical
+                verticalSpec.spacing = 0
+                verticalSpec.justifyContent = .start
+                verticalSpec.alignItems = isIncomming == true ? .end : .start
+                
+                verticalSpec.children?.append(imgNode)
+
+                let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                let insetSpec = ASInsetLayoutSpec(insets: insets, child: verticalSpec)
+                
+                let overlay = ASOverlayLayoutSpec(child: insetSpec, overlay: indicatorViewAbs)
+                return overlay
+
+            }else {
+                let verticalSpec = ASStackLayoutSpec()
+                verticalSpec.direction = .vertical
+                verticalSpec.spacing = 0
+                verticalSpec.alignItems = .stretch
+                verticalSpec.justifyContent = .start
+
+                let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+                    top: 0,
+                    left: 0 ,
+                    bottom: 0,
+                    right: 0), child: textNode)
+
+                let overlay = ASOverlayLayoutSpec(child: imgNode, overlay: indicatorViewAbs)
+
+                verticalSpec.children?.append(overlay)
+                verticalSpec.children?.append(insetSpec)
+
+                let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                let insetSpecccc = ASInsetLayoutSpec(insets: insets, child: verticalSpec)
+
+                return insetSpecccc
+
+                
+            }
         }
         
     }

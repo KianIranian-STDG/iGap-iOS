@@ -190,7 +190,7 @@ class BaseBubbleNode: ASCellNode {
 
         if finalType == .text {
             bubbleNode = IGTextNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
-        }else if finalType == .image || finalType == .imageAndText {
+        }else if finalType == .image || finalType == .imageAndText || finalType == .gif || finalType == .gifAndText {
             bubbleNode = IGImageNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         }else if finalType == .video || finalType == .videoAndText {
             bubbleNode = IGVideoNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
@@ -228,7 +228,7 @@ class BaseBubbleNode: ASCellNode {
             
         }
         
-        if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice || message!.type == .location || message!.type == .video || message!.type == .videoAndText || message!.type == .audio ||  message!.type == .audioAndText || message!.type == .contact || message!.type == .sticker || message!.type == .wallet {
+        if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText || message!.type == .gif ||  message!.type == .gifAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice || message!.type == .location || message!.type == .video || message!.type == .videoAndText || message!.type == .audio ||  message!.type == .audioAndText || message!.type == .contact || message!.type == .sticker || message!.type == .wallet {
             if(isIncomming){
                 
                 
@@ -323,7 +323,7 @@ class BaseBubbleNode: ASCellNode {
             
         }
         if self.finalRoom.type == .channel {
-            if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice  || message!.type == .video || message!.type == .videoAndText || message!.type == .audio ||  message!.type == .audioAndText   {
+            if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText || message!.type == .gif ||  message!.type == .gifAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice  || message!.type == .video || message!.type == .videoAndText || message!.type == .audio ||  message!.type == .audioAndText   {
                 
                     self.makeLikeDislikeIcons()
 
@@ -749,7 +749,7 @@ class BaseBubbleNode: ASCellNode {
             
         }
             /**************************************************************/
-            /************IMAGE AND IMAGE TEXT NODE**************/
+            /************IMAGE AND IMAGE TEXT NODE AND GIF AND GIF TEXT NODE**************/
             /**************************************************************/
             
         else if let _ = bubbleNode as? IGImageNode{
@@ -768,7 +768,7 @@ class BaseBubbleNode: ASCellNode {
                     }
                     let holderSyack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,timeStack])
                     stack.children?.append(holderSyack)
-                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 25 ,bottom: 8,right: 10),child: stack)
+                    verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10 ,bottom: 8,right: 10),child: stack)
 
                     
                     
@@ -783,7 +783,7 @@ class BaseBubbleNode: ASCellNode {
                             verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
 
                         } else {
-                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 25,bottom: 8,right: 10),child: stack)
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5,left: 10,bottom: 5,right: 5),child: stack)
                         }
                         
                         
@@ -798,7 +798,7 @@ class BaseBubbleNode: ASCellNode {
                             verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
 
                         } else {
-                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 20),child: stack)
+                            verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 10),child: stack)
                         }
 
                         
@@ -838,7 +838,7 @@ class BaseBubbleNode: ASCellNode {
                     
                     if isIncomming {
                         stack.children?.append(txtTimeNode)
-                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 20,bottom: 8,right: 5),child: stack)
+                        verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 5),child: stack)
                         
                     } else {
                         
