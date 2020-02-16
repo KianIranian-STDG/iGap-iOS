@@ -149,9 +149,9 @@ class IGLogNode: ASCellNode {
             backBox.style.flexGrow = 0.0
 
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-            top: 0,
+            top: 10,
             left: 0,
-            bottom: 0,
+            bottom: 10,
             right: 0), child: backBox)
                 
             
@@ -160,9 +160,9 @@ class IGLogNode: ASCellNode {
         } else if logType == .emptyBox {
             let verticalBox = ASStackLayoutSpec()
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-            top: 0,
+            top: 10,
             left: 0,
-            bottom: 0,
+            bottom: 10,
             right: 0), child: verticalBox)
                 
             
@@ -175,9 +175,9 @@ class IGLogNode: ASCellNode {
             backBox.style.flexGrow = 1.0
 
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-            top: 0,
+            top: 10,
             left: 0,
-            bottom: 0,
+            bottom: 10,
             right: 0), child: backBox)
                 
             

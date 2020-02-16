@@ -93,15 +93,15 @@ class IGVoiceNode: AbstractNode {
         attachmentBox.children = [overlayBox, sliderBox]
         
         
-        // Apply text truncation
-        let elems: [ASLayoutElement] = [txtCurrentTimeNode,overlayBox, sliderBox, attachmentBox]
-        for elem in elems {
-            elem.style.flexShrink = 1
-            elem.style.flexGrow = 1
-        }
-        
+//        // Apply text truncation
+//        let elems: [ASLayoutElement] = [txtCurrentTimeNode,overlayBox, sliderBox, attachmentBox]
+//        for elem in elems {
+//            elem.style.flexShrink = 1
+//            elem.style.flexGrow = 1
+//        }
+//        
         let insetBox = ASInsetLayoutSpec(
-            insets: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8),
+            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8),
             child: attachmentBox
         )
         

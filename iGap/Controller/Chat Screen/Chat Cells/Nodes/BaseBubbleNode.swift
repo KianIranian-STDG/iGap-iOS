@@ -1071,7 +1071,7 @@ class BaseBubbleNode: ASCellNode {
                                 verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 10,bottom: 8,right: 10),child: stack)
 
                             } else {
-                                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 15,bottom: 8,right: 10),child: stack)
+                                verticalSpec.child = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8,left: 5,bottom: 8,right: 15),child: stack)
                             }
 
                         }

@@ -92,16 +92,16 @@ class IGMusicNode: AbstractNode {
 //        let defaultBox = ASOverlayLayoutSpec(child: imgDefaultCover, overlay: overlayBox)
 
         let attachmentBox = ASStackLayoutSpec.horizontal()
-        attachmentBox.spacing = 10
+        attachmentBox.spacing = 0
         attachmentBox.children = [overlayBox, textBox]
         
-        
-        // Apply text truncation
-        let elems: [ASLayoutElement] = [txtMusicArtist,txtMusicName,overlayBox, textBox, attachmentBox]
-        for elem in elems {
-            elem.style.flexShrink = 1
-        }
-        
+//        // Apply text truncation
+//        let elems: [ASLayoutElement] = [btnStateNode,overlayBox, attachmentBox]
+//        for elem in elems {
+//            elem.style.flexShrink = 1
+//        }
+//        txtMusicName.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
+
         if message.type == .audio {
             
             let insetBox = ASInsetLayoutSpec(
@@ -113,7 +113,7 @@ class IGMusicNode: AbstractNode {
             
         }else {
             
-            let vStack = ASStackLayoutSpec(direction: .vertical, spacing: 6, justifyContent: .start, alignItems: .start, children: [attachmentBox, textNode])
+            let vStack = ASStackLayoutSpec(direction: .vertical, spacing: 6, justifyContent: .end, alignItems: .end, children: [attachmentBox, textNode])
             
             let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             let insetSpecccc = ASInsetLayoutSpec(insets: insets, child: vStack)
