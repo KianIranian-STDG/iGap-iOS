@@ -66,10 +66,7 @@ class IGContactNode: AbstractNode {
     }
     //- Hint : Check tap on user profile
     @objc func handleUserTap() {
-        
-
         print("DID TAP ON CONTACT SHOW")
-        
     }
 
     func getContactDetails() {
@@ -77,13 +74,7 @@ class IGContactNode: AbstractNode {
             let contact: IGRoomMessageContact
             if self.message.contact  == nil {
                 let predicate = NSPredicate(format: "primaryKeyId = %@", self.message.primaryKeyId!)
-                 contact = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first!.contact!
-                print("============:::3:::===========")
-                print(contact)
-                print(self.message.contact!)
-                print(self.hasEmail())
-                
-
+                contact = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first!.contact!
             } else {
                 contact = self.message.contact!
             }
@@ -94,22 +85,21 @@ class IGContactNode: AbstractNode {
             if self.isIncomming {
                 
                 IGGlobal.makeAsyncText(for: self.txtContactName, with: name, textColor: ThemeManager.currentTheme.SliderTintColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
-
+                
             } else {
                 
                 IGGlobal.makeAsyncText(for: self.txtContactName, with: name, textColor: ThemeManager.currentTheme.SendMessageBubleBGColor.darker(), size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
-
+                
             }
             if contact.phones.count == 1 {
                 let phoneNumber = contact.phones.first!.innerString
                 IGGlobal.makeAsyncText(for: self.txtPhoneNumbers, with: phoneNumber, textColor: ThemeManager.currentTheme.LabelColor, size: 13, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
-
+                
             } else {
                 let numberOfLines : UInt = UInt(contact.phones.count)
                 for phone in contact.phones {
                     let phoneNumber = (self.txtPhoneNumbers.attributedText?.string ?? "") + phone.innerString + "\n"
                     IGGlobal.makeAsyncText(for: self.txtPhoneNumbers, with: phoneNumber, textColor: ThemeManager.currentTheme.LabelColor, size: 13, weight: .bold, numberOfLines: numberOfLines, font: .igapFont, alignment: .left)
-                    
                 }
             }
             
@@ -118,22 +108,16 @@ class IGContactNode: AbstractNode {
                 if contact.emails.count == 1 {
                     let emailAdd = contact.emails.first!.innerString
                     IGGlobal.makeAsyncText(for: self.txtEmails, with: emailAdd, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
-
                 } else {
                     let numberOfLines : UInt = UInt(contact.emails.count)
-
+                    
                     for email in contact.emails {
                         let emailAdd = (self.txtEmails.attributedText?.string ?? "") + email.innerString + "\n"
                         IGGlobal.makeAsyncText(for: self.txtEmails, with: emailAdd, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: numberOfLines, font: .igapFont, alignment: .left)
-                        
                     }
                 }
-
             }
-            
-            
         }
-        
     }
     
     
@@ -180,12 +164,7 @@ class IGContactNode: AbstractNode {
         )
         
         return insetBox
-        
-        
     }
-    
-    
-    
 }
 
 

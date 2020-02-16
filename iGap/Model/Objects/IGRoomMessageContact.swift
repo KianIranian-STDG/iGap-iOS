@@ -17,8 +17,8 @@ class IGRoomMessageContact: Object {
     @objc dynamic var firstName:  String?
     @objc dynamic var lastName:   String?
     @objc dynamic var nickname:   String?
-    let phones:     List<IGRealmString>    = List<IGRealmString>()
-    let emails:     List<IGRealmString>    = List<IGRealmString>()
+    var phones:     List<IGRealmString>    = List<IGRealmString>()
+    var emails:     List<IGRealmString>    = List<IGRealmString>()
     
     
     override static func primaryKey() -> String {
@@ -137,6 +137,8 @@ class IGRoomMessageContact: Object {
     
     func detach() -> IGRoomMessageContact {
         let detachedRoomMessageContact = IGRoomMessageContact(value: self)
+        detachedRoomMessageContact.phones = self.phones.detached()
+        detachedRoomMessageContact.emails = self.emails.detached()
         return detachedRoomMessageContact
     }
 }
