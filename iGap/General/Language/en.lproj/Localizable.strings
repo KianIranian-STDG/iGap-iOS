@@ -6680,3 +6680,7 @@ TODO:// complete */
 "Theme_Day_Text" = "Day";
 "Theme_Night_Text" = "Night";
 "Theme_Icon_Appp" = "App Icon";
+
+"create_new_contact" = "Create New Contact";
+"phone_numbers" = "Phone Numbers";
+"emails" = "Emails";

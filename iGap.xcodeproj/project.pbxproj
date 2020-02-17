@@ -382,6 +382,7 @@
 		D25D0F2E23F7E61D00DA3797 /* IGNodeMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25D0F2D23F7E61D00DA3797 /* IGNodeMusicPlayer.swift */; };
 		D25D0F3023F7E88300DA3797 /* IGNodeHelperMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25D0F2F23F7E88300DA3797 /* IGNodeHelperMusicPlayer.swift */; };
 		D25D0F3223F7EB6200DA3797 /* IGNodeMusicPlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25D0F3123F7EB6200DA3797 /* IGNodeMusicPlayerTableViewController.swift */; };
+		D26AEDB123F959CC00F7B256 /* IGContactDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26AEDB023F959CC00F7B256 /* IGContactDetailController.swift */; };
 		D26E8C5E23DC5BCD00C1E916 /* IGFileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */; };
 		D28B583123D56CA400CB861C /* IGImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28B583023D56CA400CB861C /* IGImageNode.swift */; };
 		D2AD204F23D9675700466666 /* AbstractNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AD204E23D9675700466666 /* AbstractNode.swift */; };
@@ -1312,6 +1313,7 @@
 		D25D0F2D23F7E61D00DA3797 /* IGNodeMusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodeMusicPlayer.swift; sourceTree = "<group>"; };
 		D25D0F2F23F7E88300DA3797 /* IGNodeHelperMusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodeHelperMusicPlayer.swift; sourceTree = "<group>"; };
 		D25D0F3123F7EB6200DA3797 /* IGNodeMusicPlayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodeMusicPlayerTableViewController.swift; sourceTree = "<group>"; };
+		D26AEDB023F959CC00F7B256 /* IGContactDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGContactDetailController.swift; sourceTree = "<group>"; };
 		D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFileNode.swift; sourceTree = "<group>"; };
 		D28B583023D56CA400CB861C /* IGImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGImageNode.swift; sourceTree = "<group>"; };
 		D2AD204E23D9675700466666 /* AbstractNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractNode.swift; sourceTree = "<group>"; };
@@ -3507,6 +3509,7 @@
 			children = (
 				FAD580851DDC49A200A242DE /* IGMessageViewController.swift */,
 				8E0BCBE723BA4D5000085792 /* CustomTextView.swift */,
+				D26AEDB023F959CC00F7B256 /* IGContactDetailController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4293,6 +4296,7 @@
 				8E599D7F2328BDB000D75376 /* IGContactListTableViewController.swift in Sources */,
 				8E96A311225B6DCC007D8A77 /* SMHistoryTableViewController.swift in Sources */,
 				FA8F22581DD89F7C005A90D1 /* IGAvatar.swift in Sources */,
+				D26AEDB123F959CC00F7B256 /* IGContactDetailController.swift in Sources */,
 				8ECCA1F622BA3FED00D3A734 /* deviceSizeModel.swift in Sources */,
 				D67E984423A67962003C1516 /* CGPoint+valueInDirection.swift in Sources */,
 				FAE07F0222059CA400BE3593 /* IGStickerCell.swift in Sources */,

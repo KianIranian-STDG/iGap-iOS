@@ -6689,3 +6689,7 @@ Page 4 introduce app */
 "Theme_Day_Text" = "روز";
 "Theme_Night_Text" = "شب";
 "Theme_Icon_Appp" = "نماد برنامه";
+
+"create_new_contact" = "مخاطب جدید";
+"phone_numbers" = "شماره ها";
+"emails" = "ایمیل ها";

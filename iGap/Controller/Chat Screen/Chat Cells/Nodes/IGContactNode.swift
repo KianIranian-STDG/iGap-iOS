@@ -13,6 +13,9 @@ import SnapKit
 import SwiftEventBus
 
 class IGContactNode: AbstractNode {
+    
+    private var contact: IGRoomMessageContact!
+    
     private var txtPhoneNumbers = ASTextNode()
     private var txtPhoneIcon = ASTextNode()
     private var txtContactName = ASTextNode()
@@ -60,62 +63,59 @@ class IGContactNode: AbstractNode {
         addSubnode(imgCover)
         addSubnode(btnViewContact)
         
+    }
+    
+    override func didLoad() {
+        super.didLoad()
         getContactDetails()
         btnViewContact.addTarget(self, action:  #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
         
     }
+    
     //- Hint : Check tap on user profile
     @objc func handleUserTap() {
         print("DID TAP ON CONTACT SHOW")
+        if let _contact = contact {
+            SwiftEventBus.postToMainThread(EventBusManager.showContactDetail, userInfo: ["contactInfo": _contact])
+        }
+        
     }
-
+    
     func getContactDetails() {
-        DispatchQueue.main.async {
-            let contact: IGRoomMessageContact
-            if self.message.contact  == nil {
-                let predicate = NSPredicate(format: "primaryKeyId = %@", self.message.primaryKeyId!)
-                contact = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first!.contact!
-            } else {
-                contact = self.message.contact!
+        DispatchQueue.main.async {[weak self] in
+            guard let sSelf = self else {
+                return
             }
             
-            let firstName = contact.firstName == nil ? "" : contact.firstName! + " "
-            let lastName = contact.lastName == nil ? "" : contact.lastName!
+            if sSelf.message.contact  == nil {
+                let predicate = NSPredicate(format: "primaryKeyId = %@", sSelf.message.primaryKeyId!)
+                sSelf.contact = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first!.contact!
+            } else {
+                sSelf.contact = sSelf.message.contact!
+            }
+            
+            let firstName = sSelf.contact.firstName == nil ? "" : sSelf.contact.firstName! + " "
+            let lastName = sSelf.contact.lastName == nil ? "" : sSelf.contact.lastName!
             let name = String(format: "%@%@", firstName, lastName)
-            if self.isIncomming {
+            if sSelf.isIncomming {
                 
-                IGGlobal.makeAsyncText(for: self.txtContactName, with: name, textColor: ThemeManager.currentTheme.SliderTintColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+                IGGlobal.makeAsyncText(for: sSelf.txtContactName, with: name, textColor: ThemeManager.currentTheme.SliderTintColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
                 
             } else {
                 
-                IGGlobal.makeAsyncText(for: self.txtContactName, with: name, textColor: ThemeManager.currentTheme.SendMessageBubleBGColor.darker(), size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+                IGGlobal.makeAsyncText(for: sSelf.txtContactName, with: name, textColor: ThemeManager.currentTheme.SendMessageBubleBGColor.darker(), size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
                 
             }
-            if contact.phones.count == 1 {
-                let phoneNumber = contact.phones.first!.innerString
-                IGGlobal.makeAsyncText(for: self.txtPhoneNumbers, with: phoneNumber, textColor: ThemeManager.currentTheme.LabelColor, size: 13, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+            if sSelf.contact.phones.count > 0 {
+                let phoneNumber = sSelf.contact.phones.first!.innerString
+                IGGlobal.makeAsyncText(for: sSelf.txtPhoneNumbers, with: phoneNumber, textColor: ThemeManager.currentTheme.LabelColor, size: 13, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
                 
-            } else {
-                let numberOfLines : UInt = UInt(contact.phones.count)
-                for phone in contact.phones {
-                    let phoneNumber = (self.txtPhoneNumbers.attributedText?.string ?? "") + phone.innerString + "\n"
-                    IGGlobal.makeAsyncText(for: self.txtPhoneNumbers, with: phoneNumber, textColor: ThemeManager.currentTheme.LabelColor, size: 13, weight: .bold, numberOfLines: numberOfLines, font: .igapFont, alignment: .left)
-                }
             }
             
             
-            if self.hasEmail() {
-                if contact.emails.count == 1 {
-                    let emailAdd = contact.emails.first!.innerString
-                    IGGlobal.makeAsyncText(for: self.txtEmails, with: emailAdd, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
-                } else {
-                    let numberOfLines : UInt = UInt(contact.emails.count)
-                    
-                    for email in contact.emails {
-                        let emailAdd = (self.txtEmails.attributedText?.string ?? "") + email.innerString + "\n"
-                        IGGlobal.makeAsyncText(for: self.txtEmails, with: emailAdd, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: numberOfLines, font: .igapFont, alignment: .left)
-                    }
-                }
+            if sSelf.hasEmail() {
+                let emailAdd = sSelf.contact.emails.first!.innerString
+                IGGlobal.makeAsyncText(for: sSelf.txtEmails, with: emailAdd, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
             }
         }
     }

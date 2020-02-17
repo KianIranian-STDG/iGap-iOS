@@ -749,6 +749,10 @@ enum IGStringsManager : String {
     case DayTheme = "Theme_Day_Text"
     case NightTheme = "Theme_Night_Text"
     case AppIcon = "Theme_Icon_Appp"
+    
+    case CreateNewContact = "create_new_contact"
+    case PhoneNumbers = "phone_numbers"
+    case Emails = "emails"
 
 }
 

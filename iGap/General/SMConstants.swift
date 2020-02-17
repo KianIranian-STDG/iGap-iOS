@@ -53,6 +53,7 @@ struct EventBusManager {
     static let openRoom = "openRoom"
     static let changeDirection = "changeDirection"
     static let updateButtonPlayForDownload = "updateButtonPlayForDownload"
+    static let showContactDetail = "showContactDetail"
 
 }
 

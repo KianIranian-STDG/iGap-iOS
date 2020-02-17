@@ -40,7 +40,6 @@ class ASAvatarView: ASDisplayNode {
         }
         self.initialLettersView = ASDisplayNode()        
         addSubnode(self.initialLettersView!)
-        initialLettersView?.backgroundColor = .red
         initialLettersView!.style.height = ASDimension(unit: .points, value: 50.0)
 
             self.initialLettersLabel = ASTextNode()

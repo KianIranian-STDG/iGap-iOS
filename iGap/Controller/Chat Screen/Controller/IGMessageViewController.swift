@@ -959,6 +959,24 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self?.initTheme()
         }
         
+        SwiftEventBus.onMainThread(self, name: EventBusManager.showContactDetail) { [weak self] _result in
+//            print("=-=-=-=-", (result?.userInfo!["contactInfo"] as? IGRoomMessageContact)!.firstName)
+            
+            guard let sSelf = self else {
+                return
+            }
+            
+            if let result = _result {
+                if let userInfo = result.userInfo {
+                    if let contactInfo = userInfo["contactInfo"] as? IGRoomMessageContact {
+                        let contactInfoVC = IGContactDetailController(contact: contactInfo)
+                        sSelf.presentPanModal(contactInfoVC)
+                    }
+                }
+            }
+            
+        }
+        
         SwiftEventBus.onMainThread(self, name: EventBusManager.stopLastButtonState) { [weak self] result in
             self?.stopButtonPlayForRow()
         }
