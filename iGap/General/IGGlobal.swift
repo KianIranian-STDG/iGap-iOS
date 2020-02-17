@@ -231,7 +231,7 @@ class IGGlobal {
     
     /********************************************/
     /******************ASTEXT********************/
-    internal static func makeAsyncText(for node: ASTextNode, with text: String, textColor: UIColor? = UIColor.lightGray,size: CGFloat? = 12,weight: UIFont.FontWeight = .regular,numberOfLines : UInt? = 1,font: fontPack,alignment: NSTextAlignment = .left) {
+    internal static func makeAsyncText(for node: ASTextNode, with text: String, textColor: UIColor = UIColor.lightGray,size: CGFloat? = 12,weight: UIFont.FontWeight = .regular,numberOfLines : UInt? = 1,font: fontPack,alignment: NSTextAlignment = .left) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = alignment
         paragraphStyle.lineBreakMode = .byWordWrapping
@@ -242,17 +242,11 @@ class IGGlobal {
         switch font {
             
         case .fontIcon:
-            let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: textColor,
-                                                              NSAttributedString.Key.font:UIFont.iGapFonticon(ofSize: size!),NSAttributedString.Key.paragraphStyle: paragraphStyle]
-            node.attributedText = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes)
+            node.attributedText = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: textColor, NSAttributedString.Key.font:UIFont.iGapFonticon(ofSize: size!),NSAttributedString.Key.paragraphStyle: paragraphStyle])
             
         case .igapFont:
-            let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: textColor,
-                                                              NSAttributedString.Key.font:UIFont.igFont(ofSize: size!,weight: weight),NSAttributedString.Key.paragraphStyle: paragraphStyle]
-            node.attributedText = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes)
+            node.attributedText = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: textColor, NSAttributedString.Key.font:UIFont.igFont(ofSize: size!,weight: weight),NSAttributedString.Key.paragraphStyle: paragraphStyle])
             
-        default:
-            break
         }
         
     }
@@ -261,7 +255,7 @@ class IGGlobal {
     /******************ASBUTTON********************/
     //HINT: - best size for buttons is 12
     
-    internal static func makeAsyncButton(for node: ASButtonNode, with text: String, textColor: UIColor? = UIColor.lightGray,size: CGFloat? = 12,weight: UIFont.FontWeight = .regular,font: fontPack,alignment: NSTextAlignment = .left) {
+    internal static func makeAsyncButton(for node: ASButtonNode, with text: String, textColor: UIColor = UIColor.lightGray,size: CGFloat? = 12,weight: UIFont.FontWeight = .regular,font: fontPack,alignment: NSTextAlignment = .left) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = alignment
         paragraphStyle.lineBreakMode = .byWordWrapping
@@ -272,18 +266,12 @@ class IGGlobal {
         switch font {
             
         case .fontIcon:
-            let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: textColor,
-                                                              NSAttributedString.Key.font:UIFont.iGapFonticon(ofSize: size!),NSAttributedString.Key.paragraphStyle: paragraphStyle]
-            let attString = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes)
+            let attString = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: textColor, NSAttributedString.Key.font:UIFont.iGapFonticon(ofSize: size!), NSAttributedString.Key.paragraphStyle: paragraphStyle])
             node.setAttributedTitle(attString, for: .normal)
 
         case .igapFont:
-            let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: textColor,
-                                                              NSAttributedString.Key.font:UIFont.igFont(ofSize: size!,weight: weight),NSAttributedString.Key.paragraphStyle: paragraphStyle]
-            let attString = NSAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes)
+            let attString = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: textColor, NSAttributedString.Key.font:UIFont.igFont(ofSize: size!,weight: weight), NSAttributedString.Key.paragraphStyle: paragraphStyle])
             node.setAttributedTitle(attString, for: .normal)
-        default:
-            break
         }
         
     }

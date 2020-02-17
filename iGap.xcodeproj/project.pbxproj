@@ -39,9 +39,6 @@
 		8E2CCD0C237ED630000C3B3F /* ImageLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E2CCD0A237ED630000C3B3F /* ImageLocalizable.strings */; };
 		8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */; };
 		8E3360D323CE04AA00CE766B /* ASTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360D223CE04AA00CE766B /* ASTextCell.swift */; };
-		8E3360D523CF3FB100CE766B /* MessageBubbleImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360D423CF3FB100CE766B /* MessageBubbleImageProvider.swift */; };
-		8E3360DB23D2DCC700CE766B /* MessageWhatsappBubbleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360DA23D2DCC700CE766B /* MessageWhatsappBubbleNode.swift */; };
-		8E3360DD23D2DF8A00CE766B /* MessageWhatsappTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360DC23D2DF8A00CE766B /* MessageWhatsappTextNode.swift */; };
 		8E3360DF23D2FDAE00CE766B /* chats.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E3360DE23D2FDAE00CE766B /* chats.json */; };
 		8E3360E123D2FE6D00CE766B /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E023D2FE6D00CE766B /* Chat.swift */; };
 		8E3360E423D7395E00CE766B /* IGVideoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3360E223D7395D00CE766B /* IGVideoNode.swift */; };
@@ -956,9 +953,6 @@
 		8E2CCD1B237EEED2000C3B3F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customYearTextfield.swift; sourceTree = "<group>"; };
 		8E3360D223CE04AA00CE766B /* ASTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTextCell.swift; sourceTree = "<group>"; };
-		8E3360D423CF3FB100CE766B /* MessageBubbleImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubbleImageProvider.swift; sourceTree = "<group>"; };
-		8E3360DA23D2DCC700CE766B /* MessageWhatsappBubbleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageWhatsappBubbleNode.swift; sourceTree = "<group>"; };
-		8E3360DC23D2DF8A00CE766B /* MessageWhatsappTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageWhatsappTextNode.swift; sourceTree = "<group>"; };
 		8E3360DE23D2FDAE00CE766B /* chats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = chats.json; sourceTree = "<group>"; };
 		8E3360E023D2FE6D00CE766B /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		8E3360E223D7395D00CE766B /* IGVideoNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGVideoNode.swift; sourceTree = "<group>"; };
@@ -2489,9 +2483,6 @@
 		D2522ED823D47993002B2D6C /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				8E3360D423CF3FB100CE766B /* MessageBubbleImageProvider.swift */,
-				8E3360DA23D2DCC700CE766B /* MessageWhatsappBubbleNode.swift */,
-				8E3360DC23D2DF8A00CE766B /* MessageWhatsappTextNode.swift */,
 				D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */,
 				D2AD204E23D9675700466666 /* AbstractNode.swift */,
 				D2522ED923D47BC6002B2D6C /* IGTextNode.swift */,
@@ -4519,7 +4510,6 @@
 				8ECFB53E234A471E001233E9 /* phoneBookCellTypeTwo.swift in Sources */,
 				8E031746237842EA00D5A2B5 /* IGElecBillByDeviceTableViewCell.swift in Sources */,
 				D244EA6723DDC44C0071B00F /* IGProgressNode.swift in Sources */,
-				8E3360DD23D2DF8A00CE766B /* MessageWhatsappTextNode.swift in Sources */,
 				FA248C98226AEBE800A72EA7 /* IGScoreHistoryViewController.swift in Sources */,
 				D25D0F3223F7EB6200DA3797 /* IGNodeMusicPlayerTableViewController.swift in Sources */,
 				FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */,
@@ -4592,7 +4582,6 @@
 				8EC217C92259F59900105B5A /* SMIBAN.swift in Sources */,
 				FA3D05E82382A9B300A9EEC1 /* RootVCSwitcher.swift in Sources */,
 				FA03C19C2042945D008812E3 /* IGCall.swift in Sources */,
-				8E3360D523CF3FB100CE766B /* MessageBubbleImageProvider.swift in Sources */,
 				FAE07F042205A8B000BE3593 /* IGStickerSectionHeader.swift in Sources */,
 				8E8E506023E5BAAA0094A91C /* IGCardToCardReceiptNode.swift in Sources */,
 				FA0953521E1B97700043ED3F /* IGSettingChatFontSizeTableViewController.swift in Sources */,
@@ -4734,7 +4723,6 @@
 				8E96A318225B757E007D8A77 /* SMLangUtil.swift in Sources */,
 				D28B583123D56CA400CB861C /* IGImageNode.swift in Sources */,
 				8E7C74E42395451E00286315 /* SliderImageWithTextCVCell.swift in Sources */,
-				8E3360DB23D2DCC700CE766B /* MessageWhatsappBubbleNode.swift in Sources */,
 				8E599D8C2329EC5E00D75376 /* IGPhoneBookTableViewController.swift in Sources */,
 				D67E984B23A67962003C1516 /* NSObject+AsociatedKeyForImageZoomControllers.swift in Sources */,
 				8ED8053C23B772590097A4A6 /* IGLiveStickerPackViewController.swift in Sources */,

@@ -59,6 +59,8 @@ class BaseBubbleNode: ASCellNode {
 
     private var index: IndexPath!
     
+    private let avatarImageSize: CGFloat = 50
+    
     override func didLoad() {
         super.didLoad()
         manageGestureRecognizers()
@@ -239,13 +241,13 @@ class BaseBubbleNode: ASCellNode {
                     if self.finalRoom.type == .group {
 
                         if !isFromSameSender  {
-                            avatarImageViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
-                            avatarImageViewNode.cornerRadius = kAMMessageCellNodeAvatarImageSize/2
+                            avatarImageViewNode.style.preferredSize = CGSize(width: avatarImageSize, height: avatarImageSize)
+                            avatarImageViewNode.cornerRadius = avatarImageSize/2
                             avatarImageViewNode.clipsToBounds = true
 
                             //clearButton on top of ASAvatarView
-                            avatarBtnViewNode.style.preferredSize = CGSize(width: kAMMessageCellNodeAvatarImageSize, height: kAMMessageCellNodeAvatarImageSize)
-                            avatarBtnViewNode.cornerRadius = kAMMessageCellNodeAvatarImageSize/2
+                            avatarBtnViewNode.style.preferredSize = CGSize(width: avatarImageSize, height: avatarImageSize)
+                            avatarBtnViewNode.cornerRadius = avatarImageSize/2
                             avatarBtnViewNode.clipsToBounds = true
                         }
                         

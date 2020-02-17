@@ -103,7 +103,7 @@ class IGContactNode: AbstractNode {
                 
             } else {
                 
-                IGGlobal.makeAsyncText(for: sSelf.txtContactName, with: name, textColor: ThemeManager.currentTheme.SendMessageBubleBGColor.darker(), size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+                IGGlobal.makeAsyncText(for: sSelf.txtContactName, with: name, textColor: ThemeManager.currentTheme.SendMessageBubleBGColor.darker()!, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
                 
             }
             if sSelf.contact.phones.count > 0 {

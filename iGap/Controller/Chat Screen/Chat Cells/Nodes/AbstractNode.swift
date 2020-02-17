@@ -322,9 +322,7 @@ extension AbstractNode: ASTextNodeDelegate {
         paragraphStyle.alignment = text.isRTL() ? .right : .left
         paragraphStyle.lineBreakMode = .byWordWrapping
         
-        let kAMMessageCellNodeContentTopTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black,
-                                                                    NSAttributedString.Key.font:UIFont.igFont(ofSize: 12),NSAttributedString.Key.paragraphStyle: paragraphStyle]
-        let attributedString = NSMutableAttributedString(string: text, attributes: kAMMessageCellNodeContentTopTextAttributes as [NSAttributedString.Key : Any])
+        let attributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font:UIFont.igFont(ofSize: 12), NSAttributedString.Key.paragraphStyle: paragraphStyle])
         
         
         for itm in activeItems {
