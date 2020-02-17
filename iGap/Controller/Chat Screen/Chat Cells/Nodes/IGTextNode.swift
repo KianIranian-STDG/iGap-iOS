@@ -15,10 +15,7 @@ import SwiftEventBus
 class IGTextNode: AbstractNode {
     var ASbuttonActionDic: [ASButtonNode : IGStructAdditionalButton] = [:]
     var ASbuttonViewDic: [ASButtonNode : ASDisplayNode] = [:]
-
-//    private let textNode = MsgTextTextNode()
     
-
     override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = true,finalRoomType : IGRoom.IGType,finalRoom : IGRoom) {
         super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode,finalRoomType : finalRoomType, finalRoom: finalRoom)
         setupView()
@@ -42,8 +39,6 @@ class IGTextNode: AbstractNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
 
-        let textNodeVerticalOffset = CGFloat(6)
-        
         let mainBoxV = ASStackLayoutSpec.vertical()
         mainBoxV.justifyContent = .spaceAround
 
@@ -88,7 +83,7 @@ class IGTextNode: AbstractNode {
         buttonBoxV.alignItems = .stretch
         buttonBoxV.spacing = 5
 
-        for (index, row) in additionalArrayMain.enumerated() {
+        for (_, row) in additionalArrayMain.enumerated() {
         
                   let buttonBoxH = ASStackLayoutSpec.horizontal()
                   buttonBoxH.justifyContent = .spaceAround

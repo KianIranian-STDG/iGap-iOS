@@ -37,21 +37,11 @@ class IGMusicNode: AbstractNode {
 
         btnStateNode.style.preferredSize = CGSize(width: 60, height: 60)
         btnStateNode.layer.cornerRadius = 25
-        //        btnStateNode.layer.cornerRadius = 25
-        
-        //make current time text
-//        IGGlobal.makeText(for: self.txtCurrentTimeNode, with: "00:00".inLocalizedLanguage(), textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont,alignment: .left)
-        //        msgTextNode.isUserInteractionEnabled = true
-
         addSubnode(txtMusicName)
         addSubnode(txtMusicArtist)
         addSubnode(btnStateNode)
-//        addSubnode(btnStateNode)
         addSubnode(indicatorViewAbs)
         checkButtonState(btn: btnStateNode)
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-//            self.getMetadata(file: self.message.attachment)
-//        }
         
         if message.type == .audioAndText {
             addSubnode(textNode)
@@ -89,19 +79,11 @@ class IGMusicNode: AbstractNode {
         textBox.spacing = 0
         
         let overlayBox = ASOverlayLayoutSpec(child: btnStateNode, overlay: indicatorViewAbs)
-//        let defaultBox = ASOverlayLayoutSpec(child: imgDefaultCover, overlay: overlayBox)
 
         let attachmentBox = ASStackLayoutSpec.horizontal()
         attachmentBox.spacing = 0
         attachmentBox.children = [overlayBox, textBox]
         
-//        // Apply text truncation
-//        let elems: [ASLayoutElement] = [btnStateNode,overlayBox, attachmentBox]
-//        for elem in elems {
-//            elem.style.flexShrink = 1
-//        }
-//        txtMusicName.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
-
         if message.type == .audio {
             
             let insetBox = ASInsetLayoutSpec(
@@ -148,24 +130,9 @@ class IGMusicNode: AbstractNode {
                 IGGlobal.makeAsyncText(for: txtMusicArtist, with: singerName, textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
 
             }
-//            if item.commonKey!.rawValue == "artwork" {
-//                hasArtwork = true
-//
-//                if let imageData = item.dataValue {
-//                    DispatchQueue.global(qos: .userInteractive).async {
-//                        let image = UIImage(data: imageData)
-//                        DispatchQueue.main.async {
-//                            self.imgMusicAvatar.image = image
-//                        }
-//                    }
-//                }
-//            }
 
         }
-//        if !hasArtwork {
-//            imgMusicAvatar.setThumbnail(for: file)
-//
-//        }
+        
         if !hasSingerName {
             let singerName = IGStringsManager.UnknownArtist.rawValue.localized
             IGGlobal.makeAsyncText(for: txtMusicArtist, with: singerName, textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
@@ -194,17 +161,12 @@ class IGMusicNode: AbstractNode {
     
     /** check current voice state and if is playing update values to current state */
     private func checkPlayerState(){
-//        IGNodePlayer.shared.startPlayer(btnPlayPause: btnPlayAbs, slider: sliderAudio, timer: txtAudioTime, roomMessage: self.finalRoomMessage, justUpdate: true,room: self.room)
-        
-        
         IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: UISlider(), timer: ASTextNode(), roomMessage: message, justUpdate: true, room: finalRoom)
         
         
     }
     
     private func musicGustureRecognizers() {
-//        let play = UITapGestureRecognizer(target: self, action: #selector(didTapOnPlay(_:)))
-//        btnStateNode.addGestureRecognizer(play)
         btnStateNode.addTarget(self, action: #selector(didTapOnPlay(_:)), forControlEvents: .touchUpInside)
     }
     

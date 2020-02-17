@@ -28,8 +28,6 @@ class IGFileNode: AbstractNode {
     
     override func setupView() {
         super.setupView()
-        let filename: NSString = message.attachment!.name! as NSString
-        let fileExtension = filename.pathExtension
         
         self.txtAttachmentNode.style.width = ASDimension(unit: .points, value: 60.0)
         self.txtAttachmentNode.style.height = ASDimension(unit: .points, value: 60.0)

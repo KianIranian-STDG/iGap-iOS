@@ -19,9 +19,6 @@ class IGVoiceNode: AbstractNode {
     override init(message: IGRoomMessage, isIncomming: Bool, isTextMessageNode: Bool = true,finalRoomType : IGRoom.IGType,finalRoom : IGRoom) {
         super.init(message: message, isIncomming: isIncomming, isTextMessageNode: isTextMessageNode,finalRoomType : finalRoomType, finalRoom: finalRoom)
         setupView()
-//        setVoice()
-//        voiceGustureRecognizers()
-//        checkPlayerState()
     }
     
     override func didLoad() {
@@ -39,8 +36,6 @@ class IGVoiceNode: AbstractNode {
         (sliderNode.view as! UISlider).minimumTrackTintColor = .red
         (sliderNode.view as! UISlider).tintColor = .green
 
-//        sliderNode.style.height = ASDimension(unit: .points, value: 50)
-        
         btnStateNode.layer.cornerRadius = 25
         
         //make current time text
@@ -91,15 +86,7 @@ class IGVoiceNode: AbstractNode {
         let attachmentBox = ASStackLayoutSpec.horizontal()
         attachmentBox.spacing = 8
         attachmentBox.children = [overlayBox, sliderBox]
-        
-        
-//        // Apply text truncation
-//        let elems: [ASLayoutElement] = [txtCurrentTimeNode,overlayBox, sliderBox, attachmentBox]
-//        for elem in elems {
-//            elem.style.flexShrink = 1
-//            elem.style.flexGrow = 1
-//        }
-//        
+
         let insetBox = ASInsetLayoutSpec(
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8),
             child: attachmentBox
@@ -131,14 +118,10 @@ class IGVoiceNode: AbstractNode {
             IGGlobal.makeAsyncButton(for: btnStateNode, with: "", textColor: .black, size: 35, font: .fontIcon, alignment: .center)
         }
         
-//        if self.attachment?.status != .ready {
-//            indicatorViewAbs.delegate = self
-//        }
         
         (sliderNode.view as! UISlider).setValue(0.0, animated: false)
         let timeM = Int(attachment.duration / 60)
         let timeS = Int(attachment.duration.truncatingRemainder(dividingBy: 60.0))
-//        txtVoiceTimeNode.text = "0:00 / \(timeM):\(timeS)".inLocalizedLanguage()
         IGGlobal.makeAsyncText(for: txtVoiceTimeNode, with: "0:00 / \(timeM):\(timeS)".inLocalizedLanguage(), textColor: .black, size: 13, font: .igapFont, alignment: .center)
     }
     
@@ -152,8 +135,6 @@ class IGVoiceNode: AbstractNode {
     }
     
     private func voiceGustureRecognizers() {
-//        let play = UITapGestureRecognizer(target: self, action: #selector(didTapOnPlay(_:)))
-//        btnStateNode.view.addGestureRecognizer(play)
         self.btnStateNode.addTarget(self, action: #selector(self.didTapOnPlay(_:)), forControlEvents: .touchUpInside)
     }
     

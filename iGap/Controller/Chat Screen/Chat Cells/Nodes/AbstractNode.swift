@@ -132,7 +132,6 @@ class AbstractNode: ASCellNode {
                 isAttachmentReady = true
                 
                 if message.type == .video || message.type == .videoAndText {
-//                    addSubnode(playTxtNode)
                     insertSubnode(playTxtNode, aboveSubnode: imgNode)
                 }
                 
@@ -208,8 +207,6 @@ class AbstractNode: ASCellNode {
             if let attachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
                 self.attachment = attachmentVariableInCache.value
             } else {
-                //self.attachment = attachment.detach()
-                //let attachmentRef = ThreadSafeReference(to: attachment)
                 IGAttachmentManager.sharedManager.add(attachment: attachment)
                 if let variable = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
                     self.attachment = variable.value
@@ -268,9 +265,6 @@ class AbstractNode: ASCellNode {
             let fileExist = IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size)
             if fileExist && !attachment.isInUploadLevels() {
                 if message.type == .video || message.type == .videoAndText {
-                    //                    makeVideoPlayView()
-//                    playTxtNode
-//                    addSubnode(playTxtNode)
                     insertSubnode(playTxtNode, aboveSubnode: imgNode)
                 }
                 

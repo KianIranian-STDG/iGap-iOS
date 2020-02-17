@@ -89,7 +89,6 @@ class BaseBubbleNode: ASCellNode {
             case .changed:
                 var translation = recognizer.translation(in: self.view)
                 translation.x = max(-80.0, min(0.0, translation.x))
-                var animateReplyNodeIn = false
                 if (translation.x < -45.0) != (self.currentSwipeToReplyTranslation < -45.0) {
                     if translation.x < -45.0, self.swipeToReplyNode == nil {
                         self.swipeToReplyFeedback?.impact()
@@ -97,7 +96,6 @@ class BaseBubbleNode: ASCellNode {
                         let swipeToReplyNode = ChatMessageSwipeToReplyNode(fillColor: UIColor.black, strokeColor: UIColor.red, foregroundColor: .white)
                         self.swipeToReplyNode = swipeToReplyNode
                         self.insertSubnode(swipeToReplyNode, at: 0)
-                        animateReplyNodeIn = true
                     }
                 }
                 self.currentSwipeToReplyTranslation = translation.x
@@ -294,18 +292,11 @@ class BaseBubbleNode: ASCellNode {
                                 avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.white
                                 avatarImageViewNode.avatarASImageView!.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
                                 SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(message!.roomId)", sender: (action: ChatMessageAction.userInfo, userId: userId))
-                            } else {
-                                print("COMES HERE")
                             }
 
                         } else {
-                            
-                            print("COMES HERE CHANNEL")
-                            print("=====-----=======")
                             avatarImageViewNode.avatarASImageView!.backgroundColor = UIColor.clear
                             avatarImageViewNode.setRoom(self.finalRoom)
-
-                            
                         }
                         
                         //Taps
@@ -1033,7 +1024,7 @@ class BaseBubbleNode: ASCellNode {
             
         else if let _ = bubbleNode as? IGMusicNode {
             
-            if let msattachment = layoutMsg!.attachment{
+            if layoutMsg!.attachment != nil{
                 
                 if layoutMsg!.attachment != nil{
                     
@@ -1618,7 +1609,6 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
             else {
                 return true
             }
-            
             
         }
         else {

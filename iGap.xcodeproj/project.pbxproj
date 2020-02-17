@@ -111,7 +111,6 @@
 		8E6BC53823B33EA20037323A /* BlackColorSet.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E6BC53723B33EA20037323A /* BlackColorSet.xcassets */; };
 		8E6E83A12341F75500392F27 /* IGEditProfileChannelAndGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6E83A02341F75500392F27 /* IGEditProfileChannelAndGroupTableViewController.swift */; };
 		8E6E83A32342617400392F27 /* EditProfileChannelAndGroup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E6E83A22342617400392F27 /* EditProfileChannelAndGroup.storyboard */; };
-		8E76B2DB23E86B2F0069BAAF /* IGCircularProgressNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76B2DA23E86B2F0069BAAF /* IGCircularProgressNode.swift */; };
 		8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D3BA2261FFA400830F65 /* SMLoading.swift */; };
 		8E792960234CB9DA00C9CA5C /* IGHelperUIViewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E79295F234CB9DA00C9CA5C /* IGHelperUIViewView.swift */; };
 		8E7C74E42395451E00286315 /* SliderImageWithTextCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C74E22395451E00286315 /* SliderImageWithTextCVCell.swift */; };
@@ -373,7 +372,6 @@
 		94E74DC523239727001AB47C /* IGFinancialHistoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E74DC423239727001AB47C /* IGFinancialHistoryDetailViewController.swift */; };
 		94E74DCA2323C798001AB47C /* TransactionInfoKeys.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */; };
 		D217E92B23E97759009008F2 /* IGNodePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D217E92A23E97759009008F2 /* IGNodePlayer.swift */; };
-		D244EA6723DDC44C0071B00F /* IGProgressNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D244EA6623DDC44C0071B00F /* IGProgressNode.swift */; };
 		D250C6DE23DEB32D00B4860E /* IGLocationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D250C6DD23DEB32D00B4860E /* IGLocationNode.swift */; };
 		D2522EDA23D47BC6002B2D6C /* IGTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2522ED923D47BC6002B2D6C /* IGTextNode.swift */; };
 		D25D0F2E23F7E61D00DA3797 /* IGNodeMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25D0F2D23F7E61D00DA3797 /* IGNodeMusicPlayer.swift */; };
@@ -1029,7 +1027,6 @@
 		8E6BC53723B33EA20037323A /* BlackColorSet.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BlackColorSet.xcassets; sourceTree = "<group>"; };
 		8E6E83A02341F75500392F27 /* IGEditProfileChannelAndGroupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGEditProfileChannelAndGroupTableViewController.swift; sourceTree = "<group>"; };
 		8E6E83A22342617400392F27 /* EditProfileChannelAndGroup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditProfileChannelAndGroup.storyboard; sourceTree = "<group>"; };
-		8E76B2DA23E86B2F0069BAAF /* IGCircularProgressNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCircularProgressNode.swift; sourceTree = "<group>"; };
 		8E76D3BA2261FFA400830F65 /* SMLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLoading.swift; sourceTree = "<group>"; };
 		8E79295F234CB9DA00C9CA5C /* IGHelperUIViewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperUIViewView.swift; sourceTree = "<group>"; };
 		8E7C74E22395451E00286315 /* SliderImageWithTextCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderImageWithTextCVCell.swift; sourceTree = "<group>"; };
@@ -1301,7 +1298,6 @@
 		94E74DC423239727001AB47C /* IGFinancialHistoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFinancialHistoryDetailViewController.swift; sourceTree = "<group>"; };
 		94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = TransactionInfoKeys.stringsdict; sourceTree = "<group>"; };
 		D217E92A23E97759009008F2 /* IGNodePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodePlayer.swift; sourceTree = "<group>"; };
-		D244EA6623DDC44C0071B00F /* IGProgressNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProgressNode.swift; sourceTree = "<group>"; };
 		D250C6DD23DEB32D00B4860E /* IGLocationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGLocationNode.swift; sourceTree = "<group>"; };
 		D2522ED923D47BC6002B2D6C /* IGTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextNode.swift; sourceTree = "<group>"; };
 		D25D0F2D23F7E61D00DA3797 /* IGNodeMusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodeMusicPlayer.swift; sourceTree = "<group>"; };
@@ -2494,11 +2490,9 @@
 				8E8E505D23E54CA10094A91C /* IGLogNode.swift */,
 				D26E8C5D23DC5BCC00C1E916 /* IGFileNode.swift */,
 				8E8E505523E0012D0094A91C /* IGContactNode.swift */,
-				8E76B2DA23E86B2F0069BAAF /* IGCircularProgressNode.swift */,
 				8E8E506123E6DE770094A91C /* IGMoneytransferReceiptNode.swift */,
 				8E8E505F23E5BAA90094A91C /* IGCardToCardReceiptNode.swift */,
 				8E3360E323D7395D00CE766B /* NodeExtension.swift */,
-				D244EA6623DDC44C0071B00F /* IGProgressNode.swift */,
 				D250C6DD23DEB32D00B4860E /* IGLocationNode.swift */,
 				8E8E506523E82CED0094A91C /* ChatMessageSwipeToReplyNode.swift */,
 			);
@@ -4239,7 +4233,6 @@
 				FA99FF6022352109009035DF /* DashboardCellUnknown.swift in Sources */,
 				FA0953611E1B97700043ED3F /* IGSettingContactsTableViewController.swift in Sources */,
 				940F9E78231BBED700C26D50 /* IGApiFavouriteChannels.swift in Sources */,
-				8E76B2DB23E86B2F0069BAAF /* IGCircularProgressNode.swift in Sources */,
 				FA6F310F22B8A90500DB942E /* IGHelperTracker.swift in Sources */,
 				D67E982E23A6792C003C1516 /* ImageZoomControllerState.swift in Sources */,
 				8E4177F3233CDABD00CEB3AF /* AKMaskFieldBlock.swift in Sources */,
@@ -4509,7 +4502,6 @@
 				FA86D44A21A96955007B80D7 /* IGHelperPopular.swift in Sources */,
 				8ECFB53E234A471E001233E9 /* phoneBookCellTypeTwo.swift in Sources */,
 				8E031746237842EA00D5A2B5 /* IGElecBillByDeviceTableViewCell.swift in Sources */,
-				D244EA6723DDC44C0071B00F /* IGProgressNode.swift in Sources */,
 				FA248C98226AEBE800A72EA7 /* IGScoreHistoryViewController.swift in Sources */,
 				D25D0F3223F7EB6200DA3797 /* IGNodeMusicPlayerTableViewController.swift in Sources */,
 				FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */,
