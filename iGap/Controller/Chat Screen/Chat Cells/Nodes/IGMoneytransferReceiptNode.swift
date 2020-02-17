@@ -171,48 +171,54 @@ class IGMoneytransferReceiptNode: AbstractNode {
     
     override func transitionLayout(withAnimation animated: Bool, shouldMeasureAsync: Bool, measurementCompletion completion: (() -> Void)? = nil) {
         
-                if self.hasShownMore {
-                 self.testNode.layoutIfNeeded()
-                    btnShowMore.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+            if self.hasShownMore {
+                self.testNode.layoutIfNeeded()
+                btnShowMore.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
 
-                    viewSepratorOne.style.height = ASDimensionMake(.points, 0)
-                    viewSepratorTwo.style.height = ASDimensionMake(.points, 0)
-                    viewSepratorThree.style.height = ASDimensionMake(.points, 0)
-                    viewSepratorFive.style.height = ASDimensionMake(.points, 0)
-                    viewSepratorFour.style.height = ASDimensionMake(.points, 0)
-                    viewSepratorSix.style.height = ASDimensionMake(.points, 0)
-                    viewSepratorSeven.style.height = ASDimensionMake(.points, 0)
+                viewSepratorOne.style.height = ASDimensionMake(.points, 0)
+                viewSepratorTwo.style.height = ASDimensionMake(.points, 0)
+                viewSepratorThree.style.height = ASDimensionMake(.points, 0)
+                viewSepratorFive.style.height = ASDimensionMake(.points, 0)
+                viewSepratorFour.style.height = ASDimensionMake(.points, 0)
+                viewSepratorSix.style.height = ASDimensionMake(.points, 0)
+                viewSepratorSeven.style.height = ASDimensionMake(.points, 0)
 
 
-                    let elemArray : [ASLayoutElement] = [txtTTLDate,txtVALUEDate,txtTTLSenderName,txtVALUESenderName,txtTTLReciever,txtVALUEReciever,txtTTLTraceNumber,txtVALUETraceNumber,txtTTLRefrenceNumber,txtVALUERefrenceNumber,txtTTLDesc,txtVALUEDesc]
-                    for elemnt in elemArray {
-                        elemnt.style.preferredSize = CGSize.zero
+                let elemArray : [ASLayoutElement] = [txtTTLDate,txtVALUEDate,txtTTLSenderName,txtVALUESenderName,txtTTLReciever,txtVALUEReciever,txtTTLTraceNumber,txtVALUETraceNumber,txtTTLRefrenceNumber,txtVALUERefrenceNumber,txtTTLDesc,txtVALUEDesc]
+                for elemnt in elemArray {
+                    elemnt.style.preferredSize = CGSize.zero
+                }
+                UIView.animate(withDuration: 1.0, animations: {[weak self] in
+                    guard let sSelf = self else {
+                        return
                     }
-                 UIView.animate(withDuration: 1.0, animations: {
-                      self.testNode.layoutIfNeeded()
-                 })
+                  sSelf.testNode.layoutIfNeeded()
+                })
 
 
-             } else {
-                 self.testNode.layoutIfNeeded()
-                    btnShowMore.setTitle(IGStringsManager.GlobalClose.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+            } else {
+                self.testNode.layoutIfNeeded()
+                btnShowMore.setTitle(IGStringsManager.GlobalClose.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
 
-                    viewSepratorOne.style.height = ASDimensionMake(.points, 1)
-                    viewSepratorTwo.style.height = ASDimensionMake(.points, 1)
-                    viewSepratorThree.style.height = ASDimensionMake(.points, 1)
-                    viewSepratorFive.style.height = ASDimensionMake(.points, 1)
-                    viewSepratorFour.style.height = ASDimensionMake(.points, 1)
-                    viewSepratorSix.style.height = ASDimensionMake(.points, 1)
-                    viewSepratorSeven.style.height = ASDimensionMake(.points, 1)
-                    let elemArray : [ASLayoutElement] = [txtTTLDate,txtVALUEDate,txtTTLSenderName,txtVALUESenderName,txtTTLReciever,txtVALUEReciever,txtTTLTraceNumber,txtVALUETraceNumber,txtTTLRefrenceNumber,txtVALUERefrenceNumber,txtTTLDesc,txtVALUEDesc]
-                    for elemnt in elemArray {
-                        elemnt.style.height = ASDimensionMake(.points, 25)
+                viewSepratorOne.style.height = ASDimensionMake(.points, 1)
+                viewSepratorTwo.style.height = ASDimensionMake(.points, 1)
+                viewSepratorThree.style.height = ASDimensionMake(.points, 1)
+                viewSepratorFive.style.height = ASDimensionMake(.points, 1)
+                viewSepratorFour.style.height = ASDimensionMake(.points, 1)
+                viewSepratorSix.style.height = ASDimensionMake(.points, 1)
+                viewSepratorSeven.style.height = ASDimensionMake(.points, 1)
+                let elemArray : [ASLayoutElement] = [txtTTLDate,txtVALUEDate,txtTTLSenderName,txtVALUESenderName,txtTTLReciever,txtVALUEReciever,txtTTLTraceNumber,txtVALUETraceNumber,txtTTLRefrenceNumber,txtVALUERefrenceNumber,txtTTLDesc,txtVALUEDesc]
+                for elemnt in elemArray {
+                    elemnt.style.height = ASDimensionMake(.points, 25)
+                }
+
+                UIView.animate(withDuration: 1.0, animations: {[weak self] in
+                    guard let sSelf = self else {
+                        return
                     }
-                    
-                 UIView.animate(withDuration: 1.0, animations: {
-                      self.testNode.layoutIfNeeded()
-                 })
-             }
+                  sSelf.testNode.layoutIfNeeded()
+                })
+            }
         
              self.hasShownMore = !self.hasShownMore
 

@@ -62,17 +62,20 @@ class IGLogNode: ASCellNode {
             self.progressNode.style.width = ASDimensionMake(.points, 50)
             self.progressNode.backgroundColor = UIColor.white
             self.progressNode.layer.cornerRadius = 25
-            DispatchQueue.main.async {
-                (self.progressNode.view as! AnimationView).play()
-                (self.progressNode.view as! AnimationView).frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-                (self.progressNode.view as! AnimationView).contentMode = .scaleAspectFit
+            DispatchQueue.main.async {[weak self] in
+                guard let sSelf = self else {
+                    return
+                }
+                (sSelf.progressNode.view as! AnimationView).play()
+                (sSelf.progressNode.view as! AnimationView).frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+                (sSelf.progressNode.view as! AnimationView).contentMode = .scaleAspectFit
                 let animation = Animation.named("messageLoader")
-                (self.progressNode.view as! AnimationView).animation = animation
-                (self.progressNode.view as! AnimationView).contentMode = .scaleAspectFit
-                (self.progressNode.view as! AnimationView).play()
-                (self.progressNode.view as! AnimationView).loopMode = .loop
-                (self.progressNode.view as! AnimationView).backgroundBehavior = .pauseAndRestore
-                (self.progressNode.view as! AnimationView).forceDisplayUpdate()
+                (sSelf.progressNode.view as! AnimationView).animation = animation
+                (sSelf.progressNode.view as! AnimationView).contentMode = .scaleAspectFit
+                (sSelf.progressNode.view as! AnimationView).play()
+                (sSelf.progressNode.view as! AnimationView).loopMode = .loop
+                (sSelf.progressNode.view as! AnimationView).backgroundBehavior = .pauseAndRestore
+                (sSelf.progressNode.view as! AnimationView).forceDisplayUpdate()
 
             }
             self.progressNode.alpha = 0.8

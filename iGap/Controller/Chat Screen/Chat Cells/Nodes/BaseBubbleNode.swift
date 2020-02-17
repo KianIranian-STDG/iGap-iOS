@@ -500,21 +500,17 @@ class BaseBubbleNode: ASCellNode {
 
             } else {
                 let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-                let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
                 let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
 
                 if currentTheme == "IGAPDay" || currentTheme == "IGAPNight" {
                     
                     if currentColorSetLight == "IGAPBlack" {
-                        let Color = ThemeManager.currentTheme.LabelColor
                         IGGlobal.makeAsyncText(for: self.txtStatusNode, with: "", textColor: .iGapGreen(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
                     } else {
-                        let Color = ThemeManager.currentTheme.LabelColor
                         IGGlobal.makeAsyncText(for: self.txtStatusNode, with: "", textColor: .iGapGreen(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
                     }
 
                 } else {
-                    let Color = ThemeManager.currentTheme.LabelColor
                     IGGlobal.makeAsyncText(for: self.txtStatusNode, with: "", textColor: .iGapGreen(), size: 15, numberOfLines: 1, font: .fontIcon, alignment: .center)
                 }
 

@@ -148,13 +148,19 @@ class IGTextNode: AbstractNode {
         if let structAdditional = ASbuttonActionDic[sender] {
             manageAdditionalActions(roomId: sender.accessibilityIdentifier!, structAdditional: structAdditional)
             
-            UIView.animate(withDuration: 0.2, animations: {
-                self.ASbuttonViewDic[sender]!.backgroundColor = UIColor.customKeyboardButton()
+            UIView.animate(withDuration: 0.2, animations: {[weak self] in
+                guard let sSelf = self else {
+                    return
+                }
+                sSelf.ASbuttonViewDic[sender]!.backgroundColor = UIColor.customKeyboardButton()
             })
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.ASbuttonViewDic[sender]!.backgroundColor = UIColor.customKeyboardButton().withAlphaComponent(0.5)
+                UIView.animate(withDuration: 0.2, animations: {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    sSelf.ASbuttonViewDic[sender]!.backgroundColor = UIColor.customKeyboardButton().withAlphaComponent(0.5)
                 })
             }
         }

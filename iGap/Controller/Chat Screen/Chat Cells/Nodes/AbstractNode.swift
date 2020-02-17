@@ -219,21 +219,30 @@ class AbstractNode: ASCellNode {
             if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
                 attachment = variableInCache.value
                 
-                IGGlobal.syncroniseDisposDicQueue.sync(flags: .barrier) {
-                    if let disposable = IGGlobal.dispoasDic[self.message.id] {
-                        IGGlobal.dispoasDic.removeValue(forKey: self.message.id)
+                IGGlobal.syncroniseDisposDicQueue.sync(flags: .barrier) {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    if let disposable = IGGlobal.dispoasDic[sSelf.message.id] {
+                        IGGlobal.dispoasDic.removeValue(forKey: sSelf.message.id)
                         disposable.dispose()
                     }
                 }
                 
                 let subscriber = variableInCache.asObservable().subscribe({ (event) in
-                    DispatchQueue.main.async {
-                        self.updateAttachmentDownloadUploadIndicatorView()
+                    DispatchQueue.main.async {[weak self] in
+                        guard let sSelf = self else {
+                            return
+                        }
+                        sSelf.updateAttachmentDownloadUploadIndicatorView()
                     }
                 })
                   
-                IGGlobal.syncroniseDisposDicQueue.sync(flags: .barrier) {
-                    IGGlobal.dispoasDic[self.message.id] = subscriber
+                IGGlobal.syncroniseDisposDicQueue.sync(flags: .barrier) {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    IGGlobal.dispoasDic[sSelf.message.id] = subscriber
                 }
             }
             /* Rx End */
@@ -289,12 +298,13 @@ class AbstractNode: ASCellNode {
             (indicatorViewAbs.view as! IGProgress).setState(attachment.status)
             if attachment.status == .downloading || attachment.status == .uploading {
                 (indicatorViewAbs.view as! IGProgress).setPercentage(attachment.downloadUploadPercent)
-                print("======-PERCENTAGE-========")
-                print(attachment.downloadUploadPercent)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
                     if (attachment.downloadUploadPercent) == 1.0 {
                         attachment.status = .ready
-                        self.imgNode.setThumbnail(for: attachment)
+                        sSelf.imgNode.setThumbnail(for: attachment)
 
                     }
                 }

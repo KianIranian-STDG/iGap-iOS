@@ -161,50 +161,56 @@ class IGCardToCardReceiptNode: AbstractNode {
     
     override func transitionLayout(withAnimation animated: Bool, shouldMeasureAsync: Bool, measurementCompletion completion: (() -> Void)? = nil) {
         
-                if self.hasShownMore {
-                 self.testNode.layoutIfNeeded()
-                    btnShowMore.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+            if self.hasShownMore {
+                self.testNode.layoutIfNeeded()
+                btnShowMore.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
 
-                    viewSepratorCardNum.style.height = ASDimensionMake(.points, 0)
-                    viewSepratorTraceNum.style.height = ASDimensionMake(.points, 0)
-                    viewSepratorOwnerName.style.height = ASDimensionMake(.points, 0)
-                    viewSepratorDesCardNum.style.height = ASDimensionMake(.points, 0)
-                    viewSepratorDesBankName.style.height = ASDimensionMake(.points, 0)
-                    viewSepratorDate.style.height = ASDimensionMake(.points, 0)
-                    viewSepratorTop.style.height = ASDimensionMake(.points, 0)
+                viewSepratorCardNum.style.height = ASDimensionMake(.points, 0)
+                viewSepratorTraceNum.style.height = ASDimensionMake(.points, 0)
+                viewSepratorOwnerName.style.height = ASDimensionMake(.points, 0)
+                viewSepratorDesCardNum.style.height = ASDimensionMake(.points, 0)
+                viewSepratorDesBankName.style.height = ASDimensionMake(.points, 0)
+                viewSepratorDate.style.height = ASDimensionMake(.points, 0)
+                viewSepratorTop.style.height = ASDimensionMake(.points, 0)
 
 
-                    let elemArray : [ASLayoutElement] = [txtTTLDate,txtVALUEDate,txtTTLSourceCardNumber,txtVALUESourceCardNumber,txtTTLDestinationCardNumber,txtVALUEDestinationCardNumber,txtTTLDestinationBankName,txtVALUEDestinationBankName,txtTTLCardOwnerName,txtVALUECardOwnerName,txtTTLTraceNumber,txtVALUETraceNumber,txtTTLRefrenceNumber,txtVALUERefrenceNumber]
-                    for elemnt in elemArray {
-                        elemnt.style.preferredSize = CGSize.zero
+                let elemArray : [ASLayoutElement] = [txtTTLDate,txtVALUEDate,txtTTLSourceCardNumber,txtVALUESourceCardNumber,txtTTLDestinationCardNumber,txtVALUEDestinationCardNumber,txtTTLDestinationBankName,txtVALUEDestinationBankName,txtTTLCardOwnerName,txtVALUECardOwnerName,txtTTLTraceNumber,txtVALUETraceNumber,txtTTLRefrenceNumber,txtVALUERefrenceNumber]
+                for elemnt in elemArray {
+                    elemnt.style.preferredSize = CGSize.zero
+                }
+                UIView.animate(withDuration: 1.0, animations: {[weak self] in
+                    guard let sSelf = self else {
+                        return
                     }
-                 UIView.animate(withDuration: 1.0, animations: {
-                      self.testNode.layoutIfNeeded()
-                 })
+                  sSelf.testNode.layoutIfNeeded()
+                })
 
 
-             } else {
-                 self.testNode.layoutIfNeeded()
-                    btnShowMore.setTitle(IGStringsManager.GlobalClose.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+            } else {
+                self.testNode.layoutIfNeeded()
+                btnShowMore.setTitle(IGStringsManager.GlobalClose.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
 
-                    viewSepratorCardNum.style.height = ASDimensionMake(.points, 1)
-                    viewSepratorTraceNum.style.height = ASDimensionMake(.points, 1)
-                    viewSepratorOwnerName.style.height = ASDimensionMake(.points, 1)
-                    viewSepratorDesCardNum.style.height = ASDimensionMake(.points, 1)
-                    viewSepratorDesBankName.style.height = ASDimensionMake(.points, 1)
-                    viewSepratorDate.style.height = ASDimensionMake(.points, 1)
-                    viewSepratorTop.style.height = ASDimensionMake(.points, 1)
-                    let elemArray : [ASLayoutElement] = [txtTTLDate,txtVALUEDate,txtTTLSourceCardNumber,txtVALUESourceCardNumber,txtTTLDestinationCardNumber,txtVALUEDestinationCardNumber,txtTTLDestinationBankName,txtVALUEDestinationBankName,txtTTLCardOwnerName,txtVALUECardOwnerName,txtTTLTraceNumber,txtVALUETraceNumber,txtTTLRefrenceNumber,txtVALUERefrenceNumber]
-                    for elemnt in elemArray {
-                        elemnt.style.height = ASDimensionMake(.points, 25)
+                viewSepratorCardNum.style.height = ASDimensionMake(.points, 1)
+                viewSepratorTraceNum.style.height = ASDimensionMake(.points, 1)
+                viewSepratorOwnerName.style.height = ASDimensionMake(.points, 1)
+                viewSepratorDesCardNum.style.height = ASDimensionMake(.points, 1)
+                viewSepratorDesBankName.style.height = ASDimensionMake(.points, 1)
+                viewSepratorDate.style.height = ASDimensionMake(.points, 1)
+                viewSepratorTop.style.height = ASDimensionMake(.points, 1)
+                let elemArray : [ASLayoutElement] = [txtTTLDate,txtVALUEDate,txtTTLSourceCardNumber,txtVALUESourceCardNumber,txtTTLDestinationCardNumber,txtVALUEDestinationCardNumber,txtTTLDestinationBankName,txtVALUEDestinationBankName,txtTTLCardOwnerName,txtVALUECardOwnerName,txtTTLTraceNumber,txtVALUETraceNumber,txtTTLRefrenceNumber,txtVALUERefrenceNumber]
+                for elemnt in elemArray {
+                    elemnt.style.height = ASDimensionMake(.points, 25)
+                }
+
+                UIView.animate(withDuration: 1.0, animations: {[weak self] in
+                    guard let sSelf = self else {
+                        return
                     }
-                    
-                 UIView.animate(withDuration: 1.0, animations: {
-                      self.testNode.layoutIfNeeded()
-                 })
-             }
+                  sSelf.testNode.layoutIfNeeded()
+                })
+            }
         
-             self.hasShownMore = !self.hasShownMore
+            self.hasShownMore = !self.hasShownMore
 
     }
     
