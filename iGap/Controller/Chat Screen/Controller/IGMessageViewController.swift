@@ -499,7 +499,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 
         ///newUITextMessage
         initViewNewChatView()
-        initNotificationsNewChatView()
         initFontsNewChatView()
         initAlignmentsNewChatView()
         initChangeLanguegeNewChatView()
@@ -593,7 +592,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
          let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapOnMainView))
          mainView.addGestureRecognizer(gesture)
          */
-        self.addNotificationObserverForTapOnStatusBar()
         var canBecomeFirstResponder: Bool { return true }
         let navigationController = self.navigationController as! IGNavigationController
         myNavigationItem = self.navigationItem as? IGNavigationItem
@@ -721,7 +719,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         txtPinnedMessage.numberOfLines = 1
         self.setCollectionViewInset()
         
-        notification(register: true)
         let tapOnMessageTextView = UITapGestureRecognizer(target: self, action: #selector(didTapOnInputTextView))
         messageTextView.addGestureRecognizer(tapOnMessageTextView)
         messageTextView.isUserInteractionEnabled = true
@@ -747,7 +744,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         initTheme()
         self.view.endEditing(true)
+        
+        let mainViewTap = UITapGestureRecognizer(target: self, action: #selector(self.tapOnMainView))
+        tableViewNode.view.addGestureRecognizer(mainViewTap)
+        
     }
+    
+    
 
     private func initASCollectionNode() {
         //flips the tableview (and all cells) upside down
@@ -792,9 +795,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         IGGlobal.isInChatPage = true
         self.currentRoomId = self.room?.id
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
-        setupNotifications()
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        setupNotifications()
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         getUserInfo()
         setBackground()
@@ -815,6 +818,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
             self.createTopMusicPlayer()
         }
+        
+        initNotificationsNewChatView()
+        notification(register: true)
+        self.addNotificationObserverForTapOnStatusBar()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -915,7 +923,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         currentRoomId = 0
         currentPageName = ""
         IGGlobal.shouldMultiSelect = false
-        unsetNotifications()
+//        unsetNotifications()
         saveMessagePosition()
         
         if !holderReplyBar.isHidden { // maybe has forward
@@ -1433,19 +1441,20 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
     }
     
-    func setupNotifications() {
-        unsetNotifications()
-    }
-    
-    func unsetNotifications() {
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        notificationCenter.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
+//    func setupNotifications() {
+//        unsetNotifications()
+//    }
+//
+//    func unsetNotifications() {
+//        let notificationCenter = NotificationCenter.default
+//        notificationCenter.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+//        notificationCenter.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+//    }
     
     
     
     @objc func keyboardWillHide(notification: NSNotification) {
+        messageTextView.endEditing(true)
         if MoneyInputModalIsActive {
             if let MoneyInput = MoneyInputModal {
                 self.view.addSubview(MoneyInput)
@@ -1488,18 +1497,23 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         self.view.layoutIfNeeded()
-    }
-    
-    @objc func keyboardWillAppear() {
-        //Do something here
-    }
-    
-    @objc func keyboardWillDisappear() {
+        
         disableStickerView(delay: 0.4)
         if isBotRoom() {
             self.reloadCollection()
         }
     }
+    
+//    @objc func keyboardWillAppear() {
+//        //Do something here
+//    }
+    
+//    @objc func keyboardWillDisappear() {
+//        disableStickerView(delay: 0.4)
+//        if isBotRoom() {
+//            self.reloadCollection()
+//        }
+//    }
     
     @objc func tapOnMainView(sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
@@ -4997,14 +5011,21 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         } else {
             self.scrollToBottomContainerView.isHidden = true
         }
+        
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.floatingDateView.alpha = 0.0
+        UIView.animate(withDuration: 0.5, animations: {[weak self] in
+            guard let sSelf = self else {
+                return
+            }
+            sSelf.floatingDateView.alpha = 0.0
         })
-        UIView.animate(withDuration: 0.5, animations: {
-            self.txtFloatingDate.alpha = 0.0
+        UIView.animate(withDuration: 0.5, animations: {[weak self] in
+            guard let sSelf = self else {
+                return
+            }
+            sSelf.txtFloatingDate.alpha = 0.0
         })
     }
     
