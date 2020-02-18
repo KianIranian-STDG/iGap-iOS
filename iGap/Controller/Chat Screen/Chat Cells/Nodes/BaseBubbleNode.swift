@@ -246,7 +246,7 @@ class BaseBubbleNode: ASCellNode {
         }else if finalType == .contact {
             bubbleNode = IGContactNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         } else if finalType == .sticker {
-            bubbleNode = IGStrickerNormalNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
+            bubbleNode = IGStickerNormalNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         } else if finalType == .wallet && msg!.wallet?.type == 2  { //CardToCard
             bubbleNode = IGCardToCardReceiptNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         }  else if finalType == .wallet && msg!.wallet?.type == 0  { //moneyTransfer
@@ -1217,7 +1217,7 @@ class BaseBubbleNode: ASCellNode {
             /************NORMAL STICKER NODE**************/
             /**************************************************************/
             
-        else if let _ = bubbleNode as? IGStrickerNormalNode{
+        else if let _ = bubbleNode as? IGStickerNormalNode{
             
             if (self.finalRoomType == .channel) {
                 
@@ -1473,6 +1473,19 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
             
             
             if bubbleNode as? IGLocationNode != nil {
+                let onLocationClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
+                bubbleNode.view.addGestureRecognizer(onLocationClick)
+                
+                if !(IGGlobal.shouldMultiSelect) {
+                    (bubbleNode as! AbstractNode).isUserInteractionEnabled = true
+                }
+                else {
+                    (bubbleNode as! AbstractNode).isUserInteractionEnabled = false
+                }
+                
+            }
+            
+            if bubbleNode as? IGStickerNormalNode != nil {
                 let onLocationClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
                 bubbleNode.view.addGestureRecognizer(onLocationClick)
                 

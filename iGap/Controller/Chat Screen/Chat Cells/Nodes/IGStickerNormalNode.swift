@@ -10,7 +10,7 @@
 
 import AsyncDisplayKit
 
-class IGStrickerNormalNode: AbstractNode {
+class IGStickerNormalNode: AbstractNode {
     
     
     
