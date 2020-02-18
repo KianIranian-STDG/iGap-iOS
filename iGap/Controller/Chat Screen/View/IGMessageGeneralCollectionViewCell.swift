@@ -12,7 +12,7 @@ import UIKit
 
 
 protocol IGMessageGeneralCollectionViewCellDelegate: AnyObject { // Using AnyObject you say that only classes can conform to this protocol, whereas structs or enums can't.
-    func didTapAndHoldOnMessage(cellMessage: IGRoomMessage)
+    func didTapAndHoldOnMessage(cellMessage: IGRoomMessage,index: IndexPath)
     func swipToReply(cellMessage: IGRoomMessage)
     func didTapOnAttachment(cellMessage: IGRoomMessage)
     func didTapOnForwardedAttachment(cellMessage: IGRoomMessage)

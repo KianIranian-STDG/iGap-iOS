@@ -81,7 +81,8 @@ class IGGlobal {
     static let TEMP_DIR = "/temp"
     //static let TEMP_DIR = Folder.temporary.path + "/iGap"
     
-    
+
+    static var visibleRowsCacheDic = NSCache<NSString, UIImage>()
     static var imgDic : [String: IGImageView] = [:]
     static var shouldMultiSelect : Bool = false
     static var clickedAudioCellIndexPath : IndexPath = [0,0]
@@ -139,6 +140,11 @@ class IGGlobal {
         var total: Int = 0
         var count: Int = 0
     }
+    internal static func getAllIndexPathsInSection(section : Int,tblList: ASTableNode) -> [IndexPath] {
+        let count = tblList.numberOfRows(inSection: section);
+        return (0..<count).map { IndexPath(row: $0, section: section) }
+    }
+
     internal static func isCloud(room: IGRoom) -> Bool {
         if !room.isInvalidated, room.chatRoom?.peer?.id == IGAppManager.sharedManager.userID() {
             return true

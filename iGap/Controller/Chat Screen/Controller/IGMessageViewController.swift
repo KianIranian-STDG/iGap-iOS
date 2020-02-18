@@ -307,7 +307,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         return self.navigationController!
     }
     
-    func showMultiSelectUI(state : Bool!,isForward:Bool? = nil,isDelete:Bool?=nil) {
+    func showMultiSelectUI(state : Bool!,isForward:Bool? = nil,isDelete:Bool?=nil,index: IndexPath) {
         myNavigationItem?.setNavigationBarForRoom(room!)
         setRightNavViewAction()
         
@@ -328,8 +328,25 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     self.btnAttachmentNew.isHidden = true
                     
                     
-                    self.reloadCollection()
                     self.btnForward.isHidden = !isForward!
+                    
+                        let visibleItems = self.tableViewNode.indexPathsForVisibleRows()
+//                        self.tableViewNode.reloadRows(at: visibleItems, with: .none)
+                    IGGlobal.shouldMultiSelect = true
+
+                    let allIndexes = IGGlobal.getAllIndexPathsInSection(section : 0,tblList: self.tableViewNode)
+                    
+                    for nodeIndex in allIndexes {
+                        if let node = self.tableViewNode.nodeForRow(at: nodeIndex) as? BaseBubbleNode {
+                            node.makeAccessoryButton(index: index)
+//                            if let myObject = node.imgNode.image {
+//                                IGGlobal.visibleRowsCacheDic.setObject(myObject, forKey: String(nodeIndex.row) as NSString)
+//                            }
+
+
+                        }
+                    }
+//                    self.reloadCollection()
 
                     
                 }, completion: { (completed) in
@@ -736,7 +753,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.tableViewNode.backgroundColor = .clear
         self.tableviewMessagesView.backgroundColor = .clear
         self.tableViewNode.view.separatorStyle = .none
-        
+        self.tableViewNode.allowsMultipleSelection = true
+        self.tableViewNode.allowsSelection = true
         tableViewNode.view.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
         tableViewNode.view.delaysContentTouches = false
         tableViewNode.view.keyboardDismissMode = .none
@@ -2360,7 +2378,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     func diselect() {
         IGGlobal.shouldMultiSelect = false
-        self.showMultiSelectUI(state: false)
+        self.showMultiSelectUI(state: false, index: [0,0])
     }
     
     func close() {
@@ -5661,7 +5679,7 @@ extension IGMessageViewController: AVAudioRecorderDelegate {
 //MARK: - IGMessageGeneralCollectionViewCellDelegate
 extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
-    func didTapAndHoldOnMessage(cellMessage: IGRoomMessage) {
+    func didTapAndHoldOnMessage(cellMessage: IGRoomMessage,index: IndexPath) {
         
         if cellMessage.isInvalidated {return}
         
@@ -5677,7 +5695,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             }
         } else {
             if !(IGGlobal.shouldMultiSelect) {
-                manageSendedMessage(cellMessage: cellMessage.detach())
+                manageSendedMessage(cellMessage: cellMessage.detach(),index: index)
                 
             }
         }
@@ -5706,7 +5724,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
     }
     
-    private func manageSendedMessage(cellMessage: IGRoomMessage){
+    private func manageSendedMessage(cellMessage: IGRoomMessage,index: IndexPath){
         
         if self.room!.isInvalidated {
             return
@@ -5742,7 +5760,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         })
         
         let forward = UIAlertAction(title: IGStringsManager.Forward.rawValue.localized, style: .default, handler: { (action) in
-            self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : true,isDelete : false,isShare : false)
+            self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : true,isDelete : false,isShare : false,index:index)
         })
         
         let edit = UIAlertAction(title: IGStringsManager.dialogEdit.rawValue.localized, style: .default, handler: { (action) in
@@ -5776,14 +5794,14 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
         let deleteForMe = UIAlertAction(title: deleteTitle, style: .destructive, handler: { (action) in
             self.isBoth = false
-            self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : false,isDelete : true,isShare : false)
+            self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : false,isDelete : true,isShare : false, index: index)
             
         })
         let roomTitle = self.room?.title != nil ? self.room!.title! : ""
         let deleteForBoth = UIAlertAction(title: IGStringsManager.DeleteForMeAnd.rawValue.localized + roomTitle, style: .destructive, handler: { (action) in
             //            self.deleteMessage(cellMessage, both: true)
             self.isBoth = true
-            self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : false,isDelete : true,isShare : false)
+            self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : false,isDelete : true,isShare : false, index: index)
             
         })
         let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: { (action) in
@@ -5836,11 +5854,11 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         self.present(alertC, animated: true, completion: nil)
     }
     
-    func enableMultiSelect(State: Bool! ,cellMessage: IGRoomMessage ,isForward:Bool? = nil ,isDelete:Bool? = nil ,isShare:Bool? = nil) {
+    func enableMultiSelect(State: Bool! ,cellMessage: IGRoomMessage ,isForward:Bool? = nil ,isDelete:Bool? = nil ,isShare:Bool? = nil,index: IndexPath) {
         IGGlobal.shouldMultiSelect = State
         self.selectedMessages.removeAll()
         self.selectedMessages.append(cellMessage)
-        self.showMultiSelectUI(state: State,isForward:isForward,isDelete:isDelete)
+        self.showMultiSelectUI(state: State,isForward:isForward,isDelete:isDelete,index: index)
     }
     
     
@@ -6788,8 +6806,22 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         return self.messages!.count
     }
+    func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        print(((self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode).checkNode.view.tag))
+        let cellNode  = self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode
+        cellNode.isSelected = false
+        
+        if ((self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode).checkNode.view.tag) == 001 {
+            (self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode).checkNode.view.tag = 002
+            IGGlobal.makeAsyncText(for: (self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode).checkNode, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 30, weight: .regular, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        } else {
+            (self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode).checkNode.view.tag = 001
+            IGGlobal.makeAsyncText(for: (self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode).checkNode, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 30, weight: .regular, numberOfLines: 1, font: .fontIcon, alignment: .center)
+
+        }
+    }
     
-    
+
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
 
         let msg = messages?[indexPath.row]
@@ -6867,7 +6899,9 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
                    node.generalMessageDelegate = sSelf
                    node.selectionStyle = .none
                     node.neverShowPlaceholders = true
+
                 node.enableSubtreeRasterization()
+ 
                    return node
 
                    

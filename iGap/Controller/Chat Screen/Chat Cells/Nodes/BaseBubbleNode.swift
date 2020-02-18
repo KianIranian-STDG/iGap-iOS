@@ -30,6 +30,7 @@ class BaseBubbleNode: ASCellNode {
     private let txtNameNode = ASTextNode()
     private let txtStatusNode = ASTextNode()
     private var subNode = ASDisplayNode()
+    public var checkNode = ASTextNode()
     var hasReAction : Bool = false
     private(set) var bubbleNode = ASCellNode()
     private var replyForwardViewNode = ASReplyForwardNode()
@@ -69,7 +70,13 @@ class BaseBubbleNode: ASCellNode {
 
         }
         self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
+        if IGGlobal.shouldMultiSelect {
+            print("IS MULTI SELECT MODE")
+            makeAccessoryButton(index: [10000,10000])
+        } else {
+            print("ISNOT MULTI SELECT MODE")
 
+        }
 
     }
     private func makeSwipeToReply() {// Telegram Func
@@ -141,6 +148,32 @@ class BaseBubbleNode: ASCellNode {
                 break
         }
     }
+    
+    public func makeAccessoryButton(index: IndexPath) {
+        print("CREATED ACCESSORY BUTTON")
+        addSubnode(checkNode)
+        if index == self.index {
+            checkNode.view.tag = 002
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                
+                IGGlobal.makeAsyncText(for: self.checkNode, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 30, weight: .regular, numberOfLines: 1, font: .fontIcon, alignment: .center)
+            }
+
+
+        } else {
+            checkNode.view.tag = 001
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                
+                IGGlobal.makeAsyncText(for: self.checkNode, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 30, weight: .regular, numberOfLines: 1, font: .fontIcon, alignment: .center)
+            }
+
+        }
+        checkNode.style.width = ASDimensionMake(.points, 35)
+        checkNode.style.height = ASDimensionMake(.points, 35)
+
+        self.setNeedsLayout()
+    }
 
     init(message : IGRoomMessage, finalRoomType : IGRoom.IGType, finalRoom : IGRoom, isIncomming: Bool, bubbleImage: UIImage, isFromSameSender: Bool, shouldShowAvatar: Bool, indexPath: IndexPath) {
         self.finalRoom = finalRoom
@@ -160,6 +193,7 @@ class BaseBubbleNode: ASCellNode {
     
     
     private func setupView() {
+        print(IGGlobal.shouldMultiSelect)
         bubbleImgNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(isIncomming ? ThemeManager.currentTheme.ReceiveMessageBubleBGColor : ThemeManager.currentTheme.SendMessageBubleBGColor)
         shadowImgNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(.darkGray)
         shadowImgNode.alpha = 0.3
@@ -1301,12 +1335,9 @@ class BaseBubbleNode: ASCellNode {
                     stackHSpec.verticalAlignment = .bottom
 
                     
-                    stackHSpec.children = isIncomming ? [ASBGStack,stackSpec, imgNodeReply] : [imgNodeReply, stackSpec,ASBGStack]
+                    stackHSpec.children = isIncomming ? [checkNode,ASBGStack,stackSpec, imgNodeReply] : [checkNode,imgNodeReply, stackSpec,ASBGStack]
                     stackHSpec.style.flexShrink = 1.0
                     stackHSpec.style.flexGrow = 1.0
-                    
-
-                    
                     
                     let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 4) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 5), child: stackHSpec)
                     
@@ -1319,7 +1350,7 @@ class BaseBubbleNode: ASCellNode {
                     stackHSpec.spacing = 5
                     stackHSpec.verticalAlignment = .bottom
 
-                    stackHSpec.children = isIncomming ? [stackSpec, imgNodeReply] : [imgNodeReply, stackSpec]
+                    stackHSpec.children = isIncomming ? [checkNode,stackSpec, imgNodeReply] : [checkNode,imgNodeReply, stackSpec]
                     stackHSpec.style.flexShrink = 1.0
                     stackHSpec.style.flexGrow = 1.0
                     
@@ -1333,7 +1364,7 @@ class BaseBubbleNode: ASCellNode {
                     stackHSpec.spacing = 5
                     stackHSpec.verticalAlignment = .bottom
 
-                    stackHSpec.children = isIncomming ? [stackSpec, imgNodeReply] : [imgNodeReply, stackSpec]
+                    stackHSpec.children = isIncomming ? [checkNode,stackSpec, imgNodeReply] : [checkNode,imgNodeReply, stackSpec]
                     stackHSpec.style.flexShrink = 1.0
                     stackHSpec.style.flexGrow = 1.0
                     
@@ -1348,7 +1379,7 @@ class BaseBubbleNode: ASCellNode {
                     stackHSpec.spacing = 5
                     stackHSpec.verticalAlignment = .bottom
 
-                    stackHSpec.children = isIncomming ? [stackSpec, imgNodeReply] : [imgNodeReply, stackSpec]
+                    stackHSpec.children = isIncomming ? [checkNode,stackSpec, imgNodeReply] : [checkNode,imgNodeReply, stackSpec]
                     stackHSpec.style.flexShrink = 1.0
                     stackHSpec.style.flexGrow = 1.0
                     
@@ -1491,7 +1522,7 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
         switch gestureRecognizer.state {
         case .began:
             if !(IGGlobal.shouldMultiSelect) {
-                self.generalMessageDelegate?.didTapAndHoldOnMessage(cellMessage: message!)
+                self.generalMessageDelegate?.didTapAndHoldOnMessage(cellMessage: message!,index: index)
             }
         default:
             break

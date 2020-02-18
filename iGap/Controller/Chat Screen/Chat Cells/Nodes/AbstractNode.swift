@@ -75,11 +75,16 @@ class AbstractNode: ASCellNode {
     }
     override func didLoad() {
         super.didLoad()
-    }
-    func setupView() {
-        
         imgNode.contentMode = .scaleAspectFill
+        imgNode.shouldCacheImage = true
+        manageAttachment(file: message.attachment)
+
+    }
+    
+    func setupView() {
+        self.neverShowPlaceholders = true
         
+
         if let forwardedFrom = message.forwardedFrom {
             if let msg = forwardedFrom.message {
                 setupMessageText(msg)
@@ -141,7 +146,6 @@ class AbstractNode: ASCellNode {
             }
         }
         
-        manageAttachment(file: message.attachment)
     }
     
     private func setupMessageText(_ msg: String) {
@@ -250,6 +254,7 @@ class AbstractNode: ASCellNode {
             switch (message.type) {
             case .image, .imageAndText, .video, .videoAndText, .gif, .gifAndText,.voice, .audio, .audioAndText, .file, .fileAndText:
                 if !(attachment.isInvalidated) {
+                    
                     imgNode.setThumbnail(for: attachment)
                     
                     if attachment.status != .ready {

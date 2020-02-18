@@ -952,7 +952,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         switch gestureRecognizer.state {
         case .began:
             if !(IGGlobal.shouldMultiSelect) {
-                self.delegate?.didTapAndHoldOnMessage(cellMessage: realmRoomMessage!)
+//                self.delegate?.didTapAndHoldOnMessage(cellMessage: realmRoomMessage!)
             }
         default:
             break
