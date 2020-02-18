@@ -330,23 +330,18 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     
                     self.btnForward.isHidden = !isForward!
                     
-                        let visibleItems = self.tableViewNode.indexPathsForVisibleRows()
-//                        self.tableViewNode.reloadRows(at: visibleItems, with: .none)
                     IGGlobal.shouldMultiSelect = true
-
+                    
                     let allIndexes = IGGlobal.getAllIndexPathsInSection(section : 0,tblList: self.tableViewNode)
                     
                     for nodeIndex in allIndexes {
                         if let node = self.tableViewNode.nodeForRow(at: nodeIndex) as? BaseBubbleNode {
+                            if let nodeAbs = self.tableViewNode.nodeForRow(at: nodeIndex) as? AbstractNode {
+                                nodeAbs.EnableDisableInteractions(mode: true)
+                            }
                             node.makeAccessoryButton(index: index)
-//                            if let myObject = node.imgNode.image {
-//                                IGGlobal.visibleRowsCacheDic.setObject(myObject, forKey: String(nodeIndex.row) as NSString)
-//                            }
-
-
                         }
                     }
-//                    self.reloadCollection()
 
                     
                 }, completion: { (completed) in
@@ -379,6 +374,20 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     
                     self.reloadCollection()
                     self.btnTrash.isHidden = !isDelete!
+                    IGGlobal.shouldMultiSelect = true
+                    
+                    let allIndexes = IGGlobal.getAllIndexPathsInSection(section : 0,tblList: self.tableViewNode)
+                    
+                    for nodeIndex in allIndexes {
+                        if let node = self.tableViewNode.nodeForRow(at: nodeIndex) as? BaseBubbleNode {
+                            if let nodeAbs = self.tableViewNode.nodeForRow(at: nodeIndex) as? AbstractNode {
+                                nodeAbs.EnableDisableInteractions(mode: true)
+                            }
+                            node.makeAccessoryButton(index: index)
+                        }
+                    }
+
+                    
 
                     
                 }, completion: { (completed) in

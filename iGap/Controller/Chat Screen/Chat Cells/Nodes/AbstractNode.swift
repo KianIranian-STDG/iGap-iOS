@@ -145,7 +145,27 @@ class AbstractNode: ASCellNode {
                 indicatorViewAbs.style.preferredSize = CGSize(width: 50, height: 50)
             }
         }
+        if IGGlobal.shouldMultiSelect {
+            EnableDisableInteractions(mode: false)
+
+        } else {
+            EnableDisableInteractions(mode: true)
+
+        }
         
+    }
+    func EnableDisableInteractions(mode: Bool = true) {
+        if mode {
+            self.textNode.isUserInteractionEnabled = true
+            self.imgNode.isUserInteractionEnabled = true
+            self.btnStateNode.isUserInteractionEnabled = true
+            
+        } else {
+            self.textNode.isUserInteractionEnabled = false
+            self.imgNode.isUserInteractionEnabled = false
+            self.btnStateNode.isUserInteractionEnabled = false
+
+        }
     }
     
     private func setupMessageText(_ msg: String) {
@@ -331,7 +351,7 @@ extension AbstractNode: ASTextNodeDelegate {
         paragraphStyle.alignment = text.isRTL() ? .right : .left
         paragraphStyle.lineBreakMode = .byWordWrapping
         
-        let attributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font:UIFont.igFont(ofSize: 12), NSAttributedString.Key.paragraphStyle: paragraphStyle])
+        let attributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: ThemeManager.currentTheme.LabelColor, NSAttributedString.Key.font:UIFont.igFont(ofSize: 12), NSAttributedString.Key.paragraphStyle: paragraphStyle])
         
         
         for itm in activeItems {
