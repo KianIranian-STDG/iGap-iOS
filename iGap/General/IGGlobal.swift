@@ -1367,8 +1367,6 @@ extension AnimationView {
             if let path = attachment.localPath, IGGlobal.isFileExist(path: path) {
                 let animation = Animation.filepath(path, animationCache: LRUAnimationCache.sharedCache)
                 self.animation = animation
-                self.contentMode = .scaleAspectFit
-                self.backgroundBehavior = .pauseAndRestore
                 
                 self.play(fromProgress: 0, toProgress: 1, loopMode: LottieLoopMode.loop, completion: { (finished) in
                     if finished {
@@ -1404,6 +1402,15 @@ extension ASNetworkImageNode {
                 if let data = try? Data(contentsOf: path!) {
                     if let image = UIImage(data: data) {
                         self.image = image
+                    } else {
+                        if IGGlobal.isFileExist(path: url) {
+                            let tmpView = UIImageView()
+                            tmpView.sd_setImage(with: url, completed: nil)
+                            self.image = tmpView.image
+                        } else {
+                            throw NSError(domain: "sticker not exist", code: 1234, userInfo: nil)
+                        }
+
                     }
                 }
             } else {

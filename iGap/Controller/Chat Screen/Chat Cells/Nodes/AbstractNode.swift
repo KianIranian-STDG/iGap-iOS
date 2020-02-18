@@ -32,7 +32,6 @@ class AbstractNode: ASCellNode {
         
         return view
     }
-
     //UISlider for IGVOICE NODE
     let sliderNode = ASDisplayNode { () -> UIView in
         let view = UISlider()
@@ -75,9 +74,12 @@ class AbstractNode: ASCellNode {
     }
     override func didLoad() {
         super.didLoad()
-        imgNode.contentMode = .scaleAspectFill
-        imgNode.shouldCacheImage = true
-        manageAttachment(file: message.attachment)
+        if message.type != .sticker {
+            manageAttachment(file: message.attachment)
+            imgNode.contentMode = .scaleAspectFill
+            imgNode.shouldCacheImage = true
+
+        }
 
     }
     
@@ -207,25 +209,6 @@ class AbstractNode: ASCellNode {
     
     private func manageAttachment(file: IGFile? = nil){
         
-        if message.type == .sticker || message.additional?.dataType == AdditionalType.STICKER.rawValue {
-            
-            if let stickerStruct = IGHelperJson.parseStickerMessage(data: (message.additional?.data)!) {
-                //IGGlobal.imgDic[stickerStruct.token!] = self.imgMediaAbs
-                DispatchQueue.main.async {
-                    IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) { (file) in
-                        
-                        if (self.message.attachment?.name!.hasSuffix(".json") ?? false) {
-                            //                            self.animationView.setLiveSticker(for: file)
-                        } else {
-                            self.imgNode.setSticker(for: file)
-                            
-                        }
-                        
-                    }
-                }
-            }
-            return
-        }
         
         if var attachment = message.attachment , !(attachment.isInvalidated) {
             if let attachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {

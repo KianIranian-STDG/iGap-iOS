@@ -246,7 +246,7 @@ class BaseBubbleNode: ASCellNode {
         }else if finalType == .contact {
             bubbleNode = IGContactNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         } else if finalType == .sticker {
-            bubbleNode = IGStickerNormalNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
+            bubbleNode = IGStickerNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         } else if finalType == .wallet && msg!.wallet?.type == 2  { //CardToCard
             bubbleNode = IGCardToCardReceiptNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         }  else if finalType == .wallet && msg!.wallet?.type == 0  { //moneyTransfer
@@ -1217,7 +1217,7 @@ class BaseBubbleNode: ASCellNode {
             /************NORMAL STICKER NODE**************/
             /**************************************************************/
             
-        else if let _ = bubbleNode as? IGStickerNormalNode{
+        else if let _ = bubbleNode as? IGStickerNode{
             
             if (self.finalRoomType == .channel) {
                 
@@ -1485,12 +1485,12 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
                 
             }
             
-            if bubbleNode as? IGStickerNormalNode != nil {
+            if bubbleNode as? IGStickerNode != nil {
                 let onLocationClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
                 bubbleNode.view.addGestureRecognizer(onLocationClick)
                 
                 if !(IGGlobal.shouldMultiSelect) {
-                    (bubbleNode as! AbstractNode).isUserInteractionEnabled = true
+                    (bubbleNode).isUserInteractionEnabled = true
                 }
                 else {
                     (bubbleNode as! AbstractNode).isUserInteractionEnabled = false

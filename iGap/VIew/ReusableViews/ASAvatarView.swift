@@ -27,9 +27,6 @@ class ASAvatarView: ASDisplayNode {
         configure()
     }
     
-
-    
-    
     
     private func configure() {
         self.layer.cornerRadius = self.frame.width / 2.0
