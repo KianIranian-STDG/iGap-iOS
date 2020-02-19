@@ -787,6 +787,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        initNotificationsNewChatView()
+//        notification(register: true)
+        self.addNotificationObserverForTapOnStatusBar()
+        
         if self.room!.isInvalidated {
             print("VVV || popViewController view will appear")
             self.navigationController?.popViewController(animated: true)
@@ -818,10 +822,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
             self.createTopMusicPlayer()
         }
-        
-        initNotificationsNewChatView()
-        notification(register: true)
-        self.addNotificationObserverForTapOnStatusBar()
         
     }
     
@@ -2100,17 +2100,17 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         let keyboardHeight = keyboardSize?.height
         let window = UIApplication.shared.keyWindow!
         
-        if #available(iOS 11.0, *){
-            self.messageTextViewBottomConstraint.constant = keyboardHeight!
-        }
-        else {
-            self.messageTextViewBottomConstraint.constant = view.safeAreaInsets.bottom
-        }
-        UIView.animate(withDuration: 0.5){
-            
-            self.view.layoutIfNeeded()
-            
-        }
+//        if #available(iOS 11.0, *){
+//            self.messageTextViewBottomConstraint.constant = keyboardHeight!
+//        }
+//        else {
+//            self.messageTextViewBottomConstraint.constant = view.safeAreaInsets.bottom
+//        }
+//        UIView.animate(withDuration: 0.5){
+//            
+//            self.view.layoutIfNeeded()
+//            
+//        }
         
         if MoneyInputModalIsActive {
             if let MoneyInput = MoneyInputModal {
