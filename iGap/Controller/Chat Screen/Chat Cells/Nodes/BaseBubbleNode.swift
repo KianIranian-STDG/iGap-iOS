@@ -71,12 +71,8 @@ class BaseBubbleNode: ASCellNode {
         }
         self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
         if IGGlobal.shouldMultiSelect {
-            print("IS MULTI SELECT MODE")
             makeAccessoryButton(index: [10000,10000])
-        } else {
-            print("ISNOT MULTI SELECT MODE")
-
-        }
+        } else {}
 
     }
     private func makeSwipeToReply() {// Telegram Func
@@ -150,7 +146,7 @@ class BaseBubbleNode: ASCellNode {
     }
     
     public func makeAccessoryButton(index: IndexPath) {
-        print("CREATED ACCESSORY BUTTON")
+//        print("CREATED ACCESSORY BUTTON")
         addSubnode(checkNode)
         if index == self.index {
             checkNode.view.tag = 002
@@ -193,12 +189,9 @@ class BaseBubbleNode: ASCellNode {
     
     
     private func setupView() {
-        print(IGGlobal.shouldMultiSelect)
         bubbleImgNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(isIncomming ? ThemeManager.currentTheme.ReceiveMessageBubleBGColor : ThemeManager.currentTheme.SendMessageBubleBGColor)
         shadowImgNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(.darkGray)
         shadowImgNode.alpha = 0.3
-
-        
         
         if !(finalRoomType == .chat) {
             if let name = message!.authorUser?.userInfo {
@@ -210,19 +203,18 @@ class BaseBubbleNode: ASCellNode {
                 
             }
         }
-        
+
         var msg = message
         
         if let repliedMessage = message?.repliedTo {
             msg = repliedMessage
 
-
         } else if let forwardedFrom = message?.forwardedFrom {
             msg = forwardedFrom
         } else {
             msg = message
-            
         }
+        
         let finalType : IGRoomMessageType = msg!.type
 
         if finalType == .text {
@@ -252,23 +244,17 @@ class BaseBubbleNode: ASCellNode {
         }  else if finalType == .wallet && msg!.wallet?.type == 0  { //moneyTransfer
                   bubbleNode = IGMoneytransferReceiptNode(message: msg!, isIncomming: isIncomming, finalRoomType: self.finalRoomType, finalRoom: self.finalRoom)
         }
-
-
-        
-        
-        
-        
         
         if let time = message!.creationTime {
             txtTimeNode.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
             IGGlobal.makeAsyncText(for: txtTimeNode, with: time.convertToHumanReadable(), textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont, alignment: .center)
             
         }
-        
+
         if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText || message!.type == .gif ||  message!.type == .gifAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice || message!.type == .location || message!.type == .video || message!.type == .videoAndText || message!.type == .audio ||  message!.type == .audioAndText || message!.type == .contact || message!.type == .sticker || message!.type == .wallet {
+
             if(isIncomming){
-                
-                
+
                 if  self.finalRoom.type == .group {
                     if self.finalRoom.type == .group {
 
@@ -288,9 +274,9 @@ class BaseBubbleNode: ASCellNode {
                 
                 //set size of status marker to zero for incomming messages
                 txtStatusNode.style.preferredSize = CGSize.zero
-                
-                
+
             }else{
+
                 if self.finalRoom.type == .group {
                     avatarImageViewNode.style.preferredSize = CGSize.zero
                     avatarBtnViewNode.style.preferredSize = CGSize.zero
@@ -298,7 +284,6 @@ class BaseBubbleNode: ASCellNode {
                 }
                 manageMessageStatus()
 
-                
             }
             //Add SubNodes
             if finalType == .sticker {
@@ -350,9 +335,9 @@ class BaseBubbleNode: ASCellNode {
                 
             }
 
-            
         }
         if self.finalRoom.type == .channel {
+
             if message!.type == .text ||  message!.type == .image ||  message!.type == .imageAndText || message!.type == .gif ||  message!.type == .gifAndText ||  message!.type == .file ||  message!.type == .fileAndText || message!.type == .voice  || message!.type == .video || message!.type == .videoAndText || message!.type == .audio ||  message!.type == .audioAndText   {
                 
                     self.makeLikeDislikeIcons()
@@ -410,6 +395,9 @@ class BaseBubbleNode: ASCellNode {
      */
     
     /* this method update message just for channel */
+    func updateVoteActions() {
+//        manageVoteActions()
+    }
     private func manageVoteActions(){
         
         if self.message!.channelExtra != nil {

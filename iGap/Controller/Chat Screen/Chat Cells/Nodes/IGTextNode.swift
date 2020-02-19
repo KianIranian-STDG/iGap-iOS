@@ -21,7 +21,11 @@ class IGTextNode: AbstractNode {
         setupView()
     }
     
-    
+    deinit {
+        print("CHECK DEINIT FOR: \(self) REMOVED")
+        print("CHECK DEINIT FOR: \(ASbuttonActionDic) REMOVED" )
+        print("CHECK DEINIT FOR: \(ASbuttonViewDic) REMOVED" )
+    }
     override func setupView() {
         super.setupView()
 

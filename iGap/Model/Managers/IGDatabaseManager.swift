@@ -57,7 +57,6 @@ class IGDatabaseManager: NSObject {
         if databaseThread == nil {
             databaseThread = DispatchQueue(label: "serial.queue.database", qos: .userInteractive)
         }
-        
         databaseThread!.async {
             block()
         }

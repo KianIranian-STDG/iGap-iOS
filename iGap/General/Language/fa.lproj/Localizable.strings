@@ -6553,7 +6553,7 @@ Page 4 introduce app */
 "via" = "توسط";
 "sms_and_igap" = "پیامک و آیگپ";
 "dialog_done" = "تایید";
-"your_profile" = "جساب کاربری شما";
+"your_profile" = "حساب کاربری شما";
 "two_step_verficatiion_header" = "شما تایید دومرحله ای را انتخاب کرده اید.برای همین حساب کاربری شما توسط رمزی دوم ایمن شده است";
 "show_and_login_using_qr_title" = "این کیوآر کد را توسط دستگاه دیگر خود به منظور ورود به حساب کاربری اسکن نمایید";
 "msg_security_two_step_verification_hint" = "به منظور بازیابی حساب خود لطفا به سوالات زیر پاسخ بدهید";

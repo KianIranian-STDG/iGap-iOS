@@ -327,7 +327,6 @@ class IGNodeHelperMusicPlayer {
     }
     ///Pause-Play Button
     private func createPausePlayButton(btn: UIButton!,view:UIView!)  {
-//        print("CHECK SONG STATE:",IGGlobal.songState)
         switch IGGlobal.songState {
         case .ended :
             btn.setTitle("", for: .normal)

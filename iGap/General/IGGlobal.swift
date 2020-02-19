@@ -1520,11 +1520,16 @@ extension ASNetworkImageNode {
             }
             
             if fileSizeKB < MAX_IMAGE_SIZE && showBestPreview {
-                if let data = try? Data(contentsOf: attachment.localUrl!) {
-                    if let image = UIImage(data: data) {
-                        self.image = image
+                print("CHECK THRED1-1:",Thread.isMainThread)
+                DispatchQueue.global(qos:.userInteractive).async {
+                    
+                    if let data = try? Data(contentsOf: attachment.localUrl!) {
+                        if let image = UIImage(data: data) {
+                            self.image = image
+                        }
                     }
                 }
+                print("CHECK THRED1:",Thread.isMainThread)
                 
             } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
                 
@@ -1547,16 +1552,21 @@ extension ASNetworkImageNode {
                     }
                     
                     if image != nil {
-
-                        if let data = try? Data(contentsOf: path!) {
-                            if let image = UIImage(data: data) {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                        DispatchQueue.global(qos:.userInteractive).async {
+                            
+                            if let data = try? Data(contentsOf: path!) {
+                                if let image = UIImage(data: data) {
+                                    print("CHECK THRED2-1:",Thread.isMainThread)
+                                    
+                                    //                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                                     
                                     self.image = image
+                                    //                                }
                                 }
                             }
                         }
-                        
+                        print("CHECK THRED2:",Thread.isMainThread)
+
                     } else {
                         throw NSError(domain: "image not exist", code: 1234, userInfo: nil)
                     }
@@ -1575,13 +1585,20 @@ extension ASNetworkImageNode {
                             }
                             
                             if image != nil {
-                                if let data = try? Data(contentsOf: attachment.localUrl!) {
-                                    if let image = UIImage(data: data) {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                                            self.image = image
+                                DispatchQueue.global(qos:.userInteractive).async {
+                                    
+                                    if let data = try? Data(contentsOf: attachment.localUrl!) {
+                                        if let image = UIImage(data: data) {
+                                            print("CHECK THRED3-1:",Thread.isMainThread)
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                                self.image = image
+                                            }
                                         }
                                     }
                                 }
+                                print("CHECK THRED3:",Thread.isMainThread)
+
                             }
                         }
                     }, failure: {})
@@ -1590,16 +1607,21 @@ extension ASNetworkImageNode {
                 switch attachment.type {
                 case .image:
                     if IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size) {
-
-                        if let data = try? Data(contentsOf: attachment.localUrl!) {
-                            if let image = UIImage(data: data) {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                        DispatchQueue.global(qos:.userInteractive).async {
+                            
+                            if let data = try? Data(contentsOf: attachment.localUrl!) {
+                                if let image = UIImage(data: data) {
+                                    print("CHECK THRED4-1:",Thread.isMainThread)
                                     
-                                    self.image = image
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                        
+                                        self.image = image
+                                    }
                                 }
                             }
                         }
-                        
+                        print("CHECK THRED4:",Thread.isMainThread)
+
                     } else {
                         self.image = UIImage(named:"igap_default_image")
                     }
@@ -1608,14 +1630,20 @@ extension ASNetworkImageNode {
                     break
                 case .video:
                     if IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size) {
+                        DispatchQueue.global(qos:.userInteractive).async {
 
-                        if let data = try? Data(contentsOf: attachment.localUrl!) {
-                            if let image = UIImage(data: data) {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                            if let data = try? Data(contentsOf: attachment.localUrl!) {
+                                if let image = UIImage(data: data) {
+                                    print("CHECK THRED5-1:",Thread.isMainThread)
                                     
-                                    self.image = image
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                        
+                                        self.image = image
+                                    }
                                 }
                             }
+                            print("CHECK THRED5:",Thread.isMainThread)
+
                         }
                         
                     } else {

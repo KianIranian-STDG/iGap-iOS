@@ -372,7 +372,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     self.btnAttachmentNew.isHidden = true
                     
                     
-                    self.reloadCollection()
+//                    self.reloadCollection()
                     self.btnTrash.isHidden = !isDelete!
                     IGGlobal.shouldMultiSelect = true
                     
@@ -431,7 +431,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.btnAttachmentNew.isHidden = false
                 
                 
-                self.reloadCollection()
+//                self.reloadCollection()
                 self.btnTrash.isHidden = true
 
                 
@@ -1154,7 +1154,18 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             } else if let onChannelGetMessageState = result?.object as? (action: ChatMessageAction, roomId: Int64), onChannelGetMessageState.action == ChatMessageAction.channelGetMessageState {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     if self?.room?.id == onChannelGetMessageState.roomId {
-                        self?.reloadCollection()
+                        print("RELOAD COLLECTION DID CALLED")
+//                        self?.reloadCollection()
+                        let allIndexes = IGGlobal.getAllIndexPathsInSection(section : 0,tblList: self!.tableViewNode)
+                        
+                        for nodeIndex in allIndexes {
+                            if let node = self!.tableViewNode.nodeForRow(at: nodeIndex) as? BaseBubbleNode {
+                      
+                                node.updateVoteActions()
+                            }
+                        }
+                        print("RELOAD COLLECTION DID CALLED")
+
                     }
                 }
                 
@@ -5011,7 +5022,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         } else {
             self.scrollToBottomContainerView.isHidden = true
         }
-        
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -6489,17 +6499,18 @@ extension IGMessageViewController {
     
     /* scroll to bottom as default for send message (Text Message/File Message) */
     func addChatItem(realmRoomMessages: [IGRoomMessage], direction: IGPClientGetRoomHistory.IGPDirection, scrollToBottom: Bool = true){
+
         if realmRoomMessages.count == 0 || self.room!.isInvalidated {
             return
         }
-        
+
         if direction == .down {
             if self.messageLoader.getBiggestMessageId() != 0 && self.messageLoader.getBiggestMessageId() > realmRoomMessages[realmRoomMessages.count-1].id {
                 return
             }
             self.messageLoader.setBiggestMessage(biggestMessage: realmRoomMessages[realmRoomMessages.count-1])
         }
-        
+
         if scrollToBottom && !self.messageLoader.allowAddToView() {
             // in this state (mabye all stats) when "scrollToBottom" is true, "realmRoomMessages" just has one item
             if let authorHash = realmRoomMessages[0].authorHash, authorHash == IGAppManager.sharedManager.authorHash() {
@@ -6509,7 +6520,7 @@ extension IGMessageViewController {
                 return
             }
         }
-        
+
         if direction == .up { // Up direction
             if self.messageLoader.isFirstLoadUp() {
                 
@@ -6547,6 +6558,7 @@ extension IGMessageViewController {
                 }
             }
         } else { // Down Direction
+
             if self.messageLoader.isFirstLoadDown() {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
                     self.appendMessageArray(realmRoomMessages, direction)

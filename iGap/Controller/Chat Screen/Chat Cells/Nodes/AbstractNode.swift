@@ -82,7 +82,9 @@ class AbstractNode: ASCellNode {
         }
 
     }
-    
+    deinit {
+        print("ABSTRACT NODE DEINITED")
+    }
     func setupView() {
         self.neverShowPlaceholders = true
         

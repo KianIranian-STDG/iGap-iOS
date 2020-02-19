@@ -594,7 +594,6 @@ class IGMessageLoader {
                 }
                 
                 onMessageReceive(realmRoomMessages.toArray(), direction)
-                
             }, error: { [weak self] (errorCode, requestWrapper) in
                 
                 guard let mainSelf = self else {
@@ -1018,7 +1017,6 @@ class IGMessageLoader {
                                     mainSelf.setGap(messageId: finalMessageId, direction: roomHistoryRequest.igpDirection)
                                 }
                             }
-                            
                             success(roomHistoryRequest.igpRoomID, startMessageId, endMessageId, gapReached, jumpOverLocal, roomHistoryRequest.igpDirection, onMessageReceive)
                         }
                     })

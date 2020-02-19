@@ -54,7 +54,7 @@ class IGLogNode: ASCellNode {
     }
     func setupView() {
         addSubnode(self.bgNode)
-        
+
         if self.logType == .progress {
             addSubnode(self.progressNode)
 
@@ -148,14 +148,12 @@ class IGLogNode: ASCellNode {
 
         if self.logType == .progress {
             let centerBoxText = ASCenterLayoutSpec(centeringOptions: .XY, child: progressNode)
-            let backBox = ASBackgroundLayoutSpec(child: centerBoxText, background: self.bgNode)
-            backBox.style.flexGrow = 0.0
 
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
             top: 10,
             left: 0,
             bottom: 10,
-            right: 0), child: backBox)
+            right: 0), child: centerBoxText)
                 
             
             return insetSpec

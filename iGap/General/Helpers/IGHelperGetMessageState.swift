@@ -21,32 +21,35 @@ class IGHelperGetMessageState: UICollectionViewCell {
     
     /* add messageId to list for send to server for update to latest message state */
     public func getMessageState(roomId: Int64, messageId: Int64) {
-        
-        if getViews.contains(messageId) {
-            return
+        syncroniseViewMessageQueue.sync(flags: .barrier) {
+            if getViews.contains(messageId) {
+                return
+            }
         }
-        
         if !isWaiting {
             checkTimeOut()
         }
-        
-        getViews.append(messageId)
-        
-        if getViewsMessage[roomId] == nil {
-            syncroniseViewMessageQueue.sync(flags: .barrier) {
+        syncroniseViewMessageQueue.sync(flags: .barrier) {
+
+            getViews.append(messageId)
+        }
+        syncroniseViewMessageQueue.sync(flags: .barrier) {
+            
+            if getViewsMessage[roomId] == nil {
                 self.getViewsMessage[roomId] = [messageId]
+                
+                
             }
+        }
+        syncroniseViewMessageQueue.sync(flags: .barrier) {
             
-        } else {
-            var messageIdList: [Int64]?
-            syncroniseViewMessageQueue.sync(flags: .barrier) {
-                messageIdList = getViewsMessage[roomId]
-            }
-            
-            if !(messageIdList?.contains(messageId))! {
-                messageIdList?.append(messageId)
-                syncroniseViewMessageQueue.sync(flags: .barrier) {
-                    self.getViewsMessage[roomId] = messageIdList
+            if getViewsMessage[roomId] != nil {
+                var messageIdList: [Int64]?
+                    messageIdList = getViewsMessage[roomId]
+                
+                if !(messageIdList?.contains(messageId))! {
+                    messageIdList?.append(messageId)
+                        self.getViewsMessage[roomId] = messageIdList                        
                 }
             }
         }
