@@ -54,6 +54,11 @@ class IGRoomMessage: Object {
     @objc dynamic var temporaryId:        String?
     @objc dynamic var randomId:           Int64                           = -1
 
+    override func isEqual(_ object: Any?) -> Bool {
+        return self.id == (object as? IGRoomMessage)?.id
+    }
+    
+    
     var status: IGRoomMessageStatus {
         get {
             if let s = IGRoomMessageStatus(rawValue: statusRaw) {

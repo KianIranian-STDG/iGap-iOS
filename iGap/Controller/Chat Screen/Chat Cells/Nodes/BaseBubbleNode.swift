@@ -1486,35 +1486,19 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
                 
             }
             
-            //            if animationView != nil {
-            //                let tap2 = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
-            //                animationView?.addGestureRecognizer(tap2)
-            //                if !(IGGlobal.shouldMultiSelect) {
-            //                    animationView?.isUserInteractionEnabled = true
-            //                }
-            //                else {
-            //                    animationView?.isUserInteractionEnabled = false
-            //                }
-            //            }
-            //            if btnReturnToMessageAbs != nil {
-            //                let tapReturnToMessage = UITapGestureRecognizer(target: self, action: #selector(didTapOnReturnToMessage(_:)))
-            //                btnReturnToMessageAbs?.addGestureRecognizer(tapReturnToMessage)
-            //            }
-            //
-            //            let statusGusture = UITapGestureRecognizer(target: self, action: #selector(didTapOnFailedStatus(_:)))
-            //            txtStatusAbs?.addGestureRecognizer(statusGusture)
-            //            txtStatusAbs?.isUserInteractionEnabled = true
-            //
-            //            let tap5 = UITapGestureRecognizer(target: self, action: #selector(didTapOnSenderAvatar(_:)))
-            //            avatarViewAbs?.addGestureRecognizer(tap5)
-            //
-            //            let tapVoteUp = UITapGestureRecognizer(target: self, action: #selector(didTapOnVoteUp(_:)))
-            //            txtVoteUpAbs?.addGestureRecognizer(tapVoteUp)
-            //            txtVoteUpAbs?.isUserInteractionEnabled = true
-            //
-            //            let tapVoteDown = UITapGestureRecognizer(target: self, action: #selector(didTapOnVoteDown(_:)))
-            //            txtVoteDownAbs?.addGestureRecognizer(tapVoteDown)
-            //            txtVoteDownAbs?.isUserInteractionEnabled = true
+//            if btnReturnToMessageAbs != nil {
+//                let tapReturnToMessage = UITapGestureRecognizer(target: self, action: #selector(didTapOnReturnToMessage(_:)))
+//                btnReturnToMessageAbs?.addGestureRecognizer(tapReturnToMessage)
+//            }
+            
+            txtStatusNode.addTarget(self, action: #selector(didTapOnFailedStatus(_:)), forControlEvents: .touchUpInside)
+
+            lblLikeIcon.addTarget(self, action: #selector(didTapOnVoteUp(_:)), forControlEvents: .touchUpInside)
+            lblLikeText.addTarget(self, action: #selector(didTapOnVoteUp(_:)), forControlEvents: .touchUpInside)
+            
+            lblDisLikeIcon.addTarget(self, action: #selector(didTapOnVoteDown(_:)), forControlEvents: .touchUpInside)
+            lblDisLikeText.addTarget(self, action: #selector(didTapOnVoteDown(_:)), forControlEvents: .touchUpInside)
+            
             
         }
     }
@@ -1573,45 +1557,45 @@ extension BaseBubbleNode: UIGestureRecognizerDelegate {
         
     }
     
-    @objc func didTapOnSenderAvatar(_ gestureRecognizer: UITapGestureRecognizer) {
-        if !(IGGlobal.shouldMultiSelect) {
-            self.generalMessageDelegate?.didTapOnSenderAvatar(cellMessage: message!)
-        }
-    }
+//    @objc func didTapOnSenderAvatar(_ gestureRecognizer: UITapGestureRecognizer) {
+//        if !(IGGlobal.shouldMultiSelect) {
+//            self.generalMessageDelegate?.didTapOnSenderAvatar(cellMessage: message!)
+//        }
+//    }
     
-    //    @objc func didTapOnVoteUp(_ gestureRecognizer: UITapGestureRecognizer) {
-    //        var messageVote: IGRoomMessage! = message
-    //        if let forward = message!.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
-    //            messageVote = forward
-    //        }
-    //        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsUp)
-    //    }
-    //
-    //    @objc func didTapOnVoteDown(_ gestureRecognizer: UITapGestureRecognizer) {
-    //        var messageVote: IGRoomMessage! = message
-    //        if let forward = message!.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
-    //            messageVote = forward
-    //        }
-    //        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsDown)
-    //    }
-    //
-    //    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-    //        return true
-    //    }
-    //
-    //    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-    //        if pan != nil {
-    //            let direction = pan.direction(in: superview!)
-    //            if direction.contains(.Left) {
-    //                return abs((pan.velocity(in: pan.view)).x) > abs((pan.velocity(in: pan.view)).y)
-    //            } else {
-    //                return false
-    //            }
-    //        }
-    //        else {
-    //            return false
-    //        }
-    //    }
+    @objc func didTapOnVoteUp(_ gestureRecognizer: UITapGestureRecognizer) {
+        var messageVote: IGRoomMessage! = message
+        if let forward = message!.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
+            messageVote = forward
+        }
+        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsUp)
+    }
+
+    @objc func didTapOnVoteDown(_ gestureRecognizer: UITapGestureRecognizer) {
+        var messageVote: IGRoomMessage! = message
+        if let forward = message!.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
+            messageVote = forward
+        }
+        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsDown)
+    }
+
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+//        return true
+//    }
+//
+//    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+//        if pan != nil {
+//            let direction = pan.direction(in: superview!)
+//            if direction.contains(.Left) {
+//                return abs((pan.velocity(in: pan.view)).x) > abs((pan.velocity(in: pan.view)).y)
+//            } else {
+//                return false
+//            }
+//        }
+//        else {
+//            return false
+//        }
+//    }
     
     
     
