@@ -209,7 +209,7 @@ class BaseBubbleNode: ASCellNode {
         var msg = message
         
         if let repliedMessage = message?.repliedTo {
-            msg = repliedMessage
+            msg = message
 
         } else if let forwardedFrom = message?.forwardedFrom {
             msg = forwardedFrom
