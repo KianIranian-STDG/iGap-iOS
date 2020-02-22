@@ -72,6 +72,7 @@ class AbstractNode: ASCellNode {
 
         
     }
+
     override func didLoad() {
         super.didLoad()
         if message.type != .sticker {

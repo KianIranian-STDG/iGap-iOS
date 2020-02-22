@@ -34,7 +34,14 @@ class IGStickerNode: ASCellNode {
         super.init()
         setupView()
     }
-    
+    deinit {
+        print("CHECK DEINIT FOR STICKERNODE SELF: \(self) REMOVED")
+        print("CHECK DEINIT FOR STICKERNODE LIVESTICKERVIEW: \(LiveStickerView) REMOVED" )
+        print("CHECK DEINIT FOR STICKERNODE NORMALGIFVIEW: \(NormalGiftStickerView) REMOVED" )
+        print("CHECK DEINIT FOR STICKERNODE FINALROOM: \(finalRoom) REMOVED" )
+        print("CHECK DEINIT FOR STICKERNODE MESSAGE: \(message) REMOVED" )
+        print("CHECK DEINIT FOR STICKERNODE ISINCOMMING: \(isIncomming) REMOVED" )
+    }
     func setupView() {
         
 

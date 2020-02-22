@@ -17,7 +17,13 @@ class IGImageNode: AbstractNode {
 
     }
 
-    
+    deinit {
+        imgNode.removeFromSupernode()
+        textNode.removeFromSupernode()
+        print("CHECK DEINIT FOR IMAGENODE SELF: \(self) REMOVED")
+        print("CHECK DEINIT FOR IMAGENODE IMAGE: \(imgNode) REMOVED" )
+        print("CHECK DEINIT FOR IMAGENODE TEXT: \(textNode) REMOVED" )
+    }
     override func setupView() {
         
         super.setupView()

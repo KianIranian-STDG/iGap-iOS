@@ -186,7 +186,9 @@ class BaseBubbleNode: ASCellNode {
         setupView()
         
     }
-    
+    deinit {
+        print("Deinit BASEBUBBLE")
+    }
     
     private func setupView() {
         bubbleImgNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(isIncomming ? ThemeManager.currentTheme.ReceiveMessageBubleBGColor : ThemeManager.currentTheme.SendMessageBubleBGColor)
