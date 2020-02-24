@@ -850,6 +850,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
         }
         self.view.endEditing(true)
+        
+        self.messageTextViewBottomConstraint.constant =  0
+        self.view.layoutIfNeeded()
+        
         if !room!.isInvalidated {
             IGRecentsTableViewController.visibleChat[(room?.id)!] = false
         }
