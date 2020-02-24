@@ -6328,3 +6328,5 @@
 "Theme_Day_Text" = "journée";
 "Theme_Night_Text" = "Nuit";
 "Theme_Icon_Appp" = "icône de l'application";
+"topup_message" = "Message de recharge";
+"bill_message" = "Message de Bill";

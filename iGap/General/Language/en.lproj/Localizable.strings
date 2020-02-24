@@ -6680,3 +6680,5 @@ TODO:// complete */
 "Theme_Day_Text" = "Day";
 "Theme_Night_Text" = "Night";
 "Theme_Icon_Appp" = "App Icon";
+"topup_message" = "Top Up Message";
+"bill_message" = "Bill Message";

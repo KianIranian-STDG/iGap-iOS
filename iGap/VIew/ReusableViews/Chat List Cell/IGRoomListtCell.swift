@@ -578,83 +578,75 @@ class IGRoomListtCell: BaseTableViewCell {
                     }
                     
                 }
-                if let forwarded = lastMessage.forwardedFrom {
-                    let type = forwarded.type
-                    
-                    switch type {
-                    case .text:
-                        self.lastMsgLabel.text = forwarded.message
-                        
-                    case .audioAndText, .gifAndText, .fileAndText, .imageAndText, .videoAndText:
-                        self.lastMsgLabel.text = forwarded.message
-                    case .image:
-                        self.lastMsgLabel.text = IGStringsManager.ImageMessage.rawValue.localized
-                    case .video:
-                        self.lastMsgLabel.text = IGStringsManager.VideoMessage.rawValue.localized
-                    case .gif:
-                        self.lastMsgLabel.text = IGStringsManager.GifMessage.rawValue.localized
-                    case .audio:
-                        self.lastMsgLabel.text = IGStringsManager.AudioMessage.rawValue.localized
-                    case .voice:
-                        self.lastMsgLabel.text = IGStringsManager.VoiceMessage.rawValue.localized
-                    case .file:
-                        self.lastMsgLabel.text = IGStringsManager.FileMessage.rawValue.localized
-                    case .sticker:
-                        self.lastMsgLabel.text = IGStringsManager.StickerMessage.rawValue.localized
-                    case .wallet:
-                        if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
-                            self.lastMsgLabel.text = IGStringsManager.WalletMessage.rawValue.localized
-                        } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
-                            self.lastMsgLabel.text = IGStringsManager.PaymentMessage.rawValue.localized
-                        } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
-                            self.lastMsgLabel.text = IGStringsManager.CardToCardMessage.rawValue.localized
-                        }
-                    default:
-                        self.lastMsgLabel.text = "UNKNOWN_MESSAGE"
-                        break
-                    }
-                    
-                } else {
-                    switch lastMessage.type {
-                    case .audioAndText, .gifAndText, .fileAndText, .imageAndText, .videoAndText, .text:
-                        self.lastMsgLabel.text = lastMessage.message
-                    case .image:
-                        self.lastMsgLabel.text = IGStringsManager.ImageMessage.rawValue.localized
-                    case .video:
-                        self.lastMsgLabel.text = IGStringsManager.VideoMessage.rawValue.localized
-                    case .gif:
-                        self.lastMsgLabel.text = IGStringsManager.GifMessage.rawValue.localized
-                    case .audio:
-                        self.lastMsgLabel.text = IGStringsManager.AudioMessage.rawValue.localized
-                    case .voice:
-                        self.lastMsgLabel.text = IGStringsManager.VoiceMessage.rawValue.localized
-                    case .file:
-                        self.lastMsgLabel.text = IGStringsManager.FileMessage.rawValue.localized
-                    case .sticker:
-                        self.lastMsgLabel.text = IGStringsManager.StickerMessage.rawValue.localized
-                    case .wallet:
-                        if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
-                            self.lastMsgLabel.text = IGStringsManager.WalletMessage.rawValue.localized
-                        } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
-                            self.lastMsgLabel.text = IGStringsManager.PaymentMessage.rawValue.localized
-                        } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
-                            self.lastMsgLabel.text = IGStringsManager.CardToCardMessage.rawValue.localized
-                        }
-                    default:
-                        self.lastMsgLabel.text = "UNKNOWN_MESSAGE"
-                        break
-                    }
+                
+                var finalMessage = lastMessage
+                if let forwardMessage = lastMessage.forwardedFrom {
+                    finalMessage = forwardMessage
                 }
-                if lastMessage.type == .log {
+                
+                switch finalMessage.type {
+                case .audioAndText, .gifAndText, .fileAndText, .imageAndText, .videoAndText, .text:
+                    self.lastMsgLabel.text = finalMessage.message
+                    break
+                    
+                case .image:
+                    self.lastMsgLabel.text = IGStringsManager.ImageMessage.rawValue.localized
+                    break
+                    
+                case .video:
+                    self.lastMsgLabel.text = IGStringsManager.VideoMessage.rawValue.localized
+                    break
+                    
+                case .gif:
+                    self.lastMsgLabel.text = IGStringsManager.GifMessage.rawValue.localized
+                    break
+                    
+                case .audio:
+                    self.lastMsgLabel.text = IGStringsManager.AudioMessage.rawValue.localized
+                    break
+                    
+                case .voice:
+                    self.lastMsgLabel.text = IGStringsManager.VoiceMessage.rawValue.localized
+                    break
+                    
+                case .file:
+                    self.lastMsgLabel.text = IGStringsManager.FileMessage.rawValue.localized
+                    break
+                    
+                case .sticker:
+                    self.lastMsgLabel.text = IGStringsManager.StickerMessage.rawValue.localized
+                    break
+                    
+                case .log:
                     self.lastMsgLabel.text = IGRoomMessageLog.textForLogMessage(lastMessage)
-                } else if lastMessage.type == .contact {
+                    break
+                    
+                case .contact:
                     self.lastMsgLabel.text = IGStringsManager.ContactMessage.rawValue.localized
-                } else if lastMessage.type == .location {
+                    break
+                    
+                case .location:
                     self.lastMsgLabel.text = IGStringsManager.LocationMessage.rawValue.localized
+                    break
+                    
+                case .wallet:
+                    if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
+                        self.lastMsgLabel.text = IGStringsManager.WalletMessage.rawValue.localized
+                    } else if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
+                        self.lastMsgLabel.text = IGStringsManager.PaymentMessage.rawValue.localized
+                    } else if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
+                        self.lastMsgLabel.text = IGStringsManager.CardToCardMessage.rawValue.localized
+                    } else if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.topup.rawValue {
+                        self.lastMsgLabel.text = IGStringsManager.TopupMessage.rawValue.localized
+                    } else if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.bill.rawValue {
+                        self.lastMsgLabel.text = IGStringsManager.BillMessage.rawValue.localized
+                    }
+                default:
+                    self.lastMsgLabel.text = IGStringsManager.UnknownMessage.rawValue.localized
+                    break
                 }
             } else {
                 self.timeLabel.text = ""
-                
                 self.lastMsgLabel.text  = ""
             }
             if let lastMessage = room.lastMessage {
