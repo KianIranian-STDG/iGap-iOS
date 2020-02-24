@@ -48,6 +48,7 @@ enum IGStringsManager : String {
     case ContactSaving = "contacts_saving"
     case ContactDelete = "to_delete_contact"
     case Edit = "edit"
+    case UnknownMessage = "unknown_message"
     
     //MARK: -NEWS
     case NewsDetail =  "news_details"
@@ -464,6 +465,8 @@ enum IGStringsManager : String {
     case WalletMessage = "wallet_message"
     case CardToCardMessage = "card_to_card_message"
     case PaymentMessage = "payment_message"
+    case TopupMessage = "topup_message"
+    case BillMessage = "bill_message"
     case ChannelCreated = "channel_created"
     case GroupLink = "group_link"
     case RoomCreated = "room_created"

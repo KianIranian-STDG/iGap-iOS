@@ -6706,3 +6706,5 @@ TODO:// translate */
 "Theme_Day_Text" = "يوم";
 "Theme_Night_Text" = "ليل";
 "Theme_Icon_Appp" = "أيقونة التطبيق";
+"topup_message" = "إيصال استلام الهاتف";
+"bill_message" = "إيصال دفع الفواتير";
