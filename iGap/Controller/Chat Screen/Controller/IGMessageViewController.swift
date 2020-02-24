@@ -5253,6 +5253,18 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                 cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
                 cell.delegate = self
                 return cell
+            } else if message.wallet?.type == IGPRoomMessageWallet.IGPType.bill.rawValue {
+                let cell: BillCell = collectionView.dequeueReusableCell(withReuseIdentifier: BillCell.cellReuseIdentifier(), for: indexPath) as! BillCell
+                let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+                cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+                cell.delegate = self
+                return cell
+            } else if message.wallet?.type == IGPRoomMessageWallet.IGPType.topup.rawValue {
+                let cell: TopupCell = collectionView.dequeueReusableCell(withReuseIdentifier: TopupCell.cellReuseIdentifier(), for: indexPath) as! TopupCell
+                let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+                cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+                cell.delegate = self
+                return cell
             }
             
         } else if message.type == .log {
@@ -5273,12 +5285,14 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             return cell
         } else {
             let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
+            let _ = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
             cell.setUnknownMessage()
             return cell
         }
         
         
         let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
+        let _ = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
         cell.setUnknownMessage()
         return cell
         

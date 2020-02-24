@@ -6662,7 +6662,7 @@ TODO:// complete */
 "enable_location_service" = "Location Service is Disabled Please go to Setting and enable it";
 "around" = "About";
 "meter" = "meter";
-"chat_preview_sample" = "it's morning in Tehran 😍";
+"chat_preview_sample" = "it's morning in my city 😍";
 "chat_preview_sample2" = "Is it night ?🤔";
 
 "keep_media_footer" = "All The images,videos and Audios that you did not have access in the period will be deleted.";
@@ -6682,3 +6682,4 @@ TODO:// complete */
 "Theme_Icon_Appp" = "App Icon";
 "topup_message" = "Top Up Message";
 "bill_message" = "Bill Message";
+"bill_id" = "Bill Id";

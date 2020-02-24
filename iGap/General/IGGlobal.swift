@@ -740,11 +740,19 @@ extension UIColor {
         return UIColor(red: 66/255.0, green: 212/255.0, blue: 244/255.0, alpha: 0.9)
     }
     
+    class func iGapPink() -> UIColor {
+        return UIColor(named: "IGTopupCellColor")!
+    }
+    
+    class func iGapBillCellPurple() -> UIColor {
+        return UIColor(named: "IGBillCellColor")!
+    }
+    
     class func iGapGray() -> UIColor {
         return #colorLiteral(red: 0.4078431373, green: 0.4078431373, blue: 0.4078431373, alpha: 0.9)
     }
     class func iGapDarkGray() -> UIColor {
-        return ThemeManager.currentTheme.LabelGrayColor ?? #colorLiteral(red: 0.1215686275, green: 0.1294117647, blue: 0.1411764706, alpha: 0.9)
+        return ThemeManager.currentTheme.LabelGrayColor
     }
     
     class func failedColor() -> UIColor {

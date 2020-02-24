@@ -76,7 +76,7 @@ class PaymentCell: IGMessageGeneralCollectionViewCell {
             return
         }
         
-        txtAmount.text = String(describing: wallet.amount).inRialFormat().inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
+        txtAmount.text = String(describing: wallet.amount).inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
         txtTrace.text = String(describing: wallet.traceNumber).inLocalizedLanguage()
         txtInvoice.text = String(describing: wallet.invoiceNumber).inLocalizedLanguage()
         txtRRN.text = String(describing: wallet.rrn)

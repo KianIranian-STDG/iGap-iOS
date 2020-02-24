@@ -367,6 +367,10 @@
 		D62946332349E43400FB5A08 /* PryntTrimmerView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D62946312349E43400FB5A08 /* PryntTrimmerView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D62946352349E4BD00FB5A08 /* Stevia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62946342349E4BD00FB5A08 /* Stevia.framework */; };
 		D62946362349E4BD00FB5A08 /* Stevia.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D62946342349E4BD00FB5A08 /* Stevia.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D64BD2F52403D72100E812CA /* TopupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64BD2F42403D72100E812CA /* TopupCell.swift */; };
+		D64BD2F82403EA6200E812CA /* BillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64BD2F62403EA6200E812CA /* BillCell.swift */; };
+		D64BD2F92403F60900E812CA /* BillCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D64BD2F72403EA6200E812CA /* BillCell.xib */; };
+		D64BD2FA2403F60900E812CA /* TopupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D64BD2F32403D6F700E812CA /* TopupCell.xib */; };
 		D650DF22235DC7DE00780B5E /* UpdateMyRoleObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D650DF21235DC7DE00780B5E /* UpdateMyRoleObserver.swift */; };
 		D65179A3239B88B300557E5B /* IGMediaPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65179A2239B88B300557E5B /* IGMediaPager.swift */; };
 		D65179A5239B8C3400557E5B /* IGMediaPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65179A4239B8C3400557E5B /* IGMediaPagerCell.swift */; };
@@ -1260,6 +1264,10 @@
 		D629462E2349E1B700FB5A08 /* YPImagePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YPImagePicker.framework; path = Carthage/Build/iOS/YPImagePicker.framework; sourceTree = "<group>"; };
 		D62946312349E43400FB5A08 /* PryntTrimmerView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PryntTrimmerView.framework; path = Carthage/Build/iOS/PryntTrimmerView.framework; sourceTree = "<group>"; };
 		D62946342349E4BD00FB5A08 /* Stevia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Stevia.framework; path = Carthage/Build/iOS/Stevia.framework; sourceTree = "<group>"; };
+		D64BD2F32403D6F700E812CA /* TopupCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopupCell.xib; sourceTree = "<group>"; };
+		D64BD2F42403D72100E812CA /* TopupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopupCell.swift; sourceTree = "<group>"; };
+		D64BD2F62403EA6200E812CA /* BillCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillCell.swift; sourceTree = "<group>"; };
+		D64BD2F72403EA6200E812CA /* BillCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BillCell.xib; sourceTree = "<group>"; };
 		D650DF21235DC7DE00780B5E /* UpdateMyRoleObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMyRoleObserver.swift; sourceTree = "<group>"; };
 		D65179A2239B88B300557E5B /* IGMediaPager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMediaPager.swift; sourceTree = "<group>"; };
 		D65179A4239B8C3400557E5B /* IGMediaPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMediaPagerCell.swift; sourceTree = "<group>"; };
@@ -3299,6 +3307,10 @@
 				8E7F18F522F567B500A7A7DD /* TextCellCardToCard.xib */,
 				D61B5DDC237D40EB0060B9D9 /* ProgressCell.swift */,
 				D61B5DDE237D41510060B9D9 /* ProgressCell.xib */,
+				D64BD2F62403EA6200E812CA /* BillCell.swift */,
+				D64BD2F72403EA6200E812CA /* BillCell.xib */,
+				D64BD2F42403D72100E812CA /* TopupCell.swift */,
+				D64BD2F32403D6F700E812CA /* TopupCell.xib */,
 			);
 			path = "Chat Cells";
 			sourceTree = "<group>";
@@ -3838,6 +3850,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D64BD2F92403F60900E812CA /* BillCell.xib in Resources */,
+				D64BD2FA2403F60900E812CA /* TopupCell.xib in Resources */,
 				8E1865392323A10400D8BCA9 /* ChannelAndSettings.storyboard in Resources */,
 				8EA854A4239D5C3300C9442F /* IGClassicColors.xcassets in Resources */,
 				8E6E83A32342617400392F27 /* EditProfileChannelAndGroup.storyboard in Resources */,
@@ -4623,6 +4637,7 @@
 				FA8F224C1DD89910005A90D1 /* IGRoom.swift in Sources */,
 				940F9E6F231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.swift in Sources */,
 				FAC34DB61E1A651200BB9823 /* IGContactInMessageCellView.swift in Sources */,
+				D64BD2F52403D72100E812CA /* TopupCell.swift in Sources */,
 				8EBF95E02258811500A1F7E4 /* IGConstants.swift in Sources */,
 				8E0BCBE823BA4D5000085792 /* CustomTextView.swift in Sources */,
 				FA11E28A1DE8A8A900A2F87C /* IGAttachmentManager.swift in Sources */,
@@ -4645,6 +4660,7 @@
 				FAD580861DDC49A200A242DE /* IGMessageViewController.swift in Sources */,
 				8EA8F3F2231F9F280099C4EF /* UICircularRingValueFormatter.swift in Sources */,
 				FA50A8D21DD35EFD00C6D2EA /* IGSplashScreenViewController.swift in Sources */,
+				D64BD2F82403EA6200E812CA /* BillCell.swift in Sources */,
 				8E8ABDC42394F89600DE00DB /* IGNewsSliderTVCell.swift in Sources */,
 				FA4F47BA214D1DA500ABE7A0 /* IGWallpaperPreview.swift in Sources */,
 				8ED68CAD2377218C00637C29 /* IGStructEditBill.swift in Sources */,

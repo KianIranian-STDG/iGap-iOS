@@ -6330,3 +6330,4 @@
 "Theme_Icon_Appp" = "icône de l'application";
 "topup_message" = "Message de recharge";
 "bill_message" = "Message de Bill";
+"bill_id" = "ID de facture";

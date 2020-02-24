@@ -6708,3 +6708,4 @@ TODO:// translate */
 "Theme_Icon_Appp" = "أيقونة التطبيق";
 "topup_message" = "إيصال استلام الهاتف";
 "bill_message" = "إيصال دفع الفواتير";
+"bill_id" = "معرف الفاتورة";

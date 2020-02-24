@@ -6691,3 +6691,4 @@ Page 4 introduce app */
 "Theme_Icon_Appp" = "نماد برنامه";
 "topup_message" = "رسید شارژ تلفن";
 "bill_message" = "رسید پرداخت قبض";
+"bill_id" = "شناسه قبض";
