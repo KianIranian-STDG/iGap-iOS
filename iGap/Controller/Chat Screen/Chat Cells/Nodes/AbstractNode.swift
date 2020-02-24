@@ -29,7 +29,6 @@ class AbstractNode: ASCellNode {
     var imgNode = ASNetworkImageNode()
     var gifNode = ASDisplayNode { () -> UIView in
         let view = GIFImageView()
-        
         return view
     }
     //UISlider for IGVOICE NODE
@@ -39,7 +38,6 @@ class AbstractNode: ASCellNode {
         view.value = 10
         view.maximumValue = 20
         view.tintColor = .red
-        
         return view
     }
     //BUTTON DOWNLOAD/PLAY/PAUSE for NODES
@@ -47,7 +45,6 @@ class AbstractNode: ASCellNode {
     //progress Node
     var indicatorViewAbs = ASDisplayNode { () -> UIView in
         let view = IGProgress()
-        
         return view
     }
     //Contact

@@ -373,6 +373,8 @@
 		94E74DC523239727001AB47C /* IGFinancialHistoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E74DC423239727001AB47C /* IGFinancialHistoryDetailViewController.swift */; };
 		94E74DCA2323C798001AB47C /* TransactionInfoKeys.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */; };
 		D217E92B23E97759009008F2 /* IGNodePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D217E92A23E97759009008F2 /* IGNodePlayer.swift */; };
+		D222A5F22402730200F6C518 /* ChatControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D222A5F12402730200F6C518 /* ChatControllerNode.swift */; };
+		D222A5F42402789300F6C518 /* CustomImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D222A5F32402789300F6C518 /* CustomImageNode.swift */; };
 		D250C6DE23DEB32D00B4860E /* IGLocationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D250C6DD23DEB32D00B4860E /* IGLocationNode.swift */; };
 		D2522EDA23D47BC6002B2D6C /* IGTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2522ED923D47BC6002B2D6C /* IGTextNode.swift */; };
 		D25D0F2E23F7E61D00DA3797 /* IGNodeMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25D0F2D23F7E61D00DA3797 /* IGNodeMusicPlayer.swift */; };
@@ -1300,6 +1302,8 @@
 		94E74DC423239727001AB47C /* IGFinancialHistoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFinancialHistoryDetailViewController.swift; sourceTree = "<group>"; };
 		94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = TransactionInfoKeys.stringsdict; sourceTree = "<group>"; };
 		D217E92A23E97759009008F2 /* IGNodePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodePlayer.swift; sourceTree = "<group>"; };
+		D222A5F12402730200F6C518 /* ChatControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatControllerNode.swift; sourceTree = "<group>"; };
+		D222A5F32402789300F6C518 /* CustomImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageNode.swift; sourceTree = "<group>"; };
 		D250C6DD23DEB32D00B4860E /* IGLocationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGLocationNode.swift; sourceTree = "<group>"; };
 		D2522ED923D47BC6002B2D6C /* IGTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextNode.swift; sourceTree = "<group>"; };
 		D25D0F2D23F7E61D00DA3797 /* IGNodeMusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNodeMusicPlayer.swift; sourceTree = "<group>"; };
@@ -2478,9 +2482,19 @@
 			path = "Financial History";
 			sourceTree = "<group>";
 		};
+		D222A5F5240278A700F6C518 /* New */ = {
+			isa = PBXGroup;
+			children = (
+				D222A5F12402730200F6C518 /* ChatControllerNode.swift */,
+				D222A5F32402789300F6C518 /* CustomImageNode.swift */,
+			);
+			path = New;
+			sourceTree = "<group>";
+		};
 		D2522ED823D47993002B2D6C /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				D222A5F5240278A700F6C518 /* New */,
 				D2AE38FD23D4870C0040192E /* BaseBubbleNode.swift */,
 				D2AD204E23D9675700466666 /* AbstractNode.swift */,
 				D2522ED923D47BC6002B2D6C /* IGTextNode.swift */,
@@ -4226,6 +4240,7 @@
 				D67E985423A6796B003C1516 /* CanProvideAnimatorForEvent.swift in Sources */,
 				D61B5DE6237D48B10060B9D9 /* LoadingView.swift in Sources */,
 				D67E984323A67962003C1516 /* ImageZoomControllerSettings+Equatable.swift in Sources */,
+				D222A5F22402730200F6C518 /* ChatControllerNode.swift in Sources */,
 				FAB0B87E232F5D59002E35AB /* DeepLinkNavigator.swift in Sources */,
 				8EE7FC9E225DF67200B6C2C3 /* NumberpadButton.swift in Sources */,
 				8EA8549E239D59A000C9442F /* IGThemeManager.swift in Sources */,
@@ -4355,6 +4370,7 @@
 				8E3FC94C2370560A003C9C6C /* IGApiElectricityBill.swift in Sources */,
 				FA63BAA01DD70D60000B60AD /* IGRequestWrapper.swift in Sources */,
 				FA844D8821F88FCF000E6750 /* Compression.swift in Sources */,
+				D222A5F42402789300F6C518 /* CustomImageNode.swift in Sources */,
 				8E5FBC0B23154D090069D4F2 /* IGRegisttrationStepSecurityQuestions.swift in Sources */,
 				8E3360E923D835D300CE766B /* ASImageView.swift in Sources */,
 				8E8E506623E82CED0094A91C /* ChatMessageSwipeToReplyNode.swift in Sources */,

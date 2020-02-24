@@ -64,6 +64,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     //newUITextMessage
     // MARK: - Outlets
     //MARK: -NODE
+    private let chatNode = ChatControllerNode()
     private(set) var chatsArray: [Chat] = []
     @IBOutlet weak var tableviewMessagesView : UIView!
     private var tableViewNode : ASTableNode!
@@ -6863,149 +6864,161 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
         }
     }
     
-
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
 
+        print("Index Path ----", indexPath.row)
+        
         let msg = messages?[indexPath.row]
         let cellnodeBlock  = {[weak self] () -> ASCellNode in
             
             guard let sSelf = self else {
                 return ASCellNode()
             }
-
-            var isIncomming = true
-            let authorHash = msg!.authorHash
-            var shouldShowAvatar = false
-            var isFromSameSender = false
             
-            if self?.finalRoom.type == .group || self?.finalRoom.type == .chat || self?.finalRoom.type == .channel  {
-                shouldShowAvatar = true
-                
-                if msg!.type != .log {
-                    if sSelf.messages!.indices.contains(indexPath.row + 1){
-                        let previousMessage = sSelf.messages![(indexPath.row + 1)]
-                        if previousMessage.type != .log && msg!.authorHash == previousMessage.authorHash {
-                            isFromSameSender = false // should be true for next version
-                        }
-                    }
-                    
-                }
-            }
-            var img = UIImage()
-
-            if self?.finalRoom.type == .channel { // isIncommingMessage means that show message left side
-                isIncomming = true
-                img = tailLesImage
-
-            } else {
-
-                if let senderHash = authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
-                    isIncomming = false
-                    
-                }
-                if isFromSameSender {
-                    if isIncomming {
-                        img = tailLesImage
-
-                    } else {
-                        img = mineTailLesImage
-
-                    }
-
-                } else {
-
-                    if isIncomming {
-                        img = someoneImage
-
-                    } else {
-                        img = mineImage
-
-                    }
-                }
-
-            }
-
-
-            if (sSelf.messages!.count <= indexPath.row) || (msg!.isInvalidated) || (sSelf.room?.isInvalidated)!  {
-                let node = IGLogNode(logType: .emptyBox, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
-                node.selectionStyle = .none
+//            message: msg!, finalRoomType : sSelf.finalRoom!.type ,finalRoom : sSelf.finalRoom!
+            let cellNode = ChatControllerNode()
             
-                return node
-            }
-
-            if msg!.type == .text ||  msg!.type == .image ||  msg!.type == .imageAndText ||  msg!.type == .gif ||  msg!.type == .gifAndText ||  msg!.type == .file ||  msg!.type == .fileAndText || msg!.type == .voice || msg!.type == .location || msg!.type == .video || msg!.type == .videoAndText || msg!.type == .audio || msg!.type == .audioAndText || msg!.type == .contact || msg!.type == .sticker || msg!.type == .wallet {
-                //TODO: check detach
-                let node = BaseBubbleNode(message: msg!, finalRoomType : sSelf.finalRoom!.type ,finalRoom : sSelf.finalRoom!, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar, indexPath: indexPath)
-                   
-                   (node.bubbleNode as? AbstractNode)?.delegate = sSelf
-                   node.generalMessageDelegate = sSelf
-                   node.selectionStyle = .none
-                    node.neverShowPlaceholders = true
-
-                node.enableSubtreeRasterization()
- 
-                   return node
-
-                   
-               } /*else if msg!.type == .wallet {
-                   
-                   if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue { //mode: CardToCard
-
-                   } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue { //mode: payment
-
-                   } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue { //mode: moneyTransfer
-
-                   }
-                   
-
-               }
-    */
-               else if msg!.type == .log || msg!.type == .time || msg!.type == .unread {
-                   var logTypeTemp : logMessageType!
-
-                   
-                   switch msg!.type {
-                   case .log :
-                       logTypeTemp = .log
-                   case .time :
-                       logTypeTemp = .time
-                   case .unread :
-                       logTypeTemp = .unread
-                       
-                   default:
-                       break
-                   }
-                   
-                let node = IGLogNode(message: msg!.detach(),logType: logTypeTemp, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
-                   node.selectionStyle = .none
-                   
-                   return node
-
-                   
-               } else if msg!.type == .progress {
-                   
-                       let node = IGLogNode(logType: .progress, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
-                             node.selectionStyle = .none
-                      node.selectionStyle = .none
-                   
-                   return node
-
-               }else {
-                       //Unread
-                let node = IGLogNode(logType: .emptyBox, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
-                node.selectionStyle = .none
-                    
-                return node
-
-                
-            }
+            cellNode.makeView(message: msg!, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
+            return cellNode
             
         }
-           
+            
         return cellnodeBlock
+    }
+            
+//            var isIncomming = true
+//            let authorHash = msg!.authorHash
+//            var shouldShowAvatar = false
+//            var isFromSameSender = false
+//
+//            if self?.finalRoom.type == .group || self?.finalRoom.type == .chat || self?.finalRoom.type == .channel  {
+//                shouldShowAvatar = true
+//
+//                if msg!.type != .log {
+//                    if sSelf.messages!.indices.contains(indexPath.row + 1){
+//                        let previousMessage = sSelf.messages![(indexPath.row + 1)]
+//                        if previousMessage.type != .log && msg!.authorHash == previousMessage.authorHash {
+//                            isFromSameSender = false // should be true for next version
+//                        }
+//                    }
+//
+//                }
+//            }
+//            var img = UIImage()
+//
+//            if self?.finalRoom.type == .channel { // isIncommingMessage means that show message left side
+//                isIncomming = true
+//                img = tailLesImage
+//
+//            } else {
+//
+//                if let senderHash = authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
+//                    isIncomming = false
+//
+//                }
+//                if isFromSameSender {
+//                    if isIncomming {
+//                        img = tailLesImage
+//
+//                    } else {
+//                        img = mineTailLesImage
+//
+//                    }
+//
+//                } else {
+//
+//                    if isIncomming {
+//                        img = someoneImage
+//
+//                    } else {
+//                        img = mineImage
+//
+//                    }
+//                }
+//
+//            }
+//
+//
+//            if (sSelf.messages!.count <= indexPath.row) || (msg!.isInvalidated) || (sSelf.room?.isInvalidated)!  {
+//                let node = IGLogNode(logType: .emptyBox, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
+//                node.selectionStyle = .none
+//
+//                return node
+//            }
+//
+//            if msg!.type == .text ||  msg!.type == .image ||  msg!.type == .imageAndText ||  msg!.type == .gif ||  msg!.type == .gifAndText ||  msg!.type == .file ||  msg!.type == .fileAndText || msg!.type == .voice || msg!.type == .location || msg!.type == .video || msg!.type == .videoAndText || msg!.type == .audio || msg!.type == .audioAndText || msg!.type == .contact || msg!.type == .sticker || msg!.type == .wallet {
+//                //TODO: check detach
+//                let node = BaseBubbleNode(message: msg!, finalRoomType : sSelf.finalRoom!.type ,finalRoom : sSelf.finalRoom!, isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar, indexPath: indexPath)
+//
+//                   (node.bubbleNode as? AbstractNode)?.delegate = sSelf
+//                   node.generalMessageDelegate = sSelf
+//                   node.selectionStyle = .none
+//                    node.neverShowPlaceholders = true
+//
+//                node.enableSubtreeRasterization()
+//
+//                   return node
+//
+//
+//               } /*else if msg!.type == .wallet {
+//
+//                   if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue { //mode: CardToCard
+//
+//                   } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue { //mode: payment
+//
+//                   } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue { //mode: moneyTransfer
+//
+//                   }
+//
+//
+//               }
+//    */
+//               else if msg!.type == .log || msg!.type == .time || msg!.type == .unread {
+//                   var logTypeTemp : logMessageType!
+//
+//
+//                   switch msg!.type {
+//                   case .log :
+//                       logTypeTemp = .log
+//                   case .time :
+//                       logTypeTemp = .time
+//                   case .unread :
+//                       logTypeTemp = .unread
+//
+//                   default:
+//                       break
+//                   }
+//
+//                let node = IGLogNode(message: msg!.detach(),logType: logTypeTemp, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
+//                   node.selectionStyle = .none
+//
+//                   return node
+//
+//
+//               } else if msg!.type == .progress {
+//
+//                       let node = IGLogNode(logType: .progress, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
+//                             node.selectionStyle = .none
+//                      node.selectionStyle = .none
+//
+//                   return node
+//
+//               }else {
+//                       //Unread
+//                let node = IGLogNode(logType: .emptyBox, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
+//                node.selectionStyle = .none
+//
+//                return node
+//
+//
+//            }
+//
+//        }
+           
+//            return chatNode
 
            
-       }
+//       }
     
     
     func tableNode(_ tableNode: ASTableNode, constrainedSizeForRowAt indexPath: IndexPath) -> ASSizeRange {
