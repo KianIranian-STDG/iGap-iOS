@@ -85,11 +85,11 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
     
     func setUnknownMessage(){
         self.logLabel.textColor = UIColor.white
-        self.logLabel.text = "unknown message"
+        self.logLabel.text = IGStringsManager.UnknownMessage.rawValue.localized
         self.logBackgroundView.layer.cornerRadius = 12.0
         self.logBackgroundView.backgroundColor = UIColor.logBackground()
         addShadow()
-        manageWidth("unknown message")
+        manageWidth(IGStringsManager.UnknownMessage.rawValue.localized)
     }
     
     

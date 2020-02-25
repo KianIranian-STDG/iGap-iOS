@@ -186,6 +186,9 @@ class CellSizeCalculator: NSObject {
             } else if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.topup.rawValue {
                 finalSize.height = CellSizeLimit.ConstantSizes.Topup.Height
                 finalSize.width = CellSizeLimit.ConstantSizes.Topup.Width
+            } else {
+                finalSize.width = CellSizeLimit.ConstantSizes.UnknownMessage.Width
+                finalSize.height = CellSizeLimit.ConstantSizes.UnknownMessage.Height
             }
             
         } else if finalMessage.type == .log {
@@ -284,12 +287,9 @@ class CellSizeCalculator: NSObject {
                     }
                 }
             }
-        } else if finalMessage.type == .unknown {
+        } else {
             finalSize.width = CellSizeLimit.ConstantSizes.UnknownMessage.Width
             finalSize.height = CellSizeLimit.ConstantSizes.UnknownMessage.Height
-        } else {
-            finalSize.width = 200
-            finalSize.height = 50
         }
         
         if message.forwardedFrom == nil && additionalData != nil {

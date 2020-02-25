@@ -5285,14 +5285,12 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             return cell
         } else {
             let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
-            let _ = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
             cell.setUnknownMessage()
             return cell
         }
         
         
         let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
-        let _ = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
         cell.setUnknownMessage()
         return cell
         
