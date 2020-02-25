@@ -258,7 +258,7 @@ class AbstractNode: ASCellNode {
             case .image, .imageAndText, .video, .videoAndText, .gif, .gifAndText,.voice, .audio, .audioAndText, .file, .fileAndText:
                 if !(attachment.isInvalidated) {
                     
-                    imgNode.setThumbnail(for: attachment)
+                    imgNode.setASNetworkThumbnail(for: attachment)
                     
                     if attachment.status != .ready {
 
@@ -293,7 +293,7 @@ class AbstractNode: ASCellNode {
                         (gifNode.view as! GIFImageView).startAnimatingGIF()
                     }
                 } else if attachment.type == .image {
-                    imgNode.setThumbnail(for: attachment)
+                    imgNode.setASNetworkThumbnail(for: attachment)
                 }
                 return
             }
@@ -312,7 +312,7 @@ class AbstractNode: ASCellNode {
                     }
                     if (attachment.downloadUploadPercent) == 1.0 {
                         attachment.status = .ready
-                        sSelf.imgNode.setThumbnail(for: attachment)
+                        sSelf.imgNode.setASNetworkThumbnail(for: attachment)
 
                     }
                 }

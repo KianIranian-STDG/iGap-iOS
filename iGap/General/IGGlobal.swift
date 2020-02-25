@@ -1250,7 +1250,8 @@ extension NSCache {
 }
 
 var imagesMap = Dictionary<String, UIImageView>()
-var ASimagesMap = Dictionary<String, ASNetworkImageNode>()
+var ASNetworkimagesMap = Dictionary<String, ASNetworkImageNode>()
+var ASimagesMap = Dictionary<String, ASImageNode>()
 var liveStickerMap = Dictionary<String, AnimationView>()
 extension UIImage {
     
@@ -1392,114 +1393,8 @@ extension AnimationView {
     }
 }
 
-extension ASNetworkImageNode {
+extension ASImageNode {
     
-    func setSticker(for attachment:IGFile) {
-        
-        do {
-            let path = attachment.localUrl
-            if IGGlobal.isFileExist(path: path) {
-                if let data = try? Data(contentsOf: path!) {
-                    if let image = UIImage(data: data) {
-                        self.image = image
-                    } else {
-                        if IGGlobal.isFileExist(path: url) {
-                            let tmpView = UIImageView()
-                            tmpView.sd_setImage(with: url, completed: nil)
-                            self.image = tmpView.image
-                        } else {
-                            throw NSError(domain: "sticker not exist", code: 1234, userInfo: nil)
-                        }
-
-                    }
-                }
-            } else {
-                throw NSError(domain: "asa", code: 1234, userInfo: nil)
-            }
-        } catch {
-            ASimagesMap[attachment.token!] = self
-            IGDownloadManager.sharedManager.downloadSticker(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in
-                DispatchQueue.main.async {
-                    if let image = ASimagesMap[attachment.token!] {
-                        ASimagesMap.removeValue(forKey: attachment.token!)
-                        image.setSticker(for: attachment)
-                    }
-                }
-            }, failure: {
-                
-            })
-        }
-    }
-    func setAvatar(avatar: IGFile, type: PreviewType = PreviewType.largeThumbnail) {
-        
-        // remove imageview from download list on t on cell reuse
-        DispatchQueue.main.async {
-            let keys = (ASimagesMap as NSDictionary).allKeys(for: self) as! [String]
-            keys.forEach { (key) in
-                ASimagesMap.removeValue(forKey: key)
-            }
-        }
-        
-        var file : IGFile!
-        var previewType : PreviewType!
-
-        if type == .largeThumbnail ,let largeThumbnail = avatar.largeThumbnail {
-            file = largeThumbnail
-            previewType = PreviewType.largeThumbnail
-        } else {
-            file = avatar.smallThumbnail
-            previewType = PreviewType.smallThumbnail
-        }
-        
-        if IGGlobal.isFileExist(path: avatar.localPath, fileSize: avatar.size) {
-            //            self.sd_setImage(with: avatar.path(), completed: nil)
-            if let data = try? Data(contentsOf: avatar.localUrl!) {
-                if let image = UIImage(data: data) {
-                    self.image = image
-                }
-            }
-        } else {
-            if file != nil {
-
-                let path = file.localUrl
-                if IGGlobal.isFileExist(path: path, fileSize: file.size) {
-                    //                    self.sd_setImage(with: path, completed: nil)
-                    if let data = try? Data(contentsOf: path!) {
-                        if let image = UIImage(data: data) {
-                            self.image = image
-                        }
-                    }
-                    
-                } else {
-                    file = file.detach()
-                    ASimagesMap[file.token!] = self
-                    DispatchQueue.main.async {
-                        
-                        IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
-                            DispatchQueue.main.async {
-                                if let imageMain = ASimagesMap[attachment.token!] {
-                                    let path = attachment.localUrl
-                                    //imageMain.sd_setImage(with: path)
-                                    DispatchQueue.global(qos:.userInteractive).async {
-                                        if let data = try? Data(contentsOf: path!) {
-                                            if let image = UIImage(data: data) {
-                                                DispatchQueue.main.async {
-                                                    imageMain.image = image
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }, failure: {
-                            print("ERROR HAPPEND IN DOWNLOADNING AVATAR")
-                        })
-                        
-                    }
-                }
-            }
-        }
-    }
     func setThumbnail(for attachment:IGFile, showMain: Bool = false) {
         if !(attachment.isInvalidated) {
 
@@ -1578,10 +1473,282 @@ extension ASNetworkImageNode {
                     IGDownloadManager.sharedManager.download(file: finalFile, previewType: fileType, completion: { (attachment) -> Void in
                         DispatchQueue.main.async {
                             
-                            var image: ASNetworkImageNode!
+                            var image: ASImageNode!
                             IGGlobal.syncroniseImageQueue.sync {
                                 image = ASimagesMap[attachment.token!]
                                 ASimagesMap.removeValue(forKey: attachment.token!)
+                            }
+                            
+                            if image != nil {
+                                DispatchQueue.global(qos:.userInteractive).async {
+                                    
+                                    if let data = try? Data(contentsOf: attachment.localUrl!) {
+                                        if let image = UIImage(data: data) {
+                                            print("CHECK THRED3-1:",Thread.isMainThread)
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                                self.image = image
+                                            }
+                                        }
+                                    }
+                                }
+                                print("CHECK THRED3:",Thread.isMainThread)
+
+                            }
+                        }
+                    }, failure: {})
+                }
+            } else {
+                switch attachment.type {
+                case .image:
+                    if IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size) {
+                        DispatchQueue.global(qos:.userInteractive).async {
+                            
+                            if let data = try? Data(contentsOf: attachment.localUrl!) {
+                                if let image = UIImage(data: data) {
+                                    print("CHECK THRED4-1:",Thread.isMainThread)
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                        
+                                        self.image = image
+                                    }
+                                }
+                            }
+                        }
+                        print("CHECK THRED4:",Thread.isMainThread)
+
+                    } else {
+                        self.image = UIImage(named:"igap_default_image")
+                    }
+                    break
+                case .gif:
+                    break
+                case .video:
+                    if IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size) {
+                        DispatchQueue.global(qos:.userInteractive).async {
+
+                            if let data = try? Data(contentsOf: attachment.localUrl!) {
+                                if let image = UIImage(data: data) {
+                                    print("CHECK THRED5-1:",Thread.isMainThread)
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                        
+                                        self.image = image
+                                    }
+                                }
+                            }
+                            print("CHECK THRED5:",Thread.isMainThread)
+
+                        }
+                        
+                    } else {
+                        self.image = UIImage(named:"igap_default_video")
+                    }
+
+                case .audio:
+                    self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
+                    break
+                default:
+                    break
+                }
+            }
+            
+        }
+        else {
+            print("ATTACHMENT IS INVALIDATED")
+        }
+    }
+}
+extension ASNetworkImageNode {
+    
+    func setSticker(for attachment:IGFile) {
+        
+        do {
+            let path = attachment.localUrl
+            if IGGlobal.isFileExist(path: path) {
+                if let data = try? Data(contentsOf: path!) {
+                    if let image = UIImage(data: data) {
+                        self.image = image
+                    } else {
+                        if IGGlobal.isFileExist(path: url) {
+                            let tmpView = UIImageView()
+                            tmpView.sd_setImage(with: url, completed: nil)
+                            self.image = tmpView.image
+                        } else {
+                            throw NSError(domain: "sticker not exist", code: 1234, userInfo: nil)
+                        }
+
+                    }
+                }
+            } else {
+                throw NSError(domain: "asa", code: 1234, userInfo: nil)
+            }
+        } catch {
+            ASNetworkimagesMap[attachment.token!] = self
+            IGDownloadManager.sharedManager.downloadSticker(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in
+                DispatchQueue.main.async {
+                    if let image = ASNetworkimagesMap[attachment.token!] {
+                        ASNetworkimagesMap.removeValue(forKey: attachment.token!)
+                        image.setSticker(for: attachment)
+                    }
+                }
+            }, failure: {
+                
+            })
+        }
+    }
+    func setAvatar(avatar: IGFile, type: PreviewType = PreviewType.largeThumbnail) {
+        
+        // remove imageview from download list on t on cell reuse
+        DispatchQueue.main.async {
+            let keys = (ASNetworkimagesMap as NSDictionary).allKeys(for: self) as! [String]
+            keys.forEach { (key) in
+                ASNetworkimagesMap.removeValue(forKey: key)
+            }
+        }
+        
+        var file : IGFile!
+        var previewType : PreviewType!
+
+        if type == .largeThumbnail ,let largeThumbnail = avatar.largeThumbnail {
+            file = largeThumbnail
+            previewType = PreviewType.largeThumbnail
+        } else {
+            file = avatar.smallThumbnail
+            previewType = PreviewType.smallThumbnail
+        }
+        
+        if IGGlobal.isFileExist(path: avatar.localPath, fileSize: avatar.size) {
+            //            self.sd_setImage(with: avatar.path(), completed: nil)
+            if let data = try? Data(contentsOf: avatar.localUrl!) {
+                if let image = UIImage(data: data) {
+                    self.image = image
+                }
+            }
+        } else {
+            if file != nil {
+
+                let path = file.localUrl
+                if IGGlobal.isFileExist(path: path, fileSize: file.size) {
+                    //                    self.sd_setImage(with: path, completed: nil)
+                    if let data = try? Data(contentsOf: path!) {
+                        if let image = UIImage(data: data) {
+                            self.image = image
+                        }
+                    }
+                    
+                } else {
+                    file = file.detach()
+                    ASNetworkimagesMap[file.token!] = self
+                    DispatchQueue.main.async {
+                        
+                        IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
+                            DispatchQueue.main.async {
+                                if let imageMain = ASNetworkimagesMap[attachment.token!] {
+                                    let path = attachment.localUrl
+                                    //imageMain.sd_setImage(with: path)
+                                    DispatchQueue.global(qos:.userInteractive).async {
+                                        if let data = try? Data(contentsOf: path!) {
+                                            if let image = UIImage(data: data) {
+                                                DispatchQueue.main.async {
+                                                    imageMain.image = image
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }, failure: {
+                            print("ERROR HAPPEND IN DOWNLOADNING AVATAR")
+                        })
+                        
+                    }
+                }
+            }
+        }
+    }
+    func setASNetworkThumbnail(for attachment:IGFile, showMain: Bool = false) {
+        if !(attachment.isInvalidated) {
+
+            let MAX_IMAGE_SIZE = 256 // max size for show main image at view
+            
+            /* when fileNameOnDisk is added into the attachment just check file existance without check file size
+             * because file size after upload is different with file size before upload
+             * Hint: mabye change this kind of check for file existance change later
+             */
+            let fileSizeKB = attachment.size/1024
+            var showBestPreview = true // show main image if has small size otherwise show large thumbnail, also for video show large thumnail always because video doesn't have original image
+            if attachment.type == .image {
+                /* for big images show largeThumbnail if exist, even main file was downloaded before.
+                 * currently check size for 256 KB
+                 */
+                
+                showBestPreview = IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size)
+            }
+            
+            if fileSizeKB < MAX_IMAGE_SIZE && showBestPreview {
+                print("CHECK THRED1-1:",Thread.isMainThread)
+                DispatchQueue.global(qos:.userInteractive).async {
+                    
+                    if let data = try? Data(contentsOf: attachment.localUrl!) {
+                        if let image = UIImage(data: data) {
+                            self.image = image
+                        }
+                    }
+                }
+                print("CHECK THRED1:",Thread.isMainThread)
+                
+            } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
+                
+                var fileType: PreviewType = .smallThumbnail
+                var finalFile: IGFile = attachment.smallThumbnail!.detach()
+                
+                if showMain {
+                    fileType = .originalFile
+                    finalFile = attachment.detach()
+                } else if showBestPreview || attachment.type != .image { // show large thumbnail for downloaded file if has big size || for another types that is not image (like: video, gif)
+                    fileType = .largeThumbnail
+                    finalFile = attachment.largeThumbnail!.detach()
+                }
+                
+                do {
+                    var image: UIImage?
+                    let path = finalFile.localUrl
+                    if IGGlobal.isFileExist(path: path) {
+                        image = UIImage(contentsOfFile: path!.path)
+                    }
+                    
+                    if image != nil {
+                        DispatchQueue.global(qos:.userInteractive).async {
+                            
+                            if let data = try? Data(contentsOf: path!) {
+                                if let image = UIImage(data: data) {
+                                    print("CHECK THRED2-1:",Thread.isMainThread)
+                                    
+                                    //                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                    
+                                    self.image = image
+                                    //                                }
+                                }
+                            }
+                        }
+                        print("CHECK THRED2:",Thread.isMainThread)
+
+                    } else {
+                        throw NSError(domain: "image not exist", code: 1234, userInfo: nil)
+                    }
+                } catch {
+                    let tmpFinalFile = finalFile.detach()
+                    IGGlobal.syncroniseImageQueue.async(flags: .barrier) {
+                        ASNetworkimagesMap[tmpFinalFile.token!] = self
+                    }
+                    IGDownloadManager.sharedManager.download(file: finalFile, previewType: fileType, completion: { (attachment) -> Void in
+                        DispatchQueue.main.async {
+                            
+                            var image: ASNetworkImageNode!
+                            IGGlobal.syncroniseImageQueue.sync {
+                                image = ASNetworkimagesMap[attachment.token!]
+                                ASNetworkimagesMap.removeValue(forKey: attachment.token!)
                             }
                             
                             if image != nil {

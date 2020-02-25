@@ -6875,10 +6875,62 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
                 return ASCellNode()
             }
             
+            var isIncomming = true
+            let authorHash = msg!.authorHash
+            var shouldShowAvatar = false
+            var isFromSameSender = false
+            
+            if sSelf.finalRoom.type == .group || sSelf.finalRoom.type == .chat || sSelf.finalRoom.type == .channel  {
+                shouldShowAvatar = true
+                
+                if msg!.type != .log {
+                    if sSelf.messages!.indices.contains(indexPath.row + 1){
+                        let previousMessage = sSelf.messages![(indexPath.row + 1)]
+                        if previousMessage.type != .log && msg!.authorHash == previousMessage.authorHash {
+                            isFromSameSender = false // should be true for next version
+                        }
+                    }
+                    
+                }
+            }
+            var img = UIImage()
+            
+            if sSelf.finalRoom.type == .channel { // isIncommingMessage means that show message left side
+                isIncomming = true
+                img = tailLesImage
+                
+            } else {
+                
+                if let senderHash = authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
+                    isIncomming = false
+                    
+                }
+                if isFromSameSender {
+                    if isIncomming {
+                        img = tailLesImage
+                        
+                    } else {
+                        img = mineTailLesImage
+                        
+                    }
+                    
+                } else {
+                    
+                    if isIncomming {
+                        img = someoneImage
+                        
+                    } else {
+                        img = mineImage
+                        
+                    }
+                }
+                
+            }
+            
 //            message: msg!, finalRoomType : sSelf.finalRoom!.type ,finalRoom : sSelf.finalRoom!
             let cellNode = ChatControllerNode()
             
-            cellNode.makeView(message: msg!, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!)
+            cellNode.makeView(message: msg!, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!,isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar, indexPath: indexPath)
             return cellNode
             
         }

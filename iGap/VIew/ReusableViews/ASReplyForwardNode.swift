@@ -23,6 +23,7 @@ class ASReplyForwardNode: ASDisplayNode {
     override init() {
         super.init()
         configure()
+        self.automaticallyManagesSubnodes = true
     }
 
     
@@ -30,11 +31,21 @@ class ASReplyForwardNode: ASDisplayNode {
         self.subnodes!.forEach {
             $0.removeFromSupernode()
         }
-        self.verticalView = ASDisplayNode()
-        self.txtRepOrForwardNode = MsgTextTextNode()
-        self.txtReplyMsgForwardSource = MsgTextTextNode()
-        self.txtReplyAttachment = MsgTextTextNode()
-        self.imgReplyAttachment = ASNetworkImageNode()
+        if verticalView == nil {
+            self.verticalView = ASDisplayNode()
+        }
+        if txtRepOrForwardNode == nil {
+            self.txtRepOrForwardNode = MsgTextTextNode()
+        }
+        if txtReplyMsgForwardSource == nil {
+            self.txtReplyMsgForwardSource = MsgTextTextNode()
+        }
+        if txtReplyAttachment == nil {
+            self.txtReplyAttachment = MsgTextTextNode()
+        }
+        if imgReplyAttachment == nil {
+            self.imgReplyAttachment = ASNetworkImageNode()
+        }
 
         self.verticalView!.style.width = ASDimension(unit: .points, value: 3.0)
         self.verticalView?.layer.cornerRadius = 1.5
@@ -43,19 +54,6 @@ class ASReplyForwardNode: ASDisplayNode {
         self.imgReplyAttachment?.layer.cornerRadius = 10.0
 
         
-        verticalView?.backgroundColor = isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker()
-        addSubnode(self.verticalView!)
-        addSubnode(self.txtRepOrForwardNode!)
-        addSubnode(self.txtReplyMsgForwardSource!)
-        addSubnode(self.imgReplyAttachment!)
-        addSubnode(self.txtReplyAttachment!)
-        if isIncomming {
-            self.backgroundColor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor
-
-        } else {
-            self.backgroundColor = ThemeManager.currentTheme.SendMessageBubleBGColor
-
-        }
         self.cornerRadius = 10
 
     }
@@ -94,6 +92,15 @@ class ASReplyForwardNode: ASDisplayNode {
     func setReplyForward(isReply: Bool,extraMessage : IGRoomMessage,isIncomming : Bool = false) {
         self.isReply = isReply
         self.isIncomming = isIncomming
+        verticalView?.backgroundColor = isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker()
+        if isIncomming {
+            self.backgroundColor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor
+
+        } else {
+            self.backgroundColor = ThemeManager.currentTheme.SendMessageBubleBGColor
+
+        }
+
         if self.isReply { // isReply
             
             if extraMessage.type == .text { // if reply orforwarded message type is Text Only
@@ -114,7 +121,7 @@ class ASReplyForwardNode: ASDisplayNode {
                 txtReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
                 if extraMessage.attachment != nil {
 
-                    imgReplyAttachment!.setThumbnail(for: extraMessage.attachment!)
+                    imgReplyAttachment!.setASNetworkThumbnail(for: extraMessage.attachment!)
                 }
                 if let user = extraMessage.authorUser?.user { //get reply message sender Name
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: user.displayName, textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
