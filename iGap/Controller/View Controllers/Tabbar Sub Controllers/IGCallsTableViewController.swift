@@ -86,8 +86,7 @@ class IGCallsTableViewController: BaseTableViewController {
         SwiftEventBus.onMainThread(self, name: "initTheme") { [weak self] result in
             self?.initTheme()
         }
-        
-        initTheme()
+        self.tableView!.setEmptyMessage(IGStringsManager.GlobalNoHistory.rawValue.localized)
     }
 
     private func initTheme() {
@@ -95,7 +94,6 @@ class IGCallsTableViewController: BaseTableViewController {
         self.transactionTypesCollectionView.reloadData()
         self.tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         self.transactionTypesCollectionView.backgroundColor = .clear
-        self.tableView!.setEmptyMessage(IGStringsManager.GlobalNoHistory.rawValue.localized)
     }
 
     override func viewWillAppear(_ animated: Bool) {
