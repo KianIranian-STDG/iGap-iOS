@@ -266,12 +266,12 @@ class IGHelperAlert {
                     
                     if showIconView! {
                         self.iconView?.alpha = 0
-                        self.iconView?.fadeIn(0.2)
+                        self.iconView?.fadeIn(0.3)
                     }
 //                },completion: {(value: Bool) in
 //                })
                 self.customAlert?.alpha = 0
-                self.customAlert?.fadeIn(0.2)
+                self.customAlert?.fadeIn(0.3)
             }
             
         }
@@ -306,18 +306,23 @@ class IGHelperAlert {
         bgView.frame = self.window!.frame
         self.window?.addSubview(bgView)
         bgView.alpha = 0
-        bgView.fadeIn(0.2)
+        bgView.fadeIn(0.3)
         
     }
     private func removeCustomAlertView()  {
-        UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .transitionCrossDissolve, animations: {
+        //UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .transitionCrossDissolve, animations: {
+        self.bgView.fadeOut(0.3)
+        self.customAlert.fadeOut(0.3)
+        self.iconView.fadeOut(0.3)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.bgView.removeFromSuperview()
             self.customAlert.removeFromSuperview()
             self.customAlert = nil
             if self.iconView != nil {
                 self.iconView.removeFromSuperview()
             }
-        },completion: {(value: Bool) in })
+        }
+        //},completion: {(value: Bool) in })
     }
     private func creatCustomAlertView() -> UIView {
         let view = UIView()
