@@ -6683,3 +6683,5 @@ TODO:// complete */
 "topup_message" = "Top Up Message";
 "bill_message" = "Bill Message";
 "bill_id" = "Bill Id";
+"requester_mobile_number" = "Requester Mobile Number";
+"receivers_mobile_number" = "Receiver's Mobile Number";

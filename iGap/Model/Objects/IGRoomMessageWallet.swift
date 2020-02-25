@@ -60,7 +60,7 @@ class IGRoomMessageWallet: Object {
         } else if igpRoomMessageWallet.igpType == .bill {
             wallet.bill = IGRoomMessageBill.putOrUpdate(realm: realm, igpRoomMessageWallet: igpRoomMessageWallet, for: message)
         } else if igpRoomMessageWallet.igpType == .topup {
-            //wallet.topup = IGRoomMessageTopup.putOrUpdate(realm: realm, igpRoomMessageWallet: igpRoomMessageWallet, for: message)
+            wallet.topup = IGRoomMessageTopup.putOrUpdate(realm: realm, igpRoomMessageWallet: igpRoomMessageWallet, for: message)
         }
         
         return wallet
@@ -234,89 +234,60 @@ class IGRoomMessageBill: Object {
 
 
 class IGRoomMessageTopup: Object {
-    @objc dynamic var id:                String?
-    @objc dynamic var fromUserId:        Int64    = 0
-    @objc dynamic var orderId:           Int64    = 0
-    @objc dynamic var myToken:           String?
-    @objc dynamic var token:             Int64    = 0
-    @objc dynamic var amount:            Int64    = 0
-    @objc dynamic var payId:             String?
-    @objc dynamic var billId:            String?
-    @objc dynamic var billType:          String?
-    @objc dynamic var cardNumber:        String?
-    @objc dynamic var merchantNumber:    String?
-    @objc dynamic var terminalNo:        Int64    = 0
-    @objc dynamic var rrn:               Int64    = 0
-    @objc dynamic var traceNumber:       Int64    = 0
-    @objc dynamic var requestTime:       Int32    = 0
-    @objc dynamic var status:            Bool     = false
-    @objc dynamic var statusDescription: String?
+    
+    @objc dynamic var id:                    String?
+    @objc dynamic var topupType:             IGPRoomMessageWallet.IGPTopup.IGPType.RawValue = IGPRoomMessageWallet.IGPTopup.IGPType.mci.rawValue
+    @objc dynamic var fromUserId:            Int64    = 0
+    @objc dynamic var orderId:               Int64    = 0
+    @objc dynamic var myToken:               String?
+    @objc dynamic var token:                 Int64    = 0
+    @objc dynamic var amount:                Int64    = 0
+    @objc dynamic var requesterMobileNumber: String?
+    @objc dynamic var chargeMobileNumber:    String?
+    @objc dynamic var cardNumber:            String?
+    @objc dynamic var merchantNumber:        String?
+    @objc dynamic var terminalNo:            Int64    = 0
+    @objc dynamic var rrn:                   Int64    = 0
+    @objc dynamic var traceNumber:           Int64    = 0
+    @objc dynamic var requestTime:           Int32    = 0
+    @objc dynamic var status:                Bool     = false
+    @objc dynamic var statusDescription:     String?
     
     override static func primaryKey() -> String {
         return "id"
     }
     
-    static func putOrUpdate(realm: Realm, igpRoomMessageWallet: IGPRoomMessageWallet, for message: IGRoomMessage) -> IGRoomMessageBill {
+    static func putOrUpdate(realm: Realm, igpRoomMessageWallet: IGPRoomMessageWallet, for message: IGRoomMessage) -> IGRoomMessageTopup {
         
         let predicate = NSPredicate(format: "id = %@", message.primaryKeyId!)
-        var bill: IGRoomMessageBill! = realm.objects(IGRoomMessageBill.self).filter(predicate).first
+        var topup: IGRoomMessageTopup! = realm.objects(IGRoomMessageTopup.self).filter(predicate).first
         
-        if bill == nil {
-            bill = IGRoomMessageBill()
-            bill.id = message.primaryKeyId
+        if topup == nil {
+            topup = IGRoomMessageTopup()
+            topup.id = message.primaryKeyId
         }
         
-        bill.fromUserId = igpRoomMessageWallet.igpBill.igpFromUserID
-        bill.orderId = igpRoomMessageWallet.igpBill.igpOrderID
-        bill.myToken = igpRoomMessageWallet.igpBill.igpMyToken
-        bill.token = igpRoomMessageWallet.igpBill.igpToken
-        bill.amount = igpRoomMessageWallet.igpBill.igpAmount
-        bill.payId = igpRoomMessageWallet.igpBill.igpPayID
-        bill.billId = igpRoomMessageWallet.igpBill.igpBillID
-        bill.billType = igpRoomMessageWallet.igpBill.igpBillType
-        bill.cardNumber = igpRoomMessageWallet.igpBill.igpCardNumber
-        bill.merchantNumber = igpRoomMessageWallet.igpBill.igpMerchantName
-        bill.terminalNo = igpRoomMessageWallet.igpBill.igpTerminalNo
-        bill.rrn = igpRoomMessageWallet.igpBill.igpRrn
-        bill.traceNumber = igpRoomMessageWallet.igpBill.igpTraceNumber
-        bill.requestTime = igpRoomMessageWallet.igpBill.igpRequestTime
-        bill.status = igpRoomMessageWallet.igpBill.igpStatus
-        bill.statusDescription = igpRoomMessageWallet.igpBill.igpStatusDescription
-        return bill
+        topup.topupType = igpRoomMessageWallet.igpTopup.igpTopupType.rawValue
+        topup.fromUserId = igpRoomMessageWallet.igpTopup.igpFromUserID
+        topup.orderId = igpRoomMessageWallet.igpTopup.igpOrderID
+        topup.myToken = igpRoomMessageWallet.igpTopup.igpMyToken
+        topup.token = igpRoomMessageWallet.igpTopup.igpToken
+        topup.amount = igpRoomMessageWallet.igpTopup.igpAmount
+        topup.requesterMobileNumber = igpRoomMessageWallet.igpTopup.igpRequesterMobileNumber
+        topup.chargeMobileNumber = igpRoomMessageWallet.igpTopup.igpChargeMobileNumber
+        topup.cardNumber = igpRoomMessageWallet.igpTopup.igpCardNumber
+        topup.merchantNumber = igpRoomMessageWallet.igpTopup.igpMerchantName
+        topup.terminalNo = igpRoomMessageWallet.igpTopup.igpTerminalNo
+        topup.rrn = igpRoomMessageWallet.igpTopup.igpRrn
+        topup.traceNumber = igpRoomMessageWallet.igpTopup.igpTraceNumber
+        topup.requestTime = igpRoomMessageWallet.igpTopup.igpRequestTime
+        topup.status = igpRoomMessageWallet.igpTopup.igpStatus
+        topup.statusDescription = igpRoomMessageWallet.igpTopup.igpStatusDescription
+        return topup
     }
     
     func detach() -> IGRoomMessageTopup {
-        let detachedRoomMessageBill = IGRoomMessageTopup(value: self)
-        return detachedRoomMessageBill
+        let detachedRoomMessageTopup = IGRoomMessageTopup(value: self)
+        return detachedRoomMessageTopup
     }
 }
-
-
-//message Topup {
-//    enum Type {
-//        IRANCELL_PREPAID = 0;
-//        IRANCELL_WOW = 1;
-//        IRANCELL_WIMAX = 2;
-//        IRANCELL_POSTPAID = 3;
-//        MCI = 4;
-//        RIGHTEL = 5;
-//    }
-//
-//    uint64 from_user_id = 1;
-//    uint64 order_id = 2;
-//    string my_token = 3;
-//    uint64 token = 4;
-//    uint64 amount = 5;
-//    string requester_mobile_number = 6;
-//    string charge_mobile_number = 7;
-//    Type topup_type = 8;
-//    string card_number = 9;
-//    string merchant_name = 10;
-//    uint64 terminal_no = 11;
-//    uint64 rrn = 12;
-//    uint64 trace_number = 13;
-//    uint32 request_time = 14;
-//    bool status = 15;
-//    string status_description = 16;
-//}
-//Topup topup = 4;

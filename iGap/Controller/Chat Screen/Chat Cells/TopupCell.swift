@@ -14,15 +14,15 @@ import IGProtoBuff
 class TopupCell: IGMessageGeneralCollectionViewCell {
     
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var billMessage: IGLabel!
+    @IBOutlet weak var topupMessage: IGLabel!
     @IBOutlet weak var txtAmount: UILabel!
     @IBOutlet weak var txtAmountValue: UILabel!
+    @IBOutlet weak var txtRequesterMobileNumber: UILabel!
+    @IBOutlet weak var txtRequesterMobileNumberValue: UILabel!
+    @IBOutlet weak var txtRecieversMobileNumber: UILabel!
+    @IBOutlet weak var txtRecieversMobileNumberValue: UILabel!
     @IBOutlet weak var txtBillType: UILabel!
     @IBOutlet weak var txtBillTypeValue: UILabel!
-    @IBOutlet weak var txtBillingId: UILabel!
-    @IBOutlet weak var txtBillingIdValue: UILabel!
-    @IBOutlet weak var txtPaymentCode: UILabel!
-    @IBOutlet weak var txtPaymentCodeValue: UILabel!
     @IBOutlet weak var txtCardNumber: UILabel!
     @IBOutlet weak var txtCardNumberValue: UILabel!
     @IBOutlet weak var txtOrderId: UILabel!
@@ -52,18 +52,16 @@ class TopupCell: IGMessageGeneralCollectionViewCell {
     }
     
     func initChangeLang() {
-        billMessage.text = IGStringsManager.CardMoneyTransfer.rawValue.localized
-        billMessage.backgroundColor = UIColor.iGapPink()
-        txtDate.backgroundColor = UIColor.iGapPink()
-        billMessage.textColor = UIColor.white
-        txtDate.textColor = UIColor.black
-        billMessage.font = UIFont.igFont(ofSize: 15)
+        topupMessage.text = IGStringsManager.TopupMessage.rawValue.localized
+        topupMessage.backgroundColor = UIColor.iGapTopupCellPurple()
+        txtDate.backgroundColor = UIColor.iGapTopupCellPurple()
+        topupMessage.font = UIFont.igFont(ofSize: 15)
         txtDate.font = UIFont.igFont(ofSize: 15)
         
         txtAmount.text = IGStringsManager.Amount.rawValue.localized
+        txtRequesterMobileNumber.text = IGStringsManager.TopupRequesterMobileNumber.rawValue.localized
+        txtRecieversMobileNumber.text = IGStringsManager.TopupReceiverMobileNumber.rawValue.localized
         txtBillType.text = IGStringsManager.BillType.rawValue.localized
-        txtBillingId.text = IGStringsManager.BillId.rawValue.localized
-        txtPaymentCode.text = IGStringsManager.PayIdentifier.rawValue.localized
         txtCardNumber.text = IGStringsManager.CardNumber.rawValue.localized
         txtOrderId.text = IGStringsManager.OrderId.rawValue.localized
         txtTerminalId.text = IGStringsManager.TerminalId.rawValue.localized
@@ -77,12 +75,42 @@ class TopupCell: IGMessageGeneralCollectionViewCell {
         self.mainView.layer.masksToBounds = true
         self.mainView.backgroundColor = UIColor.dialogueBoxIncomming()
 
-        guard let cardToCard = message.wallet?.cardToCard else {
+        guard let topup = message.wallet?.topup else {
             return
         }
         
-        if let time = TimeInterval(exactly: cardToCard.requestTime) {
+        txtAmountValue.text = String(describing: topup.amount).inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
+        txtRequesterMobileNumberValue.text = topup.requesterMobileNumber?.inLocalizedLanguage()
+        txtRecieversMobileNumberValue.text = topup.chargeMobileNumber?.inLocalizedLanguage()
+        txtBillTypeValue.text = fetchTopupType(type: topup.topupType)
+        txtCardNumberValue.text = topup.cardNumber?.inLocalizedLanguage()
+        txtOrderIdValue.text =  String(describing: topup.orderId).inLocalizedLanguage()
+        txtTerminalIdValue.text =  String(describing: topup.terminalNo).inLocalizedLanguage()
+        txtReferenceIdValue.text =  String(describing: topup.rrn).inLocalizedLanguage()
+        txtTrackingCodeValue.text =  String(describing: topup.traceNumber).inLocalizedLanguage()
+        
+        if let time = TimeInterval(exactly: topup.requestTime) {
             txtDate.text = Date(timeIntervalSince1970: time).completeHumanReadableTime(showHour: true).inLocalizedLanguage()
         }
+    }
+    
+    public func fetchTopupType(type: IGPRoomMessageWallet.IGPTopup.IGPType.RawValue) -> String {
+        switch type {
+        case IGPRoomMessageWallet.IGPTopup.IGPType.irancellPrepaid.rawValue,
+             IGPRoomMessageWallet.IGPTopup.IGPType.irancellWow.rawValue,
+             IGPRoomMessageWallet.IGPTopup.IGPType.irancellWimax.rawValue,
+             IGPRoomMessageWallet.IGPTopup.IGPType.irancellPostpaid.rawValue:
+            return IGStringsManager.Irancell.rawValue.localized
+            
+        case IGPRoomMessageWallet.IGPTopup.IGPType.mci.rawValue:
+            return IGStringsManager.MCI.rawValue.localized
+            
+        case IGPRoomMessageWallet.IGPTopup.IGPType.rightel.rawValue:
+            return IGStringsManager.Rightel.rawValue.localized
+            
+        default:
+            return ""
+        }
+        
     }
 }

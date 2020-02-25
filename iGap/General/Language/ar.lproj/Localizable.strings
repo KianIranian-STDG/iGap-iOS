@@ -6709,3 +6709,5 @@ TODO:// translate */
 "topup_message" = "إيصال استلام الهاتف";
 "bill_message" = "إيصال دفع الفواتير";
 "bill_id" = "معرف الفاتورة";
+"requester_mobile_number" = "رقم الجوال الطالب";
+"receivers_mobile_number" = "رقم المتلقي المحمول";

@@ -6692,3 +6692,5 @@ Page 4 introduce app */
 "topup_message" = "رسید شارژ تلفن";
 "bill_message" = "رسید پرداخت قبض";
 "bill_id" = "شناسه قبض";
+"requester_mobile_number" = "شماره تلفن درخواست کننده";
+"receivers_mobile_number" = "شماره موبایل گیرنده";

@@ -744,7 +744,7 @@ extension UIColor {
         return UIColor(named: "IGTopupCellColor")!
     }
     
-    class func iGapBillCellPurple() -> UIColor {
+    class func iGapTopupCellPurple() -> UIColor {
         return UIColor(named: "IGBillCellColor")!
     }
     

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,9 +25,9 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kxx-iN-ihX">
                         <rect key="frame" x="30" y="17" width="240" height="477"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bill" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXj-hQ-xRd" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Topup" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXj-hQ-xRd" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="30"/>
-                                <color key="backgroundColor" name="IGTopupCell"/>
+                                <color key="backgroundColor" name="IGTopupCellColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="rWJ-UO-40o"/>
                                 </constraints>
@@ -179,7 +180,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="transfer date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dSq-Mw-Hqj" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="443" width="240" height="34"/>
-                                <color key="backgroundColor" name="IGTopupCell"/>
+                                <color key="backgroundColor" name="IGTopupCellColor"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -368,23 +369,23 @@
             </constraints>
             <size key="customSize" width="555" height="375"/>
             <connections>
-                <outlet property="billMessage" destination="KXj-hQ-xRd" id="szw-Bn-KXk"/>
                 <outlet property="mainView" destination="Kxx-iN-ihX" id="35G-dW-dhF"/>
+                <outlet property="topupMessage" destination="KXj-hQ-xRd" id="lWm-7X-gi3"/>
                 <outlet property="txtAmount" destination="sYl-qu-tud" id="SRU-du-aga"/>
                 <outlet property="txtAmountValue" destination="DPa-af-eRi" id="LLo-Qg-Tuu"/>
-                <outlet property="txtBillType" destination="mmS-TW-VOb" id="W4r-9p-8Bk"/>
-                <outlet property="txtBillTypeValue" destination="zQ3-y0-spZ" id="1zO-fq-Ssb"/>
-                <outlet property="txtBillingId" destination="uST-xH-BKZ" id="WeW-8C-Ril"/>
-                <outlet property="txtBillingIdValue" destination="zdG-1H-RlP" id="Lpm-Th-OuS"/>
+                <outlet property="txtBillType" destination="I0v-SK-KAe" id="qJG-fc-AIA"/>
+                <outlet property="txtBillTypeValue" destination="k8C-fJ-yb3" id="dGl-fA-8YS"/>
                 <outlet property="txtCardNumber" destination="mdp-8Q-xJq" id="lfP-Kf-BD6"/>
                 <outlet property="txtCardNumberValue" destination="HDM-bB-jhx" id="UVC-1I-Jms"/>
                 <outlet property="txtDate" destination="dSq-Mw-Hqj" id="2O0-yx-omj"/>
                 <outlet property="txtOrderId" destination="5rP-GY-JDG" id="z3Y-sc-M8A"/>
                 <outlet property="txtOrderIdValue" destination="NDj-RK-kp3" id="Q6y-NZ-Ysq"/>
-                <outlet property="txtPaymentCode" destination="I0v-SK-KAe" id="uKb-0b-aJe"/>
-                <outlet property="txtPaymentCodeValue" destination="k8C-fJ-yb3" id="Fbu-Q0-GSn"/>
+                <outlet property="txtRecieversMobileNumber" destination="uST-xH-BKZ" id="eYI-iU-ZKP"/>
+                <outlet property="txtRecieversMobileNumberValue" destination="zdG-1H-RlP" id="xOQ-Pl-0zn"/>
                 <outlet property="txtReferenceId" destination="2Nn-ja-PsI" id="aPF-9Y-XyJ"/>
                 <outlet property="txtReferenceIdValue" destination="QWi-Nd-w6u" id="eEY-QU-dnH"/>
+                <outlet property="txtRequesterMobileNumber" destination="mmS-TW-VOb" id="rm0-uz-O4o"/>
+                <outlet property="txtRequesterMobileNumberValue" destination="zQ3-y0-spZ" id="tly-fh-8BO"/>
                 <outlet property="txtTerminalId" destination="wlw-71-72c" id="tNr-KT-3EX"/>
                 <outlet property="txtTerminalIdValue" destination="Wuq-V7-bDd" id="LPV-XU-22s"/>
                 <outlet property="txtTrackingCode" destination="var-NS-QdN" id="wxr-WA-vZ4"/>
@@ -394,8 +395,8 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <namedColor name="IGTopupCell">
-            <color red="1" green="0.70980392156862748" blue="0.71372549019607845" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="IGTopupCellColor">
+            <color red="0.60784313725490191" green="0.50196078431372548" blue="0.80392156862745101" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
