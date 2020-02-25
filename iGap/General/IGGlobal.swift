@@ -124,7 +124,7 @@ class IGGlobal {
     
     static var topbarHeight: CGFloat {
         if #available(iOS 13.0, *) {
-            return (UIApplication.shared.statusBarFrame.height ?? 0.0) +
+            return (UIApplication.shared.statusBarFrame.height ) +
                 (44)
         } else {
             return UIApplication.shared.statusBarFrame.size.height +
@@ -202,7 +202,7 @@ class IGGlobal {
     internal static func validaatePhoneNUmber(phone : Int64!) -> String {
         let str = String(phone)
         if str.starts(with: "98") {
-            var tmp = str.dropFirst(2)
+            let tmp = str.dropFirst(2)
             return "0" + tmp
         } else if str.starts(with: "09") {
             return str
@@ -601,13 +601,13 @@ extension UIColor {
     }
     
     class func dialogueBoxOutgoing() -> UIColor {
-        return ThemeManager.currentTheme.SendMessageBubleBGColor ?? #colorLiteral(red: 0.8980392157, green: 0.8980392157, blue: 0.8980392157, alpha: 1)
+        return ThemeManager.currentTheme.SendMessageBubleBGColor
     }
     class func helperWindowViewColor() -> UIColor {
-        return ThemeManager.currentTheme.ModalViewBackgroundColor ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        return ThemeManager.currentTheme.ModalViewBackgroundColor
     }
     class func helperWindowViewBorderColor() -> UIColor {
-        return ThemeManager.currentTheme.LabelGrayColor ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        return ThemeManager.currentTheme.LabelGrayColor
     }
     
     class func dialogueBoxIncomming() -> UIColor {
@@ -618,7 +618,7 @@ extension UIColor {
         return #colorLiteral(red: 0.6156862745, green: 0.7803921569, blue: 0.337254902, alpha: 0.3)
     }
     class func tabbarBGColor() -> UIColor {
-        return ThemeManager.currentTheme.TabBarColor ?? #colorLiteral(red: 0.9176470588, green: 0.9176470588, blue: 0.9294117647, alpha: 0.9)
+        return ThemeManager.currentTheme.TabBarColor
     }
     
     class func forwardBoxOutgoign() -> UIColor {
@@ -673,7 +673,7 @@ extension UIColor {
     }
     
     class func messageText() -> UIColor {
-        return ThemeManager.currentTheme.LabelColor ?? #colorLiteral(red: 0.1725490196, green: 0.2117647059, blue: 0.2470588235, alpha: 1)
+        return ThemeManager.currentTheme.LabelColor
     }
     
     class func dialogueBoxInfo() -> UIColor { // filename, contact, ...
@@ -681,11 +681,11 @@ extension UIColor {
     }
     
     class func logBackground() -> UIColor { // filename, contact, ...
-        return ThemeManager.currentTheme.MessageLogCellBGColor ?? #colorLiteral(red: 0.6588235294, green: 0.6588235294, blue: 0.6588235294, alpha: 1)
+        return ThemeManager.currentTheme.MessageLogCellBGColor
     }
     
     class func unreadBackground() -> UIColor { // filename, contact, ...
-        return ThemeManager.currentTheme.MessageUnreadCellBGColor ?? UIColor.iGapMainColor()
+        return ThemeManager.currentTheme.MessageUnreadCellBGColor
     }
     
     class func pinnedChats() -> UIColor {
@@ -705,11 +705,11 @@ extension UIColor {
     }
     
     class func sticker() -> UIColor {
-        return ThemeManager.currentTheme.TableViewBackgroundColor ?? #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 1, alpha: 1)
+        return ThemeManager.currentTheme.TableViewBackgroundColor
     }
     
     class func stickerToolbar() -> UIColor {
-        return ThemeManager.currentTheme.ModalViewBackgroundColor ?? #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 1, alpha: 1)
+        return ThemeManager.currentTheme.ModalViewBackgroundColor
     }
     
     class func stickerToolbarSelected() -> UIColor {
@@ -852,7 +852,7 @@ extension UIColor {
     
     class func chatBubbleBackground(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return  ThemeManager.currentTheme.ReceiveMessageBubleBGColor ?? .white
+            return  ThemeManager.currentTheme.ReceiveMessageBubleBGColor
         } else {
             return UIColor.dialogueBoxOutgoing()
         }
@@ -868,7 +868,7 @@ extension UIColor {
     
     //MARK: MessageCVCell Time
     class func chatTimeTextColor() -> UIColor {
-        return ThemeManager.currentTheme.LabelColor ?? #colorLiteral(red: 0.4117647059, green: 0.4823529412, blue: 0.5294117647, alpha: 1)
+        return ThemeManager.currentTheme.LabelColor
     }
     
     //MARK: MessageCVCell Forward
@@ -2285,7 +2285,7 @@ public enum Model : String {
 }
 
 public extension UIDevice {
-    public var type: Model {
+    var type: Model {
         var systemInfo = utsname()
         uname(&systemInfo)
         let modelCode = withUnsafePointer(to: &systemInfo.machine) {
@@ -2294,7 +2294,7 @@ public extension UIDevice {
 
             }
         }
-        var modelMap : [ String : Model ] = [
+        let modelMap : [ String : Model ] = [
             "i386"       : .simulator,
             "x86_64"     : .simulator,
             "iPod1,1"    : .iPod1,

@@ -6711,3 +6711,4 @@ TODO:// translate */
 "bill_id" = "معرف الفاتورة";
 "requester_mobile_number" = "رقم الجوال الطالب";
 "receivers_mobile_number" = "رقم المتلقي المحمول";
+"install_latest_version" = "قم بتثبيت أحدث إصدار لاستخدام هذه الميزة";

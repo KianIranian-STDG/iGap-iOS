@@ -949,6 +949,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             return
 
         default:
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.InstallLatestVersion.rawValue.localized, cancelText: IGStringsManager.GlobalOK.rawValue.localized)
             return
         }
     }

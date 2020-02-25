@@ -468,6 +468,7 @@ enum IGStringsManager : String {
     case TopupMessage = "topup_message"
     case TopupRequesterMobileNumber = "requester_mobile_number"
     case TopupReceiverMobileNumber = "receivers_mobile_number"
+    case InstallLatestVersion = "install_latest_version"
     case BillMessage = "bill_message"
     case ChannelCreated = "channel_created"
     case GroupLink = "group_link"

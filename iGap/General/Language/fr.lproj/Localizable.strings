@@ -6312,7 +6312,7 @@
 "enable_location_service" = "Location Service is Disabled Please go to Setting and enable it";
 "around" = "About";
 "meter" = "meter";
-"chat_preview_sample" = "it's morning in Tehran 😍";
+"chat_preview_sample" = "it's morning in my city 😍";
 "chat_preview_sample2" = "Is it night ?🤔";
 "keep_media_footer" = "All The images,videos and Audios that you did not have access in the period will be deleted.";
 "send_message_sound_alert" = "Send Message Sound Alert";
@@ -6333,3 +6333,4 @@
 "bill_id" = "ID de facture";
 "requester_mobile_number" = "Numéro de mobile du demandeur";
 "receivers_mobile_number" = "Numéro de mobile du destinataire";
+"install_latest_version" = "Installez la dernière version pour utiliser cette fonction";
