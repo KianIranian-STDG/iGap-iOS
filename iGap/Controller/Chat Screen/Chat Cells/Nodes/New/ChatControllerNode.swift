@@ -27,7 +27,8 @@ class ChatControllerNode: ASCellNode {
     private var gifNode : ASDisplayNode?
     private var LiveStickerView : ASDisplayNode?
     private var NormalGiftStickerView : ASDisplayNode?
-    
+    private var btnPlay : ASButtonNode?
+
 
     private var indicatorViewAbs : ASDisplayNode?
     
@@ -150,7 +151,7 @@ class ChatControllerNode: ASCellNode {
         if msg.type == .text {
             isTextMessageNode = true
         }
-        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText {
+        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .videoAndText || msg.type == .video {
             let baseBubbleBox = makeBubble(bubbleImage: bubbleImage) // make bubble
             let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
             baseBubbleBox.child = contentItemsBox // add contents as child to bubble
@@ -305,6 +306,10 @@ class ChatControllerNode: ASCellNode {
             return finalBox
         case .image,.imageAndText :
             let finalBox = setImageNodeContent(contentSpec: contentSpec, msg: msg!)
+            
+            return finalBox
+        case .video,.videoAndText :
+            let finalBox = setVideoNodeContent(contentSpec: contentSpec, msg: msg!)
             
             return finalBox
         case .gif,.gifAndText :
@@ -484,8 +489,10 @@ class ChatControllerNode: ASCellNode {
                 left: 0,
                 bottom: 0,
                 right: 0), child: NormalGiftStickerView!)
+
                 let tmpV = ASStackLayoutSpec()
                 tmpV.direction = .vertical
+                makeTopBubbleItems(stack: tmpV)
                 tmpV.children?.append(insetSpec)
                 addStickerBottomItems(spec: tmpV)//add time and status to bottom of sticker
 
@@ -540,6 +547,7 @@ class ChatControllerNode: ASCellNode {
         if NormalGiftStickerView == nil {
             NormalGiftStickerView = ASDisplayNode { () -> UIView in
                 let animationView = UIImageView()
+                animationView.contentMode = .scaleAspectFit
                 return animationView
             }
         }
@@ -774,7 +782,7 @@ class ChatControllerNode: ASCellNode {
         }
 
         nodeText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 50)
-        nodeText!.style.minHeight = ASDimensionMake(.points, 20)        
+        nodeText!.style.minHeight = ASDimensionMake(.points, 20)
         var layoutMsg = message?.detach()
         
         //check if has reply or Forward
@@ -816,7 +824,143 @@ class ChatControllerNode: ASCellNode {
         
 
     }
+    //******************************************************//
+    //***********VIDEO NODE AND VIDEO TEXT NODE*************//
+    //******************************************************//
     
+    private func setVideoNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage) -> ASLayoutSpec {
+        makeTopBubbleItems(stack: contentSpec)
+        var prefferedSize : CGSize = CGSize(width: 0, height: 0)
+        prefferedSize = NodeExtension.fetchMediaFrame(media: msg.attachment!)
+        if imgNode == nil {
+            imgNode = ASImageNode()
+            imgNode!.contentMode = .scaleAspectFit
+            
+        }
+        if message!.attachment != nil {
+            if !(IGGlobal.isFileExist(path: msg.attachment!.localPath)) {
+                if indicatorViewAbs == nil {
+                    indicatorViewAbs = ASDisplayNode { () -> UIView in
+                        let view = IGProgress()
+                        return view
+                    }
+                    indicatorViewAbs!.style.height = ASDimensionMake(.points, 50)
+                    indicatorViewAbs!.style.width = ASDimensionMake(.points, 50)
+                    (indicatorViewAbs!.view as! IGProgress).setFileType(.download)
+                    attachment?.status = .readyToDownload
+                }
+            } else {
+                indicatorViewAbs?.removeFromSupernode()
+                indicatorViewAbs = nil
+                attachment?.status = .ready
+                if  btnPlay == nil {
+                    btnPlay = ASButtonNode()
+                    btnPlay?.style.width = ASDimensionMake(.points, 50)
+                    btnPlay?.style.height = ASDimensionMake(.points, 50)
+                    btnPlay?.cornerRadius = 25
+                    btnPlay?.backgroundColor = isIncomming ? ThemeManager.currentTheme.ReceiveMessageBubleBGColor : ThemeManager.currentTheme.SendMessageBubleBGColor
+                    IGGlobal.makeAsyncButton(for: btnPlay!, with: "🎗", textColor: ThemeManager.currentTheme.LabelColor, size: 30, weight: .bold, font: .fontIcon, alignment: .center)
+                }
+
+            }
+        }
+
+        imgNode!.style.width = ASDimension(unit: .points, value: prefferedSize.width)
+        imgNode!.style.height = ASDimension(unit: .points, value: prefferedSize.height)
+        imgNode!.clipsToBounds = true
+        
+        imgNode!.layer.cornerRadius = 10
+        
+        if msg.type == .video {
+            RemoveNodeText()
+            
+            let verticalSpec = ASStackLayoutSpec()
+            verticalSpec.direction = .vertical
+            verticalSpec.spacing = 0
+            verticalSpec.justifyContent = .start
+            verticalSpec.alignItems = isIncomming == true ? .end : .start
+            let insetsImage = isIncomming ? UIEdgeInsets(top: -5, left: -10, bottom: 0, right: -5) : UIEdgeInsets(top: -5, left: -5, bottom: 0, right: -7)
+            let insetSpecImage = ASInsetLayoutSpec(insets: insetsImage, child: imgNode!)
+            
+            verticalSpec.children?.append(insetSpecImage)
+            
+            if indicatorViewAbs == nil {
+                let timeTxtNode = ASTextNode()
+                let fakeStackBottomItem = ASDisplayNode()
+
+                timeTxtNode.style.height = ASDimension(unit: .points, value: 20)
+                fakeStackBottomItem.style.height = ASDimension(unit: .points, value: 26)
+                
+                    // Setting Play Btn Size
+                btnPlay!.style.flexBasis = ASDimension(unit: .auto, value:1.0)
+                btnPlay!.style.flexGrow = 1
+                btnPlay!.style.flexShrink = 1
+                
+                let playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: btnPlay!)
+                
+                    // Setting Duration lbl Size
+                let timeInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5), child: timeTxtNode)
+                
+                    // Setting Container Stack
+                let itemsStackSpec = ASStackLayoutSpec(direction: .vertical, spacing: 6, justifyContent: .spaceBetween, alignItems: .start, children: [timeInsetSpec, playTxtCenterSpec, fakeStackBottomItem])
+                itemsStackSpec.style.height = ASDimension(unit: .points, value: prefferedSize.height)
+                
+                let overlaySpec = ASOverlayLayoutSpec(child: imgNode!, overlay: itemsStackSpec)
+
+                let time : String! = IGAttachmentManager.sharedManager.convertFileTime(seconds: Int((message!.attachment?.duration)!))
+                
+                IGGlobal.makeAsyncText(for: timeTxtNode, with: time, textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
+                IGGlobal.makeAsyncText(for: timeTxtNode, with: " " + "(\(IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: (message!.attachment?.size)!)))" + " ", textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+                
+                contentSpec.children?.append(overlaySpec)
+
+
+            } else {
+                let overlay = ASOverlayLayoutSpec(child: verticalSpec, overlay: indicatorViewAbs!)
+                contentSpec.children?.append(overlay)
+
+            }
+            
+            makeBottomBubbleItems(contentStack: contentSpec)
+            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
+            
+            return finalInsetSpec
+            
+            
+        } else {
+            
+            let verticalSpec = ASStackLayoutSpec()
+            verticalSpec.direction = .vertical
+            verticalSpec.spacing = 0
+            verticalSpec.justifyContent = .start
+            verticalSpec.alignItems = isIncomming == true ? .end : .start
+            let insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            let insetSpecImage = ASInsetLayoutSpec(insets: insetsImage, child: imgNode!)
+            
+            verticalSpec.children?.append(insetSpecImage)
+            if indicatorViewAbs == nil {
+                contentSpec.children?.append(verticalSpec)
+
+            } else {
+                let overlay = ASOverlayLayoutSpec(child: verticalSpec, overlay: indicatorViewAbs!)
+                contentSpec.children?.append(overlay)
+
+            }
+            AddTextNodeTo(spec: contentSpec)
+            setMessage()
+            
+            nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
+            makeBottomBubbleItems(contentStack: contentSpec)
+            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
+            
+            return finalInsetSpec
+
+        }
+        
+    }
+    
+
     /*
      ******************************************************************
      ************************ Manage Attachment ***********************

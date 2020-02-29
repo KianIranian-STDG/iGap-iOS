@@ -167,6 +167,21 @@ class ASReplyForwardNode: ASDisplayNode {
                     break
                 }
 
+            } else if extraMessage.type == .sticker {
+                imgReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
+                txtReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
+
+                if let user = extraMessage.authorUser?.user { //get reply message sender Name
+                    IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: user.displayName, textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
+                } else if let sender = extraMessage.authorRoom { //get reply message sender Room Title
+                    IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: sender.title ?? "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
+                } else {
+                    IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
+                }
+                let message = (extraMessage.message ?? "") + " " + IGStringsManager.StickerMessage.rawValue.localized
+                IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: message, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
+
+                
             }
 
         } else { // is Forward
