@@ -1128,7 +1128,7 @@ class ChatControllerNode: ASCellNode {
                     //                    insertSubnode(playTxtNode, aboveSubnode: imgNode)
                 }
                 
-                (indicatorViewAbs!.view as! IGProgress).setState(.ready)
+                (indicatorViewAbs?.view as? IGProgress)?.setState(.ready)
                 if attachment.type == .gif {
                     attachment.loadData()
                     if let data = attachment.data {
