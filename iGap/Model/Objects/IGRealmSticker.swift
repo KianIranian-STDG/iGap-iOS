@@ -55,6 +55,12 @@ class IGRealmSticker: Object {
         }
         return false
     }
+    func detach() -> IGRealmSticker {
+        let detachedIGRealmSticker = IGRealmSticker(value: self)
+        detachedIGRealmSticker.stickerItems = self.stickerItems.detached()
+        return detachedIGRealmSticker
+    }
+
 }
 
 

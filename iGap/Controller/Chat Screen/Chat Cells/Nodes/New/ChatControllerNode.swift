@@ -9,6 +9,7 @@
 import AsyncDisplayKit
 import IGProtoBuff
 import SwiftEventBus
+import Lottie
 
 class ChatControllerNode: ASCellNode {
     
@@ -24,6 +25,10 @@ class ChatControllerNode: ASCellNode {
     private var shadowImgNode : ASImageNode?
     private var imgNode : ASImageNode?
     private var gifNode : ASDisplayNode?
+    private var LiveStickerView : ASDisplayNode?
+    private var NormalGiftStickerView : ASDisplayNode?
+    
+
     private var indicatorViewAbs : ASDisplayNode?
     
     private var attachment: IGFile?
@@ -132,7 +137,7 @@ class ChatControllerNode: ASCellNode {
         
         var msg = message
         
-        if let repliedMessage = message.repliedTo {
+        if message.repliedTo != nil {
             msg = message
             
         } else if let forwardedFrom = message.forwardedFrom {
@@ -151,7 +156,7 @@ class ChatControllerNode: ASCellNode {
             baseBubbleBox.child = contentItemsBox // add contents as child to bubble
             
             self.layoutSpecBlock = {[weak self] node, constrainedSize in
-                guard let sSelf = self else {
+                guard self != nil else {
                     return ASLayoutSpec()
                 }
                 let stack = ASStackLayoutSpec()
@@ -168,6 +173,48 @@ class ChatControllerNode: ASCellNode {
                 return insetHSpec
             }
             manageAttachment(file: message.attachment)
+        } else if msg.type == .sticker {
+
+            let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
+            
+            self.layoutSpecBlock = {[weak self] node, constrainedSize in
+                guard self != nil else {
+                    return ASLayoutSpec()
+                }
+                let stack = ASStackLayoutSpec()
+                stack.direction = .horizontal
+                stack.spacing = 5
+                stack.verticalAlignment = .bottom
+                stack.horizontalAlignment = isIncomming ? .left : .right
+                stack.children = [contentItemsBox]
+                stack.style.flexShrink = 1.0
+                
+                
+                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 10, bottom: isFromSameSender ? 1 : 10, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: isFromSameSender ? 1 : 10 , right: 5), child: stack)
+                
+                return insetHSpec
+            }
+            manageAttachment(file: message.attachment)
+        } else if msg.type == .log {
+            let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
+            
+            self.layoutSpecBlock = {[weak self] node, constrainedSize in
+                guard self != nil else {
+                    return ASLayoutSpec()
+                }
+                let stack = ASStackLayoutSpec()
+                stack.direction = .horizontal
+                stack.spacing = 5
+                stack.verticalAlignment = .bottom
+                stack.horizontalAlignment = isIncomming ? .left : .right
+                stack.children = [contentItemsBox]
+                stack.style.flexShrink = 1.0
+                
+                
+                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 10, bottom: isFromSameSender ? 1 : 10, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: isFromSameSender ? 1 : 10 , right: 5), child: stack)
+                
+                return insetHSpec
+            }
         }
     }
     private func makeBubble(bubbleImage : UIImage) -> ASLayoutSpec {
@@ -262,6 +309,9 @@ class ChatControllerNode: ASCellNode {
             return finalBox
         case .gif,.gifAndText :
             let finalBox = setGifNodeContent(contentSpec: contentSpec, msg: msg!)
+            return finalBox
+        case .sticker :
+            let finalBox = setStickerNodeContent(contentSpec: contentSpec, msg: msg!)
             return finalBox
         default :
             let finalBox = setTextNodeContent(contentSpec: contentSpec)
@@ -393,6 +443,135 @@ class ChatControllerNode: ASCellNode {
             }
         }
     }
+    
+    //******************************************************//
+    //*********************STICKER NODE*********************//
+    //******************************************************//
+    
+    private func setStickerNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage) -> ASLayoutSpec {
+        makeTopBubbleItems(stack: contentSpec)
+        switch msg.additional?.dataType {
+            
+        case AdditionalType.STICKER.rawValue :
+            if (msg.attachment?.name!.hasSuffix(".json") ?? false) {
+                initAnimatedSticker()
+            }  else {
+                initNormalGiftSticker()
+            }
+        case AdditionalType.GIFT_STICKER.rawValue :
+            initNormalGiftSticker()
+
+        default : break
+            
+        }
+        manageStickerAttachment()
+        
+        switch message?.additional?.dataType {
+            
+        case AdditionalType.STICKER.rawValue :
+            if (self.message!.attachment?.name!.hasSuffix(".json") ?? false) {
+                let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0), child: LiveStickerView!)
+                
+                return insetSpec
+
+            } else {
+                let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0), child: NormalGiftStickerView!)
+                let tmpV = ASStackLayoutSpec()
+                tmpV.direction = .vertical
+                tmpV.children?.append(insetSpec)
+                addStickerBottomItems(spec: tmpV)//add time and status to bottom of sticker
+
+                return tmpV
+
+            }
+        case AdditionalType.GIFT_STICKER.rawValue :
+            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0), child: NormalGiftStickerView!)
+            
+            return insetSpec
+
+        default :
+            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0), child: NormalGiftStickerView!)
+            
+            return insetSpec
+
+            
+        }
+        
+    }
+    private func initAnimatedSticker() {
+        if LiveStickerView == nil {
+            LiveStickerView = ASDisplayNode { () -> UIView in
+                let animationView = AnimationView()
+                return animationView
+            }
+        }
+        self.LiveStickerView!.style.height = ASDimensionMake(.points, 200)
+        self.LiveStickerView!.style.width = ASDimensionMake(.points, 200)
+        DispatchQueue.main.async {[weak self] in
+            guard let sSelf = self else {
+                return
+            }
+            (sSelf.LiveStickerView!.view as! AnimationView).frame = CGRect(x: 0, y: 0, width: 200, height: 200)
+            (sSelf.LiveStickerView!.view as! AnimationView).contentMode = .scaleAspectFit
+            (sSelf.LiveStickerView!.view as! AnimationView).loopMode = .loop
+            (sSelf.LiveStickerView!.view as! AnimationView).backgroundBehavior = .pauseAndRestore
+            (sSelf.LiveStickerView!.view as! AnimationView).forceDisplayUpdate()
+
+        }
+    }
+    
+    private func initNormalGiftSticker() {
+        if NormalGiftStickerView == nil {
+            NormalGiftStickerView = ASDisplayNode { () -> UIView in
+                let animationView = UIImageView()
+                return animationView
+            }
+        }
+        self.NormalGiftStickerView!.style.height = ASDimensionMake(.points, 200)
+        self.NormalGiftStickerView!.style.width = ASDimensionMake(.points, 200)
+
+    }
+    private func addStickerBottomItems(spec: ASLayoutSpec) {
+        if txtTimeNode == nil {
+            txtTimeNode = ASTextNode()
+        }
+        setTime()
+        if isIncomming  {} else {
+            if txtStatusNode == nil {
+                txtStatusNode = ASTextNode()
+            }
+
+            setMessageStatus()
+        }
+
+        let timeAndStatusSpec = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
+        let v = ASDisplayNode()
+        v.style.preferredSize = CGSize(width: 150, height: 30)
+        v.backgroundColor = .darkGray
+        v.cornerRadius = 10
+        let bgSpec = ASBackgroundLayoutSpec(child: timeAndStatusSpec, background: v)
+        let finalSpec = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: [bgSpec])
+
+        spec.children?.append(finalSpec)
+        
+    }
+    
     //******************************************************//
     //***********GIF NODE AND GIF TEXT NODE*************//
     //******************************************************//
@@ -418,15 +597,19 @@ class ChatControllerNode: ASCellNode {
                         let view = IGProgress()
                         return view
                     }
+                    indicatorViewAbs!.style.height = ASDimensionMake(.points, 50)
+                    indicatorViewAbs!.style.width = ASDimensionMake(.points, 50)
+                    (indicatorViewAbs!.view as! IGProgress).setFileType(.download)
+                    attachment?.status = .readyToDownload
+
                 }
+            } else {
+                indicatorViewAbs?.removeFromSupernode()
+                indicatorViewAbs = nil
+                attachment?.status = .ready
             }
         }
-        if indicatorViewAbs == nil {
-            indicatorViewAbs = ASDisplayNode { () -> UIView in
-                let view = IGProgress()
-                return view
-            }
-        }
+       
         gifNode!.style.width = ASDimension(unit: .points, value: prefferedSize.width)
         gifNode!.style.height = ASDimension(unit: .points, value: prefferedSize.height)
         gifNode!.clipsToBounds = true
@@ -505,22 +688,24 @@ class ChatControllerNode: ASCellNode {
                         let view = IGProgress()
                         return view
                     }
+                    indicatorViewAbs!.style.height = ASDimensionMake(.points, 50)
+                    indicatorViewAbs!.style.width = ASDimensionMake(.points, 50)
+                    (indicatorViewAbs!.view as! IGProgress).setFileType(.download)
+                    attachment?.status = .readyToDownload
+
                 }
+            } else {
+                indicatorViewAbs?.removeFromSupernode()
+                indicatorViewAbs = nil
+                attachment?.status = .ready
             }
         }
-        if indicatorViewAbs == nil {
-            indicatorViewAbs = ASDisplayNode { () -> UIView in
-                let view = IGProgress()
-                return view
-            }
-        }
+
         imgNode!.style.width = ASDimension(unit: .points, value: prefferedSize.width)
         imgNode!.style.height = ASDimension(unit: .points, value: prefferedSize.height)
         imgNode!.clipsToBounds = true
         
         imgNode!.layer.cornerRadius = 10
-        indicatorViewAbs!.style.height = ASDimensionMake(.points, 50)
-        indicatorViewAbs!.style.width = ASDimensionMake(.points, 50)
         
         if msg.type == .image {
             RemoveNodeText()
@@ -535,8 +720,14 @@ class ChatControllerNode: ASCellNode {
             
             verticalSpec.children?.append(insetSpecImage)
             
-            let overlay = ASOverlayLayoutSpec(child: verticalSpec, overlay: indicatorViewAbs!)
-            contentSpec.children?.append(overlay)
+            if indicatorViewAbs == nil {
+                contentSpec.children?.append(verticalSpec)
+
+            } else {
+                let overlay = ASOverlayLayoutSpec(child: verticalSpec, overlay: indicatorViewAbs!)
+                contentSpec.children?.append(overlay)
+
+            }
             
             makeBottomBubbleItems(contentStack: contentSpec)
             let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
@@ -555,10 +746,14 @@ class ChatControllerNode: ASCellNode {
             let insetSpecImage = ASInsetLayoutSpec(insets: insetsImage, child: imgNode!)
             
             verticalSpec.children?.append(insetSpecImage)
-            let overlay = ASOverlayLayoutSpec(child: verticalSpec, overlay: indicatorViewAbs!)
-            contentSpec.children?.append(overlay)
-            
-    
+            if indicatorViewAbs == nil {
+                contentSpec.children?.append(verticalSpec)
+
+            } else {
+                let overlay = ASOverlayLayoutSpec(child: verticalSpec, overlay: indicatorViewAbs!)
+                contentSpec.children?.append(overlay)
+
+            }
             AddTextNodeTo(spec: contentSpec)
             setMessage()
             
@@ -626,6 +821,43 @@ class ChatControllerNode: ASCellNode {
      ******************************************************************
      */
     
+    private func manageStickerAttachment() {
+
+        if self.message!.additional?.dataType == AdditionalType.STICKER.rawValue {
+            
+            if let stickerStruct = IGHelperJson.parseStickerMessage(data: (self.message!.additional?.data)!) {
+                //IGGlobal.imgDic[stickerStruct.token!] = self.imgMediaAbs
+                DispatchQueue.main.async {
+                    IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) { (file) in
+                        
+                        if (self.message!.attachment?.name!.hasSuffix(".json") ?? false) {
+                            if self.LiveStickerView != nil {
+                                (self.LiveStickerView!.view as! AnimationView).setLiveSticker(for: file)
+                            }
+                        } else  {
+                            if self.NormalGiftStickerView != nil {
+
+                                (self.NormalGiftStickerView!.view as! UIImageView).setSticker(for: file)
+                            }
+                        }
+                        
+                    }
+                }
+            } else {
+                if let stickerStruct = IGHelperJson.parseStickerMessage(data: (self.message!.additional?.data)!) {
+                    
+                    DispatchQueue.main.async {
+                        IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) { (file) in
+                            (self.NormalGiftStickerView!.view as! UIImageView).setSticker(for: file)
+                        }
+                    }
+                }
+            }
+            return
+        }
+
+        
+    }
     private func manageAttachment(file: IGFile? = nil){
         
         
@@ -680,8 +912,9 @@ class ChatControllerNode: ASCellNode {
                     imgNode!.setThumbnail(for: attachment)
                     
                     if attachment.status != .ready {
-                        
-                        (indicatorViewAbs!.view as! IGProgress).delegate = self
+                        if indicatorViewAbs != nil {
+                            (indicatorViewAbs!.view as! IGProgress).delegate = self
+                        }
                     }
                     break
                 }
@@ -691,8 +924,9 @@ class ChatControllerNode: ASCellNode {
                     (gifNode!.view as! GIFImageView).setThumbnail(for: attachment)
                     
                     if attachment.status != .ready {
-                        
-                        (indicatorViewAbs!.view as! IGProgress).delegate = self
+                        if indicatorViewAbs != nil {
+                            (indicatorViewAbs!.view as! IGProgress).delegate = self
+                        }
                     }
                     break
                 }
