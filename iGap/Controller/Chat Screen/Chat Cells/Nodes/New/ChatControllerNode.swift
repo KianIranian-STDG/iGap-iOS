@@ -561,11 +561,13 @@ class ChatControllerNode: ASCellNode {
         }
 
         let timeAndStatusSpec = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
+        timeAndStatusSpec.verticalAlignment = .center
         let v = ASDisplayNode()
-        v.style.preferredSize = CGSize(width: 150, height: 30)
+        v.style.preferredSize = CGSize(width: 100, height: 30)
         v.backgroundColor = .darkGray
         v.cornerRadius = 10
-        let bgSpec = ASBackgroundLayoutSpec(child: timeAndStatusSpec, background: v)
+        let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10), child: timeAndStatusSpec)
+        let bgSpec = ASBackgroundLayoutSpec(child: insetSpec, background: v)
         let finalSpec = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: [bgSpec])
 
         spec.children?.append(finalSpec)
