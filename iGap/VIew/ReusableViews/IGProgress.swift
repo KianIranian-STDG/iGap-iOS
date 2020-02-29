@@ -26,17 +26,32 @@ class IGProgress: UIView {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-        configure()
+        DispatchQueue.main.async {[weak self] in
+            guard let sSelf = self else {
+                return
+            }
+            sSelf.configure()
+        }
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        DispatchQueue.main.async {[weak self] in
+            guard let sSelf = self else {
+                return
+            }
+            sSelf.configure()
+        }
     }
     
     func prepareForReuse() {
-        actionButton?.removeFromSuperview()
-        actionButton = nil
+        DispatchQueue.main.async {[weak self] in
+            guard let sSelf = self else {
+                return
+            }
+            sSelf.actionButton?.removeFromSuperview()
+            sSelf.actionButton = nil
+        }
     }
     
     func configure() {

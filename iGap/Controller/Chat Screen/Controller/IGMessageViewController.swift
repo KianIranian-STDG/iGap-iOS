@@ -6928,7 +6928,7 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
             
 //            message: msg!, finalRoomType : sSelf.finalRoom!.type ,finalRoom : sSelf.finalRoom!
             let cellNode = ChatControllerNode()
-            
+            cellNode.delegate = self
             cellNode.makeView(message: msg!, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!,isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar, indexPath: indexPath)
             return cellNode
             
