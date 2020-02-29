@@ -1072,9 +1072,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     message.roomId = self?.room?.id ?? 0
                     message.attachment = attachment
                     message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.STICKER.rawValue)
-                    IGAttachmentManager.sharedManager.add(attachment: attachment)
                     
-                    self?.manageSendMessage(message: message.detach(), addForwardOrReply: true, isSticker: true)
+                    self?.manageSendMessage(message: message, addForwardOrReply: true, isSticker: true)
                     
                     self?.sendMessageState(enable: false)
                     self?.messageTextView.text = ""

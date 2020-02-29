@@ -192,11 +192,9 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
         /***** Fetch Current Sticker State GroupId *****/
         SwiftEventBus.onMainThread(self, name: EventBusManager.stickerCurrentGroupId) { [weak self] (result) in
             if self?.currentIndexPath != nil, self?.collectionView?.numberOfSections ?? 0 > 0, let cell = self?.collectionView?.cellForItem(at: self?.currentIndexPath ?? IndexPath(row: 0, section: 0)) as? IGStickerCell {
-                print("TTT || cell.stickerItemRealm.groupID: \(cell.stickerItemRealm.groupID)")
                 IGGlobal.stickerCurrentGroupId = cell.stickerItemRealm.groupID
                 return
             }
-            print("TTT || group id clear")
             IGGlobal.stickerCurrentGroupId = ""
         }
         
