@@ -428,6 +428,8 @@
 		D6AFC17123DD6AAD002584D5 /* Files.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AFC17023DD6AAD002584D5 /* Files.framework */; };
 		D6AFC17223DD6AAD002584D5 /* Files.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6AFC17023DD6AAD002584D5 /* Files.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D6CCCBF82392A1E10061F749 /* CardToCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */; };
+		D6CEC8A0240A7EE500C6F078 /* SMGiftStickerAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6EA2534240A496100DC2C3B /* SMGiftStickerAlertView.xib */; };
+		D6EA2533240A46F200DC2C3B /* SMGiftStickerAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EA2532240A46F200DC2C3B /* SMGiftStickerAlertView.swift */; };
 		D6EAF0742383D9B300D7F177 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */; };
 		DF3EDEF64399AA713B2D0C2F /* IGRequestSignaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */; };
 		FA03C19C2042945D008812E3 /* IGCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03C19B2042945D008812E3 /* IGCall.swift */; };
@@ -1322,6 +1324,8 @@
 		D6A89975236D8D920087215B /* IGHelperAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperAvatar.swift; sourceTree = "<group>"; };
 		D6AFC17023DD6AAD002584D5 /* Files.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Files.framework; path = Carthage/Build/iOS/Files.framework; sourceTree = "<group>"; };
 		D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardToCardCell.xib; sourceTree = "<group>"; };
+		D6EA2532240A46F200DC2C3B /* SMGiftStickerAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMGiftStickerAlertView.swift; sourceTree = "<group>"; };
+		D6EA2534240A496100DC2C3B /* SMGiftStickerAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMGiftStickerAlertView.xib; sourceTree = "<group>"; };
 		DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRequestSignaling.swift; sourceTree = "<group>"; };
 		FA03C19B2042945D008812E3 /* IGCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCall.swift; sourceTree = "<group>"; };
 		FA03C19F20429D46008812E3 /* RTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCClient.swift; sourceTree = "<group>"; };
@@ -2090,6 +2094,7 @@
 				8EC217962258BD9E00105B5A /* SMSingleInputView.xib */,
 				8ECCA1E922B7B1F000D3A734 /* SMSingleAmountInputView.xib */,
 				8E5495CE22F02BB1001D30E1 /* SMTwoInputView.xib */,
+				D6EA2534240A496100DC2C3B /* SMGiftStickerAlertView.xib */,
 				8ECCA1E322B6585700D3A734 /* SMMoneyTransactionOptions.xib */,
 				8E96A32C225C96C3007D8A77 /* RecieptRow.xib */,
 				8E96A32D225C96C3007D8A77 /* RecieptView.xib */,
@@ -2284,6 +2289,7 @@
 				8EC217982258BDF400105B5A /* SMSingleInputView.swift */,
 				8ECCA1E722B7B1E200D3A734 /* SMSingleAmountInputView.swift */,
 				8E5495D022F02BEF001D30E1 /* SMTwoInputView.swift */,
+				D6EA2532240A46F200DC2C3B /* SMGiftStickerAlertView.swift */,
 				8ECCA1E522B6587E00D3A734 /* SMMoneyTransactionOptions.swift */,
 				8EC217A82259B90F00105B5A /* walletModalViewController.swift */,
 			);
@@ -3851,6 +3857,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D64BD2F92403F60900E812CA /* BillCell.xib in Resources */,
+				D6CEC8A0240A7EE500C6F078 /* SMGiftStickerAlertView.xib in Resources */,
 				D64BD2FA2403F60900E812CA /* TopupCell.xib in Resources */,
 				8E1865392323A10400D8BCA9 /* ChannelAndSettings.storyboard in Resources */,
 				8EA854A4239D5C3300C9442F /* IGClassicColors.xcassets in Resources */,
@@ -4467,6 +4474,7 @@
 				8EC0385C239BF5E900B525B5 /* IGNewsCommentsTVController.swift in Sources */,
 				94E74DC523239727001AB47C /* IGFinancialHistoryDetailViewController.swift in Sources */,
 				4F9F3E6A1EBA0D91008E05C1 /* IGPushResponse.swift in Sources */,
+				D6EA2533240A46F200DC2C3B /* SMGiftStickerAlertView.swift in Sources */,
 				8E8ABDBC2394F1E600DE00DB /* IGNewsTableViewController.swift in Sources */,
 				FADE97B31DF2DBF100FF714A /* IGMusicPlayer.swift in Sources */,
 				FA09536B1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController.swift in Sources */,

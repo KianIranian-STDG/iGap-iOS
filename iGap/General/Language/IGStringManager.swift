@@ -637,6 +637,9 @@ enum IGStringsManager : String {
     //cardToCard
     case CardToCardRequest = "cardToCardRequest"
     case CardToCard = "cardToCardBtnText"
+    case GiftSticker = "gift_sticker_title"
+    case InquiryAndShopping = "inquiry_and_shopping"
+    case NationalCode = "national_code"
     case Buy = "buy"
     case Price = "price"
     //MARK: -Other

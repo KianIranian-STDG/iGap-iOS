@@ -4915,7 +4915,16 @@
 "cardToCardBtnText" = "par carte bancaire";
 
 /*  */
+"gift_sticker_title" = "Autocollant cadeau";
+
+/*  */
+"inquiry_and_shopping" = "Demande et achats";
+
+/*  */
 "crad_to_card_dest_name" = "titulaire de compte bancaire";
+
+/*  */
+"national_code" = "carte d'identité";
 
 /*  */
 "groups_in_common" = "group en commun";

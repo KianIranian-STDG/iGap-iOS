@@ -142,11 +142,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     var MoneyTransactionModal : SMMoneyTransactionOptions!
     var MoneyInputModal : SMSingleAmountInputView!
     var CardToCardModal : SMTwoInputView!
+    var giftStickerModal : SMGiftStickerAlertView!
     var forwardModal : IGMultiForwardModal!
     var MoneyTransactionModalIsActive = false
     var MoneyInputModalIsActive = false
     var MultiShareModalIsActive = false
     var CardToCardModalIsActive = false
+    var giftStickerModalIsActive = false
     var isBoth = false
     var blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
     var blurEffectView = UIVisualEffectView()
@@ -2014,11 +2016,18 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             if let CardInput = CardToCardModal {
                 window.addSubview(CardInput)
                 UIView.animate(withDuration: 0.3) {
-                    
                     var frame = CardInput.frame
                     frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
                     CardInput.frame = frame
-                    
+                }
+            }
+        } else if giftStickerModalIsActive {
+            if let giftSticker = giftStickerModal {
+                window.addSubview(giftSticker)
+                UIView.animate(withDuration: 0.3) {
+                    var frame = giftSticker.frame
+                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
+                    giftSticker.frame = frame
                 }
             }
         }
@@ -2043,6 +2052,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
             if CardToCardModal != nil {
                 self.hideCardToCardModal()
+            }
+            
+            if giftStickerModal != nil {
+                self.hideGiftStickerModal()
             }
             
             if forwardModal != nil {
@@ -2441,6 +2454,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.hideMoneyTransactionModal()
             self.hideMoneyInputModal()
             self.hideCardToCardModal()
+            self.hideGiftStickerModal()
             if btnMic.isHidden {
                 return
             }
@@ -2489,6 +2503,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.hideMoneyTransactionModal()
             self.hideMoneyInputModal()
             self.hideCardToCardModal()
+            self.hideGiftStickerModal()
             
             self.btnSend.isHidden = true
             self.btnMoney.isHidden = true
@@ -2816,6 +2831,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     }
                     if MoneyTransactionModal != nil {
                         self.hideMoneyTransactionModal()
+                    }
+                    
+                    if giftStickerModal != nil {
+                        self.hideGiftStickerModal()
                     }
                 }
                 self.view.layoutIfNeeded()
@@ -3235,6 +3254,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.messageTextView.resignFirstResponder()
         self.hideMoneyInputModal()
         self.hideCardToCardModal()
+        self.hideGiftStickerModal()
         
         if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
             
@@ -3272,13 +3292,15 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     MoneyTransactionModal.btnCardToCardTransfer.addTarget(self, action: #selector(cardToCardTapped), for: .touchUpInside)
                     MoneyTransactionModal.btnWallet.addTarget(self, action: #selector(walletTransferTapped), for: .touchUpInside)
                     MoneyTransactionModal.btnWalletTransfer.addTarget(self, action: #selector(walletTransferTapped), for: .touchUpInside)
+                    MoneyTransactionModal.btnGiftStickerIcon.addTarget(self, action: #selector(giftStickerTapped), for: .touchUpInside)
+                    MoneyTransactionModal.btnGiftStickerTitle.addTarget(self, action: #selector(giftStickerTapped), for: .touchUpInside)
                     MoneyTransactionModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: MoneyTransactionModal.frame.height)
                     
                     
                     
                     MoneyTransactionModal.btnWalletTransfer.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
                     MoneyTransactionModal.btnCardToCardTransfer.setTitle(IGStringsManager.CardToCard.rawValue.localized, for: .normal)
-                    //                    MoneyTransactionModal.infoLbl.text = IGStringsManager.EnterRecieverCode.rawValue.localized
+                    MoneyTransactionModal.btnGiftStickerTitle.setTitle(IGStringsManager.GiftSticker.rawValue.localized, for: .normal)
                     
                     let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
                     swipeDown.direction = .down
@@ -3290,8 +3312,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 else {
                     MoneyTransactionModal.btnWalletTransfer.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
                     MoneyTransactionModal.btnCardToCardTransfer.setTitle(IGStringsManager.CardToCard.rawValue.localized, for: .normal)
-                    //                    MoneyTransactionModal.infoLbl.text = IGStringsManager.EnterRecieverCode.rawValue.localized
-                    //                    MoneyTransactionModal.inputTF.placeholder = IGStringsManager.EnterCode.rawValue.localized
+                    MoneyTransactionModal.btnGiftStickerTitle.setTitle(IGStringsManager.GiftSticker.rawValue.localized, for: .normal)
                 }
                 
                 if #available(iOS 11.0, *) {
@@ -3489,6 +3510,42 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
     }
     
+    @objc func giftStickerTapped() {
+        self.hideMoneyTransactionModal()
+        self.hideMoneyInputModal()
+        
+        self.giftStickerModalIsActive = true
+        
+        if giftStickerModal == nil {
+            giftStickerModal = SMGiftStickerAlertView.loadFromNib()
+            giftStickerModal.confirmBtn.addTarget(self, action: #selector(confirmTapped), for: .touchUpInside)
+            giftStickerModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: giftStickerModal.frame.height)
+            giftStickerModal.confirmBtn.setTitle(IGStringsManager.GiftSticker.rawValue.localized, for: .normal)
+            
+            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+            swipeDown.direction = .down
+            
+            giftStickerModal.addGestureRecognizer(swipeDown)
+            self.view.addSubview(giftStickerModal!)
+            
+        } else {
+            giftStickerModal.confirmBtn.setTitle(IGStringsManager.GiftSticker.rawValue.localized, for: .normal)
+        }
+        
+        if #available(iOS 11.0, *) {
+            let window = UIApplication.shared.keyWindow
+            let bottomPadding = window?.safeAreaInsets.bottom
+            
+            UIView.animate(withDuration: 0.3) {
+                self.giftStickerModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerModal.frame.height - 5 -  bottomPadding!, width: self.view.frame.width, height: self.giftStickerModal.frame.height)
+            }
+        } else {
+            UIView.animate(withDuration: 0.3) {
+                self.giftStickerModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerModal.frame.height - 5, width: self.view.frame.width, height: self.giftStickerModal.frame.height)
+            }
+        }
+    }
+    
     @objc func confirmTapped() {
         
         if MoneyInputModal != nil {
@@ -3500,6 +3557,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.hideMoneyTransactionModal()
                 self.hideMoneyInputModal()
                 self.hideCardToCardModal()
+                self.hideGiftStickerModal()
                 
                 let tmpJWT : String! =  KeychainSwift().get("accesstoken")!
                 SMLoading.showLoadingPage(viewcontroller: self)
@@ -3559,6 +3617,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.hideCardToCardModal()
             }
             
+            if giftStickerModal != nil {
+                self.hideGiftStickerModal()
+            }
+            
             dismissBtn.removeFromSuperview()
             dismissBtn = nil
         }
@@ -3569,7 +3631,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             hideMoneyTransactionModal()
             self.hideMoneyInputModal()
             self.hideCardToCardModal()
-            
+            self.hideGiftStickerModal()
             self.isCardToCardRequestEnable = true
             self.manageCardToCardInputBar()
         }
@@ -3642,9 +3704,33 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 }
             }
         }
-        
-        
     }
+    
+    
+    func hideGiftStickerModal() {
+        self.giftStickerModalIsActive = false
+        if giftStickerModal != nil {
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                self.giftStickerModal.frame.origin.y = self.view.frame.height
+            }) { (true) in
+                
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
+                if self.giftStickerModal != nil {
+                    self.giftStickerModal.removeFromSuperview()
+                    self.giftStickerModal.edtInternationalCode.endEditing(true)
+                    self.giftStickerModal = nil
+                    
+                    if self.dismissBtn != nil {
+                        self.dismissBtn.removeFromSuperview()
+                    }
+                }
+            }
+        }
+    }
+    
+    
     func hideMultiShareModal() {
     }
     
@@ -3666,6 +3752,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.view.endEditing(true)
             
         }
+        
+        if giftStickerModal != nil {
+            hideGiftStickerModal()
+            self.view.endEditing(true)
+        }
+        
         if dismissBtn != nil {
             dismissBtn.removeFromSuperview()
         }
