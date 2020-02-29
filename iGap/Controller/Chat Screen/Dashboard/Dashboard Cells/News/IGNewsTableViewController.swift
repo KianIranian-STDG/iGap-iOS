@@ -168,63 +168,78 @@ class IGNewsTableViewController: BaseTableViewController {
             cell = sliderCell
         case .newsSingle:
             let singleNews = tableView.dequeueReusableCell(withIdentifier: "IGOneNewsTVCell", for: indexPath as IndexPath) as! IGOneNewsTVCell
-            //pass array of news inner data
-            singleNews.newsOne = (item.news![0].news)
-            //title of double news section
-            singleNews.lblTitle0.text = (item.news![0].category)
-            //pass categoryID
-            singleNews.categoryIDOne = "\(item.news![0].categoryId)"
-            singleNews.categoryOne = (item.news![0].category)
-
-            //set cell data
-            singleNews.setCellData()
-            
+            if item.news!.count == 1 {
+                
+                //pass array of news inner data
+                singleNews.newsOne = (item.news![0].news)
+                //title of double news section
+                singleNews.lblTitle0.text = (item.news![0].category)
+                //pass categoryID
+                singleNews.categoryIDOne = "\(item.news![0].categoryId)"
+                singleNews.categoryOne = (item.news![0].category)
+                
+                //set cell data
+                singleNews.setCellData()
+            }
             cell = singleNews
             
             
         case .newsDouble:
-            let doubleNews = tableView.dequeueReusableCell(withIdentifier: "IGNewsDoubleNTVCell", for: indexPath as IndexPath) as! IGNewsDoubleNTVCell
-            //pass array of news inner data
-            doubleNews.newsOne = (item.news![0].news)
-            doubleNews.newsTwo = (item.news![1].news)
-            //pass categoryID
-            doubleNews.categoryIDOne = (item.news![0].categoryId)?.stringValue
-            doubleNews.categoryIDTwo = (item.news![1].categoryId)?.stringValue
-            //title of double news section
-            doubleNews.lblTitle0.text = (item.news![0].category)
-            doubleNews.lblTitle1.text = (item.news![1].category)
-            doubleNews.categoryOne = (item.news![0].category)
-            doubleNews.categoryTwo = (item.news![1].category)
-            
-            
-            //set cell data
-            doubleNews.setCellData()
-            
-            cell = doubleNews
-            
-        case .newsTriple:
-            let tripleNews = tableView.dequeueReusableCell(withIdentifier: "IGTripleNewsTVCell", for: indexPath as IndexPath) as! IGTripleNewsTVCell
-            //pass array of news inner data
-            tripleNews.newsOne = (item.news![0].news)
-            tripleNews.newsTwo = (item.news![1].news)
-            tripleNews.newsThree = (item.news![2].news)
-            //title of double news section
-            tripleNews.lblTitleOne.text = (item.news![0].category)
-            tripleNews.lblTitleTwo.text = (item.news![1].category)
-            tripleNews.lblTitleThree.text = (item.news![2].category)
-            //pass categoryID
-            tripleNews.categoryIDOne = (item.news![0].categoryId)?.stringValue
-            tripleNews.categoryIDTwo = (item.news![1].categoryId)?.stringValue
-            tripleNews.categoryIDThree = (item.news![2].categoryId)?.stringValue
-            tripleNews.categoryOne = (item.news![0].category)
-            tripleNews.categoryTwo = (item.news![1].category)
-            tripleNews.categoryThree = (item.news![2].category)
+            if item.news!.count == 2 {
+                let doubleNews = tableView.dequeueReusableCell(withIdentifier: "IGNewsDoubleNTVCell", for: indexPath as IndexPath) as! IGNewsDoubleNTVCell
+
+                //pass array of news inner data
+                doubleNews.newsOne = (item.news![0].news)
+                doubleNews.newsTwo = (item.news![1].news)
+                //pass categoryID
+                doubleNews.categoryIDOne = (item.news![0].categoryId)?.stringValue
+                doubleNews.categoryIDTwo = (item.news![1].categoryId)?.stringValue
+                //title of double news section
+                doubleNews.lblTitle0.text = (item.news![0].category)
+                doubleNews.lblTitle1.text = (item.news![1].category)
+                doubleNews.categoryOne = (item.news![0].category)
+                doubleNews.categoryTwo = (item.news![1].category)
+                
+                
+                //set cell data
+                doubleNews.setCellData()
+                cell = doubleNews
+
+            } else {
+                cell = UITableViewCell()
+
+            }
 
             
-            //set cell data
-            tripleNews.setCellData()
-            
-            cell = tripleNews
+        case .newsTriple:
+            if item.news!.count == 3 {
+                let tripleNews = tableView.dequeueReusableCell(withIdentifier: "IGTripleNewsTVCell", for: indexPath as IndexPath) as! IGTripleNewsTVCell
+
+                //pass array of news inner data
+                tripleNews.newsOne = (item.news![0].news)
+                tripleNews.newsTwo = (item.news![1].news)
+                tripleNews.newsThree = (item.news![2].news)
+                //title of double news section
+                tripleNews.lblTitleOne.text = (item.news![0].category)
+                tripleNews.lblTitleTwo.text = (item.news![1].category)
+                tripleNews.lblTitleThree.text = (item.news![2].category)
+                //pass categoryID
+                tripleNews.categoryIDOne = (item.news![0].categoryId)?.stringValue
+                tripleNews.categoryIDTwo = (item.news![1].categoryId)?.stringValue
+                tripleNews.categoryIDThree = (item.news![2].categoryId)?.stringValue
+                tripleNews.categoryOne = (item.news![0].category)
+                tripleNews.categoryTwo = (item.news![1].category)
+                tripleNews.categoryThree = (item.news![2].category)
+                
+                
+                //set cell data
+                tripleNews.setCellData()
+                cell = tripleNews
+
+            } else {
+                           cell = UITableViewCell()
+
+                       }
             
         case .singleButton:
             let singleButton = tableView.dequeueReusableCell(withIdentifier: "IGSingleButtonTVCell", for: indexPath as IndexPath) as! IGSingleButtonTVCell
@@ -281,11 +296,25 @@ class IGNewsTableViewController: BaseTableViewController {
         case .singleButton:
             return UITableView.automaticDimension
         case .newsTriple:
-            return UITableView.automaticDimension
+            if item.news!.count == 3 {
+                return UITableView.automaticDimension
+            } else {
+                return 0
+            }
         case .newsDouble:
-            return (UIScreen.main.bounds.width) / 2
+            if item.news!.count == 2 {
+                return (UIScreen.main.bounds.width) / 2
+            } else {
+                return 0
+//                return (UIScreen.main.bounds.width) / 2
+
+            }
         case .newsSingle:
-            return UITableView.automaticDimension
+            if item.news!.count == 1 {
+                return UITableView.automaticDimension
+            } else {
+                return 0
+            }
             
         }
     }
