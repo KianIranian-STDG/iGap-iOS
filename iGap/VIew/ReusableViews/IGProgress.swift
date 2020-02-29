@@ -69,58 +69,77 @@ class IGProgress: UIView {
     }
     
     func setFileType(_ type: IGProgressType) {
-        makeActionButton()
-        if type == .download {
-            actionButton?.setTitle("🎚", for: UIControl.State.normal)
-        } else { // upload
-            actionButton?.setTitle("", for: UIControl.State.normal)
+        DispatchQueue.main.async {[weak self] in
+            guard let sSelf = self else {
+                return
+            }
+            
+            sSelf.makeActionButton()
+            if type == .download {
+                sSelf.actionButton?.setTitle("🎚", for: UIControl.State.normal)
+            } else { // upload
+                sSelf.actionButton?.setTitle("", for: UIControl.State.normal)
+            }
         }
     }
     
     
     func setState(_ state:Status) {
-        makeActionButton()
-        self.isHidden = false
-        switch state {
-        case .readyToDownload:
-            setPercentage(0.0)
-            break
+        DispatchQueue.main.async {[weak self] in
+            guard let sSelf = self else {
+                return
+            }
             
-        case .downloading, .uploading:
-            actionButton?.setTitle("", for: UIControl.State.normal)
-            break
+            sSelf.makeActionButton()
+            sSelf.isHidden = false
+            switch state {
+            case .readyToDownload:
+                sSelf.setPercentage(0.0)
+                break
+                
+            case .downloading, .uploading:
+                sSelf.actionButton?.setTitle("", for: UIControl.State.normal)
+                break
+                
+            case .uploadFailed:
+                sSelf.setPercentage(0.0)
+                sSelf.actionButton?.setTitle("", for: UIControl.State.normal)
+                break
+                
+            case .ready:
+                sSelf.isHidden = true
+            case .unknown:
+                break
+            }
             
-        case .uploadFailed:
-            setPercentage(0.0)
-            actionButton?.setTitle("", for: UIControl.State.normal)
-            break
-            
-        case .ready:
-            self.isHidden = true
-        case .unknown:
-            break
         }
     }
     
     
     func setPercentage(_ percent: Double) {
-        let animation = CABasicAnimation(keyPath: "strokeEnd")
-        animation.duration = 1.0
-        animation.delegate = self
-        
-        if backgroundView.strokeEnd == 0 {
-            animation.fromValue = 0.0
-        } else if backgroundView.strokeEnd == 1 {
+        DispatchQueue.main.async {[weak self] in
+        guard let sSelf = self else {
             return
-        } else {
-            animation.fromValue = backgroundView.presentation()?.strokeEnd
         }
         
-        animation.toValue = percent
-        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
-        
-        backgroundView.strokeEnd = CGFloat(percent)
-        backgroundView.add(animation, forKey: "animateCircle")
+            let animation = CABasicAnimation(keyPath: "strokeEnd")
+            animation.duration = 1.0
+            animation.delegate = sSelf
+            
+            if sSelf.backgroundView.strokeEnd == 0 {
+                animation.fromValue = 0.0
+            } else if sSelf.backgroundView.strokeEnd == 1 {
+                return
+            } else {
+                animation.fromValue = sSelf.backgroundView.presentation()?.strokeEnd
+            }
+            
+            animation.toValue = percent
+            animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+            
+            sSelf.backgroundView.strokeEnd = CGFloat(percent)
+            sSelf.backgroundView.add(animation, forKey: "animateCircle")
+        }
     }
     
     
