@@ -34,6 +34,17 @@ class ChatControllerNode: ASCellNode {
     private var txtSizeNode : ASTextNode?
     private var txtAttachmentNode : ASTextNode?
 
+    //contactnode
+    private var contact: IGRoomMessageContact!
+    private var txtPhoneNumbers : ASTextNode?
+    private var txtPhoneIcon : ASTextNode?
+    private var txtContactName : ASTextNode?
+    private var txtEmails : ASTextNode?
+    private var txtEmailIcon : ASTextNode?
+    private var imgCover : ASImageNode?
+
+    private var btnViewContact : ASButtonNode?
+    
     private var avatarNode : ASAvatarView?
     
     private var indicatorViewAbs : ASDisplayNode?
@@ -168,7 +179,7 @@ class ChatControllerNode: ASCellNode {
         if msg.type == .text {
             isTextMessageNode = true
         }
-        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText  {
+        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText || msg.type == .contact  {
             let baseBubbleBox = makeBubble(bubbleImage: bubbleImage) // make bubble
             let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
             baseBubbleBox.child = contentItemsBox // add contents as child to bubble
@@ -399,6 +410,9 @@ class ChatControllerNode: ASCellNode {
             return finalBox
         case .file,.fileAndText :
             let finalBox = setFileNodeContent(contentSpec: contentSpec, msg: msg!)
+            return finalBox
+        case .contact :
+            let finalBox = setContactNodeContent(contentSpec: contentSpec, msg: msg!)
             return finalBox
         case .sticker :
             let finalBox = setStickerNodeContent(contentSpec: contentSpec, msg: msg!)
@@ -768,7 +782,7 @@ class ChatControllerNode: ASCellNode {
 
     
     //******************************************************//
-    //***********GIF NODE AND GIF TEXT NODE*************//
+    //*************FILE NODE AND FILE TEXT NODE*************//
     //******************************************************//
     
     private func setFileNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage) -> ASLayoutSpec {
@@ -880,6 +894,160 @@ class ChatControllerNode: ASCellNode {
         
     }
     
+    //******************************************************//
+    //*******************CONTACT NODE **********************//
+    //******************************************************//
+    
+    private func setContactNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage) -> ASLayoutSpec {
+        makeTopBubbleItems(stack: contentSpec)
+
+        if imgCover == nil {
+            imgCover = ASImageNode()
+        }
+        if txtEmails == nil {
+            txtEmails = ASTextNode()
+        }
+        if txtEmailIcon == nil {
+            txtEmailIcon = ASTextNode()
+        }
+        if txtPhoneNumbers == nil {
+            txtPhoneNumbers = ASTextNode()
+        }
+        if txtPhoneIcon == nil {
+            txtPhoneIcon = ASTextNode()
+        }
+        if txtContactName == nil {
+            txtContactName = ASTextNode()
+        }
+        if btnViewContact == nil {
+            btnViewContact = ASButtonNode()
+        }
+        makeContactView()
+        
+        let insetBox = layoutContact(msg: msg)
+        let verticalSpec = ASStackLayoutSpec()
+        verticalSpec.direction = .vertical
+        verticalSpec.spacing = 0
+        verticalSpec.justifyContent = .start
+        verticalSpec.alignItems = isIncomming == true ? .end : .start
+
+        verticalSpec.children?.append(insetBox)
+        contentSpec.children?.append(insetBox)
+
+       makeBottomBubbleItems(contentStack: contentSpec)
+       let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
+       
+        getContactDetails(message: msg)
+       return finalInsetSpec
+
+        
+        
+    }
+    private func layoutContact(msg: IGRoomMessage) -> ASInsetLayoutSpec {
+        let phonenumberBox = ASStackLayoutSpec.horizontal()
+        phonenumberBox.spacing = 5
+        phonenumberBox.children = [txtPhoneIcon!, txtPhoneNumbers!]
+        phonenumberBox.verticalAlignment = .center
+        
+        let emailBox = ASStackLayoutSpec.horizontal()
+        emailBox.spacing = 10
+        emailBox.children = [txtEmailIcon!, txtEmails!]
+        emailBox.verticalAlignment = .center
+        
+        let textBox = ASStackLayoutSpec.vertical()
+        textBox.justifyContent = .spaceAround
+        if (msg.contact?.emails.count)! > 0 {
+            textBox.children = [txtContactName!,phonenumberBox,emailBox]
+        } else {
+            textBox.children = [txtContactName!,phonenumberBox]
+        }
+        textBox.spacing = 0
+        
+        
+        let attachmentBox = ASStackLayoutSpec.horizontal()
+        attachmentBox.spacing = 5
+        attachmentBox.children = [imgCover!, textBox]
+        
+        let finalBox = ASStackLayoutSpec.vertical()
+        finalBox.justifyContent = .spaceAround
+        finalBox.spacing = 5
+        finalBox.children = [attachmentBox, btnViewContact!]
+
+        
+        // Apply text truncation
+        let elems: [ASLayoutElement] = [imgCover!,txtEmails!,txtContactName!,imgCover!,btnViewContact!, emailBox,textBox, attachmentBox,finalBox]
+        for elem in elems {
+            elem.style.flexShrink = 1
+        }
+        txtPhoneNumbers!.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
+        let insetBox = ASInsetLayoutSpec(
+            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+            child: finalBox
+        )
+
+        return insetBox
+    }
+    private func makeContactView() {
+        imgCover!.style.preferredSize = CGSize(width: 40, height: 40)
+        imgCover!.layer.cornerRadius = 20
+        imgCover!.image = UIImage(named: "ig_default_contact")
+        imgCover!.imageModificationBlock = ASImageNodeTintColorModificationBlock((isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!)
+        IGGlobal.makeAsyncText(for: txtPhoneIcon!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 10, numberOfLines: 1, font: IGGlobal.fontPack.fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtEmailIcon!, with: "🖂", textColor: ThemeManager.currentTheme.LabelColor, size: 10, numberOfLines: 1, font: IGGlobal.fontPack.fontIcon, alignment: .center)
+        
+        if self.isIncomming {
+            btnViewContact!.setTitle(IGStringsManager.ViewContact.rawValue.localized, with: UIFont.igFont(ofSize: 14, weight: .bold), with: ThemeManager.currentTheme.SliderTintColor, for: .normal)
+            btnViewContact!.layer.borderColor = ThemeManager.currentTheme.SliderTintColor.cgColor
+
+        } else {
+            btnViewContact!.setTitle(IGStringsManager.ViewContact.rawValue.localized, with: UIFont.igFont(ofSize: 14, weight: .bold), with: ThemeManager.currentTheme.SendMessageBubleBGColor.darker(), for: .normal)
+            btnViewContact!.layer.borderColor = ThemeManager.currentTheme.SendMessageBubleBGColor.darker()?.cgColor
+
+        }
+        btnViewContact!.layer.cornerRadius = 10
+        btnViewContact!.layer.borderWidth = 1.0
+        btnViewContact!.backgroundColor = .clear
+        btnViewContact!.style.height = ASDimension(unit: .points, value: 40.0)
+
+    }
+    
+    func getContactDetails(message: IGRoomMessage) {
+        DispatchQueue.main.async {[weak self] in
+            guard let sSelf = self else {
+                return
+            }
+            
+            if message.contact  == nil {
+                let predicate = NSPredicate(format: "primaryKeyId = %@", message.primaryKeyId!)
+                sSelf.contact = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first!.contact!
+            } else {
+                sSelf.contact = message.contact!
+            }
+            
+            let firstName = sSelf.contact.firstName == nil ? "" : sSelf.contact.firstName! + " "
+            let lastName = sSelf.contact.lastName == nil ? "" : sSelf.contact.lastName!
+            let name = String(format: "%@%@", firstName, lastName)
+            if sSelf.isIncomming {
+                
+                IGGlobal.makeAsyncText(for: sSelf.txtContactName!, with: name, textColor: ThemeManager.currentTheme.SliderTintColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+                
+            } else {
+                
+                IGGlobal.makeAsyncText(for: sSelf.txtContactName!, with: name, textColor: ThemeManager.currentTheme.SendMessageBubleBGColor.darker()!, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+                
+            }
+            if sSelf.contact.phones.count > 0 {
+                let phoneNumber = sSelf.contact.phones.first!.innerString
+                IGGlobal.makeAsyncText(for: sSelf.txtPhoneNumbers!, with: phoneNumber, textColor: ThemeManager.currentTheme.LabelColor, size: 13, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+                
+            }
+            
+            if (message.contact?.emails.count)! > 0 {
+                let emailAdd = sSelf.contact.emails.first!.innerString
+                IGGlobal.makeAsyncText(for: sSelf.txtEmails!, with: emailAdd, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+            }
+        }
+    }
     //******************************************************//
     //***********IMAGE NODE AND IMAGE TEXT NODE*************//
     //******************************************************//
