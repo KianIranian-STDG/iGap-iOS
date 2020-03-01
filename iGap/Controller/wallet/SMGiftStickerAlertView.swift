@@ -49,6 +49,8 @@ class SMGiftStickerAlertView: UIView {
         edtInternationalCode.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
         edtInternationalCode.layer.borderWidth = 1.0
         edtInternationalCode.layer.cornerRadius = 10
+        confirmBtn.layer.borderWidth = 1.0
+        confirmBtn.layer.cornerRadius = 10
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
