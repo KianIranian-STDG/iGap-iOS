@@ -313,14 +313,12 @@ class IGHelperAlert {
         //UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .transitionCrossDissolve, animations: {
         self.bgView.fadeOut(0.3)
         self.customAlert.fadeOut(0.3)
-        self.iconView.fadeOut(0.3)
+        self.iconView?.fadeOut(0.3)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.bgView.removeFromSuperview()
             self.customAlert.removeFromSuperview()
             self.customAlert = nil
-            if self.iconView != nil {
-                self.iconView.removeFromSuperview()
-            }
+            self.iconView?.removeFromSuperview()
         }
         //},completion: {(value: Bool) in })
     }
