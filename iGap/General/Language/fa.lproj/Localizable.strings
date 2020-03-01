@@ -1677,7 +1677,7 @@ Page 4 introduce app */
 "convert_chat_to_group_title" = "انتقال گفتگو به گروه";
 
 /*  */
-"minute_ago" = "دقیقه پیش";
+"minute_ago" = "یک دقیقه پیش";
 
 /*  */
 "device" = "دستگاه:";
@@ -3774,7 +3774,7 @@ Page 4 introduce app */
 "keep_media_6month" = "6 Month";
 
 /*  */
-"minutes_ago" = "minutes ago";
+"minutes_ago" = "دقیقه پیش";
 
 /*  */
 "IP_blocked" = "به دلیل تلاش بیش از حد، IP شما برای مدتی مسدود شده است.";

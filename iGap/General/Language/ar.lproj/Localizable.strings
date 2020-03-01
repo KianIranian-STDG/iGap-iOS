@@ -3752,7 +3752,7 @@ TODO:// translate */
 "keep_media_6month" = "6 Month";
 
 /*  */
-"minutes_ago" = "minutes ago";
+"minutes_ago" = "منذ دقائق";
 
 /*  */
 "IP_blocked" = "نظرًا للإفراط في الاستخدام ، تم حظر عنوان IP الخاص بك لفترة.";

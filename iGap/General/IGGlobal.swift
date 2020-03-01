@@ -998,7 +998,7 @@ extension Date {
     
     func humanReadableForLastSeen() -> String {
         let differenctToNow = Date().timeIntervalSince1970 - self.timeIntervalSince1970
-        if differenctToNow < 10 {
+        if differenctToNow < 60 {
             return IGStringsManager.NavLastSeenRecently.rawValue.localized
         } else if differenctToNow < 120 {
             return IGStringsManager.InAminute.rawValue.localized
