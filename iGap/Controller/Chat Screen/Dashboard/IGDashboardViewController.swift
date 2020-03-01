@@ -546,11 +546,11 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        /***** Hint: plus height with 16 ,because in storyboard we used 4 space from top and 4 space from bottom *****/
+        /***** Hint: plus height with 8 ,because in storyboard we used 4 space from top and 4 space from bottom. Result is 8 but now we set 4 because seems to with this value images have better view scale *****/
         if IGGlobal.shouldShowChart {
-            return CGSize(width: screenWidth, height: computeHeight(scale: pollList[indexPath.section].igpScale) + 8)
+            return CGSize(width: screenWidth, height: computeHeight(scale: pollList[indexPath.section].igpScale) + 4)
         } else {
-            return CGSize(width: screenWidth, height: computeHeight(scale: discoveries[indexPath.section].igpScale) + 8)
+            return CGSize(width: screenWidth, height: computeHeight(scale: discoveries[indexPath.section].igpScale) + 4)
         }
     }
     
