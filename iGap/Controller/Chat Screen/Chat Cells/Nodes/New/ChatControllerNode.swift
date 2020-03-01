@@ -369,7 +369,7 @@ class ChatControllerNode: ASCellNode {
         contentSpec.style.flexShrink = 1.0
         contentSpec.style.flexGrow = 1.0
         contentSpec.alignItems = .stretch
-        contentSpec.spacing = 10
+        contentSpec.spacing = 5
         
         
         switch msg!.type {
@@ -791,7 +791,7 @@ class ChatControllerNode: ASCellNode {
         imgNode!.style.height = ASDimension(unit: .points, value: prefferedSize.height)
         imgNode!.clipsToBounds = true
         
-        imgNode!.layer.cornerRadius = 10
+        imgNode!.layer.cornerRadius = 7
         
         if msg.type == .image {
             RemoveNodeText()
@@ -801,7 +801,7 @@ class ChatControllerNode: ASCellNode {
             verticalSpec.spacing = 0
             verticalSpec.justifyContent = .start
             verticalSpec.alignItems = isIncomming == true ? .end : .start
-            let insetsImage = isIncomming ? UIEdgeInsets(top: -5, left: -10, bottom: 0, right: -5) : UIEdgeInsets(top: -5, left: -5, bottom: 0, right: -7)
+            let insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: -6, bottom: 0, right: -6) : UIEdgeInsets(top: 2, left: -6, bottom: 0, right: -6)
             let insetSpecImage = ASInsetLayoutSpec(insets: insetsImage, child: imgNode!)
             
             verticalSpec.children?.append(insetSpecImage)
@@ -816,7 +816,7 @@ class ChatControllerNode: ASCellNode {
             }
             
             makeBottomBubbleItems(contentStack: contentSpec)
-            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
+            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
             
             return finalInsetSpec
             
@@ -828,7 +828,7 @@ class ChatControllerNode: ASCellNode {
             verticalSpec.spacing = 5
             verticalSpec.justifyContent = .start
             verticalSpec.alignItems = isIncomming == true ? .end : .start
-            let insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            let insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: -6, bottom: 0, right: -6) : UIEdgeInsets(top: 2, left: -6, bottom: 0, right: -6)
             let insetSpecImage = ASInsetLayoutSpec(insets: insetsImage, child: imgNode!)
             if indicatorViewAbs == nil {
                 verticalSpec.children?.append(insetSpecImage)
@@ -844,7 +844,7 @@ class ChatControllerNode: ASCellNode {
             contentSpec.children?.append(verticalSpec)
             nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
             makeBottomBubbleItems(contentStack: contentSpec)
-            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
+            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
             
             return finalInsetSpec
 
