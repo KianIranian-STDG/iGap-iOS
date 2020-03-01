@@ -760,11 +760,11 @@ extension IGRoom {
     }
     
     /** automatically find last message and set in room*/
-    static func setLastMessage(roomId: Int64){
+    static func setLastMessage(roomId: Int64, isDeleted: Bool? = nil){
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
                 if let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", roomId)).first {
-                    if let message = IGRoomMessage.getLastMessage(roomId: roomId) {
+                    if let message = IGRoomMessage.getLastMessage(roomId: roomId, isDeleted: isDeleted) {
                         room.lastMessage = message // for show correct last message at room list
                         room.sortimgTimestamp = (message.creationTime?.timeIntervalSinceReferenceDate)! // for show room at correct position at room list
                     }

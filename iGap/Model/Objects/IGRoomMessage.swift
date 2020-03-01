@@ -608,8 +608,12 @@ class IGRoomMessage: Object {
     }
     
     /** return last message from local message history for entered roomId */
-    internal static func getLastMessage(roomId: Int64) -> IGRoomMessage? {
-        return IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "roomId == %lld", roomId)).last
+    internal static func getLastMessage(roomId: Int64, isDeleted: Bool? = nil) -> IGRoomMessage? {
+        var predicate = NSPredicate(format: "roomId == %lld", roomId)
+        if isDeleted != nil {
+            predicate = NSPredicate(format: "roomId == %lld AND isDeleted == false", roomId)
+        }
+        return IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).last
     }
     
     internal static func fetchForwardMessage(roomId: Int64, messageId: Int64) -> IGRoomMessage? {
