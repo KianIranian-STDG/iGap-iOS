@@ -29,6 +29,11 @@ class ChatControllerNode: ASCellNode {
     private var NormalGiftStickerView : ASDisplayNode?
     private var btnPlay : ASButtonNode?
 
+    //filenode
+    private var txtTitleNode : ASTextNode?
+    private var txtSizeNode : ASTextNode?
+    private var txtAttachmentNode : ASTextNode?
+
     private var avatarNode : ASAvatarView?
     
     private var indicatorViewAbs : ASDisplayNode?
@@ -163,7 +168,7 @@ class ChatControllerNode: ASCellNode {
         if msg.type == .text {
             isTextMessageNode = true
         }
-        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText  {
+        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText  {
             let baseBubbleBox = makeBubble(bubbleImage: bubbleImage) // make bubble
             let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
             baseBubbleBox.child = contentItemsBox // add contents as child to bubble
@@ -191,7 +196,9 @@ class ChatControllerNode: ASCellNode {
 
                 return insetHSpec
             }
-            manageAttachment(file: message.attachment)
+            if msg.type != .file && msg.type != .fileAndText {
+                manageAttachment(file: message.attachment)
+            }
         } else if msg.type == .sticker {
 
             
@@ -391,6 +398,9 @@ class ChatControllerNode: ASCellNode {
             return finalBox
         case .gif,.gifAndText :
             let finalBox = setGifNodeContent(contentSpec: contentSpec, msg: msg!)
+            return finalBox
+        case .file,.fileAndText :
+            let finalBox = setFileNodeContent(contentSpec: contentSpec, msg: msg!)
             return finalBox
         case .sticker :
             let finalBox = setStickerNodeContent(contentSpec: contentSpec, msg: msg!)
@@ -758,6 +768,120 @@ class ChatControllerNode: ASCellNode {
         
     }
 
+    
+    //******************************************************//
+    //***********GIF NODE AND GIF TEXT NODE*************//
+    //******************************************************//
+    
+    private func setFileNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage) -> ASLayoutSpec {
+        makeTopBubbleItems(stack: contentSpec)
+        
+        if txtTitleNode == nil {
+            txtTitleNode = ASTextNode()
+        }
+        if txtSizeNode == nil {
+            txtSizeNode = ASTextNode()
+        }
+        if txtAttachmentNode == nil {
+            txtAttachmentNode = ASTextNode()
+        }
+        self.txtAttachmentNode!.style.width = ASDimension(unit: .points, value: 60.0)
+        self.txtAttachmentNode!.style.height = ASDimension(unit: .points, value: 60.0)
+        self.txtAttachmentNode!.setThumbnail(for: msg.attachment!)
+
+        IGGlobal.makeAsyncText(for: txtTitleNode! , with: msg.attachment!.name!, font: .igapFont)
+        IGGlobal.makeAsyncText(for: txtSizeNode! , with: msg.attachment!.sizeToString(), font: .igapFont)
+
+        let textBox = ASStackLayoutSpec.vertical()
+        textBox.justifyContent = .spaceAround
+        textBox.children = [txtTitleNode!, txtSizeNode!]
+        
+        if message!.attachment != nil {
+            if !(IGGlobal.isFileExist(path: msg.attachment!.localPath)) {
+                if indicatorViewAbs == nil {
+                    indicatorViewAbs = ASDisplayNode { () -> UIView in
+                        let view = IGProgress()
+                        return view
+                    }
+                    indicatorViewAbs?.style.height = ASDimensionMake(.points, 50)
+                    indicatorViewAbs?.style.width = ASDimensionMake(.points, 50)
+                    (indicatorViewAbs?.view as? IGProgress)?.setFileType(.download)
+                    attachment?.status = .readyToDownload
+
+                }
+            } else {
+                indicatorViewAbs?.removeFromSupernode()
+                indicatorViewAbs = nil
+                attachment?.status = .ready
+            }
+        }
+
+        let txtImageBox : ASOverlayLayoutSpec
+        let profileBox : ASStackLayoutSpec
+        profileBox = ASStackLayoutSpec.horizontal()
+        profileBox.spacing = 10
+
+        if indicatorViewAbs == nil {
+            
+            profileBox.children = [txtAttachmentNode!, textBox]
+
+        } else {
+            txtImageBox = ASOverlayLayoutSpec(child: txtAttachmentNode!, overlay: indicatorViewAbs!)
+            profileBox.children = [txtImageBox, textBox]
+
+        }
+
+
+        // Apply text truncation
+        let elems: [ASLayoutElement] = [txtSizeNode!, txtTitleNode!, textBox, profileBox]
+        for elem in elems {
+           elem.style.flexShrink = 1
+        }
+
+        let insetBox = ASInsetLayoutSpec(
+           insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+           child: profileBox
+        )
+
+        if msg.type == .file {
+            RemoveNodeText()
+            let verticalSpec = ASStackLayoutSpec()
+            verticalSpec.direction = .vertical
+            verticalSpec.spacing = 0
+            verticalSpec.justifyContent = .start
+            verticalSpec.alignItems = isIncomming == true ? .end : .start
+
+            let insetBoxx = ASInsetLayoutSpec(
+                insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+                child: insetBox
+            )
+            verticalSpec.children?.append(insetBoxx)
+            contentSpec.children?.append(insetBoxx)
+            
+            
+        } else {
+            let verticalSpec = ASStackLayoutSpec()
+            verticalSpec.direction = .vertical
+            verticalSpec.spacing = 0
+            verticalSpec.justifyContent = .start
+            verticalSpec.alignItems = isIncomming == true ? .end : .start
+
+            
+            verticalSpec.children?.append(insetBox)
+            AddTextNodeTo(spec: verticalSpec)
+            contentSpec.children?.append(verticalSpec)
+            
+        }
+
+       makeBottomBubbleItems(contentStack: contentSpec)
+       let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
+       
+       return finalInsetSpec
+
+        
+        
+    }
+    
     //******************************************************//
     //***********IMAGE NODE AND IMAGE TEXT NODE*************//
     //******************************************************//
