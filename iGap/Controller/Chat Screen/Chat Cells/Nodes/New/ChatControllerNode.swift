@@ -163,7 +163,7 @@ class ChatControllerNode: ASCellNode {
         if msg.type == .text {
             isTextMessageNode = true
         }
-        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText  {
+        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText  {
             let baseBubbleBox = makeBubble(bubbleImage: bubbleImage) // make bubble
             let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
             baseBubbleBox.child = contentItemsBox // add contents as child to bubble
@@ -921,66 +921,46 @@ class ChatControllerNode: ASCellNode {
             RemoveNodeText()
             
             
-            if indicatorViewAbs == nil {
                 let timeTxtNode = ASTextNode()
                 let fakeStackBottomItem = ASDisplayNode()
-
+                
                 timeTxtNode.style.height = ASDimension(unit: .points, value: 20)
                 fakeStackBottomItem.style.height = ASDimension(unit: .points, value: 26)
                 
-                    // Setting Play Btn Size
-                btnPlay!.style.flexBasis = ASDimension(unit: .auto, value:1.0)
-                btnPlay!.style.flexGrow = 1
-                btnPlay!.style.flexShrink = 1
+                let playTxtCenterSpec : ASCenterLayoutSpec
+            
+                if indicatorViewAbs == nil {
+                    if btnPlay == nil {
+                        btnPlay = ASButtonNode()
+                        // Setting Play Btn Size
+                        btnPlay!.style.flexBasis = ASDimension(unit: .auto, value:1.0)
+                        btnPlay!.style.flexGrow = 1
+                        btnPlay!.style.flexShrink = 1
+
+                    }
+                    playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: btnPlay!)
+                } else {
+                    playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: indicatorViewAbs!)
+                }
                 
-                let playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: btnPlay!)
-                
-                    // Setting Duration lbl Size
+                // Setting Duration lbl Size
                 let timeInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5), child: timeTxtNode)
                 
-                    // Setting Container Stack
+                // Setting Container Stack
                 let itemsStackSpec = ASStackLayoutSpec(direction: .vertical, spacing: 6, justifyContent: .spaceBetween, alignItems: .start, children: [timeInsetSpec, playTxtCenterSpec, fakeStackBottomItem])
                 itemsStackSpec.style.height = ASDimension(unit: .points, value: prefferedSize.height)
                 
                 let overlaySpec = ASOverlayLayoutSpec(child: imgNode!, overlay: itemsStackSpec)
-
+                
                 let time : String! = IGAttachmentManager.sharedManager.convertFileTime(seconds: Int((message!.attachment?.duration)!))
                 
                 IGGlobal.makeAsyncText(for: timeTxtNode, with: time, textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
                 IGGlobal.makeAsyncText(for: timeTxtNode, with: " " + "(\(IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: (message!.attachment?.size)!)))" + " ", textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+                
                 
                 contentSpec.children?.append(overlaySpec)
-
-
-            } else {
-                        
-                        let verticalSpec = ASStackLayoutSpec()
-                        verticalSpec.direction = .vertical
-                        verticalSpec.spacing = 5
-                        verticalSpec.justifyContent = .start
-                        verticalSpec.alignItems = isIncomming == true ? .end : .start
-                        let insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-                        let insetSpecImage = ASInsetLayoutSpec(insets: insetsImage, child: imgNode!)
-                        if indicatorViewAbs == nil {
-                            verticalSpec.children?.append(insetSpecImage)
-
-                        } else {
-                            let overlay = ASOverlayLayoutSpec(child: insetSpecImage, overlay: indicatorViewAbs!)
-                            verticalSpec.children?.append(overlay)
-
-                        }
-              
-            //
-                        AddTextNodeTo(spec: verticalSpec)
-                        contentSpec.children?.append(verticalSpec)
-                        nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
-                        makeBottomBubbleItems(contentStack: contentSpec)
-                        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
-                        
-                        return finalInsetSpec
-
-                    }
+                
+                
             
             makeBottomBubbleItems(contentStack: contentSpec)
             let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
@@ -990,62 +970,63 @@ class ChatControllerNode: ASCellNode {
             
         } else {
             
-            if indicatorViewAbs == nil {
                 let timeTxtNode = ASTextNode()
                 let fakeStackBottomItem = ASDisplayNode()
-
+                
                 timeTxtNode.style.height = ASDimension(unit: .points, value: 20)
                 fakeStackBottomItem.style.height = ASDimension(unit: .points, value: 26)
                 
-                    // Setting Play Btn Size
-                btnPlay!.style.flexBasis = ASDimension(unit: .auto, value:1.0)
-                btnPlay!.style.flexGrow = 1
-                btnPlay!.style.flexShrink = 1
+                let playTxtCenterSpec : ASCenterLayoutSpec
+            
+                if indicatorViewAbs == nil {
+                    if btnPlay == nil {
+                        btnPlay = ASButtonNode()
+                        // Setting Play Btn Size
+                        btnPlay!.style.flexBasis = ASDimension(unit: .auto, value:1.0)
+                        btnPlay!.style.flexGrow = 1
+                        btnPlay!.style.flexShrink = 1
+
+                    }
+                    playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: btnPlay!)
+                } else {
+                    playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: indicatorViewAbs!)
+                }
                 
-                let playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: btnPlay!)
-                
-                    // Setting Duration lbl Size
+                // Setting Duration lbl Size
                 let timeInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5), child: timeTxtNode)
                 
-                    // Setting Container Stack
+                // Setting Container Stack
                 let itemsStackSpec = ASStackLayoutSpec(direction: .vertical, spacing: 6, justifyContent: .spaceBetween, alignItems: .start, children: [timeInsetSpec, playTxtCenterSpec, fakeStackBottomItem])
                 itemsStackSpec.style.height = ASDimension(unit: .points, value: prefferedSize.height)
                 
                 let overlaySpec = ASOverlayLayoutSpec(child: imgNode!, overlay: itemsStackSpec)
-
+                
                 let time : String! = IGAttachmentManager.sharedManager.convertFileTime(seconds: Int((message!.attachment?.duration)!))
                 
                 IGGlobal.makeAsyncText(for: timeTxtNode, with: time, textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
                 IGGlobal.makeAsyncText(for: timeTxtNode, with: " " + "(\(IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: (message!.attachment?.size)!)))" + " ", textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
-
                 
-                contentSpec.children?.append(overlaySpec)
-
-
-            } else {
+                
+                
                 let verticalSpec = ASStackLayoutSpec()
                 verticalSpec.direction = .vertical
-                verticalSpec.spacing = 0
+                verticalSpec.spacing = 5
                 verticalSpec.justifyContent = .start
                 verticalSpec.alignItems = isIncomming == true ? .end : .start
-                let insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-                let insetSpecImage = ASInsetLayoutSpec(insets: insetsImage, child: imgNode!)
-                
-                verticalSpec.children?.append(insetSpecImage)
+            
+                verticalSpec.children?.append(overlaySpec)
 
-                let overlay = ASOverlayLayoutSpec(child: verticalSpec, overlay: indicatorViewAbs!)
-                contentSpec.children?.append(overlay)
 
-            }
-//            AddTextNodeTo(spec: contentSpec)
-//            setMessage()
-//
-//            nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
+            AddTextNodeTo(spec: verticalSpec)
+            contentSpec.children?.append(verticalSpec)
+            nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
+
             makeBottomBubbleItems(contentStack: contentSpec)
             let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
             
             return finalInsetSpec
-
+            
+            
         }
         
     }
