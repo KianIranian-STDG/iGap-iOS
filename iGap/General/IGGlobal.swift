@@ -1844,7 +1844,7 @@ extension ASTextNode {
                 
             } else if attachment.type == .file {
                 let filename: NSString = attachment.name! as NSString
-                let fileExtension = filename.pathExtension
+                let fileExtension = filename.pathExtension.lowercased()
                 
                 if fileExtension != "" {
                     if fileExtension == "doc" {
@@ -1854,6 +1854,12 @@ extension ASTextNode {
                     } else if fileExtension == "pdf" {
                         self.attributedText = NSAttributedString(string: "", attributes: attribute)
                     } else if fileExtension == "txt" {
+                        self.attributedText = NSAttributedString(string: "", attributes: attribute)
+                    } else if fileExtension == "html" {
+                        self.attributedText = NSAttributedString(string: "", attributes: attribute)
+                    } else if fileExtension == "png" {
+                        self.attributedText = NSAttributedString(string: "", attributes: attribute)
+                    } else if fileExtension == "jpg" {
                         self.attributedText = NSAttributedString(string: "", attributes: attribute)
                     } else {
                         self.attributedText = NSAttributedString(string: "", attributes: attribute)

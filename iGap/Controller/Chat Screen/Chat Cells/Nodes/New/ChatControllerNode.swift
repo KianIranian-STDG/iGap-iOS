@@ -196,9 +196,7 @@ class ChatControllerNode: ASCellNode {
 
                 return insetHSpec
             }
-            if msg.type != .file && msg.type != .fileAndText {
                 manageAttachment(file: message.attachment)
-            }
         } else if msg.type == .sticker {
 
             
@@ -1247,7 +1245,7 @@ class ChatControllerNode: ASCellNode {
             /* Rx End */
             
             switch (message!.type) {
-            case .image, .imageAndText, .video, .videoAndText,.voice, .audio, .audioAndText, .file, .fileAndText:
+            case .image, .imageAndText, .video, .videoAndText,.voice, .audio, .audioAndText :
                 if !(attachment.isInvalidated) {
                     
                     imgNode!.setThumbnail(for: attachment)
@@ -1271,6 +1269,19 @@ class ChatControllerNode: ASCellNode {
                     }
                     break
                 }
+            case  .file, .fileAndText :
+                if !(attachment.isInvalidated) {
+                    
+                    txtAttachmentNode!.setThumbnail(for: attachment)
+                    
+                    if attachment.status != .ready {
+                        if indicatorViewAbs != nil {
+                            (indicatorViewAbs?.view as? IGProgress)?.delegate = self
+                        }
+                    }
+                    break
+                }
+
 
             default:
                 break
