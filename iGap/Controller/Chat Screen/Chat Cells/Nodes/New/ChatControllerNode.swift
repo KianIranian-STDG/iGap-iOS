@@ -252,6 +252,10 @@ class ChatControllerNode: ASCellNode {
     
     private func makeAvatarIfNeeded() -> Bool {
         
+        if finalRoomType == .channel {
+            return false
+        }
+        
         if isIncomming {
             if shouldShowAvatar && !isFromSameSender {
                 
@@ -764,7 +768,7 @@ class ChatControllerNode: ASCellNode {
         prefferedSize = NodeExtension.fetchMediaFrame(media: msg.attachment!)
         if imgNode == nil {
             imgNode = ASImageNode()
-            imgNode!.contentMode = .scaleAspectFit
+            imgNode!.contentMode = .scaleAspectFill
             
         }
         if message!.attachment != nil {

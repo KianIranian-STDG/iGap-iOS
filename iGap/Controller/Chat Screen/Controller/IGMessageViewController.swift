@@ -6849,7 +6849,7 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
         return self.messages!.count
     }
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
-        print(((self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode).checkNode.view.tag))
+//        print(((self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode).checkNode.view.tag))
         let cellNode  = self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode
         cellNode.isSelected = false
         

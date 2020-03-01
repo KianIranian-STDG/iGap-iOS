@@ -58,37 +58,37 @@ class ASReplyForwardNode: ASDisplayNode {
 
     }
 
-        override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
 
-            
-            let textBox = ASStackLayoutSpec.vertical()
-            textBox.justifyContent = .spaceAround
-            textBox.children = [txtRepOrForwardNode!, txtReplyMsgForwardSource!]
-            
-            let attachmentBox = ASStackLayoutSpec.horizontal()
-            attachmentBox.spacing = 0
-            attachmentBox.children = [imgReplyAttachment!, txtReplyAttachment!]
+        
+        let textBox = ASStackLayoutSpec.vertical()
+        textBox.justifyContent = .spaceAround
+        textBox.children = [txtRepOrForwardNode!, txtReplyMsgForwardSource!]
+        
+        let attachmentBox = ASStackLayoutSpec.horizontal()
+        attachmentBox.spacing = 0
+        attachmentBox.children = [imgReplyAttachment!, txtReplyAttachment!]
 
-            let profileBox = ASStackLayoutSpec.horizontal()
-            profileBox.spacing = 5
-            profileBox.children = [verticalView!,attachmentBox, textBox]
+        let profileBox = ASStackLayoutSpec.horizontal()
+        profileBox.spacing = 5
+        profileBox.children = [verticalView!,attachmentBox, textBox]
 
 
-            // Apply text truncation
-            let elems: [ASLayoutElement] = [txtRepOrForwardNode!, txtReplyMsgForwardSource!, textBox, profileBox]
-            for elem in elems {
-              elem.style.flexShrink = 1
-            }
-            
-            let insetBox = ASInsetLayoutSpec(
-              insets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0),
-              child: profileBox
-            )
-            
-            return insetBox
-
-            
+        // Apply text truncation
+        let elems: [ASLayoutElement] = [txtRepOrForwardNode!, txtReplyMsgForwardSource!, textBox, profileBox]
+        for elem in elems {
+          elem.style.flexShrink = 1
         }
+        
+        let insetBox = ASInsetLayoutSpec(
+          insets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0),
+          child: profileBox
+        )
+        
+        return insetBox
+
+        
+    }
     func setReplyForward(isReply: Bool,extraMessage : IGRoomMessage,isIncomming : Bool = false) {
         self.isReply = isReply
         self.isIncomming = isIncomming
