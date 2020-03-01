@@ -1685,6 +1685,9 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
 //            lblDisLikeIcon.addTarget(self, action: #selector(didTapOnVoteDown(_:)), forControlEvents: .touchUpInside)
 //            lblDisLikeText.addTarget(self, action: #selector(didTapOnVoteDown(_:)), forControlEvents: .touchUpInside)
             
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapOnSenderAvatar(_:)))
+            avatarNode!.view.addGestureRecognizer(gesture)
+            
             
         }
     }
@@ -1743,11 +1746,11 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
         
     }
     
-//    @objc func didTapOnSenderAvatar(_ gestureRecognizer: UITapGestureRecognizer) {
-//        if !(IGGlobal.shouldMultiSelect) {
-//            self.generalMessageDelegate?.didTapOnSenderAvatar(cellMessage: message!)
-//        }
-//    }
+    @objc func didTapOnSenderAvatar(_ gestureRecognizer: UITapGestureRecognizer) {
+        if !(IGGlobal.shouldMultiSelect) {
+            self.delegate?.didTapOnSenderAvatar(cellMessage: message!)
+        }
+    }
     
     @objc func didTapOnVoteUp(_ gestureRecognizer: UITapGestureRecognizer) {
         var messageVote: IGRoomMessage! = message
