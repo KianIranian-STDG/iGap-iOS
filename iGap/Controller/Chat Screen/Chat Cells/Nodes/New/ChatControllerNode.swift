@@ -1667,7 +1667,7 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
 //            lblDisLikeText.addTarget(self, action: #selector(didTapOnVoteDown(_:)), forControlEvents: .touchUpInside)
             
             let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapOnSenderAvatar(_:)))
-            avatarNode!.view.addGestureRecognizer(gesture)
+            avatarNode?.view.addGestureRecognizer(gesture)
             
             
         }
