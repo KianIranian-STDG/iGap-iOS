@@ -29,7 +29,8 @@ class ChatControllerNode: ASCellNode {
     private var NormalGiftStickerView : ASDisplayNode?
     private var btnPlay : ASButtonNode?
 
-
+    private var avatarNode : ASAvatarView?
+    
     private var indicatorViewAbs : ASDisplayNode?
     
     private var attachment: IGFile?
@@ -42,7 +43,6 @@ class ChatControllerNode: ASCellNode {
     private var txtTimeNode : ASTextNode?
     private var txtStatusNode : ASTextNode?
     private var index: IndexPath!
-    private let avatarImageSize: CGFloat = 50
     //    private let avatarImageViewNode = ASAvatarView()
     //    private var replyForwardViewNode = ASReplyForwardNode()
     //    private var imgNodeReply = ASImageNode()
@@ -168,30 +168,38 @@ class ChatControllerNode: ASCellNode {
             let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
             baseBubbleBox.child = contentItemsBox // add contents as child to bubble
             
+            let isShowingAvatar = makeAvatarIfNeeded()
+            
             self.layoutSpecBlock = {[weak self] node, constrainedSize in
-                guard self != nil else {
+                guard let sSelf = self else {
                     return ASLayoutSpec()
                 }
                 let stack = ASStackLayoutSpec()
                 stack.direction = .horizontal
-                stack.spacing = 5
+                stack.spacing = 4
                 stack.verticalAlignment = .bottom
                 stack.horizontalAlignment = isIncomming ? .left : .right
-                stack.children = [baseBubbleBox]
+                
+                if isShowingAvatar {
+                    stack.children = isIncomming ? [sSelf.avatarNode! ,baseBubbleBox] : [baseBubbleBox, sSelf.avatarNode!]
+                }else {
+                    stack.children = [baseBubbleBox]
+                }
                 stack.style.flexShrink = 1.0
 
-
-                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 10, bottom: isFromSameSender ? 1 : 10, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: isFromSameSender ? 1 : 10 , right: 5), child: stack)
+                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 6, bottom: isFromSameSender ? 1 : 10, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: isFromSameSender ? 1 : 10 , right: 5), child: stack)
 
                 return insetHSpec
             }
             manageAttachment(file: message.attachment)
         } else if msg.type == .sticker {
 
+            
+            let isShowingAvatar = makeAvatarIfNeeded()
             let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
 
             self.layoutSpecBlock = {[weak self] node, constrainedSize in
-                guard self != nil else {
+                guard let sSelf = self else {
                     return ASLayoutSpec()
                 }
                 let stack = ASStackLayoutSpec()
@@ -199,11 +207,16 @@ class ChatControllerNode: ASCellNode {
                 stack.spacing = 5
                 stack.verticalAlignment = .bottom
                 stack.horizontalAlignment = isIncomming ? .left : .right
-                stack.children = [contentItemsBox]
+                if isShowingAvatar {
+                    stack.children = isIncomming ? [sSelf.avatarNode! ,contentItemsBox] : [contentItemsBox, sSelf.avatarNode!]
+                }else {
+                    stack.children = [contentItemsBox]
+                }
+                
                 stack.style.flexShrink = 1.0
 
 
-                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 10, bottom: isFromSameSender ? 1 : 10, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: isFromSameSender ? 1 : 10 , right: 5), child: stack)
+                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 6, bottom: isFromSameSender ? 1 : 10, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: isFromSameSender ? 1 : 10 , right: 5), child: stack)
 
                 return insetHSpec
             }
@@ -237,6 +250,46 @@ class ChatControllerNode: ASCellNode {
         
     }
     
+    private func makeAvatarIfNeeded() -> Bool {
+        
+        if isIncomming {
+            if shouldShowAvatar && !isFromSameSender {
+                
+                // Make avatar Here
+                if avatarNode == nil {
+                    avatarNode = ASAvatarView()
+                    avatarNode!.style.preferredSize = CGSize(width: 45, height: 45)
+                    avatarNode!.cornerRadius = 22.5
+                    avatarNode!.clipsToBounds = true
+                }
+                
+                
+                if let user = message?.authorUser?.user {
+                    
+                    avatarNode?.avatarASImageView?.backgroundColor = .clear
+                    avatarNode?.setUser(user)
+                    
+                }else if let userId = message?.authorUser?.userId {
+                    
+                    avatarNode?.avatarASImageView?.backgroundColor = .white
+                    avatarNode?.avatarASImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
+                    SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(message!.roomId)", sender: (action: ChatMessageAction.userInfo, userId: userId))
+                }
+                return true
+            }
+        }
+        
+        // Remove Avatar if above conditions are not True
+        if avatarNode != nil {
+            if subnodes!.contains(avatarNode!) {
+                avatarNode?.removeFromSupernode()
+            }
+            avatarNode = nil
+        }
+        
+        return false
+                
+    }
     
     private func makeBubble(bubbleImage : UIImage) -> ASLayoutSpec {
         if bubbleImgNode == nil {
@@ -277,7 +330,7 @@ class ChatControllerNode: ASCellNode {
             if message?.type != .sticker || message?.type != .log || message?.type != .unread {
                 if txtNameNode == nil {
                     txtNameNode = ASTextNode()
-                    txtNameNode!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 50)
+                    txtNameNode!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
                     txtNameNode!.style.minHeight = ASDimensionMake(.points, 20)
                 }
                 setSenderName() // set text for txtNameNode(sender name)
@@ -627,9 +680,9 @@ class ChatControllerNode: ASCellNode {
                         let view = IGProgress()
                         return view
                     }
-                    indicatorViewAbs!.style.height = ASDimensionMake(.points, 50)
-                    indicatorViewAbs!.style.width = ASDimensionMake(.points, 50)
-                    (indicatorViewAbs!.view as! IGProgress).setFileType(.download)
+                    indicatorViewAbs?.style.height = ASDimensionMake(.points, 50)
+                    indicatorViewAbs?.style.width = ASDimensionMake(.points, 50)
+                    (indicatorViewAbs?.view as? IGProgress)?.setFileType(.download)
                     attachment?.status = .readyToDownload
 
                 }
@@ -721,9 +774,9 @@ class ChatControllerNode: ASCellNode {
                         let view = IGProgress()
                         return view
                     }
-                    indicatorViewAbs!.style.height = ASDimensionMake(.points, 50)
-                    indicatorViewAbs!.style.width = ASDimensionMake(.points, 50)
-                    (indicatorViewAbs!.view as! IGProgress).setFileType(.download)
+                    indicatorViewAbs?.style.height = ASDimensionMake(.points, 50)
+                    indicatorViewAbs?.style.width = ASDimensionMake(.points, 50)
+                    (indicatorViewAbs?.view as? IGProgress)?.setFileType(.download)
                     attachment?.status = .readyToDownload
 
                 }
@@ -803,7 +856,7 @@ class ChatControllerNode: ASCellNode {
             nodeText = ASTextNode()
         }
 
-        nodeText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 50)
+        nodeText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
         nodeText!.style.minHeight = ASDimensionMake(.points, 20)
         spec.children?.append(nodeText!)
 
@@ -833,9 +886,9 @@ class ChatControllerNode: ASCellNode {
                         let view = IGProgress()
                         return view
                     }
-                    indicatorViewAbs!.style.height = ASDimensionMake(.points, 50)
-                    indicatorViewAbs!.style.width = ASDimensionMake(.points, 50)
-                    (indicatorViewAbs!.view as! IGProgress).setFileType(.download)
+                    indicatorViewAbs?.style.height = ASDimensionMake(.points, 50)
+                    indicatorViewAbs?.style.width = ASDimensionMake(.points, 50)
+                    (indicatorViewAbs?.view as? IGProgress)?.setFileType(.download)
                     attachment?.status = .readyToDownload
                 }
             } else {
@@ -1092,7 +1145,7 @@ class ChatControllerNode: ASCellNode {
                     
                     if attachment.status != .ready {
                         if indicatorViewAbs != nil {
-                            (indicatorViewAbs!.view as! IGProgress).delegate = self
+                            (indicatorViewAbs?.view as? IGProgress)?.delegate = self
                         }
                     }
                     break
@@ -1104,7 +1157,7 @@ class ChatControllerNode: ASCellNode {
                     
                     if attachment.status != .ready {
                         if indicatorViewAbs != nil {
-                            (indicatorViewAbs!.view as! IGProgress).delegate = self
+                            (indicatorViewAbs?.view as? IGProgress)?.delegate = self
                         }
                     }
                     break
@@ -1142,13 +1195,13 @@ class ChatControllerNode: ASCellNode {
             }
             
             if isIncomming || !fileExist {
-                (indicatorViewAbs!.view as! IGProgress).setFileType(.download)
+                (indicatorViewAbs?.view as? IGProgress)?.setFileType(.download)
             } else {
-                (indicatorViewAbs!.view as! IGProgress).setFileType(.upload)
+                (indicatorViewAbs?.view as? IGProgress)?.setFileType(.upload)
             }
-            (indicatorViewAbs!.view as! IGProgress).setState(attachment.status)
+            (indicatorViewAbs?.view as? IGProgress)?.setState(attachment.status)
             if attachment.status == .downloading || attachment.status == .uploading {
-                (indicatorViewAbs!.view as! IGProgress).setPercentage(attachment.downloadUploadPercent)
+                (indicatorViewAbs?.view as? IGProgress)?.setPercentage(attachment.downloadUploadPercent)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {[weak self] in
                     guard let sSelf = self else {
                         return
@@ -1181,7 +1234,7 @@ class ChatControllerNode: ASCellNode {
         //MARK :-ADD SUBNODES TO CONTENT VERTICAL SPEC
         addTextAsSubnode(spec: contentSpec)
         setMessage() //set Text for TEXTNODE
-        let insetContentSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
+        let insetContentSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 4, left: 20, bottom: 4, right: 10) : UIEdgeInsets(top: 4, left: 10, bottom: 4, right: 20), child: contentSpec)
         
         return insetContentSpec
         
@@ -1242,7 +1295,7 @@ class ChatControllerNode: ASCellNode {
             if !((subnodes?.contains(nodeText!))!) {
                 //                self.addSubnode(nodeText!)
             }
-            nodeText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 50)
+            nodeText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
             nodeText!.style.minHeight = ASDimensionMake(.points, 20)
             makeTextNodeBottomBubbleItems()
             
@@ -1292,7 +1345,7 @@ class ChatControllerNode: ASCellNode {
             nodeOnlyText = OnlyTextNode()
         }
 
-        nodeOnlyText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 50)
+        nodeOnlyText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
         nodeOnlyText!.style.minHeight = ASDimensionMake(.points, 20)
         makeTextNodeBottomBubbleItems()
         
