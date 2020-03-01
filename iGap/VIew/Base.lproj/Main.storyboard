@@ -3152,7 +3152,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9T9-I4-sib">
                                                         <rect key="frame" x="8" y="5" width="3" height="40"/>
-                                                        <color key="backgroundColor" name="IGNavigationSecondColor"/>
+                                                        <color key="backgroundColor" name="BorderColorOrange"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="3" id="iit-is-igh"/>
                                                         </constraints>
@@ -3861,6 +3861,9 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
         <image name="IG_Tabbar_Discovery" width="37" height="37"/>
         <image name="Location_Marker" width="40" height="40"/>
         <image name="iGap-Chat-BG-V" width="1080" height="1920"/>
+        <namedColor name="BorderColorOrange">
+            <color red="0.84313725490196079" green="0.50196078431372548" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="IGBackGroundColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
