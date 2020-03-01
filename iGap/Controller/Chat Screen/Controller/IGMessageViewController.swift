@@ -799,7 +799,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if currentTheme == "IGAPDay" {
             if currentColorSetLight == "IGAPBlack" {
                 joinButton.setTitleColor(.white, for: .normal)
-                self.txtPinnedMessage.textColor = ThemeManager.currentTheme.LabelGrayColor.lighter(by: 10)
+                self.txtPinnedMessage.textColor = ThemeManager.currentTheme.MessageTextColor
                 self.txtPinnedMessageTitle.textColor = .white
                 self.lblCenterText.textColor = .white
                 self.lblCenterIcon.textColor = .white
@@ -814,7 +814,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
         } else {
             joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
-            self.txtPinnedMessage.textColor = ThemeManager.currentTheme.LabelGrayColor.lighter(by: 10)
+            self.txtPinnedMessage.textColor = ThemeManager.currentTheme.MessageTextColor
             self.txtPinnedMessageTitle.textColor = .white
             self.lblCenterText.textColor = ThemeManager.currentTheme.LabelColor
             self.lblCenterIcon.textColor = ThemeManager.currentTheme.LabelColor
@@ -833,7 +833,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.iconReplyBar.textColor = ThemeManager.currentTheme.LabelColor
         self.holderReplyBar.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         self.holderAttachmentBar.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
-        self.viewTopHolder.backgroundColor = ThemeManager.currentTheme.SliderTintColor
+        self.viewTopHolder.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor
     }
 
     override func viewWillDisappear(_ animated: Bool) {
