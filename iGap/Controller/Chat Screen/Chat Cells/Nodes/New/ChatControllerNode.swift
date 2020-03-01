@@ -42,9 +42,12 @@ class ChatControllerNode: ASCellNode {
     private var txtEmails : ASTextNode?
     private var txtEmailIcon : ASTextNode?
     private var imgCover : ASImageNode?
-
     private var btnViewContact : ASButtonNode?
-    
+    //MusicNode
+    private var txtMusicName : ASTextNode?
+    private var txtMusicArtist : ASTextNode?
+    private var btnStateNode : ASButtonNode?
+
     private var avatarNode : ASAvatarView?
     
     private var indicatorViewAbs : ASDisplayNode?
@@ -179,7 +182,7 @@ class ChatControllerNode: ASCellNode {
         if msg.type == .text {
             isTextMessageNode = true
         }
-        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText || msg.type == .contact  {
+        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText || msg.type == .contact || msg.type == .audio || msg.type == .audioAndText  {
             let baseBubbleBox = makeBubble(bubbleImage: bubbleImage) // make bubble
             let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
             baseBubbleBox.child = contentItemsBox // add contents as child to bubble
@@ -395,15 +398,12 @@ class ChatControllerNode: ASCellNode {
         switch msg!.type {
         case .text :
             let finalBox = setTextNodeContent(contentSpec: contentSpec)
-            
             return finalBox
         case .image,.imageAndText :
             let finalBox = setImageNodeContent(contentSpec: contentSpec, msg: msg!)
-            
             return finalBox
         case .video,.videoAndText :
             let finalBox = setVideoNodeContent(contentSpec: contentSpec, msg: msg!)
-            
             return finalBox
         case .gif,.gifAndText :
             let finalBox = setGifNodeContent(contentSpec: contentSpec, msg: msg!)
@@ -414,12 +414,14 @@ class ChatControllerNode: ASCellNode {
         case .contact :
             let finalBox = setContactNodeContent(contentSpec: contentSpec, msg: msg!)
             return finalBox
+        case .audioAndText,.audio :
+            let finalBox = setAudioNodeContent(contentSpec: contentSpec, msg: msg!)
+            return finalBox
         case .sticker :
             let finalBox = setStickerNodeContent(contentSpec: contentSpec, msg: msg!)
             return finalBox
         default :
             let finalBox = setTextNodeContent(contentSpec: contentSpec)
-            
             return finalBox
         }
         
@@ -895,6 +897,167 @@ class ChatControllerNode: ASCellNode {
     }
     
     //******************************************************//
+    //*******************AUDIO NODE **********************//
+    //******************************************************//
+    
+    private func setAudioNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage) -> ASLayoutSpec {
+        makeTopBubbleItems(stack: contentSpec)
+        RemoveNodeText()
+        if btnStateNode == nil {
+            btnStateNode = ASButtonNode()
+        }
+        if txtMusicName == nil {
+            txtMusicName = ASTextNode()
+        }
+        if txtMusicArtist == nil {
+            txtMusicArtist = ASTextNode()
+        }
+        makeAudioView(msg: msg)
+        
+        let insetBox = layoutAudio(msg: msg)
+        let verticalSpec = ASStackLayoutSpec()
+        verticalSpec.direction = .vertical
+        verticalSpec.spacing = 0
+        verticalSpec.children?.append(insetBox)
+
+        if msg.type == .audio {
+            contentSpec.children?.append(verticalSpec)
+        } else {
+            if nodeText == nil {
+                nodeText = ASTextNode()
+            }
+            AddTextNodeTo(spec: verticalSpec)
+            contentSpec.children?.append(verticalSpec)
+
+        }
+        getMetadata(file: msg.attachment)
+       makeBottomBubbleItems(contentStack: contentSpec)
+       let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
+       
+       return finalInsetSpec
+
+        
+        
+    }
+    
+    func getMetadata(file : IGFile!) {
+        let path = file!.localUrl
+        let asset = AVURLAsset(url: path!)
+        let playerItem = AVPlayerItem(asset: asset)
+        let metadataList = playerItem.asset.commonMetadata
+        var hasSingerName : Bool = false
+        var hasSongName : Bool = false
+        var hasArtwork : Bool = false
+        
+        for item in metadataList {
+            if item.commonKey!.rawValue == "title" {
+                let songName = item.stringValue!
+                hasSongName = true
+                IGGlobal.makeAsyncText(for: txtMusicName!, with: songName, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+
+
+            }
+            if item.commonKey!.rawValue == "artist" {
+                let singerName = item.stringValue!
+                hasSingerName = true
+                IGGlobal.makeAsyncText(for: txtMusicArtist!, with: singerName, textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
+
+            }
+
+        }
+        
+        if !hasSingerName {
+            let singerName = IGStringsManager.UnknownArtist.rawValue.localized
+            IGGlobal.makeAsyncText(for: txtMusicArtist!, with: singerName, textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
+
+            
+
+        }
+        if !hasSongName {
+            if let sn =  attachment?.name {
+                let songName = sn
+                IGGlobal.makeAsyncText(for: txtMusicName!, with: songName, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+
+            } else {
+                let songName = IGStringsManager.UnknownAudio.rawValue.localized
+                IGGlobal.makeAsyncText(for: txtMusicName!, with: songName, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
+
+                
+            }
+        }
+        
+    }
+    private func makeAudioView(msg: IGRoomMessage) {
+        IGGlobal.makeAsyncText(for: txtMusicArtist!, with: "", textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
+
+        btnStateNode!.style.preferredSize = CGSize(width: 60, height: 60)
+        btnStateNode!.layer.cornerRadius = 25
+        checkButtonState(btn: btnStateNode!,message: msg)
+        IGGlobal.makeAsyncButton(for: btnStateNode!, with: "", textColor: .black, size: 35, font: .fontIcon, alignment: .center)
+
+    }
+    
+    func checkButtonState(btn : ASButtonNode,message: IGRoomMessage) {
+        if IGGlobal.isFileExist(path: message.attachment?.localPath, fileSize: message.attachment!.size) {
+            btnStateNode!.style.preferredSize = CGSize(width: 60, height: 60)
+            btnStateNode!.setTitle("🎗", with: UIFont.iGapFonticon(ofSize: 35), with: .black, for: .normal)
+            
+        } else {
+            btnStateNode!.style.preferredSize = CGSize.zero
+            btnStateNode!.style.preferredSize = CGSize(width: 60, height: 60)
+            btnStateNode!.setTitle("🎗", with: UIFont.iGapFonticon(ofSize: 35), with: .black, for: .normal)
+
+        }
+        
+        
+    }
+    private func layoutAudio(msg: IGRoomMessage) -> ASInsetLayoutSpec {
+        
+        let textBox = ASStackLayoutSpec.vertical()
+        textBox.justifyContent = .spaceAround
+        textBox.children = [txtMusicName!,txtMusicArtist!]
+        textBox.spacing = 0
+        if msg.attachment != nil {
+            if !(IGGlobal.isFileExist(path: msg.attachment!.localPath)) {
+                if indicatorViewAbs == nil {
+                    indicatorViewAbs = ASDisplayNode { () -> UIView in
+                        let view = IGProgress()
+                        return view
+                    }
+                    indicatorViewAbs?.style.height = ASDimensionMake(.points, 50)
+                    indicatorViewAbs?.style.width = ASDimensionMake(.points, 50)
+                    (indicatorViewAbs?.view as? IGProgress)?.setFileType(.download)
+                    attachment?.status = .readyToDownload
+
+                }
+            } else {
+                indicatorViewAbs?.removeFromSupernode()
+                indicatorViewAbs = nil
+                attachment?.status = .ready
+            }
+        }
+        let overlayBox : ASOverlayLayoutSpec?
+        let attachmentBox = ASStackLayoutSpec.horizontal()
+
+        if indicatorViewAbs == nil {
+            attachmentBox.spacing = 0
+            attachmentBox.children = [btnStateNode!, textBox]
+
+        } else {
+            overlayBox = ASOverlayLayoutSpec(child: btnStateNode!, overlay: indicatorViewAbs!)
+            attachmentBox.spacing = 0
+            attachmentBox.children = [overlayBox!, textBox]
+
+        }
+        let insetBox = ASInsetLayoutSpec(
+            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+            child: attachmentBox
+        )
+        
+        return insetBox
+        
+    }
+    //******************************************************//
     //*******************CONTACT NODE **********************//
     //******************************************************//
     
@@ -932,7 +1095,7 @@ class ChatControllerNode: ASCellNode {
         verticalSpec.alignItems = isIncomming == true ? .end : .start
 
         verticalSpec.children?.append(insetBox)
-        contentSpec.children?.append(insetBox)
+        contentSpec.children?.append(verticalSpec)
 
        makeBottomBubbleItems(contentStack: contentSpec)
        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
@@ -1413,7 +1576,7 @@ class ChatControllerNode: ASCellNode {
             /* Rx End */
             
             switch (message!.type) {
-            case .image, .imageAndText, .video, .videoAndText,.voice, .audio, .audioAndText :
+            case .image, .imageAndText, .video, .videoAndText,.voice :
                 if !(attachment.isInvalidated) {
                     
                     imgNode!.setThumbnail(for: attachment)
