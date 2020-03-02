@@ -726,8 +726,8 @@ class ChatControllerNode: ASCellNode {
         gifNode!.clipsToBounds = true
         
         gifNode!.layer.cornerRadius = 10
-        indicatorViewAbs!.style.height = ASDimensionMake(.points, 50)
-        indicatorViewAbs!.style.width = ASDimensionMake(.points, 50)
+//        indicatorViewAbs?.style.height = ASDimensionMake(.points, 50)
+//        indicatorViewAbs?.style.width = ASDimensionMake(.points, 50)
         
         if msg.type == .gif {
             RemoveNodeText()
@@ -742,8 +742,19 @@ class ChatControllerNode: ASCellNode {
             
             verticalSpec.children?.append(insetSpecImage)
             
-            let overlay = ASOverlayLayoutSpec(child: verticalSpec, overlay: indicatorViewAbs!)
+            let overlay = ASOverlayLayoutSpec()
+            overlay.child = verticalSpec
+            
+            if indicatorViewAbs != nil {
+                
+                overlay.overlay = indicatorViewAbs!
+                
+//                let overlay = ASOverlayLayoutSpec(child: verticalSpec, overlay: indicatorViewAbs!)
+                
+            }
+            
             contentSpec.children?.append(overlay)
+            
             
             makeBottomBubbleItems(contentStack: contentSpec)
             let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
@@ -753,32 +764,32 @@ class ChatControllerNode: ASCellNode {
             
         } else {
                     
-                    let verticalSpec = ASStackLayoutSpec()
-                    verticalSpec.direction = .vertical
-                    verticalSpec.spacing = 5
-                    verticalSpec.justifyContent = .start
-                    verticalSpec.alignItems = isIncomming == true ? .end : .start
-                    let insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-                    let insetSpecImage = ASInsetLayoutSpec(insets: insetsImage, child: gifNode!)
-                    if indicatorViewAbs == nil {
-                        verticalSpec.children?.append(insetSpecImage)
+            let verticalSpec = ASStackLayoutSpec()
+            verticalSpec.direction = .vertical
+            verticalSpec.spacing = 5
+            verticalSpec.justifyContent = .start
+            verticalSpec.alignItems = isIncomming == true ? .end : .start
+            let insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            let insetSpecImage = ASInsetLayoutSpec(insets: insetsImage, child: gifNode!)
+            if indicatorViewAbs == nil {
+                verticalSpec.children?.append(insetSpecImage)
 
-                    } else {
-                        let overlay = ASOverlayLayoutSpec(child: insetSpecImage, overlay: indicatorViewAbs!)
-                        verticalSpec.children?.append(overlay)
+            } else {
+                let overlay = ASOverlayLayoutSpec(child: insetSpecImage, overlay: indicatorViewAbs!)
+                verticalSpec.children?.append(overlay)
 
-                    }
-          
-        //
-                    AddTextNodeTo(spec: verticalSpec)
-                    contentSpec.children?.append(verticalSpec)
-                    nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
-                    makeBottomBubbleItems(contentStack: contentSpec)
-                    let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
-                    
-                    return finalInsetSpec
+            }
+  
+//
+            AddTextNodeTo(spec: verticalSpec)
+            contentSpec.children?.append(verticalSpec)
+            nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
+            makeBottomBubbleItems(contentStack: contentSpec)
+            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
+            
+            return finalInsetSpec
 
-                }
+        }
         
     }
 
@@ -1171,7 +1182,21 @@ class ChatControllerNode: ASCellNode {
         btnViewContact!.layer.borderWidth = 1.0
         btnViewContact!.backgroundColor = .clear
         btnViewContact!.style.height = ASDimension(unit: .points, value: 40.0)
+        btnViewContact!.addTarget(self, action: #selector(contactDetailBtnTapAction), forControlEvents: .touchUpInside)
 
+    }
+    
+    @objc func contactDetailBtnTapAction() {
+        
+        if let _contact = contact {
+            delegate?.didTapOnContactDetail(contact: _contact)
+        }
+        
+//        print("DID TAP ON CONTACT SHOW")
+//        if let _contact = contact {
+//            SwiftEventBus.postToMainThread(EventBusManager.showContactDetail, userInfo: ["contactInfo": _contact])
+//        }
+        
     }
     
     func getContactDetails(message: IGRoomMessage) {
@@ -1659,7 +1684,10 @@ class ChatControllerNode: ASCellNode {
                     }
                     if (attachment.downloadUploadPercent) == 1.0 {
                         attachment.status = .ready
-                        sSelf.imgNode!.setThumbnail(for: attachment)
+                        if sSelf.imgNode != nil {
+                            sSelf.imgNode!.setThumbnail(for: attachment)
+                        }
+                        
                         
                     }
                 }
