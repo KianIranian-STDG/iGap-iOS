@@ -175,7 +175,7 @@ class IGNewsTableViewController: BaseTableViewController {
                 //title of double news section
                 singleNews.lblTitle0.text = (item.news![0].category)
                 //pass categoryID
-                singleNews.categoryIDOne = "\(item.news![0].categoryId)"
+                singleNews.categoryIDOne = "\(item.news![0].categoryId?.stringValue ?? "")"
                 singleNews.categoryOne = (item.news![0].category)
                 
                 //set cell data
