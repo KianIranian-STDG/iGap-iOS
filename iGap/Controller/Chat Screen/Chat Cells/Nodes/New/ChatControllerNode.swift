@@ -276,7 +276,7 @@ class ChatControllerNode: ASCellNode {
         }
         
         if isIncomming {
-            if shouldShowAvatar && !isFromSameSender {
+            if shouldShowAvatar {
                 
                 // Make avatar Here
                 if avatarNode == nil {
@@ -286,6 +286,12 @@ class ChatControllerNode: ASCellNode {
                     avatarNode!.clipsToBounds = true
                 }
                 
+                if isFromSameSender {
+                    avatarNode?.alpha = 0
+                    return true
+                }else {
+                    avatarNode?.alpha = 1
+                }
                 
                 if let user = message?.authorUser?.user {
                     
