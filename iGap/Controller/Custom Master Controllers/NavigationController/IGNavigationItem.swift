@@ -704,6 +704,40 @@ class IGNavigationItem: UINavigationItem {
         self.titleView = titleView
     }
     
+    func initNavBarFetchRoomLoading() {
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
+        
+        let label = UILabel()
+        label.font = UIFont.igFont(ofSize: 15.0,weight: .bold)
+        label.textAlignment = .center
+        label.textColor = UIColor.iGapBarsInfo()
+        label.text = IGStringsManager.FetchingRooms.rawValue.localized
+        label.sizeToFit()
+
+        let loading = AnimateloadingView(frame: CGRect(x: 0, y: 0, width: 16, height: 16))
+        loading.stopAnimating()
+        loading.startAnimating()
+        
+        titleView.addSubview(loading)
+        titleView.addSubview(label)
+        
+        label.snp.makeConstraints { (make) in
+            make.centerY.equalTo(titleView.snp.centerY)
+            make.centerX.equalTo(titleView.snp.centerX)
+            make.height.equalTo(20)
+            make.width.greaterThanOrEqualTo(5)
+        }
+        
+        loading.snp.makeConstraints { (make) in
+            make.leading.equalTo(label.snp.trailing).offset(10)
+            make.centerY.equalTo(label.snp.centerY)
+            make.width.equalTo(20)
+            make.height.equalTo(20)
+        }
+        
+        self.titleView = titleView
+    }
+    
     //MARK: - Messages View
     func setNavigationBarForRoom(_ room: IGRoom) {
         if  IGGlobal.shouldMultiSelect {

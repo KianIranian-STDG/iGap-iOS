@@ -132,6 +132,7 @@ enum IGStringsManager : String {
     case LastSeen = "Last_Seen"
     case Groups = "Groups"
     case Channels = "Channels"
+    case FetchingRooms = "fetching_rooms"
     case TwoSteps = "Two_Step_Verification"
     case ForgetPassword = "forgot_password"
     case TwoStepHeader = "two_step_verficatiion_header"
@@ -761,6 +762,5 @@ enum IGStringsManager : String {
     case AppIcon = "Theme_Icon_Appp"
 
 }
-
 
 

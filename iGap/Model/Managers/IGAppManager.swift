@@ -38,6 +38,7 @@ class IGAppManager: NSObject {
     var isUserLoggedIn: BehaviorRelay<Bool>
     var isTryingToLoginUser: Bool = false
     var currentMessagesNotificationToekn: NotificationToken?
+    var showFetchingRoomList: Bool = false // this varibale used for check and show Fetching Room view if needed, at navigation bar after change tab and return to room list tab again
     var allowFetchRoomList: Bool = false
     var fetchRoomListOffset: Int = 0
     
@@ -53,7 +54,7 @@ class IGAppManager: NSObject {
     private var _walletActive: Bool = false
     private var _AccessToken: String!
 
-    public let LOAD_ROOM_LIMIT = 25
+    public let LOAD_ROOM_LIMIT = 50
     
     private override init() {
         connectionStatus = BehaviorRelay(value: .waitingForNetwork)
@@ -211,6 +212,7 @@ class IGAppManager: NSObject {
         IGRecentsTableViewController.needGetInfo = true
         IGDashboardViewController.needGetFirstPage = true
         allowFetchRoomList = true
+        showFetchingRoomList = false
         fetchRoomListOffset = 0
         
         if let delegate = RTCClient.getInstance()?.callStateDelegate {

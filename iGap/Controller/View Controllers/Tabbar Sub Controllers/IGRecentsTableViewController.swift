@@ -421,7 +421,11 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         DispatchQueue.main.async {
             if let navigationItem = self.navigationItem as? IGNavigationItem {
                 IGTabBarController.currentTabStatic = .Recent
-                navigationItem.addiGapLogo()
+                if IGAppManager.sharedManager.showFetchingRoomList {
+                    navigationItem.initNavBarFetchRoomLoading()
+                } else {
+                    navigationItem.addiGapLogo()
+                }
             }
         }
         //self.addRoomChangeNotificationBlock()
@@ -516,15 +520,34 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         }
     }
     
+    private func makeLoading(){
+        DispatchQueue.main.async {
+            let navigationItem = self.navigationItem as! IGNavigationItem
+            navigationItem.initNavBarFetchRoomLoading()
+        }
+    }
+    
+    private func removeLoading(){
+        DispatchQueue.main.async {
+            let navigationItem = self.navigationItem as! IGNavigationItem
+            navigationItem.initNavBarWithIgapIcon()
+        }
+    }
+    
     @objc private func fetchRoomList(offset: Int32 = 0 , limit: Int32 = Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)) {
         
         var clientConditionRooms: [IGPClientCondition.IGPRoom]?
         if offset == 0 { // is first page
             clientConditionRooms = IGClientCondition.computeClientCondition()
         }
-        
+
+        if offset == 0 { // just show fetching room icon for
+            makeLoading()
+            IGAppManager.sharedManager.showFetchingRoomList = true
+        }
         IGAppManager.sharedManager.allowFetchRoomList = false
         IGClientGetRoomListRequest.Generator.generate(offset: offset, limit: limit).successPowerful ({ [weak self] (responseProtoMessage, requestWrapper) in
+            IGAppManager.sharedManager.showFetchingRoomList = false
             if let getRoomListResponse = responseProtoMessage as? IGPClientGetRoomListResponse {
                 if let getRoomListRequest = requestWrapper.message as? IGPClientGetRoomList {
                     let fetchedCount = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse)
@@ -544,7 +567,11 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
                         
                         if self?.tableView.indexPathsForVisibleRows?.last?.row ?? 0 > IGAppManager.sharedManager.fetchRoomListOffset {
                             self?.loadMoreRooms()
+                        } else {
+                            self?.removeLoading()
                         }
+                    } else {
+                        self?.removeLoading()
                     }
                 }
             }

@@ -6695,3 +6695,4 @@ Page 4 introduce app */
 "requester_mobile_number" = "شماره تلفن درخواست کننده";
 "receivers_mobile_number" = "شماره موبایل گیرنده";
 "install_latest_version" = "برای استفاده از این ویژگی آخرین نسخه را نصب کنید";
+"fetching_rooms" = "درحال دریافت چت ها";
