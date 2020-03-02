@@ -82,7 +82,6 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         return label
     }()
     
-    var testArray = [IGAvatarView]()
     var testLastMsgArray = [String]()
     var testImageArray = [UIImage]()
     static var visibleChat: [Int64 : Bool] = [:]
@@ -540,7 +539,7 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
                     }
                     IGAppManager.sharedManager.fetchRoomListOffset = Int(getRoomListRequest.igpPagination.igpOffset) + getRoomListResponse.igpRooms.count
                     
-                    if fetchedCount == IGAppManager.sharedManager.LOAD_ROOM_LIMIT { // this means rooms list not reached to end yet
+                    if fetchedCount != 0 { // this means rooms list not reached to end yet
                         IGAppManager.sharedManager.allowFetchRoomList = true
                         
                         if self?.tableView.indexPathsForVisibleRows?.last?.row ?? 0 > IGAppManager.sharedManager.fetchRoomListOffset {
