@@ -941,14 +941,14 @@ class ChatControllerNode: ASCellNode {
             contentSpec.children?.append(verticalSpec)
 
         }
+        musicGustureRecognizers()
+        checkPlayerState()
         getMetadata(file: msg.attachment)
        makeBottomBubbleItems(contentStack: contentSpec)
        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
        
        return finalInsetSpec
 
-        
-        
     }
     
     func getMetadata(file : IGFile!) {
@@ -958,7 +958,6 @@ class ChatControllerNode: ASCellNode {
         let metadataList = playerItem.asset.commonMetadata
         var hasSingerName : Bool = false
         var hasSongName : Bool = false
-        var hasArtwork : Bool = false
         
         for item in metadataList {
             if item.commonKey!.rawValue == "title" {
@@ -1383,7 +1382,7 @@ class ChatControllerNode: ASCellNode {
                     btnPlay?.style.height = ASDimensionMake(.points, 50)
                     btnPlay?.cornerRadius = 25
                     btnPlay?.backgroundColor = isIncomming ? ThemeManager.currentTheme.ReceiveMessageBubleBGColor : ThemeManager.currentTheme.SendMessageBubleBGColor
-                    IGGlobal.makeAsyncButton(for: btnPlay!, with: "🎗", textColor: ThemeManager.currentTheme.LabelColor, size: 30, weight: .bold, font: .fontIcon, alignment: .center)
+                    IGGlobal.makeAsyncButton(for: btnPlay!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 40, weight: .bold, font: .fontIcon, alignment: .center)
                 }
 
             }
@@ -1398,48 +1397,50 @@ class ChatControllerNode: ASCellNode {
         if msg.type == .video {
             RemoveNodeText()
             
+            let timeTxtNode = ASTextNode()
+            let fakeStackBottomItem = ASDisplayNode()
             
-                let timeTxtNode = ASTextNode()
-                let fakeStackBottomItem = ASDisplayNode()
-                
-                timeTxtNode.style.height = ASDimension(unit: .points, value: 20)
-                fakeStackBottomItem.style.height = ASDimension(unit: .points, value: 26)
-                
-                let playTxtCenterSpec : ASCenterLayoutSpec
+            timeTxtNode.layer.cornerRadius = 10
+            timeTxtNode.clipsToBounds = true
+            timeTxtNode.layer.borderColor = UIColor.white.cgColor
+            timeTxtNode.layer.borderWidth = 0.5
+            timeTxtNode.backgroundColor = UIColor(white: 0, alpha: 0.3)
             
-                if indicatorViewAbs == nil {
-                    if btnPlay == nil {
-                        btnPlay = ASButtonNode()
-                        // Setting Play Btn Size
-                        btnPlay!.style.flexBasis = ASDimension(unit: .auto, value:1.0)
-                        btnPlay!.style.flexGrow = 1
-                        btnPlay!.style.flexShrink = 1
+            timeTxtNode.style.height = ASDimension(unit: .points, value: 20)
+            fakeStackBottomItem.style.height = ASDimension(unit: .points, value: 26)
+            
+            let playTxtCenterSpec : ASCenterLayoutSpec
+        
+            if indicatorViewAbs == nil {
+                if btnPlay == nil {
+                    btnPlay = ASButtonNode()
+                    // Setting Play Btn Size
+                    btnPlay!.style.flexBasis = ASDimension(unit: .auto, value:1.0)
+                    btnPlay!.style.flexGrow = 1
+                    btnPlay!.style.flexShrink = 1
 
-                    }
-                    playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: btnPlay!)
-                } else {
-                    playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: indicatorViewAbs!)
                 }
-                
-                // Setting Duration lbl Size
-                let timeInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5), child: timeTxtNode)
-                
-                // Setting Container Stack
-                let itemsStackSpec = ASStackLayoutSpec(direction: .vertical, spacing: 6, justifyContent: .spaceBetween, alignItems: .start, children: [timeInsetSpec, playTxtCenterSpec, fakeStackBottomItem])
-                itemsStackSpec.style.height = ASDimension(unit: .points, value: prefferedSize.height)
-                
-                let overlaySpec = ASOverlayLayoutSpec(child: imgNode!, overlay: itemsStackSpec)
-                
-                let time : String! = IGAttachmentManager.sharedManager.convertFileTime(seconds: Int((message!.attachment?.duration)!))
-                
-                IGGlobal.makeAsyncText(for: timeTxtNode, with: time, textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
-                IGGlobal.makeAsyncText(for: timeTxtNode, with: " " + "(\(IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: (message!.attachment?.size)!)))" + " ", textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
-                
-                
-                contentSpec.children?.append(overlaySpec)
-                
-                
+                playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: btnPlay!)
+            } else {
+                playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: indicatorViewAbs!)
+            }
             
+            // Setting Duration lbl Size
+            let timeInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5), child: timeTxtNode)
+            
+            // Setting Container Stack
+            let itemsStackSpec = ASStackLayoutSpec(direction: .vertical, spacing: 6, justifyContent: .spaceBetween, alignItems: .start, children: [timeInsetSpec, playTxtCenterSpec, fakeStackBottomItem])
+            itemsStackSpec.style.height = ASDimension(unit: .points, value: prefferedSize.height)
+            
+            let overlaySpec = ASOverlayLayoutSpec(child: imgNode!, overlay: itemsStackSpec)
+            
+            let time : String! = IGAttachmentManager.sharedManager.convertFileTime(seconds: Int((message!.attachment?.duration)!))
+            
+            IGGlobal.makeAsyncText(for: timeTxtNode, with: time, textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: timeTxtNode, with: " " + "(\(IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: (message!.attachment?.size)!)))" + " ", textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
+            
+            contentSpec.children?.append(overlaySpec)
+                
             makeBottomBubbleItems(contentStack: contentSpec)
             let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
             
@@ -1448,51 +1449,57 @@ class ChatControllerNode: ASCellNode {
             
         } else {
             
-                let timeTxtNode = ASTextNode()
-                let fakeStackBottomItem = ASDisplayNode()
-                
-                timeTxtNode.style.height = ASDimension(unit: .points, value: 20)
-                fakeStackBottomItem.style.height = ASDimension(unit: .points, value: 26)
-                
-                let playTxtCenterSpec : ASCenterLayoutSpec
+            let timeTxtNode = ASTextNode()
+            let fakeStackBottomItem = ASDisplayNode()
             
-                if indicatorViewAbs == nil {
-                    if btnPlay == nil {
-                        btnPlay = ASButtonNode()
-                        // Setting Play Btn Size
-                        btnPlay!.style.flexBasis = ASDimension(unit: .auto, value:1.0)
-                        btnPlay!.style.flexGrow = 1
-                        btnPlay!.style.flexShrink = 1
+            timeTxtNode.layer.cornerRadius = 10
+            timeTxtNode.clipsToBounds = true
+            timeTxtNode.layer.borderColor = UIColor.white.cgColor
+            timeTxtNode.layer.borderWidth = 0.5
+            timeTxtNode.backgroundColor = UIColor(white: 0, alpha: 0.3)
+        
+            timeTxtNode.style.height = ASDimension(unit: .points, value: 20)
+            fakeStackBottomItem.style.height = ASDimension(unit: .points, value: 26)
+            
+            let playTxtCenterSpec : ASCenterLayoutSpec
+        
+            if indicatorViewAbs == nil {
+                if btnPlay == nil {
+                    btnPlay = ASButtonNode()
+                    // Setting Play Btn Size
+                    btnPlay!.style.flexBasis = ASDimension(unit: .auto, value:1.0)
+                    btnPlay!.style.flexGrow = 1
+                    btnPlay!.style.flexShrink = 1
 
-                    }
-                    playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: btnPlay!)
-                } else {
-                    playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: indicatorViewAbs!)
                 }
-                
-                // Setting Duration lbl Size
-                let timeInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5), child: timeTxtNode)
-                
-                // Setting Container Stack
-                let itemsStackSpec = ASStackLayoutSpec(direction: .vertical, spacing: 6, justifyContent: .spaceBetween, alignItems: .start, children: [timeInsetSpec, playTxtCenterSpec, fakeStackBottomItem])
-                itemsStackSpec.style.height = ASDimension(unit: .points, value: prefferedSize.height)
-                
-                let overlaySpec = ASOverlayLayoutSpec(child: imgNode!, overlay: itemsStackSpec)
-                
-                let time : String! = IGAttachmentManager.sharedManager.convertFileTime(seconds: Int((message!.attachment?.duration)!))
-                
-                IGGlobal.makeAsyncText(for: timeTxtNode, with: time, textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
-                IGGlobal.makeAsyncText(for: timeTxtNode, with: " " + "(\(IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: (message!.attachment?.size)!)))" + " ", textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
-                
-                
-                
-                let verticalSpec = ASStackLayoutSpec()
-                verticalSpec.direction = .vertical
-                verticalSpec.spacing = 5
-                verticalSpec.justifyContent = .start
-                verticalSpec.alignItems = isIncomming == true ? .end : .start
+                playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: btnPlay!)
+            } else {
+                playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: indicatorViewAbs!)
+            }
             
-                verticalSpec.children?.append(overlaySpec)
+            // Setting Duration lbl Size
+            let timeInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5), child: timeTxtNode)
+            
+            // Setting Container Stack
+            let itemsStackSpec = ASStackLayoutSpec(direction: .vertical, spacing: 6, justifyContent: .spaceBetween, alignItems: .start, children: [timeInsetSpec, playTxtCenterSpec, fakeStackBottomItem])
+            itemsStackSpec.style.height = ASDimension(unit: .points, value: prefferedSize.height)
+            
+            let overlaySpec = ASOverlayLayoutSpec(child: imgNode!, overlay: itemsStackSpec)
+            
+            let time : String! = IGAttachmentManager.sharedManager.convertFileTime(seconds: Int((message!.attachment?.duration)!))
+            
+            IGGlobal.makeAsyncText(for: timeTxtNode, with: time, textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: timeTxtNode, with: " " + "(\(IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: (message!.attachment?.size)!)))" + " ", textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
+            
+            
+            
+            let verticalSpec = ASStackLayoutSpec()
+            verticalSpec.direction = .vertical
+            verticalSpec.spacing = 5
+            verticalSpec.justifyContent = .start
+            verticalSpec.alignItems = isIncomming == true ? .end : .start
+        
+            verticalSpec.children?.append(overlaySpec)
 
 
             AddTextNodeTo(spec: verticalSpec)
@@ -1601,7 +1608,7 @@ class ChatControllerNode: ASCellNode {
             /* Rx End */
             
             switch (message!.type) {
-            case .image, .imageAndText, .video, .videoAndText,.voice :
+            case .image, .imageAndText, .video, .videoAndText :
                 if !(attachment.isInvalidated) {
                     
                     imgNode!.setThumbnail(for: attachment)
@@ -1638,6 +1645,16 @@ class ChatControllerNode: ASCellNode {
                     break
                 }
 
+            case .audio, .audioAndText, .voice :
+                if !(attachment.isInvalidated) {
+                    
+                    if attachment.status != .ready {
+                        if indicatorViewAbs != nil {
+                            (indicatorViewAbs?.view as? IGProgress)?.delegate = self
+                        }
+                    }
+                    break
+                }
 
             default:
                 break
@@ -1973,6 +1990,31 @@ class ChatControllerNode: ASCellNode {
                 break
         }
     }
+    
+    /****************************************************************************/
+    /******************************* Audio Player *******************************/
+    
+    /** check current voice state and if is playing update values to current state */
+    private func checkPlayerState(){
+        IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: UISlider(), timer: ASTextNode(), roomMessage: message!, justUpdate: true, room: finalRoom)
+        
+        
+    }
+    
+    private func musicGustureRecognizers() {
+        if btnStateNode != nil {
+            btnStateNode!.addTarget(self, action: #selector(didTapOnPlay(_:)), forControlEvents: .touchUpInside)
+        }
+        
+    }
+    
+    @objc func didTapOnPlay(_ gestureRecognizer: UITapGestureRecognizer) {
+        IGGlobal.isVoice = false // determine the file is not voice and is music
+
+        IGGlobal.clickedAudioCellIndexPath = index
+        IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: UISlider(), timer: ASTextNode(), roomMessage: message!,room: finalRoom)
+    }
+    
 }
 
 

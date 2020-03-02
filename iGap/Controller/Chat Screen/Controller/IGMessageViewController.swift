@@ -756,7 +756,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func initASCollectionNode() {
         //flips the tableview (and all cells) upside down
 
-        let screenSizeWidth = UIScreen.main.bounds.width
         let flowlayout = UICollectionViewFlowLayout.init()
         flowlayout.scrollDirection = .vertical
         flowlayout.minimumLineSpacing = 0.0
@@ -6916,6 +6915,7 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
             
 //            message: msg!, finalRoomType : sSelf.finalRoom!.type ,finalRoom : sSelf.finalRoom!
             let cellNode = ChatControllerNode()
+            cellNode.selectionStyle = .none
             cellNode.delegate = self
             cellNode.makeView(message: msg!, finalRoomType: sSelf.finalRoom!.type, finalRoom: sSelf.finalRoom!,isIncomming: isIncomming, bubbleImage: img, isFromSameSender: isFromSameSender, shouldShowAvatar: shouldShowAvatar, indexPath: indexPath)
             return cellNode
