@@ -38,6 +38,8 @@ class IGAppManager: NSObject {
     var isUserLoggedIn: BehaviorRelay<Bool>
     var isTryingToLoginUser: Bool = false
     var currentMessagesNotificationToekn: NotificationToken?
+    var allowFetchRoomList: Bool = false
+    var fetchRoomListOffset: Int = 0
     
     private var _loginToken: String?
     private var _username: String?
@@ -51,7 +53,7 @@ class IGAppManager: NSObject {
     private var _walletActive: Bool = false
     private var _AccessToken: String!
 
-    public let LOAD_ROOM_LIMIT = 100
+    public let LOAD_ROOM_LIMIT = 25
     
     private override init() {
         connectionStatus = BehaviorRelay(value: .waitingForNetwork)
@@ -208,6 +210,8 @@ class IGAppManager: NSObject {
         IGContactManager.importedContact = false // for allow user that import contact list after than logged in again
         IGRecentsTableViewController.needGetInfo = true
         IGDashboardViewController.needGetFirstPage = true
+        allowFetchRoomList = true
+        fetchRoomListOffset = 0
         
         if let delegate = RTCClient.getInstance()?.callStateDelegate {
             delegate.onStateChange(state: RTCClientConnectionState.Unavailable)
