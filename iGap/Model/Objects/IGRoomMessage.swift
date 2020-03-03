@@ -611,9 +611,9 @@ class IGRoomMessage: Object {
     internal static func getLastMessage(roomId: Int64, isDeleted: Bool? = nil) -> IGRoomMessage? {
         var predicate = NSPredicate(format: "roomId == %lld", roomId)
         if isDeleted != nil {
-            predicate = NSPredicate(format: "roomId == %lld AND isDeleted == false", roomId)
+            predicate = NSPredicate(format: "roomId == %lld AND isDeleted = %d", roomId, isDeleted!)
         }
-        return IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).last
+        return IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: [SortDescriptor(keyPath: "id", ascending: false)]).first
     }
     
     internal static func fetchForwardMessage(roomId: Int64, messageId: Int64) -> IGRoomMessage? {
