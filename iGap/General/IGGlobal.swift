@@ -1998,8 +1998,15 @@ extension String {
 
 extension Character {
     fileprivate func isEmoji() -> Bool {
-        return Character(UnicodeScalar(UInt32(0x1d000))!) <= self && self <= Character(UnicodeScalar(UInt32(0x1f77f))!)
-            || Character(UnicodeScalar(UInt32(0x2100))!) <= self && self <= Character(UnicodeScalar(UInt32(0x26ff))!)
+        
+        guard let firstProperties = self.unicodeScalars.first?.properties else {
+            return false
+        }
+        return (firstProperties.isEmojiPresentation || firstProperties.generalCategory == .otherSymbol)
+        
+        
+//        return Character(UnicodeScalar(UInt32(0x1d000))!) <= self && self <= Character(UnicodeScalar(UInt32(0x1f77f))!)
+//            || Character(UnicodeScalar(UInt32(0x2100))!) <= self && self <= Character(UnicodeScalar(UInt32(0x26ff))!)
     }
 }
 extension UnicodeScalar {
