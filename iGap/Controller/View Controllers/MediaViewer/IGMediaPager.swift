@@ -220,7 +220,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
             listCount = mediaList!.count
         }
         
-        if listCount <= currentIndex {
+        if listCount <= currentIndex || currentIndex < 0 {
             return //index out of bound
         }
         
