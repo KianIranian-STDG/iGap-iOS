@@ -43,11 +43,15 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomViewBottomSpace: NSLayoutConstraint!
-    @IBOutlet weak var txtMessage: UILabel!
+    @IBOutlet var txtMessage: ActiveLabel!
     @IBOutlet weak var txtMessageHeight: NSLayoutConstraint!
+    
+    weak var delegate: IGMessageGeneralCollectionViewCellDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        txtMessage.isUserInteractionEnabled = true
         
         if mediaPagerType == .avatar {
             fetchAvatars()
@@ -82,12 +86,17 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         self.view.bringSubviewToFront(topView)
         self.view.bringSubviewToFront(bottomView)
         
-        bottomView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapOnBottomView(_:))))
+        let bottomViewTap = UITapGestureRecognizer(target: self, action: #selector(didTapOnBottomView(_:)))
+        bottomViewTap.delegate = self
+        bottomView.addGestureRecognizer(bottomViewTap)
         bottomView.isUserInteractionEnabled = true
         
         topView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapOnTopView(_:))))
         topView.isUserInteractionEnabled = true
         self.view.backgroundColor = .black
+        
+        manageLink()
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -345,4 +354,51 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         manageCurrentMedia()
         txtMessageHeight.constant = bottomViewHeight.constant - extraMessageHeight
     }
+    
+    // MARK:- Link Detection
+    
+    private func manageLink(){
+        txtMessage!.font = UIFont.igFont(ofSize: fontDefaultSize)
+    
+        txtMessage!.customize {(lable) in
+            
+            lable.EmailColor = UIColor.iGapLink()
+            lable.hashtagColor = UIColor.iGapLink()
+            lable.mentionColor = UIColor.iGapLink()
+            lable.URLColor = UIColor.iGapLink()
+            lable.botColor = UIColor.iGapLink()
+            
+            lable.handleURLTap { url in
+                self.delegate?.didTapOnURl(url: url)
+            }
+
+            lable.handleDeepLinkTap({ (deepLink) in
+                 self.delegate?.didTapOnDeepLink(url: deepLink)
+            })
+
+            lable.handleEmailTap { email in
+                self.delegate?.didTapOnEmail(email: email.absoluteString)
+            }
+
+            lable.handleBotTap {bot in
+                self.delegate?.didTapOnBotAction(action: bot)
+            }
+
+            lable.handleMentionTap { mention in
+                self.delegate?.didTapOnMention(mentionText: mention )
+            }
+
+            lable.handleHashtagTap { hashtag in
+                self.delegate?.didTapOnHashtag(hashtagText: hashtag)
+            }
+        }
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if (touch.view!.isDescendant(of: self.bottomView)){
+            return false
+        }
+        return true
+    }
+    
 }

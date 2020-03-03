@@ -5944,6 +5944,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         switch finalMessage.type {
         case .image, .imageAndText:
             let mediaViewer = IGMediaPager.instantiateFromAppStroryboard(appStoryboard: .Main)
+            mediaViewer.delegate = self
             mediaViewer.hidesBottomBarWhenPushed = true
             mediaViewer.ownerId = self.room?.id
             mediaViewer.messageId = cellMessage.id

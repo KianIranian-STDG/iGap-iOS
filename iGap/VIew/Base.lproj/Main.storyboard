@@ -3061,7 +3061,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MkA-tr-cWP">
                                 <rect key="frame" x="0.0" y="696" width="414" height="200"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="50" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piS-ga-ovf">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="50" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piS-ga-ovf" customClass="ActiveLabel" customModule="iGap" customModuleProvider="target">
                                         <rect key="frame" x="10" y="10" width="394" height="150"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="150" id="nHL-gf-dsr"/>
