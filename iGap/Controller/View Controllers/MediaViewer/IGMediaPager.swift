@@ -86,12 +86,12 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         self.view.bringSubviewToFront(topView)
         self.view.bringSubviewToFront(bottomView)
         
-        let bottomViewTap = UITapGestureRecognizer(target: self, action: #selector(didTapOnBottomView(_:)))
+        let bottomViewTap = UITapGestureRecognizer(target: self, action: #selector(didTapOnBottomView))
         bottomViewTap.delegate = self
         bottomView.addGestureRecognizer(bottomViewTap)
         bottomView.isUserInteractionEnabled = true
         
-        topView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapOnTopView(_:))))
+        topView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapOnTopView)))
         topView.isUserInteractionEnabled = true
         self.view.backgroundColor = .black
         
@@ -290,7 +290,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         IGHelperAvatar.shared.delete(roomId: ownerId, avatarId: avatarList![currentIndex].id, type: avatarType!, completion: {})
     }
     
-    @objc func didTapOnBottomView(_ gestureRecognizer: UITapGestureRecognizer) {
+    @objc func didTapOnBottomView() {
         
         // in this state message is not large so expand view is not useful
         if (IGGlobal.fetchUIScreen().height / 3) > self.bottomViewHeight.constant {
@@ -315,7 +315,7 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
         }
     }
     
-    @objc func didTapOnTopView(_ gestureRecognizer: UITapGestureRecognizer) {
+    @objc func didTapOnTopView() {
         manageShowLayouts()
     }
     
@@ -360,7 +360,10 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
     private func manageLink(){
         txtMessage!.font = UIFont.igFont(ofSize: fontDefaultSize)
     
-        txtMessage!.customize {(lable) in
+        txtMessage!.customize {[weak self](lable) in
+            guard let sSelf = self else {
+                return
+            }
             
             lable.EmailColor = UIColor.iGapLink()
             lable.hashtagColor = UIColor.iGapLink()
@@ -369,27 +372,37 @@ class IGMediaPager: BaseViewController, FSPagerViewDelegate, FSPagerViewDataSour
             lable.botColor = UIColor.iGapLink()
             
             lable.handleURLTap { url in
-                self.delegate?.didTapOnURl(url: url)
+                sSelf.delegate?.didTapOnURl(url: url)
+                return
             }
 
             lable.handleDeepLinkTap({ (deepLink) in
-                 self.delegate?.didTapOnDeepLink(url: deepLink)
+                sSelf.delegate?.didTapOnDeepLink(url: deepLink)
+                return
             })
 
             lable.handleEmailTap { email in
-                self.delegate?.didTapOnEmail(email: email.absoluteString)
+                sSelf.delegate?.didTapOnEmail(email: email.absoluteString)
+                return
             }
 
             lable.handleBotTap {bot in
-                self.delegate?.didTapOnBotAction(action: bot)
+                sSelf.delegate?.didTapOnBotAction(action: bot)
+                return
             }
 
             lable.handleMentionTap { mention in
-                self.delegate?.didTapOnMention(mentionText: mention )
+                sSelf.delegate?.didTapOnMention(mentionText: mention )
+                return
             }
 
             lable.handleHashtagTap { hashtag in
-                self.delegate?.didTapOnHashtag(hashtagText: hashtag)
+                sSelf.delegate?.didTapOnHashtag(hashtagText: hashtag)
+                return
+            }
+            
+            lable.handleNoneTap {
+                sSelf.didTapOnBottomView()
             }
         }
     }

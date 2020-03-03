@@ -117,6 +117,10 @@ open class ActiveLabel: UILabel {
     open func handleCustomTap(for type: ActiveType, handler: @escaping (String) -> ()) {
         customTapHandlers[type] = handler
     }
+    
+    open func handleNoneTap(_ handler: @escaping () -> ()) {
+        noneTapHandler = handler
+    }
 	
     open func removeHandle(for type: ActiveType) {
         switch type {
@@ -245,7 +249,10 @@ open class ActiveLabel: UILabel {
                 selectedElement = nil
             }
         case .ended:
-            guard let selectedElement = selectedElement else { return avoidSuperCall }
+            guard let selectedElement = selectedElement else {
+                didTapOnNotActiveElement()
+                return avoidSuperCall
+            }
 
             switch selectedElement.element {
             case .mention(let userHandle): didTapMention(userHandle)
@@ -255,7 +262,9 @@ open class ActiveLabel: UILabel {
             case .email(let originalEmail, _): didTapStringEmail(originalEmail)
             case .custom(let element): didTap(element, for: selectedElement.type)
             case .bot(let botCommand): didTapBot(botCommand)
-            default: break
+            default:
+                didTapOnNotActiveElement()
+                break
             }
             
             let when = DispatchTime.now() + Double(Int64(0.25 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -287,6 +296,7 @@ open class ActiveLabel: UILabel {
     internal var deepLinkTapHandler: ((URL) -> ())?
     internal var emailTapHandler: ((URL) -> ())?
     internal var customTapHandlers: [ActiveType : ((String) -> ())] = [:]
+    internal var noneTapHandler: (() -> ())?
     
     fileprivate var mentionFilterPredicate: ((String) -> Bool)?
     fileprivate var hashtagFilterPredicate: ((String) -> Bool)?
@@ -639,6 +649,16 @@ open class ActiveLabel: UILabel {
         }
         elementHandler(element)
     }
+    
+    fileprivate func didTapOnNotActiveElement() {
+        guard let noneHandler = noneTapHandler else {
+//            delegate?.didSelect(bot, type: .bot)
+            delegate?.didSelect("", type: .custom(pattern: ""))
+            return
+        }
+        noneHandler()
+    }
+    
 }
 
 extension ActiveLabel: UIGestureRecognizerDelegate {
