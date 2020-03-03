@@ -317,6 +317,11 @@ class IGRoomMessage: Object {
         if message == nil {
             message = IGRoomMessage()
             message.primaryKeyId = primaryKeyId
+            
+            if options.isFromShareMedia {
+                message.previousMessageId = message.id
+                message.futureMessageId = message.id
+            }
         }
         
         message.roomId = roomId
@@ -384,13 +389,6 @@ class IGRoomMessage: Object {
         }
         
         message.additional = IGRealmAdditional.put(realm: realmFinal, message: igpMessage)
-        
-        // TODO - HINT: if is from share media do following code. following code not handled yet!
-        // ofcourse currently we don't update "IGRoomMessage" from share media so now don't need to update following param here
-        /*
-         message.previousMessageId = message.id
-         message.futureMessageId = message.id
-         */
         
         if options.previousGap {
             message.previousMessageId = igpMessage.igpPreviousMessageID

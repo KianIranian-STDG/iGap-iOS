@@ -160,18 +160,18 @@ class IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController: UICol
         if let selectedRoom = room {
             isFetchingFiles = true
             self.hud.mode = .indeterminate
-            IGClientSearchRoomHistoryRequest.Generator.generate(roomId: selectedRoom.id, offset: Int32(sharedMedia.count), filter: sharedMediaFilter!).success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
-                        let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
-                        for message in response.messages.reversed() {
-                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
-                            self.sharedMedia.append(msg)
+            IGClientSearchRoomHistoryRequest.Generator.generate(roomId: selectedRoom.id, offset: Int32(sharedMedia.count), filter: sharedMediaFilter!).successPowerful({ (protoResponse, requestWrapper) in
+                if let clientSearchRoomHistoryResponse = protoResponse as? IGPClientSearchRoomHistoryResponse, let request = requestWrapper.message as? IGPClientSearchRoomHistory {
+                    let response = IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse, roomId: request.igpRoomID)
+                    IGRoomMessage.managePutOrUpdate(roomId: request.igpRoomID, messages: response.messages, options: IGStructMessageOption(isFromShareMedia: true)) { // need to write messages in database for work with them at "IGMediaPager"
+                        DispatchQueue.main.async {
+                            for message in response.messages.reversed() {
+                                let msg = IGRoomMessage(igpMessage: message, roomId: request.igpRoomID)
+                                self.sharedMedia.append(msg)
+                            }
+                            self.isFetchingFiles = false
+                            self.collectionView?.reloadData()
                         }
-                        self.isFetchingFiles = false
-                    default:
-                        break
                     }
                 }
             }).error ({ (errorCode, waitTime) in
