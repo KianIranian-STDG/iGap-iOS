@@ -44,12 +44,13 @@ struct StickerTab: Codable {
     let sort: Int
     let status: String
     let createdBy: Int64
+    let isGiftable: Bool?
     let stickers: [Sticker]
     
     enum CodingKeys: String, CodingKey {
         case createdAt, updatedAt, id
         case refID = "refId"
-        case name, avatarToken, avatarSize, avatarName, price, isVip, sort, status, createdBy, stickers
+        case name, avatarToken, avatarSize, avatarName, price, isVip, sort, status, createdBy, isGiftable, stickers
     }
 }
 
@@ -60,11 +61,12 @@ struct Sticker: Codable {
     let name, token, fileName: String
     let fileSize, sort: Int
     let groupID, status: String
+    let giftAmount: Int?
     
     enum CodingKeys: String, CodingKey {
         case createdAt, updatedAt, id
         case refID = "refId"
-        case name, token, fileName, fileSize, sort
+        case name, token, fileName, fileSize, sort, giftAmount
         case groupID = "groupId"
         case status
     }

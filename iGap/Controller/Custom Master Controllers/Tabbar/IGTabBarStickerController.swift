@@ -52,7 +52,7 @@ class IGTabBarStickerController: UITabBarController, UIGestureRecognizerDelegate
         var controllers: [UIViewController] = []
         for category in stickerCategories {
             let tabBarItem = UITabBarItem(title: category.name, image: nil, selectedImage: nil)
-            tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -11)
+            tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -16)
             
             let stickerController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: IGStickerViewController.self)) as! IGStickerViewController
             stickerController.stickerPageType = .CATEGORY
