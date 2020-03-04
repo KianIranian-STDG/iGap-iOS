@@ -224,7 +224,7 @@ class ChatControllerNode: ASCellNode {
 
                 return insetHSpec
             }
-                manageAttachment(file: message.attachment)
+                manageAttachment(file: msg.attachment,msg: msg)
         } else if msg.type == .sticker {
 
             
@@ -253,7 +253,7 @@ class ChatControllerNode: ASCellNode {
 
                 return insetHSpec
             }
-            manageAttachment(file: message.attachment)
+            manageAttachment(file: msg.attachment,msg: msg)
         } else if msg.type == .log || msg.type == .time || msg.type == .unread || msg.type == .progress {
             let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
             
@@ -414,8 +414,10 @@ class ChatControllerNode: ASCellNode {
         contentSpec.alignItems = .stretch
         contentSpec.spacing = 5
         contentSpec.horizontalAlignment = .none
+        
         let TMPwidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
         let TMPheight = ASDimensionMake(.points, 500)
+        
         contentSpec.style.maxLayoutSize = ASLayoutSize(width: TMPwidth, height: TMPheight)
         switch msg!.type {
         case .text :
@@ -1952,10 +1954,10 @@ class ChatControllerNode: ASCellNode {
 
         
     }
-    private func manageAttachment(file: IGFile? = nil){
+    private func manageAttachment(file: IGFile? = nil,msg: IGRoomMessage){
         
         
-        if var attachment = message!.attachment , !(attachment.isInvalidated) {
+        if var attachment = msg.attachment , !(attachment.isInvalidated) {
             if let attachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
                 self.attachment = attachmentVariableInCache.value
             } else {
