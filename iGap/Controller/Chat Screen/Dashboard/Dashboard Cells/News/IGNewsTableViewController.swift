@@ -136,9 +136,6 @@ class IGNewsTableViewController: BaseTableViewController {
     }
     
     private func initAlignments() {
-        let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
-        tableView.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
-        
     }
     
     // MARK: - Actions
@@ -148,8 +145,6 @@ class IGNewsTableViewController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if items.count == 0 {
             self.tableView.setEmptyMessage(IGStringsManager.WaitDataFetch.rawValue.localized)
-            let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
-            self.tableView.backgroundView?.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         } else {
             self.tableView.restore()
         }
@@ -280,13 +275,10 @@ class IGNewsTableViewController: BaseTableViewController {
 
             cell = doubleButtons
             
-            
-            
-            
-        default:
-            cell = UITableViewCell()
-            
         }
+        
+        let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
+        cell.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         
         return cell
     }
