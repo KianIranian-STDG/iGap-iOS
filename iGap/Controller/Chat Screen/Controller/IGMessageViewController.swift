@@ -6873,7 +6873,7 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
                     if sSelf.messages!.indices.contains(indexPath.row + 1){
                         let previousMessage = sSelf.messages![(indexPath.row + 1)]
                         if previousMessage.type != .log && msg!.authorHash == previousMessage.authorHash {
-                            isFromSameSender = true // should be true for next version
+                            isFromSameSender = false // should be true for next version
                         }
                     }
                     

@@ -55,6 +55,11 @@ class ChatControllerNode: ASCellNode {
     private var bgProgressNode : ASDisplayNode?
     private var bgNode : ASDisplayNode?
 
+    //voicenode
+    private var txtCurrentTimeNode : ASTextNode?
+    private var txtVoiceTimeNode : ASTextNode?
+    var sliderNode : ASDisplayNode?
+
     private var avatarNode : ASAvatarView?
     
     private var indicatorViewAbs : ASDisplayNode?
@@ -189,7 +194,7 @@ class ChatControllerNode: ASCellNode {
         if msg.type == .text {
             isTextMessageNode = true
         }
-        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText || msg.type == .contact || msg.type == .audio || msg.type == .audioAndText  {
+        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText || msg.type == .contact || msg.type == .audio || msg.type == .audioAndText || msg.type == .voice  {
             let baseBubbleBox = makeBubble(bubbleImage: bubbleImage) // make bubble
 
             let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
@@ -430,6 +435,9 @@ class ChatControllerNode: ASCellNode {
             return finalBox
         case .audioAndText,.audio :
             let finalBox = setAudioNodeContent(contentSpec: contentSpec, msg: msg!)
+            return finalBox
+        case .voice :
+            let finalBox = setVoiceNodeContent(contentSpec: contentSpec, msg: msg!)
             return finalBox
         case .sticker :
             let finalBox = setStickerNodeContent(contentSpec: contentSpec, msg: msg!)
@@ -1138,6 +1146,156 @@ class ChatControllerNode: ASCellNode {
         
     }
     
+    //******************************************************//
+    //*******************VOICE NODE **********************//
+    //******************************************************//
+    
+    private func setVoiceNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage) -> ASLayoutSpec {
+        makeTopBubbleItems(stack: contentSpec)
+        if btnStateNode == nil {
+            btnStateNode = ASButtonNode()
+        }
+        if txtCurrentTimeNode == nil {
+            txtCurrentTimeNode = ASTextNode()
+        }
+        if txtVoiceTimeNode == nil {
+            txtVoiceTimeNode = ASTextNode()
+        }
+        if sliderNode == nil {
+            sliderNode = ASDisplayNode { () -> UIView in
+                let view = UISlider()
+                view.minimumValue = 0
+                view.value = 10
+                view.maximumValue = 20
+                view.tintColor = .red
+                return view
+            }
+        }
+        makeVoiceNode(msg: msg)
+
+        let insetBox = layoutVoice(msg: msg)
+        let verticalSpec = ASStackLayoutSpec()
+        verticalSpec.direction = .vertical
+        verticalSpec.spacing = 0
+        verticalSpec.children?.append(insetBox)
+
+        contentSpec.children?.append(verticalSpec)
+
+            
+        makeBottomBubbleItems(contentStack: contentSpec)
+       let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
+       
+       return finalInsetSpec
+
+    }
+    private func makeVoiceNode(msg: IGRoomMessage) {
+         sliderNode!.style.preferredSize = CGSize(width: 150, height: 50)
+         (sliderNode!.view as! UISlider).maximumTrackTintColor = .black
+         (sliderNode!.view as! UISlider).minimumTrackTintColor = .red
+         (sliderNode!.view as! UISlider).tintColor = .green
+
+         btnStateNode!.layer.cornerRadius = 25
+         
+         //make current time text
+         IGGlobal.makeAsyncText(for: txtCurrentTimeNode!, with: "00:00".inLocalizedLanguage(), textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont,alignment: .left)
+        
+         checkVoiceButtonState(btn: btnStateNode!,message: msg )
+
+        setVoice(message: msg)
+    }
+    
+    func checkVoiceButtonState(btn : ASButtonNode,message: IGRoomMessage) {
+        if IGGlobal.isFileExist(path: message.attachment!.localPath, fileSize: message.attachment!.size) {
+
+            btnStateNode!.style.preferredSize = CGSize(width: 50, height: 50)
+            btnStateNode!.setTitle("🎗", with: UIFont.iGapFonticon(ofSize: 35), with: .black, for: .normal)
+            
+        } else {
+            btnStateNode!.style.preferredSize = CGSize.zero
+            btnStateNode!.style.preferredSize = CGSize(width: 50, height: 50)
+            btnStateNode!.setTitle("🎗", with: UIFont.iGapFonticon(ofSize: 35), with: .black, for: .normal)
+
+        }
+        
+        
+    }
+
+    private func layoutVoice(msg: IGRoomMessage) -> ASInsetLayoutSpec {
+        
+        let sliderBox = ASStackLayoutSpec.vertical()
+        sliderBox.justifyContent = .start
+        sliderBox.alignContent = .stretch
+        sliderBox.children = [sliderNode!, txtCurrentTimeNode!]
+        sliderBox.spacing = 0
+        if msg.attachment != nil {
+            if !(IGGlobal.isFileExist(path: msg.attachment!.localPath)) {
+                if indicatorViewAbs == nil {
+                    indicatorViewAbs = ASDisplayNode { () -> UIView in
+                        let view = IGProgress()
+                        return view
+                    }
+                    indicatorViewAbs?.style.height = ASDimensionMake(.points, 50)
+                    indicatorViewAbs?.style.width = ASDimensionMake(.points, 50)
+                    (indicatorViewAbs?.view as? IGProgress)?.setFileType(.download)
+                    attachment?.status = .readyToDownload
+
+                }
+            } else {
+                indicatorViewAbs?.removeFromSupernode()
+                indicatorViewAbs = nil
+                attachment?.status = .ready
+            }
+        }
+        let overlayBox : ASOverlayLayoutSpec?
+        let attachmentBox = ASStackLayoutSpec.horizontal()
+
+        if indicatorViewAbs == nil {
+            attachmentBox.spacing = 0
+            attachmentBox.children = [btnStateNode!,sliderBox]
+
+        } else {
+            overlayBox = ASOverlayLayoutSpec(child: btnStateNode!, overlay: indicatorViewAbs!)
+            attachmentBox.spacing = 8
+            attachmentBox.children = [overlayBox!, sliderBox]
+
+        }
+
+        let insetBox = ASInsetLayoutSpec(
+            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8),
+            child: attachmentBox
+        )
+        
+        return insetBox
+        
+    }
+    private func setVoice(message: IGRoomMessage) {
+        
+        let attachment: IGFile! = message.attachment
+        
+        if isIncomming {
+            (sliderNode!.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .normal)
+            (sliderNode!.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .focused)
+            (sliderNode!.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .selected)
+            (sliderNode!.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .highlighted)
+            (sliderNode!.view as! UISlider).minimumTrackTintColor = ThemeManager.currentTheme.MessageTextReceiverColor
+            (sliderNode!.view as! UISlider).maximumTrackTintColor = UIColor.black
+            IGGlobal.makeAsyncButton(for: btnStateNode!, with: "", textColor: .black, size: 35, font: .fontIcon, alignment: .center)
+        } else {
+            (sliderNode!.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .normal)
+            (sliderNode!.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .focused)
+            (sliderNode!.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .selected)
+            (sliderNode!.view as! UISlider).setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .highlighted)
+            (sliderNode!.view as! UISlider).maximumTrackTintColor = UIColor.black
+            (sliderNode!.view as! UISlider).minimumTrackTintColor = UIColor(red: 22.0/255.0, green: 91.0/255.0, blue: 88.0/255.0, alpha: 1.0)
+            IGGlobal.makeAsyncButton(for: btnStateNode!, with: "", textColor: .black, size: 35, font: .fontIcon, alignment: .center)
+        }
+        
+        
+        (sliderNode!.view as! UISlider).setValue(0.0, animated: false)
+        let timeM = Int(attachment.duration / 60)
+        let timeS = Int(attachment.duration.truncatingRemainder(dividingBy: 60.0))
+        IGGlobal.makeAsyncText(for: txtVoiceTimeNode!, with: "0:00 / \(timeM):\(timeS)".inLocalizedLanguage(), textColor: .black, size: 13, font: .igapFont, alignment: .center)
+    }
     //******************************************************//
     //*******************AUDIO NODE **********************//
     //******************************************************//
