@@ -2120,7 +2120,7 @@ class ChatControllerNode: ASCellNode {
     }
     
     private func setTextNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage) -> ASLayoutSpec {
-//        makeTopBubbleItems(stack: contentSpec) // make senderName and manage ReplyOr Forward View if needed
+        makeTopBubbleItems(stack: contentSpec) // make senderName and manage ReplyOr Forward View if needed
         //MARK :-ADD SUBNODES TO CONTENT VERTICAL SPEC
         addTextAsSubnode(spec: contentSpec, msg: msg)
         setMessage() //set Text for TEXTNODE

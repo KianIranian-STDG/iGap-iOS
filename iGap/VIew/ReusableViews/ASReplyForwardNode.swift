@@ -116,7 +116,7 @@ class ASReplyForwardNode: ASDisplayNode {
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 }
                 IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: extraMessage.message ?? "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
-            } else if extraMessage.type == .image || extraMessage.type == .imageAndText || extraMessage.type == .video || extraMessage.type == .videoAndText { // if reply or forward message has image/Video attachment
+            } else if extraMessage.type == .image || extraMessage.type == .imageAndText || extraMessage.type == .video || extraMessage.type == .videoAndText || extraMessage.type == .gif || extraMessage.type == .gifAndText{ // if reply or forward message has image/Video attachment
                 imgReplyAttachment!.style.preferredSize = CGSize(width: 50.0, height: 50.0)
                 txtReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
                 if extraMessage.attachment != nil {
