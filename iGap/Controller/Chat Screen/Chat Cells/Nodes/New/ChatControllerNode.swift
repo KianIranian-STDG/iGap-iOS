@@ -2001,7 +2001,7 @@ class ChatControllerNode: ASCellNode {
             }
             /* Rx End */
             
-            switch (message!.type) {
+            switch (msg.type) {
             case .image, .imageAndText, .video, .videoAndText :
                 if !(attachment.isInvalidated) {
                     
