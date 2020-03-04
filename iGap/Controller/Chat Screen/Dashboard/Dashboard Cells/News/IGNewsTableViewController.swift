@@ -75,14 +75,17 @@ class IGNewsTableViewController: BaseTableViewController {
             
             if isSuccess {
                 self.items = items!
-                self.tableView.reloadData()
                 if self.deepLinkID != nil {
 
                     self.gotToNewsPageByDeepLink(articleID: self.deepLinkID!)
+                    return
                 }
                 if self.deepLinkCategoryID != nil {
                     self.goToCategoryPageByDeepLink(categoryID: self.deepLinkCategoryID!)
+                    return
                 }
+                self.tableView.reloadData()
+                
             }
             
             
@@ -97,8 +100,11 @@ class IGNewsTableViewController: BaseTableViewController {
                 let newsDetail = IGNewsDetailTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
                 newsDetail.item = response!
                 newsDetail.deepLinkID = articleID
-                UIApplication.topViewController()!.navigationController!.pushViewController(newsDetail, animated: true)
-
+                UIApplication.topViewController()!.navigationController!.pushViewController(viewController: newsDetail, animated: true, completion: {
+                    self.tableView.reloadData()
+                })
+                
+                
             } else {
                 return
             }
@@ -107,8 +113,10 @@ class IGNewsTableViewController: BaseTableViewController {
     private func goToCategoryPageByDeepLink(categoryID: String) {
         let newsInner = IGNewsSectionInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
         
-            newsInner.categoryID = categoryID
-        UIApplication.topViewController()!.navigationController!.pushViewController(newsInner, animated: true)
+        newsInner.categoryID = categoryID
+        UIApplication.topViewController()!.navigationController!.pushViewController(viewController: newsInner, animated: true) {
+            self.tableView.reloadData()
+        }
         
     }
     private func customiseView() {
