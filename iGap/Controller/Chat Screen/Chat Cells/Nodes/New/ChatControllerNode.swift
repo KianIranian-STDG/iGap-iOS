@@ -198,8 +198,9 @@ class ChatControllerNode: ASCellNode {
             let baseBubbleBox = makeBubble(bubbleImage: bubbleImage) // make bubble
 
             let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
+//            contentItemsBox.style.maxWidth = ASDimensionMake(.points, 50)
+
             baseBubbleBox.child = contentItemsBox // add contents as child to bubble
-            
             let isShowingAvatar = makeAvatarIfNeeded()
             
             self.layoutSpecBlock = {[weak self] node, constrainedSize in
@@ -413,7 +414,9 @@ class ChatControllerNode: ASCellNode {
         contentSpec.alignItems = .stretch
         contentSpec.spacing = 5
         contentSpec.horizontalAlignment = .none
-
+        let TMPwidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
+        let TMPheight = ASDimensionMake(.points, 500)
+        contentSpec.style.maxLayoutSize = ASLayoutSize(width: TMPwidth, height: TMPheight)
         switch msg!.type {
         case .text :
             let finalBox = setTextNodeContent(contentSpec: contentSpec, msg: msg!)
