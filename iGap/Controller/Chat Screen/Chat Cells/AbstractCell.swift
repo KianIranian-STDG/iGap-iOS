@@ -121,7 +121,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         super.layoutSubviews()
         
         if !(IGGlobal.shouldMultiSelect) {
-            swipePositionManager()
+            if room!.id != 244016140511856331 { // This is room id for iGap Messenger
+                swipePositionManager()
+            }
+            
         }
     }
     
