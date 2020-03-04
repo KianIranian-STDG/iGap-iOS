@@ -118,7 +118,7 @@ class IGContactManager: NSObject {
     }
     
     private func sendContactPreparation(){
-        if self.contactIndex < self.resultsChunk.count {
+        if self.contactIndex >= 0 && self.contactIndex < self.resultsChunk.count { // TODO - check reason of 'self.contactIndex == -1'
             let result = self.resultsChunk[self.contactIndex]
             self.makeContactStruct(contacts: result) { (contactsStructList) in
                 if (self.contactIndex) == (self.resultsChunk.count - 1) {

@@ -3296,11 +3296,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     MoneyTransactionModal.btnGiftStickerTitle.addTarget(self, action: #selector(giftStickerTapped), for: .touchUpInside)
                     MoneyTransactionModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: MoneyTransactionModal.frame.height)
                     
-                    
-                    
                     MoneyTransactionModal.btnWalletTransfer.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
                     MoneyTransactionModal.btnCardToCardTransfer.setTitle(IGStringsManager.CardToCard.rawValue.localized, for: .normal)
-                    MoneyTransactionModal.btnGiftStickerTitle.setTitle(IGStringsManager.GiftSticker.rawValue.localized, for: .normal)
+                    MoneyTransactionModal.btnGiftStickerTitle.setTitle(IGStringsManager.GiftCard.rawValue.localized, for: .normal)
                     
                     let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
                     swipeDown.direction = .down
@@ -3312,7 +3310,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 else {
                     MoneyTransactionModal.btnWalletTransfer.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
                     MoneyTransactionModal.btnCardToCardTransfer.setTitle(IGStringsManager.CardToCard.rawValue.localized, for: .normal)
-                    MoneyTransactionModal.btnGiftStickerTitle.setTitle(IGStringsManager.GiftSticker.rawValue.localized, for: .normal)
+                    MoneyTransactionModal.btnGiftStickerTitle.setTitle(IGStringsManager.GiftCard.rawValue.localized, for: .normal)
                 }
                 
                 if #available(iOS 11.0, *) {
@@ -3513,37 +3511,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @objc func giftStickerTapped() {
         self.hideMoneyTransactionModal()
         self.hideMoneyInputModal()
+        self.dismissBtn.removeFromSuperview()
+        self.dismissBtn = nil
         
         self.giftStickerModalIsActive = true
-        
-        if giftStickerModal == nil {
-            giftStickerModal = SMGiftStickerAlertView.loadFromNib()
-            giftStickerModal.confirmBtn.addTarget(self, action: #selector(confirmTapped), for: .touchUpInside)
-            giftStickerModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: giftStickerModal.frame.height)
-            giftStickerModal.confirmBtn.setTitle(IGStringsManager.GiftSticker.rawValue.localized, for: .normal)
-            
-            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
-            swipeDown.direction = .down
-            
-            giftStickerModal.addGestureRecognizer(swipeDown)
-            self.view.addSubview(giftStickerModal!)
-            
-        } else {
-            giftStickerModal.confirmBtn.setTitle(IGStringsManager.GiftSticker.rawValue.localized, for: .normal)
-        }
-        
-        if #available(iOS 11.0, *) {
-            let window = UIApplication.shared.keyWindow
-            let bottomPadding = window?.safeAreaInsets.bottom
-            
-            UIView.animate(withDuration: 0.3) {
-                self.giftStickerModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerModal.frame.height - 5 -  bottomPadding!, width: self.view.frame.width, height: self.giftStickerModal.frame.height)
-            }
-        } else {
-            UIView.animate(withDuration: 0.3) {
-                self.giftStickerModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerModal.frame.height - 5, width: self.view.frame.width, height: self.giftStickerModal.frame.height)
-            }
-        }
+        let stickerController = IGStickerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+        stickerController.stickerPageType = .CATEGORY
+        stickerController.stickerCategoryId = "0"
+        self.navigationController!.pushViewController(stickerController, animated: true)
     }
     
     @objc func confirmTapped() {

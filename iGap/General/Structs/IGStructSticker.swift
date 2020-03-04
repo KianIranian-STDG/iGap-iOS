@@ -16,7 +16,6 @@ struct StickerCategories: Codable {
 }
 
 struct StickerApi: Codable {
-    let ok: Bool
     let data: [StickerTab]
 }
 
@@ -26,15 +25,16 @@ struct StickerGroup: Codable {
 }
 
 struct StickerCategory: Codable {
-    let createdAt, updatedAt: Int
+    let createdAt, updatedAt: Int?
     let id, name: String
     let sort: Int
-    let status: String
+    let status: String?
 }
 
 struct StickerTab: Codable {
     let createdAt, updatedAt: Int64
     let id: String
+    let categoryId: String?
     let refID: Int64
     let name, avatarToken: String
     let avatarSize: Int
@@ -44,13 +44,14 @@ struct StickerTab: Codable {
     let sort: Int
     let status: String
     let createdBy: Int64
-    let isGiftable: Bool?
+    let isInUserList, isGiftable, isNew, isReadonly: Bool?
     let stickers: [Sticker]
     
     enum CodingKeys: String, CodingKey {
-        case createdAt, updatedAt, id
+        case id = "_id"
+        case createdAt, updatedAt, categoryId
         case refID = "refId"
-        case name, avatarToken, avatarSize, avatarName, price, isVip, sort, status, createdBy, isGiftable, stickers
+        case name, avatarToken, avatarSize, avatarName, price, isVip, sort, status, createdBy, isGiftable, stickers, isInUserList, isNew, isReadonly
     }
 }
 
@@ -61,14 +62,16 @@ struct Sticker: Codable {
     let name, token, fileName: String
     let fileSize, sort: Int
     let groupID, status: String
+    let isFavorite: Bool?
     let giftAmount: Int?
     
     enum CodingKeys: String, CodingKey {
-        case createdAt, updatedAt, id
+        case id = "_id"
+        case createdAt, updatedAt
         case refID = "refId"
         case name, token, fileName, fileSize, sort, giftAmount
         case groupID = "groupId"
-        case status
+        case status, isFavorite
     }
 }
 

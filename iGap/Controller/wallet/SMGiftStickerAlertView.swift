@@ -30,7 +30,7 @@ class SMGiftStickerAlertView: UIView {
         super.awakeFromNib()
 
         self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
-        self.infoLblOne.text = IGStringsManager.GiftSticker.rawValue.localized
+        self.infoLblOne.text = IGStringsManager.GiftStickerBuy.rawValue.localized
         self.txtInternationalCode.text = IGStringsManager.NationalCode.rawValue.localized
         self.edtInternationalCode.textAlignment = edtInternationalCode.localizedDirection
 

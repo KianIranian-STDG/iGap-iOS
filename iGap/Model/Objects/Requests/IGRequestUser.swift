@@ -112,27 +112,12 @@ class IGUserLoginRequest: IGRequest {
         class func generate(token: String) -> IGRequestWrapper {
             var userLoginRequestMessage = IGPUserLogin()
             userLoginRequestMessage.igpToken = token
-            
-            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-                userLoginRequestMessage.igpAppVersion = version
-            } else {
-                userLoginRequestMessage.igpAppVersion = "0.0.0"
-            }
-            
-            if let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
-                if let buildV = Int32(buildVersion) {
-                    userLoginRequestMessage.igpAppBuildVersion = Int32(buildV)
-                } else {
-                   userLoginRequestMessage.igpAppBuildVersion = Int32(1)
-                }
-            } else {
-                userLoginRequestMessage.igpAppBuildVersion = Int32(1)
-            }
-            
+            userLoginRequestMessage.igpAppVersion = IGAppManager.sharedManager.bundleShortVersion()
+            userLoginRequestMessage.igpAppBuildVersion = Int32(IGAppManager.sharedManager.bundleVersion())
             userLoginRequestMessage.igpPlatform = IGPPlatform.ios
             userLoginRequestMessage.igpPlatformVersion = UIDevice.current.systemVersion
             userLoginRequestMessage.igpAppName = "iGap iOS"
-            userLoginRequestMessage.igpAppID = 3
+            userLoginRequestMessage.igpAppID = Int32(IGAppManager.sharedManager.APP_ID)
             
             switch UIDevice.current.userInterfaceIdiom {
             case .pad:
@@ -151,6 +136,7 @@ class IGUserLoginRequest: IGRequest {
     class Handler : IGRequest.Handler {
         
         class func intrepret(response responseProtoMessage: IGPUserLoginResponse) {
+            print("AAA || accessToken: \(responseProtoMessage.igpAccessToken)")
             AppDelegate.isUpdateAvailable = responseProtoMessage.igpUpdateAvailable
             AppDelegate.isDeprecatedClient = responseProtoMessage.igpDeprecatedClient
             IGClientConditionRequest.allowSendClientCondition = true

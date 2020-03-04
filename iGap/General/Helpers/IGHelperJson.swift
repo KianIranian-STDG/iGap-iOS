@@ -27,6 +27,11 @@ class IGHelperJson {
         }
         return nil
     }
+    
+    public static func getSpecJson() -> String? {
+        let spec = ["id" : "\(IGAppManager.sharedManager.APP_ID)", "version" : IGAppManager.sharedManager.bundleVersion(), "language" : 0] as [String : Any]
+        return JSON(spec).rawString()
+    }
 
     /*************************************************************************/
     /*************************** Additional Button ***************************/
