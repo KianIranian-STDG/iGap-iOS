@@ -11,7 +11,6 @@
 import SwiftyJSON
 
 struct StickerCategories: Codable {
-    let ok: Bool
     let data: [StickerCategory]
 }
 
@@ -19,31 +18,27 @@ struct StickerApi: Codable {
     let data: [StickerTab]
 }
 
-struct StickerGroup: Codable {
-    let ok: Bool
-    let data: StickerTab
-}
-
 struct StickerCategory: Codable {
-    let createdAt, updatedAt: Int?
     let id, name: String
     let sort: Int
-    let status: String?
 }
 
 struct StickerTab: Codable {
-    let createdAt, updatedAt: Int64
+    
     let id: String
+    let createdAt: Int
+    let updatedAt: Int
+    let createdBy: Int
     let categoryId: String?
     let refID: Int64
-    let name, avatarToken: String
+    let name: String
+    let avatarToken: String
     let avatarSize: Int
     let avatarName: String
     let price: Int
     let isVip: Bool
     let sort: Int
     let status: String
-    let createdBy: Int64
     let isInUserList, isGiftable, isNew, isReadonly: Bool?
     let stickers: [Sticker]
     
@@ -56,13 +51,19 @@ struct StickerTab: Codable {
 }
 
 struct Sticker: Codable {
-    let createdAt, updatedAt: Int
+    
     let id: String
     let refID: Int
-    let name, token, fileName: String
-    let fileSize, sort: Int
-    let groupID, status: String
-    let isFavorite: Bool?
+    let name: String
+    let token: String
+    let fileName: String
+    let fileSize: Int
+    let groupID: String
+    let sort: Int
+    let createdAt: Int
+    let updatedAt: Int
+    let status: String
+    let isFavorite: Bool
     let giftAmount: Int?
     
     enum CodingKeys: String, CodingKey {

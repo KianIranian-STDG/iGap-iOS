@@ -14,7 +14,7 @@ import Foundation
 class IGRealmSticker: Object {
 
     @objc dynamic var id: String?
-    @objc dynamic var createdAt: Int64 = 0
+    @objc dynamic var createdAt: Int = 0
     @objc dynamic var refID: Int64 = 0
     @objc dynamic var name: String?
     @objc dynamic var avatarToken: String?
@@ -24,7 +24,7 @@ class IGRealmSticker: Object {
     @objc dynamic var isVip: Bool = false
     @objc dynamic var sort: Int = 0
     @objc dynamic var status: String?
-    @objc dynamic var createdBy: Int64 = 0
+    @objc dynamic var createdBy: Int = 0
     var stickerItems: List<IGRealmStickerItem> = List<IGRealmStickerItem>()
     
     override static func primaryKey() -> String {
