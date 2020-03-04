@@ -72,7 +72,7 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
         self.collectionHeightConstraint.constant = deviceSizeModel.getShareModalSize() - self.btnSendHeightConstraint.constant - self.stackHeightConstraint.constant
 
         searchBar.delegate = self
-        let predicateChats = NSPredicate(format: "isReadOnly == false AND isDeleted == false")
+        let predicateChats = NSPredicate(format: "(isReadOnly == false AND isDeleted == false) OR (typeRaw == 1 AND isParticipant == true) OR (typeRaw == 2 AND isParticipant == true AND (channelRoom.roleRaw == 1 OR channelRoom.roleRaw == 2 OR channelRoom.roleRaw == 3))")
         let predicateContacts = NSPredicate(format: "isInContacts == 1")
         let sortPropertiesChats = [SortDescriptor(keyPath: "priority", ascending: false), SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
 
