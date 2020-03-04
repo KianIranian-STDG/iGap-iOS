@@ -2260,6 +2260,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             handleShowHideSendButton(shouldShow: true)
             handleShowHideMoneyButton(shouldShow: false)
         }
+        
+        if (!(textView.text == "" || textView.text.isEmpty) && !lblPlaceHolder.isHidden) {
+            lblPlaceHolder.isHidden = true
+        }
+        
         manageTextViewHeight(textView: textView)
     }
     
