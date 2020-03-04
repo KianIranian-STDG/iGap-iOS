@@ -48,6 +48,13 @@ class ChatControllerNode: ASCellNode {
     private var txtMusicArtist : ASTextNode?
     private var btnStateNode : ASButtonNode?
 
+    //lognode
+    private var txtLogMessage : ASTextNode?
+    private var progressNode : ASDisplayNode?
+    private var bgTextNode : ASDisplayNode?
+    private var bgProgressNode : ASDisplayNode?
+    private var bgNode : ASDisplayNode?
+
     private var avatarNode : ASAvatarView?
     
     private var indicatorViewAbs : ASDisplayNode?
@@ -184,6 +191,7 @@ class ChatControllerNode: ASCellNode {
         }
         if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText || msg.type == .contact || msg.type == .audio || msg.type == .audioAndText  {
             let baseBubbleBox = makeBubble(bubbleImage: bubbleImage) // make bubble
+
             let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
             baseBubbleBox.child = contentItemsBox // add contents as child to bubble
             
@@ -240,7 +248,7 @@ class ChatControllerNode: ASCellNode {
                 return insetHSpec
             }
             manageAttachment(file: message.attachment)
-        } else if msg.type == .log {
+        } else if msg.type == .log || msg.type == .time || msg.type == .unread || msg.type == .progress {
             let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
             
             self.layoutSpecBlock = {[weak self] node, constrainedSize in
@@ -251,7 +259,7 @@ class ChatControllerNode: ASCellNode {
                 stack.direction = .horizontal
                 stack.spacing = 5
                 stack.verticalAlignment = .bottom
-                stack.horizontalAlignment = isIncomming ? .left : .right
+                stack.horizontalAlignment = .middle
                 stack.children = [contentItemsBox]
                 stack.style.flexShrink = 1.0
                 
@@ -399,11 +407,11 @@ class ChatControllerNode: ASCellNode {
         contentSpec.style.flexGrow = 1.0
         contentSpec.alignItems = .stretch
         contentSpec.spacing = 5
-        
-        
+        contentSpec.horizontalAlignment = .none
+
         switch msg!.type {
         case .text :
-            let finalBox = setTextNodeContent(contentSpec: contentSpec)
+            let finalBox = setTextNodeContent(contentSpec: contentSpec, msg: msg!)
             return finalBox
         case .image,.imageAndText :
             let finalBox = setImageNodeContent(contentSpec: contentSpec, msg: msg!)
@@ -426,8 +434,30 @@ class ChatControllerNode: ASCellNode {
         case .sticker :
             let finalBox = setStickerNodeContent(contentSpec: contentSpec, msg: msg!)
             return finalBox
+        case .log,.time,.unread,.progress :
+            contentSpec.horizontalAlignment = .middle
+
+            var logTypeTemp : logMessageType!
+            
+            
+            switch msg!.type {
+            case .log :
+                logTypeTemp = .log
+            case .time :
+                logTypeTemp = .time
+            case .unread :
+                logTypeTemp = .unread
+            case .progress :
+                logTypeTemp = .progress
+
+            default:
+                break
+            }
+
+            let finalBox = setLogNodeContent(contentSpec: contentSpec, msg: msg!,logType: logTypeTemp)
+            return finalBox
         default :
-            let finalBox = setTextNodeContent(contentSpec: contentSpec)
+            let finalBox = setTextNodeContent(contentSpec: contentSpec, msg: msg!)
             return finalBox
         }
         
@@ -556,6 +586,201 @@ class ChatControllerNode: ASCellNode {
         }
     }
     
+    //******************************************************//
+    //***********************LOG NODE***********************//
+    //******************************************************//
+    public enum logMessageType:Int {
+        
+        case unread            = 1 // exp: 12 unread messages
+        case log            = 2 //exp : ali was added to group
+        case time            = 3 //time between chats
+        case progress            = 4 //progress for loading new chats
+        case emptyBox            = 5 //progress for loading new chats
+        case unknown            = 6 //unknown message
+    }
+    private func makeLogView(logType: logMessageType = .log) {
+        
+        if logType == .progress {
+
+            if progressNode == nil {
+                progressNode = ASDisplayNode { () -> UIView in
+                    let animationView = AnimationView()
+                    return animationView
+                }
+            }
+            self.progressNode!.style.height = ASDimensionMake(.points, 50)
+            self.progressNode!.style.width = ASDimensionMake(.points, 50)
+            self.progressNode!.backgroundColor = UIColor.white
+            self.progressNode!.layer.cornerRadius = 25
+            DispatchQueue.main.async {[weak self] in
+                guard let sSelf = self else {
+                    return
+                }
+                (sSelf.progressNode!.view as! AnimationView).play()
+                (sSelf.progressNode!.view as! AnimationView).frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+                (sSelf.progressNode!.view as! AnimationView).contentMode = .scaleAspectFit
+                let animation = Animation.named("messageLoader")
+                (sSelf.progressNode!.view as! AnimationView).animation = animation
+                (sSelf.progressNode!.view as! AnimationView).contentMode = .scaleAspectFit
+                (sSelf.progressNode!.view as! AnimationView).play()
+                (sSelf.progressNode!.view as! AnimationView).loopMode = .loop
+                (sSelf.progressNode!.view as! AnimationView).backgroundBehavior = .pauseAndRestore
+                (sSelf.progressNode!.view as! AnimationView).forceDisplayUpdate()
+
+            }
+            self.progressNode!.alpha = 0.8
+
+        } else if logType == .emptyBox {} else {
+            if bgNode == nil {
+                bgNode = ASDisplayNode()
+            }
+            if bgTextNode == nil {
+                bgTextNode = ASDisplayNode()
+            }
+            bgNode!.style.height = ASDimensionMake(.points, 50)
+            bgTextNode!.style.height = ASDimensionMake(.points, 40)
+            bgNode!.backgroundColor = UIColor.clear
+            
+            switch logType {
+                
+            case .unread:
+                setUnreadMessage(message!)
+            case .log:
+                setLogMessage(message!)
+            case .time:
+                setTime(message!.message!)
+            case .unknown:
+                setUnknownMessage()
+
+            default:
+                break
+            }
+        }
+    }
+    func setTime(_ time: String) {
+        if txtLogMessage == nil {
+            txtLogMessage = ASTextNode()
+        }
+        IGGlobal.makeAsyncText(for: txtLogMessage!, with:time, textColor: .white, size: 15, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+        txtLogMessage!.backgroundColor = UIColor.logBackground()
+        txtLogMessage!.layer.cornerRadius = 10.0
+        txtLogMessage!.clipsToBounds = true
+        let logSize = (time.width(withConstrainedHeight: 20, font: UIFont.igFont(ofSize: 16)))
+        txtLogMessage!.style.width =  ASDimensionMake(.points, logSize + 10)
+
+    }
+    func setLogMessage(_ message: IGRoomMessage) {
+        if message.log?.type == .pinnedMessage {
+            if txtLogMessage == nil {
+                txtLogMessage = ASTextNode()
+            }
+
+            IGGlobal.makeAsyncText(for: txtLogMessage!, with: IGRoomMessage.detectPinMessage(message: message), textColor: .white, size: 15, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+        } else {
+            if txtLogMessage == nil {
+                txtLogMessage = ASTextNode()
+            }
+
+            IGGlobal.makeAsyncText(for: txtLogMessage!, with:IGRoomMessageLog.textForLogMessage(message), textColor: .white, size: 15, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+
+        }
+        txtLogMessage!.backgroundColor = UIColor.logBackground()
+        txtLogMessage!.layer.cornerRadius = 10.0
+        txtLogMessage!.clipsToBounds = true
+        let logSize = (IGRoomMessageLog.textForLogMessage(message).width(withConstrainedHeight: 20, font: UIFont.igFont(ofSize: 16)))
+        txtLogMessage!.style.width =  ASDimensionMake(.points, logSize)
+    }
+    
+    func setUnknownMessage(){
+        if txtLogMessage == nil {
+            txtLogMessage = ASTextNode()
+        }
+        if bgTextNode == nil {
+            bgTextNode = ASDisplayNode()
+        }
+        
+        IGGlobal.makeAsyncText(for: txtLogMessage!, with: IGStringsManager.UnknownMessage.rawValue.localized, textColor: .white, size: 15, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+        bgTextNode!.layer.cornerRadius = 10.0
+        bgTextNode!.backgroundColor = UIColor.logBackground()
+    }
+    
+    func setUnreadMessage(_ message: IGRoomMessage){
+        if txtLogMessage == nil {
+            txtLogMessage = ASTextNode()
+        }
+        if bgTextNode == nil {
+            bgTextNode = ASDisplayNode()
+        }
+
+        IGGlobal.makeAsyncText(for: txtLogMessage!, with: (message.message?.inLocalizedLanguage())!, textColor: .white, size: 15, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+        bgTextNode!.layer.cornerRadius = 0.0
+        bgTextNode!.backgroundColor = UIColor.unreadBackground()
+    }
+    private func layoutLog(logType: logMessageType = .log) -> ASLayoutSpec {
+
+
+        if logType == .progress {
+            if progressNode == nil {
+                progressNode = ASDisplayNode()
+            }
+            let centerBoxText = ASCenterLayoutSpec(centeringOptions: .XY, child: progressNode!)
+
+            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+            top: 10,
+            left: 0,
+            bottom: 10,
+            right: 0), child: centerBoxText)
+                
+            
+            return insetSpec
+
+        } else if logType == .emptyBox {
+            let verticalBox = ASStackLayoutSpec()
+            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+            top: 10,
+            left: 0,
+            bottom: 10,
+            right: 0), child: verticalBox)
+                
+            
+            return insetSpec
+
+        } else {
+            if txtLogMessage == nil {
+                txtLogMessage = ASTextNode()
+            }
+            if bgNode == nil {
+                bgNode = ASDisplayNode()
+            }
+            if bgTextNode == nil {
+                bgTextNode = ASDisplayNode()
+            }
+
+
+            let centerBoxText = ASCenterLayoutSpec(centeringOptions: .XY, child: txtLogMessage!)
+            let backTextBox = ASBackgroundLayoutSpec(child: centerBoxText, background: bgTextNode!)
+            let backBox = ASBackgroundLayoutSpec(child: backTextBox, background: bgNode!)
+            backBox.style.flexGrow = 1.0
+
+            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+            top: 10,
+            left: 0,
+            bottom: 10,
+            right: 0), child: backBox)
+                
+            
+            return insetSpec
+
+        }
+
+    }
+
+    private func setLogNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage, logType: logMessageType = .log) -> ASLayoutSpec {
+        makeLogView(logType: logType)
+        return layoutLog(logType: logType)
+    }
     //******************************************************//
     //*********************STICKER NODE*********************//
     //******************************************************//
@@ -1731,10 +1956,10 @@ class ChatControllerNode: ASCellNode {
         
     }
     
-    private func setTextNodeContent(contentSpec: ASLayoutSpec) -> ASLayoutSpec {
-        makeTopBubbleItems(stack: contentSpec) // make senderName and manage ReplyOr Forward View if needed
+    private func setTextNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage) -> ASLayoutSpec {
+//        makeTopBubbleItems(stack: contentSpec) // make senderName and manage ReplyOr Forward View if needed
         //MARK :-ADD SUBNODES TO CONTENT VERTICAL SPEC
-        addTextAsSubnode(spec: contentSpec)
+        addTextAsSubnode(spec: contentSpec, msg: msg)
         setMessage() //set Text for TEXTNODE
         let insetContentSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 4, left: 20, bottom: 4, right: 10) : UIEdgeInsets(top: 4, left: 10, bottom: 4, right: 20), child: contentSpec)
         
@@ -1789,7 +2014,7 @@ class ChatControllerNode: ASCellNode {
         }
         
     }
-    private func addTextAsSubnode(spec: ASLayoutSpec) {
+    private func addTextAsSubnode(spec: ASLayoutSpec,msg: IGRoomMessage) {
         if !isTextMessageNode {
             if nodeText == nil {
                 nodeText = ASTextNode()
@@ -1801,21 +2026,21 @@ class ChatControllerNode: ASCellNode {
             nodeText!.style.minHeight = ASDimensionMake(.points, 20)
             makeTextNodeBottomBubbleItems()
             
-            var layoutMsg = message?.detach()
+            var layoutMsg = msg.detach()
             
             //check if has reply or Forward
-            if let repliedMessage = message?.repliedTo {
+            if let repliedMessage = msg.repliedTo {
                 layoutMsg = repliedMessage.detach()
-            } else if let forwardedFrom = message?.forwardedFrom {
+            } else if let forwardedFrom = msg.forwardedFrom {
                 layoutMsg = forwardedFrom.detach()
-            } else {layoutMsg = message}
+            } else {layoutMsg = msg}
             
-            var msg = layoutMsg!.message
-            if let forwardMessage = message?.forwardedFrom {
-                msg = forwardMessage.message
+            var msgg = layoutMsg.message
+            if let forwardMessage = msg.forwardedFrom {
+                msgg = forwardMessage.message
             }
             
-            if msg!.count <= 20 { //20 is a random number u can change it to what ever value u want to
+            if msgg!.count <= 20 { //20 is a random number u can change it to what ever value u want to
                 
                 let messageAndTime = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
                 txtTimeNode!.style.alignSelf = .end
@@ -1824,7 +2049,7 @@ class ChatControllerNode: ASCellNode {
                 }
                 messageAndTime.verticalAlignment = .center
                 
-                let nodeTextSpec = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .spaceBetween, alignItems: .end, children: [nodeText!,messageAndTime])
+                let nodeTextSpec = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .spaceAround, alignItems: .end, children: [nodeText!,messageAndTime])
                 
                 spec.children?.append(nodeTextSpec)
                 
