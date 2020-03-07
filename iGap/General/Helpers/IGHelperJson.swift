@@ -32,6 +32,11 @@ class IGHelperJson {
         let spec = ["id" : "\(IGAppManager.sharedManager.APP_ID)", "version" : IGAppManager.sharedManager.bundleVersion(), "language" : 0] as [String : Any]
         return JSON(spec).rawString()
     }
+    
+    public static func makeStickerGroupIds(id: String) -> String? {
+        let ids = ["ids" : ["\(id)"]] as [String : Any]
+        return JSON(ids).rawString()
+    }
 
     /*************************************************************************/
     /*************************** Additional Button ***************************/

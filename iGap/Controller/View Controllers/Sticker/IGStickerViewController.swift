@@ -128,16 +128,11 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     }
     
     private func fetchStickerList(){
+        if stickerCategoryId == nil {return}
         isWaitingForRequest = true
         SMLoading.showLoadingPage(viewcontroller: self)
-        if stickerCategoryId == nil || stickerCategoryId!.isEmpty {
-            IGApiSticker.shared.stickerList(offset: self.offset, limit: self.FETCH_LIMIT) { [weak self] (stickers) in
-                self?.showStickerList(stickers: stickers)
-            }
-        } else { // currently else state not call anytime! because currently 'StickerPageType.ADD_REMOVE' type removed
-            IGApiSticker.shared.stickerCategory(categoryId: stickerCategoryId!, offset: self.offset, limit: self.FETCH_LIMIT) { [weak self] (stickers) in
-                self?.showStickerList(stickers: stickers)
-            }
+        IGApiSticker.shared.stickerCategory(categoryId: stickerCategoryId!, offset: self.offset, limit: self.FETCH_LIMIT) { [weak self] (stickers) in
+            self?.showStickerList(stickers: stickers)
         }
     }
     
