@@ -2819,7 +2819,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                                 
                             }
                         }
-                } else {
+                } else if giftStickerModalIsActive {
+                    if let giftStickerModal = self.giftStickerModal {
+                        window.addSubview(giftStickerModal)
+                        UIView.animate(withDuration: 0.3) {
+                            var frame = giftStickerModal.frame
+                            frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
+                            giftStickerModal.frame = frame
+                        }
+                    }
+                }else {
                     if MoneyInputModal != nil {
                         self.hideMoneyInputModal()
                     }
@@ -3511,14 +3520,36 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     @objc func giftStickerTapped() {
         self.hideMoneyTransactionModal()
         self.hideMoneyInputModal()
-        self.dismissBtn.removeFromSuperview()
-        self.dismissBtn = nil
         
         self.giftStickerModalIsActive = true
-        let stickerController = IGStickerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-        stickerController.stickerPageType = .CATEGORY
-        stickerController.stickerCategoryId = "0"
-        self.navigationController!.pushViewController(stickerController, animated: true)
+        
+        if giftStickerModal == nil {
+            giftStickerModal = SMGiftStickerAlertView.loadFromNib()
+            giftStickerModal.confirmBtn.addTarget(self, action: #selector(confirmTapped), for: .touchUpInside)
+            giftStickerModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: giftStickerModal.frame.height)
+            
+            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+            swipeDown.direction = .down
+            
+            giftStickerModal.addGestureRecognizer(swipeDown)
+            self.view.addSubview(giftStickerModal!)
+            
+        } else {
+            giftStickerModal.confirmBtn.setTitle(IGStringsManager.GiftCard.rawValue.localized, for: .normal)
+        }
+        
+        if #available(iOS 11.0, *) {
+            let window = UIApplication.shared.keyWindow
+            let bottomPadding = window?.safeAreaInsets.bottom
+            
+            UIView.animate(withDuration: 0.3) {
+                self.giftStickerModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerModal.frame.height - 5 -  bottomPadding!, width: self.view.frame.width, height: self.giftStickerModal.frame.height)
+            }
+        } else {
+            UIView.animate(withDuration: 0.3) {
+                self.giftStickerModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerModal.frame.height - 5, width: self.view.frame.width, height: self.giftStickerModal.frame.height)
+            }
+        }
     }
     
     @objc func confirmTapped() {
@@ -3554,9 +3585,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     }
                 }).send()
             }
-        }
-        
-        if CardToCardModal != nil {
+        } else if CardToCardModal != nil {
             if CardToCardModal.inputTFOne.text == "" ||  CardToCardModal.inputTFOne.text == nil || CardToCardModal.inputTFTwo.text == "" ||  CardToCardModal.inputTFTwo.text == nil || CardToCardModal.inputTFThree.text == "" ||  CardToCardModal.inputTFThree.text == nil {
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.AmountNotValid.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             } else {
@@ -3575,6 +3604,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.setInputBarHeight()
                 self.hideCardToCardModal()
             }
+        } else if giftStickerModal != nil {
+            self.messageTextView.text = ""
+            self.currentAttachment = nil
+            self.selectedMessageToReply = nil
+            let stickerController = IGStickerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+            stickerController.stickerPageType = .CATEGORY
+            stickerController.stickerCategoryId = "0"
+            self.navigationController!.pushViewController(stickerController, animated: true)
         }
     }
     

@@ -2289,7 +2289,6 @@
 				8EC217982258BDF400105B5A /* SMSingleInputView.swift */,
 				8ECCA1E722B7B1E200D3A734 /* SMSingleAmountInputView.swift */,
 				8E5495D022F02BEF001D30E1 /* SMTwoInputView.swift */,
-				D6EA2532240A46F200DC2C3B /* SMGiftStickerAlertView.swift */,
 				8ECCA1E522B6587E00D3A734 /* SMMoneyTransactionOptions.swift */,
 				8EC217A82259B90F00105B5A /* walletModalViewController.swift */,
 			);
@@ -3028,6 +3027,7 @@
 				8E96A31C225C902B007D8A77 /* SMRecieptView.swift */,
 				8EE7FCA5225E0E4A00B6C2C3 /* cashoutModalStepOneViewController.swift */,
 				8E96A323225C9182007D8A77 /* SMGradientButton.swift */,
+				D6EA2532240A46F200DC2C3B /* SMGiftStickerAlertView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
