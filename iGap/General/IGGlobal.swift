@@ -1600,12 +1600,12 @@ extension ASNetworkImageNode {
     func setAvatar(avatar: IGFile, type: PreviewType = PreviewType.largeThumbnail) {
         
         // remove imageview from download list on t on cell reuse
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             let keys = (ASNetworkimagesMap as NSDictionary).allKeys(for: self) as! [String]
             keys.forEach { (key) in
                 ASNetworkimagesMap.removeValue(forKey: key)
             }
-        }
+//        }
         
         var file : IGFile!
         var previewType : PreviewType!

@@ -416,9 +416,8 @@ class ChatControllerNode: ASCellNode {
         contentSpec.horizontalAlignment = .none
         
         let TMPwidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
-        let TMPheight = ASDimensionMake(.points, 500)
         
-        contentSpec.style.maxLayoutSize = ASLayoutSize(width: TMPwidth, height: TMPheight)
+        contentSpec.style.maxLayoutSize = ASLayoutSize(width: TMPwidth, height: ASDimension(unit: .points, value: CGFloat.greatestFiniteMagnitude))
         switch msg!.type {
         case .text :
             let finalBox = setTextNodeContent(contentSpec: contentSpec, msg: msg!)
@@ -713,9 +712,9 @@ class ChatControllerNode: ASCellNode {
         if bgTextNode == nil {
             bgTextNode = ASDisplayNode()
         }
-        
-        IGGlobal.makeAsyncText(for: txtLogMessage!, with: IGStringsManager.UnknownMessage.rawValue.localized, textColor: .white, size: 15, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtLogMessage!, with: IGStringsManager.UnknownMessage.rawValue.localized, textColor: .white, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
         bgTextNode!.layer.cornerRadius = 10.0
+        bgTextNode!.clipsToBounds = true
         bgTextNode!.backgroundColor = UIColor.logBackground()
     }
     
@@ -726,9 +725,9 @@ class ChatControllerNode: ASCellNode {
         if bgTextNode == nil {
             bgTextNode = ASDisplayNode()
         }
-
-        IGGlobal.makeAsyncText(for: txtLogMessage!, with: (message.message?.inLocalizedLanguage())!, textColor: .white, size: 15, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
-        bgTextNode!.layer.cornerRadius = 0.0
+        IGGlobal.makeAsyncText(for: txtLogMessage!, with: (message.message?.inLocalizedLanguage())!, textColor: .white, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+        bgTextNode!.layer.cornerRadius = 10
+        bgTextNode!.clipsToBounds = true
         bgTextNode!.backgroundColor = UIColor.unreadBackground()
     }
     private func layoutLog(logType: logMessageType = .log) -> ASLayoutSpec {
