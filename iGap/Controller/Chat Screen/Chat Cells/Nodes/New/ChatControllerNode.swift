@@ -1766,6 +1766,16 @@ class ChatControllerNode: ASCellNode {
                     (indicatorViewAbs?.view as? IGProgress)?.setFileType(.download)
                     attachment?.status = .readyToDownload
                 }
+                
+                if  btnPlay == nil {
+                    btnPlay = ASButtonNode()
+                    btnPlay?.style.width = ASDimensionMake(.points, 50)
+                    btnPlay?.style.height = ASDimensionMake(.points, 50)
+                    btnPlay?.cornerRadius = 25
+                    btnPlay?.backgroundColor = UIColor(white: 0, alpha: 0.6)
+                    IGGlobal.makeAsyncButton(for: btnPlay!, with: "", textColor: .white, size: 40, weight: .bold, font: .fontIcon, alignment: .center)
+                    btnPlay?.isHidden = true
+                }
             } else {
                 indicatorViewAbs?.removeFromSupernode()
                 indicatorViewAbs = nil
@@ -1775,8 +1785,8 @@ class ChatControllerNode: ASCellNode {
                     btnPlay?.style.width = ASDimensionMake(.points, 50)
                     btnPlay?.style.height = ASDimensionMake(.points, 50)
                     btnPlay?.cornerRadius = 25
-                    btnPlay?.backgroundColor = isIncomming ? ThemeManager.currentTheme.ReceiveMessageBubleBGColor : ThemeManager.currentTheme.SendMessageBubleBGColor
-                    IGGlobal.makeAsyncButton(for: btnPlay!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 40, weight: .bold, font: .fontIcon, alignment: .center)
+                    btnPlay?.backgroundColor = UIColor(white: 0, alpha: 0.6)
+                    IGGlobal.makeAsyncButton(for: btnPlay!, with: "", textColor: .white, size: 40, weight: .bold, font: .fontIcon, alignment: .center)
                 }
 
             }
@@ -1805,22 +1815,24 @@ class ChatControllerNode: ASCellNode {
             
             let playTxtCenterSpec : ASCenterLayoutSpec
         
-            if indicatorViewAbs == nil {
-                if btnPlay == nil {
-                    btnPlay = ASButtonNode()
-                    // Setting Play Btn Size
-                    btnPlay!.style.flexBasis = ASDimension(unit: .auto, value:1.0)
-                    btnPlay!.style.flexGrow = 1
-                    btnPlay!.style.flexShrink = 1
+            if btnPlay == nil {
+                btnPlay = ASButtonNode()
+                // Setting Play Btn Size
+                btnPlay!.style.flexBasis = ASDimension(unit: .auto, value:1.0)
+                btnPlay!.style.flexGrow = 1
+                btnPlay!.style.flexShrink = 1
+                btnPlay!.isHidden = true
 
-                }
+            }
+            if indicatorViewAbs == nil {
                 playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: btnPlay!)
             } else {
-                playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: indicatorViewAbs!)
+                let playTxtOverlaySpec = ASOverlayLayoutSpec(child: btnPlay!, overlay: indicatorViewAbs!)
+                playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: playTxtOverlaySpec)
             }
             
             // Setting Duration lbl Size
-            let timeInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5), child: timeTxtNode)
+            let timeInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8, left: 5, bottom: 5, right: 5), child: timeTxtNode)
             
             // Setting Container Stack
             let itemsStackSpec = ASStackLayoutSpec(direction: .vertical, spacing: 6, justifyContent: .spaceBetween, alignItems: .start, children: [timeInsetSpec, playTxtCenterSpec, fakeStackBottomItem])
@@ -1836,7 +1848,7 @@ class ChatControllerNode: ASCellNode {
             contentSpec.children?.append(overlaySpec)
                 
             makeBottomBubbleItems(contentStack: contentSpec)
-            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
+            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 4) : UIEdgeInsets(top: 6, left: 4, bottom: 6, right: 10), child: contentSpec)
             
             return finalInsetSpec
             
@@ -1857,22 +1869,25 @@ class ChatControllerNode: ASCellNode {
             
             let playTxtCenterSpec : ASCenterLayoutSpec
         
+            if btnPlay == nil {
+                btnPlay = ASButtonNode()
+                // Setting Play Btn Size
+                btnPlay!.style.flexBasis = ASDimension(unit: .auto, value:1.0)
+                btnPlay!.style.flexGrow = 1
+                btnPlay!.style.flexShrink = 1
+                btnPlay!.isHidden = true
+            }
+            
             if indicatorViewAbs == nil {
-                if btnPlay == nil {
-                    btnPlay = ASButtonNode()
-                    // Setting Play Btn Size
-                    btnPlay!.style.flexBasis = ASDimension(unit: .auto, value:1.0)
-                    btnPlay!.style.flexGrow = 1
-                    btnPlay!.style.flexShrink = 1
-
-                }
+                
                 playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: btnPlay!)
             } else {
-                playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: indicatorViewAbs!)
+                let playTxtOverlaySpec = ASOverlayLayoutSpec(child: btnPlay!, overlay: indicatorViewAbs!)
+                playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: playTxtOverlaySpec)
             }
             
             // Setting Duration lbl Size
-            let timeInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5), child: timeTxtNode)
+            let timeInsetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8, left: 5, bottom: 5, right: 5), child: timeTxtNode)
             
             // Setting Container Stack
             let itemsStackSpec = ASStackLayoutSpec(direction: .vertical, spacing: 6, justifyContent: .spaceBetween, alignItems: .start, children: [timeInsetSpec, playTxtCenterSpec, fakeStackBottomItem])
@@ -1901,7 +1916,7 @@ class ChatControllerNode: ASCellNode {
             nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
 
             makeBottomBubbleItems(contentStack: contentSpec)
-            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
+            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 4) : UIEdgeInsets(top: 6, left: 4, bottom: 6, right: 10), child: contentSpec)
             
             return finalInsetSpec
             
@@ -2065,7 +2080,9 @@ class ChatControllerNode: ASCellNode {
             let fileExist = IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size)
             if fileExist && !attachment.isInUploadLevels() {
                 if message!.type == .video || message!.type == .videoAndText {
-                    //                    insertSubnode(playTxtNode, aboveSubnode: imgNode)
+//                    makePlayButton()
+                    btnPlay?.isHidden = false
+                    indicatorViewAbs?.isHidden = true
                 }
                 
                 (indicatorViewAbs?.view as? IGProgress)?.setState(.ready)
