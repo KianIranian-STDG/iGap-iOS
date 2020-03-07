@@ -482,6 +482,7 @@ enum StickerPageType: Int {
     case MAIN = 0 // for send sticker state in chat page
     case CATEGORY = 1 // category state for get categories from server and show latest list of sticker packages
     case PREVIEW = 2 // preview sticker for see all stickers for a package
+    case GIFT_CATEGORY = 3 // gift category state for get categories from server and show latest list of sticker packages (hint: api for this type is different with 'CATEGORY' type)
 }
 
 enum ClearCache: Int {

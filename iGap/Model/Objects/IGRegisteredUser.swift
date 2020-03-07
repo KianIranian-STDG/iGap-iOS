@@ -244,4 +244,11 @@ class IGRegisteredUser: Object {
         }
         return (false, false)
     }
+    
+    internal static func getPhoneWithUserId(userId: Int64) -> String? {
+        if let user = try! Realm().objects(IGRegisteredUser.self).filter(NSPredicate(format: "id = %lld", userId)).first {
+            return String(describing: user.phone) 
+        }
+        return nil
+    }
 }

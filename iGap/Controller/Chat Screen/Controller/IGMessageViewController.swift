@@ -3605,13 +3605,21 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.hideCardToCardModal()
             }
         } else if giftStickerModal != nil {
+            
+            guard let nationalCode = giftStickerModal.edtInternationalCode.text, let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
+            
             self.messageTextView.text = ""
             self.currentAttachment = nil
             self.selectedMessageToReply = nil
-            let stickerController = IGStickerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-            stickerController.stickerPageType = .CATEGORY
-            stickerController.stickerCategoryId = "0"
-            self.navigationController!.pushViewController(stickerController, animated: true)
+            
+            IGGlobal.prgShow()
+            IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: ("+"+phone).replace("+98", withString: "0")) { (success) in
+                self.didtapOutSide()
+                IGGlobal.prgHide()
+                let stickerController = IGStickerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                stickerController.stickerPageType = .GIFT_CATEGORY
+                self.navigationController!.pushViewController(stickerController, animated: true)
+            }
         }
     }
     
@@ -3663,7 +3671,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }) { (true) in
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
-                //                self.MoneyTransactionModal.removeFromSuperview()
                 self.MoneyTransactionModal = nil
             }
         }
