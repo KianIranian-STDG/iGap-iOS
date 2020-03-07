@@ -1895,10 +1895,11 @@ class ChatControllerNode: ASCellNode {
             
             let overlaySpec = ASOverlayLayoutSpec(child: imgNode!, overlay: itemsStackSpec)
             
-            let time : String! = IGAttachmentManager.sharedManager.convertFileTime(seconds: Int((message!.attachment?.duration)!))
+            let detachedAttachment = message!.attachment?.detach()
+            let time : String! = IGAttachmentManager.sharedManager.convertFileTime(seconds: Int(detachedAttachment?.duration ?? 0.0))
             
             IGGlobal.makeAsyncText(for: timeTxtNode, with: time, textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
-            IGGlobal.makeAsyncText(for: timeTxtNode, with: " " + "(\(IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: (message!.attachment?.size)!)))" + " ", textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: timeTxtNode, with: " " + "(\(IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: detachedAttachment?.size ?? 0)))" + " ", textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
             
             
             
