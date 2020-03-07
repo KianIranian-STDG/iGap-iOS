@@ -1755,7 +1755,7 @@ class ChatControllerNode: ASCellNode {
             
         }
         if message!.attachment != nil {
-            if !(IGGlobal.isFileExist(path: msg.attachment!.localPath)) {
+            if !(IGGlobal.isFileExist(path: msg.attachment!.localPath)) || msg.attachment!.status != .ready {
                 if indicatorViewAbs == nil {
                     indicatorViewAbs = ASDisplayNode { () -> UIView in
                         let view = IGProgress()
