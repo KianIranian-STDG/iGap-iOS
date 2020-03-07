@@ -1186,11 +1186,12 @@ class ChatControllerNode: ASCellNode {
 
         contentSpec.children?.append(verticalSpec)
 
-            
+        musicGustureRecognizers()
+        checkPlayerState()
         makeBottomBubbleItems(contentStack: contentSpec)
-       let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
+        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
        
-       return finalInsetSpec
+        return finalInsetSpec
 
     }
     private func makeVoiceNode(msg: IGRoomMessage) {
@@ -2407,8 +2408,12 @@ class ChatControllerNode: ASCellNode {
     
     /** check current voice state and if is playing update values to current state */
     private func checkPlayerState(){
-        IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: UISlider(), timer: ASTextNode(), roomMessage: message!, justUpdate: true, room: finalRoom)
         
+        if message!.type == .audio || message!.type == .audioAndText {
+            IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: UISlider(), timer: ASTextNode(), roomMessage: message!, justUpdate: true, room: finalRoom)
+        }else {
+            IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: (sliderNode?.view as! UISlider), timer: txtCurrentTimeNode!, roomMessage: message!, justUpdate: true, room: finalRoom)
+        }
         
     }
     
@@ -2420,10 +2425,18 @@ class ChatControllerNode: ASCellNode {
     }
     
     @objc func didTapOnPlay(_ gestureRecognizer: UITapGestureRecognizer) {
-        IGGlobal.isVoice = false // determine the file is not voice and is music
+        
+        if message!.type == .audio || message!.type == .audioAndText {
+            IGGlobal.isVoice = false // determine the file is not voice and is music
+            IGGlobal.clickedAudioCellIndexPath = index
+            IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: UISlider(), timer: ASTextNode(), roomMessage: message!,room: finalRoom)
+        }else {
+            IGGlobal.isVoice = true
+            IGGlobal.clickedAudioCellIndexPath = index
+            IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: (sliderNode!.view as! UISlider), timer: txtCurrentTimeNode!, roomMessage: message!,room: finalRoom)
+        }
 
-        IGGlobal.clickedAudioCellIndexPath = index
-        IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: UISlider(), timer: ASTextNode(), roomMessage: message!,room: finalRoom)
+        
     }
     
 }

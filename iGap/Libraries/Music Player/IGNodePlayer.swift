@@ -51,74 +51,82 @@ class IGNodePlayer {
      * @param justUpdate if set true player view will be update with current state otherwise will be started new player with attachment param
      */
     func startPlayer(btnPlayPause: ASButtonNode? = nil, slider: UISlider? = nil, timer: ASTextNode? = nil, roomMessage: IGRoomMessage, justUpdate: Bool = false,room: IGRoom? = nil,isfromBottomPlayer: Bool? = nil){
-        self.room = room
-        setupRemoteTransportControls()
-//        setupNowPlaying()
-        fetchMusicList(room : self.room)
-        if isfromBottomPlayer != nil {
-            if isfromBottomPlayer! {
+        
+        DispatchQueue.main.async {[weak self] in
+            guard let sSelf = self else {
+                return
+            }
+        
+            sSelf.room = room
+            sSelf.setupRemoteTransportControls()
+    //        setupNowPlaying()
+            sSelf.fetchMusicList(room : sSelf.room)
+            if isfromBottomPlayer != nil {
+                if isfromBottomPlayer! {
+                    if justUpdate {
+                        if sSelf.roomMessage?.id == roomMessage.id {
+                        }
+                    } else {
+                        /* if is new file reset previous if exist reset otherwise manage play/pause for current player */
+                        if sSelf.roomMessage?.id != roomMessage.id {
+                            sSelf.resetOldSession()
+                            sSelf.roomMessage = roomMessage
+                            sSelf.attachment = roomMessage.getFinalMessage().attachment
+                            sSelf.fetchAttachmentTime()
+                            sSelf.latestSliderValue = 0.0
+                            sSelf.playerWatcherIndex = sSelf.player.addWatcher(sSelf)
+                            sSelf.playMedia()
+                        } else {
+    //                        resetOldSession()
+                            sSelf.updatePlayPauseState()
+                        }
+                    }
+                }
+            }
+            else {
                 if justUpdate {
-                    if self.roomMessage?.id == roomMessage.id {
+                    if sSelf.roomMessage != nil && !sSelf.roomMessage!.isInvalidated && sSelf.roomMessage!.id == roomMessage.id {
+    //                    btnPlayPause!.setTitle(latestButtonValue, for: UIControl.State.normal)
+                        
+                        IGGlobal.makeAsyncButton(for: btnPlayPause!, with: sSelf.latestButtonValue, textColor: .black, size: 35, font: .fontIcon, alignment: .center)
+                        
+                        slider!.value = sSelf.latestSliderValue ?? 0
+    //                    timer!.text = latestTimeValue
+                        IGGlobal.makeAsyncText(for: timer!, with: sSelf.latestTimeValue?.inLocalizedLanguage() ?? "", textColor: UIColor.black, size: 13, font: .igapFont, alignment: .center)
+                        
+                        
+                        sSelf.btnPlayPause = btnPlayPause
+                        sSelf.slider = slider
+                        sSelf.slider.maximumValue = sSelf.attachmentFloatTime
+                        sSelf.timer = timer
+                        sSelf.removeGestureRecognizer()
+                        sSelf.addGestureRecognizer()
                     }
                 } else {
                     /* if is new file reset previous if exist reset otherwise manage play/pause for current player */
-                    if self.roomMessage?.id != roomMessage.id {
-                        self.resetOldSession()
-                        self.roomMessage = roomMessage
-                        self.attachment = roomMessage.getFinalMessage().attachment
-                        self.fetchAttachmentTime()
-                        latestSliderValue = 0.0
-                        playerWatcherIndex = player.addWatcher(self)
-                        self.playMedia()
+                    if sSelf.roomMessage?.id != roomMessage.id {
+                        sSelf.resetOldSession()
+                        sSelf.btnPlayPause = btnPlayPause
+                        sSelf.slider = slider
+                        sSelf.timer = timer
+                        sSelf.roomMessage = roomMessage
+                        sSelf.attachment = roomMessage.getFinalMessage().attachment
+                        sSelf.addGestureRecognizer()
+                        sSelf.fetchAttachmentTime()
+                        sSelf.slider.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .normal)
+                        slider!.value = 0.0
+                        sSelf.latestSliderValue = 0.0
+                        slider!.maximumValue = sSelf.attachmentFloatTime
+                        sSelf.playerWatcherIndex = sSelf.player.addWatcher(sSelf)
+                        sSelf.playMedia()
                     } else {
-//                        resetOldSession()
-                        updatePlayPauseState()
+                        sSelf.updatePlayPauseState()
                     }
                 }
             }
-        }
-        else {
-            if justUpdate {
-                if self.roomMessage != nil && !self.roomMessage!.isInvalidated && self.roomMessage!.id == roomMessage.id {
-//                    btnPlayPause!.setTitle(latestButtonValue, for: UIControl.State.normal)
-                    
-                    IGGlobal.makeAsyncButton(for: btnPlayPause!, with: latestButtonValue, textColor: .black, size: 35, font: .fontIcon, alignment: .center)
-                    
-                    slider!.value = latestSliderValue ?? 0
-//                    timer!.text = latestTimeValue
-                    IGGlobal.makeAsyncText(for: timer!, with: latestTimeValue?.inLocalizedLanguage() ?? "", textColor: UIColor.black, size: 13, font: .igapFont, alignment: .center)
-                    
-                    
-                    self.btnPlayPause = btnPlayPause
-                    self.slider = slider
-                    self.slider.maximumValue = attachmentFloatTime
-                    self.timer = timer
-                    self.removeGestureRecognizer()
-                    self.addGestureRecognizer()
-                }
-            } else {
-                /* if is new file reset previous if exist reset otherwise manage play/pause for current player */
-                if self.roomMessage?.id != roomMessage.id {
-                    self.resetOldSession()
-                    self.btnPlayPause = btnPlayPause
-                    self.slider = slider
-                    self.timer = timer
-                    self.roomMessage = roomMessage
-                    self.attachment = roomMessage.getFinalMessage().attachment
-                    self.addGestureRecognizer()
-                    self.fetchAttachmentTime()
-                    self.slider.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .normal)
-                    slider!.value = 0.0
-                    latestSliderValue = 0.0
-                    slider!.maximumValue = attachmentFloatTime
-                    playerWatcherIndex = player.addWatcher(self)
-                    self.playMedia()
-                } else {
-                    self.updatePlayPauseState()
-                }
-            }
-        }
 
+            
+        }
     }
     
     /** if another voice or audio is playing remove old valus and reset slider and timer */
