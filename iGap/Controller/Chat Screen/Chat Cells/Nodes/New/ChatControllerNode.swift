@@ -64,6 +64,14 @@ class ChatControllerNode: ASCellNode {
     
     private var indicatorViewAbs : ASDisplayNode?
     
+    //only in channel
+    private var lblEyeIcon : ASTextNode?
+    private var lblEyeText : ASTextNode?
+    private var lblLikeIcon : ASTextNode?
+    private var lblLikeText : ASTextNode?
+    private var lblDisLikeIcon : ASTextNode?
+    private var lblDisLikeText : ASTextNode?
+    
     private var attachment: IGFile?
     private var subNode : ASDisplayNode?
     //    public var checkNode : ASTextNode?
@@ -194,6 +202,17 @@ class ChatControllerNode: ASCellNode {
         if msg.type == .text {
             isTextMessageNode = true
         }
+        
+        if finalRoom.type == .channel {
+
+            if message.type == .text ||  message.type == .image ||  message.type == .imageAndText || message.type == .gif ||  message.type == .gifAndText ||  message.type == .file ||  message.type == .fileAndText || message.type == .voice  || message.type == .video || message.type == .videoAndText || message.type == .audio ||  message.type == .audioAndText   {
+                
+                    makeLikeDislikeIcons()
+
+            }
+
+        }
+        
         if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText || msg.type == .contact || msg.type == .audio || msg.type == .audioAndText || msg.type == .voice  {
             let baseBubbleBox = makeBubble(bubbleImage: bubbleImage) // make bubble
 
@@ -283,6 +302,75 @@ class ChatControllerNode: ASCellNode {
         
     }
     
+    private func makeLikeDislikeIcons() {
+        
+        
+        lblEyeIcon = ASTextNode()
+        lblEyeText = ASTextNode()
+        lblLikeIcon = ASTextNode()
+        lblLikeText = ASTextNode()
+        lblDisLikeIcon = ASTextNode()
+        lblDisLikeText = ASTextNode()
+        
+//        addSubnode(lblEyeIcon)
+//        addSubnode(lblEyeText)
+//        addSubnode(lblLikeIcon)
+//        addSubnode(lblLikeText)
+//        addSubnode(lblDisLikeIcon)
+//        addSubnode(lblDisLikeText)
+
+        
+        let Color = ThemeManager.currentTheme.LabelColor
+        IGGlobal.makeAsyncText(for: lblEyeIcon!, with: "🌣", textColor: Color, size: 10, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: lblLikeIcon!, with: "🌡", textColor: .iGapRed(), size: 10, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: lblDisLikeIcon!, with: "🌢", textColor: .iGapRed(), size: 10, numberOfLines: 1, font: .fontIcon, alignment: .center)
+
+
+        manageVoteActions()
+    }
+    
+    private func manageVoteActions(){
+        
+        if self.message!.channelExtra != nil {
+            var messageVote: IGRoomMessage! = self.message!
+            if let forward = self.message!.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
+               messageVote = forward
+            }
+            let Color = ThemeManager.currentTheme.LabelColor
+            IGGlobal.makeAsyncText(for: lblEyeText!, with: (messageVote.channelExtra?.viewsLabel ?? "1").inLocalizedLanguage(), textColor: Color, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+            
+            if let channel = messageVote.authorRoom?.channelRoom, channel.hasReaction {
+                hasReAction = true
+
+                IGGlobal.makeAsyncText(for: lblLikeText!, with: (messageVote.channelExtra?.thumbsUpLabel ?? "0").inLocalizedLanguage(), textColor: Color, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
+                IGGlobal.makeAsyncText(for: lblDisLikeText!, with: (messageVote.channelExtra?.thumbsDownLabel ?? "0").inLocalizedLanguage(), textColor: Color, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+            } else {
+                hasReAction = false
+
+                lblLikeIcon?.removeFromSupernode()
+                lblLikeText?.removeFromSupernode()
+                lblDisLikeIcon?.removeFromSupernode()
+                lblDisLikeText?.removeFromSupernode()
+            }
+            
+            var roomId = messageVote.authorRoom?.id
+            if roomId == nil {
+                roomId = messageVote.roomId
+            }
+            IGHelperGetMessageState.shared.getMessageState(roomId: roomId!, messageId: messageVote.id)
+        } else {
+            lblEyeIcon?.removeFromSupernode()
+            lblEyeText?.removeFromSupernode()
+            lblLikeIcon?.removeFromSupernode()
+            lblLikeText?.removeFromSupernode()
+            lblDisLikeIcon?.removeFromSupernode()
+            lblDisLikeText?.removeFromSupernode()
+
+        }
+    }
+    
     private func makeAvatarIfNeeded() -> Bool {
         
         if finalRoomType == .channel {
@@ -310,7 +398,7 @@ class ChatControllerNode: ASCellNode {
                 if let user = message?.authorUser?.user {
                     
                     avatarNode?.avatarASImageView?.backgroundColor = .clear
-                    avatarNode?.setUser(user)
+                    avatarNode?.setUser(user.detach())
                     
                 }else if let userId = message?.authorUser?.userId {
                     
@@ -489,8 +577,28 @@ class ChatControllerNode: ASCellNode {
     
     private func makeBottomBubbleItems(contentStack: ASLayoutSpec) {
         
-        
         setTime()
+        
+        if finalRoomType! == .channel {
+            
+            var likeDislikeStack = ASStackLayoutSpec()
+            if hasReAction {
+                likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon!,lblEyeText!,lblLikeIcon!,lblLikeText!,lblDisLikeIcon!,lblDisLikeText!])
+                likeDislikeStack.verticalAlignment = .center
+            } else {
+                likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon!,lblEyeText!])
+                likeDislikeStack.verticalAlignment = .center
+
+            }
+            
+            let holderStack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,txtTimeNode!])
+            contentStack.children?.append(holderStack)
+            return
+            
+        }
+        
+        
+        
         if isIncomming  {} else {
             setMessageStatus()
         }
@@ -2620,11 +2728,11 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
             
             txtStatusNode?.addTarget(self, action: #selector(didTapOnFailedStatus(_:)), forControlEvents: .touchUpInside)
 
-//            lblLikeIcon.addTarget(self, action: #selector(didTapOnVoteUp(_:)), forControlEvents: .touchUpInside)
-//            lblLikeText.addTarget(self, action: #selector(didTapOnVoteUp(_:)), forControlEvents: .touchUpInside)
-//
-//            lblDisLikeIcon.addTarget(self, action: #selector(didTapOnVoteDown(_:)), forControlEvents: .touchUpInside)
-//            lblDisLikeText.addTarget(self, action: #selector(didTapOnVoteDown(_:)), forControlEvents: .touchUpInside)
+            lblLikeIcon?.addTarget(self, action: #selector(didTapOnVoteUp(_:)), forControlEvents: .touchUpInside)
+            lblLikeText?.addTarget(self, action: #selector(didTapOnVoteUp(_:)), forControlEvents: .touchUpInside)
+
+            lblDisLikeIcon?.addTarget(self, action: #selector(didTapOnVoteDown(_:)), forControlEvents: .touchUpInside)
+            lblDisLikeText?.addTarget(self, action: #selector(didTapOnVoteDown(_:)), forControlEvents: .touchUpInside)
             
             let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapOnSenderAvatar(_:)))
             avatarNode?.view.addGestureRecognizer(gesture)

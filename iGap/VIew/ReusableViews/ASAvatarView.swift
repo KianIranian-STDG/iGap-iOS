@@ -39,18 +39,13 @@ class ASAvatarView: ASDisplayNode {
         addSubnode(self.initialLettersView!)
         initialLettersView!.style.height = ASDimension(unit: .points, value: 50.0)
 
-            self.initialLettersLabel = ASTextNode()
-            let attribbutes = [NSAttributedString.Key.foregroundColor: UIColor.white,
-                               NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)]
+        self.initialLettersLabel = ASTextNode()
 
-            addSubnode(self.initialLettersLabel!)
-            self.avatarASImageView = ASNetworkImageNode()
-            addSubnode(self.avatarASImageView!)
+        addSubnode(self.initialLettersLabel!)
+        self.avatarASImageView = ASNetworkImageNode()
+        addSubnode(self.avatarASImageView!)
         avatarASImageView!.style.height = ASDimension(unit: .points, value: 50.0)
         avatarASImageView!.style.width = ASDimension(unit: .points, value: 50.0)
-
-
-
 
     }
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -100,8 +95,6 @@ class ASAvatarView: ASDisplayNode {
             self.initialLettersView!.backgroundColor = color
 
         }
-
-
         
     }
     
