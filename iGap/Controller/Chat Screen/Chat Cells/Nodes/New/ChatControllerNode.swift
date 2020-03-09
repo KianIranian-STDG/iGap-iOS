@@ -72,6 +72,9 @@ class ChatControllerNode: ASCellNode {
     private var lblDisLikeIcon : ASTextNode?
     private var lblDisLikeText : ASTextNode?
     
+    // multiselect check node
+    public var checkNode : ASTextNode?
+    
     private var attachment: IGFile?
     private var subNode : ASDisplayNode?
     //    public var checkNode : ASTextNode?
@@ -213,6 +216,12 @@ class ChatControllerNode: ASCellNode {
 
         }
         
+        if checkNode == nil {
+            checkNode = ASTextNode()
+            checkNode!.style.width = ASDimensionMake(.points, 0)
+            checkNode!.style.height = ASDimensionMake(.points, 0)
+        }
+        
         if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText || msg.type == .contact || msg.type == .audio || msg.type == .audioAndText || msg.type == .voice  {
             let baseBubbleBox = makeBubble(bubbleImage: bubbleImage) // make bubble
 
@@ -233,9 +242,9 @@ class ChatControllerNode: ASCellNode {
                 stack.horizontalAlignment = isIncomming ? .left : .right
                 
                 if isShowingAvatar {
-                    stack.children = isIncomming ? [sSelf.avatarNode! ,baseBubbleBox] : [baseBubbleBox, sSelf.avatarNode!]
+                    stack.children = isIncomming ? [sSelf.checkNode!, sSelf.avatarNode! ,baseBubbleBox] : [sSelf.checkNode!, baseBubbleBox, sSelf.avatarNode!]
                 }else {
-                    stack.children = [baseBubbleBox]
+                    stack.children = [sSelf.checkNode!, baseBubbleBox]
                 }
                 stack.style.flexShrink = 1.0
 
@@ -243,7 +252,11 @@ class ChatControllerNode: ASCellNode {
 
                 return insetHSpec
             }
-                manageAttachment(file: msg.attachment,msg: msg)
+            manageAttachment(file: msg.attachment,msg: msg)
+            if IGGlobal.shouldMultiSelect {
+                makeAccessoryButton(index: [10000,10000])
+            }
+            
         } else if msg.type == .sticker {
 
             
@@ -260,9 +273,9 @@ class ChatControllerNode: ASCellNode {
                 stack.verticalAlignment = .bottom
                 stack.horizontalAlignment = isIncomming ? .left : .right
                 if isShowingAvatar {
-                    stack.children = isIncomming ? [sSelf.avatarNode! ,contentItemsBox] : [contentItemsBox, sSelf.avatarNode!]
+                    stack.children = isIncomming ? [sSelf.checkNode!, sSelf.avatarNode! ,contentItemsBox] : [sSelf.checkNode!, contentItemsBox, sSelf.avatarNode!]
                 }else {
-                    stack.children = [contentItemsBox]
+                    stack.children = [sSelf.checkNode!, contentItemsBox]
                 }
                 
                 stack.style.flexShrink = 1.0
@@ -273,11 +286,16 @@ class ChatControllerNode: ASCellNode {
                 return insetHSpec
             }
             manageAttachment(file: msg.attachment,msg: msg)
+            
+            if IGGlobal.shouldMultiSelect {
+                makeAccessoryButton(index: [10000,10000])
+            }
+            
         } else if msg.type == .log || msg.type == .time || msg.type == .unread || msg.type == .progress {
             let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
             
             self.layoutSpecBlock = {[weak self] node, constrainedSize in
-                guard self != nil else {
+                guard let sSelf = self else {
                     return ASLayoutSpec()
                 }
                 let stack = ASStackLayoutSpec()
@@ -285,7 +303,12 @@ class ChatControllerNode: ASCellNode {
                 stack.spacing = 5
                 stack.verticalAlignment = .bottom
                 stack.horizontalAlignment = .middle
-                stack.children = [contentItemsBox]
+                if msg.type == .log {
+                    stack.children = [sSelf.checkNode!, contentItemsBox]
+                }else {
+                    stack.children = [contentItemsBox]
+                }
+                
                 stack.style.flexShrink = 1.0
                 
                 
@@ -296,10 +319,69 @@ class ChatControllerNode: ASCellNode {
         }
         
         manageGestureRecognizers()
-        if !(IGGlobal.shouldMultiSelect) && finalRoomType != .channel{
+        if !(IGGlobal.shouldMultiSelect) && finalRoomType != .channel && msg.type != .unread && msg.type != .progress && msg.type != .time{
             makeSwipeToReply()
         }
         
+    }
+    
+    func EnableDisableInteractions(mode: Bool = true) {
+        if mode {
+//            self.nodeText?.isUserInteractionEnabled = true
+//            self.imgNode?.isUserInteractionEnabled = true
+//            self.btnStateNode?.isUserInteractionEnabled = true
+//            for node in subnodes! {
+//                node.isUserInteractionEnabled = false
+//                node.view.isUserInteractionEnabled = false
+//            }
+            
+            isUserInteractionEnabled = false
+            view.isUserInteractionEnabled = false
+            
+        } else {
+            isUserInteractionEnabled = true
+            view.isUserInteractionEnabled = true
+        }
+    }
+    
+    public func makeAccessoryButton(index: IndexPath) {
+    //        print("CREATED ACCESSORY BUTTON")
+            addSubnode(checkNode!)
+        
+        if index == self.index {
+            checkNode!.view.tag = 002
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {[weak self] in
+                guard let sSelf = self else {
+                    return
+                }
+                
+                IGGlobal.makeAsyncText(for: sSelf.checkNode!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 30, weight: .regular, numberOfLines: 1, font: .fontIcon, alignment: .center)
+            }
+
+
+        } else {
+            checkNode!.view.tag = 001
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {[weak self] in
+                guard let sSelf = self else {
+                    return
+                }
+                
+                IGGlobal.makeAsyncText(for: sSelf.checkNode!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 30, weight: .regular, numberOfLines: 1, font: .fontIcon, alignment: .center)
+            }
+
+        }
+        checkNode!.style.width = ASDimensionMake(.points, 35)
+        checkNode!.style.height = ASDimensionMake(.points, 35)
+
+        self.setNeedsLayout()
+    }
+    
+    public func removeAccessoryButton() {
+        checkNode!.style.width = ASDimensionMake(.points, 0)
+        checkNode!.style.height = ASDimensionMake(.points, 0)
+        checkNode!.removeFromSupernode()
+        self.setNeedsLayout()
     }
     
     private func makeLikeDislikeIcons() {

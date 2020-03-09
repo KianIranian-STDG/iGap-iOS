@@ -300,6 +300,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private var currentRoomId: Int64!
     private var allowManageForward = true
     
+    private var mainViewTap = UITapGestureRecognizer()
+    
     func onMessageViewControllerDetection() -> UIViewController {
         return self
     }
@@ -313,6 +315,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         setRightNavViewAction()
         
         if state {
+//            mainViewTap = UITapGestureRecognizer(target: self, action: #selector(self.tapOnMainView))
+            tableViewNode.view.removeGestureRecognizer(mainViewTap)
             if isForward! {
                 UIView.transition(with: self.holderTextBox, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {
                     self.holderMultiSelect.isHidden = !isForward!
@@ -336,10 +340,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     let allIndexes = IGGlobal.getAllIndexPathsInSection(section : 0,tblList: self.tableViewNode)
                     
                     for nodeIndex in allIndexes {
-                        if let node = self.tableViewNode.nodeForRow(at: nodeIndex) as? BaseBubbleNode {
-                            if let nodeAbs = self.tableViewNode.nodeForRow(at: nodeIndex) as? AbstractNode {
-                                nodeAbs.EnableDisableInteractions(mode: true)
-                            }
+                        if let node = self.tableViewNode.nodeForRow(at: nodeIndex) as? ChatControllerNode {
+//                            if let nodeAbs = self.tableViewNode.nodeForRow(at: nodeIndex) as? AbstractNode {
+//                                nodeAbs.EnableDisableInteractions(mode: true)
+//                            }
+                            node.EnableDisableInteractions(mode: true)
                             node.makeAccessoryButton(index: index)
                         }
                     }
@@ -380,10 +385,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     let allIndexes = IGGlobal.getAllIndexPathsInSection(section : 0,tblList: self.tableViewNode)
                     
                     for nodeIndex in allIndexes {
-                        if let node = self.tableViewNode.nodeForRow(at: nodeIndex) as? BaseBubbleNode {
-                            if let nodeAbs = self.tableViewNode.nodeForRow(at: nodeIndex) as? AbstractNode {
-                                nodeAbs.EnableDisableInteractions(mode: true)
-                            }
+                        if let node = self.tableViewNode.nodeForRow(at: nodeIndex) as? ChatControllerNode {
+//                            if let nodeAbs = self.tableViewNode.nodeForRow(at: nodeIndex) as? AbstractNode {
+//                                nodeAbs.EnableDisableInteractions(mode: true)
+//                            }
+                            node.EnableDisableInteractions(mode: true)
                             node.makeAccessoryButton(index: index)
                         }
                     }
@@ -406,6 +412,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
         }
         else {
+            
+            tableViewNode.view.addGestureRecognizer(mainViewTap)
             UIView.transition(with: self.holderTextBox, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {
                 self.holderMultiSelect.isHidden = true
                 self.holderTextBox.isHidden = false
@@ -435,6 +443,17 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 //                self.reloadCollection()
                 self.btnTrash.isHidden = true
 
+                let allIndexes = IGGlobal.getAllIndexPathsInSection(section : 0,tblList: self.tableViewNode)
+                
+                for nodeIndex in allIndexes {
+                    if let node = self.tableViewNode.nodeForRow(at: nodeIndex) as? ChatControllerNode {
+//                            if let nodeAbs = self.tableViewNode.nodeForRow(at: nodeIndex) as? AbstractNode {
+//                                nodeAbs.EnableDisableInteractions(mode: true)
+//                            }
+                        node.EnableDisableInteractions(mode: false)
+                        node.removeAccessoryButton()
+                    }
+                }
                 
                 
             }, completion: { (completed) in
@@ -746,7 +765,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         initTheme()
         self.view.endEditing(true)
         
-        let mainViewTap = UITapGestureRecognizer(target: self, action: #selector(self.tapOnMainView))
+        mainViewTap = UITapGestureRecognizer(target: self, action: #selector(self.tapOnMainView))
         tableViewNode.view.addGestureRecognizer(mainViewTap)
         
     }
@@ -6837,18 +6856,63 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
     }
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
 //        print(((self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode).checkNode.view.tag))
-        let cellNode  = self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode
-        cellNode.isSelected = false
-        
-        if ((self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode).checkNode.view.tag) == 001 {
-            (self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode).checkNode.view.tag = 002
-            IGGlobal.makeAsyncText(for: (self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode).checkNode, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 30, weight: .regular, numberOfLines: 1, font: .fontIcon, alignment: .center)
-        } else {
-            (self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode).checkNode.view.tag = 001
-            IGGlobal.makeAsyncText(for: (self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode).checkNode, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 30, weight: .regular, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        let msg = messages![indexPath.row]
+        if (IGGlobal.shouldMultiSelect) {
+            let cellNode  = self.tableViewNode.nodeForRow(at: indexPath) as! ChatControllerNode
+            cellNode.isSelected = false
+            
+            if msg.type == .unread || msg.type == .progress || msg.type == .time {
+                return
+            }
+            
+            if ((self.tableViewNode.nodeForRow(at: indexPath) as! ChatControllerNode).checkNode!.view.tag) == 001 {
+                (self.tableViewNode.nodeForRow(at: indexPath) as! ChatControllerNode).checkNode!.view.tag = 002
+                self.selectedMessages.append(msg)
+                IGGlobal.makeAsyncText(for: (self.tableViewNode.nodeForRow(at: indexPath) as! ChatControllerNode).checkNode!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 30, weight: .regular, numberOfLines: 1, font: .fontIcon, alignment: .center)
+            } else {
+                if let index = self.selectedMessages.firstIndex(where: { $0.id == msg.id }) {
+                    self.selectedMessages.remove(at: index)
+                }
+                (self.tableViewNode.nodeForRow(at: indexPath) as! ChatControllerNode).checkNode!.view.tag = 001
+                IGGlobal.makeAsyncText(for: (self.tableViewNode.nodeForRow(at: indexPath) as! ChatControllerNode).checkNode!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 30, weight: .regular, numberOfLines: 1, font: .fontIcon, alignment: .center)
 
+            }
+        }else {
+            self.messageTextView.resignFirstResponder()
+        }
+        
+        if self.selectedMessages.count > 0 {
+            lblSelectedMessages.text = String(self.selectedMessages.count).inLocalizedLanguage() + " " + IGStringsManager.Selected.rawValue.localized
+        } else {
+            lblSelectedMessages.text = ""
         }
     }
+    
+    
+    
+//    let message = messages![indexPath.row]
+//    if (IGGlobal.shouldMultiSelect) {
+//        if let index = self.selectedMessages.firstIndex(where: { $0.id == message.id }) {
+//            self.selectedMessages.remove(at: index)
+//        } else {
+//            self.selectedMessages.append(message)
+//        }
+//
+//        if self.selectedMessages.count > 0 {
+//            lblSelectedMessages.text = String(self.selectedMessages.count).inLocalizedLanguage() + " " + IGStringsManager.Selected.rawValue.localized
+//        } else {
+//            lblSelectedMessages.text = ""
+//        }
+//        self.collectionView.reloadItems(at: [indexPath])
+//
+//    } else {
+//        self.messageTextView.resignFirstResponder()
+//        if message.type == .sticker {
+//
+//        }
+//
+//    }
+    
     
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
 
