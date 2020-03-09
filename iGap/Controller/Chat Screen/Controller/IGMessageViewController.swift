@@ -3616,8 +3616,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: ("+"+phone).replace("+98", withString: "0")) { (success) in
                 self.didtapOutSide()
                 IGGlobal.prgHide()
+                IGSessionInfo.setNationalCode(nationalCode: nationalCode)
                 let stickerController = IGStickerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-                stickerController.stickerPageType = .GIFT_CATEGORY
+                stickerController.stickerPageType = .CATEGORY
+                stickerController.isGift = true
                 self.navigationController!.pushViewController(stickerController, animated: true)
             }
         }

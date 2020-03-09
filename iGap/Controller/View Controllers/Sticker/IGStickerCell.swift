@@ -26,6 +26,7 @@ class IGStickerCell: UICollectionViewCell {
     var stickerItemStruct: Sticker!
     var sectionIndex: Int!
     var stickerPageType: StickerPageType!
+    var isGift: Bool = false
     
     func configure(stickerItem: IGRealmStickerItem) {
         self.stickerPageType = StickerPageType.MAIN
@@ -41,10 +42,11 @@ class IGStickerCell: UICollectionViewCell {
         }
     }
     
-    func configureListPage(stickerItem: Sticker, sectionIndex: Int) {
+    func configureListPage(stickerItem: Sticker, sectionIndex: Int, isGift: Bool) {
         self.stickerPageType = StickerPageType.CATEGORY
         self.sectionIndex = sectionIndex
         self.stickerItemStruct = stickerItem
+        self.isGift = isGift
         
         if (stickerItem.fileName.contains(".json")) {
             makeAnimationView()
@@ -132,6 +134,7 @@ class IGStickerCell: UICollectionViewCell {
         let stickerViewController = IGStickerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
         stickerViewController.stickerGroupId = self.stickerItemStruct.groupID
         stickerViewController.stickerPageType = StickerPageType.PREVIEW
+        stickerViewController.isGift = self.isGift
         stickerViewController.hidesBottomBarWhenPushed = true
         UIApplication.topNavigationController()!.pushViewController(stickerViewController, animated: true)
     }

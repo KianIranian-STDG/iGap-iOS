@@ -22,6 +22,7 @@ class IGSessionInfo: Object {
     @objc dynamic  var representer: String?
     @objc dynamic  var accessToken: String?
     @objc dynamic  var genderRaw:   Int = IGGender.unknown.rawValue
+    @objc dynamic  var nationalCode:String?
     
     var gender: IGGender {
         get {
@@ -43,6 +44,23 @@ class IGSessionInfo: Object {
         let realm = try! Realm()
         if let sessionInfo = realm.objects(IGSessionInfo.self).first {
             return sessionInfo.representer
+        }
+        return nil
+    }
+    
+    static func setNationalCode(nationalCode: String) {
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                if let sessionInfo = IGDatabaseManager.shared.realm.objects(IGSessionInfo.self).first {
+                    sessionInfo.nationalCode = nationalCode
+                }
+            }
+        }
+    }
+    
+    static func getNationalCode() -> String? {
+        if let sessionInfo = IGDatabaseManager.shared.realm.objects(IGSessionInfo.self).first {
+            return sessionInfo.nationalCode
         }
         return nil
     }

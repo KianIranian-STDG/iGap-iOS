@@ -32,6 +32,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     var stickerCategoryId: String? // use this variable at CATEGORY page type
     var currentIndexPath: IndexPath!
     var isWaitingForRequest = false
+    var isGift = false
     
     // Due to the type of sticker page for collection view will be used one of the following variables
     var stickerTabs: Results<IGRealmSticker>! // use this variable at main sticker page (MAIN)
@@ -51,18 +52,20 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
             fetchMySticker()
             manageStickerPostion()
         } else if self.stickerPageType == StickerPageType.CATEGORY {
-            fetchStickerList()
+            if isGift {
+                fetchGiftableStickerList()
+            } else {
+                fetchStickerList()
+            }
         } else if stickerPageType == StickerPageType.PREVIEW {
             self.collectionView!.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
             numberOfItemsPerRow = 3.0 as CGFloat
             fetchStickerPreview(groupId: stickerGroupId!)
-        } else if stickerPageType == StickerPageType.GIFT_CATEGORY {
-            fetchGiftableStickerList()
         }
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        if IGGlobal.stickerPreviewSectionIndex != -1 && (stickerPageType == StickerPageType.CATEGORY || self.stickerPageType == StickerPageType.GIFT_CATEGORY) {
+        if IGGlobal.stickerPreviewSectionIndex != -1 && stickerPageType == StickerPageType.CATEGORY {
             if self.collectionView!.numberOfSections >= IGGlobal.stickerPreviewSectionIndex + 1 {
                 self.collectionView?.reloadSections(IndexSet([IGGlobal.stickerPreviewSectionIndex]))
             }
@@ -244,7 +247,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if self.stickerPageType == StickerPageType.CATEGORY || self.stickerPageType == StickerPageType.GIFT_CATEGORY {
+        if self.stickerPageType == StickerPageType.CATEGORY {
             if !isWaitingForRequest {
                 let height = scrollView.frame.size.height
                 let contentYoffset = scrollView.contentOffset.y
@@ -293,8 +296,8 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
             if self.stickerPageType == StickerPageType.MAIN {
                 self.currentIndexPath = indexPath
                 stickerItem.configure(stickerItem: self.stickerTabs[indexPath.section].stickerItems[indexPath.row])
-            } else if self.stickerPageType == StickerPageType.CATEGORY || self.stickerPageType == StickerPageType.GIFT_CATEGORY {
-                stickerItem.configureListPage(stickerItem: self.stickerList[indexPath.section].stickers[indexPath.row], sectionIndex: indexPath.section)
+            } else if self.stickerPageType == StickerPageType.CATEGORY {
+                stickerItem.configureListPage(stickerItem: self.stickerList[indexPath.section].stickers[indexPath.row], sectionIndex: indexPath.section, isGift: self.isGift)
             } else if self.stickerPageType == StickerPageType.PREVIEW {
                 stickerItem.configurePreview(stickerItem: self.stickerList[indexPath.section].stickers[indexPath.row])
             }
@@ -305,10 +308,10 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier:String(describing: IGStickerSectionHeader.self), for: indexPath)
         
         if let foodHeader = headerView as? IGStickerSectionHeader {
-            if self.stickerPageType == StickerPageType.CATEGORY || self.stickerPageType == StickerPageType.GIFT_CATEGORY {
-                foodHeader.configureListPage(sticker: self.stickerList[indexPath.section], sectionIndex: indexPath.section)
+            if self.stickerPageType == StickerPageType.CATEGORY {
+                foodHeader.configureListPage(sticker: self.stickerList[indexPath.section], sectionIndex: indexPath.section, isGift: self.isGift)
             } else if self.stickerPageType == StickerPageType.PREVIEW {
-                foodHeader.configurePreview(sticker: self.stickerList[indexPath.section], sectionIndex: indexPath.section)
+                foodHeader.configurePreview(sticker: self.stickerList[indexPath.section], sectionIndex: indexPath.section, isGift: self.isGift)
             } else { //StickerPageType.MAIN
                 foodHeader.configure(sticker: self.stickerTabs[indexPath.section])
             }
@@ -318,7 +321,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if self.stickerPageType == StickerPageType.CATEGORY || self.stickerPageType == StickerPageType.GIFT_CATEGORY  {
+        if self.stickerPageType == StickerPageType.CATEGORY {
             return CGSize(width: UIScreen.main.bounds.width, height: 60)
         }
         return CGSize(width: UIScreen.main.bounds.width, height: 40)

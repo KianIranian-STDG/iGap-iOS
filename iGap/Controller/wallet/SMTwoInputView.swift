@@ -82,9 +82,9 @@ class SMTwoInputView: UIView {
         inputTFOne.layer.borderWidth = 1.0
         inputTFTwo.layer.borderWidth = 1.0
         inputTFThree.layer.borderWidth = 1.0
-        inputTFOne.layer.cornerRadius = 10
-        inputTFTwo.layer.cornerRadius = 10
-        inputTFThree.layer.cornerRadius = 10
+        inputTFOne.layer.cornerRadius = 5
+        inputTFTwo.layer.cornerRadius = 5
+        inputTFThree.layer.cornerRadius = 5
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

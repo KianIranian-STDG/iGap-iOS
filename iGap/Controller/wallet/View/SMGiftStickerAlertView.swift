@@ -35,6 +35,10 @@ class SMGiftStickerAlertView: UIView {
         self.edtInternationalCode.textAlignment = edtInternationalCode.localizedDirection
         self.confirmBtn.setTitle(IGStringsManager.InquiryAndShopping.rawValue.localized, for: .normal)
         initTheme()
+        
+        if let nationalCode = IGSessionInfo.getNationalCode() {
+            self.edtInternationalCode.text = nationalCode
+        }
     }
     
     private func initTheme() {
@@ -48,9 +52,9 @@ class SMGiftStickerAlertView: UIView {
         edtInternationalCode.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         edtInternationalCode.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
         edtInternationalCode.layer.borderWidth = 1.0
-        edtInternationalCode.layer.cornerRadius = 10
+        edtInternationalCode.layer.cornerRadius = 5
         confirmBtn.layer.borderWidth = 1.0
-        confirmBtn.layer.cornerRadius = 10
+        confirmBtn.layer.cornerRadius = 5
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
