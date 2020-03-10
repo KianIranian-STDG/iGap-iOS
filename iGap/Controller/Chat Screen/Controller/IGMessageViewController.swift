@@ -334,7 +334,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     
                     
                     self.btnForward.isHidden = !isForward!
-<<<<<<< HEAD
+                    self.btnForward.isEnabled = isForward!
                     
                     IGGlobal.shouldMultiSelect = true
                     
@@ -349,9 +349,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                             node.makeAccessoryButton(index: index)
                         }
                     }
-=======
-                    self.btnForward.isEnabled = isForward!
->>>>>>> iGap
 
                     
                 }, completion: { (completed) in
@@ -2128,9 +2125,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 //            self.messageTextViewBottomConstraint.constant = view.safeAreaInsets.bottom
 //        }
 //        UIView.animate(withDuration: 0.5){
-//            
+//
 //            self.view.layoutIfNeeded()
-//            
+//
 //        }
         
         if MoneyInputModalIsActive {
@@ -4995,8 +4992,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     func textFieldDidChange(_ textField: UITextField) {
     }
     
-<<<<<<< HEAD
-=======
 }
 
 
@@ -5548,7 +5543,6 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
 
         }
     }
->>>>>>> iGap
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) { // TODO - when isWaiting for get from server return this method and don't do any action
         if self.tableViewNode.numberOfRows(inSection: 0) == 0 {

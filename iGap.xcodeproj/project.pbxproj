@@ -3431,16 +3431,13 @@
 				8E7F18F522F567B500A7A7DD /* TextCellCardToCard.xib */,
 				D61B5DDC237D40EB0060B9D9 /* ProgressCell.swift */,
 				D61B5DDE237D41510060B9D9 /* ProgressCell.xib */,
-<<<<<<< HEAD
 				8E3360D223CE04AA00CE766B /* ASTextCell.swift */,
 				8E3360DE23D2FDAE00CE766B /* chats.json */,
 				8E3360E023D2FE6D00CE766B /* Chat.swift */,
-=======
 				D64BD2F62403EA6200E812CA /* BillCell.swift */,
 				D64BD2F72403EA6200E812CA /* BillCell.xib */,
 				D64BD2F42403D72100E812CA /* TopupCell.swift */,
 				D64BD2F32403D6F700E812CA /* TopupCell.xib */,
->>>>>>> iGap
 			);
 			path = "Chat Cells";
 			sourceTree = "<group>";
