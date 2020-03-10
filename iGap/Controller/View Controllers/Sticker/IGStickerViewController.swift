@@ -33,6 +33,8 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     var currentIndexPath: IndexPath!
     var isWaitingForRequest = false
     var isGift = false
+    var dismissBtn: UIButton!
+    var giftStickerBuyModal: SMCheckBuyGiftSticker!
     
     // Due to the type of sticker page for collection view will be used one of the following variables
     var stickerTabs: Results<IGRealmSticker>! // use this variable at main sticker page (MAIN)
@@ -59,7 +61,11 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
             }
         } else if stickerPageType == StickerPageType.PREVIEW {
             self.collectionView!.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
-            numberOfItemsPerRow = 3.0 as CGFloat
+            if isGift {
+                numberOfItemsPerRow = 2.0 as CGFloat
+            } else {
+                numberOfItemsPerRow = 3.0 as CGFloat
+            }
             fetchStickerPreview(groupId: stickerGroupId!)
         }
     }
@@ -212,6 +218,43 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
                 self?.collectionView?.reloadSections(IndexSet([index]))
             }
         }
+        
+        /***** Gift Card Buy *****/
+        SwiftEventBus.onMainThread(self, name: EventBusManager.giftCardTap) { [weak self] result in
+        
+            if self == nil {return}
+            if self!.stickerPageType != StickerPageType.PREVIEW || !self!.isGift {return}
+            guard let stickerItem = result?.object as? Sticker else {return}
+            
+            self!.dismissBtn = UIButton()
+            self!.dismissBtn.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
+            self!.view.insertSubview(self!.dismissBtn, at: 2)
+            self!.dismissBtn.addTarget(self, action: #selector(self!.didtapOutSide), for: .touchUpInside)
+                   
+            self!.dismissBtn?.snp.makeConstraints { (make) in
+                make.top.equalTo(self!.view.snp.top)
+                make.bottom.equalTo(self!.view.snp.bottom)
+                make.right.equalTo(self!.view.snp.right)
+                make.left.equalTo(self!.view.snp.left)
+            }
+            
+            self!.giftStickerBuyModal = SMCheckBuyGiftSticker.loadFromNib()
+            self!.giftStickerBuyModal.confirmBtn.addTarget(self, action: #selector(self!.confirmTapped), for: .touchUpInside)
+            self!.giftStickerBuyModal.setInfo(token: stickerItem.token, amount: String(describing: stickerItem.giftAmount ?? 0))
+            self!.giftStickerBuyModal.frame = CGRect(x: 0, y: self!.view.frame.height , width: self!.view.frame.width, height: self!.giftStickerBuyModal.frame.height)
+            
+            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+            swipeDown.direction = .down
+            
+            self!.giftStickerBuyModal.addGestureRecognizer(swipeDown)
+            self!.view.addSubview(self!.giftStickerBuyModal)
+            
+            let window = UIApplication.shared.keyWindow
+            let bottomPadding = window?.safeAreaInsets.bottom
+            UIView.animate(withDuration: 0.3) {
+                self!.giftStickerBuyModal.frame = CGRect(x: 0, y: self!.view.frame.height - self!.giftStickerBuyModal.frame.height - 5 -  bottomPadding!, width: self!.view.frame.width, height: self!.giftStickerBuyModal.frame.height)
+            }
+        }
     }
     
     private func goToPosition(position: Int){
@@ -228,6 +271,29 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
                 btn.backgroundColor = UIColor.clear
             }
         }
+    }
+    
+    @objc func didtapOutSide() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.giftStickerBuyModal.frame.origin.y = self.view.frame.height
+        }) { (true) in
+            
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
+            self.giftStickerBuyModal?.removeFromSuperview()
+            self.giftStickerBuyModal = nil
+            
+            self.dismissBtn?.removeFromSuperview()
+            self.dismissBtn = nil
+        }
+    }
+    
+    @objc func handleGesture(gesture: UITapGestureRecognizer) {
+        self.didtapOutSide()
+    }
+    
+    @objc func confirmTapped(_ gestureRecognizer: UITapGestureRecognizer) {
+        print("BBB || buy card tapped")
     }
     
     /*******************************************************************************/
@@ -299,7 +365,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
             } else if self.stickerPageType == StickerPageType.CATEGORY {
                 stickerItem.configureListPage(stickerItem: self.stickerList[indexPath.section].stickers[indexPath.row], sectionIndex: indexPath.section, isGift: self.isGift)
             } else if self.stickerPageType == StickerPageType.PREVIEW {
-                stickerItem.configurePreview(stickerItem: self.stickerList[indexPath.section].stickers[indexPath.row])
+                stickerItem.configurePreview(stickerItem: self.stickerList[indexPath.section].stickers[indexPath.row], isGift: self.isGift)
             }
         }
     }

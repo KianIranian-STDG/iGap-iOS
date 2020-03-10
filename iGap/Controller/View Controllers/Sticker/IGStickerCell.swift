@@ -57,9 +57,10 @@ class IGStickerCell: UICollectionViewCell {
         }
     }
     
-    func configurePreview(stickerItem: Sticker) {
+    func configurePreview(stickerItem: Sticker, isGift: Bool) {
         self.stickerPageType = StickerPageType.PREVIEW
         self.stickerItemStruct = stickerItem
+        self.isGift = isGift
 
         if (stickerItem.fileName.contains(".json")) {
             makeAnimationView()
@@ -139,6 +140,10 @@ class IGStickerCell: UICollectionViewCell {
         UIApplication.topNavigationController()!.pushViewController(stickerViewController, animated: true)
     }
     
+    @objc func showBuyGiftCardView(_ gestureRecognizer: UITapGestureRecognizer) {
+        SwiftEventBus.postToMainThread(EventBusManager.giftCardTap, sender: self.stickerItemStruct)
+    }
+    
     /********************************/
     /********** View Maker **********/
     private func makeAnimationView() {
@@ -158,6 +163,9 @@ class IGStickerCell: UICollectionViewCell {
             animationView.isUserInteractionEnabled = true
         } else if stickerPageType == StickerPageType.CATEGORY {
             animationView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.openStickerPreview(_:))))
+            animationView.isUserInteractionEnabled = true
+        } else if stickerPageType == StickerPageType.PREVIEW && self.isGift {
+            animationView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showBuyGiftCardView(_:))))
             animationView.isUserInteractionEnabled = true
         }
 
@@ -185,6 +193,9 @@ class IGStickerCell: UICollectionViewCell {
             imgSticker.isUserInteractionEnabled = true
         } else if stickerPageType == StickerPageType.CATEGORY {
             imgSticker.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.openStickerPreview(_:))))
+            imgSticker.isUserInteractionEnabled = true
+        } else if stickerPageType == StickerPageType.PREVIEW && self.isGift {
+            imgSticker.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showBuyGiftCardView(_:))))
             imgSticker.isUserInteractionEnabled = true
         }
         

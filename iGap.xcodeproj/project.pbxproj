@@ -424,6 +424,8 @@
 		D680860123B8D7FE00E456EA /* StructTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D680860023B8D7FE00E456EA /* StructTest.swift */; };
 		D680860323B8D96400E456EA /* ClassTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D680860223B8D96400E456EA /* ClassTest.swift */; };
 		D681FC4F23B9C6BF00197211 /* MemoryTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D681FC4E23B9C6BF00197211 /* MemoryTest.storyboard */; };
+		D68C2402241678DC00ABF635 /* SMCheckBuyGiftSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68C2401241678DC00ABF635 /* SMCheckBuyGiftSticker.swift */; };
+		D68C240324167A4600ABF635 /* SMCheckBuyGiftSticker.xib in Resources */ = {isa = PBXBuildFile; fileRef = D68C2400241677D700ABF635 /* SMCheckBuyGiftSticker.xib */; };
 		D6A89976236D8D920087215B /* IGHelperAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A89975236D8D920087215B /* IGHelperAvatar.swift */; };
 		D6AFC17123DD6AAD002584D5 /* Files.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AFC17023DD6AAD002584D5 /* Files.framework */; };
 		D6AFC17223DD6AAD002584D5 /* Files.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6AFC17023DD6AAD002584D5 /* Files.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1321,6 +1323,8 @@
 		D680860023B8D7FE00E456EA /* StructTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructTest.swift; sourceTree = "<group>"; };
 		D680860223B8D96400E456EA /* ClassTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTest.swift; sourceTree = "<group>"; };
 		D681FC4E23B9C6BF00197211 /* MemoryTest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MemoryTest.storyboard; sourceTree = "<group>"; };
+		D68C2400241677D700ABF635 /* SMCheckBuyGiftSticker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMCheckBuyGiftSticker.xib; sourceTree = "<group>"; };
+		D68C2401241678DC00ABF635 /* SMCheckBuyGiftSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMCheckBuyGiftSticker.swift; sourceTree = "<group>"; };
 		D6A89975236D8D920087215B /* IGHelperAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperAvatar.swift; sourceTree = "<group>"; };
 		D6AFC17023DD6AAD002584D5 /* Files.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Files.framework; path = Carthage/Build/iOS/Files.framework; sourceTree = "<group>"; };
 		D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardToCardCell.xib; sourceTree = "<group>"; };
@@ -2095,6 +2099,7 @@
 				8ECCA1E922B7B1F000D3A734 /* SMSingleAmountInputView.xib */,
 				8E5495CE22F02BB1001D30E1 /* SMTwoInputView.xib */,
 				D6EA2534240A496100DC2C3B /* SMGiftStickerAlertView.xib */,
+				D68C2400241677D700ABF635 /* SMCheckBuyGiftSticker.xib */,
 				8ECCA1E322B6585700D3A734 /* SMMoneyTransactionOptions.xib */,
 				8E96A32C225C96C3007D8A77 /* RecieptRow.xib */,
 				8E96A32D225C96C3007D8A77 /* RecieptView.xib */,
@@ -3027,6 +3032,7 @@
 				8E96A31C225C902B007D8A77 /* SMRecieptView.swift */,
 				8EE7FCA5225E0E4A00B6C2C3 /* cashoutModalStepOneViewController.swift */,
 				8E96A323225C9182007D8A77 /* SMGradientButton.swift */,
+				D68C2401241678DC00ABF635 /* SMCheckBuyGiftSticker.swift */,
 				D6EA2532240A46F200DC2C3B /* SMGiftStickerAlertView.swift */,
 			);
 			path = View;
@@ -3857,6 +3863,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D64BD2F92403F60900E812CA /* BillCell.xib in Resources */,
+				D68C240324167A4600ABF635 /* SMCheckBuyGiftSticker.xib in Resources */,
 				D6CEC8A0240A7EE500C6F078 /* SMGiftStickerAlertView.xib in Resources */,
 				D64BD2FA2403F60900E812CA /* TopupCell.xib in Resources */,
 				8E1865392323A10400D8BCA9 /* ChannelAndSettings.storyboard in Resources */,
@@ -4232,6 +4239,7 @@
 				8EC03854239B87AE00B525B5 /* IGThreeInputTVController.swift in Sources */,
 				8E5495D322F03104001D30E1 /* customCardNumberTextField.swift in Sources */,
 				8EA854C2239F79EF00C9442F /* IGTurquoiseColorSet.swift in Sources */,
+				D68C2402241678DC00ABF635 /* SMCheckBuyGiftSticker.swift in Sources */,
 				8EC0384C23978B1E00B525B5 /* IGStructNewsDetail.swift in Sources */,
 				FA5CFC4C21C7DC9600CC2B0D /* IGHelperPromote.swift in Sources */,
 				FA6B72A222369C4A005AC3D1 /* IGHelperGetMessageState.swift in Sources */,
