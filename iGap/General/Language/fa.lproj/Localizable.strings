@@ -18,6 +18,7 @@
 "MESSAGE_LOCATION" = "%1$@ 📍 پیام مکانی";
 "MESSAGE_CONTACT" = "%1$@ 👤 پیام مخاطب";
 "MESSAGE_STICKER" = "%1$@ 🏞 پیام استیکر";
+"MESSAGE_WALLET" = "یک رسید دریافت شد";
 
 "GROUP_MESSAGE_TEXT" = "%2$@\n%1$@: %3$@";
 "GROUP_MESSAGE_IMAGE" = "%2$@\n%1$@: 📷 پیام تصویری";
