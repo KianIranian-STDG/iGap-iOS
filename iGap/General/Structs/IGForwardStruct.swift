@@ -22,9 +22,9 @@ struct IGForwardStruct {
     
     init(_ room: IGRoom) {
         if room.typeRaw == IGRoom.IGType.chat.rawValue {
-            self.id = (room.chatRoom?.peer!.id)!
+            self.id = room.chatRoom?.peer?.id ?? room.chatRoom?.id
             self.typeRaw = .chat
-            self.avatar = room.chatRoom!.peer!.avatar
+            self.avatar = room.chatRoom?.peer?.avatar
         } else if room.typeRaw == IGRoom.IGType.group.rawValue {
             self.id = room.id
             self.typeRaw = .group
