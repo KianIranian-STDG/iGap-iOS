@@ -222,7 +222,7 @@ class ChatControllerNode: ASCellNode {
             checkNode!.style.height = ASDimensionMake(.points, 0)
         }
         
-        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText || msg.type == .contact || msg.type == .audio || msg.type == .audioAndText || msg.type == .voice  {
+        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText || msg.type == .contact || msg.type == .audio || msg.type == .audioAndText || msg.type == .voice  || msg.type == .wallet  {
             let baseBubbleBox = makeBubble(bubbleImage: bubbleImage) // make bubble
 
             let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
@@ -386,21 +386,24 @@ class ChatControllerNode: ASCellNode {
     
     private func makeLikeDislikeIcons() {
         
-        
-        lblEyeIcon = ASTextNode()
-        lblEyeText = ASTextNode()
-        lblLikeIcon = ASTextNode()
-        lblLikeText = ASTextNode()
-        lblDisLikeIcon = ASTextNode()
-        lblDisLikeText = ASTextNode()
-        
-//        addSubnode(lblEyeIcon)
-//        addSubnode(lblEyeText)
-//        addSubnode(lblLikeIcon)
-//        addSubnode(lblLikeText)
-//        addSubnode(lblDisLikeIcon)
-//        addSubnode(lblDisLikeText)
-
+        if lblEyeIcon == nil {
+            lblEyeIcon = ASTextNode()
+        }
+        if lblEyeText == nil {
+            lblEyeText = ASTextNode()
+        }
+        if lblLikeIcon == nil {
+            lblLikeIcon = ASTextNode()
+        }
+        if lblLikeText == nil {
+            lblLikeText = ASTextNode()
+        }
+        if lblDisLikeIcon == nil {
+            lblDisLikeIcon = ASTextNode()
+        }
+        if lblDisLikeText == nil {
+            lblDisLikeText = ASTextNode()
+        }
         
         let Color = ThemeManager.currentTheme.LabelColor
         IGGlobal.makeAsyncText(for: lblEyeIcon!, with: "🌣", textColor: Color, size: 10, numberOfLines: 1, font: .fontIcon, alignment: .center)
