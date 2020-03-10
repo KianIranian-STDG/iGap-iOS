@@ -872,7 +872,7 @@ class ChatControllerNode: ASCellNode {
     }
     private func setSenderName() {
         if !(finalRoomType == .chat) {
-            if let name = message!.authorUser?.userInfo {
+            if let name = message!.authorUser?.user {
                 txtNameNode!.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
                 IGGlobal.makeAsyncText(for: txtNameNode!, with: name.displayName, textColor: UIColor.hexStringToUIColor(hex: (message!.authorUser?.user!.color)!), size: 12, numberOfLines: 1, font: .igapFont, alignment: .left)
             } else {
