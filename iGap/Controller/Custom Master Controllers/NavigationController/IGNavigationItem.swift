@@ -52,45 +52,16 @@ class IGNavigationItem: UINavigationItem {
     
     //MARK: - Connecting
     func setNavigationItemForConnecting() {
-        setNavigationItemWithCenterActivityIndicator(text: IGStringsManager.GlobalConnecting.rawValue.localized)
+        initNavBarWithLoading(text: IGStringsManager.GlobalConnecting.rawValue.localized)
     }
     
     func setNavigationItemForWaitingForNetwork() {
-        setNavigationItemWithCenterActivityIndicator(text: IGStringsManager.GlobalWaitingConnection.rawValue.localized)
+        initNavBarWithLoading(text: IGStringsManager.GlobalWaitingConnection.rawValue.localized)
     }
     
     func setNavigationItemForSyncingContactsStatus(text: String) {
-        setNavigationItemWithCenterActivityIndicator(text: text)
+        initNavBarWithLoading(text: text)
     }
-    
-    private func setNavigationItemWithCenterActivityIndicator(text: String) {
-        
-        if IGCall.callPageIsEnable {
-            return
-        }
-        
-        let label = UILabel()
-        label.font = UIFont.igFont(ofSize: 15.0,weight: .bold)
-        label.textAlignment = .center
-        label.textColor = UIColor.iGapBarsInfo()
-        label.text = text
-        label.sizeToFit()
-        
-        let activityIndicatorView = UIActivityIndicatorView(style: .white)
-        activityIndicatorView.startAnimating()
-        
-        let statusSV = UIStackView()
-        
-        statusSV.axis = .horizontal
-        statusSV.distribution = .fill
-        statusSV.alignment = .center
-        statusSV.spacing = 4
-        statusSV.addArrangedSubview(activityIndicatorView)
-        statusSV.addArrangedSubview(label)
-        
-        self.titleView = statusSV
-    }
-    
     
     //MARK: - Navigation VCs
     func addNavigationViewItems(rightItemText: String?, rightItemFontSize: CGFloat = 20, title: String?, width: CGFloat = 150, iGapFont: Bool = false) {
@@ -700,6 +671,74 @@ class IGNavigationItem: UINavigationItem {
         btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 60)
 
         titleView.addSubview(btnLogo)
+        
+        self.titleView = titleView
+    }
+    
+    func initNavBarWithLoading(text: String) {
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
+        
+        let label = UILabel()
+        label.font = UIFont.igFont(ofSize: 15.0,weight: .bold)
+        label.textAlignment = .center
+        label.textColor = UIColor.iGapBarsInfo()
+        label.text = text
+        label.sizeToFit()
+
+        let loading = AnimateloadingView(frame: CGRect(x: 0, y: 0, width: 16, height: 16))
+        loading.stopAnimating()
+        loading.startAnimating()
+        
+        titleView.addSubview(loading)
+        titleView.addSubview(label)
+        
+        label.snp.makeConstraints { (make) in
+            make.centerY.equalTo(titleView.snp.centerY)
+            make.centerX.equalTo(titleView.snp.centerX)
+            make.height.equalTo(20)
+            make.width.greaterThanOrEqualTo(5)
+        }
+        
+        loading.snp.makeConstraints { (make) in
+            make.trailing.equalTo(label.snp.leading).offset(-10)
+            make.centerY.equalTo(label.snp.centerY)
+            make.width.equalTo(20)
+            make.height.equalTo(20)
+        }
+        
+        self.titleView = titleView
+    }
+    
+    func initNavBarFetchRoomLoading() {
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
+        
+        let label = UILabel()
+        label.font = UIFont.igFont(ofSize: 15.0,weight: .bold)
+        label.textAlignment = .center
+        label.textColor = UIColor.iGapBarsInfo()
+        label.text = IGStringsManager.FetchingRooms.rawValue.localized
+        label.sizeToFit()
+
+        let loading = AnimateloadingView(frame: CGRect(x: 0, y: 0, width: 16, height: 16))
+        loading.stopAnimating()
+        loading.startAnimating()
+        
+        titleView.addSubview(loading)
+        titleView.addSubview(label)
+        
+        label.snp.makeConstraints { (make) in
+            make.centerY.equalTo(titleView.snp.centerY)
+            make.centerX.equalTo(titleView.snp.centerX)
+            make.height.equalTo(20)
+            make.width.greaterThanOrEqualTo(5)
+        }
+        
+        loading.snp.makeConstraints { (make) in
+            make.trailing.equalTo(label.snp.leading).offset(-10)
+            make.centerY.equalTo(label.snp.centerY)
+            make.width.equalTo(20)
+            make.height.equalTo(20)
+        }
         
         self.titleView = titleView
     }

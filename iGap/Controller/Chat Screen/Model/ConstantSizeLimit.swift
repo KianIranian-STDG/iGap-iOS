@@ -114,6 +114,11 @@ class CellSizeLimit: NSObject {
             static let Height: CGFloat = 45.0
         }
         
+        struct UnknownMessage {
+            static let Height: CGFloat = 45.0
+            static let Width: CGFloat = 100.0
+        }
+        
         struct MoneyTransfer {
             static let Width: CGFloat = 240.0
             static let Height: CGFloat = 320.0
@@ -142,6 +147,16 @@ class CellSizeLimit: NSObject {
         struct Wallet {
             static let Width: CGFloat = 220.0
             static let Height: CGFloat = 300.0
+        }
+        
+        struct Bill {
+            static let Width: CGFloat = 240.0
+            static let Height: CGFloat = 490.0
+        }
+
+        struct Topup {
+            static let Width: CGFloat = 240.0
+            static let Height: CGFloat = 490.0
         }
     }
     

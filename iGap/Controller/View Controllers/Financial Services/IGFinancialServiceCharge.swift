@@ -31,7 +31,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
     
     let operatorIrancell = IGStringsManager.Irancell.rawValue.localized
     let operatorMCI = IGStringsManager.MCI.rawValue.localized
-    let operatorRightel = IGStringsManager.Righttel.rawValue.localized
+    let operatorRightel = IGStringsManager.Rightel.rawValue.localized
     let operatorNotDetect = ""
     
     let normalCharge = IGStringsManager.NormalCharge.rawValue.localized

@@ -38,6 +38,9 @@ class IGAppManager: NSObject {
     var isUserLoggedIn: BehaviorRelay<Bool>
     var isTryingToLoginUser: Bool = false
     var currentMessagesNotificationToekn: NotificationToken?
+    var showFetchingRoomList: Bool = false // this varibale used for check and show Fetching Room view if needed, at navigation bar after change tab and return to room list tab again
+    var allowFetchRoomList: Bool = false
+    var fetchRoomListOffset: Int = 0
     
     private var _loginToken: String?
     private var _username: String?
@@ -51,7 +54,7 @@ class IGAppManager: NSObject {
     private var _walletActive: Bool = false
     private var _AccessToken: String!
 
-    public let LOAD_ROOM_LIMIT = 100
+    public let LOAD_ROOM_LIMIT = 50
     
     private override init() {
         connectionStatus = BehaviorRelay(value: .waitingForNetwork)
@@ -73,6 +76,7 @@ class IGAppManager: NSObject {
     /***** make app directories for save downloaded and uploaded files *****/
     public func createAppDirectories(){
         do {
+            /**** main directories ***/
             try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR, withIntermediateDirectories: true, attributes: nil)
             try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR + IGGlobal.IMAGE_DIR, withIntermediateDirectories: true, attributes: nil)
             try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR + IGGlobal.VIDEO_DIR, withIntermediateDirectories: true, attributes: nil)
@@ -80,11 +84,13 @@ class IGAppManager: NSObject {
             try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR + IGGlobal.VOICE_DIR, withIntermediateDirectories: true, attributes: nil)
             try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR + IGGlobal.GIF_DIR, withIntermediateDirectories: true, attributes: nil)
             try FileManager.default.createDirectory(atPath: IGGlobal.APP_DIR + IGGlobal.FILE_DIR, withIntermediateDirectories: true, attributes: nil)
+            /**** cache directories ***/
             try FileManager.default.createDirectory(atPath: IGGlobal.CACHE_DIR, withIntermediateDirectories: true, attributes: nil)
             try FileManager.default.createDirectory(atPath: IGGlobal.CACHE_DIR + IGGlobal.THUMB_DIR, withIntermediateDirectories: true, attributes: nil)
             try FileManager.default.createDirectory(atPath: IGGlobal.CACHE_DIR + IGGlobal.BACKGROUND_DIR, withIntermediateDirectories: true, attributes: nil)
             try FileManager.default.createDirectory(atPath: IGGlobal.CACHE_DIR + IGGlobal.AVATAR_DIR, withIntermediateDirectories: true, attributes: nil)
             try FileManager.default.createDirectory(atPath: IGGlobal.CACHE_DIR + IGGlobal.STICKER_DIR, withIntermediateDirectories: true, attributes: nil)
+            /**** temporary directories ***/
             try FileManager.default.createDirectory(atPath: IGGlobal.TEMP_DIR, withIntermediateDirectories: true, attributes: nil)
         } catch let error as NSError {
             print("Unable to create directory \(error.debugDescription)")
@@ -205,6 +211,9 @@ class IGAppManager: NSObject {
         IGContactManager.importedContact = false // for allow user that import contact list after than logged in again
         IGRecentsTableViewController.needGetInfo = true
         IGDashboardViewController.needGetFirstPage = true
+        allowFetchRoomList = true
+        showFetchingRoomList = false
+        fetchRoomListOffset = 0
         
         if let delegate = RTCClient.getInstance()?.callStateDelegate {
             delegate.onStateChange(state: RTCClientConnectionState.Unavailable)

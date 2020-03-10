@@ -487,7 +487,33 @@ class AbstractDashboardCell: UICollectionViewCell {
                 } else {
                     let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                     dashboard.pageId = Int32(discoveryInfo.igpValue)!
+                    IGGlobal.shouldShowChart = true // value is false becoz the chart should not be shown in this page anymore instead it should be shown in pollResult page
+                    dashboard.showChartOnly = false
+                    dashboard.hidesBottomBarWhenPushed = true
+                    UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
+                    return
+                }
+            } else {
+                let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                dashboard.pageId = Int32(discoveryInfo.igpValue)!
+                IGGlobal.shouldShowChart = true // value is false becoz the chart should not be shown in this page anymore instead it should be shown in pollResult page
+                dashboard.showChartOnly = false
+
+                dashboard.hidesBottomBarWhenPushed = true
+                UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
+                return
+            }
+        case .pollResult:
+            if !(agreementSlug == "") {
+                if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
+                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    
+                } else {
+                    let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                    dashboard.pageId = Int32(discoveryInfo.igpValue)!
                     IGGlobal.shouldShowChart = true
+                    dashboard.showChartOnly = true
+
                     dashboard.hidesBottomBarWhenPushed = true
                     UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                     return
@@ -496,12 +522,14 @@ class AbstractDashboardCell: UICollectionViewCell {
                 let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 dashboard.pageId = Int32(discoveryInfo.igpValue)!
                 IGGlobal.shouldShowChart = true
+                dashboard.showChartOnly = true
+
                 dashboard.hidesBottomBarWhenPushed = true
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                 return
             }
-            
         // End
+            
         case .electricBillMenu:
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
@@ -921,6 +949,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             return
 
         default:
+            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.InstallLatestVersion.rawValue.localized, cancelText: IGStringsManager.GlobalOK.rawValue.localized)
             return
         }
     }

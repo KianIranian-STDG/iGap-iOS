@@ -330,6 +330,11 @@ class IGRoomMessage: Object {
         if message == nil {
             message = IGRoomMessage()
             message.primaryKeyId = primaryKeyId
+            
+            if options.isFromShareMedia {
+                message.previousMessageId = message.id
+                message.futureMessageId = message.id
+            }
         }
         
         message.roomId = roomId
@@ -397,13 +402,6 @@ class IGRoomMessage: Object {
         }
         
         message.additional = IGRealmAdditional.put(realm: realmFinal, message: igpMessage)
-        
-        // TODO - HINT: if is from share media do following code. following code not handled yet!
-        // ofcourse currently we don't update "IGRoomMessage" from share media so now don't need to update following param here
-        /*
-         message.previousMessageId = message.id
-         message.futureMessageId = message.id
-         */
         
         if options.previousGap {
             message.previousMessageId = igpMessage.igpPreviousMessageID
@@ -632,8 +630,12 @@ class IGRoomMessage: Object {
     }
     
     /** return last message from local message history for entered roomId */
-    internal static func getLastMessage(roomId: Int64) -> IGRoomMessage? {
-        return IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "roomId == %lld", roomId)).last
+    internal static func getLastMessage(roomId: Int64, isDeleted: Bool? = nil) -> IGRoomMessage? {
+        var predicate = NSPredicate(format: "roomId == %lld", roomId)
+        if isDeleted != nil {
+            predicate = NSPredicate(format: "roomId == %lld AND isDeleted = %d", roomId, isDeleted!)
+        }
+        return IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: [SortDescriptor(keyPath: "id", ascending: false)]).first
     }
     
     internal static func fetchForwardMessage(roomId: Int64, messageId: Int64) -> IGRoomMessage? {

@@ -18,6 +18,8 @@ class IGRoomMessageWallet: Object {
     @objc dynamic var moneyTrasfer:      IGRoomMessageMoneyTransfer?
     @objc dynamic var payment:           IGRoomMessageMoneyTransfer?
     @objc dynamic var cardToCard:        IGRoomMessageCardToCard?
+    @objc dynamic var bill:              IGRoomMessageBill?
+    @objc dynamic var topup:             IGRoomMessageTopup?
     
     override static func primaryKey() -> String {
         return "id"
@@ -55,6 +57,10 @@ class IGRoomMessageWallet: Object {
             wallet.payment = IGRoomMessageMoneyTransfer.putOrUpdate(realm: realm, igpRoomMessageWallet: igpRoomMessageWallet, for: message)
         } else if igpRoomMessageWallet.igpType == .cardToCard {
             wallet.cardToCard = IGRoomMessageCardToCard.putOrUpdate(realm: realm, igpRoomMessageWallet: igpRoomMessageWallet, for: message)
+        } else if igpRoomMessageWallet.igpType == .bill {
+            wallet.bill = IGRoomMessageBill.putOrUpdate(realm: realm, igpRoomMessageWallet: igpRoomMessageWallet, for: message)
+        } else if igpRoomMessageWallet.igpType == .topup {
+            wallet.topup = IGRoomMessageTopup.putOrUpdate(realm: realm, igpRoomMessageWallet: igpRoomMessageWallet, for: message)
         }
         
         return wallet
@@ -174,5 +180,124 @@ class IGRoomMessageCardToCard: Object {
     func detach() -> IGRoomMessageCardToCard {
         let detachedRoomMessageCardToCard = IGRoomMessageCardToCard(value: self)
         return detachedRoomMessageCardToCard
+    }
+}
+
+
+class IGRoomMessageBill: Object {
+    @objc dynamic var id:                String?
+    @objc dynamic var fromUserId:        Int64    = 0
+    @objc dynamic var orderId:           Int64    = 0
+    @objc dynamic var myToken:           String?
+    @objc dynamic var token:             Int64    = 0
+    @objc dynamic var amount:            Int64    = 0
+    @objc dynamic var payId:             String?
+    @objc dynamic var billId:            String?
+    @objc dynamic var billType:          String?
+    @objc dynamic var cardNumber:        String?
+    @objc dynamic var merchantNumber:    String?
+    @objc dynamic var terminalNo:        Int64    = 0
+    @objc dynamic var rrn:               Int64    = 0
+    @objc dynamic var traceNumber:       Int64    = 0
+    @objc dynamic var requestTime:       Int32    = 0
+    @objc dynamic var status:            Bool     = false
+    @objc dynamic var statusDescription: String?
+    
+    override static func primaryKey() -> String {
+        return "id"
+    }
+    
+    static func putOrUpdate(realm: Realm, igpRoomMessageWallet: IGPRoomMessageWallet, for message: IGRoomMessage) -> IGRoomMessageBill {
+        
+        let predicate = NSPredicate(format: "id = %@", message.primaryKeyId!)
+        var bill: IGRoomMessageBill! = realm.objects(IGRoomMessageBill.self).filter(predicate).first
+        
+        if bill == nil {
+            bill = IGRoomMessageBill()
+            bill.id = message.primaryKeyId
+        }
+        
+        bill.fromUserId = igpRoomMessageWallet.igpBill.igpFromUserID
+        bill.orderId = igpRoomMessageWallet.igpBill.igpOrderID
+        bill.myToken = igpRoomMessageWallet.igpBill.igpMyToken
+        bill.token = igpRoomMessageWallet.igpBill.igpToken
+        bill.amount = igpRoomMessageWallet.igpBill.igpAmount
+        bill.payId = igpRoomMessageWallet.igpBill.igpPayID
+        bill.billId = igpRoomMessageWallet.igpBill.igpBillID
+        bill.billType = igpRoomMessageWallet.igpBill.igpBillType
+        bill.cardNumber = igpRoomMessageWallet.igpBill.igpCardNumber
+        bill.merchantNumber = igpRoomMessageWallet.igpBill.igpMerchantName
+        bill.terminalNo = igpRoomMessageWallet.igpBill.igpTerminalNo
+        bill.rrn = igpRoomMessageWallet.igpBill.igpRrn
+        bill.traceNumber = igpRoomMessageWallet.igpBill.igpTraceNumber
+        bill.requestTime = igpRoomMessageWallet.igpBill.igpRequestTime
+        bill.status = igpRoomMessageWallet.igpBill.igpStatus
+        bill.statusDescription = igpRoomMessageWallet.igpBill.igpStatusDescription
+        return bill
+    }
+    
+    func detach() -> IGRoomMessageBill {
+        let detachedRoomMessageBill = IGRoomMessageBill(value: self)
+        return detachedRoomMessageBill
+    }
+}
+
+
+class IGRoomMessageTopup: Object {
+    
+    @objc dynamic var id:                    String?
+    @objc dynamic var topupType:             IGPRoomMessageWallet.IGPTopup.IGPType.RawValue = IGPRoomMessageWallet.IGPTopup.IGPType.mci.rawValue
+    @objc dynamic var fromUserId:            Int64    = 0
+    @objc dynamic var orderId:               Int64    = 0
+    @objc dynamic var myToken:               String?
+    @objc dynamic var token:                 Int64    = 0
+    @objc dynamic var amount:                Int64    = 0
+    @objc dynamic var requesterMobileNumber: String?
+    @objc dynamic var chargeMobileNumber:    String?
+    @objc dynamic var cardNumber:            String?
+    @objc dynamic var merchantNumber:        String?
+    @objc dynamic var terminalNo:            Int64    = 0
+    @objc dynamic var rrn:                   Int64    = 0
+    @objc dynamic var traceNumber:           Int64    = 0
+    @objc dynamic var requestTime:           Int32    = 0
+    @objc dynamic var status:                Bool     = false
+    @objc dynamic var statusDescription:     String?
+    
+    override static func primaryKey() -> String {
+        return "id"
+    }
+    
+    static func putOrUpdate(realm: Realm, igpRoomMessageWallet: IGPRoomMessageWallet, for message: IGRoomMessage) -> IGRoomMessageTopup {
+        
+        let predicate = NSPredicate(format: "id = %@", message.primaryKeyId!)
+        var topup: IGRoomMessageTopup! = realm.objects(IGRoomMessageTopup.self).filter(predicate).first
+        
+        if topup == nil {
+            topup = IGRoomMessageTopup()
+            topup.id = message.primaryKeyId
+        }
+        
+        topup.topupType = igpRoomMessageWallet.igpTopup.igpTopupType.rawValue
+        topup.fromUserId = igpRoomMessageWallet.igpTopup.igpFromUserID
+        topup.orderId = igpRoomMessageWallet.igpTopup.igpOrderID
+        topup.myToken = igpRoomMessageWallet.igpTopup.igpMyToken
+        topup.token = igpRoomMessageWallet.igpTopup.igpToken
+        topup.amount = igpRoomMessageWallet.igpTopup.igpAmount
+        topup.requesterMobileNumber = igpRoomMessageWallet.igpTopup.igpRequesterMobileNumber
+        topup.chargeMobileNumber = igpRoomMessageWallet.igpTopup.igpChargeMobileNumber
+        topup.cardNumber = igpRoomMessageWallet.igpTopup.igpCardNumber
+        topup.merchantNumber = igpRoomMessageWallet.igpTopup.igpMerchantName
+        topup.terminalNo = igpRoomMessageWallet.igpTopup.igpTerminalNo
+        topup.rrn = igpRoomMessageWallet.igpTopup.igpRrn
+        topup.traceNumber = igpRoomMessageWallet.igpTopup.igpTraceNumber
+        topup.requestTime = igpRoomMessageWallet.igpTopup.igpRequestTime
+        topup.status = igpRoomMessageWallet.igpTopup.igpStatus
+        topup.statusDescription = igpRoomMessageWallet.igpTopup.igpStatusDescription
+        return topup
+    }
+    
+    func detach() -> IGRoomMessageTopup {
+        let detachedRoomMessageTopup = IGRoomMessageTopup(value: self)
+        return detachedRoomMessageTopup
     }
 }

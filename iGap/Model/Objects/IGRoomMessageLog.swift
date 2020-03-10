@@ -135,33 +135,164 @@ class IGRoomMessageLog: Object {
         var bodyString = ""
         switch (message.log?.type)! {
         case .userJoined:
-            bodyString = actorUsernameTitle + " " + IGStringsManager.JoinedIgap.rawValue.localized
+            if message.authorRoom != nil {
+                bodyString = IGStringsManager.JoinedIgap.rawValue.localized
+            } else {
+                bodyString = actorUsernameTitle + " " + IGStringsManager.JoinedIgap.rawValue.localized
+                
+                if SMLangUtil.loadLanguage() == "fa" || SMLangUtil.loadLanguage() == "ar" {
+                    bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.JoinedIgap.rawValue.localized)"
+                    
+                } else {
+                    bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.JoinedIgap.rawValue.localized)"
+                }
+
+            }
         case .userDeleted:
-            bodyString = actorUsernameTitle + " " + IGStringsManager.LeftIgap.rawValue.localized
+            if message.authorRoom != nil {
+                bodyString = IGStringsManager.LeftIgap.rawValue.localized
+            } else {
+                bodyString = actorUsernameTitle + " " + IGStringsManager.LeftIgap.rawValue.localized
+                
+                if SMLangUtil.loadLanguage() == "fa" || SMLangUtil.loadLanguage() == "ar" {
+                    bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.LeftIgap.rawValue.localized)"
+                    
+                } else {
+                    bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.LeftIgap.rawValue.localized)"
+                }
+
+            }
         case .roomCreated:
             if message.authorRoom != nil {
                 bodyString = IGStringsManager.ChannelCreated.rawValue.localized
             } else {
                 bodyString = actorUsernameTitle + " " + IGStringsManager.RoomCreated.rawValue.localized
+                
+                if SMLangUtil.loadLanguage() == "fa" || SMLangUtil.loadLanguage() == "ar" {
+                    bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.RoomCreated.rawValue.localized)"
+                    
+                } else {
+                    bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.RoomCreated.rawValue.localized)"
+                }
+
             }
+            
         case .memberAdded:
-            bodyString = actorUsernameTitle + " " + IGStringsManager.Added.rawValue.localized
+            if let target = message.log?.targetUser {
+                var targetUserName = ""
+                if !target.displayName.isEmpty {
+                    targetUserName =  target.displayName
+                } else if let user = IGRegisteredUser.getUserInfo(id: message.log!.targetUserId) {
+                    targetUserName =  user.displayName
+                }
+                if SMLangUtil.loadLanguage() == "fa" || SMLangUtil.loadLanguage() == "ar" {
+                    bodyString = "‏\(targetUserName) \(IGStringsManager.By.rawValue.localized) \(actorUsernameTitle) \(IGStringsManager.Added.rawValue.localized)"
+                    
+                } else {
+                    bodyString = "‏\(actorUsernameTitle) ‏\(IGStringsManager.By.rawValue.localized) ‏\(IGStringsManager.Added.rawValue.localized) ‏\(targetUserName)"
+                }
+
+
+            } else {
+      
+                var targetUserName = ""
+                if let user = IGRegisteredUser.getUserInfo(id: message.log!.targetUserId) {
+                    targetUserName =  user.displayName
+                } else {
+                    IGUserInfoRequest.sendRequest(userId: message.log!.targetUserId)
+                }
+                if SMLangUtil.loadLanguage() == "fa" || SMLangUtil.loadLanguage() == "ar" {
+                    bodyString = "‏\(targetUserName) \(IGStringsManager.By.rawValue.localized) \(actorUsernameTitle) \(IGStringsManager.Added.rawValue.localized)"
+                    
+                } else {
+                    bodyString = "‏\(targetUserName) \(IGStringsManager.Added.rawValue.localized) \(IGStringsManager.By.rawValue.localized)\(actorUsernameTitle)"
+                }
+
+
+
+            }
+
+            
         case .memberKicked:
-            bodyString = actorUsernameTitle + " " + IGStringsManager.KickedOut.rawValue.localized
+
+                  if let target = message.log?.targetUser {
+                      var targetUserName = ""
+                      if !target.displayName.isEmpty {
+                          targetUserName =  target.displayName
+                      } else if let user = IGRegisteredUser.getUserInfo(id: message.log!.targetUserId) {
+                          targetUserName =  user.displayName
+                      }
+                      if SMLangUtil.loadLanguage() == "fa" || SMLangUtil.loadLanguage() == "ar" {
+                          bodyString = "‏\(targetUserName) \(IGStringsManager.By.rawValue.localized) \(actorUsernameTitle) \(IGStringsManager.KickedOut.rawValue.localized)"
+                          
+                      } else {
+                          bodyString = "‏\(actorUsernameTitle) ‏\(IGStringsManager.By.rawValue.localized) ‏\(IGStringsManager.KickedOut.rawValue.localized) ‏\(targetUserName)"
+                      }
+
+
+                  } else {
+            
+                      var targetUserName = ""
+                      if let user = IGRegisteredUser.getUserInfo(id: message.log!.targetUserId) {
+                          targetUserName =  user.displayName
+                      } else {
+                          IGUserInfoRequest.sendRequest(userId: message.log!.targetUserId)
+                      }
+                      if SMLangUtil.loadLanguage() == "fa" || SMLangUtil.loadLanguage() == "ar" {
+                          bodyString = "‏\(targetUserName) \(IGStringsManager.By.rawValue.localized) \(actorUsernameTitle) \(IGStringsManager.KickedOut.rawValue.localized)"
+                          
+                      } else {
+                          bodyString = "‏\(targetUserName) \(IGStringsManager.KickedOut.rawValue.localized) \(IGStringsManager.By.rawValue.localized)\(actorUsernameTitle)"
+                      }
+
+
+
+                  }
         case .memberLeft:
-            bodyString = actorUsernameTitle + " " + IGStringsManager.LeftPage.rawValue.localized
+            
+//            bodyString = actorUsernameTitle + " " + IGStringsManager.LeftPage.rawValue.localized
+            if SMLangUtil.loadLanguage() == "fa" || SMLangUtil.loadLanguage() == "ar" {
+                bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.LeftPage.rawValue.localized)"
+                
+            } else {
+                bodyString = "‏\(IGStringsManager.LeftPage.rawValue.localized) \(actorUsernameTitle)"
+            }
+
         case .roomConvertedToPublic:
+
+            
             if message.authorRoom != nil {
                 bodyString = IGStringsManager.PublicChannel.rawValue.localized
             } else {
-                bodyString = actorUsernameTitle + " " + IGStringsManager.ConvertedToPublic.rawValue.localized
+                bodyString = actorUsernameTitle + " " + IGStringsManager.RoomCreated.rawValue.localized
+                
+                if SMLangUtil.loadLanguage() == "fa" || SMLangUtil.loadLanguage() == "ar" {
+                    bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.ConvertedToPublic.rawValue.localized)"
+                    
+                } else {
+                    bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.ConvertedToPublic.rawValue.localized)"
+                }
+
             }
+            
         case .roomConvertedToPrivate:
+
+            
+            
             if message.authorRoom != nil {
                 bodyString = IGStringsManager.PrivateChannel.rawValue.localized
             } else {
                 bodyString = actorUsernameTitle + " " + IGStringsManager.ConvertedToPrivate.rawValue.localized
+                
+                if SMLangUtil.loadLanguage() == "fa" || SMLangUtil.loadLanguage() == "ar" {
+                    bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.ConvertedToPrivate.rawValue.localized)"
+                    
+                } else {
+                    bodyString = "‏\(actorUsernameTitle) \(IGStringsManager.ConvertedToPrivate.rawValue.localized)"
+                }
+
             }
+
         case .memberJoinedByInviteLink:
             bodyString = actorUsernameTitle + " " + IGStringsManager.JoinedByInvite.rawValue.localized
         case .roomDeleted:
@@ -194,19 +325,19 @@ class IGRoomMessageLog: Object {
             bodyString = IGRoomMessage.detectPinMessage(message: message)//IGRoom.getPinnedMessage(roomId: message.roomId)
         }
         
-        if let target = message.log?.targetUser {
-            if !target.displayName.isEmpty {
-                bodyString =  bodyString + " " + target.displayName
-            } else if let user = IGRegisteredUser.getUserInfo(id: message.log!.targetUserId) {
-                bodyString =  bodyString + " " + user.displayName
-            }
-        } else {
-            if let user = IGRegisteredUser.getUserInfo(id: message.log!.targetUserId) {
-                bodyString =  bodyString + " " + user.displayName
-            } else {
-                IGUserInfoRequest.sendRequest(userId: message.log!.targetUserId)
-            }
-        }
+//        if let target = message.log?.targetUser {
+//            if !target.displayName.isEmpty {
+//                bodyString =  bodyString + " " + target.displayName
+//            } else if let user = IGRegisteredUser.getUserInfo(id: message.log!.targetUserId) {
+//                bodyString =  bodyString + " " + user.displayName
+//            }
+//        } else {
+//            if let user = IGRegisteredUser.getUserInfo(id: message.log!.targetUserId) {
+//                bodyString =  bodyString + " " + user.displayName
+//            } else {
+//                IGUserInfoRequest.sendRequest(userId: message.log!.targetUserId)
+//            }
+//        }
         
         return bodyString
     }

@@ -96,11 +96,8 @@ class IGHelperAlert {
     ///
     func showCustomAlert(view: UIViewController? = nil, alertType: helperCustomAlertType! = helperCustomAlertType.alert, title: String? = nil, showIconView: Bool? = true, showDoneButton: Bool? = true, showCancelButton: Bool? = true, message: String!, doneText: String? = nil, cancelText: String? = nil, cancel: (() -> Void)? = nil, done: (() -> Void)? = nil) {
         DispatchQueue.main.async {
-//            var alertView = view
             let alertView : UIWindow? = UIApplication.shared.keyWindow
 
-            alertView?.layoutIfNeeded()
-            
             UIApplication.topViewController()?.view.endEditing(true)
             ///check if there's already one customAlert on screen remove it and creat a new one
             if self.customAlert != nil {
@@ -115,8 +112,8 @@ class IGHelperAlert {
                 if showIconView! {
                     self.iconView = self.creatIconView()
                 }
-                self.customAlert.layoutIfNeeded()
-                UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .transitionFlipFromTop, animations: {
+                
+                //UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .transitionFlipFromTop, animations: {
                     self.window!.addSubview(self.customAlert)
                     self.customAlert = self.creatCustomAlertView()///creat customAlertView
                     self.window!.addSubview(self.customAlert)
@@ -246,7 +243,6 @@ class IGHelperAlert {
                     titleLabel.font = UIFont.igFont(ofSize: 13,weight: .bold)
                     titleLabel.numberOfLines = 1
                     messageLabel.numberOfLines = 0
-//                    messageLabel.adjustsFontSizeToFitWidth = true
                     messageLabel.font = UIFont.igFont(ofSize: 14)
                     titleLabel.textColor = ThemeManager.currentTheme.LabelColor
                     messageLabel.textColor = ThemeManager.currentTheme.LabelColor
@@ -268,17 +264,14 @@ class IGHelperAlert {
                     self.actionDone = done
                     self.actionCancel = cancel
                     
-                    
-                    self.customAlert.layoutIfNeeded()
                     if showIconView! {
-                        self.iconView.layoutIfNeeded()
+                        self.iconView?.alpha = 0
+                        self.iconView?.fadeIn(0.3)
                     }
-                    
-                    alertView!.layoutIfNeeded()
-                    
-                },completion: {(value: Bool) in
-                    
-                })
+//                },completion: {(value: Bool) in
+//                })
+                self.customAlert?.alpha = 0
+                self.customAlert?.fadeIn(0.3)
             }
             
         }
@@ -312,16 +305,22 @@ class IGHelperAlert {
         bgView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         bgView.frame = self.window!.frame
         self.window?.addSubview(bgView)
+        bgView.alpha = 0
+        bgView.fadeIn(0.3)
+        
     }
     private func removeCustomAlertView()  {
-        UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .transitionCrossDissolve, animations: {
+        //UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .transitionCrossDissolve, animations: {
+        self.bgView.fadeOut(0.3)
+        self.customAlert.fadeOut(0.3)
+        self.iconView?.fadeOut(0.3)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.bgView.removeFromSuperview()
             self.customAlert.removeFromSuperview()
             self.customAlert = nil
-            if self.iconView != nil {
-                self.iconView.removeFromSuperview()
-            }
-        },completion: {(value: Bool) in })
+            self.iconView?.removeFromSuperview()
+        }
+        //},completion: {(value: Bool) in })
     }
     private func creatCustomAlertView() -> UIView {
         let view = UIView()

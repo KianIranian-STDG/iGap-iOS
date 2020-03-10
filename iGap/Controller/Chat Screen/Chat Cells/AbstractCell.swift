@@ -122,7 +122,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         super.layoutSubviews()
         
         if !(IGGlobal.shouldMultiSelect) {
-            swipePositionManager()
+            if room!.id != 244016140511856331 { // This is room id for iGap Messenger
+                swipePositionManager()
+            }
+            
         }
     }
     
@@ -1344,7 +1347,15 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             } else {
                 indicatorViewAbs?.setFileType(.upload)
             }
-            indicatorViewAbs?.setState(attachment.status)
+            
+            if attachment.status == .ready {
+                if fileExist {
+                    indicatorViewAbs?.setState(.ready)
+                }
+            } else {
+                indicatorViewAbs?.setState(attachment.status)
+            }
+            
             if attachment.status == .downloading || attachment.status == .uploading {
                 indicatorViewAbs?.setPercentage(attachment.downloadUploadPercent)
             }
@@ -1533,6 +1544,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             self.btnCheckMark = nil
         }
 
+        for sView in contentView.subviews {
+            sView.isUserInteractionEnabled = true
+        }
     }
     private func makeMultiSelectButton() {
         removeMultySelect()
@@ -1554,6 +1568,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             make.width.equalTo(CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
         }
 
+        for sView in contentView.subviews {
+            sView.isUserInteractionEnabled = false
+        }
+        
     }
     
     private func makeSenderName(){

@@ -64,7 +64,8 @@ class IGGlobal {
     
     /***** Base of Directories *****/
     static let APP_DIR = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/iGap"
-    static let CACHE_DIR = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0] + "/iGap"
+    static let CACHE_DIR = APP_DIR//NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0] + "/iGap" /*don't use cache directory for avoid from remove files automatically by OS*/
+
     /***** Document Base *****/
     static let IMAGE_DIR = "/images"
     static let VIDEO_DIR = "/videos"
@@ -126,7 +127,11 @@ class IGGlobal {
     
     static var topbarHeight: CGFloat {
         if #available(iOS 13.0, *) {
+<<<<<<< HEAD
             return (UIApplication.shared.statusBarFrame.height) +
+=======
+            return (UIApplication.shared.statusBarFrame.height ) +
+>>>>>>> iGap
                 (44)
         } else {
             return UIApplication.shared.statusBarFrame.size.height +
@@ -209,7 +214,7 @@ class IGGlobal {
     internal static func validaatePhoneNUmber(phone : Int64!) -> String {
         let str = String(phone)
         if str.starts(with: "98") {
-            var tmp = str.dropFirst(2)
+            let tmp = str.dropFirst(2)
             return "0" + tmp
         } else if str.starts(with: "09") {
             return str
@@ -663,13 +668,13 @@ extension UIColor {
     }
     
     class func dialogueBoxOutgoing() -> UIColor {
-        return ThemeManager.currentTheme.SendMessageBubleBGColor ?? #colorLiteral(red: 0.8980392157, green: 0.8980392157, blue: 0.8980392157, alpha: 1)
+        return ThemeManager.currentTheme.SendMessageBubleBGColor
     }
     class func helperWindowViewColor() -> UIColor {
-        return ThemeManager.currentTheme.ModalViewBackgroundColor ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        return ThemeManager.currentTheme.ModalViewBackgroundColor
     }
     class func helperWindowViewBorderColor() -> UIColor {
-        return ThemeManager.currentTheme.LabelGrayColor ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        return ThemeManager.currentTheme.LabelGrayColor
     }
     
     class func dialogueBoxIncomming() -> UIColor {
@@ -680,7 +685,7 @@ extension UIColor {
         return #colorLiteral(red: 0.6156862745, green: 0.7803921569, blue: 0.337254902, alpha: 0.3)
     }
     class func tabbarBGColor() -> UIColor {
-        return ThemeManager.currentTheme.TabBarColor ?? #colorLiteral(red: 0.9176470588, green: 0.9176470588, blue: 0.9294117647, alpha: 0.9)
+        return ThemeManager.currentTheme.TabBarColor
     }
     
     class func forwardBoxOutgoign() -> UIColor {
@@ -735,7 +740,7 @@ extension UIColor {
     }
     
     class func messageText() -> UIColor {
-        return ThemeManager.currentTheme.LabelColor ?? #colorLiteral(red: 0.1725490196, green: 0.2117647059, blue: 0.2470588235, alpha: 1)
+        return ThemeManager.currentTheme.LabelColor
     }
     
     class func dialogueBoxInfo() -> UIColor { // filename, contact, ...
@@ -743,11 +748,11 @@ extension UIColor {
     }
     
     class func logBackground() -> UIColor { // filename, contact, ...
-        return ThemeManager.currentTheme.MessageLogCellBGColor ?? #colorLiteral(red: 0.6588235294, green: 0.6588235294, blue: 0.6588235294, alpha: 1)
+        return ThemeManager.currentTheme.MessageLogCellBGColor
     }
     
     class func unreadBackground() -> UIColor { // filename, contact, ...
-        return ThemeManager.currentTheme.MessageUnreadCellBGColor ?? UIColor.iGapMainColor()
+        return ThemeManager.currentTheme.MessageUnreadCellBGColor
     }
     
     class func pinnedChats() -> UIColor {
@@ -767,11 +772,11 @@ extension UIColor {
     }
     
     class func sticker() -> UIColor {
-        return ThemeManager.currentTheme.TableViewBackgroundColor ?? #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 1, alpha: 1)
+        return ThemeManager.currentTheme.TableViewBackgroundColor
     }
     
     class func stickerToolbar() -> UIColor {
-        return ThemeManager.currentTheme.ModalViewBackgroundColor ?? #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 1, alpha: 1)
+        return ThemeManager.currentTheme.ModalViewBackgroundColor
     }
     
     class func stickerToolbarSelected() -> UIColor {
@@ -802,11 +807,19 @@ extension UIColor {
         return UIColor(red: 66/255.0, green: 212/255.0, blue: 244/255.0, alpha: 0.9)
     }
     
+    class func iGapPink() -> UIColor {
+        return UIColor(named: "IGTopupCellColor")!
+    }
+    
+    class func iGapTopupCellPurple() -> UIColor {
+        return UIColor(named: "IGBillCellColor")!
+    }
+    
     class func iGapGray() -> UIColor {
         return #colorLiteral(red: 0.4078431373, green: 0.4078431373, blue: 0.4078431373, alpha: 0.9)
     }
     class func iGapDarkGray() -> UIColor {
-        return ThemeManager.currentTheme.LabelGrayColor ?? #colorLiteral(red: 0.1215686275, green: 0.1294117647, blue: 0.1411764706, alpha: 0.9)
+        return ThemeManager.currentTheme.LabelGrayColor
     }
     
     class func failedColor() -> UIColor {
@@ -906,7 +919,7 @@ extension UIColor {
     
     class func chatBubbleBackground(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return  ThemeManager.currentTheme.ReceiveMessageBubleBGColor ?? .white
+            return  ThemeManager.currentTheme.ReceiveMessageBubleBGColor
         } else {
             return UIColor.dialogueBoxOutgoing()
         }
@@ -922,13 +935,13 @@ extension UIColor {
     
     //MARK: MessageCVCell Time
     class func chatTimeTextColor() -> UIColor {
-        return ThemeManager.currentTheme.LabelColor ?? #colorLiteral(red: 0.4117647059, green: 0.4823529412, blue: 0.5294117647, alpha: 1)
+        return ThemeManager.currentTheme.LabelColor
     }
     
     //MARK: MessageCVCell Forward
     class func chatForwardedFromViewBackgroundColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return ThemeManager.currentTheme.SliderTintColor.lighter(by: 10)!
+            return UIColor.forwardBoxIncomming()
         } else {
             return UIColor.forwardBoxOutgoign()
         }
@@ -970,7 +983,7 @@ extension UIColor {
     //MARK: MessageCVCell Reply
     class func chatReplyToBackgroundColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return ThemeManager.currentTheme.SliderTintColor.lighter(by: 20)!
+            return UIColor.replyBoxIncomming()
         } else {
             return UIColor.replyBoxOutgoing()
         }
@@ -1052,7 +1065,7 @@ extension Date {
     
     func humanReadableForLastSeen() -> String {
         let differenctToNow = Date().timeIntervalSince1970 - self.timeIntervalSince1970
-        if differenctToNow < 10 {
+        if differenctToNow < 60 {
             return IGStringsManager.NavLastSeenRecently.rawValue.localized
         } else if differenctToNow < 120 {
             return IGStringsManager.InAminute.rawValue.localized
@@ -1883,9 +1896,9 @@ extension UIImageView {
     
     /** show file preview and download thumbnail or main file if needed
      - Parameter showMain: if set true main file will be downloaded automatically
-     - Parameter ignoreSize: if set true check size for show main file will be ignored and will be shown main file if has big size (for example appropriate for IGMediaPagerCell)
+     - Parameter forceShowMain: if set true check size for show main file will be ignored and will be shown main file if has big size (for example appropriate for IGMediaPagerCell)
      */
-    func setThumbnail(for attachment:IGFile, showMain: Bool = false, ignoreSize: Bool = false) {
+    func setThumbnail(for attachment:IGFile, showMain: Bool = false, forceShowMain: Bool = false) {
         if !(attachment.isInvalidated) {
             if attachment.type == .voice {
                 self.image = UIImage(named:"IG_Message_Cell_Voice")
@@ -1925,16 +1938,16 @@ extension UIImageView {
                  * Hint: mabye change this kind of check for file existance change later
                  */
                 let fileSizeKB = attachment.size/1024
-                var showBestPreview = false // show main image if has small size otherwise show large thumbnail, also for video show large thumnail always because video doesn't have original image
+                var mainFileExist = false // show main image if has small size otherwise show large thumbnail, also for video show large thumnail always because video doesn't have original image
                 if attachment.type == .image {
                     /* for big images show largeThumbnail if exist, even main file was downloaded before.
                      * currently check size for 256 KB
                      */
                     
-                    showBestPreview = IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size)
+                    mainFileExist = IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size)
                 }
                 
-                if (fileSizeKB < MAX_IMAGE_SIZE || ignoreSize) && showBestPreview {
+                if (fileSizeKB < MAX_IMAGE_SIZE || forceShowMain) && mainFileExist {
                     self.sd_setImage(with: attachment.localUrl, completed: nil)
                 } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
                     
@@ -1943,7 +1956,7 @@ extension UIImageView {
                     if showMain {
                         fileType = .originalFile
                         finalFile = attachment
-                    } else if showBestPreview || attachment.type != .image { // show large thumbnail for downloaded file if has big size || for another types that is not image (like: video, gif)
+                    } else if mainFileExist || attachment.type != .image { // show large thumbnail for downloaded file if has big size || for another types that is not image (like: video, gif)
                         fileType = .largeThumbnail
                         finalFile = attachment.largeThumbnail!
                     }
@@ -1958,6 +1971,9 @@ extension UIImageView {
                         if image != nil {
                             self.sd_setImage(with: path, completed: nil)
                         } else {
+                            if mainFileExist { // if main file is exist show that before download thumbnail (do this for avoid from show small thumbnail after than downloaded file)
+                                self.sd_setImage(with: attachment.localUrl, completed: nil)
+                            }
                             throw NSError(domain: "image not exist", code: 1234, userInfo: nil)
                         }
                     } catch {
@@ -2585,8 +2601,15 @@ extension String {
 
 extension Character {
     fileprivate func isEmoji() -> Bool {
-        return Character(UnicodeScalar(UInt32(0x1d000))!) <= self && self <= Character(UnicodeScalar(UInt32(0x1f77f))!)
-            || Character(UnicodeScalar(UInt32(0x2100))!) <= self && self <= Character(UnicodeScalar(UInt32(0x26ff))!)
+        
+        guard let firstProperties = self.unicodeScalars.first?.properties else {
+            return false
+        }
+        return (firstProperties.isEmojiPresentation || firstProperties.generalCategory == .otherSymbol)
+        
+        
+//        return Character(UnicodeScalar(UInt32(0x1d000))!) <= self && self <= Character(UnicodeScalar(UInt32(0x1f77f))!)
+//            || Character(UnicodeScalar(UInt32(0x2100))!) <= self && self <= Character(UnicodeScalar(UInt32(0x26ff))!)
     }
 }
 extension UnicodeScalar {
@@ -2895,7 +2918,7 @@ public enum Model : String {
 }
 
 public extension UIDevice {
-    public var type: Model {
+    var type: Model {
         var systemInfo = utsname()
         uname(&systemInfo)
         let modelCode = withUnsafePointer(to: &systemInfo.machine) {
@@ -2904,7 +2927,7 @@ public extension UIDevice {
                 
             }
         }
-        var modelMap : [ String : Model ] = [
+        let modelMap : [ String : Model ] = [
             "i386"       : .simulator,
             "x86_64"     : .simulator,
             "iPod1,1"    : .iPod1,

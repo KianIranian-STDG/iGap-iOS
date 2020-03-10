@@ -48,7 +48,11 @@ enum IGStringsManager : String {
     case ContactSaving = "contacts_saving"
     case ContactDelete = "to_delete_contact"
     case Edit = "edit"
+<<<<<<< HEAD
     case ViewContact = "view_contact"
+=======
+    case UnknownMessage = "unknown_message"
+>>>>>>> iGap
     
     //MARK: -NEWS
     case NewsDetail =  "news_details"
@@ -132,6 +136,7 @@ enum IGStringsManager : String {
     case LastSeen = "Last_Seen"
     case Groups = "Groups"
     case Channels = "Channels"
+    case FetchingRooms = "fetching_rooms"
     case TwoSteps = "Two_Step_Verification"
     case ForgetPassword = "forgot_password"
     case TwoStepHeader = "two_step_verficatiion_header"
@@ -411,7 +416,7 @@ enum IGStringsManager : String {
     case InCash = "incash"
     case PayGateway = "paygateway"
     case Irancell = "irancell"
-    case Righttel = "ritel"
+    case Rightel = "ritel"
     case MCI = "hamrahe_aval"
     case NormalCharge = "normal_charge"
     case AmazingCharge = "amazing"
@@ -465,6 +470,11 @@ enum IGStringsManager : String {
     case WalletMessage = "wallet_message"
     case CardToCardMessage = "card_to_card_message"
     case PaymentMessage = "payment_message"
+    case TopupMessage = "topup_message"
+    case TopupRequesterMobileNumber = "requester_mobile_number"
+    case TopupReceiverMobileNumber = "receivers_mobile_number"
+    case InstallLatestVersion = "install_latest_version"
+    case BillMessage = "bill_message"
     case ChannelCreated = "channel_created"
     case GroupLink = "group_link"
     case RoomCreated = "room_created"
@@ -472,8 +482,10 @@ enum IGStringsManager : String {
     case KickedOut = "MEMBER_KICKED"
     case JoinedIgap = "USER_JOINED"
     case LeftIgap = "USER_DELETED"
+    case By = "prefix"
     case Added = "MEMBER_ADDED"
     case LeftPage = "MEMBER_LEFT"
+    case Group = "group"
     case Public = "public"
     case Private = "private"
     case GroupType = "group_type"
@@ -680,6 +692,10 @@ enum IGStringsManager : String {
     case To = "wallet_to"
     case From = "from"
     case TraceNumber = "trace_number"
+    case BillType = "bill_type"
+    case BillId = "bill_id"
+    case OrderId = "mpl_transaction_order_id"
+    case TerminalId = "mpl_terminal_no"
     case OpenNow = "open_now"
     case PaymentMoneyTransfer = "PAYMENT_TRANSFER_MONEY"
     case WalletMoneyTransfer = "WALLET_TRANSFER_MONEY"
@@ -755,6 +771,5 @@ enum IGStringsManager : String {
     case Emails = "emails"
 
 }
-
 
 

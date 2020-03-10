@@ -82,7 +82,6 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         return label
     }()
     
-    var testArray = [IGAvatarView]()
     var testLastMsgArray = [String]()
     var testImageArray = [UIImage]()
     static var visibleChat: [Int64 : Bool] = [:]
@@ -93,9 +92,6 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
     var hud = MBProgressHUD()
     var connectionStatus: IGAppManager.ConnectionStatus?
     static var connectionStatusStatic: IGAppManager.ConnectionStatus?
-    var isLoadingMoreRooms: Bool = false
-    var numberOfRoomFetchedInLastRequest: Int = -1
-    var allRoomsFetched = false // use this param for send contact after load all rooms
     static var needGetInfo: Bool = true
     let iGapStoreLink = URL(string: "https://new.sibapp.com/applications/igap")
     var cellId = "cellId"
@@ -425,7 +421,11 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         DispatchQueue.main.async {
             if let navigationItem = self.navigationItem as? IGNavigationItem {
                 IGTabBarController.currentTabStatic = .Recent
-                navigationItem.addiGapLogo()
+                if IGAppManager.sharedManager.showFetchingRoomList {
+                    navigationItem.initNavBarFetchRoomLoading()
+                } else {
+                    navigationItem.addiGapLogo()
+                }
             }
         }
         //self.addRoomChangeNotificationBlock()
@@ -520,24 +520,37 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         }
     }
     
+    private func makeLoading(){
+        DispatchQueue.main.async {
+            let navigationItem = self.navigationItem as! IGNavigationItem
+            navigationItem.initNavBarFetchRoomLoading()
+        }
+    }
+    
+    private func removeLoading(){
+        DispatchQueue.main.async {
+            let navigationItem = self.navigationItem as! IGNavigationItem
+            navigationItem.initNavBarWithIgapIcon()
+        }
+    }
+    
     @objc private func fetchRoomList(offset: Int32 = 0 , limit: Int32 = Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)) {
         
         var clientConditionRooms: [IGPClientCondition.IGPRoom]?
         if offset == 0 { // is first page
             clientConditionRooms = IGClientCondition.computeClientCondition()
         }
-        
-        isLoadingMoreRooms = true
+
+        if offset == 0 { // just show fetching room icon for
+            makeLoading()
+            IGAppManager.sharedManager.showFetchingRoomList = true
+        }
+        IGAppManager.sharedManager.allowFetchRoomList = false
         IGClientGetRoomListRequest.Generator.generate(offset: offset, limit: limit).successPowerful ({ [weak self] (responseProtoMessage, requestWrapper) in
-            self?.isLoadingMoreRooms = false
-            var newOffset: Int32!
-            var newLimit: Int32!
-            
+            IGAppManager.sharedManager.showFetchingRoomList = false
             if let getRoomListResponse = responseProtoMessage as? IGPClientGetRoomListResponse {
                 if let getRoomListRequest = requestWrapper.message as? IGPClientGetRoomList {
-                    
-                    newOffset = Int32(getRoomListRequest.igpPagination.igpLimit)
-                    newLimit = newOffset + Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)
+                    let fetchedCount = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse)
                     
                     if getRoomListRequest.igpPagination.igpOffset == 0 { // is first page
                         IGFactory.shared.markRoomsAsDeleted(igpRooms: getRoomListResponse.igpRooms)
@@ -547,15 +560,18 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
                             print("AAA || Warning! -------- Offset & Count is ZERO")
                         }
                     }
+                    IGAppManager.sharedManager.fetchRoomListOffset = Int(getRoomListRequest.igpPagination.igpOffset) + getRoomListResponse.igpRooms.count
                     
-                    if getRoomListResponse.igpRooms.count != 0 {
-                        self?.allRoomsFetched = false
-                        self?.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse)
-                        self?.fetchRoomList(offset: newOffset, limit: newLimit)
+                    if fetchedCount != 0 { // this means rooms list not reached to end yet
+                        IGAppManager.sharedManager.allowFetchRoomList = true
+                        
+                        if self?.tableView.indexPathsForVisibleRows?.last?.row ?? 0 > IGAppManager.sharedManager.fetchRoomListOffset {
+                            self?.loadMoreRooms()
+                        } else {
+                            self?.removeLoading()
+                        }
                     } else {
-                        self?.allRoomsFetched = true
-                        self?.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse, removeDeleted: true)
-                        //IGFactory.shared.deleteShareInfo()
+                        self?.removeLoading()
                     }
                 }
             }
@@ -591,7 +607,11 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
+        if indexPath.row + 1 == IGAppManager.sharedManager.fetchRoomListOffset {
+            loadMoreRooms()
+        }
+
         let cell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! IGRoomListtCell
         
         if self.rooms![indexPath.row].unreadCount == 0 {
@@ -908,6 +928,24 @@ class IGRecentsTableViewController: BaseTableViewController, UNUserNotificationC
         }
     }
 }
+
+
+extension IGRecentsTableViewController {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let remaining = scrollView.contentSize.height - (scrollView.frame.size.height + scrollView.contentOffset.y)
+        if remaining < 100 {
+            self.loadMoreRooms()
+        }
+    }
+    
+    func loadMoreRooms() {
+        if IGAppManager.sharedManager.allowFetchRoomList {
+            fetchRoomList(offset: Int32(IGAppManager.sharedManager.fetchRoomListOffset), limit: Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT))
+        }
+    }
+}
+
+
 
 //MARK:- Room Clear, Delete, Leave
 extension IGRecentsTableViewController {

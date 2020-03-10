@@ -266,7 +266,7 @@ public class IGFile: Object {
             break
         case .voice:
             self.baseFilePathTypeRaw = BaseFilePathType.document.rawValue
-            filePath = IGGlobal.VOICE_DIR + "/" + filename
+            filePath = IGGlobal.VOICE_DIR + "/" + "\(self.cacheID ?? IGGlobal.randomString(length: 10)).m4a" // use 'm4a' extension to be able to play voice
             break
         case .file:
             self.baseFilePathTypeRaw = BaseFilePathType.document.rawValue
@@ -295,11 +295,6 @@ public class IGFile: Object {
         }
         
         return filePath
-    }
-    
-    class func path(fileNameOnDisk: String) -> URL {
-        let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        return NSURL(fileURLWithPath: documents).appendingPathComponent(fileNameOnDisk)!
     }
     
     public func isInUploadLevels() -> Bool {

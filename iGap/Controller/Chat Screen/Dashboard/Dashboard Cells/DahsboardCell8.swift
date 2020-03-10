@@ -99,9 +99,12 @@ class DashboardCell8: AbstractDashboardCell {
             self.lblHint.removeFromSuperview()
 
         }
-        let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) {[unowned self] (timer) in
-            let dataEntries = self.generateRandomDataEntries()
-            self.basicBarChart.updateDataEntries(dataEntries: dataEntries, animated: true)
+        let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) {[weak self] (timer) in
+            guard let sSelf = self else {
+                return
+            }
+            let dataEntries = sSelf.generateRandomDataEntries()
+            sSelf.basicBarChart.updateDataEntries(dataEntries: dataEntries, animated: true)
         }
         timer.fire()
         

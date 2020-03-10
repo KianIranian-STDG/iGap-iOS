@@ -27,7 +27,6 @@ class IGStickerToolbar: UIGestureRecognizer {
     let ICON_BACKGROUDN_SIZE: Double = 38
     let STICKER_ADD = 1000000
     let STICKER_SETTING = 2000000
-    var animationView : AnimationView!
     
     public func toolbarMaker() -> UIView{
         fetchStickerInfo()
@@ -77,6 +76,8 @@ class IGStickerToolbar: UIGestureRecognizer {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         
+        let animationView = AnimationView()
+        
         let btn = UIButton()
         IGStickerToolbar.buttonArray.append(btn)
         btn.tag = index
@@ -105,7 +106,7 @@ class IGStickerToolbar: UIGestureRecognizer {
                 DispatchQueue.main.async {
                     if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
                         if isLiveStricker {
-                            self.animationView.setLiveSticker(for: fileInfo)
+                            animationView.setLiveSticker(for: fileInfo)
                         } else {
                             imageView.setSticker(for: fileInfo)
                         }
@@ -113,11 +114,10 @@ class IGStickerToolbar: UIGestureRecognizer {
                 }
             })
             if isLiveStricker {
-                self.animationView = AnimationView()
-                self.animationView.contentMode = .scaleAspectFit
-                self.animationView.isUserInteractionEnabled = false
-                parent.addSubview(self.animationView)
-                self.animationView.snp.makeConstraints { (make) in
+                animationView.contentMode = .scaleAspectFit
+                animationView.isUserInteractionEnabled = false
+                parent.addSubview(animationView)
+                animationView.snp.makeConstraints { (make) in
                     make.left.equalTo(parent.snp.left).offset(leftSpace)
                     make.centerY.equalTo(parent.snp.centerY)
                     make.width.equalTo(ICON_SIZE)

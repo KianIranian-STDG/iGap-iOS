@@ -13,7 +13,7 @@ import SnapKit
 
 class IGNewsSectionInnerTableViewController: BaseTableViewController {
     var categoryID : String! = "0"
-    var category : String! = "latestNews"
+    var category : String! = IGStringsManager.latestNews.rawValue.localized
     var currentPage: Int = 1
     var items = [contentsInnerNews]()
     var topItem : contentsInnerNews!

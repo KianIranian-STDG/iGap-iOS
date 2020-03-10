@@ -75,14 +75,17 @@ class IGNewsTableViewController: BaseTableViewController {
             
             if isSuccess {
                 self.items = items!
-                self.tableView.reloadData()
                 if self.deepLinkID != nil {
 
                     self.gotToNewsPageByDeepLink(articleID: self.deepLinkID!)
+                    return
                 }
                 if self.deepLinkCategoryID != nil {
                     self.goToCategoryPageByDeepLink(categoryID: self.deepLinkCategoryID!)
+                    return
                 }
+                self.tableView.reloadData()
+                
             }
             
             
@@ -97,8 +100,11 @@ class IGNewsTableViewController: BaseTableViewController {
                 let newsDetail = IGNewsDetailTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
                 newsDetail.item = response!
                 newsDetail.deepLinkID = articleID
-                UIApplication.topViewController()!.navigationController!.pushViewController(newsDetail, animated: true)
-
+                UIApplication.topViewController()!.navigationController!.pushViewController(viewController: newsDetail, animated: true, completion: {
+                    self.tableView.reloadData()
+                })
+                
+                
             } else {
                 return
             }
@@ -107,8 +113,10 @@ class IGNewsTableViewController: BaseTableViewController {
     private func goToCategoryPageByDeepLink(categoryID: String) {
         let newsInner = IGNewsSectionInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .News)
         
-            newsInner.categoryID = categoryID
-        UIApplication.topViewController()!.navigationController!.pushViewController(newsInner, animated: true)
+        newsInner.categoryID = categoryID
+        UIApplication.topViewController()!.navigationController!.pushViewController(viewController: newsInner, animated: true) {
+            self.tableView.reloadData()
+        }
         
     }
     private func customiseView() {
@@ -128,9 +136,6 @@ class IGNewsTableViewController: BaseTableViewController {
     }
     
     private func initAlignments() {
-        let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
-        tableView.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
-        
     }
     
     // MARK: - Actions
@@ -140,8 +145,6 @@ class IGNewsTableViewController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if items.count == 0 {
             self.tableView.setEmptyMessage(IGStringsManager.WaitDataFetch.rawValue.localized)
-            let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
-            self.tableView.backgroundView?.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         } else {
             self.tableView.restore()
         }
@@ -175,7 +178,11 @@ class IGNewsTableViewController: BaseTableViewController {
                 //title of double news section
                 singleNews.lblTitle0.text = (item.news![0].category)
                 //pass categoryID
+<<<<<<< HEAD
                 singleNews.categoryIDOne = "\(item.news![0].categoryId)"
+=======
+                singleNews.categoryIDOne = "\(item.news![0].categoryId?.stringValue ?? "")"
+>>>>>>> iGap
                 singleNews.categoryOne = (item.news![0].category)
                 
                 //set cell data
@@ -272,13 +279,10 @@ class IGNewsTableViewController: BaseTableViewController {
 
             cell = doubleButtons
             
-            
-            
-            
-        default:
-            cell = UITableViewCell()
-            
         }
+        
+        let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
+        cell.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         
         return cell
     }

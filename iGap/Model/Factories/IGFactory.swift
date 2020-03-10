@@ -548,10 +548,15 @@ class IGFactory: NSObject {
     func setMessageDeleted(_ messageID: Int64, roomID: Int64, deleteVersion: Int64) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             let predicate = NSPredicate(format: "id = %lld AND roomId = %lld",messageID, roomID)
-            if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
+            let lastRealMessage = IGRoomMessage.getLastMessage(roomId: roomID, isDeleted: false)
+            let deletedMessage = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first
+            if deletedMessage != nil {
                 try! IGDatabaseManager.shared.realm.write {
-                    messageInDb.isDeleted = true
-                    messageInDb.deleteVersion = deleteVersion
+                    deletedMessage!.isDeleted = true
+                    deletedMessage!.deleteVersion = deleteVersion
+                }
+                if let lastMessageId = lastRealMessage?.id, deletedMessage!.id >= lastMessageId { // last message is deleted
+                    IGRoom.setLastMessage(roomId: roomID, isDeleted: false)
                 }
             }
             SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(roomID)", sender: (action: ChatMessageAction.delete, roomId: roomID, messageId: messageID))

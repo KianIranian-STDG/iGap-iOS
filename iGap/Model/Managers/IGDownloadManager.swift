@@ -329,34 +329,32 @@ class IGDownloadManager {
                 
                 self.writeFile.async {
                     IGAttachmentManager.sharedManager.appendDataToDisk(attachment: downloadTask.file, data: fileDownloadReponse.igpBytes)
-                }
-                
-                if nextOffsetDownload != downloadTask.file.size { // downloading
                     
-                    let progress = self.fetchProgress(total: Int64(downloadTask.file.size), complete: nextOffsetDownload)
-                    IGAttachmentManager.sharedManager.setProgress(progress, for: downloadTask.file)
-                    IGDownloadManager.sharedManager.downloadProto(task: downloadTask, offset: nextOffsetDownload)
-                    
-                } else { // finished download
-                    
-                    IGAttachmentManager.sharedManager.setProgress(1.0, for: downloadTask.file)
-                    IGAttachmentManager.sharedManager.setStatus(.ready, for: downloadTask.file)
-                    
-                    if let task = self.dictionaryDownloadTaskMain[downloadTask.file.token!] {
-                        self.dictionaryDownloadTaskMain.removeValue(forKey: task.file.token!)
+                    if nextOffsetDownload != downloadTask.file.size { // downloading
+                        
+                        let progress = self.fetchProgress(total: Int64(downloadTask.file.size), complete: nextOffsetDownload)
+                        IGAttachmentManager.sharedManager.setProgress(progress, for: downloadTask.file)
+                        IGDownloadManager.sharedManager.downloadProto(task: downloadTask, offset: nextOffsetDownload)
+                        
+                    } else { // finished download
+                        
+                        IGAttachmentManager.sharedManager.setProgress(1.0, for: downloadTask.file)
+                        
+                        if let task = self.dictionaryDownloadTaskMain[downloadTask.file.token!] {
+                            self.dictionaryDownloadTaskMain.removeValue(forKey: task.file.token!)
+                        }
+                        
+                        downloadTask.state = .finished
+                        if let success = downloadTask.completionHandler {
+                            success(downloadTask.file)
+                        }
+                        switch downloadTask.type {
+                        case .originalFile:
+                            self.startNextDownloadTaskIfPossible()
+                        case .smallThumbnail, .largeThumbnail, .waveformThumbnail:
+                            self.startNextThumbnailTaskIfPossible()
+                        }
                     }
-                    
-                    downloadTask.state = .finished
-                    if let success = downloadTask.completionHandler {
-                        success(downloadTask.file)
-                    }
-                    switch downloadTask.type {
-                    case .originalFile:
-                        self.startNextDownloadTaskIfPossible()
-                    case .smallThumbnail, .largeThumbnail, .waveformThumbnail:
-                        self.startNextThumbnailTaskIfPossible()
-                    }
-                    
                 }
             }}.error({ (errorCode, waitTime) in
                 IGAttachmentManager.sharedManager.setProgress(0.0, for: downloadTask.file)
@@ -421,7 +419,7 @@ class IGDownloadManager {
         return progress.fractionCompleted
     }
     
-    func pauseAllDownloads(internetConnectionLost: Bool = false) {
+    func pauseAllDownloads(removePauseListCDN: Bool = false) {
         for downloadTask in dictionaryDownloadTaskMain.values {
             pauseDownload(attachment: downloadTask.file)
         }
@@ -433,7 +431,7 @@ class IGDownloadManager {
          * BUT
          * if just socket connection losted don't remove pauseDownload list (Because now we have to start task NOT start download)
          */
-        if internetConnectionLost {
+        if removePauseListCDN {
             dictionaryPauseTask.removeAll()
         }
     }

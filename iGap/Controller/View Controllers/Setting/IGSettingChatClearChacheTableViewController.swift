@@ -10,6 +10,8 @@
 
 import UIKit
 import RealmSwift
+import Files
+import Digger
 
 class IGSettingChatClearChacheTableViewController: BaseTableViewController {
     @IBOutlet weak var lblStickers: UILabel!
@@ -74,28 +76,25 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
         tableView.backgroundColor = ThemeManager.currentTheme.TableViewBackgroundColor
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.imagesSize = self.computeFileSize(fileType: FileType.image.rawValue)
+            self.imagesSize = self.sizeOfFolder(IGGlobal.APP_DIR + IGGlobal.IMAGE_DIR)
             self.txtImages.text = self.convertFileSize(fileSize: self.imagesSize)
             
-            self.gifsSize = self.computeFileSize(fileType: FileType.gif.rawValue)
+            self.gifsSize = self.sizeOfFolder(IGGlobal.APP_DIR + IGGlobal.GIF_DIR)
             self.txtGIFs.text = self.convertFileSize(fileSize: self.gifsSize)
             
-            self.videosSize = self.computeFileSize(fileType: FileType.video.rawValue)
+            self.videosSize = self.sizeOfFolder(IGGlobal.APP_DIR + IGGlobal.VIDEO_DIR)
             self.txtVideos.text = self.convertFileSize(fileSize: self.videosSize)
             
-            self.audiosSize = self.computeFileSize(fileType: FileType.audio.rawValue)
+            self.audiosSize = self.sizeOfFolder(IGGlobal.APP_DIR + IGGlobal.AUDIO_DIR)
             self.txtAudios.text = self.convertFileSize(fileSize: self.audiosSize)
             
-            self.voicesSize = self.computeFileSize(fileType: FileType.voice.rawValue)
+            self.voicesSize = self.sizeOfFolder(IGGlobal.APP_DIR + IGGlobal.VOICE_DIR)
             self.txtVoices.text = self.convertFileSize(fileSize: self.voicesSize)
             
-            self.documentsSize = self.computeFileSize(fileType: FileType.file.rawValue)
+            self.documentsSize = self.sizeOfFolder(IGGlobal.APP_DIR + IGGlobal.FILE_DIR)
             self.txtDocuments.text = self.convertFileSize(fileSize: self.documentsSize)
             
-            self.documentsSize = self.computeFileSize(fileType: FileType.file.rawValue)
-            self.txtDocuments.text = self.convertFileSize(fileSize: self.documentsSize)
-            
-            self.stickersSize = self.computeFileSize(fileType: FileType.sticker.rawValue)
+            self.stickersSize = self.sizeOfFolder(IGGlobal.APP_DIR + IGGlobal.STICKER_DIR)
             self.txtStickers.text = self.convertFileSize(fileSize: self.stickersSize)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -243,55 +242,69 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
         for row in selectedRows {
             switch row {
             case ClearCache.IMAGES.rawValue:
-                self.removeFiles(fileType: FileType.image.rawValue)
+                self.removeFolder(IGGlobal.APP_DIR + IGGlobal.IMAGE_DIR)
                 break
                 
             case ClearCache.GIFS.rawValue:
-                self.removeFiles(fileType: FileType.gif.rawValue)
+                self.removeFolder(IGGlobal.APP_DIR + IGGlobal.GIF_DIR)
                 break
                 
             case ClearCache.VIDEOS.rawValue:
-                self.removeFiles(fileType: FileType.video.rawValue)
+                self.removeFolder(IGGlobal.APP_DIR + IGGlobal.VIDEO_DIR)
                 break
                 
             case ClearCache.AUDIOS.rawValue:
-                self.removeFiles(fileType: FileType.audio.rawValue)
+                self.removeFolder(IGGlobal.APP_DIR + IGGlobal.AUDIO_DIR)
                 break
                 
             case ClearCache.VOICES.rawValue:
-                self.removeFiles(fileType: FileType.voice.rawValue)
+                self.removeFolder(IGGlobal.APP_DIR + IGGlobal.VOICE_DIR)
                 break
                 
             case ClearCache.DOCUMENTS.rawValue:
-                self.removeFiles(fileType: FileType.file.rawValue)
+                self.removeFolder(IGGlobal.APP_DIR + IGGlobal.FILE_DIR)
                 break
                 
             case ClearCache.STICKERS.rawValue:
-                self.removeFiles(fileType: FileType.sticker.rawValue)
+                self.removeFolder(IGGlobal.APP_DIR + IGGlobal.STICKER_DIR)
                 break
             default:
                 break
             }
         }
+        
+        IGAppManager.sharedManager.createAppDirectories()
     }
     
-    private func computeFileSize(fileType: Int) -> Int64 {
-        var size: Int64 = 0
-        for file in try! Realm().objects(IGFile.self).filter(NSPredicate(format: "typeRaw = %d", fileType)) {
-            if IGGlobal.isFileExist(path: file.localPath, fileSize: file.size) {
-                size = size + Int64(file.size)
+    private func sizeOfFolder(_ folderPath: String) -> Int64 {
+        do {
+            let contents = try FileManager.default.contentsOfDirectory(atPath: folderPath)
+            var folderSize: Int64 = 0
+            for content in contents {
+                do {
+                    let fullContentPath = folderPath + "/" + content
+                    let fileAttributes = try FileManager.default.attributesOfItem(atPath: fullContentPath)
+                    folderSize += fileAttributes[FileAttributeKey.size] as? Int64 ?? 0
+                } catch _ {
+                    continue
+                }
             }
+
+            return folderSize
+
+        } catch let error {
+            print(error.localizedDescription)
+            return 0
         }
-        return size
     }
     
-    private func removeFiles(fileType: Int) {
-        for file in try! Realm().objects(IGFile.self).filter(NSPredicate(format: "typeRaw = %d", fileType)) {
-            if IGGlobal.isFileExist(path: file.localPath, fileSize: file.size) {
-                IGGlobal.removeFile(path: file.localPath)
-                IGAttachmentManager.sharedManager.variablesCache.removeObject(forKey: file.cacheID! as NSString)
-            }
-        }
+    
+    private func removeFolder(_ folderPath: String) {
+        IGAttachmentManager.sharedManager.variablesCache.removeAllObjects()
+        IGDownloadManager.sharedManager.pauseAllDownloads(removePauseListCDN: true)
+        IGUploadManager.sharedManager.pauseAllUploads()
+        DiggerCache.cleanDownloadFiles()
+        try? FileManager.default.removeItem(atPath: folderPath)
     }
     
     private func convertFileSize(fileSize: Int64) -> String {

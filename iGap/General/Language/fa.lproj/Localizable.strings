@@ -18,6 +18,7 @@
 "MESSAGE_LOCATION" = "%1$@ 📍 پیام مکانی";
 "MESSAGE_CONTACT" = "%1$@ 👤 پیام مخاطب";
 "MESSAGE_STICKER" = "%1$@ 🏞 پیام استیکر";
+"MESSAGE_WALLET" = "یک رسید دریافت شد";
 
 "GROUP_MESSAGE_TEXT" = "%2$@\n%1$@: %3$@";
 "GROUP_MESSAGE_IMAGE" = "%2$@\n%1$@: 📷 پیام تصویری";
@@ -972,7 +973,7 @@ Page 4 introduce app */
 "updating" = "در حال به‌روزرسانی";
 
 /*  */
-"last_seen_recently" = "همین حالا";
+"last_seen_recently" = "اخیراً";
 
 /*  */
 "member" = "اعضا";
@@ -1677,7 +1678,7 @@ Page 4 introduce app */
 "convert_chat_to_group_title" = "انتقال گفتگو به گروه";
 
 /*  */
-"minute_ago" = "دقیقه پیش";
+"minute_ago" = "یک دقیقه پیش";
 
 /*  */
 "device" = "دستگاه:";
@@ -2196,13 +2197,13 @@ Page 4 introduce app */
 "MEMBER_KICKED" = "حذف شد";
 
 /*  */
-"MEMBER_LEFT" = "را ترک کرد";
+"MEMBER_LEFT" = "صفحه را ترک کرد";
 
 /*  */
-"ROOM_CONVERTED_TO_PUBLIC" = "از خصوصی به عمومی تبدیل شد";
+"ROOM_CONVERTED_TO_PUBLIC" = "صفحه را از خصوصی به عمومی تبدیل کرد";
 
 /*  */
-"ROOM_CONVERTED_TO_PRIVATE" = "از عمومی به خصوصی تبدیل شد";
+"ROOM_CONVERTED_TO_PRIVATE" = "صفحه را از عمومی به خصوصی تبدیل کرد";
 
 /*  */
 "MEMBER_JOINED_BY_INVITE_LINK" = "با دعوت به";
@@ -3774,7 +3775,7 @@ Page 4 introduce app */
 "keep_media_6month" = "6 Month";
 
 /*  */
-"minutes_ago" = "minutes ago";
+"minutes_ago" = "دقیقه پیش";
 
 /*  */
 "IP_blocked" = "به دلیل تلاش بیش از حد، IP شما برای مدتی مسدود شده است.";
@@ -6689,7 +6690,17 @@ Page 4 introduce app */
 "Theme_Day_Text" = "روز";
 "Theme_Night_Text" = "شب";
 "Theme_Icon_Appp" = "نماد برنامه";
+<<<<<<< HEAD
 
 "create_new_contact" = "مخاطب جدید";
 "phone_numbers" = "شماره ها";
 "emails" = "ایمیل ها";
+=======
+"topup_message" = "رسید شارژ تلفن";
+"bill_message" = "رسید پرداخت قبض";
+"bill_id" = "شناسه قبض";
+"requester_mobile_number" = "شماره تلفن درخواست کننده";
+"receivers_mobile_number" = "شماره موبایل گیرنده";
+"install_latest_version" = "برای استفاده از این ویژگی آخرین نسخه را نصب کنید";
+"fetching_rooms" = "درحال دریافت چت ها";
+>>>>>>> iGap

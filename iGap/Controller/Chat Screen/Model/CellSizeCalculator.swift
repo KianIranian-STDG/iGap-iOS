@@ -180,6 +180,15 @@ class CellSizeCalculator: NSObject {
             } else if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
                 finalSize.height = CellSizeLimit.ConstantSizes.CardToCard.Height
                 finalSize.width = CellSizeLimit.ConstantSizes.CardToCard.Width
+            } else if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.bill.rawValue {
+                finalSize.height = CellSizeLimit.ConstantSizes.Bill.Height
+                finalSize.width = CellSizeLimit.ConstantSizes.Bill.Width
+            } else if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.topup.rawValue {
+                finalSize.height = CellSizeLimit.ConstantSizes.Topup.Height
+                finalSize.width = CellSizeLimit.ConstantSizes.Topup.Width
+            } else {
+                finalSize.width = CellSizeLimit.ConstantSizes.UnknownMessage.Width
+                finalSize.height = CellSizeLimit.ConstantSizes.UnknownMessage.Height
             }
             
         } else if finalMessage.type == .log {
@@ -279,8 +288,8 @@ class CellSizeCalculator: NSObject {
                 }
             }
         } else {
-            finalSize.width = 200
-            finalSize.height = 50
+            finalSize.width = CellSizeLimit.ConstantSizes.UnknownMessage.Width
+            finalSize.height = CellSizeLimit.ConstantSizes.UnknownMessage.Height
         }
         
         if message.forwardedFrom == nil && additionalData != nil {
@@ -474,7 +483,7 @@ class CellSizeCalculator: NSObject {
             height = max(height, minHeight)
             return CGSize(width: width, height: height)
         } else {
-            return CGSize(width: minWidth, height: minHeight)
+            return CGSize(width: 200, height: 200)
         }
     }
     

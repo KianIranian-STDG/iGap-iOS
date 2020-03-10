@@ -1302,7 +1302,11 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     return 5
 
                 case .member?:
-                    return 4
+                    if room!.isParticipant == false {
+                        return 2
+                    }else {
+                        return 4
+                    }
                     
                 case .moderator?:
                     return 4
@@ -1321,7 +1325,12 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     
                     
                 case .member?:
-                    return 5
+                    if room!.isParticipant == false {
+                        return 2
+                    }else {
+                        return 5
+                    }
+                    
                     
                 case .moderator?:
                     return 5
@@ -1709,18 +1718,28 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                     return 50
                 }
             case .member?:
-                
-                switch section {
-                case 0:
-                    return 80
-                case 3:
-                    return 10
-                    
-                case 4:
-                    return 10
-                    
-                default:
-                    return 50
+                if room!.isParticipant == false {
+                    switch section {
+                    case 0:
+                        return 80
+                    case 1:
+                        return 50
+                    default:
+                        return 0
+                    }
+                }else {
+                    switch section {
+                    case 0:
+                        return 80
+                    case 3:
+                        return 10
+                        
+                    case 4:
+                        return 10
+                        
+                    default:
+                        return 50
+                    }
                 }
             case .moderator?:
                 
@@ -1772,17 +1791,28 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 }
             case .member?:
                 
-                switch section {
-                case 0:
-                    return 80
-                case 3:
-                    return 10
-                    
-                case 4:
-                    return 10
-                    
-                default:
-                    return 50
+                if room!.isParticipant == false {
+                    switch section {
+                    case 0:
+                        return 80
+                    case 1:
+                        return 50
+                    default:
+                        return 0
+                    }
+                }else {
+                    switch section {
+                    case 0:
+                        return 80
+                    case 3:
+                        return 10
+                        
+                    case 4:
+                        return 10
+                        
+                    default:
+                        return 50
+                    }
                 }
             case .moderator?:
                 
@@ -1958,7 +1988,7 @@ class IGProfileChannelViewController: BaseViewController, UITableViewDelegate, U
                 case 1:
                     switch indexPath.row {
                     case 0 :
-                        showChannelLinkAlert()
+//                        showChannelLinkAlert()
                         break
                     case 1 :
                         //gotToNotificationSettings

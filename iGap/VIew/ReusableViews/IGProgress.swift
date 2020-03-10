@@ -85,10 +85,24 @@ class IGProgress: UIView {
     
     
     func setState(_ state:Status) {
+<<<<<<< HEAD
         DispatchQueue.main.async {[weak self] in
             guard let sSelf = self else {
                 return
             }
+=======
+        makeActionButton()
+        self.isHidden = false
+        switch state {
+        case .readyToDownload:
+            setPercentage(0.0)
+            //actionButton?.setTitle("🎚", for: UIControl.State.normal)
+            break
+            
+        case .downloading, .uploading:
+            actionButton?.setTitle("", for: UIControl.State.normal)
+            break
+>>>>>>> iGap
             
             sSelf.makeActionButton()
             sSelf.isHidden = false
