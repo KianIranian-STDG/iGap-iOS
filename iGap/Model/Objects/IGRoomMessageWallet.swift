@@ -77,7 +77,10 @@ class IGRoomMessageWallet: Object {
         if self.cardToCard != nil {
             detachedRoomMessageWallet.cardToCard = self.cardToCard?.detach()
         }
-        
+        if self.topup != nil {
+            detachedRoomMessageWallet.topup = self.topup?.detach()
+        }
+
         return detachedRoomMessageWallet
     }
 }

@@ -664,6 +664,7 @@ class ChatControllerNode: ASCellNode {
         let TMPwidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
         
         contentSpec.style.maxLayoutSize = ASLayoutSize(width: TMPwidth, height: ASDimension(unit: .points, value: CGFloat.greatestFiniteMagnitude))
+
         switch msg!.type {
         case .text :
             let finalBox = setTextNodeContent(contentSpec: contentSpec, msg: msg!)
@@ -698,6 +699,9 @@ class ChatControllerNode: ASCellNode {
                 return finalBox
             } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue { //mode: moneyTransfer
                 let finalBox = setMoneyTransferNodeContent(contentSpec: contentSpec, msg: msg!)
+                return finalBox
+            } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.topup.rawValue { //mode: topup
+                let finalBox = setTopUpNodeContent(contentSpec: contentSpec, msg: msg!)
                 return finalBox
             } else {
                 let finalBox = setMoneyTransferNodeContent(contentSpec: contentSpec, msg: msg!)
@@ -1005,37 +1009,40 @@ class ChatControllerNode: ASCellNode {
             btnShowMore = ASButtonNode()
         }
 
-        IGGlobal.makeAsyncText(for: txtTypeIcon!, with: "", textColor: UIColor.iGapYellow(), size: 40, numberOfLines: 1, font: .fontIcon, alignment: .center)
-        IGGlobal.makeAsyncText(for: txtTypeTitle!, with: IGStringsManager.TopUp.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
-//        if let amount = (message.wallet?.t?.amount) {
+        IGGlobal.makeAsyncText(for: txtTypeIcon!, with: "", textColor: UIColor.iGapPurple(), size: 40, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTypeTitle!, with: IGStringsManager.TopUp.rawValue.localized + "                              ", textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
+        if let amount = (message.wallet?.topup?.amount) {
+
+            IGGlobal.makeAsyncText(for: txtAmount!, with: String(amount).inRialFormat() + " " + IGStringsManager.Currency.rawValue.localized
+           , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
+        }
+        else{
+
+           IGGlobal.makeAsyncText(for: txtAmount!, with: "..." , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        }
 //
-//            IGGlobal.makeAsyncText(for: txtAmount!, with: String(amount).inRialFormat() + " " + IGStringsManager.Currency.rawValue.localized
-//           , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
-//        }
-//        else{
+        viewSepratorOne!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorTwo!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorThree!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorFour!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorFive!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorSix!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorSeven!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorEight!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorNine!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorTen!.backgroundColor = ThemeManager.currentTheme.LabelColor
 //
-//           IGGlobal.makeAsyncText(for: txtAmount!, with: "..." , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-//        }
+        btnShowMore!.style.height = ASDimensionMake(.points, 50)
+        btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
 //
-//        viewSepratorOne!.backgroundColor = ThemeManager.currentTheme.LabelColor
-//        viewSepratorTwo!.backgroundColor = ThemeManager.currentTheme.LabelColor
-//        viewSepratorThree!.backgroundColor = ThemeManager.currentTheme.LabelColor
-//        viewSepratorFour!.backgroundColor = ThemeManager.currentTheme.LabelColor
-//        viewSepratorFive!.backgroundColor = ThemeManager.currentTheme.LabelColor
-//        viewSepratorSix!.backgroundColor = ThemeManager.currentTheme.LabelColor
-//        viewSepratorSeven!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLOrderNumber!,txtVALUEOrderNumber!,txtTTLGateWay!,txtVALUEGateWay!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
+        for elemnt in elemArray {
+            elemnt.style.preferredSize = CGSize.zero
+        }
 //
-//        btnShowMore!.style.height = ASDimensionMake(.points, 50)
-//        btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
-//
-//        let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderName!,txtVALUESenderName!,txtTTLReciever!,txtVALUEReciever!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,txtTTLDesc!,txtVALUEDesc!]
-//        for elemnt in elemArray {
-//            elemnt.style.preferredSize = CGSize.zero
-//        }
-//
-//        btnShowMore!.backgroundColor = UIColor.iGapYellow()
-//        btnShowMore!.layer.cornerRadius = 10.0
-//        btnShowMore!.addTarget(self, action: #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
+        btnShowMore!.backgroundColor = UIColor.iGapPurple()
+        btnShowMore!.layer.cornerRadius = 10.0
+        btnShowMore!.addTarget(self, action: #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
 //
 
         setTopUpData(message: message)
@@ -1045,39 +1052,69 @@ class ChatControllerNode: ASCellNode {
     
     private func setTopUpData(message: IGRoomMessage) {
         //TITLES SET DATA
-//        IGGlobal.makeAsyncText(for: txtTTLDate!, with: IGStringsManager.DateTime.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-//        IGGlobal.makeAsyncText(for: txtTTLSenderName!, with: IGStringsManager.From.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-//        IGGlobal.makeAsyncText(for: txtTTLReciever!, with: IGStringsManager.Reciever.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-//        IGGlobal.makeAsyncText(for: txtTTLTraceNumber!, with: IGStringsManager.TraceNumber.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-//        IGGlobal.makeAsyncText(for: txtTTLRefrenceNumber!, with: IGStringsManager.RefrenceNum.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-//        IGGlobal.makeAsyncText(for: txtTTLDesc!, with: IGStringsManager.Desc.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-//        //VALUES SET DATA
-//        if let time = TimeInterval(exactly: (message.wallet?.moneyTrasfer!.payTime)!) {
-//
-//            IGGlobal.makeAsyncText(for: txtVALUEDate!, with: Date(timeIntervalSince1970: time).completeHumanReadableTime(showHour: true).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-//
-//        }
-//        if let senderUser = IGRegisteredUser.getUserInfo(id: (message.wallet?.moneyTrasfer!.fromUserId)!) {
-//            IGGlobal.makeAsyncText(for: txtVALUESenderName!, with: senderUser.displayName, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-//        }
-//        if let receiverUser = IGRegisteredUser.getUserInfo(id: (message.wallet?.moneyTrasfer!.toUserId)!) {
-//            IGGlobal.makeAsyncText(for: txtVALUEReciever!, with: receiverUser.displayName, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-//        }
-//        if let traceNum = (message.wallet?.moneyTrasfer!.traceNumber) {
-//            IGGlobal.makeAsyncText(for: txtVALUETraceNumber!, with: String(traceNum).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-//
-//        }
-//        if let invoiceNum = (message.wallet?.moneyTrasfer!.invoiceNumber) {
-//            IGGlobal.makeAsyncText(for: txtVALUERefrenceNumber!, with: String(invoiceNum).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-//
-//        }
-//        if (message.wallet?.moneyTrasfer!.walletDescription)!.isEmpty  || (message.wallet?.moneyTrasfer!.walletDescription) == nil || (message.wallet?.moneyTrasfer!.description) == ""{
-//            IGGlobal.makeAsyncText(for: txtVALUEDesc!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-//
-//        } else {
-//            IGGlobal.makeAsyncText(for: txtVALUEDesc!, with: ((message.wallet?.moneyTrasfer!.walletDescription)!), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-//
-//        }
+        IGGlobal.makeAsyncText(for: txtTTLDate!, with: IGStringsManager.DateTime.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLSenderPhoneNumber!, with: IGStringsManager.TopupRequesterMobileNumber.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLRecieverPhoneNumber!, with: IGStringsManager.TopupReceiverMobileNumber.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLTopUpOperator!, with: IGStringsManager.ChargeType.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLSourceCardNumber!, with: IGStringsManager.CardNumber.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLOrderNumber!, with: IGStringsManager.OrderId.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLGateWay!, with: IGStringsManager.TerminalId.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLTraceNumber!, with: IGStringsManager.TraceNumber.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLRefrenceNumber!, with: IGStringsManager.RefrenceNum.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+        //VALUES SET DATA
+        if let time = TimeInterval(exactly: (message.wallet?.topup!.requestTime)!) {
+
+            IGGlobal.makeAsyncText(for: txtVALUEDate!, with: Date(timeIntervalSince1970: time).completeHumanReadableTime(showHour: true).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+        }
+        
+        if let senderUser = (message.wallet?.topup?.requesterMobileNumber) {
+            IGGlobal.makeAsyncText(for: txtVALUESenderPhoneNumber!, with: senderUser, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        }
+
+        if let receiverUser = (message.wallet?.topup?.chargeMobileNumber) {
+            IGGlobal.makeAsyncText(for: txtVALUERecieverPhoneNumber!, with: receiverUser, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        }
+        if let chargeOperator = (message.wallet?.topup?.topupType) {
+            if chargeOperator == IGProtoBuff.IGPRoomMessageWallet.IGPTopup.IGPType.mci.rawValue {
+                IGGlobal.makeAsyncText(for: txtVALUETopUpOperator!, with: IGStringsManager.MCI.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+            } else if chargeOperator == IGProtoBuff.IGPRoomMessageWallet.IGPTopup.IGPType.rightel.rawValue {
+                IGGlobal.makeAsyncText(for: txtVALUETopUpOperator!, with: IGStringsManager.Rightel.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+            } else if chargeOperator == IGProtoBuff.IGPRoomMessageWallet.IGPTopup.IGPType.irancellWow.rawValue {
+                IGGlobal.makeAsyncText(for: txtVALUETopUpOperator!, with: IGStringsManager.Irancell.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+            }  else if chargeOperator == IGProtoBuff.IGPRoomMessageWallet.IGPTopup.IGPType.irancellPrepaid.rawValue {
+                IGGlobal.makeAsyncText(for: txtVALUETopUpOperator!, with: IGStringsManager.Irancell.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+            }  else if chargeOperator == IGProtoBuff.IGPRoomMessageWallet.IGPTopup.IGPType.irancellPostpaid.rawValue {
+                IGGlobal.makeAsyncText(for: txtVALUETopUpOperator!, with: IGStringsManager.Irancell.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+            } else {
+                IGGlobal.makeAsyncText(for: txtVALUETopUpOperator!, with: IGStringsManager.Irancell.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+            }
+        }
+        if let cardNumber = (message.wallet?.topup?.cardNumber) {
+            IGGlobal.makeAsyncText(for: txtVALUESourceCardNumber!, with: cardNumber, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        }
+        if let orderNumber = (message.wallet?.topup?.orderId) {
+            IGGlobal.makeAsyncText(for: txtVALUEOrderNumber!, with: String(orderNumber).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        }
+        if let terminalNumber = (message.wallet?.topup?.terminalNo) {
+            IGGlobal.makeAsyncText(for: txtVALUEGateWay!, with: String(terminalNumber).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        }
+        if let traceNum = (message.wallet?.topup!.traceNumber) {
+            IGGlobal.makeAsyncText(for: txtVALUETraceNumber!, with: String(traceNum).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+            
+        }
+        if let invoiceNum = (message.wallet?.topup!.rrn) {
+            IGGlobal.makeAsyncText(for: txtVALUERefrenceNumber!, with: String(invoiceNum).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+            
+        }
+
 
         self.message = message
 
@@ -1096,7 +1133,7 @@ class ChatControllerNode: ASCellNode {
           let mainBox = ASStackLayoutSpec.vertical()
           mainBox.justifyContent = .spaceAround
           mainBox.children = [profileBox]
-          let elemArray : [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderName!,txtVALUESenderName!,viewSepratorThree!,txtTTLReciever!,txtVALUEReciever!,viewSepratorFour!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorFive!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,viewSepratorSix!,txtTTLDesc!,txtVALUEDesc!]
+          let elemArray : [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,viewSepratorThree!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,viewSepratorFour!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,viewSepratorFive!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,viewSepratorSix!,txtTTLOrderNumber!,txtVALUEOrderNumber!,viewSepratorSeven!,txtTTLGateWay!,txtVALUEGateWay!,viewSepratorEight!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorNine!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
 
           for elemnt in elemArray {
               mainBox.children?.append(elemnt)
@@ -1104,7 +1141,7 @@ class ChatControllerNode: ASCellNode {
           mainBox.children?.append(btnShowMore!)
 
           // Apply text truncation
-          let elems: [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderName!,txtVALUESenderName!,viewSepratorThree!,txtTTLReciever!,txtVALUEReciever!,viewSepratorFour!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorFive!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,viewSepratorSix!,txtTTLDesc!,txtVALUEDesc!, textBox, profileBox, mainBox]
+          let elems: [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,viewSepratorThree!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,viewSepratorFour!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,viewSepratorFive!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,viewSepratorSix!,txtTTLOrderNumber!,txtVALUEOrderNumber!,viewSepratorSeven!,txtTTLGateWay!,txtVALUEGateWay!,viewSepratorEight!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorNine!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,textBox,profileBox,mainBox]
           for elem in elems {
               elem.style.flexShrink = 1
           }
@@ -1606,8 +1643,59 @@ class ChatControllerNode: ASCellNode {
                 })
             }
 
-        } else if self.message?.wallet?.payment != nil {
-            
+        } else if self.message?.wallet?.topup != nil {
+            if self.hasShownMore {
+                           testNode!.layoutIfNeeded()
+                           btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+
+                viewSepratorOne!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorTwo!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorThree!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorFive!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorFour!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorSix!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorSeven!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorEight!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorNine!.style.height = ASDimensionMake(.points, 0)
+
+
+                           let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLOrderNumber!,txtVALUEOrderNumber!,txtTTLGateWay!,txtVALUEGateWay!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
+                           for elemnt in elemArray {
+                               elemnt.style.preferredSize = CGSize.zero
+                           }
+                           UIView.animate(withDuration: 1.0, animations: {[weak self] in
+                               guard let sSelf = self else {
+                                   return
+                               }
+                             sSelf.testNode!.layoutIfNeeded()
+                           })
+
+
+                       } else {
+                           testNode!.layoutIfNeeded()
+                           btnShowMore!.setTitle(IGStringsManager.GlobalClose.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+
+                           viewSepratorOne!.style.height = ASDimensionMake(.points, 1)
+                           viewSepratorTwo!.style.height = ASDimensionMake(.points, 1)
+                           viewSepratorThree!.style.height = ASDimensionMake(.points, 1)
+                           viewSepratorFive!.style.height = ASDimensionMake(.points, 1)
+                           viewSepratorFour!.style.height = ASDimensionMake(.points, 1)
+                           viewSepratorSix!.style.height = ASDimensionMake(.points, 1)
+                           viewSepratorSeven!.style.height = ASDimensionMake(.points, 1)
+                           viewSepratorEight!.style.height = ASDimensionMake(.points, 1)
+                           viewSepratorNine!.style.height = ASDimensionMake(.points, 1)
+                           let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLOrderNumber!,txtVALUEOrderNumber!,txtTTLGateWay!,txtVALUEGateWay!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
+                           for elemnt in elemArray {
+                               elemnt.style.height = ASDimensionMake(.points, 25)
+                           }
+
+                           UIView.animate(withDuration: 1.0, animations: {[weak self] in
+                               guard let sSelf = self else {
+                                   return
+                               }
+                             sSelf.testNode!.layoutIfNeeded()
+                           })
+                       }
         } else {
             
         }
