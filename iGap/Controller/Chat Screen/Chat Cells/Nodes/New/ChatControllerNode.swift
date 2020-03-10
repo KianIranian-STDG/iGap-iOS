@@ -1033,7 +1033,7 @@ class ChatControllerNode: ASCellNode {
         viewSepratorTen!.backgroundColor = ThemeManager.currentTheme.LabelColor
 //
         btnShowMore!.style.height = ASDimensionMake(.points, 50)
-        btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+        btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .white, for: .normal)
 //
         let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLOrderNumber!,txtVALUEOrderNumber!,txtTTLGateWay!,txtVALUEGateWay!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
         for elemnt in elemArray {
