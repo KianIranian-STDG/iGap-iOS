@@ -98,6 +98,40 @@ class ChatControllerNode: ASCellNode {
     // btnShowMore
     private var btnShowMore : ASButtonNode?
 
+    //MoneyTransfer
+    // Sender Name
+    private var txtTTLSenderName : ASTextNode?
+    private var txtVALUESenderName : ASTextNode?
+    // Receiver Name
+    private var txtTTLReciever : ASTextNode?
+    private var txtVALUEReciever : ASTextNode?
+    // Description
+    private var txtTTLDesc : ASTextNode?
+    private var txtVALUEDesc : ASTextNode?
+
+    private var viewSepratorThree : ASDisplayNode?
+    private var viewSepratorFour : ASDisplayNode?
+    private var viewSepratorFive : ASDisplayNode?
+    private var viewSepratorSix : ASDisplayNode?
+    private var viewSepratorSeven : ASDisplayNode?
+    private var viewSepratorOne : ASDisplayNode?
+    private var viewSepratorTwo : ASDisplayNode?
+
+    //TopUp
+    private var viewSepratorEight : ASDisplayNode?
+    private var viewSepratorNine : ASDisplayNode?
+    private var viewSepratorTen : ASDisplayNode?
+    private var txtTTLSenderPhoneNumber : ASTextNode?
+    private var txtVALUESenderPhoneNumber : ASTextNode?
+    private var txtTTLRecieverPhoneNumber : ASTextNode?
+    private var txtVALUERecieverPhoneNumber : ASTextNode?
+    private var txtTTLTopUpOperator : ASTextNode?
+    private var txtVALUETopUpOperator : ASTextNode?
+    private var txtTTLGateWay : ASTextNode?
+    private var txtVALUEGateWay : ASTextNode?
+    private var txtTTLOrderNumber : ASTextNode?
+    private var txtVALUEOrderNumber : ASTextNode?
+
     
     
     
@@ -659,19 +693,20 @@ class ChatControllerNode: ASCellNode {
             let finalBox = setStickerNodeContent(contentSpec: contentSpec, msg: msg!)
             return finalBox
         case .wallet :
-//            if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue { //mode: CardToCard
-//                let finalBox = setCardToCardNodeContent(contentSpec: contentSpec, msg: msg!)
-//                return finalBox
-//            } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue { //mode: payment
-//                let finalBox = setCardToCardNodeContent(contentSpec: contentSpec, msg: msg!)
-//                return finalBox
-//            } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue { //mode: moneyTransfer
-//                let finalBox = setCardToCardNodeContent(contentSpec: contentSpec, msg: msg!)
-//                return finalBox
-//            }
-            let finalBox = setCardToCardNodeContent(contentSpec: contentSpec, msg: msg!)
-            return finalBox
+            if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue { //mode: CardToCard
+                let finalBox = setCardToCardNodeContent(contentSpec: contentSpec, msg: msg!)
+                return finalBox
+            } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue { //mode: moneyTransfer
+                let finalBox = setMoneyTransferNodeContent(contentSpec: contentSpec, msg: msg!)
+                return finalBox
+            } else {
+                let finalBox = setMoneyTransferNodeContent(contentSpec: contentSpec, msg: msg!)
+                return finalBox
 
+            }
+
+
+            
         case .log,.time,.unread,.progress :
             contentSpec.horizontalAlignment = .middle
 
@@ -844,6 +879,467 @@ class ChatControllerNode: ASCellNode {
         }
     }
     //******************************************************//
+    //*****************TOPUP RECIEPT NODE*******************//
+    //******************************************************//
+    private func initTopUpItems() {
+
+        initTopUpTextNodeItemns()
+
+        initTopUpSeprators()
+    }
+    private func initTopUpSeprators() {
+        if testNode == nil {
+            testNode = ASDisplayNode()
+        }
+
+        if viewSepratorThree == nil {
+            viewSepratorThree = ASDisplayNode()
+        }
+        if viewSepratorFour == nil {
+            viewSepratorFour = ASDisplayNode()
+        }
+        if viewSepratorFive == nil {
+            viewSepratorFive = ASDisplayNode()
+        }
+        if viewSepratorSix == nil {
+            viewSepratorSix = ASDisplayNode()
+        }
+        if viewSepratorSeven == nil {
+            viewSepratorSeven = ASDisplayNode()
+        }
+        if viewSepratorOne == nil {
+            viewSepratorOne = ASDisplayNode()
+        }
+        if viewSepratorTwo == nil {
+            viewSepratorTwo = ASDisplayNode()
+        }
+        if viewSepratorEight == nil {
+            viewSepratorEight = ASDisplayNode()
+        }
+        if viewSepratorNine == nil {
+            viewSepratorNine = ASDisplayNode()
+        }
+        if viewSepratorTen == nil {
+            viewSepratorTen = ASDisplayNode()
+        }
+
+
+    }
+    private func initTopUpTextNodeItemns() {
+
+        if txtTypeIcon == nil {
+            txtTypeIcon = ASTextNode()
+        }
+        if txtTypeTitle == nil {
+            txtTypeTitle = ASTextNode()
+        }
+        if txtAmount == nil {
+            txtAmount = ASTextNode()
+        }
+
+        if txtTTLDate == nil {
+            txtTTLDate = ASTextNode()
+        }
+        if txtVALUEDate == nil {
+            txtVALUEDate = ASTextNode()
+        }
+        if txtTTLSenderPhoneNumber == nil {
+            txtTTLSenderPhoneNumber = ASTextNode()
+        }
+        if txtVALUESenderPhoneNumber == nil {
+            txtVALUESenderPhoneNumber = ASTextNode()
+        }
+        if txtTTLRecieverPhoneNumber == nil {
+            txtTTLRecieverPhoneNumber = ASTextNode()
+        }
+        if txtVALUERecieverPhoneNumber == nil {
+            txtVALUERecieverPhoneNumber = ASTextNode()
+        }
+        if txtTTLTopUpOperator == nil {
+            txtTTLTopUpOperator = ASTextNode()
+        }
+        if txtVALUETopUpOperator == nil {
+            txtVALUETopUpOperator = ASTextNode()
+        }
+        if txtVALUETopUpOperator == nil {
+            txtVALUETopUpOperator = ASTextNode()
+        }
+
+        if txtTTLSourceCardNumber == nil {
+            txtTTLSourceCardNumber = ASTextNode()
+        }
+        if txtVALUESourceCardNumber == nil {
+            txtVALUESourceCardNumber = ASTextNode()
+        }
+        if txtVALUETraceNumber == nil {
+            txtVALUETraceNumber = ASTextNode()
+        }
+        if txtTTLTraceNumber == nil {
+            txtTTLTraceNumber = ASTextNode()
+        }
+        if txtTTLRefrenceNumber == nil {
+            txtTTLRefrenceNumber = ASTextNode()
+        }
+        if txtVALUERefrenceNumber == nil {
+            txtVALUERefrenceNumber = ASTextNode()
+        }
+        if txtTTLOrderNumber == nil {
+            txtTTLOrderNumber = ASTextNode()
+        }
+        if txtVALUEOrderNumber == nil {
+            txtVALUEOrderNumber = ASTextNode()
+        }
+        if txtTTLGateWay == nil {
+            txtTTLGateWay = ASTextNode()
+        }
+        if txtVALUEGateWay == nil {
+            txtVALUEGateWay = ASTextNode()
+        }
+
+
+        
+    }
+    private func makeTopUpView(message: IGRoomMessage) {
+        initTopUpItems()
+        if btnShowMore == nil {
+            btnShowMore = ASButtonNode()
+        }
+
+        IGGlobal.makeAsyncText(for: txtTypeIcon!, with: "", textColor: UIColor.iGapYellow(), size: 40, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTypeTitle!, with: IGStringsManager.TopUp.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
+//        if let amount = (message.wallet?.t?.amount) {
+//
+//            IGGlobal.makeAsyncText(for: txtAmount!, with: String(amount).inRialFormat() + " " + IGStringsManager.Currency.rawValue.localized
+//           , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
+//        }
+//        else{
+//
+//           IGGlobal.makeAsyncText(for: txtAmount!, with: "..." , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+//        }
+//
+//        viewSepratorOne!.backgroundColor = ThemeManager.currentTheme.LabelColor
+//        viewSepratorTwo!.backgroundColor = ThemeManager.currentTheme.LabelColor
+//        viewSepratorThree!.backgroundColor = ThemeManager.currentTheme.LabelColor
+//        viewSepratorFour!.backgroundColor = ThemeManager.currentTheme.LabelColor
+//        viewSepratorFive!.backgroundColor = ThemeManager.currentTheme.LabelColor
+//        viewSepratorSix!.backgroundColor = ThemeManager.currentTheme.LabelColor
+//        viewSepratorSeven!.backgroundColor = ThemeManager.currentTheme.LabelColor
+//
+//        btnShowMore!.style.height = ASDimensionMake(.points, 50)
+//        btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+//
+//        let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderName!,txtVALUESenderName!,txtTTLReciever!,txtVALUEReciever!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,txtTTLDesc!,txtVALUEDesc!]
+//        for elemnt in elemArray {
+//            elemnt.style.preferredSize = CGSize.zero
+//        }
+//
+//        btnShowMore!.backgroundColor = UIColor.iGapYellow()
+//        btnShowMore!.layer.cornerRadius = 10.0
+//        btnShowMore!.addTarget(self, action: #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
+//
+
+        setTopUpData(message: message)
+
+
+    }
+    
+    private func setTopUpData(message: IGRoomMessage) {
+        //TITLES SET DATA
+//        IGGlobal.makeAsyncText(for: txtTTLDate!, with: IGStringsManager.DateTime.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+//        IGGlobal.makeAsyncText(for: txtTTLSenderName!, with: IGStringsManager.From.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+//        IGGlobal.makeAsyncText(for: txtTTLReciever!, with: IGStringsManager.Reciever.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+//        IGGlobal.makeAsyncText(for: txtTTLTraceNumber!, with: IGStringsManager.TraceNumber.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+//        IGGlobal.makeAsyncText(for: txtTTLRefrenceNumber!, with: IGStringsManager.RefrenceNum.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+//        IGGlobal.makeAsyncText(for: txtTTLDesc!, with: IGStringsManager.Desc.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+//        //VALUES SET DATA
+//        if let time = TimeInterval(exactly: (message.wallet?.moneyTrasfer!.payTime)!) {
+//
+//            IGGlobal.makeAsyncText(for: txtVALUEDate!, with: Date(timeIntervalSince1970: time).completeHumanReadableTime(showHour: true).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+//
+//        }
+//        if let senderUser = IGRegisteredUser.getUserInfo(id: (message.wallet?.moneyTrasfer!.fromUserId)!) {
+//            IGGlobal.makeAsyncText(for: txtVALUESenderName!, with: senderUser.displayName, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+//        }
+//        if let receiverUser = IGRegisteredUser.getUserInfo(id: (message.wallet?.moneyTrasfer!.toUserId)!) {
+//            IGGlobal.makeAsyncText(for: txtVALUEReciever!, with: receiverUser.displayName, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+//        }
+//        if let traceNum = (message.wallet?.moneyTrasfer!.traceNumber) {
+//            IGGlobal.makeAsyncText(for: txtVALUETraceNumber!, with: String(traceNum).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+//
+//        }
+//        if let invoiceNum = (message.wallet?.moneyTrasfer!.invoiceNumber) {
+//            IGGlobal.makeAsyncText(for: txtVALUERefrenceNumber!, with: String(invoiceNum).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+//
+//        }
+//        if (message.wallet?.moneyTrasfer!.walletDescription)!.isEmpty  || (message.wallet?.moneyTrasfer!.walletDescription) == nil || (message.wallet?.moneyTrasfer!.description) == ""{
+//            IGGlobal.makeAsyncText(for: txtVALUEDesc!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+//
+//        } else {
+//            IGGlobal.makeAsyncText(for: txtVALUEDesc!, with: ((message.wallet?.moneyTrasfer!.walletDescription)!), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+//
+//        }
+
+        self.message = message
+
+    }
+    private func layoutTopUp(msg: IGRoomMessage) -> ASLayoutSpec {
+        
+          let textBox = ASStackLayoutSpec.vertical()
+          textBox.justifyContent = .spaceAround
+          textBox.children = [txtTypeTitle!, txtAmount!]
+
+
+          let profileBox = ASStackLayoutSpec.horizontal()
+          profileBox.spacing = 10
+          profileBox.children = [txtTypeIcon!, textBox]
+
+          let mainBox = ASStackLayoutSpec.vertical()
+          mainBox.justifyContent = .spaceAround
+          mainBox.children = [profileBox]
+          let elemArray : [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderName!,txtVALUESenderName!,viewSepratorThree!,txtTTLReciever!,txtVALUEReciever!,viewSepratorFour!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorFive!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,viewSepratorSix!,txtTTLDesc!,txtVALUEDesc!]
+
+          for elemnt in elemArray {
+              mainBox.children?.append(elemnt)
+          }
+          mainBox.children?.append(btnShowMore!)
+
+          // Apply text truncation
+          let elems: [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderName!,txtVALUESenderName!,viewSepratorThree!,txtTTLReciever!,txtVALUEReciever!,viewSepratorFour!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorFive!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,viewSepratorSix!,txtTTLDesc!,txtVALUEDesc!, textBox, profileBox, mainBox]
+          for elem in elems {
+              elem.style.flexShrink = 1
+          }
+
+        
+          
+        let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+        top: 10,
+        left: 10,
+        bottom: 10,
+        right: 20), child: mainBox)
+            
+        
+        return insetSpec
+    }
+    
+    private func setTopUpNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage) -> ASLayoutSpec {
+        makeTopUpView(message: msg)
+        return layoutTopUp(msg: msg)
+    }
+
+    //******************************************************//
+    //*************MONEYTRANSFER RECIEPT NODE***************//
+    //******************************************************//
+    private func initMoneyTransferItems() {
+
+        initMoneyTransferTextNodeItemns()
+
+        initMoneyTransferSeprators()
+    }
+    private func initMoneyTransferSeprators() {
+
+        if viewSepratorThree == nil {
+            viewSepratorThree = ASDisplayNode()
+        }
+        if viewSepratorFour == nil {
+            viewSepratorFour = ASDisplayNode()
+        }
+        if viewSepratorFive == nil {
+            viewSepratorFive = ASDisplayNode()
+        }
+        if viewSepratorSix == nil {
+            viewSepratorSix = ASDisplayNode()
+        }
+        if viewSepratorSeven == nil {
+            viewSepratorSeven = ASDisplayNode()
+        }
+        if viewSepratorOne == nil {
+            viewSepratorOne = ASDisplayNode()
+        }
+        if viewSepratorTwo == nil {
+            viewSepratorTwo = ASDisplayNode()
+        }
+    }
+    private func initMoneyTransferTextNodeItemns() {
+
+
+        if txtTypeIcon == nil {
+            txtTypeIcon = ASTextNode()
+        }
+        if txtTypeTitle == nil {
+            txtTypeTitle = ASTextNode()
+        }
+        if txtAmount == nil {
+            txtAmount = ASTextNode()
+        }
+        if testNode == nil {
+            testNode = ASDisplayNode()
+        }
+        if txtTTLDate == nil {
+            txtTTLDate = ASTextNode()
+        }
+        if txtVALUEDate == nil {
+            txtVALUEDate = ASTextNode()
+        }
+        if txtTTLSenderName == nil {
+            txtTTLSenderName = ASTextNode()
+        }
+        if txtVALUESenderName == nil {
+            txtVALUESenderName = ASTextNode()
+        }
+        if txtTTLReciever == nil {
+            txtTTLReciever = ASTextNode()
+        }
+        if txtVALUEReciever == nil {
+            txtVALUEReciever = ASTextNode()
+        }
+        if txtTTLDesc == nil {
+            txtTTLDesc = ASTextNode()
+        }
+        if txtVALUEDesc == nil {
+            txtVALUEDesc = ASTextNode()
+        }
+
+        if txtTTLTraceNumber == nil {
+            txtTTLTraceNumber = ASTextNode()
+        }
+        if txtVALUETraceNumber == nil {
+            txtVALUETraceNumber = ASTextNode()
+        }
+        if txtTTLRefrenceNumber == nil {
+            txtTTLRefrenceNumber = ASTextNode()
+        }
+        if txtVALUERefrenceNumber == nil {
+            txtVALUERefrenceNumber = ASTextNode()
+        }
+
+    }
+    private func makeMoneyTransferView(message: IGRoomMessage) {
+        initMoneyTransferItems()
+        if btnShowMore == nil {
+            btnShowMore = ASButtonNode()
+        }
+
+        IGGlobal.makeAsyncText(for: txtTypeIcon!, with: "", textColor: UIColor.iGapYellow(), size: 40, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTypeTitle!, with: IGStringsManager.WalletMoneyTransfer.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
+        if let amount = (message.wallet?.moneyTrasfer?.amount) {
+            
+            IGGlobal.makeAsyncText(for: txtAmount!, with: String(amount).inRialFormat() + " " + IGStringsManager.Currency.rawValue.localized
+           , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
+        }
+        else{
+            
+           IGGlobal.makeAsyncText(for: txtAmount!, with: "..." , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        }
+
+        viewSepratorOne!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorTwo!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorThree!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorFour!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorFive!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorSix!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorSeven!.backgroundColor = ThemeManager.currentTheme.LabelColor
+
+        btnShowMore!.style.height = ASDimensionMake(.points, 50)
+        btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+
+        let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderName!,txtVALUESenderName!,txtTTLReciever!,txtVALUEReciever!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,txtTTLDesc!,txtVALUEDesc!]
+        for elemnt in elemArray {
+            elemnt.style.preferredSize = CGSize.zero
+        }
+
+        btnShowMore!.backgroundColor = UIColor.iGapYellow()
+        btnShowMore!.layer.cornerRadius = 10.0
+        btnShowMore!.addTarget(self, action: #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
+
+
+        setMoneyTransferData(message: message)
+
+
+    }
+    
+    private func setMoneyTransferData(message: IGRoomMessage) {
+        //TITLES SET DATA
+        IGGlobal.makeAsyncText(for: txtTTLDate!, with: IGStringsManager.DateTime.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLSenderName!, with: IGStringsManager.From.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLReciever!, with: IGStringsManager.Reciever.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLTraceNumber!, with: IGStringsManager.TraceNumber.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLRefrenceNumber!, with: IGStringsManager.RefrenceNum.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLDesc!, with: IGStringsManager.Desc.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        //VALUES SET DATA
+        if let time = TimeInterval(exactly: (message.wallet?.moneyTrasfer!.payTime)!) {
+
+            IGGlobal.makeAsyncText(for: txtVALUEDate!, with: Date(timeIntervalSince1970: time).completeHumanReadableTime(showHour: true).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+        }
+        if let senderUser = IGRegisteredUser.getUserInfo(id: (message.wallet?.moneyTrasfer!.fromUserId)!) {
+            IGGlobal.makeAsyncText(for: txtVALUESenderName!, with: senderUser.displayName, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        }
+        if let receiverUser = IGRegisteredUser.getUserInfo(id: (message.wallet?.moneyTrasfer!.toUserId)!) {
+            IGGlobal.makeAsyncText(for: txtVALUEReciever!, with: receiverUser.displayName, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        }
+        if let traceNum = (message.wallet?.moneyTrasfer!.traceNumber) {
+            IGGlobal.makeAsyncText(for: txtVALUETraceNumber!, with: String(traceNum).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+        }
+        if let invoiceNum = (message.wallet?.moneyTrasfer!.invoiceNumber) {
+            IGGlobal.makeAsyncText(for: txtVALUERefrenceNumber!, with: String(invoiceNum).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+        }
+        if (message.wallet?.moneyTrasfer!.walletDescription)!.isEmpty  || (message.wallet?.moneyTrasfer!.walletDescription) == nil || (message.wallet?.moneyTrasfer!.description) == ""{
+            IGGlobal.makeAsyncText(for: txtVALUEDesc!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+        } else {
+            IGGlobal.makeAsyncText(for: txtVALUEDesc!, with: ((message.wallet?.moneyTrasfer!.walletDescription)!), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+        }
+
+        self.message = message
+
+    }
+    private func layoutMoneyTransfer(msg: IGRoomMessage) -> ASLayoutSpec {
+        
+          let textBox = ASStackLayoutSpec.vertical()
+          textBox.justifyContent = .spaceAround
+          textBox.children = [txtTypeTitle!, txtAmount!]
+          
+
+          let profileBox = ASStackLayoutSpec.horizontal()
+          profileBox.spacing = 10
+          profileBox.children = [txtTypeIcon!, textBox]
+          
+          let mainBox = ASStackLayoutSpec.vertical()
+          mainBox.justifyContent = .spaceAround
+          mainBox.children = [profileBox]
+          let elemArray : [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderName!,txtVALUESenderName!,viewSepratorThree!,txtTTLReciever!,txtVALUEReciever!,viewSepratorFour!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorFive!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,viewSepratorSix!,txtTTLDesc!,txtVALUEDesc!]
+
+          for elemnt in elemArray {
+              mainBox.children?.append(elemnt)
+          }
+          mainBox.children?.append(btnShowMore!)
+
+          // Apply text truncation
+          let elems: [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderName!,txtVALUESenderName!,viewSepratorThree!,txtTTLReciever!,txtVALUEReciever!,viewSepratorFour!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorFive!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,viewSepratorSix!,txtTTLDesc!,txtVALUEDesc!, textBox, profileBox, mainBox]
+          for elem in elems {
+              elem.style.flexShrink = 1
+          }
+          
+        
+          
+        let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+        top: 10,
+        left: 10,
+        bottom: 10,
+        right: 20), child: mainBox)
+            
+        
+        return insetSpec
+    }
+    
+    private func setMoneyTransferNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage) -> ASLayoutSpec {
+        makeMoneyTransferView(message: msg)
+        return layoutMoneyTransfer(msg: msg)
+    }
+    //******************************************************//
     //****************CARDTOCARD RECIEPT NODE***************//
     //******************************************************//
     private func initCardToCardItems() {
@@ -937,7 +1433,7 @@ class ChatControllerNode: ASCellNode {
         if btnShowMore == nil {
             btnShowMore = ASButtonNode()
         }
-        IGGlobal.makeAsyncText(for: txtTypeIcon!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 40, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTypeIcon!, with: "", textColor: UIColor.iGapBlue(), size: 40, numberOfLines: 1, font: .fontIcon, alignment: .center)
         IGGlobal.makeAsyncText(for: txtTypeTitle!, with: IGStringsManager.CardMoneyTransfer.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
         if let amount = (message.wallet?.cardToCard?.amount) {
             
@@ -959,14 +1455,14 @@ class ChatControllerNode: ASCellNode {
         viewSepratorDate!.backgroundColor = ThemeManager.currentTheme.LabelColor
 
         btnShowMore!.style.height = ASDimensionMake(.points, 50)
-        btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+        btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .white, for: .normal)
 
         let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLDestinationCardNumber!,txtVALUEDestinationCardNumber!,txtTTLDestinationBankName!,txtVALUEDestinationBankName!,txtTTLCardOwnerName!,txtVALUECardOwnerName!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
         for elemnt in elemArray {
             elemnt.style.preferredSize = CGSize.zero
         }
 
-        btnShowMore!.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
+        btnShowMore!.backgroundColor = UIColor.iGapBlue()
         btnShowMore!.layer.cornerRadius = 10.0
         btnShowMore!.addTarget(self, action: #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
         setCardToCardData(message: message)
@@ -1012,7 +1508,7 @@ class ChatControllerNode: ASCellNode {
             
             if self.hasShownMore {
                 testNode!.layoutIfNeeded()
-                btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+                btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .white, for: .normal)
 
                 viewSepratorCardNum!.style.height = ASDimensionMake(.points, 0)
                 viewSepratorTraceNum!.style.height = ASDimensionMake(.points, 0)
@@ -1037,7 +1533,7 @@ class ChatControllerNode: ASCellNode {
 
             } else {
                 testNode!.layoutIfNeeded()
-                btnShowMore!.setTitle(IGStringsManager.GlobalClose.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+                btnShowMore!.setTitle(IGStringsManager.GlobalClose.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .white, for: .normal)
 
                 viewSepratorCardNum!.style.height = ASDimensionMake(.points, 1)
                 viewSepratorTraceNum!.style.height = ASDimensionMake(.points, 1)
@@ -1061,7 +1557,55 @@ class ChatControllerNode: ASCellNode {
             }
             
         } else if self.message?.wallet?.moneyTrasfer != nil {
-            
+            if self.hasShownMore {
+                testNode!.layoutIfNeeded()
+                btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+
+                viewSepratorOne!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorTwo!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorThree!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorFive!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorFour!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorSix!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorSeven!.style.height = ASDimensionMake(.points, 0)
+
+
+                let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderName!,txtVALUESenderName!,txtTTLReciever!,txtVALUEReciever!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,txtTTLDesc!,txtVALUEDesc!]
+                for elemnt in elemArray {
+                    elemnt.style.preferredSize = CGSize.zero
+                }
+                UIView.animate(withDuration: 1.0, animations: {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                  sSelf.testNode!.layoutIfNeeded()
+                })
+
+
+            } else {
+                testNode!.layoutIfNeeded()
+                btnShowMore!.setTitle(IGStringsManager.GlobalClose.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+
+                viewSepratorOne!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorTwo!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorThree!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorFive!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorFour!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorSix!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorSeven!.style.height = ASDimensionMake(.points, 1)
+                let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderName!,txtVALUESenderName!,txtTTLReciever!,txtVALUEReciever!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,txtTTLDesc!,txtVALUEDesc!]
+                for elemnt in elemArray {
+                    elemnt.style.height = ASDimensionMake(.points, 25)
+                }
+
+                UIView.animate(withDuration: 1.0, animations: {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                  sSelf.testNode!.layoutIfNeeded()
+                })
+            }
+
         } else if self.message?.wallet?.payment != nil {
             
         } else {
