@@ -33,11 +33,16 @@ class IGHelperJson {
         return JSON(spec).rawString()
     }
     
-    public static func makeStickerGroupIds(id: String) -> String? {
-        let ids = ["ids" : ["\(id)"]] as [String : Any]
-        return JSON(ids).rawString()
+    public static func makeStickerGroupIds(id: String) -> [String: Any] {
+        let ids: [String: [AnyObject]] = ["ids": ["\(id)" as AnyObject]]
+        return JSON(ids).dictionaryObject!
     }
-
+    
+    public static func makeBuyGiftStickerInfo(nationalCode: String, mobileNumber: String, count: Int) -> [String: Any] {
+        let parameters = ["national_code": "\(nationalCode)", "tel_num": "\(mobileNumber)", "count": count] as [String : Any]
+        return JSON(parameters).dictionaryObject!
+    }
+    
     /*************************************************************************/
     /*************************** Additional Button ***************************/
     

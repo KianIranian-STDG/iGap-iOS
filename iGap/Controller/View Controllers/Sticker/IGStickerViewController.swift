@@ -35,6 +35,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     var isGift = false
     var dismissBtn: UIButton!
     var giftStickerBuyModal: SMCheckBuyGiftSticker!
+    var giftStickerId: String? // use this variable for check buy gift sticker
     
     // Due to the type of sticker page for collection view will be used one of the following variables
     var stickerTabs: Results<IGRealmSticker>! // use this variable at main sticker page (MAIN)
@@ -226,6 +227,8 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
             if self!.stickerPageType != StickerPageType.PREVIEW || !self!.isGift {return}
             guard let stickerItem = result?.object as? Sticker else {return}
             
+            self?.giftStickerId = stickerItem.id
+            
             self!.dismissBtn = UIButton()
             self!.dismissBtn.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
             self!.view.insertSubview(self!.dismissBtn, at: 2)
@@ -293,7 +296,12 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     }
     
     @objc func confirmTapped(_ gestureRecognizer: UITapGestureRecognizer) {
-        print("BBB || buy card tapped")
+        var phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0)
+        if phone == nil {return}
+        phone = ("+"+phone!).replace("+98", withString: "0")
+        IGApiSticker.shared.checkBuyGiftCard(stickerId: self.giftStickerId ?? "", nationalCode: IGSessionInfo.getNationalCode() ?? "", mobileNumber: phone!, count: 1, completion: { buyGiftSticker in
+            self.giftStickerId = nil
+        })
     }
     
     /*******************************************************************************/

@@ -14,6 +14,10 @@ struct StickerCategories: Codable {
     let data: [StickerCategory]
 }
 
+struct BuyGiftSticker: Codable {
+    let token, id: String
+}
+
 struct StickerApi: Codable {
     let data: [StickerTab]
 }
