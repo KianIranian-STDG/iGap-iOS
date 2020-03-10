@@ -16,7 +16,7 @@ final class ChatMessageSwipeToReplyNode: ASDisplayNode {
     
     init(fillColor: UIColor, strokeColor: UIColor, foregroundColor: UIColor) {
         self.backgroundNode = ASImageNode()
-        self.backgroundNode.isLayerBacked = true
+//        self.backgroundNode.isLayerBacked = true
         self.backgroundNode.image = UIImage(named: "ig_message_reply")
         
         super.init()
