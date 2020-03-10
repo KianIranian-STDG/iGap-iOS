@@ -127,11 +127,7 @@ class IGGlobal {
     
     static var topbarHeight: CGFloat {
         if #available(iOS 13.0, *) {
-<<<<<<< HEAD
             return (UIApplication.shared.statusBarFrame.height) +
-=======
-            return (UIApplication.shared.statusBarFrame.height ) +
->>>>>>> iGap
                 (44)
         } else {
             return UIApplication.shared.statusBarFrame.size.height +

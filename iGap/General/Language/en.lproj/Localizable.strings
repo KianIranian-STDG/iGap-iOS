@@ -6681,12 +6681,10 @@ TODO:// complete */
 "Theme_Day_Text" = "Day";
 "Theme_Night_Text" = "Night";
 "Theme_Icon_Appp" = "App Icon";
-<<<<<<< HEAD
 
 "create_new_contact" = "Create New Contact";
 "phone_numbers" = "Phone Numbers";
 "emails" = "Emails";
-=======
 "topup_message" = "Top Up Message";
 "bill_message" = "Bill Message";
 "bill_id" = "Bill Id";
@@ -6694,4 +6692,3 @@ TODO:// complete */
 "receivers_mobile_number" = "Receiver's Mobile Number";
 "install_latest_version" = "Install the latest version to use this feature";
 "fetching_rooms" = "Fetching Rooms";
->>>>>>> iGap

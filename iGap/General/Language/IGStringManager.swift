@@ -48,11 +48,8 @@ enum IGStringsManager : String {
     case ContactSaving = "contacts_saving"
     case ContactDelete = "to_delete_contact"
     case Edit = "edit"
-<<<<<<< HEAD
     case ViewContact = "view_contact"
-=======
-    case UnknownMessage = "unknown_message"
->>>>>>> iGap
+//    case UnknownMessage = "unknown_message"
     
     //MARK: -NEWS
     case NewsDetail =  "news_details"

@@ -6690,12 +6690,10 @@ Page 4 introduce app */
 "Theme_Day_Text" = "روز";
 "Theme_Night_Text" = "شب";
 "Theme_Icon_Appp" = "نماد برنامه";
-<<<<<<< HEAD
 
 "create_new_contact" = "مخاطب جدید";
 "phone_numbers" = "شماره ها";
 "emails" = "ایمیل ها";
-=======
 "topup_message" = "رسید شارژ تلفن";
 "bill_message" = "رسید پرداخت قبض";
 "bill_id" = "شناسه قبض";
@@ -6703,4 +6701,3 @@ Page 4 introduce app */
 "receivers_mobile_number" = "شماره موبایل گیرنده";
 "install_latest_version" = "برای استفاده از این ویژگی آخرین نسخه را نصب کنید";
 "fetching_rooms" = "درحال دریافت چت ها";
->>>>>>> iGap
