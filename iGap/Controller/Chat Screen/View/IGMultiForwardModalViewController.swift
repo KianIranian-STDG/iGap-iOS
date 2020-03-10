@@ -72,7 +72,7 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
         self.collectionHeightConstraint.constant = deviceSizeModel.getShareModalSize() - self.btnSendHeightConstraint.constant - self.stackHeightConstraint.constant
 
         searchBar.delegate = self
-        let predicateChats = NSPredicate(format: "(typeRaw == 0) OR (typeRaw == 1 AND isParticipant == true) OR (typeRaw == 2 AND isParticipant == true AND (channelRoom.roleRaw == 1 OR channelRoom.roleRaw == 2 OR channelRoom.roleRaw == 3))")
+        let predicateChats = NSPredicate(format: "(typeRaw == 0 AND isParticipant == true) OR (typeRaw == 1 AND isParticipant == true) OR (typeRaw == 2 AND isParticipant == true AND (channelRoom.roleRaw == 1 OR channelRoom.roleRaw == 2 OR channelRoom.roleRaw == 3))")
         let predicateContacts = NSPredicate(format: "isInContacts == 1")
         let sortPropertiesChats = [SortDescriptor(keyPath: "priority", ascending: false), SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
 
@@ -115,8 +115,6 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
 
     }
     @objc func keyboardWillShow(notification: NSNotification) {
-        //Do something here
-        print("KEYBOARD DID APPEAR")
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
@@ -126,13 +124,9 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
         isKeyboardPresented = true
         panModalSetNeedsLayoutUpdate()
         panModalTransition(to: .longForm)
-
-        
     }
     
     @objc func keyboardWillDisappear(notification: NSNotification) {
-        //Do something here
-        print("KEYBOARD DID DISAPPEAR")
         keyboardHeightSize = 0.0
         isKeyboardPresented = false
         panModalSetNeedsLayoutUpdate()
@@ -157,7 +151,6 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
             }
         }
         let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
         let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
 
         if currentTheme == "IGAPDay" {
