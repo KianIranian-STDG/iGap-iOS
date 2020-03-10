@@ -60,6 +60,47 @@ class ChatControllerNode: ASCellNode {
     private var txtVoiceTimeNode : ASTextNode?
     var sliderNode : ASDisplayNode?
 
+    //CardToCardReceipt
+    private var txtTypeIcon: ASTextNode?
+    private var txtTypeTitle : ASTextNode?
+    private var txtAmount : ASTextNode?
+    private var testNode : ASDisplayNode?
+    private var hasShownMore : Bool = false
+    // Date and Time
+    private var txtTTLDate : ASTextNode?
+    private var txtVALUEDate : ASTextNode?
+    // Source Card Number
+    private var txtTTLSourceCardNumber : ASTextNode?
+    private var txtVALUESourceCardNumber : ASTextNode?
+    // Destination Card Number
+    private var txtTTLDestinationCardNumber : ASTextNode?
+    private var txtVALUEDestinationCardNumber : ASTextNode?
+    // Destination Bank Name
+    private var txtTTLDestinationBankName : ASTextNode?
+    private var txtVALUEDestinationBankName : ASTextNode?
+    // Card Owner Name
+    private var txtTTLCardOwnerName : ASTextNode?
+    private var txtVALUECardOwnerName : ASTextNode?
+    // Trace Number
+    private var txtTTLTraceNumber : ASTextNode?
+    private var txtVALUETraceNumber : ASTextNode?
+    // Refrence Number
+    private var txtTTLRefrenceNumber : ASTextNode?
+    private var txtVALUERefrenceNumber : ASTextNode?
+    // Seprators
+    private var viewSepratorCardNum : ASDisplayNode?
+    private var viewSepratorDesCardNum : ASDisplayNode?
+    private var viewSepratorDesBankName : ASDisplayNode?
+    private var viewSepratorOwnerName : ASDisplayNode?
+    private var viewSepratorTraceNum : ASDisplayNode?
+    private var viewSepratorTop : ASDisplayNode?
+    private var viewSepratorDate : ASDisplayNode?
+    // btnShowMore
+    private var btnShowMore : ASButtonNode?
+
+    
+    
+    
     private var avatarNode : ASAvatarView?
     
     private var indicatorViewAbs : ASDisplayNode?
@@ -85,9 +126,7 @@ class ChatControllerNode: ASCellNode {
     private var txtTimeNode : ASTextNode?
     private var txtStatusNode : ASTextNode?
     private var index: IndexPath!
-    //    private let avatarImageViewNode = ASAvatarView()
-    //    private var replyForwardViewNode = ASReplyForwardNode()
-    //    private var imgNodeReply = ASImageNode()
+
     
     // View Items
     //    private let nodeMedia = ASNetworkImageNode() // MUST BE CHANGED TO CustomImageNode
@@ -619,6 +658,20 @@ class ChatControllerNode: ASCellNode {
         case .sticker :
             let finalBox = setStickerNodeContent(contentSpec: contentSpec, msg: msg!)
             return finalBox
+        case .wallet :
+//            if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue { //mode: CardToCard
+//                let finalBox = setCardToCardNodeContent(contentSpec: contentSpec, msg: msg!)
+//                return finalBox
+//            } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue { //mode: payment
+//                let finalBox = setCardToCardNodeContent(contentSpec: contentSpec, msg: msg!)
+//                return finalBox
+//            } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue { //mode: moneyTransfer
+//                let finalBox = setCardToCardNodeContent(contentSpec: contentSpec, msg: msg!)
+//                return finalBox
+//            }
+            let finalBox = setCardToCardNodeContent(contentSpec: contentSpec, msg: msg!)
+            return finalBox
+
         case .log,.time,.unread,.progress :
             contentSpec.horizontalAlignment = .middle
 
@@ -790,7 +843,275 @@ class ChatControllerNode: ASCellNode {
             }
         }
     }
+    //******************************************************//
+    //****************CARDTOCARD RECIEPT NODE***************//
+    //******************************************************//
+    private func initCardToCardItems() {
+
+        initCardToCardTextNodeItemns()
+
+        initCardToCardSeprators()
+    }
+    private func initCardToCardSeprators() {
+        if viewSepratorCardNum == nil {
+            viewSepratorCardNum = ASDisplayNode()
+        }
+        if viewSepratorDesCardNum == nil {
+            viewSepratorDesCardNum = ASDisplayNode()
+        }
+        if viewSepratorDesBankName == nil {
+            viewSepratorDesBankName = ASDisplayNode()
+        }
+        if viewSepratorOwnerName == nil {
+            viewSepratorOwnerName = ASDisplayNode()
+        }
+        if viewSepratorTraceNum == nil {
+            viewSepratorTraceNum = ASDisplayNode()
+        }
+        if viewSepratorTop == nil {
+            viewSepratorTop = ASDisplayNode()
+        }
+        if viewSepratorDate == nil {
+            viewSepratorDate = ASDisplayNode()
+        }
+    }
+    private func initCardToCardTextNodeItemns() {
+        if txtTypeIcon == nil {
+            txtTypeIcon = ASTextNode()
+        }
+        if txtTypeTitle == nil {
+            txtTypeTitle = ASTextNode()
+        }
+        if txtAmount == nil {
+            txtAmount = ASTextNode()
+        }
+        if testNode == nil {
+            testNode = ASDisplayNode()
+        }
+        if txtTTLDate == nil {
+            txtTTLDate = ASTextNode()
+        }
+        if txtVALUEDate == nil {
+            txtVALUEDate = ASTextNode()
+        }
+        if txtTTLSourceCardNumber == nil {
+            txtTTLSourceCardNumber = ASTextNode()
+        }
+        if txtVALUESourceCardNumber == nil {
+            txtVALUESourceCardNumber = ASTextNode()
+        }
+        if txtTTLDestinationCardNumber == nil {
+            txtTTLDestinationCardNumber = ASTextNode()
+        }
+        if txtVALUEDestinationCardNumber == nil {
+            txtVALUEDestinationCardNumber = ASTextNode()
+        }
+        if txtTTLDestinationBankName == nil {
+            txtTTLDestinationBankName = ASTextNode()
+        }
+        if txtVALUEDestinationBankName == nil {
+            txtVALUEDestinationBankName = ASTextNode()
+        }
+        if txtTTLCardOwnerName == nil {
+            txtTTLCardOwnerName = ASTextNode()
+        }
+        if txtVALUECardOwnerName == nil {
+            txtVALUECardOwnerName = ASTextNode()
+        }
+        if txtTTLTraceNumber == nil {
+            txtTTLTraceNumber = ASTextNode()
+        }
+        if txtVALUETraceNumber == nil {
+            txtVALUETraceNumber = ASTextNode()
+        }
+        if txtTTLRefrenceNumber == nil {
+            txtTTLRefrenceNumber = ASTextNode()
+        }
+        if txtVALUERefrenceNumber == nil {
+            txtVALUERefrenceNumber = ASTextNode()
+        }
+
+    }
+    private func makeCardToCardView(message: IGRoomMessage) {
+        initCardToCardItems()
+        if btnShowMore == nil {
+            btnShowMore = ASButtonNode()
+        }
+        IGGlobal.makeAsyncText(for: txtTypeIcon!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 40, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTypeTitle!, with: IGStringsManager.CardMoneyTransfer.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
+        if let amount = (message.wallet?.cardToCard?.amount) {
+            
+            IGGlobal.makeAsyncText(for: txtAmount!, with: String(amount).inRialFormat() + " " + IGStringsManager.Currency.rawValue.localized
+           , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
+        }
+        else{
+            
+           IGGlobal.makeAsyncText(for: txtAmount!, with: "..." , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        }
+
+
+        viewSepratorCardNum!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorTraceNum!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorOwnerName!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorDesCardNum!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorDesBankName!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorTop!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorDate!.backgroundColor = ThemeManager.currentTheme.LabelColor
+
+        btnShowMore!.style.height = ASDimensionMake(.points, 50)
+        btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+
+        let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLDestinationCardNumber!,txtVALUEDestinationCardNumber!,txtTTLDestinationBankName!,txtVALUEDestinationBankName!,txtTTLCardOwnerName!,txtVALUECardOwnerName!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
+        for elemnt in elemArray {
+            elemnt.style.preferredSize = CGSize.zero
+        }
+
+        btnShowMore!.backgroundColor = ThemeManager.currentTheme.NavigationSecondColor
+        btnShowMore!.layer.cornerRadius = 10.0
+        btnShowMore!.addTarget(self, action: #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
+        setCardToCardData(message: message)
+
+
+    }
     
+    private func setCardToCardData(message: IGRoomMessage) {
+        //TITLES SET DATA
+        IGGlobal.makeAsyncText(for: txtTTLDate!, with: IGStringsManager.DateTime.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLSourceCardNumber!, with: IGStringsManager.CardNumber.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLDestinationCardNumber!, with: IGStringsManager.DestinationCard.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLDestinationBankName!, with: IGStringsManager.DestinationBank.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLCardOwnerName!, with: IGStringsManager.AccountOwnerName.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLTraceNumber!, with: IGStringsManager.TraceNumber.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLRefrenceNumber!, with: IGStringsManager.RefrenceNum.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        //VALUES SET DATA
+        if let time = TimeInterval(exactly: (message.wallet?.cardToCard!.requestTime)!) {
+
+            IGGlobal.makeAsyncText(for: txtVALUEDate!, with: Date(timeIntervalSince1970: time).completeHumanReadableTime(showHour: true).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+        }
+        IGGlobal.makeAsyncText(for: txtVALUESourceCardNumber!, with: (message.wallet?.cardToCard!.sourceCardNumber)!.inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtVALUEDestinationCardNumber!, with: (message.wallet?.cardToCard!.destCardNumber)!.inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtVALUEDestinationBankName!, with: (message.wallet?.cardToCard!.destBankName)!, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtVALUECardOwnerName!, with: (message.wallet?.cardToCard!.cardOwnerName)!, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtVALUETraceNumber!, with: (message.wallet?.cardToCard!.traceNumber)!.inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtVALUERefrenceNumber!, with: (message.wallet?.cardToCard!.rrn)!.inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        self.message = message
+
+    }
+    //- Hint : Check tap on  showmore
+    @objc func handleUserTap() {
+        
+        self.setNeedsLayout()
+        self.transitionLayout(withAnimation: true, shouldMeasureAsync: true, measurementCompletion: nil)
+    }
+
+    
+    override func transitionLayout(withAnimation animated: Bool, shouldMeasureAsync: Bool, measurementCompletion completion: (() -> Void)? = nil) {
+        
+        if self.message?.wallet?.cardToCard != nil {
+            
+            if self.hasShownMore {
+                testNode!.layoutIfNeeded()
+                btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+
+                viewSepratorCardNum!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorTraceNum!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorOwnerName!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorDesCardNum!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorDesBankName!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorDate!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorTop!.style.height = ASDimensionMake(.points, 0)
+
+
+                let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLDestinationCardNumber!,txtVALUEDestinationCardNumber!,txtTTLDestinationBankName!,txtVALUEDestinationBankName!,txtTTLCardOwnerName!,txtVALUECardOwnerName!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
+                for elemnt in elemArray {
+                    elemnt.style.preferredSize = CGSize.zero
+                }
+                UIView.animate(withDuration: 1.0, animations: {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                  sSelf.testNode!.layoutIfNeeded()
+                })
+
+
+            } else {
+                testNode!.layoutIfNeeded()
+                btnShowMore!.setTitle(IGStringsManager.GlobalClose.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+
+                viewSepratorCardNum!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorTraceNum!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorOwnerName!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorDesCardNum!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorDesBankName!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorDate!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorTop!.style.height = ASDimensionMake(.points, 1)
+                
+                let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLDestinationCardNumber!,txtVALUEDestinationCardNumber!,txtTTLDestinationBankName!,txtVALUEDestinationBankName!,txtTTLCardOwnerName!,txtVALUECardOwnerName!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
+                for elemnt in elemArray {
+                    elemnt.style.height = ASDimensionMake(.points, 25)
+                }
+
+                UIView.animate(withDuration: 1.0, animations: {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                  sSelf.testNode!.layoutIfNeeded()
+                })
+            }
+            
+        } else if self.message?.wallet?.moneyTrasfer != nil {
+            
+        } else if self.message?.wallet?.payment != nil {
+            
+        } else {
+            
+        }
+        
+            self.hasShownMore = !self.hasShownMore
+
+    }
+    private func layoutCardToCard(msg: IGRoomMessage) -> ASLayoutSpec {
+        
+        let textBox = ASStackLayoutSpec.vertical()
+        textBox.justifyContent = .spaceAround
+        textBox.children = [txtTypeTitle!, txtAmount!]
+        
+
+        let profileBox = ASStackLayoutSpec.horizontal()
+        profileBox.spacing = 10
+        profileBox.children = [txtTypeIcon!, textBox]
+        
+        let mainBox = ASStackLayoutSpec.vertical()
+        mainBox.justifyContent = .spaceAround
+        mainBox.children = [profileBox]
+        let elemArray : [ASLayoutElement] = [viewSepratorTop!,txtTTLDate!,txtVALUEDate!,viewSepratorDate!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,viewSepratorCardNum!,txtTTLDestinationCardNumber!,txtVALUEDestinationCardNumber!,viewSepratorDesCardNum!,txtTTLDestinationBankName!,txtVALUEDestinationBankName!,viewSepratorDesBankName!,txtTTLCardOwnerName!,txtVALUECardOwnerName!,viewSepratorOwnerName!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorTraceNum!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
+
+        for elemnt in elemArray {
+            mainBox.children?.append(elemnt)
+        }
+        mainBox.children?.append(btnShowMore!)
+
+        // Apply text truncation
+        let elems: [ASLayoutElement] = [txtTypeTitle!, txtAmount!,txtTypeIcon!,btnShowMore!, textBox, profileBox, mainBox]
+        for elem in elems {
+            elem.style.flexShrink = 1
+        }
+        let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+        top: 10,
+        left: 10,
+        bottom: 10,
+        right: 20), child: mainBox)
+            
+        
+        return insetSpec
+    }
+    
+    private func setCardToCardNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage) -> ASLayoutSpec {
+        makeCardToCardView(message: msg)
+        return layoutCardToCard(msg: msg)
+    }
+
     //******************************************************//
     //***********************LOG NODE***********************//
     //******************************************************//
