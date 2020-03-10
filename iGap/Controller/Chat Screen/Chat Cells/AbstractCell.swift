@@ -1543,6 +1543,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             self.btnCheckMark = nil
         }
 
+        for sView in contentView.subviews {
+            sView.isUserInteractionEnabled = true
+        }
     }
     private func makeMultiSelectButton() {
         removeMultySelect()
@@ -1564,6 +1567,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             make.width.equalTo(CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
         }
 
+        for sView in contentView.subviews {
+            sView.isUserInteractionEnabled = false
+        }
+        
     }
     
     private func makeSenderName(){

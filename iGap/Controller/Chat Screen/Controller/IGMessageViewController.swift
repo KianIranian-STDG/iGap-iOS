@@ -321,6 +321,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     
                     self.reloadCollection()
                     self.btnForward.isHidden = !isForward!
+                    self.btnForward.isEnabled = isForward!
 
                     
                 }, completion: { (completed) in
