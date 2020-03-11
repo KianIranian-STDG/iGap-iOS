@@ -14,7 +14,7 @@ import Lottie
 class ChatControllerNode: ASCellNode {
     
     // Message Needed Data
-    private var message : IGRoomMessage?
+    private(set) var message : IGRoomMessage?
     private var finalRoomType: IGRoom.IGType!
     private var finalRoom: IGRoom?
     private var isIncomming: Bool!
@@ -529,6 +529,31 @@ class ChatControllerNode: ASCellNode {
         }
     }
     
+    func updateVoteActions(channelExtra: IGRealmChannelExtra?) {
+        self.message?.channelExtra = channelExtra
+        manageVoteActions()
+    }
+    
+    func updateAvatar(userId: Int64, completion: @escaping(()->Void)) {
+        
+        IGUserInfoRequest.sendRequestAvoidDuplicate(userId: userId) { [weak self] (userInfo) in
+            DispatchQueue.main.async {[weak self] in
+                guard let sSelf = self else {
+                    return
+                }
+                if let msg = sSelf.message {
+                    if !msg.isInvalidated, let authorUser = msg.authorUser, !authorUser.isInvalidated {
+                        if let peerId = msg.authorUser?.userId, userInfo.igpID == peerId {
+                            completion()
+                        }
+                    }
+                }
+            }
+        }
+        
+        
+    }
+    
     private func makeAvatarIfNeeded() -> Bool {
         
         if finalRoomType == .channel {
@@ -562,7 +587,10 @@ class ChatControllerNode: ASCellNode {
                     
                     avatarNode?.avatarASImageView?.backgroundColor = .white
                     avatarNode?.avatarASImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
-                    SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(message!.roomId)", sender: (action: ChatMessageAction.userInfo, userId: userId))
+//                    SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(message!.roomId)", sender: (action: ChatMessageAction.userInfo, userId: userId))
+                    updateAvatar(userId: userId) {
+                        _ = self.makeAvatarIfNeeded()
+                    }
                 }
                 return true
             }
@@ -3679,6 +3707,8 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
     
     func manageGestureRecognizers() {
         if !IGGlobal.shouldMultiSelect  {
+            
+            print("=-=-=-=- Gesture Thread: ", Thread.current)
             
             let tapAndHold = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnCell(_:)))
             tapAndHold.minimumPressDuration = 0.2

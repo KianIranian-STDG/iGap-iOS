@@ -1154,14 +1154,15 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             } else if let onChannelGetMessageState = result?.object as? (action: ChatMessageAction, roomId: Int64), onChannelGetMessageState.action == ChatMessageAction.channelGetMessageState {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     if self?.room?.id == onChannelGetMessageState.roomId {
-                        print("RELOAD COLLECTION DID CALLED")
+                        
 //                        self?.reloadCollection()
                         let allIndexes = IGGlobal.getAllIndexPathsInSection(section : 0,tblList: self!.tableViewNode)
                         
                         for nodeIndex in allIndexes {
-                            if let node = self!.tableViewNode.nodeForRow(at: nodeIndex) as? BaseBubbleNode {
-                      
-                                node.updateVoteActions()
+                            if let node = self!.tableViewNode.nodeForRow(at: nodeIndex) as? ChatControllerNode {
+                                if let msg = self!.messages?[nodeIndex.row] {
+                                    node.updateVoteActions(channelExtra: msg.channelExtra)
+                                }
                             }
                         }
                         print("RELOAD COLLECTION DID CALLED")
@@ -1215,21 +1216,24 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 
             } else if let onFetchUserInfo = result?.object as? (action: ChatMessageAction, userId: Int64), onFetchUserInfo.action == ChatMessageAction.userInfo {
                 /* fetch user info and notify collection item if exist in visible items into the collection */
-                IGUserInfoRequest.sendRequestAvoidDuplicate(userId: onFetchUserInfo.userId) { [weak self] (userInfo) in
-                    DispatchQueue.main.async {
-                        if let visibleItems = self?.tableViewNode.indexPathsForVisibleRows() {
-                            for indexPath in visibleItems {
-                                if let cell = self?.tableViewNode.nodeForRow(at: indexPath) as? BaseBubbleNode {
-                                    if !cell.message!.isInvalidated, let authorUser = cell.message!.authorUser, !authorUser.isInvalidated {
-                                        if let peerId = cell.message!.authorUser?.userId, userInfo.igpID == peerId {
-                                            self?.updateItem(cellPosition: indexPath.row)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+//                IGUserInfoRequest.sendRequestAvoidDuplicate(userId: onFetchUserInfo.userId) { [weak self] (userInfo) in
+//                    DispatchQueue.main.async {
+//                        if let visibleItems = self?.tableViewNode.indexPathsForVisibleRows() {
+//                            for indexPath in visibleItems {
+//                                if let cell = self?.tableViewNode.nodeForRow(at: indexPath) as? ChatControllerNode {
+//                                    if let msg = cell.message {
+//                                        if !msg.isInvalidated, let authorUser = msg.authorUser, !authorUser.isInvalidated {
+//                                            if let peerId = msg.authorUser?.userId, userInfo.igpID == peerId {
+//                                                cell.updateAvatar()
+////                                                self?.updateItem(cellPosition: indexPath.row)
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
                 
                 
             } else if let onAddWaitingProgress = result?.object as? (action: ChatMessageAction, roomId: Int64, message: IGRoomMessage, direction: IGPClientGetRoomHistory.IGPDirection), onAddWaitingProgress.action == ChatMessageAction.addProgress {
@@ -2492,7 +2496,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if self.tableViewNode.indexPath(for: visibleCells[0])!.row > IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT {
             var finalMessage: IGRoomMessage!
-            if let collectionCell = self.tableViewNode.nodeForRow(at: IndexPath(row: numberOfItems - IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT, section: 0)) as? BaseBubbleNode {
+            if let collectionCell = self.tableViewNode.nodeForRow(at: IndexPath(row: numberOfItems - IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT, section: 0)) as? ChatControllerNode {
                 finalMessage = collectionCell.message?.detach()
             }
             if finalMessage != nil && (finalMessage.isInvalidated || finalMessage.id == firstVisibleItem.id) {
@@ -2521,7 +2525,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     /* fetch visible message from collection view according to entered index */
     private func fetchVisibleMessage(visibleCells: [ASCellNode], index: Int) -> IGRoomMessage? {
         if visibleCells.count > 0 {
-            if let visibleMessage = visibleCells[index] as? BaseBubbleNode {
+            if let visibleMessage = visibleCells[index] as? ChatControllerNode {
                 return visibleMessage.message?.detach()
             }
         }
@@ -6855,7 +6859,6 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
         return self.messages!.count
     }
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
-//        print(((self.tableViewNode.nodeForRow(at: indexPath) as! BaseBubbleNode).checkNode.view.tag))
         let msg = messages![indexPath.row]
         if (IGGlobal.shouldMultiSelect) {
             let cellNode  = self.tableViewNode.nodeForRow(at: indexPath) as! ChatControllerNode

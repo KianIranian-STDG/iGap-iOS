@@ -133,12 +133,18 @@ class ASAvatarView: ASDisplayNode {
         self.initialLettersView!.backgroundColor = UIColor.hexStringToUIColor(hex: user.color)
         if user.avatar != nil {
 //            self.avatarASImageView?.setAvatar(avatar: user.avatar!.file!)
-            getAvatar(networkAvatarNode: avatarASImageView!, avatar: user.avatar!.file!) { (image) in
+            getAvatar(networkAvatarNode: avatarASImageView!, avatar: user.avatar!.file!) {[weak self] (image) in
+                guard let sSelf = self else {
+                    return
+                }
                 if let img = image {
-                    self.avatarASImageView?.image = img
+                    sSelf.avatarASImageView?.alpha = 1
+                    sSelf.avatarASImageView?.image = img
                 }
             }
             
+        }else {
+            avatarASImageView?.alpha = 0
         }
     }
     
