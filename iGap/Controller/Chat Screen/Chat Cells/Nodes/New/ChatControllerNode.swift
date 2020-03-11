@@ -428,7 +428,7 @@ class ChatControllerNode: ASCellNode {
                     return
                 }
                 
-                IGGlobal.makeAsyncText(for: sSelf.checkNode!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 30, weight: .regular, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                IGGlobal.makeAsyncText(for: sSelf.checkNode!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 26, weight: .regular, numberOfLines: 1, font: .fontIcon, alignment: .center)
             }
             
             
@@ -440,12 +440,12 @@ class ChatControllerNode: ASCellNode {
                     return
                 }
                 
-                IGGlobal.makeAsyncText(for: sSelf.checkNode!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 30, weight: .regular, numberOfLines: 1, font: .fontIcon, alignment: .center)
+                IGGlobal.makeAsyncText(for: sSelf.checkNode!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 26, weight: .regular, numberOfLines: 1, font: .fontIcon, alignment: .center)
             }
             
         }
-        checkNode!.style.width = ASDimensionMake(.points, 35)
-        checkNode!.style.height = ASDimensionMake(.points, 35)
+        checkNode!.style.width = ASDimensionMake(.points, 30)
+        checkNode!.style.height = ASDimensionMake(.points, 30)
         
         self.setNeedsLayout()
     }
@@ -2166,7 +2166,7 @@ class ChatControllerNode: ASCellNode {
         if txtLogMessage == nil {
             txtLogMessage = ASTextNode()
         }
-        IGGlobal.makeAsyncText(for: txtLogMessage!, with:time, textColor: .white, size: 15, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtLogMessage!, with:time, textColor: .white, size: 13, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
         txtLogMessage!.backgroundColor = UIColor.logBackground()
         txtLogMessage!.layer.cornerRadius = 10.0
         txtLogMessage!.clipsToBounds = true
@@ -2180,14 +2180,14 @@ class ChatControllerNode: ASCellNode {
                 txtLogMessage = ASTextNode()
             }
             
-            IGGlobal.makeAsyncText(for: txtLogMessage!, with: IGRoomMessage.detectPinMessage(message: message), textColor: .white, size: 15, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: txtLogMessage!, with: IGRoomMessage.detectPinMessage(message: message), textColor: .white, size: 13, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
             
         } else {
             if txtLogMessage == nil {
                 txtLogMessage = ASTextNode()
             }
             
-            IGGlobal.makeAsyncText(for: txtLogMessage!, with:IGRoomMessageLog.textForLogMessage(message), textColor: .white, size: 15, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: txtLogMessage!, with:IGRoomMessageLog.textForLogMessage(message), textColor: .white, size: 13, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
             
             
         }
@@ -2205,7 +2205,7 @@ class ChatControllerNode: ASCellNode {
         if bgTextNode == nil {
             bgTextNode = ASDisplayNode()
         }
-        IGGlobal.makeAsyncText(for: txtLogMessage!, with: IGStringsManager.UnknownMessage.rawValue.localized, textColor: .white, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtLogMessage!, with: IGStringsManager.UnknownMessage.rawValue.localized, textColor: .white, size: 13, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
         bgTextNode!.layer.cornerRadius = 10.0
         bgTextNode!.clipsToBounds = true
         bgTextNode!.backgroundColor = UIColor.logBackground()
@@ -2218,7 +2218,7 @@ class ChatControllerNode: ASCellNode {
         if bgTextNode == nil {
             bgTextNode = ASDisplayNode()
         }
-        IGGlobal.makeAsyncText(for: txtLogMessage!, with: (message.message?.inLocalizedLanguage())!, textColor: .white, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtLogMessage!, with: (message.message?.inLocalizedLanguage())!, textColor: .white, size: 13, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
         bgTextNode!.layer.cornerRadius = 10
         bgTextNode!.clipsToBounds = true
         bgTextNode!.backgroundColor = UIColor.unreadBackground()
@@ -2695,7 +2695,7 @@ class ChatControllerNode: ASCellNode {
         btnStateNode!.layer.cornerRadius = 25
         
         //make current time text
-        IGGlobal.makeAsyncText(for: txtCurrentTimeNode!, with: "00:00".inLocalizedLanguage(), textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont,alignment: .left)
+        IGGlobal.makeAsyncText(for: txtCurrentTimeNode!, with: "00:00".inLocalizedLanguage(), textColor: .lightGray, size: 13, numberOfLines: 1, font: .igapFont,alignment: .left)
         
         checkVoiceButtonState(btn: btnStateNode!,message: msg )
         
@@ -3795,8 +3795,6 @@ class ChatControllerNode: ASCellNode {
         }
         if message!.linkInfo == nil {
             if !isTextMessageNode {
-                IGGlobal.makeAsyncText(for: nodeText!, with: msg, textColor: .black, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.localizedDirection)
-                
                 IGGlobal.makeAsyncText(for: nodeText!, with: msg, textColor: .black, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
                 
             } else {
@@ -3958,7 +3956,7 @@ extension ChatControllerNode: ASTextNodeDelegate {
         paragraphStyle.alignment = text.isRTL() ? .right : .left
         paragraphStyle.lineBreakMode = .byWordWrapping
         
-        let attributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: ThemeManager.currentTheme.LabelColor, NSAttributedString.Key.font:UIFont.igFont(ofSize: 12), NSAttributedString.Key.paragraphStyle: paragraphStyle])
+        let attributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: ThemeManager.currentTheme.LabelColor, NSAttributedString.Key.font:UIFont.igFont(ofSize: fontDefaultSize), NSAttributedString.Key.paragraphStyle: paragraphStyle])
         
         
         for itm in activeItems {
