@@ -273,7 +273,8 @@ class ChatControllerNode: ASCellNode {
         } else {
             msg = message
         }
-        
+        self.message = msg
+
         
         if msg.type == .text {
             isTextMessageNode = true
@@ -281,7 +282,7 @@ class ChatControllerNode: ASCellNode {
         
         if finalRoom.type == .channel {
             
-            if message.type == .text ||  message.type == .image ||  message.type == .imageAndText || message.type == .gif ||  message.type == .gifAndText ||  message.type == .file ||  message.type == .fileAndText || message.type == .voice  || message.type == .video || message.type == .videoAndText || message.type == .audio ||  message.type == .audioAndText   {
+            if msg.type == .text ||  msg.type == .image ||  msg.type == .imageAndText || msg.type == .gif ||  msg.type == .gifAndText ||  msg.type == .file ||  msg.type == .fileAndText || msg.type == .voice  || msg.type == .video || msg.type == .videoAndText || msg.type == .audio ||  msg.type == .audioAndText   {
                 
                 makeLikeDislikeIcons()
                 
@@ -2261,6 +2262,33 @@ class ChatControllerNode: ASCellNode {
             
             return insetSpec
             
+        } else if logType == .unread {
+            if txtLogMessage == nil {
+                txtLogMessage = ASTextNode()
+            }
+            if bgNode == nil {
+                bgNode = ASDisplayNode()
+            }
+            if bgTextNode == nil {
+                bgTextNode = ASDisplayNode()
+            }
+            let centerBoxText = ASCenterLayoutSpec(centeringOptions: .XY, child: txtLogMessage!)
+            let insetCSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+                top: 0,
+                left: 20,
+                bottom: 0,
+                right: 20), child: centerBoxText)
+
+            let backTextBox = ASBackgroundLayoutSpec(child: insetCSpec, background: bgTextNode!)
+            let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+                top: 10,
+                left: 0,
+                bottom: 10,
+                right: 0), child: backTextBox)
+            
+            
+            return insetSpec
+
         } else {
             if txtLogMessage == nil {
                 txtLogMessage = ASTextNode()
@@ -2280,9 +2308,9 @@ class ChatControllerNode: ASCellNode {
             
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
                 top: 10,
-                left: 0,
+                left: 10,
                 bottom: 10,
-                right: 0), child: backBox)
+                right: 10), child: backBox)
             
             
             return insetSpec
@@ -3144,8 +3172,8 @@ class ChatControllerNode: ASCellNode {
             imgNode!.contentMode = .scaleAspectFill
             
         }
-        if message!.attachment != nil {
-            if !(IGGlobal.isFileExist(path: msg.attachment!.localPath)) || msg.attachment!.status != .ready {
+        if msg.attachment != nil {
+            if !(IGGlobal.isFileExist(path: msg.attachment!.localPath)) {
                 if indicatorViewAbs == nil {
                     indicatorViewAbs = ASDisplayNode { () -> UIView in
                         let view = IGProgress()
@@ -3178,7 +3206,7 @@ class ChatControllerNode: ASCellNode {
             verticalSpec.spacing = 0
             verticalSpec.justifyContent = .start
             verticalSpec.alignItems = isIncomming == true ? .end : .start
-            let insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: -6, bottom: 0, right: -6) : UIEdgeInsets(top: 2, left: -6, bottom: 0, right: -6)
+            let insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) : UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
             let insetSpecImage = ASInsetLayoutSpec(insets: insetsImage, child: imgNode!)
             
             verticalSpec.children?.append(insetSpecImage)
@@ -3205,7 +3233,15 @@ class ChatControllerNode: ASCellNode {
             verticalSpec.spacing = 5
             verticalSpec.justifyContent = .start
             verticalSpec.alignItems = isIncomming == true ? .end : .start
-            let insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: -6, bottom: 0, right: -6) : UIEdgeInsets(top: 2, left: -6, bottom: 0, right: -6)
+            let insetsImage : UIEdgeInsets
+            
+            if finalRoom?.type == .channel {
+                insetsImage = UIEdgeInsets(top: 5, left: -3, bottom: 0, right: 0)
+                
+            } else {
+                insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) : UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
+            }
+            
             let insetSpecImage = ASInsetLayoutSpec(insets: insetsImage, child: imgNode!)
             if indicatorViewAbs == nil {
                 verticalSpec.children?.append(insetSpecImage)
@@ -3256,8 +3292,9 @@ class ChatControllerNode: ASCellNode {
             imgNode!.contentMode = .scaleAspectFit
             
         }
-        if message!.attachment != nil {
-            if !(IGGlobal.isFileExist(path: msg.attachment!.localPath)) || msg.attachment!.status != .ready {
+        if msg.attachment != nil {
+            if !(IGGlobal.isFileExist(path: msg.attachment!.localPath))  {
+
                 if indicatorViewAbs == nil {
                     indicatorViewAbs = ASDisplayNode { () -> UIView in
                         let view = IGProgress()
@@ -3342,7 +3379,7 @@ class ChatControllerNode: ASCellNode {
             
             let overlaySpec = ASOverlayLayoutSpec(child: imgNode!, overlay: itemsStackSpec)
             
-            let detachedAttachment = message!.attachment?.detach()
+            let detachedAttachment = msg.attachment?.detach()
             let time : String! = IGAttachmentManager.sharedManager.convertFileTime(seconds: Int(detachedAttachment?.duration ?? 0.0))
             IGGlobal.makeAsyncText(for: timeTxtNode, with: time, textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
             IGGlobal.makeAsyncText(for: timeTxtNode, with: " " + "(\(IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: detachedAttachment?.size ?? 0)))" + " ", textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
@@ -3397,7 +3434,7 @@ class ChatControllerNode: ASCellNode {
             
             let overlaySpec = ASOverlayLayoutSpec(child: imgNode!, overlay: itemsStackSpec)
             
-            let detachedAttachment = message!.attachment?.detach()
+            let detachedAttachment = msg.attachment?.detach()
             let time : String! = IGAttachmentManager.sharedManager.convertFileTime(seconds: Int(detachedAttachment?.duration ?? 0.0))
             
             IGGlobal.makeAsyncText(for: timeTxtNode, with: time, textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
