@@ -278,6 +278,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     var latestIndexPath: IndexPath!
     var isCardToCardRequestEnable = false
     var latestKeyboardAdditionalView: UIView!
+    private var allowSendGiftCard = true // TODO - Remove this variable and find correct solution
     static var highlightMessageId: Int64 = 0 // highlight message and show fast return to message icon
     static var highlightWithoutFastReturn: Int64 = 0 // highlight message after click on fast return to message icon
     static var returnToMessage: IGRoomMessage? // after click on reply header, save clicked message for fast return to message position again
@@ -477,6 +478,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 
         holderMusicPlayer.isHidden = true
         joinButton.isHidden = true
+        allowSendGiftCard = true
 
         if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
             btnMoney.isHidden = true
@@ -950,6 +952,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         SwiftEventBus.onMainThread(self, name: EventBusManager.giftCardSendMessage) { [weak self] (result) in
             if IGMessageViewController.giftRoomId != self?.finalRoomId {return}
+            if !(self?.allowSendGiftCard ?? false) {return}
+            self?.allowSendGiftCard = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                self?.allowSendGiftCard = true
+            }
+            
             if let stickerItem = result?.object as? IGRealmStickerItem {
                 if let attachment = IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token!) {
                     let message = IGRoomMessage(body: stickerItem.name!)
