@@ -25,7 +25,6 @@ class IGContactManager: NSObject {
     private var contactsStruct = [ContactsStruct]()
     private var results: [CNContact] = []
     private var resultsChunk = [[CNContact]]()
-    private var contactIndex = 0
     private var CONTACT_IMPORT_LIMIT = 25
     private var md5Hex: String!
     lazy var contactExchangeLevel: BehaviorRelay<ContactExchangeLevel>! = BehaviorRelay(value: .importing(percent: 0))
@@ -56,7 +55,6 @@ class IGContactManager: NSObject {
     private func savePhoneContactsToDatabase() {
         
         self.results = []
-        self.contactIndex = 0
         
         let keys = [CNContactGivenNameKey,
                     CNContactMiddleNameKey,
@@ -117,18 +115,17 @@ class IGContactManager: NSObject {
         }
     }
     
-    private func sendContactPreparation(){
-        if self.contactIndex < self.resultsChunk.count {
-            let result = self.resultsChunk[self.contactIndex]
+    private func sendContactPreparation(chunkIndex: Int = 0){
+        if chunkIndex < self.resultsChunk.count {
+            let result = self.resultsChunk[chunkIndex]
             self.makeContactStruct(contacts: result) { (contactsStructList) in
-                if (self.contactIndex) == (self.resultsChunk.count - 1) {
-                    self.sendContact(phoneContacts: contactsStructList, md5Hex: self.md5Hex)
+                if (chunkIndex) == (self.resultsChunk.count - 1) {
+                    self.sendContact(phoneContacts: contactsStructList, md5Hex: self.md5Hex, chunkIndex: chunkIndex)
                 } else {
-                    self.sendContact(phoneContacts: contactsStructList)
+                    self.sendContact(phoneContacts: contactsStructList, chunkIndex: chunkIndex)
                 }
-                let percent = Double((self.contactIndex * self.CONTACT_IMPORT_LIMIT)) / Double(self.results.count) * 100
+                let percent = Double((chunkIndex * self.CONTACT_IMPORT_LIMIT)) / Double(self.results.count) * 100
                 IGContactManager.sharedManager.contactExchangeLevel.accept(.importing(percent: Double(percent)))
-                self.contactIndex += 1
             }
         }
     }
@@ -153,22 +150,24 @@ class IGContactManager: NSObject {
         }
     }
     
-    private func sendContact(phoneContacts : [ContactsStruct], md5Hex : String? = nil){
-        IGUserContactsImportRequest.Generator.generateStruct(contacts: phoneContacts , md5Hex : md5Hex).successPowerful ({ (protoResponse, requestWrapper) in
-            if let contactImportResponse = protoResponse as? IGPUserContactsImportResponse {
+    private func sendContact(phoneContacts : [ContactsStruct], md5Hex : String? = nil, chunkIndex: Int){
+        IGUserContactsImportRequest.Generator.generateStruct(contacts: phoneContacts , md5Hex : md5Hex, chunkIndex: chunkIndex).successPowerful ({ (protoResponse, requestWrapper) in
+            if let contactImportResponse = protoResponse as? IGPUserContactsImportResponse, let requestContactsImport = requestWrapper.message as? IGPUserContactsImport {
                 IGUserContactsImportRequest.Handler.interpret(response: contactImportResponse)
-                self.sendContactPreparation()
+                self.sendContactPreparation(chunkIndex: chunkIndex+1)
+                
+                // if igpContactHash is exist this reponse is latest response for import contact so now get contact list from server
+                if !requestContactsImport.igpContactHash.isEmpty {
+                    self.getContactListFromServer()
+                }
             }
-            // if md5Hex is exist this reponse is latest response for import contact so now get contact list from server
-            if let _ = requestWrapper.identity as? String {
-                self.getContactListFromServer()
-            }
-        }).error ({ (errorCode, waitTime) in
+        }).errorPowerful ({ (errorCode, waitTime, requestWrapper) in
             switch errorCode {
             case .timeout:
                 IGContactManager.importedContact = false
-                self.contactIndex = self.contactIndex - 1
-                self.sendContactPreparation()
+                if let chunkIndex = requestWrapper.identity as? Int {
+                    self.sendContactPreparation(chunkIndex: chunkIndex)
+                }
             default:
                 break
             }

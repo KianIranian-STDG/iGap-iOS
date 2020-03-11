@@ -319,7 +319,7 @@ class IGUserContactsImportRequest : IGRequest {
             return IGRequestWrapper(message: contactsImportRequestMessage, actionID: 106)
         }
         
-        class func generateStruct(contacts: [IGContactManager.ContactsStruct], force: Bool = false, md5Hex: String? = nil) -> IGRequestWrapper {
+        class func generateStruct(contacts: [IGContactManager.ContactsStruct], force: Bool = false, md5Hex: String? = nil, chunkIndex: Int) -> IGRequestWrapper {
             var contactsImportRequestMessage = IGPUserContactsImport()
             var igpContacts = Array<IGPUserContactsImport.IGPContact>()
             for contact in contacts {
@@ -336,10 +336,10 @@ class IGUserContactsImportRequest : IGRequest {
             }
             contactsImportRequestMessage.igpContacts = igpContacts
             contactsImportRequestMessage.igpForce = force
-            if let tstMD5 = md5Hex {
-                contactsImportRequestMessage.igpContactHash = tstMD5
+            if md5Hex != nil {
+                contactsImportRequestMessage.igpContactHash = md5Hex!
             }
-            return IGRequestWrapper(message: contactsImportRequestMessage, actionID: 106, identity: md5Hex)
+            return IGRequestWrapper(message: contactsImportRequestMessage, actionID: 106, identity: chunkIndex)
         }
     }
     
