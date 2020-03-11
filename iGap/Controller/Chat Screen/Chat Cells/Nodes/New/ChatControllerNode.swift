@@ -391,8 +391,12 @@ class ChatControllerNode: ASCellNode {
             }
         }
         
-        manageGestureRecognizers()
-        if !(IGGlobal.shouldMultiSelect) && finalRoomType != .channel && msg.type != .unread && msg.type != .progress && msg.type != .time{
+        
+        if msg.type != .wallet {
+            manageGestureRecognizers()
+        }
+        
+        if !(IGGlobal.shouldMultiSelect) && finalRoomType != .channel && msg.type != .unread && msg.type != .progress && msg.type != .time && msg.type != .wallet{
             makeSwipeToReply()
         }
         
@@ -3827,7 +3831,6 @@ class ChatControllerNode: ASCellNode {
     private func makeSwipeToReply() {// Telegram Func
         let replyRecognizer = ChatSwipeToReplyRecognizer(target: self, action: #selector(self.swipeToReplyGesture(_:)))
         self.view.addGestureRecognizer(replyRecognizer)
-        
     }
     
     @objc func swipeToReplyGesture(_ recognizer: ChatSwipeToReplyRecognizer) {
@@ -4024,8 +4027,6 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
     
     func manageGestureRecognizers() {
         if !IGGlobal.shouldMultiSelect  {
-            
-            print("=-=-=-=- Gesture Thread: ", Thread.current)
             
             let tapAndHold = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnCell(_:)))
             tapAndHold.minimumPressDuration = 0.2
