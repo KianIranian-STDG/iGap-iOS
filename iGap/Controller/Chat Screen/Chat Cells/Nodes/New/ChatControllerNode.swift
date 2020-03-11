@@ -4236,18 +4236,49 @@ extension ChatControllerNode: ASTextNodeDelegate {
         paragraphStyle.alignment = text.isRTL() ? .right : .left
         paragraphStyle.lineBreakMode = .byWordWrapping
         
-        let attributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: ThemeManager.currentTheme.LabelColor, NSAttributedString.Key.font:UIFont.igFont(ofSize: fontDefaultSize), NSAttributedString.Key.paragraphStyle: paragraphStyle])
         
-        
+        var labeltmpcolor = UIColor()
+        var tmpcolor = UIColor()
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+        if currentTheme != "IGAPClassic" {
+            
+            if currentTheme == "IGAPDay" {
+                if currentColorSetLight == "IGAPBlack" {
+                    tmpcolor = UIColor.white
+                    labeltmpcolor =  UIColor.white
+                } else {
+                    tmpcolor = ThemeManager.currentTheme.SliderTintColor
+                    labeltmpcolor = ThemeManager.currentTheme.LabelColor
+                }
+            }
+            if currentTheme == "IGAPNight" {
+                if currentColorSetDark == "IGAPBlack" {
+                    tmpcolor = UIColor.white
+                    labeltmpcolor =  UIColor.white
+                } else {
+                    tmpcolor = ThemeManager.currentTheme.SliderTintColor
+                    labeltmpcolor = ThemeManager.currentTheme.LabelColor
+                }
+
+            }
+        } else {
+            tmpcolor = ThemeManager.currentTheme.SliderTintColor
+            labeltmpcolor = ThemeManager.currentTheme.LabelColor
+
+        }
+        let attributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: labeltmpcolor, NSAttributedString.Key.font:UIFont.igFont(ofSize: fontDefaultSize), NSAttributedString.Key.paragraphStyle: paragraphStyle])
+
         for itm in activeItems {
             let st = NSMutableParagraphStyle()
             st.lineSpacing = 0
             st.maximumLineHeight = 20
             
             let range = NSMakeRange(itm.offset, itm.limit)
-            attributedString.addAttributes([NSAttributedString.Key.foregroundColor: ThemeManager.currentTheme.SliderTintColor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: text, range: range)), NSAttributedString.Key.paragraphStyle: st], range: range)
+            attributedString.addAttributes([NSAttributedString.Key.foregroundColor: tmpcolor, NSAttributedString.Key.underlineColor: UIColor.clear, NSAttributedString.Key.link: (itm.type, getStringAtRange(string: text, range: range)), NSAttributedString.Key.paragraphStyle: st], range: range)
         }
-        
         return attributedString
         
     }

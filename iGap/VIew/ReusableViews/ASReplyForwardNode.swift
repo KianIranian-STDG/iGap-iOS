@@ -92,15 +92,48 @@ class ASReplyForwardNode: ASDisplayNode {
     func setReplyForward(isReply: Bool,extraMessage : IGRoomMessage,isIncomming : Bool = false) {
         self.isReply = isReply
         self.isIncomming = isIncomming
-        verticalView?.backgroundColor = isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker()
-        if isIncomming {
-            self.backgroundColor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor
+        var tmpcolor = UIColor()
+        var tmpbgcolor = UIColor()
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
 
+        if currentTheme != "IGAPClassic" {
+            
+            if currentTheme == "IGAPDay" {
+                if currentColorSetLight == "IGAPBlack" {
+                    tmpcolor = UIColor.white
+                    tmpbgcolor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor.lighter()!
+
+                } else {
+                    tmpcolor = ThemeManager.currentTheme.SliderTintColor
+                    tmpbgcolor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor
+
+                }
+            }
+            if currentTheme == "IGAPNight" {
+                if currentColorSetDark == "IGAPBlack" {
+                    tmpcolor = UIColor.white
+                    tmpbgcolor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor.lighter()!
+
+                } else {
+                    tmpcolor = ThemeManager.currentTheme.SliderTintColor
+                    tmpbgcolor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor
+                    
+                }
+
+            }
         } else {
-            self.backgroundColor = ThemeManager.currentTheme.SendMessageBubleBGColor
+            tmpcolor = ThemeManager.currentTheme.SliderTintColor
+            tmpbgcolor = ThemeManager.currentTheme.ReceiveMessageBubleBGColor
+
 
         }
 
+        verticalView?.backgroundColor = isIncomming ? tmpcolor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker()
+        self.backgroundColor = isIncomming ? tmpbgcolor : ThemeManager.currentTheme.SendMessageBubleBGColor
+
+        
         if self.isReply { // isReply
             
             if extraMessage.type == .text { // if reply orforwarded message type is Text Only
