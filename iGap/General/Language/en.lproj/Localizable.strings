@@ -6694,3 +6694,4 @@ TODO:// complete */
 "install_latest_version" = "Install the latest version to use this feature";
 "gift_card" = "gift card";
 "gift_card_selected" = "Selected gift card amount";
+"payment_error_message" = "The operation encountered an error. Please try again.";

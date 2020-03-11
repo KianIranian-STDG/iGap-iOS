@@ -6720,3 +6720,4 @@ TODO:// translate */
 "install_latest_version" = "قم بتثبيت أحدث إصدار لاستخدام هذه الميزة";
 "gift_card" = "كرت هدية";
 "gift_card_selected" = "مبلغ بطاقة هدية مختارة";
+"payment_error_message" = "واجهت العملية خطأ. يرجى المحاولة مرة أخرى.";

@@ -6703,3 +6703,4 @@ Page 4 introduce app */
 "install_latest_version" = "برای استفاده از این ویژگی آخرین نسخه را نصب کنید";
 "gift_card" = "کارت هدیه";
 "gift_card_selected" = "مبلغ کارت هدیه انتخاب شده";
+"payment_error_message" = "عملیات با خطا مواجه شد. لطفاً دوباره تلاش کنید.";

@@ -299,8 +299,19 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
         var phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0)
         if phone == nil {return}
         phone = ("+"+phone!).replace("+98", withString: "0")
-        IGApiSticker.shared.checkBuyGiftCard(stickerId: self.giftStickerId ?? "", nationalCode: IGSessionInfo.getNationalCode() ?? "", mobileNumber: phone!, count: 1, completion: { buyGiftSticker in
-            self.giftStickerId = nil
+        IGGlobal.prgShow()
+        IGApiSticker.shared.checkBuyGiftCard(stickerId: self.giftStickerId ?? "", nationalCode: IGSessionInfo.getNationalCode() ?? "", mobileNumber: phone!, count: 1, completion: { [weak self] buyGiftSticker in
+            self?.giftStickerId = nil
+            self?.didtapOutSide()
+            IGApiSticker.shared.giftStickerPaymentRequest(token: buyGiftSticker.token, completion: { giftCardPayment in
+                IGGlobal.prgHide()
+                IGPaymentView.sharedInstance.showGiftCardPayment(on: UIApplication.shared.keyWindow!, title: giftCardPayment.info.product.title, payment: giftCardPayment)
+            }, error: {
+                IGGlobal.prgHide()
+                IGPaymentView.sharedInstance.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: IGStringsManager.GiftCard.rawValue.localized, message: IGStringsManager.PaymentErrorMessage.rawValue.localized)
+            })
+        }, error: {
+            IGGlobal.prgHide()
         })
     }
     
