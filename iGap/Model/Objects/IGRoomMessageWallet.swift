@@ -80,6 +80,9 @@ class IGRoomMessageWallet: Object {
         if self.topup != nil {
             detachedRoomMessageWallet.topup = self.topup?.detach()
         }
+        if self.bill != nil {
+            detachedRoomMessageWallet.bill = self.bill?.detach()
+        }
 
         return detachedRoomMessageWallet
     }

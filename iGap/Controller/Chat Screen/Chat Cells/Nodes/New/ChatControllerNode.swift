@@ -28,12 +28,12 @@ class ChatControllerNode: ASCellNode {
     private var LiveStickerView : ASDisplayNode?
     private var NormalGiftStickerView : ASDisplayNode?
     private var btnPlay : ASButtonNode?
-
+    
     //filenode
     private var txtTitleNode : ASTextNode?
     private var txtSizeNode : ASTextNode?
     private var txtAttachmentNode : ASTextNode?
-
+    
     //contactnode
     private var contact: IGRoomMessageContact!
     private var txtPhoneNumbers : ASTextNode?
@@ -47,19 +47,19 @@ class ChatControllerNode: ASCellNode {
     private var txtMusicName : ASTextNode?
     private var txtMusicArtist : ASTextNode?
     private var btnStateNode : ASButtonNode?
-
+    
     //lognode
     private var txtLogMessage : ASTextNode?
     private var progressNode : ASDisplayNode?
     private var bgTextNode : ASDisplayNode?
     private var bgProgressNode : ASDisplayNode?
     private var bgNode : ASDisplayNode?
-
+    
     //voicenode
     private var txtCurrentTimeNode : ASTextNode?
     private var txtVoiceTimeNode : ASTextNode?
     var sliderNode : ASDisplayNode?
-
+    
     //CardToCardReceipt
     private var txtTypeIcon: ASTextNode?
     private var txtTypeTitle : ASTextNode?
@@ -97,7 +97,7 @@ class ChatControllerNode: ASCellNode {
     private var viewSepratorDate : ASDisplayNode?
     // btnShowMore
     private var btnShowMore : ASButtonNode?
-
+    
     //MoneyTransfer
     // Sender Name
     private var txtTTLSenderName : ASTextNode?
@@ -108,7 +108,7 @@ class ChatControllerNode: ASCellNode {
     // Description
     private var txtTTLDesc : ASTextNode?
     private var txtVALUEDesc : ASTextNode?
-
+    
     private var viewSepratorThree : ASDisplayNode?
     private var viewSepratorFour : ASDisplayNode?
     private var viewSepratorFive : ASDisplayNode?
@@ -116,7 +116,7 @@ class ChatControllerNode: ASCellNode {
     private var viewSepratorSeven : ASDisplayNode?
     private var viewSepratorOne : ASDisplayNode?
     private var viewSepratorTwo : ASDisplayNode?
-
+    
     //TopUp
     private var viewSepratorEight : ASDisplayNode?
     private var viewSepratorNine : ASDisplayNode?
@@ -131,7 +131,7 @@ class ChatControllerNode: ASCellNode {
     private var txtVALUEGateWay : ASTextNode?
     private var txtTTLOrderNumber : ASTextNode?
     private var txtVALUEOrderNumber : ASTextNode?
-
+    
     
     
     
@@ -160,7 +160,7 @@ class ChatControllerNode: ASCellNode {
     private var txtTimeNode : ASTextNode?
     private var txtStatusNode : ASTextNode?
     private var index: IndexPath!
-
+    
     
     // View Items
     //    private let nodeMedia = ASNetworkImageNode() // MUST BE CHANGED TO CustomImageNode
@@ -180,7 +180,7 @@ class ChatControllerNode: ASCellNode {
     
     weak var delegate: IGMessageGeneralCollectionViewCellDelegate?
     
-//    weak var delegate: IGMessageGeneralCollectionViewCellDelegate?
+    //    weak var delegate: IGMessageGeneralCollectionViewCellDelegate?
     
     //    private let nodeSlider = ASDisplayNode { () -> UIView in
     //        let view = UISlider()
@@ -280,13 +280,13 @@ class ChatControllerNode: ASCellNode {
         }
         
         if finalRoom.type == .channel {
-
+            
             if message.type == .text ||  message.type == .image ||  message.type == .imageAndText || message.type == .gif ||  message.type == .gifAndText ||  message.type == .file ||  message.type == .fileAndText || message.type == .voice  || message.type == .video || message.type == .videoAndText || message.type == .audio ||  message.type == .audioAndText   {
                 
-                    makeLikeDislikeIcons()
-
+                makeLikeDislikeIcons()
+                
             }
-
+            
         }
         
         if checkNode == nil {
@@ -297,10 +297,10 @@ class ChatControllerNode: ASCellNode {
         
         if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText || msg.type == .contact || msg.type == .audio || msg.type == .audioAndText || msg.type == .voice  || msg.type == .wallet  {
             let baseBubbleBox = makeBubble(bubbleImage: bubbleImage) // make bubble
-
+            
             let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
-//            contentItemsBox.style.maxWidth = ASDimensionMake(.points, 50)
-
+            //            contentItemsBox.style.maxWidth = ASDimensionMake(.points, 50)
+            
             baseBubbleBox.child = contentItemsBox // add contents as child to bubble
             let isShowingAvatar = makeAvatarIfNeeded()
             
@@ -320,9 +320,9 @@ class ChatControllerNode: ASCellNode {
                     stack.children = [sSelf.checkNode!, baseBubbleBox]
                 }
                 stack.style.flexShrink = 1.0
-
+                
                 let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 6, bottom: isFromSameSender ? 1 : 10, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: isFromSameSender ? 1 : 10 , right: 5), child: stack)
-
+                
                 return insetHSpec
             }
             manageAttachment(file: msg.attachment,msg: msg)
@@ -331,11 +331,11 @@ class ChatControllerNode: ASCellNode {
             }
             
         } else if msg.type == .sticker {
-
+            
             
             let isShowingAvatar = makeAvatarIfNeeded()
             let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
-
+            
             self.layoutSpecBlock = {[weak self] node, constrainedSize in
                 guard let sSelf = self else {
                     return ASLayoutSpec()
@@ -352,10 +352,10 @@ class ChatControllerNode: ASCellNode {
                 }
                 
                 stack.style.flexShrink = 1.0
-
-
+                
+                
                 let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 6, bottom: isFromSameSender ? 1 : 10, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: isFromSameSender ? 1 : 10 , right: 5), child: stack)
-
+                
                 return insetHSpec
             }
             manageAttachment(file: msg.attachment,msg: msg)
@@ -400,13 +400,13 @@ class ChatControllerNode: ASCellNode {
     
     func EnableDisableInteractions(mode: Bool = true) {
         if mode {
-//            self.nodeText?.isUserInteractionEnabled = true
-//            self.imgNode?.isUserInteractionEnabled = true
-//            self.btnStateNode?.isUserInteractionEnabled = true
-//            for node in subnodes! {
-//                node.isUserInteractionEnabled = false
-//                node.view.isUserInteractionEnabled = false
-//            }
+            //            self.nodeText?.isUserInteractionEnabled = true
+            //            self.imgNode?.isUserInteractionEnabled = true
+            //            self.btnStateNode?.isUserInteractionEnabled = true
+            //            for node in subnodes! {
+            //                node.isUserInteractionEnabled = false
+            //                node.view.isUserInteractionEnabled = false
+            //            }
             
             isUserInteractionEnabled = false
             view.isUserInteractionEnabled = false
@@ -418,8 +418,8 @@ class ChatControllerNode: ASCellNode {
     }
     
     public func makeAccessoryButton(index: IndexPath) {
-    //        print("CREATED ACCESSORY BUTTON")
-            addSubnode(checkNode!)
+        //        print("CREATED ACCESSORY BUTTON")
+        addSubnode(checkNode!)
         
         if index == self.index {
             checkNode!.view.tag = 002
@@ -430,8 +430,8 @@ class ChatControllerNode: ASCellNode {
                 
                 IGGlobal.makeAsyncText(for: sSelf.checkNode!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 30, weight: .regular, numberOfLines: 1, font: .fontIcon, alignment: .center)
             }
-
-
+            
+            
         } else {
             checkNode!.view.tag = 001
             
@@ -442,11 +442,11 @@ class ChatControllerNode: ASCellNode {
                 
                 IGGlobal.makeAsyncText(for: sSelf.checkNode!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 30, weight: .regular, numberOfLines: 1, font: .fontIcon, alignment: .center)
             }
-
+            
         }
         checkNode!.style.width = ASDimensionMake(.points, 35)
         checkNode!.style.height = ASDimensionMake(.points, 35)
-
+        
         self.setNeedsLayout()
     }
     
@@ -482,8 +482,8 @@ class ChatControllerNode: ASCellNode {
         IGGlobal.makeAsyncText(for: lblEyeIcon!, with: "🌣", textColor: Color, size: 10, numberOfLines: 1, font: .fontIcon, alignment: .center)
         IGGlobal.makeAsyncText(for: lblLikeIcon!, with: "🌡", textColor: .iGapRed(), size: 10, numberOfLines: 1, font: .fontIcon, alignment: .center)
         IGGlobal.makeAsyncText(for: lblDisLikeIcon!, with: "🌢", textColor: .iGapRed(), size: 10, numberOfLines: 1, font: .fontIcon, alignment: .center)
-
-
+        
+        
         manageVoteActions()
     }
     
@@ -492,21 +492,21 @@ class ChatControllerNode: ASCellNode {
         if self.message!.channelExtra != nil {
             var messageVote: IGRoomMessage! = self.message!
             if let forward = self.message!.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
-               messageVote = forward
+                messageVote = forward
             }
             let Color = ThemeManager.currentTheme.LabelColor
             IGGlobal.makeAsyncText(for: lblEyeText!, with: (messageVote.channelExtra?.viewsLabel ?? "1").inLocalizedLanguage(), textColor: Color, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+            
             
             if let channel = messageVote.authorRoom?.channelRoom, channel.hasReaction {
                 hasReAction = true
-
+                
                 IGGlobal.makeAsyncText(for: lblLikeText!, with: (messageVote.channelExtra?.thumbsUpLabel ?? "0").inLocalizedLanguage(), textColor: Color, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
                 IGGlobal.makeAsyncText(for: lblDisLikeText!, with: (messageVote.channelExtra?.thumbsDownLabel ?? "0").inLocalizedLanguage(), textColor: Color, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+                
             } else {
                 hasReAction = false
-
+                
                 lblLikeIcon?.removeFromSupernode()
                 lblLikeText?.removeFromSupernode()
                 lblDisLikeIcon?.removeFromSupernode()
@@ -525,7 +525,7 @@ class ChatControllerNode: ASCellNode {
             lblLikeText?.removeFromSupernode()
             lblDisLikeIcon?.removeFromSupernode()
             lblDisLikeText?.removeFromSupernode()
-
+            
         }
     }
     
@@ -605,7 +605,7 @@ class ChatControllerNode: ASCellNode {
         }
         
         return false
-                
+        
     }
     
     private func makeBubble(bubbleImage : UIImage) -> ASLayoutSpec {
@@ -692,7 +692,7 @@ class ChatControllerNode: ASCellNode {
         let TMPwidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
         
         contentSpec.style.maxLayoutSize = ASLayoutSize(width: TMPwidth, height: ASDimension(unit: .points, value: CGFloat.greatestFiniteMagnitude))
-
+        
         switch msg!.type {
         case .text :
             let finalBox = setTextNodeContent(contentSpec: contentSpec, msg: msg!)
@@ -731,17 +731,20 @@ class ChatControllerNode: ASCellNode {
             } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.topup.rawValue { //mode: topup
                 let finalBox = setTopUpNodeContent(contentSpec: contentSpec, msg: msg!)
                 return finalBox
+            }  else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.bill.rawValue { //mode: topup
+                let finalBox = setPayBillNodeContent(contentSpec: contentSpec, msg: msg!)
+                return finalBox
             } else {
                 let finalBox = setMoneyTransferNodeContent(contentSpec: contentSpec, msg: msg!)
                 return finalBox
-
+                
             }
-
-
+            
+            
             
         case .log,.time,.unread,.progress :
             contentSpec.horizontalAlignment = .middle
-
+            
             var logTypeTemp : logMessageType!
             
             
@@ -754,11 +757,11 @@ class ChatControllerNode: ASCellNode {
                 logTypeTemp = .unread
             case .progress :
                 logTypeTemp = .progress
-
+                
             default:
                 break
             }
-
+            
             let finalBox = setLogNodeContent(contentSpec: contentSpec, msg: msg!,logType: logTypeTemp)
             return finalBox
         default :
@@ -793,7 +796,7 @@ class ChatControllerNode: ASCellNode {
             } else {
                 likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon!,lblEyeText!])
                 likeDislikeStack.verticalAlignment = .center
-
+                
             }
             
             let holderStack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,txtTimeNode!])
@@ -911,19 +914,19 @@ class ChatControllerNode: ASCellNode {
         }
     }
     //******************************************************//
-    //*****************TOPUP RECIEPT NODE*******************//
+    //*****************BILL RECIEPT NODE********************//
     //******************************************************//
-    private func initTopUpItems() {
-
-        initTopUpTextNodeItemns()
-
-        initTopUpSeprators()
+    private func initPayBillItems() {
+        
+        initPayBillTextNodeItemns()
+        
+        initPayBillSeprators()
     }
-    private func initTopUpSeprators() {
+    private func initPayBillSeprators() {
         if testNode == nil {
             testNode = ASDisplayNode()
         }
-
+        
         if viewSepratorThree == nil {
             viewSepratorThree = ASDisplayNode()
         }
@@ -954,11 +957,11 @@ class ChatControllerNode: ASCellNode {
         if viewSepratorTen == nil {
             viewSepratorTen = ASDisplayNode()
         }
-
-
+        
+        
     }
-    private func initTopUpTextNodeItemns() {
-
+    private func initPayBillTextNodeItemns() {
+        
         if txtTypeIcon == nil {
             txtTypeIcon = ASTextNode()
         }
@@ -968,7 +971,7 @@ class ChatControllerNode: ASCellNode {
         if txtAmount == nil {
             txtAmount = ASTextNode()
         }
-
+        
         if txtTTLDate == nil {
             txtTTLDate = ASTextNode()
         }
@@ -996,7 +999,7 @@ class ChatControllerNode: ASCellNode {
         if txtVALUETopUpOperator == nil {
             txtVALUETopUpOperator = ASTextNode()
         }
-
+        
         if txtTTLSourceCardNumber == nil {
             txtTTLSourceCardNumber = ASTextNode()
         }
@@ -1027,28 +1030,28 @@ class ChatControllerNode: ASCellNode {
         if txtVALUEGateWay == nil {
             txtVALUEGateWay = ASTextNode()
         }
-
-
+        
+        
         
     }
-    private func makeTopUpView(message: IGRoomMessage) {
-        initTopUpItems()
+    private func makePayBillView(message: IGRoomMessage) {
+        initPayBillItems()
         if btnShowMore == nil {
             btnShowMore = ASButtonNode()
         }
-
-        IGGlobal.makeAsyncText(for: txtTypeIcon!, with: "", textColor: UIColor.iGapPurple(), size: 40, numberOfLines: 1, font: .fontIcon, alignment: .center)
-        IGGlobal.makeAsyncText(for: txtTypeTitle!, with: IGStringsManager.TopUp.rawValue.localized + "                              ", textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
-        if let amount = (message.wallet?.topup?.amount) {
-
+        
+        IGGlobal.makeAsyncText(for: txtTypeIcon!, with: "", textColor: UIColor.iGapPink(), size: 40, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTypeTitle!, with: IGStringsManager.PayBills.rawValue.localized + "                              ", textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
+        if let amount = (message.wallet?.bill?.amount) {
+            
             IGGlobal.makeAsyncText(for: txtAmount!, with: String(amount).inRialFormat() + " " + IGStringsManager.Currency.rawValue.localized
-           , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
+                , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
         }
         else{
-
-           IGGlobal.makeAsyncText(for: txtAmount!, with: "..." , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+            
+            IGGlobal.makeAsyncText(for: txtAmount!, with: "..." , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
         }
-//
+        //
         viewSepratorOne!.backgroundColor = ThemeManager.currentTheme.LabelColor
         viewSepratorTwo!.backgroundColor = ThemeManager.currentTheme.LabelColor
         viewSepratorThree!.backgroundColor = ThemeManager.currentTheme.LabelColor
@@ -1059,23 +1062,288 @@ class ChatControllerNode: ASCellNode {
         viewSepratorEight!.backgroundColor = ThemeManager.currentTheme.LabelColor
         viewSepratorNine!.backgroundColor = ThemeManager.currentTheme.LabelColor
         viewSepratorTen!.backgroundColor = ThemeManager.currentTheme.LabelColor
-//
+        //
         btnShowMore!.style.height = ASDimensionMake(.points, 50)
         btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .white, for: .normal)
-//
+        //
         let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLOrderNumber!,txtVALUEOrderNumber!,txtTTLGateWay!,txtVALUEGateWay!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
         for elemnt in elemArray {
             elemnt.style.preferredSize = CGSize.zero
         }
-//
+        //
+        btnShowMore!.backgroundColor = UIColor.iGapPink()
+        btnShowMore!.layer.cornerRadius = 10.0
+        btnShowMore!.addTarget(self, action: #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
+        //
+        
+        setPayBillData(message: message)
+        
+        
+    }
+    
+    private func setPayBillData(message: IGRoomMessage) {
+        //TITLES SET DATA
+        IGGlobal.makeAsyncText(for: txtTTLDate!, with: IGStringsManager.DateTime.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLSenderPhoneNumber!, with: IGStringsManager.BillType.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLRecieverPhoneNumber!, with: IGStringsManager.BillId.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLTopUpOperator!, with: IGStringsManager.PayIdentifier.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLSourceCardNumber!, with: IGStringsManager.CardNumber.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLOrderNumber!, with: IGStringsManager.OrderId.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLGateWay!, with: IGStringsManager.TerminalId.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLTraceNumber!, with: IGStringsManager.TraceNumber.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTTLRefrenceNumber!, with: IGStringsManager.RefrenceNum.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        
+        //VALUES SET DATA
+        if let time = TimeInterval(exactly: (message.wallet?.bill!.requestTime)!) {
+            
+            IGGlobal.makeAsyncText(for: txtVALUEDate!, with: Date(timeIntervalSince1970: time).completeHumanReadableTime(showHour: true).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+            
+        }
+        
+        if let senderUser = (message.wallet?.bill?.billType) {
+            IGGlobal.makeAsyncText(for: txtVALUESenderPhoneNumber!, with: senderUser, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        }
+        
+        if let receiverUser = (message.wallet?.bill?.billId) {
+            IGGlobal.makeAsyncText(for: txtVALUERecieverPhoneNumber!, with: receiverUser.inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        }
+        if let chargeOperator = (message.wallet?.bill?.payId) {
+            IGGlobal.makeAsyncText(for: txtVALUETopUpOperator!, with: chargeOperator.inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+
+        }
+        if let cardNumber = (message.wallet?.bill?.cardNumber) {
+            IGGlobal.makeAsyncText(for: txtVALUESourceCardNumber!, with: cardNumber, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        }
+        if let orderNumber = (message.wallet?.bill?.orderId) {
+            IGGlobal.makeAsyncText(for: txtVALUEOrderNumber!, with: String(orderNumber).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        }
+        if let terminalNumber = (message.wallet?.bill?.terminalNo) {
+            IGGlobal.makeAsyncText(for: txtVALUEGateWay!, with: String(terminalNumber).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        }
+        if let traceNum = (message.wallet?.bill!.traceNumber) {
+            IGGlobal.makeAsyncText(for: txtVALUETraceNumber!, with: String(traceNum).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+            
+        }
+        if let invoiceNum = (message.wallet?.bill!.rrn) {
+            IGGlobal.makeAsyncText(for: txtVALUERefrenceNumber!, with: String(invoiceNum).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+            
+        }
+        
+        
+        self.message = message
+        
+    }
+    private func layoutPayBill(msg: IGRoomMessage) -> ASLayoutSpec {
+        
+        let textBox = ASStackLayoutSpec.vertical()
+        textBox.justifyContent = .spaceAround
+        textBox.children = [txtTypeTitle!, txtAmount!]
+        
+        
+        let profileBox = ASStackLayoutSpec.horizontal()
+        profileBox.spacing = 10
+        profileBox.children = [txtTypeIcon!, textBox]
+        
+        let mainBox = ASStackLayoutSpec.vertical()
+        mainBox.justifyContent = .spaceAround
+        mainBox.children = [profileBox]
+        let elemArray : [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,viewSepratorThree!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,viewSepratorFour!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,viewSepratorFive!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,viewSepratorSix!,txtTTLOrderNumber!,txtVALUEOrderNumber!,viewSepratorSeven!,txtTTLGateWay!,txtVALUEGateWay!,viewSepratorEight!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorNine!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
+        
+        for elemnt in elemArray {
+            mainBox.children?.append(elemnt)
+        }
+        mainBox.children?.append(btnShowMore!)
+        
+        // Apply text truncation
+        let elems: [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,viewSepratorThree!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,viewSepratorFour!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,viewSepratorFive!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,viewSepratorSix!,txtTTLOrderNumber!,txtVALUEOrderNumber!,viewSepratorSeven!,txtTTLGateWay!,txtVALUEGateWay!,viewSepratorEight!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorNine!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,textBox,profileBox,mainBox]
+        for elem in elems {
+            elem.style.flexShrink = 1
+        }
+        
+        
+        
+        let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
+            top: 10,
+            left: 10,
+            bottom: 10,
+            right: 20), child: mainBox)
+        
+        
+        return insetSpec
+    }
+    
+    private func setPayBillNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage) -> ASLayoutSpec {
+        makePayBillView(message: msg)
+        return layoutPayBill(msg: msg)
+    }
+    
+    
+    //******************************************************//
+    //*****************TOPUP RECIEPT NODE*******************//
+    //******************************************************//
+    private func initTopUpItems() {
+        
+        initTopUpTextNodeItemns()
+        
+        initTopUpSeprators()
+    }
+    private func initTopUpSeprators() {
+        if testNode == nil {
+            testNode = ASDisplayNode()
+        }
+        
+        if viewSepratorThree == nil {
+            viewSepratorThree = ASDisplayNode()
+        }
+        if viewSepratorFour == nil {
+            viewSepratorFour = ASDisplayNode()
+        }
+        if viewSepratorFive == nil {
+            viewSepratorFive = ASDisplayNode()
+        }
+        if viewSepratorSix == nil {
+            viewSepratorSix = ASDisplayNode()
+        }
+        if viewSepratorSeven == nil {
+            viewSepratorSeven = ASDisplayNode()
+        }
+        if viewSepratorOne == nil {
+            viewSepratorOne = ASDisplayNode()
+        }
+        if viewSepratorTwo == nil {
+            viewSepratorTwo = ASDisplayNode()
+        }
+        if viewSepratorEight == nil {
+            viewSepratorEight = ASDisplayNode()
+        }
+        if viewSepratorNine == nil {
+            viewSepratorNine = ASDisplayNode()
+        }
+        if viewSepratorTen == nil {
+            viewSepratorTen = ASDisplayNode()
+        }
+        
+        
+    }
+    private func initTopUpTextNodeItemns() {
+        
+        if txtTypeIcon == nil {
+            txtTypeIcon = ASTextNode()
+        }
+        if txtTypeTitle == nil {
+            txtTypeTitle = ASTextNode()
+        }
+        if txtAmount == nil {
+            txtAmount = ASTextNode()
+        }
+        
+        if txtTTLDate == nil {
+            txtTTLDate = ASTextNode()
+        }
+        if txtVALUEDate == nil {
+            txtVALUEDate = ASTextNode()
+        }
+        if txtTTLSenderPhoneNumber == nil {
+            txtTTLSenderPhoneNumber = ASTextNode()
+        }
+        if txtVALUESenderPhoneNumber == nil {
+            txtVALUESenderPhoneNumber = ASTextNode()
+        }
+        if txtTTLRecieverPhoneNumber == nil {
+            txtTTLRecieverPhoneNumber = ASTextNode()
+        }
+        if txtVALUERecieverPhoneNumber == nil {
+            txtVALUERecieverPhoneNumber = ASTextNode()
+        }
+        if txtTTLTopUpOperator == nil {
+            txtTTLTopUpOperator = ASTextNode()
+        }
+        if txtVALUETopUpOperator == nil {
+            txtVALUETopUpOperator = ASTextNode()
+        }
+        if txtVALUETopUpOperator == nil {
+            txtVALUETopUpOperator = ASTextNode()
+        }
+        
+        if txtTTLSourceCardNumber == nil {
+            txtTTLSourceCardNumber = ASTextNode()
+        }
+        if txtVALUESourceCardNumber == nil {
+            txtVALUESourceCardNumber = ASTextNode()
+        }
+        if txtVALUETraceNumber == nil {
+            txtVALUETraceNumber = ASTextNode()
+        }
+        if txtTTLTraceNumber == nil {
+            txtTTLTraceNumber = ASTextNode()
+        }
+        if txtTTLRefrenceNumber == nil {
+            txtTTLRefrenceNumber = ASTextNode()
+        }
+        if txtVALUERefrenceNumber == nil {
+            txtVALUERefrenceNumber = ASTextNode()
+        }
+        if txtTTLOrderNumber == nil {
+            txtTTLOrderNumber = ASTextNode()
+        }
+        if txtVALUEOrderNumber == nil {
+            txtVALUEOrderNumber = ASTextNode()
+        }
+        if txtTTLGateWay == nil {
+            txtTTLGateWay = ASTextNode()
+        }
+        if txtVALUEGateWay == nil {
+            txtVALUEGateWay = ASTextNode()
+        }
+        
+        
+        
+    }
+    private func makeTopUpView(message: IGRoomMessage) {
+        initTopUpItems()
+        if btnShowMore == nil {
+            btnShowMore = ASButtonNode()
+        }
+        
+        IGGlobal.makeAsyncText(for: txtTypeIcon!, with: "", textColor: UIColor.iGapPurple(), size: 40, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtTypeTitle!, with: IGStringsManager.TopUp.rawValue.localized + "                              ", textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
+        if let amount = (message.wallet?.topup?.amount) {
+            
+            IGGlobal.makeAsyncText(for: txtAmount!, with: String(amount).inRialFormat() + " " + IGStringsManager.Currency.rawValue.localized
+                , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
+        }
+        else{
+            
+            IGGlobal.makeAsyncText(for: txtAmount!, with: "..." , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+        }
+        //
+        viewSepratorOne!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorTwo!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorThree!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorFour!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorFive!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorSix!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorSeven!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorEight!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorNine!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        viewSepratorTen!.backgroundColor = ThemeManager.currentTheme.LabelColor
+        //
+        btnShowMore!.style.height = ASDimensionMake(.points, 50)
+        btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .white, for: .normal)
+        //
+        let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLOrderNumber!,txtVALUEOrderNumber!,txtTTLGateWay!,txtVALUEGateWay!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
+        for elemnt in elemArray {
+            elemnt.style.preferredSize = CGSize.zero
+        }
+        //
         btnShowMore!.backgroundColor = UIColor.iGapPurple()
         btnShowMore!.layer.cornerRadius = 10.0
         btnShowMore!.addTarget(self, action: #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
-//
-
+        //
+        
         setTopUpData(message: message)
-
-
+        
+        
     }
     
     private func setTopUpData(message: IGRoomMessage) {
@@ -1089,40 +1357,40 @@ class ChatControllerNode: ASCellNode {
         IGGlobal.makeAsyncText(for: txtTTLGateWay!, with: IGStringsManager.TerminalId.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
         IGGlobal.makeAsyncText(for: txtTTLTraceNumber!, with: IGStringsManager.TraceNumber.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
         IGGlobal.makeAsyncText(for: txtTTLRefrenceNumber!, with: IGStringsManager.RefrenceNum.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+        
         //VALUES SET DATA
         if let time = TimeInterval(exactly: (message.wallet?.topup!.requestTime)!) {
-
+            
             IGGlobal.makeAsyncText(for: txtVALUEDate!, with: Date(timeIntervalSince1970: time).completeHumanReadableTime(showHour: true).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+            
         }
         
         if let senderUser = (message.wallet?.topup?.requesterMobileNumber) {
             IGGlobal.makeAsyncText(for: txtVALUESenderPhoneNumber!, with: senderUser, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
         }
-
+        
         if let receiverUser = (message.wallet?.topup?.chargeMobileNumber) {
             IGGlobal.makeAsyncText(for: txtVALUERecieverPhoneNumber!, with: receiverUser, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
         }
         if let chargeOperator = (message.wallet?.topup?.topupType) {
             if chargeOperator == IGProtoBuff.IGPRoomMessageWallet.IGPTopup.IGPType.mci.rawValue {
                 IGGlobal.makeAsyncText(for: txtVALUETopUpOperator!, with: IGStringsManager.MCI.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+                
             } else if chargeOperator == IGProtoBuff.IGPRoomMessageWallet.IGPTopup.IGPType.rightel.rawValue {
                 IGGlobal.makeAsyncText(for: txtVALUETopUpOperator!, with: IGStringsManager.Rightel.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+                
             } else if chargeOperator == IGProtoBuff.IGPRoomMessageWallet.IGPTopup.IGPType.irancellWow.rawValue {
                 IGGlobal.makeAsyncText(for: txtVALUETopUpOperator!, with: IGStringsManager.Irancell.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+                
             }  else if chargeOperator == IGProtoBuff.IGPRoomMessageWallet.IGPTopup.IGPType.irancellPrepaid.rawValue {
                 IGGlobal.makeAsyncText(for: txtVALUETopUpOperator!, with: IGStringsManager.Irancell.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+                
             }  else if chargeOperator == IGProtoBuff.IGPRoomMessageWallet.IGPTopup.IGPType.irancellPostpaid.rawValue {
                 IGGlobal.makeAsyncText(for: txtVALUETopUpOperator!, with: IGStringsManager.Irancell.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+                
             } else {
                 IGGlobal.makeAsyncText(for: txtVALUETopUpOperator!, with: IGStringsManager.Irancell.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+                
             }
         }
         if let cardNumber = (message.wallet?.topup?.cardNumber) {
@@ -1142,46 +1410,46 @@ class ChatControllerNode: ASCellNode {
             IGGlobal.makeAsyncText(for: txtVALUERefrenceNumber!, with: String(invoiceNum).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
             
         }
-
-
+        
+        
         self.message = message
-
+        
     }
     private func layoutTopUp(msg: IGRoomMessage) -> ASLayoutSpec {
         
-          let textBox = ASStackLayoutSpec.vertical()
-          textBox.justifyContent = .spaceAround
-          textBox.children = [txtTypeTitle!, txtAmount!]
-
-
-          let profileBox = ASStackLayoutSpec.horizontal()
-          profileBox.spacing = 10
-          profileBox.children = [txtTypeIcon!, textBox]
-
-          let mainBox = ASStackLayoutSpec.vertical()
-          mainBox.justifyContent = .spaceAround
-          mainBox.children = [profileBox]
-          let elemArray : [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,viewSepratorThree!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,viewSepratorFour!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,viewSepratorFive!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,viewSepratorSix!,txtTTLOrderNumber!,txtVALUEOrderNumber!,viewSepratorSeven!,txtTTLGateWay!,txtVALUEGateWay!,viewSepratorEight!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorNine!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
-
-          for elemnt in elemArray {
-              mainBox.children?.append(elemnt)
-          }
-          mainBox.children?.append(btnShowMore!)
-
-          // Apply text truncation
-          let elems: [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,viewSepratorThree!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,viewSepratorFour!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,viewSepratorFive!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,viewSepratorSix!,txtTTLOrderNumber!,txtVALUEOrderNumber!,viewSepratorSeven!,txtTTLGateWay!,txtVALUEGateWay!,viewSepratorEight!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorNine!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,textBox,profileBox,mainBox]
-          for elem in elems {
-              elem.style.flexShrink = 1
-          }
-
+        let textBox = ASStackLayoutSpec.vertical()
+        textBox.justifyContent = .spaceAround
+        textBox.children = [txtTypeTitle!, txtAmount!]
         
-          
+        
+        let profileBox = ASStackLayoutSpec.horizontal()
+        profileBox.spacing = 10
+        profileBox.children = [txtTypeIcon!, textBox]
+        
+        let mainBox = ASStackLayoutSpec.vertical()
+        mainBox.justifyContent = .spaceAround
+        mainBox.children = [profileBox]
+        let elemArray : [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,viewSepratorThree!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,viewSepratorFour!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,viewSepratorFive!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,viewSepratorSix!,txtTTLOrderNumber!,txtVALUEOrderNumber!,viewSepratorSeven!,txtTTLGateWay!,txtVALUEGateWay!,viewSepratorEight!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorNine!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
+        
+        for elemnt in elemArray {
+            mainBox.children?.append(elemnt)
+        }
+        mainBox.children?.append(btnShowMore!)
+        
+        // Apply text truncation
+        let elems: [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,viewSepratorThree!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,viewSepratorFour!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,viewSepratorFive!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,viewSepratorSix!,txtTTLOrderNumber!,txtVALUEOrderNumber!,viewSepratorSeven!,txtTTLGateWay!,txtVALUEGateWay!,viewSepratorEight!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorNine!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,textBox,profileBox,mainBox]
+        for elem in elems {
+            elem.style.flexShrink = 1
+        }
+        
+        
+        
         let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-        top: 10,
-        left: 10,
-        bottom: 10,
-        right: 20), child: mainBox)
-            
+            top: 10,
+            left: 10,
+            bottom: 10,
+            right: 20), child: mainBox)
+        
         
         return insetSpec
     }
@@ -1190,18 +1458,18 @@ class ChatControllerNode: ASCellNode {
         makeTopUpView(message: msg)
         return layoutTopUp(msg: msg)
     }
-
+    
     //******************************************************//
     //*************MONEYTRANSFER RECIEPT NODE***************//
     //******************************************************//
     private func initMoneyTransferItems() {
-
+        
         initMoneyTransferTextNodeItemns()
-
+        
         initMoneyTransferSeprators()
     }
     private func initMoneyTransferSeprators() {
-
+        
         if viewSepratorThree == nil {
             viewSepratorThree = ASDisplayNode()
         }
@@ -1225,8 +1493,8 @@ class ChatControllerNode: ASCellNode {
         }
     }
     private func initMoneyTransferTextNodeItemns() {
-
-
+        
+        
         if txtTypeIcon == nil {
             txtTypeIcon = ASTextNode()
         }
@@ -1263,7 +1531,7 @@ class ChatControllerNode: ASCellNode {
         if txtVALUEDesc == nil {
             txtVALUEDesc = ASTextNode()
         }
-
+        
         if txtTTLTraceNumber == nil {
             txtTTLTraceNumber = ASTextNode()
         }
@@ -1276,26 +1544,26 @@ class ChatControllerNode: ASCellNode {
         if txtVALUERefrenceNumber == nil {
             txtVALUERefrenceNumber = ASTextNode()
         }
-
+        
     }
     private func makeMoneyTransferView(message: IGRoomMessage) {
         initMoneyTransferItems()
         if btnShowMore == nil {
             btnShowMore = ASButtonNode()
         }
-
+        
         IGGlobal.makeAsyncText(for: txtTypeIcon!, with: "", textColor: UIColor.iGapYellow(), size: 40, numberOfLines: 1, font: .fontIcon, alignment: .center)
         IGGlobal.makeAsyncText(for: txtTypeTitle!, with: IGStringsManager.WalletMoneyTransfer.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
         if let amount = (message.wallet?.moneyTrasfer?.amount) {
             
             IGGlobal.makeAsyncText(for: txtAmount!, with: String(amount).inRialFormat() + " " + IGStringsManager.Currency.rawValue.localized
-           , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
+                , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
         }
         else{
             
-           IGGlobal.makeAsyncText(for: txtAmount!, with: "..." , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: txtAmount!, with: "..." , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
         }
-
+        
         viewSepratorOne!.backgroundColor = ThemeManager.currentTheme.LabelColor
         viewSepratorTwo!.backgroundColor = ThemeManager.currentTheme.LabelColor
         viewSepratorThree!.backgroundColor = ThemeManager.currentTheme.LabelColor
@@ -1303,23 +1571,23 @@ class ChatControllerNode: ASCellNode {
         viewSepratorFive!.backgroundColor = ThemeManager.currentTheme.LabelColor
         viewSepratorSix!.backgroundColor = ThemeManager.currentTheme.LabelColor
         viewSepratorSeven!.backgroundColor = ThemeManager.currentTheme.LabelColor
-
+        
         btnShowMore!.style.height = ASDimensionMake(.points, 50)
         btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
-
+        
         let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderName!,txtVALUESenderName!,txtTTLReciever!,txtVALUEReciever!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,txtTTLDesc!,txtVALUEDesc!]
         for elemnt in elemArray {
             elemnt.style.preferredSize = CGSize.zero
         }
-
+        
         btnShowMore!.backgroundColor = UIColor.iGapYellow()
         btnShowMore!.layer.cornerRadius = 10.0
         btnShowMore!.addTarget(self, action: #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
-
-
+        
+        
         setMoneyTransferData(message: message)
-
-
+        
+        
     }
     
     private func setMoneyTransferData(message: IGRoomMessage) {
@@ -1332,9 +1600,9 @@ class ChatControllerNode: ASCellNode {
         IGGlobal.makeAsyncText(for: txtTTLDesc!, with: IGStringsManager.Desc.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
         //VALUES SET DATA
         if let time = TimeInterval(exactly: (message.wallet?.moneyTrasfer!.payTime)!) {
-
+            
             IGGlobal.makeAsyncText(for: txtVALUEDate!, with: Date(timeIntervalSince1970: time).completeHumanReadableTime(showHour: true).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+            
         }
         if let senderUser = IGRegisteredUser.getUserInfo(id: (message.wallet?.moneyTrasfer!.fromUserId)!) {
             IGGlobal.makeAsyncText(for: txtVALUESenderName!, with: senderUser.displayName, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
@@ -1344,58 +1612,58 @@ class ChatControllerNode: ASCellNode {
         }
         if let traceNum = (message.wallet?.moneyTrasfer!.traceNumber) {
             IGGlobal.makeAsyncText(for: txtVALUETraceNumber!, with: String(traceNum).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+            
         }
         if let invoiceNum = (message.wallet?.moneyTrasfer!.invoiceNumber) {
             IGGlobal.makeAsyncText(for: txtVALUERefrenceNumber!, with: String(invoiceNum).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+            
         }
         if (message.wallet?.moneyTrasfer!.walletDescription)!.isEmpty  || (message.wallet?.moneyTrasfer!.walletDescription) == nil || (message.wallet?.moneyTrasfer!.description) == ""{
             IGGlobal.makeAsyncText(for: txtVALUEDesc!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+            
         } else {
             IGGlobal.makeAsyncText(for: txtVALUEDesc!, with: ((message.wallet?.moneyTrasfer!.walletDescription)!), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+            
         }
-
+        
         self.message = message
-
+        
     }
     private func layoutMoneyTransfer(msg: IGRoomMessage) -> ASLayoutSpec {
         
-          let textBox = ASStackLayoutSpec.vertical()
-          textBox.justifyContent = .spaceAround
-          textBox.children = [txtTypeTitle!, txtAmount!]
-          
-
-          let profileBox = ASStackLayoutSpec.horizontal()
-          profileBox.spacing = 10
-          profileBox.children = [txtTypeIcon!, textBox]
-          
-          let mainBox = ASStackLayoutSpec.vertical()
-          mainBox.justifyContent = .spaceAround
-          mainBox.children = [profileBox]
-          let elemArray : [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderName!,txtVALUESenderName!,viewSepratorThree!,txtTTLReciever!,txtVALUEReciever!,viewSepratorFour!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorFive!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,viewSepratorSix!,txtTTLDesc!,txtVALUEDesc!]
-
-          for elemnt in elemArray {
-              mainBox.children?.append(elemnt)
-          }
-          mainBox.children?.append(btnShowMore!)
-
-          // Apply text truncation
-          let elems: [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderName!,txtVALUESenderName!,viewSepratorThree!,txtTTLReciever!,txtVALUEReciever!,viewSepratorFour!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorFive!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,viewSepratorSix!,txtTTLDesc!,txtVALUEDesc!, textBox, profileBox, mainBox]
-          for elem in elems {
-              elem.style.flexShrink = 1
-          }
-          
+        let textBox = ASStackLayoutSpec.vertical()
+        textBox.justifyContent = .spaceAround
+        textBox.children = [txtTypeTitle!, txtAmount!]
         
-          
+        
+        let profileBox = ASStackLayoutSpec.horizontal()
+        profileBox.spacing = 10
+        profileBox.children = [txtTypeIcon!, textBox]
+        
+        let mainBox = ASStackLayoutSpec.vertical()
+        mainBox.justifyContent = .spaceAround
+        mainBox.children = [profileBox]
+        let elemArray : [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderName!,txtVALUESenderName!,viewSepratorThree!,txtTTLReciever!,txtVALUEReciever!,viewSepratorFour!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorFive!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,viewSepratorSix!,txtTTLDesc!,txtVALUEDesc!]
+        
+        for elemnt in elemArray {
+            mainBox.children?.append(elemnt)
+        }
+        mainBox.children?.append(btnShowMore!)
+        
+        // Apply text truncation
+        let elems: [ASLayoutElement] = [viewSepratorOne!,txtTTLDate!,txtVALUEDate!,viewSepratorTwo!,txtTTLSenderName!,txtVALUESenderName!,viewSepratorThree!,txtTTLReciever!,txtVALUEReciever!,viewSepratorFour!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorFive!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,viewSepratorSix!,txtTTLDesc!,txtVALUEDesc!, textBox, profileBox, mainBox]
+        for elem in elems {
+            elem.style.flexShrink = 1
+        }
+        
+        
+        
         let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-        top: 10,
-        left: 10,
-        bottom: 10,
-        right: 20), child: mainBox)
-            
+            top: 10,
+            left: 10,
+            bottom: 10,
+            right: 20), child: mainBox)
+        
         
         return insetSpec
     }
@@ -1408,9 +1676,9 @@ class ChatControllerNode: ASCellNode {
     //****************CARDTOCARD RECIEPT NODE***************//
     //******************************************************//
     private func initCardToCardItems() {
-
+        
         initCardToCardTextNodeItemns()
-
+        
         initCardToCardSeprators()
     }
     private func initCardToCardSeprators() {
@@ -1491,7 +1759,7 @@ class ChatControllerNode: ASCellNode {
         if txtVALUERefrenceNumber == nil {
             txtVALUERefrenceNumber = ASTextNode()
         }
-
+        
     }
     private func makeCardToCardView(message: IGRoomMessage) {
         initCardToCardItems()
@@ -1503,14 +1771,14 @@ class ChatControllerNode: ASCellNode {
         if let amount = (message.wallet?.cardToCard?.amount) {
             
             IGGlobal.makeAsyncText(for: txtAmount!, with: String(amount).inRialFormat() + " " + IGStringsManager.Currency.rawValue.localized
-           , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
+                , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .left)
         }
         else{
             
-           IGGlobal.makeAsyncText(for: txtAmount!, with: "..." , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: txtAmount!, with: "..." , textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
         }
-
-
+        
+        
         viewSepratorCardNum!.backgroundColor = ThemeManager.currentTheme.LabelColor
         viewSepratorTraceNum!.backgroundColor = ThemeManager.currentTheme.LabelColor
         viewSepratorOwnerName!.backgroundColor = ThemeManager.currentTheme.LabelColor
@@ -1518,21 +1786,21 @@ class ChatControllerNode: ASCellNode {
         viewSepratorDesBankName!.backgroundColor = ThemeManager.currentTheme.LabelColor
         viewSepratorTop!.backgroundColor = ThemeManager.currentTheme.LabelColor
         viewSepratorDate!.backgroundColor = ThemeManager.currentTheme.LabelColor
-
+        
         btnShowMore!.style.height = ASDimensionMake(.points, 50)
         btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .white, for: .normal)
-
+        
         let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLDestinationCardNumber!,txtVALUEDestinationCardNumber!,txtTTLDestinationBankName!,txtVALUEDestinationBankName!,txtTTLCardOwnerName!,txtVALUECardOwnerName!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
         for elemnt in elemArray {
             elemnt.style.preferredSize = CGSize.zero
         }
-
+        
         btnShowMore!.backgroundColor = UIColor.iGapBlue()
         btnShowMore!.layer.cornerRadius = 10.0
         btnShowMore!.addTarget(self, action: #selector(handleUserTap), forControlEvents: ASControlNodeEvent.touchUpInside)
         setCardToCardData(message: message)
-
-
+        
+        
     }
     
     private func setCardToCardData(message: IGRoomMessage) {
@@ -1546,9 +1814,9 @@ class ChatControllerNode: ASCellNode {
         IGGlobal.makeAsyncText(for: txtTTLRefrenceNumber!, with: IGStringsManager.RefrenceNum.rawValue.localized, textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
         //VALUES SET DATA
         if let time = TimeInterval(exactly: (message.wallet?.cardToCard!.requestTime)!) {
-
+            
             IGGlobal.makeAsyncText(for: txtVALUEDate!, with: Date(timeIntervalSince1970: time).completeHumanReadableTime(showHour: true).inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+            
         }
         IGGlobal.makeAsyncText(for: txtVALUESourceCardNumber!, with: (message.wallet?.cardToCard!.sourceCardNumber)!.inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
         IGGlobal.makeAsyncText(for: txtVALUEDestinationCardNumber!, with: (message.wallet?.cardToCard!.destCardNumber)!.inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
@@ -1557,7 +1825,7 @@ class ChatControllerNode: ASCellNode {
         IGGlobal.makeAsyncText(for: txtVALUETraceNumber!, with: (message.wallet?.cardToCard!.traceNumber)!.inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
         IGGlobal.makeAsyncText(for: txtVALUERefrenceNumber!, with: (message.wallet?.cardToCard!.rrn)!.inLocalizedLanguage(), textColor: ThemeManager.currentTheme.LabelColor, size: 15, numberOfLines: 1, font: .igapFont, alignment: .center)
         self.message = message
-
+        
     }
     //- Hint : Check tap on  showmore
     @objc func handleUserTap() {
@@ -1565,7 +1833,7 @@ class ChatControllerNode: ASCellNode {
         self.setNeedsLayout()
         self.transitionLayout(withAnimation: true, shouldMeasureAsync: true, measurementCompletion: nil)
     }
-
+    
     
     override func transitionLayout(withAnimation animated: Bool, shouldMeasureAsync: Bool, measurementCompletion completion: (() -> Void)? = nil) {
         
@@ -1574,7 +1842,7 @@ class ChatControllerNode: ASCellNode {
             if self.hasShownMore {
                 testNode!.layoutIfNeeded()
                 btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .white, for: .normal)
-
+                
                 viewSepratorCardNum!.style.height = ASDimensionMake(.points, 0)
                 viewSepratorTraceNum!.style.height = ASDimensionMake(.points, 0)
                 viewSepratorOwnerName!.style.height = ASDimensionMake(.points, 0)
@@ -1582,8 +1850,8 @@ class ChatControllerNode: ASCellNode {
                 viewSepratorDesBankName!.style.height = ASDimensionMake(.points, 0)
                 viewSepratorDate!.style.height = ASDimensionMake(.points, 0)
                 viewSepratorTop!.style.height = ASDimensionMake(.points, 0)
-
-
+                
+                
                 let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLDestinationCardNumber!,txtVALUEDestinationCardNumber!,txtTTLDestinationBankName!,txtVALUEDestinationBankName!,txtTTLCardOwnerName!,txtVALUECardOwnerName!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
                 for elemnt in elemArray {
                     elemnt.style.preferredSize = CGSize.zero
@@ -1592,14 +1860,14 @@ class ChatControllerNode: ASCellNode {
                     guard let sSelf = self else {
                         return
                     }
-                  sSelf.testNode!.layoutIfNeeded()
+                    sSelf.testNode!.layoutIfNeeded()
                 })
-
-
+                
+                
             } else {
                 testNode!.layoutIfNeeded()
                 btnShowMore!.setTitle(IGStringsManager.GlobalClose.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .white, for: .normal)
-
+                
                 viewSepratorCardNum!.style.height = ASDimensionMake(.points, 1)
                 viewSepratorTraceNum!.style.height = ASDimensionMake(.points, 1)
                 viewSepratorOwnerName!.style.height = ASDimensionMake(.points, 1)
@@ -1612,12 +1880,12 @@ class ChatControllerNode: ASCellNode {
                 for elemnt in elemArray {
                     elemnt.style.height = ASDimensionMake(.points, 25)
                 }
-
+                
                 UIView.animate(withDuration: 1.0, animations: {[weak self] in
                     guard let sSelf = self else {
                         return
                     }
-                  sSelf.testNode!.layoutIfNeeded()
+                    sSelf.testNode!.layoutIfNeeded()
                 })
             }
             
@@ -1625,7 +1893,7 @@ class ChatControllerNode: ASCellNode {
             if self.hasShownMore {
                 testNode!.layoutIfNeeded()
                 btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
-
+                
                 viewSepratorOne!.style.height = ASDimensionMake(.points, 0)
                 viewSepratorTwo!.style.height = ASDimensionMake(.points, 0)
                 viewSepratorThree!.style.height = ASDimensionMake(.points, 0)
@@ -1633,8 +1901,8 @@ class ChatControllerNode: ASCellNode {
                 viewSepratorFour!.style.height = ASDimensionMake(.points, 0)
                 viewSepratorSix!.style.height = ASDimensionMake(.points, 0)
                 viewSepratorSeven!.style.height = ASDimensionMake(.points, 0)
-
-
+                
+                
                 let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderName!,txtVALUESenderName!,txtTTLReciever!,txtVALUEReciever!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!,txtTTLDesc!,txtVALUEDesc!]
                 for elemnt in elemArray {
                     elemnt.style.preferredSize = CGSize.zero
@@ -1643,14 +1911,14 @@ class ChatControllerNode: ASCellNode {
                     guard let sSelf = self else {
                         return
                     }
-                  sSelf.testNode!.layoutIfNeeded()
+                    sSelf.testNode!.layoutIfNeeded()
                 })
-
-
+                
+                
             } else {
                 testNode!.layoutIfNeeded()
                 btnShowMore!.setTitle(IGStringsManager.GlobalClose.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
-
+                
                 viewSepratorOne!.style.height = ASDimensionMake(.points, 1)
                 viewSepratorTwo!.style.height = ASDimensionMake(.points, 1)
                 viewSepratorThree!.style.height = ASDimensionMake(.points, 1)
@@ -1662,20 +1930,20 @@ class ChatControllerNode: ASCellNode {
                 for elemnt in elemArray {
                     elemnt.style.height = ASDimensionMake(.points, 25)
                 }
-
+                
                 UIView.animate(withDuration: 1.0, animations: {[weak self] in
                     guard let sSelf = self else {
                         return
                     }
-                  sSelf.testNode!.layoutIfNeeded()
+                    sSelf.testNode!.layoutIfNeeded()
                 })
             }
-
+            
         } else if self.message?.wallet?.topup != nil {
             if self.hasShownMore {
-                           testNode!.layoutIfNeeded()
-                           btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
-
+                testNode!.layoutIfNeeded()
+                btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+                
                 viewSepratorOne!.style.height = ASDimensionMake(.points, 0)
                 viewSepratorTwo!.style.height = ASDimensionMake(.points, 0)
                 viewSepratorThree!.style.height = ASDimensionMake(.points, 0)
@@ -1685,51 +1953,102 @@ class ChatControllerNode: ASCellNode {
                 viewSepratorSeven!.style.height = ASDimensionMake(.points, 0)
                 viewSepratorEight!.style.height = ASDimensionMake(.points, 0)
                 viewSepratorNine!.style.height = ASDimensionMake(.points, 0)
-
-
-                           let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLOrderNumber!,txtVALUEOrderNumber!,txtTTLGateWay!,txtVALUEGateWay!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
-                           for elemnt in elemArray {
-                               elemnt.style.preferredSize = CGSize.zero
-                           }
-                           UIView.animate(withDuration: 1.0, animations: {[weak self] in
-                               guard let sSelf = self else {
-                                   return
-                               }
-                             sSelf.testNode!.layoutIfNeeded()
-                           })
-
-
-                       } else {
-                           testNode!.layoutIfNeeded()
-                           btnShowMore!.setTitle(IGStringsManager.GlobalClose.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
-
-                           viewSepratorOne!.style.height = ASDimensionMake(.points, 1)
-                           viewSepratorTwo!.style.height = ASDimensionMake(.points, 1)
-                           viewSepratorThree!.style.height = ASDimensionMake(.points, 1)
-                           viewSepratorFive!.style.height = ASDimensionMake(.points, 1)
-                           viewSepratorFour!.style.height = ASDimensionMake(.points, 1)
-                           viewSepratorSix!.style.height = ASDimensionMake(.points, 1)
-                           viewSepratorSeven!.style.height = ASDimensionMake(.points, 1)
-                           viewSepratorEight!.style.height = ASDimensionMake(.points, 1)
-                           viewSepratorNine!.style.height = ASDimensionMake(.points, 1)
-                           let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLOrderNumber!,txtVALUEOrderNumber!,txtTTLGateWay!,txtVALUEGateWay!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
-                           for elemnt in elemArray {
-                               elemnt.style.height = ASDimensionMake(.points, 25)
-                           }
-
-                           UIView.animate(withDuration: 1.0, animations: {[weak self] in
-                               guard let sSelf = self else {
-                                   return
-                               }
-                             sSelf.testNode!.layoutIfNeeded()
-                           })
-                       }
-        } else {
-            
-        }
+                
+                
+                let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLOrderNumber!,txtVALUEOrderNumber!,txtTTLGateWay!,txtVALUEGateWay!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
+                for elemnt in elemArray {
+                    elemnt.style.preferredSize = CGSize.zero
+                }
+                UIView.animate(withDuration: 1.0, animations: {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    sSelf.testNode!.layoutIfNeeded()
+                })
+                
+                
+            } else {
+                testNode!.layoutIfNeeded()
+                btnShowMore!.setTitle(IGStringsManager.GlobalClose.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+                
+                viewSepratorOne!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorTwo!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorThree!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorFive!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorFour!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorSix!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorSeven!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorEight!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorNine!.style.height = ASDimensionMake(.points, 1)
+                let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLOrderNumber!,txtVALUEOrderNumber!,txtTTLGateWay!,txtVALUEGateWay!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
+                for elemnt in elemArray {
+                    elemnt.style.height = ASDimensionMake(.points, 25)
+                }
+                
+                UIView.animate(withDuration: 1.0, animations: {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    sSelf.testNode!.layoutIfNeeded()
+                })
+            }
+        } else if self.message?.wallet?.bill != nil {
+            if self.hasShownMore {
+                testNode!.layoutIfNeeded()
+                btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+                
+                viewSepratorOne!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorTwo!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorThree!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorFive!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorFour!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorSix!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorSeven!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorEight!.style.height = ASDimensionMake(.points, 0)
+                viewSepratorNine!.style.height = ASDimensionMake(.points, 0)
+                
+                
+                let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLOrderNumber!,txtVALUEOrderNumber!,txtTTLGateWay!,txtVALUEGateWay!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
+                for elemnt in elemArray {
+                    elemnt.style.preferredSize = CGSize.zero
+                }
+                UIView.animate(withDuration: 1.0, animations: {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    sSelf.testNode!.layoutIfNeeded()
+                })
+                
+                
+            } else {
+                testNode!.layoutIfNeeded()
+                btnShowMore!.setTitle(IGStringsManager.GlobalClose.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
+                
+                viewSepratorOne!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorTwo!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorThree!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorFive!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorFour!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorSix!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorSeven!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorEight!.style.height = ASDimensionMake(.points, 1)
+                viewSepratorNine!.style.height = ASDimensionMake(.points, 1)
+                let elemArray : [ASLayoutElement] = [txtTTLDate!,txtVALUEDate!,txtTTLSenderPhoneNumber!,txtVALUESenderPhoneNumber!,txtTTLRecieverPhoneNumber!,txtVALUERecieverPhoneNumber!,txtTTLTopUpOperator!,txtVALUETopUpOperator!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,txtTTLOrderNumber!,txtVALUEOrderNumber!,txtTTLGateWay!,txtVALUEGateWay!,txtTTLTraceNumber!,txtVALUETraceNumber!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
+                for elemnt in elemArray {
+                    elemnt.style.height = ASDimensionMake(.points, 25)
+                }
+                
+                UIView.animate(withDuration: 1.0, animations: {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    sSelf.testNode!.layoutIfNeeded()
+                })
+            }
+        } else { }
         
-            self.hasShownMore = !self.hasShownMore
-
+        self.hasShownMore = !self.hasShownMore
+        
     }
     private func layoutCardToCard(msg: IGRoomMessage) -> ASLayoutSpec {
         
@@ -1737,7 +2056,7 @@ class ChatControllerNode: ASCellNode {
         textBox.justifyContent = .spaceAround
         textBox.children = [txtTypeTitle!, txtAmount!]
         
-
+        
         let profileBox = ASStackLayoutSpec.horizontal()
         profileBox.spacing = 10
         profileBox.children = [txtTypeIcon!, textBox]
@@ -1746,23 +2065,23 @@ class ChatControllerNode: ASCellNode {
         mainBox.justifyContent = .spaceAround
         mainBox.children = [profileBox]
         let elemArray : [ASLayoutElement] = [viewSepratorTop!,txtTTLDate!,txtVALUEDate!,viewSepratorDate!,txtTTLSourceCardNumber!,txtVALUESourceCardNumber!,viewSepratorCardNum!,txtTTLDestinationCardNumber!,txtVALUEDestinationCardNumber!,viewSepratorDesCardNum!,txtTTLDestinationBankName!,txtVALUEDestinationBankName!,viewSepratorDesBankName!,txtTTLCardOwnerName!,txtVALUECardOwnerName!,viewSepratorOwnerName!,txtTTLTraceNumber!,txtVALUETraceNumber!,viewSepratorTraceNum!,txtTTLRefrenceNumber!,txtVALUERefrenceNumber!]
-
+        
         for elemnt in elemArray {
             mainBox.children?.append(elemnt)
         }
         mainBox.children?.append(btnShowMore!)
-
+        
         // Apply text truncation
         let elems: [ASLayoutElement] = [txtTypeTitle!, txtAmount!,txtTypeIcon!,btnShowMore!, textBox, profileBox, mainBox]
         for elem in elems {
             elem.style.flexShrink = 1
         }
         let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-        top: 10,
-        left: 10,
-        bottom: 10,
-        right: 20), child: mainBox)
-            
+            top: 10,
+            left: 10,
+            bottom: 10,
+            right: 20), child: mainBox)
+        
         
         return insetSpec
     }
@@ -1771,7 +2090,7 @@ class ChatControllerNode: ASCellNode {
         makeCardToCardView(message: msg)
         return layoutCardToCard(msg: msg)
     }
-
+    
     //******************************************************//
     //***********************LOG NODE***********************//
     //******************************************************//
@@ -1787,7 +2106,7 @@ class ChatControllerNode: ASCellNode {
     private func makeLogView(logType: logMessageType = .log) {
         
         if logType == .progress {
-
+            
             if progressNode == nil {
                 progressNode = ASDisplayNode { () -> UIView in
                     let animationView = AnimationView()
@@ -1812,10 +2131,10 @@ class ChatControllerNode: ASCellNode {
                 (sSelf.progressNode!.view as! AnimationView).loopMode = .loop
                 (sSelf.progressNode!.view as! AnimationView).backgroundBehavior = .pauseAndRestore
                 (sSelf.progressNode!.view as! AnimationView).forceDisplayUpdate()
-
+                
             }
             self.progressNode!.alpha = 0.8
-
+            
         } else if logType == .emptyBox {} else {
             if bgNode == nil {
                 bgNode = ASDisplayNode()
@@ -1837,7 +2156,7 @@ class ChatControllerNode: ASCellNode {
                 setTime(message!.message!)
             case .unknown:
                 setUnknownMessage()
-
+                
             default:
                 break
             }
@@ -1853,24 +2172,24 @@ class ChatControllerNode: ASCellNode {
         txtLogMessage!.clipsToBounds = true
         let logSize = (time.width(withConstrainedHeight: 20, font: UIFont.igFont(ofSize: 16)))
         txtLogMessage!.style.width =  ASDimensionMake(.points, logSize + 10)
-
+        
     }
     func setLogMessage(_ message: IGRoomMessage) {
         if message.log?.type == .pinnedMessage {
             if txtLogMessage == nil {
                 txtLogMessage = ASTextNode()
             }
-
+            
             IGGlobal.makeAsyncText(for: txtLogMessage!, with: IGRoomMessage.detectPinMessage(message: message), textColor: .white, size: 15, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
-
+            
         } else {
             if txtLogMessage == nil {
                 txtLogMessage = ASTextNode()
             }
-
+            
             IGGlobal.makeAsyncText(for: txtLogMessage!, with:IGRoomMessageLog.textForLogMessage(message), textColor: .white, size: 15, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
-
-
+            
+            
         }
         txtLogMessage!.backgroundColor = UIColor.logBackground()
         txtLogMessage!.layer.cornerRadius = 10.0
@@ -1905,34 +2224,34 @@ class ChatControllerNode: ASCellNode {
         bgTextNode!.backgroundColor = UIColor.unreadBackground()
     }
     private func layoutLog(logType: logMessageType = .log) -> ASLayoutSpec {
-
-
+        
+        
         if logType == .progress {
             if progressNode == nil {
                 progressNode = ASDisplayNode()
             }
             let centerBoxText = ASCenterLayoutSpec(centeringOptions: .XY, child: progressNode!)
-
+            
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-            top: 10,
-            left: 0,
-            bottom: 10,
-            right: 0), child: centerBoxText)
-                
+                top: 10,
+                left: 0,
+                bottom: 10,
+                right: 0), child: centerBoxText)
+            
             
             return insetSpec
-
+            
         } else if logType == .emptyBox {
             let verticalBox = ASStackLayoutSpec()
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-            top: 10,
-            left: 0,
-            bottom: 10,
-            right: 0), child: verticalBox)
-                
+                top: 10,
+                left: 0,
+                bottom: 10,
+                right: 0), child: verticalBox)
+            
             
             return insetSpec
-
+            
         } else {
             if txtLogMessage == nil {
                 txtLogMessage = ASTextNode()
@@ -1943,26 +2262,26 @@ class ChatControllerNode: ASCellNode {
             if bgTextNode == nil {
                 bgTextNode = ASDisplayNode()
             }
-
-
+            
+            
             let centerBoxText = ASCenterLayoutSpec(centeringOptions: .XY, child: txtLogMessage!)
             let backTextBox = ASBackgroundLayoutSpec(child: centerBoxText, background: bgTextNode!)
             let backBox = ASBackgroundLayoutSpec(child: backTextBox, background: bgNode!)
             backBox.style.flexGrow = 1.0
-
+            
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-            top: 10,
-            left: 0,
-            bottom: 10,
-            right: 0), child: backBox)
-                
+                top: 10,
+                left: 0,
+                bottom: 10,
+                right: 0), child: backBox)
+            
             
             return insetSpec
-
+            
         }
-
+        
     }
-
+    
     private func setLogNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage, logType: logMessageType = .log) -> ASLayoutSpec {
         makeLogView(logType: logType)
         return layoutLog(logType: logType)
@@ -1983,7 +2302,7 @@ class ChatControllerNode: ASCellNode {
             }
         case AdditionalType.GIFT_STICKER.rawValue :
             initNormalGiftSticker()
-
+            
         default : break
             
         }
@@ -1994,47 +2313,47 @@ class ChatControllerNode: ASCellNode {
         case AdditionalType.STICKER.rawValue :
             if (self.message!.attachment?.name!.hasSuffix(".json") ?? false) {
                 let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-                top: 0,
-                left: 0,
-                bottom: 0,
-                right: 0), child: LiveStickerView!)
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0), child: LiveStickerView!)
                 
                 return insetSpec
-
+                
             } else {
                 let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-                top: 0,
-                left: 0,
-                bottom: 0,
-                right: 0), child: NormalGiftStickerView!)
-
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0), child: NormalGiftStickerView!)
+                
                 let tmpV = ASStackLayoutSpec()
                 tmpV.direction = .vertical
                 makeTopBubbleItems(stack: tmpV)
                 tmpV.children?.append(insetSpec)
                 addStickerBottomItems(spec: tmpV)//add time and status to bottom of sticker
-
+                
                 return tmpV
-
+                
             }
         case AdditionalType.GIFT_STICKER.rawValue :
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0), child: NormalGiftStickerView!)
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0), child: NormalGiftStickerView!)
             
             return insetSpec
-
+            
         default :
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0), child: NormalGiftStickerView!)
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0), child: NormalGiftStickerView!)
             
             return insetSpec
-
+            
             
         }
         
@@ -2057,7 +2376,7 @@ class ChatControllerNode: ASCellNode {
             (sSelf.LiveStickerView!.view as! AnimationView).loopMode = .loop
             (sSelf.LiveStickerView!.view as! AnimationView).backgroundBehavior = .pauseAndRestore
             (sSelf.LiveStickerView!.view as! AnimationView).forceDisplayUpdate()
-
+            
         }
     }
     
@@ -2071,7 +2390,7 @@ class ChatControllerNode: ASCellNode {
         }
         self.NormalGiftStickerView!.style.height = ASDimensionMake(.points, 200)
         self.NormalGiftStickerView!.style.width = ASDimensionMake(.points, 200)
-
+        
     }
     private func addStickerBottomItems(spec: ASLayoutSpec) {
         if txtTimeNode == nil {
@@ -2082,10 +2401,10 @@ class ChatControllerNode: ASCellNode {
             if txtStatusNode == nil {
                 txtStatusNode = ASTextNode()
             }
-
+            
             setMessageStatus()
         }
-
+        
         let timeAndStatusSpec = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
         timeAndStatusSpec.verticalAlignment = .center
         let v = ASDisplayNode()
@@ -2095,7 +2414,7 @@ class ChatControllerNode: ASCellNode {
         let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10), child: timeAndStatusSpec)
         let bgSpec = ASBackgroundLayoutSpec(child: insetSpec, background: v)
         let finalSpec = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: [bgSpec])
-
+        
         spec.children?.append(finalSpec)
         
     }
@@ -2114,7 +2433,7 @@ class ChatControllerNode: ASCellNode {
                 let view = GIFImageView()
                 return view
             }
-
+            
             gifNode!.contentMode = .scaleAspectFit
             
         }
@@ -2129,7 +2448,7 @@ class ChatControllerNode: ASCellNode {
                     indicatorViewAbs?.style.width = ASDimensionMake(.points, 50)
                     (indicatorViewAbs?.view as? IGProgress)?.setFileType(.download)
                     attachment?.status = .readyToDownload
-
+                    
                 }
             } else {
                 indicatorViewAbs?.removeFromSupernode()
@@ -2137,14 +2456,14 @@ class ChatControllerNode: ASCellNode {
                 attachment?.status = .ready
             }
         }
-       
+        
         gifNode!.style.width = ASDimension(unit: .points, value: prefferedSize.width)
         gifNode!.style.height = ASDimension(unit: .points, value: prefferedSize.height)
         gifNode!.clipsToBounds = true
         
         gifNode!.layer.cornerRadius = 10
-//        indicatorViewAbs?.style.height = ASDimensionMake(.points, 50)
-//        indicatorViewAbs?.style.width = ASDimensionMake(.points, 50)
+        //        indicatorViewAbs?.style.height = ASDimensionMake(.points, 50)
+        //        indicatorViewAbs?.style.width = ASDimensionMake(.points, 50)
         
         if msg.type == .gif {
             RemoveNodeText()
@@ -2166,7 +2485,7 @@ class ChatControllerNode: ASCellNode {
                 
                 overlay.overlay = indicatorViewAbs!
                 
-//                let overlay = ASOverlayLayoutSpec(child: verticalSpec, overlay: indicatorViewAbs!)
+                //                let overlay = ASOverlayLayoutSpec(child: verticalSpec, overlay: indicatorViewAbs!)
                 
             }
             
@@ -2180,7 +2499,7 @@ class ChatControllerNode: ASCellNode {
             
             
         } else {
-                    
+            
             let verticalSpec = ASStackLayoutSpec()
             verticalSpec.direction = .vertical
             verticalSpec.spacing = 5
@@ -2190,14 +2509,14 @@ class ChatControllerNode: ASCellNode {
             let insetSpecImage = ASInsetLayoutSpec(insets: insetsImage, child: gifNode!)
             if indicatorViewAbs == nil {
                 verticalSpec.children?.append(insetSpecImage)
-
+                
             } else {
                 let overlay = ASOverlayLayoutSpec(child: insetSpecImage, overlay: indicatorViewAbs!)
                 verticalSpec.children?.append(overlay)
-
+                
             }
-  
-//
+            
+            //
             AddTextNodeTo(spec: verticalSpec)
             contentSpec.children?.append(verticalSpec)
             nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
@@ -2205,11 +2524,11 @@ class ChatControllerNode: ASCellNode {
             let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 10) : UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 20), child: contentSpec)
             
             return finalInsetSpec
-
+            
         }
         
     }
-
+    
     
     //******************************************************//
     //*************FILE NODE AND FILE TEXT NODE*************//
@@ -2230,10 +2549,10 @@ class ChatControllerNode: ASCellNode {
         self.txtAttachmentNode!.style.width = ASDimension(unit: .points, value: 60.0)
         self.txtAttachmentNode!.style.height = ASDimension(unit: .points, value: 60.0)
         self.txtAttachmentNode!.setThumbnail(for: msg.attachment!)
-
+        
         IGGlobal.makeAsyncText(for: txtTitleNode! , with: msg.attachment!.name!, font: .igapFont)
         IGGlobal.makeAsyncText(for: txtSizeNode! , with: msg.attachment!.sizeToString(), font: .igapFont)
-
+        
         let textBox = ASStackLayoutSpec.vertical()
         textBox.justifyContent = .spaceAround
         textBox.children = [txtTitleNode!, txtSizeNode!]
@@ -2249,7 +2568,7 @@ class ChatControllerNode: ASCellNode {
                     indicatorViewAbs?.style.width = ASDimensionMake(.points, 50)
                     (indicatorViewAbs?.view as? IGProgress)?.setFileType(.download)
                     attachment?.status = .readyToDownload
-
+                    
                 }
             } else {
                 indicatorViewAbs?.removeFromSupernode()
@@ -2257,34 +2576,34 @@ class ChatControllerNode: ASCellNode {
                 attachment?.status = .ready
             }
         }
-
+        
         let txtImageBox : ASOverlayLayoutSpec
         let profileBox : ASStackLayoutSpec
         profileBox = ASStackLayoutSpec.horizontal()
         profileBox.spacing = 10
-
+        
         if indicatorViewAbs == nil {
             
             profileBox.children = [txtAttachmentNode!, textBox]
-
+            
         } else {
             txtImageBox = ASOverlayLayoutSpec(child: txtAttachmentNode!, overlay: indicatorViewAbs!)
             profileBox.children = [txtImageBox, textBox]
-
+            
         }
-
-
+        
+        
         // Apply text truncation
         let elems: [ASLayoutElement] = [txtSizeNode!, txtTitleNode!, textBox, profileBox]
         for elem in elems {
-           elem.style.flexShrink = 1
+            elem.style.flexShrink = 1
         }
-
+        
         let insetBox = ASInsetLayoutSpec(
-           insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
-           child: profileBox
+            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+            child: profileBox
         )
-
+        
         if msg.type == .file {
             RemoveNodeText()
             let verticalSpec = ASStackLayoutSpec()
@@ -2292,7 +2611,7 @@ class ChatControllerNode: ASCellNode {
             verticalSpec.spacing = 0
             verticalSpec.justifyContent = .start
             verticalSpec.alignItems = isIncomming == true ? .end : .start
-
+            
             let insetBoxx = ASInsetLayoutSpec(
                 insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
                 child: insetBox
@@ -2307,19 +2626,19 @@ class ChatControllerNode: ASCellNode {
             verticalSpec.spacing = 0
             verticalSpec.justifyContent = .start
             verticalSpec.alignItems = isIncomming == true ? .end : .start
-
+            
             
             verticalSpec.children?.append(insetBox)
             AddTextNodeTo(spec: verticalSpec)
             contentSpec.children?.append(verticalSpec)
             
         }
-
-       makeBottomBubbleItems(contentStack: contentSpec)
-       let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
-       
-       return finalInsetSpec
-
+        
+        makeBottomBubbleItems(contentStack: contentSpec)
+        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
+        
+        return finalInsetSpec
+        
         
         
     }
@@ -2350,42 +2669,42 @@ class ChatControllerNode: ASCellNode {
             }
         }
         makeVoiceNode(msg: msg)
-
+        
         let insetBox = layoutVoice(msg: msg)
         let verticalSpec = ASStackLayoutSpec()
         verticalSpec.direction = .vertical
         verticalSpec.spacing = 0
         verticalSpec.children?.append(insetBox)
-
+        
         contentSpec.children?.append(verticalSpec)
-
+        
         musicGustureRecognizers()
         checkPlayerState()
         makeBottomBubbleItems(contentStack: contentSpec)
         let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
-       
+        
         return finalInsetSpec
-
+        
     }
     private func makeVoiceNode(msg: IGRoomMessage) {
-         sliderNode!.style.preferredSize = CGSize(width: 150, height: 50)
-         (sliderNode!.view as! UISlider).maximumTrackTintColor = .black
-         (sliderNode!.view as! UISlider).minimumTrackTintColor = .red
-         (sliderNode!.view as! UISlider).tintColor = .green
-
-         btnStateNode!.layer.cornerRadius = 25
-         
-         //make current time text
-         IGGlobal.makeAsyncText(for: txtCurrentTimeNode!, with: "00:00".inLocalizedLanguage(), textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont,alignment: .left)
+        sliderNode!.style.preferredSize = CGSize(width: 150, height: 50)
+        (sliderNode!.view as! UISlider).maximumTrackTintColor = .black
+        (sliderNode!.view as! UISlider).minimumTrackTintColor = .red
+        (sliderNode!.view as! UISlider).tintColor = .green
         
-         checkVoiceButtonState(btn: btnStateNode!,message: msg )
-
+        btnStateNode!.layer.cornerRadius = 25
+        
+        //make current time text
+        IGGlobal.makeAsyncText(for: txtCurrentTimeNode!, with: "00:00".inLocalizedLanguage(), textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont,alignment: .left)
+        
+        checkVoiceButtonState(btn: btnStateNode!,message: msg )
+        
         setVoice(message: msg)
     }
     
     func checkVoiceButtonState(btn : ASButtonNode,message: IGRoomMessage) {
         if IGGlobal.isFileExist(path: message.attachment!.localPath, fileSize: message.attachment!.size) {
-
+            
             btnStateNode!.style.preferredSize = CGSize(width: 50, height: 50)
             btnStateNode!.setTitle("🎗", with: UIFont.iGapFonticon(ofSize: 35), with: .black, for: .normal)
             
@@ -2393,12 +2712,12 @@ class ChatControllerNode: ASCellNode {
             btnStateNode!.style.preferredSize = CGSize.zero
             btnStateNode!.style.preferredSize = CGSize(width: 50, height: 50)
             btnStateNode!.setTitle("🎗", with: UIFont.iGapFonticon(ofSize: 35), with: .black, for: .normal)
-
+            
         }
         
         
     }
-
+    
     private func layoutVoice(msg: IGRoomMessage) -> ASInsetLayoutSpec {
         
         let sliderBox = ASStackLayoutSpec.vertical()
@@ -2417,7 +2736,7 @@ class ChatControllerNode: ASCellNode {
                     indicatorViewAbs?.style.width = ASDimensionMake(.points, 50)
                     (indicatorViewAbs?.view as? IGProgress)?.setFileType(.download)
                     attachment?.status = .readyToDownload
-
+                    
                 }
             } else {
                 indicatorViewAbs?.removeFromSupernode()
@@ -2427,18 +2746,18 @@ class ChatControllerNode: ASCellNode {
         }
         let overlayBox : ASOverlayLayoutSpec?
         let attachmentBox = ASStackLayoutSpec.horizontal()
-
+        
         if indicatorViewAbs == nil {
             attachmentBox.spacing = 0
             attachmentBox.children = [btnStateNode!,sliderBox]
-
+            
         } else {
             overlayBox = ASOverlayLayoutSpec(child: btnStateNode!, overlay: indicatorViewAbs!)
             attachmentBox.spacing = 8
             attachmentBox.children = [overlayBox!, sliderBox]
-
+            
         }
-
+        
         let insetBox = ASInsetLayoutSpec(
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8),
             child: attachmentBox
@@ -2498,7 +2817,7 @@ class ChatControllerNode: ASCellNode {
         verticalSpec.direction = .vertical
         verticalSpec.spacing = 0
         verticalSpec.children?.append(insetBox)
-
+        
         if msg.type == .audio {
             contentSpec.children?.append(verticalSpec)
         } else {
@@ -2507,16 +2826,16 @@ class ChatControllerNode: ASCellNode {
             }
             AddTextNodeTo(spec: verticalSpec)
             contentSpec.children?.append(verticalSpec)
-
+            
         }
         musicGustureRecognizers()
         checkPlayerState()
         getMetadata(file: msg.attachment)
-       makeBottomBubbleItems(contentStack: contentSpec)
-       let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
-       
-       return finalInsetSpec
-
+        makeBottomBubbleItems(contentStack: contentSpec)
+        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
+        
+        return finalInsetSpec
+        
     }
     
     func getMetadata(file : IGFile!) {
@@ -2532,34 +2851,34 @@ class ChatControllerNode: ASCellNode {
                 let songName = item.stringValue!
                 hasSongName = true
                 IGGlobal.makeAsyncText(for: txtMusicName!, with: songName, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
-
-
+                
+                
             }
             if item.commonKey!.rawValue == "artist" {
                 let singerName = item.stringValue!
                 hasSingerName = true
                 IGGlobal.makeAsyncText(for: txtMusicArtist!, with: singerName, textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
-
+                
             }
-
+            
         }
         
         if !hasSingerName {
             let singerName = IGStringsManager.UnknownArtist.rawValue.localized
             IGGlobal.makeAsyncText(for: txtMusicArtist!, with: singerName, textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
-
             
-
+            
+            
         }
         if !hasSongName {
             if let sn =  attachment?.name {
                 let songName = sn
                 IGGlobal.makeAsyncText(for: txtMusicName!, with: songName, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
-
+                
             } else {
                 let songName = IGStringsManager.UnknownAudio.rawValue.localized
                 IGGlobal.makeAsyncText(for: txtMusicName!, with: songName, textColor: .black, size: 14,weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
-
+                
                 
             }
         }
@@ -2567,12 +2886,12 @@ class ChatControllerNode: ASCellNode {
     }
     private func makeAudioView(msg: IGRoomMessage) {
         IGGlobal.makeAsyncText(for: txtMusicArtist!, with: "", textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
-
+        
         btnStateNode!.style.preferredSize = CGSize(width: 60, height: 60)
         btnStateNode!.layer.cornerRadius = 25
         checkButtonState(btn: btnStateNode!,message: msg)
         IGGlobal.makeAsyncButton(for: btnStateNode!, with: "", textColor: .black, size: 35, font: .fontIcon, alignment: .center)
-
+        
     }
     
     func checkButtonState(btn : ASButtonNode,message: IGRoomMessage) {
@@ -2584,7 +2903,7 @@ class ChatControllerNode: ASCellNode {
             btnStateNode!.style.preferredSize = CGSize.zero
             btnStateNode!.style.preferredSize = CGSize(width: 60, height: 60)
             btnStateNode!.setTitle("🎗", with: UIFont.iGapFonticon(ofSize: 35), with: .black, for: .normal)
-
+            
         }
         
         
@@ -2606,7 +2925,7 @@ class ChatControllerNode: ASCellNode {
                     indicatorViewAbs?.style.width = ASDimensionMake(.points, 50)
                     (indicatorViewAbs?.view as? IGProgress)?.setFileType(.download)
                     attachment?.status = .readyToDownload
-
+                    
                 }
             } else {
                 indicatorViewAbs?.removeFromSupernode()
@@ -2616,16 +2935,16 @@ class ChatControllerNode: ASCellNode {
         }
         let overlayBox : ASOverlayLayoutSpec?
         let attachmentBox = ASStackLayoutSpec.horizontal()
-
+        
         if indicatorViewAbs == nil {
             attachmentBox.spacing = 0
             attachmentBox.children = [btnStateNode!, textBox]
-
+            
         } else {
             overlayBox = ASOverlayLayoutSpec(child: btnStateNode!, overlay: indicatorViewAbs!)
             attachmentBox.spacing = 0
             attachmentBox.children = [overlayBox!, textBox]
-
+            
         }
         let insetBox = ASInsetLayoutSpec(
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
@@ -2641,7 +2960,7 @@ class ChatControllerNode: ASCellNode {
     
     private func setContactNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage) -> ASLayoutSpec {
         makeTopBubbleItems(stack: contentSpec)
-
+        
         if imgCover == nil {
             imgCover = ASImageNode()
         }
@@ -2671,16 +2990,16 @@ class ChatControllerNode: ASCellNode {
         verticalSpec.spacing = 0
         verticalSpec.justifyContent = .start
         verticalSpec.alignItems = isIncomming == true ? .end : .start
-
+        
         verticalSpec.children?.append(insetBox)
         contentSpec.children?.append(verticalSpec)
-
-       makeBottomBubbleItems(contentStack: contentSpec)
-       let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
-       
+        
+        makeBottomBubbleItems(contentStack: contentSpec)
+        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
+        
         getContactDetails(message: msg)
-       return finalInsetSpec
-
+        return finalInsetSpec
+        
         
         
     }
@@ -2713,7 +3032,7 @@ class ChatControllerNode: ASCellNode {
         finalBox.justifyContent = .spaceAround
         finalBox.spacing = 5
         finalBox.children = [attachmentBox, btnViewContact!]
-
+        
         
         // Apply text truncation
         let elems: [ASLayoutElement] = [imgCover!,txtEmails!,txtContactName!,imgCover!,btnViewContact!, emailBox,textBox, attachmentBox,finalBox]
@@ -2725,7 +3044,7 @@ class ChatControllerNode: ASCellNode {
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
             child: finalBox
         )
-
+        
         return insetBox
     }
     private func makeContactView() {
@@ -2739,18 +3058,18 @@ class ChatControllerNode: ASCellNode {
         if self.isIncomming {
             btnViewContact!.setTitle(IGStringsManager.ViewContact.rawValue.localized, with: UIFont.igFont(ofSize: 14, weight: .bold), with: ThemeManager.currentTheme.SliderTintColor, for: .normal)
             btnViewContact!.layer.borderColor = ThemeManager.currentTheme.SliderTintColor.cgColor
-
+            
         } else {
             btnViewContact!.setTitle(IGStringsManager.ViewContact.rawValue.localized, with: UIFont.igFont(ofSize: 14, weight: .bold), with: ThemeManager.currentTheme.SendMessageBubleBGColor.darker(), for: .normal)
             btnViewContact!.layer.borderColor = ThemeManager.currentTheme.SendMessageBubleBGColor.darker()?.cgColor
-
+            
         }
         btnViewContact!.layer.cornerRadius = 10
         btnViewContact!.layer.borderWidth = 1.0
         btnViewContact!.backgroundColor = .clear
         btnViewContact!.style.height = ASDimension(unit: .points, value: 40.0)
         btnViewContact!.addTarget(self, action: #selector(contactDetailBtnTapAction), forControlEvents: .touchUpInside)
-
+        
     }
     
     @objc func contactDetailBtnTapAction() {
@@ -2759,10 +3078,10 @@ class ChatControllerNode: ASCellNode {
             delegate?.didTapOnContactDetail(contact: _contact)
         }
         
-//        print("DID TAP ON CONTACT SHOW")
-//        if let _contact = contact {
-//            SwiftEventBus.postToMainThread(EventBusManager.showContactDetail, userInfo: ["contactInfo": _contact])
-//        }
+        //        print("DID TAP ON CONTACT SHOW")
+        //        if let _contact = contact {
+        //            SwiftEventBus.postToMainThread(EventBusManager.showContactDetail, userInfo: ["contactInfo": _contact])
+        //        }
         
     }
     
@@ -2827,7 +3146,7 @@ class ChatControllerNode: ASCellNode {
                     indicatorViewAbs?.style.width = ASDimensionMake(.points, 50)
                     (indicatorViewAbs?.view as? IGProgress)?.setFileType(.download)
                     attachment?.status = .readyToDownload
-
+                    
                 }
             } else {
                 indicatorViewAbs?.removeFromSupernode()
@@ -2835,7 +3154,7 @@ class ChatControllerNode: ASCellNode {
                 attachment?.status = .ready
             }
         }
-
+        
         imgNode!.style.width = ASDimension(unit: .points, value: prefferedSize.width)
         imgNode!.style.height = ASDimension(unit: .points, value: prefferedSize.height)
         imgNode!.clipsToBounds = true
@@ -2857,11 +3176,11 @@ class ChatControllerNode: ASCellNode {
             
             if indicatorViewAbs == nil {
                 contentSpec.children?.append(verticalSpec)
-
+                
             } else {
                 let overlay = ASOverlayLayoutSpec(child: verticalSpec, overlay: indicatorViewAbs!)
                 contentSpec.children?.append(overlay)
-
+                
             }
             
             makeBottomBubbleItems(contentStack: contentSpec)
@@ -2881,14 +3200,14 @@ class ChatControllerNode: ASCellNode {
             let insetSpecImage = ASInsetLayoutSpec(insets: insetsImage, child: imgNode!)
             if indicatorViewAbs == nil {
                 verticalSpec.children?.append(insetSpecImage)
-
+                
             } else {
                 let overlay = ASOverlayLayoutSpec(child: insetSpecImage, overlay: indicatorViewAbs!)
                 verticalSpec.children?.append(overlay)
-
+                
             }
-  
-//
+            
+            //
             AddTextNodeTo(spec: verticalSpec)
             contentSpec.children?.append(verticalSpec)
             nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
@@ -2896,7 +3215,7 @@ class ChatControllerNode: ASCellNode {
             let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
             
             return finalInsetSpec
-
+            
         }
         
     }
@@ -2904,16 +3223,16 @@ class ChatControllerNode: ASCellNode {
         if nodeText == nil {
             nodeText = ASTextNode()
         }
-
+        
         nodeText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
         nodeText!.style.minHeight = ASDimensionMake(.points, 20)
         spec.children?.append(nodeText!)
-
+        
         setMessage()
-
         
         
-
+        
+        
     }
     //******************************************************//
     //***********VIDEO NODE AND VIDEO TEXT NODE*************//
@@ -2962,10 +3281,10 @@ class ChatControllerNode: ASCellNode {
                     btnPlay?.backgroundColor = UIColor(white: 0, alpha: 0.6)
                     IGGlobal.makeAsyncButton(for: btnPlay!, with: "", textColor: .white, size: 40, weight: .bold, font: .fontIcon, alignment: .center)
                 }
-
+                
             }
         }
-
+        
         imgNode!.style.width = ASDimension(unit: .points, value: prefferedSize.width)
         imgNode!.style.height = ASDimension(unit: .points, value: prefferedSize.height)
         imgNode!.clipsToBounds = true
@@ -2988,7 +3307,7 @@ class ChatControllerNode: ASCellNode {
             fakeStackBottomItem.style.height = ASDimension(unit: .points, value: 26)
             
             let playTxtCenterSpec : ASCenterLayoutSpec
-        
+            
             if btnPlay == nil {
                 btnPlay = ASButtonNode()
                 // Setting Play Btn Size
@@ -2996,7 +3315,7 @@ class ChatControllerNode: ASCellNode {
                 btnPlay!.style.flexGrow = 1
                 btnPlay!.style.flexShrink = 1
                 btnPlay!.isHidden = true
-
+                
             }
             if indicatorViewAbs == nil {
                 playTxtCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: btnPlay!)
@@ -3020,7 +3339,7 @@ class ChatControllerNode: ASCellNode {
             IGGlobal.makeAsyncText(for: timeTxtNode, with: " " + "(\(IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: detachedAttachment?.size ?? 0)))" + " ", textColor: .white, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
             
             contentSpec.children?.append(overlaySpec)
-                
+            
             makeBottomBubbleItems(contentStack: contentSpec)
             let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 4) : UIEdgeInsets(top: 6, left: 4, bottom: 6, right: 10), child: contentSpec)
             
@@ -3037,12 +3356,12 @@ class ChatControllerNode: ASCellNode {
             timeTxtNode.layer.borderColor = UIColor.white.cgColor
             timeTxtNode.layer.borderWidth = 0.5
             timeTxtNode.backgroundColor = UIColor(white: 0, alpha: 0.3)
-        
+            
             timeTxtNode.style.height = ASDimension(unit: .points, value: 20)
             fakeStackBottomItem.style.height = ASDimension(unit: .points, value: 26)
             
             let playTxtCenterSpec : ASCenterLayoutSpec
-        
+            
             if btnPlay == nil {
                 btnPlay = ASButtonNode()
                 // Setting Play Btn Size
@@ -3082,14 +3401,14 @@ class ChatControllerNode: ASCellNode {
             verticalSpec.spacing = 5
             verticalSpec.justifyContent = .start
             verticalSpec.alignItems = isIncomming == true ? .end : .start
-        
+            
             verticalSpec.children?.append(overlaySpec)
-
-
+            
+            
             AddTextNodeTo(spec: verticalSpec)
             contentSpec.children?.append(verticalSpec)
             nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
-
+            
             makeBottomBubbleItems(contentStack: contentSpec)
             let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 4) : UIEdgeInsets(top: 6, left: 4, bottom: 6, right: 10), child: contentSpec)
             
@@ -3100,7 +3419,7 @@ class ChatControllerNode: ASCellNode {
         
     }
     
-
+    
     /*
      ******************************************************************
      ************************ Manage Attachment ***********************
@@ -3108,7 +3427,7 @@ class ChatControllerNode: ASCellNode {
      */
     
     private func manageStickerAttachment() {
-
+        
         if self.message!.additional?.dataType == AdditionalType.STICKER.rawValue {
             
             if let stickerStruct = IGHelperJson.parseStickerMessage(data: (self.message!.additional?.data)!) {
@@ -3122,7 +3441,7 @@ class ChatControllerNode: ASCellNode {
                             }
                         } else  {
                             if self.NormalGiftStickerView != nil {
-
+                                
                                 (self.NormalGiftStickerView!.view as! UIImageView).setSticker(for: file)
                             }
                         }
@@ -3141,7 +3460,7 @@ class ChatControllerNode: ASCellNode {
             }
             return
         }
-
+        
         
     }
     private func manageAttachment(file: IGFile? = nil,msg: IGRoomMessage){
@@ -3228,7 +3547,7 @@ class ChatControllerNode: ASCellNode {
                     }
                     break
                 }
-
+                
             case .audio, .audioAndText, .voice :
                 if !(attachment.isInvalidated) {
                     
@@ -3239,7 +3558,7 @@ class ChatControllerNode: ASCellNode {
                     }
                     break
                 }
-
+                
             default:
                 break
             }
@@ -3255,7 +3574,7 @@ class ChatControllerNode: ASCellNode {
             let fileExist = IGGlobal.isFileExist(path: attachment.localPath, fileSize: attachment.size)
             if fileExist && !attachment.isInUploadLevels() {
                 if message!.type == .video || message!.type == .videoAndText {
-//                    makePlayButton()
+                    //                    makePlayButton()
                     btnPlay?.isHidden = false
                     indicatorViewAbs?.isHidden = true
                 }
@@ -3426,7 +3745,7 @@ class ChatControllerNode: ASCellNode {
         if nodeOnlyText == nil {
             nodeOnlyText = OnlyTextNode()
         }
-
+        
         nodeOnlyText!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
         nodeOnlyText!.style.minHeight = ASDimensionMake(.points, 20)
         makeTextNodeBottomBubbleItems()
@@ -3462,7 +3781,7 @@ class ChatControllerNode: ASCellNode {
             spec.children?.append(nodeOnlyText!)
             makeBottomBubbleItems(contentStack: spec)
         }
-
+        
     }
     private func setupMessageText(_ msg: String) {
         if !isTextMessageNode {
@@ -3501,7 +3820,7 @@ class ChatControllerNode: ASCellNode {
         }
         
     }
- 
+    
     
     //******************************************************//
     //***********************Swipe Gesture**********************//
@@ -3510,70 +3829,70 @@ class ChatControllerNode: ASCellNode {
     private func makeSwipeToReply() {// Telegram Func
         let replyRecognizer = ChatSwipeToReplyRecognizer(target: self, action: #selector(self.swipeToReplyGesture(_:)))
         self.view.addGestureRecognizer(replyRecognizer)
-
+        
     }
     
     @objc func swipeToReplyGesture(_ recognizer: ChatSwipeToReplyRecognizer) {
         switch recognizer.state {
-            case .began:
-                self.currentSwipeToReplyTranslation = 0.0
-                if self.swipeToReplyFeedback == nil {
-                    self.swipeToReplyFeedback = HapticFeedback()
-                    self.swipeToReplyFeedback?.prepareImpact()
-                }
-            case .changed:
-                var translation = recognizer.translation(in: self.view)
-                translation.x = max(-80.0, min(0.0, translation.x))
-                if (translation.x < -45.0) != (self.currentSwipeToReplyTranslation < -45.0) {
-                    if translation.x < -45.0, self.swipeToReplyNode == nil {
-                        self.swipeToReplyFeedback?.impact()
-
-                        let swipeToReplyNode = ChatMessageSwipeToReplyNode(fillColor: UIColor.black, strokeColor: UIColor.red, foregroundColor: .white)
-                        self.swipeToReplyNode = swipeToReplyNode
-                        self.insertSubnode(swipeToReplyNode, at: 0)
-                    }
-                }
-                self.currentSwipeToReplyTranslation = translation.x
-                var bounds = self.bounds
-                bounds.origin.x = -translation.x
-                self.bounds = bounds
-            
-                if let swipeToReplyNode = self.swipeToReplyNode {
-                    swipeToReplyNode.frame = CGRect(origin: CGPoint(x: bounds.size.width, y: self.frame.height - 40), size: CGSize(width: 33.0, height: 33.0))
-                    
-                    swipeToReplyNode.alpha = min(1.0, abs(translation.x / 45.0))
-
+        case .began:
+            self.currentSwipeToReplyTranslation = 0.0
+            if self.swipeToReplyFeedback == nil {
+                self.swipeToReplyFeedback = HapticFeedback()
+                self.swipeToReplyFeedback?.prepareImpact()
             }
-            case .ended:
-                self.swipeToReplyFeedback = nil
-                
-                var bounds = self.bounds
-                bounds.origin.x = 0.0
-                self.bounds = bounds
-                if let swipeToReplyNode = self.swipeToReplyNode {
-                    self.swipeToReplyNode = nil
-                    swipeToReplyNode.removeFromSupernode()
+        case .changed:
+            var translation = recognizer.translation(in: self.view)
+            translation.x = max(-80.0, min(0.0, translation.x))
+            if (translation.x < -45.0) != (self.currentSwipeToReplyTranslation < -45.0) {
+                if translation.x < -45.0, self.swipeToReplyNode == nil {
+                    self.swipeToReplyFeedback?.impact()
+                    
+                    let swipeToReplyNode = ChatMessageSwipeToReplyNode(fillColor: UIColor.black, strokeColor: UIColor.red, foregroundColor: .white)
+                    self.swipeToReplyNode = swipeToReplyNode
+                    self.insertSubnode(swipeToReplyNode, at: 0)
                 }
-
-                if recognizer.translation(in: self.view).x < -45.0 {
-                    self.delegate?.swipToReply(cellMessage: self.message!)
-                }
+            }
+            self.currentSwipeToReplyTranslation = translation.x
+            var bounds = self.bounds
+            bounds.origin.x = -translation.x
+            self.bounds = bounds
+            
+            if let swipeToReplyNode = self.swipeToReplyNode {
+                swipeToReplyNode.frame = CGRect(origin: CGPoint(x: bounds.size.width, y: self.frame.height - 40), size: CGSize(width: 33.0, height: 33.0))
                 
+                swipeToReplyNode.alpha = min(1.0, abs(translation.x / 45.0))
                 
-
-            case .cancelled:
-                self.swipeToReplyFeedback = nil
-                
-                var bounds = self.bounds
-                bounds.origin.x = 0.0
-                self.bounds = bounds
-                if let swipeToReplyNode = self.swipeToReplyNode {
-                    self.swipeToReplyNode = nil
-                    swipeToReplyNode.removeFromSupernode()
-                }
+            }
+        case .ended:
+            self.swipeToReplyFeedback = nil
+            
+            var bounds = self.bounds
+            bounds.origin.x = 0.0
+            self.bounds = bounds
+            if let swipeToReplyNode = self.swipeToReplyNode {
+                self.swipeToReplyNode = nil
+                swipeToReplyNode.removeFromSupernode()
+            }
+            
+            if recognizer.translation(in: self.view).x < -45.0 {
+                self.delegate?.swipToReply(cellMessage: self.message!)
+            }
+            
+            
+            
+        case .cancelled:
+            self.swipeToReplyFeedback = nil
+            
+            var bounds = self.bounds
+            bounds.origin.x = 0.0
+            self.bounds = bounds
+            if let swipeToReplyNode = self.swipeToReplyNode {
+                self.swipeToReplyNode = nil
+                swipeToReplyNode.removeFromSupernode()
+            }
             
         default:
-                break
+            break
         }
     }
     
@@ -3609,7 +3928,7 @@ class ChatControllerNode: ASCellNode {
             IGGlobal.clickedAudioCellIndexPath = index
             IGNodePlayer.shared.startPlayer(btnPlayPause: btnStateNode, slider: (sliderNode!.view as! UISlider), timer: txtCurrentTimeNode!, roomMessage: message!,room: finalRoom)
         }
-
+        
         
     }
     
@@ -3789,16 +4108,16 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
                 }
             }
             
-//            if btnReturnToMessageAbs != nil {
-//                let tapReturnToMessage = UITapGestureRecognizer(target: self, action: #selector(didTapOnReturnToMessage(_:)))
-//                btnReturnToMessageAbs?.addGestureRecognizer(tapReturnToMessage)
-//            }
+            //            if btnReturnToMessageAbs != nil {
+            //                let tapReturnToMessage = UITapGestureRecognizer(target: self, action: #selector(didTapOnReturnToMessage(_:)))
+            //                btnReturnToMessageAbs?.addGestureRecognizer(tapReturnToMessage)
+            //            }
             
             txtStatusNode?.addTarget(self, action: #selector(didTapOnFailedStatus(_:)), forControlEvents: .touchUpInside)
-
+            
             lblLikeIcon?.addTarget(self, action: #selector(didTapOnVoteUp(_:)), forControlEvents: .touchUpInside)
             lblLikeText?.addTarget(self, action: #selector(didTapOnVoteUp(_:)), forControlEvents: .touchUpInside)
-
+            
             lblDisLikeIcon?.addTarget(self, action: #selector(didTapOnVoteDown(_:)), forControlEvents: .touchUpInside)
             lblDisLikeText?.addTarget(self, action: #selector(didTapOnVoteDown(_:)), forControlEvents: .touchUpInside)
             
@@ -3836,7 +4155,7 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
         if !(IGGlobal.shouldMultiSelect) {
             self.delegate?.didTapOnAttachment(cellMessage: message!)
         }
-
+        
     }
     @objc func didTapOnReply(_ gestureRecognizer: UITapGestureRecognizer) {
         if !(IGGlobal.shouldMultiSelect) {
@@ -3876,7 +4195,7 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
         }
         IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsUp)
     }
-
+    
     @objc func didTapOnVoteDown(_ gestureRecognizer: UITapGestureRecognizer) {
         var messageVote: IGRoomMessage! = message
         if let forward = message!.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
@@ -3884,31 +4203,31 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
         }
         IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsDown)
     }
-
-//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-//        return true
-//    }
-//
-//    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-//        if pan != nil {
-//            let direction = pan.direction(in: superview!)
-//            if direction.contains(.Left) {
-//                return abs((pan.velocity(in: pan.view)).x) > abs((pan.velocity(in: pan.view)).y)
-//            } else {
-//                return false
-//            }
-//        }
-//        else {
-//            return false
-//        }
-//    }
+    
+    //    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    //        return true
+    //    }
+    //
+    //    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    //        if pan != nil {
+    //            let direction = pan.direction(in: superview!)
+    //            if direction.contains(.Left) {
+    //                return abs((pan.velocity(in: pan.view)).x) > abs((pan.velocity(in: pan.view)).y)
+    //            } else {
+    //                return false
+    //            }
+    //        }
+    //        else {
+    //            return false
+    //        }
+    //    }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-
+        
         if pan != nil {
             let direction = pan.direction(in: self.view)
             if direction.contains(.Left)
