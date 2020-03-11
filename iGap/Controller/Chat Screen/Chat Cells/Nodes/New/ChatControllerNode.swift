@@ -3456,9 +3456,17 @@ class ChatControllerNode: ASCellNode {
             nodeText?.style.maxWidth = ASDimensionMake(.points, prefferedSize.width)
             
             makeBottomBubbleItems(contentStack: contentSpec)
-            let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 4) : UIEdgeInsets(top: 6, left: 4, bottom: 6, right: 10), child: contentSpec)
-            
-            return finalInsetSpec
+            if finalRoom?.type == .channel {
+                let finalInsetSpec = ASInsetLayoutSpec(insets:  UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 10), child: contentSpec)
+                
+                return finalInsetSpec
+
+            } else {
+                let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 4) : UIEdgeInsets(top: 6, left: 4, bottom: 6, right: 10), child: contentSpec)
+                
+                return finalInsetSpec
+
+            }
             
             
         }
