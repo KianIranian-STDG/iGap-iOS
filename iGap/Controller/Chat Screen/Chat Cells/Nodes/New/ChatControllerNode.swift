@@ -327,7 +327,7 @@ class ChatControllerNode: ASCellNode {
             }
             manageAttachment(file: msg.attachment,msg: msg)
             if IGGlobal.shouldMultiSelect {
-                makeAccessoryButton(index: [10000,10000])
+                makeAccessoryButton(id: 0)
             }
             
         } else if msg.type == .sticker {
@@ -361,7 +361,7 @@ class ChatControllerNode: ASCellNode {
             manageAttachment(file: msg.attachment,msg: msg)
             
             if IGGlobal.shouldMultiSelect {
-                makeAccessoryButton(index: [10000,10000])
+                makeAccessoryButton(id: 0)
             }
             
         } else if msg.type == .log || msg.type == .time || msg.type == .unread || msg.type == .progress {
@@ -421,11 +421,16 @@ class ChatControllerNode: ASCellNode {
         }
     }
     
-    public func makeAccessoryButton(index: IndexPath) {
+    public func makeAccessoryButton(id: Int64) {
         //        print("CREATED ACCESSORY BUTTON")
+        
+        if message?.type == .log || message?.type == .time || message?.type == .unread || message?.type == .progress || message?.type == .wallet {
+            return
+        }
+        
         addSubnode(checkNode!)
         
-        if index == self.index {
+        if id == self.message?.id {
             checkNode!.view.tag = 002
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {[weak self] in
                 guard let sSelf = self else {

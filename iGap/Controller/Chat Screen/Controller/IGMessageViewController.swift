@@ -310,7 +310,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         return self.navigationController!
     }
     
-    func showMultiSelectUI(state : Bool!,isForward:Bool? = nil,isDelete:Bool?=nil,index: IndexPath) {
+    func showMultiSelectUI(state : Bool!,isForward:Bool? = nil,isDelete:Bool?=nil,id: Int64) {
         myNavigationItem?.setNavigationBarForRoom(room!)
         setRightNavViewAction()
         
@@ -318,34 +318,37 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 //            mainViewTap = UITapGestureRecognizer(target: self, action: #selector(self.tapOnMainView))
             tableViewNode.view.removeGestureRecognizer(mainViewTap)
             if isForward! {
-                UIView.transition(with: self.holderTextBox, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {
-                    self.holderMultiSelect.isHidden = !isForward!
-                    self.holderTextBox.isHidden = isForward!
+                UIView.transition(with: self.holderTextBox, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    sSelf.holderMultiSelect.isHidden = !isForward!
+                    sSelf.holderTextBox.isHidden = isForward!
                     
-                    self.btnMoney.isHidden = true
-                    self.btnMic.isHidden = true
-                    self.btnSend.isHidden = true
-                    self.btnShare.isHidden = true
+                    sSelf.btnMoney.isHidden = true
+                    sSelf.btnMic.isHidden = true
+                    sSelf.btnSend.isHidden = true
+                    sSelf.btnShare.isHidden = true
 
                     //rightbar btns
-                    self.btnShare.isHidden = true
-                    self.btnTrash.isHidden = true
-                    self.btnAttachmentNew.isHidden = true
+                    sSelf.btnShare.isHidden = true
+                    sSelf.btnTrash.isHidden = true
+                    sSelf.btnAttachmentNew.isHidden = true
                     
                     
-                    self.btnForward.isHidden = !isForward!
+                    sSelf.btnForward.isHidden = !isForward!
                     
                     IGGlobal.shouldMultiSelect = true
                     
-                    let allIndexes = IGGlobal.getAllIndexPathsInSection(section : 0,tblList: self.tableViewNode)
+                    let allIndexes = IGGlobal.getAllIndexPathsInSection(section : 0,tblList: sSelf.tableViewNode)
                     
                     for nodeIndex in allIndexes {
-                        if let node = self.tableViewNode.nodeForRow(at: nodeIndex) as? ChatControllerNode {
+                        if let node = sSelf.tableViewNode.nodeForRow(at: nodeIndex) as? ChatControllerNode {
 //                            if let nodeAbs = self.tableViewNode.nodeForRow(at: nodeIndex) as? AbstractNode {
 //                                nodeAbs.EnableDisableInteractions(mode: true)
 //                            }
                             node.EnableDisableInteractions(mode: true)
-                            node.makeAccessoryButton(index: index)
+                            node.makeAccessoryButton(id: id)
                         }
                     }
 
@@ -363,34 +366,37 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
             else if isDelete! {
                 
-                UIView.transition(with: self.holderTextBox, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {
-                    self.holderMultiSelect.isHidden = !isDelete!
-                    self.holderTextBox.isHidden = isDelete!
+                UIView.transition(with: self.holderTextBox, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {[weak self] in
+                    guard let sSelf = self else {
+                        return
+                    }
+                    sSelf.holderMultiSelect.isHidden = !isDelete!
+                    sSelf.holderTextBox.isHidden = isDelete!
                     
-                    self.btnMoney.isHidden = true
-                    self.btnMic.isHidden = true
-                    self.btnSend.isHidden = true
-                    self.btnShare.isHidden = true
+                    sSelf.btnMoney.isHidden = true
+                    sSelf.btnMic.isHidden = true
+                    sSelf.btnSend.isHidden = true
+                    sSelf.btnShare.isHidden = true
 
                     //rightbar btns
-                    self.btnShare.isHidden = true
-                    self.btnForward.isHidden = true
-                    self.btnAttachmentNew.isHidden = true
+                    sSelf.btnShare.isHidden = true
+                    sSelf.btnForward.isHidden = true
+                    sSelf.btnAttachmentNew.isHidden = true
                     
                     
 //                    self.reloadCollection()
-                    self.btnTrash.isHidden = !isDelete!
+                    sSelf.btnTrash.isHidden = !isDelete!
                     IGGlobal.shouldMultiSelect = true
                     
-                    let allIndexes = IGGlobal.getAllIndexPathsInSection(section : 0,tblList: self.tableViewNode)
+                    let allIndexes = IGGlobal.getAllIndexPathsInSection(section : 0,tblList: sSelf.tableViewNode)
                     
                     for nodeIndex in allIndexes {
-                        if let node = self.tableViewNode.nodeForRow(at: nodeIndex) as? ChatControllerNode {
+                        if let node = sSelf.tableViewNode.nodeForRow(at: nodeIndex) as? ChatControllerNode {
 //                            if let nodeAbs = self.tableViewNode.nodeForRow(at: nodeIndex) as? AbstractNode {
 //                                nodeAbs.EnableDisableInteractions(mode: true)
 //                            }
                             node.EnableDisableInteractions(mode: true)
-                            node.makeAccessoryButton(index: index)
+                            node.makeAccessoryButton(id: id)
                         }
                     }
 
@@ -2416,7 +2422,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     func diselect() {
         IGGlobal.shouldMultiSelect = false
-        self.showMultiSelectUI(state: false, index: [0,0])
+        self.showMultiSelectUI(state: false, id: 0)
     }
     
     func close() {
@@ -5745,7 +5751,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             }
         } else {
             if !(IGGlobal.shouldMultiSelect) {
-                manageSendedMessage(cellMessage: cellMessage.detach(),index: index)
+                manageSendedMessage(cellMessage: cellMessage.detach(),id: cellMessage.id)
                 
             }
         }
@@ -5774,7 +5780,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
     }
     
-    private func manageSendedMessage(cellMessage: IGRoomMessage,index: IndexPath){
+    private func manageSendedMessage(cellMessage: IGRoomMessage,id: Int64){
         
         if self.room!.isInvalidated {
             return
@@ -5810,7 +5816,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         })
         
         let forward = UIAlertAction(title: IGStringsManager.Forward.rawValue.localized, style: .default, handler: { (action) in
-            self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : true,isDelete : false,isShare : false,index:index)
+            self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : true,isDelete : false,isShare : false,id:id)
         })
         
         let edit = UIAlertAction(title: IGStringsManager.dialogEdit.rawValue.localized, style: .default, handler: { (action) in
@@ -5844,14 +5850,14 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
         let deleteForMe = UIAlertAction(title: deleteTitle, style: .destructive, handler: { (action) in
             self.isBoth = false
-            self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : false,isDelete : true,isShare : false, index: index)
+            self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : false,isDelete : true,isShare : false, id: id)
             
         })
         let roomTitle = self.room?.title != nil ? self.room!.title! : ""
         let deleteForBoth = UIAlertAction(title: IGStringsManager.DeleteForMeAnd.rawValue.localized + roomTitle, style: .destructive, handler: { (action) in
             //            self.deleteMessage(cellMessage, both: true)
             self.isBoth = true
-            self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : false,isDelete : true,isShare : false, index: index)
+            self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : false,isDelete : true,isShare : false, id: id)
             
         })
         let cancel = UIAlertAction(title: IGStringsManager.GlobalCancel.rawValue.localized, style: .cancel, handler: { (action) in
@@ -5904,11 +5910,13 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         self.present(alertC, animated: true, completion: nil)
     }
     
-    func enableMultiSelect(State: Bool! ,cellMessage: IGRoomMessage ,isForward:Bool? = nil ,isDelete:Bool? = nil ,isShare:Bool? = nil,index: IndexPath) {
+    func enableMultiSelect(State: Bool! ,cellMessage: IGRoomMessage ,isForward:Bool? = nil ,isDelete:Bool? = nil ,isShare:Bool? = nil,id: Int64) {
+        
+        
         IGGlobal.shouldMultiSelect = State
         self.selectedMessages.removeAll()
         self.selectedMessages.append(cellMessage)
-        self.showMultiSelectUI(state: State,isForward:isForward,isDelete:isDelete,index: index)
+        self.showMultiSelectUI(state: State,isForward:isForward,isDelete:isDelete,id: id)
     }
     
     
@@ -6864,7 +6872,7 @@ extension IGMessageViewController : ASTableDelegate, ASTableDataSource {
             let cellNode  = self.tableViewNode.nodeForRow(at: indexPath) as! ChatControllerNode
             cellNode.isSelected = false
             
-            if msg.type == .unread || msg.type == .progress || msg.type == .time {
+            if msg.type == .unread || msg.type == .progress || msg.type == .time || msg.type == .log || msg.type == .wallet {
                 return
             }
             
