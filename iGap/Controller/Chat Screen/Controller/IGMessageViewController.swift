@@ -2377,7 +2377,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             } else if let collectionCell = self.collectionView.cellForItem(at: IndexPath(row: numberOfItems - IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT, section: 0)) as? IGMessageGeneralCollectionViewCell {
                 finalMessage = collectionCell.cellMessage
             }
-            if finalMessage != nil && (finalMessage.isInvalidated || finalMessage.id == firstVisibleItem.id) {
+            if finalMessage != nil && (finalMessage.isInvalidated || finalMessage.id == firstVisibleItem.id) {// if last message is visible don't need to save message position
                 saveState = false
             }
             if saveState {
@@ -2395,15 +2395,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     /* fetch visible message from collection view according to entered index */
-    private func fetchVisibleMessage(visibleCells: [UICollectionViewCell], index: Int) -> IGRoomMessage? {
+    private func fetchVisibleMessage(visibleCells: [UICollectionViewCell], index: Int, repeatCount: Int = 0) -> IGRoomMessage? {
+        if index < 0 || repeatCount == 3 {return nil}
         if visibleCells.count > 0 {
             if let visibleMessage = visibleCells[index] as? AbstractCell {
                 return visibleMessage.realmRoomMessage
-            } else if let visibleMessage = visibleCells[index] as? IGMessageGeneralCollectionViewCell {
+            } else if let visibleMessage = visibleCells[index] as? IGMessageGeneralCollectionViewCell, visibleMessage.cellMessage != nil {
                 return visibleMessage.cellMessage
             }
         }
-        return nil
+        return fetchVisibleMessage(visibleCells: visibleCells, index: index - 1, repeatCount: repeatCount + 1)
     }
     
     var finalRoomType: IGRoom.IGType!
