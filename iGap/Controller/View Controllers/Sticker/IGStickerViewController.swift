@@ -305,7 +305,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
             self?.didtapOutSide()
             IGApiSticker.shared.giftStickerPaymentRequest(token: buyGiftSticker.token, completion: { giftCardPayment in
                 IGGlobal.prgHide()
-                IGPaymentView.sharedInstance.showGiftCardPayment(on: UIApplication.shared.keyWindow!, title: giftCardPayment.info.product.title, payment: giftCardPayment)
+                IGPaymentView.sharedInstance.showGiftCardPayment(on: UIApplication.shared.keyWindow!, title: IGStringsManager.GiftStickerBuy.rawValue.localized, payment: giftCardPayment)
             }, error: {
                 IGGlobal.prgHide()
                 IGPaymentView.sharedInstance.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: IGStringsManager.GiftCard.rawValue.localized, message: IGStringsManager.PaymentErrorMessage.rawValue.localized)
