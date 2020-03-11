@@ -424,7 +424,6 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     /***************************************** Deep Link Handler *****************************************/
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        print(url)
         return DeepLinkManager.shared.handleDeeplink(url: url)
     }
     

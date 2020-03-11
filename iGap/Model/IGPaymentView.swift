@@ -336,8 +336,16 @@ class IGPaymentView: UIView {
     }
     
     @IBAction func payTapped(_ sender: UIButton) {
-        guard let urlStr = paymentData.redirectUrl, let url = URL(string: urlStr) else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        var url = paymentData?.redirectUrl
+        if url == nil {
+            url = giftCardPaymentData?.redirectURL
+        }
+        
+        if url != nil {
+            if let url = URL(string: url!) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
     }
 }
 

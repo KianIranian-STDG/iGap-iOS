@@ -41,6 +41,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     var stickerTabs: Results<IGRealmSticker>! // use this variable at main sticker page (MAIN)
     var stickerList: [StickerTab] = [] // use this variable at sticker list page (PREVIEW, CATEGORY)
     var backGroundColor = UIColor.sticker()
+    static var waitingGiftCardInfo: (orderId: String, stickerStruct: IGRealmStickerItem?) = ("", nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -219,43 +220,52 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
                 self?.collectionView?.reloadSections(IndexSet([index]))
             }
         }
-        
-        /***** Gift Card Buy *****/
-        SwiftEventBus.onMainThread(self, name: EventBusManager.giftCardTap) { [weak self] result in
-        
-            if self == nil {return}
-            if self!.stickerPageType != StickerPageType.PREVIEW || !self!.isGift {return}
-            guard let stickerItem = result?.object as? Sticker else {return}
-            
-            self?.giftStickerId = stickerItem.id
-            
-            self!.dismissBtn = UIButton()
-            self!.dismissBtn.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
-            self!.view.insertSubview(self!.dismissBtn, at: 2)
-            self!.dismissBtn.addTarget(self, action: #selector(self!.didtapOutSide), for: .touchUpInside)
-                   
-            self!.dismissBtn?.snp.makeConstraints { (make) in
-                make.top.equalTo(self!.view.snp.top)
-                make.bottom.equalTo(self!.view.snp.bottom)
-                make.right.equalTo(self!.view.snp.right)
-                make.left.equalTo(self!.view.snp.left)
+
+        if self.stickerPageType == .PREVIEW && isGift {
+            /***** Gift Card Buy *****/
+            SwiftEventBus.onMainThread(self, name: EventBusManager.giftCardTap) { [weak self] result in
+                
+                if self == nil {return}
+                if self!.stickerPageType != StickerPageType.PREVIEW || !self!.isGift {return}
+                guard let stickerItem = result?.object as? Sticker else {return}
+                
+                IGStickerViewController.waitingGiftCardInfo.stickerStruct = IGRealmStickerItem(sticker: stickerItem)
+                self?.giftStickerId = stickerItem.id
+                
+                self!.dismissBtn = UIButton()
+                self!.dismissBtn.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
+                self!.view.insertSubview(self!.dismissBtn, at: 2)
+                self!.dismissBtn.addTarget(self, action: #selector(self!.didtapOutSide), for: .touchUpInside)
+                
+                self!.dismissBtn?.snp.makeConstraints { (make) in
+                    make.top.equalTo(self!.view.snp.top)
+                    make.bottom.equalTo(self!.view.snp.bottom)
+                    make.right.equalTo(self!.view.snp.right)
+                    make.left.equalTo(self!.view.snp.left)
+                }
+                
+                self!.giftStickerBuyModal = SMCheckBuyGiftSticker.loadFromNib()
+                self!.giftStickerBuyModal.confirmBtn.addTarget(self, action: #selector(self!.confirmTapped), for: .touchUpInside)
+                self!.giftStickerBuyModal.setInfo(token: stickerItem.token, amount: String(describing: stickerItem.giftAmount ?? 0))
+                self!.giftStickerBuyModal.frame = CGRect(x: 0, y: self!.view.frame.height , width: self!.view.frame.width, height: self!.giftStickerBuyModal.frame.height)
+                
+                let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+                swipeDown.direction = .down
+                
+                self!.giftStickerBuyModal.addGestureRecognizer(swipeDown)
+                self!.view.addSubview(self!.giftStickerBuyModal)
+                
+                let window = UIApplication.shared.keyWindow
+                let bottomPadding = window?.safeAreaInsets.bottom
+                UIView.animate(withDuration: 0.3) {
+                    self!.giftStickerBuyModal.frame = CGRect(x: 0, y: self!.view.frame.height - self!.giftStickerBuyModal.frame.height - 5 -  bottomPadding!, width: self!.view.frame.width, height: self!.giftStickerBuyModal.frame.height)
+                }
             }
             
-            self!.giftStickerBuyModal = SMCheckBuyGiftSticker.loadFromNib()
-            self!.giftStickerBuyModal.confirmBtn.addTarget(self, action: #selector(self!.confirmTapped), for: .touchUpInside)
-            self!.giftStickerBuyModal.setInfo(token: stickerItem.token, amount: String(describing: stickerItem.giftAmount ?? 0))
-            self!.giftStickerBuyModal.frame = CGRect(x: 0, y: self!.view.frame.height , width: self!.view.frame.width, height: self!.giftStickerBuyModal.frame.height)
-            
-            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
-            swipeDown.direction = .down
-            
-            self!.giftStickerBuyModal.addGestureRecognizer(swipeDown)
-            self!.view.addSubview(self!.giftStickerBuyModal)
-            
-            let window = UIApplication.shared.keyWindow
-            let bottomPadding = window?.safeAreaInsets.bottom
-            UIView.animate(withDuration: 0.3) {
-                self!.giftStickerBuyModal.frame = CGRect(x: 0, y: self!.view.frame.height - self!.giftStickerBuyModal.frame.height - 5 -  bottomPadding!, width: self!.view.frame.width, height: self!.giftStickerBuyModal.frame.height)
+            SwiftEventBus.onMainThread(self, name: EventBusManager.giftCardPayment) { result in
+                if let status = result?.object as? PaymentStatus, status == PaymentStatus.success {
+                    SwiftEventBus.postToMainThread(EventBusManager.giftCardSendMessage, sender: IGStickerViewController.waitingGiftCardInfo.stickerStruct)
+                }
             }
         }
     }
@@ -304,6 +314,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
             self?.giftStickerId = nil
             self?.didtapOutSide()
             IGApiSticker.shared.giftStickerPaymentRequest(token: buyGiftSticker.token, completion: { giftCardPayment in
+                IGStickerViewController.waitingGiftCardInfo.orderId = giftCardPayment.info.orderID
                 IGGlobal.prgHide()
                 IGPaymentView.sharedInstance.showGiftCardPayment(on: UIApplication.shared.keyWindow!, title: IGStringsManager.GiftStickerBuy.rawValue.localized, payment: giftCardPayment)
             }, error: {
