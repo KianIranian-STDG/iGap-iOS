@@ -67,7 +67,6 @@ class ASReplyForwardNode: ASDisplayNode {
         
         let attachmentBox = ASStackLayoutSpec.horizontal()
         attachmentBox.spacing = 0
-        
         attachmentBox.children = [imgReplyAttachment!, txtReplyAttachment!]
 
         let profileBox = ASStackLayoutSpec.horizontal()
@@ -174,6 +173,9 @@ class ASReplyForwardNode: ASDisplayNode {
                             
                         case .unknown:
                             break
+                        case .image,.imageAndText:
+                            IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.ImageMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
+
                         case .video,.videoAndText:
                             IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.VideoMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
                         default:

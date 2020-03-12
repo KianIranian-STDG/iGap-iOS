@@ -301,8 +301,16 @@ class ChatControllerNode: ASCellNode {
         
         if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText || msg.type == .contact || msg.type == .audio || msg.type == .audioAndText || msg.type == .voice  || msg.type == .wallet  {
             let baseBubbleBox = makeBubble(bubbleImage: bubbleImage) // make bubble
-            
-            let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
+            let contentItemsBox : ASLayoutSpec
+            if message.forwardedFrom != nil {
+                self.message = message
+
+                contentItemsBox = makeContentBubbleItems(msg: message) // make contents
+
+            } else {
+                contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
+
+            }
             //            contentItemsBox.style.maxWidth = ASDimensionMake(.points, 50)
             
             baseBubbleBox.child = contentItemsBox // add contents as child to bubble
@@ -329,7 +337,13 @@ class ChatControllerNode: ASCellNode {
                 
                 return insetHSpec
             }
-            manageAttachment(file: msg.attachment,msg: msg)
+            if message.forwardedFrom != nil {
+                manageAttachment(file: message.forwardedFrom!.attachment,msg: message.forwardedFrom!)
+
+            } else {
+                manageAttachment(file: msg.attachment,msg: msg)
+
+            }
             if IGGlobal.shouldMultiSelect {
                 makeAccessoryButton(id: 0)
             }
@@ -338,8 +352,18 @@ class ChatControllerNode: ASCellNode {
             
             
             let isShowingAvatar = makeAvatarIfNeeded()
-            let contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
-            
+
+            let contentItemsBox : ASLayoutSpec
+            if message.forwardedFrom != nil {
+                self.message = message
+
+                contentItemsBox = makeContentBubbleItems(msg: message) // make contents
+
+            } else {
+                contentItemsBox = makeContentBubbleItems(msg: msg) // make contents
+
+            }
+
             self.layoutSpecBlock = {[weak self] node, constrainedSize in
                 guard let sSelf = self else {
                     return ASLayoutSpec()
@@ -362,8 +386,14 @@ class ChatControllerNode: ASCellNode {
                 
                 return insetHSpec
             }
-            manageAttachment(file: msg.attachment,msg: msg)
-            
+            if message.forwardedFrom != nil {
+                manageAttachment(file: message.forwardedFrom!.attachment,msg: message.forwardedFrom!)
+
+            } else {
+                manageAttachment(file: msg.attachment,msg: msg)
+
+            }
+
             if IGGlobal.shouldMultiSelect {
                 makeAccessoryButton(id: 0)
             }
@@ -705,50 +735,54 @@ class ChatControllerNode: ASCellNode {
         let TMPwidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
         
         contentSpec.style.maxLayoutSize = ASLayoutSize(width: TMPwidth, height: ASDimension(unit: .points, value: CGFloat.greatestFiniteMagnitude))
-        
-        switch msg!.type {
+        var tmpmsg: IGRoomMessage
+        tmpmsg = msg!
+        if msg?.forwardedFrom != nil {
+            tmpmsg = msg!.forwardedFrom!
+        }
+        switch tmpmsg.type {
         case .text :
-            let finalBox = setTextNodeContent(contentSpec: contentSpec, msg: msg!)
+            let finalBox = setTextNodeContent(contentSpec: contentSpec, msg: tmpmsg)
             return finalBox
         case .image,.imageAndText :
-            let finalBox = setImageNodeContent(contentSpec: contentSpec, msg: msg!)
+            let finalBox = setImageNodeContent(contentSpec: contentSpec, msg: tmpmsg)
             return finalBox
         case .video,.videoAndText :
-            let finalBox = setVideoNodeContent(contentSpec: contentSpec, msg: msg!)
+            let finalBox = setVideoNodeContent(contentSpec: contentSpec, msg: tmpmsg)
             return finalBox
         case .gif,.gifAndText :
-            let finalBox = setGifNodeContent(contentSpec: contentSpec, msg: msg!)
+            let finalBox = setGifNodeContent(contentSpec: contentSpec, msg: tmpmsg)
             return finalBox
         case .file,.fileAndText :
-            let finalBox = setFileNodeContent(contentSpec: contentSpec, msg: msg!)
+            let finalBox = setFileNodeContent(contentSpec: contentSpec, msg: tmpmsg)
             return finalBox
         case .contact :
-            let finalBox = setContactNodeContent(contentSpec: contentSpec, msg: msg!)
+            let finalBox = setContactNodeContent(contentSpec: contentSpec, msg: tmpmsg)
             return finalBox
         case .audioAndText,.audio :
-            let finalBox = setAudioNodeContent(contentSpec: contentSpec, msg: msg!)
+            let finalBox = setAudioNodeContent(contentSpec: contentSpec, msg: tmpmsg)
             return finalBox
         case .voice :
-            let finalBox = setVoiceNodeContent(contentSpec: contentSpec, msg: msg!)
+            let finalBox = setVoiceNodeContent(contentSpec: contentSpec, msg: tmpmsg)
             return finalBox
         case .sticker :
-            let finalBox = setStickerNodeContent(contentSpec: contentSpec, msg: msg!)
+            let finalBox = setStickerNodeContent(contentSpec: contentSpec, msg: tmpmsg)
             return finalBox
         case .wallet :
-            if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue { //mode: CardToCard
-                let finalBox = setCardToCardNodeContent(contentSpec: contentSpec, msg: msg!)
+            if tmpmsg.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue { //mode: CardToCard
+                let finalBox = setCardToCardNodeContent(contentSpec: contentSpec, msg: tmpmsg)
                 return finalBox
-            } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue { //mode: moneyTransfer
-                let finalBox = setMoneyTransferNodeContent(contentSpec: contentSpec, msg: msg!)
+            } else if tmpmsg.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue { //mode: moneyTransfer
+                let finalBox = setMoneyTransferNodeContent(contentSpec: contentSpec, msg: tmpmsg)
                 return finalBox
-            } else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.topup.rawValue { //mode: topup
-                let finalBox = setTopUpNodeContent(contentSpec: contentSpec, msg: msg!)
+            } else if tmpmsg.wallet?.type == IGPRoomMessageWallet.IGPType.topup.rawValue { //mode: topup
+                let finalBox = setTopUpNodeContent(contentSpec: contentSpec, msg: tmpmsg)
                 return finalBox
-            }  else if msg!.wallet?.type == IGPRoomMessageWallet.IGPType.bill.rawValue { //mode: topup
-                let finalBox = setPayBillNodeContent(contentSpec: contentSpec, msg: msg!)
+            }  else if tmpmsg.wallet?.type == IGPRoomMessageWallet.IGPType.bill.rawValue { //mode: topup
+                let finalBox = setPayBillNodeContent(contentSpec: contentSpec, msg: tmpmsg)
                 return finalBox
             } else {
-                let finalBox = setMoneyTransferNodeContent(contentSpec: contentSpec, msg: msg!)
+                let finalBox = setMoneyTransferNodeContent(contentSpec: contentSpec, msg: tmpmsg)
                 return finalBox
                 
             }
@@ -761,7 +795,7 @@ class ChatControllerNode: ASCellNode {
             var logTypeTemp : logMessageType!
             
             
-            switch msg!.type {
+            switch tmpmsg.type {
             case .log :
                 logTypeTemp = .log
             case .time :
@@ -775,10 +809,10 @@ class ChatControllerNode: ASCellNode {
                 break
             }
             
-            let finalBox = setLogNodeContent(contentSpec: contentSpec, msg: msg!,logType: logTypeTemp)
+            let finalBox = setLogNodeContent(contentSpec: contentSpec, msg: tmpmsg,logType: logTypeTemp)
             return finalBox
         default :
-            let finalBox = setTextNodeContent(contentSpec: contentSpec, msg: msg!)
+            let finalBox = setTextNodeContent(contentSpec: contentSpec, msg: tmpmsg)
             return finalBox
         }
         
@@ -2346,7 +2380,7 @@ class ChatControllerNode: ASCellNode {
         default : break
             
         }
-        manageStickerAttachment()
+//        manageStickerAttachment()
         
         switch message?.additional?.dataType {
             
@@ -3522,7 +3556,39 @@ class ChatControllerNode: ASCellNode {
     }
     private func manageAttachment(file: IGFile? = nil,msg: IGRoomMessage){
         
-        
+        if msg.type == .sticker || msg.additional?.dataType == AdditionalType.STICKER.rawValue {
+            
+            if let stickerStruct = IGHelperJson.parseStickerMessage(data: (msg.additional?.data)!) {
+                //IGGlobal.imgDic[stickerStruct.token!] = self.imgMediaAbs
+                DispatchQueue.main.async {
+                    IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) { (file) in
+                        
+                        if (msg.attachment?.name!.hasSuffix(".json") ?? false) {
+                            if self.LiveStickerView != nil {
+                                (self.LiveStickerView!.view as! AnimationView).setLiveSticker(for: file)
+                            }
+                        } else  {
+                            if self.NormalGiftStickerView != nil {
+                                
+                                (self.NormalGiftStickerView!.view as! UIImageView).setSticker(for: file)
+                            }
+                        }
+                        
+                    }
+                }
+            } else {
+                if let stickerStruct = IGHelperJson.parseStickerMessage(data: (msg.additional?.data)!) {
+                    
+                    DispatchQueue.main.async {
+                        IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) { (file) in
+                            (self.NormalGiftStickerView!.view as! UIImageView).setSticker(for: file)
+                        }
+                    }
+                }
+            }
+            return
+        }
+
         if var attachment = msg.attachment , !(attachment.isInvalidated) {
             if let attachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
                 self.attachment = attachmentVariableInCache.value
@@ -3821,6 +3887,7 @@ class ChatControllerNode: ASCellNode {
             
             
         } else {
+            
             addNodeOnlyText(spec: spec,message: msg)
         }
         
@@ -3849,9 +3916,11 @@ class ChatControllerNode: ASCellNode {
         var msg = layoutMsg.message
         if let forwardMessage = message.forwardedFrom {
             msg = forwardMessage.message
+        } else {
+            msg = message.message
         }
         
-        if message.message!.count <= 20 { //20 is a random number u can change it to what ever value u want to
+        if msg!.count <= 20 { //20 is a random number u can change it to what ever value u want to
             
             let messageAndTime = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
             txtTimeNode!.style.alignSelf = .end
@@ -4341,7 +4410,13 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
             self.view.addGestureRecognizer(tapAndHold)
             
             self.view.isUserInteractionEnabled = true
-            
+            var tmppmsg : IGRoomMessage
+            if self.message?.forwardedFrom != nil {
+                tmppmsg = self.message!.forwardedFrom!
+            } else {
+                tmppmsg = self.message!
+            }
+
             if message?.repliedTo != nil {
                 let onReplyClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnReply(_:)))
                 replyForwardViewNode?.view.addGestureRecognizer(onReplyClick)
@@ -4364,7 +4439,7 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
                 }
             }
             
-            if message?.type == .file || message?.type == .fileAndText {
+            if tmppmsg.type == .file || tmppmsg.type == .fileAndText {
                 let onFileClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
                 view.addGestureRecognizer(onFileClick)
                 
@@ -4377,8 +4452,7 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
             }
             
             
-            
-            if message?.type == .image || message?.type == .imageAndText || message?.type == .video || message?.type == .videoAndText {
+            if tmppmsg.type == .image || tmppmsg.type == .imageAndText || tmppmsg.type == .video || tmppmsg.type == .videoAndText {
                 let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
                 imgNode?.view.addGestureRecognizer(tap)
                 if !(IGGlobal.shouldMultiSelect) {
@@ -4390,7 +4464,7 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
                 
             }
             
-            if message?.type == .location {
+            if tmppmsg.type == .location {
                 let onLocationClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
                 view.addGestureRecognizer(onLocationClick)
                 
@@ -4403,7 +4477,7 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
             }
             
             
-            if message?.type == .sticker {
+            if tmppmsg.type == .sticker {
                 let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
                 view.addGestureRecognizer(tap)
                 
