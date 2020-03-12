@@ -3640,7 +3640,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
         } else if giftStickerModal != nil {
             
-            guard let nationalCode = giftStickerModal.edtInternationalCode.text, let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
+            guard let nationalCode = giftStickerModal.edtInternationalCode.text, !nationalCode.isEmpty, let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
             
             self.messageTextView.text = ""
             self.currentAttachment = nil

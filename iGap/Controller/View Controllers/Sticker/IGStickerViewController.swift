@@ -87,7 +87,11 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     
     private func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.AddSticker.rawValue.localized)
+        var title = IGStringsManager.AddSticker.rawValue.localized
+        if isGift {
+            title = IGStringsManager.GiftCard.rawValue.localized
+        }
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: title)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -263,6 +267,9 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
             }
             
             SwiftEventBus.onMainThread(self, name: EventBusManager.giftCardPayment) { result in
+                if IGMessageViewController.giftRoomId == nil || IGMessageViewController.giftRoomId == 0 { // opened this page from discovery so shouldn't be send message to chat
+                    return
+                }
                 if let status = result?.object as? PaymentStatus, status == PaymentStatus.success {
                     SwiftEventBus.postToMainThread(EventBusManager.giftCardSendMessage, sender: IGStickerViewController.waitingGiftCardInfo.stickerStruct)
                 }

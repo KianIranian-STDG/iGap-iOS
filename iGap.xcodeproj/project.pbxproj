@@ -429,6 +429,7 @@
 		D6A89976236D8D920087215B /* IGHelperAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A89975236D8D920087215B /* IGHelperAvatar.swift */; };
 		D6AFC17123DD6AAD002584D5 /* Files.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AFC17023DD6AAD002584D5 /* Files.framework */; };
 		D6AFC17223DD6AAD002584D5 /* Files.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6AFC17023DD6AAD002584D5 /* Files.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D6B11DDD241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B11DDC241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift */; };
 		D6CCCBF82392A1E10061F749 /* CardToCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */; };
 		D6CEC8A0240A7EE500C6F078 /* SMGiftStickerAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6EA2534240A496100DC2C3B /* SMGiftStickerAlertView.xib */; };
 		D6EA2533240A46F200DC2C3B /* SMGiftStickerAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EA2532240A46F200DC2C3B /* SMGiftStickerAlertView.swift */; };
@@ -1327,6 +1328,7 @@
 		D68C2401241678DC00ABF635 /* SMCheckBuyGiftSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMCheckBuyGiftSticker.swift; sourceTree = "<group>"; };
 		D6A89975236D8D920087215B /* IGHelperAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperAvatar.swift; sourceTree = "<group>"; };
 		D6AFC17023DD6AAD002584D5 /* Files.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Files.framework; path = Carthage/Build/iOS/Files.framework; sourceTree = "<group>"; };
+		D6B11DDC241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGiftStickerFirstPageViewController.swift; sourceTree = "<group>"; };
 		D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardToCardCell.xib; sourceTree = "<group>"; };
 		D6EA2532240A46F200DC2C3B /* SMGiftStickerAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMGiftStickerAlertView.swift; sourceTree = "<group>"; };
 		D6EA2534240A496100DC2C3B /* SMGiftStickerAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMGiftStickerAlertView.xib; sourceTree = "<group>"; };
@@ -3244,6 +3246,7 @@
 				8EBF551F22DCA8EF00834E6A /* IGFavouriteChannelsDashboardTableViewController.swift */,
 				8ED97D7522E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift */,
 				FA6C2DE82267413A005654AC /* IGScoreViewController.swift */,
+				D6B11DDC241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -4157,6 +4160,7 @@
 				FAD7450021B940F800801D2E /* IGHelperGetShareData.swift in Sources */,
 				8EC217C62259F59900105B5A /* SMCashout.swift in Sources */,
 				8EC94DFE239636FC003B3510 /* IGDoubleButtonTVCell.swift in Sources */,
+				D6B11DDD241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift in Sources */,
 				8E96A321225C9074007D8A77 /* SMBottomButton.swift in Sources */,
 				FA0CC8091E5D7D4400556283 /* ActiveType.swift in Sources */,
 				8E0405C72371B9CE00516DEB /* IGStructBranchingInfo.swift in Sources */,

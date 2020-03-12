@@ -644,6 +644,7 @@ enum IGStringsManager : String {
     case PaymentErrorMessage = "payment_error_message"
     case InquiryAndShopping = "inquiry_and_shopping"
     case NationalCode = "national_code"
+    case MyReceivedGiftSticker = "my_recived_gift_sticker"
     case Buy = "buy"
     case Price = "price"
     //MARK: -Other

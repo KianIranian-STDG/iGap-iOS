@@ -99,3 +99,38 @@ class IGStructStickerMessage {
     }
 }
 
+
+
+
+// MARK: - IGStructGiftFirstPageInfo
+struct IGStructGiftFirstPageInfo: Codable {
+    let type: String
+    let info: Info
+    let data: [PageData]
+}
+
+struct PageData: Codable {
+    let title, titleEn: String
+    let actionType: Int
+    let actionLink: String
+    let imageURL: String
+
+    enum CodingKeys: String, CodingKey {
+        case title
+        case titleEn = "title_en"
+        case actionType = "action_type"
+        case actionLink = "action_link"
+        case imageURL = "image_url"
+    }
+}
+
+struct Info: Codable {
+    let title, titleEn, scale: String
+
+    enum CodingKeys: String, CodingKey {
+        case title
+        case titleEn = "title_en"
+        case scale
+    }
+}
+

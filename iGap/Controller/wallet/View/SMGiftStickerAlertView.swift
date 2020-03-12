@@ -32,6 +32,7 @@ class SMGiftStickerAlertView: UIView {
         self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
         self.infoLblOne.text = IGStringsManager.GiftStickerBuy.rawValue.localized
         self.txtInternationalCode.text = IGStringsManager.NationalCode.rawValue.localized
+        self.edtInternationalCode.placeholder = IGStringsManager.NationalCode.rawValue.localized
         self.edtInternationalCode.textAlignment = edtInternationalCode.localizedDirection
         self.confirmBtn.setTitle(IGStringsManager.InquiryAndShopping.rawValue.localized, for: .normal)
         initTheme()
