@@ -67,6 +67,7 @@ class ASReplyForwardNode: ASDisplayNode {
         
         let attachmentBox = ASStackLayoutSpec.horizontal()
         attachmentBox.spacing = 0
+        
         attachmentBox.children = [imgReplyAttachment!, txtReplyAttachment!]
 
         let profileBox = ASStackLayoutSpec.horizontal()
@@ -155,6 +156,9 @@ class ASReplyForwardNode: ASDisplayNode {
                 if extraMessage.attachment != nil {
 
                     imgReplyAttachment!.setASNetworkThumbnail(for: extraMessage.attachment!)
+                    if imgReplyAttachment?.image == nil {
+                        imgReplyAttachment?.style.preferredSize = CGSize.zero
+                    }
                 }
                 if let user = extraMessage.authorUser?.user { //get reply message sender Name
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: user.displayName, textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
@@ -164,10 +168,39 @@ class ASReplyForwardNode: ASDisplayNode {
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 }
                 if extraMessage.message != nil { //if has message
-                    IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: extraMessage.message ?? "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
+
+                    if extraMessage.message == "" {
+                        switch extraMessage.type {
+                            
+                        case .unknown:
+                            break
+                        case .video,.videoAndText:
+                            IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.VideoMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
+                        default:
+                            txtReplyMsgForwardSource!.style.preferredSize = CGSize.zero // set size two zero
+
+                            break
+                        }
+
+                    } else {
+                        IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: extraMessage.message ?? "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
+
+                    }
                 } else {
-                    txtReplyMsgForwardSource!.style.preferredSize = CGSize.zero // set size two zero
+                    switch extraMessage.type {
+                        
+                    case .unknown:
+                        break
+                    case .video,.videoAndText:
+                        IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.VideoMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
+                    default:
+                        txtReplyMsgForwardSource!.style.preferredSize = CGSize.zero // set size two zero
+
+                        break
+                    }
+
                 }
+                
 
             } else if extraMessage.type == .voice || extraMessage.type == .audio || extraMessage.type == .audioAndText  || extraMessage.type == .file || extraMessage.type == .contact || extraMessage.type == .fileAndText   {
                 imgReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
