@@ -3821,14 +3821,14 @@ class ChatControllerNode: ASCellNode {
             
             
         } else {
-            addNodeOnlyText(spec: spec)
+            addNodeOnlyText(spec: spec,message: msg)
         }
         
         
         
     }
     
-    private func addNodeOnlyText(spec: ASLayoutSpec) {
+    private func addNodeOnlyText(spec: ASLayoutSpec,message: IGRoomMessage) {
         if nodeOnlyText == nil {
             nodeOnlyText = OnlyTextNode()
         }
@@ -3837,21 +3837,21 @@ class ChatControllerNode: ASCellNode {
         nodeOnlyText!.style.minHeight = ASDimensionMake(.points, 20)
         makeTextNodeBottomBubbleItems()
         
-        var layoutMsg = message?.detach()
+        var layoutMsg = message.detach()
         
         //check if has reply or Forward
-        if let repliedMessage = message?.repliedTo {
+        if let repliedMessage = message.repliedTo {
             layoutMsg = repliedMessage.detach()
-        } else if let forwardedFrom = message?.forwardedFrom {
+        } else if let forwardedFrom = message.forwardedFrom {
             layoutMsg = forwardedFrom.detach()
         } else {layoutMsg = message}
         
-        var msg = layoutMsg!.message
-        if let forwardMessage = message?.forwardedFrom {
+        var msg = layoutMsg.message
+        if let forwardMessage = message.forwardedFrom {
             msg = forwardMessage.message
         }
         
-        if msg!.count <= 20 { //20 is a random number u can change it to what ever value u want to
+        if message.message!.count <= 20 { //20 is a random number u can change it to what ever value u want to
             
             let messageAndTime = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
             txtTimeNode!.style.alignSelf = .end
