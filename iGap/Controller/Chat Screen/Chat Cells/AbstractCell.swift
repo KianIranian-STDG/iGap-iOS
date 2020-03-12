@@ -1305,9 +1305,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             case .image, .imageAndText, .video, .videoAndText, .gif, .gifAndText:
                 if !(attachment.isInvalidated) {
                     imgMediaAbs.setThumbnail(for: attachment)
-                    if attachment.status != .ready {
-                        indicatorViewAbs?.delegate = self
-                    }
+                    indicatorViewAbs?.delegate = self
                     break
                 }
             default:
