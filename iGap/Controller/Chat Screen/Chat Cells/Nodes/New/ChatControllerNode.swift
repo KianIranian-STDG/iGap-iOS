@@ -687,7 +687,7 @@ class ChatControllerNode: ASCellNode {
     private func makeTopBubbleItems(stack: ASLayoutSpec) {
         
         if finalRoomType == .group && isIncomming {
-            if message?.type != .sticker || message?.type != .log || message?.type != .unread {
+            if message?.type != .sticker && message?.type != .log && message?.type != .unread {
                 if txtNameNode == nil {
                     txtNameNode = ASTextNode()
                     txtNameNode!.style.maxWidth = ASDimensionMake(.points, (UIScreen.main.bounds.width) - 100)
@@ -714,7 +714,7 @@ class ChatControllerNode: ASCellNode {
                 replyForwardViewNode = ASReplyForwardNode()
             }
             
-            if message?.type != .sticker || message?.type != .log {
+            if message?.type != .log {
                 stack.children?.append(replyForwardViewNode!)
                 replyForwardViewNode!.setReplyForward(isReply: false, extraMessage : layoutMsg!,isIncomming : isIncomming)
                 
@@ -737,7 +737,7 @@ class ChatControllerNode: ASCellNode {
         contentSpec.style.maxLayoutSize = ASLayoutSize(width: TMPwidth, height: ASDimension(unit: .points, value: CGFloat.greatestFiniteMagnitude))
         var tmpmsg: IGRoomMessage
         tmpmsg = msg!
-        if msg?.forwardedFrom != nil {
+        if msg?.forwardedFrom != nil  {
             tmpmsg = msg!.forwardedFrom!
         }
         switch tmpmsg.type {
@@ -2365,7 +2365,7 @@ class ChatControllerNode: ASCellNode {
     //******************************************************//
     
     private func setStickerNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage) -> ASLayoutSpec {
-        makeTopBubbleItems(stack: contentSpec)
+//        makeTopBubbleItems(stack: contentSpec)
         switch msg.additional?.dataType {
             
         case AdditionalType.STICKER.rawValue :
@@ -2381,8 +2381,13 @@ class ChatControllerNode: ASCellNode {
             
         }
 //        manageStickerAttachment()
-        
-        switch message?.additional?.dataType {
+        let tmpppMsg : IGRoomMessage
+        if self.message?.forwardedFrom != nil {
+            tmpppMsg = self.message!.forwardedFrom!
+        } else {
+            tmpppMsg = self.message!
+        }
+        switch tmpppMsg.additional?.dataType {
             
         case AdditionalType.STICKER.rawValue :
             if (self.message!.attachment?.name!.hasSuffix(".json") ?? false) {
@@ -2407,6 +2412,12 @@ class ChatControllerNode: ASCellNode {
                 tmpV.children?.append(insetSpec)
                 addStickerBottomItems(spec: tmpV)//add time and status to bottom of sticker
                 
+//                let v = ASDisplayNode()
+//                v.backgroundColor = .red
+//                v.style.height = ASDimensionMake(.points, 20)
+//                v.style.width = ASDimensionMake(.points, 50)
+//                tmpV.children?.append(v)
+
                 return tmpV
                 
             }
