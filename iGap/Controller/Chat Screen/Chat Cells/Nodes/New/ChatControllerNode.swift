@@ -522,9 +522,9 @@ class ChatControllerNode: ASCellNode {
         }
         
         let Color = ThemeManager.currentTheme.LabelColor
-        IGGlobal.makeAsyncText(for: lblEyeIcon!, with: "🌣", textColor: Color, size: 10, numberOfLines: 1, font: .fontIcon, alignment: .center)
-        IGGlobal.makeAsyncText(for: lblLikeIcon!, with: "🌡", textColor: .iGapRed(), size: 10, numberOfLines: 1, font: .fontIcon, alignment: .center)
-        IGGlobal.makeAsyncText(for: lblDisLikeIcon!, with: "🌢", textColor: .iGapRed(), size: 10, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: lblEyeIcon!, with: "🌣", textColor: Color, size: 13, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: lblLikeIcon!, with: "🌡", textColor: .iGapRed(), size: 13, numberOfLines: 1, font: .fontIcon, alignment: .center)
+        IGGlobal.makeAsyncText(for: lblDisLikeIcon!, with: "🌢", textColor: .iGapRed(), size: 13, numberOfLines: 1, font: .fontIcon, alignment: .center)
         
         
         manageVoteActions()
@@ -544,8 +544,8 @@ class ChatControllerNode: ASCellNode {
             if let channel = messageVote.authorRoom?.channelRoom, channel.hasReaction {
                 hasReAction = true
                 
-                IGGlobal.makeAsyncText(for: lblLikeText!, with: (messageVote.channelExtra?.thumbsUpLabel ?? "0").inLocalizedLanguage(), textColor: Color, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
-                IGGlobal.makeAsyncText(for: lblDisLikeText!, with: (messageVote.channelExtra?.thumbsDownLabel ?? "0").inLocalizedLanguage(), textColor: Color, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
+                IGGlobal.makeAsyncText(for: lblLikeText!, with: (messageVote.channelExtra?.thumbsUpLabel ?? "0").inLocalizedLanguage(), textColor: Color, size: 13, numberOfLines: 1, font: .igapFont, alignment: .center)
+                IGGlobal.makeAsyncText(for: lblDisLikeText!, with: (messageVote.channelExtra?.thumbsDownLabel ?? "0").inLocalizedLanguage(), textColor: Color, size: 13, numberOfLines: 1, font: .igapFont, alignment: .center)
                 
             } else {
                 hasReAction = false
