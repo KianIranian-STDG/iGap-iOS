@@ -10,7 +10,7 @@
 
 import UIKit
 
-class IGGiftCardsListViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+class IGGiftStickersListViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     var giftCardType: GiftStickerListType = .new
@@ -62,9 +62,20 @@ class IGGiftCardsListViewController: BaseViewController, UITableViewDataSource, 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "GiftCardListCell", for: indexPath) as! IGGiftCardListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "GiftCardListCell", for: indexPath) as! IGGiftStickerListCell
         cell.setInfo(giftCard: giftCardList[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let stickerId = giftCardList[indexPath.row].id
+        IGGlobal.prgShow()
+        IGApiSticker.shared.getGiftCardGetStatus(stickerId: stickerId, completion: { giftCardStatus in
+            IGGlobal.prgHide()
+            
+        }, error: {
+            IGGlobal.prgHide()
+        })
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

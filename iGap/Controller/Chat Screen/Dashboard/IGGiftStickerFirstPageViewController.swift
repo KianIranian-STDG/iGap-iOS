@@ -122,7 +122,7 @@ class IGGiftStickerFirstPageViewController: BaseViewController {
     }
     
     @IBAction func btnActivatedCards(_ sender: UIButton) {
-        let giftStickerCards = IGGiftCardsListViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+        let giftStickerCards = IGGiftStickersListViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
         giftStickerCards.giftCardType = .active
         self.navigationController!.pushViewController(giftStickerCards, animated: true)
     }

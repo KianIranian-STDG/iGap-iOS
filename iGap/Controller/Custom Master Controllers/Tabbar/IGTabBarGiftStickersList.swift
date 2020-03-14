@@ -66,7 +66,7 @@ class IGTabBarGiftStickersList: UITabBarController, UIGestureRecognizerDelegate{
             let tabBarItem = UITabBarItem(title: name, image: nil, selectedImage: nil)
             tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -16)
             
-            let giftCardsList = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: IGGiftCardsListViewController.self)) as! IGGiftCardsListViewController
+            let giftCardsList = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: IGGiftStickersListViewController.self)) as! IGGiftStickersListViewController
             giftCardsList.giftCardType = type
             giftCardsList.tabBarItem = tabBarItem
             controllers.append(giftCardsList)

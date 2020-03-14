@@ -11,7 +11,7 @@
 
 import UIKit
 
-class IGGiftCardListCell: UITableViewCell {
+class IGGiftStickerListCell: UITableViewCell {
 
     @IBOutlet weak var mainCellView: UIView!
     @IBOutlet weak var imgSticker: UIImageView!

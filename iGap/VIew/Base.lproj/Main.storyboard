@@ -3155,7 +3155,7 @@
         <!--Title-->
         <scene sceneID="qL1-Us-dH0">
             <objects>
-                <viewController storyboardIdentifier="IGGiftCardsListViewController" id="G0M-gX-eKp" customClass="IGGiftCardsListViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IGGiftStickersListViewController" id="G0M-gX-eKp" customClass="IGGiftStickersListViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QUL-6W-lTM"/>
                         <viewControllerLayoutGuide type="bottom" id="KpE-Md-FQa"/>
@@ -3169,7 +3169,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GiftCardListCell" rowHeight="80" id="Bah-rx-Kev" customClass="IGGiftCardListCell" customModule="iGap" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GiftCardListCell" rowHeight="80" id="Bah-rx-Kev" customClass="IGGiftStickerListCell" customModule="iGap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="394" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bah-rx-Kev" id="cAc-pX-gas">

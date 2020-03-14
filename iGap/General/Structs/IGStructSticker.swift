@@ -169,11 +169,24 @@ struct IGStructGiftCardSticker: Codable {
     let groupId: String
     let sort: Int
     let id: String
+    let isFavorite: Bool?
 
     enum CodingKeys: String, CodingKey {
         case tags, giftAmount, name, token, fileName, fileSize
         case groupId
-        case sort, id
+        case sort, id, isFavorite
     }
 }
 
+
+// MARK: - IGStructGiftCardStatus
+struct IGStructGiftCardStatus: Codable {
+    let activation: GiftStickerActivationStatus
+    let sticker: IGStructGiftCardSticker
+    let isActive, isCardOwner, isForwarded: Bool
+    let id: String
+}
+
+struct GiftStickerActivationStatus: Codable {
+    let status: String
+}
