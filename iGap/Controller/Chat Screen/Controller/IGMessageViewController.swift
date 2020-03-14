@@ -5914,10 +5914,15 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     func enableMultiSelect(State: Bool! ,cellMessage: IGRoomMessage ,isForward:Bool? = nil ,isDelete:Bool? = nil ,isShare:Bool? = nil,id: Int64) {
         
         
-        IGGlobal.shouldMultiSelect = State
-        self.selectedMessages.removeAll()
-        self.selectedMessages.append(cellMessage)
-        self.showMultiSelectUI(state: State,isForward:isForward,isDelete:isDelete,id: id)
+        if cellMessage.type == .log ||  cellMessage.type == .unread || cellMessage.type == .time || cellMessage.type == .progress { } else {
+            IGGlobal.shouldMultiSelect = State
+            self.selectedMessages.removeAll()
+            self.selectedMessages.append(cellMessage)
+            self.showMultiSelectUI(state: State,isForward:isForward,isDelete:isDelete,id: id)
+
+        }
+
+        
     }
     
     
