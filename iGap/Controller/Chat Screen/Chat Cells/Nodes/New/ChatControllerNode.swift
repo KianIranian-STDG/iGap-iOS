@@ -3244,7 +3244,7 @@ class ChatControllerNode: ASCellNode {
         imgNode!.style.height = ASDimension(unit: .points, value: prefferedSize.height)
         imgNode!.clipsToBounds = true
         
-        imgNode!.layer.cornerRadius = 7
+        imgNode!.layer.cornerRadius = 15
         
         if msg.type == .image {
             RemoveNodeText()
