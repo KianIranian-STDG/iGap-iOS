@@ -1218,6 +1218,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             } else if let onMessageDelete = result?.object as? (action: ChatMessageAction, roomId: Int64, messageId: Int64), onMessageDelete.action == ChatMessageAction.delete {
                 //DispatchQueue.main.async {
                 self?.removeItem(cellPosition: IGMessageViewController.messageIdsStatic[onMessageDelete.roomId]?.firstIndex(of: onMessageDelete.messageId))
+                self?.reloadCollection()
                 
                 
             } else if let onFetchUserInfo = result?.object as? (action: ChatMessageAction, userId: Int64), onFetchUserInfo.action == ChatMessageAction.userInfo {
@@ -4937,7 +4938,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         diselect()
-        self.reloadCollection()
+//        self.reloadCollection()
     }
     
     
@@ -6790,9 +6791,10 @@ extension IGMessageViewController {
     }
     
     private func reloadCollection(){
+        _ = self.tableViewNode.numberOfRows(inSection: 0)
         self.tableViewNode.reloadData()
 //        self.tableViewNode.numberOfItems(inSection: 0) //<-- This code is no used, but it will let UICollectionView synchronize number of items, so it will not crash in following code.
-        self.tableViewNode.numberOfRows(inSection: 0)
+        
     }
     
     /**
