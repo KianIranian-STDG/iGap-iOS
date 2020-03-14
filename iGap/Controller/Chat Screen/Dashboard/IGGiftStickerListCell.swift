@@ -35,7 +35,7 @@ class IGGiftStickerListCell: UITableViewCell {
         customizeView(view: mainCellView)
         showSticker(token: giftCard.sticker.token)
         txtRRN.text = IGStringsManager.WalletRrnNumber.rawValue.localized + " : " + String(describing: giftCard.rrn).inLocalizedLanguage()
-        txtAmount.text = String(describing: giftCard.amount).inRialFormat().inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
+        txtAmount.text = String(describing: giftCard.amount).inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
     }
     
     private func customizeView(view: UIView){

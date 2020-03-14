@@ -11,7 +11,7 @@
 import UIKit
 
 /// Input view to get only one input and button to confirm action
-class SMCheckBuyGiftSticker: UIView {
+class SMCheckGiftSticker: UIView {
     
     /// Title of view
     @IBOutlet var infoLblOne: UILabel!
@@ -20,8 +20,8 @@ class SMCheckBuyGiftSticker: UIView {
     @IBOutlet var confirmBtn: UIButton!
  
     /// - Returns: instance of SMSingleInputView loaded from nib file
-    class func loadFromNib() -> SMCheckBuyGiftSticker {
-        return UINib(nibName: "SMCheckBuyGiftSticker", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SMCheckBuyGiftSticker
+    class func loadFromNib() -> SMCheckGiftSticker {
+        return UINib(nibName: "SMCheckGiftSticker", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SMCheckGiftSticker
     }
     
     override func awakeFromNib() {
@@ -36,15 +36,13 @@ class SMCheckBuyGiftSticker: UIView {
     
     private func initTheme() {
         self.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
-        confirmBtn.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
-        confirmBtn.backgroundColor = ThemeManager.currentTheme.SliderTintColor
-        confirmBtn.setTitle(IGStringsManager.Payment.rawValue.localized, for: .normal)
         infoLblOne.textColor = ThemeManager.currentTheme.LabelColor
         txtBuyDetail.textColor = ThemeManager.currentTheme.LabelColor
         txtBuyDetail.font = UIFont.igFont(ofSize: 15)
         
+        confirmBtn.layer.cornerRadius = confirmBtn.bounds.height / 2
+        confirmBtn.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
         confirmBtn.layer.borderWidth = 1.0
-        confirmBtn.layer.cornerRadius = 5
     }
     
     @IBAction func closeModal(_ sender: UIButton) {
@@ -55,6 +53,8 @@ class SMCheckBuyGiftSticker: UIView {
     }
     
     func setInfo(token: String, amount: String){
+        confirmBtn.setTitle(IGStringsManager.Payment.rawValue.localized, for: .normal)
+        
         IGAttachmentManager.sharedManager.getStickerFileInfo(token: token, completion: { (file) -> Void in
             DispatchQueue.main.async {
                 self.imgGiftCard.setSticker(for: file)
@@ -62,5 +62,18 @@ class SMCheckBuyGiftSticker: UIView {
         })
         
         txtBuyDetail.text = IGStringsManager.GiftCardSelected.rawValue.localized + "\n" + amount.inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
+    }
+    
+    func setInfo(giftSticker: IGStructGiftCardStatus, date: String){
+        confirmBtn.setTitle(IGStringsManager.ActivateOrSendAsMessage.rawValue.localized, for: .normal)
+        
+        IGAttachmentManager.sharedManager.getStickerFileInfo(token: giftSticker.sticker.token, completion: { (file) -> Void in
+            DispatchQueue.main.async {
+                self.imgGiftCard.setSticker(for: file)
+            }
+        })
+        
+        let finalDate = date.dateFromStringFormat(format: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", showHour: true) ?? ""
+        txtBuyDetail.text = String(describing: giftSticker.sticker.giftAmount).inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized + "\n" + finalDate
     }
 }

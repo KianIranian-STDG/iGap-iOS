@@ -15,6 +15,8 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
     @IBOutlet weak var tableView: UITableView!
     var giftCardType: GiftStickerListType = .new
     var giftCardList: [IGStructGiftCardListData] = []
+    var giftStickerInfo: SMCheckGiftSticker!
+    var dismissBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +59,72 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
         }
     }
 
+    private func getCardStatus(stickerId: String, date: String){
+        IGGlobal.prgShow()
+        IGApiSticker.shared.getGiftCardGetStatus(stickerId: stickerId, completion: { [weak self] giftCardStatus in
+            IGGlobal.prgHide()
+            self?.showCardInfo(stickerInfo: giftCardStatus, date: date)
+        }, error: {
+            IGGlobal.prgHide()
+        })
+    }
+    
+    private func showCardInfo(stickerInfo: IGStructGiftCardStatus, date: String){
+        self.dismissBtn = UIButton()
+        self.dismissBtn.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
+        self.view.insertSubview(self.dismissBtn, at: 2)
+        self.dismissBtn.addTarget(self, action: #selector(self.didtapOutSide), for: .touchUpInside)
+        
+        self.dismissBtn?.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top)
+            make.bottom.equalTo(self.view.snp.bottom)
+            make.right.equalTo(self.view.snp.right)
+            make.left.equalTo(self.view.snp.left)
+        }
+        
+        self.giftStickerInfo = SMCheckGiftSticker.loadFromNib()
+        self.giftStickerInfo.confirmBtn.addTarget(self, action: #selector(self.confirmTapped), for: .touchUpInside)
+        self.giftStickerInfo.setInfo(giftSticker: stickerInfo, date: date)
+        self.giftStickerInfo.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: self.giftStickerInfo.frame.height)
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+        swipeDown.direction = .down
+        
+        self.giftStickerInfo.addGestureRecognizer(swipeDown)
+        self.view.addSubview(self.giftStickerInfo)
+        
+        let window = UIApplication.shared.keyWindow
+        let bottomPadding = window?.safeAreaInsets.bottom
+        UIView.animate(withDuration: 0.3) {
+            self.giftStickerInfo.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerInfo.frame.height - 5 -  bottomPadding!, width: self.view.frame.width, height: self.giftStickerInfo.frame.height)
+        }
+    }
+    
+    @objc func didtapOutSide() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.giftStickerInfo.frame.origin.y = self.view.frame.height
+        }) { (true) in
+            
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.giftStickerInfo?.removeFromSuperview()
+            self.giftStickerInfo = nil
+            
+            self.dismissBtn?.removeFromSuperview()
+            self.dismissBtn = nil
+        }
+    }
+    
+    @objc func handleGesture(gesture: UITapGestureRecognizer) {
+        self.didtapOutSide()
+    }
+    
+    @objc func confirmTapped(_ gestureRecognizer: UITapGestureRecognizer) {
+        
+    }
+    
+    // MARK:- TableView
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return giftCardList.count
     }
@@ -68,14 +136,8 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let stickerId = giftCardList[indexPath.row].id
-        IGGlobal.prgShow()
-        IGApiSticker.shared.getGiftCardGetStatus(stickerId: stickerId, completion: { giftCardStatus in
-            IGGlobal.prgHide()
-            
-        }, error: {
-            IGGlobal.prgHide()
-        })
+        let giftSticker = giftCardList[indexPath.row]
+        getCardStatus(stickerId: giftSticker.id, date: giftSticker.createdAt)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

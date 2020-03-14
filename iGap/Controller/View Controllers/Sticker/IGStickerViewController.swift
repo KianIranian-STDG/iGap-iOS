@@ -34,7 +34,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     var isWaitingForRequest = false
     var isGift = false
     var dismissBtn: UIButton!
-    var giftStickerBuyModal: SMCheckBuyGiftSticker!
+    var giftStickerBuyModal: SMCheckGiftSticker!
     var giftStickerId: String? // use this variable for check buy gift sticker
     
     // Due to the type of sticker page for collection view will be used one of the following variables
@@ -248,7 +248,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
                     make.left.equalTo(self!.view.snp.left)
                 }
                 
-                self!.giftStickerBuyModal = SMCheckBuyGiftSticker.loadFromNib()
+                self!.giftStickerBuyModal = SMCheckGiftSticker.loadFromNib()
                 self!.giftStickerBuyModal.confirmBtn.addTarget(self, action: #selector(self!.confirmTapped), for: .touchUpInside)
                 self!.giftStickerBuyModal.setInfo(token: stickerItem.token, amount: String(describing: stickerItem.giftAmount ?? 0))
                 self!.giftStickerBuyModal.frame = CGRect(x: 0, y: self!.view.frame.height , width: self!.view.frame.width, height: self!.giftStickerBuyModal.frame.height)

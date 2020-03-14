@@ -6693,10 +6693,11 @@ TODO:// complete */
 "receivers_mobile_number" = "Receiver's Mobile Number";
 "install_latest_version" = "Install the latest version to use this feature";
 "gift_card" = "gift card";
-"gift_card_selected" = "Selected gift card amount";
+"gift_card_selected" = "selected gift card amount";
 "payment_error_message" = "The operation encountered an error. Please try again.";
 "my_recived_gift_sticker" = "Activated digital gift card";
 "gift_card_report" = "Gift Card Report";
 "usable" = "Usable";
 "activated" = "Activated";
 "posted" = "Posted";
+"activate_or_send_as_message" = "Activate or send as message";
