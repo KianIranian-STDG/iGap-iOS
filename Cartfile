@@ -33,11 +33,8 @@ github "KianIranian-STDG/IGProtoBuffLibrary" "proto129"
 github "cesarferreira/SwiftEventBus" == 5.0.0
 github "WenchaoD/FSPagerView"
 github "airbnb/lottie-ios" "master"
-<<<<<<< HEAD
 github "texturegroup/texture"
-=======
 github "KianIranian-STDG/MediaPicker" "master"
->>>>>>> iGap
 
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAnalyticsBinary.json"
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseMessagingBinary.json"

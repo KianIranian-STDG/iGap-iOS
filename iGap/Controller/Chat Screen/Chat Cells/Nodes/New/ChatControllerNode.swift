@@ -3337,8 +3337,11 @@ class ChatControllerNode: ASCellNode {
         prefferedSize = NodeExtension.fetchMediaFrame(media: msg.attachment!)
         if imgNode == nil {
             imgNode = ASImageNode()
-            imgNode!.contentMode = .scaleAspectFit
+            imgNode!.contentMode = .scaleAspectFill
             
+        } else {
+            imgNode!.contentMode = .scaleAspectFill
+
         }
         if msg.attachment != nil {
             if !(IGGlobal.isFileExist(path: msg.attachment!.localPath))  {
@@ -3878,7 +3881,7 @@ class ChatControllerNode: ASCellNode {
                 msgg = forwardMessage.message
             }
             
-            if msgg!.count <= 20 { //20 is a random number u can change it to what ever value u want to
+            if msgg!.count <= 10 { //20 is a random number u can change it to what ever value u want to
                 
                 let messageAndTime = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
                 txtTimeNode!.style.alignSelf = .end
@@ -3931,7 +3934,7 @@ class ChatControllerNode: ASCellNode {
             msg = message.message
         }
         
-        if msg!.count <= 20 { //20 is a random number u can change it to what ever value u want to
+        if msg!.count <= 10 { //10 is a random number u can change it to what ever value u want to
             
             let messageAndTime = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
             txtTimeNode!.style.alignSelf = .end
@@ -3962,10 +3965,10 @@ class ChatControllerNode: ASCellNode {
         }
         if message!.linkInfo == nil {
             if !isTextMessageNode {
-                IGGlobal.makeAsyncText(for: nodeText!, with: msg, textColor: .black, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                IGGlobal.makeAsyncText(for: nodeText!, with: msg, textColor: ThemeManager.currentTheme.LabelColor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
                 
             } else {
-                IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: .black, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: ThemeManager.currentTheme.LabelColor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
                 
             }
             return
