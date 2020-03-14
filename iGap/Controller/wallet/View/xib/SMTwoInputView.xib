@@ -26,8 +26,8 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Onv-gh-Eoc">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="75.5"/>
                             <subviews>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cMr-7w-p3Z">
-                                    <rect key="frame" x="16" y="25" width="344" height="50.5"/>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cMr-7w-p3Z">
+                                    <rect key="frame" x="16" y="32" width="344" height="42"/>
                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
@@ -51,8 +51,8 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="31q-2a-Oc1">
                             <rect key="frame" x="0.0" y="75.5" width="375" height="75.5"/>
                             <subviews>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="blB-J9-cEA" customClass="customAmountTextField" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="16" y="25" width="344" height="50.5"/>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="blB-J9-cEA" customClass="customAmountTextField" customModule="iGap" customModuleProvider="target">
+                                    <rect key="frame" x="16" y="32" width="344" height="42.5"/>
                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 </textField>
@@ -76,8 +76,8 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vjU-aS-ijY">
                             <rect key="frame" x="0.0" y="151" width="375" height="75"/>
                             <subviews>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xc2-Em-Z2q" customClass="customCardNumberTextField" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="16" y="25" width="344" height="50"/>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xc2-Em-Z2q" customClass="customCardNumberTextField" customModule="iGap" customModuleProvider="target">
+                                    <rect key="frame" x="16" y="32" width="344" height="42"/>
                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 </textField>
@@ -102,8 +102,8 @@
                             <rect key="frame" x="0.0" y="226" width="375" height="75.5"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOH-uc-Rmg" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="16.5" width="375" height="43"/>
-                                    <color key="backgroundColor" red="0.25490196079999999" green="0.69411764710000001" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <rect key="frame" x="0.0" y="15.5" width="375" height="43"/>
+                                    <color key="backgroundColor" name="IGButtonBGColor"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="43" id="Iij-mN-bI7"/>
                                     </constraints>
@@ -118,8 +118,8 @@
                                     </userDefinedRuntimeAttributes>
                                 </button>
                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jVG-dZ-Oj8" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="16.5" width="125" height="43"/>
-                                    <color key="backgroundColor" name="IGLabelGrayColor"/>
+                                    <rect key="frame" x="0.0" y="15.5" width="125" height="43"/>
+                                    <color key="backgroundColor" name="IGButtonBGColor"/>
                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="16"/>
                                     <state key="normal" title="انصراف">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -194,6 +194,9 @@
         </view>
     </objects>
     <resources>
+        <namedColor name="IGButtonBGColor">
+            <color red="0.25499999523162842" green="0.6940000057220459" blue="0.125" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="IGLabelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
