@@ -3989,7 +3989,7 @@ TODO:// translate */
 "error_submit_qr_code" = "لقد حدث خط مع طلبك";
 
 /*  */
-"not_exist_activities" = "السجل الخاص بك فارغ.";
+"not_exist_activities" = "السجل الخاص بك فارغ";
 
 /*  */
 "ivand_profile_title" = "تقييمي";
@@ -6727,3 +6727,5 @@ TODO:// translate */
 "activated" = "المنشط";
 "posted" = "نشر";
 "activate_or_send_as_message" = "تنشيط أو إرسال كرسالة";
+"gift_sticker_send_to_other" = "إرسال إلى آخر";
+"activation" = "التنشيط";

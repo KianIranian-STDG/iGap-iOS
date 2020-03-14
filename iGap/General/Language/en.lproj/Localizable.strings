@@ -4049,7 +4049,7 @@ TODO:// complete */
 "error_submit_qr_code" = "There is an error with the request!";
 
 /*  */
-"not_exist_activities" = "Your history is empty.";
+"not_exist_activities" = "Your history is empty";
 
 /*  */
 "ivand_profile_title" = "My Score";
@@ -6701,3 +6701,5 @@ TODO:// complete */
 "activated" = "Activated";
 "posted" = "Posted";
 "activate_or_send_as_message" = "Activate or send as message";
+"gift_sticker_send_to_other" = "Send to another";
+"activation" = "Activation";

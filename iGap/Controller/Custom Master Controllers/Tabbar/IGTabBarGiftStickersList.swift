@@ -69,6 +69,7 @@ class IGTabBarGiftStickersList: UITabBarController, UIGestureRecognizerDelegate{
             let giftCardsList = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: IGGiftStickersListViewController.self)) as! IGGiftStickersListViewController
             giftCardsList.giftCardType = type
             giftCardsList.tabBarItem = tabBarItem
+            giftCardsList.tabbarHeight = self.tabBar.bounds.height
             controllers.append(giftCardsList)
         }
         self.viewControllers = controllers

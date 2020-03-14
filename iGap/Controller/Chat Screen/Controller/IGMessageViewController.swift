@@ -3559,8 +3559,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         if giftStickerModal == nil {
             giftStickerModal = SMGiftStickerAlertView.loadFromNib()
-            giftStickerModal.confirmBtn.addTarget(self, action: #selector(confirmTapped), for: .touchUpInside)
+            giftStickerModal.btnOne.addTarget(self, action: #selector(confirmTapped), for: .touchUpInside)
             giftStickerModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: giftStickerModal.frame.height)
+            giftStickerModal.btnTwo.isHidden = true
             
             let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
             swipeDown.direction = .down
@@ -3569,7 +3570,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.view.addSubview(giftStickerModal!)
             
         } else {
-            giftStickerModal.confirmBtn.setTitle(IGStringsManager.GiftCard.rawValue.localized, for: .normal)
+            giftStickerModal.btnOne.setTitle(IGStringsManager.GiftCard.rawValue.localized, for: .normal)
         }
         
         if #available(iOS 11.0, *) {

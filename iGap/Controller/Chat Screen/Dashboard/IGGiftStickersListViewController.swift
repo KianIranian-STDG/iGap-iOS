@@ -13,10 +13,13 @@ import UIKit
 class IGGiftStickersListViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    var tabbarHeight: CGFloat?
     var giftCardType: GiftStickerListType = .new
     var giftCardList: [IGStructGiftCardListData] = []
     var giftStickerInfo: SMCheckGiftSticker!
+    var giftStickerAlertView: SMGiftStickerAlertView!
     var dismissBtn: UIButton!
+    let bottomPadding = UIApplication.shared.keyWindow?.safeAreaInsets.bottom
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,34 +96,85 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
         self.giftStickerInfo.addGestureRecognizer(swipeDown)
         self.view.addSubview(self.giftStickerInfo)
         
-        let window = UIApplication.shared.keyWindow
-        let bottomPadding = window?.safeAreaInsets.bottom
         UIView.animate(withDuration: 0.3) {
-            self.giftStickerInfo.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerInfo.frame.height - 5 -  bottomPadding!, width: self.view.frame.width, height: self.giftStickerInfo.frame.height)
+            self.giftStickerInfo.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerInfo.frame.height - 5 -  self.bottomPadding!, width: self.view.frame.width, height: self.giftStickerInfo.frame.height)
         }
     }
     
-    @objc func didtapOutSide() {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.giftStickerInfo.frame.origin.y = self.view.frame.height
-        }) { (true) in
-            
+    private func showActiveOrForward(){
+        self.giftStickerAlertView = SMGiftStickerAlertView.loadFromNib()
+        self.giftStickerAlertView.btnOne.addTarget(self, action: #selector(self.confirmTapped), for: .touchUpInside)
+        self.giftStickerAlertView.btnTwo.addTarget(self, action: #selector(self.sendToAnother), for: .touchUpInside)
+        self.giftStickerAlertView.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: self.giftStickerAlertView.frame.height)
+        manageButtonsView(buttons: [giftStickerAlertView.btnOne, giftStickerAlertView.btnTwo])
+        giftStickerAlertView.btnOne.setTitle(IGStringsManager.Activation.rawValue.localized, for: UIControl.State.normal)
+        giftStickerAlertView.btnTwo.setTitle(IGStringsManager.GiftStickerSendToOther.rawValue.localized, for: UIControl.State.normal)
+        giftStickerAlertView.infoLblOne.text = IGStringsManager.ActivateOrSendAsMessage.rawValue.localized
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+        swipeDown.direction = .down
+        
+        self.giftStickerAlertView.addGestureRecognizer(swipeDown)
+        self.view.addSubview(self.giftStickerAlertView)
+        
+        let yPosition = self.view.frame.height - self.giftStickerAlertView.frame.height - (self.bottomPadding! + tabbarHeight!)
+        UIView.animate(withDuration: 0.3) {
+            self.giftStickerAlertView.frame = CGRect(x: 0, y: yPosition, width: self.view.frame.width, height: self.giftStickerAlertView.frame.height)
         }
+    }
+    
+    private func manageButtonsView(buttons: [UIButton]){
+        for button in buttons {
+            button.layer.cornerRadius = button.bounds.height / 2
+            button.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+            button.layer.borderWidth = 1.0
+        }
+    }
+    
+    @objc func didtapOutSide(keepBackground: Bool = false) {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.giftStickerInfo?.frame.origin.y = self.view.frame.height
+            self.giftStickerAlertView?.frame.origin.y = self.view.frame.height
+        }) { (true) in }
+
+        let hideInfo = giftStickerInfo != nil
+        let hideAlertView = giftStickerAlertView != nil
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.giftStickerInfo?.removeFromSuperview()
-            self.giftStickerInfo = nil
+            if hideInfo {
+                self.giftStickerInfo?.removeFromSuperview()
+                self.giftStickerInfo = nil
+            }
             
-            self.dismissBtn?.removeFromSuperview()
-            self.dismissBtn = nil
+            if hideAlertView {
+                self.giftStickerAlertView?.removeFromSuperview()
+                self.giftStickerAlertView = nil
+            }
+            
+            if !keepBackground {
+                self.dismissBtn?.removeFromSuperview()
+                self.dismissBtn = nil
+            }
         }
     }
     
     @objc func handleGesture(gesture: UITapGestureRecognizer) {
-        self.didtapOutSide()
+        self.didtapOutSide(keepBackground: false)
     }
     
     @objc func confirmTapped(_ gestureRecognizer: UITapGestureRecognizer) {
-        
+        if giftStickerInfo != nil {
+            didtapOutSide(keepBackground: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                self.showActiveOrForward()
+            }
+        } else if giftStickerAlertView != nil {
+            didtapOutSide(keepBackground : false)
+            print("SSS || confirmTapped")
+        }
+    }
+    
+    @objc func sendToAnother(_ gestureRecognizer: UITapGestureRecognizer) {
+        print("SSS || sendToAnother")
     }
     
     // MARK:- TableView

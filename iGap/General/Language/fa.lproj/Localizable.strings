@@ -4008,7 +4008,7 @@ Page 4 introduce app */
 "error_submit_qr_code" = "خطایی با درخواست شما رخ داده است!";
 
 /*  */
-"not_exist_activities" = "لیست سوابق شما خالی است.";
+"not_exist_activities" = "لیست سوابق شما خالی است";
 
 /*  */
 "ivand_profile_title" = "امتیاز من";
@@ -6710,3 +6710,5 @@ Page 4 introduce app */
 "activated" = "فعال شده";
 "posted" = "ارسال شده";
 "activate_or_send_as_message" = "فعالسازی یا ارسال به عنوان پیام";
+"gift_sticker_send_to_other" = "ارسال به دیگری";
+"activation" = "فعال سازی";

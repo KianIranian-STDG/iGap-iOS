@@ -15,9 +15,9 @@ class SMGiftStickerAlertView: UIView {
     
     /// Title of view
     @IBOutlet var infoLblOne: UILabel!
-    @IBOutlet var txtInternationalCode: UILabel!
     @IBOutlet var edtInternationalCode: UITextField!
-    @IBOutlet var confirmBtn: UIButton!
+    @IBOutlet var btnOne: UIButton!
+    @IBOutlet var btnTwo: UIButton!
  
     /// Load view from nib file
     ///
@@ -30,11 +30,8 @@ class SMGiftStickerAlertView: UIView {
         super.awakeFromNib()
 
         self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
-        self.infoLblOne.text = IGStringsManager.GiftStickerBuy.rawValue.localized
-        self.txtInternationalCode.text = IGStringsManager.NationalCode.rawValue.localized
         self.edtInternationalCode.placeholder = IGStringsManager.NationalCode.rawValue.localized
-        self.edtInternationalCode.textAlignment = edtInternationalCode.localizedDirection
-        self.confirmBtn.setTitle(IGStringsManager.InquiryAndShopping.rawValue.localized, for: .normal)
+        self.btnOne.setTitle(IGStringsManager.InquiryAndShopping.rawValue.localized, for: .normal)
         initTheme()
         
         if let nationalCode = IGSessionInfo.getNationalCode() {
@@ -44,18 +41,22 @@ class SMGiftStickerAlertView: UIView {
     
     private func initTheme() {
         self.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
-        confirmBtn.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         infoLblOne.textColor = ThemeManager.currentTheme.LabelColor
-        txtInternationalCode.textColor = ThemeManager.currentTheme.LabelColor
-        confirmBtn.backgroundColor = ThemeManager.currentTheme.SliderTintColor
         
         edtInternationalCode.textColor = ThemeManager.currentTheme.LabelColor
         edtInternationalCode.backgroundColor = ThemeManager.currentTheme.BackGroundColor
         edtInternationalCode.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
         edtInternationalCode.layer.borderWidth = 1.0
-        edtInternationalCode.layer.cornerRadius = 5
-        confirmBtn.layer.borderWidth = 1.0
-        confirmBtn.layer.cornerRadius = 5
+        edtInternationalCode.layer.masksToBounds = true
+        edtInternationalCode.layer.cornerRadius = edtInternationalCode.bounds.height / 2
+        
+        btnOne.layer.cornerRadius = btnOne.bounds.height / 2
+        btnOne.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        btnOne.layer.borderWidth = 1.0
+        
+        btnTwo.layer.cornerRadius = btnTwo.bounds.height / 2
+        btnTwo.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+        btnTwo.layer.borderWidth = 1.0
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
