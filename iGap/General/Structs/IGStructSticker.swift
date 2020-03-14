@@ -134,3 +134,46 @@ struct Info: Codable {
     }
 }
 
+
+
+// MARK: - IGStructGiftCardList
+struct IGStructGiftCardList: Codable {
+    let data: [IGStructGiftCardListData]
+}
+
+struct IGStructGiftCardListData: Codable {
+    let creation, activation: Ation
+    let requestCount, amount: Int
+    let sticker: IGStructGiftCardSticker
+    let createdAt: String
+    let rrn: Int
+    let toUserId: String?
+    let activationStatus, id: String
+
+    enum CodingKeys: String, CodingKey {
+        case creation, activation, requestCount, amount, sticker, createdAt, rrn
+        case toUserId
+        case activationStatus, id
+    }
+}
+
+struct Ation: Codable {
+    let status: String
+}
+
+struct IGStructGiftCardSticker: Codable {
+    let tags: [String]
+    let giftAmount: Int
+    let name, token, fileName: String
+    let fileSize: Int
+    let groupId: String
+    let sort: Int
+    let id: String
+
+    enum CodingKeys: String, CodingKey {
+        case tags, giftAmount, name, token, fileName, fileSize
+        case groupId
+        case sort, id
+    }
+}
+

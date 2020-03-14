@@ -84,7 +84,7 @@ class IGGiftStickerFirstPageViewController: BaseViewController {
         view?.layer.shadowRadius = 1
         view?.layer.shadowColor = UIColor.gray.cgColor
         view?.layer.shadowOpacity = 0.4
-        view?.backgroundColor = ThemeManager.currentTheme.DashboardCellBackgroundColor//.lighter(by: 15)
+        view?.backgroundColor = ThemeManager.currentTheme.DashboardCellBackgroundColor
         
         img?.layer.cornerRadius = IGDashboardViewController.itemCorner
         img?.layer.masksToBounds = true
@@ -107,6 +107,7 @@ class IGGiftStickerFirstPageViewController: BaseViewController {
         IGGlobal.prgShow()
         IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: ("+"+phone).replace("+98", withString: "0")) { [weak self] (success) in
             IGGlobal.prgHide()
+            if !success {return}
             IGSessionInfo.setNationalCode(nationalCode: nationalCode)
             IGMessageViewController.giftRoomId = nil
             let stickerController = IGStickerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
@@ -117,7 +118,9 @@ class IGGiftStickerFirstPageViewController: BaseViewController {
     }
     
     @IBAction func btnMyCards(_ sender: UIButton) {
-        
+        let giftStickerCards = IGGiftCardsListViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+        giftStickerCards.giftCardType = .new
+        self.navigationController!.pushViewController(giftStickerCards, animated: true)
     }
     
     @IBAction func btnActivatedCards(_ sender: UIButton) {

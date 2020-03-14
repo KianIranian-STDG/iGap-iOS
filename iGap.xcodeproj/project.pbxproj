@@ -378,6 +378,8 @@
 		D65179A9239B8F6D00557E5B /* FSPagerView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D65179A7239B8F6C00557E5B /* FSPagerView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D65179AA239BA00900557E5B /* IGMediaPagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D65179A6239B8C8300557E5B /* IGMediaPagerCell.xib */; };
 		D651C04623800F3A0043F700 /* ProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D61B5DDE237D41510060B9D9 /* ProgressCell.xib */; };
+		D65F7A68241CC5D000E7FDF1 /* IGGiftCardsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F7A67241CC5D000E7FDF1 /* IGGiftCardsListViewController.swift */; };
+		D65F7A6A241CC95B00E7FDF1 /* IGGiftCardListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F7A69241CC95B00E7FDF1 /* IGGiftCardListCell.swift */; };
 		D66129D02330FF9700BFAE7E /* IGStructMessageIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */; };
 		D67E981823A67918003C1516 /* ImageZoomController.Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67E981023A67917003C1516 /* ImageZoomController.Factory.swift */; };
 		D67E981923A67918003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67E981123A67917003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift */; };
@@ -1278,6 +1280,8 @@
 		D65179A4239B8C3400557E5B /* IGMediaPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMediaPagerCell.swift; sourceTree = "<group>"; };
 		D65179A6239B8C8300557E5B /* IGMediaPagerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGMediaPagerCell.xib; sourceTree = "<group>"; };
 		D65179A7239B8F6C00557E5B /* FSPagerView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FSPagerView.framework; path = Carthage/Build/iOS/FSPagerView.framework; sourceTree = "<group>"; };
+		D65F7A67241CC5D000E7FDF1 /* IGGiftCardsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGiftCardsListViewController.swift; sourceTree = "<group>"; };
+		D65F7A69241CC95B00E7FDF1 /* IGGiftCardListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGiftCardListCell.swift; sourceTree = "<group>"; };
 		D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructMessageIdentity.swift; sourceTree = "<group>"; };
 		D67E981023A67917003C1516 /* ImageZoomController.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageZoomController.Factory.swift; sourceTree = "<group>"; };
 		D67E981123A67917003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift; sourceTree = "<group>"; };
@@ -3247,6 +3251,8 @@
 				8ED97D7522E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift */,
 				FA6C2DE82267413A005654AC /* IGScoreViewController.swift */,
 				D6B11DDC241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift */,
+				D65F7A67241CC5D000E7FDF1 /* IGGiftCardsListViewController.swift */,
+				D65F7A69241CC95B00E7FDF1 /* IGGiftCardListCell.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -4403,6 +4409,7 @@
 				8ECFB53E234A471E001233E9 /* phoneBookCellTypeTwo.swift in Sources */,
 				8E031746237842EA00D5A2B5 /* IGElecBillByDeviceTableViewCell.swift in Sources */,
 				FA248C98226AEBE800A72EA7 /* IGScoreHistoryViewController.swift in Sources */,
+				D65F7A6A241CC95B00E7FDF1 /* IGGiftCardListCell.swift in Sources */,
 				FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */,
 				FA6C2DE722673B21005654AC /* IGHelperAlert.swift in Sources */,
 				8EC2180A2259FF3500105B5A /* Model.xcdatamodeld in Sources */,
@@ -4572,6 +4579,7 @@
 				FA7DE2732205BEC9008C8ECA /* IGStickerToolbar.swift in Sources */,
 				8E8D8E17225CCE6800039191 /* SMValidation.swift in Sources */,
 				8EC0385A239BE75000B525B5 /* IGNewsCommentTVCell.swift in Sources */,
+				D65F7A68241CC5D000E7FDF1 /* IGGiftCardsListViewController.swift in Sources */,
 				D67E985D23A679AB003C1516 /* AnimatorZoomy.swift in Sources */,
 				FAD2B5821DFBF1ED007D6F87 /* IGProgress.swift in Sources */,
 				FA03C1A020429D46008812E3 /* RTCClient.swift in Sources */,
