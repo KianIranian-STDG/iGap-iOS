@@ -18,7 +18,8 @@ class SMCheckGiftSticker: UIView {
     @IBOutlet var imgGiftCard: UIImageView!
     @IBOutlet var txtBuyDetail: UILabel!
     @IBOutlet var confirmBtn: UIButton!
- 
+    var title = IGStringsManager.GiftStickerBuy.rawValue.localized
+    
     /// - Returns: instance of SMSingleInputView loaded from nib file
     class func loadFromNib() -> SMCheckGiftSticker {
         return UINib(nibName: "SMCheckGiftSticker", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SMCheckGiftSticker
@@ -28,7 +29,7 @@ class SMCheckGiftSticker: UIView {
         super.awakeFromNib()
 
         self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
-        self.infoLblOne.text = IGStringsManager.GiftStickerBuy.rawValue.localized
+        self.infoLblOne.text = title
         self.txtBuyDetail.text = IGStringsManager.NationalCode.rawValue.localized
         self.confirmBtn.setTitle(IGStringsManager.InquiryAndShopping.rawValue.localized, for: .normal)
         initTheme()

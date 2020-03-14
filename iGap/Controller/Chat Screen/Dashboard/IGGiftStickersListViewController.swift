@@ -89,6 +89,7 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
         self.giftStickerInfo.confirmBtn.addTarget(self, action: #selector(self.confirmTapped), for: .touchUpInside)
         self.giftStickerInfo.setInfo(giftSticker: stickerInfo, date: date)
         self.giftStickerInfo.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: self.giftStickerInfo.frame.height)
+        self.giftStickerInfo.infoLblOne.text = IGStringsManager.GiftCard.rawValue.localized
         
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
         swipeDown.direction = .down
