@@ -38,9 +38,12 @@ class IGStickerSectionHeader: UICollectionReusableView {
         self.stickerTab = sticker
         self.sectionIndex = sectionIndex
         
+        var countName: String!
         if isGift {
+            countName = IGStringsManager.GiftCard.rawValue.localized
             stickerAddRemove.isHidden = true
         } else {
+            countName = IGStringsManager.Sticker.rawValue.localized
             let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnAddOrRemove(_:)))
             self.stickerAddRemove.addGestureRecognizer(onStickerClick)
             self.stickerAddRemove.isUserInteractionEnabled = true
@@ -51,17 +54,20 @@ class IGStickerSectionHeader: UICollectionReusableView {
         makeStickerCount()
         
         txtStickerTitle.text = sticker.name
-        txtStickerCount.text = String(describing: sticker.stickers.count).inLocalizedLanguage() + " " + IGStringsManager.Sticker.rawValue.localized
+        txtStickerCount.text = String(describing: sticker.stickers.count).inLocalizedLanguage() + " " + countName
     }
     
     func configureListPage(sticker: StickerTab, sectionIndex: Int, isGift: Bool) {
         self.stickerPageType = StickerPageType.CATEGORY
         self.stickerTab = sticker
         self.sectionIndex = sectionIndex
-    
+        
+        var countName: String!
         if isGift {
+            countName = IGStringsManager.GiftCard.rawValue.localized
             stickerAddRemove.isHidden = true
         } else {
+            countName = IGStringsManager.Sticker.rawValue.localized
             let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnAddOrRemove(_:)))
             self.stickerAddRemove.addGestureRecognizer(onStickerClick)
             self.stickerAddRemove.isUserInteractionEnabled = true
@@ -72,7 +78,7 @@ class IGStickerSectionHeader: UICollectionReusableView {
         makeStickerCount()
         
         txtStickerTitle.text = sticker.name
-        txtStickerCount.text = String(describing: sticker.stickers.count).inLocalizedLanguage() + " " + IGStringsManager.Sticker.rawValue.localized
+        txtStickerCount.text = String(describing: sticker.stickers.count).inLocalizedLanguage() + " " + countName
     }
     
     @objc func didTapOnAddOrRemove(_ gestureRecognizer: UITapGestureRecognizer) {
