@@ -289,6 +289,9 @@ enum IGStringsManager : String {
     case AccountOwnerName = "crad_to_card_dest_name"
     case WalletRrnNumber = "WalletRrnNumber"
     case GiftCardReport = "gift_card_report"
+    case GiftCardsUsable = "usable"
+    case GiftCardsActivated = "activated"
+    case GiftCardsPosted = "posted"
     
     //Elec Bill
     case ElecBillID = "elecBill_pay_billID"

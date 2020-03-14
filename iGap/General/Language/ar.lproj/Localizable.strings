@@ -6723,3 +6723,6 @@ TODO:// translate */
 "payment_error_message" = "واجهت العملية خطأ. يرجى المحاولة مرة أخرى.";
 "my_recived_gift_sticker" = "تلقى هدية ملصقات";
 "gift_card_report" = "تقرير بطاقة الهدايا";
+"usable" = "صالح للإستعمال";
+"activated" = "المنشط";
+"posted" = "نشر";

@@ -6706,3 +6706,6 @@ Page 4 introduce app */
 "payment_error_message" = "عملیات با خطا مواجه شد. لطفاً دوباره تلاش کنید.";
 "my_recived_gift_sticker" = "کارت هدیه دیجیتال فعال شده";
 "gift_card_report" = "گزارش کارت های هدیه";
+"usable" = "قابل استفاده";
+"activated" = "فعال شده";
+"posted" = "ارسال شده";

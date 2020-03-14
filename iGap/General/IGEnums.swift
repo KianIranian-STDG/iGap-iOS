@@ -647,7 +647,7 @@ enum FileTypeBasedOnNameExtension {
     case txt
 }
 
-enum StickersListType: String {
+enum GiftStickerListType: String {
     case new = "new"
     case active = "active"
     case forwarded = "forwarded"

@@ -380,6 +380,7 @@
 		D651C04623800F3A0043F700 /* ProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D61B5DDE237D41510060B9D9 /* ProgressCell.xib */; };
 		D65F7A68241CC5D000E7FDF1 /* IGGiftCardsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F7A67241CC5D000E7FDF1 /* IGGiftCardsListViewController.swift */; };
 		D65F7A6A241CC95B00E7FDF1 /* IGGiftCardListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F7A69241CC95B00E7FDF1 /* IGGiftCardListCell.swift */; };
+		D65F7A6C241CF89900E7FDF1 /* IGTabBarGiftStickersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F7A6B241CF89900E7FDF1 /* IGTabBarGiftStickersList.swift */; };
 		D66129D02330FF9700BFAE7E /* IGStructMessageIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */; };
 		D67E981823A67918003C1516 /* ImageZoomController.Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67E981023A67917003C1516 /* ImageZoomController.Factory.swift */; };
 		D67E981923A67918003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67E981123A67917003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift */; };
@@ -1282,6 +1283,7 @@
 		D65179A7239B8F6C00557E5B /* FSPagerView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FSPagerView.framework; path = Carthage/Build/iOS/FSPagerView.framework; sourceTree = "<group>"; };
 		D65F7A67241CC5D000E7FDF1 /* IGGiftCardsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGiftCardsListViewController.swift; sourceTree = "<group>"; };
 		D65F7A69241CC95B00E7FDF1 /* IGGiftCardListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGiftCardListCell.swift; sourceTree = "<group>"; };
+		D65F7A6B241CF89900E7FDF1 /* IGTabBarGiftStickersList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTabBarGiftStickersList.swift; sourceTree = "<group>"; };
 		D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructMessageIdentity.swift; sourceTree = "<group>"; };
 		D67E981023A67917003C1516 /* ImageZoomController.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageZoomController.Factory.swift; sourceTree = "<group>"; };
 		D67E981123A67917003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift; sourceTree = "<group>"; };
@@ -3365,6 +3367,7 @@
 			children = (
 				FAD5305D1E0BD7BA00FE6C54 /* IGTabBarController.swift */,
 				FA9D869F22796B44002F981A /* IGTabBarStickerController.swift */,
+				D65F7A6B241CF89900E7FDF1 /* IGTabBarGiftStickersList.swift */,
 				8E83CAA32340B81700A8CF65 /* IGTransparentTabBar.swift */,
 			);
 			path = Tabbar;
@@ -4589,6 +4592,7 @@
 				FA0CC80B1E5D7D4400556283 /* RegexParser.swift in Sources */,
 				8E4472A623320D6000900244 /* IGProfileUserCell.swift in Sources */,
 				FA09538F1E1B97E20043ED3F /* SSRadioButtonController.swift in Sources */,
+				D65F7A6C241CF89900E7FDF1 /* IGTabBarGiftStickersList.swift in Sources */,
 				8ED8054323B772FB0097A4A6 /* IGLiveStickerCell.swift in Sources */,
 				9366D98C1E363C2500998BA3 /* IGSettingAboutWebViewViewController.swift in Sources */,
 				8EC94E0423964092003B3510 /* IGTripleNewsTVCell.swift in Sources */,

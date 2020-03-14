@@ -394,6 +394,37 @@
             <point key="canvasLocation" x="2661" y="75"/>
         </scene>
         <!--Navigation Controller-->
+        <scene sceneID="7Fi-M9-9yO">
+            <objects>
+                <navigationController id="Bio-wA-lBp" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RmX-Pj-24W">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="v01-oE-bP6" kind="relationship" relationship="rootViewController" id="mIm-eG-lHN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cfq-1m-bsu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1429" y="815"/>
+        </scene>
+        <!--Tab Bar Gift Stickers List-->
+        <scene sceneID="935-Iv-nGx">
+            <objects>
+                <tabBarController storyboardIdentifier="IGTabBarGiftStickersList" id="v01-oE-bP6" customClass="IGTabBarGiftStickersList" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="fub-Wh-gGt" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VKZ-Bm-oaK">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bJP-5F-gAD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2661" y="815"/>
+        </scene>
+        <!--Navigation Controller-->
         <scene sceneID="MjA-oA-qgy">
             <objects>
                 <navigationController id="0dA-6f-aoV" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">

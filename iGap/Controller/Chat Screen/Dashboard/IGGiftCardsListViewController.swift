@@ -13,7 +13,7 @@ import UIKit
 class IGGiftCardsListViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    var giftCardType: StickersListType = .new
+    var giftCardType: GiftStickerListType = .new
     var giftCardList: [IGStructGiftCardListData] = []
     
     override func viewDidLoad() {
@@ -23,6 +23,7 @@ class IGGiftCardsListViewController: BaseViewController, UITableViewDataSource, 
         tableView.delegate = self
         
         initNavigationBar()
+        manageShowActivties(isFirst: true)
         fetchGiftCards()
     }
     
@@ -33,15 +34,25 @@ class IGGiftCardsListViewController: BaseViewController, UITableViewDataSource, 
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
     }
-        
+    
+    private func manageShowActivties(isFirst: Bool = false){
+        if isFirst {
+            self.tableView!.setEmptyMessage(IGStringsManager.WaitDataFetch.rawValue.localized)
+        } else if giftCardList.count == 0 {
+            self.tableView!.setEmptyMessage(IGStringsManager.GlobalNoHistory.rawValue.localized)
+        } else {
+            self.tableView!.restore()
+        }
+    }
     
     private func fetchGiftCards(){
-        IGApiSticker.shared.giftStickerCardsList(status: giftCardType) { giftCardList in
+        IGApiSticker.shared.giftStickerCardsList(status: giftCardType) { [weak self] giftCardList in
             for giftCard in giftCardList.data {
-                self.giftCardList.append(giftCard)
+                self?.giftCardList.append(giftCard)
             }
+            self?.manageShowActivties()
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+                self?.tableView.reloadData()
             }
         }
     }
