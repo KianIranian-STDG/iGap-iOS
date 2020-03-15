@@ -1986,6 +1986,12 @@ extension String {
         dateFormatter.dateFormat = format
         return dateFormatter.date(from: self)?.completeHumanReadableTime(showHour: showHour)
     }
+    
+    /** start phone number with zero format instead 98
+     */
+    func phoneConvert98to0() -> String {
+        return ("+"+self).replace("+98", withString: "0")
+    }
 }
 
 extension Character {

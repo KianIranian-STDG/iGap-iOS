@@ -105,7 +105,7 @@ class IGGiftStickerFirstPageViewController: BaseViewController {
         guard let nationalCode = edtNationalCode.text, !nationalCode.isEmpty, let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
         
         IGGlobal.prgShow()
-        IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: ("+"+phone).replace("+98", withString: "0")) { [weak self] (success) in
+        IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: phone.phoneConvert98to0()) { [weak self] (success) in
             IGGlobal.prgHide()
             if !success {return}
             IGSessionInfo.setNationalCode(nationalCode: nationalCode)

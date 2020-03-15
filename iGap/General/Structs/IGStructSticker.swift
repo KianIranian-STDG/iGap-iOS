@@ -190,3 +190,21 @@ struct IGStructGiftCardStatus: Codable {
 struct GiftStickerActivationStatus: Codable {
     let status: String
 }
+
+struct IGStructStickerEncryptData: Codable {
+    let data: String
+}
+
+struct IGStructGiftCardInfo {
+    let expireDate: String
+    let cvv2: String
+    let cardNumber: String
+    let secondPassword: String
+    
+    init(value: [String: Any]) {
+        self.expireDate = value["expire_date"] as! String
+        self.cvv2 = value["cvv2"] as! String
+        self.cardNumber = value["card_no"] as! String
+        self.secondPassword = value["second_password"] as! String
+    }
+}

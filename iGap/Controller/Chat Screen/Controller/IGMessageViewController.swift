@@ -3648,7 +3648,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.selectedMessageToReply = nil
             
             IGGlobal.prgShow()
-            IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: ("+"+phone).replace("+98", withString: "0")) { [weak self] (success) in
+            IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: phone.phoneConvert98to0()) { [weak self] (success) in
                 self?.didtapOutSide()
                 IGGlobal.prgHide()
                 if !success {return}
