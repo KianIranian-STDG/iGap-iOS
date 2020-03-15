@@ -295,6 +295,8 @@ enum IGStringsManager : String {
     case ActivateOrSendAsMessage = "activate_or_send_as_message"
     case GiftStickerSendToOther = "gift_sticker_send_to_other"
     case Activation = "activation"
+    case GiftCardActivationNote = "active_gift_card_note"
+    case ActivationSuccessful = "activatation_successful"
     
     //Elec Bill
     case ElecBillID = "elecBill_pay_billID"

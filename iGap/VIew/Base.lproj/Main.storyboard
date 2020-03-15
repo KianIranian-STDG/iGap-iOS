@@ -3165,7 +3165,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="O1S-M1-cW2">
-                                <rect key="frame" x="10" y="52" width="394" height="790"/>
+                                <rect key="frame" x="10" y="52" width="394" height="810"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
@@ -3204,8 +3204,10 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="3dI-Cy-fSC" firstAttribute="centerY" secondItem="cAc-pX-gas" secondAttribute="centerY" constant="12" id="9KQ-Na-R6c"/>
+                                                <constraint firstItem="b5Z-VR-0De" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="djc-Qp-vRo" secondAttribute="trailing" constant="8" symbolic="YES" id="9vp-45-oBE"/>
                                                 <constraint firstItem="djc-Qp-vRo" firstAttribute="centerY" secondItem="cAc-pX-gas" secondAttribute="centerY" constant="-12" id="Ar1-W6-wCf"/>
                                                 <constraint firstItem="b5Z-VR-0De" firstAttribute="centerY" secondItem="cAc-pX-gas" secondAttribute="centerY" id="Xtb-US-7ss"/>
+                                                <constraint firstItem="b5Z-VR-0De" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3dI-Cy-fSC" secondAttribute="trailing" constant="8" symbolic="YES" id="ZHC-ui-bI2"/>
                                                 <constraint firstItem="3dI-Cy-fSC" firstAttribute="leading" secondItem="cAc-pX-gas" secondAttribute="leadingMargin" constant="20" id="cFu-fY-3wd"/>
                                                 <constraint firstAttribute="trailing" secondItem="b5Z-VR-0De" secondAttribute="trailing" constant="20" id="iFb-b6-wgu"/>
                                                 <constraint firstItem="djc-Qp-vRo" firstAttribute="leading" secondItem="cAc-pX-gas" secondAttribute="leadingMargin" constant="20" id="zQM-Ke-AfH"/>
@@ -3227,7 +3229,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="KpE-Md-FQa" firstAttribute="top" secondItem="O1S-M1-cW2" secondAttribute="bottom" constant="20" id="8Kc-i1-s22"/>
+                            <constraint firstItem="KpE-Md-FQa" firstAttribute="top" secondItem="O1S-M1-cW2" secondAttribute="bottom" id="8Kc-i1-s22"/>
                             <constraint firstItem="O1S-M1-cW2" firstAttribute="top" secondItem="QUL-6W-lTM" secondAttribute="bottom" constant="8" symbolic="YES" id="O0u-o3-9jh"/>
                             <constraint firstItem="O1S-M1-cW2" firstAttribute="leading" secondItem="aZH-m0-taw" secondAttribute="leadingMargin" constant="-10" id="qRn-Jj-oCZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="O1S-M1-cW2" secondAttribute="trailing" constant="-10" id="tHI-jx-NMR"/>
@@ -4150,7 +4152,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             <color red="0.72500002384185791" green="0.88599997758865356" blue="0.2669999897480011" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGNavigationSecondColor">
-            <color red="0.25490196078431371" green="0.69019607843137254" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.25499999523162842" green="0.6940000057220459" blue="0.125" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGRecentTVCellColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4162,7 +4164,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             <color red="0.9179999828338623" green="0.9179999828338623" blue="0.92900002002716064" alpha="0.89999997615814209" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGTableViewBackgroundColor">
-            <color red="0.94900000095367432" green="0.94900000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94509803921568625" green="0.94509803921568625" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGTextFieldPlaceHolderColor">
             <color red="0.67100000381469727" green="0.67100000381469727" blue="0.67100000381469727" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

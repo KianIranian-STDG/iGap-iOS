@@ -94,7 +94,7 @@ class IGHelperAlert {
     ///showDoneButton : which is of Type Bool represent for showing Done button or not - Default is True
     ///showIconView : which is of Type Bool is responsible for showing icon above alert or not - Default is True
     ///
-    func showCustomAlert(view: UIViewController? = nil, alertType: helperCustomAlertType! = helperCustomAlertType.alert, title: String? = nil, showIconView: Bool? = true, showDoneButton: Bool? = true, showCancelButton: Bool? = true, message: String!, doneText: String? = nil, cancelText: String? = nil, cancel: (() -> Void)? = nil, done: (() -> Void)? = nil) {
+    func showCustomAlert(view: UIViewController? = nil, alertType: helperCustomAlertType! = helperCustomAlertType.alert, title: String? = nil, showIconView: Bool? = true, showDoneButton: Bool? = true, showCancelButton: Bool? = true, cancelTitleColor: UIColor = UIColor.iGapRed(), message: String!, doneText: String? = nil, cancelText: String? = nil, cancel: (() -> Void)? = nil, done: (() -> Void)? = nil) {
         DispatchQueue.main.async {
             let alertView : UIWindow? = UIApplication.shared.keyWindow
 
@@ -205,7 +205,7 @@ class IGHelperAlert {
                     btnCancel.titleLabel!.font = UIFont.igFont(ofSize: 15,weight: .bold)
                     btnDone.setTitle(doneText, for: .normal)
                     btnCancel.setTitle(cancelText, for: .normal)
-                    btnCancel.setTitleColor(UIColor.iGapRed(), for: .normal)
+                    btnCancel.setTitleColor(cancelTitleColor, for: .normal)
                     btnDone.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
                     stackButtons.addArrangedSubview(btnCancel)
                     stackButtons.addArrangedSubview(btnDone)
@@ -311,12 +311,12 @@ class IGHelperAlert {
     }
     private func removeCustomAlertView()  {
         //UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .transitionCrossDissolve, animations: {
-        self.bgView.fadeOut(0.3)
-        self.customAlert.fadeOut(0.3)
-        self.iconView.fadeOut(0.3)
+        self.bgView?.fadeOut(0.3)
+        self.customAlert?.fadeOut(0.3)
+        self.iconView?.fadeOut(0.3)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.bgView.removeFromSuperview()
-            self.customAlert.removeFromSuperview()
+            self.bgView?.removeFromSuperview()
+            self.customAlert?.removeFromSuperview()
             self.customAlert = nil
             if self.iconView != nil {
                 self.iconView.removeFromSuperview()

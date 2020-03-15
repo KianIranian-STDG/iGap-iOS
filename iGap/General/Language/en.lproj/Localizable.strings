@@ -6703,3 +6703,5 @@ TODO:// complete */
 "activate_or_send_as_message" = "Activate or send as message";
 "gift_sticker_send_to_other" = "Send to another";
 "activation" = "Activation";
+"active_gift_card_note" = "Are you sure you want to activate your gift card ?! Note that once activated, it will not be possible to send it to another and the gift card information will only be visible to your account.";
+"activatation_successful" = "Activation completed successfully.\nYou can see your gift card in the activated cards section.";

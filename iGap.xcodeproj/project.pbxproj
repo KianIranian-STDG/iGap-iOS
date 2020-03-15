@@ -381,6 +381,8 @@
 		D65F7A68241CC5D000E7FDF1 /* IGGiftStickersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F7A67241CC5D000E7FDF1 /* IGGiftStickersListViewController.swift */; };
 		D65F7A6A241CC95B00E7FDF1 /* IGGiftStickerListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F7A69241CC95B00E7FDF1 /* IGGiftStickerListCell.swift */; };
 		D65F7A6C241CF89900E7FDF1 /* IGTabBarGiftStickersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F7A6B241CF89900E7FDF1 /* IGTabBarGiftStickersList.swift */; };
+		D65FD8ED241DF45B007BC2B8 /* IGStickerSecurityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65FD8EC241DF45A007BC2B8 /* IGStickerSecurityManager.swift */; };
+		D65FD8EF241E77DF007BC2B8 /* SwCrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65FD8EE241E77DF007BC2B8 /* SwCrypt.swift */; };
 		D66129D02330FF9700BFAE7E /* IGStructMessageIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */; };
 		D67E981823A67918003C1516 /* ImageZoomController.Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67E981023A67917003C1516 /* ImageZoomController.Factory.swift */; };
 		D67E981923A67918003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67E981123A67917003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift */; };
@@ -1284,6 +1286,8 @@
 		D65F7A67241CC5D000E7FDF1 /* IGGiftStickersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGiftStickersListViewController.swift; sourceTree = "<group>"; };
 		D65F7A69241CC95B00E7FDF1 /* IGGiftStickerListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGiftStickerListCell.swift; sourceTree = "<group>"; };
 		D65F7A6B241CF89900E7FDF1 /* IGTabBarGiftStickersList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTabBarGiftStickersList.swift; sourceTree = "<group>"; };
+		D65FD8EC241DF45A007BC2B8 /* IGStickerSecurityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStickerSecurityManager.swift; sourceTree = "<group>"; };
+		D65FD8EE241E77DF007BC2B8 /* SwCrypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwCrypt.swift; sourceTree = "<group>"; };
 		D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructMessageIdentity.swift; sourceTree = "<group>"; };
 		D67E981023A67917003C1516 /* ImageZoomController.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageZoomController.Factory.swift; sourceTree = "<group>"; };
 		D67E981123A67917003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift; sourceTree = "<group>"; };
@@ -2339,6 +2343,7 @@
 				8E96A315225B74E2007D8A77 /* IGExtensions.swift */,
 				8E5FBCB2231E43400069D4F2 /* EFAutoScrollLabel.swift */,
 				FA3D05E72382A9B300A9EEC1 /* RootVCSwitcher.swift */,
+				D65FD8EE241E77DF007BC2B8 /* SwCrypt.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3292,6 +3297,7 @@
 				FAAC57D21DE2CE9F00A28058 /* IGDownloadManager.swift */,
 				FAB09D9A1DB76F81001A27C4 /* IGRequestManager.swift */,
 				FABB9B051DB25E5E00D794A4 /* IGSecurityManager.swift */,
+				D65FD8EC241DF45A007BC2B8 /* IGStickerSecurityManager.swift */,
 				FA63BA9A1DD6DF32000B60AD /* IGUploadManager.swift */,
 				FAA30F661DAA6F790061B8C9 /* IGWebSocketManager.swift */,
 				FA96EF4D1DEB0431009BE640 /* IGMessageSender.swift */,
@@ -4288,6 +4294,7 @@
 				FAD2BB0C1E0E993100761B11 /* IGDotActivityIndicator.swift in Sources */,
 				FA11E2881DE8A86C00A2F87C /* IGCacheManager.swift in Sources */,
 				D617C711234CC69300A59EB3 /* IGWriteFileManager.swift in Sources */,
+				D65FD8EF241E77DF007BC2B8 /* SwCrypt.swift in Sources */,
 				8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */,
 				8E4177F8233CDABD00CEB3AF /* AKMaskFieldPatternCharacter.swift in Sources */,
 				8ED68CB92378165D00637C29 /* IGStructDeleteBill.swift in Sources */,
@@ -4692,6 +4699,7 @@
 				D65179A3239B88B300557E5B /* IGMediaPager.swift in Sources */,
 				FA85066922670703002EEBF7 /* SMBarcodeMainViewController.swift in Sources */,
 				D67E982B23A6792C003C1516 /* HasImageZoomControllers.swift in Sources */,
+				D65FD8ED241DF45B007BC2B8 /* IGStickerSecurityManager.swift in Sources */,
 				FA97D44820174C2C0087BBD0 /* AbstractCell.swift in Sources */,
 				FAA9DFBE1F4B23390076A22F /* IGTwoStepVerification.swift in Sources */,
 				FA09534B1E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift in Sources */,

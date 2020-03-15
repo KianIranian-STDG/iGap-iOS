@@ -6354,3 +6354,5 @@
 "activate_or_send_as_message" = "Activer ou envoyer comme message";
 "gift_sticker_send_to_other" = "Envoyer à un autre";
 "activation" = "Activation";
+"active_gift_card_note" = "Êtes-vous sûr de vouloir activer votre carte-cadeau?! Notez qu\'une fois activé, il ne sera pas possible de l\'envoyer à un autre et les informations de la carte cadeau ne seront visibles que sur votre compte.";
+"activatation_successful" = "L'activation s'est terminée avec succès.\nVous pouvez voir votre carte-cadeau dans la section des cartes activées.";

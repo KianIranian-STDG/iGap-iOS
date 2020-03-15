@@ -43,6 +43,12 @@ class IGHelperJson {
         return JSON(parameters).dictionaryObject!
     }
     
+    public static func makeGiftStickerActivation(nationalCode: String, mobileNumber: String, key: String) -> [String: Any] {
+        let parameters = ["national_code": "\(nationalCode)", "tel_num": "\(mobileNumber)", "key": key] as [String : Any]
+        return JSON(parameters).dictionaryObject!
+    }
+    
+    
     /*************************************************************************/
     /*************************** Additional Button ***************************/
     

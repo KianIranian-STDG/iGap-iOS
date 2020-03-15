@@ -20,6 +20,7 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
     var giftStickerAlertView: SMGiftStickerAlertView!
     var dismissBtn: UIButton!
     let bottomPadding = UIApplication.shared.keyWindow?.safeAreaInsets.bottom
+    private var activationGiftStickerId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +64,7 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
     }
 
     private func getCardStatus(stickerId: String, date: String){
+        self.activationGiftStickerId = stickerId
         IGGlobal.prgShow()
         IGApiSticker.shared.getGiftCardGetStatus(stickerId: stickerId, completion: { [weak self] giftCardStatus in
             IGGlobal.prgHide()
@@ -170,7 +172,33 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
             }
         } else if giftStickerAlertView != nil {
             didtapOutSide(keepBackground : false)
-            print("SSS || confirmTapped")
+            
+            
+            guard let nationalCode = giftStickerAlertView.edtInternationalCode.text, !nationalCode.isEmpty, let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
+            
+            IGGlobal.prgShow()
+            IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: ("+"+phone).replace("+98", withString: "0")) { success in
+                if !success {
+                    IGGlobal.prgHide()
+                    return
+                }
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: IGStringsManager.GiftCardActivationNote.rawValue.localized, doneText: IGStringsManager.GlobalDone.rawValue.localized ,cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {
+                    IGGlobal.prgHide()
+                }, done: {
+                    IGApiSticker.shared.giftCardActivate(stickerId: self.activationGiftStickerId ?? "", nationalCode: nationalCode, mobileNumber: ("+"+phone).replace("+98", withString: "0")) { success in
+                        IGGlobal.prgHide()
+                        if success {
+                            DispatchQueue.main.async {
+                                self.giftCardList.removeAll()
+                                self.tableView.reloadData()
+                            }
+                            self.fetchGiftCards()
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.LabelColor, message: IGStringsManager.ActivationSuccessful.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                        }
+                    }
+                })
+                
+            }
         }
     }
     
@@ -192,7 +220,9 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let giftSticker = giftCardList[indexPath.row]
-        getCardStatus(stickerId: giftSticker.id, date: giftSticker.createdAt)
+        if self.giftCardType == .new {
+            getCardStatus(stickerId: giftSticker.id, date: giftSticker.createdAt)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
