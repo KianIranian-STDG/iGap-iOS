@@ -6042,7 +6042,14 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         if let indexOfMessge = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId) {
             let indexPath = IndexPath(row: indexOfMessge, section: 0)
 //            self.tableViewNode.reloadItems(at: [indexPath])
-            self.tableViewNode.reloadRows(at: [indexPath], with: .none)
+//            self.tableViewNode.reloadRows(at: [indexPath], with: .none)
+            if let cell = tableViewNode.nodeForRow(at: indexPath) as? ChatControllerNode {
+                cell.backgroundColor = ThemeManager.currentTheme.NavigationFirstColor.withAlphaComponent(0.6)
+                UIView.animate(withDuration: 2, delay: 0.2, options: .curveEaseOut, animations: {
+                    cell.backgroundColor = UIColor.clear
+                }, completion: nil)
+            }
+            
         }
     }
     // MARK: - End - Go to Message Position

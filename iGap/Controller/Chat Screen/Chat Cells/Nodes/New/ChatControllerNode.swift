@@ -166,13 +166,8 @@ class ChatControllerNode: ASCellNode {
     
     
     // View Items
-    //    private let nodeMedia = ASNetworkImageNode() // MUST BE CHANGED TO CustomImageNode
     private var nodeText : ASTextNode?
     private var nodeOnlyText : OnlyTextNode?
-    //    private let nodeGif = ASDisplayNode { () -> UIView in
-    //        let view = GIFImageView()
-    //        return view
-    //    }
     
     var pan: UIPanGestureRecognizer!
     var tapMulti: UITapGestureRecognizer!
@@ -182,22 +177,6 @@ class ChatControllerNode: ASCellNode {
     private var swipeToReplyFeedback: HapticFeedback?
     
     weak var delegate: IGMessageGeneralCollectionViewCellDelegate?
-    
-    //    weak var delegate: IGMessageGeneralCollectionViewCellDelegate?
-    
-    //    private let nodeSlider = ASDisplayNode { () -> UIView in
-    //        let view = UISlider()
-    //        view.minimumValue = 0
-    //        view.value = 10
-    //        view.maximumValue = 20
-    //        view.tintColor = .red
-    //        return view
-    //    }
-    //    private var nodebtnAudioState = ASButtonNode()
-    //    private var nodeIndicator = ASDisplayNode { () -> UIView in
-    //        let view = IGProgress()
-    //        return view
-    //    }
     
     override func didLoad() {
         super.didLoad()
