@@ -381,6 +381,7 @@
 		D65F7A68241CC5D000E7FDF1 /* IGGiftStickersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F7A67241CC5D000E7FDF1 /* IGGiftStickersListViewController.swift */; };
 		D65F7A6A241CC95B00E7FDF1 /* IGGiftStickerListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F7A69241CC95B00E7FDF1 /* IGGiftStickerListCell.swift */; };
 		D65F7A6C241CF89900E7FDF1 /* IGTabBarGiftStickersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F7A6B241CF89900E7FDF1 /* IGTabBarGiftStickersList.swift */; };
+		D65F8CEB241ECB1900471213 /* SMGiftCardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F8CEA241ECB1900471213 /* SMGiftCardInfo.swift */; };
 		D65FD8ED241DF45B007BC2B8 /* IGStickerSecurityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65FD8EC241DF45A007BC2B8 /* IGStickerSecurityManager.swift */; };
 		D65FD8EF241E77DF007BC2B8 /* SwCrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65FD8EE241E77DF007BC2B8 /* SwCrypt.swift */; };
 		D66129D02330FF9700BFAE7E /* IGStructMessageIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */; };
@@ -437,6 +438,7 @@
 		D6B11DDD241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B11DDC241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift */; };
 		D6CCCBF82392A1E10061F749 /* CardToCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */; };
 		D6CEC8A0240A7EE500C6F078 /* SMGiftStickerAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6EA2534240A496100DC2C3B /* SMGiftStickerAlertView.xib */; };
+		D6E86B19241ED904001A617D /* SMGiftCardInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = D65F8CE9241ECAD600471213 /* SMGiftCardInfo.xib */; };
 		D6EA2533240A46F200DC2C3B /* SMGiftStickerAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EA2532240A46F200DC2C3B /* SMGiftStickerAlertView.swift */; };
 		D6EAF0742383D9B300D7F177 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */; };
 		DF3EDEF64399AA713B2D0C2F /* IGRequestSignaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */; };
@@ -1286,6 +1288,8 @@
 		D65F7A67241CC5D000E7FDF1 /* IGGiftStickersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGiftStickersListViewController.swift; sourceTree = "<group>"; };
 		D65F7A69241CC95B00E7FDF1 /* IGGiftStickerListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGiftStickerListCell.swift; sourceTree = "<group>"; };
 		D65F7A6B241CF89900E7FDF1 /* IGTabBarGiftStickersList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTabBarGiftStickersList.swift; sourceTree = "<group>"; };
+		D65F8CE9241ECAD600471213 /* SMGiftCardInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMGiftCardInfo.xib; sourceTree = "<group>"; };
+		D65F8CEA241ECB1900471213 /* SMGiftCardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMGiftCardInfo.swift; sourceTree = "<group>"; };
 		D65FD8EC241DF45A007BC2B8 /* IGStickerSecurityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStickerSecurityManager.swift; sourceTree = "<group>"; };
 		D65FD8EE241E77DF007BC2B8 /* SwCrypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwCrypt.swift; sourceTree = "<group>"; };
 		D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructMessageIdentity.swift; sourceTree = "<group>"; };
@@ -2445,8 +2449,10 @@
 			children = (
 				D68C2401241678DC00ABF635 /* SMCheckGiftSticker.swift */,
 				D6EA2532240A46F200DC2C3B /* SMGiftStickerAlertView.swift */,
+				D65F8CEA241ECB1900471213 /* SMGiftCardInfo.swift */,
 				D6EA2534240A496100DC2C3B /* SMGiftStickerAlertView.xib */,
 				D68C2400241677D700ABF635 /* SMCheckGiftSticker.xib */,
+				D65F8CE9241ECAD600471213 /* SMGiftCardInfo.xib */,
 			);
 			path = BottomSheetView;
 			sourceTree = "<group>";
@@ -3889,6 +3895,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D64BD2F92403F60900E812CA /* BillCell.xib in Resources */,
+				D6E86B19241ED904001A617D /* SMGiftCardInfo.xib in Resources */,
 				D68C240324167A4600ABF635 /* SMCheckGiftSticker.xib in Resources */,
 				D6CEC8A0240A7EE500C6F078 /* SMGiftStickerAlertView.xib in Resources */,
 				D64BD2FA2403F60900E812CA /* TopupCell.xib in Resources */,
@@ -4738,6 +4745,7 @@
 				FA927E0C20288A7E00DF7145 /* FileCell.swift in Sources */,
 				93321E7C1E5C12A3004D4454 /* IGForwardContactsTableViewCell.swift in Sources */,
 				8EA8F3DF231F9E1D0099C4EF /* MBCircularProgressBarLayer.m in Sources */,
+				D65F8CEB241ECB1900471213 /* SMGiftCardInfo.swift in Sources */,
 				FA0CC8121E5DD99400556283 /* Thread.swift in Sources */,
 				8E96A31D225C902B007D8A77 /* SMRecieptRowView.swift in Sources */,
 				FA50A8CD1DD35EFD00C6D2EA /* IGRegistrationStepPhoneViewController.swift in Sources */,

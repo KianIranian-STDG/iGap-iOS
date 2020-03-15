@@ -6357,3 +6357,8 @@
 "active_gift_card_note" = "Êtes-vous sûr de vouloir activer votre carte-cadeau?! Notez qu\'une fois activé, il ne sera pas possible de l\'envoyer à un autre et les informations de la carte cadeau ne seront visibles que sur votre compte.";
 "activatation_successful" = "L'activation s'est terminée avec succès.\nVous pouvez voir votre carte-cadeau dans la section des cartes activées.";
 "card_list_is_empty" = "Votre liste de cartes est vide";
+"gift_sticker_card_info_title" = "Informations sur la carte-cadeau numérique";
+"expire_date" = "Date d\'expiration";
+"cvv2" = "CVV2";
+"internet_pin_2" = "Épingle";
+"click_for_copy_title" = "Cliquez pour copier";

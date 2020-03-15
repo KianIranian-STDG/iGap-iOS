@@ -18,6 +18,7 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
     var giftCardList: [IGStructGiftCardListData] = []
     var giftStickerInfo: SMCheckGiftSticker!
     var giftStickerAlertView: SMGiftStickerAlertView!
+    var giftStickerPaymentInfo: SMGiftCardInfo!
     var dismissBtn: UIButton!
     let bottomPadding = UIApplication.shared.keyWindow?.safeAreaInsets.bottom
     private var activationGiftStickerId: String?
@@ -69,8 +70,9 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
         IGGlobal.prgShow()
         guard let nationalCode = IGSessionInfo.getNationalCode(), !nationalCode.isEmpty, let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
         
-        IGApiSticker.shared.getGiftCardInfo(stickerId: stickerId, nationalCode: nationalCode, mobileNumber: phone.phoneConvert98to0(), completion: { giftCardInfo in
+        IGApiSticker.shared.getGiftCardInfo(stickerId: stickerId, nationalCode: nationalCode, mobileNumber: phone.phoneConvert98to0(), completion: { [weak self] giftCardInfo in
             IGGlobal.prgHide()
+            self?.showGiftStickerPaymentInfo(cardInfo: giftCardInfo)
         }, error: {
             IGGlobal.prgHide()
         })
@@ -137,6 +139,34 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
             self.giftStickerAlertView.frame = CGRect(x: 0, y: yPosition, width: self.view.frame.width, height: self.giftStickerAlertView.frame.height)
         }
     }
+    private func showGiftStickerPaymentInfo(cardInfo: IGStructGiftCardInfo){
+        self.dismissBtn = UIButton()
+        self.dismissBtn.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
+        self.view.insertSubview(self.dismissBtn, at: 2)
+        self.dismissBtn.addTarget(self, action: #selector(self.didtapOutSide), for: .touchUpInside)
+        
+        self.dismissBtn?.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top)
+            make.bottom.equalTo(self.view.snp.bottom)
+            make.right.equalTo(self.view.snp.right)
+            make.left.equalTo(self.view.snp.left)
+        }
+        
+        
+        self.giftStickerPaymentInfo = SMGiftCardInfo.loadFromNib()
+        self.giftStickerPaymentInfo.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: self.giftStickerPaymentInfo.frame.height)
+        self.giftStickerPaymentInfo.setInfo(giftCardInfo: cardInfo)
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+        swipeDown.direction = .down
+        
+        self.giftStickerPaymentInfo.addGestureRecognizer(swipeDown)
+        self.view.addSubview(self.giftStickerPaymentInfo)
+        
+        let yPosition = self.view.frame.height - self.giftStickerPaymentInfo.frame.height - (self.bottomPadding! + tabbarHeight!)
+        UIView.animate(withDuration: 0.3) {
+            self.giftStickerPaymentInfo.frame = CGRect(x: 0, y: yPosition, width: self.view.frame.width, height: self.giftStickerPaymentInfo.frame.height)
+        }
+    }
     
     private func manageButtonsView(buttons: [UIButton]){
         for button in buttons {
@@ -150,10 +180,12 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
         UIView.animate(withDuration: 0.3, animations: {
             self.giftStickerInfo?.frame.origin.y = self.view.frame.height
             self.giftStickerAlertView?.frame.origin.y = self.view.frame.height
+            self.giftStickerPaymentInfo?.frame.origin.y = self.view.frame.height
         }) { (true) in }
 
         let hideInfo = giftStickerInfo != nil
         let hideAlertView = giftStickerAlertView != nil
+        let hideCardInfo = giftStickerPaymentInfo != nil
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             if hideInfo {
@@ -164,6 +196,11 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
             if hideAlertView {
                 self.giftStickerAlertView?.removeFromSuperview()
                 self.giftStickerAlertView = nil
+            }
+            
+            if hideCardInfo {
+                self.giftStickerPaymentInfo?.removeFromSuperview()
+                self.giftStickerPaymentInfo = nil
             }
             
             if !keepBackground {

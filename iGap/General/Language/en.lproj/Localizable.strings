@@ -6706,3 +6706,8 @@ TODO:// complete */
 "active_gift_card_note" = "Are you sure you want to activate your gift card ?! Note that once activated, it will not be possible to send it to another and the gift card information will only be visible to your account.";
 "activatation_successful" = "Activation completed successfully.\nYou can see your gift card in the activated cards section.";
 "card_list_is_empty" = "Your card list is empty";
+"gift_sticker_card_info_title" = "Digital Gift Card Information";
+"expire_date" = "Expiration date";
+"cvv2" = "CVV2";
+"internet_pin_2" = "Pin";
+"click_for_copy_title" = "Click to copy";
