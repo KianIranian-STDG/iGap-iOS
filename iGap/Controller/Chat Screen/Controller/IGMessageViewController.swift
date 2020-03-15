@@ -1167,7 +1167,15 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                         for nodeIndex in allIndexes {
                             if let node = self!.tableViewNode.nodeForRow(at: nodeIndex) as? ChatControllerNode {
                                 if let msg = self!.messages?[nodeIndex.row] {
-                                    node.updateVoteActions(channelExtra: msg.channelExtra)
+                                    
+                                    
+                                    
+                                    let realm = try! Realm()
+                                    
+                                    let predicate = NSPredicate(format: "id = %lld", msg.id)
+                                    if let updatedMsg = realm.objects(IGRoomMessage.self).filter(predicate).first {
+                                        node.updateVoteActions(channelExtra: updatedMsg.channelExtra)
+                                    }
                                 }
                             }
                         }
@@ -5973,7 +5981,9 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             IGMessageViewController.highlightWithoutFastReturn = messageId
         }
         
-        let indexOfMessage = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId)
+        let msgId = messageId > 0 ? messageId : -messageId
+        
+        let indexOfMessage = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: msgId)
         if indexOfMessage != nil {
             let indexPath = IndexPath(row: indexOfMessage!, section: 0)
             var previousIndexPath = indexPath
