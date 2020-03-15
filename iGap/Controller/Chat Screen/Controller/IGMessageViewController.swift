@@ -893,6 +893,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     deinit {
+        tableViewNode.removeFromSupernode()
         print("Deinit IGMessageViewController")
     }
     

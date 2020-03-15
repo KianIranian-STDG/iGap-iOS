@@ -38,7 +38,7 @@ class ChatControllerNode: ASCellNode {
     private var txtAttachmentNode : ASTextNode?
     
     //contactnode
-    private var contact: IGRoomMessageContact!
+    private var contact: IGRoomMessageContact?
     private var txtPhoneNumbers : ASTextNode?
     private var txtPhoneIcon : ASTextNode?
     private var txtContactName : ASTextNode?
@@ -227,6 +227,295 @@ class ChatControllerNode: ASCellNode {
         }
         if txtTimeNode != nil {
             txtTimeNode = nil
+        }
+        if LiveStickerView != nil {
+            LiveStickerView = nil
+        }
+        if NormalGiftStickerView != nil {
+            NormalGiftStickerView = nil
+        }
+        if btnPlay != nil {
+            btnPlay = nil
+        }
+        if txtTitleNode != nil {
+            txtTitleNode = nil
+        }
+        if txtSizeNode != nil {
+            txtSizeNode = nil
+        }
+        if txtAttachmentNode != nil {
+            txtAttachmentNode = nil
+        }
+        if txtPhoneNumbers != nil {
+            txtPhoneNumbers = nil
+        }
+        if txtPhoneIcon != nil {
+            txtPhoneIcon = nil
+        }
+        if txtContactName != nil {
+            txtContactName = nil
+        }
+        if txtEmails != nil {
+            txtEmails = nil
+        }
+        if txtEmailIcon != nil {
+            txtEmailIcon = nil
+        }
+        if imgCover != nil {
+            imgCover = nil
+        }
+        if btnViewContact != nil {
+            btnViewContact = nil
+        }
+        if txtMusicName != nil {
+            txtMusicName = nil
+        }
+        if txtMusicArtist != nil {
+            txtMusicArtist = nil
+        }
+        if btnStateNode != nil {
+            btnStateNode = nil
+        }
+        if txtLogMessage != nil {
+            txtLogMessage = nil
+        }
+        if progressNode != nil {
+            progressNode = nil
+        }
+        if bgTextNode != nil {
+            bgTextNode = nil
+        }
+        if bgProgressNode != nil {
+            bgProgressNode = nil
+        }
+        if bgNode != nil {
+            bgNode = nil
+        }
+        if txtCurrentTimeNode != nil {
+            txtCurrentTimeNode = nil
+        }
+        if txtVoiceTimeNode != nil {
+            txtVoiceTimeNode = nil
+        }
+        if sliderNode != nil {
+            sliderNode = nil
+        }
+        if txtTypeIcon != nil {
+            txtTypeIcon = nil
+        }
+        if txtTypeTitle != nil {
+            txtTypeTitle = nil
+        }
+        if txtAmount != nil {
+            txtAmount = nil
+        }
+        if testNode != nil {
+            testNode = nil
+        }
+        if txtTTLDate != nil {
+            txtTTLDate = nil
+        }
+        if txtVALUEDate != nil {
+            txtVALUEDate = nil
+        }
+        if txtTTLSourceCardNumber != nil {
+            txtTTLSourceCardNumber = nil
+        }
+        if txtVALUESourceCardNumber != nil {
+            txtVALUESourceCardNumber = nil
+        }
+        if txtTTLDestinationCardNumber != nil {
+            txtTTLDestinationCardNumber = nil
+        }
+        if txtVALUEDestinationCardNumber != nil {
+            txtVALUEDestinationCardNumber = nil
+        }
+        if txtTTLDestinationBankName != nil {
+            txtTTLDestinationBankName = nil
+        }
+        if txtVALUEDestinationBankName != nil {
+            txtVALUEDestinationBankName = nil
+        }
+        if txtTTLCardOwnerName != nil {
+            txtTTLCardOwnerName = nil
+        }
+        if txtVALUECardOwnerName != nil {
+            txtVALUECardOwnerName = nil
+        }
+        if txtTTLTraceNumber != nil {
+            txtTTLTraceNumber = nil
+        }
+        if txtVALUETraceNumber != nil {
+            txtVALUETraceNumber = nil
+        }
+        if txtTTLRefrenceNumber != nil {
+            txtTTLRefrenceNumber = nil
+        }
+        if txtVALUERefrenceNumber != nil {
+            txtVALUERefrenceNumber = nil
+        }
+        if viewSepratorCardNum != nil {
+            viewSepratorCardNum = nil
+        }
+        if viewSepratorDesCardNum != nil {
+            viewSepratorDesCardNum = nil
+        }
+        if viewSepratorDesBankName != nil {
+            viewSepratorDesBankName = nil
+        }
+        if viewSepratorOwnerName != nil {
+            viewSepratorOwnerName = nil
+        }
+        if viewSepratorTraceNum != nil {
+            viewSepratorTraceNum = nil
+        }
+        if viewSepratorTop != nil {
+            viewSepratorTop = nil
+        }
+        if viewSepratorDate != nil {
+            viewSepratorDate = nil
+        }
+        if btnShowMore != nil {
+            btnShowMore = nil
+        }
+        if txtTTLSenderName != nil {
+            txtTTLSenderName = nil
+        }
+        if txtVALUESenderName != nil {
+            txtVALUESenderName = nil
+        }
+        if txtTTLReciever != nil {
+            txtTTLReciever = nil
+        }
+        if txtVALUEReciever != nil {
+            txtVALUEReciever = nil
+        }
+        if txtTTLDesc != nil {
+            txtTTLDesc = nil
+        }
+        if txtVALUEDesc != nil {
+            txtVALUEDesc = nil
+        }
+        if viewSepratorThree != nil {
+            viewSepratorThree = nil
+        }
+        if viewSepratorFour != nil {
+            viewSepratorFour = nil
+        }
+        if viewSepratorFive != nil {
+            viewSepratorFive = nil
+        }
+        if viewSepratorSix != nil {
+            viewSepratorSix = nil
+        }
+        if viewSepratorSeven != nil {
+            viewSepratorSeven = nil
+        }
+        if viewSepratorOne != nil {
+            viewSepratorOne = nil
+        }
+        if viewSepratorTwo != nil {
+            viewSepratorTwo = nil
+        }
+        if viewSepratorEight != nil {
+            viewSepratorEight = nil
+        }
+        if viewSepratorNine != nil {
+            viewSepratorNine = nil
+        }
+        if viewSepratorTen != nil {
+            viewSepratorTen = nil
+        }
+        if txtTTLSenderPhoneNumber != nil {
+            txtTTLSenderPhoneNumber = nil
+        }
+        if txtVALUESenderPhoneNumber != nil {
+            txtVALUESenderPhoneNumber = nil
+        }
+        if txtTTLRecieverPhoneNumber != nil {
+            txtTTLRecieverPhoneNumber = nil
+        }
+        if txtVALUERecieverPhoneNumber != nil {
+            txtVALUERecieverPhoneNumber = nil
+        }
+        if txtTTLTopUpOperator != nil {
+            txtTTLTopUpOperator = nil
+        }
+        if txtVALUETopUpOperator != nil {
+            txtVALUETopUpOperator = nil
+        }
+        if txtTTLGateWay != nil {
+            txtTTLGateWay = nil
+        }
+        if txtVALUEGateWay != nil {
+            txtVALUEGateWay = nil
+        }
+        if txtTTLOrderNumber != nil {
+            txtTTLOrderNumber = nil
+        }
+        if txtVALUEOrderNumber != nil {
+            txtVALUEOrderNumber = nil
+        }
+        if avatarNode != nil {
+            avatarNode = nil
+        }
+        if indicatorViewAbs != nil {
+            indicatorViewAbs = nil
+        }
+        if lblEyeIcon != nil {
+            lblEyeIcon = nil
+        }
+        if lblEyeText != nil {
+            lblEyeText = nil
+        }
+        if lblLikeIcon != nil {
+            lblLikeIcon = nil
+        }
+        if lblLikeText != nil {
+            lblLikeText = nil
+        }
+        if lblEyeIcon != nil {
+            lblEyeIcon = nil
+        }
+        if lblDisLikeIcon != nil {
+            lblDisLikeIcon = nil
+        }
+        if lblDisLikeText != nil {
+            lblDisLikeText = nil
+        }
+        if checkNode != nil {
+            checkNode = nil
+        }
+        if attachment != nil {
+            attachment = nil
+        }
+        if replyForwardViewNode != nil {
+            replyForwardViewNode = nil
+        }
+        if txtNameNode != nil {
+            txtNameNode = nil
+        }
+        if txtTimeNode != nil {
+            txtTimeNode = nil
+        }
+        if txtStatusNode != nil {
+            txtStatusNode = nil
+        }
+        if nodeText != nil {
+            nodeText = nil
+        }
+        if nodeOnlyText != nil {
+            nodeOnlyText = nil
+        }
+        if contact != nil {
+            contact = nil
+        }
+         
+        if swipeToReplyNode != nil {
+            swipeToReplyNode = nil
+        }
+        if swipeToReplyFeedback != nil {
+            swipeToReplyFeedback = nil
         }
     }
     
@@ -417,14 +706,6 @@ class ChatControllerNode: ASCellNode {
     
     func EnableDisableInteractions(mode: Bool = true) {
         if mode {
-            //            self.nodeText?.isUserInteractionEnabled = true
-            //            self.imgNode?.isUserInteractionEnabled = true
-            //            self.btnStateNode?.isUserInteractionEnabled = true
-            //            for node in subnodes! {
-            //                node.isUserInteractionEnabled = false
-            //                node.view.isUserInteractionEnabled = false
-            //            }
-            
             isUserInteractionEnabled = false
             view.isUserInteractionEnabled = false
             for node in subnodes ?? [ASDisplayNode()] {
@@ -449,7 +730,7 @@ class ChatControllerNode: ASCellNode {
         
         addSubnode(checkNode!)
         
-        if id == self.message?.id {
+        if id == message?.id {
             checkNode!.view.tag = 002
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {[weak self] in
                 guard let sSelf = self else {
@@ -475,14 +756,14 @@ class ChatControllerNode: ASCellNode {
         checkNode!.style.width = ASDimensionMake(.points, 30)
         checkNode!.style.height = ASDimensionMake(.points, 30)
         
-        self.setNeedsLayout()
+        setNeedsLayout()
     }
     
     public func removeAccessoryButton() {
         checkNode!.style.width = ASDimensionMake(.points, 0)
         checkNode!.style.height = ASDimensionMake(.points, 0)
         checkNode!.removeFromSupernode()
-        self.setNeedsLayout()
+        setNeedsLayout()
     }
     
     private func makeLikeDislikeIcons() {
@@ -517,9 +798,9 @@ class ChatControllerNode: ASCellNode {
     
     private func manageVoteActions(){
         
-        if self.message!.channelExtra != nil {
-            var messageVote: IGRoomMessage! = self.message!
-            if let forward = self.message!.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
+        if message!.channelExtra != nil {
+            var messageVote: IGRoomMessage! = message!
+            if let forward = message!.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
                 messageVote = forward
             }
             let Color = ThemeManager.currentTheme.LabelColor
@@ -558,7 +839,7 @@ class ChatControllerNode: ASCellNode {
     }
     
     func updateVoteActions(channelExtra: IGRealmChannelExtra?) {
-        self.message?.channelExtra = channelExtra
+        message?.channelExtra = channelExtra
         manageVoteActions()
     }
     
@@ -616,8 +897,11 @@ class ChatControllerNode: ASCellNode {
                     avatarNode?.avatarASImageView?.backgroundColor = .white
                     avatarNode?.avatarASImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
 //                    SwiftEventBus.postToMainThread("\(IGGlobal.eventBusChatKey)\(message!.roomId)", sender: (action: ChatMessageAction.userInfo, userId: userId))
-                    updateAvatar(userId: userId) {
-                        _ = self.makeAvatarIfNeeded()
+                    updateAvatar(userId: userId) {[weak self] in
+                        guard let sSelf = self else {
+                            return
+                        }
+                        _ = sSelf.makeAvatarIfNeeded()
                     }
                 }
                 return true
@@ -1862,16 +2146,16 @@ class ChatControllerNode: ASCellNode {
     //- Hint : Check tap on  showmore
     @objc func handleUserTap() {
         
-        self.setNeedsLayout()
-        self.transitionLayout(withAnimation: true, shouldMeasureAsync: true, measurementCompletion: nil)
+        setNeedsLayout()
+        transitionLayout(withAnimation: true, shouldMeasureAsync: true, measurementCompletion: nil)
     }
     
     
     override func transitionLayout(withAnimation animated: Bool, shouldMeasureAsync: Bool, measurementCompletion completion: (() -> Void)? = nil) {
         
-        if self.message?.wallet?.cardToCard != nil {
+        if message?.wallet?.cardToCard != nil {
             
-            if self.hasShownMore {
+            if hasShownMore {
                 testNode!.layoutIfNeeded()
                 btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .white, for: .normal)
                 
@@ -1921,8 +2205,8 @@ class ChatControllerNode: ASCellNode {
                 })
             }
             
-        } else if self.message?.wallet?.moneyTrasfer != nil {
-            if self.hasShownMore {
+        } else if message?.wallet?.moneyTrasfer != nil {
+            if hasShownMore {
                 testNode!.layoutIfNeeded()
                 btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
                 
@@ -1971,8 +2255,8 @@ class ChatControllerNode: ASCellNode {
                 })
             }
             
-        } else if self.message?.wallet?.topup != nil {
-            if self.hasShownMore {
+        } else if message?.wallet?.topup != nil {
+            if hasShownMore {
                 testNode!.layoutIfNeeded()
                 btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
                 
@@ -2024,8 +2308,8 @@ class ChatControllerNode: ASCellNode {
                     sSelf.testNode!.layoutIfNeeded()
                 })
             }
-        } else if self.message?.wallet?.bill != nil {
-            if self.hasShownMore {
+        } else if message?.wallet?.bill != nil {
+            if hasShownMore {
                 testNode!.layoutIfNeeded()
                 btnShowMore!.setTitle(IGStringsManager.MoreDetails.rawValue.localized, with: UIFont.igFont(ofSize: 20), with: .black, for: .normal)
                 
@@ -2079,7 +2363,7 @@ class ChatControllerNode: ASCellNode {
             }
         } else { }
         
-        self.hasShownMore = !self.hasShownMore
+        hasShownMore = !hasShownMore
         
     }
     private func layoutCardToCard(msg: IGRoomMessage) -> ASLayoutSpec {
@@ -2145,10 +2429,10 @@ class ChatControllerNode: ASCellNode {
                     return animationView
                 }
             }
-            self.progressNode!.style.height = ASDimensionMake(.points, 50)
-            self.progressNode!.style.width = ASDimensionMake(.points, 50)
-            self.progressNode!.backgroundColor = UIColor.white
-            self.progressNode!.layer.cornerRadius = 25
+            progressNode!.style.height = ASDimensionMake(.points, 50)
+            progressNode!.style.width = ASDimensionMake(.points, 50)
+            progressNode!.backgroundColor = UIColor.white
+            progressNode!.layer.cornerRadius = 25
             DispatchQueue.main.async {[weak self] in
                 guard let sSelf = self else {
                     return
@@ -2165,7 +2449,7 @@ class ChatControllerNode: ASCellNode {
                 (sSelf.progressNode!.view as! AnimationView).forceDisplayUpdate()
                 
             }
-            self.progressNode!.alpha = 0.8
+            progressNode!.alpha = 0.8
             
         } else if logType == .emptyBox {} else {
             if bgNode == nil {
@@ -2367,15 +2651,15 @@ class ChatControllerNode: ASCellNode {
         }
 //        manageStickerAttachment()
         let tmpppMsg : IGRoomMessage
-        if self.message?.forwardedFrom != nil {
-            tmpppMsg = self.message!.forwardedFrom!
+        if message?.forwardedFrom != nil {
+            tmpppMsg = message!.forwardedFrom!
         } else {
-            tmpppMsg = self.message!
+            tmpppMsg = message!
         }
         switch tmpppMsg.additional?.dataType {
             
         case AdditionalType.STICKER.rawValue :
-            if (self.message!.attachment?.name!.hasSuffix(".json") ?? false) {
+            if (message!.attachment?.name!.hasSuffix(".json") ?? false) {
                 let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
                     top: 0,
                     left: 0,
@@ -2435,8 +2719,8 @@ class ChatControllerNode: ASCellNode {
                 return animationView
             }
         }
-        self.LiveStickerView!.style.height = ASDimensionMake(.points, 200)
-        self.LiveStickerView!.style.width = ASDimensionMake(.points, 200)
+        LiveStickerView!.style.height = ASDimensionMake(.points, 200)
+        LiveStickerView!.style.width = ASDimensionMake(.points, 200)
         DispatchQueue.main.async {[weak self] in
             guard let sSelf = self else {
                 return
@@ -2458,8 +2742,8 @@ class ChatControllerNode: ASCellNode {
                 return animationView
             }
         }
-        self.NormalGiftStickerView!.style.height = ASDimensionMake(.points, 200)
-        self.NormalGiftStickerView!.style.width = ASDimensionMake(.points, 200)
+        NormalGiftStickerView!.style.height = ASDimensionMake(.points, 200)
+        NormalGiftStickerView!.style.width = ASDimensionMake(.points, 200)
         
     }
     private func addStickerBottomItems(spec: ASLayoutSpec) {
@@ -2616,9 +2900,9 @@ class ChatControllerNode: ASCellNode {
         if txtAttachmentNode == nil {
             txtAttachmentNode = ASTextNode()
         }
-        self.txtAttachmentNode!.style.width = ASDimension(unit: .points, value: 60.0)
-        self.txtAttachmentNode!.style.height = ASDimension(unit: .points, value: 60.0)
-        self.txtAttachmentNode!.setThumbnail(for: msg.attachment!)
+        txtAttachmentNode!.style.width = ASDimension(unit: .points, value: 60.0)
+        txtAttachmentNode!.style.height = ASDimension(unit: .points, value: 60.0)
+        txtAttachmentNode!.setThumbnail(for: msg.attachment!)
         
         IGGlobal.makeAsyncText(for: txtTitleNode! , with: msg.attachment!.name!, font: .igapFont)
         IGGlobal.makeAsyncText(for: txtSizeNode! , with: msg.attachment!.sizeToString(), font: .igapFont)
@@ -3125,7 +3409,7 @@ class ChatControllerNode: ASCellNode {
         IGGlobal.makeAsyncText(for: txtPhoneIcon!, with: "", textColor: ThemeManager.currentTheme.LabelColor, size: 10, numberOfLines: 1, font: IGGlobal.fontPack.fontIcon, alignment: .center)
         IGGlobal.makeAsyncText(for: txtEmailIcon!, with: "🖂", textColor: ThemeManager.currentTheme.LabelColor, size: 10, numberOfLines: 1, font: IGGlobal.fontPack.fontIcon, alignment: .center)
         
-        if self.isIncomming {
+        if isIncomming {
             btnViewContact!.setTitle(IGStringsManager.ViewContact.rawValue.localized, with: UIFont.igFont(ofSize: 14, weight: .bold), with: ThemeManager.currentTheme.SliderTintColor, for: .normal)
             btnViewContact!.layer.borderColor = ThemeManager.currentTheme.SliderTintColor.cgColor
             
@@ -3168,8 +3452,8 @@ class ChatControllerNode: ASCellNode {
                 sSelf.contact = message.contact!
             }
             
-            let firstName = sSelf.contact.firstName == nil ? "" : sSelf.contact.firstName! + " "
-            let lastName = sSelf.contact.lastName == nil ? "" : sSelf.contact.lastName!
+            let firstName = sSelf.contact?.firstName == nil ? "" : sSelf.contact!.firstName! + " "
+            let lastName = sSelf.contact?.lastName == nil ? "" : sSelf.contact!.lastName!
             let name = String(format: "%@%@", firstName, lastName)
             if sSelf.isIncomming {
                 
@@ -3180,14 +3464,14 @@ class ChatControllerNode: ASCellNode {
                 IGGlobal.makeAsyncText(for: sSelf.txtContactName!, with: name, textColor: ThemeManager.currentTheme.SendMessageBubleBGColor.darker()!, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
                 
             }
-            if sSelf.contact.phones.count > 0 {
-                let phoneNumber = sSelf.contact.phones.first!.innerString
+            if sSelf.contact!.phones.count > 0 {
+                let phoneNumber = sSelf.contact!.phones.first!.innerString
                 IGGlobal.makeAsyncText(for: sSelf.txtPhoneNumbers!, with: phoneNumber, textColor: ThemeManager.currentTheme.LabelColor, size: 13, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
                 
             }
             
             if (message.contact?.emails.count)! > 0 {
-                let emailAdd = sSelf.contact.emails.first!.innerString
+                let emailAdd = sSelf.contact!.emails.first!.innerString
                 IGGlobal.makeAsyncText(for: sSelf.txtEmails!, with: emailAdd, textColor: ThemeManager.currentTheme.LabelColor, size: 14, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .left)
             }
         }
@@ -3518,32 +3802,37 @@ class ChatControllerNode: ASCellNode {
     
     private func manageStickerAttachment() {
         
-        if self.message!.additional?.dataType == AdditionalType.STICKER.rawValue {
+        if message!.additional?.dataType == AdditionalType.STICKER.rawValue {
             
-            if let stickerStruct = IGHelperJson.parseStickerMessage(data: (self.message!.additional?.data)!) {
+            if let stickerStruct = IGHelperJson.parseStickerMessage(data: (message!.additional?.data)!) {
                 //IGGlobal.imgDic[stickerStruct.token!] = self.imgMediaAbs
                 DispatchQueue.main.async {
-                    IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) { (file) in
-                        
-                        if (self.message!.attachment?.name!.hasSuffix(".json") ?? false) {
-                            if self.LiveStickerView != nil {
-                                (self.LiveStickerView!.view as! AnimationView).setLiveSticker(for: file)
+                    IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) {[weak self] (file) in
+                        guard let sSelf = self else {
+                            return
+                        }
+                        if (sSelf.message!.attachment?.name!.hasSuffix(".json") ?? false) {
+                            if sSelf.LiveStickerView != nil {
+                                (sSelf.LiveStickerView!.view as! AnimationView).setLiveSticker(for: file)
                             }
                         } else  {
-                            if self.NormalGiftStickerView != nil {
+                            if sSelf.NormalGiftStickerView != nil {
                                 
-                                (self.NormalGiftStickerView!.view as! UIImageView).setSticker(for: file)
+                                (sSelf.NormalGiftStickerView!.view as! UIImageView).setSticker(for: file)
                             }
                         }
                         
                     }
                 }
             } else {
-                if let stickerStruct = IGHelperJson.parseStickerMessage(data: (self.message!.additional?.data)!) {
+                if let stickerStruct = IGHelperJson.parseStickerMessage(data: (message!.additional?.data)!) {
                     
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async {[weak self] in
+                        guard let sSelf = self else {
+                            return
+                        }
                         IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) { (file) in
-                            (self.NormalGiftStickerView!.view as! UIImageView).setSticker(for: file)
+                            (sSelf.NormalGiftStickerView!.view as! UIImageView).setSticker(for: file)
                         }
                     }
                 }
@@ -3560,16 +3849,19 @@ class ChatControllerNode: ASCellNode {
             if let stickerStruct = IGHelperJson.parseStickerMessage(data: (msg.additional?.data)!) {
                 //IGGlobal.imgDic[stickerStruct.token!] = self.imgMediaAbs
                 DispatchQueue.main.async {
-                    IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) { (file) in
+                    IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) {[weak self] (file) in
+                        guard let sSelf = self else {
+                            return
+                        }
                         
                         if (msg.attachment?.name!.hasSuffix(".json") ?? false) {
-                            if self.LiveStickerView != nil {
-                                (self.LiveStickerView!.view as! AnimationView).setLiveSticker(for: file)
+                            if sSelf.LiveStickerView != nil {
+                                (sSelf.LiveStickerView!.view as! AnimationView).setLiveSticker(for: file)
                             }
                         } else  {
-                            if self.NormalGiftStickerView != nil {
+                            if sSelf.NormalGiftStickerView != nil {
                                 
-                                (self.NormalGiftStickerView!.view as! UIImageView).setSticker(for: file)
+                                (sSelf.NormalGiftStickerView!.view as! UIImageView).setSticker(for: file)
                             }
                         }
                         
@@ -3578,9 +3870,12 @@ class ChatControllerNode: ASCellNode {
             } else {
                 if let stickerStruct = IGHelperJson.parseStickerMessage(data: (msg.additional?.data)!) {
                     
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async {[weak self] in
+                        guard let sSelf = self else {
+                            return
+                        }
                         IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) { (file) in
-                            (self.NormalGiftStickerView!.view as! UIImageView).setSticker(for: file)
+                            (sSelf.NormalGiftStickerView!.view as! UIImageView).setSticker(for: file)
                         }
                     }
                 }
@@ -3764,7 +4059,7 @@ class ChatControllerNode: ASCellNode {
     private func addAdditionalButtons(contentSpec: ASLayoutSpec, message: IGRoomMessage) -> ASLayoutSpec {
                //check if msg has additional data of type bot buttons
                if let additionalData = message.additional?.data, message.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
-                   let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncomming || (self.finalRoom!.type == .chat && !(self.finalRoom!.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)) {
+                   let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncomming || (finalRoom!.type == .chat && !(finalRoom!.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)) {
         
                    let buttonBox = makeBotNode(roomId: finalRoom!.id, additionalArrayMain: additionalStruct)
                    contentSpec.children?.append(buttonBox)
@@ -3777,7 +4072,7 @@ class ChatControllerNode: ASCellNode {
                }
                //check if msg has additional data of type CardToCard
                else if let additionalData = message.additional?.data, message.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
-                   let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncomming || (self.finalRoom!.type == .chat && !(self.finalRoom!.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
+                   let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncomming || (finalRoom!.type == .chat && !(finalRoom!.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
                    let buttonBox = makeBotNode(roomId: finalRoom!.id, additionalArrayMain: additionalStruct)
                    contentSpec.children?.append(buttonBox)
 
@@ -4175,27 +4470,27 @@ class ChatControllerNode: ASCellNode {
     
     private func makeSwipeToReply() {// Telegram Func
         let replyRecognizer = ChatSwipeToReplyRecognizer(target: self, action: #selector(self.swipeToReplyGesture(_:)))
-        self.view.addGestureRecognizer(replyRecognizer)
+        view.addGestureRecognizer(replyRecognizer)
     }
     
     @objc func swipeToReplyGesture(_ recognizer: ChatSwipeToReplyRecognizer) {
         switch recognizer.state {
         case .began:
-            self.currentSwipeToReplyTranslation = 0.0
-            if self.swipeToReplyFeedback == nil {
-                self.swipeToReplyFeedback = HapticFeedback()
-                self.swipeToReplyFeedback?.prepareImpact()
+            currentSwipeToReplyTranslation = 0.0
+            if swipeToReplyFeedback == nil {
+                swipeToReplyFeedback = HapticFeedback()
+                swipeToReplyFeedback?.prepareImpact()
             }
         case .changed:
             var translation = recognizer.translation(in: self.view)
             translation.x = max(-80.0, min(0.0, translation.x))
-            if (translation.x < -45.0) != (self.currentSwipeToReplyTranslation < -45.0) {
-                if translation.x < -45.0, self.swipeToReplyNode == nil {
-                    self.swipeToReplyFeedback?.impact()
+            if (translation.x < -45.0) != (currentSwipeToReplyTranslation < -45.0) {
+                if translation.x < -45.0, swipeToReplyNode == nil {
+                    swipeToReplyFeedback?.impact()
                     
                     let swipeToReplyNode = ChatMessageSwipeToReplyNode(fillColor: UIColor.black, strokeColor: UIColor.red, foregroundColor: .white)
                     self.swipeToReplyNode = swipeToReplyNode
-                    self.insertSubnode(swipeToReplyNode, at: 0)
+                    insertSubnode(swipeToReplyNode, at: 0)
                 }
             }
             self.currentSwipeToReplyTranslation = translation.x
@@ -4204,13 +4499,13 @@ class ChatControllerNode: ASCellNode {
             self.bounds = bounds
             
             if let swipeToReplyNode = self.swipeToReplyNode {
-                swipeToReplyNode.frame = CGRect(origin: CGPoint(x: bounds.size.width, y: self.frame.height - 40), size: CGSize(width: 33.0, height: 33.0))
+                swipeToReplyNode.frame = CGRect(origin: CGPoint(x: bounds.size.width, y: frame.height - 40), size: CGSize(width: 33.0, height: 33.0))
                 
                 swipeToReplyNode.alpha = min(1.0, abs(translation.x / 45.0))
                 
             }
         case .ended:
-            self.swipeToReplyFeedback = nil
+            swipeToReplyFeedback = nil
             
             var bounds = self.bounds
             bounds.origin.x = 0.0
@@ -4221,7 +4516,7 @@ class ChatControllerNode: ASCellNode {
             }
             
             if recognizer.translation(in: self.view).x < -45.0 {
-                self.delegate?.swipToReply(cellMessage: self.message!)
+                self.delegate?.swipToReply(cellMessage: message!)
             }
             
             
@@ -4406,14 +4701,14 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
             
             let tapAndHold = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnCell(_:)))
             tapAndHold.minimumPressDuration = 0.2
-            self.view.addGestureRecognizer(tapAndHold)
+            view.addGestureRecognizer(tapAndHold)
             
-            self.view.isUserInteractionEnabled = true
+            view.isUserInteractionEnabled = true
             var tmppmsg : IGRoomMessage
-            if self.message?.forwardedFrom != nil {
-                tmppmsg = self.message!.forwardedFrom!
+            if message?.forwardedFrom != nil {
+                tmppmsg = message!.forwardedFrom!
             } else {
-                tmppmsg = self.message!
+                tmppmsg = message!
             }
 
             if message?.repliedTo != nil {
@@ -4512,7 +4807,7 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
         switch gestureRecognizer.state {
         case .began:
             if !(IGGlobal.shouldMultiSelect) {
-                self.delegate?.didTapAndHoldOnMessage(cellMessage: message!,index: index)
+                delegate?.didTapAndHoldOnMessage(cellMessage: message!,index: index)
             }
         default:
             break
@@ -4528,43 +4823,43 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
     }
     
     @objc func onMultiForwardTap(_ gestureRecognizer: UITapGestureRecognizer) {
-        self.delegate?.didTapOnMultiForward(cellMessage: message!, isFromCloud: IGGlobal.isCloud(room: finalRoom!))
+        delegate?.didTapOnMultiForward(cellMessage: message!, isFromCloud: IGGlobal.isCloud(room: finalRoom!))
     }
     
     @objc func didTapOnAttachment(_ gestureRecognizer: UITapGestureRecognizer) {
         if !(IGGlobal.shouldMultiSelect) {
-            self.delegate?.didTapOnAttachment(cellMessage: message!)
+            delegate?.didTapOnAttachment(cellMessage: message!)
         }
         
     }
     @objc func didTapOnReply(_ gestureRecognizer: UITapGestureRecognizer) {
         if !(IGGlobal.shouldMultiSelect) {
-            self.delegate?.didTapOnReply(cellMessage: message!)
+            delegate?.didTapOnReply(cellMessage: message!)
         }
     }
     
     @objc func didTapOnForward(_ gestureRecognizer: UITapGestureRecognizer) {
-        self.delegate?.didTapOnForward(cellMessage: message!)
+        delegate?.didTapOnForward(cellMessage: message!)
     }
     
     @objc func didTapOnReturnToMessage(_ gestureRecognizer: UITapGestureRecognizer) {
-        self.delegate?.didTapOnReturnToMessage()
+        delegate?.didTapOnReturnToMessage()
     }
     
     @objc func didTapOnFailedStatus(_ gestureRecognizer: UITapGestureRecognizer) {
         if message!.status == .failed {
-            self.delegate?.didTapOnFailedStatus(cellMessage: message!)
+            delegate?.didTapOnFailedStatus(cellMessage: message!)
         }
     }
     
     func didTapOnForwardedAttachment(_ gestureRecognizer: UITapGestureRecognizer) {
-        self.delegate?.didTapOnForwardedAttachment(cellMessage: message!)
+        delegate?.didTapOnForwardedAttachment(cellMessage: message!)
         
     }
     
     @objc func didTapOnSenderAvatar(_ gestureRecognizer: UITapGestureRecognizer) {
         if !(IGGlobal.shouldMultiSelect) {
-            self.delegate?.didTapOnSenderAvatar(cellMessage: message!)
+            delegate?.didTapOnSenderAvatar(cellMessage: message!)
         }
     }
     
@@ -4609,10 +4904,10 @@ extension ChatControllerNode: UIGestureRecognizerDelegate {
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         
         if pan != nil {
-            let direction = pan.direction(in: self.view)
+            let direction = pan.direction(in: view)
             if direction.contains(.Left)
             {
-                return abs((pan.velocity(in: self.view)).x) > abs((pan.velocity(in: self.view)).y)
+                return abs((pan.velocity(in: view)).x) > abs((pan.velocity(in: view)).y)
             }
             else {
                 return true
