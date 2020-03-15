@@ -687,7 +687,7 @@ class ChatControllerNode: ASCellNode {
                 stack.style.flexShrink = 1.0
                 
                 
-                let insetHSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 0, left: 10, bottom: isFromSameSender ? 1 : 10, right: 4) : UIEdgeInsets(top: 0, left: 4, bottom: isFromSameSender ? 1 : 10 , right: 5), child: stack)
+                let insetHSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 0, bottom:  0 , right: 0), child: stack)
                 
                 return insetHSpec
             }
@@ -2482,7 +2482,7 @@ class ChatControllerNode: ASCellNode {
         if txtLogMessage == nil {
             txtLogMessage = ASTextNode()
         }
-        IGGlobal.makeAsyncText(for: txtLogMessage!, with:time, textColor: .white, size: 13, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtLogMessage!, with:time, textColor: .white, size: 12, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
         txtLogMessage!.backgroundColor = UIColor.logBackground()
         txtLogMessage!.layer.cornerRadius = 10.0
         txtLogMessage!.clipsToBounds = true
@@ -2495,15 +2495,16 @@ class ChatControllerNode: ASCellNode {
             if txtLogMessage == nil {
                 txtLogMessage = ASTextNode()
             }
-            
-            IGGlobal.makeAsyncText(for: txtLogMessage!, with: IGRoomMessage.detectPinMessage(message: message), textColor: .white, size: 13, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
+            txtLogMessage?.style.maxWidth = ASDimensionMake(.points, UIScreen.main.bounds.width - 20)
+            IGGlobal.makeAsyncText(for: txtLogMessage!, with: IGRoomMessage.detectPinMessage(message: message), textColor: .white, size: 12, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
             
         } else {
             if txtLogMessage == nil {
                 txtLogMessage = ASTextNode()
             }
-            
-            IGGlobal.makeAsyncText(for: txtLogMessage!, with:IGRoomMessageLog.textForLogMessage(message), textColor: .white, size: 13, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
+            txtLogMessage?.style.maxWidth = ASDimensionMake(.points, UIScreen.main.bounds.width - 20)
+
+            IGGlobal.makeAsyncText(for: txtLogMessage!, with:IGRoomMessageLog.textForLogMessage(message), textColor: .white, size: 12, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
             
             
         }
@@ -2518,10 +2519,12 @@ class ChatControllerNode: ASCellNode {
         if txtLogMessage == nil {
             txtLogMessage = ASTextNode()
         }
+        txtLogMessage?.style.maxWidth = ASDimensionMake(.points, UIScreen.main.bounds.width - 10)
+
         if bgTextNode == nil {
             bgTextNode = ASDisplayNode()
         }
-        IGGlobal.makeAsyncText(for: txtLogMessage!, with: IGStringsManager.UnknownMessage.rawValue.localized, textColor: .white, size: 13, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtLogMessage!, with: IGStringsManager.UnknownMessage.rawValue.localized, textColor: .white, size: 12, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
         bgTextNode!.layer.cornerRadius = 10.0
         bgTextNode!.clipsToBounds = true
         bgTextNode!.backgroundColor = UIColor.logBackground()
@@ -2531,10 +2534,12 @@ class ChatControllerNode: ASCellNode {
         if txtLogMessage == nil {
             txtLogMessage = ASTextNode()
         }
+        txtLogMessage?.style.maxWidth = ASDimensionMake(.points, UIScreen.main.bounds.width - 10)
+
         if bgTextNode == nil {
             bgTextNode = ASDisplayNode()
         }
-        IGGlobal.makeAsyncText(for: txtLogMessage!, with: (message.message?.inLocalizedLanguage())!, textColor: .white, size: 13, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
+        IGGlobal.makeAsyncText(for: txtLogMessage!, with: (message.message?.inLocalizedLanguage())!, textColor: .white, size: 12, weight: .bold, numberOfLines: 1, font: .igapFont, alignment: .center)
         bgTextNode!.layer.cornerRadius = 10
         bgTextNode!.clipsToBounds = true
         bgTextNode!.backgroundColor = UIColor.unreadBackground()
@@ -2610,7 +2615,7 @@ class ChatControllerNode: ASCellNode {
             let centerBoxText = ASCenterLayoutSpec(centeringOptions: .XY, child: txtLogMessage!)
             let backTextBox = ASBackgroundLayoutSpec(child: centerBoxText, background: bgTextNode!)
             let backBox = ASBackgroundLayoutSpec(child: backTextBox, background: bgNode!)
-            backBox.style.flexGrow = 1.0
+//            backBox.style.flexGrow = 1.0
             
             let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(
                 top: 10,

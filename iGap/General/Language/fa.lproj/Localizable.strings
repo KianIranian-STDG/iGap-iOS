@@ -2200,10 +2200,10 @@ Page 4 introduce app */
 "MEMBER_LEFT" = "صفحه را ترک کرد";
 
 /*  */
-"ROOM_CONVERTED_TO_PUBLIC" = "صفحه را از خصوصی به عمومی تبدیل کرد";
+"ROOM_CONVERTED_TO_PUBLIC" = "صفحه را به عمومی تبدیل کرد";
 
 /*  */
-"ROOM_CONVERTED_TO_PRIVATE" = "صفحه را از عمومی به خصوصی تبدیل کرد";
+"ROOM_CONVERTED_TO_PRIVATE" = "صفحه را به خصوصی تبدیل کرد";
 
 /*  */
 "MEMBER_JOINED_BY_INVITE_LINK" = "با دعوت به";
