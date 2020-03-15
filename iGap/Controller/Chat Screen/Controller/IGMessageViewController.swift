@@ -302,6 +302,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private var mainViewTap = UITapGestureRecognizer()
     
+    private let deleteThread = DispatchQueue(label: "serial.queue.delete.cell", qos: .userInteractive)
+    
     func onMessageViewControllerDetection() -> UIViewController {
         return self
     }
@@ -1226,7 +1228,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             } else if let onMessageDelete = result?.object as? (action: ChatMessageAction, roomId: Int64, messageId: Int64), onMessageDelete.action == ChatMessageAction.delete {
                 //DispatchQueue.main.async {
                 self?.removeItem(cellPosition: IGMessageViewController.messageIdsStatic[onMessageDelete.roomId]?.firstIndex(of: onMessageDelete.messageId))
-                self?.reloadCollection()
+                
+                
+                
+//                self?.reloadCollection()
                 
                 
             } else if let onFetchUserInfo = result?.object as? (action: ChatMessageAction, userId: Int64), onFetchUserInfo.action == ChatMessageAction.userInfo {
@@ -6692,12 +6697,15 @@ extension IGMessageViewController {
     
     private func removeItem(cellPosition: Int?){
         if cellPosition == nil {return}
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
+        
+        deleteThread.sync {
             self.removeMessageArrayByPosition(cellPosition: cellPosition)
             self.tableViewNode?.performBatchUpdates({
                 self.tableViewNode?.deleteRows(at: [IndexPath(row: cellPosition!, section: 0)], with: .none)
             }, completion: nil)
         }
+//        }
     }
     
     private func removeProgress(fakeMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection){

@@ -448,10 +448,16 @@ class ChatControllerNode: ASCellNode {
             
             isUserInteractionEnabled = false
             view.isUserInteractionEnabled = false
+            for node in subnodes ?? [ASDisplayNode()] {
+                node.isUserInteractionEnabled = false
+            }
             
         } else {
             isUserInteractionEnabled = true
             view.isUserInteractionEnabled = true
+            for node in subnodes ?? [ASDisplayNode()] {
+                node.isUserInteractionEnabled = true
+            }
         }
     }
     
