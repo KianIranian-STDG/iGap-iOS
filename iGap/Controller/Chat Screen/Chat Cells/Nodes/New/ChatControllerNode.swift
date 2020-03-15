@@ -803,6 +803,24 @@ class ChatControllerNode: ASCellNode {
             if let forward = message!.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
                 messageVote = forward
             }
+             if lblEyeIcon == nil {
+                 lblEyeIcon = ASTextNode()
+             }
+             if lblEyeText == nil {
+                 lblEyeText = ASTextNode()
+             }
+             if lblLikeIcon == nil {
+                 lblLikeIcon = ASTextNode()
+             }
+             if lblLikeText == nil {
+                 lblLikeText = ASTextNode()
+             }
+             if lblDisLikeIcon == nil {
+                 lblDisLikeIcon = ASTextNode()
+             }
+             if lblDisLikeText == nil {
+                 lblDisLikeText = ASTextNode()
+             }
             let Color = ThemeManager.currentTheme.LabelColor
             IGGlobal.makeAsyncText(for: lblEyeText!, with: (messageVote.channelExtra?.viewsLabel ?? "1").inLocalizedLanguage(), textColor: Color, size: 10, numberOfLines: 1, font: .igapFont, alignment: .center)
             
@@ -1098,10 +1116,7 @@ class ChatControllerNode: ASCellNode {
         } else {}
         
     }
-    
-    private func makeBottomBubbleItems(contentStack: ASLayoutSpec) {
-        
-        setTime()
+    private func makeVoteItems(contentStack: ASLayoutSpec) {
         
         if finalRoomType! == .channel {
             
@@ -1120,8 +1135,11 @@ class ChatControllerNode: ASCellNode {
             return
             
         }
+    }
+    private func makeBottomBubbleItems(contentStack: ASLayoutSpec) {
         
-        
+        setTime()
+        makeVoteItems(contentStack: contentStack)
         
         if isIncomming  {} else {
             setMessageStatus()
@@ -4166,7 +4184,7 @@ class ChatControllerNode: ASCellNode {
                 msgg = forwardMessage.message
             }
             
-            if msgg!.count <= 10 { //20 is a random number u can change it to what ever value u want to
+            if msgg!.count <= 10 { //10 is a random number u can change it to what ever value u want to
                 
                 let messageAndTime = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
                 txtTimeNode!.style.alignSelf = .end
@@ -4221,17 +4239,36 @@ class ChatControllerNode: ASCellNode {
         
         if msg!.count <= 10 { //10 is a random number u can change it to what ever value u want to
             
-            let messageAndTime = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
-            txtTimeNode!.style.alignSelf = .end
-            if !isIncomming {
-                txtStatusNode!.style.alignSelf = .end
+            if finalRoomType! == .channel {
+                spec.children?.append(nodeOnlyText!)
+
+                var likeDislikeStack = ASStackLayoutSpec()
+                if hasReAction {
+                    likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon!,lblEyeText!,lblLikeIcon!,lblLikeText!,lblDisLikeIcon!,lblDisLikeText!])
+                    likeDislikeStack.verticalAlignment = .center
+                } else {
+                    likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon!,lblEyeText!])
+                    likeDislikeStack.verticalAlignment = .center
+                    
+                }
+                
+                let holderStack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,txtTimeNode!])
+                spec.children?.append(holderStack)
+
+            } else {
+                let messageAndTime = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .end, alignItems: .end, children: isIncomming ? [txtTimeNode!] : [txtTimeNode!,txtStatusNode!])
+                txtTimeNode!.style.alignSelf = .end
+                if !isIncomming {
+                    txtStatusNode!.style.alignSelf = .end
+                }
+                messageAndTime.verticalAlignment = .center
+                
+                let nodeTextSpec = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .spaceBetween, alignItems: .end, children: [nodeOnlyText!,messageAndTime])
+
+                spec.children?.append(nodeTextSpec)
+
             }
-            messageAndTime.verticalAlignment = .center
-            
-            let nodeTextSpec = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .spaceBetween, alignItems: .end, children: [nodeOnlyText!,messageAndTime])
-            
-            spec.children?.append(nodeTextSpec)
-            
+
         } else {
             spec.children?.append(nodeOnlyText!)
             makeBottomBubbleItems(contentStack: spec)
