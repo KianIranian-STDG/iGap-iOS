@@ -5986,9 +5986,9 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             IGMessageViewController.highlightWithoutFastReturn = messageId
         }
         
-        let msgId = messageId > 0 ? messageId : -messageId
+//        let msgId = messageId > 0 ? messageId : -messageId
         
-        let indexOfMessage = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: msgId)
+        let indexOfMessage = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId)
         if indexOfMessage != nil {
             let indexPath = IndexPath(row: indexOfMessage!, section: 0)
             var previousIndexPath = indexPath
@@ -6191,8 +6191,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         if let replyMessage = cellMessage.repliedTo {
             IGMessageViewController.returnToMessage = cellMessage
             
-            var mainReplyId = replyMessage.id * -1
-            if let forwardedMessage = IGRoomMessage.fetchForwardMessage(roomId: self.room!.id, messageId: replyMessage.id) {
+            var mainReplyId = replyMessage.id > 0 ? (replyMessage.id) : (replyMessage.id * -1)
+            if let forwardedMessage = IGRoomMessage.fetchForwardMessage(roomId: self.room!.id, messageId: -mainReplyId) {
                 mainReplyId = forwardedMessage.id
             }
             goToPosition(messageId: mainReplyId, enableFastReturn: true)
