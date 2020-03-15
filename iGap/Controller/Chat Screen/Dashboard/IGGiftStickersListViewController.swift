@@ -45,7 +45,7 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
         if isFirst {
             self.tableView!.setEmptyMessage(IGStringsManager.WaitDataFetch.rawValue.localized)
         } else if giftCardList.count == 0 {
-            self.tableView!.setEmptyMessage(IGStringsManager.GlobalNoHistory.rawValue.localized)
+            self.tableView!.setEmptyMessage(IGStringsManager.CardListIsEmpty.rawValue.localized)
         } else {
             self.tableView!.restore()
         }
