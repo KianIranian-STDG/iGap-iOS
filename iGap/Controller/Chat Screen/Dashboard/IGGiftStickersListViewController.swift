@@ -33,6 +33,8 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
         initNavigationBar()
         manageShowActivties(isFirst: true)
         fetchGiftCards()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(IGMessageViewController.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     func initNavigationBar(){
@@ -271,6 +273,21 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
             }
         }
     }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let giftSticker = giftStickerAlertView {
+            let keyboardSize = (notification.userInfo?  [UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+            let keyboardHeight = keyboardSize?.height
+            let window = UIApplication.shared.keyWindow!
+            window.addSubview(giftSticker)
+            UIView.animate(withDuration: 0.3) {
+                var frame = giftSticker.frame
+                frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
+                giftSticker.frame = frame
+            }
+        }
+    }
+    
     
     // MARK:- TableView
     
