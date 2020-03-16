@@ -55,6 +55,7 @@ class IGAppManager: NSObject {
     private var _AccessToken: String!
 
     public let LOAD_ROOM_LIMIT = 50
+    public let APP_ID = 3
     
     private override init() {
         connectionStatus = BehaviorRelay(value: .waitingForNetwork)
@@ -171,6 +172,25 @@ class IGAppManager: NSObject {
         _authorHash = nil
         _nickname = nil
         _mapEnable = false
+    }
+    
+    public func bundleShortVersion() -> String {
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            return version
+        }
+        return "0.0.0"
+    }
+    
+    public func bundleVersion() -> Int {
+        if let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+            if let buildV = Int(buildVersion) {
+                 return buildV
+            } else {
+               return 1
+            }
+        } else {
+            return 1
+        }
     }
     
     public func isUserPreviouslyLoggedIn() -> Bool {

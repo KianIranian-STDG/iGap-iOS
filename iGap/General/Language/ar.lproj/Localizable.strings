@@ -3990,7 +3990,7 @@ TODO:// translate */
 "error_submit_qr_code" = "لقد حدث خط مع طلبك";
 
 /*  */
-"not_exist_activities" = "السجل الخاص بك فارغ.";
+"not_exist_activities" = "السجل الخاص بك فارغ";
 
 /*  */
 "ivand_profile_title" = "تقييمي";
@@ -5043,6 +5043,12 @@ TODO:// translate */
 
 /*  */
 "cardToCardBtnText" = "بطاقة إلى بطاقة";
+
+/*  */
+"gift_sticker_title" = "ملصق هدية";
+
+/*  */
+"inquiry_and_shopping" = "التحقيق والتسوق";
 
 /*  */
 "crad_to_card_dest_name" = "اسم صاحب الحساب";
@@ -6714,3 +6720,22 @@ TODO:// translate */
 "receivers_mobile_number" = "رقم المتلقي المحمول";
 "install_latest_version" = "قم بتثبيت أحدث إصدار لاستخدام هذه الميزة";
 "fetching_rooms" = "تلقي الدردشات";
+"gift_card" = "كرت هدية";
+"gift_card_selected" = "مبلغ بطاقة هدية مختارة";
+"payment_error_message" = "واجهت العملية خطأ. يرجى المحاولة مرة أخرى.";
+"my_recived_gift_sticker" = "تلقى هدية ملصقات";
+"gift_card_report" = "تقرير بطاقة الهدايا";
+"usable" = "صالح للإستعمال";
+"activated" = "المنشط";
+"posted" = "نشر";
+"activate_or_send_as_message" = "تنشيط أو إرسال كرسالة";
+"gift_sticker_send_to_other" = "إرسال إلى آخر";
+"activation" = "التنشيط";
+"active_gift_card_note" = "هل أنت متأكد أنك تريد تفعيل بطاقة الهدية الخاصة بك؟ لاحظ أنه بمجرد تنشيطه ، لن يكون من الممكن إرساله إلى آخر ، ولن تكون معلومات بطاقة الهدية مرئية إلا لحسابك.";
+"activatation_successful" = "اكتمل التنشيط بنجاح.\nيمكنك رؤية بطاقة الهدايا الخاصة بك في قسم البطاقات التي تم تنشيطها.";
+"card_list_is_empty" = "قائمة بطاقتك فارغة";
+"gift_sticker_card_info_title" = "معلومات بطاقة الهدية";
+"expire_date" = "تاريخ انتهاء الصلاحية";
+"cvv2" = "CVV2";
+"internet_pin_2" = "كلمة مرور الثانية";
+"click_for_copy_title" = "انقر لنسخ";

@@ -4050,7 +4050,7 @@ TODO:// complete */
 "error_submit_qr_code" = "There is an error with the request!";
 
 /*  */
-"not_exist_activities" = "Your history is empty.";
+"not_exist_activities" = "Your history is empty";
 
 /*  */
 "ivand_profile_title" = "My Score";
@@ -5119,6 +5119,12 @@ TODO:// complete */
 
 /*  */
 "cardToCardBtnText" = "Card to Card";
+
+/*  */
+"gift_sticker_title" = "Buy digital gift card";
+
+/*  */
+"inquiry_and_shopping" = "Inquiry and shopping";
 
 /*  */
 "crad_to_card_dest_name" = "Account Owner Name";
@@ -6688,3 +6694,22 @@ TODO:// complete */
 "receivers_mobile_number" = "Receiver's Mobile Number";
 "install_latest_version" = "Install the latest version to use this feature";
 "fetching_rooms" = "Fetching Rooms";
+"gift_card" = "gift card";
+"gift_card_selected" = "selected gift card amount";
+"payment_error_message" = "The operation encountered an error. Please try again.";
+"my_recived_gift_sticker" = "Activated digital gift card";
+"gift_card_report" = "Gift Card Report";
+"usable" = "Usable";
+"activated" = "Activated";
+"posted" = "Posted";
+"activate_or_send_as_message" = "Activate or send as message";
+"gift_sticker_send_to_other" = "Send to another";
+"activation" = "Activation";
+"active_gift_card_note" = "Are you sure you want to activate your gift card ?! Note that once activated, it will not be possible to send it to another and the gift card information will only be visible to your account.";
+"activatation_successful" = "Activation completed successfully.\nYou can see your gift card in the activated cards section.";
+"card_list_is_empty" = "Your card list is empty";
+"gift_sticker_card_info_title" = "Digital Gift Card Information";
+"expire_date" = "Expiration date";
+"cvv2" = "CVV2";
+"internet_pin_2" = "Pin";
+"click_for_copy_title" = "Click to copy";

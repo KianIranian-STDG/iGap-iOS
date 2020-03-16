@@ -11,62 +11,72 @@
 import SwiftyJSON
 
 struct StickerCategories: Codable {
-    let ok: Bool
     let data: [StickerCategory]
 }
 
+struct BuyGiftSticker: Codable {
+    let token, id: String
+}
+
 struct StickerApi: Codable {
-    let ok: Bool
     let data: [StickerTab]
 }
 
-struct StickerGroup: Codable {
-    let ok: Bool
-    let data: StickerTab
-}
-
 struct StickerCategory: Codable {
-    let createdAt, updatedAt: Int
     let id, name: String
     let sort: Int
-    let status: String
 }
 
 struct StickerTab: Codable {
-    let createdAt, updatedAt: Int64
+    
     let id: String
+    let createdAt: Int
+    let updatedAt: Int
+    let createdBy: Int
+    let categoryId: String?
     let refID: Int64
-    let name, avatarToken: String
+    let name: String
+    let avatarToken: String
     let avatarSize: Int
     let avatarName: String
     let price: Int
     let isVip: Bool
     let sort: Int
     let status: String
-    let createdBy: Int64
+    let isInUserList, isGiftable, isNew, isReadonly: Bool?
     let stickers: [Sticker]
     
     enum CodingKeys: String, CodingKey {
-        case createdAt, updatedAt, id
+        case id = "_id"
+        case createdAt, updatedAt, categoryId
         case refID = "refId"
-        case name, avatarToken, avatarSize, avatarName, price, isVip, sort, status, createdBy, stickers
+        case name, avatarToken, avatarSize, avatarName, price, isVip, sort, status, createdBy, isGiftable, stickers, isInUserList, isNew, isReadonly
     }
 }
 
 struct Sticker: Codable {
-    let createdAt, updatedAt: Int
+    
     let id: String
     let refID: Int
-    let name, token, fileName: String
-    let fileSize, sort: Int
-    let groupID, status: String
+    let name: String
+    let token: String
+    let fileName: String
+    let fileSize: Int
+    let groupID: String
+    let sort: Int
+    let createdAt: Int
+    let updatedAt: Int
+    let status: String
+    let isFavorite: Bool
+    let giftAmount: Int?
     
     enum CodingKeys: String, CodingKey {
-        case createdAt, updatedAt, id
+        case id = "_id"
+        case createdAt, updatedAt
         case refID = "refId"
-        case name, token, fileName, fileSize, sort
+        case name, token, fileName, fileSize, sort, giftAmount
         case groupID = "groupId"
-        case status
+        case status, isFavorite
     }
 }
 
@@ -89,3 +99,112 @@ class IGStructStickerMessage {
     }
 }
 
+
+
+
+// MARK: - IGStructGiftFirstPageInfo
+struct IGStructGiftFirstPageInfo: Codable {
+    let type: String
+    let info: Info
+    let data: [PageData]
+}
+
+struct PageData: Codable {
+    let title, titleEn: String
+    let actionType: Int
+    let actionLink: String
+    let imageURL: String
+
+    enum CodingKeys: String, CodingKey {
+        case title
+        case titleEn = "title_en"
+        case actionType = "action_type"
+        case actionLink = "action_link"
+        case imageURL = "image_url"
+    }
+}
+
+struct Info: Codable {
+    let title, titleEn, scale: String
+
+    enum CodingKeys: String, CodingKey {
+        case title
+        case titleEn = "title_en"
+        case scale
+    }
+}
+
+
+
+// MARK: - IGStructGiftCardList
+struct IGStructGiftCardList: Codable {
+    let data: [IGStructGiftCardListData]
+}
+
+struct IGStructGiftCardListData: Codable {
+    let creation, activation: Ation
+    let requestCount, amount: Int
+    let sticker: IGStructGiftCardSticker
+    let createdAt: String
+    let rrn: Int
+    let toUserId: String?
+    let activationStatus, id: String
+
+    enum CodingKeys: String, CodingKey {
+        case creation, activation, requestCount, amount, sticker, createdAt, rrn
+        case toUserId
+        case activationStatus, id
+    }
+}
+
+struct Ation: Codable {
+    let status: String
+}
+
+struct IGStructGiftCardSticker: Codable {
+    let tags: [String]
+    let giftAmount: Int
+    let name, token, fileName: String
+    let fileSize: Int
+    let groupId: String
+    let sort: Int
+    let id: String
+    let isFavorite: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case tags, giftAmount, name, token, fileName, fileSize
+        case groupId
+        case sort, id, isFavorite
+    }
+}
+
+
+// MARK: - IGStructGiftCardStatus
+struct IGStructGiftCardStatus: Codable {
+    let activation: GiftStickerActivationStatus
+    let sticker: IGStructGiftCardSticker
+    let isActive, isCardOwner, isForwarded: Bool
+    let id: String
+}
+
+struct GiftStickerActivationStatus: Codable {
+    let status: String
+}
+
+struct IGStructStickerEncryptData: Codable {
+    let data: String
+}
+
+struct IGStructGiftCardInfo {
+    let expireDate: String
+    let cvv2: String
+    let cardNumber: String
+    let secondPassword: String
+    
+    init(value: [String: Any]) {
+        self.expireDate = value["expire_date"] as! String
+        self.cvv2 = value["cvv2"] as! String
+        self.cardNumber = value["card_no"] as! String
+        self.secondPassword = value["second_password"] as! String
+    }
+}

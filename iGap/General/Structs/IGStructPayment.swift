@@ -71,3 +71,62 @@ struct IGStructPaymentStatus: Decodable {
     var status: String?
     var message: String?
 }
+
+
+/********************* Sticker Payment Struct *********************/
+struct IGStructGiftCardPayment: Codable {
+    let info: IGStructGiftCardPaymentInfo
+    //let features: [String]
+    let redirectURL: String
+
+    enum CodingKeys: String, CodingKey {
+        case info//, features
+        case redirectURL = "redirect_url"
+    }
+}
+
+struct IGStructGiftCardPaymentInfo: Codable {
+    let product: Product
+    let price: Int
+    let vendor, orderID: String
+
+    enum CodingKeys: String, CodingKey {
+        case product, price, vendor
+        case orderID = "order_id"
+    }
+}
+
+struct Product: Codable {
+    let title, productDescription: String
+    let quantity: Int
+    let refType: String
+    let info: ProductInfo
+
+    enum CodingKeys: String, CodingKey {
+        case title
+        case productDescription = "description"
+        case quantity, refType, info
+    }
+}
+
+struct ProductInfo: Codable {
+    let creation: Creation
+    let activation: Activation
+    let requestCount, amount: Int
+    let sticker: String
+    //let forwardHistory: [String]
+    let createdAt, id: String
+}
+
+struct Activation: Codable {
+    let status: String
+}
+
+struct Creation: Codable {
+    let status, mobileNumber, nationalCode, userId: String
+
+    enum CodingKeys: String, CodingKey {
+        case status, mobileNumber, nationalCode
+        case userId
+    }
+}

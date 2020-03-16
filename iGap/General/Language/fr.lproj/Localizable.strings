@@ -4916,7 +4916,16 @@
 "cardToCardBtnText" = "par carte bancaire";
 
 /*  */
+"gift_sticker_title" = "Autocollant cadeau";
+
+/*  */
+"inquiry_and_shopping" = "Demande et achats";
+
+/*  */
 "crad_to_card_dest_name" = "titulaire de compte bancaire";
+
+/*  */
+"national_code" = "carte d'identité";
 
 /*  */
 "groups_in_common" = "group en commun";
@@ -6336,3 +6345,22 @@
 "receivers_mobile_number" = "Numéro de mobile du destinataire";
 "install_latest_version" = "Installez la dernière version pour utiliser cette fonction";
 "fetching_rooms" = "Recevoir des chats";
+"gift_card" = "carte cadeau";
+"gift_card_selected" = "Montant de la carte-cadeau sélectionné";
+"payment_error_message" = "L'opération a rencontré une erreur. Veuillez réessayer.";
+"my_recived_gift_sticker" = "Autocollants cadeaux reçus";
+"gift_card_report" = "Rapport de carte-cadeau";
+"usable" = "Utilisable";
+"activated" = "Activé";
+"posted" = "Publié";
+"activate_or_send_as_message" = "Activer ou envoyer comme message";
+"gift_sticker_send_to_other" = "Envoyer à un autre";
+"activation" = "Activation";
+"active_gift_card_note" = "Êtes-vous sûr de vouloir activer votre carte-cadeau?! Notez qu\'une fois activé, il ne sera pas possible de l\'envoyer à un autre et les informations de la carte cadeau ne seront visibles que sur votre compte.";
+"activatation_successful" = "L'activation s'est terminée avec succès.\nVous pouvez voir votre carte-cadeau dans la section des cartes activées.";
+"card_list_is_empty" = "Votre liste de cartes est vide";
+"gift_sticker_card_info_title" = "Informations sur la carte-cadeau numérique";
+"expire_date" = "Date d\'expiration";
+"cvv2" = "CVV2";
+"internet_pin_2" = "Épingle";
+"click_for_copy_title" = "Cliquez pour copier";

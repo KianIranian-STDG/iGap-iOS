@@ -49,6 +49,7 @@ enum IGStringsManager : String {
     case ContactDelete = "to_delete_contact"
     case Edit = "edit"
     case UnknownMessage = "unknown_message"
+    case TextCopied = "text_copied"
     
     //MARK: -NEWS
     case NewsDetail =  "news_details"
@@ -288,6 +289,23 @@ enum IGStringsManager : String {
     case AmountOut = "amount_out"
     case Wage = "wage"
     case AccountOwnerName = "crad_to_card_dest_name"
+    case WalletRrnNumber = "WalletRrnNumber"
+    case GiftCardReport = "gift_card_report"
+    case GiftCardsUsable = "usable"
+    case GiftCardsActivated = "activated"
+    case GiftCardsPosted = "posted"
+    case ActivateOrSendAsMessage = "activate_or_send_as_message"
+    case GiftStickerSendToOther = "gift_sticker_send_to_other"
+    case Activation = "activation"
+    case GiftCardActivationNote = "active_gift_card_note"
+    case ActivationSuccessful = "activatation_successful"
+    case CardListIsEmpty = "card_list_is_empty"
+    case GiftStickerCardInfoTitle = "gift_sticker_card_info_title"
+    case ExpireDate = "expire_date"
+    case CVV2 = "cvv2"
+    case InternetPin2 = "internet_pin_2"
+    case ClickForCopy = "click_for_copy_title"
+    
     //Elec Bill
     case ElecBillID = "elecBill_pay_billID"
     case ElecCustomerAdd = "elecBill_searchCell_CustomerAddress"
@@ -466,6 +484,7 @@ enum IGStringsManager : String {
     case WalletMessage = "wallet_message"
     case CardToCardMessage = "card_to_card_message"
     case PaymentMessage = "payment_message"
+    case Payment = "payment"
     case TopupMessage = "topup_message"
     case TopupRequesterMobileNumber = "requester_mobile_number"
     case TopupReceiverMobileNumber = "receivers_mobile_number"
@@ -638,6 +657,13 @@ enum IGStringsManager : String {
     //cardToCard
     case CardToCardRequest = "cardToCardRequest"
     case CardToCard = "cardToCardBtnText"
+    case GiftCard = "gift_card"
+    case GiftCardSelected = "gift_card_selected"
+    case GiftStickerBuy = "gift_sticker_title"
+    case PaymentErrorMessage = "payment_error_message"
+    case InquiryAndShopping = "inquiry_and_shopping"
+    case NationalCode = "national_code"
+    case MyReceivedGiftSticker = "my_recived_gift_sticker"
     case Buy = "buy"
     case Price = "price"
     //MARK: -Other

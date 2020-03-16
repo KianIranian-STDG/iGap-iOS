@@ -10,6 +10,7 @@
 
 import Foundation
 import IGProtoBuff
+import SwiftEventBus
 
 class DeeplinkNavigator {
     
@@ -49,6 +50,11 @@ class DeeplinkNavigator {
             break
             
         case .payment(message: let message, status: let st, orderId: let id):
+            
+            if IGStickerViewController.waitingGiftCardInfo.orderId == id {
+                SwiftEventBus.post(EventBusManager.giftCardPayment, sender: st)
+            }
+            
             self.showPaymentView(message: message, status: st, orderId: id)
             break
             

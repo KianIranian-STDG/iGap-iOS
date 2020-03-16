@@ -50,6 +50,7 @@ class IGPaymentView: UIView {
     var payToken: String!
     private var title: String!
     private var paymentData: IGStructPayment!
+    private var giftCardPaymentData: IGStructGiftCardPayment!
     
     // MARK: - Init functions
     override init(frame: CGRect) {
@@ -80,7 +81,44 @@ class IGPaymentView: UIView {
         self.contentView.roundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 12)
     }
     
+    
+    
     // MARK: - User functions
+    func showGiftCardPayment(on parentView: UIView, title: String, payment: IGStructGiftCardPayment) {
+        parentView.endEditing(true)
+        self.parentView = parentView
+        self.title = title
+        self.giftCardPaymentData = payment
+        parentView.addSubview(self)
+        parentView.addMaskView() {
+            self.hideView()
+        }
+        self.frame.size = CGSize(width: parentView.frame.width, height: contentView.bounds.height)
+        self.frame = CGRect(x: parentView.frame.minX, y: parentView.frame.height , width: parentView.frame.width, height: self.frame.height)
+        UIView.animate(withDuration: 0.3) {
+            self.frame = CGRect(x: parentView.frame.minX, y: parentView.frame.height - self.contentView.bounds.height, width: parentView.frame.width, height: self.contentView.bounds.height)
+        }
+        parentView.bringSubviewToFront(self)
+        
+        self.topIconLbl.text = ""
+        self.topIconLbl.textColor = ThemeManager.currentTheme.LabelColor
+        
+        self.titleLbl.text = title
+        self.subTitleLbl.text = payment.info.product.title
+        self.descriptionLbl.text = payment.info.product.productDescription
+        self.amountDescriptionLbl.text = IGStringsManager.AmountPlaceHolder.rawValue.localized
+        self.amountLbl.text = "\(payment.info.price)".onlyDigitChars().inRialFormat()
+        
+        self.mainSV.isHidden = false
+        self.statusSV.isHidden = true
+        self.acceptBtn.isHidden = false
+        self.cancelBtn.setTitle(IGStringsManager.GlobalCancel.rawValue.localized, for: .normal)
+        self.acceptBtn.setTitle(IGStringsManager.Pay.rawValue.localized, for: .normal)
+        self.cancelBtn.backgroundColor = UIColor.iGapRed()
+        
+        self.errorMessageLbl.isHidden = true
+    }
+    
     /// show payment view modal
     func show(on parentView: UIView, title: String, payToken: String, payment: IGStructPayment) {
         parentView.endEditing(true)
@@ -207,7 +245,7 @@ class IGPaymentView: UIView {
     }
     
     /// show payment view modal with error
-    func showOnErrorMessage(on parentView: UIView, title: String, message: String, payToken: String) {
+    func showOnErrorMessage(on parentView: UIView, title: String, message: String, payToken: String? = nil) {
         parentView.endEditing(true)
         self.parentView = parentView
         self.title = title
@@ -298,8 +336,16 @@ class IGPaymentView: UIView {
     }
     
     @IBAction func payTapped(_ sender: UIButton) {
-        guard let urlStr = paymentData.redirectUrl, let url = URL(string: urlStr) else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        var url = paymentData?.redirectUrl
+        if url == nil {
+            url = giftCardPaymentData?.redirectURL
+        }
+        
+        if url != nil {
+            if let url = URL(string: url!) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
     }
 }
 

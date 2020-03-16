@@ -946,7 +946,18 @@ class AbstractDashboardCell: UICollectionViewCell {
                     UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated: true)
                 }
             }
-            return
+            break
+            
+        case .virtualGiftCard:
+            
+            IGGlobal.prgShow()
+            IGApiSticker.shared.giftStickerFirstPageInfo { giftStickerFirstPageInfo in
+                IGGlobal.prgHide()
+                let giftStickerInfo = IGGiftStickerFirstPageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                giftStickerInfo.pageInfo = giftStickerFirstPageInfo
+                UIApplication.topViewController()!.navigationController!.pushViewController(giftStickerInfo, animated: true)
+            }
+            break
 
         default:
             IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.InstallLatestVersion.rawValue.localized, cancelText: IGStringsManager.GlobalOK.rawValue.localized)

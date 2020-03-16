@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -42,16 +42,23 @@
                                     <rect key="frame" x="0.0" y="0.0" width="305" height="40"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kG2-cT-pUx">
-                                            <rect key="frame" x="0.0" y="0.0" width="152.5" height="40"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="101.5" height="40"/>
                                             <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="28"/>
-                                            <state key="normal" title="">
+                                            <state key="normal" title="">
                                                 <color key="titleColor" name="IGTransactionLabelColor"/>
                                             </state>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Asi-CF-PwV">
-                                            <rect key="frame" x="152.5" y="0.0" width="152.5" height="40"/>
+                                            <rect key="frame" x="101.5" y="0.0" width="102" height="40"/>
                                             <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="26"/>
-                                            <state key="normal">
+                                            <state key="normal" title="">
+                                                <color key="titleColor" name="IGTransactionLabelColor"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVc-8i-OWL">
+                                            <rect key="frame" x="203.5" y="0.0" width="101.5" height="40"/>
+                                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="26"/>
+                                            <state key="normal" title="">
                                                 <color key="titleColor" name="IGTransactionLabelColor"/>
                                             </state>
                                         </button>
@@ -61,16 +68,23 @@
                                     <rect key="frame" x="0.0" y="40" width="305" height="40"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QVL-EL-FbZ">
-                                            <rect key="frame" x="0.0" y="5.5" width="152.5" height="29"/>
+                                            <rect key="frame" x="0.0" y="5.5" width="101.5" height="29"/>
                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                             <state key="normal" title="wallet">
                                                 <color key="titleColor" name="IGTransactionLabelColor"/>
                                             </state>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHS-zp-Ctu">
-                                            <rect key="frame" x="152.5" y="5.5" width="152.5" height="29"/>
+                                            <rect key="frame" x="101.5" y="5.5" width="102" height="29"/>
                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                             <state key="normal" title="Card To Card">
+                                                <color key="titleColor" name="IGTransactionLabelColor"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qQN-r2-6aN">
+                                            <rect key="frame" x="203.5" y="5.5" width="101.5" height="29"/>
+                                            <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
+                                            <state key="normal" title="Gift Sticker">
                                                 <color key="titleColor" name="IGTransactionLabelColor"/>
                                             </state>
                                         </button>
@@ -127,6 +141,8 @@
             <connections>
                 <outlet property="btnCard" destination="Asi-CF-PwV" id="wM9-T7-VBp"/>
                 <outlet property="btnCardToCardTransfer" destination="SHS-zp-Ctu" id="cM2-tD-GAF"/>
+                <outlet property="btnGiftStickerIcon" destination="nVc-8i-OWL" id="7Xc-Vb-KWZ"/>
+                <outlet property="btnGiftStickerTitle" destination="qQN-r2-6aN" id="kaZ-Pt-THJ"/>
                 <outlet property="btnWallet" destination="kG2-cT-pUx" id="pa7-l2-2mR"/>
                 <outlet property="btnWalletTransfer" destination="QVL-EL-FbZ" id="fKW-3k-ebT"/>
                 <outlet property="lblTop" destination="2J2-b1-l5v" id="BfO-Of-c7V"/>

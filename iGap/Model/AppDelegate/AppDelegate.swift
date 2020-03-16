@@ -90,7 +90,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     
     func realmConfig() {
         let config = Realm.Configuration (
-            schemaVersion: 46//HINT: change schemaVersion in 'ShareConfig'
+            schemaVersion: 48//HINT: change schemaVersion in 'ShareConfig'
         )
         Realm.Configuration.defaultConfiguration = config
         compactRealm()
@@ -424,7 +424,6 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     /***************************************** Deep Link Handler *****************************************/
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        print(url)
         return DeepLinkManager.shared.handleDeeplink(url: url)
     }
     

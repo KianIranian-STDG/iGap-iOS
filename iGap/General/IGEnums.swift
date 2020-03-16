@@ -646,3 +646,9 @@ enum FileTypeBasedOnNameExtension {
     case pdf
     case txt
 }
+
+enum GiftStickerListType: String {
+    case new = "new"
+    case active = "active"
+    case forwarded = "forwarded"
+}

@@ -28,6 +28,7 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
     var isInsearchMode : Bool! = false
     var selectedMessages : [IGRoomMessage] = []
     var isFromCloud : Bool = false
+    var isFromGiftSticker: Bool = false
     @IBOutlet weak var lblInfo : UILabel!
     @IBOutlet weak var lblCount : UILabel!
     @IBOutlet weak var stackHeightConstraint: NSLayoutConstraint!
