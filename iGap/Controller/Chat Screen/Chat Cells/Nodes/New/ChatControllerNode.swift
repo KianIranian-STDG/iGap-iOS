@@ -1144,7 +1144,24 @@ class ChatControllerNode: ASCellNode {
     private func makeBottomBubbleItems(contentStack: ASLayoutSpec) {
         
         setTime()
-        makeVoteItems(contentStack: contentStack)
+//        makeVoteItems(contentStack: contentStack)
+        if finalRoomType! == .channel {
+                   
+                   var likeDislikeStack = ASStackLayoutSpec()
+                   if hasReAction {
+                       likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon!,lblEyeText!,lblLikeIcon!,lblLikeText!,lblDisLikeIcon!,lblDisLikeText!])
+                       likeDislikeStack.verticalAlignment = .center
+                   } else {
+                       likeDislikeStack = ASStackLayoutSpec(direction: .horizontal, spacing: 5, justifyContent: .start, alignItems: .start, children: [lblEyeIcon!,lblEyeText!])
+                       likeDislikeStack.verticalAlignment = .center
+                       
+                   }
+                   
+                   let holderStack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .start, children: [likeDislikeStack,txtTimeNode!])
+                   contentStack.children?.append(holderStack)
+                   return
+                   
+               }
         
         if isIncomming  {} else {
             setMessageStatus()
