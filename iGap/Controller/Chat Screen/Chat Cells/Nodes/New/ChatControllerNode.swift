@@ -169,6 +169,8 @@ class ChatControllerNode: ASCellNode {
     private var nodeText : ASTextNode?
     private var nodeOnlyText : OnlyTextNode?
     
+    private var imgPinMarker: ASImageNode?
+    
     var pan: UIPanGestureRecognizer!
     var tapMulti: UITapGestureRecognizer!
     
@@ -553,7 +555,7 @@ class ChatControllerNode: ASCellNode {
         
         if finalRoom.type == .channel {
             
-            if msg.type == .text ||  msg.type == .image ||  msg.type == .imageAndText || msg.type == .gif ||  msg.type == .gifAndText ||  msg.type == .file ||  msg.type == .fileAndText || msg.type == .voice  || msg.type == .video || msg.type == .videoAndText || msg.type == .audio ||  msg.type == .audioAndText   {
+            if msg.type == .text ||  msg.type == .image ||  msg.type == .imageAndText || msg.type == .gif ||  msg.type == .gifAndText ||  msg.type == .file ||  msg.type == .fileAndText || msg.type == .voice  || msg.type == .video || msg.type == .videoAndText || msg.type == .audio ||  msg.type == .audioAndText || msg.type == .location {
                 
                 makeLikeDislikeIcons()
                 
@@ -567,7 +569,7 @@ class ChatControllerNode: ASCellNode {
             checkNode!.style.height = ASDimensionMake(.points, 0)
         }
         
-        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText || msg.type == .contact || msg.type == .audio || msg.type == .audioAndText || msg.type == .voice  || msg.type == .wallet  {
+        if msg.type == .text || msg.type == .imageAndText || msg.type == .image || msg.type == .gif || msg.type == .gifAndText || msg.type == .video || msg.type == .videoAndText || msg.type == .file || msg.type == .fileAndText || msg.type == .contact || msg.type == .audio || msg.type == .audioAndText || msg.type == .voice  || msg.type == .wallet || msg.type == .location {
             let baseBubbleBox = makeBubble(bubbleImage: bubbleImage) // make bubble
             let contentItemsBox : ASLayoutSpec
             if message.forwardedFrom != nil {
@@ -1054,6 +1056,9 @@ class ChatControllerNode: ASCellNode {
             return finalBox
         case .sticker :
             let finalBox = setStickerNodeContent(contentSpec: contentSpec, msg: tmpmsg)
+            return finalBox
+        case .location:
+            let finalBox = setLocationNodeContent(contentSpec: contentSpec, msg: tmpmsg)
             return finalBox
         case .wallet :
             if tmpmsg.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue { //mode: CardToCard
@@ -3813,6 +3818,93 @@ class ChatControllerNode: ASCellNode {
             
             
         }
+        
+    }
+    //******************************************************//
+    //***********LOCATION NODE*************//
+    //******************************************************//
+    
+    private func setLocationNodeContent(contentSpec: ASLayoutSpec, msg: IGRoomMessage) -> ASLayoutSpec {
+        makeTopBubbleItems(stack: contentSpec)
+        if imgNode == nil {
+            imgNode = ASImageNode()
+            imgNode!.contentMode = .scaleAspectFill
+        }
+        
+        if imgPinMarker == nil {
+            imgPinMarker = ASImageNode()
+            imgPinMarker!.contentMode = .scaleAspectFit
+        }
+        
+        
+        imgNode!.image = UIImage(named: "map_screenShot")
+        imgPinMarker!.image = UIImage(named: "Location_Marker")
+        imgPinMarker!.style.preferredSize = CGSize(width: 30, height: 30)
+        imgNode!.style.width = ASDimension(unit: .points, value: 200)
+        imgNode!.style.height = ASDimension(unit: .points, value: 160)
+        
+//        imgNode!.style.width = ASDimension(unit: .points, value: prefferedSize.width)
+//        imgNode!.style.height = ASDimension(unit: .points, value: prefferedSize.height)
+        imgNode!.clipsToBounds = true
+        
+        imgNode!.layer.cornerRadius = 15
+        
+        let pinCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: imgPinMarker!)
+        let imgPinOverlaySpec = ASOverlayLayoutSpec(child: imgNode!, overlay: pinCenterSpec)
+        
+        let verticalSpec = ASStackLayoutSpec()
+        verticalSpec.direction = .vertical
+        verticalSpec.spacing = 0
+        verticalSpec.justifyContent = .start
+        verticalSpec.alignItems = isIncomming == true ? .end : .start
+        let insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) : UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
+        let insetSpecImage = ASInsetLayoutSpec(insets: insetsImage, child: imgPinOverlaySpec)
+        
+        verticalSpec.children?.append(insetSpecImage)
+        
+        if indicatorViewAbs == nil {
+            contentSpec.children?.append(verticalSpec)
+            
+        } else {
+            let overlay = ASOverlayLayoutSpec(child: verticalSpec, overlay: indicatorViewAbs!)
+            contentSpec.children?.append(overlay)
+            
+        }
+        
+        makeBottomBubbleItems(contentStack: contentSpec)
+        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
+        
+        return finalInsetSpec
+        
+        
+//        let pinCenterSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: imgPinMarker!)
+//
+//        let imgPinOverlaySpec = ASOverlayLayoutSpec(child: imgNode!, overlay: pinCenterSpec)
+//
+//        let verticalSpec = ASStackLayoutSpec()
+//        verticalSpec.direction = .vertical
+//        verticalSpec.spacing = 0
+//        verticalSpec.justifyContent = .start
+//        verticalSpec.alignItems = isIncomming == true ? .end : .start
+//        let insetsImage = isIncomming ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) : UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
+//        let insetSpecImage = ASInsetLayoutSpec(insets: insetsImage, child: imgPinOverlaySpec)
+//
+//        verticalSpec.children?.append(insetSpecImage)
+//
+////        if indicatorViewAbs == nil {
+////            contentSpec.children?.append(verticalSpec)
+////
+////        } else {
+//          //(child: verticalSpec, overlay: indicatorViewAbs!)
+////        contentSpec.children?.append(pinCenterSpec)
+//
+////        }
+//
+//        makeBottomBubbleItems(contentStack: contentSpec)
+//        let finalInsetSpec = ASInsetLayoutSpec(insets: isIncomming ? UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10) : UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15), child: contentSpec)
+//
+//        return finalInsetSpec
+            
         
     }
     
