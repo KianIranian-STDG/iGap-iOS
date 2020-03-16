@@ -123,4 +123,87 @@ class IGHelperShowToastAlertView {
             }
         }
     }
+    
+    
+    func showPopAlert(view: UIView? = nil,innerView: UIView? = nil,  message: String? = nil, time: CGFloat! = 2.0 , type: helperToastType! = helperToastType.alert ) {
+        DispatchQueue.main.async {
+            var alertView = view
+            if alertView == nil {
+                alertView = UIApplication.topViewController()?.view
+            }
+            self.popView = UIView()
+            self.popView.tag = 202
+            self.popView.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+            self.popView.layer.cornerRadius = 10
+            
+            switch type {
+            case .alert :
+                self.popView.layer.borderColor = (ThemeManager.currentTheme.LabelColor.cgColor)
+            case .success :
+                self.popView.layer.borderColor = (UIColor.iGapGreen().cgColor)
+            default :
+                break
+            }
+            self.popView.layer.borderWidth = 1.0
+            self.popView.alpha = 0.0
+            alertView?.addSubview(self.popView)
+            self.popView.translatesAutoresizingMaskIntoConstraints = false
+            self.popView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+            self.popView.rightAnchor.constraint(equalTo: alertView!.rightAnchor, constant: -10).isActive = true
+            self.popView.leftAnchor.constraint(equalTo: alertView!.leftAnchor, constant: 20).isActive = true
+            self.popView.bottomAnchor.constraint(equalTo: innerView!.topAnchor, constant: -5).isActive = true
+            self.popView.fadeIn(0.2)
+            
+            let lblMessage = UILabel()
+            let lblIcon = UILabel()
+            lblMessage.textColor = ThemeManager.currentTheme.LabelColor
+            lblIcon.font = UIFont.iGapFonticon(ofSize: 20)
+            lblIcon.textAlignment = .center
+            lblMessage.textAlignment = lblMessage.localizedDirection
+            lblMessage.font = UIFont.igFont(ofSize: 15,weight : .light)
+            lblMessage.text = message
+            switch type {
+            case .alert :
+                lblIcon.textColor = ThemeManager.currentTheme.LabelColor
+                lblIcon.text = ""
+            case .success :
+                lblIcon.textColor = UIColor.iGapGreen()
+                lblIcon.text = "🌫"
+            default :
+                break
+            }
+            
+            self.popView.addSubview(lblIcon)
+            self.popView.addSubview(lblMessage)
+            
+            //creat icon label
+            lblIcon.translatesAutoresizingMaskIntoConstraints = false
+            lblIcon.widthAnchor.constraint(equalToConstant: 25).isActive = true
+            lblIcon.heightAnchor.constraint(equalToConstant: 25).isActive = true
+            lblIcon.rightAnchor.constraint(equalTo: self.popView.rightAnchor, constant: -10).isActive = true
+            lblIcon.centerYAnchor.constraint(equalTo: self.popView.centerYAnchor, constant: 0).isActive = true
+            
+            //creat message label
+            lblMessage.translatesAutoresizingMaskIntoConstraints = false
+            lblMessage.centerYAnchor.constraint(equalTo: self.popView.centerYAnchor, constant: 0).isActive = true
+            lblMessage.centerXAnchor.constraint(equalTo: self.popView.centerXAnchor, constant: 0).isActive = true
+            lblMessage.heightAnchor.constraint(equalToConstant: 40).isActive = true
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // Change `time` to the desired number of seconds.
+                self.removeAutomatically(view: alertView)
+            }
+            
+            alertView!.bringSubviewToFront(self.popView)
+        }
+        
+    }
+    private func removeAutomatically(view: UIView? = nil) {
+        for view in view!.subviews {
+            if view.tag == 202 {
+                UIView.animate(withDuration: 0.2, animations: {view.alpha = 0.0}, completion: {(value: Bool) in
+                    view.removeFromSuperview()
+                })
+            }
+        }
+    }
 }

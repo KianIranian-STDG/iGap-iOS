@@ -49,6 +49,7 @@ enum IGStringsManager : String {
     case ContactDelete = "to_delete_contact"
     case Edit = "edit"
     case UnknownMessage = "unknown_message"
+    case TextCopied = "text_copied"
     
     //MARK: -NEWS
     case NewsDetail =  "news_details"

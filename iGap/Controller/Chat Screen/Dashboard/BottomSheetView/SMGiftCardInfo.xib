@@ -54,24 +54,24 @@
                     <color key="textColor" name="IGLabelColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6221-0612-1530-0478" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hle-7G-JyY">
-                    <rect key="frame" x="0.0" y="111" width="375" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6221-0612-1530-0478" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GeX-te-e2B">
+                    <rect key="frame" x="0.0" y="106" width="375" height="21"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="21" id="4Rh-To-RC9"/>
+                        <constraint firstAttribute="height" constant="21" id="sIs-M1-JZC"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
                     <color key="textColor" name="IGLabelColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kwg-11-0F6">
-                    <rect key="frame" x="5" y="147" width="365" height="0.5"/>
+                    <rect key="frame" x="5" y="142" width="365" height="0.5"/>
                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="0.5" id="8g4-fS-Dfe"/>
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="sz6-ly-rgf">
-                    <rect key="frame" x="5" y="155.5" width="365" height="80"/>
+                    <rect key="frame" x="5" y="150.5" width="365" height="80"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="JAc-PI-RDd">
                             <rect key="frame" x="0.0" y="0.0" width="365" height="40"/>
@@ -125,7 +125,7 @@
                     </constraints>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Cu-fg-YL7">
-                    <rect key="frame" x="5" y="240.5" width="365" height="0.5"/>
+                    <rect key="frame" x="5" y="235.5" width="365" height="0.5"/>
                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="0.5" id="Bib-ny-qGS"/>
@@ -133,7 +133,7 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="copy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VPf-hp-AdD">
-                    <rect key="frame" x="0.0" y="256" width="375" height="21"/>
+                    <rect key="frame" x="0.0" y="251" width="375" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="Dpg-kg-zR1"/>
                     </constraints>
@@ -145,11 +145,12 @@
             <color key="backgroundColor" name="IGModalViewBackgroundColor"/>
             <constraints>
                 <constraint firstItem="sz6-ly-rgf" firstAttribute="leading" secondItem="U86-iS-N4e" secondAttribute="leading" constant="5" id="2eA-Cz-QSg"/>
-                <constraint firstItem="Hle-7G-JyY" firstAttribute="leading" secondItem="U86-iS-N4e" secondAttribute="leading" id="6QK-jn-Dd4"/>
-                <constraint firstItem="kwg-11-0F6" firstAttribute="top" secondItem="Hle-7G-JyY" secondAttribute="bottom" constant="15" id="6ha-Z7-3th"/>
                 <constraint firstItem="kwg-11-0F6" firstAttribute="leading" secondItem="U86-iS-N4e" secondAttribute="leading" constant="5" id="CVW-Bd-atz"/>
+                <constraint firstItem="GeX-te-e2B" firstAttribute="leading" secondItem="U86-iS-N4e" secondAttribute="leading" id="Czs-hb-smn"/>
+                <constraint firstItem="kwg-11-0F6" firstAttribute="top" secondItem="GeX-te-e2B" secondAttribute="bottom" constant="15" id="DhL-T6-ml0"/>
                 <constraint firstItem="U86-iS-N4e" firstAttribute="trailing" secondItem="rkv-Xr-cje" secondAttribute="trailing" constant="9" id="Gqd-uy-me0"/>
                 <constraint firstItem="U86-iS-N4e" firstAttribute="trailing" secondItem="VPf-hp-AdD" secondAttribute="trailing" id="IIW-QO-I2r"/>
+                <constraint firstItem="GeX-te-e2B" firstAttribute="top" secondItem="Tct-dZ-w1x" secondAttribute="bottom" constant="15" id="J5o-Be-ANy"/>
                 <constraint firstItem="3Cu-fg-YL7" firstAttribute="top" secondItem="sz6-ly-rgf" secondAttribute="bottom" constant="5" id="Jj6-pd-WdE"/>
                 <constraint firstItem="sz6-ly-rgf" firstAttribute="top" secondItem="kwg-11-0F6" secondAttribute="bottom" constant="8" symbolic="YES" id="OGl-U9-2oh"/>
                 <constraint firstItem="VPf-hp-AdD" firstAttribute="leading" secondItem="U86-iS-N4e" secondAttribute="leading" id="Q7g-GN-emV"/>
@@ -158,10 +159,9 @@
                 <constraint firstItem="Tct-dZ-w1x" firstAttribute="top" secondItem="rkv-Xr-cje" secondAttribute="bottom" constant="20" id="S7K-36-Jyz"/>
                 <constraint firstItem="VPf-hp-AdD" firstAttribute="top" secondItem="3Cu-fg-YL7" secondAttribute="bottom" constant="15" id="Us0-O4-d8H"/>
                 <constraint firstItem="Tct-dZ-w1x" firstAttribute="leading" secondItem="U86-iS-N4e" secondAttribute="leading" id="YSu-WU-yfU"/>
-                <constraint firstItem="U86-iS-N4e" firstAttribute="trailing" secondItem="Hle-7G-JyY" secondAttribute="trailing" id="bgv-iG-OWz"/>
                 <constraint firstItem="PZU-1y-XjY" firstAttribute="centerX" secondItem="5Ie-CM-77c" secondAttribute="centerX" id="cRn-IW-3sI"/>
                 <constraint firstItem="rkv-Xr-cje" firstAttribute="top" secondItem="PZU-1y-XjY" secondAttribute="bottom" constant="16" id="gtL-1i-P2T"/>
-                <constraint firstItem="Hle-7G-JyY" firstAttribute="top" secondItem="Tct-dZ-w1x" secondAttribute="bottom" constant="20" id="hLg-h0-7Vj"/>
+                <constraint firstItem="U86-iS-N4e" firstAttribute="trailing" secondItem="GeX-te-e2B" secondAttribute="trailing" id="hq7-2p-nni"/>
                 <constraint firstItem="U86-iS-N4e" firstAttribute="trailing" secondItem="Tct-dZ-w1x" secondAttribute="trailing" id="jNh-kK-4af"/>
                 <constraint firstItem="U86-iS-N4e" firstAttribute="trailing" secondItem="kwg-11-0F6" secondAttribute="trailing" constant="5" id="k6u-E2-PcI"/>
                 <constraint firstItem="PZU-1y-XjY" firstAttribute="top" secondItem="5Ie-CM-77c" secondAttribute="top" constant="6" id="q29-ap-aaj"/>
@@ -175,7 +175,7 @@
                 <outlet property="txtCVV2" destination="ek9-NS-dwC" id="RAB-Ph-l8S"/>
                 <outlet property="txtCVV2Value" destination="J7p-v0-kQh" id="7MB-di-XIt"/>
                 <outlet property="txtCardNumber" destination="Tct-dZ-w1x" id="VJG-Wv-vDG"/>
-                <outlet property="txtCardNumberValue" destination="Hle-7G-JyY" id="I5x-v5-6xn"/>
+                <outlet property="txtCardNumberValue" destination="GeX-te-e2B" id="Euk-bg-3RD"/>
                 <outlet property="txtCopy" destination="VPf-hp-AdD" id="BQT-1n-Fvq"/>
                 <outlet property="txtExpirationDate" destination="fbJ-MA-8QR" id="Zyu-Zi-f5c"/>
                 <outlet property="txtExpirationDateValue" destination="pVa-F8-8Py" id="6JJ-4e-WSG"/>
