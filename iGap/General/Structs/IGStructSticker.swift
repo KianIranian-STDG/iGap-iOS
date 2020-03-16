@@ -88,6 +88,10 @@ class IGStructStickerMessage {
     var token : String!
     var filename : String!
     var filesize : Int!
+    var type : Int!
+    var giftId : String!
+    var giftAmount : Int!
+    var isFavorite : Bool!
     
     init(_ json: JSON) {
         self.id = json["id"].int64Value
@@ -96,6 +100,19 @@ class IGStructStickerMessage {
         self.token = json["token"].stringValue
         self.filename = json["filename"].stringValue
         self.filesize = json["filesize"].intValue
+        
+        if json["giftId"].exists() {
+            self.giftId = json["giftId"].stringValue
+        }
+        if json["type"].exists() {
+            self.type = json["type"].intValue
+        }
+        if json["giftAmount"].exists() {
+            self.giftAmount = json["giftAmount"].intValue
+        }
+        if json["isFavorite"].exists() {
+            self.isFavorite = json["isFavorite"].boolValue
+        }
     }
 }
 
@@ -189,6 +206,17 @@ struct IGStructGiftCardStatus: Codable {
 
 struct GiftStickerActivationStatus: Codable {
     let status: String
+    
+    static func convertStatus(_ status: String) -> GiftStickerListType {
+        if status == "NEW" {
+            return .new
+        } else if status == "ACTIVE" {
+            return .active
+        } else if status == "FORWARDED" {
+            return .forwarded
+        }
+        return .new
+    }
 }
 
 struct IGStructStickerEncryptData: Codable {

@@ -220,7 +220,6 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
         
         /***** Sticker Add *****/
         SwiftEventBus.onMainThread(self, name: EventBusManager.stickerAdd) { [weak self] (result) in
-            print("CCC || self?.collectionView?.numberOfSections: \(self?.collectionView?.numberOfSections)   ***   index: \(result?.object)")
             if let index = result?.object as? Int, self?.collectionView?.numberOfSections ?? 0 >= index + 1 {
                 self?.collectionView?.reloadSections(IndexSet([index]))
             }

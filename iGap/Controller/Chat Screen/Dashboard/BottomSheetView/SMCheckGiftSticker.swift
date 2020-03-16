@@ -65,7 +65,7 @@ class SMCheckGiftSticker: UIView {
         txtBuyDetail.text = IGStringsManager.GiftCardSelected.rawValue.localized + "\n" + amount.inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
     }
     
-    func setInfo(giftSticker: IGStructGiftCardStatus, date: String){
+    func setInfo(giftSticker: IGStructGiftCardStatus, date: String? = nil){
         confirmBtn.setTitle(IGStringsManager.ActivateOrSendAsMessage.rawValue.localized, for: .normal)
         
         IGAttachmentManager.sharedManager.getStickerFileInfo(token: giftSticker.sticker.token, completion: { (file) -> Void in
@@ -73,8 +73,12 @@ class SMCheckGiftSticker: UIView {
                 self.imgGiftCard.setSticker(for: file)
             }
         })
-        
-        let finalDate = date.dateFromStringFormat(format: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", showHour: true) ?? ""
-        txtBuyDetail.text = String(describing: giftSticker.sticker.giftAmount).inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized + "\n" + finalDate
+ 
+        if date != nil {
+            let finalDate = date?.dateFromStringFormat(format: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", showHour: true) ?? ""
+            txtBuyDetail.text = String(describing: giftSticker.sticker.giftAmount).inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized + "\n" + finalDate
+        } else {
+            txtBuyDetail.text = IGStringsManager.GiftCardSelected.rawValue.localized + "\n" + String(describing: giftSticker.sticker.giftAmount).inLocalizedLanguage() + " " + IGStringsManager.Currency.rawValue.localized
+        }
     }
 }
