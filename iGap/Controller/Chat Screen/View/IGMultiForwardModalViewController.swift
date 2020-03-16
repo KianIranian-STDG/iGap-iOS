@@ -28,6 +28,7 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
     var isInsearchMode : Bool! = false
     var selectedMessages : [IGRoomMessage] = []
     var isFromCloud : Bool = false
+    var isFromGiftSticker: Bool = false
     @IBOutlet weak var lblInfo : UILabel!
     @IBOutlet weak var lblCount : UILabel!
     @IBOutlet weak var stackHeightConstraint: NSLayoutConstraint!
@@ -157,7 +158,6 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
             }
         }
         let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
         let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
 
         if currentTheme == "IGAPDay" {

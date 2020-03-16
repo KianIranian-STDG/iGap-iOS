@@ -964,7 +964,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     message.type = .sticker
                     message.roomId = self?.room?.id ?? 0
                     message.attachment = attachment
-                    message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.STICKER.rawValue)
+                    
+                    var type = AdditionalType.STICKER.rawValue
+                    if stickerItem.giftAmount != 0 {
+                        type = AdditionalType.GIFT_STICKER.rawValue
+                    }
+                    message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: type)
                     IGAttachmentManager.sharedManager.add(attachment: attachment)
                     
                     self?.manageSendMessage(message: message, addForwardOrReply: true, isSticker: true)

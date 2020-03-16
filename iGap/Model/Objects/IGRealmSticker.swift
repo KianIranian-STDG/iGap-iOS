@@ -68,6 +68,7 @@ class IGRealmStickerItem: Object {
     @objc dynamic var fileSize: Int = 0
     @objc dynamic var sort: Int = 0
     @objc dynamic var groupID: String?
+    @objc dynamic var giftAmount: Int = 0
     
     override static func primaryKey() -> String {
         return "id"
@@ -84,5 +85,19 @@ class IGRealmStickerItem: Object {
         self.fileSize = sticker.fileSize
         self.sort = sticker.sort
         self.groupID = sticker.groupID
+        self.giftAmount = sticker.giftAmount ?? 0
+    }
+    
+    convenience init(sticker: IGStructGiftCardSticker) {
+        self.init()
+        
+        self.id = sticker.id
+        self.name = sticker.name
+        self.token = sticker.token
+        self.fileName = sticker.fileName
+        self.fileSize = sticker.fileSize
+        self.sort = sticker.sort
+        self.groupID = sticker.groupId
+        self.giftAmount = sticker.giftAmount
     }
 }

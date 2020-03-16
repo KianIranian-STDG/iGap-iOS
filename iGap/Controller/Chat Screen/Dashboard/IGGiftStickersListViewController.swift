@@ -19,6 +19,7 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
     var giftStickerInfo: SMCheckGiftSticker!
     var giftStickerAlertView: SMGiftStickerAlertView!
     var giftStickerPaymentInfo: SMGiftCardInfo!
+    var giftCardInfo: IGStructGiftCardStatus!
     var dismissBtn: UIButton!
     let bottomPadding = UIApplication.shared.keyWindow?.safeAreaInsets.bottom
     private var activationGiftStickerId: String?
@@ -102,6 +103,7 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
             make.left.equalTo(self.view.snp.left)
         }
         
+        self.giftCardInfo = stickerInfo
         self.giftStickerInfo = SMCheckGiftSticker.loadFromNib()
         self.giftStickerInfo.confirmBtn.addTarget(self, action: #selector(self.confirmTapped), for: .touchUpInside)
         self.giftStickerInfo.setInfo(giftSticker: stickerInfo, date: date)
@@ -254,7 +256,20 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
     }
     
     @objc func sendToAnother(_ gestureRecognizer: UITapGestureRecognizer) {
-        print("SSS || sendToAnother")
+        if let attachment = IGAttachmentManager.sharedManager.getFileInfo(token: giftCardInfo.sticker.token) {
+            let message = IGRoomMessage(body: giftCardInfo.sticker.name)
+            message.type = .sticker
+            message.attachment = attachment
+            let stickerItem = IGRealmStickerItem(sticker: giftCardInfo.sticker)
+            message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.GIFT_STICKER.rawValue)
+            IGAttachmentManager.sharedManager.add(attachment: attachment)
+
+            IGRoomMessage.saveFakeGiftStickerMessage(message: message.detach()) {
+                DispatchQueue.main.async {
+                    IGHelperBottomModals.shared.showMultiForwardModal(view: self, messages: [message], isFromCloud: true)
+                }
+            }
+        }
     }
     
     // MARK:- TableView
