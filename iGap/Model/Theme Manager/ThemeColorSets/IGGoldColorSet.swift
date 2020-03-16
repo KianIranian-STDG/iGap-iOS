@@ -84,7 +84,7 @@ class GoldColorSet: DayNightColorSetProtocol {
     //change by Color Set
     
     var SettingDayReceiveBubble: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
-    var SliderTintColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
+    var SliderTintColor: UIColor = UIColor(named: "SliderTintColorGreen")!
         
     var CheckStatusColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
     
@@ -255,7 +255,7 @@ class GoldColorSetNight: NightColorSetProtocol {
     //change by Color Set
     
     var SettingDayReceiveBubble: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
-    var SliderTintColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
+    var SliderTintColor: UIColor = UIColor(named: "SliderTintColorGold")!
         
     var CheckStatusColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
     

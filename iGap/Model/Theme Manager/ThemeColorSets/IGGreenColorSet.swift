@@ -84,7 +84,7 @@ class GreenColorSet: DayNightColorSetProtocol {
     //change by Color Set
     
     var SettingDayReceiveBubble: UIColor = UIColor.hexStringToUIColor(hex: "66AB37")
-    var SliderTintColor: UIColor = UIColor.hexStringToUIColor(hex: "66AB37")
+    var SliderTintColor: UIColor = UIColor(named: "SliderTintColorGreen")!
         
     var CheckStatusColor: UIColor = UIColor.hexStringToUIColor(hex: "66AB37")
     
@@ -254,8 +254,8 @@ class GreenColorSetNight: NightColorSetProtocol {
     //change by Color Set
     
     var SettingDayReceiveBubble: UIColor = UIColor.hexStringToUIColor(hex: "66AB37")
-    var SliderTintColor: UIColor = UIColor.hexStringToUIColor(hex: "66AB37")
-        
+    var SliderTintColor: UIColor = UIColor(named: "SliderTintColorGreen")!
+
     var CheckStatusColor: UIColor = UIColor.hexStringToUIColor(hex: "66AB37")
     
     var MessageCountColor: UIColor = UIColor.hexStringToUIColor(hex: "66AB37")
