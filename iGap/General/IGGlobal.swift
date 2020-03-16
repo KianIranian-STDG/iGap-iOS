@@ -1845,7 +1845,34 @@ extension ASTextNode {
     
     func setThumbnail(for attachment: IGFile,showMain: Bool = false) {
         if !(attachment.isInvalidated) {
-            let attribute = [NSAttributedString.Key.foregroundColor: UIColor.black,
+
+            var tmpcolor = UIColor()
+            let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+            let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+            let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+            if currentTheme != "IGAPClassic" {
+                
+                if currentTheme == "IGAPDay" {
+                    if currentColorSetLight == "IGAPBlack" {
+                        tmpcolor = UIColor.white
+                    } else {
+                        tmpcolor = ThemeManager.currentTheme.LabelColor
+                    }
+                }
+                if currentTheme == "IGAPNight" {
+                    if currentColorSetDark == "IGAPBlack" {
+                        tmpcolor = UIColor.white
+                    } else {
+                        tmpcolor = ThemeManager.currentTheme.LabelColor
+                    }
+
+                }
+            } else {
+                tmpcolor = ThemeManager.currentTheme.LabelColor
+            }
+            
+            let attribute = [NSAttributedString.Key.foregroundColor: tmpcolor,
                              NSAttributedString.Key.font:UIFont.iGapFonticon(ofSize: 50)]
             
             if attachment.type == .voice {

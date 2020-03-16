@@ -148,7 +148,33 @@ class ASReplyForwardNode: ASDisplayNode {
                 } else {
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 }
-                IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: extraMessage.message ?? "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
+                var tmpcolor = UIColor()
+                let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+                let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+                let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+                if currentTheme != "IGAPClassic" {
+                    
+                    if currentTheme == "IGAPDay" {
+                        if currentColorSetLight == "IGAPBlack" {
+                            tmpcolor = UIColor.white
+                        } else {
+                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                        }
+                    }
+                    if currentTheme == "IGAPNight" {
+                        if currentColorSetDark == "IGAPBlack" {
+                            tmpcolor = UIColor.white
+                        } else {
+                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                        }
+
+                    }
+                } else {
+                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                }
+
+                IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: extraMessage.message ?? "", textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
             } else if extraMessage.type == .image || extraMessage.type == .imageAndText || extraMessage.type == .video || extraMessage.type == .videoAndText || extraMessage.type == .gif || extraMessage.type == .gifAndText{ // if reply or forward message has image/Video attachment
                 imgReplyAttachment!.style.preferredSize = CGSize(width: 50.0, height: 50.0)
                 txtReplyAttachment!.style.preferredSize = CGSize.zero // set size two zero
@@ -169,15 +195,41 @@ class ASReplyForwardNode: ASDisplayNode {
                 if extraMessage.message != nil { //if has message
 
                     if extraMessage.message == "" {
+                        var tmpcolor = UIColor()
+                        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+                        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+                        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+                        if currentTheme != "IGAPClassic" {
+                            
+                            if currentTheme == "IGAPDay" {
+                                if currentColorSetLight == "IGAPBlack" {
+                                    tmpcolor = UIColor.white
+                                } else {
+                                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                                }
+                            }
+                            if currentTheme == "IGAPNight" {
+                                if currentColorSetDark == "IGAPBlack" {
+                                    tmpcolor = UIColor.white
+                                } else {
+                                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                                }
+
+                            }
+                        } else {
+                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                        }
+
                         switch extraMessage.type {
                             
                         case .unknown:
                             break
                         case .image,.imageAndText:
-                            IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.ImageMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
+                            IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.ImageMessage.rawValue.localized, textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
 
                         case .video,.videoAndText:
-                            IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.VideoMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
+                            IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.VideoMessage.rawValue.localized, textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
                         default:
                             txtReplyMsgForwardSource!.style.preferredSize = CGSize.zero // set size two zero
 
@@ -185,16 +237,69 @@ class ASReplyForwardNode: ASDisplayNode {
                         }
 
                     } else {
-                        IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: extraMessage.message ?? "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
+                        var tmpcolor = UIColor()
+                        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+                        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+                        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+                        if currentTheme != "IGAPClassic" {
+                            
+                            if currentTheme == "IGAPDay" {
+                                if currentColorSetLight == "IGAPBlack" {
+                                    tmpcolor = UIColor.white
+                                } else {
+                                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                                }
+                            }
+                            if currentTheme == "IGAPNight" {
+                                if currentColorSetDark == "IGAPBlack" {
+                                    tmpcolor = UIColor.white
+                                } else {
+                                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                                }
+
+                            }
+                        } else {
+                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                        }
+
+                        IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: extraMessage.message ?? "", textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
 
                     }
                 } else {
+                    var tmpcolor = UIColor()
+                    let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+                    let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+                    let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+                    if currentTheme != "IGAPClassic" {
+                        
+                        if currentTheme == "IGAPDay" {
+                            if currentColorSetLight == "IGAPBlack" {
+                                tmpcolor = UIColor.white
+                            } else {
+                                tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                            }
+                        }
+                        if currentTheme == "IGAPNight" {
+                            if currentColorSetDark == "IGAPBlack" {
+                                tmpcolor = UIColor.white
+                            } else {
+                                tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                            }
+
+                        }
+                    } else {
+                        tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                    }
+
                     switch extraMessage.type {
                         
                     case .unknown:
                         break
                     case .video,.videoAndText:
-                        IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.VideoMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
+                        
+                        IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.VideoMessage.rawValue.localized, textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
                     default:
                         txtReplyMsgForwardSource!.style.preferredSize = CGSize.zero // set size two zero
 
@@ -219,18 +324,43 @@ class ASReplyForwardNode: ASDisplayNode {
                 } else {
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 }
+                var tmpcolor = UIColor()
+                let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+                let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+                let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+                if currentTheme != "IGAPClassic" {
+                    
+                    if currentTheme == "IGAPDay" {
+                        if currentColorSetLight == "IGAPBlack" {
+                            tmpcolor = UIColor.white
+                        } else {
+                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                        }
+                    }
+                    if currentTheme == "IGAPNight" {
+                        if currentColorSetDark == "IGAPBlack" {
+                            tmpcolor = UIColor.white
+                        } else {
+                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                        }
+
+                    }
+                } else {
+                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                }
                 switch extraMessage.type {
                     
                 case .unknown:
                     break
                 case .audio,.audioAndText:
-                    IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.AudioMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
+                    IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.AudioMessage.rawValue.localized, textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
                 case .voice:
-                    IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.VoiceMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
+                    IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.VoiceMessage.rawValue.localized, textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
                 case .file,.fileAndText:
-                    IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.FileMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
+                    IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.FileMessage.rawValue.localized, textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
                 case .contact:
-                    IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.ContactMessage.rawValue.localized, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
+                    IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: IGStringsManager.ContactMessage.rawValue.localized, textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
                 default:
                     break
                 }
@@ -247,7 +377,33 @@ class ASReplyForwardNode: ASDisplayNode {
                     IGGlobal.makeAsyncText(for: self.txtRepOrForwardNode!, with: "", textColor: (isIncomming ? ThemeManager.currentTheme.SliderTintColor : ThemeManager.currentTheme.SendMessageBubleBGColor.darker())!, size: 12, numberOfLines: 1, font: .igapFont)
                 }
                 let message = (extraMessage.message ?? "") + " " + IGStringsManager.StickerMessage.rawValue.localized
-                IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: message, textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
+                var tmpcolor = UIColor()
+                let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+                let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+                let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+                if currentTheme != "IGAPClassic" {
+                    
+                    if currentTheme == "IGAPDay" {
+                        if currentColorSetLight == "IGAPBlack" {
+                            tmpcolor = UIColor.white
+                        } else {
+                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                        }
+                    }
+                    if currentTheme == "IGAPNight" {
+                        if currentColorSetDark == "IGAPBlack" {
+                            tmpcolor = UIColor.white
+                        } else {
+                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                        }
+
+                    }
+                } else {
+                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                }
+
+                IGGlobal.makeAsyncText(for: self.txtReplyMsgForwardSource!, with: message, textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont)//get reply message message
 
                 
             }

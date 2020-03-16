@@ -100,7 +100,7 @@ class TorquoiseColorSet: DayNightColorSetProtocol {
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
+    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "bbdef0")
 
     var MessageUnreadCellBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
 
@@ -270,7 +270,7 @@ class TorquoiseColorSetNight: NightColorSetProtocol {
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
+    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "bbdef0")
 
     var MessageUnreadCellBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6DC1EB")
 

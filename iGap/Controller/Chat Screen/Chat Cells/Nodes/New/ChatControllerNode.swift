@@ -1188,7 +1188,33 @@ class ChatControllerNode: ASCellNode {
             txtTimeNode?.style.minHeight = ASDimensionMake(.points, 10)
             txtTimeNode?.style.maxWidth = ASDimensionMake(.points, 50)
             txtTimeNode!.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
-            IGGlobal.makeAsyncText(for: txtTimeNode!, with: time.convertToHumanReadable(), textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont, alignment: .center)
+            var tmpcolor = UIColor()
+            let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+            let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+            let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+            if currentTheme != "IGAPClassic" {
+                
+                if currentTheme == "IGAPDay" {
+                    if currentColorSetLight == "IGAPBlack" {
+                        tmpcolor = UIColor.white
+                    } else {
+                        tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                    }
+                }
+                if currentTheme == "IGAPNight" {
+                    if currentColorSetDark == "IGAPBlack" {
+                        tmpcolor = UIColor.white
+                    } else {
+                        tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                    }
+
+                }
+            } else {
+                tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+            }
+
+            IGGlobal.makeAsyncText(for: txtTimeNode!, with: time.convertToHumanReadable(), textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont, alignment: .center)
             
         }
         
@@ -1264,7 +1290,7 @@ class ChatControllerNode: ASCellNode {
                 IGGlobal.makeAsyncText(for: txtNameNode!, with: name.displayName, textColor: UIColor.hexStringToUIColor(hex: (message!.authorUser?.user!.color)!), size: 12, numberOfLines: 1, font: .igapFont, alignment: .left)
             } else {
                 txtNameNode!.textContainerInset = UIEdgeInsets(top: 0, left: (isIncomming ? 0 : 6), bottom: 0, right: (isIncomming ? 6 : 0))
-                IGGlobal.makeAsyncText(for: txtNameNode!, with: "", textColor: .lightGray, size: 12, numberOfLines: 1, font: .igapFont, alignment: .left)
+                IGGlobal.makeAsyncText(for: txtNameNode!, with: "", textColor: ThemeManager.currentTheme.LabelGrayColor, size: 12, numberOfLines: 1, font: .igapFont, alignment: .left)
                 
             }
         }
@@ -2949,8 +2975,35 @@ class ChatControllerNode: ASCellNode {
         txtAttachmentNode!.style.height = ASDimension(unit: .points, value: 60.0)
         txtAttachmentNode!.setThumbnail(for: msg.attachment!)
         
-        IGGlobal.makeAsyncText(for: txtTitleNode! , with: msg.attachment!.name!, font: .igapFont)
-        IGGlobal.makeAsyncText(for: txtSizeNode! , with: msg.attachment!.sizeToString(), font: .igapFont)
+        var tmpcolor = UIColor()
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+        if currentTheme != "IGAPClassic" {
+            
+            if currentTheme == "IGAPDay" {
+                if currentColorSetLight == "IGAPBlack" {
+                    tmpcolor = UIColor.white
+                } else {
+                    tmpcolor = ThemeManager.currentTheme.LabelColor
+                }
+            }
+            if currentTheme == "IGAPNight" {
+                if currentColorSetDark == "IGAPBlack" {
+                    tmpcolor = UIColor.white
+                } else {
+                    tmpcolor = ThemeManager.currentTheme.LabelColor
+                }
+
+            }
+        } else {
+            tmpcolor = ThemeManager.currentTheme.LabelColor
+        }
+
+        IGGlobal.makeAsyncText(for: txtSizeNode!, with: msg.attachment!.name!, textColor: tmpcolor, size: 12, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .left)
+
+        IGGlobal.makeAsyncText(for: txtTitleNode!, with: msg.attachment!.name!, textColor: tmpcolor, size: 12, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .left)
         
         let textBox = ASStackLayoutSpec.vertical()
         textBox.justifyContent = .spaceAround
@@ -3092,9 +3145,34 @@ class ChatControllerNode: ASCellNode {
         (sliderNode!.view as! UISlider).tintColor = .green
         
         btnStateNode!.layer.cornerRadius = 25
-        
+        var tmpcolor = UIColor()
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+        if currentTheme != "IGAPClassic" {
+            
+            if currentTheme == "IGAPDay" {
+                if currentColorSetLight == "IGAPBlack" {
+                    tmpcolor = UIColor.white
+                } else {
+                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                }
+            }
+            if currentTheme == "IGAPNight" {
+                if currentColorSetDark == "IGAPBlack" {
+                    tmpcolor = UIColor.white
+                } else {
+                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                }
+
+            }
+        } else {
+            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+        }
+
         //make current time text
-        IGGlobal.makeAsyncText(for: txtCurrentTimeNode!, with: "00:00".inLocalizedLanguage(), textColor: .lightGray, size: 13, numberOfLines: 1, font: .igapFont,alignment: .left)
+        IGGlobal.makeAsyncText(for: txtCurrentTimeNode!, with: "00:00".inLocalizedLanguage(), textColor: tmpcolor, size: 13, numberOfLines: 1, font: .igapFont,alignment: .left)
         
         checkVoiceButtonState(btn: btnStateNode!,message: msg )
         
@@ -3256,7 +3334,33 @@ class ChatControllerNode: ASCellNode {
             if item.commonKey!.rawValue == "artist" {
                 let singerName = item.stringValue!
                 hasSingerName = true
-                IGGlobal.makeAsyncText(for: txtMusicArtist!, with: singerName, textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
+                var tmpcolor = UIColor()
+                let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+                let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+                let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+                if currentTheme != "IGAPClassic" {
+                    
+                    if currentTheme == "IGAPDay" {
+                        if currentColorSetLight == "IGAPBlack" {
+                            tmpcolor = UIColor.white
+                        } else {
+                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                        }
+                    }
+                    if currentTheme == "IGAPNight" {
+                        if currentColorSetDark == "IGAPBlack" {
+                            tmpcolor = UIColor.white
+                        } else {
+                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                        }
+
+                    }
+                } else {
+                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                }
+
+                IGGlobal.makeAsyncText(for: txtMusicArtist!, with: singerName, textColor: tmpcolor, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
                 
             }
             
@@ -3264,7 +3368,33 @@ class ChatControllerNode: ASCellNode {
         
         if !hasSingerName {
             let singerName = IGStringsManager.UnknownArtist.rawValue.localized
-            IGGlobal.makeAsyncText(for: txtMusicArtist!, with: singerName, textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
+            var tmpcolor = UIColor()
+            let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+            let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+            let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+            if currentTheme != "IGAPClassic" {
+                
+                if currentTheme == "IGAPDay" {
+                    if currentColorSetLight == "IGAPBlack" {
+                        tmpcolor = UIColor.white
+                    } else {
+                        tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                    }
+                }
+                if currentTheme == "IGAPNight" {
+                    if currentColorSetDark == "IGAPBlack" {
+                        tmpcolor = UIColor.white
+                    } else {
+                        tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                    }
+
+                }
+            } else {
+                tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+            }
+
+            IGGlobal.makeAsyncText(for: txtMusicArtist!, with: singerName, textColor: tmpcolor, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
             
             
             
@@ -3284,7 +3414,34 @@ class ChatControllerNode: ASCellNode {
         
     }
     private func makeAudioView(msg: IGRoomMessage) {
-        IGGlobal.makeAsyncText(for: txtMusicArtist!, with: "", textColor: .darkGray, size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
+        var tmpcolor = UIColor()
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+        if currentTheme != "IGAPClassic" {
+            
+            if currentTheme == "IGAPDay" {
+                if currentColorSetLight == "IGAPBlack" {
+                    tmpcolor = UIColor.white
+                } else {
+                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                }
+            }
+            if currentTheme == "IGAPNight" {
+                if currentColorSetDark == "IGAPBlack" {
+                    tmpcolor = UIColor.white
+                } else {
+                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                }
+
+            }
+        } else {
+            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+        }
+
+        IGGlobal.makeAsyncText(for: txtMusicArtist!, with: "", textColor: tmpcolor
+            , size: 14, numberOfLines: 1, font: .igapFont, alignment: .left)
         
         btnStateNode!.style.preferredSize = CGSize(width: 60, height: 60)
         btnStateNode!.layer.cornerRadius = 25

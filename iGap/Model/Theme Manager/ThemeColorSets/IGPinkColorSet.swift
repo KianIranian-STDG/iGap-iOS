@@ -100,7 +100,7 @@ class PinkColorSet: DayNightColorSetProtocol {
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "CE699F")
+    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "e0a0c2")
 
     var MessageUnreadCellBGColor: UIColor = UIColor.hexStringToUIColor(hex: "CE699F")
 
@@ -273,7 +273,7 @@ class PinkColorSetNight: NightColorSetProtocol {
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "CE699F")
+    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "e0a0c2")
 
     var MessageUnreadCellBGColor: UIColor = UIColor.hexStringToUIColor(hex: "CE699F")
 

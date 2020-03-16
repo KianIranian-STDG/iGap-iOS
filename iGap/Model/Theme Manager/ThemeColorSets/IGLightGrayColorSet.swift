@@ -100,7 +100,7 @@ class LightGrayColorSet: DayNightColorSetProtocol {
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
+    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "b7bac0")
 
     var MessageUnreadCellBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
 
@@ -271,7 +271,7 @@ class LightGrayColorSetNight: NightColorSetProtocol {
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
+    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "b7bac0")
 
     var MessageUnreadCellBGColor: UIColor = UIColor.hexStringToUIColor(hex: "6D7993")
 

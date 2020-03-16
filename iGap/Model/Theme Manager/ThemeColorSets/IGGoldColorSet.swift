@@ -100,7 +100,7 @@ class GoldColorSet: DayNightColorSetProtocol {
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
+    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "e7d081")
 
     var MessageUnreadCellBGColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
 
@@ -271,7 +271,7 @@ class GoldColorSetNight: NightColorSetProtocol {
 
     var NavigationButtonTextColor: UIColor = UIColor.hexStringToUIColor(hex: "000000")
 
-    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
+    var ReceiveMessageBubleBGColor: UIColor = UIColor.hexStringToUIColor(hex: "e7d081")
 
     var MessageUnreadCellBGColor: UIColor = UIColor.hexStringToUIColor(hex: "D5AE29")
 
