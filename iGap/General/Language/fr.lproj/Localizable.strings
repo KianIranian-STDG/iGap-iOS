@@ -6364,3 +6364,6 @@
 "cvv2" = "CVV2";
 "internet_pin_2" = "Épingle";
 "click_for_copy_title" = "Cliquez pour copier";
+"national_code_inquiry" = "Enquête sur le code national";
+"gift_card_sent_note" = "Vous avez déjà envoyé une carte-cadeau à quelqu'un d'autre!";
+"gift_card_already_used" = "Cette carte-cadeau est déjà utilisée!";

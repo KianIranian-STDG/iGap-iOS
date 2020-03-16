@@ -6713,3 +6713,6 @@ TODO:// complete */
 "cvv2" = "CVV2";
 "internet_pin_2" = "Pin";
 "click_for_copy_title" = "Click to copy";
+"national_code_inquiry" = "National Code Inquiry";
+"gift_card_sent_note" = "You already sent a gift card to someone else!";
+"gift_card_already_used" = "This gift card is already in use!";

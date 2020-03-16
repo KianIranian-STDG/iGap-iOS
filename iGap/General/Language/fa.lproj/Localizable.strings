@@ -6722,3 +6722,6 @@ Page 4 introduce app */
 "cvv2" = "CVV2";
 "internet_pin_2" = "رمز دوم";
 "click_for_copy_title" = "برای کپی کلیک کنید";
+"national_code_inquiry" = "استعلام کد ملی";
+"gift_card_sent_note" = "شما کارت هدیه را قبلا برای شخص دیگری ارسال کرده‌اید!";
+"gift_card_already_used" = "این کارت هدیه قبلا استفاده شده است!";

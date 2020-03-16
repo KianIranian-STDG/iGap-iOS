@@ -305,6 +305,9 @@ enum IGStringsManager : String {
     case CVV2 = "cvv2"
     case InternetPin2 = "internet_pin_2"
     case ClickForCopy = "click_for_copy_title"
+    case NationalCodeInquiry = "national_code_inquiry"
+    case GiftCardSentNote = "gift_card_sent_note"
+    case GiftCardAlreadyUsed = "gift_card_already_used"
     
     //Elec Bill
     case ElecBillID = "elecBill_pay_billID"

@@ -108,7 +108,6 @@ class IGGiftStickerFirstPageViewController: BaseViewController {
         IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: phone.phoneConvert98to0()) { [weak self] (success) in
             IGGlobal.prgHide()
             if !success {return}
-            IGSessionInfo.setNationalCode(nationalCode: nationalCode)
             IGMessageViewController.giftRoomId = nil
             let stickerController = IGStickerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
             stickerController.stickerPageType = .CATEGORY

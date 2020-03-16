@@ -64,6 +64,16 @@ class IGSessionInfo: Object {
         }
         return nil
     }
+    
+    static func deleteNationalCode() {
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                if let sessionInfo = IGDatabaseManager.shared.realm.objects(IGSessionInfo.self).first {
+                    sessionInfo.nationalCode = ""
+                }
+            }
+        }
+    }
 }
 
 class IGSession: Object {

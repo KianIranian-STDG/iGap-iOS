@@ -6739,3 +6739,6 @@ TODO:// translate */
 "cvv2" = "CVV2";
 "internet_pin_2" = "كلمة مرور الثانية";
 "click_for_copy_title" = "انقر لنسخ";
+"national_code_inquiry" = "استعلام عن الرمز الوطني";
+"gift_card_sent_note" = "لقد أرسلت بالفعل بطاقة هدايا لشخص آخر!";
+"gift_card_already_used" = "بطاقة الهدايا هذه قيد الاستخدام بالفعل!";
