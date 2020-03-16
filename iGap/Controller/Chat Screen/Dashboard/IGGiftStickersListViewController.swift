@@ -23,10 +23,14 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
     var dismissBtn: UIButton!
     let bottomPadding = UIApplication.shared.keyWindow?.safeAreaInsets.bottom
     private var activationGiftStickerId: String?
+    static var tabbarHeight: CGFloat?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if IGGiftStickersListViewController.tabbarHeight == nil { // TODO - do this for avoid from duplicate tabbar height (this is a bug find a better solution)
+            IGGiftStickersListViewController.tabbarHeight = tabbarHeight
+        }
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -138,7 +142,7 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
         self.giftStickerAlertView.addGestureRecognizer(swipeDown)
         self.view.addSubview(self.giftStickerAlertView)
         
-        let yPosition = self.view.frame.height - self.giftStickerAlertView.frame.height - (self.bottomPadding! + tabbarHeight!)
+        let yPosition = self.view.frame.height - self.giftStickerAlertView.frame.height - (self.bottomPadding! + (IGGiftStickersListViewController.tabbarHeight ?? 0))
         UIView.animate(withDuration: 0.3) {
             self.giftStickerAlertView.frame = CGRect(x: 0, y: yPosition, width: self.view.frame.width, height: self.giftStickerAlertView.frame.height)
         }
@@ -166,7 +170,7 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
         self.giftStickerPaymentInfo.addGestureRecognizer(swipeDown)
         self.view.addSubview(self.giftStickerPaymentInfo)
         
-        let yPosition = self.view.frame.height - self.giftStickerPaymentInfo.frame.height - (self.bottomPadding! + (tabbarHeight ?? 0))
+        let yPosition = self.view.frame.height - self.giftStickerPaymentInfo.frame.height - (self.bottomPadding! + (IGGiftStickersListViewController.tabbarHeight ?? 0))
         UIView.animate(withDuration: 0.3) {
             self.giftStickerPaymentInfo.frame = CGRect(x: 0, y: yPosition, width: self.view.frame.width, height: self.giftStickerPaymentInfo.frame.height)
         }
