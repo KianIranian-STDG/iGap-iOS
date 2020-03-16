@@ -266,7 +266,7 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
 
             IGRoomMessage.saveFakeGiftStickerMessage(message: message.detach()) {
                 DispatchQueue.main.async {
-                    IGHelperBottomModals.shared.showMultiForwardModal(view: self, messages: [message], isFromCloud: true)
+                    IGHelperBottomModals.shared.showMultiForwardModal(view: self, messages: [message], isFromCloud: true, isGiftSticker: true)
                 }
             }
         }
