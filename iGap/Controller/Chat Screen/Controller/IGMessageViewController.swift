@@ -3904,7 +3904,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 let message = IGRoomMessage(body: (self?.giftCardInfo.sticker.name)!)
                 message.type = .sticker
                 message.attachment = attachment
-                let stickerItem = IGRealmStickerItem(sticker: (self?.giftCardInfo.sticker)!)
+                let stickerItem = IGRealmStickerItem(sticker: (self?.giftCardInfo.sticker)!, giftId: (self?.giftCardInfo.id)!)
                 message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.GIFT_STICKER.rawValue)
                 IGAttachmentManager.sharedManager.add(attachment: attachment)
                 
@@ -4112,7 +4112,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if giftStickerPaymentInfo != nil {
             
             UIView.animate(withDuration: 0.3, animations: {
-                self.giftStickerModal.frame.origin.y = self.view.frame.height
+                self.giftStickerPaymentInfo.frame.origin.y = self.view.frame.height
             }) { (true) in
                 
             }

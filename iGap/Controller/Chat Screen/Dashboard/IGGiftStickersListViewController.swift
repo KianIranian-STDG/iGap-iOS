@@ -30,7 +30,7 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if IGGiftStickersListViewController.tabbarHeight == nil { // TODO - do this for avoid from duplicate tabbar height (this is a bug find a better solution)
+        if IGGiftStickersListViewController.tabbarHeight == nil || tabbarHeight == nil || tabbarHeight == 0{ // TODO - do this for avoid from duplicate tabbar height (this is a bug find a better solution)
             IGGiftStickersListViewController.tabbarHeight = tabbarHeight
         }
         tableView.dataSource = self
@@ -312,7 +312,7 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
                 let message = IGRoomMessage(body: (self?.giftCardInfo.sticker.name)!)
                 message.type = .sticker
                 message.attachment = attachment
-                let stickerItem = IGRealmStickerItem(sticker: (self?.giftCardInfo.sticker)!)
+                let stickerItem = IGRealmStickerItem(sticker: (self?.giftCardInfo.sticker)!, giftId: (self?.giftCardInfo.id)!)
                 message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.GIFT_STICKER.rawValue)
                 IGAttachmentManager.sharedManager.add(attachment: attachment)
                 

@@ -160,7 +160,7 @@ class IGHelperJson {
                     "fileSize" : stickerItem.fileSize,
                     "sort" : stickerItem.sort,
                     "groupId" : stickerItem.groupID,
-                    "giftId" : stickerItem.id,
+                    "giftId" : stickerItem.giftId,
                     "giftAmount" : stickerItem.giftAmount] as [String: Any?]
         
         let json = JSON(dict).rawString()

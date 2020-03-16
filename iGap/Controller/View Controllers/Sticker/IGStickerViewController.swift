@@ -41,7 +41,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     var stickerTabs: Results<IGRealmSticker>! // use this variable at main sticker page (MAIN)
     var stickerList: [StickerTab] = [] // use this variable at sticker list page (PREVIEW, CATEGORY)
     var backGroundColor = UIColor.sticker()
-    static var waitingGiftCardInfo: (orderId: String, stickerStruct: IGRealmStickerItem?) = ("", nil)
+    static var waitingGiftCardInfo: (orderId: String, giftId: String, stickerStruct: IGRealmStickerItem?) = ("", "", nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -271,6 +271,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
                     return
                 }
                 if let status = result?.object as? PaymentStatus, status == PaymentStatus.success {
+                    IGStickerViewController.waitingGiftCardInfo.stickerStruct?.giftId = IGStickerViewController.waitingGiftCardInfo.giftId
                     SwiftEventBus.postToMainThread(EventBusManager.giftCardSendMessage, sender: IGStickerViewController.waitingGiftCardInfo.stickerStruct)
                 }
             }
@@ -320,6 +321,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
         IGApiSticker.shared.checkBuyGiftCard(stickerId: self.giftStickerId ?? "", nationalCode: IGSessionInfo.getNationalCode() ?? "", mobileNumber: phone!, count: 1, completion: { [weak self] buyGiftSticker in
             self?.giftStickerId = nil
             self?.didtapOutSide()
+            IGStickerViewController.waitingGiftCardInfo.giftId = buyGiftSticker.id
             IGApiSticker.shared.giftStickerPaymentRequest(token: buyGiftSticker.token, completion: { giftCardPayment in
                 IGStickerViewController.waitingGiftCardInfo.orderId = giftCardPayment.info.orderID
                 IGGlobal.prgHide()
