@@ -29,6 +29,7 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
     var selectedMessages : [IGRoomMessage] = []
     var isFromCloud : Bool = false
     var isGiftSticker: Bool = false
+    var giftId: String?
     var lastSelectedIndex: IndexPath?
     @IBOutlet weak var lblInfo : UILabel!
     @IBOutlet weak var lblCount : UILabel!
@@ -106,12 +107,30 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
 
     }
     @IBAction func didTapOnSendButton(_ sender: UIButton) {
-        
-        SwiftEventBus.post(EventBusManager.sendForwardReq)
-        self.dismiss(animated: true, completion: {
-            IGHelperForward.handleForward(messages: self.selectedMessages, forwardModal: self, controller: UIApplication.topViewController(), isFromCloud: self.isFromCloud)
-        })
-
+        if isGiftSticker {
+            
+            if selectedItems[0].id != IGAppManager.sharedManager.userID() { // don't 'giftStickerForward' request to server when user try for send gift sticker to cloud
+                IGGlobal.prgShow()
+                IGApiSticker.shared.giftStickerForward(userId: "\(selectedItems[0].id ?? 0)", stickerId: giftId ?? "") { success in
+                    IGGlobal.prgHide()
+                    self.dismiss(animated: true, completion: {
+                        if success {
+                            IGHelperForward.handleForward(messages: self.selectedMessages, forwardModal: self, controller: UIApplication.topViewController(), isFromCloud: self.isFromCloud)
+                        }
+                    })
+                }
+            } else {
+                self.dismiss(animated: true, completion: {
+                    IGHelperForward.handleForward(messages: self.selectedMessages, forwardModal: self, controller: UIApplication.topViewController(), isFromCloud: self.isFromCloud)
+                })
+            }
+            
+        } else {
+            SwiftEventBus.post(EventBusManager.sendForwardReq)
+            self.dismiss(animated: true, completion: {
+                IGHelperForward.handleForward(messages: self.selectedMessages, forwardModal: self, controller: UIApplication.topViewController(), isFromCloud: self.isFromCloud)
+            })
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

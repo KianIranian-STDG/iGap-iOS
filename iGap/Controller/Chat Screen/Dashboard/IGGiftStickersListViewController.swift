@@ -263,10 +263,10 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
             let stickerItem = IGRealmStickerItem(sticker: giftCardInfo.sticker)
             message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.GIFT_STICKER.rawValue)
             IGAttachmentManager.sharedManager.add(attachment: attachment)
-
-            IGRoomMessage.saveFakeGiftStickerMessage(message: message.detach()) {
+            
+            IGRoomMessage.saveFakeGiftStickerMessage(message: message.detach()) { [weak self] in
                 DispatchQueue.main.async {
-                    IGHelperBottomModals.shared.showMultiForwardModal(view: self, messages: [message], isFromCloud: true, isGiftSticker: true)
+                    IGHelperBottomModals.shared.showMultiForwardModal(view: self, messages: [message], isFromCloud: true, isGiftSticker: true, giftId: self?.giftCardInfo.id ?? "")
                 }
             }
         }

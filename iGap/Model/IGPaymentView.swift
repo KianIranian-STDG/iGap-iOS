@@ -191,7 +191,7 @@ class IGPaymentView: UIView {
         }
         self.amountDescriptionLbl.text = IGStringsManager.AmountPlaceHolder.rawValue.localized
         if let price = paymentStatusData.info?.price {
-            self.amountLbl.text = "\(price)".onlyDigitChars().inRialFormat()
+            self.amountLbl.text = "\(price)".onlyDigitChars()
         }
         
         guard let status = paymentStatusData.status else { return }
@@ -203,7 +203,7 @@ class IGPaymentView: UIView {
         self.mainSV.isHidden = false
         self.statusSV.isHidden = false
         self.statusDescriptionLbl.text = message
-        self.statusCodeLbl.text = IGStringsManager.TransactionIdentifier.rawValue.localized + ": " + RRN.inLocalizedLanguage()
+        self.statusCodeLbl.text = IGStringsManager.TransactionIdentifier.rawValue.localized + " : " + RRN.inLocalizedLanguage()
         
         self.errorMessageLbl.isHidden = true
         self.acceptBtn.isHidden = true

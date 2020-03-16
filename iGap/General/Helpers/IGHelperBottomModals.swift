@@ -37,7 +37,7 @@ class IGHelperBottomModals {
         }
     
     //MARK: - MultiForward Modal
-    func showMultiForwardModal(view: UIViewController? = nil,messages: [IGRoomMessage] = [],isFromCloud: Bool = false, isGiftSticker: Bool = false) {//}-> UIView {
+    func showMultiForwardModal(view: UIViewController? = nil,messages: [IGRoomMessage] = [],isFromCloud: Bool = false, isGiftSticker: Bool = false, giftId: String? = nil) {//}-> UIView {
         var alertView = view
         if alertView == nil {
             alertView = UIApplication.topViewController()
@@ -46,6 +46,7 @@ class IGHelperBottomModals {
         let vc = storyboard.instantiateViewController(withIdentifier: "IGMultiForwardModalViewController") as! IGMultiForwardModalViewController
         vc.isFromCloud = isFromCloud
         vc.isGiftSticker = isGiftSticker
+        vc.giftId = giftId
         vc.selectedMessages = messages
         alertView!.presentPanModal(vc)
     }
