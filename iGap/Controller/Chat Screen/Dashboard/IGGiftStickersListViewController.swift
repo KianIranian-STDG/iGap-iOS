@@ -164,7 +164,7 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
         self.giftStickerPaymentInfo.addGestureRecognizer(swipeDown)
         self.view.addSubview(self.giftStickerPaymentInfo)
         
-        let yPosition = self.view.frame.height - self.giftStickerPaymentInfo.frame.height - (self.bottomPadding! + tabbarHeight!)
+        let yPosition = self.view.frame.height - self.giftStickerPaymentInfo.frame.height - (self.bottomPadding! + (tabbarHeight ?? 0))
         UIView.animate(withDuration: 0.3) {
             self.giftStickerPaymentInfo.frame = CGRect(x: 0, y: yPosition, width: self.view.frame.width, height: self.giftStickerPaymentInfo.frame.height)
         }
