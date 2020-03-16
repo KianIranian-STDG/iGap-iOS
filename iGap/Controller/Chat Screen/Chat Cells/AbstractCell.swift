@@ -1927,7 +1927,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         
         statusBackgroundViewAbs.snp.makeConstraints { (make) in
             if isIncommingMessage {
-                make.trailing.equalTo(txtTimeAbs.snp.trailing).offset(0)
+                make.trailing.equalTo(txtTimeAbs.snp.trailing).offset(10)
             } else {
                 make.trailing.equalTo(txtStatusAbs.snp.trailing).offset(10)
             }

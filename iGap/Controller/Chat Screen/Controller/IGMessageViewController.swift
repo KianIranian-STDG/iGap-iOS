@@ -3130,6 +3130,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         return false
     }
     
+    func allowForward(_ message: IGRoomMessage) -> Bool{
+        if let additionalType = message.additional?.dataType, additionalType == AdditionalType.GIFT_STICKER.rawValue {
+            return false
+        }
+        if room?.type == .channel {
+            return false
+        }
+        return true
+    }
+    
     func allowEdit(_ message: IGRoomMessage) -> Bool {
         if  (message.forwardedFrom == nil) && !self.room!.isReadOnly && message.authorHash == currentLoggedInUserAuthorHash && message.type != .sticker && message.type != .contact && message.type != .location {
             return true
@@ -5873,7 +5883,8 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let message = messages![indexPath.row]
-        if (IGGlobal.shouldMultiSelect) {
+        let additionalType = message.additional?.dataType ?? -1
+        if (IGGlobal.shouldMultiSelect && additionalType != AdditionalType.GIFT_STICKER.rawValue) {
             if let index = self.selectedMessages.firstIndex(where: { $0.id == message.id }) {
                 self.selectedMessages.remove(at: index)
             } else {
@@ -6234,12 +6245,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
         
         //Forward
-        switch room!.type {
-        case .channel :
-            break
-        default:
+        if allowForward(cellMessage) {
             alertC.addAction(forward)
         }
+        
         //Edit
         if self.allowEdit(cellMessage){
             alertC.addAction(edit)
