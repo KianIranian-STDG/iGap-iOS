@@ -272,7 +272,9 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
                 }
                 if let status = result?.object as? PaymentStatus, status == PaymentStatus.success {
                     IGStickerViewController.waitingGiftCardInfo.stickerStruct?.giftId = IGStickerViewController.waitingGiftCardInfo.giftId
-                    SwiftEventBus.postToMainThread(EventBusManager.giftCardSendMessage, sender: IGStickerViewController.waitingGiftCardInfo.stickerStruct)
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.LabelColor, message: IGStringsManager.GiftCardSendQuestion.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalCancel.rawValue.localized, done: {
+                        SwiftEventBus.postToMainThread(EventBusManager.giftCardSendMessage, sender: IGStickerViewController.waitingGiftCardInfo.stickerStruct)
+                    })
                 }
             }
         }

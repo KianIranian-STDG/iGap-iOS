@@ -308,6 +308,7 @@ enum IGStringsManager : String {
     case NationalCodeInquiry = "national_code_inquiry"
     case GiftCardSentNote = "gift_card_sent_note"
     case GiftCardAlreadyUsed = "gift_card_already_used"
+    case GiftCardSendQuestion = "gift_card_send_question"
     
     //Elec Bill
     case ElecBillID = "elecBill_pay_billID"
