@@ -260,17 +260,41 @@ class IGGiftStickersListViewController: BaseViewController, UITableViewDataSourc
     // MARK:- TableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return giftCardList.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 2
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 2))
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 2))
+        footerView.backgroundColor = UIColor.clear
+        return footerView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GiftCardListCell", for: indexPath) as! IGGiftStickerListCell
-        cell.setInfo(giftCard: giftCardList[indexPath.row])
+        cell.setInfo(giftCard: giftCardList[indexPath.section])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let giftSticker = giftCardList[indexPath.row]
+        let giftSticker = giftCardList[indexPath.section]
         if self.giftCardType == .new {
             getCardStatus(stickerId: giftSticker.id, date: giftSticker.createdAt)
         } else if self.giftCardType == .active {

@@ -26,11 +26,6 @@ class IGGiftStickerListCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    
-    override func layoutSubviews() {
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0))
-    }
-    
     public func setInfo(giftCard: IGStructGiftCardListData){
         customizeView(view: mainCellView)
         showSticker(token: giftCard.sticker.token)
