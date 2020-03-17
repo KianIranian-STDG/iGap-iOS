@@ -2481,6 +2481,9 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             handleShowHideSendButton(shouldShow: true)
             handleShowHideMoneyButton(shouldShow: false)
         }
+        if (!(textView.text == "" || textView.text.isEmpty) && !lblPlaceHolder.isHidden) {
+            lblPlaceHolder.isHidden = true
+        }
         manageTextViewHeight(textView: textView)
     }
     
@@ -7289,6 +7292,11 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             self.selectedUserToSeeTheirInfo = user
             openUserProfile()
         }
+    }
+    
+    func didTapOnUserName(user: IGRegisteredUser) {
+        self.selectedUserToSeeTheirInfo = user
+        openUserProfile()
     }
     
     func didTapOnHashtag(hashtagText: String) {

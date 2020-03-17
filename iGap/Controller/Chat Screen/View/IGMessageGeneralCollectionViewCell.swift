@@ -30,6 +30,7 @@ protocol IGMessageGeneralCollectionViewCellDelegate: AnyObject { // Using AnyObj
     func didTapOnRoomLink(link:String)
     func didTapOnBotAction(action:String)
     func didTapOnContactDetail(contact: IGRoomMessageContact)
+    func didTapOnUserName(user: IGRegisteredUser)
 }
 
 

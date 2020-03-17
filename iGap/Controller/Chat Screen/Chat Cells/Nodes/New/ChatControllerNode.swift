@@ -180,6 +180,11 @@ class ChatControllerNode: ASCellNode {
     
     weak var delegate: IGMessageGeneralCollectionViewCellDelegate?
     
+    private var actorUsernameTitle: String?
+    private var targetUserNameTitle: String?
+    private var actorUser: IGRegisteredUser?
+    private var targetUser: IGRegisteredUser?
+    
     override func didLoad() {
         super.didLoad()
     }
@@ -2573,12 +2578,70 @@ class ChatControllerNode: ASCellNode {
             IGGlobal.makeAsyncText(for: txtLogMessage!, with:IGRoomMessageLog.textForLogMessage(message), textColor: .white, size: 12, weight: .regular, numberOfLines: 1, font: .igapFont, alignment: .center)
             
             
+            if let user = message.authorUser?.user {
+                if user.username == IGAppManager.sharedManager.username() {
+                    actorUsernameTitle = IGStringsManager.You.rawValue.localized
+                } else {
+                    actorUsernameTitle = user.displayName
+                }
+                actorUser = user
+            } else {
+                actorUsernameTitle = IGStringsManager.SomeOne.rawValue.localized
+            }
+            
+            
+            if let target = message.log?.targetUser {
+                if !target.displayName.isEmpty {
+                    targetUserNameTitle =  target.displayName
+                } else if let user = IGRegisteredUser.getUserInfo(id: message.log!.targetUserId) {
+                    targetUserNameTitle =  user.displayName
+                }
+                targetUser = target
+            }else {
+                if let user = IGRegisteredUser.getUserInfo(id: message.log!.targetUserId) {
+                    targetUserNameTitle =  user.displayName
+                    targetUser = user
+                } else {
+                    IGUserInfoRequest.sendRequest(userId: message.log!.targetUserId)
+                }
+            }
+            
+//            txtLogMessage!.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(didTapOnLog(_:))))
+            
+            txtLogMessage!.view.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(didTapOnLog(_:))))
+            txtLogMessage?.view.isUserInteractionEnabled = true
+            txtLogMessage?.isUserInteractionEnabled = true
+            
+            
         }
         txtLogMessage!.backgroundColor = UIColor.logBackground()
         txtLogMessage!.layer.cornerRadius = 10.0
         txtLogMessage!.clipsToBounds = true
         let logSize = (IGRoomMessageLog.textForLogMessage(message).width(withConstrainedHeight: 20, font: UIFont.igFont(ofSize: 16)))
         txtLogMessage!.style.width =  ASDimensionMake(.points, logSize)
+    }
+    
+    @objc private func didTapOnLog(_ gesture: UITapGestureRecognizer) {
+        
+        if let actorUserName = actorUsernameTitle {
+            let actorUserNameRange = (txtLogMessage!.attributedText!.string as NSString).range(of: actorUserName)
+            if gesture.didTapAttributedTextInTextNode(node: txtLogMessage!, inRange: actorUserNameRange) {
+//                print("=-=-=-=- Actor User Tapped")
+                if let user = actorUser {
+                    delegate?.didTapOnUserName(user: user)
+                }
+            }
+        }
+        
+        if let targetUserName = targetUserNameTitle {
+            let targetUserNameRange = (txtLogMessage!.attributedText!.string as NSString).range(of: targetUserName)
+            if gesture.didTapAttributedTextInTextNode(node: txtLogMessage!, inRange: targetUserNameRange) {
+                if let user = targetUser {
+                    delegate?.didTapOnUserName(user: user)
+                }
+            }
+        }
+        
     }
     
     func setUnknownMessage(){
