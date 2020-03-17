@@ -794,7 +794,33 @@ class ChatControllerNode: ASCellNode {
             lblDisLikeText = ASTextNode()
         }
         
-        let Color = ThemeManager.currentTheme.LabelColor
+        var Color = ThemeManager.currentTheme.LabelColor
+        let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+        let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+        let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+        if currentTheme != "IGAPClassic" {
+            
+            if currentTheme == "IGAPDay" {
+                if currentColorSetLight == "IGAPBlack" {
+                    Color = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor
+                } else {
+                    Color = ThemeManager.currentTheme.LabelColor
+                }
+            }
+            if currentTheme == "IGAPNight" {
+                if currentColorSetDark == "IGAPBlack" {
+                    Color = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor
+                } else {
+                    Color = ThemeManager.currentTheme.LabelColor
+                }
+
+            }
+        } else {
+            Color = ThemeManager.currentTheme.LabelColor
+
+        }
+
         IGGlobal.makeAsyncText(for: lblEyeIcon!, with: "🌣", textColor: Color, size: 18, numberOfLines: 1, font: .fontIcon, alignment: .center)
         IGGlobal.makeAsyncText(for: lblLikeIcon!, with: "🌡", textColor: .iGapRed(), size: 18, numberOfLines: 1, font: .fontIcon, alignment: .center)
         IGGlobal.makeAsyncText(for: lblDisLikeIcon!, with: "🌢", textColor: .iGapRed(), size: 18, numberOfLines: 1, font: .fontIcon, alignment: .center)
@@ -828,7 +854,32 @@ class ChatControllerNode: ASCellNode {
              if lblDisLikeText == nil {
                  lblDisLikeText = ASTextNode()
              }
-            let Color = ThemeManager.currentTheme.LabelColor
+            var Color = ThemeManager.currentTheme.LabelColor
+            let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+            let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+            let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+            if currentTheme != "IGAPClassic" {
+                
+                if currentTheme == "IGAPDay" {
+                    if currentColorSetLight == "IGAPBlack" {
+                        Color = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor
+                    } else {
+                        Color = ThemeManager.currentTheme.LabelColor
+                    }
+                }
+                if currentTheme == "IGAPNight" {
+                    if currentColorSetDark == "IGAPBlack" {
+                        Color = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor
+                    } else {
+                        Color = ThemeManager.currentTheme.LabelColor
+                    }
+
+                }
+            } else {
+                Color = ThemeManager.currentTheme.LabelColor
+
+            }
             IGGlobal.makeAsyncText(for: lblEyeText!, with: (messageVote.channelExtra?.viewsLabel ?? "1").inLocalizedLanguage(), textColor: Color, size: 13, numberOfLines: 1, font: .igapFont, alignment: .center)
             
             
@@ -1202,14 +1253,22 @@ class ChatControllerNode: ASCellNode {
                 
                 if currentTheme == "IGAPDay" {
                     if currentColorSetLight == "IGAPBlack" {
-                        tmpcolor = UIColor.white
+                        if message?.type == .sticker {
+                            tmpcolor = .white
+                        } else {
+                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                        }
                     } else {
                         tmpcolor = ThemeManager.currentTheme.LabelGrayColor
                     }
                 }
                 if currentTheme == "IGAPNight" {
                     if currentColorSetDark == "IGAPBlack" {
-                        tmpcolor = UIColor.white
+                        if message?.type == .sticker {
+                            tmpcolor = .white
+                        } else {
+                            tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                        }
                     } else {
                         tmpcolor = ThemeManager.currentTheme.LabelGrayColor
                     }
@@ -1219,7 +1278,7 @@ class ChatControllerNode: ASCellNode {
                 tmpcolor = ThemeManager.currentTheme.LabelGrayColor
             }
 
-            IGGlobal.makeAsyncText(for: txtTimeNode!, with: time.convertToHumanReadable(), textColor: .white, size: 12, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: txtTimeNode!, with: time.convertToHumanReadable(), textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont, alignment: .center)
             
         }
         
@@ -4583,7 +4642,34 @@ class ChatControllerNode: ASCellNode {
                 IGGlobal.makeAsyncText(for: nodeText!, with: msg, textColor: ThemeManager.currentTheme.LabelColor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
                 
             } else {
-                IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: ThemeManager.currentTheme.LabelColor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                var labeltmpcolor = UIColor()
+                let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
+                let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
+                let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
+
+                if currentTheme != "IGAPClassic" {
+                    
+                    if currentTheme == "IGAPDay" {
+                        if currentColorSetLight == "IGAPBlack" {
+                            labeltmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor
+                        } else {
+                            labeltmpcolor = ThemeManager.currentTheme.LabelColor
+                        }
+                    }
+                    if currentTheme == "IGAPNight" {
+                        if currentColorSetDark == "IGAPBlack" {
+                            labeltmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor
+                        } else {
+                            labeltmpcolor = ThemeManager.currentTheme.LabelColor
+                        }
+
+                    }
+                } else {
+                    labeltmpcolor = ThemeManager.currentTheme.LabelColor
+
+                }
+
+                IGGlobal.makeAsyncText(for: nodeOnlyText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
                 
             }
             return
@@ -4946,7 +5032,7 @@ extension ChatControllerNode: ASTextNodeDelegate {
             if currentTheme == "IGAPDay" {
                 if currentColorSetLight == "IGAPBlack" {
                     tmpcolor = UIColor.white
-                    labeltmpcolor =  UIColor.white
+                    labeltmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor
                 } else {
                     tmpcolor = ThemeManager.currentTheme.SliderTintColor
                     labeltmpcolor = ThemeManager.currentTheme.LabelColor
@@ -4955,7 +5041,7 @@ extension ChatControllerNode: ASTextNodeDelegate {
             if currentTheme == "IGAPNight" {
                 if currentColorSetDark == "IGAPBlack" {
                     tmpcolor = UIColor.white
-                    labeltmpcolor =  UIColor.white
+                    labeltmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor
                 } else {
                     tmpcolor = ThemeManager.currentTheme.SliderTintColor
                     labeltmpcolor = ThemeManager.currentTheme.LabelColor

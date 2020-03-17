@@ -157,14 +157,14 @@ class ASReplyForwardNode: ASDisplayNode {
                     
                     if currentTheme == "IGAPDay" {
                         if currentColorSetLight == "IGAPBlack" {
-                            tmpcolor = UIColor.white
+                            tmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelGrayColor
                         } else {
                             tmpcolor = ThemeManager.currentTheme.LabelGrayColor
                         }
                     }
                     if currentTheme == "IGAPNight" {
                         if currentColorSetDark == "IGAPBlack" {
-                            tmpcolor = UIColor.white
+                            tmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelGrayColor
                         } else {
                             tmpcolor = ThemeManager.currentTheme.LabelGrayColor
                         }

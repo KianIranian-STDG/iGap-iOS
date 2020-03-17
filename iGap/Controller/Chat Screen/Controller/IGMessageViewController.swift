@@ -919,14 +919,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         if currentTheme == "IGAPDay" {
             if currentColorSetLight == "IGAPBlack" {
                 joinButton.setTitleColor(.white, for: .normal)
-                self.txtPinnedMessage.textColor = ThemeManager.currentTheme.LabelGrayColor.lighter(by: 10)
+                self.txtPinnedMessage.textColor = .white
                 self.txtPinnedMessageTitle.textColor = .white
                 self.lblCenterText.textColor = .white
                 self.lblCenterIcon.textColor = .white
                 self.inputBarRecordTimeLabel.textColor = ThemeManager.currentTheme.LabelColor
             } else {
                 joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
-                self.txtPinnedMessage.textColor = ThemeManager.currentTheme.LabelGrayColor.lighter(by: 10)
+                self.txtPinnedMessage.textColor = .white
                 self.txtPinnedMessageTitle.textColor = .white
                 self.lblCenterText.textColor = ThemeManager.currentTheme.LabelColor
                 self.lblCenterIcon.textColor = ThemeManager.currentTheme.LabelColor
@@ -934,7 +934,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }
         } else {
             joinButton.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
-            self.txtPinnedMessage.textColor = ThemeManager.currentTheme.LabelGrayColor.lighter(by: 10)
+            self.txtPinnedMessage.textColor = .white
             self.txtPinnedMessageTitle.textColor = .white
             self.lblCenterText.textColor = ThemeManager.currentTheme.LabelColor
             self.lblCenterIcon.textColor = ThemeManager.currentTheme.LabelColor
