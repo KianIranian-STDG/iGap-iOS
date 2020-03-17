@@ -4665,7 +4665,7 @@ class ChatControllerNode: ASCellNode {
 
             }
             if !isTextMessageNode {
-                IGGlobal.makeAsyncText(for: nodeText!, with: msg, textColor: ThemeManager.currentTheme.LabelColor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
+                IGGlobal.makeAsyncText(for: nodeText!, with: msg, textColor: labeltmpcolor, size: fontDefaultSize, numberOfLines: 0, font: .igapFont, alignment: msg.isRTL() ? .right : .left)
                 
             } else {
 
