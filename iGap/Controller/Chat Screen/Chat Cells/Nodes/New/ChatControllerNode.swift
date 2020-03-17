@@ -1219,7 +1219,7 @@ class ChatControllerNode: ASCellNode {
                 tmpcolor = ThemeManager.currentTheme.LabelGrayColor
             }
 
-            IGGlobal.makeAsyncText(for: txtTimeNode!, with: time.convertToHumanReadable(), textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont, alignment: .center)
+            IGGlobal.makeAsyncText(for: txtTimeNode!, with: time.convertToHumanReadable(), textColor: .white, size: 12, numberOfLines: 1, font: .igapFont, alignment: .center)
             
         }
         
@@ -2897,7 +2897,7 @@ class ChatControllerNode: ASCellNode {
         timeAndStatusSpec.verticalAlignment = .center
         let v = ASDisplayNode()
         v.style.preferredSize = CGSize(width: 100, height: 30)
-        v.backgroundColor = .darkGray
+        v.backgroundColor = ThemeManager.currentTheme.LabelGrayColor
         v.cornerRadius = 10
         let insetSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10), child: timeAndStatusSpec)
         let bgSpec = ASBackgroundLayoutSpec(child: insetSpec, background: v)
