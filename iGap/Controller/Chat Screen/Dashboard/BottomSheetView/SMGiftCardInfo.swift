@@ -69,9 +69,9 @@ class SMGiftCardInfo: UIView {
     
     func setInfo(giftCardInfo: IGStructGiftCardInfo!){
         self.giftCardInfo = giftCardInfo
-        txtExpirationDateValue.text = giftCardInfo.expireDate.substring(0, 2).inLocalizedLanguage() + " / " + giftCardInfo.expireDate.substring(2, 4).inLocalizedLanguage()
-        txtCVV2Value.text = giftCardInfo.cvv2.inLocalizedLanguage()
-        txtPinValue.text = giftCardInfo.secondPassword.inLocalizedLanguage()
+        txtExpirationDateValue.text = "( " + giftCardInfo.expireDate.substring(0, 2).inLocalizedLanguage() + " / " + giftCardInfo.expireDate.substring(2, 4).inLocalizedLanguage() + " )"
+        txtCVV2Value.text = "( " + giftCardInfo.cvv2 + " )".inLocalizedLanguage()
+        txtPinValue.text = "( " + giftCardInfo.secondPassword + " )".inLocalizedLanguage()
         
         let cardNumber = giftCardInfo.cardNumber.substring(0, 4) + " - " +
             giftCardInfo.cardNumber.substring(4, 8) + " - " +
