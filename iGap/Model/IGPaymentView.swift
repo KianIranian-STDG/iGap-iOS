@@ -336,10 +336,12 @@ class IGPaymentView: UIView {
             self.removeFromSuperview()
         }
         
-        if self.paymentStatus != nil && self.orderId != nil && IGStickerViewController.waitingGiftCardInfo.orderId == self.orderId {
-            SwiftEventBus.post(EventBusManager.giftCardPayment, sender: paymentStatus)
-            self.paymentStatus = nil
-            self.orderId = nil
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            if self.paymentStatus != nil && self.orderId != nil && IGStickerViewController.waitingGiftCardInfo.orderId == self.orderId {
+                SwiftEventBus.post(EventBusManager.giftCardPayment, sender: self.paymentStatus)
+                self.paymentStatus = nil
+                self.orderId = nil
+            }
         }
     }
     

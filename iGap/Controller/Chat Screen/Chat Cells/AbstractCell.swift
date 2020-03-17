@@ -1248,22 +1248,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         if finalRoomMessage.type == .sticker || finalRoomMessage.additional?.dataType == AdditionalType.STICKER.rawValue {
             removeVoteAction()
             if let stickerStruct = IGHelperJson.parseStickerMessage(data: (finalRoomMessage.additional?.data)!) {
-                //IGGlobal.imgDic[stickerStruct.token!] = self.imgMediaAbs
                 DispatchQueue.main.async {
                     IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) { (file) in
-                        
                         if (self.finalRoomMessage.attachment?.name!.hasSuffix(".json") ?? false) {
                             self.animationView.setLiveSticker(for: file)
                         } else {
                             self.imgMediaAbs?.setSticker(for: file)
-
                         }
-
-                        /*
-                        if let imageView = IGGlobal.imgDic[stickerStruct.token!] {
-                            imageView.setSticker(for: file)
-                        }
-                        */
                     }
                 }
             }

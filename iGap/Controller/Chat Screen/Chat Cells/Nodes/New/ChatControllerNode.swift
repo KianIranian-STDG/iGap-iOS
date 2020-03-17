@@ -4155,35 +4155,17 @@ class ChatControllerNode: ASCellNode {
     private func manageStickerAttachment() {
         
         if message!.additional?.dataType == AdditionalType.STICKER.rawValue {
-            
-            if let stickerStruct = IGHelperJson.parseStickerMessage(data: (message!.additional?.data)!) {
-                //IGGlobal.imgDic[stickerStruct.token!] = self.imgMediaAbs
-                DispatchQueue.main.async {
-                    IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) {[weak self] (file) in
-                        guard let sSelf = self else {
-                            return
-                        }
-                        if (sSelf.message!.attachment?.name!.hasSuffix(".json") ?? false) {
-                            if sSelf.LiveStickerView != nil {
-                                (sSelf.LiveStickerView!.view as! AnimationView).setLiveSticker(for: file)
-                            }
-                        } else  {
-                            if sSelf.NormalGiftStickerView != nil {
-                                
-                                (sSelf.NormalGiftStickerView!.view as! UIImageView).setSticker(for: file)
-                            }
-                        }
-                        
+            DispatchQueue.main.async {
+                IGAttachmentManager.sharedManager.getStickerFileInfo(token: self.message?.attachment?.token ?? "") {[weak self] (file) in
+                    guard let sSelf = self else {
+                        return
                     }
-                }
-            } else {
-                if let stickerStruct = IGHelperJson.parseStickerMessage(data: (message!.additional?.data)!) {
-                    
-                    DispatchQueue.main.async {[weak self] in
-                        guard let sSelf = self else {
-                            return
+                    if (sSelf.message!.attachment?.name!.hasSuffix(".json") ?? false) {
+                        if sSelf.LiveStickerView != nil {
+                            (sSelf.LiveStickerView!.view as! AnimationView).setLiveSticker(for: file)
                         }
-                        IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) { (file) in
+                    } else  {
+                        if sSelf.NormalGiftStickerView != nil {
                             (sSelf.NormalGiftStickerView!.view as! UIImageView).setSticker(for: file)
                         }
                     }
@@ -4191,45 +4173,27 @@ class ChatControllerNode: ASCellNode {
             }
             return
         }
-        
-        
     }
+    
     private func manageAttachment(file: IGFile? = nil,msg: IGRoomMessage){
         
-        if msg.type == .sticker || msg.additional?.dataType == AdditionalType.STICKER.rawValue {
-            
-            if let stickerStruct = IGHelperJson.parseStickerMessage(data: (msg.additional?.data)!) {
-                //IGGlobal.imgDic[stickerStruct.token!] = self.imgMediaAbs
-                DispatchQueue.main.async {
-                    IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) {[weak self] (file) in
-                        guard let sSelf = self else {
-                            return
-                        }
-                        
-                        if (msg.attachment?.name!.hasSuffix(".json") ?? false) {
-                            if sSelf.LiveStickerView != nil {
-                                (sSelf.LiveStickerView!.view as! AnimationView).setLiveSticker(for: file)
-                            }
-                        } else  {
-                            if sSelf.NormalGiftStickerView != nil {
-                                
-                                (sSelf.NormalGiftStickerView!.view as! UIImageView).setSticker(for: file)
-                            }
-                        }
-                        
+        if msg.type == .sticker {
+            DispatchQueue.main.async {
+                IGAttachmentManager.sharedManager.getStickerFileInfo(token: msg.attachment?.token ?? "") {[weak self] (file) in
+                    guard let sSelf = self else {
+                        return
                     }
-                }
-            } else {
-                if let stickerStruct = IGHelperJson.parseStickerMessage(data: (msg.additional?.data)!) {
                     
-                    DispatchQueue.main.async {[weak self] in
-                        guard let sSelf = self else {
-                            return
+                    if (msg.attachment?.name!.hasSuffix(".json") ?? false) {
+                        if sSelf.LiveStickerView != nil {
+                            (sSelf.LiveStickerView!.view as! AnimationView).setLiveSticker(for: file)
                         }
-                        IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) { (file) in
+                    } else  {
+                        if sSelf.NormalGiftStickerView != nil {
                             (sSelf.NormalGiftStickerView!.view as! UIImageView).setSticker(for: file)
                         }
                     }
+                    
                 }
             }
             return

@@ -47,36 +47,20 @@ class ASAnimationManager: ASDisplayNode {
         manageAttachment()
     }
     private func manageAttachment() {
-
         if self.message!.additional?.dataType == AdditionalType.STICKER.rawValue {
-            
-            if let stickerStruct = IGHelperJson.parseStickerMessage(data: (self.message!.additional?.data)!) {
-                //IGGlobal.imgDic[stickerStruct.token!] = self.imgMediaAbs
-                DispatchQueue.main.async {
-                    IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) { (file) in
-                        
-                        if (self.message!.attachment?.name!.hasSuffix(".json") ?? false) {
-                            (self.LiveStickerView.view as! AnimationView).setLiveSticker(for: file)
-                        } else {
-                            self.NormalGiftStickerView!.setSticker(for: file)
-                        }
-                        
-                    }
-                }
-            } else {
-                if let stickerStruct = IGHelperJson.parseStickerMessage(data: (self.message!.additional?.data)!) {
+            DispatchQueue.main.async {
+                IGAttachmentManager.sharedManager.getStickerFileInfo(token: self.message?.attachment?.token ?? "") { (file) in
                     
-                    DispatchQueue.main.async {
-                        IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerStruct.token) { (file) in
-                            self.NormalGiftStickerView!.setSticker(for: file)
-                        }
+                    if (self.message!.attachment?.name!.hasSuffix(".json") ?? false) {
+                        (self.LiveStickerView.view as! AnimationView).setLiveSticker(for: file)
+                    } else {
+                        self.NormalGiftStickerView!.setSticker(for: file)
                     }
+                    
                 }
             }
             return
         }
-
-        
     }
     private func initAnimatedSticker() {
         addSubnode(LiveStickerView)
