@@ -5459,7 +5459,128 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         }
         
         diselect()
-//        self.reloadCollection()
+    }
+    
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) { // TODO - when isWaiting for get from server return this method and don't do any action
+        if self.tableViewNode.numberOfRows(inSection: 0) == 0 {
+            return
+        }
+        
+        setFloatingDate()
+        
+        //currently use inverse
+        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) { //reach top
+            if (!self.messageLoader.isFirstLoadUp() || self.messageLoader.isForceFirstLoadUp()) && !self.messageLoader.isWaitingHistoryUpLocal() {
+                self.messageLoader.loadMessage(direction: .up, onMessageReceive: { [weak self] (messages, direction) in
+                    self?.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
+                })
+            }
+            
+            /** if totalItemCount is lower than scrollEnd so (firstVisiblePosition < scrollEnd) is always true and we can't load DOWN,
+             * finally for solve this problem also check following state and load DOWN even totalItemCount is lower than scrollEnd count
+             */
+            //if (totalItemCount <= scrollEnd) {
+            //    loadMessage(DOWN);
+            //}
+        }
+        
+        if (scrollView.contentOffset.y < 0) { //reach bottom
+            self.newMessageArrivedCount = 0
+            
+            self.lblUnreadArrieved.text = "0".inLocalizedLanguage()
+            self.lblUnreadArrieved.isHidden = true
+            if !(self.messageLoader?.isFirstLoadDown() ?? false) && !(self.messageLoader?.isWaitingHistoryDownLocal() ?? false) {
+                self.messageLoader.loadMessage(direction: .down, onMessageReceive: { [weak self] (messages, direction) in
+                    self?.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
+                })
+            }
+        }
+        
+        //100 is an arbitrary number. can be anything
+        if scrollView.contentOffset.y > 100 {
+            self.scrollToBottomContainerView.isHidden = false
+        } else {
+            self.scrollToBottomContainerView.isHidden = true
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        UIView.animate(withDuration: 0.5, animations: {[weak self] in
+            guard let sSelf = self else {
+                return
+            }
+            sSelf.floatingDateView.alpha = 0.0
+        })
+        UIView.animate(withDuration: 0.5, animations: {[weak self] in
+            guard let sSelf = self else {
+                return
+            }
+            sSelf.txtFloatingDate.alpha = 0.0
+        })
+    }
+    
+    private func setFloatingDate(){
+        if messages == nil {return}
+        let arrayOfVisibleItems = tableViewNode.indexPathsForVisibleRows().sorted()
+        if let lastIndexPath = arrayOfVisibleItems.last {
+            if latestIndexPath != lastIndexPath {
+                if let cell = self.tableViewNode.nodeForRow(at: IndexPath(row: lastIndexPath.row, section: 0)) as? IGLogNode, cell.message?.type != .log {
+                    return
+                }
+                latestIndexPath = lastIndexPath
+            } else {
+                return
+            }
+            if latestIndexPath.row < messages!.count {
+                
+                var previousMessage: IGRoomMessage!
+                if  messages!.count > latestIndexPath.row + 1 {
+                    previousMessage = (messages?[latestIndexPath.row + 1].detach())!
+                }
+                
+                if let message = messages?[latestIndexPath.row].detach(), !message.isInvalidated , message.type != .time , message.type != .unread {
+                    let dayTimePeriodFormatter = DateFormatter()
+                    dayTimePeriodFormatter.dateFormat = "MMMM dd"
+                    dayTimePeriodFormatter.calendar = Calendar.current
+                    let dateString = (message.creationTime!).localizedDate()
+                    
+                    var previousDateString = ""
+                    if previousMessage != nil {
+                        let dayTimePeriodFormatter1 = DateFormatter()
+                        dayTimePeriodFormatter1.dateFormat = "MMMM dd"
+                        dayTimePeriodFormatter1.calendar = Calendar.current
+                        previousDateString = (previousMessage.creationTime!).localizedDate()
+                    }
+                    
+                    if !previousDateString.isEmpty && previousDateString != dateString {
+                        if !saveDate.contains(dateString) {
+                            saveDate.append(dateString)
+                            if firstSetDate {
+                                firstSetDate = false
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    if let messageTime = message.creationTime {
+                                        self.appendAtSpecificPosition(self.makeTimeItem(date: messageTime), cellPosition: lastIndexPath.row + 1)
+                                    }
+                                }
+                            } else {
+                                if let messageTime = message.creationTime {
+                                    self.appendAtSpecificPosition(self.makeTimeItem(date: messageTime), cellPosition: lastIndexPath.row + 1)
+                                }
+                            }
+                        }
+                    }
+                    
+                    txtFloatingDate.text = dateString.inLocalizedLanguage()
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.floatingDateView.alpha = 1.0
+                    })
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.txtFloatingDate.alpha = 1.0
+                    })
+                }
+            }
+        }
     }
     
     
@@ -6062,134 +6183,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 //
 //            }
 //
-//        }
-//    }
-//
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) { // TODO - when isWaiting for get from server return this method and don't do any action
-//        if self.tableViewNode.numberOfRows(inSection: 0) == 0 {
-//            return
-//        }
-//
-//        setFloatingDate()
-//
-//        //currently use inverse
-//        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) { //reach top
-//            if (!self.messageLoader.isFirstLoadUp() || self.messageLoader.isForceFirstLoadUp()) && !self.messageLoader.isWaitingHistoryUpLocal() {
-//                self.messageLoader.loadMessage(direction: .up, onMessageReceive: { [weak self] (messages, direction) in
-//                    self?.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
-//                })
-//            }
-//
-//            /** if totalItemCount is lower than scrollEnd so (firstVisiblePosition < scrollEnd) is always true and we can't load DOWN,
-//             * finally for solve this problem also check following state and load DOWN even totalItemCount is lower than scrollEnd count
-//             */
-//            //if (totalItemCount <= scrollEnd) {
-//            //    loadMessage(DOWN);
-//            //}
-//        }
-//
-//        if (scrollView.contentOffset.y < 0) { //reach bottom
-//            self.newMessageArrivedCount = 0
-//
-//            self.lblUnreadArrieved.text = "0".inLocalizedLanguage()
-//            self.lblUnreadArrieved.isHidden = true
-//            if !(self.messageLoader?.isFirstLoadDown() ?? false) && !(self.messageLoader?.isWaitingHistoryDownLocal() ?? false) {
-//                self.messageLoader.loadMessage(direction: .down, onMessageReceive: { [weak self] (messages, direction) in
-//                    self?.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
-//                })
-//            }
-//        }
-//
-//        //100 is an arbitrary number. can be anything
-//        if scrollView.contentOffset.y > 100 {
-//            self.scrollToBottomContainerView.isHidden = false
-//        } else {
-//            self.scrollToBottomContainerView.isHidden = true
-//        }
-//    }
-//
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        UIView.animate(withDuration: 0.5, animations: {[weak self] in
-//            guard let sSelf = self else {
-//                return
-//            }
-//            sSelf.floatingDateView.alpha = 0.0
-//        })
-//        UIView.animate(withDuration: 0.5, animations: {[weak self] in
-//            guard let sSelf = self else {
-//                return
-//            }
-//            sSelf.txtFloatingDate.alpha = 0.0
-//        })
-//    }
-//
-//    private func setFloatingDate(){
-//        if messages == nil {return}
-//        let arrayOfVisibleItems = tableViewNode.indexPathsForVisibleRows().sorted()
-//        if let lastIndexPath = arrayOfVisibleItems.last {
-//            if latestIndexPath != lastIndexPath {
-//
-//
-//                if let cell = self.tableViewNode.nodeForRow(at: IndexPath(row: lastIndexPath.row, section: 0)) as? IGLogNode, cell.message?.type != .log {
-//                    return
-//                }
-//
-////                if let cell = self.collectionViewNode?.nodeForItem(at: IndexPath(row: lastIndexPath.row, section: 0)) as? IGLogNode, cell.message?.type != .log {
-////                    return // check time of all messages exept .log creation time
-////                }
-//
-//                latestIndexPath = lastIndexPath
-//            } else {
-//                return
-//            }
-//            if latestIndexPath.row < messages!.count {
-//
-//                var previousMessage: IGRoomMessage!
-//                if  messages!.count > latestIndexPath.row + 1 {
-//                    previousMessage = (messages?[latestIndexPath.row + 1].detach())!
-//                }
-//
-//                if let message = messages?[latestIndexPath.row].detach(), !message.isInvalidated , message.type != .time , message.type != .unread {
-//                    let dayTimePeriodFormatter = DateFormatter()
-//                    dayTimePeriodFormatter.dateFormat = "MMMM dd"
-//                    dayTimePeriodFormatter.calendar = Calendar.current
-//                    let dateString = (message.creationTime!).localizedDate()
-//
-//                    var previousDateString = ""
-//                    if previousMessage != nil {
-//                        let dayTimePeriodFormatter1 = DateFormatter()
-//                        dayTimePeriodFormatter1.dateFormat = "MMMM dd"
-//                        dayTimePeriodFormatter1.calendar = Calendar.current
-//                        previousDateString = (previousMessage.creationTime!).localizedDate()
-//                    }
-//
-//                    if !previousDateString.isEmpty && previousDateString != dateString {
-//                        if !saveDate.contains(dateString) {
-//                            saveDate.append(dateString)
-//                            if firstSetDate {
-//                                firstSetDate = false
-//                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-//                                    if let messageTime = message.creationTime {
-//                                        self.appendAtSpecificPosition(self.makeTimeItem(date: messageTime), cellPosition: lastIndexPath.row + 1)
-//                                    }
-//                                }
-//                            } else {
-//                                if let messageTime = message.creationTime {
-//                                    self.appendAtSpecificPosition(self.makeTimeItem(date: messageTime), cellPosition: lastIndexPath.row + 1)
-//                                }
-//                            }
-//                        }
-//                    }
-//
-//                    txtFloatingDate.text = dateString.inLocalizedLanguage()
-//                    UIView.animate(withDuration: 0.5, animations: {
-//                        self.floatingDateView.alpha = 1.0
-//                    })
-//                    UIView.animate(withDuration: 0.5, animations: {
-//                        self.txtFloatingDate.alpha = 1.0
-//                    })
-//                }
-//            }
 //        }
 //    }
 //}
@@ -6929,7 +6922,6 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         })
         let roomTitle = self.room?.title != nil ? self.room!.title! : ""
         let deleteForBoth = UIAlertAction(title: IGStringsManager.DeleteForMeAnd.rawValue.localized + roomTitle, style: .destructive, handler: { (action) in
-            //            self.deleteMessage(cellMessage, both: true)
             self.isBoth = true
             self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : false,isDelete : true,isShare : false, id: id)
             
