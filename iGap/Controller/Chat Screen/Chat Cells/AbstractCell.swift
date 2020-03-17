@@ -516,7 +516,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
 
             } else {
                 let currentTheme = UserDefaults.standard.string(forKey: "CurrentTheme") ?? "IGAPClassic"
-                let currentColorSetDark = UserDefaults.standard.string(forKey: "CurrentColorSetDark") ?? "IGAPBlue"
                 let currentColorSetLight = UserDefaults.standard.string(forKey: "CurrentColorSetLight") ?? "IGAPBlue"
 
                 if currentTheme == "IGAPDay" || currentTheme == "IGAPNight" {
@@ -1306,9 +1305,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
             case .image, .imageAndText, .video, .videoAndText, .gif, .gifAndText:
                 if !(attachment.isInvalidated) {
                     imgMediaAbs.setThumbnail(for: attachment)
-                    if attachment.status != .ready {
-                        indicatorViewAbs?.delegate = self
-                    }
+                    indicatorViewAbs?.delegate = self
                     break
                 }
             default:
@@ -1931,7 +1928,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell, UIGestureRecognizerDeleg
         
         statusBackgroundViewAbs.snp.makeConstraints { (make) in
             if isIncommingMessage {
-                make.trailing.equalTo(txtTimeAbs.snp.trailing).offset(0)
+                make.trailing.equalTo(txtTimeAbs.snp.trailing).offset(10)
             } else {
                 make.trailing.equalTo(txtStatusAbs.snp.trailing).offset(10)
             }

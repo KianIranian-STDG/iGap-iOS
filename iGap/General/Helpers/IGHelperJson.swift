@@ -27,7 +27,28 @@ class IGHelperJson {
         }
         return nil
     }
-
+    
+    public static func getSpecJson() -> String? {
+        let spec = ["id" : "\(IGAppManager.sharedManager.APP_ID)", "version" : IGAppManager.sharedManager.bundleVersion(), "language" : 0] as [String : Any]
+        return JSON(spec).rawString()
+    }
+    
+    public static func makeStickerGroupIds(id: String) -> [String: Any] {
+        let ids: [String: [AnyObject]] = ["ids": ["\(id)" as AnyObject]]
+        return JSON(ids).dictionaryObject!
+    }
+    
+    public static func makeBuyGiftStickerInfo(nationalCode: String, mobileNumber: String, count: Int) -> [String: Any] {
+        let parameters = ["national_code": "\(nationalCode)", "tel_num": "\(mobileNumber)", "count": count] as [String : Any]
+        return JSON(parameters).dictionaryObject!
+    }
+    
+    public static func makeGiftStickerActivation(nationalCode: String, mobileNumber: String, key: String) -> [String: Any] {
+        let parameters = ["national_code": "\(nationalCode)", "tel_num": "\(mobileNumber)", "key": key] as [String : Any]
+        return JSON(parameters).dictionaryObject!
+    }
+    
+    
     /*************************************************************************/
     /*************************** Additional Button ***************************/
     
@@ -138,7 +159,9 @@ class IGHelperJson {
                     "fileName" : stickerItem.fileName,
                     "fileSize" : stickerItem.fileSize,
                     "sort" : stickerItem.sort,
-                    "groupId": stickerItem.groupID] as [String: Any?]
+                    "groupId" : stickerItem.groupID,
+                    "giftId" : stickerItem.giftId,
+                    "giftAmount" : stickerItem.giftAmount] as [String: Any?]
         
         let json = JSON(dict).rawString()
         return json

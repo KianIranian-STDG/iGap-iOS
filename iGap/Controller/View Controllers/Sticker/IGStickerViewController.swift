@@ -32,11 +32,16 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     var stickerCategoryId: String? // use this variable at CATEGORY page type
     var currentIndexPath: IndexPath!
     var isWaitingForRequest = false
+    var isGift = false
+    var dismissBtn: UIButton!
+    var giftStickerBuyModal: SMCheckGiftSticker!
+    var giftStickerId: String? // use this variable for check buy gift sticker
     
     // Due to the type of sticker page for collection view will be used one of the following variables
     var stickerTabs: Results<IGRealmSticker>! // use this variable at main sticker page (MAIN)
     var stickerList: [StickerTab] = [] // use this variable at sticker list page (PREVIEW, CATEGORY)
     var backGroundColor = UIColor.sticker()
+    static var waitingGiftCardInfo: (orderId: String, giftId: String, stickerStruct: IGRealmStickerItem?) = ("", "", nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,10 +56,18 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
             fetchMySticker()
             manageStickerPostion()
         } else if self.stickerPageType == StickerPageType.CATEGORY {
-            fetchStickerList()
+            if isGift {
+                fetchGiftableStickerList()
+            } else {
+                fetchStickerList()
+            }
         } else if stickerPageType == StickerPageType.PREVIEW {
             self.collectionView!.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
-            numberOfItemsPerRow = 3.0 as CGFloat
+            if isGift {
+                numberOfItemsPerRow = 2.0 as CGFloat
+            } else {
+                numberOfItemsPerRow = 3.0 as CGFloat
+            }
             fetchStickerPreview(groupId: stickerGroupId!)
         }
     }
@@ -74,7 +87,11 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     
     private func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.AddSticker.rawValue.localized)
+        var title = IGStringsManager.AddSticker.rawValue.localized
+        if isGift {
+            title = IGStringsManager.GiftCard.rawValue.localized
+        }
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: title)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -128,16 +145,19 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     }
     
     private func fetchStickerList(){
+        if stickerCategoryId == nil {return}
         isWaitingForRequest = true
         SMLoading.showLoadingPage(viewcontroller: self)
-        if stickerCategoryId == nil || stickerCategoryId!.isEmpty {
-            IGApiSticker.shared.stickerList(offset: self.offset, limit: self.FETCH_LIMIT) { [weak self] (stickers) in
-                self?.showStickerList(stickers: stickers)
-            }
-        } else { // currently else state not call anytime! because currently 'StickerPageType.ADD_REMOVE' type removed
-            IGApiSticker.shared.stickerCategory(categoryId: stickerCategoryId!, offset: self.offset, limit: self.FETCH_LIMIT) { [weak self] (stickers) in
-                self?.showStickerList(stickers: stickers)
-            }
+        IGApiSticker.shared.stickerCategory(categoryId: stickerCategoryId!, offset: self.offset, limit: self.FETCH_LIMIT) { [weak self] (stickers) in
+            self?.showStickerList(stickers: stickers)
+        }
+    }
+    
+    private func fetchGiftableStickerList(){
+        isWaitingForRequest = true
+        SMLoading.showLoadingPage(viewcontroller: self)
+        IGApiSticker.shared.getGiftableStickerGroups(offset: self.offset, limit: self.FETCH_LIMIT) { [weak self] (stickers) in
+            self?.showStickerList(stickers: stickers)
         }
     }
     
@@ -200,9 +220,62 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
         
         /***** Sticker Add *****/
         SwiftEventBus.onMainThread(self, name: EventBusManager.stickerAdd) { [weak self] (result) in
-            print("CCC || self?.collectionView?.numberOfSections: \(self?.collectionView?.numberOfSections)   ***   index: \(result?.object)")
             if let index = result?.object as? Int, self?.collectionView?.numberOfSections ?? 0 >= index + 1 {
                 self?.collectionView?.reloadSections(IndexSet([index]))
+            }
+        }
+
+        if self.stickerPageType == .PREVIEW && isGift {
+            /***** Gift Card Buy *****/
+            SwiftEventBus.onMainThread(self, name: EventBusManager.giftCardTap) { [weak self] result in
+                
+                if self == nil {return}
+                if self!.stickerPageType != StickerPageType.PREVIEW || !self!.isGift {return}
+                guard let stickerItem = result?.object as? Sticker else {return}
+                
+                IGStickerViewController.waitingGiftCardInfo.stickerStruct = IGRealmStickerItem(sticker: stickerItem)
+                self?.giftStickerId = stickerItem.id
+                
+                self!.dismissBtn = UIButton()
+                self!.dismissBtn.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
+                self!.view.insertSubview(self!.dismissBtn, at: 2)
+                self!.dismissBtn.addTarget(self, action: #selector(self!.didtapOutSide), for: .touchUpInside)
+                
+                self!.dismissBtn?.snp.makeConstraints { (make) in
+                    make.top.equalTo(self!.view.snp.top)
+                    make.bottom.equalTo(self!.view.snp.bottom)
+                    make.right.equalTo(self!.view.snp.right)
+                    make.left.equalTo(self!.view.snp.left)
+                }
+                
+                self!.giftStickerBuyModal = SMCheckGiftSticker.loadFromNib()
+                self!.giftStickerBuyModal.confirmBtn.addTarget(self, action: #selector(self!.confirmTapped), for: .touchUpInside)
+                self!.giftStickerBuyModal.setInfo(token: stickerItem.token, amount: String(describing: stickerItem.giftAmount ?? 0))
+                self!.giftStickerBuyModal.frame = CGRect(x: 0, y: self!.view.frame.height , width: self!.view.frame.width, height: self!.giftStickerBuyModal.frame.height)
+                
+                let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+                swipeDown.direction = .down
+                
+                self!.giftStickerBuyModal.addGestureRecognizer(swipeDown)
+                self!.view.addSubview(self!.giftStickerBuyModal)
+                
+                let window = UIApplication.shared.keyWindow
+                let bottomPadding = window?.safeAreaInsets.bottom
+                UIView.animate(withDuration: 0.3) {
+                    self!.giftStickerBuyModal.frame = CGRect(x: 0, y: self!.view.frame.height - self!.giftStickerBuyModal.frame.height - 5 -  bottomPadding!, width: self!.view.frame.width, height: self!.giftStickerBuyModal.frame.height)
+                }
+            }
+            
+            SwiftEventBus.onMainThread(self, name: EventBusManager.giftCardPayment) { result in
+                if IGMessageViewController.giftRoomId == nil || IGMessageViewController.giftRoomId == 0 { // opened this page from discovery so shouldn't be send message to chat
+                    return
+                }
+                if let status = result?.object as? PaymentStatus, status == PaymentStatus.success {
+                    IGStickerViewController.waitingGiftCardInfo.stickerStruct?.giftId = IGStickerViewController.waitingGiftCardInfo.giftId
+                    IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.LabelColor, message: IGStringsManager.GiftCardSendQuestion.rawValue.localized, doneText: IGStringsManager.GlobalOK.rawValue.localized, cancelText: IGStringsManager.GlobalCancel.rawValue.localized, done: {
+                        SwiftEventBus.postToMainThread(EventBusManager.giftCardSendMessage, sender: IGStickerViewController.waitingGiftCardInfo.stickerStruct)
+                    })
+                }
             }
         }
     }
@@ -221,6 +294,47 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
                 btn.backgroundColor = UIColor.clear
             }
         }
+    }
+    
+    @objc func didtapOutSide() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.giftStickerBuyModal.frame.origin.y = self.view.frame.height
+        }) { (true) in
+            
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
+            self.giftStickerBuyModal?.removeFromSuperview()
+            self.giftStickerBuyModal = nil
+            
+            self.dismissBtn?.removeFromSuperview()
+            self.dismissBtn = nil
+        }
+    }
+    
+    @objc func handleGesture(gesture: UITapGestureRecognizer) {
+        self.didtapOutSide()
+    }
+    
+    @objc func confirmTapped(_ gestureRecognizer: UITapGestureRecognizer) {
+        var phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0)
+        if phone == nil {return}
+        phone = ("+"+phone!).replace("+98", withString: "0")
+        IGGlobal.prgShow()
+        IGApiSticker.shared.checkBuyGiftCard(stickerId: self.giftStickerId ?? "", nationalCode: IGSessionInfo.getNationalCode() ?? "", mobileNumber: phone!, count: 1, completion: { [weak self] buyGiftSticker in
+            self?.giftStickerId = nil
+            self?.didtapOutSide()
+            IGStickerViewController.waitingGiftCardInfo.giftId = buyGiftSticker.id
+            IGApiSticker.shared.giftStickerPaymentRequest(token: buyGiftSticker.token, completion: { giftCardPayment in
+                IGStickerViewController.waitingGiftCardInfo.orderId = giftCardPayment.info.orderID
+                IGGlobal.prgHide()
+                IGPaymentView.sharedInstance.showGiftCardPayment(on: UIApplication.shared.keyWindow!, title: IGStringsManager.GiftStickerBuy.rawValue.localized, payment: giftCardPayment)
+            }, error: {
+                IGGlobal.prgHide()
+                IGPaymentView.sharedInstance.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: IGStringsManager.GiftCard.rawValue.localized, message: IGStringsManager.PaymentErrorMessage.rawValue.localized)
+            })
+        }, error: {
+            IGGlobal.prgHide()
+        })
     }
     
     /*******************************************************************************/
@@ -290,9 +404,9 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
                 self.currentIndexPath = indexPath
                 stickerItem.configure(stickerItem: self.stickerTabs[indexPath.section].stickerItems[indexPath.row])
             } else if self.stickerPageType == StickerPageType.CATEGORY {
-                stickerItem.configureListPage(stickerItem: self.stickerList[indexPath.section].stickers[indexPath.row], sectionIndex: indexPath.section)
+                stickerItem.configureListPage(stickerItem: self.stickerList[indexPath.section].stickers[indexPath.row], sectionIndex: indexPath.section, isGift: self.isGift)
             } else if self.stickerPageType == StickerPageType.PREVIEW {
-                stickerItem.configurePreview(stickerItem: self.stickerList[indexPath.section].stickers[indexPath.row])
+                stickerItem.configurePreview(stickerItem: self.stickerList[indexPath.section].stickers[indexPath.row], isGift: self.isGift)
             }
         }
     }
@@ -302,9 +416,9 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
         
         if let foodHeader = headerView as? IGStickerSectionHeader {
             if self.stickerPageType == StickerPageType.CATEGORY {
-                foodHeader.configureListPage(sticker: self.stickerList[indexPath.section], sectionIndex: indexPath.section)
+                foodHeader.configureListPage(sticker: self.stickerList[indexPath.section], sectionIndex: indexPath.section, isGift: self.isGift)
             } else if self.stickerPageType == StickerPageType.PREVIEW {
-                foodHeader.configurePreview(sticker: self.stickerList[indexPath.section], sectionIndex: indexPath.section)
+                foodHeader.configurePreview(sticker: self.stickerList[indexPath.section], sectionIndex: indexPath.section, isGift: self.isGift)
             } else { //StickerPageType.MAIN
                 foodHeader.configure(sticker: self.stickerTabs[indexPath.section])
             }

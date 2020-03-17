@@ -54,7 +54,9 @@ struct EventBusManager {
     static let changeDirection = "changeDirection"
     static let updateButtonPlayForDownload = "updateButtonPlayForDownload"
     static let showContactDetail = "showContactDetail"
-
+    static let giftCardTap = "giftCardTap"
+    static let giftCardPayment = "giftCardPayment"
+    static let giftCardSendMessage = "giftCardSendMessage"
 }
 
 struct SMMessage {

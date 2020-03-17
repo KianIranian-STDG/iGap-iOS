@@ -10,9 +10,7 @@
 
 import UIKit
 
-class IGTabBarStickerController: UITabBarController, UIGestureRecognizerDelegate{
-    
-    var stickerCategories: [StickerCategory]!
+class IGTabBarGiftStickersList: UITabBarController, UIGestureRecognizerDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +38,7 @@ class IGTabBarStickerController: UITabBarController, UIGestureRecognizerDelegate
     }
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.Sticker.rawValue.localized, width: 200)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: IGStringsManager.GiftCardReport.rawValue.localized, width: 200)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -50,15 +48,29 @@ class IGTabBarStickerController: UITabBarController, UIGestureRecognizerDelegate
         super.viewWillAppear(animated)
         
         var controllers: [UIViewController] = []
-        for category in stickerCategories {
-            let tabBarItem = UITabBarItem(title: category.name, image: nil, selectedImage: nil)
+        for category in 1...3 {
+            
+            var name: String!
+            var type: GiftStickerListType!
+            if category == 1 {
+                name = IGStringsManager.GiftCardsActivated.rawValue.localized
+                type = .active
+            } else if category == 2 {
+                name = IGStringsManager.GiftCardsUsable.rawValue.localized
+                type = .new
+            } else if category == 3 {
+                name = IGStringsManager.GiftCardsPosted.rawValue.localized
+                type = .forwarded
+            }
+            
+            let tabBarItem = UITabBarItem(title: name, image: nil, selectedImage: nil)
             tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -16)
             
-            let stickerController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: IGStickerViewController.self)) as! IGStickerViewController
-            stickerController.stickerPageType = .CATEGORY
-            stickerController.stickerCategoryId = category.id
-            stickerController.tabBarItem = tabBarItem
-            controllers.append(stickerController)
+            let giftCardsList = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: IGGiftStickersListViewController.self)) as! IGGiftStickersListViewController
+            giftCardsList.giftCardType = type
+            giftCardsList.tabBarItem = tabBarItem
+            giftCardsList.tabbarHeight = self.tabBar.bounds.height
+            controllers.append(giftCardsList)
         }
         self.viewControllers = controllers
         
@@ -93,12 +105,11 @@ class IGTabBarStickerController: UITabBarController, UIGestureRecognizerDelegate
     }
     
     
-    static func openStickerCategories() {
+    static func openGiftStickersReport() {
         IGGlobal.prgShow()
         IGApiSticker.shared.stickerCategories { categories in
             IGGlobal.prgHide()
-            let tabbarSticker = IGTabBarStickerController.instantiateFromAppStroryboard(appStoryboard: .Main)
-            tabbarSticker.stickerCategories = categories
+            let tabbarSticker = IGTabBarGiftStickersList.instantiateFromAppStroryboard(appStoryboard: .Main)
             tabbarSticker.hidesBottomBarWhenPushed = true
             UIApplication.topNavigationController()!.pushViewController(tabbarSticker, animated: true)
         }

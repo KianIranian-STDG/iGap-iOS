@@ -26,6 +26,7 @@ class IGStickerCell: UICollectionViewCell {
     var stickerItemStruct: Sticker!
     var sectionIndex: Int!
     var stickerPageType: StickerPageType!
+    var isGift: Bool = false
     
     func configure(stickerItem: IGRealmStickerItem) {
         self.stickerPageType = StickerPageType.MAIN
@@ -41,10 +42,11 @@ class IGStickerCell: UICollectionViewCell {
         }
     }
     
-    func configureListPage(stickerItem: Sticker, sectionIndex: Int) {
+    func configureListPage(stickerItem: Sticker, sectionIndex: Int, isGift: Bool) {
         self.stickerPageType = StickerPageType.CATEGORY
         self.sectionIndex = sectionIndex
         self.stickerItemStruct = stickerItem
+        self.isGift = isGift
         
         if (stickerItem.fileName.contains(".json")) {
             makeAnimationView()
@@ -55,9 +57,10 @@ class IGStickerCell: UICollectionViewCell {
         }
     }
     
-    func configurePreview(stickerItem: Sticker) {
+    func configurePreview(stickerItem: Sticker, isGift: Bool) {
         self.stickerPageType = StickerPageType.PREVIEW
         self.stickerItemStruct = stickerItem
+        self.isGift = isGift
 
         if (stickerItem.fileName.contains(".json")) {
             makeAnimationView()
@@ -132,8 +135,13 @@ class IGStickerCell: UICollectionViewCell {
         let stickerViewController = IGStickerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
         stickerViewController.stickerGroupId = self.stickerItemStruct.groupID
         stickerViewController.stickerPageType = StickerPageType.PREVIEW
+        stickerViewController.isGift = self.isGift
         stickerViewController.hidesBottomBarWhenPushed = true
         UIApplication.topNavigationController()!.pushViewController(stickerViewController, animated: true)
+    }
+    
+    @objc func showBuyGiftCardView(_ gestureRecognizer: UITapGestureRecognizer) {
+        SwiftEventBus.postToMainThread(EventBusManager.giftCardTap, sender: self.stickerItemStruct)
     }
     
     /********************************/
@@ -155,6 +163,9 @@ class IGStickerCell: UICollectionViewCell {
             animationView.isUserInteractionEnabled = true
         } else if stickerPageType == StickerPageType.CATEGORY {
             animationView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.openStickerPreview(_:))))
+            animationView.isUserInteractionEnabled = true
+        } else if stickerPageType == StickerPageType.PREVIEW && self.isGift {
+            animationView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showBuyGiftCardView(_:))))
             animationView.isUserInteractionEnabled = true
         }
 
@@ -182,6 +193,9 @@ class IGStickerCell: UICollectionViewCell {
             imgSticker.isUserInteractionEnabled = true
         } else if stickerPageType == StickerPageType.CATEGORY {
             imgSticker.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.openStickerPreview(_:))))
+            imgSticker.isUserInteractionEnabled = true
+        } else if stickerPageType == StickerPageType.PREVIEW && self.isGift {
+            imgSticker.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showBuyGiftCardView(_:))))
             imgSticker.isUserInteractionEnabled = true
         }
         

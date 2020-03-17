@@ -28,6 +28,9 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
     var isInsearchMode : Bool! = false
     var selectedMessages : [IGRoomMessage] = []
     var isFromCloud : Bool = false
+    var isGiftSticker: Bool = false
+    var giftId: String?
+    var lastSelectedIndex: IndexPath?
     @IBOutlet weak var lblInfo : UILabel!
     @IBOutlet weak var lblCount : UILabel!
     @IBOutlet weak var stackHeightConstraint: NSLayoutConstraint!
@@ -72,7 +75,10 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
         self.collectionHeightConstraint.constant = deviceSizeModel.getShareModalSize() - self.btnSendHeightConstraint.constant - self.stackHeightConstraint.constant
 
         searchBar.delegate = self
-        let predicateChats = NSPredicate(format: "(typeRaw == 0 AND isParticipant == true) OR (typeRaw == 1 AND isParticipant == true) OR (typeRaw == 2 AND isParticipant == true AND (channelRoom.roleRaw == 1 OR channelRoom.roleRaw == 2 OR channelRoom.roleRaw == 3))")
+        var predicateChats = NSPredicate(format: "(typeRaw == 0 AND isParticipant == true) OR (typeRaw == 1 AND isParticipant == true) OR (typeRaw == 2 AND isParticipant == true AND (channelRoom.roleRaw == 1 OR channelRoom.roleRaw == 2 OR channelRoom.roleRaw == 3))")
+        if isGiftSticker {
+            predicateChats = NSPredicate(format: "(typeRaw == 0 AND isParticipant == true)")
+        }
         let predicateContacts = NSPredicate(format: "isInContacts == 1")
         let sortPropertiesChats = [SortDescriptor(keyPath: "priority", ascending: false), SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
 
@@ -101,12 +107,30 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
 
     }
     @IBAction func didTapOnSendButton(_ sender: UIButton) {
-        
-        SwiftEventBus.post(EventBusManager.sendForwardReq)
-        self.dismiss(animated: true, completion: {
-            IGHelperForward.handleForward(messages: self.selectedMessages, forwardModal: self, controller: UIApplication.topViewController(), isFromCloud: self.isFromCloud)
-        })
-
+        if isGiftSticker {
+            
+            if selectedItems[0].id != IGAppManager.sharedManager.userID() { // don't 'giftStickerForward' request to server when user try for send gift sticker to cloud
+                IGGlobal.prgShow()
+                IGApiSticker.shared.giftStickerForward(userId: "\(selectedItems[0].id ?? 0)", stickerId: giftId ?? "") { success in
+                    IGGlobal.prgHide()
+                    self.dismiss(animated: true, completion: {
+                        if success {
+                            IGHelperForward.handleForward(messages: self.selectedMessages, forwardModal: self, controller: UIApplication.topViewController(), isFromCloud: self.isFromCloud)
+                        }
+                    })
+                }
+            } else {
+                self.dismiss(animated: true, completion: {
+                    IGHelperForward.handleForward(messages: self.selectedMessages, forwardModal: self, controller: UIApplication.topViewController(), isFromCloud: self.isFromCloud)
+                })
+            }
+            
+        } else {
+            SwiftEventBus.post(EventBusManager.sendForwardReq)
+            self.dismiss(animated: true, completion: {
+                IGHelperForward.handleForward(messages: self.selectedMessages, forwardModal: self, controller: UIApplication.topViewController(), isFromCloud: self.isFromCloud)
+            })
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -309,6 +333,29 @@ class IGMultiForwardModalViewController: UIViewController, UITextFieldDelegate,U
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if isGiftSticker && selectedItems.count > 0 { //because at gift sticker state user just can choose one item
+            manageSelection(indexPath: indexPath, justReload: true)
+            manageSelection(indexPath: indexPath)
+        } else {
+            manageSelection(indexPath: indexPath)
+        }
+        lastSelectedIndex = indexPath
+    }
+    
+    private func manageSelection(indexPath: IndexPath, justReload: Bool = false){
+        
+        if justReload {
+            self.selectedItems.removeAll()
+            self.usersCollectionView.reloadItems(at: [lastSelectedIndex!])
+            let shareToText  = IGStringsManager.Shareto.rawValue.localized
+            let attrs = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 18 , weight: .bold)]
+            let attributedString = NSMutableAttributedString(string:shareToText, attributes:attrs)
+            let normalText = "\n" + IGStringsManager.SelectChat.rawValue.localized
+            let normalString = NSMutableAttributedString(string:normalText)
+            attributedString.append(normalString)
+            lblInfo.attributedText = attributedString
+            return
+        }
         
         let selectItem = filteredForwardItem[indexPath.item]
         if let index = self.selectedItems.firstIndex(where: { $0.id == selectItem.id }) {

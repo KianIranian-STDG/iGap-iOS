@@ -36,13 +36,23 @@ class SMSingleAmountInputView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         infoLbl.text = IGStringsManager.Amount.rawValue.localized
         self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
         initTheme()
-
-        
+        customizeTextFields([inputTF])
     }
+    
+    private func customizeTextFields(_ textFields: [UITextField]){
+        for textField in textFields {
+            textField.textColor = ThemeManager.currentTheme.LabelColor
+            textField.backgroundColor = ThemeManager.currentTheme.BackGroundColor
+            textField.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+            textField.layer.borderWidth = 1.0
+            textField.layer.masksToBounds = true
+            textField.layer.cornerRadius = textField.bounds.height / 2
+        }
+    }
+    
     private func initTheme() {
         self.backgroundColor = ThemeManager.currentTheme.ModalViewBackgroundColor
         infoLbl.textColor = ThemeManager.currentTheme.LabelColor
@@ -51,29 +61,17 @@ class SMSingleAmountInputView: UIView {
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch? = touches.first
-        //location is relative to the current view
-        // do something with the touched point
         if touch?.view != self {
             inputTF.endEditing(true)
         }
     }
-    /// Layout subview after loading view to support autolayout
+    
     public override func layoutSubviews() {
         super.layoutSubviews()
         
         containerView!.layer.borderWidth = 1
         containerView!.layer.borderColor = UIColor(netHex: 0xb2bec4).cgColor
         containerView.layer.cornerRadius = 12
-        
-        //        self.transform = SMDirection.PageAffineTransform()
-//        infoLbl.transform = self.transform
-//        inputTF.transform = self.transform
-//        confirmBtn.transform = self.transform
-        
         infoLbl.textAlignment = SMDirection.TextAlignment()
-//        inputTF.textAlignment = inputTF.textAlignment
-        
     }
-
-    
 }

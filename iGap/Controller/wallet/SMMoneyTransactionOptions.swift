@@ -13,17 +13,16 @@ import UIKit
 /// Input view to get only one input and button to confirm action
 class SMMoneyTransactionOptions: UIView {
     
-    /// Title of view
-    
     @IBOutlet var btnWalletTransfer: UIButton!
     @IBOutlet var btnCardToCardTransfer: UIButton!
     @IBOutlet var btnWallet: UIButton!
     @IBOutlet var btnCard: UIButton!
     @IBOutlet weak var lblTop: UILabel!
+    @IBOutlet weak var btnGiftStickerTitle: UIButton!
+    @IBOutlet weak var btnGiftStickerIcon: UIButton!
     @IBOutlet var containerView: UIView!
 
     /// Load view from nib file
-    ///
     /// - Returns: instance of SMMoneyTransactionOptions loaded from nib file
     class func loadFromNib() -> SMMoneyTransactionOptions {
         return UINib(nibName: "SMMoneyTransactionOptions", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SMMoneyTransactionOptions
@@ -44,24 +43,15 @@ class SMMoneyTransactionOptions: UIView {
         btnWallet.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         btnCardToCardTransfer.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         btnWalletTransfer.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        btnGiftStickerTitle.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        btnGiftStickerIcon.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
         lblTop.textColor = ThemeManager.currentTheme.LabelColor
         btnWallet.setTitle("", for: .normal)
         btnCard.setTitle("", for: .normal)
-    }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch: UITouch? = (touches.first)
-        //location is relative to the current view
-        // do something with the touched point
-        if touch?.view != self {
-        }
-
-    }
-   
-    /// Layout subview after loading view to support autolayout
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        
-//        self.transform = SMDirection.PageAffineTransform()
+        btnGiftStickerIcon.setTitle("", for: .normal)
     }
     
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+    }
 }

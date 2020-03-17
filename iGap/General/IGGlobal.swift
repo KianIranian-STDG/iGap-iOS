@@ -1047,7 +1047,7 @@ extension Date {
     }
     func CustomeCompleteHumanReadableTime(showHour: Bool = false) -> String {
         let dayTimePeriodFormatter = DateFormatter()
-        dayTimePeriodFormatter.dateFormat = "yyyy-MM-ddTHH:mm:ssZ"
+        dayTimePeriodFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         let dateString = self.localizedDate(showHour: showHour)
         return dateString.inLocalizedLanguage()
     }
@@ -2471,21 +2471,6 @@ extension String {
         return ext
     }
     
-    
-    //    var localized: String {
-    //        if SMLangUtil.loadLanguage() == "fa" {
-    //            IGGlobal.languageFileName = "localizationsFa"
-    //        } else {
-    //            IGGlobal.languageFileName = "localizationsEn"
-    //        }
-    //        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
-    //
-    //        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
-    //        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
-    //
-    //        return MCLocalization.string(forKey: self) ?? "" //prevent crash if string coud not be fount
-    //    }
-    
     var Imagelocalized: String {
         return NSLocalizedString(self, tableName: "ImageLocalizable", comment: "")
     }
@@ -2619,6 +2604,19 @@ extension String {
     
     func chopSuffix(_ count: Int = 1) -> String {
         return substring(to: index(endIndex, offsetBy: -count))
+    }
+    
+    func dateFromStringFormat(format: String, showHour: Bool = false) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = format
+        return dateFormatter.date(from: self)?.completeHumanReadableTime(showHour: showHour)
+    }
+    
+    /** start phone number with zero format instead 98
+     */
+    func phoneConvert98to0() -> String {
+        return ("+"+self).replace("+98", withString: "0")
     }
 }
 

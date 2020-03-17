@@ -152,11 +152,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     var MoneyTransactionModal : SMMoneyTransactionOptions!
     var MoneyInputModal : SMSingleAmountInputView!
     var CardToCardModal : SMTwoInputView!
+    var giftStickerModal : SMGiftStickerAlertView!
     var forwardModal : IGMultiForwardModal!
     var MoneyTransactionModalIsActive = false
     var MoneyInputModalIsActive = false
     var MultiShareModalIsActive = false
     var CardToCardModalIsActive = false
+    var giftStickerModalIsActive = false
     var isBoth = false
     var blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
     var blurEffectView = UIVisualEffectView()
@@ -286,9 +288,11 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     var latestIndexPath: IndexPath!
     var isCardToCardRequestEnable = false
     var latestKeyboardAdditionalView: UIView!
+    private var allowSendGiftCard = true // TODO - Remove this variable and find correct solution
     static var highlightMessageId: Int64 = 0 // highlight message and show fast return to message icon
     static var highlightWithoutFastReturn: Int64 = 0 // highlight message after click on fast return to message icon
     static var returnToMessage: IGRoomMessage? // after click on reply header, save clicked message for fast return to message position again
+    static var giftRoomId: Int64? // use this variable for detect send message to room
     
     private var cellSizeLimit: CellSizeLimit!
     
@@ -303,6 +307,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private var mainViewTap = UITapGestureRecognizer()
     
     private let deleteThread = DispatchQueue(label: "serial.queue.delete.cell", qos: .userInteractive)
+    private var giftStickerInfo: SMCheckGiftSticker!
+    private var giftStickerPaymentInfo: SMGiftCardInfo!
+    private var giftStickerAlertView: SMGiftStickerAlertView!
+    private var giftCardInfo: IGStructGiftCardStatus!
+    private var activationGiftStickerId: String?
+    private var needToNationalCode : Bool = false // TODO - check and do better structure
+    private var waitingCardId: String? // TODO - check and do better structure
     
     func onMessageViewControllerDetection() -> UIViewController {
         return self
@@ -543,6 +554,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
 
         holderMusicPlayer.isHidden = true
         joinButton.isHidden = true
+        allowSendGiftCard = true
 
         if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
             btnMoney.isHidden = true
@@ -1048,6 +1060,42 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
         SwiftEventBus.onMainThread(self, name: EventBusManager.disableMultiSelect) { [weak self] (result) in
             self?.diselect()
+        }
+        
+        SwiftEventBus.onMainThread(self, name: EventBusManager.giftCardSendMessage) { [weak self] (result) in
+            if IGMessageViewController.giftRoomId != self?.finalRoomId {return}
+            if !(self?.allowSendGiftCard ?? false) {return}
+            self?.allowSendGiftCard = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                self?.allowSendGiftCard = true
+            }
+            
+            if let stickerItem = result?.object as? IGRealmStickerItem {
+                if let attachment = IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token!) {
+                    let message = IGRoomMessage(body: stickerItem.name!)
+                    message.type = .sticker
+                    message.roomId = self?.room?.id ?? 0
+                    message.attachment = attachment
+                    
+                    var type = AdditionalType.STICKER.rawValue
+                    if stickerItem.giftAmount != 0 {
+                        type = AdditionalType.GIFT_STICKER.rawValue
+                    }
+                    message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: type)
+                    IGAttachmentManager.sharedManager.add(attachment: attachment)
+                    
+                    self?.manageSendMessage(message: message, addForwardOrReply: true, isSticker: true)
+                    
+                    self?.sendMessageState(enable: false)
+                    self?.messageTextView.text = ""
+                    self?.currentAttachment = nil
+                    IGMessageViewController.selectedMessageToForwardToThisRoom = nil
+                    self?.selectedMessageToReply = nil
+                    self?.setInputBarHeight()
+                } else {
+                    IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token!, completion: { (attachment) -> Void in })
+                }
+            }
         }
         
         SwiftEventBus.onMainThread(self, name: "\(self.room!.id)") { [weak self] (result) in
@@ -2164,11 +2212,18 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             if let CardInput = CardToCardModal {
                 window.addSubview(CardInput)
                 UIView.animate(withDuration: 0.3) {
-                    
                     var frame = CardInput.frame
                     frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
                     CardInput.frame = frame
-                    
+                }
+            }
+        } else if giftStickerModalIsActive {
+            if let giftSticker = giftStickerModal {
+                window.addSubview(giftSticker)
+                UIView.animate(withDuration: 0.3) {
+                    var frame = giftSticker.frame
+                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
+                    giftSticker.frame = frame
                 }
             }
         }
@@ -2193,6 +2248,22 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             
             if CardToCardModal != nil {
                 self.hideCardToCardModal()
+            }
+            
+            if giftStickerModal != nil {
+                self.hideGiftStickerModal()
+            }
+            
+            if giftStickerPaymentInfo != nil {
+                self.hideGiftStickerCardInfoModal()
+            }
+            
+            if giftStickerAlertView != nil {
+                self.hideGiftStickerAlertModal()
+            }
+            
+            if giftStickerInfo != nil {
+                self.hideGiftStickerInfoModal()
             }
             
             if forwardModal != nil {
@@ -2520,7 +2591,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             if let collectionCell = self.tableViewNode.nodeForRow(at: IndexPath(row: numberOfItems - IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT, section: 0)) as? ChatControllerNode {
                 finalMessage = collectionCell.message?.detach()
             }
-            if finalMessage != nil && (finalMessage.isInvalidated || finalMessage.id == firstVisibleItem.id) {
+            if finalMessage != nil && (finalMessage.isInvalidated || finalMessage.id == firstVisibleItem.id) {// if last message is visible don't need to save message position
                 saveState = false
             }
             if saveState {
@@ -2544,13 +2615,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     }
     
     /* fetch visible message from collection view according to entered index */
-    private func fetchVisibleMessage(visibleCells: [ASCellNode], index: Int) -> IGRoomMessage? {
+    private func fetchVisibleMessage(visibleCells: [ASCellNode], index: Int, repeatCount: Int = 0) -> IGRoomMessage? {
+        if index < 0 || repeatCount == 3 {return nil}
         if visibleCells.count > 0 {
             if let visibleMessage = visibleCells[index] as? ChatControllerNode {
                 return visibleMessage.message?.detach()
             }
         }
-        return nil
+        return fetchVisibleMessage(visibleCells: visibleCells, index: index - 1, repeatCount: repeatCount + 1)
     }
     
     var finalRoomType: IGRoom.IGType!
@@ -2594,6 +2666,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.hideMoneyTransactionModal()
             self.hideMoneyInputModal()
             self.hideCardToCardModal()
+            self.hideGiftStickerModal()
+            self.hideGiftStickerAlertModal()
+            self.hideGiftStickerInfoModal()
+            self.hideGiftStickerCardInfoModal()
             if btnMic.isHidden {
                 return
             }
@@ -2642,6 +2718,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.hideMoneyTransactionModal()
             self.hideMoneyInputModal()
             self.hideCardToCardModal()
+            self.hideGiftStickerModal()
+            self.hideGiftStickerAlertModal()
+            self.hideGiftStickerInfoModal()
+            self.hideGiftStickerCardInfoModal()
             
             self.btnSend.isHidden = true
             self.btnMoney.isHidden = true
@@ -2957,7 +3037,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                                 
                             }
                         }
-                } else {
+                } else if giftStickerModalIsActive {
+                    if let giftStickerModal = self.giftStickerModal {
+                        window.addSubview(giftStickerModal)
+                        UIView.animate(withDuration: 0.3) {
+                            var frame = giftStickerModal.frame
+                            frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight! - frame.size.height)
+                            giftStickerModal.frame = frame
+                        }
+                    }
+                }else {
                     if MoneyInputModal != nil {
                         self.hideMoneyInputModal()
                     }
@@ -2969,6 +3058,22 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     }
                     if MoneyTransactionModal != nil {
                         self.hideMoneyTransactionModal()
+                    }
+                    
+                    if giftStickerModal != nil {
+                        self.hideGiftStickerModal()
+                    }
+
+                    if giftStickerPaymentInfo != nil {
+                        self.hideGiftStickerCardInfoModal()
+                    }
+                    
+                    if giftStickerAlertView != nil {
+                        self.hideGiftStickerAlertModal()
+                    }
+                    
+                    if giftStickerInfo != nil {
+                        self.hideGiftStickerInfoModal()
                     }
                 }
                 self.view.layoutIfNeeded()
@@ -3169,6 +3274,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             return true
         }
         return false
+    }
+    
+    func allowForward(_ message: IGRoomMessage) -> Bool{
+        if let additionalType = message.additional?.dataType, additionalType == AdditionalType.GIFT_STICKER.rawValue {
+            return false
+        }
+        if room?.type == .channel {
+            return false
+        }
+        return true
     }
     
     func allowEdit(_ message: IGRoomMessage) -> Bool {
@@ -3388,6 +3503,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         self.messageTextView.resignFirstResponder()
         self.hideMoneyInputModal()
         self.hideCardToCardModal()
+        self.hideGiftStickerModal()
+        self.hideGiftStickerAlertModal()
+        self.hideGiftStickerCardInfoModal()
+        self.hideGiftStickerInfoModal()
         
         if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
             
@@ -3425,13 +3544,13 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     MoneyTransactionModal.btnCardToCardTransfer.addTarget(self, action: #selector(cardToCardTapped), for: .touchUpInside)
                     MoneyTransactionModal.btnWallet.addTarget(self, action: #selector(walletTransferTapped), for: .touchUpInside)
                     MoneyTransactionModal.btnWalletTransfer.addTarget(self, action: #selector(walletTransferTapped), for: .touchUpInside)
+                    MoneyTransactionModal.btnGiftStickerIcon.addTarget(self, action: #selector(giftStickerTapped), for: .touchUpInside)
+                    MoneyTransactionModal.btnGiftStickerTitle.addTarget(self, action: #selector(giftStickerTapped), for: .touchUpInside)
                     MoneyTransactionModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: MoneyTransactionModal.frame.height)
-                    
-                    
                     
                     MoneyTransactionModal.btnWalletTransfer.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
                     MoneyTransactionModal.btnCardToCardTransfer.setTitle(IGStringsManager.CardToCard.rawValue.localized, for: .normal)
-                    //                    MoneyTransactionModal.infoLbl.text = IGStringsManager.EnterRecieverCode.rawValue.localized
+                    MoneyTransactionModal.btnGiftStickerTitle.setTitle(IGStringsManager.GiftCard.rawValue.localized, for: .normal)
                     
                     let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
                     swipeDown.direction = .down
@@ -3443,8 +3562,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 else {
                     MoneyTransactionModal.btnWalletTransfer.setTitle(IGStringsManager.Cashout.rawValue.localized, for: .normal)
                     MoneyTransactionModal.btnCardToCardTransfer.setTitle(IGStringsManager.CardToCard.rawValue.localized, for: .normal)
-                    //                    MoneyTransactionModal.infoLbl.text = IGStringsManager.EnterRecieverCode.rawValue.localized
-                    //                    MoneyTransactionModal.inputTF.placeholder = IGStringsManager.EnterCode.rawValue.localized
+                    MoneyTransactionModal.btnGiftStickerTitle.setTitle(IGStringsManager.GiftCard.rawValue.localized, for: .normal)
                 }
                 
                 if #available(iOS 11.0, *) {
@@ -3642,7 +3760,219 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
         
     }
     
+    @objc func giftStickerTapped() {
+        self.hideMoneyTransactionModal()
+        self.hideMoneyInputModal()
+        
+        self.giftStickerModalIsActive = true
+        
+        if giftStickerModal == nil {
+            giftStickerModal = SMGiftStickerAlertView.loadFromNib()
+            giftStickerModal.btnOne.addTarget(self, action: #selector(confirmTapped), for: .touchUpInside)
+            giftStickerModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: giftStickerModal.frame.height)
+            giftStickerModal.btnTwo.isHidden = true
+            
+            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+            swipeDown.direction = .down
+            
+            giftStickerModal.addGestureRecognizer(swipeDown)
+            self.view.addSubview(giftStickerModal!)
+            
+        } else {
+            giftStickerModal.btnOne.setTitle(IGStringsManager.GiftCard.rawValue.localized, for: .normal)
+        }
+        
+        if #available(iOS 11.0, *) {
+            let window = UIApplication.shared.keyWindow
+            let bottomPadding = window?.safeAreaInsets.bottom
+            
+            UIView.animate(withDuration: 0.3) {
+                self.giftStickerModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerModal.frame.height - 5 -  bottomPadding!, width: self.view.frame.width, height: self.giftStickerModal.frame.height)
+            }
+        } else {
+            UIView.animate(withDuration: 0.3) {
+                self.giftStickerModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerModal.frame.height - 5, width: self.view.frame.width, height: self.giftStickerModal.frame.height)
+            }
+        }
+    }
+    
+    
+    private func showGiftStickerPaymentInfo(cardInfo: IGStructGiftCardInfo){
+        self.dismissBtn = UIButton()
+        self.dismissBtn.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
+        self.view.insertSubview(self.dismissBtn, at: 2)
+        self.dismissBtn.addTarget(self, action: #selector(self.didtapOutSide), for: .touchUpInside)
+        
+        self.dismissBtn?.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top)
+            make.bottom.equalTo(self.view.snp.bottom)
+            make.right.equalTo(self.view.snp.right)
+            make.left.equalTo(self.view.snp.left)
+        }
+        
+        
+        self.giftStickerPaymentInfo = SMGiftCardInfo.loadFromNib()
+        self.giftStickerPaymentInfo.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: self.giftStickerPaymentInfo.frame.height)
+        self.giftStickerPaymentInfo.setInfo(giftCardInfo: cardInfo)
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+        swipeDown.direction = .down
+        
+        self.giftStickerPaymentInfo.addGestureRecognizer(swipeDown)
+        self.view.addSubview(self.giftStickerPaymentInfo)
+        
+        if #available(iOS 11.0, *) {
+            let window = UIApplication.shared.keyWindow
+            let bottomPadding = window?.safeAreaInsets.bottom
+            
+            UIView.animate(withDuration: 0.3) {
+                self.giftStickerPaymentInfo!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerPaymentInfo.frame.height - 5 -  bottomPadding!, width: self.view.frame.width, height: self.giftStickerPaymentInfo.frame.height)
+            }
+        } else {
+            UIView.animate(withDuration: 0.3) {
+                self.giftStickerPaymentInfo!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerPaymentInfo.frame.height - 5, width: self.view.frame.width, height: self.giftStickerPaymentInfo.frame.height)
+            }
+        }
+    }
+    
+    private func showCardInfo(stickerInfo: IGStructGiftCardStatus){
+        self.dismissBtn = UIButton()
+        self.dismissBtn.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
+        self.view.insertSubview(self.dismissBtn, at: 2)
+        self.dismissBtn.addTarget(self, action: #selector(self.didtapOutSide), for: .touchUpInside)
+        
+        self.dismissBtn?.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top)
+            make.bottom.equalTo(self.view.snp.bottom)
+            make.right.equalTo(self.view.snp.right)
+            make.left.equalTo(self.view.snp.left)
+        }
+        
+        self.giftCardInfo = stickerInfo
+        self.giftStickerInfo = SMCheckGiftSticker.loadFromNib()
+        self.giftStickerInfo.confirmBtn.addTarget(self, action: #selector(self.confirmTapped), for: .touchUpInside)
+        self.giftStickerInfo.setInfo(giftSticker: stickerInfo)
+        self.giftStickerInfo.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: self.giftStickerInfo.frame.height)
+        self.giftStickerInfo.infoLblOne.text = IGStringsManager.GiftCard.rawValue.localized
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+        swipeDown.direction = .down
+        
+        self.giftStickerInfo.addGestureRecognizer(swipeDown)
+        self.view.addSubview(self.giftStickerInfo)
+        
+       if #available(iOS 11.0, *) {
+            let window = UIApplication.shared.keyWindow
+            let bottomPadding = window?.safeAreaInsets.bottom
+            
+            UIView.animate(withDuration: 0.3) {
+                self.giftStickerInfo!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerInfo.frame.height - 5 -  bottomPadding!, width: self.view.frame.width, height: self.giftStickerInfo.frame.height)
+            }
+        } else {
+            UIView.animate(withDuration: 0.3) {
+                self.giftStickerInfo!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerInfo.frame.height - 5, width: self.view.frame.width, height: self.giftStickerInfo.frame.height)
+            }
+        }
+    }
+    
+    private func showActiveOrForward(fetchNationalCode: Bool = false){
+        self.needToNationalCode = fetchNationalCode
+        self.giftStickerAlertView = SMGiftStickerAlertView.loadFromNib()
+        self.giftStickerAlertView.btnOne.addTarget(self, action: #selector(self.confirmTapped), for: .touchUpInside)
+        self.giftStickerAlertView.btnTwo.addTarget(self, action: #selector(self.sendToAnother), for: .touchUpInside)
+        self.giftStickerAlertView.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: self.giftStickerAlertView.frame.height)
+        manageButtonsView(buttons: [giftStickerAlertView.btnOne, giftStickerAlertView.btnTwo])
+        giftStickerAlertView.btnOne.setTitle(IGStringsManager.Activation.rawValue.localized, for: UIControl.State.normal)
+        giftStickerAlertView.btnTwo.setTitle(IGStringsManager.GiftStickerSendToOther.rawValue.localized, for: UIControl.State.normal)
+        giftStickerAlertView.infoLblOne.text = IGStringsManager.ActivateOrSendAsMessage.rawValue.localized
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+        swipeDown.direction = .down
+        
+        if fetchNationalCode {
+            self.dismissBtn = UIButton()
+            self.dismissBtn.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
+            self.view.insertSubview(self.dismissBtn, at: 2)
+            self.dismissBtn.addTarget(self, action: #selector(self.didtapOutSide), for: .touchUpInside)
+            
+            self.dismissBtn?.snp.makeConstraints { (make) in
+                make.top.equalTo(self.view.snp.top)
+                make.bottom.equalTo(self.view.snp.bottom)
+                make.right.equalTo(self.view.snp.right)
+                make.left.equalTo(self.view.snp.left)
+            }
+            
+            giftStickerAlertView.btnOne.setTitle(IGStringsManager.NationalCodeInquiry.rawValue.localized, for: UIControl.State.normal)
+            giftStickerAlertView.btnTwo.isHidden = true
+        }
+        
+        self.giftStickerAlertView.addGestureRecognizer(swipeDown)
+        self.view.addSubview(self.giftStickerAlertView)
+        
+        if #available(iOS 11.0, *) {
+            let window = UIApplication.shared.keyWindow
+            let bottomPadding = window?.safeAreaInsets.bottom
+            
+            UIView.animate(withDuration: 0.3) {
+                self.giftStickerAlertView!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerAlertView.frame.height - 5 -  bottomPadding!, width: self.view.frame.width, height: self.giftStickerAlertView.frame.height)
+            }
+        } else {
+            UIView.animate(withDuration: 0.3) {
+                self.giftStickerAlertView!.frame = CGRect(x: 0, y: self.view.frame.height - self.giftStickerAlertView.frame.height - 5, width: self.view.frame.width, height: self.giftStickerAlertView.frame.height)
+            }
+        }
+    }
+    
+    private func manageButtonsView(buttons: [UIButton]){
+          for button in buttons {
+              button.layer.cornerRadius = button.bounds.height / 2
+              button.layer.borderColor = ThemeManager.currentTheme.LabelColor.cgColor
+              button.layer.borderWidth = 1.0
+          }
+      }
+    
     @objc func confirmTapped() {
+        
+        if giftStickerInfo != nil {
+            didtapOutSide(keepBackground: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                self.showActiveOrForward()
+            }
+            return
+        } else if giftStickerAlertView != nil {
+            guard let nationalCode = giftStickerAlertView.edtInternationalCode.text, !nationalCode.isEmpty, let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
+            
+            didtapOutSide(keepBackground : false)
+            
+            IGGlobal.prgShow()
+            IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: phone.phoneConvert98to0()) { [weak self] success in
+                if !success {
+                    IGGlobal.prgHide()
+                    return
+                }
+                
+                if self?.needToNationalCode ?? false {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        IGGlobal.prgHide()
+                        self?.getCardPaymentInfo(stickerId: self?.waitingCardId ?? "")
+                    }
+                    return
+                }
+                
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: true, showCancelButton: true, message: IGStringsManager.GiftCardActivationNote.rawValue.localized, doneText: IGStringsManager.GlobalDone.rawValue.localized ,cancelText: IGStringsManager.GlobalClose.rawValue.localized, cancel: {
+                    IGGlobal.prgHide()
+                }, done: {
+                    IGApiSticker.shared.giftCardActivate(stickerId: self?.activationGiftStickerId ?? "", nationalCode: nationalCode, mobileNumber: phone.phoneConvert98to0(), completion: { data in
+                        IGGlobal.prgHide()
+                        if success {
+                            IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .success, title: IGStringsManager.GlobalSuccess.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.LabelColor, message: IGStringsManager.ActivationSuccessful.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+                        }
+                    }, error: {
+                        IGGlobal.prgHide()
+                    })
+                })
+            }
+            return
+        }
         
         if MoneyInputModal != nil {
             if MoneyInputModal.inputTF.text == "" ||  MoneyInputModal.inputTF.text == nil {
@@ -3653,6 +3983,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.hideMoneyTransactionModal()
                 self.hideMoneyInputModal()
                 self.hideCardToCardModal()
+                self.hideGiftStickerModal()
+                self.hideGiftStickerCardInfoModal()
                 
                 let tmpJWT : String! =  KeychainSwift().get("accesstoken")!
                 SMLoading.showLoadingPage(viewcontroller: self)
@@ -3674,9 +4006,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                     }
                 }).send()
             }
-        }
-        
-        if CardToCardModal != nil {
+        } else if CardToCardModal != nil {
             if CardToCardModal.inputTFOne.text == "" ||  CardToCardModal.inputTFOne.text == nil || CardToCardModal.inputTFTwo.text == "" ||  CardToCardModal.inputTFTwo.text == nil || CardToCardModal.inputTFThree.text == "" ||  CardToCardModal.inputTFThree.text == nil {
                 IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .alert, title: IGStringsManager.GlobalWarning.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, message: IGStringsManager.AmountNotValid.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
             } else {
@@ -3695,10 +4025,55 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.setInputBarHeight()
                 self.hideCardToCardModal()
             }
+        } else if giftStickerModal != nil {
+            
+            guard let nationalCode = giftStickerModal.edtInternationalCode.text, !nationalCode.isEmpty, let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
+            
+            self.messageTextView.text = ""
+            self.currentAttachment = nil
+            self.selectedMessageToReply = nil
+            
+            IGGlobal.prgShow()
+            IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: phone.phoneConvert98to0()) { [weak self] (success) in
+                self?.didtapOutSide()
+                IGGlobal.prgHide()
+                if !success {return}
+                IGMessageViewController.giftRoomId = self?.finalRoomId
+                let stickerController = IGStickerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                stickerController.stickerPageType = .CATEGORY
+                stickerController.isGift = true
+                self?.navigationController!.pushViewController(stickerController, animated: true)
+            }
         }
     }
     
-    @objc func didtapOutSide() {
+    @objc func sendToAnother(_ gestureRecognizer: UITapGestureRecognizer) {
+        guard let nationalCode = giftStickerAlertView.edtInternationalCode.text, !nationalCode.isEmpty, let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
+        
+        IGGlobal.prgShow()
+        IGApiSticker.shared.checkNationalCode(nationalCode: nationalCode, mobileNumber: phone.phoneConvert98to0()) { [weak self] success in
+            IGGlobal.prgHide()
+            if !success {
+                return
+            }
+            if let attachment = IGAttachmentManager.sharedManager.getFileInfo(token: (self?.giftCardInfo.sticker.token)!) {
+                let message = IGRoomMessage(body: (self?.giftCardInfo.sticker.name)!)
+                message.type = .sticker
+                message.attachment = attachment
+                let stickerItem = IGRealmStickerItem(sticker: (self?.giftCardInfo.sticker)!, giftId: (self?.giftCardInfo.id)!)
+                message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.GIFT_STICKER.rawValue)
+                IGAttachmentManager.sharedManager.add(attachment: attachment)
+                
+                IGRoomMessage.saveFakeGiftStickerMessage(message: message.detach()) { [weak self] in
+                    DispatchQueue.main.async {
+                        IGHelperBottomModals.shared.showMultiForwardModal(view: self, messages: [message], isFromCloud: true, isGiftSticker: true, giftId: self?.giftCardInfo.id ?? "")
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc func didtapOutSide(keepBackground: Bool = false) {
         if dismissBtn != nil {
             if MoneyTransactionModal != nil {
                 hideMoneyTransactionModal()
@@ -3712,8 +4087,26 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 self.hideCardToCardModal()
             }
             
-            dismissBtn.removeFromSuperview()
-            dismissBtn = nil
+            if giftStickerModal != nil {
+                self.hideGiftStickerModal()
+            }
+            
+            if giftStickerPaymentInfo != nil {
+                self.hideGiftStickerCardInfoModal()
+            }
+            
+            if giftStickerAlertView != nil {
+                self.hideGiftStickerAlertModal()
+            }
+            
+            if giftStickerInfo != nil {
+                hideGiftStickerInfoModal(keepBackground: keepBackground)
+            }
+            
+            if !keepBackground {
+                dismissBtn.removeFromSuperview()
+                dismissBtn = nil
+            }
         }
     }
     
@@ -3722,7 +4115,10 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             hideMoneyTransactionModal()
             self.hideMoneyInputModal()
             self.hideCardToCardModal()
-            
+            self.hideGiftStickerModal()
+            self.hideGiftStickerAlertModal()
+            self.hideGiftStickerCardInfoModal()
+            self.hideGiftStickerInfoModal()
             self.isCardToCardRequestEnable = true
             self.manageCardToCardInputBar()
         }
@@ -3742,7 +4138,6 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             }) { (true) in
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
-                //                self.MoneyTransactionModal.removeFromSuperview()
                 self.MoneyTransactionModal = nil
             }
         }
@@ -3795,9 +4190,102 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 }
             }
         }
-        
-        
     }
+    
+    
+    func hideGiftStickerModal() {
+        self.giftStickerModalIsActive = false
+        if giftStickerModal != nil {
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                self.giftStickerModal.frame.origin.y = self.view.frame.height
+            }) { (true) in
+                
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
+                if self.giftStickerModal != nil {
+                    self.giftStickerModal.removeFromSuperview()
+                    self.giftStickerModal.edtInternationalCode.endEditing(true)
+                    self.giftStickerModal = nil
+                    
+                    if self.dismissBtn != nil {
+                        self.dismissBtn.removeFromSuperview()
+                    }
+                }
+            }
+        }
+    }
+    
+    func hideGiftStickerAlertModal() {
+        if giftStickerAlertView != nil {
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                self.giftStickerAlertView.frame.origin.y = self.view.frame.height
+            }) { (true) in
+                
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
+                if self.giftStickerAlertView != nil {
+                    self.giftStickerAlertView.removeFromSuperview()
+                    self.giftStickerAlertView.edtInternationalCode.endEditing(true)
+                    self.giftStickerAlertView = nil
+                    
+                    if self.dismissBtn != nil {
+                        self.dismissBtn.removeFromSuperview()
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func hideGiftStickerInfoModal(keepBackground: Bool = false) {
+        if giftStickerInfo != nil {
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                self.giftStickerInfo.frame.origin.y = self.view.frame.height
+            }) { (true) in
+                
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
+                if self.giftStickerInfo != nil {
+                    self.giftStickerInfo.removeFromSuperview()
+                    self.giftStickerInfo = nil
+                    
+                    if !keepBackground {
+                        if self.dismissBtn != nil {
+                            self.dismissBtn.removeFromSuperview()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func hideGiftStickerCardInfoModal() {
+        self.giftStickerModalIsActive = false
+        if giftStickerPaymentInfo != nil {
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                self.giftStickerPaymentInfo.frame.origin.y = self.view.frame.height
+            }) { (true) in
+                
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
+                if self.giftStickerPaymentInfo != nil {
+                    self.giftStickerPaymentInfo.removeFromSuperview()
+                    self.giftStickerPaymentInfo = nil
+                    
+                    if self.dismissBtn != nil {
+                        self.dismissBtn.removeFromSuperview()
+                    }
+                }
+            }
+        }
+    }
+    
+    
     func hideMultiShareModal() {
     }
     
@@ -3819,6 +4307,25 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             self.view.endEditing(true)
             
         }
+        
+        if giftStickerModal != nil {
+            hideGiftStickerModal()
+            self.view.endEditing(true)
+        }
+        
+        if giftStickerPaymentInfo != nil {
+            self.hideGiftStickerCardInfoModal()
+        }
+        
+        if giftStickerAlertView != nil {
+            self.hideGiftStickerAlertModal()
+            self.view.endEditing(true)
+        }
+        
+        if giftStickerInfo != nil {
+            hideGiftStickerInfoModal()
+        }
+        
         if dismissBtn != nil {
             dismissBtn.removeFromSuperview()
         }
@@ -5005,135 +5512,687 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     func textFieldDidChange(_ textField: UITextField) {
     }
     
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) { // TODO - when isWaiting for get from server return this method and don't do any action
-        if self.tableViewNode.numberOfRows(inSection: 0) == 0 {
-            return
-        }
-        
-        setFloatingDate()
-        
-        //currently use inverse
-        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) { //reach top
-            if (!self.messageLoader.isFirstLoadUp() || self.messageLoader.isForceFirstLoadUp()) && !self.messageLoader.isWaitingHistoryUpLocal() {
-                self.messageLoader.loadMessage(direction: .up, onMessageReceive: { [weak self] (messages, direction) in
-                    self?.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
-                })
-            }
-            
-            /** if totalItemCount is lower than scrollEnd so (firstVisiblePosition < scrollEnd) is always true and we can't load DOWN,
-             * finally for solve this problem also check following state and load DOWN even totalItemCount is lower than scrollEnd count
-             */
-            //if (totalItemCount <= scrollEnd) {
-            //    loadMessage(DOWN);
-            //}
-        }
-        
-        if (scrollView.contentOffset.y < 0) { //reach bottom
-            self.newMessageArrivedCount = 0
-                            
-            self.lblUnreadArrieved.text = "0".inLocalizedLanguage()
-            self.lblUnreadArrieved.isHidden = true
-            if !(self.messageLoader?.isFirstLoadDown() ?? false) && !(self.messageLoader?.isWaitingHistoryDownLocal() ?? false) {
-                self.messageLoader.loadMessage(direction: .down, onMessageReceive: { [weak self] (messages, direction) in
-                    self?.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
-                })
-            }
-        }
-        
-        //100 is an arbitrary number. can be anything
-        if scrollView.contentOffset.y > 100 {
-            self.scrollToBottomContainerView.isHidden = false
-        } else {
-            self.scrollToBottomContainerView.isHidden = true
-        }
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        UIView.animate(withDuration: 0.5, animations: {[weak self] in
-            guard let sSelf = self else {
-                return
-            }
-            sSelf.floatingDateView.alpha = 0.0
-        })
-        UIView.animate(withDuration: 0.5, animations: {[weak self] in
-            guard let sSelf = self else {
-                return
-            }
-            sSelf.txtFloatingDate.alpha = 0.0
-        })
-    }
-    
-    private func setFloatingDate(){
-        if messages == nil {return}
-        let arrayOfVisibleItems = tableViewNode.indexPathsForVisibleRows().sorted()
-        if let lastIndexPath = arrayOfVisibleItems.last {
-            if latestIndexPath != lastIndexPath {
-                
-                
-                if let cell = self.tableViewNode.nodeForRow(at: IndexPath(row: lastIndexPath.row, section: 0)) as? IGLogNode, cell.message?.type != .log {
-                    return
-                }
-                
-//                if let cell = self.collectionViewNode?.nodeForItem(at: IndexPath(row: lastIndexPath.row, section: 0)) as? IGLogNode, cell.message?.type != .log {
-//                    return // check time of all messages exept .log creation time
-//                }
-                
-                latestIndexPath = lastIndexPath
-            } else {
-                return
-            }
-            if latestIndexPath.row < messages!.count {
-                
-                var previousMessage: IGRoomMessage!
-                if  messages!.count > latestIndexPath.row + 1 {
-                    previousMessage = (messages?[latestIndexPath.row + 1].detach())!
-                }
-                
-                if let message = messages?[latestIndexPath.row].detach(), !message.isInvalidated , message.type != .time , message.type != .unread {
-                    let dayTimePeriodFormatter = DateFormatter()
-                    dayTimePeriodFormatter.dateFormat = "MMMM dd"
-                    dayTimePeriodFormatter.calendar = Calendar.current
-                    let dateString = (message.creationTime!).localizedDate()
-                    
-                    var previousDateString = ""
-                    if previousMessage != nil {
-                        let dayTimePeriodFormatter1 = DateFormatter()
-                        dayTimePeriodFormatter1.dateFormat = "MMMM dd"
-                        dayTimePeriodFormatter1.calendar = Calendar.current
-                        previousDateString = (previousMessage.creationTime!).localizedDate()
-                    }
-                    
-                    if !previousDateString.isEmpty && previousDateString != dateString {
-                        if !saveDate.contains(dateString) {
-                            saveDate.append(dateString)
-                            if firstSetDate {
-                                firstSetDate = false
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                    if let messageTime = message.creationTime {
-                                        self.appendAtSpecificPosition(self.makeTimeItem(date: messageTime), cellPosition: lastIndexPath.row + 1)
-                                    }
-                                }
-                            } else {
-                                if let messageTime = message.creationTime {
-                                    self.appendAtSpecificPosition(self.makeTimeItem(date: messageTime), cellPosition: lastIndexPath.row + 1)
-                                }
-                            }
-                        }
-                    }
-                    
-                    txtFloatingDate.text = dateString.inLocalizedLanguage()
-                    UIView.animate(withDuration: 0.5, animations: {
-                        self.floatingDateView.alpha = 1.0
-                    })
-                    UIView.animate(withDuration: 0.5, animations: {
-                        self.txtFloatingDate.alpha = 1.0
-                    })
-                }
-            }
-        }
-    }
 }
+
+
+//MARK: - IGMessageCollectionViewDataSource
+//extension IGMessageViewController: IGMessageCollectionViewDataSource {
+//
+//    private func getMessageType(message: IGRoomMessage) -> IGRoomMessageType {
+//        if message.isInvalidated {
+//            return IGRoomMessageType.unknown
+//        }
+//
+//        var finalMessage = message
+//        if let forward = message.forwardedFrom {
+//            finalMessage = forward
+//        }
+//        return finalMessage.type
+//    }
+//
+//    func collectionView(_ collectionView: IGMessageCollectionView, messageAt indexpath: IndexPath) -> IGRoomMessage {
+//        return messages![indexpath.row]
+//    }
+//
+//    func numberOfSections(in collectionView: UICollectionView) -> Int {
+//        return 1
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        if messages != nil {
+//            return messages!.count
+//        }
+//        return 0
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+//
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//
+//        self.collectionView = collectionView as? IGMessageCollectionView
+//
+//        if messages!.count <= indexPath.row {
+//            print("VVV || popViewController index out of bound")
+//            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
+//            cell.setUnknownMessage()
+//            return cell
+//        }
+//
+//        let message = messages![indexPath.row]
+//        /* if room was deleted close chat room */
+//        if message.isInvalidated || (self.room?.isInvalidated)! {
+//            print("VVV || popViewController load chat item")
+//            self.navigationController?.popViewController(animated: true)
+//
+//            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
+//            cell.setUnknownMessage()
+//            return cell
+//        }
+//
+//        var isIncommingMessage = true
+//        var shouldShowAvatar = false
+//        var isPreviousMessageFromSameSender = false
+//        let isNextMessageFromSameSender = false
+//
+//        let messageType = getMessageType(message: message)
+//
+//
+//        if self.room?.type == .channel { // isIncommingMessage means that show message left side
+//            isIncommingMessage = true
+//        } else if let senderHash = message.authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
+//            isIncommingMessage = false
+//        }
+//
+//        if room?.groupRoom != nil {
+//            shouldShowAvatar = true
+//
+//            if isIncommingMessage {
+//                if message.type != .log {
+//                    if messages!.indices.contains(indexPath.row + 1){
+//                        let previousMessage = messages![(indexPath.row + 1)]
+//                        if previousMessage.type != .log && message.authorHash == previousMessage.authorHash {
+//                            isPreviousMessageFromSameSender = true
+//                        }
+//                    }
+//
+//                    //Hint: comment following code because corrently we don't use from 'isNextMessageFromSameSender' variable
+//                    /*
+//                     if messages!.indices.contains(indexPath.row - 1){
+//                     let nextMessage = messages![(indexPath.row - 1)]
+//                     if message.authorHash == nextMessage.authorHash {
+//                     isNextMessageFromSameSender = true
+//                     }
+//                     }
+//                     */
+//                }
+//            } else {
+//                shouldShowAvatar = false
+//            }
+//        }
+//
+//
+//        if messageType == .text {
+//            let cell: TextCell = collectionView.dequeueReusableCell(withReuseIdentifier: TextCell.cellReuseIdentifier(), for: indexPath) as! TextCell
+//
+//            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+//            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+//
+//            if IGGlobal.shouldMultiSelect {
+//                if selectedMessages.count > 0 {
+//                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+//                    if selectedBefore {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    } else {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    }
+//                } else {
+//                    if cell.btnCheckMark != nil {
+//                        cell.btnCheckMark.setTitle("", for: .normal)
+//                    }
+//                }
+//            }
+//
+//            manageHighlightMode(cell: cell, messageId: message.id)
+//
+//            cell.delegate = self
+//            return cell
+//
+//        } else if messageType == .image ||  messageType == .imageAndText {
+//            let cell: ImageCell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCell.cellReuseIdentifier(), for: indexPath) as! ImageCell
+//            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+//            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+//
+//            if IGGlobal.shouldMultiSelect {
+//                if selectedMessages.count > 0 {
+//                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+//                    if selectedBefore {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    } else {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    }
+//                } else {
+//                    if cell.btnCheckMark != nil {
+//                        cell.btnCheckMark.setTitle("", for: .normal)
+//                    }
+//                }
+//            }
+//
+//            manageHighlightMode(cell: cell, messageId: message.id)
+//
+//            cell.delegate = self
+//            return cell
+//
+//        } else if messageType == .video || messageType == .videoAndText {
+//            let cell: VideoCell = collectionView.dequeueReusableCell(withReuseIdentifier: VideoCell.cellReuseIdentifier(), for: indexPath) as! VideoCell
+//            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+//            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+//
+//            if IGGlobal.shouldMultiSelect {
+//                if selectedMessages.count > 0 {
+//                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+//                    if selectedBefore {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    } else {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    }
+//                } else {
+//                    if cell.btnCheckMark != nil {
+//                        cell.btnCheckMark.setTitle("", for: .normal)
+//                    }
+//                }
+//            }
+//
+//            manageHighlightMode(cell: cell, messageId: message.id)
+//
+//            cell.delegate = self
+//            return cell
+//
+//        } else if messageType == .gif || messageType == .gifAndText {
+//            let cell: GifCell = collectionView.dequeueReusableCell(withReuseIdentifier: GifCell.cellReuseIdentifier(), for: indexPath) as! GifCell
+//            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+//            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+//
+//            if IGGlobal.shouldMultiSelect {
+//                if selectedMessages.count > 0 {
+//                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+//                    if selectedBefore {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    } else {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    }
+//                } else {
+//                    if cell.btnCheckMark != nil {
+//                        cell.btnCheckMark.setTitle("", for: .normal)
+//                    }
+//                }
+//            }
+//
+//            manageHighlightMode(cell: cell, messageId: message.id)
+//
+//            cell.delegate = self
+//            return cell
+//
+//        } else if messageType == .contact {
+//            let cell: ContactCell = collectionView.dequeueReusableCell(withReuseIdentifier: ContactCell.cellReuseIdentifier(), for: indexPath) as! ContactCell
+//            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+//            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+//
+//            if IGGlobal.shouldMultiSelect {
+//                if selectedMessages.count > 0 {
+//                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+//                    if selectedBefore {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    } else {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    }
+//                } else {
+//                    if cell.btnCheckMark != nil {
+//                        cell.btnCheckMark.setTitle("", for: .normal)
+//                    }
+//                }
+//            }
+//
+//            manageHighlightMode(cell: cell, messageId: message.id)
+//
+//            cell.delegate = self
+//            return cell
+//
+//        } else if messageType == .file || messageType == .fileAndText {
+//            let cell: FileCell = collectionView.dequeueReusableCell(withReuseIdentifier: FileCell.cellReuseIdentifier(), for: indexPath) as! FileCell
+//            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+//            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+//
+//            if IGGlobal.shouldMultiSelect {
+//                if selectedMessages.count > 0 {
+//                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+//                    if selectedBefore {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    } else {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    }
+//                } else {
+//                    if cell.btnCheckMark != nil {
+//                        cell.btnCheckMark.setTitle("", for: .normal)
+//                    }
+//                }
+//            }
+//            manageHighlightMode(cell: cell, messageId: message.id)
+//
+//            cell.delegate = self
+//            return cell
+//
+//        } else if messageType == .voice  {
+//            let cell: VoiceCell = collectionView.dequeueReusableCell(withReuseIdentifier: VoiceCell.cellReuseIdentifier(), for: indexPath) as! VoiceCell
+//            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+//            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+//
+//            if IGGlobal.shouldMultiSelect {
+//                if selectedMessages.count > 0 {
+//                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+//                    if selectedBefore {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    } else {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    }
+//                } else {
+//                    if cell.btnCheckMark != nil {
+//                        cell.btnCheckMark.setTitle("", for: .normal)
+//                    }
+//                }
+//            }
+//
+//            manageHighlightMode(cell: cell, messageId: message.id)
+//
+//            cell.delegate = self
+//            return cell
+//
+//        } else if messageType == .audio || messageType == .audioAndText {
+//            let cell: AudioCell = collectionView.dequeueReusableCell(withReuseIdentifier: AudioCell.cellReuseIdentifier(), for: indexPath) as! AudioCell
+//            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+//            cell.clickedAudioCellIndexPath = indexPath
+//            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+//
+//            if IGGlobal.shouldMultiSelect {
+//                if selectedMessages.count > 0 {
+//                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+//                    if selectedBefore {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    } else {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    }
+//                } else {
+//                    if cell.btnCheckMark != nil {
+//                        cell.btnCheckMark.setTitle("", for: .normal)
+//                    }
+//                }
+//            }
+//
+//            manageHighlightMode(cell: cell, messageId: message.id)
+//
+//            cell.delegate = self
+//            return cell
+//
+//        } else if messageType == .sticker {
+//            let cell: StickerCell = collectionView.dequeueReusableCell(withReuseIdentifier: StickerCell.cellReuseIdentifier(), for: indexPath) as! StickerCell
+//            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+//
+//            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+//
+//            if IGGlobal.shouldMultiSelect {
+//                if selectedMessages.count > 0 {
+//                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+//                    if selectedBefore {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    } else {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    }
+//                } else {
+//                    if cell.btnCheckMark != nil {
+//                        cell.btnCheckMark.setTitle("", for: .normal)
+//                    }
+//                }
+//            }
+//
+//            manageHighlightMode(cell: cell, messageId: message.id)
+//
+//            cell.delegate = self
+//            return cell
+//
+//        } else if messageType == .location {
+//            let cell: LocationCell = collectionView.dequeueReusableCell(withReuseIdentifier: LocationCell.cellReuseIdentifier(), for: indexPath) as! LocationCell
+//            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+//            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+//
+//            if IGGlobal.shouldMultiSelect {
+//                if selectedMessages.count > 0 {
+//                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+//                    if selectedBefore {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    } else {
+//                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+//                            cell.btnCheckMark.setTitle("", for: .normal)
+//                        }, completion: nil)
+//                    }
+//                } else {
+//                    if cell.btnCheckMark != nil {
+//                        cell.btnCheckMark.setTitle("", for: .normal)
+//                    }
+//                }
+//            }
+//
+//            manageHighlightMode(cell: cell, messageId: message.id)
+//
+//            cell.delegate = self
+//            return cell
+//
+//        } else if messageType == .wallet {
+//
+//            if message.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
+//                let cell: CardToCardCell = collectionView.dequeueReusableCell(withReuseIdentifier: CardToCardCell.cellReuseIdentifier(), for: indexPath) as! CardToCardCell
+//                let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+//                cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+//                cell.delegate = self
+//                return cell
+//            } else if message.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
+//                let cell: PaymentCell = collectionView.dequeueReusableCell(withReuseIdentifier: PaymentCell.cellReuseIdentifier(), for: indexPath) as! PaymentCell
+//                let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+//                cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+//                cell.delegate = self
+//                return cell
+//            } else if message.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
+//                let cell: MoneyTransferCell = collectionView.dequeueReusableCell(withReuseIdentifier: MoneyTransferCell.cellReuseIdentifier(), for: indexPath) as! MoneyTransferCell
+//                let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+//                cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+//                cell.delegate = self
+//                return cell
+//            } else if message.wallet?.type == IGPRoomMessageWallet.IGPType.bill.rawValue {
+//                let cell: BillCell = collectionView.dequeueReusableCell(withReuseIdentifier: BillCell.cellReuseIdentifier(), for: indexPath) as! BillCell
+//                let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+//                cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+//                cell.delegate = self
+//                return cell
+//            } else if message.wallet?.type == IGPRoomMessageWallet.IGPType.topup.rawValue {
+//                let cell: TopupCell = collectionView.dequeueReusableCell(withReuseIdentifier: TopupCell.cellReuseIdentifier(), for: indexPath) as! TopupCell
+//                let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+//                cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+//                cell.delegate = self
+//                return cell
+//            }
+//
+//        } else if message.type == .log {
+//            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
+//            cell.setLogMessage(message)
+//            return cell
+//        } else if message.type == .time {
+//            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
+//            cell.setTime(message.message!)
+//            return cell
+//        } else if message.type == .unread {
+//            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
+//            cell.setUnreadMessage(message)
+//            return cell
+//        } else if message.type == .progress {
+//            let cell: ProgressCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressCell.cellReuseIdentifier(), for: indexPath) as! ProgressCell
+//            cell.showProgress()
+//            return cell
+//        } else {
+//            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
+//            cell.setUnknownMessage()
+//            return cell
+//        }
+//
+//
+//        let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
+//        cell.setUnknownMessage()
+//        return cell
+//
+//    }
+//
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+//        return CGSize(width: 0.001, height: 0.001)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        var reusableview = UICollectionReusableView()
+//        if kind == UICollectionView.elementKindSectionFooter {
+//
+//            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
+//
+//            if indexPath.row < messages!.count {
+//                if let message = messages?[indexPath.row] {
+//                    if message.shouldFetchBefore {
+//                        header.setText(IGStringsManager.GlobalLoading.rawValue.localized)
+//                    } else {
+//
+//                        let dayTimePeriodFormatter = DateFormatter()
+//                        dayTimePeriodFormatter.dateFormat = "MMMM dd"
+//                        dayTimePeriodFormatter.calendar = Calendar.current
+//                        let dateString = (message.creationTime!).localizedDate()
+//
+//                        header.setText(dateString.inLocalizedLanguage())
+//                    }
+//                }
+//            }
+//            reusableview = header
+//        }
+//        return reusableview
+//    }
+//
+//    private func manageHighlightMode(cell: UICollectionViewCell, messageId: Int64) {
+//        if messageId == IGMessageViewController.highlightMessageId || messageId == IGMessageViewController.highlightWithoutFastReturn {
+//            IGMessageViewController.highlightMessageId = 0
+//            IGMessageViewController.highlightWithoutFastReturn = 0
+//
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+//                UIView.transition(with: cell, duration: 0.5, animations: {
+//                    cell.backgroundColor = UIColor.iGapGreen().withAlphaComponent(0.5)
+//                }, completion: { (completed) in
+//                    UIView.animate(withDuration: 0.5, animations: {
+//                        cell.backgroundColor = UIColor.clear
+//                    }, completion: nil)
+//                })
+//            }
+//        }
+//    }
+//}
+//
+////MARK: - UICollectionViewDelegateFlowLayout
+//extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+//        if messages!.count <= indexPath.row { return CGSize(width: 0, height: 0) }
+//
+//        let message = messages![indexPath.row]
+//        let size = self.collectionView.layout.sizeCell(room: self.room!, for: message)
+//        let frame = size.bubbleSize
+//
+//        return CGSize(width: self.collectionView.frame.width, height: frame.height + size.additionalHeight + 2)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return 0.0
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return 0.0
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//
+//        let message = messages![indexPath.row]
+//        let additionalType = message.additional?.dataType ?? -1
+//        if (IGGlobal.shouldMultiSelect && additionalType != AdditionalType.GIFT_STICKER.rawValue) {
+//            if let index = self.selectedMessages.firstIndex(where: { $0.id == message.id }) {
+//                self.selectedMessages.remove(at: index)
+//            } else {
+//                self.selectedMessages.append(message)
+//            }
+//
+//            if self.selectedMessages.count > 0 {
+//                lblSelectedMessages.text = String(self.selectedMessages.count).inLocalizedLanguage() + " " + IGStringsManager.Selected.rawValue.localized
+//            } else {
+//                lblSelectedMessages.text = ""
+//            }
+//            self.collectionView.reloadItems(at: [indexPath])
+//
+//        } else {
+//            self.messageTextView.resignFirstResponder()
+//            if message.type == .sticker {
+//
+//            }
+//
+//        }
+//    }
+//
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) { // TODO - when isWaiting for get from server return this method and don't do any action
+//        if self.tableViewNode.numberOfRows(inSection: 0) == 0 {
+//            return
+//        }
+//
+//        setFloatingDate()
+//
+//        //currently use inverse
+//        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) { //reach top
+//            if (!self.messageLoader.isFirstLoadUp() || self.messageLoader.isForceFirstLoadUp()) && !self.messageLoader.isWaitingHistoryUpLocal() {
+//                self.messageLoader.loadMessage(direction: .up, onMessageReceive: { [weak self] (messages, direction) in
+//                    self?.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
+//                })
+//            }
+//
+//            /** if totalItemCount is lower than scrollEnd so (firstVisiblePosition < scrollEnd) is always true and we can't load DOWN,
+//             * finally for solve this problem also check following state and load DOWN even totalItemCount is lower than scrollEnd count
+//             */
+//            //if (totalItemCount <= scrollEnd) {
+//            //    loadMessage(DOWN);
+//            //}
+//        }
+//
+//        if (scrollView.contentOffset.y < 0) { //reach bottom
+//            self.newMessageArrivedCount = 0
+//
+//            self.lblUnreadArrieved.text = "0".inLocalizedLanguage()
+//            self.lblUnreadArrieved.isHidden = true
+//            if !(self.messageLoader?.isFirstLoadDown() ?? false) && !(self.messageLoader?.isWaitingHistoryDownLocal() ?? false) {
+//                self.messageLoader.loadMessage(direction: .down, onMessageReceive: { [weak self] (messages, direction) in
+//                    self?.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
+//                })
+//            }
+//        }
+//
+//        //100 is an arbitrary number. can be anything
+//        if scrollView.contentOffset.y > 100 {
+//            self.scrollToBottomContainerView.isHidden = false
+//        } else {
+//            self.scrollToBottomContainerView.isHidden = true
+//        }
+//    }
+//
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        UIView.animate(withDuration: 0.5, animations: {[weak self] in
+//            guard let sSelf = self else {
+//                return
+//            }
+//            sSelf.floatingDateView.alpha = 0.0
+//        })
+//        UIView.animate(withDuration: 0.5, animations: {[weak self] in
+//            guard let sSelf = self else {
+//                return
+//            }
+//            sSelf.txtFloatingDate.alpha = 0.0
+//        })
+//    }
+//
+//    private func setFloatingDate(){
+//        if messages == nil {return}
+//        let arrayOfVisibleItems = tableViewNode.indexPathsForVisibleRows().sorted()
+//        if let lastIndexPath = arrayOfVisibleItems.last {
+//            if latestIndexPath != lastIndexPath {
+//
+//
+//                if let cell = self.tableViewNode.nodeForRow(at: IndexPath(row: lastIndexPath.row, section: 0)) as? IGLogNode, cell.message?.type != .log {
+//                    return
+//                }
+//
+////                if let cell = self.collectionViewNode?.nodeForItem(at: IndexPath(row: lastIndexPath.row, section: 0)) as? IGLogNode, cell.message?.type != .log {
+////                    return // check time of all messages exept .log creation time
+////                }
+//
+//                latestIndexPath = lastIndexPath
+//            } else {
+//                return
+//            }
+//            if latestIndexPath.row < messages!.count {
+//
+//                var previousMessage: IGRoomMessage!
+//                if  messages!.count > latestIndexPath.row + 1 {
+//                    previousMessage = (messages?[latestIndexPath.row + 1].detach())!
+//                }
+//
+//                if let message = messages?[latestIndexPath.row].detach(), !message.isInvalidated , message.type != .time , message.type != .unread {
+//                    let dayTimePeriodFormatter = DateFormatter()
+//                    dayTimePeriodFormatter.dateFormat = "MMMM dd"
+//                    dayTimePeriodFormatter.calendar = Calendar.current
+//                    let dateString = (message.creationTime!).localizedDate()
+//
+//                    var previousDateString = ""
+//                    if previousMessage != nil {
+//                        let dayTimePeriodFormatter1 = DateFormatter()
+//                        dayTimePeriodFormatter1.dateFormat = "MMMM dd"
+//                        dayTimePeriodFormatter1.calendar = Calendar.current
+//                        previousDateString = (previousMessage.creationTime!).localizedDate()
+//                    }
+//
+//                    if !previousDateString.isEmpty && previousDateString != dateString {
+//                        if !saveDate.contains(dateString) {
+//                            saveDate.append(dateString)
+//                            if firstSetDate {
+//                                firstSetDate = false
+//                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+//                                    if let messageTime = message.creationTime {
+//                                        self.appendAtSpecificPosition(self.makeTimeItem(date: messageTime), cellPosition: lastIndexPath.row + 1)
+//                                    }
+//                                }
+//                            } else {
+//                                if let messageTime = message.creationTime {
+//                                    self.appendAtSpecificPosition(self.makeTimeItem(date: messageTime), cellPosition: lastIndexPath.row + 1)
+//                                }
+//                            }
+//                        }
+//                    }
+//
+//                    txtFloatingDate.text = dateString.inLocalizedLanguage()
+//                    UIView.animate(withDuration: 0.5, animations: {
+//                        self.floatingDateView.alpha = 1.0
+//                    })
+//                    UIView.animate(withDuration: 0.5, animations: {
+//                        self.txtFloatingDate.alpha = 1.0
+//                    })
+//                }
+//            }
+//        }
+//    }
+//}
 
 
 //MARK: - IGMessageCollectionViewDataSource
@@ -5893,12 +6952,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
         
         //Forward
-        switch room!.type {
-        case .channel :
-            break
-        default:
+        if allowForward(cellMessage) {
             alertC.addAction(forward)
         }
+        
         //Edit
         if self.allowEdit(cellMessage.detach()){
             alertC.addAction(edit)
@@ -6053,8 +7110,53 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             
         }
     }
-    // MARK: - End - Go to Message Position
+    // MARK: - Gift Sticker Actions
+    /***********************************************************************************************************************************************************************/
+    /************************************************************************** Gift Sticker *******************************************************************************/
     
+    private func manageGiftStickerAction(stickerId: String){
+        self.activationGiftStickerId = stickerId
+        IGGlobal.prgShow()
+        IGApiSticker.shared.getGiftCardGetStatus(stickerId: stickerId, completion: { [weak self] giftCardStatusInfo in
+            IGGlobal.prgHide()
+            
+            if giftCardStatusInfo.isActive && giftCardStatusInfo.isCardOwner { //show card info
+                self?.getCardPaymentInfo(stickerId: stickerId)
+            } else if giftCardStatusInfo.isForwarded { //this card sended to another user
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.LabelColor, message: IGStringsManager.GiftCardSentNote.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            } else if giftCardStatusInfo.isActive { //this card is actived by another user
+                IGHelperAlert.shared.showCustomAlert(view: nil, alertType: .warning, title: IGStringsManager.GlobalAttention.rawValue.localized, showIconView: true, showDoneButton: false, showCancelButton: true, cancelTitleColor: ThemeManager.currentTheme.LabelColor, message: IGStringsManager.GiftCardAlreadyUsed.rawValue.localized, cancelText: IGStringsManager.GlobalClose.rawValue.localized)
+            } else { // show (activation or send to another user) options
+                self?.showCardInfo(stickerInfo: giftCardStatusInfo)
+            }
+            
+        }, error: {
+            IGGlobal.prgHide()
+            //show message
+        })
+    }
+    
+    private func getCardPaymentInfo(stickerId: String){
+        let nationalCode = IGSessionInfo.getNationalCode()
+        if nationalCode == nil || nationalCode!.isEmpty {
+            self.waitingCardId = stickerId
+            showActiveOrForward(fetchNationalCode: true)
+            return
+        }
+        
+        IGGlobal.prgShow()
+        guard let phone = IGRegisteredUser.getPhoneWithUserId(userId: IGAppManager.sharedManager.userID() ?? 0) else {return}
+        
+        IGApiSticker.shared.getGiftCardInfo(stickerId: stickerId, nationalCode: nationalCode!, mobileNumber: phone.phoneConvert98to0(), completion: { [weak self] giftCardInfo in
+            IGGlobal.prgHide()
+            self?.showGiftStickerPaymentInfo(cardInfo: giftCardInfo)
+            }, error: {
+                IGGlobal.prgHide()
+        })
+    }
+    
+    /************************************************************************** Gift Sticker *******************************************************************************/
+    /***********************************************************************************************************************************************************************/
     
     /******* overrided method for show file attachment (use from UIDocumentInteractionControllerDelegate) *******/
     func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
@@ -6080,6 +7182,12 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
         
         if finalMessage.type == .sticker {
+            if finalMessage.additional?.dataType == AdditionalType.GIFT_STICKER.rawValue {
+                if let sticker = IGHelperJson.parseStickerMessage(data: (finalMessage.additional?.data)!) {
+                    manageGiftStickerAction(stickerId: sticker.giftId)
+                }
+                return
+            }
             if (finalMessage.attachment?.name?.contains(".json"))! {
                 if let sticker = IGHelperJson.parseStickerMessage(data: (finalMessage.additional?.data)!) {
                     stickerPageType = StickerPageType.PREVIEW

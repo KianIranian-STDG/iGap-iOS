@@ -727,4 +727,13 @@ class IGRoomMessage: Object {
             manageRewriteMessage(roomId: roomId, messages: rewriteMessageArray, options: options)
         }
     }
+    
+    internal static func saveFakeGiftStickerMessage(message: IGRoomMessage, completion: @escaping () -> Void){
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                IGDatabaseManager.shared.realm.add(message, update: .all)
+                completion()
+            }
+        }
+    }
 }

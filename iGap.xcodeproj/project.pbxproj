@@ -413,6 +413,12 @@
 		D65179A9239B8F6D00557E5B /* FSPagerView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D65179A7239B8F6C00557E5B /* FSPagerView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D65179AA239BA00900557E5B /* IGMediaPagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D65179A6239B8C8300557E5B /* IGMediaPagerCell.xib */; };
 		D651C04623800F3A0043F700 /* ProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D61B5DDE237D41510060B9D9 /* ProgressCell.xib */; };
+		D65F7A68241CC5D000E7FDF1 /* IGGiftStickersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F7A67241CC5D000E7FDF1 /* IGGiftStickersListViewController.swift */; };
+		D65F7A6A241CC95B00E7FDF1 /* IGGiftStickerListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F7A69241CC95B00E7FDF1 /* IGGiftStickerListCell.swift */; };
+		D65F7A6C241CF89900E7FDF1 /* IGTabBarGiftStickersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F7A6B241CF89900E7FDF1 /* IGTabBarGiftStickersList.swift */; };
+		D65F8CEB241ECB1900471213 /* SMGiftCardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F8CEA241ECB1900471213 /* SMGiftCardInfo.swift */; };
+		D65FD8ED241DF45B007BC2B8 /* IGStickerSecurityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65FD8EC241DF45A007BC2B8 /* IGStickerSecurityManager.swift */; };
+		D65FD8EF241E77DF007BC2B8 /* SwCrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65FD8EE241E77DF007BC2B8 /* SwCrypt.swift */; };
 		D66129D02330FF9700BFAE7E /* IGStructMessageIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */; };
 		D67E981823A67918003C1516 /* ImageZoomController.Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67E981023A67917003C1516 /* ImageZoomController.Factory.swift */; };
 		D67E981923A67918003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67E981123A67917003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift */; };
@@ -459,10 +465,16 @@
 		D680860123B8D7FE00E456EA /* StructTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D680860023B8D7FE00E456EA /* StructTest.swift */; };
 		D680860323B8D96400E456EA /* ClassTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D680860223B8D96400E456EA /* ClassTest.swift */; };
 		D681FC4F23B9C6BF00197211 /* MemoryTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D681FC4E23B9C6BF00197211 /* MemoryTest.storyboard */; };
+		D68C2402241678DC00ABF635 /* SMCheckGiftSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68C2401241678DC00ABF635 /* SMCheckGiftSticker.swift */; };
+		D68C240324167A4600ABF635 /* SMCheckGiftSticker.xib in Resources */ = {isa = PBXBuildFile; fileRef = D68C2400241677D700ABF635 /* SMCheckGiftSticker.xib */; };
 		D6A89976236D8D920087215B /* IGHelperAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A89975236D8D920087215B /* IGHelperAvatar.swift */; };
 		D6AFC17123DD6AAD002584D5 /* Files.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AFC17023DD6AAD002584D5 /* Files.framework */; };
 		D6AFC17223DD6AAD002584D5 /* Files.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6AFC17023DD6AAD002584D5 /* Files.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D6B11DDD241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B11DDC241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift */; };
 		D6CCCBF82392A1E10061F749 /* CardToCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */; };
+		D6CEC8A0240A7EE500C6F078 /* SMGiftStickerAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6EA2534240A496100DC2C3B /* SMGiftStickerAlertView.xib */; };
+		D6E86B19241ED904001A617D /* SMGiftCardInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = D65F8CE9241ECAD600471213 /* SMGiftCardInfo.xib */; };
+		D6EA2533240A46F200DC2C3B /* SMGiftStickerAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EA2532240A46F200DC2C3B /* SMGiftStickerAlertView.swift */; };
 		D6EAF0742383D9B300D7F177 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */; };
 		DF3EDEF64399AA713B2D0C2F /* IGRequestSignaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */; };
 		FA03C19C2042945D008812E3 /* IGCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03C19B2042945D008812E3 /* IGCall.swift */; };
@@ -1343,6 +1355,13 @@
 		D65179A4239B8C3400557E5B /* IGMediaPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMediaPagerCell.swift; sourceTree = "<group>"; };
 		D65179A6239B8C8300557E5B /* IGMediaPagerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGMediaPagerCell.xib; sourceTree = "<group>"; };
 		D65179A7239B8F6C00557E5B /* FSPagerView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FSPagerView.framework; path = Carthage/Build/iOS/FSPagerView.framework; sourceTree = "<group>"; };
+		D65F7A67241CC5D000E7FDF1 /* IGGiftStickersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGiftStickersListViewController.swift; sourceTree = "<group>"; };
+		D65F7A69241CC95B00E7FDF1 /* IGGiftStickerListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGiftStickerListCell.swift; sourceTree = "<group>"; };
+		D65F7A6B241CF89900E7FDF1 /* IGTabBarGiftStickersList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTabBarGiftStickersList.swift; sourceTree = "<group>"; };
+		D65F8CE9241ECAD600471213 /* SMGiftCardInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMGiftCardInfo.xib; sourceTree = "<group>"; };
+		D65F8CEA241ECB1900471213 /* SMGiftCardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMGiftCardInfo.swift; sourceTree = "<group>"; };
+		D65FD8EC241DF45A007BC2B8 /* IGStickerSecurityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStickerSecurityManager.swift; sourceTree = "<group>"; };
+		D65FD8EE241E77DF007BC2B8 /* SwCrypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwCrypt.swift; sourceTree = "<group>"; };
 		D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructMessageIdentity.swift; sourceTree = "<group>"; };
 		D67E981023A67917003C1516 /* ImageZoomController.Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageZoomController.Factory.swift; sourceTree = "<group>"; };
 		D67E981123A67917003C1516 /* ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageZoomControllerIsHandlingScrollViewBounceTriggeredDismissalState.swift; sourceTree = "<group>"; };
@@ -1389,9 +1408,14 @@
 		D680860023B8D7FE00E456EA /* StructTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructTest.swift; sourceTree = "<group>"; };
 		D680860223B8D96400E456EA /* ClassTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTest.swift; sourceTree = "<group>"; };
 		D681FC4E23B9C6BF00197211 /* MemoryTest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MemoryTest.storyboard; sourceTree = "<group>"; };
+		D68C2400241677D700ABF635 /* SMCheckGiftSticker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMCheckGiftSticker.xib; sourceTree = "<group>"; };
+		D68C2401241678DC00ABF635 /* SMCheckGiftSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMCheckGiftSticker.swift; sourceTree = "<group>"; };
 		D6A89975236D8D920087215B /* IGHelperAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperAvatar.swift; sourceTree = "<group>"; };
 		D6AFC17023DD6AAD002584D5 /* Files.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Files.framework; path = Carthage/Build/iOS/Files.framework; sourceTree = "<group>"; };
+		D6B11DDC241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGiftStickerFirstPageViewController.swift; sourceTree = "<group>"; };
 		D6CCCBF72392A1E10061F749 /* CardToCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardToCardCell.xib; sourceTree = "<group>"; };
+		D6EA2532240A46F200DC2C3B /* SMGiftStickerAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMGiftStickerAlertView.swift; sourceTree = "<group>"; };
+		D6EA2534240A496100DC2C3B /* SMGiftStickerAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMGiftStickerAlertView.xib; sourceTree = "<group>"; };
 		DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRequestSignaling.swift; sourceTree = "<group>"; };
 		FA03C19B2042945D008812E3 /* IGCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCall.swift; sourceTree = "<group>"; };
 		FA03C19F20429D46008812E3 /* RTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCClient.swift; sourceTree = "<group>"; };
@@ -2405,6 +2429,7 @@
 				8E8E506723E82E3A0094A91C /* generateImage.swift */,
 				8E8E506923E82F540094A91C /* HepticFeedback.swift */,
 				8E8E519323E835040094A91C /* Display */,
+				D65FD8EE241E77DF007BC2B8 /* SwCrypt.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2532,6 +2557,19 @@
 				D61B5DE0237D48B00060B9D9 /* LoadingViewable.swift */,
 			);
 			path = LoadingView;
+			sourceTree = "<group>";
+		};
+		D65F15BA241D3490000C3B1F /* BottomSheetView */ = {
+			isa = PBXGroup;
+			children = (
+				D68C2401241678DC00ABF635 /* SMCheckGiftSticker.swift */,
+				D6EA2532240A46F200DC2C3B /* SMGiftStickerAlertView.swift */,
+				D65F8CEA241ECB1900471213 /* SMGiftCardInfo.swift */,
+				D6EA2534240A496100DC2C3B /* SMGiftStickerAlertView.xib */,
+				D68C2400241677D700ABF635 /* SMCheckGiftSticker.xib */,
+				D65F8CE9241ECAD600471213 /* SMGiftCardInfo.xib */,
+			);
+			path = BottomSheetView;
 			sourceTree = "<group>";
 		};
 		D67E980623A678BB003C1516 /* Zoomy */ = {
@@ -3351,10 +3389,14 @@
 				943495BA231FB1DC009854FE /* Financial History */,
 				FA8A49E1226AEB6F00544B06 /* Score */,
 				FA99FF5A22351A50009035DF /* Dashboard Cells */,
+				D65F15BA241D3490000C3B1F /* BottomSheetView */,
 				FA99FF5C22351CA9009035DF /* IGDashboardViewController.swift */,
 				8EBF551F22DCA8EF00834E6A /* IGFavouriteChannelsDashboardTableViewController.swift */,
 				8ED97D7522E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift */,
 				FA6C2DE82267413A005654AC /* IGScoreViewController.swift */,
+				D6B11DDC241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift */,
+				D65F7A67241CC5D000E7FDF1 /* IGGiftStickersListViewController.swift */,
+				D65F7A69241CC95B00E7FDF1 /* IGGiftStickerListCell.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -3384,6 +3426,7 @@
 				FAAC57D21DE2CE9F00A28058 /* IGDownloadManager.swift */,
 				FAB09D9A1DB76F81001A27C4 /* IGRequestManager.swift */,
 				FABB9B051DB25E5E00D794A4 /* IGSecurityManager.swift */,
+				D65FD8EC241DF45A007BC2B8 /* IGStickerSecurityManager.swift */,
 				FA63BA9A1DD6DF32000B60AD /* IGUploadManager.swift */,
 				FAA30F661DAA6F790061B8C9 /* IGWebSocketManager.swift */,
 				FA96EF4D1DEB0431009BE640 /* IGMessageSender.swift */,
@@ -3471,6 +3514,7 @@
 			children = (
 				FAD5305D1E0BD7BA00FE6C54 /* IGTabBarController.swift */,
 				FA9D869F22796B44002F981A /* IGTabBarStickerController.swift */,
+				D65F7A6B241CF89900E7FDF1 /* IGTabBarGiftStickersList.swift */,
 				8E83CAA32340B81700A8CF65 /* IGTransparentTabBar.swift */,
 			);
 			path = Tabbar;
@@ -3980,6 +4024,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D64BD2F92403F60900E812CA /* BillCell.xib in Resources */,
+				D6E86B19241ED904001A617D /* SMGiftCardInfo.xib in Resources */,
+				D68C240324167A4600ABF635 /* SMCheckGiftSticker.xib in Resources */,
+				D6CEC8A0240A7EE500C6F078 /* SMGiftStickerAlertView.xib in Resources */,
 				D64BD2FA2403F60900E812CA /* TopupCell.xib in Resources */,
 				8E1865392323A10400D8BCA9 /* ChannelAndSettings.storyboard in Resources */,
 				8EA854A4239D5C3300C9442F /* IGClassicColors.xcassets in Resources */,
@@ -4279,6 +4326,7 @@
 				8EC217C62259F59900105B5A /* SMCashout.swift in Sources */,
 				8EC94DFE239636FC003B3510 /* IGDoubleButtonTVCell.swift in Sources */,
 				D25D0F2E23F7E61D00DA3797 /* IGNodeMusicPlayer.swift in Sources */,
+				D6B11DDD241A6F4A001819BE /* IGGiftStickerFirstPageViewController.swift in Sources */,
 				8E96A321225C9074007D8A77 /* SMBottomButton.swift in Sources */,
 				FA0CC8091E5D7D4400556283 /* ActiveType.swift in Sources */,
 				8E0405C72371B9CE00516DEB /* IGStructBranchingInfo.swift in Sources */,
@@ -4369,6 +4417,7 @@
 				8EC03854239B87AE00B525B5 /* IGThreeInputTVController.swift in Sources */,
 				8E5495D322F03104001D30E1 /* customCardNumberTextField.swift in Sources */,
 				8EA854C2239F79EF00C9442F /* IGTurquoiseColorSet.swift in Sources */,
+				D68C2402241678DC00ABF635 /* SMCheckGiftSticker.swift in Sources */,
 				8EC0384C23978B1E00B525B5 /* IGStructNewsDetail.swift in Sources */,
 				FA5CFC4C21C7DC9600CC2B0D /* IGHelperPromote.swift in Sources */,
 				FA6B72A222369C4A005AC3D1 /* IGHelperGetMessageState.swift in Sources */,
@@ -4401,6 +4450,7 @@
 				FAD2BB0C1E0E993100761B11 /* IGDotActivityIndicator.swift in Sources */,
 				FA11E2881DE8A86C00A2F87C /* IGCacheManager.swift in Sources */,
 				D617C711234CC69300A59EB3 /* IGWriteFileManager.swift in Sources */,
+				D65FD8EF241E77DF007BC2B8 /* SwCrypt.swift in Sources */,
 				8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */,
 				8E4177F8233CDABD00CEB3AF /* AKMaskFieldPatternCharacter.swift in Sources */,
 				8ED68CB92378165D00637C29 /* IGStructDeleteBill.swift in Sources */,
@@ -4537,6 +4587,7 @@
 				8E031746237842EA00D5A2B5 /* IGElecBillByDeviceTableViewCell.swift in Sources */,
 				FA248C98226AEBE800A72EA7 /* IGScoreHistoryViewController.swift in Sources */,
 				D25D0F3223F7EB6200DA3797 /* IGNodeMusicPlayerTableViewController.swift in Sources */,
+				D65F7A6A241CC95B00E7FDF1 /* IGGiftStickerListCell.swift in Sources */,
 				FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */,
 				FA6C2DE722673B21005654AC /* IGHelperAlert.swift in Sources */,
 				8EC2180A2259FF3500105B5A /* Model.xcdatamodeld in Sources */,
@@ -4622,6 +4673,7 @@
 				8EC0385C239BF5E900B525B5 /* IGNewsCommentsTVController.swift in Sources */,
 				94E74DC523239727001AB47C /* IGFinancialHistoryDetailViewController.swift in Sources */,
 				4F9F3E6A1EBA0D91008E05C1 /* IGPushResponse.swift in Sources */,
+				D6EA2533240A46F200DC2C3B /* SMGiftStickerAlertView.swift in Sources */,
 				8E8ABDBC2394F1E600DE00DB /* IGNewsTableViewController.swift in Sources */,
 				FADE97B31DF2DBF100FF714A /* IGMusicPlayer.swift in Sources */,
 				FA09536B1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController.swift in Sources */,
@@ -4711,6 +4763,7 @@
 				FA7DE2732205BEC9008C8ECA /* IGStickerToolbar.swift in Sources */,
 				8E8D8E17225CCE6800039191 /* SMValidation.swift in Sources */,
 				8EC0385A239BE75000B525B5 /* IGNewsCommentTVCell.swift in Sources */,
+				D65F7A68241CC5D000E7FDF1 /* IGGiftStickersListViewController.swift in Sources */,
 				D67E985D23A679AB003C1516 /* AnimatorZoomy.swift in Sources */,
 				FAD2B5821DFBF1ED007D6F87 /* IGProgress.swift in Sources */,
 				FA03C1A020429D46008812E3 /* RTCClient.swift in Sources */,
@@ -4720,6 +4773,7 @@
 				FA0CC80B1E5D7D4400556283 /* RegexParser.swift in Sources */,
 				8E4472A623320D6000900244 /* IGProfileUserCell.swift in Sources */,
 				FA09538F1E1B97E20043ED3F /* SSRadioButtonController.swift in Sources */,
+				D65F7A6C241CF89900E7FDF1 /* IGTabBarGiftStickersList.swift in Sources */,
 				8ED8054323B772FB0097A4A6 /* IGLiveStickerCell.swift in Sources */,
 				8E8E505623E0012D0094A91C /* IGContactNode.swift in Sources */,
 				9366D98C1E363C2500998BA3 /* IGSettingAboutWebViewViewController.swift in Sources */,
@@ -4815,6 +4869,7 @@
 				D65179A3239B88B300557E5B /* IGMediaPager.swift in Sources */,
 				FA85066922670703002EEBF7 /* SMBarcodeMainViewController.swift in Sources */,
 				D67E982B23A6792C003C1516 /* HasImageZoomControllers.swift in Sources */,
+				D65FD8ED241DF45B007BC2B8 /* IGStickerSecurityManager.swift in Sources */,
 				FA97D44820174C2C0087BBD0 /* AbstractCell.swift in Sources */,
 				FAA9DFBE1F4B23390076A22F /* IGTwoStepVerification.swift in Sources */,
 				FA09534B1E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift in Sources */,
@@ -4854,6 +4909,7 @@
 				FA927E0C20288A7E00DF7145 /* FileCell.swift in Sources */,
 				93321E7C1E5C12A3004D4454 /* IGForwardContactsTableViewCell.swift in Sources */,
 				8EA8F3DF231F9E1D0099C4EF /* MBCircularProgressBarLayer.m in Sources */,
+				D65F8CEB241ECB1900471213 /* SMGiftCardInfo.swift in Sources */,
 				FA0CC8121E5DD99400556283 /* Thread.swift in Sources */,
 				8E96A31D225C902B007D8A77 /* SMRecieptRowView.swift in Sources */,
 				FA50A8CD1DD35EFD00C6D2EA /* IGRegistrationStepPhoneViewController.swift in Sources */,
@@ -5151,7 +5207,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 550;
+				CURRENT_PROJECT_VERSION = 553;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = MBL7BDXS99;
 				ENABLE_BITCODE = NO;
@@ -5197,7 +5253,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 550;
+				CURRENT_PROJECT_VERSION = 553;
 				DEVELOPMENT_TEAM = MBL7BDXS99;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

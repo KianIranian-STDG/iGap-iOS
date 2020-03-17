@@ -1810,7 +1810,7 @@ Page 4 introduce app */
 "share_file" = "به اشتراک گذاشتن فایل";
 
 /*  */
-"text_copied" = "متن کپی شده";
+"text_copied" = "متن کپی شد";
 
 /*  */
 "message" = "پیام";
@@ -4009,7 +4009,7 @@ Page 4 introduce app */
 "error_submit_qr_code" = "خطایی با درخواست شما رخ داده است!";
 
 /*  */
-"not_exist_activities" = "لیست سوابق شما خالی است.";
+"not_exist_activities" = "لیست سوابق شما خالی است";
 
 /*  */
 "ivand_profile_title" = "امتیاز من";
@@ -5048,6 +5048,12 @@ Page 4 introduce app */
 
 /*  */
 "cardToCardBtnText" = "کارت به کارت";
+
+/*  */
+"gift_sticker_title" = "خرید کارت هدیه دیجیتال";
+
+/*  */
+"inquiry_and_shopping" = "استعلام و خرید";
 
 /*  */
 "crad_to_card_dest_name" = "نام دارنده حساب";
@@ -6701,3 +6707,26 @@ Page 4 introduce app */
 "receivers_mobile_number" = "شماره موبایل گیرنده";
 "install_latest_version" = "برای استفاده از این ویژگی آخرین نسخه را نصب کنید";
 "fetching_rooms" = "درحال دریافت چت ها";
+"gift_card" = "کارت هدیه";
+"gift_card_selected" = "مبلغ کارت هدیه انتخاب شده";
+"payment_error_message" = "عملیات با خطا مواجه شد. لطفاً دوباره تلاش کنید.";
+"my_recived_gift_sticker" = "کارت هدیه دیجیتال فعال شده";
+"gift_card_report" = "گزارش کارت های هدیه";
+"usable" = "قابل استفاده";
+"activated" = "فعال شده";
+"posted" = "ارسال شده";
+"activate_or_send_as_message" = "فعالسازی یا ارسال به عنوان پیام";
+"gift_sticker_send_to_other" = "ارسال به دیگری";
+"activation" = "فعال سازی";
+"active_gift_card_note" = "آیا از فعالسازی کارت هدیه مطمئن هستید؟! توجه داشته باشید پس از فعالسازی امکان ارسال به دیگری وجود ندارد و اطلاعات کارت هدیه فقط برای حساب کاربری شما قابل نمایش است.";
+"activatation_successful" = "فعال سازی با موفقیت انجام شد.\nمیتوانید کارت هدیه خود را در قسمت کارت های فعال شده مشاهده نمایید.";
+"card_list_is_empty" = "لیست کارت های شما خالی است";
+"gift_sticker_card_info_title" = "اطلاعات کارت هدیه دیجیتال";
+"expire_date" = "تاریخ انقضا";
+"cvv2" = "CVV2";
+"internet_pin_2" = "رمز دوم";
+"click_for_copy_title" = "برای کپی کلیک کنید";
+"national_code_inquiry" = "استعلام کد ملی";
+"gift_card_sent_note" = "شما کارت هدیه را قبلا برای شخص دیگری ارسال کرده‌اید!";
+"gift_card_already_used" = "این کارت هدیه قبلا استفاده شده است!";
+"gift_card_send_question" = "آیا میخواهید کارت را به کاربر مورد نظر ارسال کنید؟\nدرصورت عدم ارسال میتوانید کارت هدیه خود را در قسمت کارت های قابل استفاده مشاهده کنید و برای فعال کردن و یا ارسال به کاربر دیگر اقدام نمایید.";

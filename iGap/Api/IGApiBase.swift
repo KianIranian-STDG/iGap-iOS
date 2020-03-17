@@ -47,7 +47,9 @@ class IGApiBase {
         if IGApiBase.httpHeaders == nil {
             guard let token = IGAppManager.sharedManager.getAccessToken() else { return ["Authorization": ""] }
             let authorization = "Bearer " + token
-            IGApiBase.httpHeaders = ["Authorization": authorization]
+            let spec = IGHelperJson.getSpecJson()
+            let contentType = "application/json"
+            IGApiBase.httpHeaders = ["Authorization": authorization, "spec" : spec ?? "", "Content-Type": contentType]
         }
         return IGApiBase.httpHeaders
     }
