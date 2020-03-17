@@ -795,6 +795,7 @@ enum IGStringsManager : String {
     case CreateNewContact = "create_new_contact"
     case PhoneNumbers = "phone_numbers"
     case Emails = "emails"
+    case BuyWithScore = "buy_with_score"
 
 }
 

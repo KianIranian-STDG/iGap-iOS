@@ -23,6 +23,21 @@ class IGPaymentView: UIView {
     /// Sigltone object
     static var sharedInstance = IGPaymentView()
     
+    //MARK: -DISCOUNT
+    var isChecked: Bool! = false
+
+    @IBOutlet var DiscountSV: UIStackView!
+    @IBOutlet var DiscountBottomSV: UIView!
+    @IBOutlet var lblBuyWithScore: UILabel!
+    @IBOutlet var lblDiscountAmount: UILabel!
+
+    @IBOutlet var lblDescription: UILabel!
+    @IBOutlet var lblYourScore: UILabel!
+    @IBOutlet var lblSpendingScore: UILabel!
+    @IBOutlet var sepratorViewTop: UIView!
+    @IBOutlet var sepratorViewBottom: UIView!
+    @IBOutlet var btnCheck: UIButton!
+
     // MARK: - Outlets
     @IBOutlet var containerView: UIView!
     @IBOutlet var contentView: UIView!
@@ -73,10 +88,37 @@ class IGPaymentView: UIView {
         containerView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
         
         setupInitialUI()
+        initDiscountView()
         
         //        addPanGesture()
     }
-    
+    @IBAction func checkbtnCheckmarkClicked(_ sender: Any) {
+        btnCheck.titleLabel?.font = UIFont.iGapFonticon(ofSize: 23)
+        if isChecked {
+            DiscountBottomSV.isHidden = true
+            btnCheck.setTitle("NOT_CHECKED_ICON".Imagelocalized, for: .normal)
+            btnCheck.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        }
+        else {
+            DiscountBottomSV.isHidden = false
+
+            btnCheck.setTitle("CHECKED_ICON".Imagelocalized, for: .normal)
+            btnCheck.setTitleColor(#colorLiteral(red: 0.2549019608, green: 0.6941176471, blue: 0.1254901961, alpha: 1), for: .normal)
+        }
+        isChecked = !isChecked
+
+    }
+
+    private func initDiscountView() {
+        btnCheck.setTitle("NOT_CHECKED_ICON".Imagelocalized, for: .normal)
+        btnCheck.setTitleColor(ThemeManager.currentTheme.LabelColor, for: .normal)
+        btnCheck.titleLabel?.font = UIFont.iGapFonticon(ofSize: 24)
+        btnCheck.translatesAutoresizingMaskIntoConstraints = false
+        DiscountBottomSV.isHidden = true
+        lblBuyWithScore.text = IGStringsManager.BuyWithScore.rawValue.localized
+        lblBuyWithScore.font = UIFont.igFont(ofSize: 12, weight: .bold)
+        
+    }
     private func setupInitialUI() {
         self.topIconView.layer.cornerRadius = self.topIconView.bounds.height / 2
         self.acceptBtn.layer.cornerRadius = self.acceptBtn.bounds.height / 2

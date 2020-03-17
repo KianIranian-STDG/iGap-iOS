@@ -6721,3 +6721,5 @@ TODO:// complete */
 "gift_card_sent_note" = "You already sent a gift card to someone else!";
 "gift_card_already_used" = "This gift card is already in use!";
 "gift_card_send_question" = "Do you want to send the card to the desired user?\nIf you do not send it you can view your gift card in the usable cards section and activate or send it to another user.";
+
+"buy_with_score" = "Buy With Score";

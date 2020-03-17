@@ -1276,7 +1276,11 @@ class ChatControllerNode: ASCellNode {
 
                 }
             } else {
-                tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                if message?.type == .sticker {
+                    tmpcolor = .white
+                } else {
+                    tmpcolor = ThemeManager.currentTheme.LabelGrayColor
+                }
             }
 
             IGGlobal.makeAsyncText(for: txtTimeNode!, with: time.convertToHumanReadable(), textColor: tmpcolor, size: 12, numberOfLines: 1, font: .igapFont, alignment: .center)
@@ -5032,7 +5036,7 @@ extension ChatControllerNode: ASTextNodeDelegate {
             
             if currentTheme == "IGAPDay" {
                 if currentColorSetLight == "IGAPBlack" {
-                    tmpcolor = UIColor.white
+                    tmpcolor = isIncomming ? UIColor.white : .black
                     labeltmpcolor = isIncomming ? UIColor.white : ThemeManager.currentTheme.LabelColor
                 } else {
                     tmpcolor = ThemeManager.currentTheme.SliderTintColor

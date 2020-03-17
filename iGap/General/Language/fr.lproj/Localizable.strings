@@ -6368,3 +6368,4 @@
 "gift_card_sent_note" = "Vous avez déjà envoyé une carte-cadeau à quelqu'un d'autre!";
 "gift_card_already_used" = "Cette carte-cadeau est déjà utilisée!";
 "gift_card_send_question" = "Voulez-vous envoyer la carte à l'utilisateur souhaité?\nSi vous ne l'envoyez pas, vous pouvez voir votre carte-cadeau dans la section des cartes utilisables et l'activer ou l'envoyer à un autre utilisateur.";
+"buy_with_score" = "Buy With Score";
