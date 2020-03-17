@@ -29,27 +29,21 @@ class IGHelperGetMessageState: UICollectionViewCell {
         if !isWaiting {
             checkTimeOut()
         }
-        syncroniseViewMessageQueue.sync(flags: .barrier) {
-
-            getViews.append(messageId)
-        }
-        syncroniseViewMessageQueue.sync(flags: .barrier) {
-            
-            if getViewsMessage[roomId] == nil {
-                self.getViewsMessage[roomId] = [messageId]
-                
-                
+        syncroniseViewMessageQueue.sync(flags: .barrier) {[weak self] in
+            guard let sSelf = self else {
+                return
             }
-        }
-        syncroniseViewMessageQueue.sync(flags: .barrier) {
-            
+            getViews.append(messageId)
+            if getViewsMessage[roomId] == nil {
+                sSelf.getViewsMessage[roomId] = [messageId]
+            }
             if getViewsMessage[roomId] != nil {
                 var messageIdList: [Int64]?
                     messageIdList = getViewsMessage[roomId]
                 
                 if !(messageIdList?.contains(messageId))! {
                     messageIdList?.append(messageId)
-                        self.getViewsMessage[roomId] = messageIdList                        
+                        sSelf.getViewsMessage[roomId] = messageIdList
                 }
             }
         }
@@ -60,11 +54,12 @@ class IGHelperGetMessageState: UICollectionViewCell {
         
         for roomId in getViewsMessage.keys {
             var messageIdList: [Int64]?
-            syncroniseViewMessageQueue.sync(flags: .barrier) {
+            syncroniseViewMessageQueue.sync(flags: .barrier) {[weak self] in
+                guard let sSelf = self else {
+                    return
+                }
                 messageIdList = getViewsMessage[roomId]
-            }
-            syncroniseViewMessageQueue.sync(flags: .barrier) {
-                self.getViewsMessage.removeValue(forKey: roomId)
+                sSelf.getViewsMessage.removeValue(forKey: roomId)
             }
             if (messageIdList?.count)! > 0 {
                 IGChannelGetMessagesStatsRequest.sendRequest(roomId: roomId, messageIdList: messageIdList!)
