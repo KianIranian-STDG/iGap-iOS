@@ -192,7 +192,7 @@ class ChatControllerNode: ASCellNode {
         super.init()
     }
     deinit {
-        ForceFreeUPMemory()
+//        ForceFreeUPMemory()
         print("deinit is being called fr chatcontrollerNode")
     }
     private func ForceFreeUPMemory() {
